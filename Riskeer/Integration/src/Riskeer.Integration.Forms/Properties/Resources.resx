@@ -191,7 +191,7 @@
         </value>
     </data>
     <data name="AssessmentSectionComposition_Composition_Description" xml:space="preserve">
-    <value>Selecteert het trajecttype.</value>
+    <value>Het type van het geselecteerde traject.</value>
   </data>
     <data name="AssessmentSectionComposition_Composition_DisplayName" xml:space="preserve">
     <value>Trajecttype</value>

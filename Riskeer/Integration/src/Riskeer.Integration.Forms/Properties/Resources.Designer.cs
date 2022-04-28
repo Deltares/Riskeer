@@ -254,7 +254,7 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Selecteert het trajecttype..
+        ///   Looks up a localized string similar to Het type van het geselecteerde traject..
         /// </summary>
         public static string AssessmentSectionComposition_Composition_Description {
             get {

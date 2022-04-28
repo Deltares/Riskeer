@@ -75,7 +75,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
                 IObjectProperties objectProperties = info.CreateInstance(context);
 
                 // Assert
-                Assert.IsInstanceOf<AssessmentSectionProperties>(objectProperties);
+                Assert.IsInstanceOf<RegistrationStateAssessmentSectionProperties>(objectProperties);
                 Assert.AreSame(assessmentSection, objectProperties.Data);
             }
 

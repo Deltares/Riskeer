@@ -34,7 +34,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.Integration.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="AssessmentSection"/> for properties panel.
+    /// ViewModel of <see cref="AssessmentSection"/> for properties panel in registration state.
     /// </summary>
     public class RegistrationStateAssessmentSectionProperties : AssessmentSectionProperties
     {
@@ -51,19 +51,12 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         public RegistrationStateAssessmentSectionProperties(IAssessmentSection assessmentSection, IAssessmentSectionCompositionChangeHandler compositionChangeHandler)
             : base(assessmentSection)
         {
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
             if (compositionChangeHandler == null)
             {
                 throw new ArgumentNullException(nameof(compositionChangeHandler));
             }
 
             this.compositionChangeHandler = compositionChangeHandler;
-
-            Data = assessmentSection;
         }
 
         [PropertyOrder(3)]

@@ -22,7 +22,6 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Base;
-using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -35,23 +34,6 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
     [TestFixture]
     public class RegistrationStateAssessmentSectionPropertiesTest
     {
-        [Test]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSectionCompositionChangeHandler = mocks.Stub<IAssessmentSectionCompositionChangeHandler>();
-            mocks.ReplayAll();
-
-            // Call
-            void Call() => new RegistrationStateAssessmentSectionProperties(null, assessmentSectionCompositionChangeHandler);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
         [Test]
         public void Constructor_AssessmentSectionCompositionChangeHandlerNull_ThrowsArgumentNullException()
         {
@@ -86,7 +68,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var properties = new RegistrationStateAssessmentSectionProperties(assessmentSection, assessmentSectionCompositionChangeHandler);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<IAssessmentSection>>(properties);
+            Assert.IsInstanceOf<AssessmentSectionProperties>(properties);
             Assert.AreSame(assessmentSection, properties.Data);
             Assert.AreEqual(assessmentSection.Id, properties.Id);
             Assert.AreEqual(assessmentSection.Name, properties.Name);
@@ -130,29 +112,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(compositionProperty,
                                                                             generalCategoryName,
                                                                             "Trajecttype",
-                                                                            "Selecteert het trajecttype.");
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GivenAssessmentSectionProperties_WhenChangingName_ThenUpdatesDataAndNotifiesObservers()
-        {
-            // Given
-            const string newName = "Test";
-
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Expect(section => section.NotifyObservers());
-            var assessmentSectionCompositionChangeHandler = mocks.Stub<IAssessmentSectionCompositionChangeHandler>();
-            mocks.ReplayAll();
-
-            var properties = new RegistrationStateAssessmentSectionProperties(assessmentSection, assessmentSectionCompositionChangeHandler);
-
-            // When
-            properties.Name = newName;
-
-            // Then
-            Assert.AreEqual(newName, assessmentSection.Name);
+                                                                            "Het type van het geselecteerde traject.");
             mocks.VerifyAll();
         }
 
