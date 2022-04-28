@@ -159,28 +159,6 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
-			id="0d94ff20-2214-42d1-9094-8a8cb679aa30"
-			name="SelectRowCalculation"
-			ref="5d9d0b0c-5c9f-4686-a9eb-207de4b6b2e3"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="indexRowHBCItem"
-					datasourceid="93d26bb6-56db-400b-b0b9-712ab1c4172f"
-					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
-					variablename="rowIndex">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="rowIndex"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
-					variablename="rowIndex">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<testmodule
 			id="0de99234-f7df-4746-918f-0a4574b1f243"
 			name="ExportPropertiesPanelToCsv"
 			ref="0024b22f-d58b-4ef0-a67d-463153071618"
@@ -780,6 +758,64 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="5412700b-1879-4cca-a140-a41b71f1bb18"
+			name="ReplaceSubstring"
+			ref="92030a75-8205-438c-9c04-f777a02a0b87"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="TargetProbabilityCurrentCulture"
+					datasourceid="79b0b9e6-8e19-45e0-909d-b03818d12b4b"
+					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
+					variablename="substringToReplaceWith">
+					</var>
+					<var
+					dataname="pathToItemInProjectExplorer"
+					datasourceid="93d26bb6-56db-400b-b0b9-712ab1c4172f"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+					<var
+					dataname="TargetProbabilityInvariantCulture"
+					datasourceid="79b0b9e6-8e19-45e0-909d-b03818d12b4b"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
+					</var>
+					<var
+					dataname="FullPathToHBCItemInPEWithCurrentCulture"
+					datasourceid="79b0b9e6-8e19-45e0-909d-b03818d12b4b"
+					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
+					variablename="finalString">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="originalPathToHydraulicBCCalculation"
+					datasourceid="8ee8e897-e223-4d18-8fe1-f17a8c0e3348"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+					<var
+					dataname="TargetProbabilityCurrentCulture"
+					datasourceid="833c17ff-1478-4e5d-a14d-367dda66d1ad"
+					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
+					variablename="substringToReplaceWith">
+					</var>
+					<var
+					dataname="TargetProbabilityInvariantCulture"
+					datasourceid="833c17ff-1478-4e5d-a14d-367dda66d1ad"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
+					</var>
+					<var
+					dataname="FullPathToHBCItemInPEWithCurrentCulture"
+					datasourceid="833c17ff-1478-4e5d-a14d-367dda66d1ad"
+					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
+					variablename="finalString">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="54fd3926-a219-4ffd-adb3-a9c1f6728482"
 			name="BuildExpectedMessage">
@@ -1294,6 +1330,49 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
+			id="79b0b9e6-8e19-45e0-909d-b03818d12b4b"
+			name="HBCs">
+				<parameters>
+					<param
+					name="FullPathToHBCItemInPEWithCurrentCulture"
+					value="">
+					</param>
+					<param
+					name="StepInPathContainingTargetProbability"
+					value="4">
+					</param>
+					<param
+					name="TargetProbabilityInvariantCulture"
+					value="">
+					</param>
+					<param
+					name="TargetProbabilityCurrentCulture"
+					value="">
+					</param>
+				</parameters>
+				<conditiongroup
+				comparison="AND"
+				enabled="True">
+					<condition
+					comparison="IsNotEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="indexRowHBCItem"
+								id="93d26bb6-56db-400b-b0b9-712ab1c4172f">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
+			<smartfoldernode
 			id="79c0a666-8b46-47d6-8c19-71b91011957f"
 			name="ZSTHasBeenReplacedByProjectB">
 				<parameters>
@@ -1422,6 +1501,28 @@
 					variablename="pathToItemInProjectExplorer">
 					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="816f561f-c1a3-4c4c-a72a-602f321c65dd"
+			name="SelectRowCalculation"
+			ref="5d9d0b0c-5c9f-4686-a9eb-207de4b6b2e3"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="indexRowHBCItem"
+					datasourceid="93d26bb6-56db-400b-b0b9-712ab1c4172f"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="82520293-03bb-413f-a3a6-f355de9a3c40"
@@ -2024,6 +2125,12 @@
 			id="ab92454f-ed8f-4299-a593-4f1273fba8e6"
 			name="SetRange">
 			</smartfoldernode>
+			<testmodule
+			id="ad71c21e-9bf7-4bbd-b085-08bdc86f2306"
+			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
+			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
+			type="Recording">
+			</testmodule>
 			<teardown
 			id="af6257ee-ea36-4839-8d6d-99107487fce5"
 			name="teardown">
@@ -2327,20 +2434,6 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
-			<testmodule
-			id="bedabe59-78d9-4718-a334-59f12d4a8468"
-			name="SelectGenericItemInProjectExplorer"
-			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="pathToItemInProjectExplorer"
-					datasourceid="93d26bb6-56db-400b-b0b9-712ab1c4172f"
-					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
-					variablename="pathToItemInProjectExplorer">
-					</var>
-				</databinding>
-			</testmodule>
 			<smartfoldernode
 			id="c2bdf846-2c0e-4e79-b216-96e75de944f3"
 			name="StartImportMergeProject">
@@ -2409,31 +2502,6 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<smartfoldernode
-			id="c6872d5f-ca5b-41ab-a90c-a785336e2d68"
-			name="HBCs">
-				<conditiongroup
-				comparison="AND"
-				enabled="True">
-					<condition
-					comparison="IsNotEqual">
-						<leftvalue>
-							<datavaluesource>
-								<databinding
-								bindingtype="DataConnector"
-								dataname="indexRowHBCItem"
-								id="93d26bb6-56db-400b-b0b9-712ab1c4172f">
-								</databinding>
-							</datavaluesource>
-						</leftvalue>
-						<rightvalue>
-							<simplevaluesource
-							value="">
-							</simplevaluesource>
-						</rightvalue>
-					</condition>
-				</conditiongroup>
-			</smartfoldernode>
 			<testmodule
 			id="c94d36b2-0869-4389-bee0-222c98db5f29"
 			name="OpenProject"
@@ -2575,6 +2643,65 @@
 					variablename="finalString">
 					</var>
 				</databinding>
+			</testmodule>
+			<smartfoldernode
+			id="d1eadb11-1289-4d4e-929e-49db3a4ec7c2"
+			name="NotHBCs">
+				<conditiongroup
+				comparison="AND"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="indexRowHBCItem"
+								id="93d26bb6-56db-400b-b0b9-712ab1c4172f">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
+			<testmodule
+			id="d20c324b-44ac-41bc-a362-e384afcdb947"
+			name="ConvertProbabilityToCurrentCulture"
+			ref="22750fb4-c0e3-4cfe-aef2-41ef0cf191ea"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="TargetProbabilityCurrentCulture"
+					datasourceid="79b0b9e6-8e19-45e0-909d-b03818d12b4b"
+					variableid="4e3d9d15-9f92-43b1-8d85-9b5bf21b9d1b"
+					variablename="convertedProbability">
+					</var>
+					<var
+					dataname="TargetProbabilityInvariantCulture"
+					datasourceid="79b0b9e6-8e19-45e0-909d-b03818d12b4b"
+					variableid="6cf6f909-28aa-444f-bb66-18024b346f25"
+					variablename="originalProbability">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="TargetProbabilityInvariantCulture"
+					datasourceid="833c17ff-1478-4e5d-a14d-367dda66d1ad"
+					variableid="6cf6f909-28aa-444f-bb66-18024b346f25"
+					variablename="originalProbability">
+					</var>
+					<var
+					dataname="TargetProbabilityCurrentCulture"
+					datasourceid="833c17ff-1478-4e5d-a14d-367dda66d1ad"
+					variableid="4e3d9d15-9f92-43b1-8d85-9b5bf21b9d1b"
+					variablename="convertedProbability">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="d235365b-8329-4c04-8598-e8f428b8ded2"
@@ -2752,6 +2879,20 @@
 			name="OpenProject">
 			</smartfoldernode>
 			<testmodule
+			id="e144a702-2780-45c7-b470-dacaea2dbe99"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToItemInProjectExplorer"
+					datasourceid="93d26bb6-56db-400b-b0b9-712ab1c4172f"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="e275db85-7d2d-4ce6-9671-4b499f652797"
 			name="LogInfoMessage"
 			ref="da5c8215-39c8-4753-aad9-b17540fb9e4c"
@@ -2922,10 +3063,70 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="f6d4db3c-4c6f-4413-b0d0-d8dc52e641ca"
+			name="GetStepFromPath"
+			ref="d0d76556-8eb7-4ec6-a100-deb33de45819"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="StepInPathContainingTargetProbability"
+					datasourceid="79b0b9e6-8e19-45e0-909d-b03818d12b4b"
+					variableid="9265f296-64dd-4f64-a430-82614dfc36ea"
+					variablename="indexStep">
+					</var>
+					<var
+					dataname="pathToItemInProjectExplorer"
+					datasourceid="93d26bb6-56db-400b-b0b9-712ab1c4172f"
+					variableid="79fe10d1-42c4-4cc5-929d-1adc08c1204a"
+					variablename="fullPath">
+					</var>
+					<var
+					dataname="TargetProbabilityInvariantCulture"
+					datasourceid="79b0b9e6-8e19-45e0-909d-b03818d12b4b"
+					variableid="72c1ba24-4090-4cb8-8c20-5a5fe2f7b2da"
+					variablename="stepString">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="originalPathToHydraulicBCCalculation"
+					datasourceid="8ee8e897-e223-4d18-8fe1-f17a8c0e3348"
+					variableid="79fe10d1-42c4-4cc5-929d-1adc08c1204a"
+					variablename="fullPath">
+					</var>
+					<var
+					dataname="StepInPathContainingTargetProbability"
+					datasourceid="833c17ff-1478-4e5d-a14d-367dda66d1ad"
+					variableid="9265f296-64dd-4f64-a430-82614dfc36ea"
+					variablename="indexStep">
+					</var>
+					<var
+					dataname="TargetProbabilityInvariantCulture"
+					datasourceid="833c17ff-1478-4e5d-a14d-367dda66d1ad"
+					variableid="72c1ba24-4090-4cb8-8c20-5a5fe2f7b2da"
+					variablename="stepString">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="f70ae74a-e777-45d4-adca-d55322e57b51"
 			name="OpenProject">
 			</smartfoldernode>
+			<testmodule
+			id="f720a1a5-5726-45d0-9627-1517a160487c"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="FullPathToHBCItemInPEWithCurrentCulture"
+					datasourceid="79b0b9e6-8e19-45e0-909d-b03818d12b4b"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="f8700ac2-c2fb-4ae6-ac73-8e68bffdda16"
 			name="MakeAllParametersInPropertiesPanelVisible">
@@ -2990,12 +3191,6 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
-			<testmodule
-			id="fd6c35a0-51ba-4ed8-a9ca-9a5d149f92c3"
-			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
-			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
-			type="Recording">
-			</testmodule>
 		</flatlistofchildren>
 		<childhierarchy>
 			<testsuite
@@ -3498,20 +3693,40 @@
 												name="SelectState">
 												</testmodule>
 											</smartfoldernode>
-											<testmodule
-											id="bedabe59-78d9-4718-a334-59f12d4a8468"
-											name="SelectGenericItemInProjectExplorer">
-											</testmodule>
 											<smartfoldernode
-											id="c6872d5f-ca5b-41ab-a90c-a785336e2d68"
+											id="79b0b9e6-8e19-45e0-909d-b03818d12b4b"
 											name="HBCs">
 												<testmodule
-												id="fd6c35a0-51ba-4ed8-a9ca-9a5d149f92c3"
+												id="f6d4db3c-4c6f-4413-b0d0-d8dc52e641ca"
+												name="GetStepFromPath">
+												</testmodule>
+												<testmodule
+												id="d20c324b-44ac-41bc-a362-e384afcdb947"
+												name="ConvertProbabilityToCurrentCulture">
+												</testmodule>
+												<testmodule
+												id="5412700b-1879-4cca-a140-a41b71f1bb18"
+												name="ReplaceSubstring">
+												</testmodule>
+												<testmodule
+												id="f720a1a5-5726-45d0-9627-1517a160487c"
+												name="SelectGenericItemInProjectExplorer">
+												</testmodule>
+												<testmodule
+												id="ad71c21e-9bf7-4bbd-b085-08bdc86f2306"
 												name="OpenViewForCurrentlySelectedItemInProjectExplorer">
 												</testmodule>
 												<testmodule
-												id="0d94ff20-2214-42d1-9094-8a8cb679aa30"
+												id="816f561f-c1a3-4c4c-a72a-602f321c65dd"
 												name="SelectRowCalculation">
+												</testmodule>
+											</smartfoldernode>
+											<smartfoldernode
+											id="d1eadb11-1289-4d4e-929e-49db3a4ec7c2"
+											name="NotHBCs">
+												<testmodule
+												id="e144a702-2780-45c7-b470-dacaea2dbe99"
+												name="SelectGenericItemInProjectExplorer">
 												</testmodule>
 											</smartfoldernode>
 										</smartfoldernode>
@@ -4186,7 +4401,7 @@
 						ZST
 					</td>
 					<td>
-						5
+						4
 					</td>
 				</tr>
 				<tr>
@@ -4194,7 +4409,7 @@
 						BSKW
 					</td>
 					<td>
-						12
+						11
 					</td>
 				</tr>
 			</table>
@@ -5546,10 +5761,19 @@
 		<testconfiguration
 		name="TestRun">
 			<testcontainer
+			id="0252f0f3-7b06-4fcf-ac95-b0b4aedc7561">
+			</testcontainer>
+			<testcontainer
 			id="0abc14d7-9101-4f34-a8cb-9234ee53e5f4">
 			</testcontainer>
 			<testcontainer
+			id="0b0cdec6-1eb0-4000-b7e2-1733807629c7">
+			</testcontainer>
+			<testcontainer
 			id="0ce848bb-2a6d-4064-af2f-8650a8a9828f">
+			</testcontainer>
+			<testcontainer
+			id="130cc328-d315-4b75-8e3a-298818d922de">
 			</testcontainer>
 			<testcontainer
 			id="14d397c1-324f-4fa3-aecb-be4fb37e36b1">
@@ -5559,6 +5783,9 @@
 			</testcontainer>
 			<testcontainer
 			id="230bfaad-79af-46d1-981b-d17ffa2ce28b">
+			</testcontainer>
+			<testcontainer
+			id="26ae2138-7916-4a03-8fb7-5d5cf4c2cbc5">
 			</testcontainer>
 			<testcontainer
 			id="36936bda-acf7-45f1-8418-7e86ccd8e709">
@@ -5603,6 +5830,9 @@
 			id="76827ce3-9756-4ff2-9105-7c9487152537">
 			</testcontainer>
 			<testcontainer
+			id="79b0b9e6-8e19-45e0-909d-b03818d12b4b">
+			</testcontainer>
+			<testcontainer
 			id="79c0a666-8b46-47d6-8c19-71b91011957f">
 			</testcontainer>
 			<testcontainer
@@ -5615,6 +5845,9 @@
 			id="855babf3-3154-4c6f-aa7c-d3e4c3974d24">
 			</testcontainer>
 			<testcontainer
+			id="8a37614b-4da8-4ae1-b7f6-43231c373972">
+			</testcontainer>
+			<testcontainer
 			id="8d7def54-1eff-43ac-99a7-65be4da715bb">
 			</testcontainer>
 			<testcontainer
@@ -5624,10 +5857,16 @@
 			id="92ae9ccd-da2f-4f04-a1cd-9291f2953267">
 			</testcontainer>
 			<testcontainer
+			id="96bccf88-39bb-4bba-a4a4-38632a9757d0">
+			</testcontainer>
+			<testcontainer
 			id="9b1a8fdf-6106-46db-8334-14f36e7cd85c">
 			</testcontainer>
 			<testcontainer
 			id="a0a87348-5ca1-4ab9-9de5-84e45177f8fa">
+			</testcontainer>
+			<testcontainer
+			id="a1e93938-4b48-49b8-bd18-e3504ea93c7a">
 			</testcontainer>
 			<testcontainer
 			id="a60ded01-9672-4a38-a68d-091d4c7d94b4">
@@ -5636,16 +5875,46 @@
 			id="a826e976-693a-4e23-85ff-558dae5f6132">
 			</testcontainer>
 			<testcontainer
+			id="aa0de140-3066-4e38-b79c-fd9f31dd348f">
+			</testcontainer>
+			<testcontainer
 			id="ab92454f-ed8f-4299-a593-4f1273fba8e6">
 			</testcontainer>
 			<testcontainer
 			id="b0509a53-2f5e-499f-b5f1-ade72bcc73ac">
 			</testcontainer>
 			<testcontainer
-			id="c6872d5f-ca5b-41ab-a90c-a785336e2d68">
+			id="b0fcd5ea-054f-49cb-8d41-4619d25af082">
+			</testcontainer>
+			<testcontainer
+			id="b13d9dd8-b806-4292-8160-89158b3dcf9e">
+			</testcontainer>
+			<testcontainer
+			id="bc55fa88-dfbc-42cd-8bfe-907b152450b4">
+			</testcontainer>
+			<testcontainer
+			id="c2bdf846-2c0e-4e79-b216-96e75de944f3">
+			</testcontainer>
+			<testcontainer
+			id="c33a1a74-0f25-456f-ad34-274568ec7604">
+			</testcontainer>
+			<testcontainer
+			id="c52f2201-1123-47d2-88d4-813ef49b6ceb">
+			</testcontainer>
+			<testcontainer
+			id="cd95c499-a777-42af-9dee-fc70ab195986">
+			</testcontainer>
+			<testcontainer
+			id="d1eadb11-1289-4d4e-929e-49db3a4ec7c2">
+			</testcontainer>
+			<testcontainer
+			id="d37edba8-efea-4b04-868c-47293a4ae04b">
 			</testcontainer>
 			<testcontainer
 			id="dca6a081-1ea4-40c7-ba34-e0e9f836eda7">
+			</testcontainer>
+			<testcontainer
+			id="e0a818c0-bd8c-4d74-a930-009c91119b57">
 			</testcontainer>
 			<testcontainer
 			id="e37aba9d-3b71-4f24-84e6-9f8666bade9d">
