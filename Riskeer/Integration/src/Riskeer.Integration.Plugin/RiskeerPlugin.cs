@@ -1812,7 +1812,7 @@ namespace Riskeer.Integration.Plugin
                         Gui.MainWindow, AssessmentSectionCalculationActivityFactory.CreateCalculationActivities(nodeData.WrappedData));
                 });
 
-            SetCalculationsMenuItemEnabledStateAndTooltip(nodeData.WrappedData, calculateAllItem);
+            SetCalculateAllMenuItemEnabledStateAndTooltip(nodeData.WrappedData, calculateAllItem);
 
             return Gui.Get(nodeData, treeViewControl)
                       .AddOpenItem()
@@ -1828,14 +1828,14 @@ namespace Riskeer.Integration.Plugin
                       .Build();
         }
 
-        private static void SetCalculationsMenuItemEnabledStateAndTooltip(AssessmentSection assessmentSection, StrictContextMenuItem menuItem)
+        private static void SetCalculateAllMenuItemEnabledStateAndTooltip(AssessmentSection assessmentSection, StrictContextMenuItem menuItem)
         {
             bool hasCalculations = assessmentSection.Piping.Calculations.Any() ||
                                    assessmentSection.GrassCoverErosionInwards.Calculations.Any() ||
                                    assessmentSection.MacroStabilityInwards.Calculations.Any() ||
                                    assessmentSection.HeightStructures.Calculations.Any() ||
-                                   assessmentSection.GrassCoverErosionInwards.Calculations.Any() ||
-                                   assessmentSection.GrassCoverErosionInwards.Calculations.Any();
+                                   assessmentSection.ClosingStructures.Calculations.Any() ||
+                                   assessmentSection.StabilityPointStructures.Calculations.Any();
 
             if (!hasCalculations)
             {
