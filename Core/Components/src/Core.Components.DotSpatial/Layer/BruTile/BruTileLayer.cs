@@ -327,8 +327,8 @@ namespace Core.Components.DotSpatial.Layer.BruTile
                 // For WMTS, 'spatialReferenceSystemString' might be some crude value (urn-string):
                 string authorityCode = ToAuthorityCode(spatialReferenceSystemString);
                 tileSourceProjectionInfo = !string.IsNullOrWhiteSpace(authorityCode)
-                                     ? AuthorityCodeHandler.Instance[authorityCode]
-                                     : null;
+                                               ? AuthorityCodeHandler.Instance[authorityCode]
+                                               : null;
             }
 
             if (tileSourceProjectionInfo == null)
