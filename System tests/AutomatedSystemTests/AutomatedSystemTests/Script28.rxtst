@@ -919,6 +919,67 @@
 			name="ImportMerge">
 			</smartfoldernode>
 			<testmodule
+			id="6272f5ed-55b3-4531-93de-f18c027c5f16"
+			name="ReplaceSubstring"
+			ref="92030a75-8205-438c-9c04-f777a02a0b87"
+			type="UserCode">
+				<description>
+					<![CDATA[change slash ("/") into _]]>
+				</description>
+				<databinding>
+					<var
+					dataname="intermediateString2"
+					datasourceid="fbf27485-fee5-44df-84a9-f6cb964fcd52"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+					<var
+					dataname="backslashCharacter"
+					datasourceid="fbf27485-fee5-44df-84a9-f6cb964fcd52"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
+					</var>
+					<var
+					dataname="underscoreChar"
+					datasourceid="fbf27485-fee5-44df-84a9-f6cb964fcd52"
+					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
+					variablename="substringToReplaceWith">
+					</var>
+					<var
+					dataname="intermediateString3"
+					datasourceid="fbf27485-fee5-44df-84a9-f6cb964fcd52"
+					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
+					variablename="finalString">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="intermediateString2"
+					datasourceid="14d397c1-324f-4fa3-aecb-be4fb37e36b1"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+					<var
+					dataname="backslashCharacter"
+					datasourceid="14d397c1-324f-4fa3-aecb-be4fb37e36b1"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
+					</var>
+					<var
+					dataname="underscoreChar"
+					datasourceid="14d397c1-324f-4fa3-aecb-be4fb37e36b1"
+					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
+					variablename="substringToReplaceWith">
+					</var>
+					<var
+					dataname="intermediateString2"
+					datasourceid="14d397c1-324f-4fa3-aecb-be4fb37e36b1"
+					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
+					variablename="finalString">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="62bd41c2-070b-4d03-bd3d-98e37cb915c3"
 			name="SpecifyFileToImportMergeProject"
 			ref="2b53940f-3568-41dc-aabc-7f0b5a0af314"
@@ -1907,7 +1968,7 @@
 					variablename="string1">
 					</var>
 					<var
-					dataname="intermediateString2"
+					dataname="intermediateString3"
 					datasourceid="fbf27485-fee5-44df-84a9-f6cb964fcd52"
 					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
 					variablename="string2">
@@ -3189,6 +3250,10 @@
 					name="extensionCsv"
 					value=".csv">
 					</param>
+					<param
+					name="backslashCharacter"
+					value="/">
+					</param>
 				</parameters>
 			</smartfoldernode>
 		</flatlistofchildren>
@@ -3755,6 +3820,10 @@
 											</testmodule>
 											<testmodule
 											id="79004976-8e3a-44d3-a14f-0efba578f7fd"
+											name="ReplaceSubstring">
+											</testmodule>
+											<testmodule
+											id="6272f5ed-55b3-4531-93de-f18c027c5f16"
 											name="ReplaceSubstring">
 											</testmodule>
 											<testmodule
