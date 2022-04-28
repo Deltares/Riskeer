@@ -684,8 +684,8 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                     ToolStripItem calculateItem = contextMenu.Items[contextMenuCalculateAllIndexNestedGroup];
                     Assert.IsFalse(validateItem.Enabled);
                     Assert.IsFalse(calculateItem.Enabled);
-                    Assert.AreEqual(RiskeerCommonFormsResources.Calculate_All_No_calculations_to_run, calculateItem.ToolTipText);
-                    Assert.AreEqual(RiskeerCommonFormsResources.FailureMechanism_CreateValidateAllItem_No_calculations_to_validate, validateItem.ToolTipText);
+                    Assert.AreEqual("Er zijn geen berekeningen om uit te voeren.", calculateItem.ToolTipText);
+                    Assert.AreEqual("Er zijn geen berekeningen om te valideren.", validateItem.ToolTipText);
                 }
             }
         }
