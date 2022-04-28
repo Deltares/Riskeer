@@ -245,6 +245,11 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             {
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
                 assessmentSection.Piping.CalculationsGroup.Children.Add(new TestCalculationScenario());
+                assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(new TestCalculationScenario());
+                assessmentSection.MacroStabilityInwards.CalculationsGroup.Children.Add(new TestCalculationScenario());
+                assessmentSection.HeightStructures.CalculationsGroup.Children.Add(new TestCalculationScenario());
+                assessmentSection.ClosingStructures.CalculationsGroup.Children.Add(new TestCalculationScenario());
+                assessmentSection.StabilityPointStructures.CalculationsGroup.Children.Add(new TestCalculationScenario());
                 var context = new CalculationsStateRootContext(assessmentSection);
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
