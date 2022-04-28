@@ -944,6 +944,7 @@ namespace AutomatedSystemTests
             RepoItemInfo _faalkansbegrotingInfo;
             RepoItemInfo _genericitemintrajectInfo;
             RepoItemInfo _copy_of_genericitemintrajectInfo;
+            RepoItemInfo _currentfocusinpeInfo;
 
             /// <summary>
             /// Creates a new TrajectNode  folder.
@@ -959,6 +960,7 @@ namespace AutomatedSystemTests
                 _faalkansbegrotingInfo = new RepoItemInfo(this, "Faalkansbegroting", "treeitem[@accessiblename='Faalkansbegroting']", 30000, null, "79c86dc7-8eee-48b2-b0af-b29632b7c092");
                 _genericitemintrajectInfo = new RepoItemInfo(this, "GenericItemInTraject", "treeitem[@accessiblename=$substringNameItemInTraject]", 30000, null, "c6e3307d-ef2f-4a61-bf7b-443c02d22136");
                 _copy_of_genericitemintrajectInfo = new RepoItemInfo(this, "Copy_of_GenericItemInTraject", "treeitem[@accessiblename=$substringNameItemInTraject]", 30000, null, "dfd880dc-8e6a-4cff-9056-0c9f313b3d6d");
+                _currentfocusinpeInfo = new RepoItemInfo(this, "CurrentFocusInPE", ".//treeitem[@hasfocus='true']", 30000, null, "fb1c8db8-131a-43d1-b4f3-bc523782f12f");
             }
 
             /// <summary>
@@ -1102,6 +1104,30 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _copy_of_genericitemintrajectInfo;
+                }
+            }
+
+            /// <summary>
+            /// The CurrentFocusInPE item.
+            /// </summary>
+            [RepositoryItem("fb1c8db8-131a-43d1-b4f3-bc523782f12f")]
+            public virtual Ranorex.TreeItem CurrentFocusInPE
+            {
+                get
+                {
+                    return _currentfocusinpeInfo.CreateAdapter<Ranorex.TreeItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The CurrentFocusInPE item info.
+            /// </summary>
+            [RepositoryItemInfo("fb1c8db8-131a-43d1-b4f3-bc523782f12f")]
+            public virtual RepoItemInfo CurrentFocusInPEInfo
+            {
+                get
+                {
+                    return _currentfocusinpeInfo;
                 }
             }
 

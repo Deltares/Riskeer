@@ -134,10 +134,13 @@ namespace Ranorex_Automation_Helpers.UserCodeCollections
                 {"@PKW",   "Piping bij kunstwerk"},
                 {"@STKWp", "Sterkte en stabiliteit puntconstructies"},
                 {"@DA",    "Duinafslag"},
+                {"@STBU",  "Macrostabiliteit buitenwaarts"},
+                {"@STKWl", "Sterkte en stabiliteit langsconstructies"},
+                {"@INN",   "Technische innovaties"},
                 // Aliases in Project Explorer for other items
                 {"@HB",    "Hydraulische belastingen"},
-                {"@SF",    "Specifieke faalmechanismen"},
                 {"@GF",    "Generieke faalmechanismen"},
+                {"@SF",    "Specifieke faalmechanismen"},
                 // Aliases in Buttons of Ribbon
                 {"@TR",    "Traject"},
                 {"@HyB",   "Hydraulische"},

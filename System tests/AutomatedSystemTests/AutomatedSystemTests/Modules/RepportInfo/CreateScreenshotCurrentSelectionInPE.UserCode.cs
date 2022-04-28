@@ -20,9 +20,9 @@ using Ranorex.Core;
 using Ranorex.Core.Repository;
 using Ranorex.Core.Testing;
 
-namespace AutomatedSystemTests.Modules.OpenViews
+namespace AutomatedSystemTests.Modules.RepportInfo
 {
-    public partial class OpenViewForFailureMechanismContribution
+    public partial class CreateScreenshotCurrentSelectionInPE
     {
         /// <summary>
         /// This method gets called right after the recording has been started.

@@ -216,6 +216,13 @@ name="AutomatedSystemTestsRepository">
 							/form[@automationid='RiskeerMainWindow']/*/*/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringItemName]
 						</basepath>
 					</folder>
+					<item
+					capname="treeitem"
+					id="fb1c8db8-131a-43d1-b4f3-bc523782f12f"
+					name="CurrentFocusInPE"
+					searchtimeout="30000ms">
+						/form[@automationid='RiskeerMainWindow']/*/*/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]//treeitem[@hasfocus='true']
+					</item>
 					<basepath>
 						/form[@automationid='RiskeerMainWindow']/*/*/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]
 					</basepath>

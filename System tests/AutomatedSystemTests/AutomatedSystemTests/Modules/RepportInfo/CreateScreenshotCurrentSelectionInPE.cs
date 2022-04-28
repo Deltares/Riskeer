@@ -20,61 +20,38 @@ using Ranorex.Core;
 using Ranorex.Core.Testing;
 using Ranorex.Core.Repository;
 
-namespace AutomatedSystemTests.Modules.Set_Assign
+namespace AutomatedSystemTests.Modules.RepportInfo
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The SetRelevanceFMInFailureMechanismContributionView recording.
+    ///The CreateScreenshotCurrentSelectionInPE recording.
     /// </summary>
-    [TestModule("126d009c-618d-402d-8d3d-fa9ecc02bef7", ModuleType.Recording, 1)]
-    public partial class SetRelevanceFMInFailureMechanismContributionView : ITestModule
+    [TestModule("05ad7a10-0c36-4f14-aef7-4b262767aa10", ModuleType.Recording, 1)]
+    public partial class CreateScreenshotCurrentSelectionInPE : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static SetRelevanceFMInFailureMechanismContributionView instance = new SetRelevanceFMInFailureMechanismContributionView();
+        static CreateScreenshotCurrentSelectionInPE instance = new CreateScreenshotCurrentSelectionInPE();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public SetRelevanceFMInFailureMechanismContributionView()
+        public CreateScreenshotCurrentSelectionInPE()
         {
-            isFMExpectedRelevant = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static SetRelevanceFMInFailureMechanismContributionView Instance
+        public static CreateScreenshotCurrentSelectionInPE Instance
         {
             get { return instance; }
         }
 
 #region Variables
-
-        string _isFMExpectedRelevant;
-
-        /// <summary>
-        /// Gets or sets the value of variable isFMExpectedRelevant.
-        /// </summary>
-        [TestVariable("42b39611-e5ad-41f4-aa05-4779bcb10c5b")]
-        public string isFMExpectedRelevant
-        {
-            get { return _isFMExpectedRelevant; }
-            set { _isFMExpectedRelevant = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the value of variable labelFM.
-        /// </summary>
-        [TestVariable("5afdb904-9d2e-4bb5-ae28-38089eda6255")]
-        public string labelFM
-        {
-            get { return repo.labelFM; }
-            set { repo.labelFM = value; }
-        }
 
 #endregion
 
@@ -102,7 +79,7 @@ namespace AutomatedSystemTests.Modules.Set_Assign
 
             Init();
 
-            SetRelevanceInView(repo.RiskeerMainWindow.DocumentViewContainer.insideDocument_IsFMRelevantCellInfo, isFMExpectedRelevant);
+            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.CurrentFocusInPE, false, new RecordItemIndex(0));
             
         }
 

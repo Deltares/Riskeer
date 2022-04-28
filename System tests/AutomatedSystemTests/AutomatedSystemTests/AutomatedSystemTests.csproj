@@ -1251,18 +1251,6 @@
       <id>1d2c3767-8d32-4e1a-80b7-11f08b53e320</id>
       <BoundTo>eeb7ef51-8e00-4dba-a124-aae38b08ccdc</BoundTo>
     </Compile>
-    <Compile Include="Modules\OpenViews\OpenViewForFailureMechanismContribution.cs">
-      <DependentUpon>OpenViewForFailureMechanismContribution.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>2e48adb4-f574-43e0-a102-a28e1362443a</id>
-      <BoundTo>1cb570ed-7031-4292-a572-3c04e9fbc24a</BoundTo>
-    </Compile>
-    <Compile Include="Modules\OpenViews\OpenViewForFailureMechanismContribution.UserCode.cs">
-      <DependentUpon>OpenViewForFailureMechanismContribution.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>6405f2fa-2507-4ad6-aa04-2391e49e503b</id>
-      <BoundTo>1cb570ed-7031-4292-a572-3c04e9fbc24a</BoundTo>
-    </Compile>
     <Compile Include="Modules\OpenViews\OpenViewForGenericFM.cs">
       <DependentUpon>OpenViewForGenericFM.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -1298,6 +1286,18 @@
       <DependentUpon>SetActiveTabView.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>d25d3134-9f2c-40ef-9f71-0b45d3a24890</id>
+    </Compile>
+    <Compile Include="Modules\RepportInfo\CreateScreenshotCurrentSelectionInPE.cs">
+      <BoundTo>5c815c5f-a64a-4a2a-a3a3-0d3164cdd265</BoundTo>
+      <DependentUpon>CreateScreenshotCurrentSelectionInPE.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>9012bc70-ae89-458d-ab6e-3ef5e4127217</id>
+    </Compile>
+    <Compile Include="Modules\RepportInfo\CreateScreenshotCurrentSelectionInPE.UserCode.cs">
+      <BoundTo>5c815c5f-a64a-4a2a-a3a3-0d3164cdd265</BoundTo>
+      <DependentUpon>CreateScreenshotCurrentSelectionInPE.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>eb5c26ad-d127-464f-84e2-99c3afaf823a</id>
     </Compile>
     <Compile Include="Modules\RepportInfo\CreateScreenShotEntireApplication.cs">
       <BoundTo>a7fe9a81-f30b-4989-93d4-73a3b0f3ece5</BoundTo>
@@ -1815,18 +1815,6 @@
     <Compile Include="Modules\Set_Assign\SetRangeInSmartFolder.cs">
       <id>561b52a4-78d8-4476-b2c3-593ea7c55a57</id>
     </Compile>
-    <Compile Include="Modules\Set_Assign\SetRangeInTableForFMCViewBasedOnTrajectType.cs">
-      <DependentUpon>SetRangeInTableForFMCViewBasedOnTrajectType.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>d0646bbb-bbb0-49ce-bf06-c2318044658c</id>
-      <BoundTo>d4473d45-e535-40a7-b45e-f624510bc056</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Set_Assign\SetRangeInTableForFMCViewBasedOnTrajectType.UserCode.cs">
-      <DependentUpon>SetRangeInTableForFMCViewBasedOnTrajectType.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>51f320f6-8b6d-4429-89ec-92b17660048c</id>
-      <BoundTo>d4473d45-e535-40a7-b45e-f624510bc056</BoundTo>
-    </Compile>
     <Compile Include="Modules\Set_Assign\SetRangeInTableForPEBasedOnTrajectType.cs">
       <DependentUpon>SetRangeInTableForPEBasedOnTrajectType.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -1838,18 +1826,6 @@
       <UserCode>true</UserCode>
       <id>32d469cc-9c2d-4744-b013-128fb741c424</id>
       <BoundTo>fa8863c1-c307-4363-98e1-572ecfc0c2c6</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Set_Assign\SetRelevanceFMInFailureMechanismContributionView.cs">
-      <DependentUpon>SetRelevanceFMInFailureMechanismContributionView.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>c5b5af27-aa34-4960-9173-c56b0b4681ad</id>
-      <BoundTo>b784c65f-eb14-47fb-8870-5baafbb7e6fe</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Set_Assign\SetRelevanceFMInFailureMechanismContributionView.UserCode.cs">
-      <DependentUpon>SetRelevanceFMInFailureMechanismContributionView.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>f660bbb8-b71e-4e9a-8c62-47a5aaa25be4</id>
-      <BoundTo>b784c65f-eb14-47fb-8870-5baafbb7e6fe</BoundTo>
     </Compile>
     <Compile Include="Modules\Set_Assign\SetRelevanceFMInProjectExplorer.cs">
       <DependentUpon>SetRelevanceFMInProjectExplorer.rxrec</DependentUpon>
@@ -1994,18 +1970,6 @@
       <UserCode>true</UserCode>
       <id>c7af6470-caf9-4ba8-9f9f-fc46fe4223a4</id>
       <BoundTo>45ca3cad-b4eb-4830-b715-695e59a034fc</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\DocumentView\ValidateFMRelevanceInFMCView.cs">
-      <DependentUpon>ValidateFMRelevanceInFMCView.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>a4d32042-c985-4120-9e00-3e75987db2c0</id>
-      <BoundTo>4321a5dc-dff9-4a99-9273-baf97a3bf99f</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\DocumentView\ValidateFMRelevanceInFMCView.UserCode.cs">
-      <DependentUpon>ValidateFMRelevanceInFMCView.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>00c2e319-d1e8-45c1-b819-1667dc466f62</id>
-      <BoundTo>4321a5dc-dff9-4a99-9273-baf97a3bf99f</BoundTo>
     </Compile>
     <Compile Include="Modules\Validation\DocumentView\ValidateProbabilitySpaceInFailureMechanismContributionView.cs">
       <DependentUpon>ValidateProbabilitySpaceInFailureMechanismContributionView.rxrec</DependentUpon>
@@ -2156,18 +2120,6 @@
       <UserCode>true</UserCode>
       <id>fb5d00c1-5668-4586-bc20-b5e8ecea1900</id>
       <BoundTo>14aa4a80-c6e3-42d0-9b25-687fb71f8f07</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\ProjectExplorer\ValidateNode.cs">
-      <DependentUpon>ValidateNode.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>5f11ecdd-5d95-492a-8f08-5081b38cba9f</id>
-      <BoundTo>7be6f2c7-899a-473a-916d-727696d7051f</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\ProjectExplorer\ValidateNode.UserCode.cs">
-      <DependentUpon>ValidateNode.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>ea5eedab-25f7-4631-b91f-f03881b952bb</id>
-      <BoundTo>7be6f2c7-899a-473a-916d-727696d7051f</BoundTo>
     </Compile>
     <Compile Include="Modules\Validation\ProjectExplorer\ValidateRelevanceFMInProjectExplorer.cs">
       <DependentUpon>ValidateRelevanceFMInProjectExplorer.rxrec</DependentUpon>
@@ -3041,11 +2993,6 @@
       <id>eeb7ef51-8e00-4dba-a124-aae38b08ccdc</id>
       <recordtableid>6295dc9c-a237-4ff3-b0ac-355382aaa3df</recordtableid>
     </None>
-    <None Include="Modules\OpenViews\OpenViewForFailureMechanismContribution.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>1cb570ed-7031-4292-a572-3c04e9fbc24a</id>
-      <recordtableid>5e81345e-66bc-4e08-8ade-03d386d824fd</recordtableid>
-    </None>
     <None Include="Modules\OpenViews\OpenViewForGenericFM.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>cd7df858-0e65-4fa4-b41f-594ad71f9cec</id>
@@ -3060,6 +3007,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>3aa64561-b60a-4eeb-8438-b280f0bd9bf5</id>
       <recordtableid>69aec744-9ae4-44f8-8d63-455acdcf0f37</recordtableid>
+    </None>
+    <None Include="Modules\RepportInfo\CreateScreenshotCurrentSelectionInPE.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>5c815c5f-a64a-4a2a-a3a3-0d3164cdd265</id>
+      <recordtableid>05ad7a10-0c36-4f14-aef7-4b262767aa10</recordtableid>
     </None>
     <None Include="Modules\RepportInfo\CreateScreenShotEntireApplication.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -3271,20 +3223,10 @@
       <id>5bf29cac-081b-4772-a880-80a042909612</id>
       <recordtableid>7d9b109b-9a86-4d14-949e-d6cd5cca905f</recordtableid>
     </None>
-    <None Include="Modules\Set_Assign\SetRangeInTableForFMCViewBasedOnTrajectType.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>d4473d45-e535-40a7-b45e-f624510bc056</id>
-      <recordtableid>a23d7db6-2e34-49a1-8c66-009718c79641</recordtableid>
-    </None>
     <None Include="Modules\Set_Assign\SetRangeInTableForPEBasedOnTrajectType.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>fa8863c1-c307-4363-98e1-572ecfc0c2c6</id>
       <recordtableid>3a6da0ca-5c45-4932-a886-7c30d0e62630</recordtableid>
-    </None>
-    <None Include="Modules\Set_Assign\SetRelevanceFMInFailureMechanismContributionView.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>b784c65f-eb14-47fb-8870-5baafbb7e6fe</id>
-      <recordtableid>126d009c-618d-402d-8d3d-fa9ecc02bef7</recordtableid>
     </None>
     <None Include="Modules\Set_Assign\SetRelevanceFMInProjectExplorer.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -3325,11 +3267,6 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>aec09b15-20aa-4f46-96b6-b6bd66a8d9b9</id>
       <recordtableid>7bc728af-f14c-4f8b-8354-b59262002f99</recordtableid>
-    </None>
-    <None Include="Modules\Validation\DocumentView\ValidateFMRelevanceInFMCView.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>4321a5dc-dff9-4a99-9273-baf97a3bf99f</id>
-      <recordtableid>3c9b70f2-d794-41d3-b0ce-6da8c1e00475</recordtableid>
     </None>
     <None Include="Modules\Validation\DocumentView\ValidatePresenceWarningIconManualAssessmentInAssemblyCombinedSectionsView.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -3400,11 +3337,6 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>14aa4a80-c6e3-42d0-9b25-687fb71f8f07</id>
       <recordtableid>502bc375-64a0-4290-aa3d-5d8fa8819d35</recordtableid>
-    </None>
-    <None Include="Modules\Validation\ProjectExplorer\ValidateNode.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>7be6f2c7-899a-473a-916d-727696d7051f</id>
-      <recordtableid>906330ec-73fa-48a5-91c6-ed42eabd4771</recordtableid>
     </None>
     <None Include="Modules\Validation\ProjectExplorer\ValidateRelevanceFMInProjectExplorer.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
