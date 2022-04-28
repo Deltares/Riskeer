@@ -72,7 +72,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
 
         [PropertyOrder(2)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.OvertoppingRate_DisplayName), 1, 2)]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.TargetProbability_DisplayName))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.CalculationOutput_TargetProbability_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.CalculationOutput_TargetProbability_Description))]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double OvertoppingRateTargetProbability
