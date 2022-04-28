@@ -9,12 +9,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("AutomatedSystemTests")]
+[assembly: AssemblyTitle("AutomatedSystemTests Riskeer")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("AutomatedSystemTests")]
-[assembly: AssemblyCopyright("Copyright 2020")]
+[assembly: AssemblyCompany("Deltares")]
+[assembly: AssemblyProduct("AutomatedSystemTests Riskeer")]
+[assembly: AssemblyCopyright("Copyright 2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
