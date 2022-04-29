@@ -429,21 +429,15 @@
 			</smartfoldernode>
 			<testmodule
 			id="15f7824c-89bb-462a-9b13-e7903dfbbb21"
-			name="SetRelevanceFMInProjectExplorer"
+			name="SetFMInsideOutsideAssembly"
 			ref="37154a5a-bed5-4655-91a2-0c5ebc672e77"
 			type="Recording">
 				<databinding>
 					<var
-					dataname="fmShouldBeRelevant"
+					dataname="fmShouldBeInAssembly"
 					datasourceid="d6e2bc96-d867-4535-a18f-c1bdde9770b4"
-					variableid="6f91cdce-7f0c-42ee-93e0-4a3735497a16"
-					variablename="fmShouldBeRelevant">
-					</var>
-					<var
-					dataname="substringInFmName"
-					datasourceid="d6e2bc96-d867-4535-a18f-c1bdde9770b4"
-					variableid="c8f26984-6161-4190-9006-d6b627a1bf14"
-					variablename="substringName">
+					variableid="47e7d98d-4769-4554-b1bb-fafa502b0d24"
+					variablename="fmShouldBeInAssembly">
 					</var>
 				</databinding>
 			</testmodule>
@@ -3039,16 +3033,30 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="d4dcfd8b-617a-424e-a00a-6baf62cb8097"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToDunesFM"
+					datasourceid="d6e2bc96-d867-4535-a18f-c1bdde9770b4"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="d6e2bc96-d867-4535-a18f-c1bdde9770b4"
 			name="MakeDunesFMRelevant">
 				<parameters>
 					<param
-					name="substringInFmName"
-					value="Duinafslag">
+					name="pathToDunesFM"
+					value="@TR>@GF>@DA">
 					</param>
 					<param
-					name="fmShouldBeRelevant"
+					name="fmShouldBeInAssembly"
 					value="True">
 					</param>
 					<param
@@ -3347,6 +3355,20 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="ebdff53d-1a47-443f-801a-f767c3804229"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToFMDunes"
+					datasourceid="f31ff3a7-414d-4b51-8475-a3f9057175f6"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="ed695cb4-034f-46c3-8fa3-8f441c637487"
 			name="CloseSectionsView">
@@ -3469,11 +3491,11 @@
 			name="MakeDunesFMRelevant">
 				<parameters>
 					<param
-					name="substringInFmName"
-					value="Duinafslag">
+					name="pathToFMDunes"
+					value="@TR>@GF>@DA">
 					</param>
 					<param
-					name="fmShouldBeRelevant"
+					name="fmShouldBeInAssembly"
 					value="True">
 					</param>
 					<param
@@ -3484,21 +3506,15 @@
 			</smartfoldernode>
 			<testmodule
 			id="f3514efc-4276-437a-8662-d7f14ca656cb"
-			name="SetRelevanceFMInProjectExplorer"
+			name="SetFMInsideOutsideAssembly"
 			ref="37154a5a-bed5-4655-91a2-0c5ebc672e77"
 			type="Recording">
 				<databinding>
 					<var
-					dataname="fmShouldBeRelevant"
+					dataname="fmShouldBeInAssembly"
 					datasourceid="f31ff3a7-414d-4b51-8475-a3f9057175f6"
-					variableid="6f91cdce-7f0c-42ee-93e0-4a3735497a16"
-					variablename="fmShouldBeRelevant">
-					</var>
-					<var
-					dataname="substringInFmName"
-					datasourceid="f31ff3a7-414d-4b51-8475-a3f9057175f6"
-					variableid="c8f26984-6161-4190-9006-d6b627a1bf14"
-					variablename="substringName">
+					variableid="47e7d98d-4769-4554-b1bb-fafa502b0d24"
+					variablename="fmShouldBeInAssembly">
 					</var>
 				</databinding>
 			</testmodule>
@@ -3778,8 +3794,12 @@
 										name="SelectState">
 										</testmodule>
 										<testmodule
+										id="d4dcfd8b-617a-424e-a00a-6baf62cb8097"
+										name="SelectGenericItemInProjectExplorer">
+										</testmodule>
+										<testmodule
 										id="15f7824c-89bb-462a-9b13-e7903dfbbb21"
-										name="SetRelevanceFMInProjectExplorer">
+										name="SetFMInsideOutsideAssembly">
 										</testmodule>
 									</smartfoldernode>
 								</smartfoldernode>
@@ -3915,8 +3935,12 @@
 									name="SelectState">
 									</testmodule>
 									<testmodule
+									id="ebdff53d-1a47-443f-801a-f767c3804229"
+									name="SelectGenericItemInProjectExplorer">
+									</testmodule>
+									<testmodule
 									id="f3514efc-4276-437a-8662-d7f14ca656cb"
-									name="SetRelevanceFMInProjectExplorer">
+									name="SetFMInsideOutsideAssembly">
 									</testmodule>
 								</smartfoldernode>
 								<smartfoldernode

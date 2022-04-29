@@ -41,6 +41,26 @@
 			name="ValidateCustomAssessmentInput">
 			</smartfoldernode>
 			<testmodule
+			id="021503be-6a09-41ca-8fe0-b31a578bece0"
+			name="GenerateRandomDistributionFMsInAssembly"
+			ref="90cc222d-99c0-4c5b-b389-dc9d8138f67c"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="numberOfFMs"
+					datasourceid="62fe8830-30e1-4117-905d-95627cc4d7d9"
+					variableid="0c018150-e015-472e-9e7e-370bb5b5043f"
+					variablename="numberOfFMs">
+					</var>
+					<var
+					dataname="randomDistributionFMsInAssembly"
+					datasourceid="62fe8830-30e1-4117-905d-95627cc4d7d9"
+					variableid="96b698a5-aced-4f73-b70d-9a7b98d8217b"
+					variablename="randomDistributionFMs">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="02c19527-390f-462e-a2fb-92f229cc8ec2"
 			name="ValidateCustomAssessmentValue"
 			ref="da4d5264-71fa-4c55-ade2-9344716cd1cc"
@@ -176,6 +196,20 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="08fb2043-afc3-4d8f-bef7-63049f908f62"
+			name="SelectState"
+			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="stateRA"
+					datasourceid="dd5c8f77-e81c-4412-863e-4c749dc2794d"
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="096fe8e5-b4c1-422e-acfe-68b5a5c6825d"
 			name="ManualCategory">
@@ -211,34 +245,6 @@
 			id="0cf514ec-6daf-4557-9794-e240f6b61140"
 			name="LoopRowsSelectDetailedAssessmentType">
 			</smartfoldernode>
-			<testmodule
-			id="0e1062f2-cee2-47cd-9da8-359f6e305511"
-			name="SaveAs"
-			ref="9195acd9-b037-4ace-80c3-0f7f64c35452"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="filename"
-					datasourceid="831e4289-a337-434c-9753-aa59d1c77819"
-					variableid="d40271fe-a08b-44b0-bb48-a991f40e104b"
-					variablename="fileName">
-					</var>
-					<var
-					dataname="scriptOutputFolder"
-					datasourceid="51bff513-6ec0-4273-9ee3-8d912bb40499"
-					variableid="75a65d50-6a8f-4582-9f63-7c20d0f1ae9f"
-					variablename="scriptOutputPath">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="filename"
-					datasourceid="eb2fbef4-7d9e-4df6-b9be-4a6732b02d86"
-					variableid="d40271fe-a08b-44b0-bb48-a991f40e104b"
-					variablename="fileNameToSave">
-					</var>
-				</missingdatabinding>
-			</testmodule>
 			<testmodule
 			id="0ee4f019-1634-4c9f-8195-835f8bcaebfb"
 			name="SetManualAssessmentCategory"
@@ -332,9 +338,23 @@
 					</condition>
 				</conditiongroup>
 			</smartfoldernode>
+			<testmodule
+			id="10616633-c2af-44ae-93f1-34ed759209c5"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="PathToFMInPE"
+					datasourceid="24af1f45-008d-4bb7-a60c-90f42ab75efc"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="10a12ad7-e7c7-4084-b51f-aa7bab2c05ed"
-			name="SetRelevanceFMsTraject44_2InProjectExplorer">
+			name="SetFMsinAssembly">
 				<parameters>
 					<param
 					name="substringInTrajectName"
@@ -343,9 +363,8 @@
 				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
-			datasource="outputRelevancePE"
 			id="11bba419-6618-4dac-9adf-f5176f3e62e3"
-			name="OpenRelevanceProject">
+			name="OpenProject">
 			</smartfoldernode>
 			<testmodule
 			id="12023235-4501-418e-8dac-495e7f396585"
@@ -476,8 +495,8 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="filename"
-					datasourceid="eb2fbef4-7d9e-4df6-b9be-4a6732b02d86"
+					dataname="nameProjectFmsInAssembly"
+					datasourceid="62fe8830-30e1-4117-905d-95627cc4d7d9"
 					variableid="d40271fe-a08b-44b0-bb48-a991f40e104b"
 					variablename="fileName">
 					</var>
@@ -488,6 +507,14 @@
 					variablename="scriptOutputPath">
 					</var>
 				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="filename"
+					datasourceid="eb2fbef4-7d9e-4df6-b9be-4a6732b02d86"
+					variableid="d40271fe-a08b-44b0-bb48-a991f40e104b"
+					variablename="fileName">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="180d6b91-29a5-409d-9126-3aa2f50a2e43"
@@ -673,26 +700,6 @@
 			name="Simple_Assessment">
 			</smartfoldernode>
 			<testmodule
-			id="234c3581-bd18-4dc8-8c97-831d20be37f8"
-			name="ValidateRelevanceFMInProjectExplorer"
-			ref="f42a383d-8a05-4e55-bddb-48e5a69b14e6"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="NameFM"
-					datasourceid="1b1df013-4a4b-4a2a-a392-87368b82bae9"
-					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
-					variablename="substringFMName">
-					</var>
-					<var
-					dataname="IsRelevant"
-					datasourceid="1b1df013-4a4b-4a2a-a392-87368b82bae9"
-					variableid="e71d741d-fe4d-41b8-ba2d-00fc7872d25f"
-					variablename="fmExpectedRelevance">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
 			id="24686253-a2bd-4e01-9c20-8dc7e178fb8e"
 			name="OpenProject"
 			ref="3f746bb2-6845-45b4-9b28-b7fd605378f3"
@@ -773,6 +780,10 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
+			id="28d2beb8-7fa5-4d93-b112-4cf7b8693df3"
+			name="GenerateRandomDistributionFMsInAssembly">
+			</smartfoldernode>
+			<smartfoldernode
 			datasource="script21_FMGroup3And4DetailedAssessmentTypes"
 			errorbehavior="ContinueNextIteration"
 			id="2aa9e209-aa75-4201-9a51-7828756f0872"
@@ -820,15 +831,15 @@
 			</testmodule>
 			<testmodule
 			id="2d1b5d4b-b36a-43ac-8d2c-40bed515e934"
-			name="SetRelevanceFMInProjectExplorer"
+			name="SetFMInsideOutsideAssembly"
 			ref="37154a5a-bed5-4655-91a2-0c5ebc672e77"
 			type="Recording">
 				<databinding>
 					<var
-					dataname="IsRelevant"
-					datasourceid="1b1df013-4a4b-4a2a-a392-87368b82bae9"
-					variableid="6f91cdce-7f0c-42ee-93e0-4a3735497a16"
-					variablename="fmShouldBeRelevant">
+					dataname="currentFMShouldBeInAssembly"
+					datasourceid="a1aa47c9-fc57-4c1f-955c-c59afce07189"
+					variableid="47e7d98d-4769-4554-b1bb-fafa502b0d24"
+					variablename="fmShouldBeInAssembly">
 					</var>
 				</databinding>
 			</testmodule>
@@ -860,11 +871,45 @@
 			id="2f9dbe46-cb2e-4ce4-b483-5163d01f4b26"
 			name="ManualOverride">
 			</smartfoldernode>
+			<testmodule
+			id="318ddb61-7c2a-4622-9f75-a255264ebc4e"
+			name="ValidateFMAssemblyWithSubnodesInProjectExplorer"
+			ref="7ee45812-8ea5-491e-8295-a80d7e29eb79"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="currentFMShouldBeInAssembly"
+					datasourceid="9b47077f-cafa-4f61-9f5d-e89daf425f39"
+					variableid="aa59a0bc-0f2e-4790-ba90-42931656bd52"
+					variablename="expectedInAssembly">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="FMsInGroup2SimpleAssessment"
 			id="35acb09f-ccb3-4157-be2e-0cfd8f3b3364"
 			name="FMsGroup2">
 			</smartfoldernode>
+			<testmodule
+			id="3adbca9f-8f4b-4773-98d7-c380b4c19ee1"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="PathToFMInPE"
+					datasourceid="24af1f45-008d-4bb7-a60c-90f42ab75efc"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="3adbd560-2494-406e-84a1-fb56ce6d3df2"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
+			</testmodule>
 			<smartfoldernode
 			id="3af00d0d-6ec2-4275-a2ee-5b2cf59cb471"
 			name="New_Project">
@@ -922,7 +967,7 @@
 			name="ValidateCustomAssessment">
 			</smartfoldernode>
 			<smartfoldernode
-			datasource="listWithpathsFMs"
+			datasource="script21_ListWithpathsFMs"
 			errorbehavior="ContinueNextIteration"
 			id="3f10c7b7-a7d4-4e39-92d2-5debbcd53aa3"
 			name="LoopFMs">
@@ -1282,8 +1327,8 @@
 				</description>
 				<databinding>
 					<var
-					dataname="filename"
-					datasourceid="eb2fbef4-7d9e-4df6-b9be-4a6732b02d86"
+					dataname="nameProjectFmsInAssembly"
+					datasourceid="62fe8830-30e1-4117-905d-95627cc4d7d9"
 					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
 					variablename="fileName">
 					</var>
@@ -1300,6 +1345,12 @@
 					datasourceid="a42d9062-00d5-4260-bbf0-70457be6fe78"
 					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
 					variablename="fileNameToOpen">
+					</var>
+					<var
+					dataname="filename"
+					datasourceid="eb2fbef4-7d9e-4df6-b9be-4a6732b02d86"
+					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
+					variablename="fileName">
 					</var>
 				</missingdatabinding>
 			</testmodule>
@@ -1376,6 +1427,12 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="5e27ab92-5d5a-4d10-a82e-c863a6cbbd3f"
+			name="ExpandAllSubnodesCurrentlySelectedItem"
+			ref="12ee2100-a4a2-41a6-ad6e-3f7829dd3c4b"
+			type="Recording">
+			</testmodule>
+			<testmodule
 			id="60ac2e30-b551-4e51-9aac-a660a7e01df9"
 			name="OpenResultView"
 			ref="14b19856-facd-4b69-82b3-b7f678560774"
@@ -1411,7 +1468,21 @@
 			</testmodule>
 			<smartfoldernode
 			id="62fe8830-30e1-4117-905d-95627cc4d7d9"
-			name="a)Relevance_Assessment">
+			name="a)Relevance_Failure_mechanisms">
+				<parameters>
+					<param
+					name="numberOfFMs"
+					value="18">
+					</param>
+					<param
+					name="randomDistributionFMsInAssembly"
+					value="">
+					</param>
+					<param
+					name="nameProjectFmsInAssembly"
+					value="script21a_FMsInAssembly.risk">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="64f82d24-303c-4121-abc2-91bbf03549f2"
@@ -1549,6 +1620,32 @@
 					variablename="textItemDropDownMenu">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="6a13c546-4f36-4b63-a853-1585a03fece1"
+			name="CalculateIfFMInAssembly"
+			ref="ff56e032-8f65-49b8-8a21-69565853ce49"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="currentFMShouldBeInAssembly"
+					datasourceid="a1aa47c9-fc57-4c1f-955c-c59afce07189"
+					variableid="88fbfa76-abd9-4070-8af1-ea0c6c6d06dc"
+					variablename="currentFMShouldBeInAssembly">
+					</var>
+					<var
+					dataname="indexFM"
+					datasourceid="24af1f45-008d-4bb7-a60c-90f42ab75efc"
+					variableid="ebe78d14-ce80-4f18-af2a-0093ef427864"
+					variablename="indexCurrentFM">
+					</var>
+					<var
+					dataname="randomDistributionFMsInAssembly"
+					datasourceid="62fe8830-30e1-4117-905d-95627cc4d7d9"
+					variableid="58e4853c-a2ca-43b4-adf7-da2ae4fd243a"
+					variablename="distributionFMsInAssembly">
+					</var>
+				</databinding>
 			</testmodule>
 			<smartfoldernode
 			datasource="OpenDetailedFaalkansProject"
@@ -1720,12 +1817,6 @@
 			name="ManualOverride">
 			</smartfoldernode>
 			<testmodule
-			id="756e6715-abaf-4d32-aa64-2f2d42fded7b"
-			name="CloseViewCentralPanelWithFocus"
-			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
-			type="Recording">
-			</testmodule>
-			<testmodule
 			id="75a1f13f-898a-431c-adab-0637d8c0184d"
 			name="ValidateDetailedAssessmentTypeAtRowGroup4"
 			ref="4bec016b-4d75-4a07-9bb2-a12badf2136b"
@@ -1756,6 +1847,40 @@
 					datasourceid="763c31b2-be4b-4619-bc2c-8f2e6789f44b"
 					variableid="d18cd7a0-dd73-477b-80f7-d63ec0c42815"
 					variablename="expectedDetailedAssessmentCellType">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="765f9ce6-47ff-4e85-9825-f225e08b5326"
+			name="CalculateIfFMInAssembly"
+			ref="ff56e032-8f65-49b8-8a21-69565853ce49"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="randomDistributionFMsInAssembly"
+					datasourceid="62fe8830-30e1-4117-905d-95627cc4d7d9"
+					variableid="58e4853c-a2ca-43b4-adf7-da2ae4fd243a"
+					variablename="distributionFMsInAssembly">
+					</var>
+					<var
+					dataname="indexFM"
+					datasourceid="24af1f45-008d-4bb7-a60c-90f42ab75efc"
+					variableid="ebe78d14-ce80-4f18-af2a-0093ef427864"
+					variablename="indexCurrentFM">
+					</var>
+					<var
+					dataname="currentFMShouldBeInAssembly"
+					datasourceid="9b47077f-cafa-4f61-9f5d-e89daf425f39"
+					variableid="88fbfa76-abd9-4070-8af1-ea0c6c6d06dc"
+					variablename="currentFMShouldBeInAssembly">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="currentFMShouldBeInAssembly"
+					datasourceid="a1aa47c9-fc57-4c1f-955c-c59afce07189"
+					variableid="88fbfa76-abd9-4070-8af1-ea0c6c6d06dc"
+					variablename="currentFMInAssembly">
 					</var>
 				</missingdatabinding>
 			</testmodule>
@@ -1851,12 +1976,6 @@
 			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
 			type="Recording">
 			</testmodule>
-			<testmodule
-			id="93d57f8b-5c97-4b9b-b2fa-e7791a399bbb"
-			name="CloseViewCentralPanelWithFocus"
-			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
-			type="Recording">
-			</testmodule>
 			<testsuite
 			ReportTime="RelativeToTestSuiteStartTime"
 			TracingScreenshotMode="Foreground"
@@ -1919,15 +2038,20 @@
 			type="Recording">
 			</testmodule>
 			<smartfoldernode
-			datasource="outputRelevanceFMCView"
-			id="9a86e423-c1e1-40f0-bfb7-f461caadda22"
-			name="SaveProject">
-			</smartfoldernode>
-			<smartfoldernode
-			datasource="relevance44_2ProjectExplorer"
+			datasource="script21_ListWithpathsFMs"
 			errorbehavior="ContinueNextIteration"
 			id="9b47077f-cafa-4f61-9f5d-e89daf425f39"
 			name="LoopFMs">
+				<parameters>
+					<param
+					name="currentFMShouldBeInAssembly"
+					value="">
+					</param>
+					<param
+					name="pathToFMInAssemblyInPropertiesPanel"
+					value="Algemeen>In assemblage">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="9cb8dce6-305b-4b2f-ae4d-920f1739c299"
@@ -1964,9 +2088,15 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
-			datasource="relevance44_2ProjectExplorer"
+			datasource="script21_ListWithpathsFMs"
 			id="a1aa47c9-fc57-4c1f-955c-c59afce07189"
 			name="LoopFMs">
+				<parameters>
+					<param
+					name="currentFMShouldBeInAssembly"
+					value="">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="a24e1e75-9d88-4636-94ab-29b42f60be1f"
@@ -2160,6 +2290,29 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="ac57afb6-5863-45d5-b879-e611bd837641"
+			name="ValidateTextValueInPropertiesPanelGivenPath"
+			ref="cc8da82f-905a-4414-9ad6-bb42bbea84fc"
+			type="UserCode">
+				<description>
+					<![CDATA[Validating if FM in Assembly]]>
+				</description>
+				<databinding>
+					<var
+					dataname="pathToFMInAssemblyInPropertiesPanel"
+					datasourceid="9b47077f-cafa-4f61-9f5d-e89daf425f39"
+					variableid="9ce9e644-2868-4a3f-9a74-bc4f92445dc1"
+					variablename="pathToRowInPP">
+					</var>
+					<var
+					dataname="currentFMShouldBeInAssembly"
+					datasourceid="9b47077f-cafa-4f61-9f5d-e89daf425f39"
+					variableid="25313ec3-4407-4a1c-bfbb-328d6c0f6b23"
+					variablename="expectedText">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="ad04dbcd-b81a-4bae-ae67-ef5757b270cf"
 			name="OpenProject"
 			ref="3f746bb2-6845-45b4-9b28-b7fd605378f3"
@@ -2274,12 +2427,6 @@
 			id="b0c7fb5e-a04b-4bf0-b763-2c5329816b83"
 			name="ValidateCustomAssessment">
 			</smartfoldernode>
-			<testmodule
-			id="b16a431d-9fc3-4840-8b6e-b6baef27ad7b"
-			name="SelectRootProject"
-			ref="4fdf4df4-40fe-44f6-af0a-be1b3051be26"
-			type="Recording">
-			</testmodule>
 			<testmodule
 			id="b1a388fd-7f80-4d4e-a283-e30ceac882e4"
 			name="SelectManualAssessment"
@@ -2549,6 +2696,20 @@
 			name="ValidateCustomAssessmentInput">
 			</smartfoldernode>
 			<testmodule
+			id="d2d7a364-e78f-4da5-8997-ad335ada4e19"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="PathToFMInPE"
+					datasourceid="24af1f45-008d-4bb7-a60c-90f42ab75efc"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="d4799e8d-ec80-4501-94f6-6debd8bcec14"
 			name="ValidateCustomAssessmentTypeAtRow"
 			ref="4a7e3f6a-b454-48a2-a19c-3321f75bc052"
@@ -2599,7 +2760,7 @@
 			</smartfoldernode>
 			<smartfoldernode
 			id="d9584df8-ec80-44b5-80d0-73386e1f16f3"
-			name="ValidateRelevanceFMsTraject44_2InProjectExplorer">
+			name="ValidateFMsInAssembly">
 			</smartfoldernode>
 			<testmodule
 			id="d9eaa17d-31a1-4b12-95b4-dea9869dcafe"
@@ -2635,6 +2796,16 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="dd5c8f77-e81c-4412-863e-4c749dc2794d"
+			name="SetStateRegistrationAssembly">
+				<parameters>
+					<param
+					name="stateRA"
+					value="@RA">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="de6a58b0-a6b6-4a15-a9ed-02db81a5437e"
 			name="CloseViewCentralPanelWithFocus"
@@ -2663,7 +2834,6 @@
 			name="SaveProject">
 			</smartfoldernode>
 			<smartfoldernode
-			datasource="outputRelevancePE"
 			id="e41615d8-9405-4ee7-b151-efc8ad4df265"
 			name="SaveProject">
 			</smartfoldernode>
@@ -2716,12 +2886,32 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="ebdbfd3d-1c43-496c-be79-5546a6e5316e"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
+			</testmodule>
 			<smartfoldernode
 			datasource="OpenDetailedFaalkansProject"
 			errorbehavior="ContinueParent"
 			id="f325ca7f-a73e-4e32-9a2e-3f2963a748e7"
 			name="OpenDetailedFaalkansProject">
 			</smartfoldernode>
+			<testmodule
+			id="f6079908-ccfe-4f2d-9a44-2fba791edfe7"
+			name="ValidateFMAssemblyWithContextMenuInProjectExplorer"
+			ref="f0965e19-512a-4374-933e-3535f674e2a1"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="currentFMShouldBeInAssembly"
+					datasourceid="9b47077f-cafa-4f61-9f5d-e89daf425f39"
+					variableid="0cf4d3ab-a50a-4183-b93c-bd59401ce7c5"
+					variablename="expectedInAssembly">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="script21_FMGroup3CustomAssessmentTraject"
 			errorbehavior="ContinueNextIteration"
@@ -2849,13 +3039,17 @@
 						</setup>
 						<smartfoldernode
 						id="62fe8830-30e1-4117-905d-95627cc4d7d9"
-						name="a)Relevance_Assessment">
+						name="a)Relevance_Failure_mechanisms">
 							<smartfoldernode
 							id="bb6da5c2-b29c-40e1-881a-44b288ed2c76"
 							name="OpenFaalkansProject">
 								<testmodule
 								id="ba14ed34-d6b2-4d07-823c-ba6a87dafd8d"
 								name="OpenProject">
+								</testmodule>
+								<testmodule
+								id="ebdbfd3d-1c43-496c-be79-5546a6e5316e"
+								name="CloseViewCentralPanelWithFocus">
 								</testmodule>
 							</smartfoldernode>
 							<smartfoldernode
@@ -2883,24 +3077,32 @@
 								</smartfoldernode>
 							</smartfoldernode>
 							<smartfoldernode
-							id="10a12ad7-e7c7-4084-b51f-aa7bab2c05ed"
-							name="SetRelevanceFMsTraject44_2InProjectExplorer">
+							id="28d2beb8-7fa5-4d93-b112-4cf7b8693df3"
+							name="GenerateRandomDistributionFMsInAssembly">
 								<testmodule
-								id="93d57f8b-5c97-4b9b-b2fa-e7791a399bbb"
-								name="CloseViewCentralPanelWithFocus">
+								id="021503be-6a09-41ca-8fe0-b31a578bece0"
+								name="GenerateRandomDistributionFMsInAssembly">
 								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="10a12ad7-e7c7-4084-b51f-aa7bab2c05ed"
+							name="SetFMsinAssembly">
 								<smartfoldernode
 								id="a1aa47c9-fc57-4c1f-955c-c59afce07189"
 								name="LoopFMs">
 									<testmodule
+									id="6a13c546-4f36-4b63-a853-1585a03fece1"
+									name="CalculateIfFMInAssembly">
+									</testmodule>
+									<testmodule
+									id="10616633-c2af-44ae-93f1-34ed759209c5"
+									name="SelectGenericItemInProjectExplorer">
+									</testmodule>
+									<testmodule
 									id="2d1b5d4b-b36a-43ac-8d2c-40bed515e934"
-									name="SetRelevanceFMInProjectExplorer">
+									name="SetFMInsideOutsideAssembly">
 									</testmodule>
 								</smartfoldernode>
-								<testmodule
-								id="756e6715-abaf-4d32-aa64-2f2d42fded7b"
-								name="CloseViewCentralPanelWithFocus">
-								</testmodule>
 							</smartfoldernode>
 							<smartfoldernode
 							id="e41615d8-9405-4ee7-b151-efc8ad4df265"
@@ -2912,35 +3114,59 @@
 							</smartfoldernode>
 							<smartfoldernode
 							id="11bba419-6618-4dac-9adf-f5176f3e62e3"
-							name="OpenRelevanceProject">
+							name="OpenProject">
 								<testmodule
 								id="5a094beb-23e2-4d48-b5f7-5dac17e60c26"
 								name="OpenProject">
 								</testmodule>
+								<testmodule
+								id="3adbd560-2494-406e-84a1-fb56ce6d3df2"
+								name="CloseViewCentralPanelWithFocus">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="dd5c8f77-e81c-4412-863e-4c749dc2794d"
+							name="SetStateRegistrationAssembly">
+								<testmodule
+								id="08fb2043-afc3-4d8f-bef7-63049f908f62"
+								name="SelectState">
+								</testmodule>
 							</smartfoldernode>
 							<smartfoldernode
 							id="d9584df8-ec80-44b5-80d0-73386e1f16f3"
-							name="ValidateRelevanceFMsTraject44_2InProjectExplorer">
-								<testmodule
-								id="b16a431d-9fc3-4840-8b6e-b6baef27ad7b"
-								name="SelectRootProject">
-								</testmodule>
+							name="ValidateFMsInAssembly">
 								<smartfoldernode
 								id="9b47077f-cafa-4f61-9f5d-e89daf425f39"
 								name="LoopFMs">
 									<testmodule
-									id="234c3581-bd18-4dc8-8c97-831d20be37f8"
-									name="ValidateRelevanceFMInProjectExplorer">
+									id="765f9ce6-47ff-4e85-9825-f225e08b5326"
+									name="CalculateIfFMInAssembly">
+									</testmodule>
+									<testmodule
+									id="d2d7a364-e78f-4da5-8997-ad335ada4e19"
+									name="SelectGenericItemInProjectExplorer">
+									</testmodule>
+									<testmodule
+									id="ac57afb6-5863-45d5-b879-e611bd837641"
+									name="ValidateTextValueInPropertiesPanelGivenPath">
+									</testmodule>
+									<testmodule
+									id="3adbca9f-8f4b-4773-98d7-c380b4c19ee1"
+									name="SelectGenericItemInProjectExplorer">
+									</testmodule>
+									<testmodule
+									id="5e27ab92-5d5a-4d10-a82e-c863a6cbbd3f"
+									name="ExpandAllSubnodesCurrentlySelectedItem">
+									</testmodule>
+									<testmodule
+									id="318ddb61-7c2a-4622-9f75-a255264ebc4e"
+									name="ValidateFMAssemblyWithSubnodesInProjectExplorer">
+									</testmodule>
+									<testmodule
+									id="f6079908-ccfe-4f2d-9a44-2fba791edfe7"
+									name="ValidateFMAssemblyWithContextMenuInProjectExplorer">
 									</testmodule>
 								</smartfoldernode>
-							</smartfoldernode>
-							<smartfoldernode
-							id="9a86e423-c1e1-40f0-bfb7-f461caadda22"
-							name="SaveProject">
-								<testmodule
-								id="0e1062f2-cee2-47cd-9da8-359f6e305511"
-								name="SaveAs">
-								</testmodule>
 							</smartfoldernode>
 						</smartfoldernode>
 						<smartfoldernode
@@ -3613,27 +3839,6 @@
 			</file>
 		</DataSource>
 		<DataSource
-		id="24af1f45-008d-4bb7-a60c-90f42ab75efc"
-		includefile="Unchecked"
-		lastknownrowcount="18"
-		name="listWithpathsFMs"
-		type="Ranorex.Core.Data.CsvDataConnector"
-		withheaders="True">
-			<lastknowncolumns>
-				<column>
-					PathToFMInPE
-				</column>
-				<column>
-					Label
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<file>
-				X:\script21\CSVs\namesOfFMs.csv
-			</file>
-		</DataSource>
-		<DataSource
 		id="863cf468-3ba4-48ec-aa47-87672a4f4a6d"
 		lastknownrowcount="1"
 		name="logMessageConnectorSectionB"
@@ -3727,56 +3932,6 @@
 			</table>
 		</DataSource>
 		<DataSource
-		id="831e4289-a337-434c-9753-aa59d1c77819"
-		lastknownrowcount="1"
-		name="outputRelevanceFMCView"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					filename
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						filename
-					</th>
-				</tr>
-				<tr>
-					<td>
-						relevanceModifiedInFMCView.risk
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="eb2fbef4-7d9e-4df6-b9be-4a6732b02d86"
-		lastknownrowcount="1"
-		name="outputRelevancePE"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					filename
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						filename
-					</th>
-				</tr>
-				<tr>
-					<td>
-						relevanceModifiedInPE.risk
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
 		id="6d5c2af6-f42a-44d0-85b4-0f43d5b8c339"
 		lastknownrowcount="1"
 		name="outputSimpleAssessment"
@@ -3800,60 +3955,6 @@
 					</td>
 				</tr>
 			</table>
-		</DataSource>
-		<DataSource
-		id="9df3cf25-f308-49ae-bd27-f976cf66fd09"
-		includefile="Unchecked"
-		lastknownrowcount="11"
-		name="relevance44_2FailureMechanismContributionView"
-		type="Ranorex.Core.Data.CsvDataConnector"
-		withheaders="True">
-			<lastknowncolumns>
-				<column>
-					TextInTraject
-				</column>
-				<column>
-					Label
-				</column>
-				<column>
-					NameFM
-				</column>
-				<column>
-					IsRelevant
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<file>
-				X:\script21\CSVs\relevanceOfFMsInTraject44_2FMCView.csv
-			</file>
-		</DataSource>
-		<DataSource
-		id="1b1df013-4a4b-4a2a-a392-87368b82bae9"
-		includefile="Unchecked"
-		lastknownrowcount="18"
-		name="relevance44_2ProjectExplorer"
-		type="Ranorex.Core.Data.CsvDataConnector"
-		withheaders="True">
-			<lastknowncolumns>
-				<column>
-					TextInTraject
-				</column>
-				<column>
-					Label
-				</column>
-				<column>
-					NameFM
-				</column>
-				<column>
-					IsRelevant
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<file>
-				X:\script21\CSVs\relevanceOfFMsInTraject44_2PE.csv
-			</file>
 		</DataSource>
 		<DataSource
 		id="ed1b4a26-351d-4622-a0f0-3104d088878d"
@@ -5312,6 +5413,30 @@
 			</table>
 		</DataSource>
 		<DataSource
+		id="24af1f45-008d-4bb7-a60c-90f42ab75efc"
+		includefile="Unchecked"
+		lastknownrowcount="18"
+		name="script21_ListWithpathsFMs"
+		type="Ranorex.Core.Data.CsvDataConnector"
+		withheaders="True">
+			<lastknowncolumns>
+				<column>
+					PathToFMInPE
+				</column>
+				<column>
+					Label
+				</column>
+				<column>
+					indexFM
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<file>
+				X:\script21\CSVs\namesOfFMs.csv
+			</file>
+		</DataSource>
+		<DataSource
 		id="01685578-4eab-41ba-96c8-c7e71965eb73"
 		lastknownrowcount="3"
 		name="script21b_FMsGroup5NoDetailedAssessment"
@@ -5362,33 +5487,6 @@
 			</table>
 		</DataSource>
 		<DataSource
-		id="a54ae645-4aaf-4171-8a2d-53ef4c71eb12"
-		includefile="Unchecked"
-		lastknownrowcount="11"
-		name="setRelevance44_2FailureMechanismContributionView"
-		type="Ranorex.Core.Data.CsvDataConnector"
-		withheaders="True">
-			<lastknowncolumns>
-				<column>
-					TextInTraject
-				</column>
-				<column>
-					Label
-				</column>
-				<column>
-					NameFM
-				</column>
-				<column>
-					IsRelevant
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<file>
-				X:\script21\CSVs\setRelevanceOfFMsInTraject44-2FMCView.csv
-			</file>
-		</DataSource>
-		<DataSource
 		id="5a0e29a6-08a7-4feb-b858-4061ef1b16a2"
 		includefile="Unchecked"
 		lastknownrowcount="8"
@@ -5436,157 +5534,25 @@
 		<testconfiguration
 		name="TestRun">
 			<testcontainer
-			id="01047691-2a4f-44b4-b655-22a336348501">
-			</testcontainer>
-			<testcontainer
-			id="014cfc72-3e88-4ff9-97ea-133ba173cf16">
-			</testcontainer>
-			<testcontainer
-			id="03be0c1b-04d1-4df4-b4d2-f5f0091931ed">
-			</testcontainer>
-			<testcontainer
-			id="04b6aeeb-f49b-476c-a513-b66625b220e9">
-			</testcontainer>
-			<testcontainer
-			id="096fe8e5-b4c1-422e-acfe-68b5a5c6825d">
-			</testcontainer>
-			<testcontainer
-			id="0cecaf93-6b16-47d3-93fa-8f1bae82b9d3">
-			</testcontainer>
-			<testcontainer
-			id="0cf514ec-6daf-4557-9794-e240f6b61140">
-			</testcontainer>
-			<testcontainer
-			id="0f88ec30-f3a9-4e40-9245-39227a39fa14">
-			</testcontainer>
-			<testcontainer
 			id="10a12ad7-e7c7-4084-b51f-aa7bab2c05ed">
 			</testcontainer>
 			<testcontainer
 			id="11bba419-6618-4dac-9adf-f5176f3e62e3">
 			</testcontainer>
 			<testcontainer
-			id="1b5f7559-247f-469a-8907-66df02b36a30">
-			</testcontainer>
-			<testcontainer
-			id="1b6683b4-e3dc-4d69-bb01-b0e53bb907c4">
-			</testcontainer>
-			<testcontainer
-			id="1b9ab885-8d98-415e-800e-54f30ef0815d">
-			</testcontainer>
-			<testcontainer
-			id="1e3700ab-ad58-462a-bb54-cb716a0aafac">
-			</testcontainer>
-			<testcontainer
-			id="2305ea91-2458-4ccf-b93b-259f3517e1de">
-			</testcontainer>
-			<testcontainer
-			id="258f6bc3-5914-4c39-96bb-414f83ee21a5">
-			</testcontainer>
-			<testcontainer
-			id="25b05b88-7808-4101-bc0a-00e177cd3686">
-			</testcontainer>
-			<testcontainer
-			id="25c9a547-d46e-4860-8808-11b6ad1d95c7">
-			</testcontainer>
-			<testcontainer
-			id="2aa9e209-aa75-4201-9a51-7828756f0872">
-			</testcontainer>
-			<testcontainer
-			id="2b2eec3e-6722-4905-a0a5-d8022ba006c6">
-			</testcontainer>
-			<testcontainer
-			id="2db4ab7f-a923-479c-b556-39c699d0ba5b">
-			</testcontainer>
-			<testcontainer
-			id="2ddc20bb-5ae0-4a11-8abc-8027707a339f">
-			</testcontainer>
-			<testcontainer
-			id="2f9dbe46-cb2e-4ce4-b483-5163d01f4b26">
-			</testcontainer>
-			<testcontainer
-			id="35acb09f-ccb3-4157-be2e-0cfd8f3b3364">
-			</testcontainer>
-			<testcontainer
-			id="3af00d0d-6ec2-4275-a2ee-5b2cf59cb471">
+			id="28d2beb8-7fa5-4d93-b112-4cf7b8693df3">
 			</testcontainer>
 			<testcontainer
 			id="3af11496-51c6-4463-be31-b22f18c70480">
 			</testcontainer>
 			<testcontainer
-			id="3c482e82-79f7-4036-b7f8-4eabb15a1f48">
-			</testcontainer>
-			<testcontainer
-			id="3e8fcc39-4baa-4bed-8f82-986929508de3">
-			</testcontainer>
-			<testcontainer
 			id="3f10c7b7-a7d4-4e39-92d2-5debbcd53aa3">
-			</testcontainer>
-			<testcontainer
-			id="41d9f40c-1283-4191-9ae6-5abff9af7583">
-			</testcontainer>
-			<testcontainer
-			id="4323bb7b-2766-4ec8-a5d0-5f883f5592e1">
-			</testcontainer>
-			<testcontainer
-			id="465c9a09-d507-4d4b-a855-89332fffaeac">
-			</testcontainer>
-			<testcontainer
-			id="46b3a1b1-a88e-489e-81ba-8b9304eb0793">
-			</testcontainer>
-			<testcontainer
-			id="477c6e9c-a4d3-474e-9319-76f34cb97465">
-			</testcontainer>
-			<testcontainer
-			id="4f63b1e6-1495-4080-bcaf-2267b35ed855">
 			</testcontainer>
 			<testcontainer
 			id="51bff513-6ec0-4273-9ee3-8d912bb40499">
 			</testcontainer>
 			<testcontainer
-			id="53df54fa-07b6-4020-a10d-0306f9015176">
-			</testcontainer>
-			<testcontainer
-			id="5b9994a1-8658-40f5-bdc6-830d02d95876">
-			</testcontainer>
-			<testcontainer
 			id="62fe8830-30e1-4117-905d-95627cc4d7d9">
-			</testcontainer>
-			<testcontainer
-			id="6737e999-5f18-4233-badf-4c83174a53a7">
-			</testcontainer>
-			<testcontainer
-			id="6abc84a0-1069-47c6-8734-49b16b4e8f4c">
-			</testcontainer>
-			<testcontainer
-			id="75404545-06cd-4f14-b1d8-a5b4d5805e22">
-			</testcontainer>
-			<testcontainer
-			id="771ac43f-cc2b-41f1-86d8-9be1a44a6a6c">
-			</testcontainer>
-			<testcontainer
-			id="7910bcac-c4a8-4b0e-b361-389479a8eac8">
-			</testcontainer>
-			<testcontainer
-			id="80831e4a-2749-4bd9-a518-71a00749924a">
-			</testcontainer>
-			<testcontainer
-			id="8140ca1e-1690-47c1-975e-5294060c2d84">
-			</testcontainer>
-			<testcontainer
-			id="816d140f-2599-42c4-9676-2126e67f5704">
-			</testcontainer>
-			<testcontainer
-			id="87ac1fee-8d14-40e5-bb34-c48ad9fc95bd">
-			</testcontainer>
-			<testcontainer
-			id="963f16be-1c1e-42a2-9cce-9de17e10225b">
-			</testcontainer>
-			<testcontainer
-			id="983e7d2c-0755-49f7-84c6-98ce0f9a9a54">
-			</testcontainer>
-			<testcontainer
-			id="9a86e423-c1e1-40f0-bfb7-f461caadda22">
 			</testcontainer>
 			<testcontainer
 			id="9b47077f-cafa-4f61-9f5d-e89daf425f39">
@@ -5595,61 +5561,7 @@
 			id="a1aa47c9-fc57-4c1f-955c-c59afce07189">
 			</testcontainer>
 			<testcontainer
-			id="a2ec0a42-35f2-4f2e-b001-bb45ea35868b">
-			</testcontainer>
-			<testcontainer
-			id="a398610f-4b2e-4c4b-a9cb-3c0b237f5102">
-			</testcontainer>
-			<testcontainer
-			id="b08e7053-4bae-4648-9e95-2ecc72d9a68b">
-			</testcontainer>
-			<testcontainer
-			id="b0c7fb5e-a04b-4bf0-b763-2c5329816b83">
-			</testcontainer>
-			<testcontainer
-			id="b639dbf0-c83e-46e9-882d-2ad50d368b8b">
-			</testcontainer>
-			<testcontainer
-			id="b6683b05-219c-4484-a529-d1e24a208c07">
-			</testcontainer>
-			<testcontainer
-			id="b7eeb723-848b-40cb-a2d4-ce7ed9876f7c">
-			</testcontainer>
-			<testcontainer
-			id="b9ccdb03-6ba6-4335-a714-d369e492d495">
-			</testcontainer>
-			<testcontainer
 			id="bb6da5c2-b29c-40e1-881a-44b288ed2c76">
-			</testcontainer>
-			<testcontainer
-			id="bbf6cf98-64ef-491b-a563-b564ecf57ce7">
-			</testcontainer>
-			<testcontainer
-			id="bd62b899-36da-4a4f-9064-6d0c8e8699d5">
-			</testcontainer>
-			<testcontainer
-			id="c17db341-04a7-432c-bbe8-f24654fe7ba8">
-			</testcontainer>
-			<testcontainer
-			id="c1ad3814-1a38-4b57-b2e4-2dd05717a2f5">
-			</testcontainer>
-			<testcontainer
-			id="c248c596-d769-4e48-a7f3-5dfb82b6b538">
-			</testcontainer>
-			<testcontainer
-			id="c5dad796-1e2e-4ade-8840-d79abde19c45">
-			</testcontainer>
-			<testcontainer
-			id="ce891dec-48dd-4010-b6ea-37a106495576">
-			</testcontainer>
-			<testcontainer
-			id="d2604fc5-0a74-4cc8-821c-3165f9a5160a">
-			</testcontainer>
-			<testcontainer
-			id="d5930397-d1c8-4f86-9fab-7b80292af52d">
-			</testcontainer>
-			<testcontainer
-			id="d62cc6ee-766e-46e6-b38a-5871ee657203">
 			</testcontainer>
 			<testcontainer
 			id="d7027968-917f-4a9f-9c28-09f6c34d75bf">
@@ -5658,31 +5570,13 @@
 			id="d9584df8-ec80-44b5-80d0-73386e1f16f3">
 			</testcontainer>
 			<testcontainer
-			id="deb295e8-d4e9-49d1-86d7-899900647dbe">
-			</testcontainer>
-			<testcontainer
-			id="df06c0ed-c290-4935-8a10-0e053c3c2cec">
-			</testcontainer>
-			<testcontainer
-			id="e0ce49c0-48d4-4cc6-9f3f-05aa3c2a276c">
-			</testcontainer>
-			<testcontainer
-			id="e2720dcf-382f-4e85-958e-c2f954a977a9">
+			id="dd5c8f77-e81c-4412-863e-4c749dc2794d">
 			</testcontainer>
 			<testcontainer
 			id="e41615d8-9405-4ee7-b151-efc8ad4df265">
 			</testcontainer>
 			<testcontainer
 			id="e73accf9-7ba2-423c-a256-1fea8f69131e">
-			</testcontainer>
-			<testcontainer
-			id="f325ca7f-a73e-4e32-9a2e-3f2963a748e7">
-			</testcontainer>
-			<testcontainer
-			id="f7b10a4e-9305-49f1-b0ae-8f74e4c5bdb1">
-			</testcontainer>
-			<testcontainer
-			id="ffef9202-c4c2-4bbf-8c26-6ff5934514dc">
 			</testcontainer>
 		</testconfiguration>
 	</testconfigurations>

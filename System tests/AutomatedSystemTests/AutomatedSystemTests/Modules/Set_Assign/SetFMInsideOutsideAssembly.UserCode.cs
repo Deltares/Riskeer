@@ -20,9 +20,9 @@ using Ranorex.Core;
 using Ranorex.Core.Repository;
 using Ranorex.Core.Testing;
 
-namespace AutomatedSystemTests.Modules.Selection
+namespace AutomatedSystemTests.Modules.Set_Assign
 {
-    public partial class SelectRootProject
+    public partial class SetFMInsideOutsideAssembly
     {
         /// <summary>
         /// This method gets called right after the recording has been started.
@@ -33,5 +33,22 @@ namespace AutomatedSystemTests.Modules.Selection
             // Your recording specific initialization code goes here.
         }
 
+        public void SetFMInOutAssembly(RepoItemInfo treeitemInfo, string fmShouldBeInAssembly)
+        {
+            var fmObjectAdapter = treeitemInfo.CreateAdapter<TreeItem>(true);
+            string fmIsCurrentlyInAssembly = fmObjectAdapter.Children.Count==1?"False":"True";
+            Report.Info("FM is currently in assembly: " + fmIsCurrentlyInAssembly);
+            Report.Info("FM should be in assembly: " + fmShouldBeInAssembly);
+            if (fmIsCurrentlyInAssembly==fmShouldBeInAssembly) {
+                Report.Info("No action required");
+            } else 
+            {
+                Report.Info("FM being in assembly must be changed");
+                fmObjectAdapter.Focus();
+                fmObjectAdapter.Click(System.Windows.Forms.MouseButtons.Right);
+                repo.ContextMenu.InAssembly.Click();
+            }
+            
+        }
     }
 }

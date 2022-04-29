@@ -497,15 +497,6 @@ Ci8EIxlN9/ueuduvvCRUSA/y/BpXl5+Ui+rMfnRmeyL0hblJeL6KhKphqPIwCHnKcUMch8GfPoy/
 						<item
 						addcaps="row,accessible"
 						capname="row"
-						id="a71a9303-6a79-4eab-86c6-b77f1a561c93"
-						name="IsRelevant"
-						refimgid="b10e19f9-7815-4f72-bde5-ded05eaaa1a8"
-						searchtimeout="30000ms">
-							/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@controltypename='WinFormsAdapter']/container[@controlname='PropertiesPanelGridView']//table/row[@accessiblename='Is relevant']
-						</item>
-						<item
-						addcaps="row,accessible"
-						capname="row"
 						id="fa26997c-4865-408a-9bd8-120810ae0e7a"
 						name="GenericParameterVisibleInPropertiesPanel"
 						refimgid="b10e19f9-7815-4f72-bde5-ded05eaaa1a8"
@@ -2187,7 +2178,7 @@ FjcAAAAASUVORK5CYII=
 			addcaps="menuitem,accessible"
 			capname="menuitem"
 			id="561b2d91-62ad-4174-97e3-b9f7420df49a"
-			name="InAssemblage"
+			name="InAssembly"
 			refimgid="6c6af78e-afc4-4f5f-af81-b20852597810"
 			searchtimeout="30000ms">
 				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='In assemblage']

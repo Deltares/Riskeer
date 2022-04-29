@@ -20,70 +20,50 @@ using Ranorex.Core;
 using Ranorex.Core.Testing;
 using Ranorex.Core.Repository;
 
-namespace AutomatedSystemTests.Modules.Validation.ProjectExplorer
+namespace AutomatedSystemTests.Modules.Set_Assign
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The ValidateSurfaceLineInProjectExplorer recording.
+    ///The SetFMInsideOutsideAssembly recording.
     /// </summary>
-    [TestModule("2e0e4b2f-fccc-42ef-a61e-1a1da4acd8e3", ModuleType.Recording, 1)]
-    public partial class ValidateSurfaceLineInProjectExplorer : ITestModule
+    [TestModule("37154a5a-bed5-4655-91a2-0c5ebc672e77", ModuleType.Recording, 1)]
+    public partial class SetFMInsideOutsideAssembly : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static ValidateSurfaceLineInProjectExplorer instance = new ValidateSurfaceLineInProjectExplorer();
+        static SetFMInsideOutsideAssembly instance = new SetFMInsideOutsideAssembly();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public ValidateSurfaceLineInProjectExplorer()
+        public SetFMInsideOutsideAssembly()
         {
-            expectedSurfaceLineName = "";
+            fmShouldBeInAssembly = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static ValidateSurfaceLineInProjectExplorer Instance
+        public static SetFMInsideOutsideAssembly Instance
         {
             get { return instance; }
         }
 
 #region Variables
 
-        string _expectedSurfaceLineName;
+        string _fmShouldBeInAssembly;
 
         /// <summary>
-        /// Gets or sets the value of variable expectedSurfaceLineName.
+        /// Gets or sets the value of variable fmShouldBeInAssembly.
         /// </summary>
-        [TestVariable("26fbca10-aacc-45e7-b769-190d617a619f")]
-        public string expectedSurfaceLineName
+        [TestVariable("47e7d98d-4769-4554-b1bb-fafa502b0d24")]
+        public string fmShouldBeInAssembly
         {
-            get { return _expectedSurfaceLineName; }
-            set { _expectedSurfaceLineName = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the value of variable substringFMName.
-        /// </summary>
-        [TestVariable("3a7276c1-fca1-4026-9d2e-5bac10651a47")]
-        public string substringFMName
-        {
-            get { return repo.substringFMName; }
-            set { repo.substringFMName = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the value of variable index.
-        /// </summary>
-        [TestVariable("2d0c885b-83ae-40f3-9125-d312ae463f11")]
-        public string index
-        {
-            get { return repo.index; }
-            set { repo.index = value; }
+            get { return _fmShouldBeInAssembly; }
+            set { _fmShouldBeInAssembly = value; }
         }
 
 #endregion
@@ -112,10 +92,7 @@ namespace AutomatedSystemTests.Modules.Validation.ProjectExplorer
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (Text=$expectedSurfaceLineName) on item 'RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.GenericFMItemWithSubstringInName.InputFM.SurfaceLinesCollectionNode.surfaceLine'.", repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.GenericFMItemWithSubstringInName.InputFM.SurfaceLinesCollectionNode.surfaceLineInfo, new RecordItemIndex(0));
-            Validate.AttributeEqual(repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.GenericFMItemWithSubstringInName.InputFM.SurfaceLinesCollectionNode.surfaceLineInfo, "Text", expectedSurfaceLineName);
-            
-            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.GenericFMItemWithSubstringInName.InputFM.SurfaceLinesCollectionNode.surfaceLine, false, new RecordItemIndex(1));
+            SetFMInOutAssembly(repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.CurrentFocusInPEInfo, fmShouldBeInAssembly);
             
         }
 

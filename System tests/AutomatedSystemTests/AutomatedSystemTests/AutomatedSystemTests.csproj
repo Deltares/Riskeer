@@ -726,6 +726,9 @@
     <Compile Include="Modules\Calculation\CalculateFullPathToSeparateCalculation.cs">
       <id>644c39a2-3304-44b2-b5c9-bc754f49c61d</id>
     </Compile>
+    <Compile Include="Modules\Calculation\CalculateIfFMInAssembly.cs">
+      <id>99cab9cf-1c01-4c16-bdf4-5fdb0f2b458c</id>
+    </Compile>
     <Compile Include="Modules\Calculation\CalculateIfProjectMustBeOpened.cs">
       <id>84f5a953-0273-4457-9412-83e9501458de</id>
     </Compile>
@@ -767,6 +770,9 @@
     </Compile>
     <Compile Include="Modules\Calculation\EvaluateIfSubstringIsPartOfString.cs">
       <id>b9b36ed5-9078-4036-a3cb-d2ec92c34573</id>
+    </Compile>
+    <Compile Include="Modules\Calculation\GenerateRandomDistributionFMsInAssembly.cs">
+      <id>c4a8accd-abf5-4590-b504-f4d3a94b8eb2</id>
     </Compile>
     <Compile Include="Modules\Calculation\GenerateRandomIndexInRangeOfSmartFolder.cs">
       <id>2947d802-669d-4fe7-b29a-5e6dc63f0123</id>
@@ -956,18 +962,6 @@
       <DependentUpon>EmptySelectedFolder.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>a6501606-bb8a-4073-ac8b-32b3a0a327c2</id>
-    </Compile>
-    <Compile Include="Modules\ActionsContextMenu\ExpandAllSubNodesCalculations.cs">
-      <DependentUpon>ExpandAllSubNodesCalculations.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>e5a16cb5-0ebe-4cba-9b69-51b63088fad0</id>
-      <BoundTo>59490521-b0d6-4832-b342-9035761334e8</BoundTo>
-    </Compile>
-    <Compile Include="Modules\ActionsContextMenu\ExpandAllSubNodesCalculations.UserCode.cs">
-      <DependentUpon>ExpandAllSubNodesCalculations.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>8ae21ef3-342a-4c9c-a7ac-809ad8717eba</id>
-      <BoundTo>59490521-b0d6-4832-b342-9035761334e8</BoundTo>
     </Compile>
     <Compile Include="Modules\ActionsContextMenu\GenerateOneCalculation.cs">
       <DependentUpon>GenerateOneCalculation.rxrec</DependentUpon>
@@ -1203,18 +1197,6 @@
       <UserCode>true</UserCode>
       <id>105d5b0a-b4a9-40e5-a438-ca855892a079</id>
     </Compile>
-    <Compile Include="Modules\OpenViews\OpenChartCalculation.cs">
-      <DependentUpon>OpenChartCalculation.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>3f92ba8a-c125-4782-aa63-c6d9aeac3459</id>
-      <BoundTo>4b8d1691-69c4-4e3d-a814-9ceb4db6505b</BoundTo>
-    </Compile>
-    <Compile Include="Modules\OpenViews\OpenChartCalculation.UserCode.cs">
-      <DependentUpon>OpenChartCalculation.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>9fb44715-bbad-438c-82d6-0632f9784731</id>
-      <BoundTo>4b8d1691-69c4-4e3d-a814-9ceb4db6505b</BoundTo>
-    </Compile>
     <Compile Include="Modules\OpenViews\OpenResultView.cs">
       <DependentUpon>OpenResultView.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -1250,18 +1232,6 @@
       <UserCode>true</UserCode>
       <id>1d2c3767-8d32-4e1a-80b7-11f08b53e320</id>
       <BoundTo>eeb7ef51-8e00-4dba-a124-aae38b08ccdc</BoundTo>
-    </Compile>
-    <Compile Include="Modules\OpenViews\OpenViewForGenericFM.cs">
-      <DependentUpon>OpenViewForGenericFM.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>b40da7e8-2351-4979-96c6-d787a97662f6</id>
-      <BoundTo>cd7df858-0e65-4fa4-b41f-594ad71f9cec</BoundTo>
-    </Compile>
-    <Compile Include="Modules\OpenViews\OpenViewForGenericFM.UserCode.cs">
-      <DependentUpon>OpenViewForGenericFM.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>83c1d0c2-3e84-4874-9d4d-515e0dca156e</id>
-      <BoundTo>cd7df858-0e65-4fa4-b41f-594ad71f9cec</BoundTo>
     </Compile>
     <Compile Include="Modules\OpenViews\RotateMouseWheel.cs">
       <BoundTo>1e4239d5-8bbc-4343-8595-2c63a9fa3a1e</BoundTo>
@@ -1635,18 +1605,6 @@
       <UserCode>true</UserCode>
       <id>848deeb7-38df-45f9-ba57-519bb7b6ad90</id>
     </Compile>
-    <Compile Include="Modules\Selection\SelectRootProject.cs">
-      <DependentUpon>SelectRootProject.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>8af970ad-cdd3-4501-a7b2-5016ad800f81</id>
-      <BoundTo>ad460e15-fe6e-4eb6-b91f-3972cb4e46a0</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Selection\SelectRootProject.UserCode.cs">
-      <DependentUpon>SelectRootProject.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>85cc061a-9c94-49d1-ab69-2c9a5acfe973</id>
-      <BoundTo>ad460e15-fe6e-4eb6-b91f-3972cb4e46a0</BoundTo>
-    </Compile>
     <Compile Include="Modules\Selection\SelectRowCalculation.cs">
       <DependentUpon>SelectRowCalculation.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -1827,14 +1785,14 @@
       <id>32d469cc-9c2d-4744-b013-128fb741c424</id>
       <BoundTo>fa8863c1-c307-4363-98e1-572ecfc0c2c6</BoundTo>
     </Compile>
-    <Compile Include="Modules\Set_Assign\SetRelevanceFMInProjectExplorer.cs">
-      <DependentUpon>SetRelevanceFMInProjectExplorer.rxrec</DependentUpon>
+    <Compile Include="Modules\Set_Assign\SetFMInsideOutsideAssembly.cs">
+      <DependentUpon>SetFMInsideOutsideAssembly.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
       <id>f1b0a79a-82a4-4e37-a221-4bd28ed82a52</id>
       <BoundTo>a3cb26e3-a1be-4cb7-b372-a09785de9a9b</BoundTo>
     </Compile>
-    <Compile Include="Modules\Set_Assign\SetRelevanceFMInProjectExplorer.UserCode.cs">
-      <DependentUpon>SetRelevanceFMInProjectExplorer.rxrec</DependentUpon>
+    <Compile Include="Modules\Set_Assign\SetFMInsideOutsideAssembly.UserCode.cs">
+      <DependentUpon>SetFMInsideOutsideAssembly.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>162de3c0-1993-49bf-9c31-01fef0b63137</id>
       <BoundTo>a3cb26e3-a1be-4cb7-b372-a09785de9a9b</BoundTo>
@@ -2109,29 +2067,11 @@
       <id>5f51acdc-e7c7-4abc-80e1-04fb705450ea</id>
       <BoundTo>a1476601-a356-4d9f-b0f2-de9145f718c9</BoundTo>
     </Compile>
-    <Compile Include="Modules\Validation\ProjectExplorer\ValidateContributionOfFMInProjectExplorer.cs">
-      <DependentUpon>ValidateContributionOfFMInProjectExplorer.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>386815e4-11dc-4888-82aa-036696ac9b88</id>
-      <BoundTo>14aa4a80-c6e3-42d0-9b25-687fb71f8f07</BoundTo>
+    <Compile Include="Modules\Validation\ProjectExplorer\ValidateFMAssemblyWithContextMenuInProjectExplorer.cs">
+      <id>15f66438-c19f-4bf7-b19e-de8e197437cd</id>
     </Compile>
-    <Compile Include="Modules\Validation\ProjectExplorer\ValidateContributionOfFmInProjectExplorer.UserCode.cs">
-      <DependentUpon>ValidateContributionOfFMInProjectExplorer.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>fb5d00c1-5668-4586-bc20-b5e8ecea1900</id>
-      <BoundTo>14aa4a80-c6e3-42d0-9b25-687fb71f8f07</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\ProjectExplorer\ValidateRelevanceFMInProjectExplorer.cs">
-      <DependentUpon>ValidateRelevanceFMInProjectExplorer.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>88928187-2a77-44b0-ba23-03ae89fed2b6</id>
-      <BoundTo>c2560085-5938-4406-b8ac-bee496ba5b6e</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\ProjectExplorer\ValidateRelevanceFMInProjectExplorer.UserCode.cs">
-      <DependentUpon>ValidateRelevanceFMInProjectExplorer.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>785b2472-6814-4de4-b013-0eefaac8add5</id>
-      <BoundTo>c2560085-5938-4406-b8ac-bee496ba5b6e</BoundTo>
+    <Compile Include="Modules\Validation\ProjectExplorer\ValidateFMAssemblyWithSubnodesInProjectExplorer.cs">
+      <id>bab83175-771c-4d18-aa1d-b315f3132d4b</id>
     </Compile>
     <Compile Include="Modules\Validation\ProjectExplorer\ValidateSubsurfaceSchematizationInProjectExplorer.cs">
       <DependentUpon>ValidateSubsurfaceSchematizationInProjectExplorer.rxrec</DependentUpon>
@@ -2144,18 +2084,6 @@
       <UserCode>true</UserCode>
       <id>89a75722-a4cb-43dd-8134-1bd753fcead7</id>
       <BoundTo>765678f8-5ac0-425e-af7f-9586f16ef48a</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\ProjectExplorer\ValidateSurfaceLineInProjectExplorer.cs">
-      <DependentUpon>ValidateSurfaceLineInProjectExplorer.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>fb2bf564-3569-4fad-af28-9d679d15b088</id>
-      <BoundTo>4b53e680-197b-47b4-82d7-5157b394bfcb</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\ProjectExplorer\ValidateSurfaceLineInProjectExplorer.UserCode.cs">
-      <DependentUpon>ValidateSurfaceLineInProjectExplorer.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>27d2d9ae-7798-4f2f-ac73-31e08f03ece9</id>
-      <BoundTo>4b53e680-197b-47b4-82d7-5157b394bfcb</BoundTo>
     </Compile>
     <Compile Include="Modules\Validation\ProjectExplorer\ValidateWhetherFolderGivenPathContainsNode.cs">
       <id>89cc3807-c64e-4752-aaf6-996a110e3a06</id>
@@ -2883,11 +2811,6 @@
       <id>7389de91-22c0-4018-bba0-2d8c8c1ec357</id>
       <recordtableid>f942f297-31be-4e47-a62e-d6cf657dcbdf</recordtableid>
     </None>
-    <None Include="Modules\ActionsContextMenu\ExpandAllSubNodesCalculations.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>59490521-b0d6-4832-b342-9035761334e8</id>
-      <recordtableid>a2bd227a-e006-4e77-9c0d-21fc549d097c</recordtableid>
-    </None>
     <None Include="Modules\ActionsContextMenu\GenerateOneCalculation.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>eae62d5d-fd0c-420e-bd9b-fcee4398bbff</id>
@@ -2973,11 +2896,6 @@
       <id>132fbd7d-950e-46ff-82d8-1c88ec7aba2b</id>
       <recordtableid>080c578e-b4cb-4bb4-945d-26465067449d</recordtableid>
     </None>
-    <None Include="Modules\OpenViews\OpenChartCalculation.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>4b8d1691-69c4-4e3d-a814-9ceb4db6505b</id>
-      <recordtableid>2161f947-3dda-4270-9a96-0d33afc50b6c</recordtableid>
-    </None>
     <None Include="Modules\OpenViews\OpenResultView.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>918d5c65-6117-4065-be77-b86f0dc97b3f</id>
@@ -2992,11 +2910,6 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>eeb7ef51-8e00-4dba-a124-aae38b08ccdc</id>
       <recordtableid>6295dc9c-a237-4ff3-b0ac-355382aaa3df</recordtableid>
-    </None>
-    <None Include="Modules\OpenViews\OpenViewForGenericFM.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>cd7df858-0e65-4fa4-b41f-594ad71f9cec</id>
-      <recordtableid>d37f64f8-25dc-4a23-8dbd-257a13f39617</recordtableid>
     </None>
     <None Include="Modules\OpenViews\RotateMouseWheel.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -3153,11 +3066,6 @@
       <id>f00c07a7-1332-49f0-bc26-77f534093d31</id>
       <recordtableid>feb22e37-85f1-4e45-95cc-1cebb52e7292</recordtableid>
     </None>
-    <None Include="Modules\Selection\SelectRootProject.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>ad460e15-fe6e-4eb6-b91f-3972cb4e46a0</id>
-      <recordtableid>4fdf4df4-40fe-44f6-af0a-be1b3051be26</recordtableid>
-    </None>
     <None Include="Modules\Selection\SelectRowCalculation.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>afcbcacc-5b0b-4d59-884d-84d57b286c4c</id>
@@ -3228,7 +3136,7 @@
       <id>fa8863c1-c307-4363-98e1-572ecfc0c2c6</id>
       <recordtableid>3a6da0ca-5c45-4932-a886-7c30d0e62630</recordtableid>
     </None>
-    <None Include="Modules\Set_Assign\SetRelevanceFMInProjectExplorer.rxrec">
+    <None Include="Modules\Set_Assign\SetFMInsideOutsideAssembly.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>a3cb26e3-a1be-4cb7-b372-a09785de9a9b</id>
       <recordtableid>37154a5a-bed5-4655-91a2-0c5ebc672e77</recordtableid>
@@ -3333,25 +3241,10 @@
       <id>a1476601-a356-4d9f-b0f2-de9145f718c9</id>
       <recordtableid>c86bbec9-6a02-4170-b9b9-ba60dd06156f</recordtableid>
     </None>
-    <None Include="Modules\Validation\ProjectExplorer\ValidateContributionOfFMInProjectExplorer.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>14aa4a80-c6e3-42d0-9b25-687fb71f8f07</id>
-      <recordtableid>502bc375-64a0-4290-aa3d-5d8fa8819d35</recordtableid>
-    </None>
-    <None Include="Modules\Validation\ProjectExplorer\ValidateRelevanceFMInProjectExplorer.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>c2560085-5938-4406-b8ac-bee496ba5b6e</id>
-      <recordtableid>f42a383d-8a05-4e55-bddb-48e5a69b14e6</recordtableid>
-    </None>
     <None Include="Modules\Validation\ProjectExplorer\ValidateSubsurfaceSchematizationInProjectExplorer.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>765678f8-5ac0-425e-af7f-9586f16ef48a</id>
       <recordtableid>7b0aa06d-511c-46a3-a9a6-082f4011e57c</recordtableid>
-    </None>
-    <None Include="Modules\Validation\ProjectExplorer\ValidateSurfaceLineInProjectExplorer.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>4b53e680-197b-47b4-82d7-5157b394bfcb</id>
-      <recordtableid>2e0e4b2f-fccc-42ef-a61e-1a1da4acd8e3</recordtableid>
     </None>
     <None Include="Modules\Validation\PropertiesPanel\ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>

@@ -2648,7 +2648,6 @@ namespace AutomatedSystemTests
         [RepositoryFolder("50f9e3b1-cf09-4ca3-8d3c-7edd64e7251e")]
         public partial class TableFolder : RepoGenBaseFolder
         {
-            RepoItemInfo _isrelevantInfo;
             RepoItemInfo _genericparametervisibleinpropertiespanelInfo;
             RepoItemInfo _sourcepathInfo;
             RepoItemInfo _nameInfo;
@@ -2663,7 +2662,6 @@ namespace AutomatedSystemTests
             public TableFolder(RepoGenBaseFolder parentFolder) :
                     base("Table", ".//table", parentFolder, 30000, null, true, "50f9e3b1-cf09-4ca3-8d3c-7edd64e7251e", "")
             {
-                _isrelevantInfo = new RepoItemInfo(this, "IsRelevant", "row[@accessiblename='Is relevant']", 30000, null, "a71a9303-6a79-4eab-86c6-b77f1a561c93");
                 _genericparametervisibleinpropertiespanelInfo = new RepoItemInfo(this, "GenericParameterVisibleInPropertiesPanel", "row[@accessiblename>$nameOfParameterInPropertiesPanel]", 30000, null, "fa26997c-4865-408a-9bd8-120810ae0e7a");
                 _sourcepathInfo = new RepoItemInfo(this, "SourcePath", "row[@accessiblename='Bronlocatie']", 30000, null, "aa50f2b7-9af1-4ae4-b50a-b071b2de54d6");
                 _nameInfo = new RepoItemInfo(this, "Name", "row[@accessiblename='Naam']", 30000, null, "98c1c28a-f4dc-42c8-9ead-d777288121c5");
@@ -2694,30 +2692,6 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _selfInfo;
-                }
-            }
-
-            /// <summary>
-            /// The IsRelevant item.
-            /// </summary>
-            [RepositoryItem("a71a9303-6a79-4eab-86c6-b77f1a561c93")]
-            public virtual Ranorex.Row IsRelevant
-            {
-                get
-                {
-                    return _isrelevantInfo.CreateAdapter<Ranorex.Row>(true);
-                }
-            }
-
-            /// <summary>
-            /// The IsRelevant item info.
-            /// </summary>
-            [RepositoryItemInfo("a71a9303-6a79-4eab-86c6-b77f1a561c93")]
-            public virtual RepoItemInfo IsRelevantInfo
-            {
-                get
-                {
-                    return _isrelevantInfo;
                 }
             }
 
@@ -7881,7 +7855,7 @@ namespace AutomatedSystemTests
             RepoItemInfo _genereercalculationandscenariosInfo;
             RepoItemInfo _genericitemincontextmenuInfo;
             RepoItemInfo _importerenInfo;
-            RepoItemInfo _inassemblageInfo;
+            RepoItemInfo _inassemblyInfo;
             RepoItemInfo _koppelaandatabaseInfo;
             RepoItemInfo _maptoevoegenInfo;
             RepoItemInfo _mapleegmakenInfo;
@@ -7921,7 +7895,7 @@ namespace AutomatedSystemTests
                 _genereercalculationandscenariosInfo = new RepoItemInfo(this, "GenereerCalculationAndScenarios", "menuitem[@accessiblename>'Genereer']", 30000, null, "17056c41-6629-4a0e-8ab2-93470db9fa27");
                 _genericitemincontextmenuInfo = new RepoItemInfo(this, "GenericItemInContextMenu", "menuitem[@accessiblename>$nameOfItem]", 30000, null, "39eb92d8-2056-4218-88eb-8b21c0ab477e");
                 _importerenInfo = new RepoItemInfo(this, "Importeren", "menuitem[@accessiblename='Importeren...']", 30000, null, "34965857-9328-4216-9d99-86afbd395e38");
-                _inassemblageInfo = new RepoItemInfo(this, "InAssemblage", "menuitem[@accessiblename='In assemblage']", 30000, null, "561b2d91-62ad-4174-97e3-b9f7420df49a");
+                _inassemblyInfo = new RepoItemInfo(this, "InAssembly", "menuitem[@accessiblename='In assemblage']", 30000, null, "561b2d91-62ad-4174-97e3-b9f7420df49a");
                 _koppelaandatabaseInfo = new RepoItemInfo(this, "KoppelAanDatabase", "menuitem[@accessiblename='Koppel aan database...']", 30000, null, "b67d9db7-c97a-44ee-9cc6-3cac1b3aa092");
                 _maptoevoegenInfo = new RepoItemInfo(this, "MapToevoegen", "menuitem[@accessiblename='Map toevoegen']", 30000, null, "bb08d163-934b-43d2-b55e-ba2f9cd39c14");
                 _mapleegmakenInfo = new RepoItemInfo(this, "MapLeegmaken", "menuitem[@accessiblename='Map leegmaken...']", 30000, null, "ca583eef-300b-420e-8edd-95c3ffd4cb61");
@@ -8326,26 +8300,26 @@ namespace AutomatedSystemTests
             }
 
             /// <summary>
-            /// The InAssemblage item.
+            /// The InAssembly item.
             /// </summary>
             [RepositoryItem("561b2d91-62ad-4174-97e3-b9f7420df49a")]
-            public virtual Ranorex.MenuItem InAssemblage
+            public virtual Ranorex.MenuItem InAssembly
             {
                 get
                 {
-                    return _inassemblageInfo.CreateAdapter<Ranorex.MenuItem>(true);
+                    return _inassemblyInfo.CreateAdapter<Ranorex.MenuItem>(true);
                 }
             }
 
             /// <summary>
-            /// The InAssemblage item info.
+            /// The InAssembly item info.
             /// </summary>
             [RepositoryItemInfo("561b2d91-62ad-4174-97e3-b9f7420df49a")]
-            public virtual RepoItemInfo InAssemblageInfo
+            public virtual RepoItemInfo InAssemblyInfo
             {
                 get
                 {
-                    return _inassemblageInfo;
+                    return _inassemblyInfo;
                 }
             }
 

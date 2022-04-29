@@ -19,33 +19,21 @@ mode="Global">
 		True
 	</useDefaultItemLogging>
 	<codegen
-	classname="SetRelevanceFMInProjectExplorer"
+	classname="SetFMInsideOutsideAssembly"
 	namespace="AutomatedSystemTests.Modules.Set_Assign">
 	</codegen>
 	<variables>
 		<var
-		id="6f91cdce-7f0c-42ee-93e0-4a3735497a16"
-		name="fmShouldBeRelevant">
+		id="47e7d98d-4769-4554-b1bb-fafa502b0d24"
+		name="fmShouldBeInAssembly">
 		</var>
 	</variables>
 	<recorditems>
-		<loggingrecorditem
-		category="User"
-		enabled="True"
-		message="$substringName"
-		optional="False"
-		reportlevel="Info;20"
-		searchpropertyid="7f05d9b4-e46e-440d-a47e-cd1a63f18c5e">
-			<comment>
-			</comment>
-			<bindings>
-			</bindings>
-		</loggingrecorditem>
 		<userrecorditem
-		classname="SetRelevanceFMInProjectExplorer"
+		classname="SetFMInsideOutsideAssembly"
 		enabled="True"
 		isexternaltestmethod="False"
-		methodname="SetRelevanceFM"
+		methodname="SetFMInOutAssembly"
 		namespace="AutomatedSystemTests.Modules.Set_Assign"
 		optional="False">
 			<comment>
@@ -63,17 +51,17 @@ mode="Global">
 					<argvalue>
 					</argvalue>
 					<info
-					id="3bb01c51-3d9c-4c3f-adc4-408396425ed8"
+					id="fb1c8db8-131a-43d1-b4f3-bc523782f12f"
 					sourcename="RepositoryEditor">
 						<path>
-							/form[@automationid='RiskeerMainWindow']/*/*/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]//treeitem[@accessiblename~$substringTrajectName]
+							/form[@automationid='RiskeerMainWindow']/*/*/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]//treeitem[@hasfocus='true']
 						</path>
 					</info>
 				</argument>
 				<argument
-				argname="fmShouldBeRelevant"
+				argname="fmShouldBeInAssembly"
 				id="7c17eb1c-71b2-44aa-a193-7f970d14a11a"
-				variable="fmShouldBeRelevant">
+				variable="fmShouldBeInAssembly">
 					<argvaluetype>
 						System.String
 					</argvaluetype>
@@ -99,7 +87,7 @@ mode="Global">
 	</repository>
 	<usercodefile
 	lang="CSharp">
-		SetRelevanceFMInProjectExplorer.UserCode.cs
+		SetFMInsideOutsideAssembly.UserCode.cs
 	</usercodefile>
 	<references>
 	</references>
