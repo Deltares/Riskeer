@@ -136,8 +136,8 @@
     <Content Include="Examples\Voorbeeld Traject 41-1 - Macrostabiliteit binnenwaarts\Disclaimer.txt" />
     <Content Include="Examples\Voorbeeld Traject 41-1 - Macrostabiliteit binnenwaarts\hlcd.sqlite" />
     <Content Include="Examples\Voorbeeld Traject 41-1 - Macrostabiliteit binnenwaarts\ondergrondmodellen traject 41-1.soil" />
-    <Content Include="Examples\Voorbeeld Traject 41-1 - Macrostabiliteit binnenwaarts\sufraceline traject 41-1.csv" />
-    <Content Include="Examples\Voorbeeld Traject 41-1 - Macrostabiliteit binnenwaarts\sufraceline traject 41-1.krp.csv" />
+    <Content Include="Examples\Voorbeeld Traject 41-1 - Macrostabiliteit binnenwaarts\surfaceline traject 41-1.csv" />
+    <Content Include="Examples\Voorbeeld Traject 41-1 - Macrostabiliteit binnenwaarts\surfaceline traject 41-1.krp.csv" />
     <Content Include="Examples\Voorbeeld Traject 41-1 - Macrostabiliteit binnenwaarts\vakindeling STBI traject 41-1.cpg" />
     <Content Include="Examples\Voorbeeld Traject 41-1 - Macrostabiliteit binnenwaarts\vakindeling STBI traject 41-1.dbf" />
     <Content Include="Examples\Voorbeeld Traject 41-1 - Macrostabiliteit binnenwaarts\vakindeling STBI traject 41-1.prj" />
