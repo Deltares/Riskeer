@@ -82,12 +82,11 @@ namespace Riskeer.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekeningen voor geselecteerd vak en type toets.
+        ///   Looks up a localized string similar to Berekeningen voor huidige selectie.
         /// </summary>
-        public static string Calculations_per_FailureMechanismSection_And_ScenarioConfigurationType_DisplayName {
+        public static string Calculations_for_current_Selection_DisplayName {
             get {
-                return ResourceManager.GetString("Calculations_per_FailureMechanismSection_And_ScenarioConfigurationType_DisplayNam" +
-                        "e", resourceCulture);
+                return ResourceManager.GetString("Calculations_for_current_Selection_DisplayName", resourceCulture);
             }
         }
         
@@ -970,7 +969,7 @@ namespace Riskeer.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Type toets:.
+        ///   Looks up a localized string similar to Type toets.
         /// </summary>
         public static string PipingScenariosView_ScenarioConfigurationType_DisplayName {
             get {
