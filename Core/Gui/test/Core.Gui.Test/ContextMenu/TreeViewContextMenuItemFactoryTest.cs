@@ -104,8 +104,8 @@ namespace Core.Gui.Test.ContextMenu
             item.PerformClick();
 
             // Assert
-            Assert.AreEqual(Resources.Delete, item.Text);
-            Assert.AreEqual(Resources.Delete_ToolTip, item.ToolTipText);
+            Assert.AreEqual("Verwij&deren...", item.Text);
+            Assert.AreEqual("Verwijder dit element uit de boom.", item.ToolTipText);
             TestHelper.AssertImagesAreEqual(Resources.DeleteIcon, item.Image);
             Assert.AreEqual(canDelete, item.Enabled);
 
@@ -172,8 +172,8 @@ namespace Core.Gui.Test.ContextMenu
             item.PerformClick();
 
             // Assert
-            Assert.AreEqual(Resources.Rename, item.Text);
-            Assert.AreEqual(Resources.Rename_ToolTip, item.ToolTipText);
+            Assert.AreEqual("&Hernoemen", item.Text);
+            Assert.AreEqual("Wijzig de naam van dit element.", item.ToolTipText);
             TestHelper.AssertImagesAreEqual(Resources.RenameIcon, item.Image);
             Assert.AreEqual(canRename, item.Enabled);
 
@@ -210,8 +210,8 @@ namespace Core.Gui.Test.ContextMenu
             item.PerformClick();
 
             // Assert
-            Assert.AreEqual(Resources.Expand_all, item.Text);
-            Assert.AreEqual(Resources.Expand_all_ToolTip, item.ToolTipText);
+            Assert.AreEqual("Alles ui&tklappen", item.Text);
+            Assert.AreEqual("Klap dit element en alle onderliggende elementen uit.", item.ToolTipText);
             TestHelper.AssertImagesAreEqual(Resources.ExpandAllIcon, item.Image);
             Assert.AreEqual(hasChildren, item.Enabled);
         }
@@ -246,8 +246,8 @@ namespace Core.Gui.Test.ContextMenu
             item.PerformClick();
 
             // Assert
-            Assert.AreEqual(Resources.Collapse_all, item.Text);
-            Assert.AreEqual(Resources.Collapse_all_ToolTip, item.ToolTipText);
+            Assert.AreEqual("Alles i&nklappen", item.Text);
+            Assert.AreEqual("Klap dit element en alle onderliggende elementen in.", item.ToolTipText);
             TestHelper.AssertImagesAreEqual(Resources.CollapseAllIcon, item.Image);
             Assert.AreEqual(hasChildren, item.Enabled);
         }

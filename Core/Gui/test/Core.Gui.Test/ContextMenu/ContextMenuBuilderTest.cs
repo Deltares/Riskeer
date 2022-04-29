@@ -66,7 +66,7 @@ namespace Core.Gui.Test.ContextMenu
 
                 // Assert
                 var exception = Assert.Throws<ContextMenuBuilderException>(Call);
-                Assert.AreEqual(Resources.ContextMenuBuilder_ContextMenuBuilder_Cannot_create_instances_of_factories, exception.Message);
+                Assert.AreEqual("Kan geen instanties maken van de benodigde objecten.", exception.Message);
             }
 
             mocks.VerifyAll();
@@ -95,7 +95,7 @@ namespace Core.Gui.Test.ContextMenu
 
                 // Assert
                 var exception = Assert.Throws<ContextMenuBuilderException>(Call);
-                Assert.AreEqual(Resources.ContextMenuBuilder_ContextMenuBuilder_Cannot_create_instances_of_factories, exception.Message);
+                Assert.AreEqual("Kan geen instanties maken van de benodigde objecten.", exception.Message);
             }
 
             mocks.VerifyAll();
@@ -124,7 +124,7 @@ namespace Core.Gui.Test.ContextMenu
 
                 // Assert
                 var exception = Assert.Throws<ContextMenuBuilderException>(Call);
-                Assert.AreEqual(Resources.ContextMenuBuilder_ContextMenuBuilder_Cannot_create_instances_of_factories, exception.Message);
+                Assert.AreEqual("Kan geen instanties maken van de benodigde objecten.", exception.Message);
             }
 
             mocks.VerifyAll();
@@ -153,7 +153,7 @@ namespace Core.Gui.Test.ContextMenu
 
                 // Assert
                 var exception = Assert.Throws<ContextMenuBuilderException>(Call);
-                Assert.AreEqual(Resources.ContextMenuBuilder_ContextMenuBuilder_Cannot_create_instances_of_factories, exception.Message);
+                Assert.AreEqual("Kan geen instanties maken van de benodigde objecten.", exception.Message);
             }
 
             mocks.VerifyAll();
@@ -182,7 +182,7 @@ namespace Core.Gui.Test.ContextMenu
 
                 // Assert
                 var exception = Assert.Throws<ContextMenuBuilderException>(Call);
-                Assert.AreEqual(Resources.ContextMenuBuilder_ContextMenuBuilder_Cannot_create_instances_of_factories, exception.Message);
+                Assert.AreEqual("Kan geen instanties maken van de benodigde objecten.", exception.Message);
             }
 
             mocks.VerifyAll();
@@ -212,7 +212,7 @@ namespace Core.Gui.Test.ContextMenu
 
                 // Assert
                 var exception = Assert.Throws<ContextMenuBuilderException>(Call);
-                Assert.AreEqual(Resources.ContextMenuBuilder_ContextMenuBuilder_Cannot_create_instances_of_factories, exception.Message);
+                Assert.AreEqual("Kan geen instanties maken van de benodigde objecten.", exception.Message);
             }
 
             mocks.VerifyAll();
@@ -239,7 +239,7 @@ namespace Core.Gui.Test.ContextMenu
 
             // Assert
             var exception = Assert.Throws<ContextMenuBuilderException>(Call);
-            Assert.AreEqual(Resources.ContextMenuBuilder_ContextMenuBuilder_Cannot_create_instances_of_factories, exception.Message);
+            Assert.AreEqual("Kan geen instanties maken van de benodigde objecten.", exception.Message);
         }
 
         [Test]
@@ -337,7 +337,11 @@ namespace Core.Gui.Test.ContextMenu
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
                 Assert.AreEqual(1, result.Items.Count);
 
-                TestHelper.AssertContextMenuStripContainsItem(result, 0, Resources.Rename, Resources.Rename_ToolTip, Resources.RenameIcon);
+                TestHelper.AssertContextMenuStripContainsItem(result,
+                                                              0,
+                                                              "&Hernoemen",
+                                                              "Wijzig de naam van dit element.",
+                                                              Resources.RenameIcon);
 
                 mocks.VerifyAll();
             }
@@ -386,7 +390,11 @@ namespace Core.Gui.Test.ContextMenu
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
                 Assert.AreEqual(1, result.Items.Count);
 
-                TestHelper.AssertContextMenuStripContainsItem(result, 0, Resources.Delete, Resources.Delete_ToolTip, Resources.DeleteIcon);
+                TestHelper.AssertContextMenuStripContainsItem(result,
+                                                              0,
+                                                              "Verwij&deren...",
+                                                              "Verwijder dit element uit de boom.",
+                                                              Resources.DeleteIcon);
 
                 mocks.VerifyAll();
             }
@@ -426,7 +434,8 @@ namespace Core.Gui.Test.ContextMenu
             string expectedTooltip = hasChildren
                                          ? "Verwijder alle onderliggende elementen van dit element."
                                          : "Er zijn geen onderliggende elementen om te verwijderen.";
-            TestHelper.AssertContextMenuStripContainsItem(result, 0,
+            TestHelper.AssertContextMenuStripContainsItem(result,
+                                                          0,
                                                           "Ma&p leegmaken...",
                                                           expectedTooltip,
                                                           Resources.DeleteChildrenIcon,
@@ -466,7 +475,12 @@ namespace Core.Gui.Test.ContextMenu
             Assert.IsInstanceOf<ContextMenuStrip>(result);
             Assert.AreEqual(1, result.Items.Count);
 
-            TestHelper.AssertContextMenuStripContainsItem(result, 0, Resources.Expand_all, Resources.Expand_all_ToolTip, Resources.ExpandAllIcon, hasChildren);
+            TestHelper.AssertContextMenuStripContainsItem(result,
+                                                          0,
+                                                          "Alles ui&tklappen",
+                                                          "Klap dit element en alle onderliggende elementen uit.",
+                                                          Resources.ExpandAllIcon,
+                                                          hasChildren);
 
             mocks.VerifyAll();
         }
@@ -504,7 +518,12 @@ namespace Core.Gui.Test.ContextMenu
             Assert.IsInstanceOf<ContextMenuStrip>(result);
             Assert.AreEqual(1, result.Items.Count);
 
-            TestHelper.AssertContextMenuStripContainsItem(result, 0, Resources.Collapse_all, Resources.Collapse_all_ToolTip, Resources.CollapseAllIcon, hasChildren);
+            TestHelper.AssertContextMenuStripContainsItem(result,
+                                                          0,
+                                                          "Alles i&nklappen",
+                                                          "Klap dit element en alle onderliggende elementen in.",
+                                                          Resources.CollapseAllIcon,
+                                                          hasChildren);
 
             mocks.VerifyAll();
         }
@@ -543,7 +562,12 @@ namespace Core.Gui.Test.ContextMenu
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
                 Assert.AreEqual(1, result.Items.Count);
 
-                TestHelper.AssertContextMenuStripContainsItem(result, 0, Resources.Open, Resources.Open_ToolTip, Resources.OpenIcon, hasViewForNodeData);
+                TestHelper.AssertContextMenuStripContainsItem(result,
+                                                              0,
+                                                              "&Openen",
+                                                              "Open de gegevens in een nieuw documentvenster.",
+                                                              Resources.OpenIcon,
+                                                              hasViewForNodeData);
             }
 
             mocks.VerifyAll();
@@ -583,7 +607,12 @@ namespace Core.Gui.Test.ContextMenu
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
                 Assert.AreEqual(1, result.Items.Count);
 
-                TestHelper.AssertContextMenuStripContainsItem(result, 0, Resources.Export, Resources.Export_ToolTip, Resources.ExportIcon, hasExportersForNodeData);
+                TestHelper.AssertContextMenuStripContainsItem(result,
+                                                              0,
+                                                              "&Exporteren...",
+                                                              "Exporteer de gegevens naar een bestand.",
+                                                              Resources.ExportIcon,
+                                                              hasExportersForNodeData);
             }
 
             mocks.VerifyAll();
@@ -629,7 +658,12 @@ namespace Core.Gui.Test.ContextMenu
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
                 Assert.AreEqual(1, result.Items.Count);
 
-                TestHelper.AssertContextMenuStripContainsItem(result, 0, Resources.Import, Resources.Import_ToolTip, Resources.ImportIcon, hasImportersForNodeData);
+                TestHelper.AssertContextMenuStripContainsItem(result,
+                                                              0,
+                                                              "&Importeren...",
+                                                              "Importeer de gegevens vanuit een bestand.",
+                                                              Resources.ImportIcon,
+                                                              hasImportersForNodeData);
             }
 
             mocks.VerifyAll();
@@ -675,7 +709,12 @@ namespace Core.Gui.Test.ContextMenu
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
                 Assert.AreEqual(1, result.Items.Count);
 
-                TestHelper.AssertContextMenuStripContainsItem(result, 0, Resources.Import, Resources.Import_ToolTip, Resources.ImportIcon, hasImportersForNodeData);
+                TestHelper.AssertContextMenuStripContainsItem(result,
+                                                              0,
+                                                              "&Importeren...",
+                                                              "Importeer de gegevens vanuit een bestand.",
+                                                              Resources.ImportIcon,
+                                                              hasImportersForNodeData);
             }
 
             mocks.VerifyAll();
@@ -814,7 +853,12 @@ namespace Core.Gui.Test.ContextMenu
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
                 Assert.AreEqual(1, result.Items.Count);
 
-                TestHelper.AssertContextMenuStripContainsItem(result, 0, Resources.Update, Resources.Update_ToolTip, Resources.RefreshIcon, hasUpdatesForNodeData);
+                TestHelper.AssertContextMenuStripContainsItem(result,
+                                                              0,
+                                                              "&Bijwerken...",
+                                                              "Werk de geïmporteerde gegevens bij met nieuwe gegevens vanuit een bestand.",
+                                                              Resources.RefreshIcon,
+                                                              hasUpdatesForNodeData);
             }
 
             mocks.VerifyAll();
@@ -854,7 +898,12 @@ namespace Core.Gui.Test.ContextMenu
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
                 Assert.AreEqual(1, result.Items.Count);
 
-                TestHelper.AssertContextMenuStripContainsItem(result, 0, Resources.Properties, Resources.Properties_ToolTip, Resources.PropertiesHS, hasPropertiesForNodeData);
+                TestHelper.AssertContextMenuStripContainsItem(result,
+                                                              0,
+                                                              "Ei&genschappen",
+                                                              "Toon de eigenschappen in het Eigenschappenpaneel.",
+                                                              Resources.PropertiesHS,
+                                                              hasPropertiesForNodeData);
             }
 
             mocks.VerifyAll();
