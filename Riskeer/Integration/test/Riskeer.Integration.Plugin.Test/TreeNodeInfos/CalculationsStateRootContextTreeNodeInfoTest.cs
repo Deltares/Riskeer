@@ -243,8 +243,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [TestCaseSource(nameof(GetAssessmentSections))]
-        public void ContextMenuStrip_WithCalculations_CalculateAllEnabled(AssessmentSection assessmentSection)
+        [TestCaseSource(nameof(GetAssessmentSectionConfigurations))]
+        public void ContextMenuStrip_WithSpecificAssessmentSectionConfiguration_CalculateAllMenuItemStateAsExpected(AssessmentSection assessmentSection, bool expectedEnabledState)
         {
             // Setup
             using (var treeView = new TreeViewControl())
@@ -269,39 +269,11 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
                         TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
                                                                       "Alles be&rekenen",
-                                                                      "Voer alle berekeningen binnen dit traject uit.",
-                                                                      RiskeerCommonFormsResources.CalculateAllIcon);
-                    }
-                }
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_NoCalculations_CalculateAllDisabled()
-        {
-            // Setup
-            using (var treeView = new TreeViewControl())
-            {
-                var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-                var context = new CalculationsStateRootContext(assessmentSection);
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                var mocks = new MockRepository();
-                IGui gui = StubFactory.CreateGuiStub(mocks);
-                gui.Stub(cmp => cmp.Get(context, treeView)).Return(menuBuilder);
-                mocks.ReplayAll();
-
-                using (var plugin = new RiskeerPlugin())
-                {
-                    plugin.Gui = gui;
-
-                    // Call
-                    using (ContextMenuStrip menu = GetInfo(plugin).ContextMenuStrip(context, null, treeView))
-                    {
-                        // Assert
-                        ToolStripItem calculateAllItem = menu.Items[contextMenuCalculateAllIndex];
-                        Assert.IsFalse(calculateAllItem.Enabled);
-                        Assert.AreEqual("Er zijn geen berekeningen om uit te voeren.", calculateAllItem.ToolTipText);
+                                                                      expectedEnabledState
+                                                                          ? "Voer alle berekeningen binnen dit traject uit."
+                                                                          : "Er zijn geen berekeningen om uit te voeren.",
+                                                                      RiskeerCommonFormsResources.CalculateAllIcon,
+                                                                      expectedEnabledState);
                     }
                 }
             }
@@ -367,7 +339,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             }
         }
 
-        private static IEnumerable<TestCaseData> GetAssessmentSections()
+        private static IEnumerable<TestCaseData> GetAssessmentSectionConfigurations()
         {
             yield return new TestCaseData(new AssessmentSection(AssessmentSectionComposition.Dike)
             {
@@ -381,7 +353,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                         }
                     }
                 }
-            }).SetName("PipingCalculation");
+            }, true).SetName("WithPipingCalculation");
             yield return new TestCaseData(new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 GrassCoverErosionInwards =
@@ -394,7 +366,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                         }
                     }
                 }
-            }).SetName("GrassCoverErosionInwardsCalculation");
+            }, true).SetName("WithGrassCoverErosionInwardsCalculation");
             yield return new TestCaseData(new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 MacroStabilityInwards =
@@ -407,7 +379,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                         }
                     }
                 }
-            }).SetName("MacroStabilityInwardsCalculation");
+            }, true).SetName("WithMacroStabilityInwardsCalculation");
             yield return new TestCaseData(new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 HeightStructures =
@@ -420,7 +392,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                         }
                     }
                 }
-            }).SetName("HeightStructuresCalculation");
+            }, true).SetName("WithHeightStructuresCalculation");
             yield return new TestCaseData(new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 ClosingStructures =
@@ -433,7 +405,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                         }
                     }
                 }
-            }).SetName("ClosingStructuresCalculation");
+            }, true).SetName("WithClosingStructuresCalculation");
             yield return new TestCaseData(new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 StabilityPointStructures =
@@ -446,7 +418,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                         }
                     }
                 }
-            }).SetName("StabilityPointStructuresCalculation");
+            }, true).SetName("WithStabilityPointStructuresCalculation");
         }
 
         private static TreeNodeInfo GetInfo(RiskeerPlugin plugin)
