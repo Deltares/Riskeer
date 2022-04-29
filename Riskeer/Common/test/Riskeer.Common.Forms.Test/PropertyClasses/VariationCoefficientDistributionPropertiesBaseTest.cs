@@ -28,7 +28,6 @@ using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.Probabilistics;
-using Riskeer.Common.Forms.Properties;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.TestUtil;
 
@@ -178,7 +177,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(distribution.Mean, properties.Mean);
             Assert.AreEqual(distribution.CoefficientOfVariation, properties.CoefficientOfVariation);
-            string expectedToString = $"{distribution.Mean} ({Resources.Distribution_VariationCoefficient_DisplayName} = {distribution.CoefficientOfVariation})";
+            var expectedToString = $"{distribution.Mean} (Variatiecoëfficiënt = {distribution.CoefficientOfVariation})";
             Assert.AreEqual(expectedToString, properties.ToString());
             mocks.VerifyAll();
         }

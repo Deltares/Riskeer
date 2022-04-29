@@ -47,7 +47,7 @@ namespace Core.Gui.Test.ContextMenu
 
                 // Assert
                 string message = Assert.Throws<ArgumentNullException>(test).Message;
-                StringAssert.StartsWith(Resources.ContextMenuItemFactory_Can_not_create_context_menu_items_without_data, message);
+                StringAssert.StartsWith("Kan geen element in het contextmenu creëren zonder dat de data bekend is.", message);
                 StringAssert.EndsWith("dataObject", message);
             }
         }
@@ -60,7 +60,7 @@ namespace Core.Gui.Test.ContextMenu
 
             // Assert
             string message = Assert.Throws<ArgumentNullException>(test).Message;
-            StringAssert.StartsWith(Resources.ContextMenuItemFactory_Can_not_create_context_menu_items_without_tree_view_control, message);
+            StringAssert.StartsWith("Kan geen element in het contextmenu creëren zonder dat de boom bekend is.", message);
             StringAssert.EndsWith("treeViewControl", message);
         }
 
@@ -136,7 +136,7 @@ namespace Core.Gui.Test.ContextMenu
             item.PerformClick();
 
             // Assert
-            Assert.AreEqual(Resources.DeleteChildren, item.Text);
+            Assert.AreEqual("Ma&p leegmaken...", item.Text);
             string expectedTooltip = canDelete
                                          ? "Verwijder alle onderliggende elementen van dit element."
                                          : "Er zijn geen onderliggende elementen om te verwijderen.";

@@ -93,7 +93,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             string text = info.Text(null);
 
             // Assert
-            Assert.AreEqual(Resources.CalculationOutput_DisplayName, text);
+            Assert.AreEqual("Resultaat", text);
         }
 
         [Test]
