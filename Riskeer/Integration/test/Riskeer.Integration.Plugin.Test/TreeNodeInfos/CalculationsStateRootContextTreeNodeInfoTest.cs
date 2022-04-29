@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -30,16 +31,20 @@ using Core.Gui.ContextMenu;
 using Core.Gui.TestUtil.ContextMenu;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.ClosingStructures.Data.TestUtil;
 using Riskeer.ClosingStructures.Forms.PresentationObjects.CalculationsState;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Plugin.TestUtil;
+using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects.CalculationsState;
+using Riskeer.HeightStructures.Data.TestUtil;
 using Riskeer.HeightStructures.Forms.PresentationObjects.CalculationsState;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PresentationObjects;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects.CalculationsState;
 using Riskeer.Piping.Forms.PresentationObjects.CalculationsState;
+using Riskeer.StabilityPointStructures.Data.TestUtil;
 using Riskeer.StabilityPointStructures.Forms.PresentationObjects.CalculationsState;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerIntegrationFormsResources = Riskeer.Integration.Forms.Properties.Resources;
@@ -238,18 +243,12 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_WithCalculations_AddCustomItems()
+        [TestCaseSource(nameof(GetAssessmentSections))]
+        public void ContextMenuStrip_WithCalculations_CalculateAllEnabled(AssessmentSection assessmentSection)
         {
             // Setup
             using (var treeView = new TreeViewControl())
             {
-                var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-                assessmentSection.Piping.CalculationsGroup.Children.Add(new TestCalculationScenario());
-                assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(new TestCalculationScenario());
-                assessmentSection.MacroStabilityInwards.CalculationsGroup.Children.Add(new TestCalculationScenario());
-                assessmentSection.HeightStructures.CalculationsGroup.Children.Add(new TestCalculationScenario());
-                assessmentSection.ClosingStructures.CalculationsGroup.Children.Add(new TestCalculationScenario());
-                assessmentSection.StabilityPointStructures.CalculationsGroup.Children.Add(new TestCalculationScenario());
                 var context = new CalculationsStateRootContext(assessmentSection);
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -366,6 +365,88 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 // Assert
                 Assert.IsFalse(canRemove);
             }
+        }
+
+        private static IEnumerable<TestCaseData> GetAssessmentSections()
+        {
+            yield return new TestCaseData(new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                Piping =
+                {
+                    CalculationsGroup =
+                    {
+                        Children =
+                        {
+                            new TestCalculationScenario()
+                        }
+                    }
+                }
+            }).SetName("PipingCalculation");
+            yield return new TestCaseData(new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                GrassCoverErosionInwards =
+                {
+                    CalculationsGroup =
+                    {
+                        Children =
+                        {
+                            new GrassCoverErosionInwardsCalculation()
+                        }
+                    }
+                }
+            }).SetName("GrassCoverErosionInwardsCalculation");
+            yield return new TestCaseData(new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                MacroStabilityInwards =
+                {
+                    CalculationsGroup =
+                    {
+                        Children =
+                        {
+                            new TestCalculationScenario()
+                        }
+                    }
+                }
+            }).SetName("MacroStabilityInwardsCalculation");
+            yield return new TestCaseData(new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                HeightStructures =
+                {
+                    CalculationsGroup =
+                    {
+                        Children =
+                        {
+                            new TestHeightStructuresCalculationScenario()
+                        }
+                    }
+                }
+            }).SetName("HeightStructuresCalculation");
+            yield return new TestCaseData(new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                ClosingStructures =
+                {
+                    CalculationsGroup =
+                    {
+                        Children =
+                        {
+                            new TestClosingStructuresCalculationScenario()
+                        }
+                    }
+                }
+            }).SetName("ClosingStructuresCalculation");
+            yield return new TestCaseData(new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                StabilityPointStructures =
+                {
+                    CalculationsGroup =
+                    {
+                        Children =
+                        {
+                            new TestStabilityPointStructuresCalculationScenario()
+                        }
+                    }
+                }
+            }).SetName("StabilityPointStructuresCalculation");
         }
 
         private static TreeNodeInfo GetInfo(RiskeerPlugin plugin)
