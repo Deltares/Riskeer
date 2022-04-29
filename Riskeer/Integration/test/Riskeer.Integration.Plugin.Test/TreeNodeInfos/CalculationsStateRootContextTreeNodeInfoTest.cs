@@ -38,6 +38,7 @@ using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects.CalculationsState;
+using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.HeightStructures.Data.TestUtil;
 using Riskeer.HeightStructures.Forms.PresentationObjects.CalculationsState;
 using Riskeer.Integration.Data;
@@ -46,6 +47,8 @@ using Riskeer.MacroStabilityInwards.Forms.PresentationObjects.CalculationsState;
 using Riskeer.Piping.Forms.PresentationObjects.CalculationsState;
 using Riskeer.StabilityPointStructures.Data.TestUtil;
 using Riskeer.StabilityPointStructures.Forms.PresentationObjects.CalculationsState;
+using Riskeer.StabilityStoneCover.Data;
+using Riskeer.WaveImpactAsphaltCover.Data;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerIntegrationFormsResources = Riskeer.Integration.Forms.Properties.Resources;
 
@@ -341,6 +344,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
         private static IEnumerable<TestCaseData> GetAssessmentSectionConfigurations()
         {
+            yield return new TestCaseData(new AssessmentSection(AssessmentSectionComposition.Dike),
+                                          false).SetName("WithoutCalculations");
             yield return new TestCaseData(new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 Piping =
@@ -419,6 +424,45 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     }
                 }
             }, true).SetName("WithStabilityPointStructuresCalculation");
+            yield return new TestCaseData(new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                GrassCoverErosionOutwards =
+                {
+                    CalculationsGroup =
+                    {
+                        Children =
+                        {
+                            new GrassCoverErosionOutwardsWaveConditionsCalculation()
+                        }
+                    }
+                }
+            }, false).SetName("WithGrassCoverErosionOutwardsCalculation");
+            yield return new TestCaseData(new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                StabilityStoneCover =
+                {
+                    CalculationsGroup =
+                    {
+                        Children =
+                        {
+                            new StabilityStoneCoverWaveConditionsCalculation()
+                        }
+                    }
+                }
+            }, false).SetName("WithStabilityStoneCoverCalculation");
+            yield return new TestCaseData(new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                WaveImpactAsphaltCover =
+                {
+                    CalculationsGroup =
+                    {
+                        Children =
+                        {
+                            new WaveImpactAsphaltCoverWaveConditionsCalculation()
+                        }
+                    }
+                }
+            }, false).SetName("WithWaveImpactAsphaltCoverCalculation");
         }
 
         private static TreeNodeInfo GetInfo(RiskeerPlugin plugin)
