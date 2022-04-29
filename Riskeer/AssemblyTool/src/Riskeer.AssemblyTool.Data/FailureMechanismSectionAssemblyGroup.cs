@@ -84,7 +84,7 @@ namespace Riskeer.AssemblyTool.Data
         Dominant = 9,
 
         /// <summary>
-        /// Represents group GR.
+        /// Represents group No Result.
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyGroup_NoResult_DisplayName))]
         NoResult = 10,
