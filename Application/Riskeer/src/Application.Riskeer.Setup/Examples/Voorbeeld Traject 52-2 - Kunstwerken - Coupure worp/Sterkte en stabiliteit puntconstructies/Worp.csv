@@ -1,4 +1,4 @@
-Namespace;Identificatie;Kunstwerken.identificatie;AlfanumeriekeWaarde;NumeriekeWaarde;Standaardafwijking.variatie;Boolean;Beschrijving;;;;;;;;Boolean 0=vc, 1=sa. Let op: wijkt af van Ringtoets-handleiding
+Namespace;Identificatie;Kunstwerken.identificatie;AlfanumeriekeWaarde;NumeriekeWaarde;Standaardafwijking.variatie;Boolean;Beschrijving;;;;;;;;Boolean 0=vc, 1=sa. Let op: wijkt af van gebruikershandleiding
 52-2;KWK_1;KW_HOOGTE1;;45;0;;Oriëntatie van de normaal van het kunstwerk ten opzichte van het noorden;;;;;;;;
 52-2;KWK_1;KW_HOOGTE2;;8.25;0.05;1;Kerende hoogte van het kunstwerk;;;;;;;;
 52-2;KWK_1;KW_HOOGTE3;;10.0;0.05;1;Stroomvoerende breedte bodembescherming;;;;;;;;
