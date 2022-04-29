@@ -526,6 +526,6 @@ en semi-probabilistisch getoetste vakken niet leidt tot
 een te onveilig rekenresultaat op het trajectniveau.</value>
   </data>
   <data name="PipingScenariosView_ScenarioConfigurationType_DisplayName" xml:space="preserve">
-    <value>Type toets:</value>
+    <value>Type toets</value>
   </data>
 </root>
