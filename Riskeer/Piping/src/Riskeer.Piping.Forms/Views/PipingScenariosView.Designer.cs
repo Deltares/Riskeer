@@ -90,7 +90,7 @@ namespace Riskeer.Piping.Forms.Views
             this.selectScenarioConfigurationTypeLabel.TabIndex = 2;
             this.selectScenarioConfigurationTypeLabel.Text = global::Riskeer.Piping.Forms.Properties.Resources.PipingScenariosView_ScenarioConfigurationType_DisplayName;
             this.selectScenarioConfigurationTypeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.selectScenarioConfigurationTypeLabel.Margin = new System.Windows.Forms.Padding(3,5,3,3);
+            this.selectScenarioConfigurationTypeLabel.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             // 
             // selectConfigurationTypeComboBox
             // 
