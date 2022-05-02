@@ -176,7 +176,7 @@ namespace Riskeer.Integration.Plugin
                                                                   new AssessmentSectionProvider(Gui.MainWindow, Gui.ProjectStore),
                                                                   new AssessmentSectionMergeComparer(),
                                                                   new AssessmentSectionMergeDataProviderDialog(Gui.MainWindow),
-                                                                  new AssessmentSectionMergeHandler());
+                                                                  new AssessmentSectionMergeHandler(Gui.DocumentViewController));
         }
 
         public override IEnumerable<StateInfo> GetStateInfos()

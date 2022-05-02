@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Util.Extensions;
+using Core.Gui.Forms.ViewHost;
 using log4net;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data.AssessmentSection;
@@ -52,6 +53,23 @@ namespace Riskeer.Integration.Plugin.Merge
     public class AssessmentSectionMergeHandler : IAssessmentSectionMergeHandler
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(AssessmentSectionMergeHandler));
+        private readonly IDocumentViewController documentViewController;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AssessmentSectionMergeHandler"/>.
+        /// </summary>
+        /// <param name="documentViewController">The document view controller.</param>
+        /// <exception cref="ArgumentNullException">Thrown when
+        /// <paramref name="documentViewController"/> is <c>mull</c>.</exception>
+        public AssessmentSectionMergeHandler(IDocumentViewController documentViewController)
+        {
+            if (documentViewController == null)
+            {
+                throw new ArgumentNullException(nameof(documentViewController));
+            }
+
+            this.documentViewController = documentViewController;
+        }
 
         public void PerformMerge(AssessmentSection targetAssessmentSection, AssessmentSectionMergeData mergeData)
         {
@@ -67,12 +85,7 @@ namespace Riskeer.Integration.Plugin.Merge
 
             ValidateMergeData(mergeData);
 
-            var changedObjects = new List<IObservable>
-            {
-                targetAssessmentSection
-            };
-
-            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection, mergeData.AssessmentSection));
+            IEnumerable<IObservable> changedObjects = MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection, mergeData.AssessmentSection);
 
             MergeFailureMechanisms(targetAssessmentSection, mergeData);
             MergeSpecificFailureMechanism(targetAssessmentSection, mergeData.MergeSpecificFailureMechanisms);
@@ -95,8 +108,9 @@ namespace Riskeer.Integration.Plugin.Merge
             }
         }
 
-        private static void AfterMerge(IEnumerable<IObservable> changedObjects)
+        private void AfterMerge(IEnumerable<IObservable> changedObjects)
         {
+            documentViewController.CloseAllViews();
             changedObjects.ForEachElementDo(co => co.NotifyObservers());
         }
 

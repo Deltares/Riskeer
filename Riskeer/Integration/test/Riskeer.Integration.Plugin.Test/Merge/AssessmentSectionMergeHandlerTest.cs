@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.TestUtil;
 using Core.Common.Util.Extensions;
+using Core.Gui.Forms.ViewHost;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
@@ -52,20 +53,41 @@ namespace Riskeer.Integration.Plugin.Test.Merge
     public class AssessmentSectionMergeHandlerTest
     {
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_DocumentViewControllerNull_ThrowsArgumentNullException()
         {
             // Call
-            var handler = new AssessmentSectionMergeHandler();
+            void Call() => new AssessmentSectionMergeHandler(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("documentViewController", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var documentViewController = mocks.Stub<IDocumentViewController>();
+            mocks.ReplayAll();
+
+            // Call
+            var handler = new AssessmentSectionMergeHandler(documentViewController);
 
             // Assert
             Assert.IsInstanceOf<IAssessmentSectionMergeHandler>(handler);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void PerformMerge_TargetAssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var handler = new AssessmentSectionMergeHandler();
+            var mocks = new MockRepository();
+            var documentViewController = mocks.Stub<IDocumentViewController>();
+            mocks.ReplayAll();
+
+            var handler = new AssessmentSectionMergeHandler(documentViewController);
 
             // Call
             void Call() => handler.PerformMerge(null, new AssessmentSectionMergeData(new AssessmentSection(AssessmentSectionComposition.Dike),
@@ -74,13 +96,18 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("targetAssessmentSection", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void PerformMerge_MergeDataNull_ThrowsArgumentNullException()
         {
             // Setup
-            var handler = new AssessmentSectionMergeHandler();
+            var mocks = new MockRepository();
+            var documentViewController = mocks.Stub<IDocumentViewController>();
+            mocks.ReplayAll();
+
+            var handler = new AssessmentSectionMergeHandler(documentViewController);
 
             // Call
             void Call() => handler.PerformMerge(new AssessmentSection(AssessmentSectionComposition.Dike), null);
@@ -88,13 +115,18 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("mergeData", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void PerformMerge_WithAllFailureMechanismsToMerge_SetNewFailureMechanisms()
         {
             // Setup
-            var handler = new AssessmentSectionMergeHandler();
+            var mocks = new MockRepository();
+            var documentViewController = mocks.Stub<IDocumentViewController>();
+            mocks.ReplayAll();
+
+            var handler = new AssessmentSectionMergeHandler(documentViewController);
             var targetAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var sourceAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
@@ -136,13 +168,19 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             Assert.AreSame(sourceAssessmentSection.PipingStructure, targetAssessmentSection.PipingStructure);
             Assert.AreSame(sourceAssessmentSection.StabilityPointStructures, targetAssessmentSection.StabilityPointStructures);
             Assert.AreSame(sourceAssessmentSection.DuneErosion, targetAssessmentSection.DuneErosion);
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void PerformMerge_WithNoFailureMechanismsToMerge_FailureMechanismsSame()
         {
             // Setup
-            var handler = new AssessmentSectionMergeHandler();
+            var mocks = new MockRepository();
+            var documentViewController = mocks.Stub<IDocumentViewController>();
+            mocks.ReplayAll();
+
+            var handler = new AssessmentSectionMergeHandler(documentViewController);
             var targetAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var sourceAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
@@ -167,13 +205,19 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             Assert.AreNotSame(sourceAssessmentSection.PipingStructure, targetAssessmentSection.PipingStructure);
             Assert.AreNotSame(sourceAssessmentSection.StabilityPointStructures, targetAssessmentSection.StabilityPointStructures);
             Assert.AreNotSame(sourceAssessmentSection.DuneErosion, targetAssessmentSection.DuneErosion);
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void PerformMerge_WithAllFailureMechanismsToMerge_LogMessages()
         {
             // Setup
-            var handler = new AssessmentSectionMergeHandler();
+            var mocks = new MockRepository();
+            var documentViewController = mocks.Stub<IDocumentViewController>();
+            mocks.ReplayAll();
+
+            var handler = new AssessmentSectionMergeHandler(documentViewController);
             var targetAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var sourceAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
@@ -219,13 +263,19 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                 Assert.AreEqual("Gegevens van het generieke faalmechanisme 'Sterkte en stabiliteit puntconstructies' zijn vervangen.", msgs[14]);
                 Assert.AreEqual("Gegevens van het generieke faalmechanisme 'Duinafslag' zijn vervangen.", msgs[15]);
             });
+
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void PerformMerge_WithFailureMechanismsToMerge_FailureMechanismsSame()
+        public void PerformMerge_WithSpecificFailureMechanismsToMerge_FailureMechanismsSame()
         {
             // Setup
-            var handler = new AssessmentSectionMergeHandler();
+            var mocks = new MockRepository();
+            var documentViewController = mocks.Stub<IDocumentViewController>();
+            mocks.ReplayAll();
+
+            var handler = new AssessmentSectionMergeHandler(documentViewController);
             var targetAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 SpecificFailureMechanisms =
@@ -253,13 +303,18 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             // Assert
             IEnumerable<IFailureMechanism> expectedFailureMechanisms = originalFailureMechanisms.Concat(failureMechanismsToMerge);
             CollectionAssert.AreEqual(expectedFailureMechanisms, targetAssessmentSection.SpecificFailureMechanisms);
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void PerformMerge_WithNoFailureMechanismsToMerge_FailureMechanismsNotSame()
+        public void PerformMerge_WithNoSpecificFailureMechanismsToMerge_FailureMechanismsNotSame()
         {
             // Setup
-            var handler = new AssessmentSectionMergeHandler();
+            var mocks = new MockRepository();
+            var documentViewController = mocks.Stub<IDocumentViewController>();
+            mocks.ReplayAll();
+
+            var handler = new AssessmentSectionMergeHandler(documentViewController);
             var targetAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 SpecificFailureMechanisms =
@@ -284,13 +339,18 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
             // Assert
             CollectionAssert.AreEqual(originalFailureMechanisms, targetAssessmentSection.SpecificFailureMechanisms);
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void PerformMerge_WithFailureMechanismsToMergeNotInSourceAssessmentSection_ThrowsArgumentException()
+        public void PerformMerge_WithSpecificFailureMechanismsToMergeNotInSourceAssessmentSection_ThrowsArgumentException()
         {
             // Setup
-            var handler = new AssessmentSectionMergeHandler();
+            var mocks = new MockRepository();
+            var documentViewController = mocks.Stub<IDocumentViewController>();
+            mocks.ReplayAll();
+
+            var handler = new AssessmentSectionMergeHandler(documentViewController);
             var targetAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             var failureMechanismsToMerge = new[]
@@ -310,13 +370,18 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             // Assert
             const string expectedMessage = "MergeSpecificFailureMechanisms must contain items of the assessment section in mergeData.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void PerformMerge_WithFailureMechanismsToMerge_LogsMessages()
+        public void PerformMerge_WithSpecificFailureMechanismsToMerge_LogsMessages()
         {
             // Setup
-            var handler = new AssessmentSectionMergeHandler();
+            var mocks = new MockRepository();
+            var documentViewController = mocks.Stub<IDocumentViewController>();
+            mocks.ReplayAll();
+
+            var handler = new AssessmentSectionMergeHandler(documentViewController);
             var targetAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 SpecificFailureMechanisms =
@@ -358,13 +423,19 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                     Assert.AreEqual($"Faalmechanisme '{failureMechanismName}' en de bijbehorende gegevens zijn toegevoegd aan de lijst van specifieke faalmechanismen.", msgs[i + 1]);
                 }
             });
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenFailureMechanismWithWithCalculations_WhenCalculationHasReferenceToHydraulicBoundaryLocation_ThenReferenceUpdated()
         {
             // Given
-            var handler = new AssessmentSectionMergeHandler();
+            var mocks = new MockRepository();
+            var documentViewController = mocks.Stub<IDocumentViewController>();
+            mocks.ReplayAll();
+
+            var handler = new AssessmentSectionMergeHandler(documentViewController);
 
             var targetLocations = new[]
             {
@@ -487,6 +558,8 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
             var grassOutwardsCalculation = (GrassCoverErosionOutwardsWaveConditionsCalculation) targetAssessmentSection.GrassCoverErosionOutwards.Calculations.Single();
             Assert.AreSame(targetLocations[0], grassOutwardsCalculation.InputParameters.HydraulicBoundaryLocation);
+
+            mocks.VerifyAll();
         }
 
         private static AssessmentSection CreateAssessmentSection(HydraulicBoundaryLocation[] locations, double targetProbability = 0.1)
@@ -527,6 +600,10 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
         {
             // Given
+            var mocks = new MockRepository();
+            var documentViewController = mocks.Stub<IDocumentViewController>();
+            mocks.ReplayAll();
+
             HydraulicBoundaryLocation[] locations =
             {
                 new TestHydraulicBoundaryLocation(),
@@ -542,7 +619,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             SetOutput(targetCalculations);
             sourceCalculations.ForEachElementDo(c => c.InputParameters.ShouldIllustrationPointsBeCalculated = true);
 
-            var handler = new AssessmentSectionMergeHandler();
+            var handler = new AssessmentSectionMergeHandler(documentViewController);
 
             // Precondition
             Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
@@ -557,6 +634,8 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
             Assert.IsTrue(sourceCalculations.All(c => !c.HasOutput));
             Assert.IsTrue(targetCalculations.All(c => !c.InputParameters.ShouldIllustrationPointsBeCalculated));
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -565,6 +644,10 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
         {
             // Given
+            var mocks = new MockRepository();
+            var documentViewController = mocks.Stub<IDocumentViewController>();
+            mocks.ReplayAll();
+
             HydraulicBoundaryLocation[] locations =
             {
                 new TestHydraulicBoundaryLocation(),
@@ -581,7 +664,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             SetOutput(sourceCalculations);
             sourceCalculations.ForEachElementDo(c => c.InputParameters.ShouldIllustrationPointsBeCalculated = true);
 
-            var handler = new AssessmentSectionMergeHandler();
+            var handler = new AssessmentSectionMergeHandler(documentViewController);
 
             // Precondition
             Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
@@ -600,6 +683,8 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             Assert.IsTrue(targetCalculations.All(c => !c.Output.HasGeneralResult));
             Assert.IsTrue(sourceCalculations.All(c => !c.Output.HasGeneralResult));
             Assert.IsTrue(targetCalculations.All(c => !c.InputParameters.ShouldIllustrationPointsBeCalculated));
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -608,6 +693,10 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
         {
             // Given
+            var mocks = new MockRepository();
+            var documentViewController = mocks.Stub<IDocumentViewController>();
+            mocks.ReplayAll();
+
             HydraulicBoundaryLocation[] locations =
             {
                 new TestHydraulicBoundaryLocation(),
@@ -623,7 +712,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             SetOutput(sourceCalculations);
             sourceCalculations.ForEachElementDo(c => c.InputParameters.ShouldIllustrationPointsBeCalculated = true);
 
-            var handler = new AssessmentSectionMergeHandler();
+            var handler = new AssessmentSectionMergeHandler(documentViewController);
 
             // Precondition
             Assert.IsTrue(targetCalculations.All(c => !c.HasOutput));
@@ -638,6 +727,8 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             // Then
             Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
             Assert.IsTrue(targetCalculations.All(c => c.InputParameters.ShouldIllustrationPointsBeCalculated));
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -646,6 +737,10 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
         {
             // Given
+            var mocks = new MockRepository();
+            var documentViewController = mocks.Stub<IDocumentViewController>();
+            mocks.ReplayAll();
+
             HydraulicBoundaryLocation[] locations =
             {
                 new TestHydraulicBoundaryLocation(),
@@ -661,7 +756,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             SetOutput(targetCalculations, true);
             SetOutput(sourceCalculations);
 
-            var handler = new AssessmentSectionMergeHandler();
+            var handler = new AssessmentSectionMergeHandler(documentViewController);
 
             // Precondition
             Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
@@ -678,6 +773,8 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             Assert.IsTrue(targetCalculations.All(c => c.Output.HasGeneralResult));
             Assert.IsTrue(sourceCalculations.All(c => c.HasOutput));
             Assert.IsTrue(sourceCalculations.All(c => !c.Output.HasGeneralResult));
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -686,6 +783,10 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
         {
             // Given
+            var mocks = new MockRepository();
+            var documentViewController = mocks.Stub<IDocumentViewController>();
+            mocks.ReplayAll();
+
             HydraulicBoundaryLocation[] locations =
             {
                 new TestHydraulicBoundaryLocation(),
@@ -701,7 +802,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             SetOutput(targetCalculations);
             SetOutput(sourceCalculations, true);
 
-            var handler = new AssessmentSectionMergeHandler();
+            var handler = new AssessmentSectionMergeHandler(documentViewController);
 
             // Precondition
             Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
@@ -716,6 +817,8 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             // Then
             Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
             Assert.IsTrue(targetCalculations.All(c => c.Output.HasGeneralResult));
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -724,6 +827,10 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
         {
             // Given
+            var mocks = new MockRepository();
+            var documentViewController = mocks.Stub<IDocumentViewController>();
+            mocks.ReplayAll();
+
             HydraulicBoundaryLocation[] locations =
             {
                 new TestHydraulicBoundaryLocation(),
@@ -740,7 +847,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             SetOutput(sourceCalculations, true);
             sourceCalculations.ForEachElementDo(c => c.InputParameters.ShouldIllustrationPointsBeCalculated = true);
 
-            var handler = new AssessmentSectionMergeHandler();
+            var handler = new AssessmentSectionMergeHandler(documentViewController);
 
             // Precondition
             Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
@@ -759,6 +866,8 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             Assert.IsTrue(targetCalculations.All(c => c.Output.HasGeneralResult));
             Assert.IsTrue(sourceCalculations.All(c => c.Output.HasGeneralResult));
             Assert.IsTrue(targetCalculations.All(c => !c.InputParameters.ShouldIllustrationPointsBeCalculated));
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -768,6 +877,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
         {
             // Setup
             var mocks = new MockRepository();
+            var documentViewController = mocks.Stub<IDocumentViewController>();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver()).Repeat.Twice();
             mocks.ReplayAll();
@@ -789,7 +899,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             SetOutput(targetCalculations);
             SetOutput(sourceCalculations, true);
 
-            var handler = new AssessmentSectionMergeHandler();
+            var handler = new AssessmentSectionMergeHandler(documentViewController);
 
             // Call
             void Call() => handler.PerformMerge(targetAssessmentSection,
@@ -807,6 +917,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
         {
             // Setup
             var mocks = new MockRepository();
+            var documentViewController = mocks.Stub<IDocumentViewController>();
             var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
@@ -827,7 +938,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             SetOutput(targetCalculations);
             SetOutput(sourceCalculations);
 
-            var handler = new AssessmentSectionMergeHandler();
+            var handler = new AssessmentSectionMergeHandler(documentViewController);
 
             // Call
             void Call() => handler.PerformMerge(targetAssessmentSection,
@@ -843,9 +954,11 @@ namespace Riskeer.Integration.Plugin.Test.Merge
         {
             // Given
             var mocks = new MockRepository();
+            var documentViewController = mocks.Stub<IDocumentViewController>();
             var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
-            var handler = new AssessmentSectionMergeHandler();
+
+            var handler = new AssessmentSectionMergeHandler(documentViewController);
 
             var targetLocations = new[]
             {
@@ -900,11 +1013,12 @@ namespace Riskeer.Integration.Plugin.Test.Merge
         {
             // Given
             var mocks = new MockRepository();
+            var documentViewController = mocks.Stub<IDocumentViewController>();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver()).Repeat.Twice();
             mocks.ReplayAll();
 
-            var handler = new AssessmentSectionMergeHandler();
+            var handler = new AssessmentSectionMergeHandler(documentViewController);
 
             var targetLocations = new[]
             {
@@ -960,6 +1074,29 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             Assert.IsTrue(waveHeightTargetProbabilities.ElementAt(1).HydraulicBoundaryLocationCalculations.All(c => c.HasOutput));
             Assert.IsTrue(waveHeightTargetProbabilities.ElementAt(1).HydraulicBoundaryLocationCalculations.All(c => c.Output.HasGeneralResult));
 
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void PerformMerge_Always_CloseAllViews()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var documentViewController = mocks.StrictMock<IDocumentViewController>();
+            documentViewController.Expect(dvc => dvc.CloseAllViews());
+            mocks.ReplayAll();
+
+            var handler = new AssessmentSectionMergeHandler(documentViewController);
+
+            var targetAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var sourceAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            var mergeData = new AssessmentSectionMergeData(sourceAssessmentSection, new AssessmentSectionMergeData.ConstructionProperties());
+
+            // Call
+            handler.PerformMerge(targetAssessmentSection, mergeData);
+
+            // Assert
             mocks.VerifyAll();
         }
 
