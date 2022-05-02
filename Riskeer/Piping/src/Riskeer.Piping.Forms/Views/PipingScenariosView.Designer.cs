@@ -90,7 +90,7 @@ namespace Riskeer.Piping.Forms.Views
             this.selectScenarioConfigurationTypeLabel.TabIndex = 2;
             this.selectScenarioConfigurationTypeLabel.Text = global::Riskeer.Piping.Forms.Properties.Resources.PipingScenariosView_ScenarioConfigurationType_DisplayName;
             this.selectScenarioConfigurationTypeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.selectScenarioConfigurationTypeLabel.Margin = new System.Windows.Forms.Padding(3);
+            this.selectScenarioConfigurationTypeLabel.Margin = new System.Windows.Forms.Padding(3,5,3,3);
             // 
             // selectConfigurationTypeComboBox
             // 
@@ -197,7 +197,7 @@ namespace Riskeer.Piping.Forms.Views
             this.radioButtonsPanel.Name = "radioButtonsPanel";
             this.radioButtonsPanel.Size = new System.Drawing.Size(200, 30);
             this.radioButtonsPanel.TabIndex = 0;
-            this.radioButtonsPanel.Margin = new System.Windows.Forms.Padding(0, 20, 0, 0);
+            this.radioButtonsPanel.Margin = new System.Windows.Forms.Padding(3, 19, 0, 0);
             // 
             // radioButtonProbabilistic
             // 
