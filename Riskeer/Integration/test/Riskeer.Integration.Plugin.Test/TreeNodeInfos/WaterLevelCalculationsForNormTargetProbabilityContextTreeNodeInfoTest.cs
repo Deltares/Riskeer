@@ -34,6 +34,7 @@ using Core.Common.Util;
 using Core.Gui;
 using Core.Gui.ContextMenu;
 using Core.Gui.Forms.Main;
+using Core.Gui.Forms.ViewHost;
 using Core.Gui.TestUtil;
 using Core.Gui.TestUtil.ContextMenu;
 using NUnit.Extensions.Forms;
@@ -580,6 +581,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 gui.Stub(g => g.ProjectStore).Return(mockRepository.Stub<IStoreProject>());
+                gui.Stub(g => g.DocumentViewController).Return(mockRepository.Stub<IDocumentViewController>());
 
                 var designWaterLevelCalculator = new TestDesignWaterLevelCalculator();
                 var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
@@ -667,6 +669,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 gui.Stub(g => g.ProjectStore).Return(mockRepository.Stub<IStoreProject>());
+                gui.Stub(g => g.DocumentViewController).Return(mockRepository.Stub<IDocumentViewController>());
 
                 var designWaterLevelCalculator = new TestDesignWaterLevelCalculator();
                 var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
@@ -753,6 +756,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 gui.Stub(g => g.ProjectStore).Return(mockRepository.Stub<IStoreProject>());
+                gui.Stub(g => g.DocumentViewController).Return(mockRepository.Stub<IDocumentViewController>());
 
                 var designWaterLevelCalculator = new TestDesignWaterLevelCalculator();
                 var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
@@ -836,6 +840,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 gui.Stub(g => g.ProjectStore).Return(mockRepository.Stub<IStoreProject>());
+                gui.Stub(g => g.DocumentViewController).Return(mockRepository.Stub<IDocumentViewController>());
 
                 var calculator = new TestDesignWaterLevelCalculator
                 {
