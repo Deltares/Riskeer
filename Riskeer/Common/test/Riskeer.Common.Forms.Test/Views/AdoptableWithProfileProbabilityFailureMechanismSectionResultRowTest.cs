@@ -76,7 +76,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var result = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
             // Call
-            void Call() => new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, null, errorProvider, performAssemblyFunc, ConstructionProperties);
+            void Call() => new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, null, errorProvider, performAssemblyFunc, () => true, ConstructionProperties);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -98,7 +98,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var result = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
             // Call
-            void Call() => new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, null, performAssemblyFunc, ConstructionProperties);
+            void Call() => new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, null, performAssemblyFunc, () => true, ConstructionProperties);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -119,7 +119,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var result = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
             // Call
-            void Call() => new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, null, ConstructionProperties);
+            void Call() => new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, null, () => true, ConstructionProperties);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -142,11 +142,34 @@ namespace Riskeer.Common.Forms.Test.Views
             var result = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
             // Call
-            void Call() => new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, null);
+            void Call() => new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, () => true, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("constructionProperties", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_GetApplyLengthEffectInSectionFuncNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            var errorProvider = mocks.Stub<IFailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider>();
+            mocks.ReplayAll();
+
+            Func<FailureMechanismSectionAssemblyResultWrapper> performAssemblyFunc = FailureMechanismSectionAssemblyResultWrapperTestFactory.Create;
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
+
+            // Call
+            void Call() => new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, null, ConstructionProperties);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("getApplyLengthEffectInSectionFunc", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -173,7 +196,7 @@ namespace Riskeer.Common.Forms.Test.Views
             };
 
             // Call
-            var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, ConstructionProperties);
+            var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, () => true, ConstructionProperties);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<AdoptableWithProfileProbabilityFailureMechanismSectionResult>>(row);
@@ -239,7 +262,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var result = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
             Func<FailureMechanismSectionAssemblyResultWrapper> performAssemblyFunc = FailureMechanismSectionAssemblyResultWrapperTestFactory.Create;
-            var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, ConstructionProperties);
+            var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, () => true, ConstructionProperties);
 
             // Precondition
             Assert.AreEqual(profileProbability, row.InitialFailureMechanismResultProfileProbability);
@@ -258,7 +281,8 @@ namespace Riskeer.Common.Forms.Test.Views
         [Test]
         [TestCase(ProbabilityRefinementType.Profile, double.NaN, "<afgeleid>")]
         [TestCase(ProbabilityRefinementType.Section, "<afgeleid>", double.NaN)]
-        public void GivenRowWithProbabilityRefinementType_WhenValueChanged_ThenInitialProbabilitiesChanged(ProbabilityRefinementType newValue, object newProfileValue, object newSectionValue)
+        public void GivenRowWithApplyLengthEffectInSectionTrueAndProbabilityRefinementType_WhenValueChanged_ThenInitialProbabilitiesChanged(
+            ProbabilityRefinementType newValue, object newProfileValue, object newSectionValue)
         {
             // Given
             var mocks = new MockRepository();
@@ -273,7 +297,7 @@ namespace Riskeer.Common.Forms.Test.Views
             };
 
             Func<FailureMechanismSectionAssemblyResultWrapper> performAssemblyFunc = FailureMechanismSectionAssemblyResultWrapperTestFactory.Create;
-            var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, ConstructionProperties);
+            var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, () => true, ConstructionProperties);
 
             // Precondition
             Assert.AreEqual(result.RefinedProfileProbability, row.RefinedProfileProbability);
@@ -285,6 +309,42 @@ namespace Riskeer.Common.Forms.Test.Views
             // Then
             Assert.AreEqual(newProfileValue, row.RefinedProfileProbability);
             Assert.AreEqual(newSectionValue, row.RefinedSectionProbability);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(ProbabilityRefinementType.Profile)]
+        [TestCase(ProbabilityRefinementType.Section)]
+        public void GivenRowWithApplyLengthEffectInSectionFalseAndProbabilityRefinementType_WhenValueChanged_ThenInitialProbabilitiesChanged(
+            ProbabilityRefinementType newValue)
+        {
+            // Given
+            var mocks = new MockRepository();
+            var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            var errorProvider = mocks.Stub<IFailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider>();
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section)
+            {
+                ProbabilityRefinementType = ProbabilityRefinementType.Both
+            };
+
+            Func<FailureMechanismSectionAssemblyResultWrapper> performAssemblyFunc = FailureMechanismSectionAssemblyResultWrapperTestFactory.Create;
+            var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(
+                result, calculateStrategy, errorProvider, performAssemblyFunc, () => false, ConstructionProperties);
+
+            // Precondition
+            Assert.AreEqual(result.RefinedProfileProbability, row.RefinedProfileProbability);
+            Assert.AreEqual(result.RefinedSectionProbability, row.RefinedSectionProbability);
+
+            // When
+            row.ProbabilityRefinementType = newValue;
+
+            // Then
+            Assert.AreEqual(double.NaN, row.RefinedProfileProbability);
+            Assert.AreEqual(double.NaN, row.RefinedSectionProbability);
 
             mocks.VerifyAll();
         }
@@ -309,7 +369,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var result = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
             // When
-            var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, ConstructionProperties);
+            var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, () => true, ConstructionProperties);
 
             // Then
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -349,7 +409,7 @@ namespace Riskeer.Common.Forms.Test.Views
             };
 
             // When
-            var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, ConstructionProperties);
+            var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, () => true, ConstructionProperties);
 
             // Then
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -385,7 +445,7 @@ namespace Riskeer.Common.Forms.Test.Views
             };
 
             // When
-            var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, ConstructionProperties);
+            var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, () => true, ConstructionProperties);
 
             // Then
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -427,7 +487,7 @@ namespace Riskeer.Common.Forms.Test.Views
             };
 
             // When
-            var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, ConstructionProperties);
+            var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, () => true, ConstructionProperties);
 
             // Then
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -468,7 +528,7 @@ namespace Riskeer.Common.Forms.Test.Views
             };
 
             // When
-            var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, ConstructionProperties);
+            var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, () => true, ConstructionProperties);
 
             // Then
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -514,7 +574,7 @@ namespace Riskeer.Common.Forms.Test.Views
             };
 
             // When
-            var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, ConstructionProperties);
+            var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, () => true, ConstructionProperties);
 
             // Then
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -555,7 +615,7 @@ namespace Riskeer.Common.Forms.Test.Views
             };
 
             // When
-            var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, ConstructionProperties);
+            var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, () => true, ConstructionProperties);
 
             // Then
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -698,7 +758,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var result = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
             result.Attach(observer);
 
-            var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, ConstructionProperties);
+            var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, () => true, ConstructionProperties);
 
             // Call
             setPropertyAction(row);
@@ -723,7 +783,7 @@ namespace Riskeer.Common.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
-            var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, ConstructionProperties);
+            var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, () => true, ConstructionProperties);
 
             // Call
             void Call() => setPropertyAction(row);
@@ -755,7 +815,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var result = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
             // Call
-            var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, ConstructionProperties);
+            var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, () => true, ConstructionProperties);
 
             // Assert
             FailureMechanismSectionAssemblyResult assemblyResult = assemblyResultWrapper.AssemblyResult;
@@ -794,7 +854,7 @@ namespace Riskeer.Common.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
-            var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, ConstructionProperties);
+            var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, () => true, ConstructionProperties);
 
             // Precondition
             FailureMechanismSectionAssemblyResult assemblyResult = assemblyResultWrapper.AssemblyResult;
@@ -844,7 +904,7 @@ namespace Riskeer.Common.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
-            var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, ConstructionProperties);
+            var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, () => true, ConstructionProperties);
 
             // Precondition
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -890,7 +950,7 @@ namespace Riskeer.Common.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
-            var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, ConstructionProperties);
+            var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, () => true, ConstructionProperties);
 
             // Precondition
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -930,7 +990,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var result = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
             // Call
-            var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, ConstructionProperties);
+            var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, () => true, ConstructionProperties);
 
             // Assert
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -971,7 +1031,7 @@ namespace Riskeer.Common.Forms.Test.Views
             };
 
             // Call
-            var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, ConstructionProperties);
+            var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, () => true, ConstructionProperties);
 
             // Assert
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -1022,7 +1082,7 @@ namespace Riskeer.Common.Forms.Test.Views
             };
 
             // Call
-            var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, ConstructionProperties);
+            var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, () => true, ConstructionProperties);
 
             // Assert
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -1063,7 +1123,7 @@ namespace Riskeer.Common.Forms.Test.Views
             };
 
             // Call
-            var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, ConstructionProperties);
+            var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, () => true, ConstructionProperties);
 
             // Assert
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -1082,9 +1142,8 @@ namespace Riskeer.Common.Forms.Test.Views
         [TestCase(ProbabilityRefinementType.Both, false, false)]
         [TestCase(ProbabilityRefinementType.Profile, false, true)]
         [TestCase(ProbabilityRefinementType.Section, true, false)]
-        public void Constructor_WithProbabilityRefinementType_ExpectedColumnStates(ProbabilityRefinementType probabilityRefinementType,
-                                                                                   bool profileProbabilityIsReadOnly,
-                                                                                   bool sectionProbabilityIsReadOnly)
+        public void Constructor_WithApplyLengthEffectInSectionTrueAndProbabilityRefinementType_ExpectedColumnStates(
+            ProbabilityRefinementType probabilityRefinementType, bool profileProbabilityIsReadOnly, bool sectionProbabilityIsReadOnly)
         {
             // Setup
             var mocks = new MockRepository();
@@ -1108,7 +1167,7 @@ namespace Riskeer.Common.Forms.Test.Views
             };
 
             // Call
-            var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, ConstructionProperties);
+            var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, () => true, ConstructionProperties);
 
             // Assert
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -1117,6 +1176,48 @@ namespace Riskeer.Common.Forms.Test.Views
                 columnStateDefinitions[ConstructionProperties.RefinedProfileProbabilityIndex], true, profileProbabilityIsReadOnly);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
                 columnStateDefinitions[ConstructionProperties.RefinedSectionProbabilityIndex], true, sectionProbabilityIsReadOnly);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(ProbabilityRefinementType.Both, false, false)]
+        [TestCase(ProbabilityRefinementType.Profile, false, true)]
+        [TestCase(ProbabilityRefinementType.Section, true, false)]
+        public void Constructor_WithApplyLengthEffectInSectionFalseAndProbabilityRefinementType_ExpectedColumnStates(
+            ProbabilityRefinementType probabilityRefinementType, bool profileProbabilityIsReadOnly, bool sectionProbabilityIsReadOnly)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            var errorProvider = mocks.Stub<IFailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider>();
+            errorProvider.Stub(ep => ep.GetCalculatedProbabilityValidationError(null))
+                         .IgnoreArguments()
+                         .Return(string.Empty);
+            errorProvider.Stub(ep => ep.GetManualProbabilityValidationError(double.NaN))
+                         .IgnoreArguments()
+                         .Return(string.Empty);
+            mocks.ReplayAll();
+
+            Func<FailureMechanismSectionAssemblyResultWrapper> performAssemblyFunc = FailureMechanismSectionAssemblyResultWrapperTestFactory.Create;
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section)
+            {
+                FurtherAnalysisType = FailureMechanismSectionResultFurtherAnalysisType.Executed,
+                ProbabilityRefinementType = probabilityRefinementType
+            };
+
+            // Call
+            var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, () => false, ConstructionProperties);
+
+            // Assert
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
+                columnStateDefinitions[ConstructionProperties.RefinedProfileProbabilityIndex], true);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
+                columnStateDefinitions[ConstructionProperties.RefinedSectionProbabilityIndex], true);
 
             mocks.VerifyAll();
         }
@@ -1140,7 +1241,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var result = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
             // Call
-            var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, ConstructionProperties);
+            var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, () => true, ConstructionProperties);
 
             // Assert
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;

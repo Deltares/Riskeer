@@ -175,7 +175,14 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1");
 
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
+            {
+                GeneralInput =
+                {
+                    ApplyLengthEffectInSection = true
+                }
+            };
+
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 section

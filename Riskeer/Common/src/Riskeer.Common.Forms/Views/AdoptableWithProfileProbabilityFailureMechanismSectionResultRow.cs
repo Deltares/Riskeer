@@ -55,6 +55,7 @@ namespace Riskeer.Common.Forms.Views
         private readonly IFailureMechanismSectionResultCalculateProbabilityStrategy calculateProbabilityStrategy;
         private readonly IFailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider failureMechanismSectionResultRowErrorProvider;
         private readonly Func<FailureMechanismSectionAssemblyResultWrapper> performAssemblyFunc;
+        private readonly Func<bool> getApplyLengthEffectInSectionFunc;
 
         /// <summary>
         /// Creates a new instance of <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResultRow"/>.
@@ -65,6 +66,7 @@ namespace Riskeer.Common.Forms.Views
         /// <param name="failureMechanismSectionResultRowErrorProvider">The error provider to use for
         /// the failure mechanism section result row.</param>
         /// <param name="performAssemblyFunc">Function to perform the assembly.</param>
+        /// <param name="getApplyLengthEffectInSectionFunc">Function to get the apply length effect in section indicator.</param>
         /// <param name="constructionProperties">The property values required to create an instance of
         /// <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResultRow"/>.</param>
         /// <exception cref="ArgumentNullException">Throw when any parameter is <c>null</c>.</exception>
@@ -72,6 +74,7 @@ namespace Riskeer.Common.Forms.Views
                                                                                IFailureMechanismSectionResultCalculateProbabilityStrategy calculateProbabilityStrategy,
                                                                                IFailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider failureMechanismSectionResultRowErrorProvider,
                                                                                Func<FailureMechanismSectionAssemblyResultWrapper> performAssemblyFunc,
+                                                                               Func<bool> getApplyLengthEffectInSectionFunc,
                                                                                ConstructionProperties constructionProperties)
             : base(sectionResult)
         {
@@ -90,6 +93,11 @@ namespace Riskeer.Common.Forms.Views
                 throw new ArgumentNullException(nameof(performAssemblyFunc));
             }
 
+            if (getApplyLengthEffectInSectionFunc == null)
+            {
+                throw new ArgumentNullException(nameof(getApplyLengthEffectInSectionFunc));
+            }
+
             if (constructionProperties == null)
             {
                 throw new ArgumentNullException(nameof(constructionProperties));
@@ -98,6 +106,7 @@ namespace Riskeer.Common.Forms.Views
             this.calculateProbabilityStrategy = calculateProbabilityStrategy;
             this.failureMechanismSectionResultRowErrorProvider = failureMechanismSectionResultRowErrorProvider;
             this.performAssemblyFunc = performAssemblyFunc;
+            this.getApplyLengthEffectInSectionFunc = getApplyLengthEffectInSectionFunc;
 
             initialFailureMechanismResultTypeIndex = constructionProperties.InitialFailureMechanismResultTypeIndex;
             initialFailureMechanismResultProfileProbabilityIndex = constructionProperties.InitialFailureMechanismResultProfileProbabilityIndex;
@@ -209,7 +218,7 @@ namespace Riskeer.Common.Forms.Views
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public object RefinedProfileProbability
         {
-            get => ProbabilityRefinementType == ProbabilityRefinementType.Section
+            get => getApplyLengthEffectInSectionFunc() && ProbabilityRefinementType == ProbabilityRefinementType.Section
                        ? (object) CommonFormsResources.FailureMechanismSectionResultRow_Derived_DisplayName
                        : SectionResult.RefinedProfileProbability;
             set
@@ -226,7 +235,7 @@ namespace Riskeer.Common.Forms.Views
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public object RefinedSectionProbability
         {
-            get => ProbabilityRefinementType == ProbabilityRefinementType.Profile
+            get => getApplyLengthEffectInSectionFunc() && ProbabilityRefinementType == ProbabilityRefinementType.Profile
                        ? (object) CommonFormsResources.FailureMechanismSectionResultRow_Derived_DisplayName
                        : SectionResult.RefinedSectionProbability;
             set
@@ -390,8 +399,9 @@ namespace Riskeer.Common.Forms.Views
             }
             else
             {
-                ColumnStateHelper.EnableColumn(ColumnStateDefinitions[refinedProfileProbabilityIndex], ProbabilityRefinementType == ProbabilityRefinementType.Section);
-                ColumnStateHelper.EnableColumn(ColumnStateDefinitions[refinedSectionProbabilityIndex], ProbabilityRefinementType == ProbabilityRefinementType.Profile);
+                bool applyLengthEffectInSection = getApplyLengthEffectInSectionFunc();
+                ColumnStateHelper.EnableColumn(ColumnStateDefinitions[refinedProfileProbabilityIndex], applyLengthEffectInSection && ProbabilityRefinementType == ProbabilityRefinementType.Section);
+                ColumnStateHelper.EnableColumn(ColumnStateDefinitions[refinedSectionProbabilityIndex], applyLengthEffectInSection && ProbabilityRefinementType == ProbabilityRefinementType.Profile);
             }
 
             FailureMechanismSectionResultRowHelper.SetAssemblyGroupStyle(ColumnStateDefinitions[assemblyGroupIndex], AssemblyResult.FailureMechanismSectionAssemblyGroup);
