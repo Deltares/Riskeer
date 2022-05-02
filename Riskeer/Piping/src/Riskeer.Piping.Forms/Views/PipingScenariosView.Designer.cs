@@ -160,7 +160,7 @@ namespace Riskeer.Piping.Forms.Views
             this.label.Name = "label";
             this.label.Size = new System.Drawing.Size(26, 13);
             this.label.TabIndex = 0;
-            this.label.Text = "Vak";
+            this.label.Text = global::Riskeer.Common.Forms.Properties.Resources.Section_DisplayName;
             // 
             // listBox
             // 
