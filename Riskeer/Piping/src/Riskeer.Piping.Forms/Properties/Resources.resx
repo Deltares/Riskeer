@@ -514,10 +514,10 @@ opbarsten
     <value>Berekeningen voor huidige selectie</value>
   </data>
   <data name="ScenarioConfigurationType_SemiProbabilistic_DisplayName" xml:space="preserve">
-    <value>Semi-probabilistische toets</value>
+    <value>Semi-probabilistisch</value>
   </data>
   <data name="ScenarioConfigurationType_Probabilistic_DisplayName" xml:space="preserve">
-    <value>Probabilistische toets</value>
+    <value>Probabilistisch</value>
   </data>
   <data name="PipingScenariosView_InitializeInfoIcon_ScenarioConfigurationType_PerSection_ToolTip" xml:space="preserve">
     <value>In het geval van 'Per vak instelbaar' is een onderbouwing nodig,

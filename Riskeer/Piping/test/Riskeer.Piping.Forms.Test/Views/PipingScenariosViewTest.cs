@@ -226,10 +226,10 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.AreEqual(radioButtonsShouldBeVisible, radioButtonsPanel.Visible);
 
             var radioButtonSemiProbabilistic = (RadioButton) new RadioButtonTester("radioButtonSemiProbabilistic").TheObject;
-            Assert.AreEqual("Semi-probabilistische toets", radioButtonSemiProbabilistic.Text);
+            Assert.AreEqual("Semi-probabilistisch", radioButtonSemiProbabilistic.Text);
             Assert.IsTrue(radioButtonSemiProbabilistic.Checked);
             var radioButtonProbabilistic = (RadioButton) new RadioButtonTester("radioButtonProbabilistic").TheObject;
-            Assert.AreEqual("Probabilistische toets", radioButtonProbabilistic.Text);
+            Assert.AreEqual("Probabilistisch", radioButtonProbabilistic.Text);
             Assert.IsFalse(radioButtonProbabilistic.Checked);
         }
 
