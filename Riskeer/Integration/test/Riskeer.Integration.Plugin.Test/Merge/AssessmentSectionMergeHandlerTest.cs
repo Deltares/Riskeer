@@ -168,7 +168,6 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             Assert.AreSame(sourceAssessmentSection.PipingStructure, targetAssessmentSection.PipingStructure);
             Assert.AreSame(sourceAssessmentSection.StabilityPointStructures, targetAssessmentSection.StabilityPointStructures);
             Assert.AreSame(sourceAssessmentSection.DuneErosion, targetAssessmentSection.DuneErosion);
-
             mocks.VerifyAll();
         }
 
@@ -205,7 +204,6 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             Assert.AreNotSame(sourceAssessmentSection.PipingStructure, targetAssessmentSection.PipingStructure);
             Assert.AreNotSame(sourceAssessmentSection.StabilityPointStructures, targetAssessmentSection.StabilityPointStructures);
             Assert.AreNotSame(sourceAssessmentSection.DuneErosion, targetAssessmentSection.DuneErosion);
-
             mocks.VerifyAll();
         }
 
@@ -263,7 +261,6 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                 Assert.AreEqual("Gegevens van het generieke faalmechanisme 'Sterkte en stabiliteit puntconstructies' zijn vervangen.", msgs[14]);
                 Assert.AreEqual("Gegevens van het generieke faalmechanisme 'Duinafslag' zijn vervangen.", msgs[15]);
             });
-
             mocks.VerifyAll();
         }
 
@@ -423,7 +420,6 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                     Assert.AreEqual($"Faalmechanisme '{failureMechanismName}' en de bijbehorende gegevens zijn toegevoegd aan de lijst van specifieke faalmechanismen.", msgs[i + 1]);
                 }
             });
-
             mocks.VerifyAll();
         }
 
@@ -558,7 +554,6 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
             var grassOutwardsCalculation = (GrassCoverErosionOutwardsWaveConditionsCalculation) targetAssessmentSection.GrassCoverErosionOutwards.Calculations.Single();
             Assert.AreSame(targetLocations[0], grassOutwardsCalculation.InputParameters.HydraulicBoundaryLocation);
-
             mocks.VerifyAll();
         }
 
@@ -634,7 +629,6 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
             Assert.IsTrue(sourceCalculations.All(c => !c.HasOutput));
             Assert.IsTrue(targetCalculations.All(c => !c.InputParameters.ShouldIllustrationPointsBeCalculated));
-
             mocks.VerifyAll();
         }
 
@@ -683,7 +677,6 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             Assert.IsTrue(targetCalculations.All(c => !c.Output.HasGeneralResult));
             Assert.IsTrue(sourceCalculations.All(c => !c.Output.HasGeneralResult));
             Assert.IsTrue(targetCalculations.All(c => !c.InputParameters.ShouldIllustrationPointsBeCalculated));
-
             mocks.VerifyAll();
         }
 
@@ -727,7 +720,6 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             // Then
             Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
             Assert.IsTrue(targetCalculations.All(c => c.InputParameters.ShouldIllustrationPointsBeCalculated));
-
             mocks.VerifyAll();
         }
 
@@ -773,7 +765,6 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             Assert.IsTrue(targetCalculations.All(c => c.Output.HasGeneralResult));
             Assert.IsTrue(sourceCalculations.All(c => c.HasOutput));
             Assert.IsTrue(sourceCalculations.All(c => !c.Output.HasGeneralResult));
-
             mocks.VerifyAll();
         }
 
@@ -817,7 +808,6 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             // Then
             Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
             Assert.IsTrue(targetCalculations.All(c => c.Output.HasGeneralResult));
-
             mocks.VerifyAll();
         }
 
@@ -866,7 +856,6 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             Assert.IsTrue(targetCalculations.All(c => c.Output.HasGeneralResult));
             Assert.IsTrue(sourceCalculations.All(c => c.Output.HasGeneralResult));
             Assert.IsTrue(targetCalculations.All(c => !c.InputParameters.ShouldIllustrationPointsBeCalculated));
-
             mocks.VerifyAll();
         }
 
@@ -1004,7 +993,6 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                 targetAssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities;
             Assert.AreEqual(1, waveHeightTargetProbabilities.Count);
             Assert.AreEqual(0.1, waveHeightTargetProbabilities.ElementAt(0).TargetProbability);
-
             mocks.VerifyAll();
         }
 
@@ -1073,7 +1061,6 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             Assert.AreEqual(0.01, waveHeightTargetProbabilities.ElementAt(1).TargetProbability);
             Assert.IsTrue(waveHeightTargetProbabilities.ElementAt(1).HydraulicBoundaryLocationCalculations.All(c => c.HasOutput));
             Assert.IsTrue(waveHeightTargetProbabilities.ElementAt(1).HydraulicBoundaryLocationCalculations.All(c => c.Output.HasGeneralResult));
-
             mocks.VerifyAll();
         }
 
