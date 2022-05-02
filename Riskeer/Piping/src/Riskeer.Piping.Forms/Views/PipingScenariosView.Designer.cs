@@ -197,7 +197,7 @@ namespace Riskeer.Piping.Forms.Views
             this.radioButtonsPanel.Name = "radioButtonsPanel";
             this.radioButtonsPanel.Size = new System.Drawing.Size(200, 30);
             this.radioButtonsPanel.TabIndex = 0;
-            this.radioButtonsPanel.Margin = new System.Windows.Forms.Padding(0,20,0,0);
+            this.radioButtonsPanel.Margin = new System.Windows.Forms.Padding(0, 20, 0, 0);
             // 
             // radioButtonProbabilistic
             // 
