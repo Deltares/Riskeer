@@ -236,6 +236,11 @@
 				</conditiongroup>
 			</smartfoldernode>
 			<smartfoldernode
+			datasource="script21_b_Iteration_3_Indeces"
+			id="0b029714-101e-4d8b-a756-d7ceb8defae6"
+			name="Relevance">
+			</smartfoldernode>
+			<smartfoldernode
 			datasource="script21_FMGroup1And2CustomAssessmentTraject"
 			errorbehavior="ContinueNextIteration"
 			id="0cecaf93-6b16-47d3-93fa-8f1bae82b9d3"
@@ -312,6 +317,12 @@
 					variablename="expectedCustomAssessmentValue">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="0f77b9f5-7dce-4bce-a882-295e695751c0"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
 			</testmodule>
 			<smartfoldernode
 			id="0f88ec30-f3a9-4e40-9245-39227a39fa14"
@@ -488,6 +499,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="159c63dc-701b-4a1f-9524-7219af64cf2a"
+			name="SetRelevanceOff">
+			</smartfoldernode>
 			<testmodule
 			id="15eb0af1-b9e8-4fda-835a-2af42b55484f"
 			name="SaveAs"
@@ -550,6 +565,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="19153785-2fe2-46fd-94c7-e616f1027189"
+			name="Required">
+			</smartfoldernode>
 			<testmodule
 			id="193cc563-743e-410a-a42b-4fbb23386f40"
 			name="LogWarningMessage"
@@ -651,6 +670,16 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
+			id="1d8b7810-2d27-40ab-bee4-d213c69fc46e"
+			name="OpenProject">
+				<parameters>
+					<param
+					name="pathToFileToOpen"
+					value="X:\script21\currentRelease\21_b.risk">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
 			datasource="script21_FMGroup4ExpectedCustomAssessmentInput"
 			id="1e3700ab-ad58-462a-bb54-cb716a0aafac"
 			name="ValidateCustomAssessmentInput">
@@ -744,6 +773,16 @@
 			datasource="FMsInGroup1SimpleAssessment"
 			id="25c9a547-d46e-4860-8808-11b6ad1d95c7"
 			name="FMsGroup1">
+			</smartfoldernode>
+			<smartfoldernode
+			id="27b06672-7ef5-4bd8-8369-c9f8d2c10ef8"
+			name="SetStateRegistrationAssembly">
+				<parameters>
+					<param
+					name="stateToSelect"
+					value="@RA">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="287753fc-c8e8-40ab-8e3b-3d879697612d"
@@ -870,6 +909,10 @@
 			<smartfoldernode
 			id="2f9dbe46-cb2e-4ce4-b483-5163d01f4b26"
 			name="ManualOverride">
+			</smartfoldernode>
+			<smartfoldernode
+			id="31719205-2c68-41fa-9b0f-80dee2252d89"
+			name="ValidateCellsInactive">
 			</smartfoldernode>
 			<testmodule
 			id="318ddb61-7c2a-4622-9f75-a255264ebc4e"
@@ -1244,6 +1287,20 @@
 			name="ValidateDetailedAsssessmentType">
 			</smartfoldernode>
 			<testmodule
+			id="547a9fce-3840-4f47-ac9f-d36f2e3d91be"
+			name="ChangeRelevanceSection"
+			ref="c7f01638-49a5-4492-9536-48269cf9ab9f"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="1c14f2e6-51f1-44a4-a3ae-683f3844bb97"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="553c0d50-5e3d-4796-8129-4d114cf69434"
 			name="ValidateCustomAssessmentTypeAtRow"
 			ref="4a7e3f6a-b454-48a2-a19c-3321f75bc052"
@@ -1426,12 +1483,20 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="5d3e5f60-64cd-4255-9bf5-f166dc4b7b57"
+			name="FollowUpAnalysis">
+			</smartfoldernode>
 			<testmodule
 			id="5e27ab92-5d5a-4d10-a82e-c863a6cbbd3f"
 			name="ExpandAllSubnodesCurrentlySelectedItem"
 			ref="12ee2100-a4a2-41a6-ad6e-3f7829dd3c4b"
 			type="Recording">
 			</testmodule>
+			<smartfoldernode
+			id="5f015a6e-20dc-406b-a64f-d20f881e4c85"
+			name="CloseResultsView">
+			</smartfoldernode>
 			<testmodule
 			id="60ac2e30-b551-4e51-9aac-a660a7e01df9"
 			name="OpenResultView"
@@ -1466,6 +1531,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="628a7a89-e680-4385-953b-12eefe5bd8c0"
+			name="ValidateCellsActive">
+			</smartfoldernode>
 			<smartfoldernode
 			id="62fe8830-30e1-4117-905d-95627cc4d7d9"
 			name="a)Relevance_Failure_mechanisms">
@@ -1543,6 +1612,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="66d44850-36a3-4612-9f78-329cdff9824c"
+			name="ResultInitialMechanism">
+			</smartfoldernode>
 			<smartfoldernode
 			id="6737e999-5f18-4233-badf-4c83174a53a7"
 			name="Detailed_Assessment">
@@ -1778,6 +1851,14 @@
 			ref="f0658d7f-65e3-4f38-afe8-97fd942c1478"
 			type="Recording">
 			</testmodule>
+			<smartfoldernode
+			id="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+			name="CarriedOut">
+			</smartfoldernode>
+			<smartfoldernode
+			id="70ff7b86-278c-4073-9870-592a89d5c188"
+			name="Both">
+			</smartfoldernode>
 			<testmodule
 			id="723b0345-448f-459b-b7c6-39c227344529"
 			name="SaveAs"
@@ -1970,6 +2051,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="8e513d20-9159-4db8-abe6-a879dfda3b84"
+			name="OpenResultsView">
+			</smartfoldernode>
 			<testmodule
 			id="9016049a-b878-4165-8072-f2c83f2d9a16"
 			name="CreateScreenshotDocumentView"
@@ -2038,6 +2123,45 @@
 			type="Recording">
 			</testmodule>
 			<smartfoldernode
+			id="99b07ba1-6356-4024-8557-5081388de219"
+			name="SetLengthEffectTrue">
+				<parameters>
+					<param
+					name="pathToLEItemInPP"
+					value="Lengte-effect>Toepassen">
+					</param>
+					<param
+					name="typeParameter"
+					value="Text">
+					</param>
+					<param
+					name="valueLEEffect"
+					value="True">
+					</param>
+				</parameters>
+				<conditiongroup
+				comparison="AND"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="LEMustBeSetTOTrue"
+								id="a784fe06-2c77-41f1-84ac-a34023452ac1">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="true">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
+			<smartfoldernode
 			datasource="script21_ListWithpathsFMs"
 			errorbehavior="ContinueNextIteration"
 			id="9b47077f-cafa-4f61-9f5d-e89daf425f39"
@@ -2086,6 +2210,36 @@
 					variablename="substringFMName">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="9ec36acb-bf5b-41b7-af74-c6bbd2a2c5d6"
+			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
+			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
+			type="Recording">
+			</testmodule>
+			<smartfoldernode
+			id="a15ddf8b-6fff-47ba-873e-c2f2299744d4"
+			name="FillInManually">
+			</smartfoldernode>
+			<testmodule
+			id="a184c5ee-d02e-4378-9e0b-adc6c88cd7d0"
+			name="OpenProject"
+			ref="3f746bb2-6845-45b4-9b28-b7fd605378f3"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToFileToOpen"
+					datasourceid="1d8b7810-2d27-40ab-bee4-d213c69fc46e"
+					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
+					variablename="fileName">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="51bff513-6ec0-4273-9ee3-8d912bb40499"
+					variableid="b7b39e3c-a1f6-46e4-bf70-84c02fc78fd6"
+					variablename="scriptOutputPath">
+					</var>
+				</databinding>
 			</testmodule>
 			<smartfoldernode
 			datasource="script21_ListWithpathsFMs"
@@ -2207,6 +2361,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="a8a89bef-49e8-46b6-bd3f-44d548a8c178"
+			name="PerSection">
+			</smartfoldernode>
 			<testmodule
 			id="aa3dff3e-1d66-4f36-9254-92c1fbf1f6bc"
 			name="ValidateDetailedAssessmentValueAtRowPerCategoryGroup4"
@@ -2364,6 +2522,20 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="ad58437b-4805-4fcd-8e97-9244983e25e0"
+			name="SelectState"
+			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="stateToSelect"
+					datasourceid="27b06672-7ef5-4bd8-8369-c9f8d2c10ef8"
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="ade74b83-af76-408b-b1d0-54205c261b3e"
 			name="SelectManualAssessment"
 			ref="5b015ee3-50ff-44a4-90b6-4b97670bff51"
@@ -2372,6 +2544,20 @@
 					<var
 					dataname="rowIndex"
 					datasourceid="ae64935c-354a-40d0-902f-7059481f67d1"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="ae63c49e-fc25-4e6e-8800-9dc1271d10a9"
+			name="CreateScreenshotOfCurrentRowInResultView"
+			ref="85d42ae0-bc9c-48e2-bd90-1ebc66be310e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="1c14f2e6-51f1-44a4-a3ae-683f3844bb97"
 					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
 					variablename="rowIndex">
 					</var>
@@ -2450,6 +2636,18 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
+			id="b2a61fc8-edc0-4010-8afa-198187aa2c22"
+			name="SetRelevanceOn">
+			</smartfoldernode>
+			<smartfoldernode
+			id="b3f337ad-5c9b-4d1b-af98-bec2aa6f0a55"
+			name="TakeOver">
+			</smartfoldernode>
+			<smartfoldernode
+			id="b46d36cd-fc22-4df4-bdf0-7fbdee23a420"
+			name="Validation">
+			</smartfoldernode>
+			<smartfoldernode
 			id="b639dbf0-c83e-46e9-882d-2ad50d368b8b"
 			name="DetailedAssessmentFMsGroup1And2">
 			</smartfoldernode>
@@ -2520,6 +2718,20 @@
 			id="bbf6cf98-64ef-491b-a563-b564ecf57ce7"
 			name="LoopRowsSelectCustomAssessmentType">
 			</smartfoldernode>
+			<testmodule
+			id="bc61beb9-1980-4f87-8620-3012cab25983"
+			name="ChangeRelevanceSection"
+			ref="c7f01638-49a5-4492-9536-48269cf9ab9f"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="1c14f2e6-51f1-44a4-a3ae-683f3844bb97"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="bd62b899-36da-4a4f-9064-6d0c8e8699d5"
 			name="LoopRowsSelectCustomAssessmentType">
@@ -2537,6 +2749,10 @@
 			datasource="simpleAssessmentGroup2"
 			id="c248c596-d769-4e48-a7f3-5dfb82b6b538"
 			name="LoopRows">
+			</smartfoldernode>
+			<smartfoldernode
+			id="c2d6ea60-c053-474a-85aa-9d78d54b9cec"
+			name="b)Total_Overview_Results_Length_Effect_True">
 			</smartfoldernode>
 			<smartfoldernode
 			datasource="script21_FMGroup3And4DetailedAssessmentTypes"
@@ -2653,9 +2869,28 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
+			datasource="script21_b_LoopFMsLETrue"
+			id="ce2972e2-667d-4d1a-833a-0ad60a84e28b"
+			name="LoopFMsLengthEffectTrue">
+			</smartfoldernode>
+			<smartfoldernode
 			id="ce891dec-48dd-4010-b6ea-37a106495576"
 			name="ValidateDetailedAsssessmentType">
 			</smartfoldernode>
+			<testmodule
+			id="cf3c9c9a-3999-4465-bd3f-6abe6aa8db71"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToResultItem"
+					datasourceid="a784fe06-2c77-41f1-84ac-a34023452ac1"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="cf4c5bfd-db2a-435c-b1a2-5c1f58f870c6"
 			name="ValidateDetailedAssessmentTypeAtRowCategoryIVv"
@@ -2690,6 +2925,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="d158e57d-7bc6-4f40-843f-8c3580de96f8"
+			name="NoFailureProbability">
+			</smartfoldernode>
 			<smartfoldernode
 			datasource="script21_FMGroup1and2ExpectedCustomAssessmentInput"
 			id="d2604fc5-0a74-4cc8-821c-3165f9a5160a"
@@ -2761,6 +3000,10 @@
 			<smartfoldernode
 			id="d9584df8-ec80-44b5-80d0-73386e1f16f3"
 			name="ValidateFMsInAssembly">
+			</smartfoldernode>
+			<smartfoldernode
+			id="d9e3632f-cf2e-4283-9237-c8e0f4c9be0a"
+			name="PerProfile">
 			</smartfoldernode>
 			<testmodule
 			id="d9eaa17d-31a1-4b12-95b4-dea9869dcafe"
@@ -2837,6 +3080,12 @@
 			id="e41615d8-9405-4ee7-b151-efc8ad4df265"
 			name="SaveProject">
 			</smartfoldernode>
+			<testmodule
+			id="e5212621-eefd-4ddc-8ecd-5aa591bd34d5"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
+			</testmodule>
 			<testcase
 			id="e73accf9-7ba2-423c-a256-1fea8f69131e"
 			name="Script21"
@@ -2852,6 +3101,32 @@
 					</param>
 				</parameters>
 			</testcase>
+			<testmodule
+			id="eb1c47eb-78c7-4b05-9033-1a7ae5d19640"
+			name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue"
+			ref="52d4c162-4d43-4281-9b87-3cf96d0fa894"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathToLEItemInPP"
+					datasourceid="99b07ba1-6356-4024-8557-5081388de219"
+					variableid="a6c6752c-53a8-4e28-a7d5-e369855d34cb"
+					variablename="pathToElementInPropertiesPanel">
+					</var>
+					<var
+					dataname="typeParameter"
+					datasourceid="99b07ba1-6356-4024-8557-5081388de219"
+					variableid="f6cc0a7d-f65c-4a45-8975-405678527d6a"
+					variablename="typeParameter">
+					</var>
+					<var
+					dataname="valueLEEffect"
+					datasourceid="99b07ba1-6356-4024-8557-5081388de219"
+					variableid="57b81fcc-fdb5-4138-9a1d-0f85b3b8c8b6"
+					variablename="newValueForParameter">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="ebad85b6-2c4e-48bb-b791-c7ad1021a195"
 			name="SelectDetailedAssessmentForRowCategoryIVv"
@@ -2893,11 +3168,29 @@
 			type="Recording">
 			</testmodule>
 			<smartfoldernode
+			id="ee866672-fea1-433b-8580-c369c8e5cee7"
+			name="c)Total_Overview_Results_Length_Effect_False">
+			</smartfoldernode>
+			<smartfoldernode
 			datasource="OpenDetailedFaalkansProject"
 			errorbehavior="ContinueParent"
 			id="f325ca7f-a73e-4e32-9a2e-3f2963a748e7"
 			name="OpenDetailedFaalkansProject">
 			</smartfoldernode>
+			<testmodule
+			id="f56cf4e5-80eb-496d-96c3-05985693bad3"
+			name="CreateScreenshotOfCurrentRowInResultView"
+			ref="85d42ae0-bc9c-48e2-bd90-1ebc66be310e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="1c14f2e6-51f1-44a4-a3ae-683f3844bb97"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="f6079908-ccfe-4f2d-9a44-2fba791edfe7"
 			name="ValidateFMAssemblyWithContextMenuInProjectExplorer"
@@ -2912,6 +3205,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="f698adf0-a73b-47fe-9e73-b0ddf676ad72"
+			name="NotRequired">
+			</smartfoldernode>
 			<smartfoldernode
 			datasource="script21_FMGroup3CustomAssessmentTraject"
 			errorbehavior="ContinueNextIteration"
@@ -3168,6 +3465,150 @@
 									</testmodule>
 								</smartfoldernode>
 							</smartfoldernode>
+						</smartfoldernode>
+						<smartfoldernode
+						id="c2d6ea60-c053-474a-85aa-9d78d54b9cec"
+						name="b)Total_Overview_Results_Length_Effect_True">
+							<smartfoldernode
+							id="1d8b7810-2d27-40ab-bee4-d213c69fc46e"
+							name="OpenProject">
+								<testmodule
+								id="a184c5ee-d02e-4378-9e0b-adc6c88cd7d0"
+								name="OpenProject">
+								</testmodule>
+								<testmodule
+								id="0f77b9f5-7dce-4bce-a882-295e695751c0"
+								name="CloseViewCentralPanelWithFocus">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="27b06672-7ef5-4bd8-8369-c9f8d2c10ef8"
+							name="SetStateRegistrationAssembly">
+								<testmodule
+								id="ad58437b-4805-4fcd-8e97-9244983e25e0"
+								name="SelectState">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="ce2972e2-667d-4d1a-833a-0ad60a84e28b"
+							name="LoopFMsLengthEffectTrue">
+								<smartfoldernode
+								id="99b07ba1-6356-4024-8557-5081388de219"
+								name="SetLengthEffectTrue">
+									<testmodule
+									id="eb1c47eb-78c7-4b05-9033-1a7ae5d19640"
+									name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="8e513d20-9159-4db8-abe6-a879dfda3b84"
+								name="OpenResultsView">
+									<testmodule
+									id="cf3c9c9a-3999-4465-bd3f-6abe6aa8db71"
+									name="SelectGenericItemInProjectExplorer">
+									</testmodule>
+									<testmodule
+									id="9ec36acb-bf5b-41b7-af74-c6bbd2a2c5d6"
+									name="OpenViewForCurrentlySelectedItemInProjectExplorer">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="b46d36cd-fc22-4df4-bdf0-7fbdee23a420"
+								name="Validation">
+									<smartfoldernode
+									id="0b029714-101e-4d8b-a756-d7ceb8defae6"
+									name="Relevance">
+										<smartfoldernode
+										id="159c63dc-701b-4a1f-9524-7219af64cf2a"
+										name="SetRelevanceOff">
+											<testmodule
+											id="547a9fce-3840-4f47-ac9f-d36f2e3d91be"
+											name="ChangeRelevanceSection">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="31719205-2c68-41fa-9b0f-80dee2252d89"
+										name="ValidateCellsInactive">
+											<testmodule
+											id="f56cf4e5-80eb-496d-96c3-05985693bad3"
+											name="CreateScreenshotOfCurrentRowInResultView">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="b2a61fc8-edc0-4010-8afa-198187aa2c22"
+										name="SetRelevanceOn">
+											<testmodule
+											id="bc61beb9-1980-4f87-8620-3012cab25983"
+											name="ChangeRelevanceSection">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="628a7a89-e680-4385-953b-12eefe5bd8c0"
+										name="ValidateCellsActive">
+											<testmodule
+											id="ae63c49e-fc25-4e6e-8800-9dc1271d10a9"
+											name="CreateScreenshotOfCurrentRowInResultView">
+											</testmodule>
+										</smartfoldernode>
+									</smartfoldernode>
+									<smartfoldernode
+									id="66d44850-36a3-4612-9f78-329cdff9824c"
+									name="ResultInitialMechanism">
+										<smartfoldernode
+										id="b3f337ad-5c9b-4d1b-af98-bec2aa6f0a55"
+										name="TakeOver">
+										</smartfoldernode>
+										<smartfoldernode
+										id="a15ddf8b-6fff-47ba-873e-c2f2299744d4"
+										name="FillInManually">
+										</smartfoldernode>
+										<smartfoldernode
+										id="d158e57d-7bc6-4f40-843f-8c3580de96f8"
+										name="NoFailureProbability">
+										</smartfoldernode>
+									</smartfoldernode>
+									<smartfoldernode
+									id="5d3e5f60-64cd-4255-9bf5-f166dc4b7b57"
+									name="FollowUpAnalysis">
+										<smartfoldernode
+										id="f698adf0-a73b-47fe-9e73-b0ddf676ad72"
+										name="NotRequired">
+										</smartfoldernode>
+										<smartfoldernode
+										id="19153785-2fe2-46fd-94c7-e616f1027189"
+										name="Required">
+										</smartfoldernode>
+										<smartfoldernode
+										id="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+										name="CarriedOut">
+											<smartfoldernode
+											id="d9e3632f-cf2e-4283-9237-c8e0f4c9be0a"
+											name="PerProfile">
+											</smartfoldernode>
+											<smartfoldernode
+											id="a8a89bef-49e8-46b6-bd3f-44d548a8c178"
+											name="PerSection">
+											</smartfoldernode>
+											<smartfoldernode
+											id="70ff7b86-278c-4073-9870-592a89d5c188"
+											name="Both">
+											</smartfoldernode>
+										</smartfoldernode>
+									</smartfoldernode>
+								</smartfoldernode>
+							</smartfoldernode>
+							<smartfoldernode
+							id="5f015a6e-20dc-406b-a64f-d20f881e4c85"
+							name="CloseResultsView">
+								<testmodule
+								id="e5212621-eefd-4ddc-8ecd-5aa591bd34d5"
+								name="CloseViewCentralPanelWithFocus">
+								</testmodule>
+							</smartfoldernode>
+						</smartfoldernode>
+						<smartfoldernode
+						id="ee866672-fea1-433b-8580-c369c8e5cee7"
+						name="c)Total_Overview_Results_Length_Effect_False">
 						</smartfoldernode>
 						<smartfoldernode
 						id="c17db341-04a7-432c-bbe8-f24654fe7ba8"
@@ -3952,6 +4393,102 @@
 				<tr>
 					<td>
 						simpleAssessment.risk
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="1c14f2e6-51f1-44a4-a3ae-683f3844bb97"
+		lastknownrowcount="3"
+		name="script21_b_Iteration_3_Indeces"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					rowIndex
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						rowIndex
+					</th>
+				</tr>
+				<tr>
+					<td>
+						2
+					</td>
+				</tr>
+				<tr>
+					<td>
+						3
+					</td>
+				</tr>
+				<tr>
+					<td>
+						4
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="a784fe06-2c77-41f1-84ac-a34023452ac1"
+		lastknownrowcount="1"
+		name="script21_b_LoopFMsLETrue"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					labelFM
+				</column>
+				<column>
+					groupResult
+				</column>
+				<column>
+					pathToFMItem
+				</column>
+				<column>
+					pathToResultItem
+				</column>
+				<column>
+					LEMustBeSetTOTrue
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						labelFM
+					</th>
+					<th>
+						groupResult
+					</th>
+					<th>
+						pathToFMItem
+					</th>
+					<th>
+						pathToResultItem
+					</th>
+					<th>
+						LEMustBeSetTOTrue
+					</th>
+				</tr>
+				<tr>
+					<td>
+						STPH
+					</td>
+					<td>
+						1
+					</td>
+					<td>
+						@TR&gt;@GF&gt;@STPH
+					</td>
+					<td>
+						@TR&gt;@GF&gt;@STPH&gt;Oordeel&gt;Resultaat
+					</td>
+					<td>
+						false
 					</td>
 				</tr>
 			</table>
@@ -5534,46 +6071,46 @@
 		<testconfiguration
 		name="TestRun">
 			<testcontainer
-			id="10a12ad7-e7c7-4084-b51f-aa7bab2c05ed">
+			id="0b029714-101e-4d8b-a756-d7ceb8defae6">
 			</testcontainer>
 			<testcontainer
-			id="11bba419-6618-4dac-9adf-f5176f3e62e3">
+			id="159c63dc-701b-4a1f-9524-7219af64cf2a">
 			</testcontainer>
 			<testcontainer
-			id="28d2beb8-7fa5-4d93-b112-4cf7b8693df3">
+			id="1d8b7810-2d27-40ab-bee4-d213c69fc46e">
 			</testcontainer>
 			<testcontainer
-			id="3af11496-51c6-4463-be31-b22f18c70480">
+			id="27b06672-7ef5-4bd8-8369-c9f8d2c10ef8">
 			</testcontainer>
 			<testcontainer
-			id="3f10c7b7-a7d4-4e39-92d2-5debbcd53aa3">
+			id="31719205-2c68-41fa-9b0f-80dee2252d89">
 			</testcontainer>
 			<testcontainer
 			id="51bff513-6ec0-4273-9ee3-8d912bb40499">
 			</testcontainer>
 			<testcontainer
-			id="62fe8830-30e1-4117-905d-95627cc4d7d9">
+			id="5f015a6e-20dc-406b-a64f-d20f881e4c85">
 			</testcontainer>
 			<testcontainer
-			id="9b47077f-cafa-4f61-9f5d-e89daf425f39">
+			id="628a7a89-e680-4385-953b-12eefe5bd8c0">
 			</testcontainer>
 			<testcontainer
-			id="a1aa47c9-fc57-4c1f-955c-c59afce07189">
+			id="8e513d20-9159-4db8-abe6-a879dfda3b84">
 			</testcontainer>
 			<testcontainer
-			id="bb6da5c2-b29c-40e1-881a-44b288ed2c76">
+			id="99b07ba1-6356-4024-8557-5081388de219">
 			</testcontainer>
 			<testcontainer
-			id="d7027968-917f-4a9f-9c28-09f6c34d75bf">
+			id="b2a61fc8-edc0-4010-8afa-198187aa2c22">
 			</testcontainer>
 			<testcontainer
-			id="d9584df8-ec80-44b5-80d0-73386e1f16f3">
+			id="b46d36cd-fc22-4df4-bdf0-7fbdee23a420">
 			</testcontainer>
 			<testcontainer
-			id="dd5c8f77-e81c-4412-863e-4c749dc2794d">
+			id="c2d6ea60-c053-474a-85aa-9d78d54b9cec">
 			</testcontainer>
 			<testcontainer
-			id="e41615d8-9405-4ee7-b151-efc8ad4df265">
+			id="ce2972e2-667d-4d1a-833a-0ad60a84e28b">
 			</testcontainer>
 			<testcontainer
 			id="e73accf9-7ba2-423c-a256-1fea8f69131e">

@@ -1305,6 +1305,18 @@
       <UserCode>true</UserCode>
       <id>47ef003f-a4d7-4b56-a656-858372a8fc5b</id>
     </Compile>
+    <Compile Include="Modules\RepportInfo\CreateScreenshotOfCurrentRowInResultView.cs">
+      <BoundTo>f334b32b-29b8-49fe-8124-610a3e363c97</BoundTo>
+      <DependentUpon>CreateScreenshotOfCurrentRowInResultView.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>a43b382a-cf16-4da0-8830-dc4f08f1d747</id>
+    </Compile>
+    <Compile Include="Modules\RepportInfo\CreateScreenshotOfCurrentRowInResultView.UserCode.cs">
+      <BoundTo>f334b32b-29b8-49fe-8124-610a3e363c97</BoundTo>
+      <DependentUpon>CreateScreenshotOfCurrentRowInResultView.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>b7cd0be6-c9ff-4c07-a4a0-f72d83ae3d34</id>
+    </Compile>
     <Compile Include="Modules\RepportInfo\CreateScreenshotOfMapLayersPanel.cs">
       <BoundTo>9132f069-1cc1-49e1-8163-ab0f9b279541</BoundTo>
       <DependentUpon>CreateScreenshotOfMapLayersPanel.rxrec</DependentUpon>
@@ -1661,6 +1673,18 @@
     </Compile>
     <Compile Include="Modules\SettingsTestSuite\HideRanorexProgressDialog.cs">
       <id>9487b9ef-54c0-44d0-ad10-6772c60edd41</id>
+    </Compile>
+    <Compile Include="Modules\Set_Assign\Assembly\ChangeRelevanceSection.cs">
+      <BoundTo>289b674a-8b3a-470d-9e12-6cb9e8bba035</BoundTo>
+      <DependentUpon>ChangeRelevanceSection.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>e0550fa9-07ed-49c1-8305-364af197f604</id>
+    </Compile>
+    <Compile Include="Modules\Set_Assign\Assembly\ChangeRelevanceSection.UserCode.cs">
+      <BoundTo>289b674a-8b3a-470d-9e12-6cb9e8bba035</BoundTo>
+      <DependentUpon>ChangeRelevanceSection.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>fe533ab9-7567-47b1-9993-e6d1bd16d373</id>
     </Compile>
     <Compile Include="Modules\Set_Assign\Assembly\GetRandomNorm.cs">
       <BoundTo>dfc6ba4f-43bf-4a48-8711-ce1bea002bd4</BoundTo>
@@ -2941,6 +2965,11 @@
       <id>8f3d8e09-69cb-4bd3-95c4-2a8d79fe9874</id>
       <recordtableid>061e4f7d-17ae-44b5-8bfe-3d8ea937802d</recordtableid>
     </None>
+    <None Include="Modules\RepportInfo\CreateScreenshotOfCurrentRowInResultView.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>f334b32b-29b8-49fe-8124-610a3e363c97</id>
+      <recordtableid>85d42ae0-bc9c-48e2-bd90-1ebc66be310e</recordtableid>
+    </None>
     <None Include="Modules\RepportInfo\CreateScreenshotOfMapLayersPanel.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>9132f069-1cc1-49e1-8163-ab0f9b279541</id>
@@ -3085,6 +3114,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>bd83daa0-c4f9-4e92-818b-ddb482e0838c</id>
       <recordtableid>f3cd18f8-b687-4886-b040-fc89f784d832</recordtableid>
+    </None>
+    <None Include="Modules\Set_Assign\Assembly\ChangeRelevanceSection.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>289b674a-8b3a-470d-9e12-6cb9e8bba035</id>
+      <recordtableid>c7f01638-49a5-4492-9536-48269cf9ab9f</recordtableid>
     </None>
     <None Include="Modules\Set_Assign\Assembly\GetRandomNorm.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>

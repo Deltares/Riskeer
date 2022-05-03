@@ -627,10 +627,49 @@ Ci8EIxlN9/ueuduvvCRUSA/y/BpXl5+Ui+rMfnRmeyL0hblJeL6KhKphqPIwCHnKcUMch8GfPoy/
 						capname="table"
 						id="a41c39c2-763f-4195-aef0-17e3e2be8655"
 						isrooted="True"
-						name="Table"
+						name="TableFMResultView"
 						refimgid="4c4dd41e-28a4-4335-abe4-66b3caab7efe"
 						searchtimeout="10000ms"
 						usecache="True">
+							<folder
+							capname="row"
+							id="bf8da9f6-504d-4a54-b6e0-6fbd5b8d7d1a"
+							isrooted="True"
+							name="Row"
+							searchtimeout="30000ms"
+							usecache="False">
+								<item
+								capname="cell"
+								id="a336928e-d813-4c84-8a36-3da609899804"
+								name="SectionName"
+								searchtimeout="30000ms">
+									/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[$rowIndex]/cell[@accessiblename&gt;'Vaknaam']
+								</item>
+								<item
+								capname="cell"
+								id="6bff70d7-1d04-4660-85f8-51b7cf611f85"
+								name="IsRelevant"
+								searchtimeout="30000ms">
+									/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[$rowIndex]/cell[@accessiblename&gt;'Is relevant']
+								</item>
+								<item
+								capname="cell"
+								id="d6c2a3af-8dc3-485b-8cb2-604082846ede"
+								name="ResultInitialMech"
+								searchtimeout="30000ms">
+									/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[$rowIndex]/cell[@accessiblename&gt;'Resultaat']
+								</item>
+								<item
+								capname="cell"
+								id="7db3fc24-802e-4db9-b1c2-16851d487012"
+								name="genericCell"
+								searchtimeout="30000ms">
+									/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[$rowIndex]/cell[4]
+								</item>
+								<basepath>
+									/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[$rowIndex]
+								</basepath>
+							</folder>
 							<item
 							addcaps="cell,accessible"
 							capname="cell"
@@ -3458,6 +3497,10 @@ gZlyIMICo2CnvxF7EpBHxeUwaeMLu3LXSHrIMIoAAAAASUVORK5CYII=
 		<var
 		id="968707f6-e0d0-4792-970c-cf0b3fc67bc8"
 		name="stateName">
+		</var>
+		<var
+		id="29307d06-2311-4b72-97e7-ee345285218b"
+		name="indexColumn">
 		</var>
 	</variables>
 </repository>

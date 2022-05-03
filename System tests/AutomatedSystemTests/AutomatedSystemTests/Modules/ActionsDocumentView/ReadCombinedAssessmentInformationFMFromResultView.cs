@@ -70,7 +70,7 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             var trajectAssessmentInformation = BuildAssessmenTrajectInformation(trajectAssessmentInformationString);
 
             var repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
-            var tableResults = repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.Table.Self.As<Table>();
+            var tableResults = repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.TableFMResultView.Self.As<Table>();
             var rowsData = tableResults.Rows;
             var rowHeader = rowsData[0];
             

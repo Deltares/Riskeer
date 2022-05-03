@@ -20,74 +20,47 @@ using Ranorex.Core;
 using Ranorex.Core.Testing;
 using Ranorex.Core.Repository;
 
-namespace AutomatedSystemTests.Modules.Validation.DocumentView
+namespace AutomatedSystemTests.Modules.Set_Assign.Assembly
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The ValidateSectionNameIsPresentInTableResultsView recording.
+    ///The ChangeRelevanceSection recording.
     /// </summary>
-    [TestModule("11dc3edb-dbfe-4ce7-9bdc-1b55dd842556", ModuleType.Recording, 1)]
-    public partial class ValidateSectionNameIsPresentInTableResultsView : ITestModule
+    [TestModule("c7f01638-49a5-4492-9536-48269cf9ab9f", ModuleType.Recording, 1)]
+    public partial class ChangeRelevanceSection : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static ValidateSectionNameIsPresentInTableResultsView instance = new ValidateSectionNameIsPresentInTableResultsView();
+        static ChangeRelevanceSection instance = new ChangeRelevanceSection();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public ValidateSectionNameIsPresentInTableResultsView()
+        public ChangeRelevanceSection()
         {
-            indexRow = "";
-            sectionName = "";
-            indexColumnSectionName = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static ValidateSectionNameIsPresentInTableResultsView Instance
+        public static ChangeRelevanceSection Instance
         {
             get { return instance; }
         }
 
 #region Variables
 
-        string _sectionName;
-
         /// <summary>
-        /// Gets or sets the value of variable sectionName.
+        /// Gets or sets the value of variable rowIndex.
         /// </summary>
-        [TestVariable("3725fd78-b946-4c20-93a4-7c9c6c4d64ae")]
-        public string sectionName
+        [TestVariable("3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0")]
+        public string rowIndex
         {
-            get { return _sectionName; }
-            set { _sectionName = value; }
-        }
-
-        string _indexColumnSectionName;
-
-        /// <summary>
-        /// Gets or sets the value of variable indexColumnSectionName.
-        /// </summary>
-        [TestVariable("c52e6b76-c6c3-4945-9195-413db7256a14")]
-        public string indexColumnSectionName
-        {
-            get { return _indexColumnSectionName; }
-            set { _indexColumnSectionName = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the value of variable indexRow.
-        /// </summary>
-        [TestVariable("b8a4b430-38fb-43cf-b88c-f9d88a798f25")]
-        public string indexRow
-        {
-            get { return repo.indexRow; }
-            set { repo.indexRow = value; }
+            get { return repo.rowIndex; }
+            set { repo.rowIndex = value; }
         }
 
 #endregion
@@ -116,7 +89,11 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
 
             Init();
 
-            ValidateCellContainsSectionName(repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.TableFMResultView.Self);
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.TableFMResultView.Row.IsRelevant' at Center.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.TableFMResultView.Row.IsRelevantInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.TableFMResultView.Row.IsRelevant.Click();
+            
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 1s.", new RecordItemIndex(1));
+            Delay.Duration(1000, false);
             
         }
 
