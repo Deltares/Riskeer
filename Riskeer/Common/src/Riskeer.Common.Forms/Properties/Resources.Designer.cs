@@ -614,7 +614,7 @@ namespace Riskeer.Common.Forms.Properties {
                 return ResourceManager.GetString("CalculationOutput_TargetProbability_DisplayName", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Betrouwbaarheidsindex van de ingevoerde kans waarvoor het resultaat moet worden berekend..
         /// </summary>
@@ -1430,15 +1430,6 @@ namespace Riskeer.Common.Forms.Properties {
         public static string FailureMechanism_ContextMenuStrip_Are_you_sure_clear_all_output {
             get {
                 return ResourceManager.GetString("FailureMechanism_ContextMenuStrip_Are_you_sure_clear_all_output", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Er zijn geen berekeningen om te valideren..
-        /// </summary>
-        public static string FailureMechanism_CreateValidateAllItem_No_calculations_to_validate {
-            get {
-                return ResourceManager.GetString("FailureMechanism_CreateValidateAllItem_No_calculations_to_validate", resourceCulture);
             }
         }
         
