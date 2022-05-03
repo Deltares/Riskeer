@@ -627,8 +627,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                         col.Remove(itemToMove);
                         col.Add(itemToMove);
                     }),
-                    "{0}", "{0} (2)")
-                .SetName("MoveItemDown");
+                    "{0}", "{0} (2)");
 
             yield return new TestCaseData(
                     new Action<ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>>(col =>
@@ -637,8 +636,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                         col.Remove(itemToMove);
                         col.Insert(0, itemToMove);
                     }),
-                    "{0} (2)", "{0}")
-                .SetName("MoveItemUp");
+                    "{0} (2)", "{0}");
         }
     }
 }
