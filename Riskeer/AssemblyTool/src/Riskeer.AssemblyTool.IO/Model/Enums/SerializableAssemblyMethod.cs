@@ -33,7 +33,7 @@ namespace Riskeer.AssemblyTool.IO.Model.Enums
         /// </summary>
         [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodBOI0A1)]
         BOI0A1 = 1,
-        
+
         /// <summary>
         /// Represents the assembly method BOI-0A-2.
         /// </summary>
@@ -69,7 +69,7 @@ namespace Riskeer.AssemblyTool.IO.Model.Enums
         /// </summary>
         [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodBOI1A2)]
         BOI1A2 = 7,
-        
+
         /// <summary>
         /// Represents a manual failure mechanism assembly.
         /// </summary>
@@ -81,7 +81,7 @@ namespace Riskeer.AssemblyTool.IO.Model.Enums
         /// </summary>
         [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodBOI2A1)]
         BOI2A1 = 9,
-        
+
         /// <summary>
         /// Represents the assembly method BOI-2B-1.
         /// </summary>

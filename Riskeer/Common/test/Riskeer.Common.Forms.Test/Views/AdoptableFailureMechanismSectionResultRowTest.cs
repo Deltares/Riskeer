@@ -554,7 +554,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var result = new AdoptableFailureMechanismSectionResult(section);
 
             var nrOfCalls = 0;
-            FailureMechanismSectionAssemblyResultWrapper assemblyResultWrapper = FailureMechanismSectionAssemblyResultWrapperTestFactory.Create(); 
+            FailureMechanismSectionAssemblyResultWrapper assemblyResultWrapper = FailureMechanismSectionAssemblyResultWrapperTestFactory.Create();
 
             Func<FailureMechanismSectionAssemblyResultWrapper> performAssemblyFunc = () =>
             {
@@ -835,7 +835,7 @@ namespace Riskeer.Common.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new AdoptableFailureMechanismSectionResult(section);
 
-            Func<FailureMechanismSectionAssemblyResultWrapper> performAssemblyFunc = () => 
+            Func<FailureMechanismSectionAssemblyResultWrapper> performAssemblyFunc = () =>
                 new FailureMechanismSectionAssemblyResultWrapper(
                     FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult(assemblyGroup),
                     AssemblyMethod.BOI0A1, AssemblyMethod.BOI0B1);

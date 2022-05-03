@@ -111,7 +111,7 @@ namespace Riskeer.AssemblyTool.IO.Model.Enums
         /// Identifier for <see cref="SerializableAssemblyMethod.BOI0A1"/>.
         /// </summary>
         public const string SerializableAssemblyMethodBOI0A1 = "BOI-0A-1";
-        
+
         /// <summary>
         /// Identifier for <see cref="SerializableAssemblyMethod.BOI0A2"/>.
         /// </summary>

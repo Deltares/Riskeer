@@ -50,7 +50,7 @@ namespace Riskeer.Integration.IO.Factories
                                                        (int) assemblyMethod,
                                                        typeof(AssemblyMethod));
             }
-            
+
             switch (assemblyMethod)
             {
                 case AssemblyMethod.BOI0A1:

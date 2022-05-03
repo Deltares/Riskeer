@@ -57,17 +57,17 @@ namespace Riskeer.AssemblyTool.Data
         /// Gets the wrapped combined failure mechanism assembly results.
         /// </summary>
         public IEnumerable<CombinedFailureMechanismSectionAssembly> AssemblyResults { get; }
-        
+
         /// <summary>
         /// Gets the <see cref="AssemblyMethod"/> that is used to get the common sections.
         /// </summary>
         public AssemblyMethod CommonSectionAssemblyMethod { get; }
-        
+
         /// <summary>
         /// Gets the <see cref="AssemblyMethod"/> that is used to assemble the failure mechanism results.
         /// </summary>
         public AssemblyMethod FailureMechanismResultsAssemblyMethod { get; }
-        
+
         /// <summary>
         /// Gets the <see cref="AssemblyMethod"/> that is used to assemble the combined section results.
         /// </summary>

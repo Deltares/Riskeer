@@ -136,9 +136,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             CalculatedCommonSectionResults = true;
 
             return FailureMechanismResult ?? (FailureMechanismResult = new FailureMechanismSectionList(new[]
-                                               {
-                                                   new FailureMechanismSectionWithCategory(0, 1, EInterpretationCategory.II)
-                                               }));
+                                                 {
+                                                     new FailureMechanismSectionWithCategory(0, 1, EInterpretationCategory.II)
+                                                 }));
         }
 
         public IEnumerable<FailureMechanismSectionWithCategory> DetermineCombinedResultPerCommonSectionBoi3C1(
@@ -152,9 +152,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             CalculatedSectionResults = true;
 
             return CombinedSectionResults ?? (CombinedSectionResults = new[]
-                                                  {
-                                                      new FailureMechanismSectionWithCategory(0, 1, EInterpretationCategory.III)
-                                                  });
+                                                 {
+                                                     new FailureMechanismSectionWithCategory(0, 1, EInterpretationCategory.III)
+                                                 });
         }
 
         private void ThrowException()

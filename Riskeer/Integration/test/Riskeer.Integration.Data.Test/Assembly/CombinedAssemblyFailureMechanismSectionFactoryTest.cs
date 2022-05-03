@@ -87,7 +87,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 int expectedNrOfSpecificSectionResults = assessmentSection.SpecificFailureMechanisms.Count;
                 Assert.AreEqual(expectedNrOfGeneralSectionResults + expectedNrOfSpecificSectionResults, inputs.Count());
 
-                FailureMechanismSectionAssemblyResult assemblyResult = calculator.FailureMechanismSectionAssemblyResultOutput.AssemblyResult; 
+                FailureMechanismSectionAssemblyResult assemblyResult = calculator.FailureMechanismSectionAssemblyResultOutput.AssemblyResult;
                 AssertSectionsWithResult(assessmentSection.Piping.SectionResults, assemblyResult.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(0));
                 AssertSectionsWithResult(assessmentSection.GrassCoverErosionInwards.SectionResults, assemblyResult.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(1));
                 AssertSectionsWithResult(assessmentSection.MacroStabilityInwards.SectionResults, assemblyResult.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(2));

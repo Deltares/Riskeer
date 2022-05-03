@@ -151,7 +151,7 @@ namespace Riskeer.MacroStabilityInwards.Primitives.Test
             {
                 return CreateSurfaceLineWithCharacteristicPoints();
             }
-            
+
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
             {
                 MacroStabilityInwardsSurfaceLine differentName = CreateSurfaceLineWithCharacteristicPoints("Different Name");
@@ -527,7 +527,7 @@ namespace Riskeer.MacroStabilityInwards.Primitives.Test
                 return "Teen dijk binnenwaarts";
             }
         }
-        
+
         private static void AssertPropertiesUpdated(MacroStabilityInwardsSurfaceLine expectedSurfaceLine,
                                                     MacroStabilityInwardsSurfaceLine actualSurfaceLine)
         {

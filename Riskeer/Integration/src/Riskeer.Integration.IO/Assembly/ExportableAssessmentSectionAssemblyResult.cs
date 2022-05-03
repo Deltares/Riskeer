@@ -55,7 +55,7 @@ namespace Riskeer.Integration.IO.Assembly
         /// Gets the probability of this assembly result.
         /// </summary>
         public double Probability { get; }
-        
+
         /// <summary>
         /// Gets the assembly method that was used to assemble the assembly group of this result.
         /// </summary>

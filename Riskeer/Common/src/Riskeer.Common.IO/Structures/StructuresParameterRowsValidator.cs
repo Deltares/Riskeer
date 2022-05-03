@@ -322,8 +322,8 @@ namespace Riskeer.Common.IO.Structures
                 throw new ArgumentNullException(nameof(structureParameterRows));
             }
 
-            var structuresParameters = new List<StructuresParameterRow>(); 
-            
+            var structuresParameters = new List<StructuresParameterRow>();
+
             foreach (string parameterName in rules.Keys)
             {
                 int count = structureParameterRows.Count(row => GetMatchingStructuresParameterRow(row.ParameterId, parameterName));
