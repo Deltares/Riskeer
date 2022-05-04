@@ -33,12 +33,13 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
             // Your recording specific initialization code goes here.
         }
 
-        public void ValidateEnabledGenericCellResultsView(RepoItemInfo cellInfo)
+        public void ValidateEnabledGenericCellResultsView(RepoItemInfo cellInfo, string IsEnabledExpected)
         {
-            CompressedImage genericCell_greyPatch1 = repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.TableFMResultView.Row.genericCellInfo.GetgreyPatch1(new Rectangle(0, 1, 3, 17));
-            Imaging.FindOptions genericCell_greyPatch1_Options = Imaging.FindOptions.Default;
+            int startX = isEnabledExpected=="true"?5:0;
+            CompressedImage genericCellPatch = repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.TableFMResultView.Row.genericCellInfo.GetGreyWhitePatch(new Rectangle(startX, 0, 3, 17));
+            Imaging.FindOptions genericCellPatchOptions = Imaging.FindOptions.Default;
             Report.Log(ReportLevel.Info, "Validation", "Validating ContainsImage (Screenshot: 'greyPatch1' with region {X=0,Y=1,Width=3,Height=17}) on item 'cellInfo'.", cellInfo);
-            Validate.ContainsImage(cellInfo, genericCell_greyPatch1, genericCell_greyPatch1_Options);
+            Validate.ContainsImage(cellInfo, genericCellPatch, genericCellPatchOptions);
         }
 
     }

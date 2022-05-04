@@ -4003,24 +4003,45 @@ namespace AutomatedSystemTests
                 { }
 
                 /// <summary>
-                /// Gets the greyPatch1 item image.
+                /// Gets the GreyPatch item image.
                 /// </summary>
-                /// <returns>The greyPatch1 image.</returns>
+                /// <returns>The GreyPatch image.</returns>
                 [RepositoryImage("cb03ffcf-4700-4a39-8518-2f3e68db0f61")]
-                public CompressedImage GetgreyPatch1()
+                public CompressedImage GetGreyPatch()
                 {
                     return GetImage("cb03ffcf-4700-4a39-8518-2f3e68db0f61");
                 }
 
                 /// <summary>
-                /// Gets the greyPatch1 item image.
+                /// Gets the GreyPatch item image.
                 /// </summary>
                 /// <param name="cropRect">The bounds of the sub-image to return.</param>
                 /// <returns>The cropped image.</returns>
                 [RepositoryImage("cb03ffcf-4700-4a39-8518-2f3e68db0f61")]
-                public CompressedImage GetgreyPatch1(System.Drawing.Rectangle cropRect)
+                public CompressedImage GetGreyPatch(System.Drawing.Rectangle cropRect)
                 {
                     return GetImage("cb03ffcf-4700-4a39-8518-2f3e68db0f61", cropRect);
+                }
+
+                /// <summary>
+                /// Gets the GreyWhitePatch item image.
+                /// </summary>
+                /// <returns>The GreyWhitePatch image.</returns>
+                [RepositoryImage("f25e6347-f54c-493e-b8bb-48a09655ea51")]
+                public CompressedImage GetGreyWhitePatch()
+                {
+                    return GetImage("f25e6347-f54c-493e-b8bb-48a09655ea51");
+                }
+
+                /// <summary>
+                /// Gets the GreyWhitePatch item image.
+                /// </summary>
+                /// <param name="cropRect">The bounds of the sub-image to return.</param>
+                /// <returns>The cropped image.</returns>
+                [RepositoryImage("f25e6347-f54c-493e-b8bb-48a09655ea51")]
+                public CompressedImage GetGreyWhitePatch(System.Drawing.Rectangle cropRect)
+                {
+                    return GetImage("f25e6347-f54c-493e-b8bb-48a09655ea51", cropRect);
                 }
             }
 

@@ -31,7 +31,7 @@ mode="Global">
 		enabled="True"
 		message="Check state of row elements"
 		optional="False"
-		reportlevel="Warn;30"
+		reportlevel="Info;20"
 		searchpropertyid="5ca711d7-991c-4335-9c51-afd460077f82">
 			<comment>
 			</comment>

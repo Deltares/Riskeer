@@ -666,9 +666,16 @@ Ci8EIxlN9/ueuduvvCRUSA/y/BpXl5+Ui+rMfnRmeyL0hblJeL6KhKphqPIwCHnKcUMch8GfPoy/
 								searchtimeout="30000ms">
 									<image
 									guid="cb03ffcf-4700-4a39-8518-2f3e68db0f61"
-									name="greyPatch1">
+									name="GreyPatch">
 										iVBORw0KGgoAAAANSUhEUgAAAAQAAAAUCAIAAAAlRQuyAAAABGdBTUEAALGPC/xhBQAAAAlwSFlz
 AAAOxAAADsQBlSsOGwAAABBJREFUKFNjWIkERiRn5UoAepSecUDvM7wAAAAASUVORK5CYII=
+									</image>
+									<image
+									guid="f25e6347-f54c-493e-b8bb-48a09655ea51"
+									name="GreyWhitePatch">
+										iVBORw0KGgoAAAANSUhEUgAAAAgAAAAUCAIAAAA/ees8AAAABGdBTUEAALGPC/xhBQAAAAlwSFlz
+AAAOxAAADsQBlSsOGwAAABpJREFUKFNjWIkE/iOBUQkwgIqBwfCQ+P8fAGPSjZDfAro7AAAAAElF
+TkSuQmCC
 									</image>
 									/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[$rowIndex]/cell[$columnIndex]
 								</item>

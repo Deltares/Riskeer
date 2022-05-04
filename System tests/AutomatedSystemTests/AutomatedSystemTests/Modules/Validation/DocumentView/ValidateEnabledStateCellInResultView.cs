@@ -41,6 +41,7 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
         /// </summary>
         public ValidateEnabledStateCellInResultView()
         {
+            isEnabledExpected = "";
         }
 
         /// <summary>
@@ -52,6 +53,18 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
         }
 
 #region Variables
+
+        string _isEnabledExpected;
+
+        /// <summary>
+        /// Gets or sets the value of variable isEnabledExpected.
+        /// </summary>
+        [TestVariable("536c8ab7-1217-41e0-85cb-3a009e316330")]
+        public string isEnabledExpected
+        {
+            get { return _isEnabledExpected; }
+            set { _isEnabledExpected = value; }
+        }
 
         /// <summary>
         /// Gets or sets the value of variable rowIndex.
@@ -93,14 +106,13 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 300;
+            Mouse.DefaultMoveTime = 0;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 1.00;
+            Delay.SpeedFactor = 0.00;
 
             Init();
 
-            ValidateEnabledGenericCellResultsView(repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.TableFMResultView.Row.genericCellInfo);
-            Delay.Milliseconds(0);
+            ValidateEnabledGenericCellResultsView(repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.TableFMResultView.Row.genericCellInfo, isEnabledExpected);
             
         }
 
@@ -108,13 +120,13 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
         /// <summary>
         /// DO NOT REFERENCE THIS CODE  - auto generated
         /// </summary>
-        CompressedImage genericCell_greyPatch1
-        { get { return repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.TableFMResultView.Row.genericCellInfo.GetgreyPatch1(new Rectangle(0, 1, 3, 17)); } }
+        CompressedImage genericCell_GreyPatch
+        { get { return repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.TableFMResultView.Row.genericCellInfo.GetGreyPatch(new Rectangle(0, 1, 3, 17)); } }
 
         /// <summary>
         /// DO NOT REFERENCE THIS CODE  - auto generated
         /// </summary>
-        Imaging.FindOptions genericCell_greyPatch1_Options
+        Imaging.FindOptions genericCell_GreyPatch_Options
         { get { return Imaging.FindOptions.Default; } }
 
 #endregion

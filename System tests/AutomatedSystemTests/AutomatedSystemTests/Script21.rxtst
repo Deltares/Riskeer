@@ -237,6 +237,7 @@
 			</smartfoldernode>
 			<smartfoldernode
 			datasource="script21_b_Iteration_3_Indeces"
+			errorbehavior="ContinueNextIteration"
 			id="0b029714-101e-4d8b-a756-d7ceb8defae6"
 			name="Relevance">
 			</smartfoldernode>
@@ -675,7 +676,7 @@
 				<parameters>
 					<param
 					name="pathToFileToOpen"
-					value="X:\script21\currentRelease\21_b.risk">
+					value="X:\script21\currentRelease\21_b_input.risk">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -2061,6 +2062,20 @@
 			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
 			type="Recording">
 			</testmodule>
+			<testmodule
+			id="9418ddba-e7d0-4586-a2c1-a5855e3a4bc0"
+			name="CreateScreenshotOfCurrentRowInResultView"
+			ref="85d42ae0-bc9c-48e2-bd90-1ebc66be310e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="1c14f2e6-51f1-44a4-a3ae-683f3844bb97"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</databinding>
+			</testmodule>
 			<testsuite
 			ReportTime="RelativeToTestSuiteStartTime"
 			TracingScreenshotMode="Foreground"
@@ -2447,6 +2462,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="ac034884-369e-404f-98db-86463e0b469f"
+			name="ValidateCellsActive">
+			</smartfoldernode>
 			<testmodule
 			id="ac57afb6-5863-45d5-b879-e611bd837641"
 			name="ValidateTextValueInPropertiesPanelGivenPath"
@@ -2569,6 +2588,18 @@
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
 			type="Recording">
 			</testmodule>
+			<smartfoldernode
+			datasource="script21_IndecesColumnsDisabledNotRelevantSection"
+			errorbehavior="ContinueNextIteration"
+			id="af7c6b04-964e-4b0d-83a9-7f6a260e7e48"
+			name="validateCelssAreEnabled">
+				<parameters>
+					<param
+					name="isEnabledExpected"
+					value="true">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="b043842a-6e5c-4530-b49f-3425d30c3756"
 			name="ValidateDetailedAssessmentTypeAtRow"
@@ -2647,6 +2678,32 @@
 			id="b46d36cd-fc22-4df4-bdf0-7fbdee23a420"
 			name="Validation">
 			</smartfoldernode>
+			<testmodule
+			id="b56d924a-1ed4-460d-90e0-e18fc846d688"
+			name="ValidateEnabledStateCellInResultView"
+			ref="076c70ca-8c7f-4590-8745-e133434b490b"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="columnIndex"
+					datasourceid="6e44cce8-d91c-458d-97be-b9b704fb9349"
+					variableid="42a4d0d7-8e30-4ccf-a642-f80cec3369b4"
+					variablename="columnIndex">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="1c14f2e6-51f1-44a4-a3ae-683f3844bb97"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="isEnabledExpected"
+					datasourceid="ff0df38c-8d50-49c0-97f8-09e2821e99c3"
+					variableid="536c8ab7-1217-41e0-85cb-3a009e316330"
+					variablename="isEnabledExpected">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="b639dbf0-c83e-46e9-882d-2ad50d368b8b"
 			name="DetailedAssessmentFMsGroup1And2">
@@ -2870,6 +2927,7 @@
 			</testmodule>
 			<smartfoldernode
 			datasource="script21_b_LoopFMsLETrue"
+			errorbehavior="ContinueNextIteration"
 			id="ce2972e2-667d-4d1a-833a-0ad60a84e28b"
 			name="LoopFMsLengthEffectTrue">
 			</smartfoldernode>
@@ -3094,15 +3152,11 @@
 			datasource="script21_IndecesColumnsDisabledNotRelevantSection"
 			errorbehavior="ContinueNextIteration"
 			id="e3ac78ca-b62b-4ced-90cc-2d6f0223a45c"
-			name="validateEnabledState">
+			name="validateCellsAreDisabled">
 				<parameters>
 					<param
-					name="fila"
-					value="3">
-					</param>
-					<param
-					name="columna"
-					value="4">
+					name="isEnabledExpected"
+					value="false">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -3201,6 +3255,32 @@
 			id="ee866672-fea1-433b-8580-c369c8e5cee7"
 			name="c)Total_Overview_Results_Length_Effect_False">
 			</smartfoldernode>
+			<testmodule
+			id="effe13f4-42a0-4a0f-b8ac-e3716ac23251"
+			name="ValidateEnabledStateCellInResultView"
+			ref="076c70ca-8c7f-4590-8745-e133434b490b"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="columnIndex"
+					datasourceid="6e44cce8-d91c-458d-97be-b9b704fb9349"
+					variableid="42a4d0d7-8e30-4ccf-a642-f80cec3369b4"
+					variablename="columnIndex">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="1c14f2e6-51f1-44a4-a3ae-683f3844bb97"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="isEnabledExpected"
+					datasourceid="af7c6b04-964e-4b0d-83a9-7f6a260e7e48"
+					variableid="536c8ab7-1217-41e0-85cb-3a009e316330"
+					variablename="isEnabledExpected">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="OpenDetailedFaalkansProject"
 			errorbehavior="ContinueParent"
@@ -3258,10 +3338,16 @@
 					variablename="columnIndex">
 					</var>
 					<var
-					dataname="fila"
-					datasourceid="e3ac78ca-b62b-4ced-90cc-2d6f0223a45c"
+					dataname="rowIndex"
+					datasourceid="1c14f2e6-51f1-44a4-a3ae-683f3844bb97"
 					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
 					variablename="rowIndex">
+					</var>
+					<var
+					dataname="isEnabledExpected"
+					datasourceid="e3ac78ca-b62b-4ced-90cc-2d6f0223a45c"
+					variableid="536c8ab7-1217-41e0-85cb-3a009e316330"
+					variablename="isEnabledExpected">
 					</var>
 				</databinding>
 			</testmodule>
@@ -3349,6 +3435,18 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			datasource="script21_IndecesColumnsDisabledNotRelevantSection"
+			errorbehavior="ContinueNextIteration"
+			id="ff0df38c-8d50-49c0-97f8-09e2821e99c3"
+			name="validateCelssAreEnabled">
+				<parameters>
+					<param
+					name="isEnabledExpected"
+					value="true">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<smartfoldernode
 			id="ffef9202-c4c2-4bbf-8c26-6ff5934514dc"
 			name="ManualOverride">
@@ -3573,6 +3671,22 @@
 									id="0b029714-101e-4d8b-a756-d7ceb8defae6"
 									name="Relevance">
 										<smartfoldernode
+										id="ac034884-369e-404f-98db-86463e0b469f"
+										name="ValidateCellsActive">
+											<testmodule
+											id="9418ddba-e7d0-4586-a2c1-a5855e3a4bc0"
+											name="CreateScreenshotOfCurrentRowInResultView">
+											</testmodule>
+											<smartfoldernode
+											id="ff0df38c-8d50-49c0-97f8-09e2821e99c3"
+											name="validateCelssAreEnabled">
+												<testmodule
+												id="b56d924a-1ed4-460d-90e0-e18fc846d688"
+												name="ValidateEnabledStateCellInResultView">
+												</testmodule>
+											</smartfoldernode>
+										</smartfoldernode>
+										<smartfoldernode
 										id="159c63dc-701b-4a1f-9524-7219af64cf2a"
 										name="SetRelevanceOff">
 											<testmodule
@@ -3589,7 +3703,7 @@
 											</testmodule>
 											<smartfoldernode
 											id="e3ac78ca-b62b-4ced-90cc-2d6f0223a45c"
-											name="validateEnabledState">
+											name="validateCellsAreDisabled">
 												<testmodule
 												id="f8c923f5-1acb-4e50-9ce9-9ecbc784b8f0"
 												name="ValidateEnabledStateCellInResultView">
@@ -3611,6 +3725,14 @@
 											id="ae63c49e-fc25-4e6e-8800-9dc1271d10a9"
 											name="CreateScreenshotOfCurrentRowInResultView">
 											</testmodule>
+											<smartfoldernode
+											id="af7c6b04-964e-4b0d-83a9-7f6a260e7e48"
+											name="validateCelssAreEnabled">
+												<testmodule
+												id="effe13f4-42a0-4a0f-b8ac-e3716ac23251"
+												name="ValidateEnabledStateCellInResultView">
+												</testmodule>
+											</smartfoldernode>
 										</smartfoldernode>
 									</smartfoldernode>
 									<smartfoldernode
@@ -4595,10 +4717,10 @@
 						3
 					</td>
 					<td>
-						@TR&gt;@SF&gt;@INN
+						@TR&gt;@SF&gt;Nieuw
 					</td>
 					<td>
-						@TR&gt;@SF&gt;@INN&gt;Oordeel&gt;Resultaat
+						@TR&gt;@SF&gt;Nieuw&gt;Oordeel&gt;Resultaat
 					</td>
 					<td>
 						true
@@ -6230,6 +6352,9 @@
 			id="159c63dc-701b-4a1f-9524-7219af64cf2a">
 			</testcontainer>
 			<testcontainer
+			id="19153785-2fe2-46fd-94c7-e616f1027189">
+			</testcontainer>
+			<testcontainer
 			id="1d8b7810-2d27-40ab-bee4-d213c69fc46e">
 			</testcontainer>
 			<testcontainer
@@ -6242,10 +6367,22 @@
 			id="51bff513-6ec0-4273-9ee3-8d912bb40499">
 			</testcontainer>
 			<testcontainer
+			id="5d3e5f60-64cd-4255-9bf5-f166dc4b7b57">
+			</testcontainer>
+			<testcontainer
 			id="5f015a6e-20dc-406b-a64f-d20f881e4c85">
 			</testcontainer>
 			<testcontainer
 			id="628a7a89-e680-4385-953b-12eefe5bd8c0">
+			</testcontainer>
+			<testcontainer
+			id="66d44850-36a3-4612-9f78-329cdff9824c">
+			</testcontainer>
+			<testcontainer
+			id="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5">
+			</testcontainer>
+			<testcontainer
+			id="70ff7b86-278c-4073-9870-592a89d5c188">
 			</testcontainer>
 			<testcontainer
 			id="8e513d20-9159-4db8-abe6-a879dfda3b84">
@@ -6254,7 +6391,22 @@
 			id="99b07ba1-6356-4024-8557-5081388de219">
 			</testcontainer>
 			<testcontainer
+			id="a15ddf8b-6fff-47ba-873e-c2f2299744d4">
+			</testcontainer>
+			<testcontainer
+			id="a8a89bef-49e8-46b6-bd3f-44d548a8c178">
+			</testcontainer>
+			<testcontainer
+			id="ac034884-369e-404f-98db-86463e0b469f">
+			</testcontainer>
+			<testcontainer
+			id="af7c6b04-964e-4b0d-83a9-7f6a260e7e48">
+			</testcontainer>
+			<testcontainer
 			id="b2a61fc8-edc0-4010-8afa-198187aa2c22">
+			</testcontainer>
+			<testcontainer
+			id="b3f337ad-5c9b-4d1b-af98-bec2aa6f0a55">
 			</testcontainer>
 			<testcontainer
 			id="b46d36cd-fc22-4df4-bdf0-7fbdee23a420">
@@ -6266,7 +6418,22 @@
 			id="ce2972e2-667d-4d1a-833a-0ad60a84e28b">
 			</testcontainer>
 			<testcontainer
+			id="d158e57d-7bc6-4f40-843f-8c3580de96f8">
+			</testcontainer>
+			<testcontainer
+			id="d9e3632f-cf2e-4283-9237-c8e0f4c9be0a">
+			</testcontainer>
+			<testcontainer
+			id="e3ac78ca-b62b-4ced-90cc-2d6f0223a45c">
+			</testcontainer>
+			<testcontainer
 			id="e73accf9-7ba2-423c-a256-1fea8f69131e">
+			</testcontainer>
+			<testcontainer
+			id="f698adf0-a73b-47fe-9e73-b0ddf676ad72">
+			</testcontainer>
+			<testcontainer
+			id="ff0df38c-8d50-49c0-97f8-09e2821e99c3">
 			</testcontainer>
 		</testconfiguration>
 	</testconfigurations>
