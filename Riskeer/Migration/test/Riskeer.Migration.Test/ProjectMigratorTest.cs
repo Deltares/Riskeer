@@ -530,6 +530,8 @@ namespace Riskeer.Migration.Test
                 migrationLog.AppendLine("* Traject: 'Demo traject'");
                 migrationLog.AppendLine("  + Faalmechanisme: 'Grasbekleding erosie kruin en binnentalud'");
                 migrationLog.AppendLine("    - De waarden van de doelkans voor HBN en overslagdebiet zijn veranderd naar de trajectnorm.");
+                migrationLog.AppendLine("Gevolgen van de migratie van versie 22.1 naar versie 22.2:");
+                migrationLog.AppendLine("* Geen aanpassingen.");
 
                 Tuple<string, LogLevelConstant>[] expectedLogMessagesAndLevel =
                 {

@@ -45,7 +45,8 @@ namespace Riskeer.Migration.Core.Test
                     new TestCaseData("17.3"),
                     new TestCaseData("18.1"),
                     new TestCaseData("19.1"),
-                    new TestCaseData("21.1")
+                    new TestCaseData("21.1"),
+                    new TestCaseData("22.1")
                 };
             }
         }
@@ -77,7 +78,7 @@ namespace Riskeer.Migration.Core.Test
         [Test]
         [TestCase("16.4")]
         [TestCase("20.1")]
-        [TestCase("22.1")]
+        [TestCase("22.2")]
         public void IsVersionSupported_UnsupportedVersion_ReturnsFalse(string fromVersion)
         {
             // Setup
