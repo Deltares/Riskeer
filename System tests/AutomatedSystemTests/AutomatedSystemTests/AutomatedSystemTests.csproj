@@ -1878,6 +1878,18 @@
     <Compile Include="Modules\Validation\Abstract\ValidateStringsAreNotEqual.cs">
       <id>b70cb88e-3754-4bbb-8747-d435ee41b3a8</id>
     </Compile>
+    <Compile Include="Modules\Validation\DocumentView\ValidateEnabledStateCellInResultView.cs">
+      <DependentUpon>ValidateEnabledStateCellInResultView.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>c5ecbba5-91fe-4bf0-8711-b842d26a3c71</id>
+      <BoundTo>33d1f416-ee41-4df5-a323-58bc004c8ea0</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Validation\DocumentView\ValidateEnabledStateCellInResultView.UserCode.cs">
+      <DependentUpon>ValidateEnabledStateCellInResultView.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>a04420e6-12c4-46e5-870e-0944ec43d88f</id>
+      <BoundTo>33d1f416-ee41-4df5-a323-58bc004c8ea0</BoundTo>
+    </Compile>
     <Compile Include="Modules\Validation\DocumentView\ValidateAssessmentLabelAndProbForFMInAssemblyTrajectView.cs">
       <BoundTo>5a5bd4b6-ff89-4604-8bcd-ff8293bb6945</BoundTo>
       <DependentUpon>ValidateAssessmentLabelAndProbForFMInAssemblyTrajectView.rxrec</DependentUpon>
@@ -3189,6 +3201,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>3caad1c0-140c-4fb4-acc6-81005770fc34</id>
       <recordtableid>e550d732-7780-4b40-a989-f787f458a7c7</recordtableid>
+    </None>
+    <None Include="Modules\Validation\DocumentView\ValidateEnabledStateCellInResultView.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>33d1f416-ee41-4df5-a323-58bc004c8ea0</id>
+      <recordtableid>076c70ca-8c7f-4590-8745-e133434b490b</recordtableid>
     </None>
     <None Include="Modules\Validation\DocumentView\ValidateAssessmentLabelAndProbForFMInAssemblyTrajectView.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>

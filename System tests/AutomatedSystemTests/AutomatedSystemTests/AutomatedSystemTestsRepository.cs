@@ -541,6 +541,18 @@ namespace AutomatedSystemTests
             set { _indexColumn = value; }
         }
 
+        string _columnIndex = "";
+
+        /// <summary>
+        /// Gets or sets the value of variable columnIndex.
+        /// </summary>
+        [TestVariable("42a4d0d7-8e30-4ccf-a642-f80cec3369b4")]
+        public string columnIndex
+        {
+            get { return _columnIndex; }
+            set { _columnIndex = value; }
+        }
+
 #endregion
 
         /// <summary>
@@ -3963,7 +3975,7 @@ namespace AutomatedSystemTests
             RepoItemInfo _sectionnameInfo;
             RepoItemInfo _isrelevantInfo;
             RepoItemInfo _resultinitialmechInfo;
-            RepoItemInfo _genericcellInfo;
+            genericCellInfoClass _genericcellInfo;
 
             /// <summary>
             /// Creates a new Row  folder.
@@ -3974,7 +3986,42 @@ namespace AutomatedSystemTests
                 _sectionnameInfo = new RepoItemInfo(this, "SectionName", "cell[@accessiblename>'Vaknaam']", 30000, null, "a336928e-d813-4c84-8a36-3da609899804");
                 _isrelevantInfo = new RepoItemInfo(this, "IsRelevant", "cell[@accessiblename>'Is relevant']", 30000, null, "6bff70d7-1d04-4660-85f8-51b7cf611f85");
                 _resultinitialmechInfo = new RepoItemInfo(this, "ResultInitialMech", "cell[@accessiblename>'Resultaat']", 30000, null, "d6c2a3af-8dc3-485b-8cb2-604082846ede");
-                _genericcellInfo = new RepoItemInfo(this, "genericCell", "cell[4]", 30000, null, "7db3fc24-802e-4db9-b1c2-16851d487012");
+                _genericcellInfo = new genericCellInfoClass(this);
+            }
+
+            /// <summary>
+            /// The genericCellInfoClass folder.
+            /// </summary>
+            [RepositoryItemInfo("7db3fc24-802e-4db9-b1c2-16851d487012")]
+            public class genericCellInfoClass : RepoItemInfo
+            {
+                /// <summary>
+                /// genericCellInfoClass class constructor.
+                /// </summary>
+                public genericCellInfoClass(RepoGenBaseFolder parentFolder)
+                    : base(parentFolder, "genericCell", "cell[$columnIndex]", 30000, null, "7db3fc24-802e-4db9-b1c2-16851d487012")
+                { }
+
+                /// <summary>
+                /// Gets the greyPatch1 item image.
+                /// </summary>
+                /// <returns>The greyPatch1 image.</returns>
+                [RepositoryImage("cb03ffcf-4700-4a39-8518-2f3e68db0f61")]
+                public CompressedImage GetgreyPatch1()
+                {
+                    return GetImage("cb03ffcf-4700-4a39-8518-2f3e68db0f61");
+                }
+
+                /// <summary>
+                /// Gets the greyPatch1 item image.
+                /// </summary>
+                /// <param name="cropRect">The bounds of the sub-image to return.</param>
+                /// <returns>The cropped image.</returns>
+                [RepositoryImage("cb03ffcf-4700-4a39-8518-2f3e68db0f61")]
+                public CompressedImage GetgreyPatch1(System.Drawing.Rectangle cropRect)
+                {
+                    return GetImage("cb03ffcf-4700-4a39-8518-2f3e68db0f61", cropRect);
+                }
             }
 
             /// <summary>
@@ -4089,7 +4136,7 @@ namespace AutomatedSystemTests
             /// The genericCell item info.
             /// </summary>
             [RepositoryItemInfo("7db3fc24-802e-4db9-b1c2-16851d487012")]
-            public virtual RepoItemInfo genericCellInfo
+            public virtual genericCellInfoClass genericCellInfo
             {
                 get
                 {

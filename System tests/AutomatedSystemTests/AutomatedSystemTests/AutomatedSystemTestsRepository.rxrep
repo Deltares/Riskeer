@@ -664,7 +664,13 @@ Ci8EIxlN9/ueuduvvCRUSA/y/BpXl5+Ui+rMfnRmeyL0hblJeL6KhKphqPIwCHnKcUMch8GfPoy/
 								id="7db3fc24-802e-4db9-b1c2-16851d487012"
 								name="genericCell"
 								searchtimeout="30000ms">
-									/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[$rowIndex]/cell[4]
+									<image
+									guid="cb03ffcf-4700-4a39-8518-2f3e68db0f61"
+									name="greyPatch1">
+										iVBORw0KGgoAAAANSUhEUgAAAAQAAAAUCAIAAAAlRQuyAAAABGdBTUEAALGPC/xhBQAAAAlwSFlz
+AAAOxAAADsQBlSsOGwAAABBJREFUKFNjWIkERiRn5UoAepSecUDvM7wAAAAASUVORK5CYII=
+									</image>
+									/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[$rowIndex]/cell[$columnIndex]
 								</item>
 								<basepath>
 									/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[$rowIndex]
@@ -3501,6 +3507,10 @@ gZlyIMICo2CnvxF7EpBHxeUwaeMLu3LXSHrIMIoAAAAASUVORK5CYII=
 		<var
 		id="29307d06-2311-4b72-97e7-ee345285218b"
 		name="indexColumn">
+		</var>
+		<var
+		id="42a4d0d7-8e30-4ccf-a642-f80cec3369b4"
+		name="columnIndex">
 		</var>
 	</variables>
 </repository>
