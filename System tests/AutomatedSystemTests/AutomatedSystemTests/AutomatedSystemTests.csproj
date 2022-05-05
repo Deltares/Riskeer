@@ -1449,102 +1449,6 @@
       <id>7fd00eb0-81b5-4ff0-8859-bd1d04dd7f2a</id>
       <BoundTo>0cc48728-8442-42cf-af65-3ac14054b2d3</BoundTo>
     </Compile>
-    <Compile Include="Modules\Selection\Assembly\SelectDetailedAssessmentForRowCategoryIIIv.cs">
-      <DependentUpon>SelectDetailedAssessmentForRowCategoryIIIv.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>537e7005-1a96-4103-8da6-a93b6703d917</id>
-      <BoundTo>5a4f3fa3-1a87-4396-919f-25c0bf782ff3</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Selection\Assembly\SelectDetailedAssessmentForRowCategoryIIIv.UserCode.cs">
-      <DependentUpon>SelectDetailedAssessmentForRowCategoryIIIv.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>9babaafd-56ca-4c7f-9e74-f8af64de4a20</id>
-      <BoundTo>5a4f3fa3-1a87-4396-919f-25c0bf782ff3</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Selection\Assembly\SelectDetailedAssessmentForRowCategoryIIv.cs">
-      <DependentUpon>SelectDetailedAssessmentForRowCategoryIIv.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>ef089740-dbad-4457-90bc-75934e8708dc</id>
-      <BoundTo>a2165335-4b9d-47f7-a826-14947dcfd578</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Selection\Assembly\SelectDetailedAssessmentForRowCategoryIIv.UserCode.cs">
-      <DependentUpon>SelectDetailedAssessmentForRowCategoryIIv.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>698e60d9-df8a-4833-86d9-4469f6752b24</id>
-      <BoundTo>a2165335-4b9d-47f7-a826-14947dcfd578</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Selection\Assembly\SelectDetailedAssessmentForRowCategoryIv.cs">
-      <DependentUpon>SelectDetailedAssessmentForRowCategoryIv.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>9d397744-8b7a-4896-870d-d450c554e1b5</id>
-      <BoundTo>d52b7eef-7e1b-4b8e-9130-bc710dd5131f</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Selection\Assembly\SelectDetailedAssessmentForRowCategoryIv.UserCode.cs">
-      <DependentUpon>SelectDetailedAssessmentForRowCategoryIv.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>9179ea6f-7175-4abe-8f2f-2159d0e51578</id>
-      <BoundTo>d52b7eef-7e1b-4b8e-9130-bc710dd5131f</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Selection\Assembly\SelectDetailedAssessmentForRowCategoryIVv.cs">
-      <DependentUpon>SelectDetailedAssessmentForRowCategoryIVv.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>6035c599-bf03-4c91-bdb0-7249acb744ca</id>
-      <BoundTo>24111330-65d5-4670-9d7d-9af4307cb26a</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Selection\Assembly\SelectDetailedAssessmentForRowCategoryIVv.UserCode.cs">
-      <DependentUpon>SelectDetailedAssessmentForRowCategoryIVv.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>b12e0728-6011-495c-89e5-954cd939c6ab</id>
-      <BoundTo>24111330-65d5-4670-9d7d-9af4307cb26a</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Selection\Assembly\SelectDetailedAssessmentForRowCategoryVv.cs">
-      <DependentUpon>SelectDetailedAssessmentForRowCategoryVv.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>f873573f-2593-4d9d-86fe-6e0a1a8f4d66</id>
-      <BoundTo>7f9bb519-3fbf-4ff5-9e73-1c24c6aedb69</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Selection\Assembly\SelectDetailedAssessmentForRowCategoryVv.UserCode.cs">
-      <DependentUpon>SelectDetailedAssessmentForRowCategoryVv.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>adf56cd6-e4b5-4961-beda-d115f87a305f</id>
-      <BoundTo>7f9bb519-3fbf-4ff5-9e73-1c24c6aedb69</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Selection\Assembly\SelectDetailedAssessmentTypeForRow.cs">
-      <DependentUpon>SelectDetailedAssessmentTypeForRow.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>e70f1c00-c1c2-4507-a588-d018c54868b4</id>
-      <BoundTo>731610be-3ce8-4f1d-8c8d-98ec88fef6e9</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Selection\Assembly\SelectDetailedAssessmentTypeForRow.UserCode.cs">
-      <DependentUpon>SelectDetailedAssessmentTypeForRow.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>487f6ed8-b5f5-4fb1-924f-bc9cd1a1e518</id>
-      <BoundTo>731610be-3ce8-4f1d-8c8d-98ec88fef6e9</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Selection\Assembly\SelectManualAssessment.cs">
-      <BoundTo>e73590a3-2dd0-4529-a4ae-7751bcea43a8</BoundTo>
-      <DependentUpon>SelectManualAssessment.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>b1d00206-2e02-4f3f-a592-4006df0414fb</id>
-    </Compile>
-    <Compile Include="Modules\Selection\Assembly\SelectManualAssessment.UserCode.cs">
-      <BoundTo>e73590a3-2dd0-4529-a4ae-7751bcea43a8</BoundTo>
-      <DependentUpon>SelectManualAssessment.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>77733967-26c1-4e31-9143-327d4a7865c9</id>
-    </Compile>
-    <Compile Include="Modules\Selection\SelecteCasesScript15a_c_Range.cs">
-      <DependentUpon>SelecteCasesScript15a_c_Range.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>ec00e433-dbc1-44ea-9754-75c60ed35b11</id>
-      <BoundTo>98b58192-c302-41a8-bc71-46e3d4a052eb</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Selection\SelecteCasesScript15a_c_Range.UserCode.cs">
-      <DependentUpon>SelecteCasesScript15a_c_Range.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>8a1144b6-29cf-4286-84a6-195390f7f04f</id>
-      <BoundTo>98b58192-c302-41a8-bc71-46e3d4a052eb</BoundTo>
-    </Compile>
     <Compile Include="Modules\Selection\SelectGenericItemInMapLayersPanel.cs">
       <BoundTo>ec6d761b-3e0f-4b7c-acd1-c62d5a244213</BoundTo>
       <DependentUpon>SelectGenericItemInMapLayersPanel.rxrec</DependentUpon>
@@ -1617,6 +1521,18 @@
       <UserCode>true</UserCode>
       <id>848deeb7-38df-45f9-ba57-519bb7b6ad90</id>
     </Compile>
+    <Compile Include="Modules\Selection\SelectResultInitialMechanism.cs">
+      <BoundTo>40ec82db-a7fc-40b9-b241-329c98390b73</BoundTo>
+      <DependentUpon>SelectResultInitialMechanism.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>40811fdc-a0b0-4193-bcb5-e11d3f9220ae</id>
+    </Compile>
+    <Compile Include="Modules\Selection\SelectResultInitialMechanism.UserCode.cs">
+      <BoundTo>40ec82db-a7fc-40b9-b241-329c98390b73</BoundTo>
+      <DependentUpon>SelectResultInitialMechanism.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>d189fa82-96ac-4075-9035-0d1b51aeb418</id>
+    </Compile>
     <Compile Include="Modules\Selection\SelectRowCalculation.cs">
       <DependentUpon>SelectRowCalculation.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -1640,18 +1556,6 @@
       <UserCode>true</UserCode>
       <id>877658b2-1b90-42d3-ad4f-db4fec0f0944</id>
       <BoundTo>28d03374-35b2-44db-81cd-a402f27e8a66</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Selection\Assembly\SelectSimpleAssessmentForRow.cs">
-      <DependentUpon>SelectSimpleAssessmentForRow.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>eb4e1a22-7674-42d2-8df1-e94e62c66379</id>
-      <BoundTo>31496a42-800f-4754-b94c-bdba78e4cd44</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Selection\Assembly\SelectSimpleAssessmentForRow.UserCode.cs">
-      <DependentUpon>SelectSimpleAssessmentForRow.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>9631cbb7-d221-4a87-99b0-a197f22e06e9</id>
-      <BoundTo>31496a42-800f-4754-b94c-bdba78e4cd44</BoundTo>
     </Compile>
     <Compile Include="Modules\Selection\SelectTrajectType.cs">
       <DependentUpon>SelectTrajectType.rxrec</DependentUpon>
@@ -1698,77 +1602,8 @@
       <UserCode>true</UserCode>
       <id>9c648481-ceaa-431b-9aa9-4f8985106298</id>
     </Compile>
-    <Compile Include="Modules\Set_Assign\Assembly\SetCustomAssessmentAtRow.cs">
-      <DependentUpon>SetCustomAssessmentAtRow.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>a57b728e-127f-4801-b004-331b6faf7029</id>
-      <BoundTo>b838adb7-b43d-43a1-864f-14728db0fe9a</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Set_Assign\Assembly\SetCustomAssessmentAtRow.UserCode.cs">
-      <DependentUpon>SetCustomAssessmentAtRow.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>955819d2-1ece-4474-9f41-eeaed03ad5a8</id>
-      <BoundTo>b838adb7-b43d-43a1-864f-14728db0fe9a</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Set_Assign\Assembly\SetCustomAssessmentValueAtRow.cs">
-      <DependentUpon>SetCustomAssessmentValueAtRow.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>bba05597-133f-4b98-b25c-5692e819ade3</id>
-      <BoundTo>498ef0d1-8bb4-4e35-8289-e4628a561c37</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Set_Assign\Assembly\SetCustomAssessmentValueAtRow.UserCode.cs">
-      <DependentUpon>SetCustomAssessmentValueAtRow.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>92d17f55-315d-49a0-acd3-42bbb42b6a73</id>
-      <BoundTo>498ef0d1-8bb4-4e35-8289-e4628a561c37</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Set_Assign\Assembly\SetDetailedAssessmentForRowPerSection.cs">
-      <DependentUpon>SetDetailedAssessmentForRowPerSection.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>2a541a53-27eb-4271-ad1f-44ce9e7849c2</id>
-      <BoundTo>a0c074a3-3c19-4557-8ef3-533b43266955</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Set_Assign\Assembly\SetDetailedAssessmentForRowPerSection.UserCode.cs">
-      <DependentUpon>SetDetailedAssessmentForRowPerSection.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>143e3bd7-53dc-4ac6-ba94-5a9d31f88a19</id>
-      <BoundTo>a0c074a3-3c19-4557-8ef3-533b43266955</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Set_Assign\Assembly\SetDetailedAssessmentValueForRow.cs">
-      <DependentUpon>SetDetailedAssessmentValueForRow.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>31dd2ae8-99e2-433c-b17e-3c3b6bc252ff</id>
-      <BoundTo>a6aa9891-7b17-448b-bd52-f69c71b53d62</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Set_Assign\Assembly\SetDetailedAssessmentValueForRow.UserCode.cs">
-      <DependentUpon>SetDetailedAssessmentValueForRow.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>f4e1c91c-d051-492f-af16-e0356367e1d4</id>
-      <BoundTo>a6aa9891-7b17-448b-bd52-f69c71b53d62</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Set_Assign\Assembly\SetManualAssessmentCategory.cs">
-      <BoundTo>98a0c5e5-1218-4100-83f1-b8f30614e51d</BoundTo>
-      <DependentUpon>SetManualAssessmentCategory.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>a4cb3394-efdb-4d64-a31f-9789d4512a37</id>
-    </Compile>
-    <Compile Include="Modules\Set_Assign\Assembly\SetManualAssessmentCategory.UserCode.cs">
-      <BoundTo>98a0c5e5-1218-4100-83f1-b8f30614e51d</BoundTo>
-      <DependentUpon>SetManualAssessmentCategory.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>790834ac-4b5c-423c-bf00-8226c624f76a</id>
-    </Compile>
-    <Compile Include="Modules\Set_Assign\Assembly\SetManualAssessmentProbability.cs">
-      <BoundTo>8669304c-d156-4ba1-82cd-5042b2515286</BoundTo>
-      <DependentUpon>SetManualAssessmentProbability.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>22637067-3bb0-41f4-a038-1acd89730907</id>
-    </Compile>
-    <Compile Include="Modules\Set_Assign\Assembly\SetManualAssessmentProbability.UserCode.cs">
-      <BoundTo>8669304c-d156-4ba1-82cd-5042b2515286</BoundTo>
-      <DependentUpon>SetManualAssessmentProbability.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>dd2f233e-0eec-4b6f-b2e1-0990a7a28c9d</id>
+    <Compile Include="Modules\Set_Assign\Assembly\SetValueInCellResultView.cs">
+      <id>c735214a-507f-49ee-bae8-8204a112600d</id>
     </Compile>
     <Compile Include="Modules\Set_Assign\SetParameterInCalculationsView.cs">
       <BoundTo>da3a7060-7580-4ef3-b11c-6e6a2aeb9323</BoundTo>
@@ -2037,6 +1872,9 @@
       <id>2d96d6e6-6fa0-47c8-a52b-021abeaae9ba</id>
       <BoundTo>e7464627-428f-4286-934b-085c173cdecc</BoundTo>
     </Compile>
+    <Compile Include="Modules\Validation\DocumentView\ValidateValueInCellResultView.cs">
+      <id>828c02e9-2bd7-41c3-9593-24b25c616642</id>
+    </Compile>
     <Compile Include="Modules\Validation\DocumentView\ValidateValueInTableOfHBCDocumentView.cs">
       <id>1308cd76-a226-4040-b1bc-b8ef3d797d79</id>
     </Compile>
@@ -2159,150 +1997,6 @@
       <UserCode>true</UserCode>
       <id>7fa19957-1318-4443-a664-bcea138e1fb3</id>
       <BoundTo>1e3ffeec-c56b-4b2f-84cb-53870e9a4344</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\Assembly\ValidateCustomAssessmentTypeAtRow.cs">
-      <DependentUpon>ValidateCustomAssessmentTypeAtRow.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>8929e179-edb9-4389-b36d-24c047175c3b</id>
-      <BoundTo>dd1e40e5-89cd-4bda-be21-cdfa6fc0f479</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\Assembly\ValidateCustomAssessmentTypeAtRow.UserCode.cs">
-      <DependentUpon>ValidateCustomAssessmentTypeAtRow.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>e6a757b4-8329-4d41-85bd-b48ee04b0dac</id>
-      <BoundTo>dd1e40e5-89cd-4bda-be21-cdfa6fc0f479</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\Assembly\ValidateCustomAssessmentValue.cs">
-      <DependentUpon>ValidateCustomAssessmentValue.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>6cb9ef95-f16e-499c-8d7e-e16e912bd5e9</id>
-      <BoundTo>33318670-518c-4e04-9e41-efbd1efea647</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\Assembly\ValidateCustomAssessmentValue.UserCode.cs">
-      <DependentUpon>ValidateCustomAssessmentValue.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>6b6f25b8-0660-465d-bd37-56c8a76f502e</id>
-      <BoundTo>33318670-518c-4e04-9e41-efbd1efea647</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\Assembly\ValidateDetailedAssessmentTypeAtRow.cs">
-      <DependentUpon>ValidateDetailedAssessmentTypeAtRow.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>f700a7c8-4579-43d1-a31d-929f9d36d0b8</id>
-      <BoundTo>4453664d-3c67-4161-8674-c648c3a1bbd4</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\Assembly\ValidateDetailedAssessmentTypeAtRow.UserCode.cs">
-      <DependentUpon>ValidateDetailedAssessmentTypeAtRow.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>ad1ac744-d61e-4ce7-bdee-915c49591142</id>
-      <BoundTo>4453664d-3c67-4161-8674-c648c3a1bbd4</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\Assembly\ValidateDetailedAssessmentTypeAtRowCategoryIIIv.cs">
-      <DependentUpon>ValidateDetailedAssessmentTypeAtRowCategoryIIIv.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>e9212bdc-f4e8-4978-9d5e-641d8249e8b3</id>
-      <BoundTo>51a6d249-6729-4231-9d69-0b2452736022</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\Assembly\ValidateDetailedAssessmentTypeAtRowCategoryIIIv.UserCode.cs">
-      <DependentUpon>ValidateDetailedAssessmentTypeAtRowCategoryIIIv.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>b95238a8-b207-4dfd-82c1-f55d4aaab0dd</id>
-      <BoundTo>51a6d249-6729-4231-9d69-0b2452736022</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\Assembly\ValidateDetailedAssessmentTypeAtRowCategoryIIv.cs">
-      <DependentUpon>ValidateDetailedAssessmentTypeAtRowCategoryIIv.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>bfd47ffa-3154-490c-ac6b-98fca1efc5fd</id>
-      <BoundTo>7fb7b0e0-1e1b-49bc-8ac6-4f0023d522c4</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\Assembly\ValidateDetailedAssessmentTypeAtRowCategoryIIv.UserCode.cs">
-      <DependentUpon>ValidateDetailedAssessmentTypeAtRowCategoryIIv.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>168e21ce-5dcf-4f60-9133-b0f04cdee131</id>
-      <BoundTo>7fb7b0e0-1e1b-49bc-8ac6-4f0023d522c4</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\Assembly\ValidateDetailedAssessmentTypeAtRowCategoryIv.cs">
-      <DependentUpon>ValidateDetailedAssessmentTypeAtRowCategoryIv.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>89e4efcf-119c-434e-8be3-cb2f50575b62</id>
-      <BoundTo>41e0dfba-c060-4616-adbf-a16ee30c5aee</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\Assembly\ValidateDetailedAssessmentTypeAtRowCategoryIv.UserCode.cs">
-      <DependentUpon>ValidateDetailedAssessmentTypeAtRowCategoryIv.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>6e530503-493a-4c79-b4cf-65f91c1f623e</id>
-      <BoundTo>41e0dfba-c060-4616-adbf-a16ee30c5aee</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\Assembly\ValidateDetailedAssessmentTypeAtRowCategoryIVv.cs">
-      <DependentUpon>ValidateDetailedAssessmentTypeAtRowCategoryIVv.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>95a772d9-9c3c-4e64-87f1-9f9ef444aee6</id>
-      <BoundTo>9573ec4e-63a8-44d4-843a-841c7eaaf759</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\Assembly\ValidateDetailedAssessmentTypeAtRowCategoryIVv.UserCode.cs">
-      <DependentUpon>ValidateDetailedAssessmentTypeAtRowCategoryIVv.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>f29bdf61-24fe-4c5c-9638-5224dff5295c</id>
-      <BoundTo>9573ec4e-63a8-44d4-843a-841c7eaaf759</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\Assembly\ValidateDetailedAssessmentTypeAtRowCategoryVv.cs">
-      <DependentUpon>ValidateDetailedAssessmentTypeAtRowCategoryVv.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>37ca9709-a2eb-44db-8993-a9baf0466f76</id>
-      <BoundTo>9ad23365-0d18-4462-ade2-d3e3302b16cd</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\Assembly\ValidateDetailedAssessmentTypeAtRowCategoryVv.UserCode.cs">
-      <DependentUpon>ValidateDetailedAssessmentTypeAtRowCategoryVv.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>4aac8800-a1be-4bd0-9f3c-4fbde9ad0bfa</id>
-      <BoundTo>9ad23365-0d18-4462-ade2-d3e3302b16cd</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\Assembly\ValidateDetailedAssessmentTypeAtRowGroup4.cs">
-      <DependentUpon>ValidateDetailedAssessmentTypeAtRowGroup4.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>a68c1921-9115-476f-bd97-402ecf0846f6</id>
-      <BoundTo>d7cb8aec-0058-4d17-adb7-4422eb8efacd</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\Assembly\ValidateDetailedAssessmentTypeAtRowGroup4.UserCode.cs">
-      <DependentUpon>ValidateDetailedAssessmentTypeAtRowGroup4.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>e4883ff6-42c1-4edd-81e7-3f0987ad6898</id>
-      <BoundTo>d7cb8aec-0058-4d17-adb7-4422eb8efacd</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\Assembly\ValidateDetailedAssessmentValueAtRow.cs">
-      <DependentUpon>ValidateDetailedAssessmentValueAtRow.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>8ef49bdd-b485-4f22-bb85-942be3a64b1b</id>
-      <BoundTo>bbfde277-5adf-4de7-a49e-e6822bc65f48</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\Assembly\ValidateDetailedAssessmentValueAtRow.UserCode.cs">
-      <DependentUpon>ValidateDetailedAssessmentValueAtRow.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>8658e6ac-2879-4557-85a0-bb2867183791</id>
-      <BoundTo>bbfde277-5adf-4de7-a49e-e6822bc65f48</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\Assembly\ValidateDetailedAssessmentValueAtRowPerCategory.cs">
-      <DependentUpon>ValidateDetailedAssessmentValueAtRowPerCategory.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>c5444e15-62da-4bf4-98c9-0ffbed14436f</id>
-      <BoundTo>d713dd0c-6468-4e57-8a1a-9e182f238ec7</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\Assembly\ValidateDetailedAssessmentValueAtRowPerCategory.UserCode.cs">
-      <DependentUpon>ValidateDetailedAssessmentValueAtRowPerCategory.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>f9f9d8e6-595d-4f5d-92b8-116dd957a00c</id>
-      <BoundTo>d713dd0c-6468-4e57-8a1a-9e182f238ec7</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\Assembly\ValidateDetailedAssessmentValueAtRowPerCategoryGroup4.cs">
-      <DependentUpon>ValidateDetailedAssessmentValueAtRowPerCategoryGroup4.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>80370af1-9069-4a06-b106-8d630be01d04</id>
-      <BoundTo>370ab96d-f6b4-4168-9d3d-4ec451d4db1b</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\Assembly\ValidateDetailedAssessmentValueAtRowPerCategoryGroup4.UserCode.cs">
-      <DependentUpon>ValidateDetailedAssessmentValueAtRowPerCategoryGroup4.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>ed9ae4c9-9e1b-4ef1-a043-fccd914ff342</id>
-      <BoundTo>370ab96d-f6b4-4168-9d3d-4ec451d4db1b</BoundTo>
     </Compile>
     <Compile Include="Modules\Validation\PropertiesPanel\ValidateParameterDoesNotExistForItemInTraject.cs">
       <DependentUpon>ValidateParameterDoesNotExistForItemInTraject.rxrec</DependentUpon>
@@ -3037,46 +2731,6 @@
       <id>0cc48728-8442-42cf-af65-3ac14054b2d3</id>
       <recordtableid>7c3eef7d-4675-4a50-82a1-6f7d0d153cac</recordtableid>
     </None>
-    <None Include="Modules\Selection\Assembly\SelectDetailedAssessmentForRowCategoryIIIv.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>5a4f3fa3-1a87-4396-919f-25c0bf782ff3</id>
-      <recordtableid>a7eb8c7e-6846-46ff-b2ed-97d624f39d39</recordtableid>
-    </None>
-    <None Include="Modules\Selection\Assembly\SelectDetailedAssessmentForRowCategoryIIv.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>a2165335-4b9d-47f7-a826-14947dcfd578</id>
-      <recordtableid>1d451e4f-5f11-43ce-8f5b-c4085d00c239</recordtableid>
-    </None>
-    <None Include="Modules\Selection\Assembly\SelectDetailedAssessmentForRowCategoryIv.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>d52b7eef-7e1b-4b8e-9130-bc710dd5131f</id>
-      <recordtableid>a0648a21-f406-4037-bd0a-c3edb3d869ff</recordtableid>
-    </None>
-    <None Include="Modules\Selection\Assembly\SelectDetailedAssessmentForRowCategoryIVv.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>24111330-65d5-4670-9d7d-9af4307cb26a</id>
-      <recordtableid>a7ae0f4d-d417-4c7b-805b-8057f4e19677</recordtableid>
-    </None>
-    <None Include="Modules\Selection\Assembly\SelectDetailedAssessmentForRowCategoryVv.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>7f9bb519-3fbf-4ff5-9e73-1c24c6aedb69</id>
-      <recordtableid>f1d6edc7-4e95-46f4-a178-9742cb112be4</recordtableid>
-    </None>
-    <None Include="Modules\Selection\Assembly\SelectDetailedAssessmentTypeForRow.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>731610be-3ce8-4f1d-8c8d-98ec88fef6e9</id>
-      <recordtableid>30a2f45d-ee95-4cb0-9ee5-87d71ca20ca5</recordtableid>
-    </None>
-    <None Include="Modules\Selection\Assembly\SelectManualAssessment.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>e73590a3-2dd0-4529-a4ae-7751bcea43a8</id>
-      <recordtableid>5b015ee3-50ff-44a4-90b6-4b97670bff51</recordtableid>
-    </None>
-    <None Include="Modules\Selection\SelecteCasesScript15a_c_Range.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>98b58192-c302-41a8-bc71-46e3d4a052eb</id>
-      <recordtableid>220e925d-6434-4d2c-8772-fc4edd938637</recordtableid>
-    </None>
     <None Include="Modules\Selection\SelectGenericItemInMapLayersPanel.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>ec6d761b-3e0f-4b7c-acd1-c62d5a244213</id>
@@ -3107,6 +2761,11 @@
       <id>f00c07a7-1332-49f0-bc26-77f534093d31</id>
       <recordtableid>feb22e37-85f1-4e45-95cc-1cebb52e7292</recordtableid>
     </None>
+    <None Include="Modules\Selection\SelectResultInitialMechanism.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>40ec82db-a7fc-40b9-b241-329c98390b73</id>
+      <recordtableid>a9457a28-731a-4956-b118-a5fbea9ee526</recordtableid>
+    </None>
     <None Include="Modules\Selection\SelectRowCalculation.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>afcbcacc-5b0b-4d59-884d-84d57b286c4c</id>
@@ -3116,11 +2775,6 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>28d03374-35b2-44db-81cd-a402f27e8a66</id>
       <recordtableid>41e70303-25bd-42fe-9275-c9f1baa62c5c</recordtableid>
-    </None>
-    <None Include="Modules\Selection\Assembly\SelectSimpleAssessmentForRow.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>31496a42-800f-4754-b94c-bdba78e4cd44</id>
-      <recordtableid>e0d85a11-9622-402c-937d-fefa962c3394</recordtableid>
     </None>
     <None Include="Modules\Selection\SelectTrajectType.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -3136,36 +2790,6 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>dfc6ba4f-43bf-4a48-8711-ce1bea002bd4</id>
       <recordtableid>3f50af80-7a9e-4428-b269-4f7f8984a5c6</recordtableid>
-    </None>
-    <None Include="Modules\Set_Assign\Assembly\SetCustomAssessmentAtRow.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>b838adb7-b43d-43a1-864f-14728db0fe9a</id>
-      <recordtableid>dc218a16-91e8-4197-ae23-5bbe0c083a04</recordtableid>
-    </None>
-    <None Include="Modules\Set_Assign\Assembly\SetCustomAssessmentValueAtRow.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>498ef0d1-8bb4-4e35-8289-e4628a561c37</id>
-      <recordtableid>a0a01510-32a1-46ad-b596-d7312f892e5d</recordtableid>
-    </None>
-    <None Include="Modules\Set_Assign\Assembly\SetDetailedAssessmentForRowPerSection.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>a0c074a3-3c19-4557-8ef3-533b43266955</id>
-      <recordtableid>503dc525-67d9-4f84-8c18-ddd376efe5d4</recordtableid>
-    </None>
-    <None Include="Modules\Set_Assign\Assembly\SetDetailedAssessmentValueForRow.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>a6aa9891-7b17-448b-bd52-f69c71b53d62</id>
-      <recordtableid>8ba1a78d-5071-4845-bc94-8ab1fa70f8c1</recordtableid>
-    </None>
-    <None Include="Modules\Set_Assign\Assembly\SetManualAssessmentCategory.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>98a0c5e5-1218-4100-83f1-b8f30614e51d</id>
-      <recordtableid>97f68751-6390-4dac-92f9-cba8feac75de</recordtableid>
-    </None>
-    <None Include="Modules\Set_Assign\Assembly\SetManualAssessmentProbability.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>8669304c-d156-4ba1-82cd-5042b2515286</id>
-      <recordtableid>60536bb5-15fa-40e4-91d6-e5131d3e52c2</recordtableid>
     </None>
     <None Include="Modules\Set_Assign\SetParameterInCalculationsView.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -3312,66 +2936,6 @@
       <id>1e3ffeec-c56b-4b2f-84cb-53870e9a4344</id>
       <recordtableid>96402262-15e0-4220-98f9-083d0b2a69c0</recordtableid>
     </None>
-    <None Include="Modules\Validation\Assembly\ValidateCustomAssessmentTypeAtRow.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>dd1e40e5-89cd-4bda-be21-cdfa6fc0f479</id>
-      <recordtableid>4a7e3f6a-b454-48a2-a19c-3321f75bc052</recordtableid>
-    </None>
-    <None Include="Modules\Validation\Assembly\ValidateCustomAssessmentValue.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>33318670-518c-4e04-9e41-efbd1efea647</id>
-      <recordtableid>da4d5264-71fa-4c55-ade2-9344716cd1cc</recordtableid>
-    </None>
-    <None Include="Modules\Validation\Assembly\ValidateDetailedAssessmentTypeAtRow.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>4453664d-3c67-4161-8674-c648c3a1bbd4</id>
-      <recordtableid>f90323b9-0faf-4e8d-ba0d-cddbcaec15a5</recordtableid>
-    </None>
-    <None Include="Modules\Validation\Assembly\ValidateDetailedAssessmentTypeAtRowCategoryIIIv.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>51a6d249-6729-4231-9d69-0b2452736022</id>
-      <recordtableid>395e8850-1508-4f0f-99b2-9269f620fabc</recordtableid>
-    </None>
-    <None Include="Modules\Validation\Assembly\ValidateDetailedAssessmentTypeAtRowCategoryIIv.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>7fb7b0e0-1e1b-49bc-8ac6-4f0023d522c4</id>
-      <recordtableid>d90761a4-7311-4462-be01-cf40cca191d7</recordtableid>
-    </None>
-    <None Include="Modules\Validation\Assembly\ValidateDetailedAssessmentTypeAtRowCategoryIv.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>41e0dfba-c060-4616-adbf-a16ee30c5aee</id>
-      <recordtableid>4ffec84f-aea2-4bf2-96bd-d9f58048fcd6</recordtableid>
-    </None>
-    <None Include="Modules\Validation\Assembly\ValidateDetailedAssessmentTypeAtRowCategoryIVv.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>9573ec4e-63a8-44d4-843a-841c7eaaf759</id>
-      <recordtableid>42cf05e3-77be-41b2-bb8e-2d6b14e70872</recordtableid>
-    </None>
-    <None Include="Modules\Validation\Assembly\ValidateDetailedAssessmentTypeAtRowCategoryVv.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>9ad23365-0d18-4462-ade2-d3e3302b16cd</id>
-      <recordtableid>43df9f01-0547-4bb8-a36b-78e1d73ecc7b</recordtableid>
-    </None>
-    <None Include="Modules\Validation\Assembly\ValidateDetailedAssessmentTypeAtRowGroup4.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>d7cb8aec-0058-4d17-adb7-4422eb8efacd</id>
-      <recordtableid>4bec016b-4d75-4a07-9bb2-a12badf2136b</recordtableid>
-    </None>
-    <None Include="Modules\Validation\Assembly\ValidateDetailedAssessmentValueAtRow.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>bbfde277-5adf-4de7-a49e-e6822bc65f48</id>
-      <recordtableid>91919928-72e3-45e3-8af5-a51f8db749e3</recordtableid>
-    </None>
-    <None Include="Modules\Validation\Assembly\ValidateDetailedAssessmentValueAtRowPerCategory.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>d713dd0c-6468-4e57-8a1a-9e182f238ec7</id>
-      <recordtableid>e8d5931b-4e59-4070-ae4d-51a65c062ea7</recordtableid>
-    </None>
-    <None Include="Modules\Validation\Assembly\ValidateDetailedAssessmentValueAtRowPerCategoryGroup4.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>370ab96d-f6b4-4168-9d3d-4ec451d4db1b</id>
-      <recordtableid>d39d077e-c625-4d57-a6e7-a73a70d77e0d</recordtableid>
-    </None>
     <None Include="Modules\Validation\PropertiesPanel\ValidateParameterDoesNotExistForItemInTraject.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>27f04823-1f1a-4251-be16-0e92f15ca64c</id>
@@ -3513,14 +3077,8 @@
     <Folder Include="Modules\RepportInfo">
       <id>0333c117-38c9-4dac-9490-c6981c56cc70</id>
     </Folder>
-    <Folder Include="Modules\Selection\Assembly">
-      <id>3371b114-0d7d-4b1b-9c5b-d60e1b860334</id>
-    </Folder>
     <Folder Include="Modules\Set_Assign\Assembly">
       <id>5211b334-8342-4662-8bad-31b62e399e7a</id>
-    </Folder>
-    <Folder Include="Modules\Validation\Assembly">
-      <id>21e8f5e9-9ef8-4627-a95b-0ca15783db8c</id>
     </Folder>
     <Folder Include="Modules\Validation\MessagesPanel">
       <id>7fc24691-8cbb-4cba-9495-5062ec88912d</id>

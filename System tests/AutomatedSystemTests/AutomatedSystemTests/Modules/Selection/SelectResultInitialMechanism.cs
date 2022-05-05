@@ -20,33 +20,33 @@ using Ranorex.Core;
 using Ranorex.Core.Testing;
 using Ranorex.Core.Repository;
 
-namespace AutomatedSystemTests.Modules.Selection.Assembly
+namespace AutomatedSystemTests.Modules.Selection
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The SelectDetailedAssessmentForRowCategoryVv recording.
+    ///The SelectResultInitialMechanism recording.
     /// </summary>
-    [TestModule("f1d6edc7-4e95-46f4-a178-9742cb112be4", ModuleType.Recording, 1)]
-    public partial class SelectDetailedAssessmentForRowCategoryVv : ITestModule
+    [TestModule("a9457a28-731a-4956-b118-a5fbea9ee526", ModuleType.Recording, 1)]
+    public partial class SelectResultInitialMechanism : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static SelectDetailedAssessmentForRowCategoryVv instance = new SelectDetailedAssessmentForRowCategoryVv();
+        static SelectResultInitialMechanism instance = new SelectResultInitialMechanism();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public SelectDetailedAssessmentForRowCategoryVv()
+        public SelectResultInitialMechanism()
         {
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static SelectDetailedAssessmentForRowCategoryVv Instance
+        public static SelectResultInitialMechanism Instance
         {
             get { return instance; }
         }
@@ -61,6 +61,16 @@ namespace AutomatedSystemTests.Modules.Selection.Assembly
         {
             get { return repo.rowIndex; }
             set { repo.rowIndex = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the value of variable columnIndex.
+        /// </summary>
+        [TestVariable("42a4d0d7-8e30-4ccf-a642-f80cec3369b4")]
+        public string columnIndex
+        {
+            get { return repo.columnIndex; }
+            set { repo.columnIndex = value; }
         }
 
         /// <summary>
@@ -93,23 +103,23 @@ namespace AutomatedSystemTests.Modules.Selection.Assembly
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 300;
+            Mouse.DefaultMoveTime = 0;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 1.00;
+            Delay.SpeedFactor = 0.00;
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.DetailedAssessmentTypeCategoryVv'.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.DetailedAssessmentTypeCategoryVvInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.DetailedAssessmentTypeCategoryVv.Focus();
-            Delay.Milliseconds(0);
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.TableFMResultView.Row.genericCell'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.TableFMResultView.Row.genericCellInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.TableFMResultView.Row.genericCell.Focus();
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.DetailedAssessmentTypeCategoryVv' at CenterRight.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.DetailedAssessmentTypeCategoryVvInfo, new RecordItemIndex(1));
-            repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.DetailedAssessmentTypeCategoryVv.Click(Location.CenterRight);
-            Delay.Milliseconds(0);
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.TableFMResultView.Row.genericCell'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.TableFMResultView.Row.genericCellInfo, new RecordItemIndex(1));
+            repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.TableFMResultView.Row.genericCell.Select();
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'DropDownMenuItemList.GenericDropDownItem' at Center.", repo.DropDownMenuItemList.GenericDropDownItemInfo, new RecordItemIndex(2));
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.TableFMResultView.Row.genericCell' at Center.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.TableFMResultView.Row.genericCellInfo, new RecordItemIndex(2));
+            repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.TableFMResultView.Row.genericCell.Click();
+            
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'DropDownMenuItemList.GenericDropDownItem' at Center.", repo.DropDownMenuItemList.GenericDropDownItemInfo, new RecordItemIndex(3));
             repo.DropDownMenuItemList.GenericDropDownItem.Click();
-            Delay.Milliseconds(0);
             
         }
 

@@ -20,9 +20,9 @@ using Ranorex.Core;
 using Ranorex.Core.Repository;
 using Ranorex.Core.Testing;
 
-namespace AutomatedSystemTests.Modules.Validation.Assembly
+namespace AutomatedSystemTests.Modules.Selection
 {
-    public partial class ValidateCustomAssessmentTypeAtRow
+    public partial class SelectResultInitialMechanism
     {
         /// <summary>
         /// This method gets called right after the recording has been started.

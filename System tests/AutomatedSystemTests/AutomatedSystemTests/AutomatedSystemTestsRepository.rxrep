@@ -663,6 +663,7 @@ Ci8EIxlN9/ueuduvvCRUSA/y/BpXl5+Ui+rMfnRmeyL0hblJeL6KhKphqPIwCHnKcUMch8GfPoy/
 								capname="cell"
 								id="7db3fc24-802e-4db9-b1c2-16851d487012"
 								name="genericCell"
+								refimgid="74395883-b3bf-48bf-9f83-cf130cb89a19"
 								searchtimeout="30000ms">
 									<image
 									guid="cb03ffcf-4700-4a39-8518-2f3e68db0f61"
@@ -2662,6 +2663,16 @@ QmCC
 			refpath="/list[@controlid='1000']/listitem[@text='ESRI luchtfoto']"
 			searchtimeout="30000ms">
 				/list[@controlid='1000']/listitem[@text='ESRI luchtfoto']
+			</item>
+			<item
+			addcaps="listitem,nativeitem,checkable"
+			capname="listitem"
+			id="a284a37c-df6e-4e3f-9e76-a4a7043f3240"
+			name="Overnemen"
+			refimgid="7e1fe35d-6685-4978-906e-e747e3f3a8a2"
+			refpath="/list[@controlid='1000']/listitem[@text='Overnemen']"
+			searchtimeout="30000ms">
+				/list[@controlid='1000']/listitem[@text='Overnemen']
 			</item>
 			<basepath>
 				/list[@controlid='1000']

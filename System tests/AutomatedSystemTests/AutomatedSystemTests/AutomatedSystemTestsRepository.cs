@@ -9280,6 +9280,7 @@ namespace AutomatedSystemTests
             RepoItemInfo _webmaptileservicewmtsInfo;
             RepoItemInfo _pdokInfo;
             RepoItemInfo _esriluchtfotoInfo;
+            RepoItemInfo _overnemenInfo;
 
             /// <summary>
             /// Creates a new DropDownMenuItemList  folder.
@@ -9292,6 +9293,7 @@ namespace AutomatedSystemTests
                 _webmaptileservicewmtsInfo = new RepoItemInfo(this, "WebMapTileServiceWMTS", "listitem[@text>'Web Map Tile Service (WMT']", 30000, null, "1df21d19-b589-4ae0-9b5e-2ed3f606ff9d");
                 _pdokInfo = new RepoItemInfo(this, "PDOK", "listitem[@text='PDOK']", 30000, null, "6a8afea2-aefe-44ee-b5ec-68716a0c5194");
                 _esriluchtfotoInfo = new RepoItemInfo(this, "ESRILuchtfoto", "listitem[@text='ESRI luchtfoto']", 30000, null, "fe15788e-2580-480f-b8f8-af7af1f58ec9");
+                _overnemenInfo = new RepoItemInfo(this, "Overnemen", "listitem[@text='Overnemen']", 30000, null, "a284a37c-df6e-4e3f-9e76-a4a7043f3240");
             }
 
             /// <summary>
@@ -9435,6 +9437,30 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _esriluchtfotoInfo;
+                }
+            }
+
+            /// <summary>
+            /// The Overnemen item.
+            /// </summary>
+            [RepositoryItem("a284a37c-df6e-4e3f-9e76-a4a7043f3240")]
+            public virtual Ranorex.ListItem Overnemen
+            {
+                get
+                {
+                    return _overnemenInfo.CreateAdapter<Ranorex.ListItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Overnemen item info.
+            /// </summary>
+            [RepositoryItemInfo("a284a37c-df6e-4e3f-9e76-a4a7043f3240")]
+            public virtual RepoItemInfo OvernemenInfo
+            {
+                get
+                {
+                    return _overnemenInfo;
                 }
             }
         }
