@@ -9,8 +9,8 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="fileNameToSave"
-					datasourceid="0bbd3232-7af5-42b4-b849-73a61bcb8af4"
+					dataname="fileToSave"
+					datasourceid="e66dd6d3-0a18-41b0-a3be-cac4cd389930"
 					variableid="d40271fe-a08b-44b0-bb48-a991f40e104b"
 					variablename="fileName">
 					</var>
@@ -202,12 +202,6 @@
 			<smartfoldernode
 			id="0bbd3232-7af5-42b4-b849-73a61bcb8af4"
 			name="SaveProjectScript15a,b,c">
-				<parameters>
-					<param
-					name="fileNameToSave"
-					value="script15abc.risk">
-					</param>
-				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="0c2fad60-bd4d-42d2-892e-6415ad658b66"
@@ -5704,15 +5698,15 @@
 									name="ValidatePlainTextFilesAreEqual">
 									</testmodule>
 								</smartfoldernode>
+								<smartfoldernode
+								id="0bbd3232-7af5-42b4-b849-73a61bcb8af4"
+								name="SaveProjectScript15a,b,c">
+									<testmodule
+									id="00ac3e74-e0d9-45bc-bf1e-99fae0b6571f"
+									name="SaveAs">
+									</testmodule>
+								</smartfoldernode>
 							</smartfoldernode>
-						</smartfoldernode>
-						<smartfoldernode
-						id="0bbd3232-7af5-42b4-b849-73a61bcb8af4"
-						name="SaveProjectScript15a,b,c">
-							<testmodule
-							id="00ac3e74-e0d9-45bc-bf1e-99fae0b6571f"
-							name="SaveAs">
-							</testmodule>
 						</smartfoldernode>
 						<smartfoldernode
 						id="394ebd4a-a478-4652-a62c-20fa2acf9739"
@@ -6730,6 +6724,9 @@
 					fmLabel
 				</column>
 				<column>
+					fileToSave
+				</column>
+				<column>
 					fileToOpen
 				</column>
 				<column>
@@ -6777,6 +6774,9 @@
 						fmLabel
 					</th>
 					<th>
+						fileToSave
+					</th>
+					<th>
 						fileToOpen
 					</th>
 					<th>
@@ -6819,6 +6819,9 @@
 				<tr>
 					<td>
 						ZST
+					</td>
+					<td>
+						output_Project_15b_ZST.risk
 					</td>
 					<td>
 						input_Project_15b_ZST.risk
@@ -6865,6 +6868,9 @@
 						AGK
 					</td>
 					<td>
+						output_Project_15b_AGK.risk
+					</td>
+					<td>
 						input_Project_15b_AGK.risk
 					</td>
 					<td>
@@ -6907,6 +6913,9 @@
 				<tr>
 					<td>
 						GEBU
+					</td>
+					<td>
+						output_Project_15ab_GEBU.risk
 					</td>
 					<td>
 						input_Project_15ab_GEBU.risk
