@@ -124,6 +124,12 @@
 					variableid="e27c2717-8089-484f-8051-57077da63c0b"
 					variablename="nameOfSmartFolder">
 					</var>
+					<var
+					dataname="rangeValidateManualInitialResultValuesLETrue"
+					datasourceid="a6a3c2ff-51a8-441c-ba9f-9dc18c049e6a"
+					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
+					variablename="rangeToBeSetInSmartFolder">
+					</var>
 				</databinding>
 			</testmodule>
 			<smartfoldernode
@@ -220,6 +226,12 @@
 					variableid="e27c2717-8089-484f-8051-57077da63c0b"
 					variablename="nameOfSmartFolder">
 					</var>
+					<var
+					dataname="rangeValidateManualFinalResultValuesLETrue"
+					datasourceid="a6a3c2ff-51a8-441c-ba9f-9dc18c049e6a"
+					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
+					variablename="rangeToBeSetInSmartFolder">
+					</var>
 				</databinding>
 			</testmodule>
 			<testmodule
@@ -233,6 +245,24 @@
 					datasourceid="8a71189b-241c-41ec-b853-8a1d69094338"
 					variableid="5227b799-2f99-4fee-ab07-bd24308c05bb"
 					variablename="isReferenceValueExpectedToBeMet">
+					</var>
+					<var
+					dataname="columnIndex"
+					datasourceid="9007c9c6-1650-4f6c-a62b-cee1e24a320d"
+					variableid="130652fa-36c0-40eb-8b3e-d2c1f53ae976"
+					variablename="columnIndex">
+					</var>
+					<var
+					dataname="expectedValue"
+					datasourceid="9007c9c6-1650-4f6c-a62b-cee1e24a320d"
+					variableid="ac2c1baf-9255-4edd-9878-1725de92db82"
+					variablename="referenceValue">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="a6a3c2ff-51a8-441c-ba9f-9dc18c049e6a"
+					variableid="653a5740-2cef-411f-b1be-a0784c90013b"
+					variablename="rowIndex">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -500,6 +530,12 @@
 					variableid="e27c2717-8089-484f-8051-57077da63c0b"
 					variablename="nameOfSmartFolder">
 					</var>
+					<var
+					dataname="rangeSetManualResultValuesLETrue"
+					datasourceid="a6a3c2ff-51a8-441c-ba9f-9dc18c049e6a"
+					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
+					variablename="rangeToBeSetInSmartFolder">
+					</var>
 				</databinding>
 			</testmodule>
 			<testmodule
@@ -513,6 +549,24 @@
 					datasourceid="da9a1b2c-b685-4eff-8106-0fffd5cc6381"
 					variableid="5227b799-2f99-4fee-ab07-bd24308c05bb"
 					variablename="isReferenceValueExpectedToBeMet">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="a6a3c2ff-51a8-441c-ba9f-9dc18c049e6a"
+					variableid="653a5740-2cef-411f-b1be-a0784c90013b"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="columnIndex"
+					datasourceid="9007c9c6-1650-4f6c-a62b-cee1e24a320d"
+					variableid="130652fa-36c0-40eb-8b3e-d2c1f53ae976"
+					variablename="columnIndex">
+					</var>
+					<var
+					dataname="expectedValue"
+					datasourceid="9007c9c6-1650-4f6c-a62b-cee1e24a320d"
+					variableid="ac2c1baf-9255-4edd-9878-1725de92db82"
+					variablename="referenceValue">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -533,12 +587,6 @@
 					datasourceid="e81651cb-4873-4795-970f-f3fbf6aaa155"
 					variableid="ac2c1baf-9255-4edd-9878-1725de92db82"
 					variablename="referenceValue">
-					</var>
-					<var
-					dataname="columnIndex"
-					datasourceid="e81651cb-4873-4795-970f-f3fbf6aaa155"
-					variableid="130652fa-36c0-40eb-8b3e-d2c1f53ae976"
-					variablename="columnIndex">
 					</var>
 				</missingdatabinding>
 			</testmodule>
@@ -650,34 +698,12 @@
 					variablename="nameOfSmartFolder">
 					</var>
 					<var
-					dataname="rangeIndecesValidationCells"
+					dataname="rangeIndecesTakeOverValidationCells"
 					datasourceid="c2e2a199-8f04-4a0a-98d3-133ad1e80ed3"
 					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
 					variablename="rangeToBeSetInSmartFolder">
 					</var>
 				</databinding>
-			</testmodule>
-			<testmodule
-			id="69ecd9b4-4313-4a51-9da8-bc7098f4ca07"
-			name="SetRangeInSmartFolder"
-			ref="3b9354d6-0537-452c-9857-667f5c0e7124"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="rangeRowsValidationTakeOverLETrue"
-					datasourceid="a784fe06-2c77-41f1-84ac-a34023452ac1"
-					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
-					variablename="rangeToBeSetInSmartFolder">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="nameOfFolderToAdjust"
-					datasourceid="b3f337ad-5c9b-4d1b-af98-bec2aa6f0a55"
-					variableid="e27c2717-8089-484f-8051-57077da63c0b"
-					variablename="nameOfSmartFolder">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="6a13c546-4f36-4b63-a853-1585a03fece1"
@@ -720,6 +746,7 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			enabled="False"
 			id="6c2b4a46-04d9-4f16-b958-ab046a7a1457"
 			name="MigrateAllFilesInFolderUsingCommandLineTool"
 			ref="d8e46690-d19a-45ce-9514-4e8329f75c83"
@@ -856,6 +883,26 @@
 			name="SetValueInCellResultView"
 			ref="3633b360-49af-4c09-b179-f19113c112c9"
 			type="UserCode">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="a6a3c2ff-51a8-441c-ba9f-9dc18c049e6a"
+					variableid="26d19c95-6c91-42b1-ae57-08fa3b3e3431"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="columnIndex"
+					datasourceid="9007c9c6-1650-4f6c-a62b-cee1e24a320d"
+					variableid="68211ce0-611f-4fe7-8449-2e8952bcb4ff"
+					variablename="columnIndex">
+					</var>
+					<var
+					dataname="expectedValue"
+					datasourceid="9007c9c6-1650-4f6c-a62b-cee1e24a320d"
+					variableid="7fcc6992-077f-4540-beed-6e8fd6dc0113"
+					variablename="newCellValue">
+					</var>
+				</databinding>
 				<missingdatabinding>
 					<var
 					dataname="columnIndex"
@@ -897,7 +944,7 @@
 							<datavaluesource>
 								<databinding
 								bindingtype="DataConnector"
-								dataname="LEMustBeSetTOTrue"
+								dataname="LEMustBeSetToTrue"
 								id="a784fe06-2c77-41f1-84ac-a34023452ac1">
 								</databinding>
 							</datavaluesource>
@@ -928,6 +975,7 @@
 			</smartfoldernode>
 			<smartfoldernode
 			datasource="script21_b_RowsManualResultsInSectionLETrue"
+			errorbehavior="ContinueNextIteration"
 			id="9d7c98d4-fd49-4e90-a13b-03e25c619329"
 			name="ManualResultInSectionLETrue">
 				<parameters>
@@ -937,7 +985,7 @@
 					</param>
 					<param
 					name="nameFolderSetManualInitialResultValuesLETrue"
-					value="SetManualInitialResultValuesLETrue">
+					value="SetManualResultValuesLETrue">
 					</param>
 					<param
 					name="nameFolderValidateManualFinalResultValuesLETrue"
@@ -968,6 +1016,61 @@
 					value="4">
 					</param>
 				</parameters>
+				<conditiongroup
+				comparison="OR"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="groupResult"
+								id="a784fe06-2c77-41f1-84ac-a34023452ac1">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="1">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="groupResult"
+								id="a784fe06-2c77-41f1-84ac-a34023452ac1">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="2">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="groupResult"
+								id="a784fe06-2c77-41f1-84ac-a34023452ac1">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="3">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
 			</smartfoldernode>
 			<testmodule
 			id="a184c5ee-d02e-4378-9e0b-adc6c88cd7d0"
@@ -1067,6 +1170,12 @@
 					variableid="e27c2717-8089-484f-8051-57077da63c0b"
 					variablename="nameOfSmartFolder">
 					</var>
+					<var
+					dataname="rangeRowsManualResultInSectionLETrue"
+					datasourceid="a784fe06-2c77-41f1-84ac-a34023452ac1"
+					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
+					variablename="rangeToBeSetInSmartFolder">
+					</var>
 				</databinding>
 				<missingdatabinding>
 					<var
@@ -1094,6 +1203,12 @@
 					datasourceid="a15ddf8b-6fff-47ba-873e-c2f2299744d4"
 					variableid="42a4d0d7-8e30-4ccf-a642-f80cec3369b4"
 					variablename="columnIndex">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="a6a3c2ff-51a8-441c-ba9f-9dc18c049e6a"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -1173,31 +1288,14 @@
 							<datavaluesource>
 								<databinding
 								bindingtype="DataConnector"
-								dataname="groupResult"
+								dataname="ResultCanBeTakenOver"
 								id="a784fe06-2c77-41f1-84ac-a34023452ac1">
 								</databinding>
 							</datavaluesource>
 						</leftvalue>
 						<rightvalue>
 							<simplevaluesource
-							value="1">
-							</simplevaluesource>
-						</rightvalue>
-					</condition>
-					<condition
-					comparison="IsEqual">
-						<leftvalue>
-							<datavaluesource>
-								<databinding
-								bindingtype="DataConnector"
-								dataname="groupResult"
-								id="a784fe06-2c77-41f1-84ac-a34023452ac1">
-								</databinding>
-							</datavaluesource>
-						</leftvalue>
-						<rightvalue>
-							<simplevaluesource
-							value="2">
+							value="true">
 							</simplevaluesource>
 						</rightvalue>
 					</condition>
@@ -1260,9 +1358,12 @@
 			name="b)Total_Overview_Results_Length_Effect_True">
 			</smartfoldernode>
 			<smartfoldernode
+			datarangeactive="True"
 			datasource="script21_b_LoopFMsLETrue"
 			errorbehavior="ContinueNextIteration"
 			id="ce2972e2-667d-4d1a-833a-0ad60a84e28b"
+			maxrange="3"
+			minrange="0"
 			name="LoopFMsLengthEffectTrue">
 			</smartfoldernode>
 			<testmodule
@@ -1880,10 +1981,6 @@
 										<smartfoldernode
 										id="d158e57d-7bc6-4f40-843f-8c3580de96f8"
 										name="NoFailureProbability">
-											<testmodule
-											id="69ecd9b4-4313-4a51-9da8-bc7098f4ca07"
-											name="SetRangeInSmartFolder">
-											</testmodule>
 										</smartfoldernode>
 									</smartfoldernode>
 									<smartfoldernode
@@ -1945,10 +2042,17 @@
 	<datasources>
 		<DataSource
 		id="9007c9c6-1650-4f6c-a62b-cee1e24a320d"
-		lastknownrowcount="42"
+		labelcolumn="labelIteration"
+		lastknownrowcount="102"
 		name="script_21b_ManualResultValuesLETrue"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
+				<column>
+					labelIteration
+				</column>
+				<column>
+					ApplicableForFMs
+				</column>
 				<column>
 					columnIndex
 				</column>
@@ -1961,6 +2065,12 @@
 			<table>
 				<tr>
 					<th>
+						labelIteration
+					</th>
+					<th>
+						ApplicableForFMs
+					</th>
+					<th>
 						columnIndex
 					</th>
 					<th>
@@ -1969,6 +2079,12 @@
 				</tr>
 				<tr>
 					<td>
+						Failure prob. init. FM per profile
+					</td>
+					<td>
+						STPH, GEKB
+					</td>
+					<td>
 						4
 					</td>
 					<td>
@@ -1976,6 +2092,12 @@
 					</td>
 				</tr>
 				<tr>
+					<td>
+						Failure prob. init. FM per section
+					</td>
+					<td>
+						STPH, GEKB
+					</td>
 					<td>
 						5
 					</td>
@@ -1985,6 +2107,12 @@
 				</tr>
 				<tr>
 					<td>
+						Failure prob. calc. value per profile
+					</td>
+					<td>
+						STPH, GEKB
+					</td>
+					<td>
 						10
 					</td>
 					<td>
@@ -1993,6 +2121,12 @@
 				</tr>
 				<tr>
 					<td>
+						Failure prob. calc. value per section
+					</td>
+					<td>
+						STPH, GEKB
+					</td>
+					<td>
 						11
 					</td>
 					<td>
@@ -2000,6 +2134,12 @@
 					</td>
 				</tr>
 				<tr>
+					<td>
+						Nvak*
+					</td>
+					<td>
+						STPH, GEKB
+					</td>
 					<td>
 						12
 					</td>
@@ -2009,12 +2149,109 @@
 				</tr>
 				<tr>
 					<td>
+						Assembly group
+					</td>
+					<td>
+						STPH, GEKB
+					</td>
+					<td>
 						13
 					</td>
 					<td>
+						(null)
 					</td>
 				</tr>
 				<tr>
+					<td>
+						Failure prob. init. FM per profile
+					</td>
+					<td>
+						STMI, Specific FM
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						-
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Failure prob. init. FM per section
+					</td>
+					<td>
+						STMI, Specific FM
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						-
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Failure prob. calc. value per profile
+					</td>
+					<td>
+						STMI, Specific FM
+					</td>
+					<td>
+						9
+					</td>
+					<td>
+						-
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Failure prob. calc. value per section
+					</td>
+					<td>
+						STMI, Specific FM
+					</td>
+					<td>
+						10
+					</td>
+					<td>
+						-
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Nvak*
+					</td>
+					<td>
+						STMI, Specific FM
+					</td>
+					<td>
+						11
+					</td>
+					<td>
+						-
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Assembly group
+					</td>
+					<td>
+						STMI, Specific FM
+					</td>
+					<td>
+						12
+					</td>
+					<td>
+						(null)
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Failure prob. init. FM per profile
+					</td>
+					<td>
+						STPH, GEKB
+					</td>
 					<td>
 						4
 					</td>
@@ -2024,6 +2261,12 @@
 				</tr>
 				<tr>
 					<td>
+						Failure prob. init. FM per section
+					</td>
+					<td>
+						STPH, GEKB
+					</td>
+					<td>
 						5
 					</td>
 					<td>
@@ -2031,6 +2274,12 @@
 					</td>
 				</tr>
 				<tr>
+					<td>
+						Failure prob. calc. value per profile
+					</td>
+					<td>
+						STPH, GEKB
+					</td>
 					<td>
 						10
 					</td>
@@ -2040,6 +2289,12 @@
 				</tr>
 				<tr>
 					<td>
+						Failure prob. calc. value per section
+					</td>
+					<td>
+						STPH, GEKB
+					</td>
+					<td>
 						11
 					</td>
 					<td>
@@ -2047,6 +2302,12 @@
 					</td>
 				</tr>
 				<tr>
+					<td>
+						Nvak*
+					</td>
+					<td>
+						STPH, GEKB
+					</td>
 					<td>
 						12
 					</td>
@@ -2055,6 +2316,12 @@
 					</td>
 				</tr>
 				<tr>
+					<td>
+						Assembly group
+					</td>
+					<td>
+						STPH, GEKB
+					</td>
 					<td>
 						13
 					</td>
@@ -2064,6 +2331,12 @@
 				</tr>
 				<tr>
 					<td>
+						Failure prob. init. FM per profile
+					</td>
+					<td>
+						STPH, GEKB
+					</td>
+					<td>
 						4
 					</td>
 					<td>
@@ -2071,6 +2344,12 @@
 					</td>
 				</tr>
 				<tr>
+					<td>
+						Failure prob. init. FM per section
+					</td>
+					<td>
+						STPH, GEKB
+					</td>
 					<td>
 						5
 					</td>
@@ -2080,6 +2359,12 @@
 				</tr>
 				<tr>
 					<td>
+						Failure prob. calc. value per profile
+					</td>
+					<td>
+						STPH, GEKB
+					</td>
+					<td>
 						10
 					</td>
 					<td>
@@ -2087,6 +2372,12 @@
 					</td>
 				</tr>
 				<tr>
+					<td>
+						Failure prob. calc. value per section
+					</td>
+					<td>
+						STPH, GEKB
+					</td>
 					<td>
 						11
 					</td>
@@ -2096,6 +2387,12 @@
 				</tr>
 				<tr>
 					<td>
+						Nvak*
+					</td>
+					<td>
+						STPH, GEKB
+					</td>
+					<td>
 						12
 					</td>
 					<td>
@@ -2103,6 +2400,12 @@
 					</td>
 				</tr>
 				<tr>
+					<td>
+						Assembly group
+					</td>
+					<td>
+						STPH, GEKB
+					</td>
 					<td>
 						13
 					</td>
@@ -2112,6 +2415,12 @@
 				</tr>
 				<tr>
 					<td>
+						Failure prob. init. FM per profile
+					</td>
+					<td>
+						STPH, GEKB
+					</td>
+					<td>
 						4
 					</td>
 					<td>
@@ -2119,6 +2428,12 @@
 					</td>
 				</tr>
 				<tr>
+					<td>
+						Failure prob. init. FM per section
+					</td>
+					<td>
+						STPH, GEKB
+					</td>
 					<td>
 						5
 					</td>
@@ -2128,6 +2443,12 @@
 				</tr>
 				<tr>
 					<td>
+						Failure prob. calc. value per profile
+					</td>
+					<td>
+						STPH, GEKB
+					</td>
+					<td>
 						10
 					</td>
 					<td>
@@ -2135,6 +2456,12 @@
 					</td>
 				</tr>
 				<tr>
+					<td>
+						Failure prob. calc. value per section
+					</td>
+					<td>
+						STPH, GEKB
+					</td>
 					<td>
 						11
 					</td>
@@ -2144,6 +2471,12 @@
 				</tr>
 				<tr>
 					<td>
+						Nvak*
+					</td>
+					<td>
+						STPH, GEKB
+					</td>
+					<td>
 						12
 					</td>
 					<td>
@@ -2151,6 +2484,12 @@
 					</td>
 				</tr>
 				<tr>
+					<td>
+						Assembly group
+					</td>
+					<td>
+						STPH, GEKB
+					</td>
 					<td>
 						13
 					</td>
@@ -2160,6 +2499,12 @@
 				</tr>
 				<tr>
 					<td>
+						Failure prob. init. FM per profile
+					</td>
+					<td>
+						STPH, GEKB
+					</td>
+					<td>
 						4
 					</td>
 					<td>
@@ -2167,6 +2512,12 @@
 					</td>
 				</tr>
 				<tr>
+					<td>
+						Failure prob. init. FM per section
+					</td>
+					<td>
+						STPH, GEKB
+					</td>
 					<td>
 						5
 					</td>
@@ -2176,6 +2527,12 @@
 				</tr>
 				<tr>
 					<td>
+						Failure prob. calc. value per profile
+					</td>
+					<td>
+						STPH, GEKB
+					</td>
+					<td>
 						10
 					</td>
 					<td>
@@ -2183,6 +2540,12 @@
 					</td>
 				</tr>
 				<tr>
+					<td>
+						Failure prob. calc. value per section
+					</td>
+					<td>
+						STPH, GEKB
+					</td>
 					<td>
 						11
 					</td>
@@ -2192,6 +2555,12 @@
 				</tr>
 				<tr>
 					<td>
+						Nvak*
+					</td>
+					<td>
+						STPH, GEKB
+					</td>
+					<td>
 						12
 					</td>
 					<td>
@@ -2199,6 +2568,12 @@
 					</td>
 				</tr>
 				<tr>
+					<td>
+						Assembly group
+					</td>
+					<td>
+						STPH, GEKB
+					</td>
 					<td>
 						13
 					</td>
@@ -2208,6 +2583,12 @@
 				</tr>
 				<tr>
 					<td>
+						Failure prob. init. FM per profile
+					</td>
+					<td>
+						STPH, GEKB
+					</td>
+					<td>
 						4
 					</td>
 					<td>
@@ -2215,6 +2596,12 @@
 					</td>
 				</tr>
 				<tr>
+					<td>
+						Failure prob. init. FM per section
+					</td>
+					<td>
+						STPH, GEKB
+					</td>
 					<td>
 						5
 					</td>
@@ -2224,6 +2611,12 @@
 				</tr>
 				<tr>
 					<td>
+						Failure prob. calc. value per profile
+					</td>
+					<td>
+						STPH, GEKB
+					</td>
+					<td>
 						10
 					</td>
 					<td>
@@ -2231,6 +2624,12 @@
 					</td>
 				</tr>
 				<tr>
+					<td>
+						Failure prob. calc. value per section
+					</td>
+					<td>
+						STPH, GEKB
+					</td>
 					<td>
 						11
 					</td>
@@ -2240,6 +2639,12 @@
 				</tr>
 				<tr>
 					<td>
+						Nvak*
+					</td>
+					<td>
+						STPH, GEKB
+					</td>
+					<td>
 						12
 					</td>
 					<td>
@@ -2247,6 +2652,12 @@
 					</td>
 				</tr>
 				<tr>
+					<td>
+						Assembly group
+					</td>
+					<td>
+						STPH, GEKB
+					</td>
 					<td>
 						13
 					</td>
@@ -2256,6 +2667,12 @@
 				</tr>
 				<tr>
 					<td>
+						Failure prob. init. FM per profile
+					</td>
+					<td>
+						STPH, GEKB
+					</td>
+					<td>
 						4
 					</td>
 					<td>
@@ -2263,6 +2680,12 @@
 					</td>
 				</tr>
 				<tr>
+					<td>
+						Failure prob. init. FM per section
+					</td>
+					<td>
+						STPH, GEKB
+					</td>
 					<td>
 						5
 					</td>
@@ -2272,6 +2695,12 @@
 				</tr>
 				<tr>
 					<td>
+						Failure prob. calc. value per profile
+					</td>
+					<td>
+						STPH, GEKB
+					</td>
+					<td>
 						10
 					</td>
 					<td>
@@ -2280,6 +2709,12 @@
 				</tr>
 				<tr>
 					<td>
+						Failure prob. calc. value per section
+					</td>
+					<td>
+						STPH, GEKB
+					</td>
+					<td>
 						11
 					</td>
 					<td>
@@ -2287,6 +2722,12 @@
 					</td>
 				</tr>
 				<tr>
+					<td>
+						Nvak*
+					</td>
+					<td>
+						STPH, GEKB
+					</td>
 					<td>
 						12
 					</td>
@@ -2296,39 +2737,25 @@
 				</tr>
 				<tr>
 					<td>
+						Assembly group
+					</td>
+					<td>
+						STPH, GEKB
+					</td>
+					<td>
 						13
 					</td>
 					<td>
 						-III
 					</td>
 				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="911fcc1f-799f-4f39-96f2-6b60c02c34fd"
-		lastknownrowcount="30"
-		name="script_21b_SetManualResultValuesLETrue"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					columnIndex
-				</column>
-				<column>
-					expectedValue
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
 				<tr>
-					<th>
-						columnIndex
-					</th>
-					<th>
-						expectedValue
-					</th>
-				</tr>
-				<tr>
+					<td>
+						Failure prob. init. FM per profile
+					</td>
+					<td>
+						STMI
+					</td>
 					<td>
 						4
 					</td>
@@ -2338,6 +2765,12 @@
 				</tr>
 				<tr>
 					<td>
+						Failure prob. init. FM per section
+					</td>
+					<td>
+						STMI
+					</td>
+					<td>
 						5
 					</td>
 					<td>
@@ -2346,7 +2779,13 @@
 				</tr>
 				<tr>
 					<td>
-						10
+						Failure prob. calc. value per profile
+					</td>
+					<td>
+						STMI
+					</td>
+					<td>
+						9
 					</td>
 					<td>
 						1/123456789
@@ -2354,7 +2793,13 @@
 				</tr>
 				<tr>
 					<td>
-						11
+						Failure prob. calc. value per section
+					</td>
+					<td>
+						STMI
+					</td>
+					<td>
+						10
 					</td>
 					<td>
 						1/12345678
@@ -2362,7 +2807,13 @@
 				</tr>
 				<tr>
 					<td>
-						12
+						Nvak*
+					</td>
+					<td>
+						STMI
+					</td>
+					<td>
+						11
 					</td>
 					<td>
 						10.00
@@ -2370,7 +2821,13 @@
 				</tr>
 				<tr>
 					<td>
-						13
+						Assembly group
+					</td>
+					<td>
+						STMI
+					</td>
+					<td>
+						12
 					</td>
 					<td>
 						+II
@@ -2378,52 +2835,11 @@
 				</tr>
 				<tr>
 					<td>
-						4
+						Failure prob. init. FM per profile
 					</td>
 					<td>
-						-
+						STMI
 					</td>
-				</tr>
-				<tr>
-					<td>
-						5
-					</td>
-					<td>
-						-
-					</td>
-				</tr>
-				<tr>
-					<td>
-						10
-					</td>
-					<td>
-						-
-					</td>
-				</tr>
-				<tr>
-					<td>
-						11
-					</td>
-					<td>
-						-
-					</td>
-				</tr>
-				<tr>
-					<td>
-						12
-					</td>
-					<td>
-						-
-					</td>
-				</tr>
-				<tr>
-					<td>
-						13
-					</td>
-					<td>
-					</td>
-				</tr>
-				<tr>
 					<td>
 						4
 					</td>
@@ -2433,6 +2849,12 @@
 				</tr>
 				<tr>
 					<td>
+						Failure prob. init. FM per section
+					</td>
+					<td>
+						STMI
+					</td>
+					<td>
 						5
 					</td>
 					<td>
@@ -2441,7 +2863,13 @@
 				</tr>
 				<tr>
 					<td>
-						10
+						Failure prob. calc. value per profile
+					</td>
+					<td>
+						STMI
+					</td>
+					<td>
+						9
 					</td>
 					<td>
 						1/12345678
@@ -2449,7 +2877,13 @@
 				</tr>
 				<tr>
 					<td>
-						11
+						Failure prob. calc. value per section
+					</td>
+					<td>
+						STMI
+					</td>
+					<td>
+						10
 					</td>
 					<td>
 						1/1234567
@@ -2457,7 +2891,13 @@
 				</tr>
 				<tr>
 					<td>
-						12
+						Nvak*
+					</td>
+					<td>
+						STMI
+					</td>
+					<td>
+						11
 					</td>
 					<td>
 						10.00
@@ -2465,7 +2905,13 @@
 				</tr>
 				<tr>
 					<td>
-						13
+						Assembly group
+					</td>
+					<td>
+						STMI
+					</td>
+					<td>
+						12
 					</td>
 					<td>
 						+I
@@ -2473,52 +2919,11 @@
 				</tr>
 				<tr>
 					<td>
-						4
+						Failure prob. init. FM per profile
 					</td>
 					<td>
-						-
+						STMI
 					</td>
-				</tr>
-				<tr>
-					<td>
-						5
-					</td>
-					<td>
-						-
-					</td>
-				</tr>
-				<tr>
-					<td>
-						10
-					</td>
-					<td>
-						-
-					</td>
-				</tr>
-				<tr>
-					<td>
-						11
-					</td>
-					<td>
-						-
-					</td>
-				</tr>
-				<tr>
-					<td>
-						12
-					</td>
-					<td>
-						-
-					</td>
-				</tr>
-				<tr>
-					<td>
-						13
-					</td>
-					<td>
-					</td>
-				</tr>
-				<tr>
 					<td>
 						4
 					</td>
@@ -2528,6 +2933,12 @@
 				</tr>
 				<tr>
 					<td>
+						Failure prob. init. FM per section
+					</td>
+					<td>
+						STMI
+					</td>
+					<td>
 						5
 					</td>
 					<td>
@@ -2536,7 +2947,13 @@
 				</tr>
 				<tr>
 					<td>
-						10
+						Failure prob. calc. value per profile
+					</td>
+					<td>
+						STMI
+					</td>
+					<td>
+						9
 					</td>
 					<td>
 						1/1234567
@@ -2544,7 +2961,13 @@
 				</tr>
 				<tr>
 					<td>
-						11
+						Failure prob. calc. value per section
+					</td>
+					<td>
+						STMI
+					</td>
+					<td>
+						10
 					</td>
 					<td>
 						1/123456
@@ -2552,7 +2975,13 @@
 				</tr>
 				<tr>
 					<td>
-						12
+						Nvak*
+					</td>
+					<td>
+						STMI
+					</td>
+					<td>
+						11
 					</td>
 					<td>
 						10.00
@@ -2560,7 +2989,517 @@
 				</tr>
 				<tr>
 					<td>
-						13
+						Assembly group
+					</td>
+					<td>
+						STMI
+					</td>
+					<td>
+						12
+					</td>
+					<td>
+						0
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Failure prob. init. FM per profile
+					</td>
+					<td>
+						STMI
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						1/123456
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Failure prob. init. FM per section
+					</td>
+					<td>
+						STMI
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						1/12345
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Failure prob. calc. value per profile
+					</td>
+					<td>
+						STMI
+					</td>
+					<td>
+						9
+					</td>
+					<td>
+						1/123456
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Failure prob. calc. value per section
+					</td>
+					<td>
+						STMI
+					</td>
+					<td>
+						10
+					</td>
+					<td>
+						1/12345
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Nvak*
+					</td>
+					<td>
+						STMI
+					</td>
+					<td>
+						11
+					</td>
+					<td>
+						10.00
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Assembly group
+					</td>
+					<td>
+						STMI
+					</td>
+					<td>
+						12
+					</td>
+					<td>
+						-I
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Failure prob. init. FM per profile
+					</td>
+					<td>
+						STMI
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						1/12345
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Failure prob. init. FM per section
+					</td>
+					<td>
+						STMI
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						1/1234
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Failure prob. calc. value per profile
+					</td>
+					<td>
+						STMI
+					</td>
+					<td>
+						9
+					</td>
+					<td>
+						1/12345
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Failure prob. calc. value per section
+					</td>
+					<td>
+						STMI
+					</td>
+					<td>
+						10
+					</td>
+					<td>
+						1/1234
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Nvak*
+					</td>
+					<td>
+						STMI
+					</td>
+					<td>
+						11
+					</td>
+					<td>
+						10.00
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Assembly group
+					</td>
+					<td>
+						STMI
+					</td>
+					<td>
+						12
+					</td>
+					<td>
+						-II
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Failure prob. init. FM per profile
+					</td>
+					<td>
+						STMI
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						1/1234
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Failure prob. init. FM per section
+					</td>
+					<td>
+						STMI
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						1/123
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Failure prob. calc. value per profile
+					</td>
+					<td>
+						STMI
+					</td>
+					<td>
+						9
+					</td>
+					<td>
+						1/1234
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Failure prob. calc. value per section
+					</td>
+					<td>
+						STMI
+					</td>
+					<td>
+						10
+					</td>
+					<td>
+						1/123
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Nvak*
+					</td>
+					<td>
+						STMI
+					</td>
+					<td>
+						11
+					</td>
+					<td>
+						10.03
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Assembly group
+					</td>
+					<td>
+						STMI
+					</td>
+					<td>
+						12
+					</td>
+					<td>
+						-III
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Failure prob. init. FM per profile
+					</td>
+					<td>
+						Specific FM
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						1/123456789
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Failure prob. init. FM per section
+					</td>
+					<td>
+						Specific FM
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						1/12345678
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Failure prob. calc. value per profile
+					</td>
+					<td>
+						Specific FM
+					</td>
+					<td>
+						9
+					</td>
+					<td>
+						1/123456789
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Failure prob. calc. value per section
+					</td>
+					<td>
+						Specific FM
+					</td>
+					<td>
+						10
+					</td>
+					<td>
+						1/12345678
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Nvak*
+					</td>
+					<td>
+						Specific FM
+					</td>
+					<td>
+						11
+					</td>
+					<td>
+						10.00
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Assembly group
+					</td>
+					<td>
+						Specific FM
+					</td>
+					<td>
+						12
+					</td>
+					<td>
+						+II
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Failure prob. init. FM per profile
+					</td>
+					<td>
+						Specific FM
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						1/12345678
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Failure prob. init. FM per section
+					</td>
+					<td>
+						Specific FM
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						1/1234567
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Failure prob. calc. value per profile
+					</td>
+					<td>
+						Specific FM
+					</td>
+					<td>
+						9
+					</td>
+					<td>
+						1/12345678
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Failure prob. calc. value per section
+					</td>
+					<td>
+						Specific FM
+					</td>
+					<td>
+						10
+					</td>
+					<td>
+						1/1234567
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Nvak*
+					</td>
+					<td>
+						Specific FM
+					</td>
+					<td>
+						11
+					</td>
+					<td>
+						10.00
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Assembly group
+					</td>
+					<td>
+						Specific FM
+					</td>
+					<td>
+						12
+					</td>
+					<td>
+						+I
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Failure prob. init. FM per profile
+					</td>
+					<td>
+						Specific FM
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						1/1234567
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Failure prob. init. FM per section
+					</td>
+					<td>
+						Specific FM
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						1/123456
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Failure prob. calc. value per profile
+					</td>
+					<td>
+						Specific FM
+					</td>
+					<td>
+						9
+					</td>
+					<td>
+						1/1234567
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Failure prob. calc. value per section
+					</td>
+					<td>
+						Specific FM
+					</td>
+					<td>
+						10
+					</td>
+					<td>
+						1/123456
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Nvak*
+					</td>
+					<td>
+						Specific FM
+					</td>
+					<td>
+						11
+					</td>
+					<td>
+						10.00
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Assembly group
+					</td>
+					<td>
+						Specific FM
+					</td>
+					<td>
+						12
 					</td>
 					<td>
 						0
@@ -2570,10 +3509,14 @@
 		</DataSource>
 		<DataSource
 		id="e81651cb-4873-4795-970f-f3fbf6aaa155"
-		lastknownrowcount="36"
+		labelcolumn="labelIteration"
+		lastknownrowcount="42"
 		name="script_21b_ValidationTakenOverResultValuesLETrue"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
+				<column>
+					labelIteration
+				</column>
 				<column>
 					columnIndex
 				</column>
@@ -2586,6 +3529,9 @@
 			<table>
 				<tr>
 					<th>
+						labelIteration
+					</th>
+					<th>
 						columnIndex
 					</th>
 					<th>
@@ -2594,6 +3540,9 @@
 				</tr>
 				<tr>
 					<td>
+						Failure prob. init. FM per profile
+					</td>
+					<td>
 						4
 					</td>
 					<td>
@@ -2601,6 +3550,9 @@
 					</td>
 				</tr>
 				<tr>
+					<td>
+						Failure prob. init. FM per section
+					</td>
 					<td>
 						5
 					</td>
@@ -2610,6 +3562,9 @@
 				</tr>
 				<tr>
 					<td>
+						Failure prob. calc. value per profile
+					</td>
+					<td>
 						10
 					</td>
 					<td>
@@ -2617,6 +3572,9 @@
 					</td>
 				</tr>
 				<tr>
+					<td>
+						Failure prob. calc. value per section
+					</td>
 					<td>
 						11
 					</td>
@@ -2626,6 +3584,9 @@
 				</tr>
 				<tr>
 					<td>
+						Nvak*
+					</td>
+					<td>
 						12
 					</td>
 					<td>
@@ -2634,6 +3595,9 @@
 				</tr>
 				<tr>
 					<td>
+						Assembly group
+					</td>
+					<td>
 						13
 					</td>
 					<td>
@@ -2641,6 +3605,9 @@
 					</td>
 				</tr>
 				<tr>
+					<td>
+						Failure prob. init. FM per profile
+					</td>
 					<td>
 						4
 					</td>
@@ -2650,6 +3617,9 @@
 				</tr>
 				<tr>
 					<td>
+						Failure prob. init. FM per section
+					</td>
+					<td>
 						5
 					</td>
 					<td>
@@ -2657,6 +3627,9 @@
 					</td>
 				</tr>
 				<tr>
+					<td>
+						Failure prob. calc. value per profile
+					</td>
 					<td>
 						10
 					</td>
@@ -2666,6 +3639,9 @@
 				</tr>
 				<tr>
 					<td>
+						Failure prob. calc. value per section
+					</td>
+					<td>
 						11
 					</td>
 					<td>
@@ -2674,53 +3650,8 @@
 				</tr>
 				<tr>
 					<td>
-						12
+						Nvak*
 					</td>
-					<td>
-						3.37
-					</td>
-				</tr>
-				<tr>
-					<td>
-						13
-					</td>
-					<td>
-						+III
-					</td>
-				</tr>
-				<tr>
-					<td>
-						4
-					</td>
-					<td>
-						1/1635232142933410000
-					</td>
-				</tr>
-				<tr>
-					<td>
-						5
-					</td>
-					<td>
-						1/485910097579797000
-					</td>
-				</tr>
-				<tr>
-					<td>
-						10
-					</td>
-					<td>
-						1/1635232142933410000
-					</td>
-				</tr>
-				<tr>
-					<td>
-						11
-					</td>
-					<td>
-						1/485910097579797000
-					</td>
-				</tr>
-				<tr>
 					<td>
 						12
 					</td>
@@ -2730,6 +3661,9 @@
 				</tr>
 				<tr>
 					<td>
+						Assembly group
+					</td>
+					<td>
 						13
 					</td>
 					<td>
@@ -2738,6 +3672,75 @@
 				</tr>
 				<tr>
 					<td>
+						Failure prob. init. FM per profile
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						1/1635232142933410000
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Failure prob. init. FM per section
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						1/485910097579797000
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Failure prob. calc. value per profile
+					</td>
+					<td>
+						10
+					</td>
+					<td>
+						1/1635232142933410000
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Failure prob. calc. value per section
+					</td>
+					<td>
+						11
+					</td>
+					<td>
+						1/485910097579797000
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Nvak*
+					</td>
+					<td>
+						12
+					</td>
+					<td>
+						3.37
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Assembly group
+					</td>
+					<td>
+						13
+					</td>
+					<td>
+						+III
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Failure prob. init. FM per profile
+					</td>
+					<td>
 						4
 					</td>
 					<td>
@@ -2745,6 +3748,9 @@
 					</td>
 				</tr>
 				<tr>
+					<td>
+						Failure prob. init. FM per section
+					</td>
 					<td>
 						5
 					</td>
@@ -2754,6 +3760,9 @@
 				</tr>
 				<tr>
 					<td>
+						Failure prob. calc. value per profile
+					</td>
+					<td>
 						10
 					</td>
 					<td>
@@ -2761,6 +3770,9 @@
 					</td>
 				</tr>
 				<tr>
+					<td>
+						Failure prob. calc. value per section
+					</td>
 					<td>
 						11
 					</td>
@@ -2770,6 +3782,9 @@
 				</tr>
 				<tr>
 					<td>
+						Nvak*
+					</td>
+					<td>
 						12
 					</td>
 					<td>
@@ -2777,6 +3792,9 @@
 					</td>
 				</tr>
 				<tr>
+					<td>
+						Assembly group
+					</td>
 					<td>
 						13
 					</td>
@@ -2786,6 +3804,9 @@
 				</tr>
 				<tr>
 					<td>
+						Failure prob. init. FM per profile
+					</td>
+					<td>
 						4
 					</td>
 					<td>
@@ -2793,6 +3814,9 @@
 					</td>
 				</tr>
 				<tr>
+					<td>
+						Failure prob. init. FM per section
+					</td>
 					<td>
 						5
 					</td>
@@ -2802,6 +3826,9 @@
 				</tr>
 				<tr>
 					<td>
+						Failure prob. calc. value per profile
+					</td>
+					<td>
 						10
 					</td>
 					<td>
@@ -2809,6 +3836,9 @@
 					</td>
 				</tr>
 				<tr>
+					<td>
+						Failure prob. calc. value per section
+					</td>
 					<td>
 						11
 					</td>
@@ -2818,6 +3848,9 @@
 				</tr>
 				<tr>
 					<td>
+						Nvak*
+					</td>
+					<td>
 						12
 					</td>
 					<td>
@@ -2825,6 +3858,9 @@
 					</td>
 				</tr>
 				<tr>
+					<td>
+						Assembly group
+					</td>
 					<td>
 						13
 					</td>
@@ -2834,6 +3870,9 @@
 				</tr>
 				<tr>
 					<td>
+						Failure prob. init. FM per profile
+					</td>
+					<td>
 						4
 					</td>
 					<td>
@@ -2841,6 +3880,9 @@
 					</td>
 				</tr>
 				<tr>
+					<td>
+						Failure prob. init. FM per section
+					</td>
 					<td>
 						5
 					</td>
@@ -2850,6 +3892,9 @@
 				</tr>
 				<tr>
 					<td>
+						Failure prob. calc. value per profile
+					</td>
+					<td>
 						10
 					</td>
 					<td>
@@ -2857,6 +3902,9 @@
 					</td>
 				</tr>
 				<tr>
+					<td>
+						Failure prob. calc. value per section
+					</td>
 					<td>
 						11
 					</td>
@@ -2866,6 +3914,9 @@
 				</tr>
 				<tr>
 					<td>
+						Nvak*
+					</td>
+					<td>
 						12
 					</td>
 					<td>
@@ -2873,6 +3924,75 @@
 					</td>
 				</tr>
 				<tr>
+					<td>
+						Assembly group
+					</td>
+					<td>
+						13
+					</td>
+					<td>
+						+I
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Failure prob. init. FM per profile
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						1/721858
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Failure prob. init. FM per section
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						1/721858
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Failure prob. calc. value per profile
+					</td>
+					<td>
+						10
+					</td>
+					<td>
+						1/721858
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Failure prob. calc. value per section
+					</td>
+					<td>
+						11
+					</td>
+					<td>
+						1/721858
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Nvak*
+					</td>
+					<td>
+						12
+					</td>
+					<td>
+						1.00
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Assembly group
+					</td>
 					<td>
 						13
 					</td>
@@ -2919,6 +4039,7 @@
 		</DataSource>
 		<DataSource
 		id="a784fe06-2c77-41f1-84ac-a34023452ac1"
+		labelcolumn="labelFM"
 		lastknownrowcount="6"
 		name="script21_b_LoopFMsLETrue"
 		type="Ranorex.Core.Data.SimpleDataConnector">
@@ -2936,7 +4057,13 @@
 					pathToResultItem
 				</column>
 				<column>
-					LEMustBeSetTOTrue
+					ResultCanBeTakenOver
+				</column>
+				<column>
+					LengthEffectCanBeTrue
+				</column>
+				<column>
+					LEMustBeSetToTrue
 				</column>
 				<column>
 					rangeRowsValidationTakeOverLETrue
@@ -2962,7 +4089,13 @@
 						pathToResultItem
 					</th>
 					<th>
-						LEMustBeSetTOTrue
+						ResultCanBeTakenOver
+					</th>
+					<th>
+						LengthEffectCanBeTrue
+					</th>
+					<th>
+						LEMustBeSetToTrue
 					</th>
 					<th>
 						rangeRowsValidationTakeOverLETrue
@@ -2985,12 +4118,19 @@
 						@TR&gt;@GF&gt;@STPH&gt;Oordeel&gt;Resultaat
 					</td>
 					<td>
+						true
+					</td>
+					<td>
+						true
+					</td>
+					<td>
 						false
 					</td>
 					<td>
 						1-3
 					</td>
 					<td>
+						1-3
 					</td>
 				</tr>
 				<tr>
@@ -3010,9 +4150,16 @@
 						true
 					</td>
 					<td>
-						4-6
+						true
 					</td>
 					<td>
+						true
+					</td>
+					<td>
+						4-7
+					</td>
+					<td>
+						4-7
 					</td>
 				</tr>
 				<tr>
@@ -3029,11 +4176,19 @@
 						@TR&gt;@GF&gt;@STMI&gt;Oordeel&gt;Resultaat
 					</td>
 					<td>
+						false
+					</td>
+					<td>
 						true
 					</td>
 					<td>
+						true
 					</td>
 					<td>
+						8-13
+					</td>
+					<td>
+						8-13
 					</td>
 				</tr>
 				<tr>
@@ -3050,11 +4205,19 @@
 						@TR&gt;@SF&gt;Nieuw&gt;Oordeel&gt;Resultaat
 					</td>
 					<td>
+						false
+					</td>
+					<td>
 						true
 					</td>
 					<td>
+						true
 					</td>
 					<td>
+						14-16
+					</td>
+					<td>
+						14-16
 					</td>
 				</tr>
 				<tr>
@@ -3071,11 +4234,19 @@
 						@TR&gt;@GF&gt;@BSKW&gt;Oordeel&gt;Resultaat
 					</td>
 					<td>
+						true
+					</td>
+					<td>
+						false
+					</td>
+					<td>
 						n.a.
 					</td>
 					<td>
+						n.a.
 					</td>
 					<td>
+						n.a.
 					</td>
 				</tr>
 				<tr>
@@ -3092,26 +4263,38 @@
 						@TR&gt;@GF&gt;@PKW&gt;Oordeel&gt;Resultaat
 					</td>
 					<td>
+						false
+					</td>
+					<td>
+						false
+					</td>
+					<td>
 						n.a.
 					</td>
 					<td>
+						n.a.
 					</td>
 					<td>
+						n.a.
 					</td>
 				</tr>
 			</table>
 		</DataSource>
 		<DataSource
 		id="a6a3c2ff-51a8-441c-ba9f-9dc18c049e6a"
-		lastknownrowcount="6"
+		labelcolumn="label"
+		lastknownrowcount="16"
 		name="script21_b_RowsManualResultsInSectionLETrue"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
 				<column>
+					label
+				</column>
+				<column>
 					rowIndex
 				</column>
 				<column>
-					rangeIndecesValidationCells
+					FMs
 				</column>
 				<column>
 					rangeValidateManualInitialResultValuesLETrue
@@ -3128,10 +4311,13 @@
 			<table>
 				<tr>
 					<th>
+						label
+					</th>
+					<th>
 						rowIndex
 					</th>
 					<th>
-						rangeIndecesValidationCells
+						FMs
 					</th>
 					<th>
 						rangeValidateManualInitialResultValuesLETrue
@@ -3145,27 +4331,13 @@
 				</tr>
 				<tr>
 					<td>
+						row section 1
+					</td>
+					<td>
 						2
 					</td>
 					<td>
-						1-6
-					</td>
-					<td>
-						1-6
-					</td>
-					<td>
-						7-8
-					</td>
-					<td>
-						7-12
-					</td>
-				</tr>
-				<tr>
-					<td>
-						3
-					</td>
-					<td>
-						7-12
+						STPH
 					</td>
 					<td>
 						1-6
@@ -3179,10 +4351,13 @@
 				</tr>
 				<tr>
 					<td>
-						4
+						row section 2
 					</td>
 					<td>
-						13-18
+						3
+					</td>
+					<td>
+						STPH
 					</td>
 					<td>
 						1-6
@@ -3196,10 +4371,13 @@
 				</tr>
 				<tr>
 					<td>
-						2
+						row section 3
 					</td>
 					<td>
-						19-24
+						4
+					</td>
+					<td>
+						STPH
 					</td>
 					<td>
 						1-6
@@ -3213,10 +4391,13 @@
 				</tr>
 				<tr>
 					<td>
-						3
+						row section 1
 					</td>
 					<td>
-						25-30
+						2
+					</td>
+					<td>
+						GEKB
 					</td>
 					<td>
 						1-6
@@ -3230,10 +4411,13 @@
 				</tr>
 				<tr>
 					<td>
-						4
+						row section 2
 					</td>
 					<td>
-						31-36
+						3
+					</td>
+					<td>
+						GEKB
 					</td>
 					<td>
 						1-6
@@ -3245,73 +4429,35 @@
 						37-42
 					</td>
 				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="c2e2a199-8f04-4a0a-98d3-133ad1e80ed3"
-		lastknownrowcount="6"
-		name="script21_b_RowsTakerOverResultsInSectionLETrue"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					rowIndex
-				</column>
-				<column>
-					rangeIndecesValidationCells
-				</column>
-				<column>
-					rangeValidateManualInitialResultValuesLETrue
-				</column>
-				<column>
-					rangeSetManualResultValuesLETrue
-				</column>
-				<column>
-					rangeValidateManualFinalResultValuesLETrue
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						rowIndex
-					</th>
-					<th>
-						rangeIndecesValidationCells
-					</th>
-					<th>
-						rangeValidateManualInitialResultValuesLETrue
-					</th>
-					<th>
-						rangeSetManualResultValuesLETrue
-					</th>
-					<th>
-						rangeValidateManualFinalResultValuesLETrue
-					</th>
-				</tr>
 				<tr>
 					<td>
-						2
+						row section 3
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						GEKB
 					</td>
 					<td>
 						1-6
 					</td>
 					<td>
-						1-6
+						43-44
 					</td>
 					<td>
-						7-8
-					</td>
-					<td>
-						7-12
+						43-48
 					</td>
 				</tr>
 				<tr>
 					<td>
-						3
+						row section 4
 					</td>
 					<td>
-						7-12
+						5
+					</td>
+					<td>
+						GEKB
 					</td>
 					<td>
 						1-6
@@ -3325,50 +4471,278 @@
 				</tr>
 				<tr>
 					<td>
+						row section 1
+					</td>
+					<td>
+						2
+					</td>
+					<td>
+						STMI
+					</td>
+					<td>
+						7-12
+					</td>
+					<td>
+						49-50
+					</td>
+					<td>
+						49-54
+					</td>
+				</tr>
+				<tr>
+					<td>
+						row section 2
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+						STMI
+					</td>
+					<td>
+						7-12
+					</td>
+					<td>
+						55-56
+					</td>
+					<td>
+						55-60
+					</td>
+				</tr>
+				<tr>
+					<td>
+						row section 3
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						STMI
+					</td>
+					<td>
+						7-12
+					</td>
+					<td>
+						61-62
+					</td>
+					<td>
+						61-66
+					</td>
+				</tr>
+				<tr>
+					<td>
+						row section 4
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						STMI
+					</td>
+					<td>
+						7-12
+					</td>
+					<td>
+						67-68
+					</td>
+					<td>
+						67-72
+					</td>
+				</tr>
+				<tr>
+					<td>
+						row section 5
+					</td>
+					<td>
+						6
+					</td>
+					<td>
+						STMI
+					</td>
+					<td>
+						7-12
+					</td>
+					<td>
+						73-74
+					</td>
+					<td>
+						73-78
+					</td>
+				</tr>
+				<tr>
+					<td>
+						row section 6
+					</td>
+					<td>
+						7
+					</td>
+					<td>
+						STMI
+					</td>
+					<td>
+						7-12
+					</td>
+					<td>
+						79-80
+					</td>
+					<td>
+						79-84
+					</td>
+				</tr>
+				<tr>
+					<td>
+						row section 1
+					</td>
+					<td>
+						2
+					</td>
+					<td>
+						Specific FM
+					</td>
+					<td>
+						7-12
+					</td>
+					<td>
+						85-86
+					</td>
+					<td>
+						85-90
+					</td>
+				</tr>
+				<tr>
+					<td>
+						row section 2
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+						Specific FM
+					</td>
+					<td>
+						7-12
+					</td>
+					<td>
+						91-92
+					</td>
+					<td>
+						91-96
+					</td>
+				</tr>
+				<tr>
+					<td>
+						row section 3
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						Specific FM
+					</td>
+					<td>
+						7-12
+					</td>
+					<td>
+						97-98
+					</td>
+					<td>
+						97-102
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="c2e2a199-8f04-4a0a-98d3-133ad1e80ed3"
+		labelcolumn="labelIteration"
+		lastknownrowcount="7"
+		name="script21_b_RowsTakerOverResultsInSectionLETrue"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					labelIteration
+				</column>
+				<column>
+					rowIndex
+				</column>
+				<column>
+					rangeIndecesTakeOverValidationCells
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						labelIteration
+					</th>
+					<th>
+						rowIndex
+					</th>
+					<th>
+						rangeIndecesTakeOverValidationCells
+					</th>
+				</tr>
+				<tr>
+					<td>
+						STPH - row 1
+					</td>
+					<td>
+						2
+					</td>
+					<td>
+						1-6
+					</td>
+				</tr>
+				<tr>
+					<td>
+						STPH - row 2
+					</td>
+					<td>
+						3
+					</td>
+					<td>
+						7-12
+					</td>
+				</tr>
+				<tr>
+					<td>
+						STPH - row 3
+					</td>
+					<td>
 						4
 					</td>
 					<td>
 						13-18
 					</td>
-					<td>
-						1-6
-					</td>
-					<td>
-						19-20
-					</td>
-					<td>
-						19-24
-					</td>
 				</tr>
 				<tr>
+					<td>
+						GEKB - row 1
+					</td>
 					<td>
 						2
 					</td>
 					<td>
 						19-24
 					</td>
-					<td>
-						1-6
-					</td>
-					<td>
-						25-26
-					</td>
-					<td>
-						25-30
-					</td>
 				</tr>
 				<tr>
+					<td>
+						GEKB - row 2
+					</td>
 					<td>
 						3
 					</td>
 					<td>
 						25-30
 					</td>
+				</tr>
+				<tr>
 					<td>
-						1-6
+						GEKB - row 3
 					</td>
 					<td>
-						31-32
+						4
 					</td>
 					<td>
 						31-36
@@ -3376,16 +4750,10 @@
 				</tr>
 				<tr>
 					<td>
-						4
+						GEKB - row 4
 					</td>
 					<td>
-						31-36
-					</td>
-					<td>
-						1-6
-					</td>
-					<td>
-						37-38
+						5
 					</td>
 					<td>
 						37-42
@@ -3463,6 +4831,12 @@
 		<testconfiguration
 		name="TestRun">
 			<testcontainer
+			id="0b029714-101e-4d8b-a756-d7ceb8defae6">
+			</testcontainer>
+			<testcontainer
+			id="159c63dc-701b-4a1f-9524-7219af64cf2a">
+			</testcontainer>
+			<testcontainer
 			id="19153785-2fe2-46fd-94c7-e616f1027189">
 			</testcontainer>
 			<testcontainer
@@ -3475,6 +4849,9 @@
 			id="27b06672-7ef5-4bd8-8369-c9f8d2c10ef8">
 			</testcontainer>
 			<testcontainer
+			id="31719205-2c68-41fa-9b0f-80dee2252d89">
+			</testcontainer>
+			<testcontainer
 			id="3d51540b-b758-45b0-b60b-a5579e562924">
 			</testcontainer>
 			<testcontainer
@@ -3485,6 +4862,9 @@
 			</testcontainer>
 			<testcontainer
 			id="5f015a6e-20dc-406b-a64f-d20f881e4c85">
+			</testcontainer>
+			<testcontainer
+			id="628a7a89-e680-4385-953b-12eefe5bd8c0">
 			</testcontainer>
 			<testcontainer
 			id="66d44850-36a3-4612-9f78-329cdff9824c">
@@ -3517,6 +4897,12 @@
 			id="a8a89bef-49e8-46b6-bd3f-44d548a8c178">
 			</testcontainer>
 			<testcontainer
+			id="af7c6b04-964e-4b0d-83a9-7f6a260e7e48">
+			</testcontainer>
+			<testcontainer
+			id="b2a61fc8-edc0-4010-8afa-198187aa2c22">
+			</testcontainer>
+			<testcontainer
 			id="b3f337ad-5c9b-4d1b-af98-bec2aa6f0a55">
 			</testcontainer>
 			<testcontainer
@@ -3536,6 +4922,9 @@
 			</testcontainer>
 			<testcontainer
 			id="da9a1b2c-b685-4eff-8106-0fffd5cc6381">
+			</testcontainer>
+			<testcontainer
+			id="e3ac78ca-b62b-4ced-90cc-2d6f0223a45c">
 			</testcontainer>
 			<testcontainer
 			id="e73accf9-7ba2-423c-a256-1fea8f69131e">
