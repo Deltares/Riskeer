@@ -101,6 +101,7 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
             cell.Focus();
             cell.Select();
             string currentValue = cell.Element.GetAttributeValueText("AccessibleValue").ToNoGroupSeparator().ToInvariantCultureDecimalSeparator();
+            Report.Info("Validating that equality " + referenceValue + "(reference value) == " + currentValue + " (current value) is " + isReferenceValueExpectedToBeMet );
             Validate.AreEqual(bool.Parse(isReferenceValueExpectedToBeMet), referenceValue == currentValue);
         }
     }

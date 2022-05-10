@@ -14,6 +14,7 @@ using System.Drawing;
 using System.Threading;
 using WinForms = System.Windows.Forms;
 using Ranorex_Automation_Helpers.UserCodeCollections;
+using System.Linq;
 
 using Ranorex;
 using Ranorex.Core;
@@ -78,7 +79,14 @@ namespace AutomatedSystemTests.Modules.Set_Assign.Assembly
             var myRepository = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
             
             Ranorex.Table table = myRepository.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.TableFMResultView.Self;
-            Cell cell = table.Rows[Int32.Parse(rowIndex)-1].Cells[Int32.Parse(columnIndex)];
+            Cell cell;
+            int columnIndexInteger = Int32.Parse(columnIndex);
+            if (columnIndexInteger<0) {
+                cell = table.Rows[Int32.Parse(rowIndex)-1].Cells.Reverse().ToList()[Math.Abs(columnIndexInteger)-1];
+            } else
+            {
+                cell = table.Rows[Int32.Parse(rowIndex)-1].Cells[Int32.Parse(columnIndex)];
+            }
             cell.Focus();
             cell.Select();
             cell.Element.SetAttributeValue("AccessibleValue", newCellValue);

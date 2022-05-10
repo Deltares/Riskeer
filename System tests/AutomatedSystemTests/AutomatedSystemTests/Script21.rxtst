@@ -3,6 +3,67 @@
 	<testsuiteentryhierarchy>
 		<flatlistofchildren>
 			<testmodule
+			id="005e0f61-321f-4572-9137-273a4ebd103c"
+			name="ValidateValueInCellResultView"
+			ref="d8ed1182-ccc8-464f-a05f-1f3d3498de01"
+			type="UserCode">
+				<description>
+					<![CDATA[validate refined failure prob. per profile]]>
+				</description>
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="1c14f2e6-51f1-44a4-a3ae-683f3844bb97"
+					variableid="653a5740-2cef-411f-b1be-a0784c90013b"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="textDerived"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="ac2c1baf-9255-4edd-9878-1725de92db82"
+					variablename="referenceValue">
+					</var>
+					<var
+					dataname="isReferenceValueExpected"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="5227b799-2f99-4fee-ab07-bd24308c05bb"
+					variablename="isReferenceValueExpectedToBeMet">
+					</var>
+					<var
+					dataname="columnIndexRefinedFailureProbPerProfile"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="130652fa-36c0-40eb-8b3e-d2c1f53ae976"
+					variablename="columnIndex">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="c2e2a199-8f04-4a0a-98d3-133ad1e80ed3"
+					variableid="653a5740-2cef-411f-b1be-a0784c90013b"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="isReferenceValueExpected"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="5227b799-2f99-4fee-ab07-bd24308c05bb"
+					variablename="isReferenceValueExpectedToBeMet">
+					</var>
+					<var
+					dataname="expectedValueNVak"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="ac2c1baf-9255-4edd-9878-1725de92db82"
+					variablename="referenceValue">
+					</var>
+					<var
+					dataname="indexColumnNVak"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="130652fa-36c0-40eb-8b3e-d2c1f53ae976"
+					variablename="columnIndex">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="021503be-6a09-41ca-8fe0-b31a578bece0"
 			name="GenerateRandomDistributionFMsInAssembly"
 			ref="90cc222d-99c0-4c5b-b389-dc9d8138f67c"
@@ -159,6 +220,10 @@
 				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
+			id="11af5413-e4d5-49fb-b687-be31c4c1a5ef"
+			name="ValidateValuesRefinedFailureProbabilityBefore">
+			</smartfoldernode>
+			<smartfoldernode
 			id="11bba419-6618-4dac-9adf-f5176f3e62e3"
 			name="OpenProject">
 			</smartfoldernode>
@@ -169,22 +234,22 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="optionToSelectInMenu"
+					dataname="optionPerSection"
 					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
 					variableid="d82001f1-20c0-4080-a06d-9f1f8ee3a56d"
 					variablename="textItemDropDownMenu">
-					</var>
-					<var
-					dataname="columnIndexFollowUpAnalysis"
-					datasourceid="5d3e5f60-64cd-4255-9bf5-f166dc4b7b57"
-					variableid="42a4d0d7-8e30-4ccf-a642-f80cec3369b4"
-					variablename="columnIndex">
 					</var>
 					<var
 					dataname="rowIndex"
 					datasourceid="1c14f2e6-51f1-44a4-a3ae-683f3844bb97"
 					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
 					variablename="rowIndex">
+					</var>
+					<var
+					dataname="columnIndexRefinedFailureProbPerProfile"
+					datasourceid="5d3e5f60-64cd-4255-9bf5-f166dc4b7b57"
+					variableid="42a4d0d7-8e30-4ccf-a642-f80cec3369b4"
+					variablename="columnIndex">
 					</var>
 				</databinding>
 			</testmodule>
@@ -246,9 +311,59 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="155e2afd-90a5-48d3-a778-42b45fc6aa77"
+			name="SetValueInCellResultView"
+			ref="3633b360-49af-4c09-b179-f19113c112c9"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="textNoValuePresent"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="7fcc6992-077f-4540-beed-6e8fd6dc0113"
+					variablename="newCellValue">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="1c14f2e6-51f1-44a4-a3ae-683f3844bb97"
+					variableid="26d19c95-6c91-42b1-ae57-08fa3b3e3431"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="columnIndexRefinedFailureProbPerProfile"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="68211ce0-611f-4fe7-8449-2e8952bcb4ff"
+					variablename="columnIndex">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="columnIndex"
+					datasourceid="9007c9c6-1650-4f6c-a62b-cee1e24a320d"
+					variableid="68211ce0-611f-4fe7-8449-2e8952bcb4ff"
+					variablename="columnIndex">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="a6a3c2ff-51a8-441c-ba9f-9dc18c049e6a"
+					variableid="26d19c95-6c91-42b1-ae57-08fa3b3e3431"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="expectedValue"
+					datasourceid="9007c9c6-1650-4f6c-a62b-cee1e24a320d"
+					variableid="7fcc6992-077f-4540-beed-6e8fd6dc0113"
+					variablename="newCellValue">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="159c63dc-701b-4a1f-9524-7219af64cf2a"
 			name="SetRelevanceOff">
+			</smartfoldernode>
+			<smartfoldernode
+			id="15e1f313-2a6a-4144-a7d4-d88560fb25bc"
+			name="ValidateValuesRefinedFailureProbabilityAfter">
 			</smartfoldernode>
 			<testmodule
 			id="15eb0af1-b9e8-4fda-835a-2af42b55484f"
@@ -380,22 +495,22 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="optionToSelectInMenu"
+					dataname="optionBoth"
 					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
 					variableid="d82001f1-20c0-4080-a06d-9f1f8ee3a56d"
 					variablename="textItemDropDownMenu">
-					</var>
-					<var
-					dataname="columnIndexFollowUpAnalysis"
-					datasourceid="5d3e5f60-64cd-4255-9bf5-f166dc4b7b57"
-					variableid="42a4d0d7-8e30-4ccf-a642-f80cec3369b4"
-					variablename="columnIndex">
 					</var>
 					<var
 					dataname="rowIndex"
 					datasourceid="1c14f2e6-51f1-44a4-a3ae-683f3844bb97"
 					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
 					variablename="rowIndex">
+					</var>
+					<var
+					dataname="columnIndexRefinedFailureProbPerProfile"
+					datasourceid="5d3e5f60-64cd-4255-9bf5-f166dc4b7b57"
+					variableid="42a4d0d7-8e30-4ccf-a642-f80cec3369b4"
+					variablename="columnIndex">
 					</var>
 				</databinding>
 			</testmodule>
@@ -410,9 +525,126 @@
 				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
+			id="28b14576-ad19-4786-9195-300e13d61fd1"
+			name="SaveProject">
+				<parameters>
+					<param
+					name="fileNameToSave"
+					value="21_b_output">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<testmodule
+			id="28bd0367-b9ba-4a73-acee-80228d4a8709"
+			name="SetValueInCellResultView"
+			ref="3633b360-49af-4c09-b179-f19113c112c9"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="refinedFailureProbPerProfileSingle"
+					datasourceid="a784fe06-2c77-41f1-84ac-a34023452ac1"
+					variableid="7fcc6992-077f-4540-beed-6e8fd6dc0113"
+					variablename="newCellValue">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="1c14f2e6-51f1-44a4-a3ae-683f3844bb97"
+					variableid="26d19c95-6c91-42b1-ae57-08fa3b3e3431"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="columnIndexRefinedFailureProbPerProfile"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="68211ce0-611f-4fe7-8449-2e8952bcb4ff"
+					variablename="columnIndex">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="columnIndex"
+					datasourceid="9007c9c6-1650-4f6c-a62b-cee1e24a320d"
+					variableid="68211ce0-611f-4fe7-8449-2e8952bcb4ff"
+					variablename="columnIndex">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="a6a3c2ff-51a8-441c-ba9f-9dc18c049e6a"
+					variableid="26d19c95-6c91-42b1-ae57-08fa3b3e3431"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="expectedValue"
+					datasourceid="9007c9c6-1650-4f6c-a62b-cee1e24a320d"
+					variableid="7fcc6992-077f-4540-beed-6e8fd6dc0113"
+					variablename="newCellValue">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<smartfoldernode
 			id="28d2beb8-7fa5-4d93-b112-4cf7b8693df3"
 			name="GenerateRandomDistributionFMsInAssembly">
 			</smartfoldernode>
+			<testmodule
+			id="2a673339-1a9b-4f2e-a4ab-4b4fbd287f30"
+			name="ValidateValueInCellResultView"
+			ref="d8ed1182-ccc8-464f-a05f-1f3d3498de01"
+			type="UserCode">
+				<description>
+					<![CDATA[validate refined failure prob. per profile]]>
+				</description>
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="1c14f2e6-51f1-44a4-a3ae-683f3844bb97"
+					variableid="653a5740-2cef-411f-b1be-a0784c90013b"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="textNoValuePresent"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="ac2c1baf-9255-4edd-9878-1725de92db82"
+					variablename="referenceValue">
+					</var>
+					<var
+					dataname="isReferenceValueExpected"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="5227b799-2f99-4fee-ab07-bd24308c05bb"
+					variablename="isReferenceValueExpectedToBeMet">
+					</var>
+					<var
+					dataname="columnIndexRefinedFailureProbPerProfile"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="130652fa-36c0-40eb-8b3e-d2c1f53ae976"
+					variablename="columnIndex">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="c2e2a199-8f04-4a0a-98d3-133ad1e80ed3"
+					variableid="653a5740-2cef-411f-b1be-a0784c90013b"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="isReferenceValueExpected"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="5227b799-2f99-4fee-ab07-bd24308c05bb"
+					variablename="isReferenceValueExpectedToBeMet">
+					</var>
+					<var
+					dataname="expectedValueNVak"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="ac2c1baf-9255-4edd-9878-1725de92db82"
+					variablename="referenceValue">
+					</var>
+					<var
+					dataname="indexColumnNVak"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="130652fa-36c0-40eb-8b3e-d2c1f53ae976"
+					variablename="columnIndex">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="2aa91cea-35f2-4d5f-91b3-07b74dbf2557"
 			name="ValidateCalculationValueFailureProbability">
@@ -651,6 +883,52 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
+			id="35af86b0-b20f-4fa6-9991-f034d2371577"
+			name="SetValueInCellResultView"
+			ref="3633b360-49af-4c09-b179-f19113c112c9"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="refinedFailureProbPerSectionSingle"
+					datasourceid="a784fe06-2c77-41f1-84ac-a34023452ac1"
+					variableid="7fcc6992-077f-4540-beed-6e8fd6dc0113"
+					variablename="newCellValue">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="1c14f2e6-51f1-44a4-a3ae-683f3844bb97"
+					variableid="26d19c95-6c91-42b1-ae57-08fa3b3e3431"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="columnIndexRefinedFailureProbPerSection"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="68211ce0-611f-4fe7-8449-2e8952bcb4ff"
+					variablename="columnIndex">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="columnIndex"
+					datasourceid="9007c9c6-1650-4f6c-a62b-cee1e24a320d"
+					variableid="68211ce0-611f-4fe7-8449-2e8952bcb4ff"
+					variablename="columnIndex">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="a6a3c2ff-51a8-441c-ba9f-9dc18c049e6a"
+					variableid="26d19c95-6c91-42b1-ae57-08fa3b3e3431"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="expectedValue"
+					datasourceid="9007c9c6-1650-4f6c-a62b-cee1e24a320d"
+					variableid="7fcc6992-077f-4540-beed-6e8fd6dc0113"
+					variablename="newCellValue">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="378c2bef-446e-4f55-8246-5859f04e01b4"
 			name="SetRangeInSmartFolder"
 			ref="3b9354d6-0537-452c-9857-667f5c0e7124"
@@ -679,6 +957,10 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
+			id="38837ccd-77d8-40a0-90ad-8f8614185952"
+			name="ValidateValuesRefinedFailureProbabilityAfter">
+			</smartfoldernode>
+			<smartfoldernode
 			id="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
 			name="ValidateNVak">
 				<parameters>
@@ -700,6 +982,67 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="39d174c4-b8aa-432a-af61-5879829fa80a"
+			name="ValidateValueInCellResultView"
+			ref="d8ed1182-ccc8-464f-a05f-1f3d3498de01"
+			type="UserCode">
+				<description>
+					<![CDATA[validate refined failure prob. per section]]>
+				</description>
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="1c14f2e6-51f1-44a4-a3ae-683f3844bb97"
+					variableid="653a5740-2cef-411f-b1be-a0784c90013b"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="textNoValuePresent"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="ac2c1baf-9255-4edd-9878-1725de92db82"
+					variablename="referenceValue">
+					</var>
+					<var
+					dataname="isReferenceValueExpected"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="5227b799-2f99-4fee-ab07-bd24308c05bb"
+					variablename="isReferenceValueExpectedToBeMet">
+					</var>
+					<var
+					dataname="columnIndexRefinedFailureProbPerSection"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="130652fa-36c0-40eb-8b3e-d2c1f53ae976"
+					variablename="columnIndex">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="c2e2a199-8f04-4a0a-98d3-133ad1e80ed3"
+					variableid="653a5740-2cef-411f-b1be-a0784c90013b"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="isReferenceValueExpected"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="5227b799-2f99-4fee-ab07-bd24308c05bb"
+					variablename="isReferenceValueExpectedToBeMet">
+					</var>
+					<var
+					dataname="expectedValueNVak"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="ac2c1baf-9255-4edd-9878-1725de92db82"
+					variablename="referenceValue">
+					</var>
+					<var
+					dataname="indexColumnNVak"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="130652fa-36c0-40eb-8b3e-d2c1f53ae976"
+					variablename="columnIndex">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testmodule
 			id="3adbca9f-8f4b-4773-98d7-c380b4c19ee1"
 			name="SelectGenericItemInProjectExplorer"
@@ -730,6 +1073,95 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="3b60c16a-7758-4194-a467-b52d746a9cdf"
+			name="ValidateValueInCellResultView"
+			ref="d8ed1182-ccc8-464f-a05f-1f3d3498de01"
+			type="UserCode">
+				<description>
+					<![CDATA[validate refined failure prob. per section]]>
+				</description>
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="1c14f2e6-51f1-44a4-a3ae-683f3844bb97"
+					variableid="653a5740-2cef-411f-b1be-a0784c90013b"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="isReferenceValueExpected"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="5227b799-2f99-4fee-ab07-bd24308c05bb"
+					variablename="isReferenceValueExpectedToBeMet">
+					</var>
+					<var
+					dataname="columnIndexRefinedFailureProbPerSection"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="130652fa-36c0-40eb-8b3e-d2c1f53ae976"
+					variablename="columnIndex">
+					</var>
+					<var
+					dataname="refinedFailureProbPerSectionSingle"
+					datasourceid="a784fe06-2c77-41f1-84ac-a34023452ac1"
+					variableid="ac2c1baf-9255-4edd-9878-1725de92db82"
+					variablename="referenceValue">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="c2e2a199-8f04-4a0a-98d3-133ad1e80ed3"
+					variableid="653a5740-2cef-411f-b1be-a0784c90013b"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="isReferenceValueExpected"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="5227b799-2f99-4fee-ab07-bd24308c05bb"
+					variablename="isReferenceValueExpectedToBeMet">
+					</var>
+					<var
+					dataname="expectedValueNVak"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="ac2c1baf-9255-4edd-9878-1725de92db82"
+					variablename="referenceValue">
+					</var>
+					<var
+					dataname="indexColumnNVak"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="130652fa-36c0-40eb-8b3e-d2c1f53ae976"
+					variablename="columnIndex">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="3d35452c-2b35-4568-b930-a0df0a2a01fb"
+			name="SaveAs"
+			ref="9195acd9-b037-4ace-80c3-0f7f64c35452"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="51bff513-6ec0-4273-9ee3-8d912bb40499"
+					variableid="75a65d50-6a8f-4582-9f63-7c20d0f1ae9f"
+					variablename="scriptOutputPath">
+					</var>
+					<var
+					dataname="fileNameToSave"
+					datasourceid="28b14576-ad19-4786-9195-300e13d61fd1"
+					variableid="d40271fe-a08b-44b0-bb48-a991f40e104b"
+					variablename="fileName">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="nameProjectFmsInAssembly"
+					datasourceid="62fe8830-30e1-4117-905d-95627cc4d7d9"
+					variableid="d40271fe-a08b-44b0-bb48-a991f40e104b"
+					variablename="fileName">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="script21_b_RowsTakerOverResultsInSectionLETrue"
 			id="3d51540b-b758-45b0-b60b-a5579e562924"
@@ -756,6 +1188,75 @@
 			errorbehavior="ContinueNextIteration"
 			id="3f10c7b7-a7d4-4e39-92d2-5debbcd53aa3"
 			name="LoopFMs">
+			</smartfoldernode>
+			<testmodule
+			id="408adeff-4c9f-4551-ab24-3be26150b073"
+			name="ValidateValueInCellResultView"
+			ref="d8ed1182-ccc8-464f-a05f-1f3d3498de01"
+			type="UserCode">
+				<description>
+					<![CDATA[validate refined failure prob. per section]]>
+				</description>
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="1c14f2e6-51f1-44a4-a3ae-683f3844bb97"
+					variableid="653a5740-2cef-411f-b1be-a0784c90013b"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="textNoValuePresent"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="ac2c1baf-9255-4edd-9878-1725de92db82"
+					variablename="referenceValue">
+					</var>
+					<var
+					dataname="isReferenceValueExpected"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="5227b799-2f99-4fee-ab07-bd24308c05bb"
+					variablename="isReferenceValueExpectedToBeMet">
+					</var>
+					<var
+					dataname="columnIndexRefinedFailureProbPerSection"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="130652fa-36c0-40eb-8b3e-d2c1f53ae976"
+					variablename="columnIndex">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="c2e2a199-8f04-4a0a-98d3-133ad1e80ed3"
+					variableid="653a5740-2cef-411f-b1be-a0784c90013b"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="isReferenceValueExpected"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="5227b799-2f99-4fee-ab07-bd24308c05bb"
+					variablename="isReferenceValueExpectedToBeMet">
+					</var>
+					<var
+					dataname="expectedValueNVak"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="ac2c1baf-9255-4edd-9878-1725de92db82"
+					variablename="referenceValue">
+					</var>
+					<var
+					dataname="indexColumnNVak"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="130652fa-36c0-40eb-8b3e-d2c1f53ae976"
+					variablename="columnIndex">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<smartfoldernode
+			id="44b2d6d8-52cf-4b26-8a4a-772702eace2f"
+			name="ValidateValuesRefinedFailureProbabilityBefore">
+			</smartfoldernode>
+			<smartfoldernode
+			id="46ce3aad-9cac-4fe9-800a-60b0c361ef14"
+			name="ResetRefinedFailureProbabilityPerProfile">
 			</smartfoldernode>
 			<testmodule
 			id="4745d4e0-5fa2-4d39-896c-401394ba8cf4"
@@ -818,10 +1319,75 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="4a75974c-6a35-4569-acc7-4291c2c06f2d"
+			name="ValidateValueInCellResultView"
+			ref="d8ed1182-ccc8-464f-a05f-1f3d3498de01"
+			type="UserCode">
+				<description>
+					<![CDATA[validate NVak*]]>
+				</description>
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="1c14f2e6-51f1-44a4-a3ae-683f3844bb97"
+					variableid="653a5740-2cef-411f-b1be-a0784c90013b"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="isReferenceValueExpected"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="5227b799-2f99-4fee-ab07-bd24308c05bb"
+					variablename="isReferenceValueExpectedToBeMet">
+					</var>
+					<var
+					dataname="columnIndexNVak"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="130652fa-36c0-40eb-8b3e-d2c1f53ae976"
+					variablename="columnIndex">
+					</var>
+					<var
+					dataname="defaultNVak"
+					datasourceid="a784fe06-2c77-41f1-84ac-a34023452ac1"
+					variableid="ac2c1baf-9255-4edd-9878-1725de92db82"
+					variablename="referenceValue">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="c2e2a199-8f04-4a0a-98d3-133ad1e80ed3"
+					variableid="653a5740-2cef-411f-b1be-a0784c90013b"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="isReferenceValueExpected"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="5227b799-2f99-4fee-ab07-bd24308c05bb"
+					variablename="isReferenceValueExpectedToBeMet">
+					</var>
+					<var
+					dataname="expectedValueNVak"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="ac2c1baf-9255-4edd-9878-1725de92db82"
+					variablename="referenceValue">
+					</var>
+					<var
+					dataname="indexColumnNVak"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="130652fa-36c0-40eb-8b3e-d2c1f53ae976"
+					variablename="columnIndex">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<setup
 			id="4e48bc26-aa10-4eee-a7f4-f44bf27ba48f"
 			name="setup">
 			</setup>
+			<smartfoldernode
+			id="4fc1cc11-7875-43ed-ac63-45cc3488cd9e"
+			name="SpecifyRefinedFailureProbabilityPerProfile">
+			</smartfoldernode>
 			<testmodule
 			id="5085c7d3-4329-4d43-9e4a-a2dc44998cd1"
 			name="ValidateValueInCellResultView"
@@ -869,22 +1435,138 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="50b4c52a-f45c-4774-8386-384fb21b61c7"
+			name="ValidateValueInCellResultView"
+			ref="d8ed1182-ccc8-464f-a05f-1f3d3498de01"
+			type="UserCode">
+				<description>
+					<![CDATA[validate refined failure prob. per section]]>
+				</description>
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="1c14f2e6-51f1-44a4-a3ae-683f3844bb97"
+					variableid="653a5740-2cef-411f-b1be-a0784c90013b"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="isReferenceValueExpected"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="5227b799-2f99-4fee-ab07-bd24308c05bb"
+					variablename="isReferenceValueExpectedToBeMet">
+					</var>
+					<var
+					dataname="columnIndexRefinedFailureProbPerSection"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="130652fa-36c0-40eb-8b3e-d2c1f53ae976"
+					variablename="columnIndex">
+					</var>
+					<var
+					dataname="textDerived"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="ac2c1baf-9255-4edd-9878-1725de92db82"
+					variablename="referenceValue">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="c2e2a199-8f04-4a0a-98d3-133ad1e80ed3"
+					variableid="653a5740-2cef-411f-b1be-a0784c90013b"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="isReferenceValueExpected"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="5227b799-2f99-4fee-ab07-bd24308c05bb"
+					variablename="isReferenceValueExpectedToBeMet">
+					</var>
+					<var
+					dataname="expectedValueNVak"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="ac2c1baf-9255-4edd-9878-1725de92db82"
+					variablename="referenceValue">
+					</var>
+					<var
+					dataname="indexColumnNVak"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="130652fa-36c0-40eb-8b3e-d2c1f53ae976"
+					variablename="columnIndex">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="50c2f5e0-4db1-4e82-af14-34ca43afdaea"
+			name="ValidateValueInCellResultView"
+			ref="d8ed1182-ccc8-464f-a05f-1f3d3498de01"
+			type="UserCode">
+				<description>
+					<![CDATA[validate refined failure prob. per profile]]>
+				</description>
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="1c14f2e6-51f1-44a4-a3ae-683f3844bb97"
+					variableid="653a5740-2cef-411f-b1be-a0784c90013b"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="columnIndexRefinedFailureProbPerProfile"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="130652fa-36c0-40eb-8b3e-d2c1f53ae976"
+					variablename="columnIndex">
+					</var>
+					<var
+					dataname="isReferenceValueExpected"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="5227b799-2f99-4fee-ab07-bd24308c05bb"
+					variablename="isReferenceValueExpectedToBeMet">
+					</var>
+					<var
+					dataname="refinedFailureProbPerProfileSingle"
+					datasourceid="a784fe06-2c77-41f1-84ac-a34023452ac1"
+					variableid="ac2c1baf-9255-4edd-9878-1725de92db82"
+					variablename="referenceValue">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="c2e2a199-8f04-4a0a-98d3-133ad1e80ed3"
+					variableid="653a5740-2cef-411f-b1be-a0784c90013b"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="isReferenceValueExpected"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="5227b799-2f99-4fee-ab07-bd24308c05bb"
+					variablename="isReferenceValueExpectedToBeMet">
+					</var>
+					<var
+					dataname="expectedValueNVak"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="ac2c1baf-9255-4edd-9878-1725de92db82"
+					variablename="referenceValue">
+					</var>
+					<var
+					dataname="indexColumnNVak"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="130652fa-36c0-40eb-8b3e-d2c1f53ae976"
+					variablename="columnIndex">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="513c3c99-5eba-442d-bb5f-2a59e22b07ff"
 			name="SelectOptionDropDownMenuInCellResultView"
 			ref="ddc001ef-088e-4529-8c59-416e11928819"
 			type="Recording">
 				<databinding>
 					<var
-					dataname="optionToSelectInMenu"
+					dataname="optionPerProfile"
 					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
 					variableid="d82001f1-20c0-4080-a06d-9f1f8ee3a56d"
 					variablename="textItemDropDownMenu">
-					</var>
-					<var
-					dataname="columnIndexFollowUpAnalysis"
-					datasourceid="5d3e5f60-64cd-4255-9bf5-f166dc4b7b57"
-					variableid="42a4d0d7-8e30-4ccf-a642-f80cec3369b4"
-					variablename="columnIndex">
 					</var>
 					<var
 					dataname="rowIndex"
@@ -892,7 +1574,135 @@
 					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
 					variablename="rowIndex">
 					</var>
+					<var
+					dataname="columnIndexRefinedFailureProbPerProfile"
+					datasourceid="5d3e5f60-64cd-4255-9bf5-f166dc4b7b57"
+					variableid="42a4d0d7-8e30-4ccf-a642-f80cec3369b4"
+					variablename="columnIndex">
+					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="514c3f08-58ea-4076-aa27-fb9eb503f2d0"
+			name="ValidateValueInCellResultView"
+			ref="d8ed1182-ccc8-464f-a05f-1f3d3498de01"
+			type="UserCode">
+				<description>
+					<![CDATA[validate refined failure prob. per profile]]>
+				</description>
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="1c14f2e6-51f1-44a4-a3ae-683f3844bb97"
+					variableid="653a5740-2cef-411f-b1be-a0784c90013b"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="columnIndexRefinedFailureProbPerProfile"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="130652fa-36c0-40eb-8b3e-d2c1f53ae976"
+					variablename="columnIndex">
+					</var>
+					<var
+					dataname="isReferenceValueExpected"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="5227b799-2f99-4fee-ab07-bd24308c05bb"
+					variablename="isReferenceValueExpectedToBeMet">
+					</var>
+					<var
+					dataname="refinedFailureProbPerProfileBoth"
+					datasourceid="a784fe06-2c77-41f1-84ac-a34023452ac1"
+					variableid="ac2c1baf-9255-4edd-9878-1725de92db82"
+					variablename="referenceValue">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="c2e2a199-8f04-4a0a-98d3-133ad1e80ed3"
+					variableid="653a5740-2cef-411f-b1be-a0784c90013b"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="isReferenceValueExpected"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="5227b799-2f99-4fee-ab07-bd24308c05bb"
+					variablename="isReferenceValueExpectedToBeMet">
+					</var>
+					<var
+					dataname="expectedValueNVak"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="ac2c1baf-9255-4edd-9878-1725de92db82"
+					variablename="referenceValue">
+					</var>
+					<var
+					dataname="indexColumnNVak"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="130652fa-36c0-40eb-8b3e-d2c1f53ae976"
+					variablename="columnIndex">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="519cab28-1925-4dbb-b575-dd2578c2e7e8"
+			name="ValidateValueInCellResultView"
+			ref="d8ed1182-ccc8-464f-a05f-1f3d3498de01"
+			type="UserCode">
+				<description>
+					<![CDATA[validate refined failure prob. per section]]>
+				</description>
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="1c14f2e6-51f1-44a4-a3ae-683f3844bb97"
+					variableid="653a5740-2cef-411f-b1be-a0784c90013b"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="isReferenceValueExpected"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="5227b799-2f99-4fee-ab07-bd24308c05bb"
+					variablename="isReferenceValueExpectedToBeMet">
+					</var>
+					<var
+					dataname="columnIndexRefinedFailureProbPerSection"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="130652fa-36c0-40eb-8b3e-d2c1f53ae976"
+					variablename="columnIndex">
+					</var>
+					<var
+					dataname="refinedFailureProbPerSectionBoth"
+					datasourceid="a784fe06-2c77-41f1-84ac-a34023452ac1"
+					variableid="ac2c1baf-9255-4edd-9878-1725de92db82"
+					variablename="referenceValue">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="c2e2a199-8f04-4a0a-98d3-133ad1e80ed3"
+					variableid="653a5740-2cef-411f-b1be-a0784c90013b"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="isReferenceValueExpected"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="5227b799-2f99-4fee-ab07-bd24308c05bb"
+					variablename="isReferenceValueExpectedToBeMet">
+					</var>
+					<var
+					dataname="expectedValueNVak"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="ac2c1baf-9255-4edd-9878-1725de92db82"
+					variablename="referenceValue">
+					</var>
+					<var
+					dataname="indexColumnNVak"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="130652fa-36c0-40eb-8b3e-d2c1f53ae976"
+					variablename="columnIndex">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<testcase
 			id="51bff513-6ec0-4273-9ee3-8d912bb40499"
@@ -1089,6 +1899,128 @@
 			id="5f015a6e-20dc-406b-a64f-d20f881e4c85"
 			name="CloseResultsView">
 			</smartfoldernode>
+			<testmodule
+			id="601d0b36-81f8-49c5-976a-8565c4868e99"
+			name="ValidateValueInCellResultView"
+			ref="d8ed1182-ccc8-464f-a05f-1f3d3498de01"
+			type="UserCode">
+				<description>
+					<![CDATA[validate refined failure prob. per section]]>
+				</description>
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="1c14f2e6-51f1-44a4-a3ae-683f3844bb97"
+					variableid="653a5740-2cef-411f-b1be-a0784c90013b"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="textDerived"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="ac2c1baf-9255-4edd-9878-1725de92db82"
+					variablename="referenceValue">
+					</var>
+					<var
+					dataname="isReferenceValueExpected"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="5227b799-2f99-4fee-ab07-bd24308c05bb"
+					variablename="isReferenceValueExpectedToBeMet">
+					</var>
+					<var
+					dataname="columnIndexRefinedFailureProbPerSection"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="130652fa-36c0-40eb-8b3e-d2c1f53ae976"
+					variablename="columnIndex">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="c2e2a199-8f04-4a0a-98d3-133ad1e80ed3"
+					variableid="653a5740-2cef-411f-b1be-a0784c90013b"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="isReferenceValueExpected"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="5227b799-2f99-4fee-ab07-bd24308c05bb"
+					variablename="isReferenceValueExpectedToBeMet">
+					</var>
+					<var
+					dataname="expectedValueNVak"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="ac2c1baf-9255-4edd-9878-1725de92db82"
+					variablename="referenceValue">
+					</var>
+					<var
+					dataname="indexColumnNVak"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="130652fa-36c0-40eb-8b3e-d2c1f53ae976"
+					variablename="columnIndex">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="61145c29-658f-476a-b8cc-7db98998c197"
+			name="ValidateValueInCellResultView"
+			ref="d8ed1182-ccc8-464f-a05f-1f3d3498de01"
+			type="UserCode">
+				<description>
+					<![CDATA[validate NVak*]]>
+				</description>
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="1c14f2e6-51f1-44a4-a3ae-683f3844bb97"
+					variableid="653a5740-2cef-411f-b1be-a0784c90013b"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="textNoValuePresent"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="ac2c1baf-9255-4edd-9878-1725de92db82"
+					variablename="referenceValue">
+					</var>
+					<var
+					dataname="isReferenceValueExpected"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="5227b799-2f99-4fee-ab07-bd24308c05bb"
+					variablename="isReferenceValueExpectedToBeMet">
+					</var>
+					<var
+					dataname="columnIndexNVak"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="130652fa-36c0-40eb-8b3e-d2c1f53ae976"
+					variablename="columnIndex">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="c2e2a199-8f04-4a0a-98d3-133ad1e80ed3"
+					variableid="653a5740-2cef-411f-b1be-a0784c90013b"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="isReferenceValueExpected"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="5227b799-2f99-4fee-ab07-bd24308c05bb"
+					variablename="isReferenceValueExpectedToBeMet">
+					</var>
+					<var
+					dataname="expectedValueNVak"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="ac2c1baf-9255-4edd-9878-1725de92db82"
+					variablename="referenceValue">
+					</var>
+					<var
+					dataname="indexColumnNVak"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="130652fa-36c0-40eb-8b3e-d2c1f53ae976"
+					variablename="columnIndex">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="628a7a89-e680-4385-953b-12eefe5bd8c0"
 			name="ValidateCellsActive">
@@ -1359,6 +2291,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="6b87b866-fec9-462d-8669-42f7efc78cc8"
+			name="ValidateValuesRefinedFailureProbabilityBefore">
+			</smartfoldernode>
 			<testmodule
 			id="6d35c50f-1e0c-47fb-842b-bb14a71357d0"
 			name="SelectOptionDropDownMenuInCellResultView"
@@ -1387,12 +2323,53 @@
 			</testmodule>
 			<smartfoldernode
 			datasource="script21_b_IterationRowsResultView"
+			errorbehavior="ContinueNextIteration"
 			id="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
 			name="CarriedOutLETrue">
 				<parameters>
 					<param
 					name="optionToSelectInMenu"
 					value="Uitgevoerd">
+					</param>
+					<param
+					name="optionPerProfile"
+					value="Per doorsnede">
+					</param>
+					<param
+					name="optionPerSection"
+					value="Per vak">
+					</param>
+					<param
+					name="optionBoth"
+					value="Beide">
+					</param>
+					<param
+					name="textDerived"
+					value="&lt;afgeleid>">
+					</param>
+					<param
+					name="textNoValuePresent"
+					value="-">
+					</param>
+					<param
+					name="isReferenceValueExpected"
+					value="true">
+					</param>
+					<param
+					name="isReferenceValueNotExpected"
+					value="false">
+					</param>
+					<param
+					name="columnIndexRefinedFailureProbPerProfile"
+					value="-6">
+					</param>
+					<param
+					name="columnIndexRefinedFailureProbPerSection"
+					value="-5">
+					</param>
+					<param
+					name="columnIndexNVak"
+					value="-2">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -1434,6 +2411,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="7ceb96ad-dec8-4ec5-a3ef-820e267b788b"
+			name="ValidateValuesRefinedFailureProbabilityAfter">
+			</smartfoldernode>
 			<testmodule
 			id="7f27f64a-7bdc-496c-9e8a-9e7b66de9a0e"
 			name="CreateScreenshotCurrentSelectionInPE"
@@ -1554,6 +2535,67 @@
 			id="8e513d20-9159-4db8-abe6-a879dfda3b84"
 			name="OpenResultsView">
 			</smartfoldernode>
+			<testmodule
+			id="90e3d173-36f3-4ecb-92e3-c22ba0e2098b"
+			name="ValidateValueInCellResultView"
+			ref="d8ed1182-ccc8-464f-a05f-1f3d3498de01"
+			type="UserCode">
+				<description>
+					<![CDATA[validate NVak*]]>
+				</description>
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="1c14f2e6-51f1-44a4-a3ae-683f3844bb97"
+					variableid="653a5740-2cef-411f-b1be-a0784c90013b"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="textNoValuePresent"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="ac2c1baf-9255-4edd-9878-1725de92db82"
+					variablename="referenceValue">
+					</var>
+					<var
+					dataname="isReferenceValueExpected"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="5227b799-2f99-4fee-ab07-bd24308c05bb"
+					variablename="isReferenceValueExpectedToBeMet">
+					</var>
+					<var
+					dataname="columnIndexNVak"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="130652fa-36c0-40eb-8b3e-d2c1f53ae976"
+					variablename="columnIndex">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="c2e2a199-8f04-4a0a-98d3-133ad1e80ed3"
+					variableid="653a5740-2cef-411f-b1be-a0784c90013b"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="isReferenceValueExpected"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="5227b799-2f99-4fee-ab07-bd24308c05bb"
+					variablename="isReferenceValueExpectedToBeMet">
+					</var>
+					<var
+					dataname="expectedValueNVak"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="ac2c1baf-9255-4edd-9878-1725de92db82"
+					variablename="referenceValue">
+					</var>
+					<var
+					dataname="indexColumnNVak"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="130652fa-36c0-40eb-8b3e-d2c1f53ae976"
+					variablename="columnIndex">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testsuite
 			ReportTime="RelativeToTestSuiteStartTime"
 			TracingScreenshotMode="Foreground"
@@ -1580,10 +2622,10 @@
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="rowIndex"
-					datasourceid="a6a3c2ff-51a8-441c-ba9f-9dc18c049e6a"
-					variableid="26d19c95-6c91-42b1-ae57-08fa3b3e3431"
-					variablename="rowIndex">
+					dataname="expectedValue"
+					datasourceid="9007c9c6-1650-4f6c-a62b-cee1e24a320d"
+					variableid="7fcc6992-077f-4540-beed-6e8fd6dc0113"
+					variablename="newCellValue">
 					</var>
 					<var
 					dataname="columnIndex"
@@ -1592,10 +2634,10 @@
 					variablename="columnIndex">
 					</var>
 					<var
-					dataname="expectedValue"
-					datasourceid="9007c9c6-1650-4f6c-a62b-cee1e24a320d"
-					variableid="7fcc6992-077f-4540-beed-6e8fd6dc0113"
-					variablename="newCellValue">
+					dataname="rowIndex"
+					datasourceid="a6a3c2ff-51a8-441c-ba9f-9dc18c049e6a"
+					variableid="26d19c95-6c91-42b1-ae57-08fa3b3e3431"
+					variablename="rowIndex">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -1733,6 +2775,52 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="9b64deb4-1a0a-4719-8b9b-10e3140cab74"
+			name="SetValueInCellResultView"
+			ref="3633b360-49af-4c09-b179-f19113c112c9"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="refinedFailureProbPerSectionBoth"
+					datasourceid="a784fe06-2c77-41f1-84ac-a34023452ac1"
+					variableid="7fcc6992-077f-4540-beed-6e8fd6dc0113"
+					variablename="newCellValue">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="1c14f2e6-51f1-44a4-a3ae-683f3844bb97"
+					variableid="26d19c95-6c91-42b1-ae57-08fa3b3e3431"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="columnIndexRefinedFailureProbPerSection"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="68211ce0-611f-4fe7-8449-2e8952bcb4ff"
+					variablename="columnIndex">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="columnIndex"
+					datasourceid="9007c9c6-1650-4f6c-a62b-cee1e24a320d"
+					variableid="68211ce0-611f-4fe7-8449-2e8952bcb4ff"
+					variablename="columnIndex">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="a6a3c2ff-51a8-441c-ba9f-9dc18c049e6a"
+					variableid="26d19c95-6c91-42b1-ae57-08fa3b3e3431"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="expectedValue"
+					datasourceid="9007c9c6-1650-4f6c-a62b-cee1e24a320d"
+					variableid="7fcc6992-077f-4540-beed-6e8fd6dc0113"
+					variablename="newCellValue">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="script21_b_RowsManualResultsInSectionLETrue"
 			errorbehavior="ContinueNextIteration"
@@ -2053,6 +3141,44 @@
 			<smartfoldernode
 			id="a8a89bef-49e8-46b6-bd3f-44d548a8c178"
 			name="PerSection">
+				<conditiongroup
+				comparison="OR"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="labelFM"
+								id="a784fe06-2c77-41f1-84ac-a34023452ac1">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="STPH">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="labelFM"
+								id="a784fe06-2c77-41f1-84ac-a34023452ac1">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="GEKB">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
 			</smartfoldernode>
 			<testmodule
 			id="ab94c155-5dc6-4efb-92c5-bb6663f3d4f1"
@@ -2067,6 +3193,67 @@
 					variablename="stateName">
 					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="ac34cadf-dc5b-4b8f-8371-9d6484e630c7"
+			name="ValidateValueInCellResultView"
+			ref="d8ed1182-ccc8-464f-a05f-1f3d3498de01"
+			type="UserCode">
+				<description>
+					<![CDATA[validate refined failure prob. per profile]]>
+				</description>
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="1c14f2e6-51f1-44a4-a3ae-683f3844bb97"
+					variableid="653a5740-2cef-411f-b1be-a0784c90013b"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="columnIndexRefinedFailureProbPerProfile"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="130652fa-36c0-40eb-8b3e-d2c1f53ae976"
+					variablename="columnIndex">
+					</var>
+					<var
+					dataname="isReferenceValueExpected"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="5227b799-2f99-4fee-ab07-bd24308c05bb"
+					variablename="isReferenceValueExpectedToBeMet">
+					</var>
+					<var
+					dataname="textDerived"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="ac2c1baf-9255-4edd-9878-1725de92db82"
+					variablename="referenceValue">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="c2e2a199-8f04-4a0a-98d3-133ad1e80ed3"
+					variableid="653a5740-2cef-411f-b1be-a0784c90013b"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="isReferenceValueExpected"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="5227b799-2f99-4fee-ab07-bd24308c05bb"
+					variablename="isReferenceValueExpectedToBeMet">
+					</var>
+					<var
+					dataname="expectedValueNVak"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="ac2c1baf-9255-4edd-9878-1725de92db82"
+					variablename="referenceValue">
+					</var>
+					<var
+					dataname="indexColumnNVak"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="130652fa-36c0-40eb-8b3e-d2c1f53ae976"
+					variablename="columnIndex">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="ac454e1f-84e6-42f1-843b-3796123d1605"
@@ -2221,6 +3408,10 @@
 				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
+			id="b063a22b-34fc-4739-8239-b610c81c5ecf"
+			name="ResetRefinedFailureProbabilityPerProfile">
+			</smartfoldernode>
+			<smartfoldernode
 			id="b2a61fc8-edc0-4010-8afa-198187aa2c22"
 			name="SetRelevanceOn">
 			</smartfoldernode>
@@ -2321,6 +3512,67 @@
 					datasourceid="d158e57d-7bc6-4f40-843f-8c3580de96f8"
 					variableid="e27c2717-8089-484f-8051-57077da63c0b"
 					variablename="nameOfSmartFolder">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="bb62b0b5-f120-4c56-ba9b-a4df8ce6cddc"
+			name="ValidateValueInCellResultView"
+			ref="d8ed1182-ccc8-464f-a05f-1f3d3498de01"
+			type="UserCode">
+				<description>
+					<![CDATA[validate NVak*]]>
+				</description>
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="1c14f2e6-51f1-44a4-a3ae-683f3844bb97"
+					variableid="653a5740-2cef-411f-b1be-a0784c90013b"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="textNoValuePresent"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="ac2c1baf-9255-4edd-9878-1725de92db82"
+					variablename="referenceValue">
+					</var>
+					<var
+					dataname="isReferenceValueExpected"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="5227b799-2f99-4fee-ab07-bd24308c05bb"
+					variablename="isReferenceValueExpectedToBeMet">
+					</var>
+					<var
+					dataname="columnIndexNVak"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="130652fa-36c0-40eb-8b3e-d2c1f53ae976"
+					variablename="columnIndex">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="c2e2a199-8f04-4a0a-98d3-133ad1e80ed3"
+					variableid="653a5740-2cef-411f-b1be-a0784c90013b"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="isReferenceValueExpected"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="5227b799-2f99-4fee-ab07-bd24308c05bb"
+					variablename="isReferenceValueExpectedToBeMet">
+					</var>
+					<var
+					dataname="expectedValueNVak"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="ac2c1baf-9255-4edd-9878-1725de92db82"
+					variablename="referenceValue">
+					</var>
+					<var
+					dataname="indexColumnNVak"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="130652fa-36c0-40eb-8b3e-d2c1f53ae976"
+					variablename="columnIndex">
 					</var>
 				</missingdatabinding>
 			</testmodule>
@@ -2471,6 +3723,132 @@
 			name="b)Total_Overview_Results_Length_Effect_True">
 			</smartfoldernode>
 			<testmodule
+			id="c2fe578c-faee-4143-a131-344b3432311d"
+			name="ValidateValueInCellResultView"
+			ref="d8ed1182-ccc8-464f-a05f-1f3d3498de01"
+			type="UserCode">
+				<description>
+					<![CDATA[validate NVak*]]>
+				</description>
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="1c14f2e6-51f1-44a4-a3ae-683f3844bb97"
+					variableid="653a5740-2cef-411f-b1be-a0784c90013b"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="isReferenceValueExpected"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="5227b799-2f99-4fee-ab07-bd24308c05bb"
+					variablename="isReferenceValueExpectedToBeMet">
+					</var>
+					<var
+					dataname="columnIndexNVak"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="130652fa-36c0-40eb-8b3e-d2c1f53ae976"
+					variablename="columnIndex">
+					</var>
+					<var
+					dataname="defaultNVak"
+					datasourceid="a784fe06-2c77-41f1-84ac-a34023452ac1"
+					variableid="ac2c1baf-9255-4edd-9878-1725de92db82"
+					variablename="referenceValue">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="c2e2a199-8f04-4a0a-98d3-133ad1e80ed3"
+					variableid="653a5740-2cef-411f-b1be-a0784c90013b"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="isReferenceValueExpected"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="5227b799-2f99-4fee-ab07-bd24308c05bb"
+					variablename="isReferenceValueExpectedToBeMet">
+					</var>
+					<var
+					dataname="expectedValueNVak"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="ac2c1baf-9255-4edd-9878-1725de92db82"
+					variablename="referenceValue">
+					</var>
+					<var
+					dataname="indexColumnNVak"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="130652fa-36c0-40eb-8b3e-d2c1f53ae976"
+					variablename="columnIndex">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="c445a8ad-7d3b-4c05-822b-0185ddcebf85"
+			name="ValidateValueInCellResultView"
+			ref="d8ed1182-ccc8-464f-a05f-1f3d3498de01"
+			type="UserCode">
+				<description>
+					<![CDATA[validate NVak*]]>
+				</description>
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="1c14f2e6-51f1-44a4-a3ae-683f3844bb97"
+					variableid="653a5740-2cef-411f-b1be-a0784c90013b"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="isReferenceValueExpected"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="5227b799-2f99-4fee-ab07-bd24308c05bb"
+					variablename="isReferenceValueExpectedToBeMet">
+					</var>
+					<var
+					dataname="columnIndexNVak"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="130652fa-36c0-40eb-8b3e-d2c1f53ae976"
+					variablename="columnIndex">
+					</var>
+					<var
+					dataname="NVakBoth"
+					datasourceid="a784fe06-2c77-41f1-84ac-a34023452ac1"
+					variableid="ac2c1baf-9255-4edd-9878-1725de92db82"
+					variablename="referenceValue">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="c2e2a199-8f04-4a0a-98d3-133ad1e80ed3"
+					variableid="653a5740-2cef-411f-b1be-a0784c90013b"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="isReferenceValueExpected"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="5227b799-2f99-4fee-ab07-bd24308c05bb"
+					variablename="isReferenceValueExpectedToBeMet">
+					</var>
+					<var
+					dataname="expectedValueNVak"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="ac2c1baf-9255-4edd-9878-1725de92db82"
+					variablename="referenceValue">
+					</var>
+					<var
+					dataname="indexColumnNVak"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="130652fa-36c0-40eb-8b3e-d2c1f53ae976"
+					variablename="columnIndex">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<smartfoldernode
+			id="cce57b2d-554f-44a5-a82a-0a0fef452a0d"
+			name="SpecifyRefinedFailureProbabilityPerSection">
+			</smartfoldernode>
+			<testmodule
 			id="cd8ad90e-4ab2-4717-9094-39a5fa8c8c14"
 			name="ValidateValueInCellResultView"
 			ref="d8ed1182-ccc8-464f-a05f-1f3d3498de01"
@@ -2603,7 +3981,106 @@
 			<smartfoldernode
 			id="d9e3632f-cf2e-4283-9237-c8e0f4c9be0a"
 			name="PerProfile">
+				<conditiongroup
+				comparison="OR"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="labelFM"
+								id="a784fe06-2c77-41f1-84ac-a34023452ac1">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="STPH">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="labelFM"
+								id="a784fe06-2c77-41f1-84ac-a34023452ac1">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="GEKB">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
 			</smartfoldernode>
+			<testmodule
+			id="da1ffcc9-5293-4690-9f91-f9fb476207b5"
+			name="ValidateValueInCellResultView"
+			ref="d8ed1182-ccc8-464f-a05f-1f3d3498de01"
+			type="UserCode">
+				<description>
+					<![CDATA[validate refined failure prob. per profile]]>
+				</description>
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="1c14f2e6-51f1-44a4-a3ae-683f3844bb97"
+					variableid="653a5740-2cef-411f-b1be-a0784c90013b"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="textNoValuePresent"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="ac2c1baf-9255-4edd-9878-1725de92db82"
+					variablename="referenceValue">
+					</var>
+					<var
+					dataname="isReferenceValueExpected"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="5227b799-2f99-4fee-ab07-bd24308c05bb"
+					variablename="isReferenceValueExpectedToBeMet">
+					</var>
+					<var
+					dataname="columnIndexRefinedFailureProbPerProfile"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="130652fa-36c0-40eb-8b3e-d2c1f53ae976"
+					variablename="columnIndex">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="c2e2a199-8f04-4a0a-98d3-133ad1e80ed3"
+					variableid="653a5740-2cef-411f-b1be-a0784c90013b"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="isReferenceValueExpected"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="5227b799-2f99-4fee-ab07-bd24308c05bb"
+					variablename="isReferenceValueExpectedToBeMet">
+					</var>
+					<var
+					dataname="expectedValueNVak"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="ac2c1baf-9255-4edd-9878-1725de92db82"
+					variablename="referenceValue">
+					</var>
+					<var
+					dataname="indexColumnNVak"
+					datasourceid="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67"
+					variableid="130652fa-36c0-40eb-8b3e-d2c1f53ae976"
+					variablename="columnIndex">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="script_21b_ManualResultValuesLETrue"
 			errorbehavior="ContinueNextIteration"
@@ -2851,6 +4328,44 @@
 			<smartfoldernode
 			id="ee3a66a9-b1eb-499b-8bbc-43710240cc66"
 			name="SelectBoth">
+				<conditiongroup
+				comparison="OR"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="labelFM"
+								id="a784fe06-2c77-41f1-84ac-a34023452ac1">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="STPH">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="labelFM"
+								id="a784fe06-2c77-41f1-84ac-a34023452ac1">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="GEKB">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
 			</smartfoldernode>
 			<smartfoldernode
 			id="ee866672-fea1-433b-8580-c369c8e5cee7"
@@ -2954,9 +4469,59 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
+			id="f4848180-dfd1-408c-8c6d-a8f5cc107004"
+			name="SpecifyRefinedFailureProbabilityPerProfile">
+			</smartfoldernode>
+			<smartfoldernode
 			id="f4b5f4f6-b419-455e-b87d-a0160c80b8be"
 			name="ValidateEffectOfRelevance">
 			</smartfoldernode>
+			<testmodule
+			id="f4d75234-9a11-4368-aca6-6d1da9a44f25"
+			name="SetValueInCellResultView"
+			ref="3633b360-49af-4c09-b179-f19113c112c9"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="textNoValuePresent"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="7fcc6992-077f-4540-beed-6e8fd6dc0113"
+					variablename="newCellValue">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="1c14f2e6-51f1-44a4-a3ae-683f3844bb97"
+					variableid="26d19c95-6c91-42b1-ae57-08fa3b3e3431"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="columnIndexRefinedFailureProbPerSection"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="68211ce0-611f-4fe7-8449-2e8952bcb4ff"
+					variablename="columnIndex">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="columnIndex"
+					datasourceid="9007c9c6-1650-4f6c-a62b-cee1e24a320d"
+					variableid="68211ce0-611f-4fe7-8449-2e8952bcb4ff"
+					variablename="columnIndex">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="a6a3c2ff-51a8-441c-ba9f-9dc18c049e6a"
+					variableid="26d19c95-6c91-42b1-ae57-08fa3b3e3431"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="expectedValue"
+					datasourceid="9007c9c6-1650-4f6c-a62b-cee1e24a320d"
+					variableid="7fcc6992-077f-4540-beed-6e8fd6dc0113"
+					variablename="newCellValue">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testmodule
 			id="f56cf4e5-80eb-496d-96c3-05985693bad3"
 			name="CreateScreenshotOfCurrentRowInResultView"
@@ -3127,6 +4692,52 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="fb0c136c-dec3-4733-be50-f6e22cfe40a6"
+			name="SetValueInCellResultView"
+			ref="3633b360-49af-4c09-b179-f19113c112c9"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="refinedFailureProbPerProfileBoth"
+					datasourceid="a784fe06-2c77-41f1-84ac-a34023452ac1"
+					variableid="7fcc6992-077f-4540-beed-6e8fd6dc0113"
+					variablename="newCellValue">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="1c14f2e6-51f1-44a4-a3ae-683f3844bb97"
+					variableid="26d19c95-6c91-42b1-ae57-08fa3b3e3431"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="columnIndexRefinedFailureProbPerProfile"
+					datasourceid="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5"
+					variableid="68211ce0-611f-4fe7-8449-2e8952bcb4ff"
+					variablename="columnIndex">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="columnIndex"
+					datasourceid="9007c9c6-1650-4f6c-a62b-cee1e24a320d"
+					variableid="68211ce0-611f-4fe7-8449-2e8952bcb4ff"
+					variablename="columnIndex">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="a6a3c2ff-51a8-441c-ba9f-9dc18c049e6a"
+					variableid="26d19c95-6c91-42b1-ae57-08fa3b3e3431"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="expectedValue"
+					datasourceid="9007c9c6-1650-4f6c-a62b-cee1e24a320d"
+					variableid="7fcc6992-077f-4540-beed-6e8fd6dc0113"
+					variablename="newCellValue">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 		</flatlistofchildren>
 		<childhierarchy>
 			<testsuite
@@ -3664,6 +5275,54 @@
 												id="513c3c99-5eba-442d-bb5f-2a59e22b07ff"
 												name="SelectOptionDropDownMenuInCellResultView">
 												</testmodule>
+												<smartfoldernode
+												id="6b87b866-fec9-462d-8669-42f7efc78cc8"
+												name="ValidateValuesRefinedFailureProbabilityBefore">
+													<testmodule
+													id="da1ffcc9-5293-4690-9f91-f9fb476207b5"
+													name="ValidateValueInCellResultView">
+													</testmodule>
+													<testmodule
+													id="601d0b36-81f8-49c5-976a-8565c4868e99"
+													name="ValidateValueInCellResultView">
+													</testmodule>
+													<testmodule
+													id="61145c29-658f-476a-b8cc-7db98998c197"
+													name="ValidateValueInCellResultView">
+													</testmodule>
+												</smartfoldernode>
+												<smartfoldernode
+												id="4fc1cc11-7875-43ed-ac63-45cc3488cd9e"
+												name="SpecifyRefinedFailureProbabilityPerProfile">
+													<testmodule
+													id="28bd0367-b9ba-4a73-acee-80228d4a8709"
+													name="SetValueInCellResultView">
+													</testmodule>
+												</smartfoldernode>
+												<smartfoldernode
+												id="15e1f313-2a6a-4144-a7d4-d88560fb25bc"
+												name="ValidateValuesRefinedFailureProbabilityAfter">
+													<testmodule
+													id="50c2f5e0-4db1-4e82-af14-34ca43afdaea"
+													name="ValidateValueInCellResultView">
+													</testmodule>
+													<testmodule
+													id="50b4c52a-f45c-4774-8386-384fb21b61c7"
+													name="ValidateValueInCellResultView">
+													</testmodule>
+													<testmodule
+													id="c2fe578c-faee-4143-a131-344b3432311d"
+													name="ValidateValueInCellResultView">
+													</testmodule>
+												</smartfoldernode>
+												<smartfoldernode
+												id="b063a22b-34fc-4739-8239-b610c81c5ecf"
+												name="ResetRefinedFailureProbabilityPerProfile">
+													<testmodule
+													id="155e2afd-90a5-48d3-a778-42b45fc6aa77"
+													name="SetValueInCellResultView">
+													</testmodule>
+												</smartfoldernode>
 											</smartfoldernode>
 											<smartfoldernode
 											id="a8a89bef-49e8-46b6-bd3f-44d548a8c178"
@@ -3672,6 +5331,54 @@
 												id="12744406-73c5-41fc-bec2-1b673dbca16c"
 												name="SelectOptionDropDownMenuInCellResultView">
 												</testmodule>
+												<smartfoldernode
+												id="11af5413-e4d5-49fb-b687-be31c4c1a5ef"
+												name="ValidateValuesRefinedFailureProbabilityBefore">
+													<testmodule
+													id="005e0f61-321f-4572-9137-273a4ebd103c"
+													name="ValidateValueInCellResultView">
+													</testmodule>
+													<testmodule
+													id="39d174c4-b8aa-432a-af61-5879829fa80a"
+													name="ValidateValueInCellResultView">
+													</testmodule>
+													<testmodule
+													id="bb62b0b5-f120-4c56-ba9b-a4df8ce6cddc"
+													name="ValidateValueInCellResultView">
+													</testmodule>
+												</smartfoldernode>
+												<smartfoldernode
+												id="cce57b2d-554f-44a5-a82a-0a0fef452a0d"
+												name="SpecifyRefinedFailureProbabilityPerSection">
+													<testmodule
+													id="35af86b0-b20f-4fa6-9991-f034d2371577"
+													name="SetValueInCellResultView">
+													</testmodule>
+												</smartfoldernode>
+												<smartfoldernode
+												id="38837ccd-77d8-40a0-90ad-8f8614185952"
+												name="ValidateValuesRefinedFailureProbabilityAfter">
+													<testmodule
+													id="ac34cadf-dc5b-4b8f-8371-9d6484e630c7"
+													name="ValidateValueInCellResultView">
+													</testmodule>
+													<testmodule
+													id="3b60c16a-7758-4194-a467-b52d746a9cdf"
+													name="ValidateValueInCellResultView">
+													</testmodule>
+													<testmodule
+													id="4a75974c-6a35-4569-acc7-4291c2c06f2d"
+													name="ValidateValueInCellResultView">
+													</testmodule>
+												</smartfoldernode>
+												<smartfoldernode
+												id="46ce3aad-9cac-4fe9-800a-60b0c361ef14"
+												name="ResetRefinedFailureProbabilityPerProfile">
+													<testmodule
+													id="f4d75234-9a11-4368-aca6-6d1da9a44f25"
+													name="SetValueInCellResultView">
+													</testmodule>
+												</smartfoldernode>
 											</smartfoldernode>
 											<smartfoldernode
 											id="70ff7b86-278c-4073-9870-592a89d5c188"
@@ -3682,6 +5389,50 @@
 													<testmodule
 													id="27a6819e-8278-4019-9b7d-530dc6521fcb"
 													name="SelectOptionDropDownMenuInCellResultView">
+													</testmodule>
+												</smartfoldernode>
+												<smartfoldernode
+												id="44b2d6d8-52cf-4b26-8a4a-772702eace2f"
+												name="ValidateValuesRefinedFailureProbabilityBefore">
+													<testmodule
+													id="2a673339-1a9b-4f2e-a4ab-4b4fbd287f30"
+													name="ValidateValueInCellResultView">
+													</testmodule>
+													<testmodule
+													id="408adeff-4c9f-4551-ab24-3be26150b073"
+													name="ValidateValueInCellResultView">
+													</testmodule>
+													<testmodule
+													id="90e3d173-36f3-4ecb-92e3-c22ba0e2098b"
+													name="ValidateValueInCellResultView">
+													</testmodule>
+												</smartfoldernode>
+												<smartfoldernode
+												id="f4848180-dfd1-408c-8c6d-a8f5cc107004"
+												name="SpecifyRefinedFailureProbabilityPerProfile">
+													<testmodule
+													id="fb0c136c-dec3-4733-be50-f6e22cfe40a6"
+													name="SetValueInCellResultView">
+													</testmodule>
+													<testmodule
+													id="9b64deb4-1a0a-4719-8b9b-10e3140cab74"
+													name="SetValueInCellResultView">
+													</testmodule>
+												</smartfoldernode>
+												<smartfoldernode
+												id="7ceb96ad-dec8-4ec5-a3ef-820e267b788b"
+												name="ValidateValuesRefinedFailureProbabilityAfter">
+													<testmodule
+													id="514c3f08-58ea-4076-aa27-fb9eb503f2d0"
+													name="ValidateValueInCellResultView">
+													</testmodule>
+													<testmodule
+													id="519cab28-1925-4dbb-b575-dd2578c2e7e8"
+													name="ValidateValueInCellResultView">
+													</testmodule>
+													<testmodule
+													id="c445a8ad-7d3b-4c05-822b-0185ddcebf85"
+													name="ValidateValueInCellResultView">
 													</testmodule>
 												</smartfoldernode>
 											</smartfoldernode>
@@ -3696,6 +5447,14 @@
 									name="CloseViewCentralPanelWithFocus">
 									</testmodule>
 								</smartfoldernode>
+							</smartfoldernode>
+							<smartfoldernode
+							id="28b14576-ad19-4786-9195-300e13d61fd1"
+							name="SaveProject">
+								<testmodule
+								id="3d35452c-2b35-4568-b930-a0df0a2a01fb"
+								name="SaveAs">
+								</testmodule>
 							</smartfoldernode>
 						</smartfoldernode>
 						<smartfoldernode
@@ -5833,6 +7592,24 @@
 				<column>
 					rangeRowsManualResultInSectionLETrue
 				</column>
+				<column>
+					defaultNVak
+				</column>
+				<column>
+					refinedFailureProbPerProfileSingle
+				</column>
+				<column>
+					refinedFailureProbPerSectionSingle
+				</column>
+				<column>
+					refinedFailureProbPerProfileBoth
+				</column>
+				<column>
+					refinedFailureProbPerSectionBoth
+				</column>
+				<column>
+					NVakBoth
+				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
 			</maskedcolumns>
@@ -5868,6 +7645,24 @@
 					<th>
 						rangeRowsManualResultInSectionLETrue
 					</th>
+					<th>
+						defaultNVak
+					</th>
+					<th>
+						refinedFailureProbPerProfileSingle
+					</th>
+					<th>
+						refinedFailureProbPerSectionSingle
+					</th>
+					<th>
+						refinedFailureProbPerProfileBoth
+					</th>
+					<th>
+						refinedFailureProbPerSectionBoth
+					</th>
+					<th>
+						NVakBoth
+					</th>
 				</tr>
 				<tr>
 					<td>
@@ -5899,6 +7694,24 @@
 					</td>
 					<td>
 						1-3
+					</td>
+					<td>
+						3.37
+					</td>
+					<td>
+						1/1111111
+					</td>
+					<td>
+						1/111111
+					</td>
+					<td>
+						1/2020200
+					</td>
+					<td>
+						1/1010100
+					</td>
+					<td>
+						2.00
 					</td>
 				</tr>
 				<tr>
@@ -5932,6 +7745,24 @@
 					<td>
 						4-7
 					</td>
+					<td>
+						1.00
+					</td>
+					<td>
+						1/2222222
+					</td>
+					<td>
+						1/222222
+					</td>
+					<td>
+						1/3030300
+					</td>
+					<td>
+						1/1010100
+					</td>
+					<td>
+						3.00
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -5963,6 +7794,24 @@
 					</td>
 					<td>
 						8-13
+					</td>
+					<td>
+						1.00
+					</td>
+					<td>
+						1/3333333
+					</td>
+					<td>
+						1/333333
+					</td>
+					<td>
+						1/4040400
+					</td>
+					<td>
+						1/1010100
+					</td>
+					<td>
+						4.00
 					</td>
 				</tr>
 				<tr>
@@ -5996,6 +7845,24 @@
 					<td>
 						14-16
 					</td>
+					<td>
+						1.00
+					</td>
+					<td>
+						1/4444444
+					</td>
+					<td>
+						1/444444
+					</td>
+					<td>
+						1/5050500
+					</td>
+					<td>
+						1/1010100
+					</td>
+					<td>
+						5.00
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -6027,6 +7894,24 @@
 					<td>
 						n.a.
 					</td>
+					<td>
+						1.00
+					</td>
+					<td>
+						1/5555555
+					</td>
+					<td>
+						1/555555
+					</td>
+					<td>
+						1/7000000
+					</td>
+					<td>
+						1/35000
+					</td>
+					<td>
+						20.00
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -6057,6 +7942,24 @@
 					</td>
 					<td>
 						n.a.
+					</td>
+					<td>
+						1.00
+					</td>
+					<td>
+						1/8888888
+					</td>
+					<td>
+						1/888888
+					</td>
+					<td>
+						1/800000
+					</td>
+					<td>
+						1/1000000
+					</td>
+					<td>
+						8.00
 					</td>
 				</tr>
 			</table>
@@ -6624,6 +8527,9 @@
 			id="10a12ad7-e7c7-4084-b51f-aa7bab2c05ed">
 			</testcontainer>
 			<testcontainer
+			id="11af5413-e4d5-49fb-b687-be31c4c1a5ef">
+			</testcontainer>
+			<testcontainer
 			id="11bba419-6618-4dac-9adf-f5176f3e62e3">
 			</testcontainer>
 			<testcontainer
@@ -6631,6 +8537,9 @@
 			</testcontainer>
 			<testcontainer
 			id="159c63dc-701b-4a1f-9524-7219af64cf2a">
+			</testcontainer>
+			<testcontainer
+			id="15e1f313-2a6a-4144-a7d4-d88560fb25bc">
 			</testcontainer>
 			<testcontainer
 			id="19153785-2fe2-46fd-94c7-e616f1027189">
@@ -6648,6 +8557,9 @@
 			id="27b06672-7ef5-4bd8-8369-c9f8d2c10ef8">
 			</testcontainer>
 			<testcontainer
+			id="28b14576-ad19-4786-9195-300e13d61fd1">
+			</testcontainer>
+			<testcontainer
 			id="28d2beb8-7fa5-4d93-b112-4cf7b8693df3">
 			</testcontainer>
 			<testcontainer
@@ -6658,6 +8570,9 @@
 			</testcontainer>
 			<testcontainer
 			id="3590cb84-9ee2-42a2-9800-34e826fba444">
+			</testcontainer>
+			<testcontainer
+			id="38837ccd-77d8-40a0-90ad-8f8614185952">
 			</testcontainer>
 			<testcontainer
 			id="3901d9f0-82f4-4560-bbea-ea5a6e0a1d67">
@@ -6673,6 +8588,15 @@
 			</testcontainer>
 			<testcontainer
 			id="3f10c7b7-a7d4-4e39-92d2-5debbcd53aa3">
+			</testcontainer>
+			<testcontainer
+			id="44b2d6d8-52cf-4b26-8a4a-772702eace2f">
+			</testcontainer>
+			<testcontainer
+			id="46ce3aad-9cac-4fe9-800a-60b0c361ef14">
+			</testcontainer>
+			<testcontainer
+			id="4fc1cc11-7875-43ed-ac63-45cc3488cd9e">
 			</testcontainer>
 			<testcontainer
 			id="51bff513-6ec0-4273-9ee3-8d912bb40499">
@@ -6699,10 +8623,16 @@
 			id="66d44850-36a3-4612-9f78-329cdff9824c">
 			</testcontainer>
 			<testcontainer
+			id="6b87b866-fec9-462d-8669-42f7efc78cc8">
+			</testcontainer>
+			<testcontainer
 			id="6ed4bd6c-0179-43d3-8628-9fb05c16d9a5">
 			</testcontainer>
 			<testcontainer
 			id="70ff7b86-278c-4073-9870-592a89d5c188">
+			</testcontainer>
+			<testcontainer
+			id="7ceb96ad-dec8-4ec5-a3ef-820e267b788b">
 			</testcontainer>
 			<testcontainer
 			id="85c79aa1-0845-4ab2-a91a-59b6490ff8aa">
@@ -6738,6 +8668,9 @@
 			id="af7c6b04-964e-4b0d-83a9-7f6a260e7e48">
 			</testcontainer>
 			<testcontainer
+			id="b063a22b-34fc-4739-8239-b610c81c5ecf">
+			</testcontainer>
+			<testcontainer
 			id="b2a61fc8-edc0-4010-8afa-198187aa2c22">
 			</testcontainer>
 			<testcontainer
@@ -6751,6 +8684,9 @@
 			</testcontainer>
 			<testcontainer
 			id="c2d6ea60-c053-474a-85aa-9d78d54b9cec">
+			</testcontainer>
+			<testcontainer
+			id="cce57b2d-554f-44a5-a82a-0a0fef452a0d">
 			</testcontainer>
 			<testcontainer
 			id="ce2972e2-667d-4d1a-833a-0ad60a84e28b">
@@ -6787,6 +8723,9 @@
 			</testcontainer>
 			<testcontainer
 			id="ee3a66a9-b1eb-499b-8bbc-43710240cc66">
+			</testcontainer>
+			<testcontainer
+			id="f4848180-dfd1-408c-8c6d-a8f5cc107004">
 			</testcontainer>
 			<testcontainer
 			id="f4b5f4f6-b419-455e-b87d-a0160c80b8be">
