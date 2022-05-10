@@ -24,29 +24,29 @@ namespace AutomatedSystemTests.Modules.Selection
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The SelectResultInitialMechanism recording.
+    ///The SelectOptionDropDownMenuInCellResultView recording.
     /// </summary>
-    [TestModule("a9457a28-731a-4956-b118-a5fbea9ee526", ModuleType.Recording, 1)]
-    public partial class SelectResultInitialMechanism : ITestModule
+    [TestModule("ddc001ef-088e-4529-8c59-416e11928819", ModuleType.Recording, 1)]
+    public partial class SelectOptionDropDownMenuInCellResultView : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static SelectResultInitialMechanism instance = new SelectResultInitialMechanism();
+        static SelectOptionDropDownMenuInCellResultView instance = new SelectOptionDropDownMenuInCellResultView();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public SelectResultInitialMechanism()
+        public SelectOptionDropDownMenuInCellResultView()
         {
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static SelectResultInitialMechanism Instance
+        public static SelectOptionDropDownMenuInCellResultView Instance
         {
             get { return instance; }
         }

@@ -29,6 +29,26 @@ mode="Global">
 		</var>
 	</variables>
 	<recorditems>
+		<invokeactionrecorditem
+		action="Focus"
+		enabled="True"
+		optional="False"
+		searchpropertyid="e1d620ef-3731-4502-92ef-a5683552a75a">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<info
+			id="7db3fc24-802e-4db9-b1c2-16851d487012"
+			sourcename="RepositoryEditor">
+				<path>
+					/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[$rowIndex]/cell[$columnIndex]
+				</path>
+			</info>
+			<arguments
+			id="c1337d74-ff78-4576-869f-755ec416e76f">
+			</arguments>
+		</invokeactionrecorditem>
 		<userrecorditem
 		classname="ValidateEnabledStateCellInResultView"
 		enabled="True"

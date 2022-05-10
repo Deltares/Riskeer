@@ -1521,17 +1521,17 @@
       <UserCode>true</UserCode>
       <id>848deeb7-38df-45f9-ba57-519bb7b6ad90</id>
     </Compile>
-    <Compile Include="Modules\Selection\SelectResultInitialMechanism.cs">
-      <BoundTo>40ec82db-a7fc-40b9-b241-329c98390b73</BoundTo>
-      <DependentUpon>SelectResultInitialMechanism.rxrec</DependentUpon>
+    <Compile Include="Modules\Selection\SelectOptionDropDownMenuInCellResultView.cs">
+      <BoundTo>e99ebe9f-4439-4b90-b8c4-ebcb70c69e8e</BoundTo>
+      <DependentUpon>SelectOptionDropDownMenuInCellResultView.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
-      <id>40811fdc-a0b0-4193-bcb5-e11d3f9220ae</id>
+      <id>feb24109-827f-47ef-87a8-ab3fcb2471f3</id>
     </Compile>
-    <Compile Include="Modules\Selection\SelectResultInitialMechanism.UserCode.cs">
-      <BoundTo>40ec82db-a7fc-40b9-b241-329c98390b73</BoundTo>
-      <DependentUpon>SelectResultInitialMechanism.rxrec</DependentUpon>
+    <Compile Include="Modules\Selection\SelectOptionDropDownMenuInCellResultView.UserCode.cs">
+      <BoundTo>e99ebe9f-4439-4b90-b8c4-ebcb70c69e8e</BoundTo>
+      <DependentUpon>SelectOptionDropDownMenuInCellResultView.rxrec</DependentUpon>
       <UserCode>true</UserCode>
-      <id>d189fa82-96ac-4075-9035-0d1b51aeb418</id>
+      <id>346a68f4-5c96-4a46-bb11-f1af6703a9d3</id>
     </Compile>
     <Compile Include="Modules\Selection\SelectRowCalculation.cs">
       <DependentUpon>SelectRowCalculation.rxrec</DependentUpon>
@@ -2761,10 +2761,10 @@
       <id>f00c07a7-1332-49f0-bc26-77f534093d31</id>
       <recordtableid>feb22e37-85f1-4e45-95cc-1cebb52e7292</recordtableid>
     </None>
-    <None Include="Modules\Selection\SelectResultInitialMechanism.rxrec">
+    <None Include="Modules\Selection\SelectOptionDropDownMenuInCellResultView.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>40ec82db-a7fc-40b9-b241-329c98390b73</id>
-      <recordtableid>a9457a28-731a-4956-b118-a5fbea9ee526</recordtableid>
+      <id>e99ebe9f-4439-4b90-b8c4-ebcb70c69e8e</id>
+      <recordtableid>ddc001ef-088e-4529-8c59-416e11928819</recordtableid>
     </None>
     <None Include="Modules\Selection\SelectRowCalculation.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>

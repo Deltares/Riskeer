@@ -22,7 +22,7 @@ using Ranorex.Core.Testing;
 
 namespace AutomatedSystemTests.Modules.Selection
 {
-    public partial class SelectResultInitialMechanism
+    public partial class SelectOptionDropDownMenuInCellResultView
     {
         /// <summary>
         /// This method gets called right after the recording has been started.

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <recordtable
 embeddedrepository="False"
-id="a9457a28-731a-4956-b118-a5fbea9ee526"
+id="ddc001ef-088e-4529-8c59-416e11928819"
 mode="Global">
 	<repeatcount>
 		1
@@ -19,7 +19,7 @@ mode="Global">
 		True
 	</useDefaultItemLogging>
 	<codegen
-	classname="SelectResultInitialMechanism"
+	classname="SelectOptionDropDownMenuInCellResultView"
 	namespace="AutomatedSystemTests.Modules.Selection">
 	</codegen>
 	<variables>
@@ -335,7 +335,7 @@ ABRRRQAUUUUAFFFFAH//2Q==
 	</repository>
 	<usercodefile
 	lang="CSharp">
-		SelectResultInitialMechanism.UserCode.cs
+		SelectOptionDropDownMenuInCellResultView.UserCode.cs
 	</usercodefile>
 	<references>
 	</references>

@@ -112,6 +112,9 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
 
             Init();
 
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.TableFMResultView.Row.genericCell'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.TableFMResultView.Row.genericCellInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.TableFMResultView.Row.genericCell.Focus();
+            
             ValidateEnabledGenericCellResultsView(repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.TableFMResultView.Row.genericCellInfo, isEnabledExpected);
             
         }
