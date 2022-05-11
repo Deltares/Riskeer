@@ -2248,7 +2248,7 @@
 			</testmodule>
 			<testcase
 			id="51bff513-6ec0-4273-9ee3-8d912bb40499"
-			name="script21_Toetsresultaten_importeren_en_registreren">
+			name="script21_Resultaten_registreren">
 				<parameters>
 					<param
 					name="caseNumber"
@@ -6968,7 +6968,7 @@
 				name="Script21">
 					<testcase
 					id="51bff513-6ec0-4273-9ee3-8d912bb40499"
-					name="script21_Toetsresultaten_importeren_en_registreren">
+					name="script21_Resultaten_registreren">
 						<setup
 						id="4e48bc26-aa10-4eee-a7f4-f44bf27ba48f"
 						name="setup">
