@@ -576,6 +576,9 @@
       <UserCode>true</UserCode>
       <id>f0ec8e33-f569-4e1d-be5c-8be631f580cc</id>
     </Compile>
+    <Compile Include="Modules\ActionsDocumentView\ValidateFailureProbabilityFMInResultView.cs">
+      <id>b4d167ad-dc06-4869-8c29-91a1702642fb</id>
+    </Compile>
     <Compile Include="Modules\ActionsDocumentView\ValidateFMAssessmentLabelAndProbabilityInResultView.cs">
       <BoundTo>7214ed23-f5ef-4f9b-9a63-ddb6b05dbcf7</BoundTo>
       <DependentUpon>ValidateFMAssessmentLabelAndProbabilityInResultView.rxrec</DependentUpon>

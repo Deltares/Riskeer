@@ -265,7 +265,7 @@
 			</smartfoldernode>
 			<smartfoldernode
 			id="26aac48b-0548-45f8-af02-60fc9d23be6e"
-			name="ValidateValuesResultsView">
+			name="ValidateValuesTableResultsView">
 				<parameters>
 					<param
 					name="intermediateName1"
@@ -550,10 +550,58 @@
 					variablename="string1">
 					</var>
 					<var
-					dataname="intermediateName3"
+					dataname="fullPathToCSVFile"
 					datasourceid="26aac48b-0548-45f8-af02-60fc9d23be6e"
 					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
 					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="extension"
+					datasourceid="36f9acd7-882e-4d42-ba92-d5c9c7f2a306"
+					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
+					variablename="string3">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="78337b07-06ac-4efb-b70c-3605a183e682"
+					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
+					variablename="string4">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="78337b07-06ac-4efb-b70c-3605a183e682"
+					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
+					variablename="string6">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="78337b07-06ac-4efb-b70c-3605a183e682"
+					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
+					variablename="string5">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="78337b07-06ac-4efb-b70c-3605a183e682"
+					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
+					variablename="string7">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="78337b07-06ac-4efb-b70c-3605a183e682"
+					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
+					variablename="string8">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="78337b07-06ac-4efb-b70c-3605a183e682"
+					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
+					variablename="string9">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="78337b07-06ac-4efb-b70c-3605a183e682"
+					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
+					variablename="string10">
 					</var>
 				</databinding>
 			</testmodule>
@@ -667,32 +715,6 @@
 					datasourceid="0be32ad5-bbba-4bfe-937b-19aea09d1718"
 					variableid="1f9f18e7-7e25-45be-a927-8906d1000322"
 					variablename="expectedFMAssesmentProbability">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
-			id="76432cdb-52e5-4602-a4ea-e7f6fc68e26c"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="intermediateName3"
-					datasourceid="26aac48b-0548-45f8-af02-60fc9d23be6e"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="extension"
-					datasourceid="36f9acd7-882e-4d42-ba92-d5c9c7f2a306"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="fullPathToCSVFile"
-					datasourceid="26aac48b-0548-45f8-af02-60fc9d23be6e"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
 					</var>
 				</databinding>
 			</testmodule>
@@ -833,6 +855,10 @@
 			type="Recording">
 			</testmodule>
 			<smartfoldernode
+			id="91177b82-eb70-499f-aeff-5c8abe08d6d7"
+			name="ValidateFailureProbabilityFM">
+			</smartfoldernode>
+			<smartfoldernode
 			id="9669a194-aad9-4149-8d16-f92fc720643f"
 			name="TakeScreenshot">
 			</smartfoldernode>
@@ -871,6 +897,26 @@
 			id="99662edd-33d5-47ba-b495-ace7af131f41"
 			name="ValidateValuesInTable">
 			</smartfoldernode>
+			<testmodule
+			id="9cc765bc-8ee1-455f-803f-a6cf4032bb82"
+			name="ValidateFailureProbabilityFMInResultView"
+			ref="624d9fa1-26b3-40f8-bfc7-47503ba11a9d"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="trajectAssessmentInformation"
+					datasourceid="78337b07-06ac-4efb-b70c-3605a183e682"
+					variableid="83cc88df-0bcd-4b5a-99dd-5ddb8f35a27d"
+					variablename="trajectAssessmentInformationString">
+					</var>
+					<var
+					dataname="fmLabel"
+					datasourceid="a3c4f19e-1fe0-492d-bccc-4896a68bce52"
+					variableid="d0d431e3-1478-40d4-b8fa-f84bbc8597e7"
+					variablename="labelFM">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="9d0f3272-1dd5-46a7-9895-2e7160b20845"
 			name="SetStateRegistrationAssembly">
@@ -1340,6 +1386,7 @@
 			name="CompareWithReferenceCSVFile">
 			</smartfoldernode>
 			<testmodule
+			enabled="False"
 			id="e94a37e4-42d0-4de3-9925-702cd79b8b8a"
 			name="CloseAUT"
 			ref="07688822-3eb6-4d71-a97b-33498ae1d748"
@@ -1614,7 +1661,7 @@
 								</smartfoldernode>
 								<smartfoldernode
 								id="26aac48b-0548-45f8-af02-60fc9d23be6e"
-								name="ValidateValuesResultsView">
+								name="ValidateValuesTableResultsView">
 									<smartfoldernode
 									id="36f9acd7-882e-4d42-ba92-d5c9c7f2a306"
 									name="CalculateCSVFileName">
@@ -1628,10 +1675,6 @@
 										</testmodule>
 										<testmodule
 										id="5b91f52c-6071-422d-8dd3-f0f17ae38844"
-										name="ConcatenateStrings">
-										</testmodule>
-										<testmodule
-										id="76432cdb-52e5-4602-a4ea-e7f6fc68e26c"
 										name="ConcatenateStrings">
 										</testmodule>
 									</smartfoldernode>
@@ -1658,6 +1701,14 @@
 									<testmodule
 									id="3d721b10-75d5-4d53-8072-e2478d23dc82"
 									name="ReadResultsforFMFromResultView">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="91177b82-eb70-499f-aeff-5c8abe08d6d7"
+								name="ValidateFailureProbabilityFM">
+									<testmodule
+									id="9cc765bc-8ee1-455f-803f-a6cf4032bb82"
+									name="ValidateFailureProbabilityFMInResultView">
 									</testmodule>
 								</smartfoldernode>
 								<smartfoldernode
@@ -2101,7 +2152,7 @@
 						@TR&gt;@GF&gt;@STPH&gt;Invoer&gt;Vakindeling
 					</td>
 					<td>
-						X:\script22\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Oordeel_Resultaat.csv
+						X:\script22\reference\@TR_@GF_@STPH_Oordeel_Resultaat.csv
 					</td>
 					<td>
 						1
@@ -2118,7 +2169,7 @@
 						@TR&gt;@GF&gt;@GEKB&gt;Invoer&gt;Vakindeling
 					</td>
 					<td>
-						X:\script22\reference\Traject_50-1_Dijken_en_dammen_-_Grasbekleding_erosie_kruin_en_binnentalud_Oordeel_Resultaat.csv
+						X:\script22\reference\@TR_@GF_@GEKB_Oordeel_Resultaat.csv
 					</td>
 					<td>
 						2
@@ -2135,7 +2186,7 @@
 						@TR&gt;@GF&gt;@STMI&gt;Invoer&gt;Vakindeling
 					</td>
 					<td>
-						X:\script22\reference\Traject_50-1_Dijken_en_dammen_-_Microstabiliteit_Oordeel_Resultaat.csv
+						X:\script22\reference\@TR_@GF_@STMI_Oordeel_Resultaat.csv
 					</td>
 					<td>
 						3
@@ -2152,7 +2203,7 @@
 						@TR&gt;@GF&gt;@BSKW&gt;Invoer&gt;Vakindeling
 					</td>
 					<td>
-						X:\script22\reference\Traject_50-1_Kunstwerken_-_Betrouwbaarheid_sluiting_kunstwerk_Oordeel_Resultaat.csv
+						X:\script22\reference\@TR_@GF_@BSKW_Oordeel_Resultaat.csv
 					</td>
 					<td>
 						4
@@ -2169,6 +2220,7 @@
 						@TR&gt;@GF&gt;@PKW&gt;Invoer&gt;Vakindeling
 					</td>
 					<td>
+						X:\script22\reference\@TR_@GF_@PKW_Oordeel_Resultaat.csv
 					</td>
 					<td>
 						5
@@ -2185,6 +2237,7 @@
 						@TR&gt;@SF&gt;Nieuw&gt;Invoer&gt;Vakindeling
 					</td>
 					<td>
+						X:\script22\reference\@TR_@SF_Nieuw_Oordeel_Resultaat.csv
 					</td>
 					<td>
 						6
@@ -2376,64 +2429,25 @@
 		<testconfiguration
 		name="TestRun">
 			<testcontainer
-			id="0b048a73-a1ed-4363-ae63-c6fad75bea4b">
-			</testcontainer>
-			<testcontainer
-			id="0be32ad5-bbba-4bfe-937b-19aea09d1718">
-			</testcontainer>
-			<testcontainer
-			id="0e5a6f49-348e-4f07-bc89-bc35f5be1322">
-			</testcontainer>
-			<testcontainer
-			id="1152d15e-f63f-428d-b491-28b8d05bce22">
-			</testcontainer>
-			<testcontainer
-			id="18de10f4-0e8e-4332-abfe-35aedeaeec66">
-			</testcontainer>
-			<testcontainer
-			id="1d5b615f-13a9-4318-98e6-d190cb2a43dc">
-			</testcontainer>
-			<testcontainer
-			id="21c28c73-bcc2-4f12-aa31-fb38aa1fdcbb">
-			</testcontainer>
-			<testcontainer
-			id="24c53dc9-981d-4518-8a6b-bd7c7a5ad837">
+			id="1a4bdd4f-4f87-465e-8d48-768d2657a89c">
 			</testcontainer>
 			<testcontainer
 			id="266c2fb7-8026-4baa-9e2d-2adb7b957ae4">
 			</testcontainer>
 			<testcontainer
-			id="2c40d00d-223c-4b5b-9f4b-a9bb9e226d4f">
+			id="26aac48b-0548-45f8-af02-60fc9d23be6e">
 			</testcontainer>
 			<testcontainer
-			id="2e3fc2e2-36e7-4860-999f-7bfbcb09a785">
+			id="2c40d00d-223c-4b5b-9f4b-a9bb9e226d4f">
 			</testcontainer>
 			<testcontainer
 			id="32cb55f4-7fcb-4fd5-8e0c-b4098c0b15c7">
 			</testcontainer>
 			<testcontainer
-			id="3bb24898-63d7-46e7-b1e7-5025e07b5305">
-			</testcontainer>
-			<testcontainer
-			id="3bfd7949-921d-4929-bcdd-0c4f80746a45">
-			</testcontainer>
-			<testcontainer
-			id="3f2b3967-d06a-4c02-9d11-f2f7a93a119a">
-			</testcontainer>
-			<testcontainer
-			id="64927f77-bb7f-4081-aac4-4a7bc769d194">
+			id="36f9acd7-882e-4d42-ba92-d5c9c7f2a306">
 			</testcontainer>
 			<testcontainer
 			id="6754469b-6bef-4898-a3ce-f0500c72e37b">
-			</testcontainer>
-			<testcontainer
-			id="6a5a058f-4448-4f1f-8cb6-581d0772ce73">
-			</testcontainer>
-			<testcontainer
-			id="6c4d302a-e5ba-4f19-8c95-0d315ef92aaf">
-			</testcontainer>
-			<testcontainer
-			id="76aca451-21ba-4dff-bce5-d9e39b58c585">
 			</testcontainer>
 			<testcontainer
 			id="78337b07-06ac-4efb-b70c-3605a183e682">
@@ -2442,28 +2456,10 @@
 			id="7bcf6b46-895c-4012-8c96-0106901f96a7">
 			</testcontainer>
 			<testcontainer
-			id="846e80d3-c335-4b40-bf22-2a74282a26f6">
-			</testcontainer>
-			<testcontainer
-			id="8471d74e-a0c2-4fbb-9cd8-37b6287d3f8d">
-			</testcontainer>
-			<testcontainer
-			id="897539d5-cc21-4c96-a17f-514663a99afe">
-			</testcontainer>
-			<testcontainer
 			id="8bc2a53e-3796-403c-a5a6-f01d55c296a0">
 			</testcontainer>
 			<testcontainer
-			id="8db7ec3a-bc7e-4967-b620-5c7ce6ca7cd7">
-			</testcontainer>
-			<testcontainer
-			id="9669a194-aad9-4149-8d16-f92fc720643f">
-			</testcontainer>
-			<testcontainer
-			id="9882e068-be69-493b-8d9b-3ad912df060c">
-			</testcontainer>
-			<testcontainer
-			id="99662edd-33d5-47ba-b495-ace7af131f41">
+			id="91177b82-eb70-499f-aeff-5c8abe08d6d7">
 			</testcontainer>
 			<testcontainer
 			id="9d0f3272-1dd5-46a7-9895-2e7160b20845">
@@ -2475,37 +2471,7 @@
 			id="a2727582-55dc-4810-b276-f4c237c42e0b">
 			</testcontainer>
 			<testcontainer
-			id="a2f5ad5d-0181-475e-98af-8d6d92dae0c5">
-			</testcontainer>
-			<testcontainer
-			id="a53d4cb6-89e1-429d-849b-274cfa2a0b13">
-			</testcontainer>
-			<testcontainer
-			id="b8fb0fc5-36bf-4eda-9fa9-1b7594306a03">
-			</testcontainer>
-			<testcontainer
-			id="b9bf3c46-53bc-4bbb-8138-952c8d269e4a">
-			</testcontainer>
-			<testcontainer
-			id="bada5389-6e7d-4537-87e6-5b7f7bd4cfc6">
-			</testcontainer>
-			<testcontainer
-			id="bb97dab9-8016-4b10-bea6-6007ed246cae">
-			</testcontainer>
-			<testcontainer
-			id="bccc3971-de55-4aec-8cd4-5eeb0b6ba145">
-			</testcontainer>
-			<testcontainer
-			id="c24d7a03-ea43-45c6-92ab-a8eeb2796554">
-			</testcontainer>
-			<testcontainer
 			id="c2dae628-5195-4cc9-8348-296f5a64bbce">
-			</testcontainer>
-			<testcontainer
-			id="ce6b578e-3645-476d-b905-3a2440873898">
-			</testcontainer>
-			<testcontainer
-			id="d28c5d6f-c8ab-4c7a-b262-f3ae3e32fc47">
 			</testcontainer>
 			<testcontainer
 			id="d601846d-0fa3-4dbc-833d-8685dbcea7f2">
@@ -2514,34 +2480,10 @@
 			id="de05eee5-6aeb-42c0-b48a-ac3a513e05d4">
 			</testcontainer>
 			<testcontainer
-			id="e2a02d59-9142-4273-924d-9a290cd2b356">
-			</testcontainer>
-			<testcontainer
-			id="e37b51c6-deac-4c6f-84c2-34062e6326e3">
-			</testcontainer>
-			<testcontainer
-			id="ea7240d8-47f5-43bd-b11f-b0fcebdc178d">
+			id="e60ccf23-8ae5-4066-871b-2f21af1b39da">
 			</testcontainer>
 			<testcontainer
 			id="ee888ebe-27cb-43f2-8462-999d3a41cc09">
-			</testcontainer>
-			<testcontainer
-			id="f250ea12-6ccd-4bf2-9dfb-7394b499b4d0">
-			</testcontainer>
-			<testcontainer
-			id="f27d3020-0bbf-40c2-9233-8b8952252e65">
-			</testcontainer>
-			<testcontainer
-			id="f2f1adee-da3a-4c53-a39e-96bc55192385">
-			</testcontainer>
-			<testcontainer
-			id="f5420ec8-877b-4267-a99d-d4b20dc88a34">
-			</testcontainer>
-			<testcontainer
-			id="f8e0146a-0978-4ded-be81-f4a5d682248f">
-			</testcontainer>
-			<testcontainer
-			id="ff03a5cc-e1be-4180-aa76-564a9ea7f3b2">
 			</testcontainer>
 		</testconfiguration>
 	</testconfigurations>

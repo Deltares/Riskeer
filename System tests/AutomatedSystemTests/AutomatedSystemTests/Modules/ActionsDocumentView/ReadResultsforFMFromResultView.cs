@@ -91,7 +91,7 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             trajectAssessmentInformationString = JsonConvert.SerializeObject(trajectResultInformation, Formatting.Indented);
             Report.Log(ReportLevel.Info, trajectAssessmentInformationString);
         }
-        
+
         private TrajectResultInformation BuildAssessmenTrajectInformation(string trajectAssessmentInformationString)
         {
             TrajectResultInformation trajectAssessmentInformation;
@@ -116,8 +116,7 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             }
             return trajectAssessmentInformation;
         }
-        
-        
+
         private int GetColumnIndex(Row headerRow, string textInHeader)
         {
             return headerRow.Cells.ToList().FindIndex(c => c.Element.GetAttributeValueText("AccessibleValue") == textInHeader);
@@ -135,7 +134,5 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             cell.Select();
             return cell.Element.GetAttributeValueText("AccessibleValue");
         }
-
-
     }
 }
