@@ -588,18 +588,6 @@
       <UserCode>true</UserCode>
       <id>aab43547-994a-422f-8ead-8842c312a4ba</id>
     </Compile>
-    <Compile Include="Modules\ActionsDocumentView\ValidatePresenceIconWarningManualAssessment.cs">
-      <BoundTo>bc434fad-2212-4327-8fad-52e26de4e4b1</BoundTo>
-      <DependentUpon>ValidatePresenceIconWarningManualAssessment.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>748beae9-a964-420b-ba22-3de6c3ad1fa5</id>
-    </Compile>
-    <Compile Include="Modules\ActionsDocumentView\ValidatePresenceIconWarningManualAssessment.UserCode.cs">
-      <BoundTo>bc434fad-2212-4327-8fad-52e26de4e4b1</BoundTo>
-      <DependentUpon>ValidatePresenceIconWarningManualAssessment.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>89c0f5fb-52ff-40f4-b42f-9ce63891301a</id>
-    </Compile>
     <Compile Include="Modules\ActionsDocumentView\ValidateSectionResultAsCombinationContributionsInFMResultView.cs">
       <id>0adb26cb-0c2c-46ba-87b9-974b3c023812</id>
     </Compile>
@@ -2420,11 +2408,6 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>7214ed23-f5ef-4f9b-9a63-ddb6b05dbcf7</id>
       <recordtableid>778be806-02a6-4d3b-92ce-fe995369ab6d</recordtableid>
-    </None>
-    <None Include="Modules\ActionsDocumentView\ValidatePresenceIconWarningManualAssessment.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>bc434fad-2212-4327-8fad-52e26de4e4b1</id>
-      <recordtableid>eda96359-8672-43bd-b08e-6668567acb0a</recordtableid>
     </None>
     <None Include="Modules\ActionsDocumentView\ZoomMapViewWithMouseWheel.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>

@@ -373,12 +373,6 @@
 			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
 			type="Recording">
 			</testmodule>
-			<testmodule
-			id="36b1dcd5-0d96-4f2a-9743-08a848dc7685"
-			name="ValidatePresenceIconWarningManualAssessment"
-			ref="eda96359-8672-43bd-b08e-6668567acb0a"
-			type="Recording">
-			</testmodule>
 			<smartfoldernode
 			id="36f9acd7-882e-4d42-ba92-d5c9c7f2a306"
 			name="CalculateCSVFileName">
@@ -808,10 +802,6 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<smartfoldernode
-			id="88c27d1c-9b1a-448f-a614-37bfe5c478bd"
-			name="ValidateIconManualAssessment">
-			</smartfoldernode>
 			<smartfoldernode
 			id="897539d5-cc21-4c96-a17f-514663a99afe"
 			name="ValidateTrajectAssessmentForSTPH">
@@ -1885,14 +1875,6 @@
 										name="ValidateFMAssessmentLabelAndProbabilityInResultView">
 										</testmodule>
 									</smartfoldernode>
-									<smartfoldernode
-									id="88c27d1c-9b1a-448f-a614-37bfe5c478bd"
-									name="ValidateIconManualAssessment">
-										<testmodule
-										id="36b1dcd5-0d96-4f2a-9743-08a848dc7685"
-										name="ValidatePresenceIconWarningManualAssessment">
-										</testmodule>
-									</smartfoldernode>
 								</smartfoldernode>
 								<smartfoldernode
 								id="2e3fc2e2-36e7-4860-999f-7bfbcb09a785"
@@ -2464,9 +2446,6 @@
 			</testcontainer>
 			<testcontainer
 			id="8471d74e-a0c2-4fbb-9cd8-37b6287d3f8d">
-			</testcontainer>
-			<testcontainer
-			id="88c27d1c-9b1a-448f-a614-37bfe5c478bd">
 			</testcontainer>
 			<testcontainer
 			id="897539d5-cc21-4c96-a17f-514663a99afe">

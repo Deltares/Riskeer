@@ -37,33 +37,6 @@ mode="Global">
 		action="AttributeEqual"
 		enabled="True"
 		optional="False"
-		searchpropertyid="8a3dbd9e-0036-4b9d-9585-0b2cc46138b6">
-			<comment>
-			</comment>
-			<bindings>
-				<binding
-				target="MatchValue"
-				variable="expectedFMAssesmentLabel">
-				</binding>
-			</bindings>
-			<info
-			id="555de67d-51df-407a-8568-fd4103465a3d"
-			sourcename="RepositoryEditor">
-				<path>
-					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container[@controlname='TableLayoutPanel']/container[@controlname='FailureMechanismAssemblyControl']/container[@controlname='GroupPanel']/text/text
-				</path>
-			</info>
-			<matchname>
-				AccessibleName
-			</matchname>
-			<matchvalue>
-				yourValue
-			</matchvalue>
-		</validationitem>
-		<validationitem
-		action="AttributeEqual"
-		enabled="True"
-		optional="False"
 		searchpropertyid="0f06a435-09fe-42fb-b424-a91ea2f95021">
 			<comment>
 			</comment>

@@ -73,9 +73,7 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             var tableResults = repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.TableFMResultView.Self.As<Table>();
             var rowsData = tableResults.Rows;
             var rowHeader = rowsData[0];
-            
-            int indexCalculationFailureProb = rowHeader.Cells.ToList().FindIndex(c => c.Element.GetAttributeValueText("AccessibleValue")=="Rekenwaarde\r\nfaalkans per vak\r\n[1/jaar]");
-            int indexAssemblyGroup = rowHeader.Cells.ToList().FindIndex(c => c.Element.GetAttributeValueText("AccessibleValue")=="Duidingsklasse");
+            var sectionIndeces = GetColumnIndecesResultView(rowsData[0]);
 
             var currentFMResultInformation = trajectResultInformation.ListFMsResultInformation.Where(fmItem=>fmItem.Label==labelFM).FirstOrDefault();
 
@@ -83,18 +81,13 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             rowsData.RemoveAt(0);
             foreach (var row in rowsData) {
                 var cellsDataInRow = row.Cells.ToList();
-                currentFMResultInformation.SectionList[rowIndex].CalculationFailureProbPerSection = GetAccValue(cellsDataInRow[indexCalculationFailureProb]);
-                currentFMResultInformation.SectionList[rowIndex].AssemblyGroup = GetAccValue(cellsDataInRow[indexAssemblyGroup]);
+                currentFMResultInformation.SectionList[rowIndex].CalculationFailureProbPerSection = GetAccValue(cellsDataInRow[sectionIndeces[0]]);
+                currentFMResultInformation.SectionList[rowIndex].AssemblyGroup = GetAccValue(cellsDataInRow[sectionIndeces[1]]);
                 rowIndex++;
             }
             
             var resultView = repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView;
-            if (indexCalculationFailureProb!=-1) {
-                currentFMResultInformation.AssemblyGroup = resultView.AssemblyWithProb.Label.TextValue;
-                currentFMResultInformation.FailureProbability = resultView.AssemblyWithProb.Probability.TextValue;
-            } else {
-                currentFMResultInformation.AssemblyGroup = resultView.LabelNoProb.TextValue;
-            }
+            currentFMResultInformation.FailureProbability = resultView.FailureProbabilityFM.TextValue;
             trajectAssessmentInformationString = JsonConvert.SerializeObject(trajectResultInformation, Formatting.Indented);
             Report.Log(ReportLevel.Info, trajectAssessmentInformationString);
         }
