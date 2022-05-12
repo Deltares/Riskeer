@@ -136,7 +136,7 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             }
         }
 
-        private string CalculateAssessmentLabelGroups3and4(TrajectAssessmentInformation trjAssInfo)
+        private string CalculateAssessmentLabelGroups3and4(TrajectResultInformation trjAssInfo)
         {
             Dictionary<string,int> dicAssemblyLabels = new Dictionary<string, int> {
                 {"-",    0},
@@ -150,11 +150,11 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             };
             int maxLabel = 0;
             string labelGroup3and4 ="";
-            var trjAssInfoFMsGroup3and4 = trjAssInfo.ListFMsAssessmentInformation.Where(tai=>tai.Group==3 || tai.Group==4);
+            var trjAssInfoFMsGroup3and4 = trjAssInfo.ListFMsResultInformation.Where(tai=>tai.Group==3 || tai.Group==4);
             foreach (var fmTrjAssInfo in trjAssInfoFMsGroup3and4) {
-                if (dicAssemblyLabels[fmTrjAssInfo.AssessmentLabel]>maxLabel) {
-                    maxLabel = dicAssemblyLabels[fmTrjAssInfo.AssessmentLabel];
-                    labelGroup3and4 = fmTrjAssInfo.AssessmentLabel;
+                if (dicAssemblyLabels[fmTrjAssInfo.AssemblyGroup]>maxLabel) {
+                    maxLabel = dicAssemblyLabels[fmTrjAssInfo.AssemblyGroup];
+                    labelGroup3and4 = fmTrjAssInfo.AssemblyGroup;
                 }
             }
             return labelGroup3and4;
@@ -209,14 +209,14 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             Validate.AreEqual(actualValue, expectedValue);
         }
 
-        private string CalculateAssessmentProbabilityGroups1and2(TrajectAssessmentInformation trjAssInfo)
+        private string CalculateAssessmentProbabilityGroups1and2(TrajectResultInformation trjAssInfo)
         {
             System.Globalization.CultureInfo currentCulture = CultureInfo.CurrentCulture;
             double productInvProbs = 1;
             int numberFmsProb = 0;
-            foreach (var assInfo in trjAssInfo.ListFMsAssessmentInformation) {
+            foreach (var assInfo in trjAssInfo.ListFMsResultInformation) {
                 if (assInfo.Group==1 || assInfo.Group==2) {
-                    string denominator = assInfo.AssessmentProbability.Substring(2, assInfo.AssessmentProbability.Length-2);
+                    string denominator = assInfo.FailureProbability.Substring(2, assInfo.FailureProbability.Length-2);
                     double currentProb = 1/Double.Parse(denominator, currentCulture);
                     productInvProbs*= 1- currentProb;
                     numberFmsProb++;
@@ -232,7 +232,7 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             }
         }
 
-        private void ValidateTableAssemblyTrajectView(Table table, TrajectAssessmentInformation trjAssInfo)
+        private void ValidateTableAssemblyTrajectView(Table table, TrajectResultInformation trjAssInfo)
         {
             var headerRow = table.Rows[0];
             int indexLabel = GetIndex(headerRow, "Label");
@@ -244,7 +244,7 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
                 var row = table.Rows[i];
                 row.Cells[indexLabel].Select();
                 string currentFM = GetAV(row.Cells[indexLabel]);
-                var assInfo = trjAssInfo.ListFMsAssessmentInformation.Where(ai=>ai.Label==currentFM).FirstOrDefault();
+                var assInfo = trjAssInfo.ListFMsResultInformation.Where(ai=>ai.Label==currentFM).FirstOrDefault();
                 if (assInfo!=null) {
                     Report.Info("Validation for FM = " + currentFM);
                     Report.Info("Validating group...");
@@ -252,11 +252,11 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
                     Validate.AreEqual(GetAV(row.Cells[indexGroup]), assInfo.Group.ToString());
                     Report.Info("Validating assessment label...");
                     row.Cells[indexAssessmentLabel].Select();
-                    Validate.AreEqual(GetAV(row.Cells[indexAssessmentLabel]), assInfo.AssessmentLabel);
+                    Validate.AreEqual(GetAV(row.Cells[indexAssessmentLabel]), assInfo.AssemblyGroup);
                     //if (assInfo.Group==1 || assInfo==2) {
                         Report.Info("Validating (approx.) probability of failure...");
                         row.Cells[indexAssessmentProb].Select();
-                        Validate.AreEqual(GetAV(row.Cells[indexAssessmentProb]), assInfo.AssessmentProbability);
+                        Validate.AreEqual(GetAV(row.Cells[indexAssessmentProb]), assInfo.FailureProbability);
                     //}
                 }
                 
@@ -278,14 +278,14 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             return row.Cells.ToList().FindIndex(cl=>GetAV(cl).Contains(name));
         }
         
-        private TrajectAssessmentInformation BuildAssessmenTrajectInformation(string trajectAssessmentInformationString)
+        private TrajectResultInformation BuildAssessmenTrajectInformation(string trajectAssessmentInformationString)
         {
-            TrajectAssessmentInformation trajectAssessmentInformation;
+            TrajectResultInformation trajectAssessmentInformation;
             if (trajectAssessmentInformationString=="") {
-                trajectAssessmentInformation = new TrajectAssessmentInformation();
+                trajectAssessmentInformation = new TrajectResultInformation();
             } else {
                 var error = false;
-                trajectAssessmentInformation = JsonConvert.DeserializeObject<TrajectAssessmentInformation>(trajectAssessmentInformationString, new JsonSerializerSettings
+                trajectAssessmentInformation = JsonConvert.DeserializeObject<TrajectResultInformation>(trajectAssessmentInformationString, new JsonSerializerSettings
                 {
                     Error = (s, e) =>
                     {

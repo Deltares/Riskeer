@@ -2908,7 +2908,7 @@ namespace AutomatedSystemTests
             AutomatedSystemTestsRepositoryFolders.CalculationsViewFolder _calculationsview;
             RepoItemInfo _btndialogInfo;
             RepoItemInfo _dropdownbuttoninrowpropertiespanelInfo;
-            RepoItemInfo _tablevakindelingInfo;
+            RepoItemInfo _fmsectionsviewtableInfo;
 
             /// <summary>
             /// Creates a new DocumentViewContainerUncached  folder.
@@ -2930,7 +2930,7 @@ namespace AutomatedSystemTests
                 _calculationsview = new AutomatedSystemTestsRepositoryFolders.CalculationsViewFolder(this);
                 _btndialogInfo = new RepoItemInfo(this, "BtnDialog", "?/?/button[@controlname='btnDialog']", 30000, null, "cefba828-ea6b-4e9d-a97a-641324e9af42");
                 _dropdownbuttoninrowpropertiespanelInfo = new RepoItemInfo(this, "DropDownButtonInRowPropertiesPanel", "?/?/button[@controlname='btnDropDown']", 30000, null, "3bf645bc-b589-440e-9827-e97c895e810b");
-                _tablevakindelingInfo = new RepoItemInfo(this, "TableVakindeling", "?/?/table[@controlname='dataGridView']", 30000, null, "e1c75820-980f-411c-9ada-a9dcd59572ae");
+                _fmsectionsviewtableInfo = new RepoItemInfo(this, "FMSectionsViewTable", "container[@controlname~'SectionsView']/?/table", 30000, null, "e1c75820-980f-411c-9ada-a9dcd59572ae");
             }
 
             /// <summary>
@@ -3006,26 +3006,26 @@ namespace AutomatedSystemTests
             }
 
             /// <summary>
-            /// The TableVakindeling item.
+            /// The FMSectionsViewTable item.
             /// </summary>
             [RepositoryItem("e1c75820-980f-411c-9ada-a9dcd59572ae")]
-            public virtual Ranorex.Table TableVakindeling
+            public virtual Ranorex.Table FMSectionsViewTable
             {
                 get
                 {
-                    return _tablevakindelingInfo.CreateAdapter<Ranorex.Table>(true);
+                    return _fmsectionsviewtableInfo.CreateAdapter<Ranorex.Table>(true);
                 }
             }
 
             /// <summary>
-            /// The TableVakindeling item info.
+            /// The FMSectionsViewTable item info.
             /// </summary>
             [RepositoryItemInfo("e1c75820-980f-411c-9ada-a9dcd59572ae")]
-            public virtual RepoItemInfo TableVakindelingInfo
+            public virtual RepoItemInfo FMSectionsViewTableInfo
             {
                 get
                 {
-                    return _tablevakindelingInfo;
+                    return _fmsectionsviewtableInfo;
                 }
             }
 

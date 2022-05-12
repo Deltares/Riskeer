@@ -122,6 +122,20 @@
 			id="1152d15e-f63f-428d-b491-28b8d05bce22"
 			name="OpenAssemblyTrajectView">
 			</smartfoldernode>
+			<testmodule
+			id="13af742f-f224-47b3-b328-1476d14c8189"
+			name="SelectState"
+			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="stateRA"
+					datasourceid="9d0f3272-1dd5-46a7-9895-2e7160b20845"
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
+					</var>
+				</databinding>
+			</testmodule>
 			<testsuite
 			ReportTime="RelativeToTestSuiteStartTime"
 			TracingScreenshotMode="Foreground"
@@ -397,7 +411,7 @@
 			</smartfoldernode>
 			<testmodule
 			id="3d721b10-75d5-4d53-8072-e2478d23dc82"
-			name="ReadCombinedAssessmentInformationFMFromResultView"
+			name="ReadResultsforFMFromResultView"
 			ref="0d324e02-5dae-41d7-8ee9-9352a1327e9c"
 			type="UserCode">
 				<databinding>
@@ -600,10 +614,6 @@
 				</parameters>
 			</smartfoldernode>
 			<testcase
-			id="65fcf8c4-29ad-4f7f-8666-3a04384f7fc9"
-			name="TakeScreenshotOfDesktop">
-			</testcase>
-			<testcase
 			id="6754469b-6bef-4898-a3ce-f0500c72e37b"
 			name="Script22"
 			reportlevel="Info;20">
@@ -713,6 +723,10 @@
 					<param
 					name="caseNumber"
 					value="22">
+					</param>
+					<param
+					name="dummyString"
+					value="">
 					</param>
 					<param
 					name="trajectAssessmentInformation"
@@ -867,6 +881,16 @@
 			id="99662edd-33d5-47ba-b495-ace7af131f41"
 			name="ValidateValuesInTable">
 			</smartfoldernode>
+			<smartfoldernode
+			id="9d0f3272-1dd5-46a7-9895-2e7160b20845"
+			name="SetStateRegistrationAssembly">
+				<parameters>
+					<param
+					name="stateRA"
+					value="@RA">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<setup
 			id="9dfcce2d-e730-48ce-83d3-18eb87f2f8db"
 			name="setup">
@@ -899,6 +923,12 @@
 			id="a53d4cb6-89e1-429d-849b-274cfa2a0b13"
 			name="ValidateAssemblyTraject">
 			</smartfoldernode>
+			<testmodule
+			id="a8b0630e-915d-4e61-acdf-fb2f7510213d"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
+			</testmodule>
 			<testmodule
 			id="aa126c54-6236-4766-a21f-79ce74a31f9d"
 			name="CreateScreenshotDocumentView"
@@ -1106,6 +1136,7 @@
 			name="ReadDataCategoryBoundariesTraject">
 			</smartfoldernode>
 			<testmodule
+			enabled="False"
 			id="d0fa2ab9-84a2-4c37-87a3-cd1406436246"
 			name="MigrateAllFilesInFolderUsingCommandLineTool"
 			ref="d8e46690-d19a-45ce-9514-4e8329f75c83"
@@ -1179,6 +1210,7 @@
 			name="CloseAssemblyMap">
 			</smartfoldernode>
 			<testmodule
+			enabled="False"
 			id="d440a6b3-9361-43a7-8f6b-12dacee40aac"
 			name="DeleteAllSearchFilteredFiles"
 			ref="bbc504b6-a274-49fd-a91c-60ae313dd965"
@@ -1336,12 +1368,6 @@
 			name="ValidateValuesAssessment">
 			</smartfoldernode>
 			<testmodule
-			id="ea74d00e-7f81-47ec-a13e-1f2adc96bc16"
-			name="CreateScreenshotEntireDesktop"
-			ref="0f7ebadb-0285-4449-9422-0cd6fde5bf4d"
-			type="Recording">
-			</testmodule>
-			<testmodule
 			id="ed2708e1-b812-43de-ac54-16a9c0cd2b7a"
 			name="CreateScreenshotDocumentView"
 			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
@@ -1353,7 +1379,7 @@
 				<parameters>
 					<param
 					name="fileToOpen"
-					value="Project_assemblage_22.risk">
+					value="X:\script22\currentRelease\Project_assemblage_22.risk">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -1464,12 +1490,20 @@
 					variablename="trajectAssessmentInformationString">
 					</var>
 					<var
-					dataname="group"
+					dataname="groupFM"
 					datasourceid="a3c4f19e-1fe0-492d-bccc-4896a68bce52"
 					variableid="7d468079-12d4-43ac-bd2c-bf6ec1396763"
 					variablename="groupFM">
 					</var>
 				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="group"
+					datasourceid="a3c4f19e-1fe0-492d-bccc-4896a68bce52"
+					variableid="7d468079-12d4-43ac-bd2c-bf6ec1396763"
+					variablename="groupFM">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="ff03a5cc-e1be-4180-aa76-564a9ea7f3b2"
@@ -1483,14 +1517,6 @@
 				<testcase
 				id="6754469b-6bef-4898-a3ce-f0500c72e37b"
 				name="Script22">
-					<testcase
-					id="65fcf8c4-29ad-4f7f-8666-3a04384f7fc9"
-					name="TakeScreenshotOfDesktop">
-						<testmodule
-						id="ea74d00e-7f81-47ec-a13e-1f2adc96bc16"
-						name="CreateScreenshotEntireDesktop">
-						</testmodule>
-					</testcase>
 					<testcase
 					id="78337b07-06ac-4efb-b70c-3605a183e682"
 					name="script22_Toetsoordelen_en_veiligheidsoordeel_bepalen">
@@ -1520,6 +1546,18 @@
 							<testmodule
 							id="35380001-4b35-4c3c-87ed-7fcde1d43f39"
 							name="OpenProject">
+							</testmodule>
+							<testmodule
+							id="a8b0630e-915d-4e61-acdf-fb2f7510213d"
+							name="CloseViewCentralPanelWithFocus">
+							</testmodule>
+						</smartfoldernode>
+						<smartfoldernode
+						id="9d0f3272-1dd5-46a7-9895-2e7160b20845"
+						name="SetStateRegistrationAssembly">
+							<testmodule
+							id="13af742f-f224-47b3-b328-1476d14c8189"
+							name="SelectState">
 							</testmodule>
 						</smartfoldernode>
 						<smartfoldernode
@@ -1629,7 +1667,7 @@
 								name="ReadCombinedAssessmentInformationForFM">
 									<testmodule
 									id="3d721b10-75d5-4d53-8072-e2478d23dc82"
-									name="ReadCombinedAssessmentInformationFMFromResultView">
+									name="ReadResultsforFMFromResultView">
 									</testmodule>
 								</smartfoldernode>
 								<smartfoldernode
@@ -2030,7 +2068,7 @@
 	<datasources>
 		<DataSource
 		id="a3c4f19e-1fe0-492d-bccc-4896a68bce52"
-		lastknownrowcount="5"
+		lastknownrowcount="6"
 		name="script22_a_LoopFMs"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -2041,13 +2079,13 @@
 					pathToResultItem
 				</column>
 				<column>
-					pathToReferenceCSVFile
-				</column>
-				<column>
 					pathToVakindelingInProjectExplorer
 				</column>
 				<column>
-					group
+					pathToReferenceCSVFile
+				</column>
+				<column>
+					groupFM
 				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
@@ -2061,13 +2099,13 @@
 						pathToResultItem
 					</th>
 					<th>
-						pathToReferenceCSVFile
-					</th>
-					<th>
 						pathToVakindelingInProjectExplorer
 					</th>
 					<th>
-						group
+						pathToReferenceCSVFile
+					</th>
+					<th>
+						groupFM
 					</th>
 				</tr>
 				<tr>
@@ -2075,30 +2113,13 @@
 						STPH
 					</td>
 					<td>
-						Traject 50-1&gt;Dijken en dammen - Piping&gt;Oordeel&gt;Resultaat
+						@TR&gt;@GF&gt;@STPH&gt;Oordeel&gt;Resultaat
+					</td>
+					<td>
+						@TR&gt;@GF&gt;@STPH&gt;Invoer&gt;Vakindeling
 					</td>
 					<td>
 						X:\script22\reference\Traject_50-1_Dijken_en_dammen_-_Piping_Oordeel_Resultaat.csv
-					</td>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Piping&gt;Invoer&gt;Vakindeling
-					</td>
-					<td>
-						2
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEKB
-					</td>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Oordeel&gt;Resultaat
-					</td>
-					<td>
-						X:\script22\reference\Traject_50-1_Dijken_en_dammen_-_Grasbekleding_erosie_kruin_en_binnentalud_Oordeel_Resultaat.csv
-					</td>
-					<td>
-						Traject 50-1&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Invoer&gt;Vakindeling
 					</td>
 					<td>
 						1
@@ -2106,33 +2127,33 @@
 				</tr>
 				<tr>
 					<td>
-						STMI
+						GEKB
 					</td>
 					<td>
-						Traject 50-1&gt;Dijken en dammen - Microstabiliteit&gt;Oordeel&gt;Resultaat
+						@TR&gt;@GF&gt;@GEKB&gt;Oordeel&gt;Resultaat
 					</td>
 					<td>
-						X:\script22\reference\Traject_50-1_Dijken_en_dammen_-_Microstabiliteit_Oordeel_Resultaat.csv
+						@TR&gt;@GF&gt;@GEKB&gt;Invoer&gt;Vakindeling
 					</td>
 					<td>
-						Traject 50-1&gt;Dijken en dammen - Microstabiliteit&gt;Invoer&gt;Vakindeling
+						X:\script22\reference\Traject_50-1_Dijken_en_dammen_-_Grasbekleding_erosie_kruin_en_binnentalud_Oordeel_Resultaat.csv
 					</td>
 					<td>
-						4
+						2
 					</td>
 				</tr>
 				<tr>
 					<td>
-						ZST
+						STMI
 					</td>
 					<td>
-						Traject 50-1&gt;Dijken en dammen - Stabiliteit steenzetting&gt;Oordeel&gt;Resultaat
+						@TR&gt;@GF&gt;@STMI&gt;Oordeel&gt;Resultaat
 					</td>
 					<td>
-						X:\script22\reference\Traject_50-1_Dijken_en_dammen_-_Stabiliteit_steenzetting_Oordeel_Resultaat.csv
+						@TR&gt;@GF&gt;@STMI&gt;Invoer&gt;Vakindeling
 					</td>
 					<td>
-						Traject 50-1&gt;Dijken en dammen - Stabiliteit steenzetting&gt;Invoer&gt;Vakindeling
+						X:\script22\reference\Traject_50-1_Dijken_en_dammen_-_Microstabiliteit_Oordeel_Resultaat.csv
 					</td>
 					<td>
 						3
@@ -2143,16 +2164,48 @@
 						BSKW
 					</td>
 					<td>
-						Traject 50-1&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Oordeel&gt;Resultaat
+						@TR&gt;@GF&gt;@BSKW&gt;Oordeel&gt;Resultaat
+					</td>
+					<td>
+						@TR&gt;@GF&gt;@BSKW&gt;Invoer&gt;Vakindeling
 					</td>
 					<td>
 						X:\script22\reference\Traject_50-1_Kunstwerken_-_Betrouwbaarheid_sluiting_kunstwerk_Oordeel_Resultaat.csv
 					</td>
 					<td>
-						Traject 50-1&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Invoer&gt;Vakindeling
+						4
+					</td>
+				</tr>
+				<tr>
+					<td>
+						PKW
 					</td>
 					<td>
-						1
+						@TR&gt;@GF&gt;@PKW&gt;Oordeel&gt;Resultaat
+					</td>
+					<td>
+						@TR&gt;@GF&gt;@PKW&gt;Invoer&gt;Vakindeling
+					</td>
+					<td>
+					</td>
+					<td>
+						5
+					</td>
+				</tr>
+				<tr>
+					<td>
+						NIEUW
+					</td>
+					<td>
+						@TR&gt;@SF&gt;Nieuw&gt;Oordeel&gt;Resultaat
+					</td>
+					<td>
+						@TR&gt;@SF&gt;Nieuw&gt;Invoer&gt;Vakindeling
+					</td>
+					<td>
+					</td>
+					<td>
+						6
 					</td>
 				</tr>
 			</table>
@@ -2356,9 +2409,6 @@
 			id="18de10f4-0e8e-4332-abfe-35aedeaeec66">
 			</testcontainer>
 			<testcontainer
-			id="1a4bdd4f-4f87-465e-8d48-768d2657a89c">
-			</testcontainer>
-			<testcontainer
 			id="1d5b615f-13a9-4318-98e6-d190cb2a43dc">
 			</testcontainer>
 			<testcontainer
@@ -2371,9 +2421,6 @@
 			id="266c2fb7-8026-4baa-9e2d-2adb7b957ae4">
 			</testcontainer>
 			<testcontainer
-			id="26aac48b-0548-45f8-af02-60fc9d23be6e">
-			</testcontainer>
-			<testcontainer
 			id="2c40d00d-223c-4b5b-9f4b-a9bb9e226d4f">
 			</testcontainer>
 			<testcontainer
@@ -2381,9 +2428,6 @@
 			</testcontainer>
 			<testcontainer
 			id="32cb55f4-7fcb-4fd5-8e0c-b4098c0b15c7">
-			</testcontainer>
-			<testcontainer
-			id="36f9acd7-882e-4d42-ba92-d5c9c7f2a306">
 			</testcontainer>
 			<testcontainer
 			id="3bb24898-63d7-46e7-b1e7-5025e07b5305">
@@ -2396,9 +2440,6 @@
 			</testcontainer>
 			<testcontainer
 			id="64927f77-bb7f-4081-aac4-4a7bc769d194">
-			</testcontainer>
-			<testcontainer
-			id="65fcf8c4-29ad-4f7f-8666-3a04384f7fc9">
 			</testcontainer>
 			<testcontainer
 			id="6754469b-6bef-4898-a3ce-f0500c72e37b">
@@ -2444,6 +2485,9 @@
 			</testcontainer>
 			<testcontainer
 			id="99662edd-33d5-47ba-b495-ace7af131f41">
+			</testcontainer>
+			<testcontainer
+			id="9d0f3272-1dd5-46a7-9895-2e7160b20845">
 			</testcontainer>
 			<testcontainer
 			id="a1a419de-ae0e-4484-871d-4e461673f3e8">
@@ -2495,9 +2539,6 @@
 			</testcontainer>
 			<testcontainer
 			id="e37b51c6-deac-4c6f-84c2-34062e6326e3">
-			</testcontainer>
-			<testcontainer
-			id="e60ccf23-8ae5-4066-871b-2f21af1b39da">
 			</testcontainer>
 			<testcontainer
 			id="ea7240d8-47f5-43bd-b11f-b0fcebdc178d">

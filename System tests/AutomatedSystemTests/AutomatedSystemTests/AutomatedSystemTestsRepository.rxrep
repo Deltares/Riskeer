@@ -1334,10 +1334,10 @@ TkSuQmCC
 					addcaps="cell,accessible"
 					capname="table"
 					id="e1c75820-980f-411c-9ada-a9dcd59572ae"
-					name="TableVakindeling"
+					name="FMSectionsViewTable"
 					refimgid="0c3dda7b-fc8d-4d81-90cb-b69e67b32fc5"
 					searchtimeout="30000ms">
-						/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/?/?/table[@controlname='dataGridView']
+						/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'SectionsView']/?/table
 					</item>
 					<folder
 					capname="container"

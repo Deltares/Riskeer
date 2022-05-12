@@ -67,7 +67,7 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             var table = repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.AssemblySectionsView.Table.Self;
             List<double> allSubsections = new List<double>();
             allSubsections.Add(0);
-            foreach (var fmTrjAssInfo in trajectAssessmentInformation.ListFMsAssessmentInformation) {
+            foreach (var fmTrjAssInfo in trajectAssessmentInformation.ListFMsResultInformation) {
                 foreach (var section in fmTrjAssInfo.SectionList) {
                     allSubsections.Add(section.EndDistance);
                 }
@@ -77,7 +77,7 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             var rowsToIterate = table.Rows.ToList();
             var headerRow = rowsToIterate[0];
             
-            List<string> fmsToValidate = trajectAssessmentInformation.ListFMsAssessmentInformation.Select(it=>it.Label).ToList();
+            List<string> fmsToValidate = trajectAssessmentInformation.ListFMsResultInformation.Select(it=>it.Label).ToList();
             int indexSectionNumber       = GetIndex(headerRow, "Vaknummer");
             int indexDistanceStart       = GetIndex(headerRow, "van* [m]");
             int indexDistanceEnd         = GetIndex(headerRow, "tot* [m]");
@@ -105,7 +105,7 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
                 string CombinedAssessmentSectionLabel = "";
                 int worstFMLabel = 0;
                 for (int i = 0; i < fmsToValidate.Count; i++) {
-                    var currentFMAssInfo = trajectAssessmentInformation.ListFMsAssessmentInformation[i];
+                    var currentFMAssInfo = trajectAssessmentInformation.ListFMsResultInformation[i];
                     var expectedFMAssessmentLabel = GetAssessmentLabelForDistance(currentFMAssInfo, expectedDistanceMiddle);
                     if (dicAssemblyLabels[expectedFMAssessmentLabel]>worstFMLabel) {
                         worstFMLabel = dicAssemblyLabels[expectedFMAssessmentLabel];
@@ -120,7 +120,7 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
                 
                 
                 for (int i = 0; i < fmsToValidate.Count; i++) {
-                    var currentFMAssInfo = trajectAssessmentInformation.ListFMsAssessmentInformation[i];
+                    var currentFMAssInfo = trajectAssessmentInformation.ListFMsResultInformation[i];
                     var expectedFMAssessmentLabel = GetAssessmentLabelForDistance(currentFMAssInfo, expectedDistanceMiddle);
                     
                     ValidateCell(cells[indecesColumnsFMsToValidate[i]], expectedFMAssessmentLabel, "Validation assessment label FM " + fmsToValidate[i]);
@@ -137,22 +137,22 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             Validate.AreEqual(actualValue, expectedValue);
         }
         
-        private string GetAssessmentLabelForDistance(FailureMechanismAssessmentInformation fmAssInfo, double distance)
+        private string GetAssessmentLabelForDistance(FailureMechanismResultInformation fmAssInfo, double distance)
         {
             var endSections = fmAssInfo.SectionList.Select(it=>it.EndDistance).ToList();
             int index = endSections.FindIndex(it=> distance<it);
-            var label = fmAssInfo.SectionList[index].CombinedAssessmentLabel;
+            var label = fmAssInfo.SectionList[index].AssemblyGroup;
             return label;
         }
         
-        private TrajectAssessmentInformation BuildAssessmenTrajectInformation(string trajectAssessmentInformationString)
+        private TrajectResultInformation BuildAssessmenTrajectInformation(string trajectAssessmentInformationString)
         {
-            TrajectAssessmentInformation trajectAssessmentInformation;
+            TrajectResultInformation trajectAssessmentInformation;
             if (trajectAssessmentInformationString=="") {
-                trajectAssessmentInformation = new TrajectAssessmentInformation();
+                trajectAssessmentInformation = new TrajectResultInformation();
             } else {
                 var error = false;
-                trajectAssessmentInformation = JsonConvert.DeserializeObject<TrajectAssessmentInformation>(trajectAssessmentInformationString, new JsonSerializerSettings
+                trajectAssessmentInformation = JsonConvert.DeserializeObject<TrajectResultInformation>(trajectAssessmentInformationString, new JsonSerializerSettings
                 {
                     Error = (s, e) =>
                     {

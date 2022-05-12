@@ -77,56 +77,30 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             Keyboard.DefaultKeyPressTime = 0;
             Delay.SpeedFactor = 0;
             
-            var trajectAssessmentInformation = BuildAssessmenTrajectInformation(trajectAssessmentInformationString);
-            var repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
-            var tableSectionsDivisions = repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.TableVakindeling;
-
-            var rowsData = tableSectionsDivisions.Rows;
-            
-            // Indeces of the properties of the section.
-            Row rowHeader = rowsData[0];
-            int indexName = rowHeader.Cells.ToList().FindIndex(c => c.Element.GetAttributeValueText("AccessibleValue")=="Vaknaam");
-            int indexStartDistance = rowHeader.Cells.ToList().FindIndex(c => c.Element.GetAttributeValueText("AccessibleValue")=="Metrering van* [m]");
-            int indexEndDistance = rowHeader.Cells.ToList().FindIndex(c => c.Element.GetAttributeValueText("AccessibleValue")=="Metrering tot* [m]");
-            int indexLength = rowHeader.Cells.ToList().FindIndex(c => c.Element.GetAttributeValueText("AccessibleValue")=="Lengte* [m]");
-            int indexNVak = rowHeader.Cells.ToList().FindIndex(c => c.Element.GetAttributeValueText("AccessibleValue")=="Nvak* [-]");
-            
-            rowsData.RemoveAt(0);
-            FailureMechanismAssessmentInformation fmAssessmentInformation = 
-                new FailureMechanismAssessmentInformation();
+            var  fmAssessmentInformation = new FailureMechanismResultInformation();
             fmAssessmentInformation.Label = labelFM;
             fmAssessmentInformation.Group = Int32.Parse(groupFM);
-            foreach (var row in rowsData) {
-                var cellsDataInRow = row.Cells.ToList();
-                Section section = new Section();
-                cellsDataInRow[indexName].Select();
-                section.Name = cellsDataInRow[indexName].Element.GetAttributeValueText("AccessibleValue");
-                cellsDataInRow[indexStartDistance].Select();
-                section.StartDistance = Double.Parse(cellsDataInRow[indexStartDistance].Element.GetAttributeValueText("AccessibleValue"));
-                cellsDataInRow[indexEndDistance].Select();
-                section.EndDistance = Double.Parse(cellsDataInRow[indexEndDistance].Element.GetAttributeValueText("AccessibleValue"));
-                cellsDataInRow[indexLength].Select();
-                section.Length = Double.Parse(cellsDataInRow[indexLength].Element.GetAttributeValueText("AccessibleValue"));
-                if (indexNVak!=-1) {
-                    cellsDataInRow[indexNVak].Select();
-                    section.Nvak = Double.Parse(cellsDataInRow[indexNVak].Element.GetAttributeValueText("AccessibleValue"));
-                }
-                fmAssessmentInformation.SectionList.Add(section);
+
+            var repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
+            var rowsSectionsDivisions = repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FMSectionsViewTable.Rows;
+            var sectionIndeces = GetColumnIndecesSectionsView(rowsSectionsDivisions[0]);
+            rowsSectionsDivisions.RemoveAt(0);
+            foreach (var row in rowsSectionsDivisions) {
+                fmAssessmentInformation.SectionList.Add(CreateSectionFromRow(row, sectionIndeces));
             }
-            // Information for this FM not existing yet
-            trajectAssessmentInformation.ListFMsAssessmentInformation.Add(fmAssessmentInformation);
+            var trajectAssessmentInformation = BuildAssessmenTrajectInformation(trajectAssessmentInformationString);
+            trajectAssessmentInformation.ListFMsResultInformation.Add(fmAssessmentInformation);
             trajectAssessmentInformationString = JsonConvert.SerializeObject(trajectAssessmentInformation, Formatting.Indented);
-            Report.Log(ReportLevel.Info, "Done!");
         }
         
-        private TrajectAssessmentInformation BuildAssessmenTrajectInformation(string trajectAssessmentInformationString)
+        private TrajectResultInformation BuildAssessmenTrajectInformation(string trajectAssessmentInformationString)
         {
-            TrajectAssessmentInformation trajectAssessmentInformation;
+            TrajectResultInformation trajectAssessmentInformation;
             if (trajectAssessmentInformationString=="") {
-                trajectAssessmentInformation = new TrajectAssessmentInformation();
+                trajectAssessmentInformation = new TrajectResultInformation();
             } else {
                 var error = false;
-                trajectAssessmentInformation = JsonConvert.DeserializeObject<TrajectAssessmentInformation>(trajectAssessmentInformationString, new JsonSerializerSettings
+                trajectAssessmentInformation = JsonConvert.DeserializeObject<TrajectResultInformation>(trajectAssessmentInformationString, new JsonSerializerSettings
                 {
                     Error = (s, e) =>
                     {
@@ -143,6 +117,46 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             }
             return trajectAssessmentInformation;
         }
+        
+        private int GetColumnIndex(Row headerRow, string textInHeader)
+        {
+            return headerRow.Cells.ToList().FindIndex(c => c.Element.GetAttributeValueText("AccessibleValue") == textInHeader);
+        }
+        
+        private string GetAccValue(Cell cell)
+        {
+            cell.Select();
+            return cell.Element.GetAttributeValueText("AccessibleValue");
+        }
+        
+        private double GetDoubleAccValue(Cell cell)
+        {
+            return Double.Parse(GetAccValue(cell));
+        }
+        
+        private Section CreateSectionFromRow(Row row, List<int> sectionIndeces)
+        {
+            var cellsInRow = row.Cells.ToList();
+            Section section = new Section();
+            section.Name = GetAccValue(cellsInRow[sectionIndeces[0]]);
+            section.StartDistance = GetDoubleAccValue(cellsInRow[sectionIndeces[1]]);
+            section.EndDistance = GetDoubleAccValue(cellsInRow[sectionIndeces[2]]);
+            section.Length = GetDoubleAccValue(cellsInRow[sectionIndeces[3]]);
+            if (sectionIndeces[4]!=-1) {
+                section.Nvak = GetDoubleAccValue(cellsInRow[sectionIndeces[4]]);
+            }
+            return section;
+        }
+        
+        private List<int> GetColumnIndecesSectionsView(Row headerRow)
+        {
+            int indexName = GetColumnIndex(headerRow, "Vaknaam");
+            int indexStartDistance = GetColumnIndex(headerRow, "Metrering van* [m]");
+            int indexEndDistance = GetColumnIndex(headerRow, "Metrering tot* [m]");
+            int indexLength = GetColumnIndex(headerRow, "Lengte* [m]");
+            int indexNVak = GetColumnIndex(headerRow, "Nvak* [-]");
+            return new List<int>{indexName, indexStartDistance, indexEndDistance, indexLength, indexNVak};
+        }
     }
     
     
@@ -153,20 +167,20 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
     {
         public Section()
         {
-            this.CombinedAssessmentProbability ="-";
-            this.CombinedAssessmentLabel = "";
+            this.CalculationFailureProbPerSection ="-";
+            this.AssemblyGroup = "";
             this.Nvak = Double.NaN;
         }
         
         /// <summary>
         /// Label for the combined assessment of the section (Iv, IIv, IIIv, ...)
         /// </summary>
-        public string CombinedAssessmentLabel {get; set;}
+        public string AssemblyGroup {get; set;}
         
         /// <summary>
         /// Probability associated to the combined assessment of the section (it exists for some FMs).
         /// </summary>
-        public string CombinedAssessmentProbability {get; set;}
+        public string CalculationFailureProbPerSection {get; set;}
         
         /// <summary>
         /// The name of the section (vak).
@@ -195,12 +209,12 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
         
     }
     
-    public class FailureMechanismAssessmentInformation
+    public class FailureMechanismResultInformation
     {
-        public FailureMechanismAssessmentInformation()
+        public FailureMechanismResultInformation()
         {
             this.SectionList = new List<Section>();
-            this.AssessmentProbability = "-";
+            this.FailureProbability = "-";
         }
         
         /// <summary>
@@ -216,22 +230,22 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
         /// <summary>
         /// The label for the assessment of this FM regarding the entire traject (It, IIt, ..., VIIt)
         /// </summary>
-        public string AssessmentLabel {get; set;}
+        public string AssemblyGroup {get; set;}
         
         /// <summary>
         /// The probability assigned to the entire traject assessment, if this value exists.
         /// </summary>
-        public string AssessmentProbability {get; set;}
+        public string FailureProbability {get; set;}
         
         public List<Section> SectionList {get; set;}
     }
     
-    public class TrajectAssessmentInformation
+    public class TrajectResultInformation
     {
-        public TrajectAssessmentInformation()
+        public TrajectResultInformation()
         {
-            ListFMsAssessmentInformation = new List<FailureMechanismAssessmentInformation>();
+            ListFMsResultInformation = new List<FailureMechanismResultInformation>();
         }
-        public List<FailureMechanismAssessmentInformation> ListFMsAssessmentInformation {get; set;}
+        public List<FailureMechanismResultInformation> ListFMsResultInformation {get; set;}
     }
 }

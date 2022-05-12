@@ -537,7 +537,7 @@
       <id>36c7adeb-dd3d-478a-a616-7bda4854a2dd</id>
       <BoundTo>764f9833-0f5f-4be1-ba5b-275a72cc032e</BoundTo>
     </Compile>
-    <Compile Include="Modules\ActionsDocumentView\ReadCombinedAssessmentInformationFMFromResultView.cs">
+    <Compile Include="Modules\ActionsDocumentView\ReadResultsforFMFromResultView.cs">
       <id>93fc40b2-25f2-4a04-9470-ea76f13116f0</id>
     </Compile>
     <Compile Include="Modules\ActionsDocumentView\ReadDataCategoryBoundariesTrajectView.cs">
