@@ -127,11 +127,12 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             {
                 double productInverseFailureProbability = 1.0;
                 foreach (var section in fmResultInfo.SectionList) {
-                    double denomFailureProb = Double.Parse(section.CalculationFailureProbPerSection.Substring(2).ToNoGroupSeparator());
-                    productInverseFailureProbability = productInverseFailureProbability * (1.0 - 1.0/denomFailureProb);
+                    var denominator = section.CalculationFailureProbPerSection.Substring(2).ToNoGroupSeparator();
+                    if (denominator!="Oneindig") {
+                        productInverseFailureProbability = productInverseFailureProbability * (1.0 - 1.0/Double.Parse(denominator));
+                    }
                 }
                 double failureProbFMMech1 = 1.0-productInverseFailureProbability;
-                var kkDelaVaca = 1/failureProbFMMech1;
                 return failureProbFMMech1;
             }
             
@@ -139,9 +140,9 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             {
                 var maxPdsn = fmResultInfo.SectionList.Select(sc=>sc.CalculationFailureProbPerProfile).
                                        Select(fraction=>fraction.Substring(2).ToNoGroupSeparator()).
+                    Where(denom=>denom!="Oneindig").
                     Select(denom=> 1.0/Double.Parse(denom)).Max();
-                var probMechanism2 = maxPdsn*Double.Parse(N_FM.ToInvariantCultureDecimalSeparator());
-                var kk = 1/probMechanism2;
+                var probMechanism2 = maxPdsn*Double.Parse(N_FM);
                 return probMechanism2;
             }
 

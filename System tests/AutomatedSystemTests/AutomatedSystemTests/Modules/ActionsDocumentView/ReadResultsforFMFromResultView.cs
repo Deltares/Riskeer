@@ -104,10 +104,19 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
                     currentFMResultInformation.SectionList[rowIndex].CalculationFailureProbPerProfile = GetAccValue(cellsDataInRow[sectionColumnIndeces[0]]);
                 } else {
                     var denominatorCalculationFailureProbPerSection = GetAccValue(cellsDataInRow[sectionColumnIndeces[1]]).ToNoGroupSeparator().Substring(2);
-                    var numericCalculationFailureProbPerSection = 1.0 / Double.Parse(denominatorCalculationFailureProbPerSection);
-                    var numericNParemeterFM = Double.Parse(N_FM); //.ToInvariantCultureDecimalSeparator());
-                    var numericCalculationFailureProbPerProfile = numericCalculationFailureProbPerSection * numericNParemeterFM;
-                    currentFMResultInformation.SectionList[rowIndex].CalculationFailureProbPerProfile = numericCalculationFailureProbPerProfile.ToString();
+                    double numericCalculationFailureProbPerSection;
+                    string fractionCalculationFailureProbPerProfile;
+                    if (denominatorCalculationFailureProbPerSection=="Oneindig") {
+                        fractionCalculationFailureProbPerProfile = "1/Oneindig";
+                    } else {
+                        numericCalculationFailureProbPerSection = 1.0 / Double.Parse(denominatorCalculationFailureProbPerSection);
+                        var numericNParemeterFM = Double.Parse(N_FM);
+                        var numericCalculationFailureProbPerProfile = numericCalculationFailureProbPerSection * numericNParemeterFM;
+                        fractionCalculationFailureProbPerProfile = "1/" + Convert.ToInt32(1.0/numericCalculationFailureProbPerProfile).ToString();
+                    }
+                    
+                    
+                    currentFMResultInformation.SectionList[rowIndex].CalculationFailureProbPerProfile = fractionCalculationFailureProbPerProfile;
                 }
                 
 
