@@ -47,16 +47,6 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             set { _labelFM = value; }
         }
         
-        
-        string _groupFM = "";
-        [TestVariable("7d468079-12d4-43ac-bd2c-bf6ec1396763")]
-        public string groupFM
-        {
-            get { return _groupFM; }
-            set { _groupFM = value; }
-        }
-        
-        
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
@@ -79,7 +69,6 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             
             var  fmAssessmentInformation = new FailureMechanismResultInformation();
             fmAssessmentInformation.Label = labelFM;
-            fmAssessmentInformation.Group = Int32.Parse(groupFM);
 
             var repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
             var rowsSectionsDivisions = repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FMSectionsViewTable.Rows;
@@ -178,6 +167,11 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
         public string AssemblyGroup {get; set;}
         
         /// <summary>
+        /// Probability associated to the combined assessment of the profile (it exists for some FMs).
+        /// </summary>
+        public string CalculationFailureProbPerProfile {get; set;}
+
+        /// <summary>
         /// Probability associated to the combined assessment of the section (it exists for some FMs).
         /// </summary>
         public string CalculationFailureProbPerSection {get; set;}
@@ -221,11 +215,6 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
         /// Label of the FM
         /// </summary>
         public string Label{get; set;}
-        
-        /// <summary>
-        /// The group to which the FM belongs.
-        /// </summary>
-        public int Group {get; set;}
         
         /// <summary>
         /// The label for the assessment of this FM regarding the entire traject (It, IIt, ..., VIIt)

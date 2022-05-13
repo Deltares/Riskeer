@@ -9,6 +9,26 @@
 			type="Recording">
 			</testmodule>
 			<testmodule
+			id="011ce58e-75e3-473c-b0a5-93de77d449b8"
+			name="GetValueParameterInPropertiesPanelGivenPath"
+			ref="c77b1704-aea4-41db-90c0-a00bacb9cffc"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathToNParameterInPP"
+					datasourceid="d39e3b0f-5ec5-44a5-bc75-7122911255e1"
+					variableid="717108e0-7b86-418f-9953-a968ec4f5bef"
+					variablename="pathToElementInPropertiesPanel">
+					</var>
+					<var
+					dataname="N_FM"
+					datasourceid="7bcf6b46-895c-4012-8c96-0106901f96a7"
+					variableid="b8b2d988-b9c5-4a36-b47d-a548cdc8bb5e"
+					variablename="valueOfElement">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="03c9d707-4503-40f1-86b2-4c85642999de"
 			name="CloseViewCentralPanelWithFocus"
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
@@ -410,16 +430,28 @@
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="trajectAssessmentInformation"
-					datasourceid="78337b07-06ac-4efb-b70c-3605a183e682"
-					variableid="9ac12269-a27c-4f0c-9b29-11857490bb77"
-					variablename="trajectAssessmentInformationString">
+					dataname="ApplyLengthEffect"
+					datasourceid="7bcf6b46-895c-4012-8c96-0106901f96a7"
+					variableid="53f3fadb-213a-4cc3-9189-528011840720"
+					variablename="ApplyLengthEffect">
+					</var>
+					<var
+					dataname="N_FM"
+					datasourceid="7bcf6b46-895c-4012-8c96-0106901f96a7"
+					variableid="155dec49-5354-46b4-a93e-76f2d8c8f67d"
+					variablename="N_FM">
 					</var>
 					<var
 					dataname="fmLabel"
 					datasourceid="a3c4f19e-1fe0-492d-bccc-4896a68bce52"
 					variableid="37288c18-36a9-4f7e-840d-7627a311f6a8"
 					variablename="labelFM">
+					</var>
+					<var
+					dataname="trajectAssessmentInformation"
+					datasourceid="78337b07-06ac-4efb-b70c-3605a183e682"
+					variableid="9ac12269-a27c-4f0c-9b29-11857490bb77"
+					variablename="trajectAssessmentInformationString">
 					</var>
 				</databinding>
 			</testmodule>
@@ -488,6 +520,26 @@
 					datasourceid="78337b07-06ac-4efb-b70c-3605a183e682"
 					variableid="5dda9c28-3af1-49bc-b8d6-81c994d32f4d"
 					variablename="trajectAssessmentInformationString">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="5821b973-681c-432c-9fdd-de9b86d6860d"
+			name="GetValueParameterInPropertiesPanelGivenPath"
+			ref="c77b1704-aea4-41db-90c0-a00bacb9cffc"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathToApplyLengthEffectInPP"
+					datasourceid="d39e3b0f-5ec5-44a5-bc75-7122911255e1"
+					variableid="717108e0-7b86-418f-9953-a968ec4f5bef"
+					variablename="pathToElementInPropertiesPanel">
+					</var>
+					<var
+					dataname="ApplyLengthEffect"
+					datasourceid="7bcf6b46-895c-4012-8c96-0106901f96a7"
+					variableid="b8b2d988-b9c5-4a36-b47d-a548cdc8bb5e"
+					variablename="valueOfElement">
 					</var>
 				</databinding>
 			</testmodule>
@@ -773,6 +825,16 @@
 			errorbehavior="ContinueNextIteration"
 			id="7bcf6b46-895c-4012-8c96-0106901f96a7"
 			name="LoopFms">
+				<parameters>
+					<param
+					name="N_FM"
+					value="">
+					</param>
+					<param
+					name="ApplyLengthEffect"
+					value="">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="7eccdf4f-37bd-422c-bd8e-408b77ed86b2"
@@ -915,6 +977,18 @@
 					variableid="d0d431e3-1478-40d4-b8fa-f84bbc8597e7"
 					variablename="labelFM">
 					</var>
+					<var
+					dataname="N_FM"
+					datasourceid="7bcf6b46-895c-4012-8c96-0106901f96a7"
+					variableid="197f7939-9789-4254-aca0-d93dded44192"
+					variablename="N_FM">
+					</var>
+					<var
+					dataname="ApplyLengthEffect"
+					datasourceid="7bcf6b46-895c-4012-8c96-0106901f96a7"
+					variableid="f6beed93-c034-4010-b334-8d111679a612"
+					variablename="ApplyLengthEffect">
+					</var>
 				</databinding>
 			</testmodule>
 			<smartfoldernode
@@ -941,6 +1015,20 @@
 			id="a1a419de-ae0e-4484-871d-4e461673f3e8"
 			name="TakeScreenshot">
 			</smartfoldernode>
+			<testmodule
+			id="a1dbbd34-e5dd-4891-af0f-0043ce5e916b"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToFM"
+					datasourceid="a3c4f19e-1fe0-492d-bccc-4896a68bce52"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="a2727582-55dc-4810-b276-f4c237c42e0b"
 			name="ReadCombinedAssessmentInformationForFM">
@@ -1245,6 +1333,20 @@
 			id="d28c5d6f-c8ab-4c7a-b262-f3ae3e32fc47"
 			name="CloseAssemblyMap">
 			</smartfoldernode>
+			<smartfoldernode
+			id="d39e3b0f-5ec5-44a5-bc75-7122911255e1"
+			name="ReadFMInformationRelevantForFMFailureProbability">
+				<parameters>
+					<param
+					name="pathToNParameterInPP"
+					value="Lengte-effect>N">
+					</param>
+					<param
+					name="pathToApplyLengthEffectInPP"
+					value="Lengte-effect>Toepassen lengte-effect binnen vak">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			enabled="False"
 			id="d440a6b3-9361-43a7-8f6b-12dacee40aac"
@@ -1526,16 +1628,10 @@
 					variableid="b4271fc1-5724-4698-85e2-3434ee79f78f"
 					variablename="trajectAssessmentInformationString">
 					</var>
-					<var
-					dataname="groupFM"
-					datasourceid="a3c4f19e-1fe0-492d-bccc-4896a68bce52"
-					variableid="7d468079-12d4-43ac-bd2c-bf6ec1396763"
-					variablename="groupFM">
-					</var>
 				</databinding>
 				<missingdatabinding>
 					<var
-					dataname="group"
+					dataname="groupFM"
 					datasourceid="a3c4f19e-1fe0-492d-bccc-4896a68bce52"
 					variableid="7d468079-12d4-43ac-bd2c-bf6ec1396763"
 					variablename="groupFM">
@@ -1603,6 +1699,22 @@
 							<smartfoldernode
 							id="7bcf6b46-895c-4012-8c96-0106901f96a7"
 							name="LoopFms">
+								<smartfoldernode
+								id="d39e3b0f-5ec5-44a5-bc75-7122911255e1"
+								name="ReadFMInformationRelevantForFMFailureProbability">
+									<testmodule
+									id="a1dbbd34-e5dd-4891-af0f-0043ce5e916b"
+									name="SelectGenericItemInProjectExplorer">
+									</testmodule>
+									<testmodule
+									id="011ce58e-75e3-473c-b0a5-93de77d449b8"
+									name="GetValueParameterInPropertiesPanelGivenPath">
+									</testmodule>
+									<testmodule
+									id="5821b973-681c-432c-9fdd-de9b86d6860d"
+									name="GetValueParameterInPropertiesPanelGivenPath">
+									</testmodule>
+								</smartfoldernode>
 								<smartfoldernode
 								id="2c40d00d-223c-4b5b-9f4b-a9bb9e226d4f"
 								name="ReadDivisionInSections">
@@ -2109,6 +2221,9 @@
 					fmLabel
 				</column>
 				<column>
+					pathToFM
+				</column>
+				<column>
 					pathToResultItem
 				</column>
 				<column>
@@ -2116,9 +2231,6 @@
 				</column>
 				<column>
 					pathToReferenceCSVFile
-				</column>
-				<column>
-					groupFM
 				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
@@ -2129,6 +2241,9 @@
 						fmLabel
 					</th>
 					<th>
+						pathToFM
+					</th>
+					<th>
 						pathToResultItem
 					</th>
 					<th>
@@ -2137,13 +2252,13 @@
 					<th>
 						pathToReferenceCSVFile
 					</th>
-					<th>
-						groupFM
-					</th>
 				</tr>
 				<tr>
 					<td>
 						STPH
+					</td>
+					<td>
+						@TR&gt;@GF&gt;@STPH
 					</td>
 					<td>
 						@TR&gt;@GF&gt;@STPH&gt;Oordeel&gt;Resultaat
@@ -2154,13 +2269,13 @@
 					<td>
 						X:\script22\reference\@TR_@GF_@STPH_Oordeel_Resultaat.csv
 					</td>
-					<td>
-						1
-					</td>
 				</tr>
 				<tr>
 					<td>
 						GEKB
+					</td>
+					<td>
+						@TR&gt;@GF&gt;@GEKB
 					</td>
 					<td>
 						@TR&gt;@GF&gt;@GEKB&gt;Oordeel&gt;Resultaat
@@ -2171,13 +2286,13 @@
 					<td>
 						X:\script22\reference\@TR_@GF_@GEKB_Oordeel_Resultaat.csv
 					</td>
-					<td>
-						2
-					</td>
 				</tr>
 				<tr>
 					<td>
 						STMI
+					</td>
+					<td>
+						@TR&gt;@GF&gt;@STMI
 					</td>
 					<td>
 						@TR&gt;@GF&gt;@STMI&gt;Oordeel&gt;Resultaat
@@ -2188,13 +2303,13 @@
 					<td>
 						X:\script22\reference\@TR_@GF_@STMI_Oordeel_Resultaat.csv
 					</td>
-					<td>
-						3
-					</td>
 				</tr>
 				<tr>
 					<td>
 						BSKW
+					</td>
+					<td>
+						@TR&gt;@GF&gt;@BSKW
 					</td>
 					<td>
 						@TR&gt;@GF&gt;@BSKW&gt;Oordeel&gt;Resultaat
@@ -2205,13 +2320,13 @@
 					<td>
 						X:\script22\reference\@TR_@GF_@BSKW_Oordeel_Resultaat.csv
 					</td>
-					<td>
-						4
-					</td>
 				</tr>
 				<tr>
 					<td>
 						PKW
+					</td>
+					<td>
+						@TR&gt;@GF&gt;@PKW
 					</td>
 					<td>
 						@TR&gt;@GF&gt;@PKW&gt;Oordeel&gt;Resultaat
@@ -2222,13 +2337,13 @@
 					<td>
 						X:\script22\reference\@TR_@GF_@PKW_Oordeel_Resultaat.csv
 					</td>
-					<td>
-						5
-					</td>
 				</tr>
 				<tr>
 					<td>
 						NIEUW
+					</td>
+					<td>
+						@TR&gt;@SF&gt;Nieuw
 					</td>
 					<td>
 						@TR&gt;@SF&gt;Nieuw&gt;Oordeel&gt;Resultaat
@@ -2238,9 +2353,6 @@
 					</td>
 					<td>
 						X:\script22\reference\@TR_@SF_Nieuw_Oordeel_Resultaat.csv
-					</td>
-					<td>
-						6
 					</td>
 				</tr>
 			</table>
@@ -2472,6 +2584,9 @@
 			</testcontainer>
 			<testcontainer
 			id="c2dae628-5195-4cc9-8348-296f5a64bbce">
+			</testcontainer>
+			<testcontainer
+			id="d39e3b0f-5ec5-44a5-bc75-7122911255e1">
 			</testcontainer>
 			<testcontainer
 			id="d601846d-0fa3-4dbc-833d-8685dbcea7f2">

@@ -29,6 +29,23 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
     public class ValidateFailureProbabilityFMInResultView : ITestModule
     {
         
+        string _N_FM = "";
+        [TestVariable("197f7939-9789-4254-aca0-d93dded44192")]
+        public string N_FM
+        {
+            get { return _N_FM; }
+            set { _N_FM = value; }
+        }
+        
+        
+        string _ApplyLengthEffect = "";
+        [TestVariable("f6beed93-c034-4010-b334-8d111679a612")]
+        public string ApplyLengthEffect
+        {
+            get { return _ApplyLengthEffect; }
+            set { _ApplyLengthEffect = value; }
+        }
+        
         
         string _labelFM = "";
         [TestVariable("d0d431e3-1478-40d4-b8fa-f84bbc8597e7")]
@@ -67,9 +84,12 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             Delay.SpeedFactor = 0;
             var trajectResultInformation = BuildAssessmenTrajectInformation(trajectAssessmentInformationString);
             var currentFMResultInformation = trajectResultInformation.ListFMsResultInformation.Where(fmItem=>fmItem.Label==labelFM).FirstOrDefault();
-            var repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
-            var expectedFailureProbFM = CalculateExpectedFailureProbFM(currentFMResultInformation);
-            var actualFailureProbFM = repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.FailureProbabilityFM.TextValue;
+            var actualFailureProbFM = currentFMResultInformation.FailureProbability.ToNoGroupSeparator();
+            var expectedDoubleFailureProbFM = CalculateExpectedFailureProbFM(currentFMResultInformation);
+            var expectedDenominatorFractionFailureProbFM = Convert.ToInt32(1.0/expectedDoubleFailureProbFM);
+            var expectedFailureProbFM  = "1/" + expectedDenominatorFractionFailureProbFM.ToString();
+            var comparison = actualFailureProbFM == expectedFailureProbFM;
+            
 
         }
         
@@ -98,9 +118,9 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             return trajectAssessmentInformation;
         }
             
-            private string CalculateExpectedFailureProbFM(FailureMechanismResultInformation fmResultInfo)
+            private double CalculateExpectedFailureProbFM(FailureMechanismResultInformation fmResultInfo)
             {
-                return Math.Min(PCombin1(fmResultInfo), PCombin2(fmResultInfo)).ToString();
+                return Math.Min(PCombin1(fmResultInfo), PCombin2(fmResultInfo));
             }
             
             private double PCombin1(FailureMechanismResultInformation fmResultInfo)
@@ -117,7 +137,12 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             
             private double PCombin2(FailureMechanismResultInformation fmResultInfo)
             {
-                return 1.0;
+                var maxPdsn = fmResultInfo.SectionList.Select(sc=>sc.CalculationFailureProbPerProfile).
+                                       Select(fraction=>fraction.Substring(2).ToNoGroupSeparator()).
+                    Select(denom=> 1.0/Double.Parse(denom)).Max();
+                var probMechanism2 = maxPdsn*Double.Parse(N_FM.ToInvariantCultureDecimalSeparator());
+                var kk = 1/probMechanism2;
+                return probMechanism2;
             }
 
     }

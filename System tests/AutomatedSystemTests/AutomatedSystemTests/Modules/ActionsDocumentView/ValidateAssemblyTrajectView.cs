@@ -148,15 +148,15 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
                 {"VIt",  6},
                 {"VIIt", 7}
             };
-            int maxLabel = 0;
+//            int maxLabel = 0;
             string labelGroup3and4 ="";
-            var trjAssInfoFMsGroup3and4 = trjAssInfo.ListFMsResultInformation.Where(tai=>tai.Group==3 || tai.Group==4);
-            foreach (var fmTrjAssInfo in trjAssInfoFMsGroup3and4) {
-                if (dicAssemblyLabels[fmTrjAssInfo.AssemblyGroup]>maxLabel) {
-                    maxLabel = dicAssemblyLabels[fmTrjAssInfo.AssemblyGroup];
-                    labelGroup3and4 = fmTrjAssInfo.AssemblyGroup;
-                }
-            }
+            //var trjAssInfoFMsGroup3and4 = trjAssInfo.ListFMsResultInformation.Where(tai=>tai.Group==3 || tai.Group==4);
+//            foreach (var fmTrjAssInfo in trjAssInfoFMsGroup3and4) {
+//                if (dicAssemblyLabels[fmTrjAssInfo.AssemblyGroup]>maxLabel) {
+//                    maxLabel = dicAssemblyLabels[fmTrjAssInfo.AssemblyGroup];
+//                    labelGroup3and4 = fmTrjAssInfo.AssemblyGroup;
+//                }
+//            }
             return labelGroup3and4;
         }
 
@@ -215,12 +215,12 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             double productInvProbs = 1;
             int numberFmsProb = 0;
             foreach (var assInfo in trjAssInfo.ListFMsResultInformation) {
-                if (assInfo.Group==1 || assInfo.Group==2) {
-                    string denominator = assInfo.FailureProbability.Substring(2, assInfo.FailureProbability.Length-2);
-                    double currentProb = 1/Double.Parse(denominator, currentCulture);
-                    productInvProbs*= 1- currentProb;
-                    numberFmsProb++;
-                }
+//                if (assInfo.Group==1 || assInfo.Group==2) {
+//                    string denominator = assInfo.FailureProbability.Substring(2, assInfo.FailureProbability.Length-2);
+//                    double currentProb = 1/Double.Parse(denominator, currentCulture);
+//                    productInvProbs*= 1- currentProb;
+//                    numberFmsProb++;
+//                }
             }
             if (numberFmsProb==0) {
                 return "1/Oneindig";
@@ -249,7 +249,7 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
                     Report.Info("Validation for FM = " + currentFM);
                     Report.Info("Validating group...");
                     row.Cells[indexGroup].Select();
-                    Validate.AreEqual(GetAV(row.Cells[indexGroup]), assInfo.Group.ToString());
+//                    Validate.AreEqual(GetAV(row.Cells[indexGroup]), assInfo.Group.ToString());
                     Report.Info("Validating assessment label...");
                     row.Cells[indexAssessmentLabel].Select();
                     Validate.AreEqual(GetAV(row.Cells[indexAssessmentLabel]), assInfo.AssemblyGroup);

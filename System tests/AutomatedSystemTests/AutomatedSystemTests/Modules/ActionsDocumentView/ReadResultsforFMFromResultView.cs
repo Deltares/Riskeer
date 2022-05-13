@@ -15,6 +15,7 @@ using System.Drawing;
 using System.Threading;
 using WinForms = System.Windows.Forms;
 using Newtonsoft.Json;
+using Ranorex_Automation_Helpers.UserCodeCollections;
 
 using Ranorex;
 using Ranorex.Core;
@@ -28,6 +29,23 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
     [TestModule("0D324E02-5DAE-41D7-8EE9-9352A1327E9C", ModuleType.UserCode, 1)]
     public class ReadResultsforFMFromResultView : ITestModule
     {
+        
+        string _ApplyLengthEffect = "";
+        [TestVariable("53f3fadb-213a-4cc3-9189-528011840720")]
+        public string ApplyLengthEffect
+        {
+            get { return _ApplyLengthEffect; }
+            set { _ApplyLengthEffect = value; }
+        }
+        
+        
+        string _N_FM = "";
+        [TestVariable("155dec49-5354-46b4-a93e-76f2d8c8f67d")]
+        public string N_FM
+        {
+            get { return _N_FM; }
+            set { _N_FM = value; }
+        }
         
         
         string _trajectAssessmentInformationString = "";
@@ -73,7 +91,7 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             var tableResults = repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.TableFMResultView.Self.As<Table>();
             var rowsData = tableResults.Rows;
             var rowHeader = rowsData[0];
-            var sectionIndeces = GetColumnIndecesResultView(rowsData[0]);
+            var sectionColumnIndeces = GetColumnIndecesResultView(rowsData[0]);
 
             var currentFMResultInformation = trajectResultInformation.ListFMsResultInformation.Where(fmItem=>fmItem.Label==labelFM).FirstOrDefault();
 
@@ -81,8 +99,19 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             rowsData.RemoveAt(0);
             foreach (var row in rowsData) {
                 var cellsDataInRow = row.Cells.ToList();
-                currentFMResultInformation.SectionList[rowIndex].CalculationFailureProbPerSection = GetAccValue(cellsDataInRow[sectionIndeces[0]]);
-                currentFMResultInformation.SectionList[rowIndex].AssemblyGroup = GetAccValue(cellsDataInRow[sectionIndeces[1]]);
+                currentFMResultInformation.SectionList[rowIndex].CalculationFailureProbPerSection = GetAccValue(cellsDataInRow[sectionColumnIndeces[1]]);
+                if (sectionColumnIndeces[0]!=-1) {
+                    currentFMResultInformation.SectionList[rowIndex].CalculationFailureProbPerProfile = GetAccValue(cellsDataInRow[sectionColumnIndeces[0]]);
+                } else {
+                    var denominatorCalculationFailureProbPerSection = GetAccValue(cellsDataInRow[sectionColumnIndeces[1]]).ToNoGroupSeparator().Substring(2);
+                    var numericCalculationFailureProbPerSection = 1.0 / Double.Parse(denominatorCalculationFailureProbPerSection);
+                    var numericNParemeterFM = Double.Parse(N_FM); //.ToInvariantCultureDecimalSeparator());
+                    var numericCalculationFailureProbPerProfile = numericCalculationFailureProbPerSection * numericNParemeterFM;
+                    currentFMResultInformation.SectionList[rowIndex].CalculationFailureProbPerProfile = numericCalculationFailureProbPerProfile.ToString();
+                }
+                
+
+                currentFMResultInformation.SectionList[rowIndex].AssemblyGroup = GetAccValue(cellsDataInRow[sectionColumnIndeces[2]]);
                 rowIndex++;
             }
             
@@ -124,9 +153,10 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
 
         private List<int> GetColumnIndecesResultView(Row headerRow)
         {
-            int indexCalculationFailureProb = GetColumnIndex(headerRow, "Rekenwaarde\r\nfaalkans per vak\r\n[1/jaar]");
+            int indexCalculationFailureProbPerProfile = GetColumnIndex(headerRow, "Rekenwaarde\r\nfaalkans per doorsnede\r\n[1/jaar]");
+            int indexCalculationFailureProbPerSection = GetColumnIndex(headerRow, "Rekenwaarde\r\nfaalkans per vak\r\n[1/jaar]");
             int indexAssemblyGroup = GetColumnIndex(headerRow, "Duidingsklasse");
-            return new List<int>{indexCalculationFailureProb, indexAssemblyGroup};
+            return new List<int>{indexCalculationFailureProbPerProfile, indexCalculationFailureProbPerSection, indexAssemblyGroup};
         }
 
         private string GetAccValue(Cell cell)
