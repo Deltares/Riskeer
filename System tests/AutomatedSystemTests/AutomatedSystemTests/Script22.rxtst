@@ -34,6 +34,37 @@
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
 			type="Recording">
 			</testmodule>
+			<smartfoldernode
+			id="0580c1e0-d3d2-491a-81a6-00e0513046ff"
+			name="ChangeFMFailureProbabilitiesToManual">
+				<parameters>
+					<param
+					name="typeOfFMFailureProbToSelect"
+					value="Handmatig invullen">
+					</param>
+				</parameters>
+				<conditiongroup
+				comparison="AND"
+				enabled="True">
+					<condition
+					comparison="IsNotEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="newManualFMFailureProb"
+								id="a3c4f19e-1fe0-492d-bccc-4896a68bce52">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
 			<testmodule
 			id="06ae6619-df4b-4a43-ad11-5f25a702fd38"
 			name="SelectGenericItemInProjectExplorer"
@@ -460,6 +491,20 @@
 			name="OpenAssemblyTrajectView">
 			</smartfoldernode>
 			<testmodule
+			id="40b0efd3-bb7e-41d0-abed-e65696acd72d"
+			name="SelectTypeFailureMechanismForFM"
+			ref="2a0f9871-da92-4857-a13d-e29c7dfc5043"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="typeOfFMFailureProbToSelect"
+					datasourceid="0580c1e0-d3d2-491a-81a6-00e0513046ff"
+					variableid="d82001f1-20c0-4080-a06d-9f1f8ee3a56d"
+					variablename="textItemDropDownMenu">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="40fa71e8-ea4c-4f37-812c-d76bb5e39428"
 			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
 			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
@@ -780,6 +825,40 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="78203abe-4b5e-4fde-bf5f-c9cd7c99bf42"
+			name="SaveAs"
+			ref="9195acd9-b037-4ace-80c3-0f7f64c35452"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="fileNameToSave"
+					datasourceid="7d752c96-a72c-46ff-9565-0295870509b9"
+					variableid="d40271fe-a08b-44b0-bb48-a991f40e104b"
+					variablename="fileName">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="78337b07-06ac-4efb-b70c-3605a183e682"
+					variableid="75a65d50-6a8f-4582-9f63-7c20d0f1ae9f"
+					variablename="scriptOutputPath">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="filename"
+					datasourceid="eb2fbef4-7d9e-4df6-b9be-4a6732b02d86"
+					variableid="d40271fe-a08b-44b0-bb48-a991f40e104b"
+					variablename="fileNameToSave">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="75a65d50-6a8f-4582-9f63-7c20d0f1ae9f"
+					variablename="scriptOutputPath">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testcase
 			id="78337b07-06ac-4efb-b70c-3605a183e682"
 			name="script22_Toetsoordelen_en_veiligheidsoordeel_bepalen">
@@ -833,6 +912,16 @@
 					<param
 					name="ApplyLengthEffect"
 					value="">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			id="7d752c96-a72c-46ff-9565-0295870509b9"
+			name="SaveProject">
+				<parameters>
+					<param
+					name="fileNameToSave"
+					value="script22_a_output.risk">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -1047,6 +1136,32 @@
 			id="a53d4cb6-89e1-429d-849b-274cfa2a0b13"
 			name="ValidateAssemblyTraject">
 			</smartfoldernode>
+			<testmodule
+			id="a653bc29-0636-4ea3-9108-933c1f91e5a6"
+			name="SetManualFailureProbFMInResultView"
+			ref="163c57ad-a1cd-4039-a380-1c2cd7beeda3"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="newManualFMFailureProb"
+					datasourceid="a3c4f19e-1fe0-492d-bccc-4896a68bce52"
+					variableid="e01c85f2-d050-4f92-b45a-8644027e7a1f"
+					variablename="ManualFailureProbToSet">
+					</var>
+					<var
+					dataname="fmLabel"
+					datasourceid="a3c4f19e-1fe0-492d-bccc-4896a68bce52"
+					variableid="77d535cc-7ef2-42d6-a6fc-d673b8846963"
+					variablename="currentFMLabel">
+					</var>
+					<var
+					dataname="trajectAssessmentInformation"
+					datasourceid="78337b07-06ac-4efb-b70c-3605a183e682"
+					variableid="c1e805b2-7a7a-46c0-9c90-88f20d868939"
+					variablename="trajectAssessmentInformationString">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="a8b0630e-915d-4e61-acdf-fb2f7510213d"
 			name="CloseViewCentralPanelWithFocus"
@@ -1824,6 +1939,18 @@
 									</testmodule>
 								</smartfoldernode>
 								<smartfoldernode
+								id="0580c1e0-d3d2-491a-81a6-00e0513046ff"
+								name="ChangeFMFailureProbabilitiesToManual">
+									<testmodule
+									id="40b0efd3-bb7e-41d0-abed-e65696acd72d"
+									name="SelectTypeFailureMechanismForFM">
+									</testmodule>
+									<testmodule
+									id="a653bc29-0636-4ea3-9108-933c1f91e5a6"
+									name="SetManualFailureProbFMInResultView">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
 								id="32cb55f4-7fcb-4fd5-8e0c-b4098c0b15c7"
 								name="CloseResultsView">
 									<testmodule
@@ -1831,6 +1958,14 @@
 									name="CloseViewCentralPanelWithFocus">
 									</testmodule>
 								</smartfoldernode>
+							</smartfoldernode>
+							<smartfoldernode
+							id="7d752c96-a72c-46ff-9565-0295870509b9"
+							name="SaveProject">
+								<testmodule
+								id="78203abe-4b5e-4fde-bf5f-c9cd7c99bf42"
+								name="SaveAs">
+								</testmodule>
 							</smartfoldernode>
 						</smartfoldernode>
 						<smartfoldernode
@@ -2232,6 +2367,9 @@
 				<column>
 					pathToReferenceCSVFile
 				</column>
+				<column>
+					newManualFMFailureProb
+				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
 			</maskedcolumns>
@@ -2252,6 +2390,9 @@
 					<th>
 						pathToReferenceCSVFile
 					</th>
+					<th>
+						newManualFMFailureProb
+					</th>
 				</tr>
 				<tr>
 					<td>
@@ -2268,6 +2409,8 @@
 					</td>
 					<td>
 						X:\script22\reference\@TR_@GF_@STPH_Oordeel_Resultaat.csv
+					</td>
+					<td>
 					</td>
 				</tr>
 				<tr>
@@ -2286,6 +2429,8 @@
 					<td>
 						X:\script22\reference\@TR_@GF_@GEKB_Oordeel_Resultaat.csv
 					</td>
+					<td>
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -2302,6 +2447,9 @@
 					</td>
 					<td>
 						X:\script22\reference\@TR_@GF_@STMI_Oordeel_Resultaat.csv
+					</td>
+					<td>
+						1/7654321
 					</td>
 				</tr>
 				<tr>
@@ -2320,6 +2468,9 @@
 					<td>
 						X:\script22\reference\@TR_@GF_@BSKW_Oordeel_Resultaat.csv
 					</td>
+					<td>
+						1/8877665
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -2337,6 +2488,8 @@
 					<td>
 						X:\script22\reference\@TR_@GF_@PKW_Oordeel_Resultaat.csv
 					</td>
+					<td>
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -2353,6 +2506,9 @@
 					</td>
 					<td>
 						X:\script22\reference\@TR_@SF_Nieuw_Oordeel_Resultaat.csv
+					</td>
+					<td>
+						1/7766554
 					</td>
 				</tr>
 			</table>
@@ -2541,6 +2697,9 @@
 		<testconfiguration
 		name="TestRun">
 			<testcontainer
+			id="0580c1e0-d3d2-491a-81a6-00e0513046ff">
+			</testcontainer>
+			<testcontainer
 			id="1a4bdd4f-4f87-465e-8d48-768d2657a89c">
 			</testcontainer>
 			<testcontainer
@@ -2566,6 +2725,9 @@
 			</testcontainer>
 			<testcontainer
 			id="7bcf6b46-895c-4012-8c96-0106901f96a7">
+			</testcontainer>
+			<testcontainer
+			id="7d752c96-a72c-46ff-9565-0295870509b9">
 			</testcontainer>
 			<testcontainer
 			id="8bc2a53e-3796-403c-a5a6-f01d55c296a0">

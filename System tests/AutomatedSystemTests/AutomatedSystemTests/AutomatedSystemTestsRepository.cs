@@ -3289,6 +3289,7 @@ namespace AutomatedSystemTests
         {
             AutomatedSystemTestsRepositoryFolders.TableFMResultViewFolder _tablefmresultview;
             RepoItemInfo _failureprobabilityfmInfo;
+            RepoItemInfo _expanddropdownmenuInfo;
 
             /// <summary>
             /// Creates a new FM_ResultView  folder.
@@ -3298,6 +3299,7 @@ namespace AutomatedSystemTests
             {
                 _tablefmresultview = new AutomatedSystemTestsRepositoryFolders.TableFMResultViewFolder(this);
                 _failureprobabilityfmInfo = new RepoItemInfo(this, "FailureProbabilityFM", "container[@controlname='TableLayoutPanel']/text/text", 30000, null, "4bda29c4-58e8-4b08-ac2e-ec866b6f1fb6");
+                _expanddropdownmenuInfo = new RepoItemInfo(this, "ExpandDropDownMenu", "container[@controlname='TableLayoutPanel']/combobox[@controlname='probabilityResultTypeComboBox']/button", 30000, null, "8a65568d-140f-4c4f-b21d-a105a8285816");
             }
 
             /// <summary>
@@ -3345,6 +3347,30 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _failureprobabilityfmInfo;
+                }
+            }
+
+            /// <summary>
+            /// The ExpandDropDownMenu item.
+            /// </summary>
+            [RepositoryItem("8a65568d-140f-4c4f-b21d-a105a8285816")]
+            public virtual Ranorex.Button ExpandDropDownMenu
+            {
+                get
+                {
+                    return _expanddropdownmenuInfo.CreateAdapter<Ranorex.Button>(true);
+                }
+            }
+
+            /// <summary>
+            /// The ExpandDropDownMenu item info.
+            /// </summary>
+            [RepositoryItemInfo("8a65568d-140f-4c4f-b21d-a105a8285816")]
+            public virtual RepoItemInfo ExpandDropDownMenuInfo
+            {
+                get
+                {
+                    return _expanddropdownmenuInfo;
                 }
             }
 
@@ -8684,6 +8710,7 @@ namespace AutomatedSystemTests
             RepoItemInfo _pdokInfo;
             RepoItemInfo _esriluchtfotoInfo;
             RepoItemInfo _overnemenInfo;
+            RepoItemInfo _automatischberekenenInfo;
 
             /// <summary>
             /// Creates a new DropDownMenuItemList  folder.
@@ -8697,6 +8724,7 @@ namespace AutomatedSystemTests
                 _pdokInfo = new RepoItemInfo(this, "PDOK", "listitem[@text='PDOK']", 30000, null, "6a8afea2-aefe-44ee-b5ec-68716a0c5194");
                 _esriluchtfotoInfo = new RepoItemInfo(this, "ESRILuchtfoto", "listitem[@text='ESRI luchtfoto']", 30000, null, "fe15788e-2580-480f-b8f8-af7af1f58ec9");
                 _overnemenInfo = new RepoItemInfo(this, "Overnemen", "listitem[@text='Overnemen']", 30000, null, "a284a37c-df6e-4e3f-9e76-a4a7043f3240");
+                _automatischberekenenInfo = new RepoItemInfo(this, "AutomatischBerekenen", "listitem[@text='Automatisch berekenen']", 30000, null, "ff2fa7c4-ff44-49de-973d-56efa6196ffe");
             }
 
             /// <summary>
@@ -8864,6 +8892,30 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _overnemenInfo;
+                }
+            }
+
+            /// <summary>
+            /// The AutomatischBerekenen item.
+            /// </summary>
+            [RepositoryItem("ff2fa7c4-ff44-49de-973d-56efa6196ffe")]
+            public virtual Ranorex.ListItem AutomatischBerekenen
+            {
+                get
+                {
+                    return _automatischberekenenInfo.CreateAdapter<Ranorex.ListItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The AutomatischBerekenen item info.
+            /// </summary>
+            [RepositoryItemInfo("ff2fa7c4-ff44-49de-973d-56efa6196ffe")]
+            public virtual RepoItemInfo AutomatischBerekenenInfo
+            {
+                get
+                {
+                    return _automatischberekenenInfo;
                 }
             }
         }

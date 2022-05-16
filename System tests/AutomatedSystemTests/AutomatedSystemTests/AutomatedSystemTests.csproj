@@ -549,6 +549,18 @@
     <Compile Include="Modules\ActionsDocumentView\ReadSectionsDivisionsFromSectionsView.cs">
       <id>608d45dc-fe27-457c-83c7-c201f32a598d</id>
     </Compile>
+    <Compile Include="Modules\ActionsDocumentView\SelectTypeFailureMechanismForFM.cs">
+      <BoundTo>190c7aaf-3340-4a36-b398-aadf52f77a8b</BoundTo>
+      <DependentUpon>SelectTypeFailureMechanismForFM.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>d18c5d2a-073f-4113-aec2-223c13d8667d</id>
+    </Compile>
+    <Compile Include="Modules\ActionsDocumentView\SelectTypeFailureMechanismForFM.UserCode.cs">
+      <BoundTo>190c7aaf-3340-4a36-b398-aadf52f77a8b</BoundTo>
+      <DependentUpon>SelectTypeFailureMechanismForFM.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>d64324b9-a0a0-444a-8ca8-be84c77dacc0</id>
+    </Compile>
     <Compile Include="Modules\ActionsDocumentView\SetContributionValueInScenariosView.cs">
       <BoundTo>da7336ce-fbcd-4009-bf0c-329da5bfb60f</BoundTo>
       <DependentUpon>SetContributionValueInScenariosView.rxrec</DependentUpon>
@@ -560,6 +572,18 @@
       <DependentUpon>SetContributionValueInScenariosView.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>6a58fd41-573e-4909-8d91-d25c8a24c067</id>
+    </Compile>
+    <Compile Include="Modules\ActionsDocumentView\SetManualFailureProbFMInResultView.cs">
+      <BoundTo>e3d1f9a5-2932-4124-930a-1c743ae251cb</BoundTo>
+      <DependentUpon>SetManualFailureProbFMInResultView.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>46c7351d-336a-4544-b531-7419d30c9d09</id>
+    </Compile>
+    <Compile Include="Modules\ActionsDocumentView\SetManualFailureProbFMInResultView.UserCode.cs">
+      <BoundTo>e3d1f9a5-2932-4124-930a-1c743ae251cb</BoundTo>
+      <DependentUpon>SetManualFailureProbFMInResultView.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>33394d6f-bffe-4e63-bb1d-98282fc034c8</id>
     </Compile>
     <Compile Include="Modules\ActionsDocumentView\ValidateAssemblyTrajectView.cs">
       <id>2b05cc1b-9f11-495c-a7b1-ec53d69f9bc9</id>
@@ -2397,10 +2421,20 @@
       <id>764f9833-0f5f-4be1-ba5b-275a72cc032e</id>
       <recordtableid>cccf5ca1-dd5a-482a-b366-7e44203f42a3</recordtableid>
     </None>
+    <None Include="Modules\ActionsDocumentView\SelectTypeFailureMechanismForFM.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>190c7aaf-3340-4a36-b398-aadf52f77a8b</id>
+      <recordtableid>2a0f9871-da92-4857-a13d-e29c7dfc5043</recordtableid>
+    </None>
     <None Include="Modules\ActionsDocumentView\SetContributionValueInScenariosView.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>da7336ce-fbcd-4009-bf0c-329da5bfb60f</id>
       <recordtableid>a0d27b4d-f989-42ce-afab-76a62ad61956</recordtableid>
+    </None>
+    <None Include="Modules\ActionsDocumentView\SetManualFailureProbFMInResultView.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>e3d1f9a5-2932-4124-930a-1c743ae251cb</id>
+      <recordtableid>163c57ad-a1cd-4039-a380-1c2cd7beeda3</recordtableid>
     </None>
     <None Include="Modules\ActionsDocumentView\ValidateContributionValueInScenariosView.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>

@@ -715,6 +715,15 @@ TkSuQmCC
 						searchtimeout="30000ms">
 							/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container[@controlname='TableLayoutPanel']/text/text
 						</item>
+						<item
+						addcaps="button,accessible"
+						capname="button"
+						id="8a65568d-140f-4c4f-b21d-a105a8285816"
+						name="ExpandDropDownMenu"
+						refimgid="dea0a4fb-3797-4b3d-b25c-a6c5305bcf98"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container[@controlname='TableLayoutPanel']/combobox[@controlname='probabilityResultTypeComboBox']/button
+						</item>
 						<basepath>
 							/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']
 						</basepath>
@@ -2472,6 +2481,16 @@ QmCC
 			refpath="/list[@controlid='1000']/listitem[@text='Overnemen']"
 			searchtimeout="30000ms">
 				/list[@controlid='1000']/listitem[@text='Overnemen']
+			</item>
+			<item
+			addcaps="listitem,nativeitem,checkable"
+			capname="listitem"
+			id="ff2fa7c4-ff44-49de-973d-56efa6196ffe"
+			name="AutomatischBerekenen"
+			refimgid="6cd074c6-1a53-4836-8bac-638c199ca63b"
+			refpath="/list[@controlid='1000']/listitem[@text='Automatisch berekenen']"
+			searchtimeout="30000ms">
+				/list[@controlid='1000']/listitem[@text='Automatisch berekenen']
 			</item>
 			<basepath>
 				/list[@controlid='1000']
