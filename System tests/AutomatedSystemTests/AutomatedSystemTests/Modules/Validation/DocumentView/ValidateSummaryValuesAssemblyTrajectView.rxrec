@@ -72,33 +72,6 @@ mode="Global">
 		action="AttributeEqual"
 		enabled="True"
 		optional="False"
-		searchpropertyid="8f0ee4e9-6c6b-4dd4-a642-3235c99303b2">
-			<comment>
-			</comment>
-			<bindings>
-				<binding
-				target="MatchValue"
-				variable="expectedAssessmentLabelGroups1And2">
-				</binding>
-			</bindings>
-			<info
-			id="41d87314-6a5d-4b48-bb76-cee7c6f57537"
-			sourcename="RepositoryEditor">
-				<path>
-					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']//container[@controlname='AssemblyResultTotalView']/container[@controlname='assemblyResultGroupBox']/container[@controlname='assemblyResultTableLayoutPanel']/container[@controlname='failureMechanismsWithProbabilityAssemblyControl']/container[@controlname='GroupPanel']/text/text
-				</path>
-			</info>
-			<matchname>
-				AccessibleName
-			</matchname>
-			<matchvalue>
-				yourValue
-			</matchvalue>
-		</validationitem>
-		<validationitem
-		action="AttributeEqual"
-		enabled="True"
-		optional="False"
 		searchpropertyid="da38a63c-77cd-4b3a-8f10-2af8b0399b66">
 			<comment>
 			</comment>
@@ -117,33 +90,6 @@ mode="Global">
 			</info>
 			<matchname>
 				AccessibleName
-			</matchname>
-			<matchvalue>
-				yourValue
-			</matchvalue>
-		</validationitem>
-		<validationitem
-		action="AttributeEqual"
-		enabled="True"
-		optional="False"
-		searchpropertyid="90bd25ee-bb3d-42f9-b84a-72e9caa4347c">
-			<comment>
-			</comment>
-			<bindings>
-				<binding
-				target="MatchValue"
-				variable="expectedAssessmentGroups3And4">
-				</binding>
-			</bindings>
-			<info
-			id="82e26559-e7f0-45f2-822d-cb7a9db63950"
-			sourcename="RepositoryEditor">
-				<path>
-					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']//container[@controlname='AssemblyResultTotalView']/container[@controlname='assemblyResultGroupBox']/container[@controlname='assemblyResultTableLayoutPanel']/container[@controlname='failureMechanismsWithoutProbabilityAssemblyControl']/container/text
-				</path>
-			</info>
-			<matchname>
-				Text
 			</matchname>
 			<matchvalue>
 				yourValue

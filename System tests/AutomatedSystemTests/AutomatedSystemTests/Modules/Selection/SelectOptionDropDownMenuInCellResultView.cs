@@ -109,14 +109,14 @@ namespace AutomatedSystemTests.Modules.Selection
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.TableFMResultView.Row.genericCell'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.TableFMResultView.Row.genericCellInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.TableFMResultView.Row.genericCell.Focus();
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.FM_ResultView.TableFMResultView.Row.genericCell'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.FM_ResultView.TableFMResultView.Row.genericCellInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.FM_ResultView.TableFMResultView.Row.genericCell.Focus();
             
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.TableFMResultView.Row.genericCell'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.TableFMResultView.Row.genericCellInfo, new RecordItemIndex(1));
-            repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.TableFMResultView.Row.genericCell.Select();
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.FM_ResultView.TableFMResultView.Row.genericCell'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.FM_ResultView.TableFMResultView.Row.genericCellInfo, new RecordItemIndex(1));
+            repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.FM_ResultView.TableFMResultView.Row.genericCell.Select();
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.TableFMResultView.Row.genericCell' at Center.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.TableFMResultView.Row.genericCellInfo, new RecordItemIndex(2));
-            repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.TableFMResultView.Row.genericCell.Click();
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.FM_ResultView.TableFMResultView.Row.genericCell' at Center.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.FM_ResultView.TableFMResultView.Row.genericCellInfo, new RecordItemIndex(2));
+            repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.FM_ResultView.TableFMResultView.Row.genericCell.Click();
             
             Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'DropDownMenuItemList.GenericDropDownItem' at Center.", repo.DropDownMenuItemList.GenericDropDownItemInfo, new RecordItemIndex(3));
             repo.DropDownMenuItemList.GenericDropDownItem.Click();

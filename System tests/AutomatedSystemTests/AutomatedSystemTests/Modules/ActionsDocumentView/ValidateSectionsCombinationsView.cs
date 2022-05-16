@@ -16,6 +16,7 @@ using System.Drawing;
 using System.Threading;
 using WinForms = System.Windows.Forms;
 using Newtonsoft.Json;
+using Ranorex_Automation_Helpers.UserCodeCollections;
 
 using Ranorex;
 using Ranorex.Core;
@@ -61,10 +62,10 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             Delay.SpeedFactor = 0.0;
             System.Globalization.CultureInfo currentCulture = CultureInfo.CurrentCulture;
 
-            var trajectAssessmentInformation = BuildAssessmenTrajectInformation(trajectAssessmentInformationString);
+            var trajectAssessmentInformation = TrajectResultInformation.BuildAssessmenTrajectInformation(trajectAssessmentInformationString);
             var repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
             
-            var table = repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.AssemblySectionsView.Table.Self;
+            var table = repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.AssemblySectionsView.Table.Self;
             List<double> allSubsections = new List<double>();
             allSubsections.Add(0);
             foreach (var fmTrjAssInfo in trajectAssessmentInformation.ListFMsResultInformation) {

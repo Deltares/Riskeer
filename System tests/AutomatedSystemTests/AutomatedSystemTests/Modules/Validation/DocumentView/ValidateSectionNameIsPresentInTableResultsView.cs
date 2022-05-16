@@ -116,7 +116,7 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
 
             Init();
 
-            ValidateCellContainsSectionName(repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.TableFMResultView.Self);
+            ValidateCellContainsSectionName(repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.FM_ResultView.TableFMResultView.Self);
             
         }
 

@@ -112,10 +112,10 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.TableFMResultView.Row.genericCell'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.TableFMResultView.Row.genericCellInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.TableFMResultView.Row.genericCell.Focus();
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.FM_ResultView.TableFMResultView.Row.genericCell'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.FM_ResultView.TableFMResultView.Row.genericCellInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.FM_ResultView.TableFMResultView.Row.genericCell.Focus();
             
-            ValidateEnabledGenericCellResultsView(repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.TableFMResultView.Row.genericCellInfo, isEnabledExpected);
+            ValidateEnabledGenericCellResultsView(repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.FM_ResultView.TableFMResultView.Row.genericCellInfo, isEnabledExpected);
             
         }
 
@@ -124,7 +124,7 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
         /// DO NOT REFERENCE THIS CODE  - auto generated
         /// </summary>
         CompressedImage genericCell_GreyPatch
-        { get { return repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.TableFMResultView.Row.genericCellInfo.GetGreyPatch(new Rectangle(0, 1, 3, 17)); } }
+        { get { return repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.FM_ResultView.TableFMResultView.Row.genericCellInfo.GetGreyPatch(new Rectangle(0, 1, 3, 17)); } }
 
         /// <summary>
         /// DO NOT REFERENCE THIS CODE  - auto generated

@@ -15,6 +15,7 @@ using System.Drawing;
 using System.Threading;
 using WinForms = System.Windows.Forms;
 using Newtonsoft.Json;
+using Ranorex_Automation_Helpers.UserCodeCollections;
 
 using Ranorex;
 using Ranorex.Core;
@@ -71,7 +72,7 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             fmAssessmentInformation.Label = labelFM;
 
             var repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
-            var rowsSectionsDivisions = repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FMSectionsViewTable.Rows;
+            var rowsSectionsDivisions = repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.FMSectionsViewTable.Rows;
             var sectionIndeces = GetColumnIndecesSectionsView(rowsSectionsDivisions[0]);
             rowsSectionsDivisions.RemoveAt(0);
             foreach (var row in rowsSectionsDivisions) {
@@ -146,95 +147,5 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             int indexNVak = GetColumnIndex(headerRow, "Nvak* [-]");
             return new List<int>{indexName, indexStartDistance, indexEndDistance, indexLength, indexNVak};
         }
-    }
-    
-    
-    /// <summary>
-    /// A section (vak) is a subdivision of a traject. The set of sections is independent for each FM.
-    /// </summary>
-    public class Section
-    {
-        public Section()
-        {
-            this.CalculationFailureProbPerSection ="-";
-            this.AssemblyGroup = "";
-            this.Nvak = Double.NaN;
-        }
-        
-        /// <summary>
-        /// Label for the combined assessment of the section (Iv, IIv, IIIv, ...)
-        /// </summary>
-        public string AssemblyGroup {get; set;}
-        
-        /// <summary>
-        /// Probability associated to the combined assessment of the profile (it exists for some FMs).
-        /// </summary>
-        public string CalculationFailureProbPerProfile {get; set;}
-
-        /// <summary>
-        /// Probability associated to the combined assessment of the section (it exists for some FMs).
-        /// </summary>
-        public string CalculationFailureProbPerSection {get; set;}
-        
-        /// <summary>
-        /// The name of the section (vak).
-        /// </summary>
-        public string Name {get; set;}
-        
-        /// <summary>
-        /// The distance along the reference line at which the setion starts.
-        /// </summary>
-        public double StartDistance {get; set;}
-        
-        /// <summary>
-        /// The distance along the reference line at which the setion ends.
-        /// </summary>
-        public double EndDistance {get; set;}
-        
-        /// <summary>
-        /// The length of the section along the reference line.
-        /// </summary>
-        public double Length {get; set;}
-        
-        /// <summary>
-        /// The value of the parameter NVak, if it exists.
-        /// </summary>
-        public double Nvak {get; set;}
-        
-    }
-    
-    public class FailureMechanismResultInformation
-    {
-        public FailureMechanismResultInformation()
-        {
-            this.SectionList = new List<Section>();
-            this.FailureProbability = "-";
-        }
-        
-        /// <summary>
-        /// Label of the FM
-        /// </summary>
-        public string Label{get; set;}
-        
-        /// <summary>
-        /// The label for the assessment of this FM regarding the entire traject (It, IIt, ..., VIIt)
-        /// </summary>
-        public string AssemblyGroup {get; set;}
-        
-        /// <summary>
-        /// The probability assigned to the entire traject assessment, if this value exists.
-        /// </summary>
-        public string FailureProbability {get; set;}
-        
-        public List<Section> SectionList {get; set;}
-    }
-    
-    public class TrajectResultInformation
-    {
-        public TrajectResultInformation()
-        {
-            ListFMsResultInformation = new List<FailureMechanismResultInformation>();
-        }
-        public List<FailureMechanismResultInformation> ListFMsResultInformation {get; set;}
     }
 }

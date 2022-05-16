@@ -16,6 +16,7 @@ using System.Threading;
 using WinForms = System.Windows.Forms;
 using Newtonsoft.Json;
 using System.Linq;
+using Ranorex_Automation_Helpers.UserCodeCollections;
 
 
 using Ranorex;
@@ -40,32 +41,10 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
         {
             Report.Log(ReportLevel.Info, "Set value", "Setting attribute Text to '$ManualFailureProbToSet' on item 'textInfo'.", textInfo);
             textInfo.FindAdapter<Text>().Element.SetAttributeValue("AccessibleValue", ManualFailureProbToSet);
-            var trajectResultInformation = BuildAssessmenTrajectInformation(trajectAssessmentInformationString);
+            var trajectResultInformation = TrajectResultInformation.BuildAssessmenTrajectInformation(trajectAssessmentInformationString);
             trajectResultInformation.ListFMsResultInformation.Where(fmItem=>fmItem.Label==currentFMLabel).FirstOrDefault().FailureProbability = ManualFailureProbToSet;
+            textInfo.FindAdapter<Text>().PressKeys("{Return}");
         }
-        private TrajectResultInformation BuildAssessmenTrajectInformation(string trajectAssessmentInformationString)
-        {
-            TrajectResultInformation trajectAssessmentInformation;
-            if (trajectAssessmentInformationString=="") {
-                trajectAssessmentInformation = new TrajectResultInformation();
-            } else {
-                var error = false;
-                trajectAssessmentInformation = JsonConvert.DeserializeObject<TrajectResultInformation>(trajectAssessmentInformationString, new JsonSerializerSettings
-                {
-                    Error = (s, e) =>
-                    {
-                        error = true;
-                        e.ErrorContext.Handled = true;
-                    }
-                }
-            );
-                if (error==true) {
-                    
-                    Report.Log(ReportLevel.Error, "error unserializing json string for trajectAssessmentInformationString: " + trajectAssessmentInformationString);
-                }
-                
-            }
-            return trajectAssessmentInformation;
-        }
+
     }
 }

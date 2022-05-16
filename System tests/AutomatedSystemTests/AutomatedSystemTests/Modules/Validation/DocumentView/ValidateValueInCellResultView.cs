@@ -89,7 +89,7 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
             // Initiate the variable
             var myRepository = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
             
-            Ranorex.Table table = myRepository.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.TableFMResultView.Self;
+            Ranorex.Table table = myRepository.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.FM_ResultView.TableFMResultView.Self;
             Cell cell;
             int columnIndexInteger = Int32.Parse(columnIndex);
             if (columnIndexInteger<0) {

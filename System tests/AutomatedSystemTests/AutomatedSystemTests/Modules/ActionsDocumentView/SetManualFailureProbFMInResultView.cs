@@ -118,19 +118,7 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
 
             Init();
 
-            SetValueFailureProbabilityFM(repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.FailureProbabilityFMInfo, trajectAssessmentInformationString, currentFMLabel);
-            
-            //Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.FailureProbabilityFM' at 30;5.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.FailureProbabilityFMInfo, new RecordItemIndex(1));
-            //repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.FailureProbabilityFM.Click("30;5");
-            
-            //Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{NumPad1}{Divide}{NumPad1}{NumPad2}{NumPad3}{NumPad4}{NumPad5}{NumPad6}{NumPad7}{NumPad8}{NumPad9}' with focus on 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.FailureProbabilityFM'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.FailureProbabilityFMInfo, new RecordItemIndex(2));
-            //repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.FailureProbabilityFM.PressKeys("{NumPad1}{Divide}{NumPad1}{NumPad2}{NumPad3}{NumPad4}{NumPad5}{NumPad6}{NumPad7}{NumPad8}{NumPad9}");
-            
-            //Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Return}' with focus on 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.FailureProbabilityFM'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.FailureProbabilityFMInfo, new RecordItemIndex(3));
-            //repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.FailureProbabilityFM.PressKeys("{Return}");
-            
-            //Report.Log(ReportLevel.Info, "Set value", "Setting attribute AccessibleValue to '$ManualFailureProbToSet' on item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.FailureProbabilityFM'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.FailureProbabilityFMInfo, new RecordItemIndex(4));
-            //repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.FailureProbabilityFM.Element.SetAttributeValue("AccessibleValue", ManualFailureProbToSet);
+            SetValueFailureProbabilityFM(repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.FM_ResultView.FailureProbabilityFMInfo, trajectAssessmentInformationString, currentFMLabel);
             
         }
 

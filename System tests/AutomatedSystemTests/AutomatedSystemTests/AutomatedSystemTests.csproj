@@ -1740,18 +1740,6 @@
       <id>a04420e6-12c4-46e5-870e-0944ec43d88f</id>
       <BoundTo>33d1f416-ee41-4df5-a323-58bc004c8ea0</BoundTo>
     </Compile>
-    <Compile Include="Modules\Validation\DocumentView\ValidateAssessmentLabelAndProbForFMInAssemblyTrajectView.cs">
-      <BoundTo>5a5bd4b6-ff89-4604-8bcd-ff8293bb6945</BoundTo>
-      <DependentUpon>ValidateAssessmentLabelAndProbForFMInAssemblyTrajectView.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>3ba3c491-a1db-4b8f-9271-84cac6790c33</id>
-    </Compile>
-    <Compile Include="Modules\Validation\DocumentView\ValidateAssessmentLabelAndProbForFMInAssemblyTrajectView.UserCode.cs">
-      <BoundTo>5a5bd4b6-ff89-4604-8bcd-ff8293bb6945</BoundTo>
-      <DependentUpon>ValidateAssessmentLabelAndProbForFMInAssemblyTrajectView.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>4f4bb978-39a2-4c47-95ba-2194c51587a6</id>
-    </Compile>
     <Compile Include="Modules\Validation\DocumentView\ValidateCalculationWaterLevelInDocumentViewDA.cs">
       <DependentUpon>ValidateCalculationWaterLevelInDocumentViewDA.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -1775,6 +1763,12 @@
       <DependentUpon>ValidateDataSectionsView.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>3d68db93-f1ea-4bf1-b07d-068aee9d8f41</id>
+    </Compile>
+    <Compile Include="Modules\Validation\DocumentView\ValidateFailureProbsFmsInSecurityAssemblyView.cs">
+      <id>1d60144e-03ac-4998-9840-0b0e2bb123b9</id>
+    </Compile>
+    <Compile Include="Modules\Validation\DocumentView\ValidateFailureTrajectInformationAssemblyView.cs">
+      <id>59e66fad-2051-478d-b369-3d8e34f464fb</id>
     </Compile>
     <Compile Include="Modules\Validation\DocumentView\ValidatePresenceWarningIconManualAssessmentInAssemblyCombinedSectionsView.cs">
       <BoundTo>b3ae91a9-c3c7-4443-92b0-81a65b646c53</BoundTo>
@@ -2850,11 +2844,6 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>33d1f416-ee41-4df5-a323-58bc004c8ea0</id>
       <recordtableid>076c70ca-8c7f-4590-8745-e133434b490b</recordtableid>
-    </None>
-    <None Include="Modules\Validation\DocumentView\ValidateAssessmentLabelAndProbForFMInAssemblyTrajectView.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>5a5bd4b6-ff89-4604-8bcd-ff8293bb6945</id>
-      <recordtableid>0a4d8d5f-1427-4a9b-9ba1-ee5acbb844db</recordtableid>
     </None>
     <None Include="Modules\Validation\DocumentView\ValidateCalculationWaterLevelInDocumentViewDA.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>

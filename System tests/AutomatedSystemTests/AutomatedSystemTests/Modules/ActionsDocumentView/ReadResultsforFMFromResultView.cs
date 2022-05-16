@@ -88,7 +88,7 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             var trajectResultInformation = BuildAssessmenTrajectInformation(trajectAssessmentInformationString);
 
             var repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
-            var tableResults = repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.TableFMResultView.Self.As<Table>();
+            var tableResults = repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.FM_ResultView.TableFMResultView.Self.As<Table>();
             var rowsData = tableResults.Rows;
             var rowHeader = rowsData[0];
             var sectionColumnIndeces = GetColumnIndecesResultView(rowsData[0]);
@@ -124,7 +124,7 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
                 rowIndex++;
             }
             
-            var resultView = repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView;
+            var resultView = repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.FM_ResultView;
             currentFMResultInformation.FailureProbability = resultView.FailureProbabilityFM.TextValue;
             trajectAssessmentInformationString = JsonConvert.SerializeObject(trajectResultInformation, Formatting.Indented);
             Report.Log(ReportLevel.Info, trajectAssessmentInformationString);

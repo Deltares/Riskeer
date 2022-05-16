@@ -70,7 +70,7 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
         private string GetCategoriesBoundariesFromDocumentView()
         {
             var repo =global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
-            var categoryBoundariesTable = repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FMSectionAssemblyGroupsView.TableDuidingsklassen;
+            var categoryBoundariesTable = repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.FMSectionAssemblyGroupsView.TableDuidingsklassen;
 
             Dictionary<int, string> dictCategoryName = new Dictionary<int, string>{
                 {1,  "+III"},

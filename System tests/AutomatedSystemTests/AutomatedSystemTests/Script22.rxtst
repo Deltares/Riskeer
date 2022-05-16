@@ -337,6 +337,10 @@
 				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
+			id="28fd2424-9f0a-4e3b-905c-845000f77103"
+			name="b)AssembleFailureProbsFMstoEntireTaject">
+			</smartfoldernode>
+			<smartfoldernode
 			id="2c40d00d-223c-4b5b-9f4b-a9bb9e226d4f"
 			name="ReadDivisionInSections">
 				<parameters>
@@ -391,6 +395,20 @@
 					datasourceid="26aac48b-0548-45f8-af02-60fc9d23be6e"
 					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
 					variablename="finalString">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="322a5931-26ce-4a8c-8e3c-92ce26a22213"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToSecurityAssessmentItemInPE"
+					datasourceid="8c78d655-0939-4f4d-8997-fcc33b6c85d5"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
 					</var>
 				</databinding>
 			</testmodule>
@@ -534,10 +552,22 @@
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
 			type="Recording">
 			</testmodule>
+			<smartfoldernode
+			datasource="script_22_b_LoopFMs_FailureProbs"
+			errorbehavior="ContinueNextIteration"
+			id="47bf0772-04c2-4816-b55c-734a65e0eff1"
+			name="ValidateFailureProbsFMs">
+			</smartfoldernode>
 			<testmodule
 			id="48e8b7ab-2be6-4b03-acbc-e962b3fc27ce"
 			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
 			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
+			type="Recording">
+			</testmodule>
+			<testmodule
+			id="4d43c5b8-78c8-4ed2-a68c-b90b365aa443"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
 			type="Recording">
 			</testmodule>
 			<testmodule
@@ -551,6 +581,38 @@
 					datasourceid="64927f77-bb7f-4081-aac4-4a7bc769d194"
 					variableid="830a851f-ca57-4d7b-b036-ed8da63f3414"
 					variablename="logMessage">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="536729e1-f302-4813-8380-d81a9e74be23"
+			name="ValidateFailureProbsFmsInSecurityAssemblyView"
+			ref="4546e1ab-5ef1-40e7-9a39-721e1138e6b1"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="labelFM"
+					datasourceid="a5f1a9c0-66d4-4daa-8e83-35b7a568dc88"
+					variableid="4e7ad43b-ea9b-4feb-b104-1ee6df065496"
+					variablename="labelFM">
+					</var>
+					<var
+					dataname="trajectAssessmentInformation"
+					datasourceid="78337b07-06ac-4efb-b70c-3605a183e682"
+					variableid="8746ea94-ac84-4c11-b481-665c6ad072a5"
+					variablename="trajectAssessmentInformationString">
+					</var>
+					<var
+					dataname="nameFM"
+					datasourceid="a5f1a9c0-66d4-4daa-8e83-35b7a568dc88"
+					variableid="333eac77-535c-428b-93ad-a1e0b56aee38"
+					variablename="nameFM">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="a5f1a9c0-66d4-4daa-8e83-35b7a568dc88"
+					variableid="e5c55790-6407-4907-bda1-2c128c6f0136"
+					variablename="rowIndex">
 					</var>
 				</databinding>
 			</testmodule>
@@ -703,32 +765,6 @@
 				</databinding>
 			</testmodule>
 			<testmodule
-			id="5d6940ab-732f-46f7-8b5d-f69516039b4b"
-			name="ValidateAssessmentLabelAndProbForFMInAssemblyTrajectView"
-			ref="0a4d8d5f-1427-4a9b-9ba1-ee5acbb844db"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="indexRow"
-					datasourceid="0b048a73-a1ed-4363-ae63-c6fad75bea4b"
-					variableid="949ae0e5-2a92-4a0a-a329-2c6c7394803c"
-					variablename="indexRow">
-					</var>
-					<var
-					dataname="expectedNewAssessmentLabelTrajectSTPH"
-					datasourceid="0be32ad5-bbba-4bfe-937b-19aea09d1718"
-					variableid="63a214be-a9ec-4338-bca0-2d229c5bcf23"
-					variablename="expectedAssessmentLabel">
-					</var>
-					<var
-					dataname="expectedNewAssessmentProbabilityTrajectSTPH"
-					datasourceid="0be32ad5-bbba-4bfe-937b-19aea09d1718"
-					variableid="e609f034-4a18-4251-9f83-dbee6f37fe3f"
-					variablename="expectedAssessmentApproxProb">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
 			id="603bbd1b-94b3-401e-8590-d1bf4e39baa2"
 			name="LogWarningMessage"
 			ref="ac560c61-46db-435c-aa8c-6cd15f93e120"
@@ -775,6 +811,10 @@
 			id="6c4d302a-e5ba-4f19-8c95-0d315ef92aaf"
 			name="CloseAssemblyTrajectView">
 			</smartfoldernode>
+			<smartfoldernode
+			id="6e3e95e2-2b1f-468b-9cb6-badabb39ef99"
+			name="CloseView">
+			</smartfoldernode>
 			<testmodule
 			id="6ecd2f80-041a-45a0-a38f-8008673fc259"
 			name="CreateScreenshotDocumentView"
@@ -815,6 +855,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="757ecf88-58fa-43d7-afda-75241cab416c"
+			name="ValidateFailureTrajectInfo">
+			</smartfoldernode>
 			<smartfoldernode
 			id="76aca451-21ba-4dff-bce5-d9e39b58c585"
 			name="TakeScreenshot">
@@ -982,6 +1026,16 @@
 			<smartfoldernode
 			id="8bc2a53e-3796-403c-a5a6-f01d55c296a0"
 			name="ReadData">
+			</smartfoldernode>
+			<smartfoldernode
+			id="8c78d655-0939-4f4d-8997-fcc33b6c85d5"
+			name="OpenSecurityAssessmentView">
+				<parameters>
+					<param
+					name="pathToSecurityAssessmentItemInPE"
+					value="@TR>Assemblage>Veiligheidsoordeel">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="8d6db327-87b6-4fe2-bfed-9ed1f6cb69f8"
@@ -1221,16 +1275,16 @@
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="trajectAssessmentInformation"
-					datasourceid="78337b07-06ac-4efb-b70c-3605a183e682"
-					variableid="4188b6a9-c5aa-4416-9731-a4fba6fa5dbb"
-					variablename="trajectAssessmentInformationString">
-					</var>
-					<var
 					dataname="categoryBoundariesTraject"
 					datasourceid="78337b07-06ac-4efb-b70c-3605a183e682"
 					variableid="fb2221fa-c3ce-41c4-a074-6e2cbece5657"
 					variablename="categoryBoundariesTraject">
+					</var>
+					<var
+					dataname="trajectAssessmentInformation"
+					datasourceid="78337b07-06ac-4efb-b70c-3605a183e682"
+					variableid="4188b6a9-c5aa-4416-9731-a4fba6fa5dbb"
+					variablename="trajectAssessmentInformationString">
 					</var>
 				</databinding>
 			</testmodule>
@@ -1349,6 +1403,12 @@
 					variablename="pathToItemInProjectExplorer">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="c8684c83-b35d-42bb-9c86-cc34a3e7e582"
+			name="ValidateFailureTrajectInformationAssemblyView"
+			ref="443ffa80-4cc7-4849-b6f7-51c8af392630"
+			type="UserCode">
 			</testmodule>
 			<testmodule
 			id="c95350e8-b2dd-49de-8bd6-951cb177eef1"
@@ -1638,6 +1698,12 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
+			id="eef68384-039f-4bfa-a52e-eb5d1168d745"
+			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
+			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
+			type="Recording">
+			</testmodule>
+			<testmodule
 			id="ef40cb2e-9362-41fc-b47d-6a56f43982ad"
 			name="SelectGenericItemInProjectExplorer"
 			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
@@ -1732,16 +1798,16 @@
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="fmLabel"
-					datasourceid="a3c4f19e-1fe0-492d-bccc-4896a68bce52"
-					variableid="f6ff4e12-a192-49bd-9f9e-85c8899a2f7b"
-					variablename="labelFM">
-					</var>
-					<var
 					dataname="trajectAssessmentInformation"
 					datasourceid="78337b07-06ac-4efb-b70c-3605a183e682"
 					variableid="b4271fc1-5724-4698-85e2-3434ee79f78f"
 					variablename="trajectAssessmentInformationString">
+					</var>
+					<var
+					dataname="fmLabel"
+					datasourceid="a3c4f19e-1fe0-492d-bccc-4896a68bce52"
+					variableid="f6ff4e12-a192-49bd-9f9e-85c8899a2f7b"
+					variablename="labelFM">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -1965,6 +2031,46 @@
 								<testmodule
 								id="78203abe-4b5e-4fde-bf5f-c9cd7c99bf42"
 								name="SaveAs">
+								</testmodule>
+							</smartfoldernode>
+						</smartfoldernode>
+						<smartfoldernode
+						id="28fd2424-9f0a-4e3b-905c-845000f77103"
+						name="b)AssembleFailureProbsFMstoEntireTaject">
+							<smartfoldernode
+							id="8c78d655-0939-4f4d-8997-fcc33b6c85d5"
+							name="OpenSecurityAssessmentView">
+								<testmodule
+								id="322a5931-26ce-4a8c-8e3c-92ce26a22213"
+								name="SelectGenericItemInProjectExplorer">
+								</testmodule>
+								<testmodule
+								id="eef68384-039f-4bfa-a52e-eb5d1168d745"
+								name="OpenViewForCurrentlySelectedItemInProjectExplorer">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="47bf0772-04c2-4816-b55c-734a65e0eff1"
+							name="ValidateFailureProbsFMs">
+								<testmodule
+								id="536729e1-f302-4813-8380-d81a9e74be23"
+								name="ValidateFailureProbsFmsInSecurityAssemblyView">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="757ecf88-58fa-43d7-afda-75241cab416c"
+							name="ValidateFailureTrajectInfo">
+								<testmodule
+								id="c8684c83-b35d-42bb-9c86-cc34a3e7e582"
+								name="ValidateFailureTrajectInformationAssemblyView">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="6e3e95e2-2b1f-468b-9cb6-badabb39ef99"
+							name="CloseView">
+								<testmodule
+								id="4d43c5b8-78c8-4ed2-a68c-b90b365aa443"
+								name="CloseViewCentralPanelWithFocus">
 								</testmodule>
 							</smartfoldernode>
 						</smartfoldernode>
@@ -2221,10 +2327,6 @@
 									id="8e354b0a-f5c4-467b-9bb7-b5cbc8f563fc"
 									name="ValidatePresenceWarningIconManualAssessmentInAssemblyTrajectView">
 									</testmodule>
-									<testmodule
-									id="5d6940ab-732f-46f7-8b5d-f69516039b4b"
-									name="ValidateAssessmentLabelAndProbForFMInAssemblyTrajectView">
-									</testmodule>
 								</smartfoldernode>
 								<smartfoldernode
 								id="6c4d302a-e5ba-4f19-8c95-0d315ef92aaf"
@@ -2346,6 +2448,214 @@
 		</childhierarchy>
 	</testsuiteentryhierarchy>
 	<datasources>
+		<DataSource
+		id="a5f1a9c0-66d4-4daa-8e83-35b7a568dc88"
+		lastknownrowcount="16"
+		name="script_22_b_LoopFMs_FailureProbs"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					rowIndex
+				</column>
+				<column>
+					nameFM
+				</column>
+				<column>
+					labelFM
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						rowIndex
+					</th>
+					<th>
+						nameFM
+					</th>
+					<th>
+						labelFM
+					</th>
+				</tr>
+				<tr>
+					<td>
+						2
+					</td>
+					<td>
+						@STPH
+					</td>
+					<td>
+						STPH
+					</td>
+				</tr>
+				<tr>
+					<td>
+						3
+					</td>
+					<td>
+						@GEKB
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						4
+					</td>
+					<td>
+						@STBI
+					</td>
+					<td>
+						STBI
+					</td>
+				</tr>
+				<tr>
+					<td>
+						5
+					</td>
+					<td>
+						@STMI
+					</td>
+					<td>
+						STMI
+					</td>
+				</tr>
+				<tr>
+					<td>
+						6
+					</td>
+					<td>
+						@ZST
+					</td>
+					<td>
+						ZST
+					</td>
+				</tr>
+				<tr>
+					<td>
+						7
+					</td>
+					<td>
+						@AGK
+					</td>
+					<td>
+						AGK
+					</td>
+				</tr>
+				<tr>
+					<td>
+						8
+					</td>
+					<td>
+						@AWO
+					</td>
+					<td>
+						AWO
+					</td>
+				</tr>
+				<tr>
+					<td>
+						9
+					</td>
+					<td>
+						@GEBU
+					</td>
+					<td>
+						GEBU
+					</td>
+				</tr>
+				<tr>
+					<td>
+						10
+					</td>
+					<td>
+						@GABU
+					</td>
+					<td>
+						GABU
+					</td>
+				</tr>
+				<tr>
+					<td>
+						11
+					</td>
+					<td>
+						@GABI
+					</td>
+					<td>
+						GABI
+					</td>
+				</tr>
+				<tr>
+					<td>
+						12
+					</td>
+					<td>
+						@HTKW
+					</td>
+					<td>
+						HTKW
+					</td>
+				</tr>
+				<tr>
+					<td>
+						13
+					</td>
+					<td>
+						@BSKW
+					</td>
+					<td>
+						BSKW
+					</td>
+				</tr>
+				<tr>
+					<td>
+						14
+					</td>
+					<td>
+						@PKW
+					</td>
+					<td>
+						PKW
+					</td>
+				</tr>
+				<tr>
+					<td>
+						15
+					</td>
+					<td>
+						@STKWp
+					</td>
+					<td>
+						STKWp
+					</td>
+				</tr>
+				<tr>
+					<td>
+						16
+					</td>
+					<td>
+						@DA
+					</td>
+					<td>
+						DA
+					</td>
+				</tr>
+				<tr>
+					<td>
+						17
+					</td>
+					<td>
+						Nieuw faalmechanisme
+					</td>
+					<td>
+						NIEUW
+					</td>
+				</tr>
+			</table>
+		</DataSource>
 		<DataSource
 		id="a3c4f19e-1fe0-492d-bccc-4896a68bce52"
 		lastknownrowcount="6"
@@ -2709,6 +3019,9 @@
 			id="26aac48b-0548-45f8-af02-60fc9d23be6e">
 			</testcontainer>
 			<testcontainer
+			id="28fd2424-9f0a-4e3b-905c-845000f77103">
+			</testcontainer>
+			<testcontainer
 			id="2c40d00d-223c-4b5b-9f4b-a9bb9e226d4f">
 			</testcontainer>
 			<testcontainer
@@ -2718,7 +3031,16 @@
 			id="36f9acd7-882e-4d42-ba92-d5c9c7f2a306">
 			</testcontainer>
 			<testcontainer
+			id="47bf0772-04c2-4816-b55c-734a65e0eff1">
+			</testcontainer>
+			<testcontainer
 			id="6754469b-6bef-4898-a3ce-f0500c72e37b">
+			</testcontainer>
+			<testcontainer
+			id="6e3e95e2-2b1f-468b-9cb6-badabb39ef99">
+			</testcontainer>
+			<testcontainer
+			id="757ecf88-58fa-43d7-afda-75241cab416c">
 			</testcontainer>
 			<testcontainer
 			id="78337b07-06ac-4efb-b70c-3605a183e682">
@@ -2731,6 +3053,9 @@
 			</testcontainer>
 			<testcontainer
 			id="8bc2a53e-3796-403c-a5a6-f01d55c296a0">
+			</testcontainer>
+			<testcontainer
+			id="8c78d655-0939-4f4d-8997-fcc33b6c85d5">
 			</testcontainer>
 			<testcontainer
 			id="91177b82-eb70-499f-aeff-5c8abe08d6d7">

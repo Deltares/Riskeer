@@ -36,7 +36,7 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
         public void ValidateEnabledGenericCellResultsView(RepoItemInfo cellInfo, string IsEnabledExpected)
         {
             int startX = isEnabledExpected=="true"?5:0;
-            CompressedImage genericCellPatch = repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.TableFMResultView.Row.genericCellInfo.GetGreyWhitePatch(new Rectangle(startX, 0, 3, 17));
+            CompressedImage genericCellPatch = repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.FM_ResultView.TableFMResultView.Row.genericCellInfo.GetGreyWhitePatch(new Rectangle(startX, 0, 3, 17));
             Imaging.FindOptions genericCellPatchOptions = Imaging.FindOptions.Default;
             Report.Log(ReportLevel.Info, "Validation", "Validating ContainsImage (Screenshot: 'greyPatch1' with region {X=0,Y=1,Width=3,Height=17}) on item 'cellInfo'.", cellInfo);
             Validate.ContainsImage(cellInfo, genericCellPatch, genericCellPatchOptions);

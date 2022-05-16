@@ -79,10 +79,10 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
 
             Init();
 
-            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.AssemblyResult.WarningIconManualAssessment, false, new RecordItemIndex(0));
+            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.SecurityAssemblyView.WarningIconManualAssessment, false, new RecordItemIndex(0));
             
-            Report.Log(ReportLevel.Info, "Validation", "Validating Exists on item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.AssemblyResult.WarningIconManualAssessment'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.AssemblyResult.WarningIconManualAssessmentInfo, new RecordItemIndex(1));
-            Validate.Exists(repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.AssemblyResult.WarningIconManualAssessmentInfo);
+            Report.Log(ReportLevel.Info, "Validation", "Validating Exists on item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.SecurityAssemblyView.WarningIconManualAssessment'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.SecurityAssemblyView.WarningIconManualAssessmentInfo, new RecordItemIndex(1));
+            Validate.Exists(repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.SecurityAssemblyView.WarningIconManualAssessmentInfo);
             
         }
 

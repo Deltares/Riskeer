@@ -369,18 +369,6 @@ name="AutomatedSystemTestsRepository">
 					</basepath>
 				</folder>
 				<folder
-				capname="container"
-				id="c96ae454-f14f-419c-828a-a8634a4504bd"
-				isrooted="True"
-				name="DocumentViewNewContainer"
-				refimgid="b86f9993-7e15-4535-b213-3ed685008dfb"
-				searchtimeout="30000ms"
-				usecache="False">
-					<basepath>
-						/form[@automationid='RiskeerMainWindow']/container/container[4]/container[11]
-					</basepath>
-				</folder>
-				<folder
 				addcaps="table,control,nativewindow"
 				capname="table"
 				id="ebb0b0be-617b-4c07-a1f1-dd02286813f8"
@@ -569,7 +557,7 @@ Ci8EIxlN9/ueuduvvCRUSA/y/BpXl5+Ui+rMfnRmeyL0hblJeL6KhKphqPIwCHnKcUMch8GfPoy/
 				capname="container"
 				id="0577a18c-71af-4c1c-bb03-b668001706c5"
 				isrooted="True"
-				name="DocumentViewContainerUncached"
+				name="DocumentViewContainer"
 				refimgid="e107b55a-b2a7-42e5-ad21-443242438546"
 				searchtimeout="30000ms"
 				usecache="False">
@@ -1151,8 +1139,8 @@ TkSuQmCC
 					capname="container"
 					id="82c9e9d8-a1cb-491c-82a8-73b6890efdc7"
 					isrooted="True"
-					name="AssemblyResult"
-					refimgid="62aca4fb-14dc-491a-94c4-a620e9ce23e2"
+					name="SecurityAssemblyView"
+					refimgid="48ed8693-dceb-4815-a641-17ca9122d611"
 					searchtimeout="30000ms"
 					usecache="False">
 						<folder
@@ -1170,37 +1158,27 @@ TkSuQmCC
 							name="SecurityAssessment"
 							refimgid="6a5ca846-96eb-4938-aed5-b2deca41d5d3"
 							searchtimeout="30000ms">
-								/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']//container[@controlname='AssemblyResultTotalView']/container[@controlname='assemblyResultGroupBox']/container[@controlname='assemblyResultTableLayoutPanel']/container[@controlname='totalAssemblyCategoryGroupControl']/container/text
-							</item>
-							<item
-							addcaps="text,accessible"
-							capname="text"
-							id="41d87314-6a5d-4b48-bb76-cee7c6f57537"
-							name="AssessmentLabelGroups1And2"
-							refimgid="70c0b344-15e8-4a3f-ad47-37af1d3c05f6"
-							searchtimeout="30000ms">
-								/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']//container[@controlname='AssemblyResultTotalView']/container[@controlname='assemblyResultGroupBox']/container[@controlname='assemblyResultTableLayoutPanel']/container[@controlname='failureMechanismsWithProbabilityAssemblyControl']/container[@controlname='GroupPanel']/text/text
+								<image
+								guid="aced7f92-53e4-498e-819d-f18cd64cff51"
+								name="ColorsSecurityCategories">
+									iVBORw0KGgoAAAANSUhEUgAAAKEAAABnBAMAAACazj8sAAAABGdBTUEAALGPC/xhBQAAAA9QTFRF
+AP8AdpM8//8A/5kA/wAAYIUOxgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAERJREFUaN7tzDEBACAM
+AzAsYAELGNgx/5r2V8CuREBOuuGFHzqU0Wg0Go1Go9FoNBqNRqPRaDQajUaj0Wg0Go1G497YNb7T
+YF24NQIYAAAAAElFTkSuQmCC
+								</image>
+								/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname='AssemblyResultTotalView']/container/container/text[@controlname='groupLabel']/text
 							</item>
 							<item
 							addcaps="text,accessible"
 							capname="text"
 							id="1d9add26-2df5-4fe6-b94b-07f83cce63eb"
-							name="AssessmentProbabilityGroups1And2"
-							refimgid="be718cae-ad0b-4416-881e-761eeaab51c4"
+							name="AssessmentFailureProbability"
+							refimgid="c3bf4e99-8db5-4459-8d82-d9d9194122b2"
 							searchtimeout="30000ms">
-								/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']//container[@controlname='AssemblyResultTotalView']/container[@controlname='assemblyResultGroupBox']/container[@controlname='assemblyResultTableLayoutPanel']/container[@controlname='failureMechanismsWithProbabilityAssemblyControl']/container[@controlname='probabilityPanel']/text/text
-							</item>
-							<item
-							addcaps="text,accessible"
-							capname="text"
-							id="82e26559-e7f0-45f2-822d-cb7a9db63950"
-							name="AssessmentGroups3And4"
-							refimgid="2535c3a4-cb02-4a80-a788-ca0cb2812d14"
-							searchtimeout="30000ms">
-								/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']//container[@controlname='AssemblyResultTotalView']/container[@controlname='assemblyResultGroupBox']/container[@controlname='assemblyResultTableLayoutPanel']/container[@controlname='failureMechanismsWithoutProbabilityAssemblyControl']/container/text
+								/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname='AssemblyResultTotalView']/container/container/text[@controlname='probabilityLabel']/text
 							</item>
 							<basepath>
-								/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']//container[@controlname='AssemblyResultTotalView']/container[@controlname='assemblyResultGroupBox']/container[@controlname='assemblyResultTableLayoutPanel']
+								/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname='AssemblyResultTotalView']/container/container
 							</basepath>
 						</folder>
 						<folder
@@ -1209,23 +1187,9 @@ TkSuQmCC
 						isrooted="True"
 						name="Table"
 						searchtimeout="30000ms"
-						usecache="False">
-							<item
-							capname="cell"
-							id="b264fcc2-36d7-4507-a402-d4fc29ede170"
-							name="AssessmentLabelGenericRow"
-							searchtimeout="30000ms">
-								/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']//container[@controlname='AssemblyResultTotalView']/container[@controlname='dataGridViewControl']/table/row[@accessiblename='Row '+$indexRow]/cell[@accessiblename&gt;'Toetsoordeel']
-							</item>
-							<item
-							capname="cell"
-							id="9603827f-7322-4bc5-8fb5-86f0400a8ef9"
-							name="AssessmentApproxProbGenericRow"
-							searchtimeout="30000ms">
-								/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']//container[@controlname='AssemblyResultTotalView']/container[@controlname='dataGridViewControl']/table/row[@accessiblename='Row '+$indexRow]/cell[@accessiblename&gt;'Benaderde']
-							</item>
+						usecache="True">
 							<basepath>
-								/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']//container[@controlname='AssemblyResultTotalView']/container[@controlname='dataGridViewControl']/table
+								/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname='AssemblyResultTotalView']/container/table
 							</basepath>
 						</folder>
 						<item
@@ -1235,10 +1199,10 @@ TkSuQmCC
 						name="WarningIconManualAssessment"
 						refimgid="78082cc7-f79e-4220-b5b5-6d3080e6d145"
 						searchtimeout="30000ms">
-							/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']//container[@controlname='AssemblyResultTotalView']/container/element
+							/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname='AssemblyResultTotalView']/container/element
 						</item>
 						<basepath>
-							/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']//container[@controlname='AssemblyResultTotalView']
+							/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname='AssemblyResultTotalView']
 						</basepath>
 					</folder>
 					<folder

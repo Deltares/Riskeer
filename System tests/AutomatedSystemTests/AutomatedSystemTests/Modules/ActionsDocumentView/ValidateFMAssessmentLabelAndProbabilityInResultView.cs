@@ -105,8 +105,8 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (AccessibleName=$expectedFMAssesmentProbability) on item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.FailureProbabilityFM'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.FailureProbabilityFMInfo, new RecordItemIndex(0));
-            Validate.AttributeEqual(repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.FailureProbabilityFMInfo, "AccessibleName", expectedFMAssesmentProbability);
+            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (AccessibleName=$expectedFMAssesmentProbability) on item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.FM_ResultView.FailureProbabilityFM'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.FM_ResultView.FailureProbabilityFMInfo, new RecordItemIndex(0));
+            Validate.AttributeEqual(repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.FM_ResultView.FailureProbabilityFMInfo, "AccessibleName", expectedFMAssesmentProbability);
             
         }
 

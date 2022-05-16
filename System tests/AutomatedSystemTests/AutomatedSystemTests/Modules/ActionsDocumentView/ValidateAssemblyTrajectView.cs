@@ -16,6 +16,7 @@ using System.Drawing;
 using System.Threading;
 using WinForms = System.Windows.Forms;
 using Newtonsoft.Json;
+using Ranorex_Automation_Helpers.UserCodeCollections;
 using Ranorex;
 using Ranorex.Core;
 using Ranorex.Core.Testing;
@@ -68,29 +69,29 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             Keyboard.DefaultKeyPressTime = 0;
             Delay.SpeedFactor = 0.0;
             
-            var trajectAssessmentInformation = BuildAssessmenTrajectInformation(trajectAssessmentInformationString);
-            var repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
-            
-            var table = repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.AssemblyResult.Table.Self;
-            ValidateTableAssemblyTrajectView(table, trajectAssessmentInformation);
-            
-            var summaryTraject = repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.AssemblyResult.Summary;
-            
-            string expectedAssessmentProb1and2 = CalculateAssessmentProbabilityGroups1and2(trajectAssessmentInformation);
-            string actualAssessmentProb1and2 = summaryTraject.AssessmentProbabilityGroups1And2.TextValue;
-            ValidateAreEqualWithMessage(actualAssessmentProb1and2, expectedAssessmentProb1and2, "Validation Assembly probability groups 1 and 2.");
-            
-            string expectedAssessmentLabel1and2 = CalculateAssessmentLabelGroups1and2(expectedAssessmentProb1and2, categoryBoundariesTraject);
-            string actualAssessmentLabel1and2 = summaryTraject.AssessmentLabelGroups1And2.TextValue;
-            ValidateAreEqualWithMessage(actualAssessmentLabel1and2, expectedAssessmentLabel1and2, "Validation Assembly Label groups 1 and 2.");
-            
-            string expectedAssessmentLabel3and4 = CalculateAssessmentLabelGroups3and4(trajectAssessmentInformation);
-            string actualAssessmentLabel3and4 = summaryTraject.AssessmentGroups3And4.TextValue;
-            ValidateAreEqualWithMessage(actualAssessmentLabel1and2, expectedAssessmentLabel1and2, "Validation Assembly Label groups 3 and 4.");
-            
-            string expectedSecurityAssessmentLabel = CalculateSecurityAssessmentLabel(expectedAssessmentLabel1and2, expectedAssessmentLabel3and4);
-            string actualSecurityAssessmentLabel = summaryTraject.SecurityAssessment.TextValue;
-            ValidateAreEqualWithMessage(actualSecurityAssessmentLabel, expectedSecurityAssessmentLabel, "Validation Security Assembly Label.");
+//            var trajectAssessmentInformation = BuildAssessmenTrajectInformation(trajectAssessmentInformationString);
+//            var repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
+//            
+//            var table = repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.AssemblyResult.Table.Self;
+//            ValidateTableAssemblyTrajectView(table, trajectAssessmentInformation);
+//            
+//            var summaryTraject = repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.AssemblyResult.Summary;
+//            
+//            string expectedAssessmentProb1and2 = CalculateAssessmentProbabilityGroups1and2(trajectAssessmentInformation);
+//            string actualAssessmentProb1and2 = summaryTraject.AssessmentProbabilityGroups1And2.TextValue;
+//            ValidateAreEqualWithMessage(actualAssessmentProb1and2, expectedAssessmentProb1and2, "Validation Assembly probability groups 1 and 2.");
+//            
+//            string expectedAssessmentLabel1and2 = CalculateAssessmentLabelGroups1and2(expectedAssessmentProb1and2, categoryBoundariesTraject);
+//            string actualAssessmentLabel1and2 = summaryTraject.AssessmentLabelGroups1And2.TextValue;
+//            ValidateAreEqualWithMessage(actualAssessmentLabel1and2, expectedAssessmentLabel1and2, "Validation Assembly Label groups 1 and 2.");
+//            
+//            string expectedAssessmentLabel3and4 = CalculateAssessmentLabelGroups3and4(trajectAssessmentInformation);
+//            string actualAssessmentLabel3and4 = summaryTraject.AssessmentGroups3And4.TextValue;
+//            ValidateAreEqualWithMessage(actualAssessmentLabel1and2, expectedAssessmentLabel1and2, "Validation Assembly Label groups 3 and 4.");
+//            
+//            string expectedSecurityAssessmentLabel = CalculateSecurityAssessmentLabel(expectedAssessmentLabel1and2, expectedAssessmentLabel3and4);
+//            string actualSecurityAssessmentLabel = summaryTraject.SecurityAssessment.TextValue;
+//            ValidateAreEqualWithMessage(actualSecurityAssessmentLabel, expectedSecurityAssessmentLabel, "Validation Security Assembly Label.");
             
 
         }

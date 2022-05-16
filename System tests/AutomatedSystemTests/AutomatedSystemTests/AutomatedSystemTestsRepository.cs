@@ -769,7 +769,7 @@ namespace AutomatedSystemTests
             AutomatedSystemTestsRepositoryFolders.ProjectExplorerPanelFolder _projectexplorerpanel;
             AutomatedSystemTestsRepositoryFolders.RibbonFolder _ribbon;
             AutomatedSystemTestsRepositoryFolders.ContainerMultipleViewsFolder _containermultipleviews;
-            AutomatedSystemTestsRepositoryFolders.DocumentViewContainerFolder _documentviewcontainer;
+            AutomatedSystemTestsRepositoryFolders.DocumentViewContainerFolder1 _documentviewcontainer;
             AutomatedSystemTestsRepositoryFolders.GenericContainerMapViewTitleFolder _genericcontainermapviewtitle;
             AutomatedSystemTestsRepositoryFolders.BackstageButtonsFolder _backstagebuttons;
             AutomatedSystemTestsRepositoryFolders.RibbonButtonsFolder _ribbonbuttons;
@@ -784,7 +784,7 @@ namespace AutomatedSystemTests
                 _projectexplorerpanel = new AutomatedSystemTestsRepositoryFolders.ProjectExplorerPanelFolder(this);
                 _ribbon = new AutomatedSystemTestsRepositoryFolders.RibbonFolder(this);
                 _containermultipleviews = new AutomatedSystemTestsRepositoryFolders.ContainerMultipleViewsFolder(this);
-                _documentviewcontainer = new AutomatedSystemTestsRepositoryFolders.DocumentViewContainerFolder(this);
+                _documentviewcontainer = new AutomatedSystemTestsRepositoryFolders.DocumentViewContainerFolder1(this);
                 _genericcontainermapviewtitle = new AutomatedSystemTestsRepositoryFolders.GenericContainerMapViewTitleFolder(this);
                 _backstagebuttons = new AutomatedSystemTestsRepositoryFolders.BackstageButtonsFolder(this);
                 _ribbonbuttons = new AutomatedSystemTestsRepositoryFolders.RibbonButtonsFolder(this);
@@ -870,7 +870,7 @@ namespace AutomatedSystemTests
             /// The DocumentViewContainer folder.
             /// </summary>
             [RepositoryFolder("78b3cba4-3858-49b9-8809-b7f79f03aa5c")]
-            public virtual AutomatedSystemTestsRepositoryFolders.DocumentViewContainerFolder DocumentViewContainer
+            public virtual AutomatedSystemTestsRepositoryFolders.DocumentViewContainerFolder1 DocumentViewContainer
             {
                 get { return _documentviewcontainer; }
             }
@@ -2068,10 +2068,9 @@ namespace AutomatedSystemTests
         public partial class ContainerMultipleViewsFolder : RepoGenBaseFolder
         {
             AutomatedSystemTestsRepositoryFolders.HeaderOpenViewsFolder _headeropenviews;
-            AutomatedSystemTestsRepositoryFolders.DocumentViewNewContainerFolder _documentviewnewcontainer;
             AutomatedSystemTestsRepositoryFolders.MessagesDataGridViewFolder _messagesdatagridview;
             AutomatedSystemTestsRepositoryFolders.PropertiesPanelContainerFolder _propertiespanelcontainer;
-            AutomatedSystemTestsRepositoryFolders.DocumentViewContainerUncachedFolder _documentviewcontaineruncached;
+            AutomatedSystemTestsRepositoryFolders.DocumentViewContainerFolder _documentviewcontainer;
             AutomatedSystemTestsRepositoryFolders.MapLegendPanelFolder _maplegendpanel;
 
             /// <summary>
@@ -2081,10 +2080,9 @@ namespace AutomatedSystemTests
                     base("ContainerMultipleViews", "container/container[4]", parentFolder, 30000, null, false, "ebcd2df5-06fe-4f67-b3ff-78d522f58619", "")
             {
                 _headeropenviews = new AutomatedSystemTestsRepositoryFolders.HeaderOpenViewsFolder(this);
-                _documentviewnewcontainer = new AutomatedSystemTestsRepositoryFolders.DocumentViewNewContainerFolder(this);
                 _messagesdatagridview = new AutomatedSystemTestsRepositoryFolders.MessagesDataGridViewFolder(this);
                 _propertiespanelcontainer = new AutomatedSystemTestsRepositoryFolders.PropertiesPanelContainerFolder(this);
-                _documentviewcontaineruncached = new AutomatedSystemTestsRepositoryFolders.DocumentViewContainerUncachedFolder(this);
+                _documentviewcontainer = new AutomatedSystemTestsRepositoryFolders.DocumentViewContainerFolder(this);
                 _maplegendpanel = new AutomatedSystemTestsRepositoryFolders.MapLegendPanelFolder(this);
             }
 
@@ -2122,15 +2120,6 @@ namespace AutomatedSystemTests
             }
 
             /// <summary>
-            /// The DocumentViewNewContainer folder.
-            /// </summary>
-            [RepositoryFolder("c96ae454-f14f-419c-828a-a8634a4504bd")]
-            public virtual AutomatedSystemTestsRepositoryFolders.DocumentViewNewContainerFolder DocumentViewNewContainer
-            {
-                get { return _documentviewnewcontainer; }
-            }
-
-            /// <summary>
             /// The MessagesDataGridView folder.
             /// </summary>
             [RepositoryFolder("ebb0b0be-617b-4c07-a1f1-dd02286813f8")]
@@ -2149,12 +2138,12 @@ namespace AutomatedSystemTests
             }
 
             /// <summary>
-            /// The DocumentViewContainerUncached folder.
+            /// The DocumentViewContainer folder.
             /// </summary>
             [RepositoryFolder("0577a18c-71af-4c1c-bb03-b668001706c5")]
-            public virtual AutomatedSystemTestsRepositoryFolders.DocumentViewContainerUncachedFolder DocumentViewContainerUncached
+            public virtual AutomatedSystemTestsRepositoryFolders.DocumentViewContainerFolder DocumentViewContainer
             {
-                get { return _documentviewcontaineruncached; }
+                get { return _documentviewcontainer; }
             }
 
             /// <summary>
@@ -2255,46 +2244,6 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _textheaderpanelInfo;
-                }
-            }
-        }
-
-        /// <summary>
-        /// The DocumentViewNewContainerFolder folder.
-        /// </summary>
-        [RepositoryFolder("c96ae454-f14f-419c-828a-a8634a4504bd")]
-        public partial class DocumentViewNewContainerFolder : RepoGenBaseFolder
-        {
-
-            /// <summary>
-            /// Creates a new DocumentViewNewContainer  folder.
-            /// </summary>
-            public DocumentViewNewContainerFolder(RepoGenBaseFolder parentFolder) :
-                    base("DocumentViewNewContainer", "container[11]", parentFolder, 30000, null, false, "c96ae454-f14f-419c-828a-a8634a4504bd", "")
-            {
-            }
-
-            /// <summary>
-            /// The Self item.
-            /// </summary>
-            [RepositoryItem("c96ae454-f14f-419c-828a-a8634a4504bd")]
-            public virtual Ranorex.Container Self
-            {
-                get
-                {
-                    return _selfInfo.CreateAdapter<Ranorex.Container>(true);
-                }
-            }
-
-            /// <summary>
-            /// The Self item info.
-            /// </summary>
-            [RepositoryItemInfo("c96ae454-f14f-419c-828a-a8634a4504bd")]
-            public virtual RepoItemInfo SelfInfo
-            {
-                get
-                {
-                    return _selfInfo;
                 }
             }
         }
@@ -2889,10 +2838,10 @@ namespace AutomatedSystemTests
         }
 
         /// <summary>
-        /// The DocumentViewContainerUncachedFolder folder.
+        /// The DocumentViewContainerFolder folder.
         /// </summary>
         [RepositoryFolder("0577a18c-71af-4c1c-bb03-b668001706c5")]
-        public partial class DocumentViewContainerUncachedFolder : RepoGenBaseFolder
+        public partial class DocumentViewContainerFolder : RepoGenBaseFolder
         {
             AutomatedSystemTestsRepositoryFolders.FM_ContributionViewFolder _fm_contributionview;
             AutomatedSystemTestsRepositoryFolders.FM_ResultViewFolder _fm_resultview;
@@ -2902,7 +2851,7 @@ namespace AutomatedSystemTests
             AutomatedSystemTestsRepositoryFolders.DesignWaterLevelWaveHeightCalculationsViewFolder _designwaterlevelwaveheightcalculationsview;
             AutomatedSystemTestsRepositoryFolders.ScenariosViewFolder _scenariosview;
             AutomatedSystemTestsRepositoryFolders.HydraulicBCDunesFolder _hydraulicbcdunes;
-            AutomatedSystemTestsRepositoryFolders.AssemblyResultFolder _assemblyresult;
+            AutomatedSystemTestsRepositoryFolders.SecurityAssemblyViewFolder _securityassemblyview;
             AutomatedSystemTestsRepositoryFolders.AssemblyResultsCategoryViewFolder _assemblyresultscategoryview;
             AutomatedSystemTestsRepositoryFolders.AssemblySectionsViewFolder _assemblysectionsview;
             AutomatedSystemTestsRepositoryFolders.CalculationsViewFolder _calculationsview;
@@ -2911,10 +2860,10 @@ namespace AutomatedSystemTests
             RepoItemInfo _fmsectionsviewtableInfo;
 
             /// <summary>
-            /// Creates a new DocumentViewContainerUncached  folder.
+            /// Creates a new DocumentViewContainer  folder.
             /// </summary>
-            public DocumentViewContainerUncachedFolder(RepoGenBaseFolder parentFolder) :
-                    base("DocumentViewContainerUncached", "container/container[@instance='1' and @controltypename='WinFormsAdapter']", parentFolder, 30000, null, false, "0577a18c-71af-4c1c-bb03-b668001706c5", "")
+            public DocumentViewContainerFolder(RepoGenBaseFolder parentFolder) :
+                    base("DocumentViewContainer", "container/container[@instance='1' and @controltypename='WinFormsAdapter']", parentFolder, 30000, null, false, "0577a18c-71af-4c1c-bb03-b668001706c5", "")
             {
                 _fm_contributionview = new AutomatedSystemTestsRepositoryFolders.FM_ContributionViewFolder(this);
                 _fm_resultview = new AutomatedSystemTestsRepositoryFolders.FM_ResultViewFolder(this);
@@ -2924,7 +2873,7 @@ namespace AutomatedSystemTests
                 _designwaterlevelwaveheightcalculationsview = new AutomatedSystemTestsRepositoryFolders.DesignWaterLevelWaveHeightCalculationsViewFolder(this);
                 _scenariosview = new AutomatedSystemTestsRepositoryFolders.ScenariosViewFolder(this);
                 _hydraulicbcdunes = new AutomatedSystemTestsRepositoryFolders.HydraulicBCDunesFolder(this);
-                _assemblyresult = new AutomatedSystemTestsRepositoryFolders.AssemblyResultFolder(this);
+                _securityassemblyview = new AutomatedSystemTestsRepositoryFolders.SecurityAssemblyViewFolder(this);
                 _assemblyresultscategoryview = new AutomatedSystemTestsRepositoryFolders.AssemblyResultsCategoryViewFolder(this);
                 _assemblysectionsview = new AutomatedSystemTestsRepositoryFolders.AssemblySectionsViewFolder(this);
                 _calculationsview = new AutomatedSystemTestsRepositoryFolders.CalculationsViewFolder(this);
@@ -3102,12 +3051,12 @@ namespace AutomatedSystemTests
             }
 
             /// <summary>
-            /// The AssemblyResult folder.
+            /// The SecurityAssemblyView folder.
             /// </summary>
             [RepositoryFolder("82c9e9d8-a1cb-491c-82a8-73b6890efdc7")]
-            public virtual AutomatedSystemTestsRepositoryFolders.AssemblyResultFolder AssemblyResult
+            public virtual AutomatedSystemTestsRepositoryFolders.SecurityAssemblyViewFolder SecurityAssemblyView
             {
-                get { return _assemblyresult; }
+                get { return _securityassemblyview; }
             }
 
             /// <summary>
@@ -5162,20 +5111,20 @@ namespace AutomatedSystemTests
         }
 
         /// <summary>
-        /// The AssemblyResultFolder folder.
+        /// The SecurityAssemblyViewFolder folder.
         /// </summary>
         [RepositoryFolder("82c9e9d8-a1cb-491c-82a8-73b6890efdc7")]
-        public partial class AssemblyResultFolder : RepoGenBaseFolder
+        public partial class SecurityAssemblyViewFolder : RepoGenBaseFolder
         {
             AutomatedSystemTestsRepositoryFolders.SummaryFolder _summary;
             AutomatedSystemTestsRepositoryFolders.TableFolder5 _table;
             RepoItemInfo _warningiconmanualassessmentInfo;
 
             /// <summary>
-            /// Creates a new AssemblyResult  folder.
+            /// Creates a new SecurityAssemblyView  folder.
             /// </summary>
-            public AssemblyResultFolder(RepoGenBaseFolder parentFolder) :
-                    base("AssemblyResult", ".//container[@controlname='AssemblyResultTotalView']", parentFolder, 30000, null, false, "82c9e9d8-a1cb-491c-82a8-73b6890efdc7", "")
+            public SecurityAssemblyViewFolder(RepoGenBaseFolder parentFolder) :
+                    base("SecurityAssemblyView", "container[@controlname='AssemblyResultTotalView']", parentFolder, 30000, null, false, "82c9e9d8-a1cb-491c-82a8-73b6890efdc7", "")
             {
                 _summary = new AutomatedSystemTestsRepositoryFolders.SummaryFolder(this);
                 _table = new AutomatedSystemTestsRepositoryFolders.TableFolder5(this);
@@ -5255,21 +5204,52 @@ namespace AutomatedSystemTests
         [RepositoryFolder("b6c16815-7d2e-4c8f-a729-4eb72e26ccdd")]
         public partial class SummaryFolder : RepoGenBaseFolder
         {
-            RepoItemInfo _securityassessmentInfo;
-            RepoItemInfo _assessmentlabelgroups1and2Info;
-            RepoItemInfo _assessmentprobabilitygroups1and2Info;
-            RepoItemInfo _assessmentgroups3and4Info;
+            SecurityAssessmentInfoClass _securityassessmentInfo;
+            RepoItemInfo _assessmentfailureprobabilityInfo;
 
             /// <summary>
             /// Creates a new Summary  folder.
             /// </summary>
             public SummaryFolder(RepoGenBaseFolder parentFolder) :
-                    base("Summary", "container[@controlname='assemblyResultGroupBox']/container[@controlname='assemblyResultTableLayoutPanel']", parentFolder, 30000, null, false, "b6c16815-7d2e-4c8f-a729-4eb72e26ccdd", "")
+                    base("Summary", "container/container", parentFolder, 30000, null, false, "b6c16815-7d2e-4c8f-a729-4eb72e26ccdd", "")
             {
-                _securityassessmentInfo = new RepoItemInfo(this, "SecurityAssessment", "container[@controlname='totalAssemblyCategoryGroupControl']/container/text", 30000, null, "06fa95f1-b47a-4a0e-a616-04091c02e9cb");
-                _assessmentlabelgroups1and2Info = new RepoItemInfo(this, "AssessmentLabelGroups1And2", "container[@controlname='failureMechanismsWithProbabilityAssemblyControl']/container[@controlname='GroupPanel']/text/text", 30000, null, "41d87314-6a5d-4b48-bb76-cee7c6f57537");
-                _assessmentprobabilitygroups1and2Info = new RepoItemInfo(this, "AssessmentProbabilityGroups1And2", "container[@controlname='failureMechanismsWithProbabilityAssemblyControl']/container[@controlname='probabilityPanel']/text/text", 30000, null, "1d9add26-2df5-4fe6-b94b-07f83cce63eb");
-                _assessmentgroups3and4Info = new RepoItemInfo(this, "AssessmentGroups3And4", "container[@controlname='failureMechanismsWithoutProbabilityAssemblyControl']/container/text", 30000, null, "82e26559-e7f0-45f2-822d-cb7a9db63950");
+                _securityassessmentInfo = new SecurityAssessmentInfoClass(this);
+                _assessmentfailureprobabilityInfo = new RepoItemInfo(this, "AssessmentFailureProbability", "text[@controlname='probabilityLabel']/text", 30000, null, "1d9add26-2df5-4fe6-b94b-07f83cce63eb");
+            }
+
+            /// <summary>
+            /// The SecurityAssessmentInfoClass folder.
+            /// </summary>
+            [RepositoryItemInfo("06fa95f1-b47a-4a0e-a616-04091c02e9cb")]
+            public class SecurityAssessmentInfoClass : RepoItemInfo
+            {
+                /// <summary>
+                /// SecurityAssessmentInfoClass class constructor.
+                /// </summary>
+                public SecurityAssessmentInfoClass(RepoGenBaseFolder parentFolder)
+                    : base(parentFolder, "SecurityAssessment", "text[@controlname='groupLabel']/text", 30000, null, "06fa95f1-b47a-4a0e-a616-04091c02e9cb")
+                { }
+
+                /// <summary>
+                /// Gets the ColorsSecurityCategories item image.
+                /// </summary>
+                /// <returns>The ColorsSecurityCategories image.</returns>
+                [RepositoryImage("aced7f92-53e4-498e-819d-f18cd64cff51")]
+                public CompressedImage GetColorsSecurityCategories()
+                {
+                    return GetImage("aced7f92-53e4-498e-819d-f18cd64cff51");
+                }
+
+                /// <summary>
+                /// Gets the ColorsSecurityCategories item image.
+                /// </summary>
+                /// <param name="cropRect">The bounds of the sub-image to return.</param>
+                /// <returns>The cropped image.</returns>
+                [RepositoryImage("aced7f92-53e4-498e-819d-f18cd64cff51")]
+                public CompressedImage GetColorsSecurityCategories(System.Drawing.Rectangle cropRect)
+                {
+                    return GetImage("aced7f92-53e4-498e-819d-f18cd64cff51", cropRect);
+                }
             }
 
             /// <summary>
@@ -5312,7 +5292,7 @@ namespace AutomatedSystemTests
             /// The SecurityAssessment item info.
             /// </summary>
             [RepositoryItemInfo("06fa95f1-b47a-4a0e-a616-04091c02e9cb")]
-            public virtual RepoItemInfo SecurityAssessmentInfo
+            public virtual SecurityAssessmentInfoClass SecurityAssessmentInfo
             {
                 get
                 {
@@ -5321,74 +5301,26 @@ namespace AutomatedSystemTests
             }
 
             /// <summary>
-            /// The AssessmentLabelGroups1And2 item.
-            /// </summary>
-            [RepositoryItem("41d87314-6a5d-4b48-bb76-cee7c6f57537")]
-            public virtual Ranorex.Text AssessmentLabelGroups1And2
-            {
-                get
-                {
-                    return _assessmentlabelgroups1and2Info.CreateAdapter<Ranorex.Text>(true);
-                }
-            }
-
-            /// <summary>
-            /// The AssessmentLabelGroups1And2 item info.
-            /// </summary>
-            [RepositoryItemInfo("41d87314-6a5d-4b48-bb76-cee7c6f57537")]
-            public virtual RepoItemInfo AssessmentLabelGroups1And2Info
-            {
-                get
-                {
-                    return _assessmentlabelgroups1and2Info;
-                }
-            }
-
-            /// <summary>
-            /// The AssessmentProbabilityGroups1And2 item.
+            /// The AssessmentFailureProbability item.
             /// </summary>
             [RepositoryItem("1d9add26-2df5-4fe6-b94b-07f83cce63eb")]
-            public virtual Ranorex.Text AssessmentProbabilityGroups1And2
+            public virtual Ranorex.Text AssessmentFailureProbability
             {
                 get
                 {
-                    return _assessmentprobabilitygroups1and2Info.CreateAdapter<Ranorex.Text>(true);
+                    return _assessmentfailureprobabilityInfo.CreateAdapter<Ranorex.Text>(true);
                 }
             }
 
             /// <summary>
-            /// The AssessmentProbabilityGroups1And2 item info.
+            /// The AssessmentFailureProbability item info.
             /// </summary>
             [RepositoryItemInfo("1d9add26-2df5-4fe6-b94b-07f83cce63eb")]
-            public virtual RepoItemInfo AssessmentProbabilityGroups1And2Info
+            public virtual RepoItemInfo AssessmentFailureProbabilityInfo
             {
                 get
                 {
-                    return _assessmentprobabilitygroups1and2Info;
-                }
-            }
-
-            /// <summary>
-            /// The AssessmentGroups3And4 item.
-            /// </summary>
-            [RepositoryItem("82e26559-e7f0-45f2-822d-cb7a9db63950")]
-            public virtual Ranorex.Text AssessmentGroups3And4
-            {
-                get
-                {
-                    return _assessmentgroups3and4Info.CreateAdapter<Ranorex.Text>(true);
-                }
-            }
-
-            /// <summary>
-            /// The AssessmentGroups3And4 item info.
-            /// </summary>
-            [RepositoryItemInfo("82e26559-e7f0-45f2-822d-cb7a9db63950")]
-            public virtual RepoItemInfo AssessmentGroups3And4Info
-            {
-                get
-                {
-                    return _assessmentgroups3and4Info;
+                    return _assessmentfailureprobabilityInfo;
                 }
             }
         }
@@ -5399,17 +5331,13 @@ namespace AutomatedSystemTests
         [RepositoryFolder("4c15a955-c1b0-48c4-bcdc-7150cc96054e")]
         public partial class TableFolder5 : RepoGenBaseFolder
         {
-            RepoItemInfo _assessmentlabelgenericrowInfo;
-            RepoItemInfo _assessmentapproxprobgenericrowInfo;
 
             /// <summary>
             /// Creates a new Table  folder.
             /// </summary>
             public TableFolder5(RepoGenBaseFolder parentFolder) :
-                    base("Table", "container[@controlname='dataGridViewControl']/table", parentFolder, 30000, null, false, "4c15a955-c1b0-48c4-bcdc-7150cc96054e", "")
+                    base("Table", "container/table", parentFolder, 30000, null, true, "4c15a955-c1b0-48c4-bcdc-7150cc96054e", "")
             {
-                _assessmentlabelgenericrowInfo = new RepoItemInfo(this, "AssessmentLabelGenericRow", "row[@accessiblename='Row '+$indexRow]/cell[@accessiblename>'Toetsoordeel']", 30000, null, "b264fcc2-36d7-4507-a402-d4fc29ede170");
-                _assessmentapproxprobgenericrowInfo = new RepoItemInfo(this, "AssessmentApproxProbGenericRow", "row[@accessiblename='Row '+$indexRow]/cell[@accessiblename>'Benaderde']", 30000, null, "9603827f-7322-4bc5-8fb5-86f0400a8ef9");
             }
 
             /// <summary>
@@ -5433,54 +5361,6 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _selfInfo;
-                }
-            }
-
-            /// <summary>
-            /// The AssessmentLabelGenericRow item.
-            /// </summary>
-            [RepositoryItem("b264fcc2-36d7-4507-a402-d4fc29ede170")]
-            public virtual Ranorex.Cell AssessmentLabelGenericRow
-            {
-                get
-                {
-                    return _assessmentlabelgenericrowInfo.CreateAdapter<Ranorex.Cell>(true);
-                }
-            }
-
-            /// <summary>
-            /// The AssessmentLabelGenericRow item info.
-            /// </summary>
-            [RepositoryItemInfo("b264fcc2-36d7-4507-a402-d4fc29ede170")]
-            public virtual RepoItemInfo AssessmentLabelGenericRowInfo
-            {
-                get
-                {
-                    return _assessmentlabelgenericrowInfo;
-                }
-            }
-
-            /// <summary>
-            /// The AssessmentApproxProbGenericRow item.
-            /// </summary>
-            [RepositoryItem("9603827f-7322-4bc5-8fb5-86f0400a8ef9")]
-            public virtual Ranorex.Cell AssessmentApproxProbGenericRow
-            {
-                get
-                {
-                    return _assessmentapproxprobgenericrowInfo.CreateAdapter<Ranorex.Cell>(true);
-                }
-            }
-
-            /// <summary>
-            /// The AssessmentApproxProbGenericRow item info.
-            /// </summary>
-            [RepositoryItemInfo("9603827f-7322-4bc5-8fb5-86f0400a8ef9")]
-            public virtual RepoItemInfo AssessmentApproxProbGenericRowInfo
-            {
-                get
-                {
-                    return _assessmentapproxprobgenericrowInfo;
                 }
             }
         }
@@ -6083,10 +5963,10 @@ namespace AutomatedSystemTests
         }
 
         /// <summary>
-        /// The DocumentViewContainerFolder folder.
+        /// The DocumentViewContainerFolder1 folder.
         /// </summary>
         [RepositoryFolder("78b3cba4-3858-49b9-8809-b7f79f03aa5c")]
-        public partial class DocumentViewContainerFolder : RepoGenBaseFolder
+        public partial class DocumentViewContainerFolder1 : RepoGenBaseFolder
         {
             AutomatedSystemTestsRepositoryFolders.AssessmentSectionAssemblyCategoriesViewFolder1 _assessmentsectionassemblycategoriesview;
             AutomatedSystemTestsRepositoryFolders.FailureMechanismResultViewFolder _failuremechanismresultview;
@@ -6096,7 +5976,7 @@ namespace AutomatedSystemTests
             /// <summary>
             /// Creates a new DocumentViewContainer  folder.
             /// </summary>
-            public DocumentViewContainerFolder(RepoGenBaseFolder parentFolder) :
+            public DocumentViewContainerFolder1(RepoGenBaseFolder parentFolder) :
                     base("DocumentViewContainer", "?/container[10]/container[@controltypename='WinFormsAdapter']", parentFolder, 30000, null, false, "78b3cba4-3858-49b9-8809-b7f79f03aa5c", "")
             {
                 _assessmentsectionassemblycategoriesview = new AutomatedSystemTestsRepositoryFolders.AssessmentSectionAssemblyCategoriesViewFolder1(this);

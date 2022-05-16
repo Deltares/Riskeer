@@ -112,8 +112,8 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (Text=$expectedValue) on item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.AssemblySectionsView.Table.GenericCell'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.AssemblySectionsView.Table.GenericCellInfo, new RecordItemIndex(0));
-            Validate.AttributeEqual(repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.AssemblySectionsView.Table.GenericCellInfo, "Text", expectedValue);
+            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (Text=$expectedValue) on item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.AssemblySectionsView.Table.GenericCell'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.AssemblySectionsView.Table.GenericCellInfo, new RecordItemIndex(0));
+            Validate.AttributeEqual(repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.AssemblySectionsView.Table.GenericCellInfo, "Text", expectedValue);
             
         }
 

@@ -89,8 +89,8 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Press() on item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.ExpandDropDownMenu'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.ExpandDropDownMenuInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.ExpandDropDownMenu.Press();
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Press() on item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.FM_ResultView.ExpandDropDownMenu'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.FM_ResultView.ExpandDropDownMenuInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.FM_ResultView.ExpandDropDownMenu.Press();
             
             Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'DropDownMenuItemList.GenericDropDownItem' at Center.", repo.DropDownMenuItemList.GenericDropDownItemInfo, new RecordItemIndex(1));
             repo.DropDownMenuItemList.GenericDropDownItem.Click();
