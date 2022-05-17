@@ -1347,6 +1347,13 @@ YF24NQIYAAAAAElFTkSuQmCC
 							/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname='CalculationsView']
 						</basepath>
 					</folder>
+					<item
+					capname="table"
+					id="4036b6f4-d12d-47b5-9c7f-3897f5b573bd"
+					name="SecurityCategoriesViewTable"
+					searchtimeout="30000ms">
+						/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname='AssessmentSectionAssemblyGroupsView']/?/?/table
+					</item>
 					<basepath>
 						/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']
 					</basepath>

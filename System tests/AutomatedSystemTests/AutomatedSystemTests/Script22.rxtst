@@ -534,6 +534,20 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="3df6e8a5-79a8-4ac4-b1c7-05dea73a5d8f"
+			name="ReadSecurityCategoriesView"
+			ref="e6d61de3-5921-45ea-8fa4-c205bd53333b"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="dummyString"
+					datasourceid="78337b07-06ac-4efb-b70c-3605a183e682"
+					variableid="6e24e9ab-a7df-4e1a-af7d-dde7952cf206"
+					variablename="trajectAssessmentInformationString">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="3f2b3967-d06a-4c02-9d11-f2f7a93a119a"
 			name="OpenAssemblyTrajectView">
@@ -1457,6 +1471,14 @@
 			name="ValidateFailureTrajectInformationAssemblyView"
 			ref="443ffa80-4cc7-4849-b6f7-51c8af392630"
 			type="UserCode">
+				<databinding>
+					<var
+					dataname="trajectAssessmentInformation"
+					datasourceid="78337b07-06ac-4efb-b70c-3605a183e682"
+					variableid="55734f6c-666a-41d9-be67-e33bccb5c946"
+					variablename="trajectAssessmentInformationString">
+					</var>
+				</databinding>
 			</testmodule>
 			<testmodule
 			id="c95350e8-b2dd-49de-8bd6-951cb177eef1"
@@ -1482,44 +1504,6 @@
 			id="ce6b578e-3645-476d-b905-3a2440873898"
 			name="ReadDataCategoryBoundariesTraject">
 			</smartfoldernode>
-			<testmodule
-			enabled="False"
-			id="d0fa2ab9-84a2-4c37-87a3-cd1406436246"
-			name="MigrateAllFilesInFolderUsingCommandLineTool"
-			ref="d8e46690-d19a-45ce-9514-4e8329f75c83"
-			type="UserCode">
-				<description>
-					<![CDATA[migrate *.risk from previousRelease to currentRelease folder]]>
-				</description>
-				<databinding>
-					<var
-					dataname="scriptOutputFolder"
-					datasourceid="78337b07-06ac-4efb-b70c-3605a183e682"
-					variableid="f3b3e712-db1c-4e56-8986-c0607c00391a"
-					variablename="targetFolder">
-					</var>
-					<var
-					dataname="previousReleaseFolder"
-					datasourceid="78337b07-06ac-4efb-b70c-3605a183e682"
-					variableid="37a1147a-04d5-40e7-aea9-e65cdff17e35"
-					variablename="sourceFolder">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="folderProjectPreviousRelease"
-					datasourceid="666b113a-868e-4995-ad39-04a5e56c07e5"
-					variableid="37a1147a-04d5-40e7-aea9-e65cdff17e35"
-					variablename="sourceFolder">
-					</var>
-					<var
-					dataname="scriptOutputFolder"
-					datasourceid="666b113a-868e-4995-ad39-04a5e56c07e5"
-					variableid="f3b3e712-db1c-4e56-8986-c0607c00391a"
-					variablename="targetFolder">
-					</var>
-				</missingdatabinding>
-			</testmodule>
 			<testmodule
 			id="d1459fc7-bfff-47b4-9c46-ba01f4cbd944"
 			name="ValidateSummaryValuesAssemblyTrajectView"
@@ -1570,44 +1554,6 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
-			<testmodule
-			enabled="False"
-			id="d440a6b3-9361-43a7-8f6b-12dacee40aac"
-			name="DeleteAllSearchFilteredFiles"
-			ref="bbc504b6-a274-49fd-a91c-60ae313dd965"
-			type="UserCode">
-				<description>
-					<![CDATA[Delete all previous *.risk files in currentVersion]]>
-				</description>
-				<databinding>
-					<var
-					dataname="extensionRiskProjects"
-					datasourceid="78337b07-06ac-4efb-b70c-3605a183e682"
-					variableid="21292db3-75da-487e-9c9b-bb2ad030ab77"
-					variablename="searchFilter">
-					</var>
-					<var
-					dataname="scriptOutputFolder"
-					datasourceid="78337b07-06ac-4efb-b70c-3605a183e682"
-					variableid="3c5ffbb5-af24-45ac-9e77-199557e248f9"
-					variablename="folderToDeleteFiles">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="folderProjectsCurrentRelease"
-					datasourceid="666b113a-868e-4995-ad39-04a5e56c07e5"
-					variableid="3c5ffbb5-af24-45ac-9e77-199557e248f9"
-					variablename="folderToDeleteFiles">
-					</var>
-					<var
-					dataname="filterRiskProjects"
-					datasourceid="666b113a-868e-4995-ad39-04a5e56c07e5"
-					variableid="21292db3-75da-487e-9c9b-bb2ad030ab77"
-					variablename="searchFilter">
-					</var>
-				</missingdatabinding>
-			</testmodule>
 			<smartfoldernode
 			id="d601846d-0fa3-4dbc-833d-8685dbcea7f2"
 			name="OpenResultsView">
@@ -1893,14 +1839,6 @@
 							id="59093ff3-0dda-4e58-9cf5-4b090322a67a"
 							name="CreateOutputFolder">
 							</testmodule>
-							<testmodule
-							id="d440a6b3-9361-43a7-8f6b-12dacee40aac"
-							name="DeleteAllSearchFilteredFiles">
-							</testmodule>
-							<testmodule
-							id="d0fa2ab9-84a2-4c37-87a3-cd1406436246"
-							name="MigrateAllFilesInFolderUsingCommandLineTool">
-							</testmodule>
 						</setup>
 						<smartfoldernode
 						id="ee888ebe-27cb-43f2-8462-999d3a41cc09"
@@ -2103,6 +2041,10 @@
 								<smartfoldernode
 								id="3bfe9f4e-a6dd-457c-bbcb-f63e40a902d8"
 								name="ReadDataFromSecurityCategoriesView">
+									<testmodule
+									id="3df6e8a5-79a8-4ac4-b1c7-05dea73a5d8f"
+									name="ReadSecurityCategoriesView">
+									</testmodule>
 								</smartfoldernode>
 								<smartfoldernode
 								id="c02e27e8-5a2b-41b0-89b5-0e93c051b5c7"
@@ -3114,6 +3056,9 @@
 			</testcontainer>
 			<testcontainer
 			id="6754469b-6bef-4898-a3ce-f0500c72e37b">
+			</testcontainer>
+			<testcontainer
+			id="757ecf88-58fa-43d7-afda-75241cab416c">
 			</testcontainer>
 			<testcontainer
 			id="78337b07-06ac-4efb-b70c-3605a183e682">

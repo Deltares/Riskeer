@@ -2858,6 +2858,7 @@ namespace AutomatedSystemTests
             RepoItemInfo _btndialogInfo;
             RepoItemInfo _dropdownbuttoninrowpropertiespanelInfo;
             RepoItemInfo _fmsectionsviewtableInfo;
+            RepoItemInfo _securitycategoriesviewtableInfo;
 
             /// <summary>
             /// Creates a new DocumentViewContainer  folder.
@@ -2880,6 +2881,7 @@ namespace AutomatedSystemTests
                 _btndialogInfo = new RepoItemInfo(this, "BtnDialog", "?/?/button[@controlname='btnDialog']", 30000, null, "cefba828-ea6b-4e9d-a97a-641324e9af42");
                 _dropdownbuttoninrowpropertiespanelInfo = new RepoItemInfo(this, "DropDownButtonInRowPropertiesPanel", "?/?/button[@controlname='btnDropDown']", 30000, null, "3bf645bc-b589-440e-9827-e97c895e810b");
                 _fmsectionsviewtableInfo = new RepoItemInfo(this, "FMSectionsViewTable", "container[@controlname~'SectionsView']/?/table", 30000, null, "e1c75820-980f-411c-9ada-a9dcd59572ae");
+                _securitycategoriesviewtableInfo = new RepoItemInfo(this, "SecurityCategoriesViewTable", "container[@controlname='AssessmentSectionAssemblyGroupsView']/?/?/table", 30000, null, "4036b6f4-d12d-47b5-9c7f-3897f5b573bd");
             }
 
             /// <summary>
@@ -2975,6 +2977,30 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _fmsectionsviewtableInfo;
+                }
+            }
+
+            /// <summary>
+            /// The SecurityCategoriesViewTable item.
+            /// </summary>
+            [RepositoryItem("4036b6f4-d12d-47b5-9c7f-3897f5b573bd")]
+            public virtual Ranorex.Table SecurityCategoriesViewTable
+            {
+                get
+                {
+                    return _securitycategoriesviewtableInfo.CreateAdapter<Ranorex.Table>(true);
+                }
+            }
+
+            /// <summary>
+            /// The SecurityCategoriesViewTable item info.
+            /// </summary>
+            [RepositoryItemInfo("4036b6f4-d12d-47b5-9c7f-3897f5b573bd")]
+            public virtual RepoItemInfo SecurityCategoriesViewTableInfo
+            {
+                get
+                {
+                    return _securitycategoriesviewtableInfo;
                 }
             }
 

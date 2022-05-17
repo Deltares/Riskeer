@@ -102,8 +102,12 @@ namespace Ranorex_Automation_Helpers.UserCodeCollections
         public TrajectResultInformation()
         {
             ListFMsResultInformation = new List<FailureMechanismResultInformation>();
+            UpperLimitsSecurityBoundaries = new List<string>();
         }
+        
         public List<FailureMechanismResultInformation> ListFMsResultInformation {get; set;}
+        
+        public List<string> UpperLimitsSecurityBoundaries {get; set;}
         
         public static TrajectResultInformation BuildAssessmenTrajectInformation(string trajectAssessmentInformationString)
         {
@@ -129,6 +133,7 @@ namespace Ranorex_Automation_Helpers.UserCodeCollections
             }
             return trajectAssessmentInformation;
         }
+        
     }
     
     

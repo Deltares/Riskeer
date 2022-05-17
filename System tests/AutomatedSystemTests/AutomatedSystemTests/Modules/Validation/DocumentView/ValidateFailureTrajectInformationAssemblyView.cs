@@ -14,6 +14,7 @@ using System.Drawing;
 using System.Threading;
 using WinForms = System.Windows.Forms;
 using Ranorex_Automation_Helpers.UserCodeCollections;
+using System.Linq;
 
 using Ranorex;
 using Ranorex.Core;
@@ -60,7 +61,7 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
             var trajectResultInformation = TrajectResultInformation.BuildAssessmenTrajectInformation(trajectAssessmentInformationString);
 
             var expectedFailureProbTraject = CalculateFailureProbTraject(trajectResultInformation);
-            var expectedAssessmentLabelTraject = CalculateAssessmentLabelTraject(trajectResultInformation, expectedFailureProbTraject);
+            var expectedAssessmentLabelTraject = CalculateAssessmentLabelTraject(trajectResultInformation.UpperLimitsSecurityBoundaries, expectedFailureProbTraject);
             
             Validate.AreEqual(actualFailureProbTraject, expectedFailureProbTraject);
             Validate.AreEqual(actualAssessmentTrajectLabel, expectedAssessmentLabelTraject);
@@ -84,9 +85,23 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
             return "1/" + denomProbTraject;
         }
         
-        private string CalculateAssessmentLabelTraject(TrajectResultInformation trajectResultInformation, string failureProb)
+        private string CalculateAssessmentLabelTraject(List<string> upperLimits, string failureProb)
         {
-            return "A";
+            var lowestUpperLimit = upperLimits.Where(ul=>ProbabilityToDouble(failureProb)<ProbabilityToDouble(ul)).FirstOrDefault();
+            var allLabels = new List<string> {
+                "A+",
+                "A",
+                "B",
+                "C",
+                "D"
+            };
+            var label = allLabels[upperLimits.IndexOf(lowestUpperLimit)];
+            return label;
+        }
+        
+        private double ProbabilityToDouble(string prob)
+        {
+            return 1.0 / Double.Parse(prob.Substring(2));
         }
         
         private void ValidateCellBackgroundColorLabelAssessmentTraject(string label, RepoItemInfo textFieldfInfo)

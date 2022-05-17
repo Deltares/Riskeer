@@ -78,35 +78,11 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             foreach (var row in rowsSectionsDivisions) {
                 fmAssessmentInformation.SectionList.Add(CreateSectionFromRow(row, sectionIndeces));
             }
-            var trajectAssessmentInformation = BuildAssessmenTrajectInformation(trajectAssessmentInformationString);
+            var trajectAssessmentInformation = TrajectResultInformation.BuildAssessmenTrajectInformation(trajectAssessmentInformationString);
             trajectAssessmentInformation.ListFMsResultInformation.Add(fmAssessmentInformation);
             trajectAssessmentInformationString = JsonConvert.SerializeObject(trajectAssessmentInformation, Formatting.Indented);
         }
         
-        private TrajectResultInformation BuildAssessmenTrajectInformation(string trajectAssessmentInformationString)
-        {
-            TrajectResultInformation trajectAssessmentInformation;
-            if (trajectAssessmentInformationString=="") {
-                trajectAssessmentInformation = new TrajectResultInformation();
-            } else {
-                var error = false;
-                trajectAssessmentInformation = JsonConvert.DeserializeObject<TrajectResultInformation>(trajectAssessmentInformationString, new JsonSerializerSettings
-                {
-                    Error = (s, e) =>
-                    {
-                        error = true;
-                        e.ErrorContext.Handled = true;
-                    }
-                }
-            );
-                if (error==true) {
-                    
-                    Report.Log(ReportLevel.Error, "error unserializing json string for trajectAssessmentInformationString: " + trajectAssessmentInformationString);
-                }
-                
-            }
-            return trajectAssessmentInformation;
-        }
         
         private int GetColumnIndex(Row headerRow, string textInHeader)
         {

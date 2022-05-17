@@ -549,6 +549,9 @@
     <Compile Include="Modules\ActionsDocumentView\ReadSectionsDivisionsFromSectionsView.cs">
       <id>608d45dc-fe27-457c-83c7-c201f32a598d</id>
     </Compile>
+    <Compile Include="Modules\ActionsDocumentView\ReadSecurityCategoriesView.cs">
+      <id>087d34b8-33ac-4d74-9e46-30c5f6522ca7</id>
+    </Compile>
     <Compile Include="Modules\ActionsDocumentView\SelectTypeFailureMechanismForFM.cs">
       <BoundTo>190c7aaf-3340-4a36-b398-aadf52f77a8b</BoundTo>
       <DependentUpon>SelectTypeFailureMechanismForFM.rxrec</DependentUpon>
