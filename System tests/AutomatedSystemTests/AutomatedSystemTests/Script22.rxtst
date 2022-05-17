@@ -230,6 +230,32 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="1b2177e3-9dcc-4116-bc74-e7d4768bd387"
+			name="SeManualFailureProbabilityFMInResultView"
+			ref="11b4f29f-cd05-44c2-a71f-20fd99b75f3b"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="fmLabel"
+					datasourceid="a3c4f19e-1fe0-492d-bccc-4896a68bce52"
+					variableid="e1a699f8-5384-403d-8cb2-e94036ed136d"
+					variablename="currentFMLabel">
+					</var>
+					<var
+					dataname="newManualFMFailureProb"
+					datasourceid="a3c4f19e-1fe0-492d-bccc-4896a68bce52"
+					variableid="c37e1b0c-bde7-43d9-9a00-eac5b401cd23"
+					variablename="ManualFailureProbToSet">
+					</var>
+					<var
+					dataname="trajectAssessmentInformation"
+					datasourceid="78337b07-06ac-4efb-b70c-3605a183e682"
+					variableid="9779eb56-6b69-4555-8fbd-8dcb44167c7b"
+					variablename="trajectAssessmentInformationString">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="1d5b615f-13a9-4318-98e6-d190cb2a43dc"
 			name="TakeCreateScreenshot">
@@ -471,6 +497,10 @@
 			<smartfoldernode
 			id="3bfd7949-921d-4929-bcdd-0c4f80746a45"
 			name="AssemblyMap">
+			</smartfoldernode>
+			<smartfoldernode
+			id="3bfe9f4e-a6dd-457c-bbcb-f63e40a902d8"
+			name="ReadDataFromSecurityCategoriesView">
 			</smartfoldernode>
 			<testmodule
 			id="3d721b10-75d5-4d53-8072-e2478d23dc82"
@@ -1073,6 +1103,10 @@
 			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
 			type="Recording">
 			</testmodule>
+			<smartfoldernode
+			id="97b00b6b-6bb6-4cc8-91cd-a9e86de6fc57"
+			name="OpenSecurityCategoriesView">
+			</smartfoldernode>
 			<testmodule
 			id="986695bc-5ce0-44f5-b14e-8518207d9930"
 			name="AssignManualAssessmentFirstRowResultView"
@@ -1094,6 +1128,16 @@
 					<param
 					name="fileNameToSave"
 					value="script22.risk">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			id="9935ac33-098d-4c6d-a720-63a976d018e3"
+			name="ReadSecurityCategories">
+				<parameters>
+					<param
+					name="pathToSecurityCategoriesInPE"
+					value="@TR>Assemblage>Veiligheidscategorieën">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -1144,6 +1188,12 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="9db4430a-8ac0-4b3d-8bb5-1dd8ab87d00b"
+			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
+			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
+			type="Recording">
+			</testmodule>
 			<setup
 			id="9dfcce2d-e730-48ce-83d3-18eb87f2f8db"
 			name="setup">
@@ -1190,32 +1240,6 @@
 			id="a53d4cb6-89e1-429d-849b-274cfa2a0b13"
 			name="ValidateAssemblyTraject">
 			</smartfoldernode>
-			<testmodule
-			id="a653bc29-0636-4ea3-9108-933c1f91e5a6"
-			name="SetManualFailureProbFMInResultView"
-			ref="163c57ad-a1cd-4039-a380-1c2cd7beeda3"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="newManualFMFailureProb"
-					datasourceid="a3c4f19e-1fe0-492d-bccc-4896a68bce52"
-					variableid="e01c85f2-d050-4f92-b45a-8644027e7a1f"
-					variablename="ManualFailureProbToSet">
-					</var>
-					<var
-					dataname="fmLabel"
-					datasourceid="a3c4f19e-1fe0-492d-bccc-4896a68bce52"
-					variableid="77d535cc-7ef2-42d6-a6fc-d673b8846963"
-					variablename="currentFMLabel">
-					</var>
-					<var
-					dataname="trajectAssessmentInformation"
-					datasourceid="78337b07-06ac-4efb-b70c-3605a183e682"
-					variableid="c1e805b2-7a7a-46c0-9c90-88f20d868939"
-					variablename="trajectAssessmentInformationString">
-					</var>
-				</databinding>
-			</testmodule>
 			<testmodule
 			id="a8b0630e-915d-4e61-acdf-fb2f7510213d"
 			name="CloseViewCentralPanelWithFocus"
@@ -1320,6 +1344,24 @@
 			id="bccc3971-de55-4aec-8cd4-5eeb0b6ba145"
 			name="ResultsView">
 			</smartfoldernode>
+			<smartfoldernode
+			id="c02e27e8-5a2b-41b0-89b5-0e93c051b5c7"
+			name="CloseView">
+			</smartfoldernode>
+			<testmodule
+			id="c13e0f26-a215-4703-bf59-6b0f96a5577e"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToSecurityCategoriesInPE"
+					datasourceid="9935ac33-098d-4c6d-a720-63a976d018e3"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="c1bdb0d6-5ad7-4261-9ad0-2716dfe1c2ad"
 			name="SelectGenericItemInProjectExplorer"
@@ -1403,6 +1445,12 @@
 					variablename="pathToItemInProjectExplorer">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="c8682745-d8d8-4d60-85ec-763748962a11"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
 			</testmodule>
 			<testmodule
 			id="c8684c83-b35d-42bb-9c86-cc34a3e7e582"
@@ -2012,8 +2060,8 @@
 									name="SelectTypeFailureMechanismForFM">
 									</testmodule>
 									<testmodule
-									id="a653bc29-0636-4ea3-9108-933c1f91e5a6"
-									name="SetManualFailureProbFMInResultView">
+									id="1b2177e3-9dcc-4116-bc74-e7d4768bd387"
+									name="SeManualFailureProbabilityFMInResultView">
 									</testmodule>
 								</smartfoldernode>
 								<smartfoldernode
@@ -2037,6 +2085,34 @@
 						<smartfoldernode
 						id="28fd2424-9f0a-4e3b-905c-845000f77103"
 						name="b)AssembleFailureProbsFMstoEntireTaject">
+							<smartfoldernode
+							id="9935ac33-098d-4c6d-a720-63a976d018e3"
+							name="ReadSecurityCategories">
+								<smartfoldernode
+								id="97b00b6b-6bb6-4cc8-91cd-a9e86de6fc57"
+								name="OpenSecurityCategoriesView">
+									<testmodule
+									id="c13e0f26-a215-4703-bf59-6b0f96a5577e"
+									name="SelectGenericItemInProjectExplorer">
+									</testmodule>
+									<testmodule
+									id="9db4430a-8ac0-4b3d-8bb5-1dd8ab87d00b"
+									name="OpenViewForCurrentlySelectedItemInProjectExplorer">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="3bfe9f4e-a6dd-457c-bbcb-f63e40a902d8"
+								name="ReadDataFromSecurityCategoriesView">
+								</smartfoldernode>
+								<smartfoldernode
+								id="c02e27e8-5a2b-41b0-89b5-0e93c051b5c7"
+								name="CloseView">
+									<testmodule
+									id="c8682745-d8d8-4d60-85ec-763748962a11"
+									name="CloseViewCentralPanelWithFocus">
+									</testmodule>
+								</smartfoldernode>
+							</smartfoldernode>
 							<smartfoldernode
 							id="8c78d655-0939-4f4d-8997-fcc33b6c85d5"
 							name="OpenSecurityAssessmentView">
@@ -3031,16 +3107,13 @@
 			id="36f9acd7-882e-4d42-ba92-d5c9c7f2a306">
 			</testcontainer>
 			<testcontainer
+			id="3bfe9f4e-a6dd-457c-bbcb-f63e40a902d8">
+			</testcontainer>
+			<testcontainer
 			id="47bf0772-04c2-4816-b55c-734a65e0eff1">
 			</testcontainer>
 			<testcontainer
 			id="6754469b-6bef-4898-a3ce-f0500c72e37b">
-			</testcontainer>
-			<testcontainer
-			id="6e3e95e2-2b1f-468b-9cb6-badabb39ef99">
-			</testcontainer>
-			<testcontainer
-			id="757ecf88-58fa-43d7-afda-75241cab416c">
 			</testcontainer>
 			<testcontainer
 			id="78337b07-06ac-4efb-b70c-3605a183e682">
@@ -3061,6 +3134,12 @@
 			id="91177b82-eb70-499f-aeff-5c8abe08d6d7">
 			</testcontainer>
 			<testcontainer
+			id="97b00b6b-6bb6-4cc8-91cd-a9e86de6fc57">
+			</testcontainer>
+			<testcontainer
+			id="9935ac33-098d-4c6d-a720-63a976d018e3">
+			</testcontainer>
+			<testcontainer
 			id="9d0f3272-1dd5-46a7-9895-2e7160b20845">
 			</testcontainer>
 			<testcontainer
@@ -3068,6 +3147,9 @@
 			</testcontainer>
 			<testcontainer
 			id="a2727582-55dc-4810-b276-f4c237c42e0b">
+			</testcontainer>
+			<testcontainer
+			id="c02e27e8-5a2b-41b0-89b5-0e93c051b5c7">
 			</testcontainer>
 			<testcontainer
 			id="c2dae628-5195-4cc9-8348-296f5a64bbce">

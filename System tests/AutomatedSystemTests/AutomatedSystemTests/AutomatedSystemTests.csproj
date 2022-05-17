@@ -561,6 +561,9 @@
       <UserCode>true</UserCode>
       <id>d64324b9-a0a0-444a-8ca8-be84c77dacc0</id>
     </Compile>
+    <Compile Include="Modules\ActionsDocumentView\SeManualFailureProbabilityFMInResultView.cs">
+      <id>b1dc28ee-2c35-4a85-8de5-656510b35fd9</id>
+    </Compile>
     <Compile Include="Modules\ActionsDocumentView\SetContributionValueInScenariosView.cs">
       <BoundTo>da7336ce-fbcd-4009-bf0c-329da5bfb60f</BoundTo>
       <DependentUpon>SetContributionValueInScenariosView.rxrec</DependentUpon>
@@ -572,18 +575,6 @@
       <DependentUpon>SetContributionValueInScenariosView.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>6a58fd41-573e-4909-8d91-d25c8a24c067</id>
-    </Compile>
-    <Compile Include="Modules\ActionsDocumentView\SetManualFailureProbFMInResultView.cs">
-      <BoundTo>e3d1f9a5-2932-4124-930a-1c743ae251cb</BoundTo>
-      <DependentUpon>SetManualFailureProbFMInResultView.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>46c7351d-336a-4544-b531-7419d30c9d09</id>
-    </Compile>
-    <Compile Include="Modules\ActionsDocumentView\SetManualFailureProbFMInResultView.UserCode.cs">
-      <BoundTo>e3d1f9a5-2932-4124-930a-1c743ae251cb</BoundTo>
-      <DependentUpon>SetManualFailureProbFMInResultView.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>33394d6f-bffe-4e63-bb1d-98282fc034c8</id>
     </Compile>
     <Compile Include="Modules\ActionsDocumentView\ValidateAssemblyTrajectView.cs">
       <id>2b05cc1b-9f11-495c-a7b1-ec53d69f9bc9</id>
@@ -2424,11 +2415,6 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>da7336ce-fbcd-4009-bf0c-329da5bfb60f</id>
       <recordtableid>a0d27b4d-f989-42ce-afab-76a62ad61956</recordtableid>
-    </None>
-    <None Include="Modules\ActionsDocumentView\SetManualFailureProbFMInResultView.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>e3d1f9a5-2932-4124-930a-1c743ae251cb</id>
-      <recordtableid>163c57ad-a1cd-4039-a380-1c2cd7beeda3</recordtableid>
     </None>
     <None Include="Modules\ActionsDocumentView\ValidateContributionValueInScenariosView.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>

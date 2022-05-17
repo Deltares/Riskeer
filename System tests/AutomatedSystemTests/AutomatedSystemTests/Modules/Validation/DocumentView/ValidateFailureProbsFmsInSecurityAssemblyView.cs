@@ -84,7 +84,7 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
             var tableFailureProbsFMs = repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.SecurityAssemblyView.Table.Self;
             var trajectResultInformation = TrajectResultInformation.BuildAssessmenTrajectInformation(trajectAssessmentInformationString);
             var infoCurrentFM = trajectResultInformation.ListFMsResultInformation.Where(fmItem => fmItem.Label==labelFM).FirstOrDefault();
-            var expectedFailureProbability = infoCurrentFM==null?"-":infoCurrentFM.FailureProbability;
+            var expectedFailureProbability = infoCurrentFM==null?"-":infoCurrentFM.FailureProbability.ToNoGroupSeparator();
             var row = tableFailureProbsFMs.Rows[Int32.Parse(rowIndex)-1];
             ValidateCell(row.Cells[1], nameFM.ReplacePathAliases());
             ValidateCell(row.Cells[2], labelFM);
@@ -95,7 +95,7 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
         {
             cellToValidate.Focus();
             cellToValidate.Select();
-            Validate.AreEqual(cellToValidate.Text, expectedContent);
+            Validate.AreEqual(cellToValidate.Text.ToNoGroupSeparator(), expectedContent);
         }
     }
 }
