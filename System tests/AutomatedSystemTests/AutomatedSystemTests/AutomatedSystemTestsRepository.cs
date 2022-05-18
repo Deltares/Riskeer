@@ -5232,6 +5232,7 @@ namespace AutomatedSystemTests
         {
             SecurityAssessmentInfoClass _securityassessmentInfo;
             RepoItemInfo _assessmentfailureprobabilityInfo;
+            RepoItemInfo _grouplabelInfo;
 
             /// <summary>
             /// Creates a new Summary  folder.
@@ -5241,6 +5242,7 @@ namespace AutomatedSystemTests
             {
                 _securityassessmentInfo = new SecurityAssessmentInfoClass(this);
                 _assessmentfailureprobabilityInfo = new RepoItemInfo(this, "AssessmentFailureProbability", "text[@controlname='probabilityLabel']/text", 30000, null, "1d9add26-2df5-4fe6-b94b-07f83cce63eb");
+                _grouplabelInfo = new RepoItemInfo(this, "GroupLabel", "text[@controlname='groupLabel']", 30000, null, "65a52be4-1a60-4cd2-bb22-2195e8d80280");
             }
 
             /// <summary>
@@ -5275,6 +5277,48 @@ namespace AutomatedSystemTests
                 public CompressedImage GetColorsSecurityCategories(System.Drawing.Rectangle cropRect)
                 {
                     return GetImage("aced7f92-53e4-498e-819d-f18cd64cff51", cropRect);
+                }
+
+                /// <summary>
+                /// Gets the ColorsSecurityCategories1 item image.
+                /// </summary>
+                /// <returns>The ColorsSecurityCategories1 image.</returns>
+                [RepositoryImage("0b2b6c15-1ce2-4955-a6ea-b8fdd06a09b3")]
+                public CompressedImage GetColorsSecurityCategories1()
+                {
+                    return GetImage("0b2b6c15-1ce2-4955-a6ea-b8fdd06a09b3");
+                }
+
+                /// <summary>
+                /// Gets the ColorsSecurityCategories1 item image.
+                /// </summary>
+                /// <param name="cropRect">The bounds of the sub-image to return.</param>
+                /// <returns>The cropped image.</returns>
+                [RepositoryImage("0b2b6c15-1ce2-4955-a6ea-b8fdd06a09b3")]
+                public CompressedImage GetColorsSecurityCategories1(System.Drawing.Rectangle cropRect)
+                {
+                    return GetImage("0b2b6c15-1ce2-4955-a6ea-b8fdd06a09b3", cropRect);
+                }
+
+                /// <summary>
+                /// Gets the Screenshot1 item image.
+                /// </summary>
+                /// <returns>The Screenshot1 image.</returns>
+                [RepositoryImage("f671e30b-f857-4d47-ada4-04718704ca98")]
+                public CompressedImage GetScreenshot1()
+                {
+                    return GetImage("f671e30b-f857-4d47-ada4-04718704ca98");
+                }
+
+                /// <summary>
+                /// Gets the Screenshot1 item image.
+                /// </summary>
+                /// <param name="cropRect">The bounds of the sub-image to return.</param>
+                /// <returns>The cropped image.</returns>
+                [RepositoryImage("f671e30b-f857-4d47-ada4-04718704ca98")]
+                public CompressedImage GetScreenshot1(System.Drawing.Rectangle cropRect)
+                {
+                    return GetImage("f671e30b-f857-4d47-ada4-04718704ca98", cropRect);
                 }
             }
 
@@ -5347,6 +5391,30 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _assessmentfailureprobabilityInfo;
+                }
+            }
+
+            /// <summary>
+            /// The GroupLabel item.
+            /// </summary>
+            [RepositoryItem("65a52be4-1a60-4cd2-bb22-2195e8d80280")]
+            public virtual Ranorex.Text GroupLabel
+            {
+                get
+                {
+                    return _grouplabelInfo.CreateAdapter<Ranorex.Text>(true);
+                }
+            }
+
+            /// <summary>
+            /// The GroupLabel item info.
+            /// </summary>
+            [RepositoryItemInfo("65a52be4-1a60-4cd2-bb22-2195e8d80280")]
+            public virtual RepoItemInfo GroupLabelInfo
+            {
+                get
+                {
+                    return _grouplabelInfo;
                 }
             }
         }

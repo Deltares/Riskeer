@@ -541,7 +541,7 @@
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="dummyString"
+					dataname="trajectAssessmentInformation"
 					datasourceid="78337b07-06ac-4efb-b70c-3605a183e682"
 					variableid="6e24e9ab-a7df-4e1a-af7d-dde7952cf206"
 					variablename="trajectAssessmentInformationString">

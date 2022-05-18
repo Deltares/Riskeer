@@ -1166,6 +1166,23 @@ AP8AdpM8//8A/5kA/wAAYIUOxgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAERJREFUaN7tzDEBACAM
 AzAsYAELGNgx/5r2V8CuREBOuuGFHzqU0Wg0Go1Go9FoNBqNRqPRaDQajUaj0Wg0Go1G497YNb7T
 YF24NQIYAAAAAElFTkSuQmCC
 								</image>
+								<image
+								guid="0b2b6c15-1ce2-4955-a6ea-b8fdd06a09b3"
+								name="ColorsSecurityCategories1">
+									iVBORw0KGgoAAAANSUhEUgAAAKEAAABnBAMAAACazj8sAAAABGdBTUEAALGPC/xhBQAAAA9QTFRF
+AP8AdpM8//8A/5kA/wAAYIUOxgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAERJREFUaN7tzDEBACAM
+AzAsYAELGNgx/5r2V8CuREBOuuGFHzqU0Wg0Go1Go9FoNBqNRqPRaDQajUaj0Wg0Go1G497YNb7T
+YF24NQIYAAAAAElFTkSuQmCC
+								</image>
+								<image
+								guid="f671e30b-f857-4d47-ada4-04718704ca98"
+								name="Screenshot1">
+									iVBORw0KGgoAAAANSUhEUgAAADgAAAAWCAYAAACVIF9YAAAABGdBTUEAALGPC/xhBQAAAAlwSFlz
+AAAOxAAADsQBlSsOGwAAAKtJREFUWEftlTEOgzAMRX0G1mxIHbqwwZQtE0eAE3Ri7M4ZeuCPgiq1
+Ra7w6I88PEWyvTz5J5HnK+PKhCA7IchOCH7oMd4F7dwrPb/YBdcb2pIwSMKk9Z1iFnzMDYYlYyqy
+n9qMR4yCNZ7vzS0JUjplxic2wR+pjiqmJsFjLJliahCsGxPIEZKYnguqd65KNxjX75pPTgX/xbHW
+Gf5E2yNDTAiyE4LshCA3GRuR5NCH7KnsrAAAAABJRU5ErkJggg==
+								</image>
 								/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname='AssemblyResultTotalView']/container/container/text[@controlname='groupLabel']/text
 							</item>
 							<item
@@ -1176,6 +1193,16 @@ YF24NQIYAAAAAElFTkSuQmCC
 							refimgid="c3bf4e99-8db5-4459-8d82-d9d9194122b2"
 							searchtimeout="30000ms">
 								/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname='AssemblyResultTotalView']/container/container/text[@controlname='probabilityLabel']/text
+							</item>
+							<item
+							addcaps="text,control,nativewindow"
+							capname="text"
+							id="65a52be4-1a60-4cd2-bb22-2195e8d80280"
+							name="GroupLabel"
+							refimgid="73e8e71a-615c-40ab-a491-def024b12128"
+							refpath="/form[@automationid='RiskeerMainWindow']/container[@caption='']/container[4]/container[9]/container[@caption='']/container[@controlname='AssemblyResultTotalView']/container[@controlname='assessmentSectionAssemblyControl']/container[@controlname='resultLayoutPanel']/text[@controlname='groupLabel']"
+							searchtimeout="30000ms">
+								/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname='AssemblyResultTotalView']/container/container/text[@controlname='groupLabel']
 							</item>
 							<basepath>
 								/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname='AssemblyResultTotalView']/container/container

@@ -56,6 +56,7 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
         {
             var trajectAssessmentInformation = TrajectResultInformation.BuildAssessmenTrajectInformation(trajectAssessmentInformationString);
             var tableRows = AutomatedSystemTestsRepository.Instance.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.SecurityCategoriesViewTable.Rows;
+            tableRows.RemoveAt(0);
             foreach (var row in tableRows) {
                 var cellUpperLimit = row.Cells[4];
                 cellUpperLimit.Focus();
