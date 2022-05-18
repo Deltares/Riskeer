@@ -84,9 +84,6 @@ namespace Ranorex_Automation_Helpers.UserCodeCollections
         /// </summary>
         public string Label{get; set;}
         
-        /// <summary>
-        /// The label for the assessment of this FM regarding the entire traject (It, IIt, ..., VIIt)
-        /// </summary>
         public string AssemblyGroup {get; set;}
         
         /// <summary>
