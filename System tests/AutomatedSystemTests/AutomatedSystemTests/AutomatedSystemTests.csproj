@@ -945,18 +945,6 @@
     <Compile Include="Modules\IO\CopyAllSearchFilteredFilesFromSourceToTarget.cs">
       <id>90092fd2-c944-452f-aa63-aa9eaf1e2b12</id>
     </Compile>
-    <Compile Include="Modules\IO\CopyFile.cs">
-      <DependentUpon>CopyFile.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>32da3003-c046-4193-bd31-0c76af533dcc</id>
-      <BoundTo>fab570ab-705a-4266-9144-f9f477a53503</BoundTo>
-    </Compile>
-    <Compile Include="Modules\IO\CopyFile.UserCode.cs">
-      <DependentUpon>CopyFile.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>c153f628-d4cd-4d32-bbf7-2e2baf95a97d</id>
-      <BoundTo>fab570ab-705a-4266-9144-f9f477a53503</BoundTo>
-    </Compile>
     <Compile Include="Modules\IO\CreateOutputFolder.cs">
       <DependentUpon>CreateOutputFolder.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -974,18 +962,6 @@
     </Compile>
     <Compile Include="Modules\IO\DeleteAllSearchFilteredFiles.cs">
       <id>f080910c-68a7-421d-97d8-0e2718c60cb2</id>
-    </Compile>
-    <Compile Include="Modules\IO\DeleteFileIfExists.cs">
-      <DependentUpon>DeleteFileIfExists.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>13d1471b-c171-4e5c-8b2a-36342d392515</id>
-      <BoundTo>c72195eb-6d83-44b2-b2f6-96b6855ac1e5</BoundTo>
-    </Compile>
-    <Compile Include="Modules\IO\DeleteFileIfExists.UserCode.cs">
-      <DependentUpon>DeleteFileIfExists.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>2c162ae5-1c90-4947-b811-23668e93db4d</id>
-      <BoundTo>c72195eb-6d83-44b2-b2f6-96b6855ac1e5</BoundTo>
     </Compile>
     <Compile Include="Modules\IO\ExportConfigurationSelectedCalculationToXMLFile.cs">
       <BoundTo>78d67fc9-2020-4f9d-a4a2-ea62e2c2965a</BoundTo>
@@ -1080,30 +1056,6 @@
       <UserCode>true</UserCode>
       <id>105d5b0a-b4a9-40e5-a438-ca855892a079</id>
     </Compile>
-    <Compile Include="Modules\OpenViews\OpenResultView.cs">
-      <DependentUpon>OpenResultView.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>00836c2b-b6ac-4f58-9ccd-c465659fe57e</id>
-      <BoundTo>918d5c65-6117-4065-be77-b86f0dc97b3f</BoundTo>
-    </Compile>
-    <Compile Include="Modules\OpenViews\OpenResultView.UserCode.cs">
-      <DependentUpon>OpenResultView.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>3fd97e9f-285e-409e-9903-bfbba356bded</id>
-      <BoundTo>918d5c65-6117-4065-be77-b86f0dc97b3f</BoundTo>
-    </Compile>
-    <Compile Include="Modules\OpenViews\OpenTrajectNormenView.cs">
-      <BoundTo>b4220af5-04f9-4914-8581-74fabf79ebbf</BoundTo>
-      <DependentUpon>OpenTrajectNormenView.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>8bb3a675-9518-43f9-8afc-1f55df6b7f99</id>
-    </Compile>
-    <Compile Include="Modules\OpenViews\OpenTrajectNormenView.UserCode.cs">
-      <BoundTo>b4220af5-04f9-4914-8581-74fabf79ebbf</BoundTo>
-      <DependentUpon>OpenTrajectNormenView.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>76073981-10bf-481e-a09d-25dcf225d501</id>
-    </Compile>
     <Compile Include="Modules\OpenViews\OpenViewForCurrentlySelectedItemInProjectExplorer.cs">
       <DependentUpon>OpenViewForCurrentlySelectedItemInProjectExplorer.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -1163,18 +1115,6 @@
       <DependentUpon>CreateScreenShotEntireApplication.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>5d701daa-6729-41d0-8f56-928dceecb1fe</id>
-    </Compile>
-    <Compile Include="Modules\RepportInfo\CreateScreenshotEntireDesktop.cs">
-      <BoundTo>c3cbdf07-5f61-4169-8d8b-5e323c3a882c</BoundTo>
-      <DependentUpon>CreateScreenshotEntireDesktop.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>eaa67ea6-86db-4180-bd14-d0bfe75ab110</id>
-    </Compile>
-    <Compile Include="Modules\RepportInfo\CreateScreenshotEntireDesktop.UserCode.cs">
-      <BoundTo>c3cbdf07-5f61-4169-8d8b-5e323c3a882c</BoundTo>
-      <DependentUpon>CreateScreenshotEntireDesktop.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>2afacf56-19b1-47fd-b74a-e94b7559ebee</id>
     </Compile>
     <Compile Include="Modules\RepportInfo\CreateScreenshotMessagesPanel.cs">
       <BoundTo>8f3d8e09-69cb-4bd3-95c4-2a8d79fe9874</BoundTo>
@@ -1356,18 +1296,6 @@
       <id>edfb6265-1d96-43d6-9b5d-ea1ac9c60033</id>
       <BoundTo>77a507ba-55df-4f3b-b312-cdf9eaa7c68b</BoundTo>
     </Compile>
-    <Compile Include="Modules\Selection\SelectGenericSectionInListCalculationsView.cs">
-      <BoundTo>0805e35f-bd37-44da-8b7b-52eadeafb9a4</BoundTo>
-      <DependentUpon>SelectGenericSectionInListCalculationsView.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>5eeea7e0-d96a-4489-9954-8e464adc75d2</id>
-    </Compile>
-    <Compile Include="Modules\Selection\SelectGenericSectionInListCalculationsView.UserCode.cs">
-      <BoundTo>0805e35f-bd37-44da-8b7b-52eadeafb9a4</BoundTo>
-      <DependentUpon>SelectGenericSectionInListCalculationsView.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>67b3b87a-af07-4bde-baa9-945062b77111</id>
-    </Compile>
     <Compile Include="Modules\Selection\SelectGenericSectionInListScenariosView.cs">
       <BoundTo>97011333-f53c-4153-992d-9d1bed478861</BoundTo>
       <DependentUpon>SelectGenericSectionInListScenariosView.rxrec</DependentUpon>
@@ -1379,18 +1307,6 @@
       <DependentUpon>SelectGenericSectionInListScenariosView.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>72505453-7e8b-483a-b79b-b48019160bc4</id>
-    </Compile>
-    <Compile Include="Modules\Selection\SelectItemBelow.cs">
-      <DependentUpon>SelectItemBelow.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>9d25f98d-4085-4929-886e-a1285b4f5776</id>
-      <BoundTo>1fec213e-fd25-4c96-8055-5d4dad952155</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Selection\SelectItemBelow.UserCode.cs">
-      <DependentUpon>SelectItemBelow.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>d3468ae5-9acf-4bda-aca4-fb58202c73e0</id>
-      <BoundTo>1fec213e-fd25-4c96-8055-5d4dad952155</BoundTo>
     </Compile>
     <Compile Include="Modules\Selection\SelectItemFromDynamicDropDownMenuInPropertiesPanelRow.cs">
       <BoundTo>f00c07a7-1332-49f0-bc26-77f534093d31</BoundTo>
@@ -1439,18 +1355,6 @@
       <UserCode>true</UserCode>
       <id>877658b2-1b90-42d3-ad4f-db4fec0f0944</id>
       <BoundTo>28d03374-35b2-44db-81cd-a402f27e8a66</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Selection\SelectTrajectType.cs">
-      <DependentUpon>SelectTrajectType.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>2b34a057-cef9-40d4-8686-14b9cf297390</id>
-      <BoundTo>bd83daa0-c4f9-4e92-818b-ddb482e0838c</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Selection\SelectTrajectType.UserCode.cs">
-      <DependentUpon>SelectTrajectType.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>c8e3883f-d27d-4363-8f1b-4fe07766baf9</id>
-      <BoundTo>bd83daa0-c4f9-4e92-818b-ddb482e0838c</BoundTo>
     </Compile>
     <Compile Include="Modules\Selection\SelectCheckboxesForListRowsInHBCView.cs">
       <id>3fab094f-b965-4706-a963-c05cb2f05c4d</id>
@@ -2360,20 +2264,10 @@
       <id>8a7c290a-c895-4ab6-8417-8c4f981c847e</id>
       <recordtableid>4e9bdd58-dcf1-424d-a224-1d30c86d102b</recordtableid>
     </None>
-    <None Include="Modules\IO\CopyFile.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>fab570ab-705a-4266-9144-f9f477a53503</id>
-      <recordtableid>ad8e1ad4-f412-41ae-a2dc-f39766081df4</recordtableid>
-    </None>
     <None Include="Modules\IO\CreateOutputFolder.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>171d5e60-a4ba-4594-80a1-966838bfcfcd</id>
       <recordtableid>40b6ae98-0f6f-4015-b0b2-13ee7ced6f84</recordtableid>
-    </None>
-    <None Include="Modules\IO\DeleteFileIfExists.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>c72195eb-6d83-44b2-b2f6-96b6855ac1e5</id>
-      <recordtableid>2e4fc24f-fbac-4679-9b7f-37d1c3a42223</recordtableid>
     </None>
     <None Include="Modules\IO\ExportConfigurationSelectedCalculationToXMLFile.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -2410,16 +2304,6 @@
       <id>132fbd7d-950e-46ff-82d8-1c88ec7aba2b</id>
       <recordtableid>080c578e-b4cb-4bb4-945d-26465067449d</recordtableid>
     </None>
-    <None Include="Modules\OpenViews\OpenResultView.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>918d5c65-6117-4065-be77-b86f0dc97b3f</id>
-      <recordtableid>14b19856-facd-4b69-82b3-b7f678560774</recordtableid>
-    </None>
-    <None Include="Modules\OpenViews\OpenTrajectNormenView.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>b4220af5-04f9-4914-8581-74fabf79ebbf</id>
-      <recordtableid>d4189ba6-04e4-4c32-a503-2b635376521a</recordtableid>
-    </None>
     <None Include="Modules\OpenViews\OpenViewForCurrentlySelectedItemInProjectExplorer.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>eeb7ef51-8e00-4dba-a124-aae38b08ccdc</id>
@@ -2444,11 +2328,6 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>a7fe9a81-f30b-4989-93d4-73a3b0f3ece5</id>
       <recordtableid>badbc62e-0842-46fe-b883-582d8a44310b</recordtableid>
-    </None>
-    <None Include="Modules\RepportInfo\CreateScreenshotEntireDesktop.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>c3cbdf07-5f61-4169-8d8b-5e323c3a882c</id>
-      <recordtableid>0f7ebadb-0285-4449-9422-0cd6fde5bf4d</recordtableid>
     </None>
     <None Include="Modules\RepportInfo\CreateScreenshotMessagesPanel.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -2525,20 +2404,10 @@
       <id>77a507ba-55df-4f3b-b312-cdf9eaa7c68b</id>
       <recordtableid>ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e</recordtableid>
     </None>
-    <None Include="Modules\Selection\SelectGenericSectionInListCalculationsView.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>0805e35f-bd37-44da-8b7b-52eadeafb9a4</id>
-      <recordtableid>815c10de-7eb0-4306-b5f0-403e140be625</recordtableid>
-    </None>
     <None Include="Modules\Selection\SelectGenericSectionInListScenariosView.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>97011333-f53c-4153-992d-9d1bed478861</id>
       <recordtableid>c28d218c-b230-4ca9-8820-6cd4085c3ae0</recordtableid>
-    </None>
-    <None Include="Modules\Selection\SelectItemBelow.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>1fec213e-fd25-4c96-8055-5d4dad952155</id>
-      <recordtableid>12bc2c02-5298-4ca8-ae8e-6afb9e1b7d0f</recordtableid>
     </None>
     <None Include="Modules\Selection\SelectItemFromDynamicDropDownMenuInPropertiesPanelRow.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -2559,11 +2428,6 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>28d03374-35b2-44db-81cd-a402f27e8a66</id>
       <recordtableid>41e70303-25bd-42fe-9275-c9f1baa62c5c</recordtableid>
-    </None>
-    <None Include="Modules\Selection\SelectTrajectType.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>bd83daa0-c4f9-4e92-818b-ddb482e0838c</id>
-      <recordtableid>f3cd18f8-b687-4886-b040-fc89f784d832</recordtableid>
     </None>
     <None Include="Modules\Set_Assign\Assembly\ChangeRelevanceSection.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
