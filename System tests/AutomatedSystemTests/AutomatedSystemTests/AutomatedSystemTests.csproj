@@ -1419,18 +1419,6 @@
     <Compile Include="Modules\Set_Assign\SetRangeInSmartFolder.cs">
       <id>561b52a4-78d8-4476-b2c3-593ea7c55a57</id>
     </Compile>
-    <Compile Include="Modules\Set_Assign\SetRangeInTableForPEBasedOnTrajectType.cs">
-      <DependentUpon>SetRangeInTableForPEBasedOnTrajectType.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>e508feb7-a9a9-4b0d-8fbf-d85428135699</id>
-      <BoundTo>fa8863c1-c307-4363-98e1-572ecfc0c2c6</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Set_Assign\SetRangeInTableForPEBasedOnTrajectType.UserCode.cs">
-      <DependentUpon>SetRangeInTableForPEBasedOnTrajectType.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>32d469cc-9c2d-4744-b013-128fb741c424</id>
-      <BoundTo>fa8863c1-c307-4363-98e1-572ecfc0c2c6</BoundTo>
-    </Compile>
     <Compile Include="Modules\Set_Assign\SetFMInsideOutsideAssembly.cs">
       <DependentUpon>SetFMInsideOutsideAssembly.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -1443,32 +1431,8 @@
       <id>162de3c0-1993-49bf-9c31-01fef0b63137</id>
       <BoundTo>a3cb26e3-a1be-4cb7-b372-a09785de9a9b</BoundTo>
     </Compile>
-    <Compile Include="Modules\Set_Assign\SetValueParameterForItemInTraject.cs">
-      <DependentUpon>SetValueParameterForItemInTraject.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>af7df850-f721-426c-9cae-0a7bf811b4e6</id>
-      <BoundTo>a2f507da-48e3-4fb8-b387-825031a20ed2</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Set_Assign\SetValueParameterForItemInTraject.UserCode.cs">
-      <DependentUpon>SetValueParameterForItemInTraject.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>2a077882-67f6-41fb-913c-264fd6847040</id>
-      <BoundTo>a2f507da-48e3-4fb8-b387-825031a20ed2</BoundTo>
-    </Compile>
     <Compile Include="Modules\Set_Assign\SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue.cs">
       <id>fa99187e-7573-4bc8-9b4b-be70f9f72768</id>
-    </Compile>
-    <Compile Include="Modules\Set_Assign\SetValueTextParameterVisibleInPropertiesPanel.cs">
-      <DependentUpon>SetValueTextParameterVisibleInPropertiesPanel.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>d99590bc-4916-4398-a2ae-43db4bb37736</id>
-      <BoundTo>744ab55a-8d13-4a59-bf1b-edb5fd3394f3</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Set_Assign\SetValueTextParameterVisibleInPropertiesPanel.UserCode.cs">
-      <DependentUpon>SetValueTextParameterVisibleInPropertiesPanel.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>684974c1-e052-42ac-934d-c533e1eff729</id>
-      <BoundTo>744ab55a-8d13-4a59-bf1b-edb5fd3394f3</BoundTo>
     </Compile>
     <Compile Include="Modules\Set_Assign\SetValueWithKeyPressParameterForItemInTraject.cs">
       <BoundTo>3caad1c0-140c-4fb4-acc6-81005770fc34</BoundTo>
@@ -2449,25 +2413,10 @@
       <id>5bf29cac-081b-4772-a880-80a042909612</id>
       <recordtableid>7d9b109b-9a86-4d14-949e-d6cd5cca905f</recordtableid>
     </None>
-    <None Include="Modules\Set_Assign\SetRangeInTableForPEBasedOnTrajectType.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>fa8863c1-c307-4363-98e1-572ecfc0c2c6</id>
-      <recordtableid>3a6da0ca-5c45-4932-a886-7c30d0e62630</recordtableid>
-    </None>
     <None Include="Modules\Set_Assign\SetFMInsideOutsideAssembly.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>a3cb26e3-a1be-4cb7-b372-a09785de9a9b</id>
       <recordtableid>37154a5a-bed5-4655-91a2-0c5ebc672e77</recordtableid>
-    </None>
-    <None Include="Modules\Set_Assign\SetValueParameterForItemInTraject.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>a2f507da-48e3-4fb8-b387-825031a20ed2</id>
-      <recordtableid>fe097e7d-bf74-4910-a6c5-c4cd7da935d8</recordtableid>
-    </None>
-    <None Include="Modules\Set_Assign\SetValueTextParameterVisibleInPropertiesPanel.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>744ab55a-8d13-4a59-bf1b-edb5fd3394f3</id>
-      <recordtableid>bfe17baf-1a87-4f9c-9a37-719c9b918b43</recordtableid>
     </None>
     <None Include="Modules\Set_Assign\SetValueWithKeyPressParameterForItemInTraject.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
