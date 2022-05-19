@@ -3,12 +3,6 @@
 	<testsuiteentryhierarchy>
 		<flatlistofchildren>
 			<testmodule
-			id="00c84361-7294-4283-8216-b31c003afa42"
-			name="CreateScreenshotDocumentView"
-			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
-			type="Recording">
-			</testmodule>
-			<testmodule
 			id="011ce58e-75e3-473c-b0a5-93de77d449b8"
 			name="GetValueParameterInPropertiesPanelGivenPath"
 			ref="c77b1704-aea4-41db-90c0-a00bacb9cffc"
@@ -27,12 +21,6 @@
 					variablename="valueOfElement">
 					</var>
 				</databinding>
-			</testmodule>
-			<testmodule
-			id="03c9d707-4503-40f1-86b2-4c85642999de"
-			name="CloseViewCentralPanelWithFocus"
-			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
-			type="Recording">
 			</testmodule>
 			<smartfoldernode
 			id="0580c1e0-d3d2-491a-81a6-00e0513046ff"
@@ -80,82 +68,6 @@
 				</databinding>
 			</testmodule>
 			<testmodule
-			id="06ba2245-f74c-4a0d-8255-ff1e601c8afa"
-			name="ValidatePresenceWarningIconManualAssessmentInAssemblyCombinedSectionsView"
-			ref="186f0bae-a0e0-45d0-8a1f-fb35c0689c6c"
-			type="Recording">
-			</testmodule>
-			<smartfoldernode
-			id="0b048a73-a1ed-4363-ae63-c6fad75bea4b"
-			name="ValidateAssemblyTrajectView">
-				<parameters>
-					<param
-					name="indexRow"
-					value="0">
-					</param>
-				</parameters>
-			</smartfoldernode>
-			<smartfoldernode
-			id="0be32ad5-bbba-4bfe-937b-19aea09d1718"
-			name="d)OverruleAssessmentManually">
-				<parameters>
-					<param
-					name="pathToResultSTPH"
-					value="Traject>Dijken en dammen - Piping>Oordeel>Resultaat">
-					</param>
-					<param
-					name="pathToAssemblyCombinedFMTrajectView"
-					value="Traject>Assemblage>Gecombineerd toetsoordeel">
-					</param>
-					<param
-					name="pathToAssemblyCombinedSectionsView"
-					value="Traject>Assemblage>Gecombineerd vakoordeel">
-					</param>
-					<param
-					name="pathToAssemblyMap"
-					value="Traject>Assemblage>Assemblagekaart">
-					</param>
-					<param
-					name="newValueManualAssessment"
-					value="1/10">
-					</param>
-					<param
-					name="expectedNewAssessmentLabelTrajectSTPH"
-					value="VIt">
-					</param>
-					<param
-					name="expectedNewAssessmentProbabilityTrajectSTPH"
-					value="1/3">
-					</param>
-					<param
-					name="expectedSecurityAssessment"
-					value="D">
-					</param>
-					<param
-					name="expectedAssessmentLabelGroups3and4"
-					value="IVt">
-					</param>
-				</parameters>
-			</smartfoldernode>
-			<testmodule
-			id="0c8483ff-a9c2-484d-921a-7e9d1550e77f"
-			name="SelectGenericItemInProjectExplorer"
-			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="pathToOpenAssemblyTrajectInProjectExplorer"
-					datasourceid="846e80d3-c335-4b40-bf22-2a74282a26f6"
-					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
-					variablename="pathToItemInProjectExplorer">
-					</var>
-				</databinding>
-			</testmodule>
-			<smartfoldernode
-			id="0e5a6f49-348e-4f07-bc89-bc35f5be1322"
-			name="OpenAssemblyMap">
-			</smartfoldernode>
-			<testmodule
 			id="0fa706bb-aa51-4891-abaa-a806ad3e099b"
 			name="SelectGenericItemInProjectExplorer"
 			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
@@ -169,10 +81,6 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<smartfoldernode
-			id="1152d15e-f63f-428d-b491-28b8d05bce22"
-			name="OpenAssemblyTrajectView">
-			</smartfoldernode>
 			<testmodule
 			id="13af742f-f224-47b3-b328-1476d14c8189"
 			name="SelectState"
@@ -206,20 +114,6 @@
 			reporttemplatefolder="ReportDeltaresStyle"
 			reportwriteinterval="30000ms">
 			</testsuite>
-			<smartfoldernode
-			id="18de10f4-0e8e-4332-abfe-35aedeaeec66"
-			name="c)AssemblingSectionsCombination">
-				<parameters>
-					<param
-					name="pathToOpenSectionsCombinatiosInProjectExplorer"
-					value="Traject>Assemblage>Gecombineerd vakoordeel">
-					</param>
-					<param
-					name="pathToOpenSectionsCombinatiosMapInProjectExplorer"
-					value="Traject>Assemblage>Assemblagekaart">
-					</param>
-				</parameters>
-			</smartfoldernode>
 			<smartfoldernode
 			id="1a4bdd4f-4f87-465e-8d48-768d2657a89c"
 			name="DumpContentsViewToCSVFile">
@@ -256,10 +150,6 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<smartfoldernode
-			id="1d5b615f-13a9-4318-98e6-d190cb2a43dc"
-			name="TakeCreateScreenshot">
-			</smartfoldernode>
 			<testmodule
 			id="1f74c9cf-7c9e-4214-ae66-7c351a603695"
 			name="StartAUT"
@@ -277,24 +167,6 @@
 					datasourceid="6754469b-6bef-4898-a3ce-f0500c72e37b"
 					variableid="ae927c2e-4f2f-4656-ae88-d9198de4c5c4"
 					variablename="AppPath">
-					</var>
-				</databinding>
-			</testmodule>
-			<smartfoldernode
-			id="21c28c73-bcc2-4f12-aa31-fb38aa1fdcbb"
-			name="ValidateAssemblySectionsCombinedView">
-			</smartfoldernode>
-			<testmodule
-			id="234f4df2-2ecc-451f-95d3-cc630d3f14e4"
-			name="LogWarningMessage"
-			ref="ac560c61-46db-435c-aa8c-6cd15f93e120"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="warningMessage"
-					datasourceid="f27d3020-0bbf-40c2-9233-8b8952252e65"
-					variableid="830a851f-ca57-4d7b-b036-ed8da63f3414"
-					variablename="logMessage">
 					</var>
 				</databinding>
 			</testmodule>
@@ -318,10 +190,6 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<smartfoldernode
-			id="24c53dc9-981d-4518-8a6b-bd7c7a5ad837"
-			name="TakeScreenshot">
-			</smartfoldernode>
 			<testmodule
 			id="25aa5838-75ae-43e9-ad93-c57321fb0a22"
 			name="LogInfoMessage"
@@ -375,16 +243,6 @@
 					value="">
 					</param>
 				</parameters>
-			</smartfoldernode>
-			<testmodule
-			id="2e0c885c-2746-41a6-ab9a-98e38173fd1b"
-			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
-			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
-			type="Recording">
-			</testmodule>
-			<smartfoldernode
-			id="2e3fc2e2-36e7-4860-999f-7bfbcb09a785"
-			name="CloseResultViewSTPH">
 			</smartfoldernode>
 			<testmodule
 			id="2f78cfe4-b1a3-462e-bbfb-232eb22c7043"
@@ -462,12 +320,6 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<testmodule
-			id="361efa10-7af6-4dbc-a42e-77c90feaeb65"
-			name="CreateScreenshotDocumentView"
-			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
-			type="Recording">
-			</testmodule>
 			<smartfoldernode
 			id="36f9acd7-882e-4d42-ba92-d5c9c7f2a306"
 			name="CalculateCSVFileName">
@@ -489,14 +341,6 @@
 					value="_">
 					</param>
 				</parameters>
-			</smartfoldernode>
-			<smartfoldernode
-			id="3bb24898-63d7-46e7-b1e7-5025e07b5305"
-			name="CloseSectionsCombinationMap">
-			</smartfoldernode>
-			<smartfoldernode
-			id="3bfd7949-921d-4929-bcdd-0c4f80746a45"
-			name="AssemblyMap">
 			</smartfoldernode>
 			<smartfoldernode
 			id="3bfe9f4e-a6dd-457c-bbcb-f63e40a902d8"
@@ -570,10 +414,6 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<smartfoldernode
-			id="3f2b3967-d06a-4c02-9d11-f2f7a93a119a"
-			name="OpenAssemblyTrajectView">
-			</smartfoldernode>
 			<testmodule
 			id="40b0efd3-bb7e-41d0-abed-e65696acd72d"
 			name="SelectTypeFailureMechanismForFM"
@@ -594,20 +434,6 @@
 			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
 			type="Recording">
 			</testmodule>
-			<testmodule
-			id="41d2bfea-8e47-4aaa-a221-c70dddae4ed4"
-			name="ReadDataCategoryBoundariesTrajectView"
-			ref="2078e4e4-9e0d-4396-a14a-8d19b9465bca"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="categoryBoundariesTraject"
-					datasourceid="78337b07-06ac-4efb-b70c-3605a183e682"
-					variableid="3848b12b-0450-4651-8089-385b98ccb5db"
-					variablename="categoryBoundariesTraject">
-					</var>
-				</databinding>
-			</testmodule>
 			<teardown
 			id="4584882f-0c24-4d1d-b35a-71e6c594cdf6"
 			name="teardown">
@@ -618,24 +444,12 @@
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
 			type="Recording">
 			</testmodule>
-			<testmodule
-			id="462a9954-29b8-46b2-b195-21e50ac79ab6"
-			name="CloseViewCentralPanelWithFocus"
-			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
-			type="Recording">
-			</testmodule>
 			<smartfoldernode
 			datasource="script_22_b_LoopFMs_FailureProbs"
 			errorbehavior="ContinueNextIteration"
 			id="47bf0772-04c2-4816-b55c-734a65e0eff1"
 			name="ValidateFailureProbsFMs">
 			</smartfoldernode>
-			<testmodule
-			id="48e8b7ab-2be6-4b03-acbc-e962b3fc27ce"
-			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
-			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
-			type="Recording">
-			</testmodule>
 			<smartfoldernode
 			id="49ca41ec-deb9-459a-a61b-84b28430a1df"
 			name="TakeCreateScreenshot">
@@ -645,20 +459,6 @@
 			name="CloseViewCentralPanelWithFocus"
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
 			type="Recording">
-			</testmodule>
-			<testmodule
-			id="4f4e846b-5151-4b7e-a83e-b0b25b0c7483"
-			name="LogWarningMessage"
-			ref="ac560c61-46db-435c-aa8c-6cd15f93e120"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="warningMessage"
-					datasourceid="64927f77-bb7f-4081-aac4-4a7bc769d194"
-					variableid="830a851f-ca57-4d7b-b036-ed8da63f3414"
-					variablename="logMessage">
-					</var>
-				</databinding>
 			</testmodule>
 			<testmodule
 			id="536729e1-f302-4813-8380-d81a9e74be23"
@@ -701,20 +501,6 @@
 			name="CreateScreenshotDocumentView"
 			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
 			type="Recording">
-			</testmodule>
-			<testmodule
-			id="57d9f268-75fb-4361-b04a-9bc891e81625"
-			name="ValidateSectionsCombinationsView"
-			ref="4aef939a-35a6-4173-a921-c521453b760a"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="trajectAssessmentInformation"
-					datasourceid="78337b07-06ac-4efb-b70c-3605a183e682"
-					variableid="5dda9c28-3af1-49bc-b8d6-81c994d32f4d"
-					variablename="trajectAssessmentInformationString">
-					</var>
-				</databinding>
 			</testmodule>
 			<testmodule
 			id="5821b973-681c-432c-9fdd-de9b86d6860d"
@@ -769,12 +555,6 @@
 					variablename="scriptOutputFolder">
 					</var>
 				</missingdatabinding>
-			</testmodule>
-			<testmodule
-			id="5a6e3144-f8fe-4ec3-a10a-2796a182f472"
-			name="CloseViewCentralPanelWithFocus"
-			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
-			type="Recording">
 			</testmodule>
 			<testmodule
 			id="5b91f52c-6071-422d-8dd3-f0f17ae38844"
@@ -850,30 +630,6 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<testmodule
-			id="603bbd1b-94b3-401e-8590-d1bf4e39baa2"
-			name="LogWarningMessage"
-			ref="ac560c61-46db-435c-aa8c-6cd15f93e120"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="warningMessage"
-					datasourceid="bb97dab9-8016-4b10-bea6-6007ed246cae"
-					variableid="830a851f-ca57-4d7b-b036-ed8da63f3414"
-					variablename="logMessage">
-					</var>
-				</databinding>
-			</testmodule>
-			<smartfoldernode
-			id="64927f77-bb7f-4081-aac4-4a7bc769d194"
-			name="TakeScreenshot">
-				<parameters>
-					<param
-					name="warningMessage"
-					value="Please, check the screenshot of the Assembly combined  sections assessment">
-					</param>
-				</parameters>
-			</smartfoldernode>
 			<testcase
 			id="6754469b-6bef-4898-a3ce-f0500c72e37b"
 			name="Script22"
@@ -890,74 +646,16 @@
 				</parameters>
 			</testcase>
 			<smartfoldernode
-			id="6a5a058f-4448-4f1f-8cb6-581d0772ce73"
-			name="AssemblySectionsCombinedView">
-			</smartfoldernode>
-			<smartfoldernode
-			id="6c4d302a-e5ba-4f19-8c95-0d315ef92aaf"
-			name="CloseAssemblyTrajectView">
-			</smartfoldernode>
-			<smartfoldernode
 			id="6e3e95e2-2b1f-468b-9cb6-badabb39ef99"
 			name="CloseView">
 			</smartfoldernode>
-			<testmodule
-			id="6ecd2f80-041a-45a0-a38f-8008673fc259"
-			name="CreateScreenshotDocumentView"
-			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
-			type="Recording">
-			</testmodule>
-			<testmodule
-			id="70f05a07-a8ec-455c-a6e3-60d581889a08"
-			name="SelectGenericItemInProjectExplorer"
-			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="pathToAssemblyCombinedFMTrajectView"
-					datasourceid="0be32ad5-bbba-4bfe-937b-19aea09d1718"
-					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
-					variablename="pathToItemInProjectExplorer">
-					</var>
-				</databinding>
-			</testmodule>
 			<smartfoldernode
 			id="736926c6-b198-49a8-b60b-9d3dbc59200c"
 			name="ValidateSectionsCombination">
 			</smartfoldernode>
-			<testmodule
-			id="75443271-5dcb-4989-bfee-0fcdedc7d450"
-			name="ValidateFMAssessmentLabelAndProbabilityInResultView"
-			ref="778be806-02a6-4d3b-92ce-fe995369ab6d"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="expectedNewAssessmentLabelTrajectSTPH"
-					datasourceid="0be32ad5-bbba-4bfe-937b-19aea09d1718"
-					variableid="875ee1b7-eb07-4532-8192-60e4f44b7cfa"
-					variablename="expectedFMAssesmentLabel">
-					</var>
-					<var
-					dataname="expectedNewAssessmentProbabilityTrajectSTPH"
-					datasourceid="0be32ad5-bbba-4bfe-937b-19aea09d1718"
-					variableid="1f9f18e7-7e25-45be-a927-8906d1000322"
-					variablename="expectedFMAssesmentProbability">
-					</var>
-				</databinding>
-			</testmodule>
 			<smartfoldernode
 			id="757ecf88-58fa-43d7-afda-75241cab416c"
 			name="ValidateFailureTrajectInfo">
-			</smartfoldernode>
-			<smartfoldernode
-			id="76aca451-21ba-4dff-bce5-d9e39b58c585"
-			name="TakeScreenshot">
-				<parameters>
-					<param
-					name="warningMessage"
-					value="Please, check the screenshot before setting manual assessment.">
-					</param>
-				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="77c5a7f2-3752-4702-a6db-a0df03e79495"
@@ -1045,12 +743,6 @@
 			id="78e3620e-46cd-4f95-84fe-513627b042b1"
 			name="c)AssembleSectionsCombinationCategories">
 			</smartfoldernode>
-			<testmodule
-			id="7937f972-d9d2-4fd7-b0a0-797049694bce"
-			name="CloseViewCentralPanelWithFocus"
-			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
-			type="Recording">
-			</testmodule>
 			<smartfoldernode
 			datasource="script22_a_LoopFMs"
 			errorbehavior="ContinueNextIteration"
@@ -1078,60 +770,10 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
-			id="7eccdf4f-37bd-422c-bd8e-408b77ed86b2"
-			name="CreateScreenshotDocumentView"
-			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
-			type="Recording">
-			</testmodule>
-			<testmodule
-			id="7f8d6979-de95-4250-9eda-c7f355ea35b9"
-			name="CreateScreenshotDocumentView"
-			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
-			type="Recording">
-			</testmodule>
-			<testmodule
-			id="82b248f4-85f3-4fb9-8811-5a8bdd40a542"
-			name="CreateScreenshotDocumentView"
-			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
-			type="Recording">
-			</testmodule>
-			<testmodule
 			id="83a889e8-ca55-40f4-95dd-e7391ec6daa6"
 			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
 			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
 			type="Recording">
-			</testmodule>
-			<smartfoldernode
-			id="846e80d3-c335-4b40-bf22-2a74282a26f6"
-			name="b)AssemblingAssessmentsTrajectLevel">
-				<parameters>
-					<param
-					name="pathToOpenAssemblyTrajectInProjectExplorer"
-					value="Traject>Assemblage>Gecombineerd toetsoordeel">
-					</param>
-					<param
-					name="pathToOpenCategoryBpoundariesTrajectInProjectExplorer"
-					value="Traject>Assemblage>Categoriegrenzen">
-					</param>
-				</parameters>
-			</smartfoldernode>
-			<smartfoldernode
-			id="8471d74e-a0c2-4fbb-9cd8-37b6287d3f8d"
-			name="OpenSectionsCombinationView">
-			</smartfoldernode>
-			<testmodule
-			id="84abed2a-53b2-4291-85e4-2f597ed5c9db"
-			name="LogWarningMessage"
-			ref="ac560c61-46db-435c-aa8c-6cd15f93e120"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="warningMessage"
-					datasourceid="76aca451-21ba-4dff-bce5-d9e39b58c585"
-					variableid="830a851f-ca57-4d7b-b036-ed8da63f3414"
-					variablename="logMessage">
-					</var>
-				</databinding>
 			</testmodule>
 			<smartfoldernode
 			id="8562c5be-5aeb-402b-9259-288a8bf115ab"
@@ -1142,10 +784,6 @@
 					value="@TR>Assemblage>Overzicht duiding">
 					</param>
 				</parameters>
-			</smartfoldernode>
-			<smartfoldernode
-			id="897539d5-cc21-4c96-a17f-514663a99afe"
-			name="ValidateTrajectAssessmentForSTPH">
 			</smartfoldernode>
 			<smartfoldernode
 			id="8bc2a53e-3796-403c-a5a6-f01d55c296a0"
@@ -1162,22 +800,6 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
-			id="8d6db327-87b6-4fe2-bfed-9ed1f6cb69f8"
-			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
-			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
-			type="Recording">
-			</testmodule>
-			<smartfoldernode
-			id="8db7ec3a-bc7e-4967-b620-5c7ce6ca7cd7"
-			name="OpenResultViewSTPH">
-			</smartfoldernode>
-			<testmodule
-			id="8e354b0a-f5c4-467b-9bb7-b5cbc8f563fc"
-			name="ValidatePresenceWarningIconManualAssessmentInAssemblyTrajectView"
-			ref="89914775-4f38-4b49-a34b-1f99c7016275"
-			type="Recording">
-			</testmodule>
-			<testmodule
 			id="8f38c82d-6094-44ca-b7d4-21a35f8900b6"
 			name="CloseViewCentralPanelWithFocus"
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
@@ -1192,40 +814,16 @@
 			name="d)ScreenshotAssemblyMap">
 			</smartfoldernode>
 			<smartfoldernode
-			id="9669a194-aad9-4149-8d16-f92fc720643f"
-			name="TakeScreenshot">
-			</smartfoldernode>
-			<testmodule
-			id="96e54842-9f60-44d4-901f-87afa5b788e5"
-			name="CreateScreenshotDocumentView"
-			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
-			type="Recording">
-			</testmodule>
-			<smartfoldernode
 			id="97b00b6b-6bb6-4cc8-91cd-a9e86de6fc57"
 			name="OpenSecurityCategoriesView">
 			</smartfoldernode>
-			<testmodule
-			id="986695bc-5ce0-44f5-b14e-8518207d9930"
-			name="AssignManualAssessmentFirstRowResultView"
-			ref="46249ce6-a33a-4ebb-a47f-9e06323cafdb"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="newValueManualAssessment"
-					datasourceid="0be32ad5-bbba-4bfe-937b-19aea09d1718"
-					variableid="61c18fe0-f95a-442c-9d6f-f4c057869d37"
-					variablename="newValueManualAssessmentRow0">
-					</var>
-				</databinding>
-			</testmodule>
 			<smartfoldernode
 			id="9882e068-be69-493b-8d9b-3ad912df060c"
 			name="SaveProject">
 				<parameters>
 					<param
 					name="fileNameToSave"
-					value="script22.risk">
+					value="script22_output.risk">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -1238,11 +836,6 @@
 					value="@TR>Assemblage>Veiligheidscategorieën">
 					</param>
 				</parameters>
-			</smartfoldernode>
-			<smartfoldernode
-			datasource="script22_d_ValidationAfterManualAssessment"
-			id="99662edd-33d5-47ba-b495-ace7af131f41"
-			name="ValidateValuesInTable">
 			</smartfoldernode>
 			<smartfoldernode
 			id="9a0e1f7b-8cf9-4120-b095-fef07aa3c63f"
@@ -1306,12 +899,6 @@
 			id="9dfcce2d-e730-48ce-83d3-18eb87f2f8db"
 			name="setup">
 			</setup>
-			<testmodule
-			id="9e409d59-4c57-41b2-9590-cca0e0099646"
-			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
-			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
-			type="Recording">
-			</testmodule>
 			<smartfoldernode
 			id="a1a419de-ae0e-4484-871d-4e461673f3e8"
 			name="TakeScreenshot">
@@ -1334,20 +921,6 @@
 			id="a2727582-55dc-4810-b276-f4c237c42e0b"
 			name="ReadCombinedAssessmentInformationForFM">
 			</smartfoldernode>
-			<smartfoldernode
-			id="a2f5ad5d-0181-475e-98af-8d6d92dae0c5"
-			name="TakeScreenshot">
-				<parameters>
-					<param
-					name="warningMessage"
-					value="Please, check the screenshot of the Assembly combined  traject FM assessment">
-					</param>
-				</parameters>
-			</smartfoldernode>
-			<smartfoldernode
-			id="a53d4cb6-89e1-429d-849b-274cfa2a0b13"
-			name="ValidateAssemblyTraject">
-			</smartfoldernode>
 			<testmodule
 			id="a8996a16-9975-40ab-9156-ba8ab649aaab"
 			name="CreateScreenshotDocumentView"
@@ -1363,104 +936,6 @@
 			<smartfoldernode
 			id="a8f2f8b2-31cd-443a-aa20-5d5ed6439ce0"
 			name="TakeScreenshot">
-			</smartfoldernode>
-			<testmodule
-			id="aa126c54-6236-4766-a21f-79ce74a31f9d"
-			name="CreateScreenshotDocumentView"
-			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
-			type="Recording">
-			</testmodule>
-			<testmodule
-			id="b0abf9b7-9cbe-4d7d-9627-ef0f99ca25b8"
-			name="ValidateSingleValueInTableAssemblyCombinedSections"
-			ref="d0701ab4-190e-4120-9a9a-54b9e846f336"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="indexRow"
-					datasourceid="6889055a-abbd-4351-b55a-d3ffcfdb8312"
-					variableid="201b1d21-866e-4c9e-bf76-93ca440565ea"
-					variablename="indexRow">
-					</var>
-					<var
-					dataname="expectedValue"
-					datasourceid="6889055a-abbd-4351-b55a-d3ffcfdb8312"
-					variableid="7959e868-1ed0-4f86-9d41-4db494a6da8e"
-					variablename="expectedValue">
-					</var>
-					<var
-					dataname="substringColumnHeader"
-					datasourceid="6889055a-abbd-4351-b55a-d3ffcfdb8312"
-					variableid="82c7fabd-024c-4cd6-bf76-46e72cb40281"
-					variablename="substringColumnHeader">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
-			id="b2e9a535-0090-467d-bf46-9f11698bd895"
-			name="LogWarningMessage"
-			ref="ac560c61-46db-435c-aa8c-6cd15f93e120"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="warningMessage"
-					datasourceid="a2f5ad5d-0181-475e-98af-8d6d92dae0c5"
-					variableid="830a851f-ca57-4d7b-b036-ed8da63f3414"
-					variablename="logMessage">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
-			id="b6579d5e-1b2e-4a51-a2a1-5a36c0ffb25e"
-			name="ValidateAssemblyTrajectView"
-			ref="38d69b05-5ca8-43a0-afcf-16d6df183738"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="categoryBoundariesTraject"
-					datasourceid="78337b07-06ac-4efb-b70c-3605a183e682"
-					variableid="fb2221fa-c3ce-41c4-a074-6e2cbece5657"
-					variablename="categoryBoundariesTraject">
-					</var>
-					<var
-					dataname="trajectAssessmentInformation"
-					datasourceid="78337b07-06ac-4efb-b70c-3605a183e682"
-					variableid="4188b6a9-c5aa-4416-9731-a4fba6fa5dbb"
-					variablename="trajectAssessmentInformationString">
-					</var>
-				</databinding>
-			</testmodule>
-			<smartfoldernode
-			id="b8fb0fc5-36bf-4eda-9fa9-1b7594306a03"
-			name="OpenSectionsCombinationMap">
-			</smartfoldernode>
-			<smartfoldernode
-			id="b9bf3c46-53bc-4bbb-8138-952c8d269e4a"
-			name="CloseAssemblyTrajectView">
-			</smartfoldernode>
-			<smartfoldernode
-			id="bada5389-6e7d-4537-87e6-5b7f7bd4cfc6"
-			name="CloseSectionsCombinationView">
-			</smartfoldernode>
-			<smartfoldernode
-			id="bb97dab9-8016-4b10-bea6-6007ed246cae"
-			name="TakeScreenshot">
-				<parameters>
-					<param
-					name="warningMessage"
-					value="Please, check the screenshot before setting manual assessment.">
-					</param>
-				</parameters>
-			</smartfoldernode>
-			<testmodule
-			id="bc353dd5-9978-48f9-b287-cd09c5f56565"
-			name="CloseViewCentralPanelWithFocus"
-			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
-			type="Recording">
-			</testmodule>
-			<smartfoldernode
-			id="bccc3971-de55-4aec-8cd4-5eeb0b6ba145"
-			name="ResultsView">
 			</smartfoldernode>
 			<smartfoldernode
 			id="c02e27e8-5a2b-41b0-89b5-0e93c051b5c7"
@@ -1480,24 +955,6 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<testmodule
-			id="c1bdb0d6-5ad7-4261-9ad0-2716dfe1c2ad"
-			name="SelectGenericItemInProjectExplorer"
-			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="pathToAssemblyMap"
-					datasourceid="0be32ad5-bbba-4bfe-937b-19aea09d1718"
-					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
-					variablename="pathToItemInProjectExplorer">
-					</var>
-				</databinding>
-			</testmodule>
-			<smartfoldernode
-			id="c24d7a03-ea43-45c6-92ab-a8eeb2796554"
-			name="ChangeManuallyAssessment">
-			</smartfoldernode>
 			<testmodule
 			id="c29134b5-e7d1-4099-869f-23d96dd46ff5"
 			name="ValidatePlainTextFilesAreEqual"
@@ -1529,48 +986,6 @@
 			type="Recording">
 			</testmodule>
 			<testmodule
-			id="c42c0af3-beb7-4a35-aeb5-3de507edf56c"
-			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
-			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
-			type="Recording">
-			</testmodule>
-			<testmodule
-			id="c54178e5-0cf7-4f66-9fb8-4a6bc24c09f2"
-			name="SelectGenericItemInProjectExplorer"
-			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="pathToResultSTPH"
-					datasourceid="0be32ad5-bbba-4bfe-937b-19aea09d1718"
-					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
-					variablename="pathToItemInProjectExplorer">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
-			id="c630442a-e803-4ef6-9d80-46468110f520"
-			name="SelectGenericItemInProjectExplorer"
-			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="pathToOpenSectionsCombinatiosMapInProjectExplorer"
-					datasourceid="18de10f4-0e8e-4332-abfe-35aedeaeec66"
-					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
-					variablename="pathToItemInProjectExplorer">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToOpenAssemblyTrajectInProjectExplorer"
-					datasourceid="846e80d3-c335-4b40-bf22-2a74282a26f6"
-					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
-					variablename="pathToItemInProjectExplorer">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<testmodule
 			id="c8682745-d8d8-4d60-85ec-763748962a11"
 			name="CloseViewCentralPanelWithFocus"
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
@@ -1590,69 +1005,9 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<testmodule
-			id="c95350e8-b2dd-49de-8bd6-951cb177eef1"
-			name="CreateScreenshotDocumentView"
-			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
-			type="Recording">
-			</testmodule>
-			<testmodule
-			id="cd4aa092-27c3-4dfe-a1a7-5cb4f5977406"
-			name="SelectGenericItemInProjectExplorer"
-			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="pathToOpenCategoryBpoundariesTrajectInProjectExplorer"
-					datasourceid="846e80d3-c335-4b40-bf22-2a74282a26f6"
-					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
-					variablename="pathToItemInProjectExplorer">
-					</var>
-				</databinding>
-			</testmodule>
 			<smartfoldernode
 			id="ce5d4aea-bad7-4151-98a3-1b41e660be72"
 			name="CloseView">
-			</smartfoldernode>
-			<smartfoldernode
-			id="ce6b578e-3645-476d-b905-3a2440873898"
-			name="ReadDataCategoryBoundariesTraject">
-			</smartfoldernode>
-			<testmodule
-			id="d1459fc7-bfff-47b4-9c46-ba01f4cbd944"
-			name="ValidateSummaryValuesAssemblyTrajectView"
-			ref="18ea53f5-f6f7-4204-952e-dfe48e0f31ac"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="expectedSecurityAssessment"
-					datasourceid="0be32ad5-bbba-4bfe-937b-19aea09d1718"
-					variableid="3ba6c693-3923-47b2-834a-927b69bb0a7e"
-					variablename="expectedSecurityAssessment">
-					</var>
-					<var
-					dataname="expectedNewAssessmentProbabilityTrajectSTPH"
-					datasourceid="0be32ad5-bbba-4bfe-937b-19aea09d1718"
-					variableid="1f22f6bc-3385-41b3-8270-bc2a8f39f954"
-					variablename="expectedAssessmentProbabilityGroups1And2">
-					</var>
-					<var
-					dataname="expectedNewAssessmentLabelTrajectSTPH"
-					datasourceid="0be32ad5-bbba-4bfe-937b-19aea09d1718"
-					variableid="fd984f83-62fe-4074-b5f7-1f932aa489a2"
-					variablename="expectedAssessmentLabelGroups1And2">
-					</var>
-					<var
-					dataname="expectedAssessmentLabelGroups3and4"
-					datasourceid="0be32ad5-bbba-4bfe-937b-19aea09d1718"
-					variableid="2662c8f9-bdfa-4112-b481-74749dea43f2"
-					variablename="expectedAssessmentGroups3And4">
-					</var>
-				</databinding>
-			</testmodule>
-			<smartfoldernode
-			id="d28c5d6f-c8ab-4c7a-b262-f3ae3e32fc47"
-			name="CloseAssemblyMap">
 			</smartfoldernode>
 			<smartfoldernode
 			id="d39e3b0f-5ec5-44a5-bc75-7122911255e1"
@@ -1672,26 +1027,6 @@
 			id="d601846d-0fa3-4dbc-833d-8685dbcea7f2"
 			name="OpenResultsView">
 			</smartfoldernode>
-			<testmodule
-			id="d6d7e7f3-314f-41b6-8999-37c9fcd2387b"
-			name="CloseViewCentralPanelWithFocus"
-			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
-			type="Recording">
-			</testmodule>
-			<testmodule
-			id="d8ba8153-283a-46ba-bd22-78c89f4954c7"
-			name="SelectGenericItemInProjectExplorer"
-			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="pathToAssemblyCombinedSectionsView"
-					datasourceid="0be32ad5-bbba-4bfe-937b-19aea09d1718"
-					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
-					variablename="pathToItemInProjectExplorer">
-					</var>
-				</databinding>
-			</testmodule>
 			<testmodule
 			id="d9ed0b07-2171-4b67-a30c-2c7f8d98c9ef"
 			name="SelectGenericItemInProjectExplorer"
@@ -1714,12 +1049,6 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
-			<testmodule
-			id="dc717cf7-fb33-4214-916d-ce0811437b62"
-			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
-			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
-			type="Recording">
-			</testmodule>
 			<smartfoldernode
 			id="de05eee5-6aeb-42c0-b48a-ac3a513e05d4"
 			name="CloseView">
@@ -1728,18 +1057,6 @@
 			id="df698849-18b7-40ad-ac88-5b139fe55572"
 			name="CloseViewCentralPanelWithFocus"
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
-			type="Recording">
-			</testmodule>
-			<testmodule
-			id="df818c77-0321-46ab-9b38-9b2225fb1916"
-			name="CloseViewCentralPanelWithFocus"
-			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
-			type="Recording">
-			</testmodule>
-			<testmodule
-			id="e102cc53-b091-4972-8b1d-67fde8fc9978"
-			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
-			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
 			type="Recording">
 			</testmodule>
 			<testmodule
@@ -1775,20 +1092,6 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
-			id="e2a02d59-9142-4273-924d-9a290cd2b356"
-			name="CloseCategoryBoundariesTrajectView">
-			</smartfoldernode>
-			<smartfoldernode
-			id="e37b51c6-deac-4c6f-84c2-34062e6326e3"
-			name="TakeScreenshot">
-			</smartfoldernode>
-			<testmodule
-			id="e47fd138-1478-433c-80bb-4979f427b50c"
-			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
-			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
-			type="Recording">
-			</testmodule>
-			<smartfoldernode
 			id="e60ccf23-8ae5-4066-871b-2f21af1b39da"
 			name="CompareWithReferenceCSVFile">
 			</smartfoldernode>
@@ -1806,10 +1109,6 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<smartfoldernode
-			id="ea7240d8-47f5-43bd-b11f-b0fcebdc178d"
-			name="ValidateValuesAssessment">
-			</smartfoldernode>
 			<testmodule
 			id="ed2708e1-b812-43de-ac54-16a9c0cd2b7a"
 			name="CreateScreenshotDocumentView"
@@ -1832,50 +1131,6 @@
 			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
 			type="Recording">
 			</testmodule>
-			<testmodule
-			id="ef40cb2e-9362-41fc-b47d-6a56f43982ad"
-			name="SelectGenericItemInProjectExplorer"
-			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="pathToOpenSectionsCombinatiosInProjectExplorer"
-					datasourceid="18de10f4-0e8e-4332-abfe-35aedeaeec66"
-					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
-					variablename="pathToItemInProjectExplorer">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToOpenAssemblyTrajectInProjectExplorer"
-					datasourceid="846e80d3-c335-4b40-bf22-2a74282a26f6"
-					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
-					variablename="pathToItemInProjectExplorer">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<smartfoldernode
-			id="f250ea12-6ccd-4bf2-9dfb-7394b499b4d0"
-			name="ValidateSectionsCombination">
-			</smartfoldernode>
-			<smartfoldernode
-			id="f27d3020-0bbf-40c2-9233-8b8952252e65"
-			name="TakeScreenshot">
-				<parameters>
-					<param
-					name="warningMessage"
-					value="Please, check the screenshot of the Assembly combined  sections assessment">
-					</param>
-				</parameters>
-			</smartfoldernode>
-			<smartfoldernode
-			id="f2f1adee-da3a-4c53-a39e-96bc55192385"
-			name="AssemblyFMTrajectView">
-			</smartfoldernode>
-			<smartfoldernode
-			id="f5420ec8-877b-4267-a99d-d4b20dc88a34"
-			name="OpenSectionsCombinedView">
-			</smartfoldernode>
 			<testmodule
 			id="f7a2c461-12ca-484c-a96f-9479960f6386"
 			name="SaveAs"
@@ -1911,16 +1166,6 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
-			id="f8c57e86-3ccc-402c-a567-d184de47414f"
-			name="CloseViewCentralPanelWithFocus"
-			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
-			type="Recording">
-			</testmodule>
-			<smartfoldernode
-			id="f8e0146a-0978-4ded-be81-f4a5d682248f"
-			name="OpenCategoryBoundariesTrajectView">
-			</smartfoldernode>
-			<testmodule
 			id="fd6d9356-1eb6-4271-a3a2-4d1cebace71c"
 			name="ReadSectionsDivisionsFromSectionsView"
 			ref="f63ed64a-db92-435d-a38e-21a7dc8e6f54"
@@ -1954,10 +1199,6 @@
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
 			type="Recording">
 			</testmodule>
-			<smartfoldernode
-			id="ff03a5cc-e1be-4180-aa76-564a9ea7f3b2"
-			name="CloseSectionsCombinedView">
-			</smartfoldernode>
 		</flatlistofchildren>
 		<childhierarchy>
 			<testsuite
@@ -2152,14 +1393,14 @@
 									</testmodule>
 								</smartfoldernode>
 							</smartfoldernode>
-							<smartfoldernode
-							id="7d752c96-a72c-46ff-9565-0295870509b9"
-							name="SaveProject">
-								<testmodule
-								id="78203abe-4b5e-4fde-bf5f-c9cd7c99bf42"
-								name="SaveAs">
-								</testmodule>
-							</smartfoldernode>
+						</smartfoldernode>
+						<smartfoldernode
+						id="7d752c96-a72c-46ff-9565-0295870509b9"
+						name="SaveProject">
+							<testmodule
+							id="78203abe-4b5e-4fde-bf5f-c9cd7c99bf42"
+							name="SaveAs">
+							</testmodule>
 						</smartfoldernode>
 						<smartfoldernode
 						id="28fd2424-9f0a-4e3b-905c-845000f77103"
@@ -2303,358 +1544,6 @@
 								id="45da4134-818d-4464-9403-cb184d81c068"
 								name="CloseViewCentralPanelWithFocus">
 								</testmodule>
-							</smartfoldernode>
-						</smartfoldernode>
-						<smartfoldernode
-						id="846e80d3-c335-4b40-bf22-2a74282a26f6"
-						name="b)AssemblingAssessmentsTrajectLevel">
-							<smartfoldernode
-							id="f8e0146a-0978-4ded-be81-f4a5d682248f"
-							name="OpenCategoryBoundariesTrajectView">
-								<testmodule
-								id="cd4aa092-27c3-4dfe-a1a7-5cb4f5977406"
-								name="SelectGenericItemInProjectExplorer">
-								</testmodule>
-								<testmodule
-								id="9e409d59-4c57-41b2-9590-cca0e0099646"
-								name="OpenViewForCurrentlySelectedItemInProjectExplorer">
-								</testmodule>
-							</smartfoldernode>
-							<smartfoldernode
-							id="9669a194-aad9-4149-8d16-f92fc720643f"
-							name="TakeScreenshot">
-								<testmodule
-								id="7f8d6979-de95-4250-9eda-c7f355ea35b9"
-								name="CreateScreenshotDocumentView">
-								</testmodule>
-							</smartfoldernode>
-							<smartfoldernode
-							id="ce6b578e-3645-476d-b905-3a2440873898"
-							name="ReadDataCategoryBoundariesTraject">
-								<testmodule
-								id="41d2bfea-8e47-4aaa-a221-c70dddae4ed4"
-								name="ReadDataCategoryBoundariesTrajectView">
-								</testmodule>
-							</smartfoldernode>
-							<smartfoldernode
-							id="e2a02d59-9142-4273-924d-9a290cd2b356"
-							name="CloseCategoryBoundariesTrajectView">
-								<testmodule
-								id="f8c57e86-3ccc-402c-a567-d184de47414f"
-								name="CloseViewCentralPanelWithFocus">
-								</testmodule>
-							</smartfoldernode>
-							<smartfoldernode
-							id="1152d15e-f63f-428d-b491-28b8d05bce22"
-							name="OpenAssemblyTrajectView">
-								<testmodule
-								id="0c8483ff-a9c2-484d-921a-7e9d1550e77f"
-								name="SelectGenericItemInProjectExplorer">
-								</testmodule>
-								<testmodule
-								id="e102cc53-b091-4972-8b1d-67fde8fc9978"
-								name="OpenViewForCurrentlySelectedItemInProjectExplorer">
-								</testmodule>
-							</smartfoldernode>
-							<smartfoldernode
-							id="24c53dc9-981d-4518-8a6b-bd7c7a5ad837"
-							name="TakeScreenshot">
-								<testmodule
-								id="6ecd2f80-041a-45a0-a38f-8008673fc259"
-								name="CreateScreenshotDocumentView">
-								</testmodule>
-							</smartfoldernode>
-							<smartfoldernode
-							id="a53d4cb6-89e1-429d-849b-274cfa2a0b13"
-							name="ValidateAssemblyTraject">
-								<testmodule
-								id="b6579d5e-1b2e-4a51-a2a1-5a36c0ffb25e"
-								name="ValidateAssemblyTrajectView">
-								</testmodule>
-							</smartfoldernode>
-							<smartfoldernode
-							id="b9bf3c46-53bc-4bbb-8138-952c8d269e4a"
-							name="CloseAssemblyTrajectView">
-								<testmodule
-								id="7937f972-d9d2-4fd7-b0a0-797049694bce"
-								name="CloseViewCentralPanelWithFocus">
-								</testmodule>
-							</smartfoldernode>
-						</smartfoldernode>
-						<smartfoldernode
-						id="18de10f4-0e8e-4332-abfe-35aedeaeec66"
-						name="c)AssemblingSectionsCombination">
-							<smartfoldernode
-							id="8471d74e-a0c2-4fbb-9cd8-37b6287d3f8d"
-							name="OpenSectionsCombinationView">
-								<testmodule
-								id="ef40cb2e-9362-41fc-b47d-6a56f43982ad"
-								name="SelectGenericItemInProjectExplorer">
-								</testmodule>
-								<testmodule
-								id="2e0c885c-2746-41a6-ab9a-98e38173fd1b"
-								name="OpenViewForCurrentlySelectedItemInProjectExplorer">
-								</testmodule>
-							</smartfoldernode>
-							<smartfoldernode
-							id="1d5b615f-13a9-4318-98e6-d190cb2a43dc"
-							name="TakeCreateScreenshot">
-								<testmodule
-								id="00c84361-7294-4283-8216-b31c003afa42"
-								name="CreateScreenshotDocumentView">
-								</testmodule>
-							</smartfoldernode>
-							<smartfoldernode
-							id="f250ea12-6ccd-4bf2-9dfb-7394b499b4d0"
-							name="ValidateSectionsCombination">
-								<testmodule
-								id="57d9f268-75fb-4361-b04a-9bc891e81625"
-								name="ValidateSectionsCombinationsView">
-								</testmodule>
-							</smartfoldernode>
-							<smartfoldernode
-							id="bada5389-6e7d-4537-87e6-5b7f7bd4cfc6"
-							name="CloseSectionsCombinationView">
-								<testmodule
-								id="462a9954-29b8-46b2-b195-21e50ac79ab6"
-								name="CloseViewCentralPanelWithFocus">
-								</testmodule>
-							</smartfoldernode>
-							<smartfoldernode
-							id="b8fb0fc5-36bf-4eda-9fa9-1b7594306a03"
-							name="OpenSectionsCombinationMap">
-								<testmodule
-								id="c630442a-e803-4ef6-9d80-46468110f520"
-								name="SelectGenericItemInProjectExplorer">
-								</testmodule>
-								<testmodule
-								id="8d6db327-87b6-4fe2-bfed-9ed1f6cb69f8"
-								name="OpenViewForCurrentlySelectedItemInProjectExplorer">
-								</testmodule>
-							</smartfoldernode>
-							<smartfoldernode
-							id="e37b51c6-deac-4c6f-84c2-34062e6326e3"
-							name="TakeScreenshot">
-								<testmodule
-								id="aa126c54-6236-4766-a21f-79ce74a31f9d"
-								name="CreateScreenshotDocumentView">
-								</testmodule>
-							</smartfoldernode>
-							<smartfoldernode
-							id="3bb24898-63d7-46e7-b1e7-5025e07b5305"
-							name="CloseSectionsCombinationMap">
-								<testmodule
-								id="bc353dd5-9978-48f9-b287-cd09c5f56565"
-								name="CloseViewCentralPanelWithFocus">
-								</testmodule>
-							</smartfoldernode>
-						</smartfoldernode>
-						<smartfoldernode
-						id="0be32ad5-bbba-4bfe-937b-19aea09d1718"
-						name="d)OverruleAssessmentManually">
-							<smartfoldernode
-							id="bccc3971-de55-4aec-8cd4-5eeb0b6ba145"
-							name="ResultsView">
-								<smartfoldernode
-								id="8db7ec3a-bc7e-4967-b620-5c7ce6ca7cd7"
-								name="OpenResultViewSTPH">
-									<testmodule
-									id="c54178e5-0cf7-4f66-9fb8-4a6bc24c09f2"
-									name="SelectGenericItemInProjectExplorer">
-									</testmodule>
-									<testmodule
-									id="48e8b7ab-2be6-4b03-acbc-e962b3fc27ce"
-									name="OpenViewForCurrentlySelectedItemInProjectExplorer">
-									</testmodule>
-								</smartfoldernode>
-								<smartfoldernode
-								id="76aca451-21ba-4dff-bce5-d9e39b58c585"
-								name="TakeScreenshot">
-									<testmodule
-									id="84abed2a-53b2-4291-85e4-2f597ed5c9db"
-									name="LogWarningMessage">
-									</testmodule>
-									<testmodule
-									id="c95350e8-b2dd-49de-8bd6-951cb177eef1"
-									name="CreateScreenshotDocumentView">
-									</testmodule>
-								</smartfoldernode>
-								<smartfoldernode
-								id="c24d7a03-ea43-45c6-92ab-a8eeb2796554"
-								name="ChangeManuallyAssessment">
-									<testmodule
-									id="986695bc-5ce0-44f5-b14e-8518207d9930"
-									name="AssignManualAssessmentFirstRowResultView">
-									</testmodule>
-								</smartfoldernode>
-								<smartfoldernode
-								id="bb97dab9-8016-4b10-bea6-6007ed246cae"
-								name="TakeScreenshot">
-									<testmodule
-									id="603bbd1b-94b3-401e-8590-d1bf4e39baa2"
-									name="LogWarningMessage">
-									</testmodule>
-									<testmodule
-									id="96e54842-9f60-44d4-901f-87afa5b788e5"
-									name="CreateScreenshotDocumentView">
-									</testmodule>
-								</smartfoldernode>
-								<smartfoldernode
-								id="897539d5-cc21-4c96-a17f-514663a99afe"
-								name="ValidateTrajectAssessmentForSTPH">
-									<smartfoldernode
-									id="ea7240d8-47f5-43bd-b11f-b0fcebdc178d"
-									name="ValidateValuesAssessment">
-										<testmodule
-										id="75443271-5dcb-4989-bfee-0fcdedc7d450"
-										name="ValidateFMAssessmentLabelAndProbabilityInResultView">
-										</testmodule>
-									</smartfoldernode>
-								</smartfoldernode>
-								<smartfoldernode
-								id="2e3fc2e2-36e7-4860-999f-7bfbcb09a785"
-								name="CloseResultViewSTPH">
-									<testmodule
-									id="03c9d707-4503-40f1-86b2-4c85642999de"
-									name="CloseViewCentralPanelWithFocus">
-									</testmodule>
-								</smartfoldernode>
-							</smartfoldernode>
-							<smartfoldernode
-							id="f2f1adee-da3a-4c53-a39e-96bc55192385"
-							name="AssemblyFMTrajectView">
-								<smartfoldernode
-								id="3f2b3967-d06a-4c02-9d11-f2f7a93a119a"
-								name="OpenAssemblyTrajectView">
-									<testmodule
-									id="70f05a07-a8ec-455c-a6e3-60d581889a08"
-									name="SelectGenericItemInProjectExplorer">
-									</testmodule>
-									<testmodule
-									id="dc717cf7-fb33-4214-916d-ce0811437b62"
-									name="OpenViewForCurrentlySelectedItemInProjectExplorer">
-									</testmodule>
-								</smartfoldernode>
-								<smartfoldernode
-								id="a2f5ad5d-0181-475e-98af-8d6d92dae0c5"
-								name="TakeScreenshot">
-									<testmodule
-									id="b2e9a535-0090-467d-bf46-9f11698bd895"
-									name="LogWarningMessage">
-									</testmodule>
-									<testmodule
-									id="361efa10-7af6-4dbc-a42e-77c90feaeb65"
-									name="CreateScreenshotDocumentView">
-									</testmodule>
-								</smartfoldernode>
-								<smartfoldernode
-								id="0b048a73-a1ed-4363-ae63-c6fad75bea4b"
-								name="ValidateAssemblyTrajectView">
-									<testmodule
-									id="d1459fc7-bfff-47b4-9c46-ba01f4cbd944"
-									name="ValidateSummaryValuesAssemblyTrajectView">
-									</testmodule>
-									<testmodule
-									id="8e354b0a-f5c4-467b-9bb7-b5cbc8f563fc"
-									name="ValidatePresenceWarningIconManualAssessmentInAssemblyTrajectView">
-									</testmodule>
-								</smartfoldernode>
-								<smartfoldernode
-								id="6c4d302a-e5ba-4f19-8c95-0d315ef92aaf"
-								name="CloseAssemblyTrajectView">
-									<testmodule
-									id="df818c77-0321-46ab-9b38-9b2225fb1916"
-									name="CloseViewCentralPanelWithFocus">
-									</testmodule>
-								</smartfoldernode>
-							</smartfoldernode>
-							<smartfoldernode
-							id="6a5a058f-4448-4f1f-8cb6-581d0772ce73"
-							name="AssemblySectionsCombinedView">
-								<smartfoldernode
-								id="f5420ec8-877b-4267-a99d-d4b20dc88a34"
-								name="OpenSectionsCombinedView">
-									<testmodule
-									id="d8ba8153-283a-46ba-bd22-78c89f4954c7"
-									name="SelectGenericItemInProjectExplorer">
-									</testmodule>
-									<testmodule
-									id="c42c0af3-beb7-4a35-aeb5-3de507edf56c"
-									name="OpenViewForCurrentlySelectedItemInProjectExplorer">
-									</testmodule>
-								</smartfoldernode>
-								<smartfoldernode
-								id="f27d3020-0bbf-40c2-9233-8b8952252e65"
-								name="TakeScreenshot">
-									<testmodule
-									id="234f4df2-2ecc-451f-95d3-cc630d3f14e4"
-									name="LogWarningMessage">
-									</testmodule>
-									<testmodule
-									id="7eccdf4f-37bd-422c-bd8e-408b77ed86b2"
-									name="CreateScreenshotDocumentView">
-									</testmodule>
-								</smartfoldernode>
-								<smartfoldernode
-								id="21c28c73-bcc2-4f12-aa31-fb38aa1fdcbb"
-								name="ValidateAssemblySectionsCombinedView">
-									<testmodule
-									id="06ba2245-f74c-4a0d-8255-ff1e601c8afa"
-									name="ValidatePresenceWarningIconManualAssessmentInAssemblyCombinedSectionsView">
-									</testmodule>
-									<smartfoldernode
-									id="99662edd-33d5-47ba-b495-ace7af131f41"
-									name="ValidateValuesInTable">
-										<testmodule
-										id="b0abf9b7-9cbe-4d7d-9627-ef0f99ca25b8"
-										name="ValidateSingleValueInTableAssemblyCombinedSections">
-										</testmodule>
-									</smartfoldernode>
-								</smartfoldernode>
-								<smartfoldernode
-								id="ff03a5cc-e1be-4180-aa76-564a9ea7f3b2"
-								name="CloseSectionsCombinedView">
-									<testmodule
-									id="d6d7e7f3-314f-41b6-8999-37c9fcd2387b"
-									name="CloseViewCentralPanelWithFocus">
-									</testmodule>
-								</smartfoldernode>
-							</smartfoldernode>
-							<smartfoldernode
-							id="3bfd7949-921d-4929-bcdd-0c4f80746a45"
-							name="AssemblyMap">
-								<smartfoldernode
-								id="0e5a6f49-348e-4f07-bc89-bc35f5be1322"
-								name="OpenAssemblyMap">
-									<testmodule
-									id="c1bdb0d6-5ad7-4261-9ad0-2716dfe1c2ad"
-									name="SelectGenericItemInProjectExplorer">
-									</testmodule>
-									<testmodule
-									id="e47fd138-1478-433c-80bb-4979f427b50c"
-									name="OpenViewForCurrentlySelectedItemInProjectExplorer">
-									</testmodule>
-								</smartfoldernode>
-								<smartfoldernode
-								id="64927f77-bb7f-4081-aac4-4a7bc769d194"
-								name="TakeScreenshot">
-									<testmodule
-									id="4f4e846b-5151-4b7e-a83e-b0b25b0c7483"
-									name="LogWarningMessage">
-									</testmodule>
-									<testmodule
-									id="82b248f4-85f3-4fb9-8811-5a8bdd40a542"
-									name="CreateScreenshotDocumentView">
-									</testmodule>
-								</smartfoldernode>
-								<smartfoldernode
-								id="d28c5d6f-c8ab-4c7a-b262-f3ae3e32fc47"
-								name="CloseAssemblyMap">
-									<testmodule
-									id="5a6e3144-f8fe-4ec3-a10a-2796a182f472"
-									name="CloseViewCentralPanelWithFocus">
-									</testmodule>
-								</smartfoldernode>
 							</smartfoldernode>
 						</smartfoldernode>
 						<smartfoldernode
@@ -3314,6 +2203,9 @@
 			</testcontainer>
 			<testcontainer
 			id="97b00b6b-6bb6-4cc8-91cd-a9e86de6fc57">
+			</testcontainer>
+			<testcontainer
+			id="9882e068-be69-493b-8d9b-3ad912df060c">
 			</testcontainer>
 			<testcontainer
 			id="9935ac33-098d-4c6d-a720-63a976d018e3">
