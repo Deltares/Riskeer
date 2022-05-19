@@ -1452,12 +1452,6 @@
     <Compile Include="Modules\Validation\Abstract\ValidateCombinedApproxFailureProbabilityAndBeta.cs">
       <id>451d0653-a93b-4305-83ac-406b8bea1f77</id>
     </Compile>
-    <Compile Include="Modules\Validation\Abstract\ValidateEqualityStrings.cs">
-      <id>76c673a9-a642-49e6-9c0f-194fe9463b9f</id>
-    </Compile>
-    <Compile Include="Modules\Validation\Abstract\ValidateSafetyFactorSTPH.cs">
-      <id>ef5b2d51-65fd-4f10-9182-72da3a833f1b</id>
-    </Compile>
     <Compile Include="Modules\Validation\Abstract\ValidateStringsAreEqual.cs">
       <id>9ad5f486-19f1-4148-9448-0fb74e0420ab</id>
     </Compile>
@@ -1508,30 +1502,6 @@
     </Compile>
     <Compile Include="Modules\Validation\DocumentView\ValidateSectionCategoryBoundary.cs">
       <id>452096ad-9aec-4f1f-b5b9-5a9f507ce492</id>
-    </Compile>
-    <Compile Include="Modules\Validation\DocumentView\ValidateContributionInFailureMechanismContributionView.cs">
-      <DependentUpon>ValidateContributionInFailureMechanismContributionView.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>94088e4c-d4d7-471d-aa1e-b2a556b206f3</id>
-      <BoundTo>45ca3cad-b4eb-4830-b715-695e59a034fc</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\DocumentView\ValidateContributionInFailureMechanismContributionView.UserCode.cs">
-      <DependentUpon>ValidateContributionInFailureMechanismContributionView.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>c7af6470-caf9-4ba8-9f9f-fc46fe4223a4</id>
-      <BoundTo>45ca3cad-b4eb-4830-b715-695e59a034fc</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\DocumentView\ValidateProbabilitySpaceInFailureMechanismContributionView.cs">
-      <DependentUpon>ValidateProbabilitySpaceInFailureMechanismContributionView.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>f7896ad9-f85e-4282-a999-59ea799fbcf8</id>
-      <BoundTo>e29f7d9b-ae68-4ca7-a428-d70d4680532e</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\DocumentView\ValidateProbabilitySpaceInFailureMechanismContributionView.UserCode.cs">
-      <DependentUpon>ValidateProbabilitySpaceInFailureMechanismContributionView.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>9cefaa1d-9ded-4c55-8092-777bcd7c2cb8</id>
-      <BoundTo>e29f7d9b-ae68-4ca7-a428-d70d4680532e</BoundTo>
     </Compile>
     <Compile Include="Modules\Validation\DocumentView\ValidateSectionNameIsPresentInScenariosView.cs">
       <BoundTo>3aa152e0-983f-4439-a308-b6281e5982da</BoundTo>
@@ -1587,9 +1557,6 @@
       <id>c0294f29-44a4-412a-8249-afbe98678ba2</id>
       <BoundTo>b6c2ba00-63e3-4440-af0f-320297649b7e</BoundTo>
     </Compile>
-    <Compile Include="Modules\Validation\IO\ValidateBinaryFilesAreEqual.cs">
-      <id>7f3b1afc-4280-4923-8a4a-8d0136ed50b7</id>
-    </Compile>
     <Compile Include="Modules\Validation\IO\ValidatePlainTextFilesAreEqual.cs">
       <DependentUpon>ValidatePlainTextFilesAreEqual.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -1614,18 +1581,6 @@
       <UserCode>true</UserCode>
       <id>e08f972b-390a-4e80-ba15-94d4a4d0b391</id>
     </Compile>
-    <Compile Include="Modules\Validation\MessagesPanel\ValidateErrorIcon.cs">
-      <DependentUpon>ValidateErrorIcon.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>22292334-33c8-4e96-a796-7f82ca9fc572</id>
-      <BoundTo>31e81b77-c11e-4528-8722-7adaeeeb11ad</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\MessagesPanel\ValidateErrorIcon.UserCode.cs">
-      <DependentUpon>ValidateErrorIcon.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>9aabd863-3df8-4890-abd4-a997f4914ca5</id>
-      <BoundTo>31e81b77-c11e-4528-8722-7adaeeeb11ad</BoundTo>
-    </Compile>
     <Compile Include="Modules\Validation\MessagesPanel\ValidatelastTwoMesages.UserCode.cs">
       <DependentUpon>ValidateTextMesage.rxrec</DependentUpon>
       <UserCode>true</UserCode>
@@ -1643,18 +1598,6 @@
     </Compile>
     <Compile Include="Modules\Validation\ProjectExplorer\ValidateFMAssemblyWithSubnodesInProjectExplorer.cs">
       <id>bab83175-771c-4d18-aa1d-b315f3132d4b</id>
-    </Compile>
-    <Compile Include="Modules\Validation\ProjectExplorer\ValidateSubsurfaceSchematizationInProjectExplorer.cs">
-      <DependentUpon>ValidateSubsurfaceSchematizationInProjectExplorer.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>4e9ccdf4-f5d9-44e3-94d2-21d1973d8710</id>
-      <BoundTo>765678f8-5ac0-425e-af7f-9586f16ef48a</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\ProjectExplorer\ValidateSubsurfaceSchematizationInProjectExplorer.UserCode.cs">
-      <DependentUpon>ValidateSubsurfaceSchematizationInProjectExplorer.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>89a75722-a4cb-43dd-8134-1bd753fcead7</id>
-      <BoundTo>765678f8-5ac0-425e-af7f-9586f16ef48a</BoundTo>
     </Compile>
     <Compile Include="Modules\Validation\ProjectExplorer\ValidateWhetherFolderGivenPathContainsNode.cs">
       <id>89cc3807-c64e-4752-aaf6-996a110e3a06</id>
@@ -1695,18 +1638,6 @@
       <id>7fa19957-1318-4443-a664-bcea138e1fb3</id>
       <BoundTo>1e3ffeec-c56b-4b2f-84cb-53870e9a4344</BoundTo>
     </Compile>
-    <Compile Include="Modules\Validation\PropertiesPanel\ValidateParameterDoesNotExistForItemInTraject.cs">
-      <DependentUpon>ValidateParameterDoesNotExistForItemInTraject.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>ea03820d-8779-4d9b-bf7d-5c0a682f2039</id>
-      <BoundTo>27f04823-1f1a-4251-be16-0e92f15ca64c</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\PropertiesPanel\ValidateParameterDoesNotExistForItemInTraject.UserCode.cs">
-      <DependentUpon>ValidateParameterDoesNotExistForItemInTraject.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>d1b69a80-39db-4977-9ba2-8e8a7174b81c</id>
-      <BoundTo>27f04823-1f1a-4251-be16-0e92f15ca64c</BoundTo>
-    </Compile>
     <Compile Include="Modules\Validation\PropertiesPanel\ValidateResultsArePresentInPropertiesPanel.cs">
       <DependentUpon>ValidateResultsArePresentInPropertiesPanel.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -1731,36 +1662,6 @@
       <id>46eccfc3-e1c1-4bd6-ac24-35bcfb7afec3</id>
       <BoundTo>b013a104-0577-4bea-aa06-f81de16bdfdc</BoundTo>
     </Compile>
-    <Compile Include="Modules\Validation\PropertiesPanel\ValidateRowExistsInPropertiesPanel.cs">
-      <DependentUpon>ValidateRowExistsInPropertiesPanel.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>9d15e0a1-ae7a-4048-82cd-ec117aa66989</id>
-      <BoundTo>3c75635e-8e82-4d23-ac92-7e2fe375ba43</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\PropertiesPanel\ValidateRowExistsInPropertiesPanel.UserCode.cs">
-      <DependentUpon>ValidateRowExistsInPropertiesPanel.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>4eb82aeb-b632-4f93-909d-ca316feea9cb</id>
-      <BoundTo>3c75635e-8e82-4d23-ac92-7e2fe375ba43</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\PropertiesPanel\ValidateStringsPropertiesPanelAreEqual.cs">
-      <id>007488a8-5d59-42df-8824-32336f400f51</id>
-    </Compile>
-    <Compile Include="Modules\Validation\PropertiesPanel\ValidateStringsPropertiesPanelAreNotEqual.cs">
-      <id>5d655704-eed1-40fa-a340-b0c2c0e2b5d4</id>
-    </Compile>
-    <Compile Include="Modules\Validation\PropertiesPanel\ValidateSurfaceLineNameInPropertiesPanel.cs">
-      <DependentUpon>ValidateSurfaceLineNameInPropertiesPanel.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>44e0450d-4b8c-4947-bcbc-dde21ac8ab9b</id>
-      <BoundTo>a07de890-0a93-4d5e-865b-7ca9370d261c</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\PropertiesPanel\ValidateSurfaceLineNameInPropertiesPanel.UserCode.cs">
-      <DependentUpon>ValidateSurfaceLineNameInPropertiesPanel.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>efa53e23-d8e4-4e67-ac1c-b7c4fc9f2aaf</id>
-      <BoundTo>a07de890-0a93-4d5e-865b-7ca9370d261c</BoundTo>
-    </Compile>
     <Compile Include="Modules\Validation\PropertiesPanel\ValidateTextValueInPropertiesPanelGivenPath.cs">
       <id>98d5f7ef-17bf-47b6-9f85-7c9a710d142f</id>
     </Compile>
@@ -1775,18 +1676,6 @@
       <UserCode>true</UserCode>
       <id>667f306e-b119-4562-85e4-7686b58596f8</id>
       <BoundTo>2bfa17c2-7838-466c-b4bf-98098cb57bba</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\PropertiesPanel\ValidateValueParameterForItemInTraject.cs">
-      <DependentUpon>ValidateValueParameterForItemInTraject.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>43ecbd4d-2a3e-41b7-a165-ff44c713c769</id>
-      <BoundTo>f146138e-5d6e-47a6-b572-efcb4d6fe1ba</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\PropertiesPanel\ValidateValueParameterForItemInTraject.UserCode.cs">
-      <DependentUpon>ValidateValueParameterForItemInTraject.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>6933b1f0-e685-46fa-afeb-f550560bf1b5</id>
-      <BoundTo>f146138e-5d6e-47a6-b572-efcb4d6fe1ba</BoundTo>
     </Compile>
     <Compile Include="Modules\Wait\WaitForXMiliseconds.cs">
       <DependentUpon>WaitForXMiliseconds.rxrec</DependentUpon>
@@ -2433,20 +2322,10 @@
       <id>98d503cc-6c1d-4e11-b39c-823ac4106391</id>
       <recordtableid>5f11c431-c5f5-43ed-9e90-4eb9ec533e75</recordtableid>
     </None>
-    <None Include="Modules\Validation\DocumentView\ValidateContributionInFailureMechanismContributionView.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>45ca3cad-b4eb-4830-b715-695e59a034fc</id>
-      <recordtableid>4a63a2c8-7cac-4869-96dc-543747d8c4c7</recordtableid>
-    </None>
     <None Include="Modules\Validation\DocumentView\ValidateDataSectionsView.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>aec09b15-20aa-4f46-96b6-b6bd66a8d9b9</id>
       <recordtableid>7bc728af-f14c-4f8b-8354-b59262002f99</recordtableid>
-    </None>
-    <None Include="Modules\Validation\DocumentView\ValidateProbabilitySpaceInFailureMechanismContributionView.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>e29f7d9b-ae68-4ca7-a428-d70d4680532e</id>
-      <recordtableid>bbbbf5bf-dfd4-4308-9cd1-53e977ec87f1</recordtableid>
     </None>
     <None Include="Modules\Validation\DocumentView\ValidateSectionNameIsPresentInScenariosView.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -2478,20 +2357,10 @@
       <id>170e66db-858e-487d-b27b-e52217daf572</id>
       <recordtableid>3dce05d3-19c6-41db-80de-b19fe30c3824</recordtableid>
     </None>
-    <None Include="Modules\Validation\MessagesPanel\ValidateErrorIcon.rxrec">
-      <id>31e81b77-c11e-4528-8722-7adaeeeb11ad</id>
-      <recordtableid>85bd5588-c795-4a99-aeaf-4daebe835849</recordtableid>
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-    </None>
     <None Include="Modules\Validation\MessagesPanel\ValidateTextMesage.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>a1476601-a356-4d9f-b0f2-de9145f718c9</id>
       <recordtableid>c86bbec9-6a02-4170-b9b9-ba60dd06156f</recordtableid>
-    </None>
-    <None Include="Modules\Validation\ProjectExplorer\ValidateSubsurfaceSchematizationInProjectExplorer.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>765678f8-5ac0-425e-af7f-9586f16ef48a</id>
-      <recordtableid>7b0aa06d-511c-46a3-a9a6-082f4011e57c</recordtableid>
     </None>
     <None Include="Modules\Validation\PropertiesPanel\ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -2508,11 +2377,6 @@
       <id>1e3ffeec-c56b-4b2f-84cb-53870e9a4344</id>
       <recordtableid>96402262-15e0-4220-98f9-083d0b2a69c0</recordtableid>
     </None>
-    <None Include="Modules\Validation\PropertiesPanel\ValidateParameterDoesNotExistForItemInTraject.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>27f04823-1f1a-4251-be16-0e92f15ca64c</id>
-      <recordtableid>76b79b85-92aa-460c-b126-3cc5de9d5f07</recordtableid>
-    </None>
     <None Include="Modules\Validation\PropertiesPanel\ValidateResultsArePresentInPropertiesPanel.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>02a853e8-30e4-47a6-a928-24c5b79c0249</id>
@@ -2523,25 +2387,10 @@
       <id>b013a104-0577-4bea-aa06-f81de16bdfdc</id>
       <recordtableid>a91dc990-2aae-4244-86f4-1f59055da825</recordtableid>
     </None>
-    <None Include="Modules\Validation\PropertiesPanel\ValidateRowExistsInPropertiesPanel.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>3c75635e-8e82-4d23-ac92-7e2fe375ba43</id>
-      <recordtableid>f7696db3-8395-4cde-9420-df76b7faa09a</recordtableid>
-    </None>
-    <None Include="Modules\Validation\PropertiesPanel\ValidateSurfaceLineNameInPropertiesPanel.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>a07de890-0a93-4d5e-865b-7ca9370d261c</id>
-      <recordtableid>200d05d0-2615-44bf-991e-2913171cd220</recordtableid>
-    </None>
     <None Include="Modules\Validation\PropertiesPanel\ValidateTextValueParameterCurrentlyShownInPropertiesPanel.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>2bfa17c2-7838-466c-b4bf-98098cb57bba</id>
       <recordtableid>be67159d-b95e-4ab7-8583-e9482fd3475d</recordtableid>
-    </None>
-    <None Include="Modules\Validation\PropertiesPanel\ValidateValueParameterForItemInTraject.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>f146138e-5d6e-47a6-b572-efcb4d6fe1ba</id>
-      <recordtableid>54946666-7cba-49b9-b848-41ea43b074d9</recordtableid>
     </None>
     <None Include="Modules\Wait\WaitForXMiliseconds.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -2657,9 +2506,6 @@
     </Folder>
     <Folder Include="Modules\Validation\Abstract">
       <id>3153ec44-4733-45ee-afef-35e0aaee4994</id>
-    </Folder>
-    <Folder Include="Modules\Validation\MapLayersPanel">
-      <id>75b687df-7e33-47cf-92ce-9a12e15e17c6</id>
     </Folder>
     <Folder Include="Modules\Validation\IO">
       <id>3c319368-d1f1-4a18-810f-cde21b77210f</id>
