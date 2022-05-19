@@ -3323,10 +3323,6 @@ gZlyIMICo2CnvxF7EpBHxeUwaeMLu3LXSHrIMIoAAAAASUVORK5CYII=
 		name="nameColumn">
 		</var>
 		<var
-		id="dd230550-3763-4882-aad6-2c842903d448"
-		name="StateToSelect">
-		</var>
-		<var
 		id="171a542e-eb85-404b-a2fe-920346f601f6"
 		name="trajectID">
 		</var>
@@ -3337,10 +3333,6 @@ gZlyIMICo2CnvxF7EpBHxeUwaeMLu3LXSHrIMIoAAAAASUVORK5CYII=
 		<var
 		id="968707f6-e0d0-4792-970c-cf0b3fc67bc8"
 		name="stateName">
-		</var>
-		<var
-		id="29307d06-2311-4b72-97e7-ee345285218b"
-		name="indexColumn">
 		</var>
 		<var
 		id="42a4d0d7-8e30-4ccf-a642-f80cec3369b4"

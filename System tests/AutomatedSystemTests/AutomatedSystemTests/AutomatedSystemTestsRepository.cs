@@ -481,18 +481,6 @@ namespace AutomatedSystemTests
             set { _nameColumn = value; }
         }
 
-        string _StateToSelect = "";
-
-        /// <summary>
-        /// Gets or sets the value of variable StateToSelect.
-        /// </summary>
-        [TestVariable("dd230550-3763-4882-aad6-2c842903d448")]
-        public string StateToSelect
-        {
-            get { return _StateToSelect; }
-            set { _StateToSelect = value; }
-        }
-
         string _trajectID = "";
 
         /// <summary>
@@ -527,18 +515,6 @@ namespace AutomatedSystemTests
         {
             get { return _stateName; }
             set { _stateName = value; }
-        }
-
-        string _indexColumn = "";
-
-        /// <summary>
-        /// Gets or sets the value of variable indexColumn.
-        /// </summary>
-        [TestVariable("29307d06-2311-4b72-97e7-ee345285218b")]
-        public string indexColumn
-        {
-            get { return _indexColumn; }
-            set { _indexColumn = value; }
         }
 
         string _columnIndex = "";
