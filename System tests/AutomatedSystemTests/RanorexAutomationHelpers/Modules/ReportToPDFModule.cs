@@ -150,6 +150,11 @@ namespace Ranorex.AutomationHelpers.Modules
 			FinishReport();
 
 			Report.Zip(TestReport.ReportEnvironment, zippedReportFileDirectory, name);
+			Report.Info(Directory.GetCurrentDirectory());
+//			foreach (var fl in Directory.GetFiles(Directory.GetCurrentDirectory(), "*", SearchOption.AllDirectories)) {
+//			    Report.Info(fl.ToString());
+//			}
+			//Report.Info(Directory.GetFiles(Directory.GetCurrentDirectory()).ToString());
 
 			Ranorex.PDF.Creator.CreatePDF(input, pdfReportPath, xml, details);
 
