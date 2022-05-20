@@ -120,7 +120,7 @@
 					</param>
 					<param
 					name="Xml"
-					value="ReportDeltaresStyle\style.xml">
+					value="Reports\style.xml">
 					</param>
 					<param
 					name="Details"
