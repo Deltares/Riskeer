@@ -151,7 +151,7 @@ namespace Ranorex.AutomationHelpers.Modules
 
 			Report.Zip(TestReport.ReportEnvironment, zippedReportFileDirectory, name);
 			Report.Info(Directory.GetCurrentDirectory());
-			foreach (var fl in Directory.GetFiles(Directory.GetCurrentDirectory(), "style.xml", SearchOption.AllDirectories)) {
+			foreach (var fl in Directory.GetFiles(Directory.GetCurrentDirectory(), "LogoPDFReport.png", SearchOption.AllDirectories)) {
 			    Report.Info(fl.ToString());
 			}
 			//Report.Info(Directory.GetFiles(Directory.GetCurrentDirectory()).ToString());
