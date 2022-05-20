@@ -487,6 +487,26 @@
 					name="AppPath"
 					value="..\..\..\..\..\bin\Debug\Riskeer.exe">
 					</param>
+					<param
+					name="PdfDirectoryPath"
+					value="">
+					</param>
+					<param
+					name="DeleteRanorexReport"
+					value="false">
+					</param>
+					<param
+					name="Details"
+					value="all">
+					</param>
+					<param
+					name="Xml"
+					value="Reports\style.xml">
+					</param>
+					<param
+					name="PdfName"
+					value="script17_Scenario’s_opstellen.pdf">
+					</param>
 				</parameters>
 			</testcase>
 			<smartfoldernode
@@ -1183,6 +1203,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<teardown
+			id="76315552-f4e7-49f5-b163-1e7de8f06971"
+			name="teardown">
+			</teardown>
 			<testmodule
 			id="763fbdd2-ed87-47ba-88c5-bbfdc34ecd8a"
 			name="CreateScreenshotOfDropDownMenuInCalculationsView"
@@ -2194,6 +2218,44 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="eaa6503d-f984-4c38-be21-ee4c922439c6"
+			name="ReportToPDFModule"
+			ref="ffa0759d-37d2-4abb-89a7-411f0fcf2dfe"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="PdfDirectoryPath"
+					datasourceid="37adadfe-740c-4d17-b1f0-8610ec657a81"
+					variableid="536f8a69-f246-4f2b-ae9e-1f62babb2ba9"
+					variablename="PdfDirectoryPath">
+					</var>
+					<var
+					dataname="DeleteRanorexReport"
+					datasourceid="37adadfe-740c-4d17-b1f0-8610ec657a81"
+					variableid="7f788c18-962c-41ab-b591-9c3122512c5e"
+					variablename="DeleteRanorexReport">
+					</var>
+					<var
+					dataname="Details"
+					datasourceid="37adadfe-740c-4d17-b1f0-8610ec657a81"
+					variableid="b9993b89-d8cb-45fe-829b-42b0f8dd8a00"
+					variablename="Details">
+					</var>
+					<var
+					dataname="Xml"
+					datasourceid="37adadfe-740c-4d17-b1f0-8610ec657a81"
+					variableid="c15f25ea-9409-4e1a-b76e-cd208bae6c56"
+					variablename="Xml">
+					</var>
+					<var
+					dataname="PdfName"
+					datasourceid="37adadfe-740c-4d17-b1f0-8610ec657a81"
+					variableid="1d09c6b5-db7a-4ed0-a13c-ee2add5d3d37"
+					variablename="PdfName">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="eca25586-227e-4875-a084-9f3fda2fc85d"
 			name="ImportDikeProfiles">
@@ -3137,6 +3199,14 @@
 							</testmodule>
 						</teardown>
 					</testcase>
+					<teardown
+					id="76315552-f4e7-49f5-b163-1e7de8f06971"
+					name="teardown">
+						<testmodule
+						id="eaa6503d-f984-4c38-be21-ee4c922439c6"
+						name="ReportToPDFModule">
+						</testmodule>
+					</teardown>
 				</testcase>
 			</testsuite>
 		</childhierarchy>

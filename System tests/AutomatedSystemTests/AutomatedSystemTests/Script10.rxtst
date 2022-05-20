@@ -262,6 +262,44 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="1afcbfc1-f733-44c2-869b-bafee6fc9d7f"
+			name="ReportToPDFModule"
+			ref="ffa0759d-37d2-4abb-89a7-411f0fcf2dfe"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="PdfDirectoryPath"
+					datasourceid="d47afadd-08b5-44e7-bfab-e3d5723c892a"
+					variableid="536f8a69-f246-4f2b-ae9e-1f62babb2ba9"
+					variablename="PdfDirectoryPath">
+					</var>
+					<var
+					dataname="DeleteRanorexReport"
+					datasourceid="d47afadd-08b5-44e7-bfab-e3d5723c892a"
+					variableid="7f788c18-962c-41ab-b591-9c3122512c5e"
+					variablename="DeleteRanorexReport">
+					</var>
+					<var
+					dataname="Details"
+					datasourceid="d47afadd-08b5-44e7-bfab-e3d5723c892a"
+					variableid="b9993b89-d8cb-45fe-829b-42b0f8dd8a00"
+					variablename="Details">
+					</var>
+					<var
+					dataname="Xml"
+					datasourceid="d47afadd-08b5-44e7-bfab-e3d5723c892a"
+					variableid="c15f25ea-9409-4e1a-b76e-cd208bae6c56"
+					variablename="Xml">
+					</var>
+					<var
+					dataname="PdfName"
+					datasourceid="d47afadd-08b5-44e7-bfab-e3d5723c892a"
+					variableid="1d09c6b5-db7a-4ed0-a13c-ee2add5d3d37"
+					variablename="PdfName">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="1bda3769-b743-49cc-8e29-498ee07ea2e0"
 			name="SelectItemFromDynamicDropDownMenuInPropertiesPanelRow"
 			ref="feb22e37-85f1-4e45-95cc-1cebb52e7292"
@@ -2021,6 +2059,10 @@
 			id="99b6db12-b870-4b3e-97a2-546f7a996406"
 			name="CalculatePathToInputCalculation">
 			</smartfoldernode>
+			<teardown
+			id="9a530d8b-ed2d-47a6-9441-9af4a8544a16"
+			name="teardown">
+			</teardown>
 			<testmodule
 			id="9ad64f63-9bdb-444f-a3ea-8e9e3287be9a"
 			name="SelectGenericItemInProjectExplorer"
@@ -3231,6 +3273,26 @@
 					<param
 					name="AppPath"
 					value="..\..\..\..\..\bin\Debug\Riskeer.exe">
+					</param>
+					<param
+					name="PdfDirectoryPath"
+					value="">
+					</param>
+					<param
+					name="DeleteRanorexReport"
+					value="false">
+					</param>
+					<param
+					name="Details"
+					value="all">
+					</param>
+					<param
+					name="Xml"
+					value="Reports\style.xml">
+					</param>
+					<param
+					name="PdfName"
+					value="script10_Profielschematisaties_en_ondergrondgegevens_importeren.pdf">
 					</param>
 				</parameters>
 			</testcase>
@@ -4760,6 +4822,14 @@
 							</testmodule>
 						</teardown>
 					</testcase>
+					<teardown
+					id="9a530d8b-ed2d-47a6-9441-9af4a8544a16"
+					name="teardown">
+						<testmodule
+						id="1afcbfc1-f733-44c2-869b-bafee6fc9d7f"
+						name="ReportToPDFModule">
+						</testmodule>
+					</teardown>
 				</testcase>
 			</testsuite>
 		</childhierarchy>

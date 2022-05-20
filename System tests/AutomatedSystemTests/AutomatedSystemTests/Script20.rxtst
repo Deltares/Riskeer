@@ -66,6 +66,44 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="05853609-706d-4950-b6bc-2426102bcd59"
+			name="ReportToPDFModule"
+			ref="ffa0759d-37d2-4abb-89a7-411f0fcf2dfe"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="PdfDirectoryPath"
+					datasourceid="cf827ffe-1dbe-42c7-9efc-b26b4ce18e62"
+					variableid="536f8a69-f246-4f2b-ae9e-1f62babb2ba9"
+					variablename="PdfDirectoryPath">
+					</var>
+					<var
+					dataname="DeleteRanorexReport"
+					datasourceid="cf827ffe-1dbe-42c7-9efc-b26b4ce18e62"
+					variableid="7f788c18-962c-41ab-b591-9c3122512c5e"
+					variablename="DeleteRanorexReport">
+					</var>
+					<var
+					dataname="Details"
+					datasourceid="cf827ffe-1dbe-42c7-9efc-b26b4ce18e62"
+					variableid="b9993b89-d8cb-45fe-829b-42b0f8dd8a00"
+					variablename="Details">
+					</var>
+					<var
+					dataname="Xml"
+					datasourceid="cf827ffe-1dbe-42c7-9efc-b26b4ce18e62"
+					variableid="c15f25ea-9409-4e1a-b76e-cd208bae6c56"
+					variablename="Xml">
+					</var>
+					<var
+					dataname="PdfName"
+					datasourceid="cf827ffe-1dbe-42c7-9efc-b26b4ce18e62"
+					variableid="1d09c6b5-db7a-4ed0-a13c-ee2add5d3d37"
+					variablename="PdfName">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="062424d2-a386-454a-baab-4e0878e24ee0"
 			name="ReadActualCombinedData">
@@ -585,6 +623,10 @@
 			id="4b7e5ce5-86d8-4e0a-aa7a-5b79b45317c7"
 			name="CalculatePathToResultItem">
 			</smartfoldernode>
+			<teardown
+			id="4be4a1f5-1ed0-46c4-962a-7083d9598442"
+			name="teardown">
+			</teardown>
 			<testmodule
 			id="4bf8bb2e-0289-4047-a263-188df7f2848a"
 			name="ConcatenateStrings"
@@ -1938,6 +1980,26 @@
 					name="AppPath"
 					value="..\..\..\..\..\bin\Debug\Riskeer.exe">
 					</param>
+					<param
+					name="PdfDirectoryPath"
+					value="">
+					</param>
+					<param
+					name="DeleteRanorexReport"
+					value="false">
+					</param>
+					<param
+					name="Details"
+					value="all">
+					</param>
+					<param
+					name="Xml"
+					value="Reports\style.xml">
+					</param>
+					<param
+					name="PdfName"
+					value="script20_(Benaderde)_faalkans_berekenen.pdf">
+					</param>
 				</parameters>
 			</testcase>
 			<smartfoldernode
@@ -2393,7 +2455,7 @@
 			</smartfoldernode>
 			<testcase
 			id="ffd7722e-fb6a-4059-a901-6b57196a5a93"
-			name="script20_(Benaderde)_faalkans_berekenen_per_toetsvak">
+			name="script20_(Benaderde)_faalkans_berekenen">
 				<parameters>
 					<param
 					name="caseNumber"
@@ -2435,7 +2497,7 @@
 				name="Script20">
 					<testcase
 					id="ffd7722e-fb6a-4059-a901-6b57196a5a93"
-					name="script20_(Benaderde)_faalkans_berekenen_per_toetsvak">
+					name="script20_(Benaderde)_faalkans_berekenen">
 						<setup
 						id="cd352d94-c228-404c-8c51-4b71049d34bf"
 						name="setup">
@@ -2981,6 +3043,14 @@
 							</testmodule>
 						</teardown>
 					</testcase>
+					<teardown
+					id="4be4a1f5-1ed0-46c4-962a-7083d9598442"
+					name="teardown">
+						<testmodule
+						id="05853609-706d-4950-b6bc-2426102bcd59"
+						name="ReportToPDFModule">
+						</testmodule>
+					</teardown>
 				</testcase>
 			</testsuite>
 		</childhierarchy>

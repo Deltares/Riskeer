@@ -234,6 +234,44 @@
 			id="28fd2424-9f0a-4e3b-905c-845000f77103"
 			name="b)AssembleFailureProbsFMstoEntireTaject">
 			</smartfoldernode>
+			<testmodule
+			id="2a404fcf-5f5b-47e5-a83a-3c6d637e9d2a"
+			name="ReportToPDFModule"
+			ref="ffa0759d-37d2-4abb-89a7-411f0fcf2dfe"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="PdfDirectoryPath"
+					datasourceid="6754469b-6bef-4898-a3ce-f0500c72e37b"
+					variableid="536f8a69-f246-4f2b-ae9e-1f62babb2ba9"
+					variablename="PdfDirectoryPath">
+					</var>
+					<var
+					dataname="DeleteRanorexReport"
+					datasourceid="6754469b-6bef-4898-a3ce-f0500c72e37b"
+					variableid="7f788c18-962c-41ab-b591-9c3122512c5e"
+					variablename="DeleteRanorexReport">
+					</var>
+					<var
+					dataname="Details"
+					datasourceid="6754469b-6bef-4898-a3ce-f0500c72e37b"
+					variableid="b9993b89-d8cb-45fe-829b-42b0f8dd8a00"
+					variablename="Details">
+					</var>
+					<var
+					dataname="Xml"
+					datasourceid="6754469b-6bef-4898-a3ce-f0500c72e37b"
+					variableid="c15f25ea-9409-4e1a-b76e-cd208bae6c56"
+					variablename="Xml">
+					</var>
+					<var
+					dataname="PdfName"
+					datasourceid="6754469b-6bef-4898-a3ce-f0500c72e37b"
+					variableid="1d09c6b5-db7a-4ed0-a13c-ee2add5d3d37"
+					variablename="PdfName">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="2c40d00d-223c-4b5b-9f4b-a9bb9e226d4f"
 			name="ReadDivisionInSections">
@@ -522,6 +560,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<teardown
+			id="584fac82-6351-4197-932a-8b2d2ede2d5c"
+			name="teardown">
+			</teardown>
 			<testmodule
 			id="59093ff3-0dda-4e58-9cf5-4b090322a67a"
 			name="CreateOutputFolder"
@@ -642,6 +684,26 @@
 					<param
 					name="AppPath"
 					value="..\..\..\..\..\bin\Debug\Riskeer.exe">
+					</param>
+					<param
+					name="PdfDirectoryPath"
+					value="">
+					</param>
+					<param
+					name="DeleteRanorexReport"
+					value="false">
+					</param>
+					<param
+					name="Details"
+					value="all">
+					</param>
+					<param
+					name="Xml"
+					value="Reports\style.xml">
+					</param>
+					<param
+					name="PdfName"
+					value="script22_Toetsoordelen_en_veiligheidsoordeel_bepalen.pdf">
 					</param>
 				</parameters>
 			</testcase>
@@ -1563,6 +1625,14 @@
 							</testmodule>
 						</teardown>
 					</testcase>
+					<teardown
+					id="584fac82-6351-4197-932a-8b2d2ede2d5c"
+					name="teardown">
+						<testmodule
+						id="2a404fcf-5f5b-47e5-a83a-3c6d637e9d2a"
+						name="ReportToPDFModule">
+						</testmodule>
+					</teardown>
 				</testcase>
 			</testsuite>
 		</childhierarchy>

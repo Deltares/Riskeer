@@ -1990,6 +1990,26 @@
 					name="AppPath"
 					value="..\..\..\..\..\bin\Debug\Riskeer.exe">
 					</param>
+					<param
+					name="PdfDirectoryPath"
+					value="">
+					</param>
+					<param
+					name="DeleteRanorexReport"
+					value="false">
+					</param>
+					<param
+					name="Details"
+					value="all">
+					</param>
+					<param
+					name="Xml"
+					value="Reports\style.xml">
+					</param>
+					<param
+					name="PdfName"
+					value="script27_Berekeningen_dupliceren,_exporteren_en_importeren.pdf">
+					</param>
 				</parameters>
 			</testcase>
 			<testmodule
@@ -3363,6 +3383,44 @@
 			id="a65f1d88-193b-4a09-9701-a3902031fce0"
 			name="ValidateParametersAreEqualInCopyCalculation">
 			</smartfoldernode>
+			<testmodule
+			id="a69abe55-2ad6-40ca-8f94-6a5f38034f26"
+			name="ReportToPDFModule"
+			ref="ffa0759d-37d2-4abb-89a7-411f0fcf2dfe"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="PdfDirectoryPath"
+					datasourceid="67f96106-b81a-4d2e-bd8f-52daca8f7e7f"
+					variableid="536f8a69-f246-4f2b-ae9e-1f62babb2ba9"
+					variablename="PdfDirectoryPath">
+					</var>
+					<var
+					dataname="DeleteRanorexReport"
+					datasourceid="67f96106-b81a-4d2e-bd8f-52daca8f7e7f"
+					variableid="7f788c18-962c-41ab-b591-9c3122512c5e"
+					variablename="DeleteRanorexReport">
+					</var>
+					<var
+					dataname="Details"
+					datasourceid="67f96106-b81a-4d2e-bd8f-52daca8f7e7f"
+					variableid="b9993b89-d8cb-45fe-829b-42b0f8dd8a00"
+					variablename="Details">
+					</var>
+					<var
+					dataname="Xml"
+					datasourceid="67f96106-b81a-4d2e-bd8f-52daca8f7e7f"
+					variableid="c15f25ea-9409-4e1a-b76e-cd208bae6c56"
+					variablename="Xml">
+					</var>
+					<var
+					dataname="PdfName"
+					datasourceid="67f96106-b81a-4d2e-bd8f-52daca8f7e7f"
+					variableid="1d09c6b5-db7a-4ed0-a13c-ee2add5d3d37"
+					variablename="PdfName">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="a6ba6027-ec7b-4e05-b332-58c6e41aeb76"
 			name="WaitForXMiliseconds"
@@ -5055,6 +5113,10 @@
 			id="f11c9940-ed36-493b-a9eb-39b8e0eca1ad"
 			name="ValidateCopiesOfCalculation">
 			</smartfoldernode>
+			<teardown
+			id="f12e654c-4d39-42c0-a391-0db175a9b57e"
+			name="teardown">
+			</teardown>
 			<smartfoldernode
 			datasource="script27aCalculationsToCopyAndValidate"
 			errorbehavior="ContinueNextIteration"
@@ -6600,6 +6662,14 @@
 							</testmodule>
 						</teardown>
 					</testcase>
+					<teardown
+					id="f12e654c-4d39-42c0-a391-0db175a9b57e"
+					name="teardown">
+						<testmodule
+						id="a69abe55-2ad6-40ca-8f94-6a5f38034f26"
+						name="ReportToPDFModule">
+						</testmodule>
+					</teardown>
 				</testcase>
 			</testsuite>
 		</childhierarchy>

@@ -52,6 +52,44 @@
 			id="0084d137-ffe9-4b58-b512-15c2386f2074"
 			name="ReportScreenShotOfApplication">
 			</smartfoldernode>
+			<testmodule
+			id="00a384d2-dafb-49e0-b32b-391627e22b2e"
+			name="ReportToPDFModule"
+			ref="ffa0759d-37d2-4abb-89a7-411f0fcf2dfe"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="PdfDirectoryPath"
+					datasourceid="d9f46e49-056c-4e8b-a453-306c17602806"
+					variableid="536f8a69-f246-4f2b-ae9e-1f62babb2ba9"
+					variablename="PdfDirectoryPath">
+					</var>
+					<var
+					dataname="DeleteRanorexReport"
+					datasourceid="d9f46e49-056c-4e8b-a453-306c17602806"
+					variableid="7f788c18-962c-41ab-b591-9c3122512c5e"
+					variablename="DeleteRanorexReport">
+					</var>
+					<var
+					dataname="Details"
+					datasourceid="d9f46e49-056c-4e8b-a453-306c17602806"
+					variableid="b9993b89-d8cb-45fe-829b-42b0f8dd8a00"
+					variablename="Details">
+					</var>
+					<var
+					dataname="Xml"
+					datasourceid="d9f46e49-056c-4e8b-a453-306c17602806"
+					variableid="c15f25ea-9409-4e1a-b76e-cd208bae6c56"
+					variablename="Xml">
+					</var>
+					<var
+					dataname="PdfName"
+					datasourceid="d9f46e49-056c-4e8b-a453-306c17602806"
+					variableid="1d09c6b5-db7a-4ed0-a13c-ee2add5d3d37"
+					variablename="PdfName">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="02d150ff-31cf-4e8b-aec9-c162d285639f"
 			name="c)ValidateLayersOfAssemblyMap">
@@ -2294,6 +2332,10 @@
 			id="a93a5504-8b16-42ed-9294-c98da9a502b8"
 			name="ValidateDataLayers">
 			</smartfoldernode>
+			<teardown
+			id="aa485729-1e1e-4c46-bc92-c75ffcb6c432"
+			name="teardown">
+			</teardown>
 			<testmodule
 			id="aa4ca716-eacb-4e6b-aac8-6d7a4c21d6a9"
 			name="CreateScreenShotEntireApplication"
@@ -2910,6 +2952,26 @@
 					<param
 					name="AppPath"
 					value="..\..\..\..\..\bin\Debug\Riskeer.exe">
+					</param>
+					<param
+					name="PdfDirectoryPath"
+					value="">
+					</param>
+					<param
+					name="DeleteRanorexReport"
+					value="false">
+					</param>
+					<param
+					name="Details"
+					value="all">
+					</param>
+					<param
+					name="Xml"
+					value="Reports\style.xml">
+					</param>
+					<param
+					name="PdfName"
+					value="script29_Gegevens_tonen_op_kaart.pdf">
 					</param>
 				</parameters>
 			</testcase>
@@ -4031,6 +4093,14 @@
 							</testmodule>
 						</teardown>
 					</testcase>
+					<teardown
+					id="aa485729-1e1e-4c46-bc92-c75ffcb6c432"
+					name="teardown">
+						<testmodule
+						id="00a384d2-dafb-49e0-b32b-391627e22b2e"
+						name="ReportToPDFModule">
+						</testmodule>
+					</teardown>
 				</testcase>
 			</testsuite>
 		</childhierarchy>

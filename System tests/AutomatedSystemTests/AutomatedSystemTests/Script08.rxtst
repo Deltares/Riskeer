@@ -300,6 +300,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<teardown
+			id="1043b6bc-3202-493e-a8ea-05870662182b"
+			name="teardown">
+			</teardown>
 			<testmodule
 			id="120bc128-c9d6-4059-a14b-df0ebb4e789b"
 			name="GetValueParameterInPropertiesPanelGivenPath"
@@ -1395,6 +1399,44 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="70fde034-6e0d-4477-a610-4f610d49d6b7"
+			name="ReportToPDFModule"
+			ref="ffa0759d-37d2-4abb-89a7-411f0fcf2dfe"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="PdfDirectoryPath"
+					datasourceid="b468605b-ee5e-43c5-bc4e-88df820c5e8d"
+					variableid="536f8a69-f246-4f2b-ae9e-1f62babb2ba9"
+					variablename="PdfDirectoryPath">
+					</var>
+					<var
+					dataname="DeleteRanorexReport"
+					datasourceid="b468605b-ee5e-43c5-bc4e-88df820c5e8d"
+					variableid="7f788c18-962c-41ab-b591-9c3122512c5e"
+					variablename="DeleteRanorexReport">
+					</var>
+					<var
+					dataname="Details"
+					datasourceid="b468605b-ee5e-43c5-bc4e-88df820c5e8d"
+					variableid="b9993b89-d8cb-45fe-829b-42b0f8dd8a00"
+					variablename="Details">
+					</var>
+					<var
+					dataname="Xml"
+					datasourceid="b468605b-ee5e-43c5-bc4e-88df820c5e8d"
+					variableid="c15f25ea-9409-4e1a-b76e-cd208bae6c56"
+					variablename="Xml">
+					</var>
+					<var
+					dataname="PdfName"
+					datasourceid="b468605b-ee5e-43c5-bc4e-88df820c5e8d"
+					variableid="1d09c6b5-db7a-4ed0-a13c-ee2add5d3d37"
+					variablename="PdfName">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="71111e7d-4681-4c61-914f-88f0063c31de"
 			name="SelectStateTraject">
@@ -1949,6 +1991,26 @@
 					<param
 					name="AppPath"
 					value="..\..\..\..\..\bin\Debug\Riskeer.exe">
+					</param>
+					<param
+					name="PdfDirectoryPath"
+					value="">
+					</param>
+					<param
+					name="DeleteRanorexReport"
+					value="false">
+					</param>
+					<param
+					name="Details"
+					value="all">
+					</param>
+					<param
+					name="Xml"
+					value="Reports\style.xml">
+					</param>
+					<param
+					name="PdfName"
+					value="script08_Duidingsklassen_en_lengte-effect_parameters.pdf">
 					</param>
 				</parameters>
 			</testcase>
@@ -2987,6 +3049,14 @@
 							</testmodule>
 						</teardown>
 					</testcase>
+					<teardown
+					id="1043b6bc-3202-493e-a8ea-05870662182b"
+					name="teardown">
+						<testmodule
+						id="70fde034-6e0d-4477-a610-4f610d49d6b7"
+						name="ReportToPDFModule">
+						</testmodule>
+					</teardown>
 				</testcase>
 			</testsuite>
 		</childhierarchy>
