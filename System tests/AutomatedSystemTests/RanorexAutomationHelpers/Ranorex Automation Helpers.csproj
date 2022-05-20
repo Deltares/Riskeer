@@ -107,7 +107,7 @@
     <Reference Include="Ranorex.Plugin.Wpf.Core">
       <Private>False</Private>
     </Reference>
-    <Reference Include="Ranorex.ReportToPDF, Version=1.0.16.0, Culture=neutral, PublicKeyToken=null">
+    <Reference Include="Ranorex.ReportToPDF, Version=1.0.17.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\packages\Ranorex.ReportToPDF.1.0.17\lib\net40\Ranorex.ReportToPDF.exe</HintPath>
     </Reference>
     <Reference Include="System" />
