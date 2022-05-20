@@ -6031,5 +6031,8 @@
 		<reference>
 			Ranorex Automation Helpers.dll
 		</reference>
+		<reference>
+			Ranorex.ReportToPDF.exe
+		</reference>
 	</references>
 </testsuitedoc>
