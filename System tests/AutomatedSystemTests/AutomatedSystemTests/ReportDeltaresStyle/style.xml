@@ -15,7 +15,7 @@
   showpictures      true|false    Enables/Disables pictures within modules
   -->
 
-  <global toc="true" logo="..\LogoPDFReport.png" bottommargin="2" topmargin="2" showtestdata="true" showdescription="true" showpictures="true" />
+  <global toc="true" logo="ReportDeltaresStyle\LogoPDFReport.png" bottommargin="2" topmargin="2" showtestdata="true" showdescription="true" showpictures="true" />
 
   <!--
   Attribute:        Value/Unit:   Description:
