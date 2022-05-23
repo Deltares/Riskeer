@@ -16,6 +16,7 @@ using System.Drawing;
 using System.Threading;
 using WinForms = System.Windows.Forms;
 using Newtonsoft.Json;
+using Ranorex_Automation_Helpers.UserCodeCollections;
 
 using Ranorex;
 using Ranorex.Core;
@@ -29,8 +30,6 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
     [TestModule("4AEF939A-35A6-4173-A921-C521453B760A", ModuleType.UserCode, 1)]
     public class ValidateSectionsCombinationsView : ITestModule
     {
-        
-        
         string _trajectAssessmentInformationString = "";
         [TestVariable("5dda9c28-3af1-49bc-b8d6-81c994d32f4d")]
         public string trajectAssessmentInformationString
@@ -39,6 +38,23 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             set { _trajectAssessmentInformationString = value; }
         }
         
+        private TrajectResultInformation trajectResultInformation {get; set;}
+        
+        private List<double> allSubsections {get; set;}
+        
+        private List<string> listAllLabelsFMs {get; set;}
+        
+        private Dictionary<string,int> dictCategoriesLabels = new Dictionary<string, int> {
+                {"-III",   0},
+                {"-II",    1},
+                {"-I",     2},
+                {"0",      3},
+                {"+I",     4},
+                {"+II",    5},
+                {"+III",   6},
+                {"-",      7},
+                {"NR",     8}
+            };
         
         /// <summary>
         /// Constructs a new instance.
@@ -56,129 +72,97 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
         /// that will in turn invoke this method.</remarks>
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 0;
-            Keyboard.DefaultKeyPressTime = 0;
-            Delay.SpeedFactor = 0.0;
-            System.Globalization.CultureInfo currentCulture = CultureInfo.CurrentCulture;
-
-            var trajectAssessmentInformation = BuildAssessmenTrajectInformation(trajectAssessmentInformationString);
-            var repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
-            
-            var table = repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.AssemblySectionsView.Table.Self;
-            List<double> allSubsections = new List<double>();
-            allSubsections.Add(0);
-            foreach (var fmTrjAssInfo in trajectAssessmentInformation.ListFMsAssessmentInformation) {
-                foreach (var section in fmTrjAssInfo.SectionList) {
-                    allSubsections.Add(section.EndDistance);
-                }
-            }
-            allSubsections.Sort();
-            var allSubsectionsUnique = allSubsections.Distinct().ToList();
-            var rowsToIterate = table.Rows.ToList();
-            var headerRow = rowsToIterate[0];
-            
-            List<string> fmsToValidate = trajectAssessmentInformation.ListFMsAssessmentInformation.Select(it=>it.Label).ToList();
-            int indexSectionNumber       = GetIndex(headerRow, "Vaknummer");
-            int indexDistanceStart       = GetIndex(headerRow, "van* [m]");
-            int indexDistanceEnd         = GetIndex(headerRow, "tot* [m]");
-            int indexCombinedAssessment  = GetIndex(headerRow, "Gecombineerd");
-            List<int> indecesColumnsFMsToValidate = fmsToValidate.Select(fmLabel=>GetIndex(headerRow, fmLabel)).ToList();
-            
-            Dictionary<string,int> dicAssemblyLabels = new Dictionary<string, int> {
-                {"-",    0},
-                {"Iv",   1},
-                {"IIv",  2},
-                {"IIIv", 3},
-                {"IVv",  4},
-                {"Vv",   5},
-                {"VIv",  6},
-                {"VIIv", 7}
-            };
-            
-            rowsToIterate.RemoveAt(0);
+            this.trajectResultInformation = TrajectResultInformation.BuildAssessmenTrajectInformation(trajectAssessmentInformationString);
+            this.allSubsections = CreateSubsections(trajectResultInformation.ListFMsResultInformation);
+            var rowsTable = AutomatedSystemTests.AutomatedSystemTestsRepository.Instance.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.AssemblySectionsView.Table.Self.Rows;
+            this.listAllLabelsFMs = rowsTable[0].Cells.Select(cell=>cell.Text).Where(txt=>txt!="").Where(txt=>!txt.Contains("Metrering")).Where(txt=>!txt.Contains("Slechtste duidingsklasse")).ToList();
+            rowsTable.RemoveAt(0);
             int indexRow = 0;
-            foreach (var row in rowsToIterate) {
-                var cells = row.Cells.ToList();
-                double expectedDistanceStart = allSubsectionsUnique[indexRow];
-                double expectedDistanceEnd   = allSubsectionsUnique[indexRow + 1];
-                double expectedDistanceMiddle = (expectedDistanceStart + expectedDistanceEnd)/2.0;
-                string CombinedAssessmentSectionLabel = "";
-                int worstFMLabel = 0;
-                for (int i = 0; i < fmsToValidate.Count; i++) {
-                    var currentFMAssInfo = trajectAssessmentInformation.ListFMsAssessmentInformation[i];
-                    var expectedFMAssessmentLabel = GetAssessmentLabelForDistance(currentFMAssInfo, expectedDistanceMiddle);
-                    if (dicAssemblyLabels[expectedFMAssessmentLabel]>worstFMLabel) {
-                        worstFMLabel = dicAssemblyLabels[expectedFMAssessmentLabel];
-                        CombinedAssessmentSectionLabel = expectedFMAssessmentLabel;
-                    }
-                }
-                Report.Info("Validation for row " + (indexRow + 1).ToString() + ".");
-                ValidateCell(cells[indexSectionNumber], (indexRow + 1).ToString(), "Validation section number.");
-                ValidateCell(cells[indexDistanceStart], string.Format("{0:0.00}", expectedDistanceStart), "Validation section start distance along reference line.");
-                ValidateCell(cells[indexDistanceEnd], string.Format("{0:0.00}", expectedDistanceEnd), "Validation section end distance along reference line.");
-                ValidateCell(cells[indexCombinedAssessment], CombinedAssessmentSectionLabel, "Validation combined assessment label.");
-                
-                
-                for (int i = 0; i < fmsToValidate.Count; i++) {
-                    var currentFMAssInfo = trajectAssessmentInformation.ListFMsAssessmentInformation[i];
-                    var expectedFMAssessmentLabel = GetAssessmentLabelForDistance(currentFMAssInfo, expectedDistanceMiddle);
-                    
-                    ValidateCell(cells[indecesColumnsFMsToValidate[i]], expectedFMAssessmentLabel, "Validation assessment label FM " + fmsToValidate[i]);
-                }
+            foreach (var row in rowsTable) {
+                ValidateRowSectionsCombinations(row, indexRow);
                 indexRow++;
             }
         }
         
-        private void ValidateCell(Cell cell, string expectedValue, string message) 
+        private void ValidateRowSectionsCombinations(Row row, int rowIndex)
+        {
+            ValidateStartDistanceSubsection(row, rowIndex);
+            ValidateEndDistanceSubsection(row, rowIndex);
+            double distanceMiddlePoint = MiddlePoint(row.Cells[1].Text, row.Cells[2].Text);
+            int cellIndex = 3;
+            foreach (string labelFM in this.listAllLabelsFMs) {
+                ValidateCategoryFMInSubsection(row, rowIndex, cellIndex, distanceMiddlePoint, labelFM);
+                cellIndex++;
+            }
+            ValidateCombinedCategorySubsection(row, rowIndex);
+        }
+        
+        private void ValidateStartDistanceSubsection(Row row, int rowIndex)
+        {
+            ValidateCell(row.Cells[1], string.Format("{0:0.00}",this.allSubsections[rowIndex]), "Validation subsection start distance measured along reference line " + " at row = " + (rowIndex+1).ToString() + ".");
+        }
+        
+        private void ValidateEndDistanceSubsection(Row row, int rowIndex)
+        {
+            ValidateCell(row.Cells[2], string.Format("{0:0.00}",this.allSubsections[rowIndex + 1]), "Validation subsection end distance measured along reference line " + " at row = " + (rowIndex+1).ToString() + ".");
+        }
+        
+        private void ValidateCategoryFMInSubsection(Row row, int rowIndex, int cellIndex, double distance, string labelFM)
+        {
+            var currentFMResultInfo = this.trajectResultInformation.ListFMsResultInformation.Where(fm=>fm.Label==labelFM).FirstOrDefault();
+            var expectedCategory = currentFMResultInfo==null? "-" : GetCategoryAt(distance, currentFMResultInfo);
+            ValidateCell(row.Cells[cellIndex], expectedCategory, "Validation categopry for FM = " + labelFM + " at row = " + (rowIndex+1).ToString() + ".");
+        }
+        
+        private void ValidateCombinedCategorySubsection(Row row, int rowIndex)
+        {
+            ValidateCell(row.Cells.Last(), WorstCategoryClass(row), "Validation worst category class " + " at row = " + (rowIndex+1).ToString() + ".");
+        }
+        
+        private string WorstCategoryClass(Row row)
+        {
+            var fmCells = row.Cells.Select(cl=>cl.Text).ToList().GetRange(3, row.Cells.Count-3);
+            var worstCategoryValue = fmCells.Select(category=> this.dictCategoriesLabels[category]).Min();
+            var worstCategoryClass = this.dictCategoriesLabels.FirstOrDefault(x=>x.Value==worstCategoryValue).Key;
+            return worstCategoryClass;
+        }
+        
+        private List<double> CreateSubsections(List<FailureMechanismResultInformation> listFMsResultInfo)
+        {
+            var listSubsections = new List<double>();
+            listSubsections.Add(0);
+            foreach (var fmResultInfo in listFMsResultInfo) {
+                foreach (var section in fmResultInfo.SectionList) {
+                    listSubsections.Add(section.EndDistance);
+                }
+            }
+            listSubsections.Sort();
+            return listSubsections.Distinct().ToList();
+        }
+        
+        private void ValidateCell(Cell cell, string expectedValue, string message)
         {
             Report.Info(message);
+            cell.Focus();
             cell.Select();
-            string actualValue = GetAV(cell);
+            string actualValue = cell.Element.GetAttributeValueText("AccessibleValue");
             Validate.AreEqual(actualValue, expectedValue);
         }
         
-        private string GetAssessmentLabelForDistance(FailureMechanismAssessmentInformation fmAssInfo, double distance)
+        
+        private double MiddlePoint(string distance1, string distance2)
         {
-            var endSections = fmAssInfo.SectionList.Select(it=>it.EndDistance).ToList();
+            double d1 = Double.Parse(distance1);
+            double d2 = Double.Parse(distance2);
+            return (d1+d2)/2.0;
+        }
+        
+        private string GetCategoryAt(double distance, FailureMechanismResultInformation fmResultInfo)
+        {
+            var endSections = fmResultInfo.SectionList.Select(it=>it.EndDistance).ToList();
             int index = endSections.FindIndex(it=> distance<it);
-            var label = fmAssInfo.SectionList[index].CombinedAssessmentLabel;
+            var label = fmResultInfo.SectionList[index].AssemblyGroup;
             return label;
         }
-        
-        private TrajectAssessmentInformation BuildAssessmenTrajectInformation(string trajectAssessmentInformationString)
-        {
-            TrajectAssessmentInformation trajectAssessmentInformation;
-            if (trajectAssessmentInformationString=="") {
-                trajectAssessmentInformation = new TrajectAssessmentInformation();
-            } else {
-                var error = false;
-                trajectAssessmentInformation = JsonConvert.DeserializeObject<TrajectAssessmentInformation>(trajectAssessmentInformationString, new JsonSerializerSettings
-                {
-                    Error = (s, e) =>
-                    {
-                        error = true;
-                        e.ErrorContext.Handled = true;
-                    }
-                }
-            );
-                if (error==true) {
-                    
-                    Report.Log(ReportLevel.Error, "error unserializing json string for trajectAssessmentInformationString: " + trajectAssessmentInformationString);
-                }
-                
-            }
-            return trajectAssessmentInformation;
-        }
-        
-        private string GetAV(Cell cl)
-        {
-            return cl.Element.GetAttributeValueText("AccessibleValue");
-        }
-        
-        private int GetIndex(Row row, string name)
-        {
-            return row.Cells.ToList().FindIndex(cl=>GetAV(cl).Contains(name));
-        }
-
     }
 }

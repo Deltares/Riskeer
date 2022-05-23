@@ -89,14 +89,14 @@ namespace AutomatedSystemTests.Modules.Selection
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.DesignWaterLevelWaveHeightCalculationsView.LeftSide.Table.GenericRowInDV'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.DesignWaterLevelWaveHeightCalculationsView.LeftSide.Table.GenericRowInDV.SelfInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.DesignWaterLevelWaveHeightCalculationsView.LeftSide.Table.GenericRowInDV.Self.Focus();
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.DesignWaterLevelWaveHeightCalculationsView.LeftSide.Table.GenericRowInDV'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.DesignWaterLevelWaveHeightCalculationsView.LeftSide.Table.GenericRowInDV.SelfInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.DesignWaterLevelWaveHeightCalculationsView.LeftSide.Table.GenericRowInDV.Self.Focus();
             
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.DesignWaterLevelWaveHeightCalculationsView.LeftSide.Table.GenericRowInDV'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.DesignWaterLevelWaveHeightCalculationsView.LeftSide.Table.GenericRowInDV.SelfInfo, new RecordItemIndex(1));
-            repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.DesignWaterLevelWaveHeightCalculationsView.LeftSide.Table.GenericRowInDV.Self.Select();
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.DesignWaterLevelWaveHeightCalculationsView.LeftSide.Table.GenericRowInDV'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.DesignWaterLevelWaveHeightCalculationsView.LeftSide.Table.GenericRowInDV.SelfInfo, new RecordItemIndex(1));
+            repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.DesignWaterLevelWaveHeightCalculationsView.LeftSide.Table.GenericRowInDV.Self.Select();
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.DesignWaterLevelWaveHeightCalculationsView.LeftSide.Table.GenericRowInDV' at Center.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.DesignWaterLevelWaveHeightCalculationsView.LeftSide.Table.GenericRowInDV.SelfInfo, new RecordItemIndex(2));
-            repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.DesignWaterLevelWaveHeightCalculationsView.LeftSide.Table.GenericRowInDV.Self.Click();
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.DesignWaterLevelWaveHeightCalculationsView.LeftSide.Table.GenericRowInDV' at Center.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.DesignWaterLevelWaveHeightCalculationsView.LeftSide.Table.GenericRowInDV.SelfInfo, new RecordItemIndex(2));
+            repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.DesignWaterLevelWaveHeightCalculationsView.LeftSide.Table.GenericRowInDV.Self.Click();
             
         }
 

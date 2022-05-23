@@ -251,6 +251,44 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
+			id="17c40641-48ce-4ebf-92db-ceed675c5b29"
+			name="ReportToPDFModule"
+			ref="ffa0759d-37d2-4abb-89a7-411f0fcf2dfe"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="PdfDirectoryPath"
+					datasourceid="83c4e281-b959-472f-92b4-778c82a5524f"
+					variableid="536f8a69-f246-4f2b-ae9e-1f62babb2ba9"
+					variablename="PdfDirectoryPath">
+					</var>
+					<var
+					dataname="DeleteRanorexReport"
+					datasourceid="83c4e281-b959-472f-92b4-778c82a5524f"
+					variableid="7f788c18-962c-41ab-b591-9c3122512c5e"
+					variablename="DeleteRanorexReport">
+					</var>
+					<var
+					dataname="Details"
+					datasourceid="83c4e281-b959-472f-92b4-778c82a5524f"
+					variableid="b9993b89-d8cb-45fe-829b-42b0f8dd8a00"
+					variablename="Details">
+					</var>
+					<var
+					dataname="Xml"
+					datasourceid="83c4e281-b959-472f-92b4-778c82a5524f"
+					variableid="c15f25ea-9409-4e1a-b76e-cd208bae6c56"
+					variablename="Xml">
+					</var>
+					<var
+					dataname="PdfName"
+					datasourceid="83c4e281-b959-472f-92b4-778c82a5524f"
+					variableid="1d09c6b5-db7a-4ed0-a13c-ee2add5d3d37"
+					variablename="PdfName">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="1984ff31-c115-44ef-ba6e-f5ccf07642ad"
 			name="ConcatenateStrings"
 			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
@@ -1390,6 +1428,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<teardown
+			id="793dee22-c8a2-4add-8f34-02cfe864d8d8"
+			name="teardown">
+			</teardown>
 			<smartfoldernode
 			id="79b0b9e6-8e19-45e0-909d-b03818d12b4b"
 			name="HBCs">
@@ -1611,6 +1653,26 @@
 					<param
 					name="AppPath"
 					value="..\..\..\..\..\bin\Debug\Riskeer.exe">
+					</param>
+					<param
+					name="PdfDirectoryPath"
+					value="">
+					</param>
+					<param
+					name="DeleteRanorexReport"
+					value="false">
+					</param>
+					<param
+					name="Details"
+					value="all">
+					</param>
+					<param
+					name="Xml"
+					value="Reports\style.xml">
+					</param>
+					<param
+					name="PdfName"
+					value="script28_Projecten_samenvoegen.pdf">
 					</param>
 				</parameters>
 			</testcase>
@@ -3876,6 +3938,14 @@
 							</testmodule>
 						</teardown>
 					</testcase>
+					<teardown
+					id="793dee22-c8a2-4add-8f34-02cfe864d8d8"
+					name="teardown">
+						<testmodule
+						id="17c40641-48ce-4ebf-92db-ceed675c5b29"
+						name="ReportToPDFModule">
+						</testmodule>
+					</teardown>
 				</testcase>
 			</testsuite>
 		</childhierarchy>
@@ -6029,6 +6099,9 @@
 		</reference>
 		<reference>
 			Ranorex Automation Helpers.dll
+		</reference>
+		<reference>
+			Ranorex.ReportToPDF.exe
 		</reference>
 	</references>
 </testsuitedoc>

@@ -35,6 +35,9 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Ranorex.Bootstrapper">
       <Private>False</Private>
     </Reference>
@@ -104,8 +107,8 @@
     <Reference Include="Ranorex.Plugin.Wpf.Core">
       <Private>False</Private>
     </Reference>
-    <Reference Include="Ranorex.ReportToPDF">
-      <HintPath>..\packages\Ranorex.ReportToPDF.1.0.16\lib\net40\Ranorex.ReportToPDF.exe</HintPath>
+    <Reference Include="Ranorex.ReportToPDF, Version=1.0.17.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\Ranorex.ReportToPDF.1.0.17\lib\net40\Ranorex.ReportToPDF.exe</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -145,6 +148,9 @@
     </Compile>
     <Compile Include="UserCodeCollections\ExceptionExtensions.cs">
       <id>e9308f65-5cbe-46e3-b406-807c01ea8981</id>
+    </Compile>
+    <Compile Include="UserCodeCollections\FailureMechanismsHelpers.cs">
+      <id>9a2b6b64-2af4-451d-8d06-1ec59b5127d2</id>
     </Compile>
     <Compile Include="UserCodeCollections\FileLibrary.cs">
       <id>9906fb7a-0fe5-4fe7-814c-dcbe96fce701</id>

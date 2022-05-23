@@ -9,8 +9,8 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="fileNameToSave"
-					datasourceid="0bbd3232-7af5-42b4-b849-73a61bcb8af4"
+					dataname="fileToSave"
+					datasourceid="e66dd6d3-0a18-41b0-a3be-cac4cd389930"
 					variableid="d40271fe-a08b-44b0-bb48-a991f40e104b"
 					variablename="fileName">
 					</var>
@@ -202,12 +202,6 @@
 			<smartfoldernode
 			id="0bbd3232-7af5-42b4-b849-73a61bcb8af4"
 			name="SaveProjectScript15a,b,c">
-				<parameters>
-					<param
-					name="fileNameToSave"
-					value="script15abc.risk">
-					</param>
-				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="0c2fad60-bd4d-42d2-892e-6415ad658b66"
@@ -1712,6 +1706,44 @@
 			name="ValidateResultInDocumentView">
 			</smartfoldernode>
 			<testmodule
+			id="702eb601-1a5a-4a65-9080-4724692aa432"
+			name="ReportToPDFModule"
+			ref="ffa0759d-37d2-4abb-89a7-411f0fcf2dfe"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="PdfDirectoryPath"
+					datasourceid="a38b84dc-9266-49d9-9457-9740092668f1"
+					variableid="536f8a69-f246-4f2b-ae9e-1f62babb2ba9"
+					variablename="PdfDirectoryPath">
+					</var>
+					<var
+					dataname="DeleteRanorexReport"
+					datasourceid="a38b84dc-9266-49d9-9457-9740092668f1"
+					variableid="7f788c18-962c-41ab-b591-9c3122512c5e"
+					variablename="DeleteRanorexReport">
+					</var>
+					<var
+					dataname="Details"
+					datasourceid="a38b84dc-9266-49d9-9457-9740092668f1"
+					variableid="b9993b89-d8cb-45fe-829b-42b0f8dd8a00"
+					variablename="Details">
+					</var>
+					<var
+					dataname="Xml"
+					datasourceid="a38b84dc-9266-49d9-9457-9740092668f1"
+					variableid="c15f25ea-9409-4e1a-b76e-cd208bae6c56"
+					variablename="Xml">
+					</var>
+					<var
+					dataname="PdfName"
+					datasourceid="a38b84dc-9266-49d9-9457-9740092668f1"
+					variableid="1d09c6b5-db7a-4ed0-a13c-ee2add5d3d37"
+					variablename="PdfName">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="71252533-99a1-42ae-a829-cb8685f026b0"
 			name="ValidateDoubleValueparameterInPropertiesPanelGivenPath"
 			ref="3314c841-2400-467a-8ba2-57b55ddfeec2"
@@ -2205,6 +2237,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<teardown
+			id="8b2a51a3-6b99-4d50-8d67-a05756acd43b"
+			name="teardown">
+			</teardown>
 			<smartfoldernode
 			id="8c12e4f6-e379-4b57-87d9-014bd22071b4"
 			name="CloseDocumentView">
@@ -2672,6 +2708,26 @@
 					<param
 					name="AppPath"
 					value="..\..\..\..\..\bin\Debug\Riskeer.exe">
+					</param>
+					<param
+					name="PdfDirectoryPath"
+					value="">
+					</param>
+					<param
+					name="DeleteRanorexReport"
+					value="false">
+					</param>
+					<param
+					name="Details"
+					value="all">
+					</param>
+					<param
+					name="Xml"
+					value="Reports\style.xml">
+					</param>
+					<param
+					name="PdfName"
+					value="script15_CalculationHydraulicBoundaryConditions.pdf">
 					</param>
 				</parameters>
 			</testcase>
@@ -5704,15 +5760,15 @@
 									name="ValidatePlainTextFilesAreEqual">
 									</testmodule>
 								</smartfoldernode>
+								<smartfoldernode
+								id="0bbd3232-7af5-42b4-b849-73a61bcb8af4"
+								name="SaveProjectScript15a,b,c">
+									<testmodule
+									id="00ac3e74-e0d9-45bc-bf1e-99fae0b6571f"
+									name="SaveAs">
+									</testmodule>
+								</smartfoldernode>
 							</smartfoldernode>
-						</smartfoldernode>
-						<smartfoldernode
-						id="0bbd3232-7af5-42b4-b849-73a61bcb8af4"
-						name="SaveProjectScript15a,b,c">
-							<testmodule
-							id="00ac3e74-e0d9-45bc-bf1e-99fae0b6571f"
-							name="SaveAs">
-							</testmodule>
 						</smartfoldernode>
 						<smartfoldernode
 						id="394ebd4a-a478-4652-a62c-20fa2acf9739"
@@ -6007,6 +6063,14 @@
 							</testmodule>
 						</teardown>
 					</testcase>
+					<teardown
+					id="8b2a51a3-6b99-4d50-8d67-a05756acd43b"
+					name="teardown">
+						<testmodule
+						id="702eb601-1a5a-4a65-9080-4724692aa432"
+						name="ReportToPDFModule">
+						</testmodule>
+					</teardown>
 				</testcase>
 			</testsuite>
 		</childhierarchy>
@@ -6730,6 +6794,9 @@
 					fmLabel
 				</column>
 				<column>
+					fileToSave
+				</column>
+				<column>
 					fileToOpen
 				</column>
 				<column>
@@ -6777,6 +6844,9 @@
 						fmLabel
 					</th>
 					<th>
+						fileToSave
+					</th>
+					<th>
 						fileToOpen
 					</th>
 					<th>
@@ -6819,6 +6889,9 @@
 				<tr>
 					<td>
 						ZST
+					</td>
+					<td>
+						output_Project_15b_ZST.risk
 					</td>
 					<td>
 						input_Project_15b_ZST.risk
@@ -6865,6 +6938,9 @@
 						AGK
 					</td>
 					<td>
+						output_Project_15b_AGK.risk
+					</td>
+					<td>
 						input_Project_15b_AGK.risk
 					</td>
 					<td>
@@ -6907,6 +6983,9 @@
 				<tr>
 					<td>
 						GEBU
+					</td>
+					<td>
+						output_Project_15ab_GEBU.risk
 					</td>
 					<td>
 						input_Project_15ab_GEBU.risk
@@ -7660,6 +7739,9 @@
 		</reference>
 		<reference>
 			Ranorex Automation Helpers.dll
+		</reference>
+		<reference>
+			Ranorex.ReportToPDF.exe
 		</reference>
 	</references>
 </testsuitedoc>

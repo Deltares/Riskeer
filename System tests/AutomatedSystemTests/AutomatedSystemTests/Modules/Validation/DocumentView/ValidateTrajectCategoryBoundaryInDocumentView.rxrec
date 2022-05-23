@@ -29,26 +29,6 @@ mode="Global">
 		</var>
 	</variables>
 	<recorditems>
-		<loggingrecorditem
-		action="Screenshot"
-		category="User"
-		enabled="False"
-		message=""
-		optional="False"
-		reportlevel="Info;20"
-		searchpropertyid="22c502a8-17e6-49d9-b9a4-55817d4bdf27">
-			<comment>
-			</comment>
-			<bindings>
-			</bindings>
-			<info
-			id="2a83bf46-5edd-4e88-9563-1ac9454c5af8"
-			sourcename="RepositoryEditor">
-				<path>
-					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='AssessmentSectionAssemblyCategoriesView']/container[@controlname='assemblyCategoriesTable']/table[@controlname='dataGridView']/row[@accessiblevalue&gt;$categoryName+';']/cell[@accessiblename&gt;$boundaryTypeSubstring]
-				</path>
-			</info>
-		</loggingrecorditem>
 		<userrecorditem
 		classname="ValidateCategoryBoundary"
 		enabled="True"

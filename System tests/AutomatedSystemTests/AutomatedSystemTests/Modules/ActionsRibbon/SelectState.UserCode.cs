@@ -40,6 +40,5 @@ namespace AutomatedSystemTests.Modules.ActionsRibbon
             stateName = StateAlias.ReplacePathAliases();
             return stateName;
         }
-
     }
 }

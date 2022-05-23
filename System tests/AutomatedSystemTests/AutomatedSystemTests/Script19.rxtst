@@ -420,6 +420,10 @@
 			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
 			type="Recording">
 			</testmodule>
+			<teardown
+			id="32a5aabe-d16c-4d29-b896-b95268893347"
+			name="teardown">
+			</teardown>
 			<smartfoldernode
 			id="3385f130-0fee-42a2-9454-ff7b5bac4fa2"
 			name="CreateFolderWithCalculationsForAllCombinations">
@@ -922,6 +926,26 @@
 					name="AppPath"
 					value="..\..\..\..\..\bin\Debug\Riskeer.exe">
 					</param>
+					<param
+					name="PdfDirectoryPath"
+					value="">
+					</param>
+					<param
+					name="DeleteRanorexReport"
+					value="false">
+					</param>
+					<param
+					name="Details"
+					value="all">
+					</param>
+					<param
+					name="Xml"
+					value="Reports\style.xml">
+					</param>
+					<param
+					name="PdfName"
+					value="script19_HBN_en_overslagdebiet_berekenen_voor_GEKB.pdf">
+					</param>
 				</parameters>
 			</testcase>
 			<smartfoldernode
@@ -1126,6 +1150,44 @@
 			id="6332daa3-1fbb-4196-b325-97a7beb5f02e"
 			name="RunHBNCalculationsWithClimateScenario">
 			</smartfoldernode>
+			<testmodule
+			id="642ced5d-35e4-4a78-be0c-ea238e687ab6"
+			name="ReportToPDFModule"
+			ref="ffa0759d-37d2-4abb-89a7-411f0fcf2dfe"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="PdfDirectoryPath"
+					datasourceid="527a6f99-c5c5-4a08-ac6e-e8f25bc60876"
+					variableid="536f8a69-f246-4f2b-ae9e-1f62babb2ba9"
+					variablename="PdfDirectoryPath">
+					</var>
+					<var
+					dataname="DeleteRanorexReport"
+					datasourceid="527a6f99-c5c5-4a08-ac6e-e8f25bc60876"
+					variableid="7f788c18-962c-41ab-b591-9c3122512c5e"
+					variablename="DeleteRanorexReport">
+					</var>
+					<var
+					dataname="Details"
+					datasourceid="527a6f99-c5c5-4a08-ac6e-e8f25bc60876"
+					variableid="b9993b89-d8cb-45fe-829b-42b0f8dd8a00"
+					variablename="Details">
+					</var>
+					<var
+					dataname="Xml"
+					datasourceid="527a6f99-c5c5-4a08-ac6e-e8f25bc60876"
+					variableid="c15f25ea-9409-4e1a-b76e-cd208bae6c56"
+					variablename="Xml">
+					</var>
+					<var
+					dataname="PdfName"
+					datasourceid="527a6f99-c5c5-4a08-ac6e-e8f25bc60876"
+					variableid="1d09c6b5-db7a-4ed0-a13c-ee2add5d3d37"
+					variablename="PdfName">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="661f8c1c-47d4-435a-8615-81cc82e598fc"
 			name="GenerateCSVPropertiesPanel">
@@ -3503,6 +3565,14 @@
 							</testmodule>
 						</teardown>
 					</testcase>
+					<teardown
+					id="32a5aabe-d16c-4d29-b896-b95268893347"
+					name="teardown">
+						<testmodule
+						id="642ced5d-35e4-4a78-be0c-ea238e687ab6"
+						name="ReportToPDFModule">
+						</testmodule>
+					</teardown>
 				</testcase>
 			</testsuite>
 		</childhierarchy>
@@ -5263,6 +5333,9 @@
 		</reference>
 		<reference>
 			Ranorex Automation Helpers.dll
+		</reference>
+		<reference>
+			Ranorex.ReportToPDF.exe
 		</reference>
 	</references>
 </testsuitedoc>

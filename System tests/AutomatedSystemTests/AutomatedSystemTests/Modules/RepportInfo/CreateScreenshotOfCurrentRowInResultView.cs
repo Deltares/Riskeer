@@ -89,7 +89,7 @@ namespace AutomatedSystemTests.Modules.RepportInfo
 
             Init();
 
-            Report.Screenshot(ReportLevel.Warn, "User", "Check state of row elements", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.TableFMResultView.Row.Self, false, new RecordItemIndex(0));
+            Report.Screenshot(ReportLevel.Info, "User", "Check state of row elements", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.FM_ResultView.TableFMResultView.Row.Self, false, new RecordItemIndex(0));
             
         }
 

@@ -25,6 +25,46 @@ mode="Global">
 	<variables>
 	</variables>
 	<recorditems>
+		<invokeactionrecorditem
+		action="Focus"
+		enabled="True"
+		optional="False"
+		searchpropertyid="1c530835-2f59-45ce-87ba-1acd6df851b0">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<info
+			id="6bff70d7-1d04-4660-85f8-51b7cf611f85"
+			sourcename="RepositoryEditor">
+				<path>
+					/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[$rowIndex]/cell[@accessiblename&gt;'Is relevant']
+				</path>
+			</info>
+			<arguments
+			id="e4aea36d-36ee-4ed2-a015-fce090b177ee">
+			</arguments>
+		</invokeactionrecorditem>
+		<invokeactionrecorditem
+		action="Select"
+		enabled="True"
+		optional="False"
+		searchpropertyid="a6f40412-25ec-42af-8714-6c19fa0d4ab2">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<info
+			id="6bff70d7-1d04-4660-85f8-51b7cf611f85"
+			sourcename="RepositoryEditor">
+				<path>
+					/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[$rowIndex]/cell[@accessiblename&gt;'Is relevant']
+				</path>
+			</info>
+			<arguments
+			id="845de11c-9c40-42c8-af10-95110c0422d9">
+			</arguments>
+		</invokeactionrecorditem>
 		<mouseitem
 		action="Click"
 		button="Left"

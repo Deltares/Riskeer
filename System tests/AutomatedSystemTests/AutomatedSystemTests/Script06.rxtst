@@ -2025,6 +2025,44 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="8592b68a-8db4-4fd5-8561-febeeb44fb2e"
+			name="ReportToPDFModule"
+			ref="ffa0759d-37d2-4abb-89a7-411f0fcf2dfe"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="PdfName"
+					datasourceid="ee30e871-8c8b-4bfb-88c7-e87ad28524aa"
+					variableid="1d09c6b5-db7a-4ed0-a13c-ee2add5d3d37"
+					variablename="PdfName">
+					</var>
+					<var
+					dataname="Xml"
+					datasourceid="ee30e871-8c8b-4bfb-88c7-e87ad28524aa"
+					variableid="c15f25ea-9409-4e1a-b76e-cd208bae6c56"
+					variablename="Xml">
+					</var>
+					<var
+					dataname="Details"
+					datasourceid="ee30e871-8c8b-4bfb-88c7-e87ad28524aa"
+					variableid="b9993b89-d8cb-45fe-829b-42b0f8dd8a00"
+					variablename="Details">
+					</var>
+					<var
+					dataname="DeleteRanorexReport"
+					datasourceid="ee30e871-8c8b-4bfb-88c7-e87ad28524aa"
+					variableid="7f788c18-962c-41ab-b591-9c3122512c5e"
+					variablename="DeleteRanorexReport">
+					</var>
+					<var
+					dataname="PdfDirectoryPath"
+					datasourceid="ee30e871-8c8b-4bfb-88c7-e87ad28524aa"
+					variableid="536f8a69-f246-4f2b-ae9e-1f62babb2ba9"
+					variablename="PdfDirectoryPath">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="85e49409-1b6e-48dc-beca-5c1e65eddd57"
 			name="ConcatenateStrings"
 			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
@@ -3238,6 +3276,10 @@
 			id="e472b303-5913-4764-a419-0a0ee3b80d35"
 			name="DeleteAllFilesInputFolder">
 			</smartfoldernode>
+			<teardown
+			id="e4e2cd47-6a4f-4fe9-8c92-86baf5f72f57"
+			name="teardown">
+			</teardown>
 			<testmodule
 			id="e4eeb0b1-0a52-4636-8469-f7526f6a885b"
 			name="UpdateCurrentlySelectedItem"
@@ -3398,6 +3440,26 @@
 					<param
 					name="AppPath"
 					value="..\..\..\..\..\bin\Debug\Riskeer.exe">
+					</param>
+					<param
+					name="PdfName"
+					value="script06_Vakindeling_maken_of_aanpassen.pdf">
+					</param>
+					<param
+					name="Xml"
+					value="Reports\style.xml">
+					</param>
+					<param
+					name="Details"
+					value="all">
+					</param>
+					<param
+					name="DeleteRanorexReport"
+					value="false">
+					</param>
+					<param
+					name="PdfDirectoryPath"
+					value="">
 					</param>
 				</parameters>
 			</testcase>
@@ -4606,6 +4668,14 @@
 							</testmodule>
 						</teardown>
 					</testcase>
+					<teardown
+					id="e4e2cd47-6a4f-4fe9-8c92-86baf5f72f57"
+					name="teardown">
+						<testmodule
+						id="8592b68a-8db4-4fd5-8561-febeeb44fb2e"
+						name="ReportToPDFModule">
+						</testmodule>
+					</teardown>
 				</testcase>
 			</testsuite>
 		</childhierarchy>
@@ -5820,6 +5890,9 @@
 		</reference>
 		<reference>
 			Ranorex Automation Helpers.dll
+		</reference>
+		<reference>
+			Ranorex.ReportToPDF.exe
 		</reference>
 	</references>
 </testsuitedoc>

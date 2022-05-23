@@ -518,6 +518,10 @@
 			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
 			type="Recording">
 			</testmodule>
+			<teardown
+			id="21f73261-6e2e-4608-a587-f1a65a9ab805"
+			name="teardown">
+			</teardown>
 			<testmodule
 			id="22b4e1db-9cfd-4306-bcd3-b9bd0b39555c"
 			name="CloseViewCentralPanelWithFocus"
@@ -4264,6 +4268,26 @@
 					name="AppPath"
 					value="..\..\..\..\..\bin\Debug\Riskeer.exe">
 					</param>
+					<param
+					name="PdfDirectoryPath"
+					value="">
+					</param>
+					<param
+					name="DeleteRanorexReport"
+					value="false">
+					</param>
+					<param
+					name="Details"
+					value="all">
+					</param>
+					<param
+					name="Xml"
+					value="Reports\style.xml">
+					</param>
+					<param
+					name="PdfName"
+					value="script09_Voorland_of_voorliggende_dam_importeren.pdf">
+					</param>
 				</parameters>
 			</testcase>
 			<testmodule
@@ -4410,6 +4434,44 @@
 					</condition>
 				</conditiongroup>
 			</smartfoldernode>
+			<testmodule
+			id="ff276131-4ff4-4e54-a626-bdd06a114c7f"
+			name="ReportToPDFModule"
+			ref="ffa0759d-37d2-4abb-89a7-411f0fcf2dfe"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="PdfDirectoryPath"
+					datasourceid="f606085b-17f4-49ab-8d8f-66fb813bb5f3"
+					variableid="536f8a69-f246-4f2b-ae9e-1f62babb2ba9"
+					variablename="PdfDirectoryPath">
+					</var>
+					<var
+					dataname="DeleteRanorexReport"
+					datasourceid="f606085b-17f4-49ab-8d8f-66fb813bb5f3"
+					variableid="7f788c18-962c-41ab-b591-9c3122512c5e"
+					variablename="DeleteRanorexReport">
+					</var>
+					<var
+					dataname="Details"
+					datasourceid="f606085b-17f4-49ab-8d8f-66fb813bb5f3"
+					variableid="b9993b89-d8cb-45fe-829b-42b0f8dd8a00"
+					variablename="Details">
+					</var>
+					<var
+					dataname="Xml"
+					datasourceid="f606085b-17f4-49ab-8d8f-66fb813bb5f3"
+					variableid="c15f25ea-9409-4e1a-b76e-cd208bae6c56"
+					variablename="Xml">
+					</var>
+					<var
+					dataname="PdfName"
+					datasourceid="f606085b-17f4-49ab-8d8f-66fb813bb5f3"
+					variableid="1d09c6b5-db7a-4ed0-a13c-ee2add5d3d37"
+					variablename="PdfName">
+					</var>
+				</databinding>
+			</testmodule>
 			<testsuite
 			ReportTime="RelativeToTestSuiteStartTime"
 			TracingScreenshotMode="Foreground"
@@ -5161,6 +5223,14 @@
 							</testmodule>
 						</teardown>
 					</testcase>
+					<teardown
+					id="21f73261-6e2e-4608-a587-f1a65a9ab805"
+					name="teardown">
+						<testmodule
+						id="ff276131-4ff4-4e54-a626-bdd06a114c7f"
+						name="ReportToPDFModule">
+						</testmodule>
+					</teardown>
 				</testcase>
 			</testsuite>
 		</childhierarchy>
@@ -6459,6 +6529,9 @@
 		</reference>
 		<reference>
 			Ranorex Automation Helpers.dll
+		</reference>
+		<reference>
+			Ranorex.ReportToPDF.exe
 		</reference>
 	</references>
 </testsuitedoc>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Ranorex.PDF style configuration -->
+<config>
+
+  <!--
+  Attribute:        Value/Unit:   Description:
+
+  toc:              true|false    Enables/Disables the table of contents
+  logo:             "Path"        Enter path to custom logo
+  bottommargin      cm            Enter global bottom margin in centimeters
+  topmargin         cm            Enter global top margin in centimeters
+  showtestdata      true|false    Enables/Disables testdata (databinding)
+  showdescription   true|false    Enables/Disables descriptions
+  showpictures      true|false    Enables/Disables pictures within modules
+  -->
+
+  <global toc="true" logo="LogoPDFReport.png" bottommargin="2" topmargin="2" showtestdata="true" showdescription="true" showpictures="true" />
+
+  <!--
+  Attribute:        Value/Unit:   Description:
+
+  font name:        "Font"        Enter name of any installed font
+  font size:        point         Enter font size in points,  font size must be between 8.0 and 13.0 points
+  margin left       cm            Enter left margin in centimeters
+  margin right      cm            Enter right margin in centimeters
+  indent            cm            Enter indent per level of hierarchy
+  showdescription   true|false    Enables/Disables descriptions
+  showpictures      true|false    Enables/Disables pictures within modules
+  images size       percent       Enter size of images in percent, value must be between 0-100
+  images quality    percent       Enter quality of images in percent, value must be between 0-100
+  images supersize  true|false    Enter if images should get supersized
+  def. background                 Enter color, either using a HEX value or KnownColor
+  -->
+
+  <moduleitems>
+    <font name="Segoe UI" size="8" />
+    <margin left="1.8" right="1.8" indent="0.3" />
+	  <images size="100" quality="50" supersize="true"/>
+    <colors>
+      <default background="#EEEEEE" />
+    </colors>
+  </moduleitems>
+
+  <!--
+  Attribute:         Value/Unit:   Description:
+
+  margin top         cm            Enter top margin in centimeters
+  margin bottom      cm            Enter bottom margin for titlepage in centimeters
+  title font                       Enter name, size and color for the font used for the title on the titlepage
+  information font                 Enter name, size and color for the font used for the testrun information
+  toc module font                  Enter name and size for the font used for modules within the table of contents
+  toc testcase font                Enter name and size for the font used for testcases within the table of contents
+  -->
+
+  <titlepage>
+
+  <margin top="3" bottom="2" />
+
+   <title>
+      <font name="Segoe UI" size="13" color="#606060" />
+    </title>
+
+    <information>
+      <font name="Segoe UI" size="11" color="#606060" />
+    </information>
+
+	<toc>
+	 <module>
+      <font name="Segoe UI" size="9" />
+	  </module>
+	  <testcase>
+	   <font name="Segoe UI" size="9" />
+    </testcase>
+	</toc>
+  </titlepage>
+
+  <!-- Specify font and background color for the headers of the different containers -->
+
+  <headers>
+    <module>
+       <font name="Segoe UI" size="11" bold="false" color="#606060" />
+      <colors background="#fcfdff" />
+    </module>
+
+    <testcase>
+      <font name="Segoe UI" size="11" bold="true" color="#606060" />
+      <colors background="#E3F1FF" />
+    </testcase>
+
+    <folder>
+      <font name="Segoe UI" size="11" bold="true" color="#606060" />
+      <colors background="#E3F1FF" />
+    </folder>
+
+    <modulegroup>
+      <font name="Segoe UI" size="11" bold="true" color="#606060" />
+      <colors background="#E3F1FF" />
+    </modulegroup>
+
+    <iteration>
+      <font name="Segoe UI" size="11" bold="true" color="#606060" />
+      <colors background="#fcfdff" />
+    </iteration>
+
+    <globalparameters>
+      <font name="Segoe UI" size="9" />
+      <colors background="#E6E6E6" />
+    </globalparameters>
+  </headers>
+
+  <parameters>
+    <font name="Segoe UI" size="9" />
+  </parameters>
+</config>

@@ -2,6 +2,12 @@
 <testsuitedoc>
 	<testsuiteentryhierarchy>
 		<flatlistofchildren>
+			<testmodule
+			id="3b39f004-e321-40e0-848e-774c73a87543"
+			name="CreateScreenShotEntireApplication"
+			ref="badbc62e-0842-46fe-b883-582d8a44310b"
+			type="Recording">
+			</testmodule>
 			<testcase
 			id="3ff89539-4b10-4a5f-8a7b-355c7233b5dc"
 			name="TestCase">
@@ -12,10 +18,56 @@
 					</param>
 				</parameters>
 			</testcase>
+			<teardown
+			id="51283861-b74c-4a21-ac8a-88a476233eea"
+			name="teardown">
+			</teardown>
 			<setup
 			id="736da658-010b-4bd5-b479-32f0e0fb854a"
 			name="setup">
 			</setup>
+			<testmodule
+			id="7e22ea7a-568a-44ac-8342-13111404eb9b"
+			name="ReportToPDFModule"
+			ref="ffa0759d-37d2-4abb-89a7-411f0fcf2dfe"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="PdfName"
+					datasourceid="d1ba3dcc-84b9-453a-8444-e89bb8bc8677"
+					variableid="1d09c6b5-db7a-4ed0-a13c-ee2add5d3d37"
+					variablename="PdfName">
+					</var>
+					<var
+					dataname="Details"
+					datasourceid="d1ba3dcc-84b9-453a-8444-e89bb8bc8677"
+					variableid="b9993b89-d8cb-45fe-829b-42b0f8dd8a00"
+					variablename="Details">
+					</var>
+					<var
+					dataname="DeleteRanorexReport"
+					datasourceid="d1ba3dcc-84b9-453a-8444-e89bb8bc8677"
+					variableid="7f788c18-962c-41ab-b591-9c3122512c5e"
+					variablename="DeleteRanorexReport">
+					</var>
+					<var
+					dataname="PdfDirectoryPath"
+					datasourceid="d1ba3dcc-84b9-453a-8444-e89bb8bc8677"
+					variableid="536f8a69-f246-4f2b-ae9e-1f62babb2ba9"
+					variablename="PdfDirectoryPath">
+					</var>
+					<var
+					dataname="Xml"
+					datasourceid="d1ba3dcc-84b9-453a-8444-e89bb8bc8677"
+					variableid="c15f25ea-9409-4e1a-b76e-cd208bae6c56"
+					variablename="Xml">
+					</var>
+				</databinding>
+			</testmodule>
+			<smartfoldernode
+			id="84c50cb9-d161-4df9-a4ad-f7a44c59c0e6"
+			name="SmartFolder">
+			</smartfoldernode>
 			<testsuite
 			ReportTime="RelativeToTestSuiteStartTime"
 			TracingScreenshotMode="Foreground"
@@ -26,9 +78,9 @@
 			VideoSource="Auto"
 			enabletracingscreenshots="True"
 			id="b6ec5115-70d1-4088-a555-08556609361b"
-			junitreport="False"
+			junitreport="True"
 			name="WorkInProgressDavid"
-			reportcompress="False"
+			reportcompress="True"
 			reportdirectoryname="Reports"
 			reportenabled="True"
 			reportfilename="%S_%Y%M%D_%T.rxlog"
@@ -61,6 +113,26 @@
 					<param
 					name="AppPath"
 					value="..\..\..\..\..\bin\Debug\Riskeer.exe">
+					</param>
+					<param
+					name="PdfName"
+					value="workInProgress.pdf">
+					</param>
+					<param
+					name="Xml"
+					value="Reports\style.xml">
+					</param>
+					<param
+					name="Details"
+					value="all">
+					</param>
+					<param
+					name="DeleteRanorexReport"
+					value="false">
+					</param>
+					<param
+					name="PdfDirectoryPath"
+					value="">
 					</param>
 				</parameters>
 			</testcase>
@@ -107,6 +179,14 @@
 							name="StartAUT">
 							</testmodule>
 						</setup>
+						<smartfoldernode
+						id="84c50cb9-d161-4df9-a4ad-f7a44c59c0e6"
+						name="SmartFolder">
+							<testmodule
+							id="3b39f004-e321-40e0-848e-774c73a87543"
+							name="CreateScreenShotEntireApplication">
+							</testmodule>
+						</smartfoldernode>
 						<teardown
 						id="f034a225-8245-41a5-8d0b-43451f4bade3"
 						name="teardown">
@@ -116,6 +196,14 @@
 							</testmodule>
 						</teardown>
 					</testcase>
+					<teardown
+					id="51283861-b74c-4a21-ac8a-88a476233eea"
+					name="teardown">
+						<testmodule
+						id="7e22ea7a-568a-44ac-8342-13111404eb9b"
+						name="ReportToPDFModule">
+						</testmodule>
+					</teardown>
 				</testcase>
 			</testsuite>
 		</childhierarchy>
@@ -130,6 +218,9 @@
 			id="3ff89539-4b10-4a5f-8a7b-355c7233b5dc">
 			</testcontainer>
 			<testcontainer
+			id="84c50cb9-d161-4df9-a4ad-f7a44c59c0e6">
+			</testcontainer>
+			<testcontainer
 			id="d1ba3dcc-84b9-453a-8444-e89bb8bc8677">
 			</testcontainer>
 		</testconfiguration>
@@ -140,6 +231,9 @@
 		</reference>
 		<reference>
 			Ranorex Automation Helpers.dll
+		</reference>
+		<reference>
+			Ranorex.ReportToPDF.exe
 		</reference>
 	</references>
 </testsuitedoc>

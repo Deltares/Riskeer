@@ -111,6 +111,9 @@
     <Reference Include="Ranorex.Plugin.Wpf.Core">
       <Private>False</Private>
     </Reference>
+    <Reference Include="Ranorex.ReportToPDF, Version=1.0.17.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\Ranorex.ReportToPDF.1.0.17\lib\net40\Ranorex.ReportToPDF.exe</HintPath>
+    </Reference>
     <Reference Include="System">
     </Reference>
     <Reference Include="System.Core">
@@ -164,18 +167,6 @@
       <UserCode>true</UserCode>
       <id>f103591c-470f-43f6-9be6-e6eb74067b9c</id>
       <BoundTo>8f7fe1fa-f1ef-4825-8e3a-6a13124b5fbc</BoundTo>
-    </Compile>
-    <Compile Include="Modules\ActionsBackstage\NewProjectBackstage.cs">
-      <BoundTo>d45e90df-b917-4d7a-86b6-2316333a0f72</BoundTo>
-      <DependentUpon>NewProjectBackstage.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>4bc39657-c2dc-4deb-be2b-b0e1f9096440</id>
-    </Compile>
-    <Compile Include="Modules\ActionsBackstage\NewProjectBackstage.UserCode.cs">
-      <BoundTo>d45e90df-b917-4d7a-86b6-2316333a0f72</BoundTo>
-      <DependentUpon>NewProjectBackstage.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>0cc7197c-fa70-4d6b-960e-8b0847868149</id>
     </Compile>
     <Compile Include="Modules\ActionsContextMenu\AddBackgroundLayer.cs">
       <DependentUpon>AddBackgroundLayer.rxrec</DependentUpon>
@@ -453,18 +444,6 @@
       <UserCode>true</UserCode>
       <id>5ef55a60-1f68-49e1-9e3b-e6641051b3b3</id>
     </Compile>
-    <Compile Include="Modules\ActionsDocumentView\AssignManualAssessmentFirstRowResultView.cs">
-      <BoundTo>2d371475-b0d7-432a-a038-b0eba5ff47af</BoundTo>
-      <DependentUpon>AssignManualAssessmentFirstRowResultView.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>85529c86-122f-45fa-aca8-4a2bf28d5917</id>
-    </Compile>
-    <Compile Include="Modules\ActionsDocumentView\AssignManualAssessmentFirstRowResultView.UserCode.cs">
-      <BoundTo>2d371475-b0d7-432a-a038-b0eba5ff47af</BoundTo>
-      <DependentUpon>AssignManualAssessmentFirstRowResultView.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>b66720c3-2ae6-4b48-a9b0-c44f4ea2b282</id>
-    </Compile>
     <Compile Include="Modules\ActionsDocumentView\ClickOnRunSelectedHBCCalculations.cs">
       <DependentUpon>ClickOnRunSelectedHBCCalculations.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -537,17 +516,32 @@
       <id>36c7adeb-dd3d-478a-a616-7bda4854a2dd</id>
       <BoundTo>764f9833-0f5f-4be1-ba5b-275a72cc032e</BoundTo>
     </Compile>
-    <Compile Include="Modules\ActionsDocumentView\ReadCombinedAssessmentInformationFMFromResultView.cs">
+    <Compile Include="Modules\ActionsDocumentView\ReadResultsforFMFromResultView.cs">
       <id>93fc40b2-25f2-4a04-9470-ea76f13116f0</id>
-    </Compile>
-    <Compile Include="Modules\ActionsDocumentView\ReadDataCategoryBoundariesTrajectView.cs">
-      <id>8e53cfa4-7861-4ae3-aad4-f06b1aeea7e1</id>
     </Compile>
     <Compile Include="Modules\ActionsDocumentView\ReadDataScenariosView.cs">
       <id>cbd982d9-8d6c-492e-844e-6462977ec62f</id>
     </Compile>
     <Compile Include="Modules\ActionsDocumentView\ReadSectionsDivisionsFromSectionsView.cs">
       <id>608d45dc-fe27-457c-83c7-c201f32a598d</id>
+    </Compile>
+    <Compile Include="Modules\ActionsDocumentView\ReadSecurityCategoriesView.cs">
+      <id>087d34b8-33ac-4d74-9e46-30c5f6522ca7</id>
+    </Compile>
+    <Compile Include="Modules\ActionsDocumentView\SelectTypeFailureMechanismForFM.cs">
+      <BoundTo>190c7aaf-3340-4a36-b398-aadf52f77a8b</BoundTo>
+      <DependentUpon>SelectTypeFailureMechanismForFM.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>d18c5d2a-073f-4113-aec2-223c13d8667d</id>
+    </Compile>
+    <Compile Include="Modules\ActionsDocumentView\SelectTypeFailureMechanismForFM.UserCode.cs">
+      <BoundTo>190c7aaf-3340-4a36-b398-aadf52f77a8b</BoundTo>
+      <DependentUpon>SelectTypeFailureMechanismForFM.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>d64324b9-a0a0-444a-8ca8-be84c77dacc0</id>
+    </Compile>
+    <Compile Include="Modules\ActionsDocumentView\SeManualFailureProbabilityFMInResultView.cs">
+      <id>b1dc28ee-2c35-4a85-8de5-656510b35fd9</id>
     </Compile>
     <Compile Include="Modules\ActionsDocumentView\SetContributionValueInScenariosView.cs">
       <BoundTo>da7336ce-fbcd-4009-bf0c-329da5bfb60f</BoundTo>
@@ -561,9 +555,6 @@
       <UserCode>true</UserCode>
       <id>6a58fd41-573e-4909-8d91-d25c8a24c067</id>
     </Compile>
-    <Compile Include="Modules\ActionsDocumentView\ValidateAssemblyTrajectView.cs">
-      <id>2b05cc1b-9f11-495c-a7b1-ec53d69f9bc9</id>
-    </Compile>
     <Compile Include="Modules\ActionsDocumentView\ValidateContributionValueInScenariosView.cs">
       <BoundTo>4332a6ac-65b6-423f-8688-eb78b2d0cdbe</BoundTo>
       <DependentUpon>ValidateContributionValueInScenariosView.rxrec</DependentUpon>
@@ -576,29 +567,8 @@
       <UserCode>true</UserCode>
       <id>f0ec8e33-f569-4e1d-be5c-8be631f580cc</id>
     </Compile>
-    <Compile Include="Modules\ActionsDocumentView\ValidateFMAssessmentLabelAndProbabilityInResultView.cs">
-      <BoundTo>7214ed23-f5ef-4f9b-9a63-ddb6b05dbcf7</BoundTo>
-      <DependentUpon>ValidateFMAssessmentLabelAndProbabilityInResultView.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>7731b770-9311-4fa0-a12c-15eb5f6f42e6</id>
-    </Compile>
-    <Compile Include="Modules\ActionsDocumentView\ValidateFMAssessmentLabelAndProbabilityInResultView.UserCode.cs">
-      <BoundTo>7214ed23-f5ef-4f9b-9a63-ddb6b05dbcf7</BoundTo>
-      <DependentUpon>ValidateFMAssessmentLabelAndProbabilityInResultView.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>aab43547-994a-422f-8ead-8842c312a4ba</id>
-    </Compile>
-    <Compile Include="Modules\ActionsDocumentView\ValidatePresenceIconWarningManualAssessment.cs">
-      <BoundTo>bc434fad-2212-4327-8fad-52e26de4e4b1</BoundTo>
-      <DependentUpon>ValidatePresenceIconWarningManualAssessment.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>748beae9-a964-420b-ba22-3de6c3ad1fa5</id>
-    </Compile>
-    <Compile Include="Modules\ActionsDocumentView\ValidatePresenceIconWarningManualAssessment.UserCode.cs">
-      <BoundTo>bc434fad-2212-4327-8fad-52e26de4e4b1</BoundTo>
-      <DependentUpon>ValidatePresenceIconWarningManualAssessment.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>89c0f5fb-52ff-40f4-b42f-9ce63891301a</id>
+    <Compile Include="Modules\ActionsDocumentView\ValidateFailureProbabilityFMInResultView.cs">
+      <id>b4d167ad-dc06-4869-8c29-91a1702642fb</id>
     </Compile>
     <Compile Include="Modules\ActionsDocumentView\ValidateSectionResultAsCombinationContributionsInFMResultView.cs">
       <id>0adb26cb-0c2c-46ba-87b9-974b3c023812</id>
@@ -711,9 +681,6 @@
     <Compile Include="Modules\Calculation\AppendString.cs">
       <id>e981d085-9ff8-4144-893b-c39579269da8</id>
     </Compile>
-    <Compile Include="Modules\Calculation\CaculateFullPathToCalculationItem.cs">
-      <id>23adba43-d378-47bd-b172-3cb96cb42187</id>
-    </Compile>
     <Compile Include="Modules\Calculation\CalculateExpectedCategoriesBoundaries.cs">
       <id>d2419161-241f-4ece-8633-548539a41aca</id>
     </Compile>
@@ -731,18 +698,6 @@
     </Compile>
     <Compile Include="Modules\Calculation\CalculateIfProjectMustBeOpened.cs">
       <id>84f5a953-0273-4457-9412-83e9501458de</id>
-    </Compile>
-    <Compile Include="Modules\Calculation\CalculateLinearTransformationOfValue.cs">
-      <DependentUpon>CalculateLinearTransformationOfValue.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>43ae55ab-ec99-4cf8-9ee6-34caaedcff7f</id>
-      <BoundTo>0d625f89-ffec-435d-9b39-d07be9cf66b5</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Calculation\CalculateLinearTransformationOfValue.UserCode.cs">
-      <DependentUpon>CalculateLinearTransformationOfValue.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>2217bd1c-ffd0-47bf-876e-a75cc4362805</id>
-      <BoundTo>0d625f89-ffec-435d-9b39-d07be9cf66b5</BoundTo>
     </Compile>
     <Compile Include="Modules\Calculation\CalculateStructureProjectExplorerNode.cs">
       <id>08459172-91f3-4d84-9fdd-8a5ddf452e1e</id>
@@ -834,71 +789,14 @@
       <id>3508caa8-41c7-4a29-b095-c69ec2c6f45b</id>
       <BoundTo>59d3b275-2ad2-49f7-81c7-3af9ffd72495</BoundTo>
     </Compile>
-    <Compile Include="Modules\Calculation\CalculateValueParameterN.cs">
-      <DependentUpon>CalculateValueParameterN.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>e2f59482-763e-4220-96c2-427f4c4844ac</id>
-      <BoundTo>0eabce3a-8b80-466b-aa80-402c74d568d4</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Calculation\CalculateValueParameterN.UserCode.cs">
-      <DependentUpon>CalculateValueParameterN.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>09e7b9a2-edbd-4e89-b3bf-3fe10325a21d</id>
-      <BoundTo>0eabce3a-8b80-466b-aa80-402c74d568d4</BoundTo>
-    </Compile>
     <Compile Include="Modules\Calculation\ConcatenateStrings.cs">
       <id>a7f60192-3e84-4fc1-81fd-beda27b6510d</id>
-    </Compile>
-    <Compile Include="Modules\Calculation\ConvertPropertiesPanelToString.cs">
-      <id>5b6bfbff-8cf5-48ec-9ff8-df2fe271f89f</id>
-    </Compile>
-    <Compile Include="Modules\Calculation\ConvertToCurrentCulture.cs">
-      <DependentUpon>ConvertToCurrentCulture.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>1cf1d3e6-256f-4da2-b7b4-f2957efaa3f1</id>
-      <BoundTo>5b5e7a94-d166-4447-a367-89316035642d</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Calculation\ConvertToCurrentCulture.UserCode.cs">
-      <DependentUpon>ConvertToCurrentCulture.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>03891b57-02ef-4afe-8320-3b5cdb6942e6</id>
-      <BoundTo>5b5e7a94-d166-4447-a367-89316035642d</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Calculation\CreateNameReferenceCSVFile.cs">
-      <id>fbd3935f-9ecc-45c3-b24a-cc779921d937</id>
-    </Compile>
-    <Compile Include="Modules\Calculation\GenerateRandomNumberInRangeCases.cs">
-      <DependentUpon>GenerateRandomNumberInRangeCases.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>689107e8-05bf-4c50-9ceb-4031fa99f2dd</id>
-      <BoundTo>ebce4f06-318d-46f0-8678-c8e82cb57486</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Calculation\GenerateRandomNumberInRangeCases.UserCode.cs">
-      <DependentUpon>GenerateRandomNumberInRangeCases.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>b4c096e7-78e8-4d11-aa8e-e966516af4a3</id>
-      <BoundTo>ebce4f06-318d-46f0-8678-c8e82cb57486</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Calculation\GetValueParameterForItemInTraject.cs">
-      <DependentUpon>GetValueParameterForItemInTraject.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>d199ffc4-74dd-4dc9-b450-552e89165b0e</id>
-      <BoundTo>0be59255-8483-4bd6-b789-9bb7d1340977</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Calculation\GetValueParameterForItemInTraject.UserCode.cs">
-      <DependentUpon>GetValueParameterForItemInTraject.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>81e68b73-6531-4b38-8463-576c3f9bbe8a</id>
-      <BoundTo>0be59255-8483-4bd6-b789-9bb7d1340977</BoundTo>
     </Compile>
     <Compile Include="Modules\Calculation\GetStepFromPath.cs">
       <id>79a86b5b-ef43-4bb2-b3a4-5f07007049e5</id>
     </Compile>
     <Compile Include="Modules\Calculation\PrependString.cs">
       <id>7ce66da5-d317-495d-af3b-673c128c3237</id>
-    </Compile>
-    <Compile Include="Modules\Calculation\ReplaceAllAliasesInString.cs">
-      <id>c87ab248-217b-4f1d-af56-b5d63289c45c</id>
     </Compile>
     <Compile Include="Modules\Calculation\ReplaceSubstring.cs">
       <id>9306fd67-a83c-4f05-a0d4-602bade207d0</id>
@@ -914,18 +812,6 @@
       <DependentUpon>AddCalculationFolder.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>8e242905-1c47-454c-b60d-03ec3266db48</id>
-    </Compile>
-    <Compile Include="Modules\ActionsContextMenu\AddNewTrajectUsingContextMenu.cs">
-      <BoundTo>bb47bff5-bdca-4a29-99ce-8ef47ebd5348</BoundTo>
-      <DependentUpon>AddNewTrajectUsingContextMenu.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>5b412eb0-0124-4cde-b11e-66f26ffcae85</id>
-    </Compile>
-    <Compile Include="Modules\ActionsContextMenu\AddNewTrajectUsingContextMenu.UserCode.cs">
-      <BoundTo>bb47bff5-bdca-4a29-99ce-8ef47ebd5348</BoundTo>
-      <DependentUpon>AddNewTrajectUsingContextMenu.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>f4d70d7c-0b29-4ae2-b3e4-db7657b27db3</id>
     </Compile>
     <Compile Include="Modules\ActionsContextMenu\CoupleCurrentItemToHBCDatabase.cs">
       <DependentUpon>CoupleCurrentItemToHBCDatabase.rxrec</DependentUpon>
@@ -1062,18 +948,6 @@
     <Compile Include="Modules\IO\CopyAllSearchFilteredFilesFromSourceToTarget.cs">
       <id>90092fd2-c944-452f-aa63-aa9eaf1e2b12</id>
     </Compile>
-    <Compile Include="Modules\IO\CopyFile.cs">
-      <DependentUpon>CopyFile.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>32da3003-c046-4193-bd31-0c76af533dcc</id>
-      <BoundTo>fab570ab-705a-4266-9144-f9f477a53503</BoundTo>
-    </Compile>
-    <Compile Include="Modules\IO\CopyFile.UserCode.cs">
-      <DependentUpon>CopyFile.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>c153f628-d4cd-4d32-bbf7-2e2baf95a97d</id>
-      <BoundTo>fab570ab-705a-4266-9144-f9f477a53503</BoundTo>
-    </Compile>
     <Compile Include="Modules\IO\CreateOutputFolder.cs">
       <DependentUpon>CreateOutputFolder.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -1091,18 +965,6 @@
     </Compile>
     <Compile Include="Modules\IO\DeleteAllSearchFilteredFiles.cs">
       <id>f080910c-68a7-421d-97d8-0e2718c60cb2</id>
-    </Compile>
-    <Compile Include="Modules\IO\DeleteFileIfExists.cs">
-      <DependentUpon>DeleteFileIfExists.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>13d1471b-c171-4e5c-8b2a-36342d392515</id>
-      <BoundTo>c72195eb-6d83-44b2-b2f6-96b6855ac1e5</BoundTo>
-    </Compile>
-    <Compile Include="Modules\IO\DeleteFileIfExists.UserCode.cs">
-      <DependentUpon>DeleteFileIfExists.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>2c162ae5-1c90-4947-b811-23668e93db4d</id>
-      <BoundTo>c72195eb-6d83-44b2-b2f6-96b6855ac1e5</BoundTo>
     </Compile>
     <Compile Include="Modules\IO\ExportConfigurationSelectedCalculationToXMLFile.cs">
       <BoundTo>78d67fc9-2020-4f9d-a4a2-ea62e2c2965a</BoundTo>
@@ -1197,30 +1059,6 @@
       <UserCode>true</UserCode>
       <id>105d5b0a-b4a9-40e5-a438-ca855892a079</id>
     </Compile>
-    <Compile Include="Modules\OpenViews\OpenResultView.cs">
-      <DependentUpon>OpenResultView.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>00836c2b-b6ac-4f58-9ccd-c465659fe57e</id>
-      <BoundTo>918d5c65-6117-4065-be77-b86f0dc97b3f</BoundTo>
-    </Compile>
-    <Compile Include="Modules\OpenViews\OpenResultView.UserCode.cs">
-      <DependentUpon>OpenResultView.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>3fd97e9f-285e-409e-9903-bfbba356bded</id>
-      <BoundTo>918d5c65-6117-4065-be77-b86f0dc97b3f</BoundTo>
-    </Compile>
-    <Compile Include="Modules\OpenViews\OpenTrajectNormenView.cs">
-      <BoundTo>b4220af5-04f9-4914-8581-74fabf79ebbf</BoundTo>
-      <DependentUpon>OpenTrajectNormenView.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>8bb3a675-9518-43f9-8afc-1f55df6b7f99</id>
-    </Compile>
-    <Compile Include="Modules\OpenViews\OpenTrajectNormenView.UserCode.cs">
-      <BoundTo>b4220af5-04f9-4914-8581-74fabf79ebbf</BoundTo>
-      <DependentUpon>OpenTrajectNormenView.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>76073981-10bf-481e-a09d-25dcf225d501</id>
-    </Compile>
     <Compile Include="Modules\OpenViews\OpenViewForCurrentlySelectedItemInProjectExplorer.cs">
       <DependentUpon>OpenViewForCurrentlySelectedItemInProjectExplorer.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -1280,18 +1118,6 @@
       <DependentUpon>CreateScreenShotEntireApplication.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>5d701daa-6729-41d0-8f56-928dceecb1fe</id>
-    </Compile>
-    <Compile Include="Modules\RepportInfo\CreateScreenshotEntireDesktop.cs">
-      <BoundTo>c3cbdf07-5f61-4169-8d8b-5e323c3a882c</BoundTo>
-      <DependentUpon>CreateScreenshotEntireDesktop.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>eaa67ea6-86db-4180-bd14-d0bfe75ab110</id>
-    </Compile>
-    <Compile Include="Modules\RepportInfo\CreateScreenshotEntireDesktop.UserCode.cs">
-      <BoundTo>c3cbdf07-5f61-4169-8d8b-5e323c3a882c</BoundTo>
-      <DependentUpon>CreateScreenshotEntireDesktop.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>2afacf56-19b1-47fd-b74a-e94b7559ebee</id>
     </Compile>
     <Compile Include="Modules\RepportInfo\CreateScreenshotMessagesPanel.cs">
       <BoundTo>8f3d8e09-69cb-4bd3-95c4-2a8d79fe9874</BoundTo>
@@ -1449,102 +1275,6 @@
       <id>7fd00eb0-81b5-4ff0-8859-bd1d04dd7f2a</id>
       <BoundTo>0cc48728-8442-42cf-af65-3ac14054b2d3</BoundTo>
     </Compile>
-    <Compile Include="Modules\Selection\Assembly\SelectDetailedAssessmentForRowCategoryIIIv.cs">
-      <DependentUpon>SelectDetailedAssessmentForRowCategoryIIIv.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>537e7005-1a96-4103-8da6-a93b6703d917</id>
-      <BoundTo>5a4f3fa3-1a87-4396-919f-25c0bf782ff3</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Selection\Assembly\SelectDetailedAssessmentForRowCategoryIIIv.UserCode.cs">
-      <DependentUpon>SelectDetailedAssessmentForRowCategoryIIIv.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>9babaafd-56ca-4c7f-9e74-f8af64de4a20</id>
-      <BoundTo>5a4f3fa3-1a87-4396-919f-25c0bf782ff3</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Selection\Assembly\SelectDetailedAssessmentForRowCategoryIIv.cs">
-      <DependentUpon>SelectDetailedAssessmentForRowCategoryIIv.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>ef089740-dbad-4457-90bc-75934e8708dc</id>
-      <BoundTo>a2165335-4b9d-47f7-a826-14947dcfd578</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Selection\Assembly\SelectDetailedAssessmentForRowCategoryIIv.UserCode.cs">
-      <DependentUpon>SelectDetailedAssessmentForRowCategoryIIv.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>698e60d9-df8a-4833-86d9-4469f6752b24</id>
-      <BoundTo>a2165335-4b9d-47f7-a826-14947dcfd578</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Selection\Assembly\SelectDetailedAssessmentForRowCategoryIv.cs">
-      <DependentUpon>SelectDetailedAssessmentForRowCategoryIv.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>9d397744-8b7a-4896-870d-d450c554e1b5</id>
-      <BoundTo>d52b7eef-7e1b-4b8e-9130-bc710dd5131f</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Selection\Assembly\SelectDetailedAssessmentForRowCategoryIv.UserCode.cs">
-      <DependentUpon>SelectDetailedAssessmentForRowCategoryIv.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>9179ea6f-7175-4abe-8f2f-2159d0e51578</id>
-      <BoundTo>d52b7eef-7e1b-4b8e-9130-bc710dd5131f</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Selection\Assembly\SelectDetailedAssessmentForRowCategoryIVv.cs">
-      <DependentUpon>SelectDetailedAssessmentForRowCategoryIVv.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>6035c599-bf03-4c91-bdb0-7249acb744ca</id>
-      <BoundTo>24111330-65d5-4670-9d7d-9af4307cb26a</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Selection\Assembly\SelectDetailedAssessmentForRowCategoryIVv.UserCode.cs">
-      <DependentUpon>SelectDetailedAssessmentForRowCategoryIVv.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>b12e0728-6011-495c-89e5-954cd939c6ab</id>
-      <BoundTo>24111330-65d5-4670-9d7d-9af4307cb26a</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Selection\Assembly\SelectDetailedAssessmentForRowCategoryVv.cs">
-      <DependentUpon>SelectDetailedAssessmentForRowCategoryVv.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>f873573f-2593-4d9d-86fe-6e0a1a8f4d66</id>
-      <BoundTo>7f9bb519-3fbf-4ff5-9e73-1c24c6aedb69</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Selection\Assembly\SelectDetailedAssessmentForRowCategoryVv.UserCode.cs">
-      <DependentUpon>SelectDetailedAssessmentForRowCategoryVv.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>adf56cd6-e4b5-4961-beda-d115f87a305f</id>
-      <BoundTo>7f9bb519-3fbf-4ff5-9e73-1c24c6aedb69</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Selection\Assembly\SelectDetailedAssessmentTypeForRow.cs">
-      <DependentUpon>SelectDetailedAssessmentTypeForRow.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>e70f1c00-c1c2-4507-a588-d018c54868b4</id>
-      <BoundTo>731610be-3ce8-4f1d-8c8d-98ec88fef6e9</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Selection\Assembly\SelectDetailedAssessmentTypeForRow.UserCode.cs">
-      <DependentUpon>SelectDetailedAssessmentTypeForRow.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>487f6ed8-b5f5-4fb1-924f-bc9cd1a1e518</id>
-      <BoundTo>731610be-3ce8-4f1d-8c8d-98ec88fef6e9</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Selection\Assembly\SelectManualAssessment.cs">
-      <BoundTo>e73590a3-2dd0-4529-a4ae-7751bcea43a8</BoundTo>
-      <DependentUpon>SelectManualAssessment.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>b1d00206-2e02-4f3f-a592-4006df0414fb</id>
-    </Compile>
-    <Compile Include="Modules\Selection\Assembly\SelectManualAssessment.UserCode.cs">
-      <BoundTo>e73590a3-2dd0-4529-a4ae-7751bcea43a8</BoundTo>
-      <DependentUpon>SelectManualAssessment.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>77733967-26c1-4e31-9143-327d4a7865c9</id>
-    </Compile>
-    <Compile Include="Modules\Selection\SelecteCasesScript15a_c_Range.cs">
-      <DependentUpon>SelecteCasesScript15a_c_Range.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>ec00e433-dbc1-44ea-9754-75c60ed35b11</id>
-      <BoundTo>98b58192-c302-41a8-bc71-46e3d4a052eb</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Selection\SelecteCasesScript15a_c_Range.UserCode.cs">
-      <DependentUpon>SelecteCasesScript15a_c_Range.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>8a1144b6-29cf-4286-84a6-195390f7f04f</id>
-      <BoundTo>98b58192-c302-41a8-bc71-46e3d4a052eb</BoundTo>
-    </Compile>
     <Compile Include="Modules\Selection\SelectGenericItemInMapLayersPanel.cs">
       <BoundTo>ec6d761b-3e0f-4b7c-acd1-c62d5a244213</BoundTo>
       <DependentUpon>SelectGenericItemInMapLayersPanel.rxrec</DependentUpon>
@@ -1569,18 +1299,6 @@
       <id>edfb6265-1d96-43d6-9b5d-ea1ac9c60033</id>
       <BoundTo>77a507ba-55df-4f3b-b312-cdf9eaa7c68b</BoundTo>
     </Compile>
-    <Compile Include="Modules\Selection\SelectGenericSectionInListCalculationsView.cs">
-      <BoundTo>0805e35f-bd37-44da-8b7b-52eadeafb9a4</BoundTo>
-      <DependentUpon>SelectGenericSectionInListCalculationsView.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>5eeea7e0-d96a-4489-9954-8e464adc75d2</id>
-    </Compile>
-    <Compile Include="Modules\Selection\SelectGenericSectionInListCalculationsView.UserCode.cs">
-      <BoundTo>0805e35f-bd37-44da-8b7b-52eadeafb9a4</BoundTo>
-      <DependentUpon>SelectGenericSectionInListCalculationsView.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>67b3b87a-af07-4bde-baa9-945062b77111</id>
-    </Compile>
     <Compile Include="Modules\Selection\SelectGenericSectionInListScenariosView.cs">
       <BoundTo>97011333-f53c-4153-992d-9d1bed478861</BoundTo>
       <DependentUpon>SelectGenericSectionInListScenariosView.rxrec</DependentUpon>
@@ -1593,18 +1311,6 @@
       <UserCode>true</UserCode>
       <id>72505453-7e8b-483a-b79b-b48019160bc4</id>
     </Compile>
-    <Compile Include="Modules\Selection\SelectItemBelow.cs">
-      <DependentUpon>SelectItemBelow.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>9d25f98d-4085-4929-886e-a1285b4f5776</id>
-      <BoundTo>1fec213e-fd25-4c96-8055-5d4dad952155</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Selection\SelectItemBelow.UserCode.cs">
-      <DependentUpon>SelectItemBelow.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>d3468ae5-9acf-4bda-aca4-fb58202c73e0</id>
-      <BoundTo>1fec213e-fd25-4c96-8055-5d4dad952155</BoundTo>
-    </Compile>
     <Compile Include="Modules\Selection\SelectItemFromDynamicDropDownMenuInPropertiesPanelRow.cs">
       <BoundTo>f00c07a7-1332-49f0-bc26-77f534093d31</BoundTo>
       <DependentUpon>SelectItemFromDynamicDropDownMenuInPropertiesPanelRow.rxrec</DependentUpon>
@@ -1616,6 +1322,18 @@
       <DependentUpon>SelectItemFromDynamicDropDownMenuInPropertiesPanelRow.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>848deeb7-38df-45f9-ba57-519bb7b6ad90</id>
+    </Compile>
+    <Compile Include="Modules\Selection\SelectOptionDropDownMenuInCellResultView.cs">
+      <BoundTo>e99ebe9f-4439-4b90-b8c4-ebcb70c69e8e</BoundTo>
+      <DependentUpon>SelectOptionDropDownMenuInCellResultView.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>feb24109-827f-47ef-87a8-ab3fcb2471f3</id>
+    </Compile>
+    <Compile Include="Modules\Selection\SelectOptionDropDownMenuInCellResultView.UserCode.cs">
+      <BoundTo>e99ebe9f-4439-4b90-b8c4-ebcb70c69e8e</BoundTo>
+      <DependentUpon>SelectOptionDropDownMenuInCellResultView.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>346a68f4-5c96-4a46-bb11-f1af6703a9d3</id>
     </Compile>
     <Compile Include="Modules\Selection\SelectRowCalculation.cs">
       <DependentUpon>SelectRowCalculation.rxrec</DependentUpon>
@@ -1640,30 +1358,6 @@
       <UserCode>true</UserCode>
       <id>877658b2-1b90-42d3-ad4f-db4fec0f0944</id>
       <BoundTo>28d03374-35b2-44db-81cd-a402f27e8a66</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Selection\Assembly\SelectSimpleAssessmentForRow.cs">
-      <DependentUpon>SelectSimpleAssessmentForRow.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>eb4e1a22-7674-42d2-8df1-e94e62c66379</id>
-      <BoundTo>31496a42-800f-4754-b94c-bdba78e4cd44</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Selection\Assembly\SelectSimpleAssessmentForRow.UserCode.cs">
-      <DependentUpon>SelectSimpleAssessmentForRow.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>9631cbb7-d221-4a87-99b0-a197f22e06e9</id>
-      <BoundTo>31496a42-800f-4754-b94c-bdba78e4cd44</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Selection\SelectTrajectType.cs">
-      <DependentUpon>SelectTrajectType.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>2b34a057-cef9-40d4-8686-14b9cf297390</id>
-      <BoundTo>bd83daa0-c4f9-4e92-818b-ddb482e0838c</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Selection\SelectTrajectType.UserCode.cs">
-      <DependentUpon>SelectTrajectType.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>c8e3883f-d27d-4363-8f1b-4fe07766baf9</id>
-      <BoundTo>bd83daa0-c4f9-4e92-818b-ddb482e0838c</BoundTo>
     </Compile>
     <Compile Include="Modules\Selection\SelectCheckboxesForListRowsInHBCView.cs">
       <id>3fab094f-b965-4706-a963-c05cb2f05c4d</id>
@@ -1698,77 +1392,8 @@
       <UserCode>true</UserCode>
       <id>9c648481-ceaa-431b-9aa9-4f8985106298</id>
     </Compile>
-    <Compile Include="Modules\Set_Assign\Assembly\SetCustomAssessmentAtRow.cs">
-      <DependentUpon>SetCustomAssessmentAtRow.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>a57b728e-127f-4801-b004-331b6faf7029</id>
-      <BoundTo>b838adb7-b43d-43a1-864f-14728db0fe9a</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Set_Assign\Assembly\SetCustomAssessmentAtRow.UserCode.cs">
-      <DependentUpon>SetCustomAssessmentAtRow.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>955819d2-1ece-4474-9f41-eeaed03ad5a8</id>
-      <BoundTo>b838adb7-b43d-43a1-864f-14728db0fe9a</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Set_Assign\Assembly\SetCustomAssessmentValueAtRow.cs">
-      <DependentUpon>SetCustomAssessmentValueAtRow.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>bba05597-133f-4b98-b25c-5692e819ade3</id>
-      <BoundTo>498ef0d1-8bb4-4e35-8289-e4628a561c37</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Set_Assign\Assembly\SetCustomAssessmentValueAtRow.UserCode.cs">
-      <DependentUpon>SetCustomAssessmentValueAtRow.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>92d17f55-315d-49a0-acd3-42bbb42b6a73</id>
-      <BoundTo>498ef0d1-8bb4-4e35-8289-e4628a561c37</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Set_Assign\Assembly\SetDetailedAssessmentForRowPerSection.cs">
-      <DependentUpon>SetDetailedAssessmentForRowPerSection.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>2a541a53-27eb-4271-ad1f-44ce9e7849c2</id>
-      <BoundTo>a0c074a3-3c19-4557-8ef3-533b43266955</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Set_Assign\Assembly\SetDetailedAssessmentForRowPerSection.UserCode.cs">
-      <DependentUpon>SetDetailedAssessmentForRowPerSection.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>143e3bd7-53dc-4ac6-ba94-5a9d31f88a19</id>
-      <BoundTo>a0c074a3-3c19-4557-8ef3-533b43266955</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Set_Assign\Assembly\SetDetailedAssessmentValueForRow.cs">
-      <DependentUpon>SetDetailedAssessmentValueForRow.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>31dd2ae8-99e2-433c-b17e-3c3b6bc252ff</id>
-      <BoundTo>a6aa9891-7b17-448b-bd52-f69c71b53d62</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Set_Assign\Assembly\SetDetailedAssessmentValueForRow.UserCode.cs">
-      <DependentUpon>SetDetailedAssessmentValueForRow.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>f4e1c91c-d051-492f-af16-e0356367e1d4</id>
-      <BoundTo>a6aa9891-7b17-448b-bd52-f69c71b53d62</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Set_Assign\Assembly\SetManualAssessmentCategory.cs">
-      <BoundTo>98a0c5e5-1218-4100-83f1-b8f30614e51d</BoundTo>
-      <DependentUpon>SetManualAssessmentCategory.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>a4cb3394-efdb-4d64-a31f-9789d4512a37</id>
-    </Compile>
-    <Compile Include="Modules\Set_Assign\Assembly\SetManualAssessmentCategory.UserCode.cs">
-      <BoundTo>98a0c5e5-1218-4100-83f1-b8f30614e51d</BoundTo>
-      <DependentUpon>SetManualAssessmentCategory.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>790834ac-4b5c-423c-bf00-8226c624f76a</id>
-    </Compile>
-    <Compile Include="Modules\Set_Assign\Assembly\SetManualAssessmentProbability.cs">
-      <BoundTo>8669304c-d156-4ba1-82cd-5042b2515286</BoundTo>
-      <DependentUpon>SetManualAssessmentProbability.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>22637067-3bb0-41f4-a038-1acd89730907</id>
-    </Compile>
-    <Compile Include="Modules\Set_Assign\Assembly\SetManualAssessmentProbability.UserCode.cs">
-      <BoundTo>8669304c-d156-4ba1-82cd-5042b2515286</BoundTo>
-      <DependentUpon>SetManualAssessmentProbability.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>dd2f233e-0eec-4b6f-b2e1-0990a7a28c9d</id>
+    <Compile Include="Modules\Set_Assign\Assembly\SetValueInCellResultView.cs">
+      <id>c735214a-507f-49ee-bae8-8204a112600d</id>
     </Compile>
     <Compile Include="Modules\Set_Assign\SetParameterInCalculationsView.cs">
       <BoundTo>da3a7060-7580-4ef3-b11c-6e6a2aeb9323</BoundTo>
@@ -1797,18 +1422,6 @@
     <Compile Include="Modules\Set_Assign\SetRangeInSmartFolder.cs">
       <id>561b52a4-78d8-4476-b2c3-593ea7c55a57</id>
     </Compile>
-    <Compile Include="Modules\Set_Assign\SetRangeInTableForPEBasedOnTrajectType.cs">
-      <DependentUpon>SetRangeInTableForPEBasedOnTrajectType.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>e508feb7-a9a9-4b0d-8fbf-d85428135699</id>
-      <BoundTo>fa8863c1-c307-4363-98e1-572ecfc0c2c6</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Set_Assign\SetRangeInTableForPEBasedOnTrajectType.UserCode.cs">
-      <DependentUpon>SetRangeInTableForPEBasedOnTrajectType.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>32d469cc-9c2d-4744-b013-128fb741c424</id>
-      <BoundTo>fa8863c1-c307-4363-98e1-572ecfc0c2c6</BoundTo>
-    </Compile>
     <Compile Include="Modules\Set_Assign\SetFMInsideOutsideAssembly.cs">
       <DependentUpon>SetFMInsideOutsideAssembly.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -1821,32 +1434,8 @@
       <id>162de3c0-1993-49bf-9c31-01fef0b63137</id>
       <BoundTo>a3cb26e3-a1be-4cb7-b372-a09785de9a9b</BoundTo>
     </Compile>
-    <Compile Include="Modules\Set_Assign\SetValueParameterForItemInTraject.cs">
-      <DependentUpon>SetValueParameterForItemInTraject.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>af7df850-f721-426c-9cae-0a7bf811b4e6</id>
-      <BoundTo>a2f507da-48e3-4fb8-b387-825031a20ed2</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Set_Assign\SetValueParameterForItemInTraject.UserCode.cs">
-      <DependentUpon>SetValueParameterForItemInTraject.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>2a077882-67f6-41fb-913c-264fd6847040</id>
-      <BoundTo>a2f507da-48e3-4fb8-b387-825031a20ed2</BoundTo>
-    </Compile>
     <Compile Include="Modules\Set_Assign\SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue.cs">
       <id>fa99187e-7573-4bc8-9b4b-be70f9f72768</id>
-    </Compile>
-    <Compile Include="Modules\Set_Assign\SetValueTextParameterVisibleInPropertiesPanel.cs">
-      <DependentUpon>SetValueTextParameterVisibleInPropertiesPanel.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>d99590bc-4916-4398-a2ae-43db4bb37736</id>
-      <BoundTo>744ab55a-8d13-4a59-bf1b-edb5fd3394f3</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Set_Assign\SetValueTextParameterVisibleInPropertiesPanel.UserCode.cs">
-      <DependentUpon>SetValueTextParameterVisibleInPropertiesPanel.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>684974c1-e052-42ac-934d-c533e1eff729</id>
-      <BoundTo>744ab55a-8d13-4a59-bf1b-edb5fd3394f3</BoundTo>
     </Compile>
     <Compile Include="Modules\Set_Assign\SetValueWithKeyPressParameterForItemInTraject.cs">
       <BoundTo>3caad1c0-140c-4fb4-acc6-81005770fc34</BoundTo>
@@ -1866,29 +1455,23 @@
     <Compile Include="Modules\Validation\Abstract\ValidateCombinedApproxFailureProbabilityAndBeta.cs">
       <id>451d0653-a93b-4305-83ac-406b8bea1f77</id>
     </Compile>
-    <Compile Include="Modules\Validation\Abstract\ValidateEqualityStrings.cs">
-      <id>76c673a9-a642-49e6-9c0f-194fe9463b9f</id>
-    </Compile>
-    <Compile Include="Modules\Validation\Abstract\ValidateSafetyFactorSTPH.cs">
-      <id>ef5b2d51-65fd-4f10-9182-72da3a833f1b</id>
-    </Compile>
     <Compile Include="Modules\Validation\Abstract\ValidateStringsAreEqual.cs">
       <id>9ad5f486-19f1-4148-9448-0fb74e0420ab</id>
     </Compile>
     <Compile Include="Modules\Validation\Abstract\ValidateStringsAreNotEqual.cs">
       <id>b70cb88e-3754-4bbb-8747-d435ee41b3a8</id>
     </Compile>
-    <Compile Include="Modules\Validation\DocumentView\ValidateAssessmentLabelAndProbForFMInAssemblyTrajectView.cs">
-      <BoundTo>5a5bd4b6-ff89-4604-8bcd-ff8293bb6945</BoundTo>
-      <DependentUpon>ValidateAssessmentLabelAndProbForFMInAssemblyTrajectView.rxrec</DependentUpon>
+    <Compile Include="Modules\Validation\DocumentView\ValidateEnabledStateCellInResultView.cs">
+      <DependentUpon>ValidateEnabledStateCellInResultView.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
-      <id>3ba3c491-a1db-4b8f-9271-84cac6790c33</id>
+      <id>c5ecbba5-91fe-4bf0-8711-b842d26a3c71</id>
+      <BoundTo>33d1f416-ee41-4df5-a323-58bc004c8ea0</BoundTo>
     </Compile>
-    <Compile Include="Modules\Validation\DocumentView\ValidateAssessmentLabelAndProbForFMInAssemblyTrajectView.UserCode.cs">
-      <BoundTo>5a5bd4b6-ff89-4604-8bcd-ff8293bb6945</BoundTo>
-      <DependentUpon>ValidateAssessmentLabelAndProbForFMInAssemblyTrajectView.rxrec</DependentUpon>
+    <Compile Include="Modules\Validation\DocumentView\ValidateEnabledStateCellInResultView.UserCode.cs">
+      <DependentUpon>ValidateEnabledStateCellInResultView.rxrec</DependentUpon>
       <UserCode>true</UserCode>
-      <id>4f4bb978-39a2-4c47-95ba-2194c51587a6</id>
+      <id>a04420e6-12c4-46e5-870e-0944ec43d88f</id>
+      <BoundTo>33d1f416-ee41-4df5-a323-58bc004c8ea0</BoundTo>
     </Compile>
     <Compile Include="Modules\Validation\DocumentView\ValidateCalculationWaterLevelInDocumentViewDA.cs">
       <DependentUpon>ValidateCalculationWaterLevelInDocumentViewDA.rxrec</DependentUpon>
@@ -1914,56 +1497,14 @@
       <UserCode>true</UserCode>
       <id>3d68db93-f1ea-4bf1-b07d-068aee9d8f41</id>
     </Compile>
-    <Compile Include="Modules\Validation\DocumentView\ValidatePresenceWarningIconManualAssessmentInAssemblyCombinedSectionsView.cs">
-      <BoundTo>b3ae91a9-c3c7-4443-92b0-81a65b646c53</BoundTo>
-      <DependentUpon>ValidatePresenceWarningIconManualAssessmentInAssemblyCombinedSectionsView.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>442075a2-af66-4030-93d4-a52255f1dbae</id>
+    <Compile Include="Modules\Validation\DocumentView\ValidateFailureProbsFmsInSecurityAssemblyView.cs">
+      <id>1d60144e-03ac-4998-9840-0b0e2bb123b9</id>
     </Compile>
-    <Compile Include="Modules\Validation\DocumentView\ValidatePresenceWarningIconManualAssessmentInAssemblyCombinedSectionsView.UserCode.cs">
-      <BoundTo>b3ae91a9-c3c7-4443-92b0-81a65b646c53</BoundTo>
-      <DependentUpon>ValidatePresenceWarningIconManualAssessmentInAssemblyCombinedSectionsView.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>73a20e9d-3076-4d12-afcc-904f4f3ad21f</id>
-    </Compile>
-    <Compile Include="Modules\Validation\DocumentView\ValidatePresenceWarningIconManualAssessmentInAssemblyTrajectView.cs">
-      <BoundTo>234a4d6d-1fcb-4164-a1be-71911fee3ba8</BoundTo>
-      <DependentUpon>ValidatePresenceWarningIconManualAssessmentInAssemblyTrajectView.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>5dce2653-b16c-46ed-9047-da771c32180f</id>
-    </Compile>
-    <Compile Include="Modules\Validation\DocumentView\ValidatePresenceWarningIconManualAssessmentInAssemblyTrajectView.UserCode.cs">
-      <BoundTo>234a4d6d-1fcb-4164-a1be-71911fee3ba8</BoundTo>
-      <DependentUpon>ValidatePresenceWarningIconManualAssessmentInAssemblyTrajectView.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>2a86053f-5764-4937-89eb-aaf5acd73ffa</id>
+    <Compile Include="Modules\Validation\DocumentView\ValidateFailureTrajectInformationAssemblyView.cs">
+      <id>59e66fad-2051-478d-b369-3d8e34f464fb</id>
     </Compile>
     <Compile Include="Modules\Validation\DocumentView\ValidateSectionCategoryBoundary.cs">
       <id>452096ad-9aec-4f1f-b5b9-5a9f507ce492</id>
-    </Compile>
-    <Compile Include="Modules\Validation\DocumentView\ValidateContributionInFailureMechanismContributionView.cs">
-      <DependentUpon>ValidateContributionInFailureMechanismContributionView.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>94088e4c-d4d7-471d-aa1e-b2a556b206f3</id>
-      <BoundTo>45ca3cad-b4eb-4830-b715-695e59a034fc</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\DocumentView\ValidateContributionInFailureMechanismContributionView.UserCode.cs">
-      <DependentUpon>ValidateContributionInFailureMechanismContributionView.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>c7af6470-caf9-4ba8-9f9f-fc46fe4223a4</id>
-      <BoundTo>45ca3cad-b4eb-4830-b715-695e59a034fc</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\DocumentView\ValidateProbabilitySpaceInFailureMechanismContributionView.cs">
-      <DependentUpon>ValidateProbabilitySpaceInFailureMechanismContributionView.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>f7896ad9-f85e-4282-a999-59ea799fbcf8</id>
-      <BoundTo>e29f7d9b-ae68-4ca7-a428-d70d4680532e</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\DocumentView\ValidateProbabilitySpaceInFailureMechanismContributionView.UserCode.cs">
-      <DependentUpon>ValidateProbabilitySpaceInFailureMechanismContributionView.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>9cefaa1d-9ded-4c55-8092-777bcd7c2cb8</id>
-      <BoundTo>e29f7d9b-ae68-4ca7-a428-d70d4680532e</BoundTo>
     </Compile>
     <Compile Include="Modules\Validation\DocumentView\ValidateSectionNameIsPresentInScenariosView.cs">
       <BoundTo>3aa152e0-983f-4439-a308-b6281e5982da</BoundTo>
@@ -1989,30 +1530,6 @@
       <UserCode>true</UserCode>
       <id>9d07e329-f343-4dc5-82f3-c2af60126caf</id>
     </Compile>
-    <Compile Include="Modules\Validation\DocumentView\ValidateSingleValueInTableAssemblyCombinedSections.cs">
-      <BoundTo>14510b69-cc8d-4fc5-99ee-840c5a0782bf</BoundTo>
-      <DependentUpon>ValidateSingleValueInTableAssemblyCombinedSections.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>e863d3c8-3dc1-44bd-a81e-d2466b0654f9</id>
-    </Compile>
-    <Compile Include="Modules\Validation\DocumentView\ValidateSingleValueInTableAssemblyCombinedSections.UserCode.cs">
-      <BoundTo>14510b69-cc8d-4fc5-99ee-840c5a0782bf</BoundTo>
-      <DependentUpon>ValidateSingleValueInTableAssemblyCombinedSections.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>e0526aaf-1ba5-4ddd-81bc-1f58825cfe08</id>
-    </Compile>
-    <Compile Include="Modules\Validation\DocumentView\ValidateSummaryValuesAssemblyTrajectView.cs">
-      <BoundTo>d3f27e12-e135-4314-b507-79c55387ad03</BoundTo>
-      <DependentUpon>ValidateSummaryValuesAssemblyTrajectView.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>7c67a307-1b47-499b-84b1-f09cd7cfa34a</id>
-    </Compile>
-    <Compile Include="Modules\Validation\DocumentView\ValidateSummaryValuesAssemblyTrajectView.UserCode.cs">
-      <BoundTo>d3f27e12-e135-4314-b507-79c55387ad03</BoundTo>
-      <DependentUpon>ValidateSummaryValuesAssemblyTrajectView.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>970e7036-3cc9-466b-a55b-49dcdb8dc3ef</id>
-    </Compile>
     <Compile Include="Modules\Validation\DocumentView\ValidateTrajectCategoryBoundaryInDocumentView.cs">
       <DependentUpon>ValidateTrajectCategoryBoundaryInDocumentView.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -2024,6 +1541,9 @@
       <UserCode>true</UserCode>
       <id>2d96d6e6-6fa0-47c8-a52b-021abeaae9ba</id>
       <BoundTo>e7464627-428f-4286-934b-085c173cdecc</BoundTo>
+    </Compile>
+    <Compile Include="Modules\Validation\DocumentView\ValidateValueInCellResultView.cs">
+      <id>828c02e9-2bd7-41c3-9593-24b25c616642</id>
     </Compile>
     <Compile Include="Modules\Validation\DocumentView\ValidateValueInTableOfHBCDocumentView.cs">
       <id>1308cd76-a226-4040-b1bc-b8ef3d797d79</id>
@@ -2039,9 +1559,6 @@
       <UserCode>true</UserCode>
       <id>c0294f29-44a4-412a-8249-afbe98678ba2</id>
       <BoundTo>b6c2ba00-63e3-4440-af0f-320297649b7e</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\IO\ValidateBinaryFilesAreEqual.cs">
-      <id>7f3b1afc-4280-4923-8a4a-8d0136ed50b7</id>
     </Compile>
     <Compile Include="Modules\Validation\IO\ValidatePlainTextFilesAreEqual.cs">
       <DependentUpon>ValidatePlainTextFilesAreEqual.rxrec</DependentUpon>
@@ -2067,18 +1584,6 @@
       <UserCode>true</UserCode>
       <id>e08f972b-390a-4e80-ba15-94d4a4d0b391</id>
     </Compile>
-    <Compile Include="Modules\Validation\MessagesPanel\ValidateErrorIcon.cs">
-      <DependentUpon>ValidateErrorIcon.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>22292334-33c8-4e96-a796-7f82ca9fc572</id>
-      <BoundTo>31e81b77-c11e-4528-8722-7adaeeeb11ad</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\MessagesPanel\ValidateErrorIcon.UserCode.cs">
-      <DependentUpon>ValidateErrorIcon.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>9aabd863-3df8-4890-abd4-a997f4914ca5</id>
-      <BoundTo>31e81b77-c11e-4528-8722-7adaeeeb11ad</BoundTo>
-    </Compile>
     <Compile Include="Modules\Validation\MessagesPanel\ValidatelastTwoMesages.UserCode.cs">
       <DependentUpon>ValidateTextMesage.rxrec</DependentUpon>
       <UserCode>true</UserCode>
@@ -2096,18 +1601,6 @@
     </Compile>
     <Compile Include="Modules\Validation\ProjectExplorer\ValidateFMAssemblyWithSubnodesInProjectExplorer.cs">
       <id>bab83175-771c-4d18-aa1d-b315f3132d4b</id>
-    </Compile>
-    <Compile Include="Modules\Validation\ProjectExplorer\ValidateSubsurfaceSchematizationInProjectExplorer.cs">
-      <DependentUpon>ValidateSubsurfaceSchematizationInProjectExplorer.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>4e9ccdf4-f5d9-44e3-94d2-21d1973d8710</id>
-      <BoundTo>765678f8-5ac0-425e-af7f-9586f16ef48a</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\ProjectExplorer\ValidateSubsurfaceSchematizationInProjectExplorer.UserCode.cs">
-      <DependentUpon>ValidateSubsurfaceSchematizationInProjectExplorer.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>89a75722-a4cb-43dd-8134-1bd753fcead7</id>
-      <BoundTo>765678f8-5ac0-425e-af7f-9586f16ef48a</BoundTo>
     </Compile>
     <Compile Include="Modules\Validation\ProjectExplorer\ValidateWhetherFolderGivenPathContainsNode.cs">
       <id>89cc3807-c64e-4752-aaf6-996a110e3a06</id>
@@ -2148,162 +1641,6 @@
       <id>7fa19957-1318-4443-a664-bcea138e1fb3</id>
       <BoundTo>1e3ffeec-c56b-4b2f-84cb-53870e9a4344</BoundTo>
     </Compile>
-    <Compile Include="Modules\Validation\Assembly\ValidateCustomAssessmentTypeAtRow.cs">
-      <DependentUpon>ValidateCustomAssessmentTypeAtRow.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>8929e179-edb9-4389-b36d-24c047175c3b</id>
-      <BoundTo>dd1e40e5-89cd-4bda-be21-cdfa6fc0f479</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\Assembly\ValidateCustomAssessmentTypeAtRow.UserCode.cs">
-      <DependentUpon>ValidateCustomAssessmentTypeAtRow.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>e6a757b4-8329-4d41-85bd-b48ee04b0dac</id>
-      <BoundTo>dd1e40e5-89cd-4bda-be21-cdfa6fc0f479</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\Assembly\ValidateCustomAssessmentValue.cs">
-      <DependentUpon>ValidateCustomAssessmentValue.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>6cb9ef95-f16e-499c-8d7e-e16e912bd5e9</id>
-      <BoundTo>33318670-518c-4e04-9e41-efbd1efea647</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\Assembly\ValidateCustomAssessmentValue.UserCode.cs">
-      <DependentUpon>ValidateCustomAssessmentValue.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>6b6f25b8-0660-465d-bd37-56c8a76f502e</id>
-      <BoundTo>33318670-518c-4e04-9e41-efbd1efea647</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\Assembly\ValidateDetailedAssessmentTypeAtRow.cs">
-      <DependentUpon>ValidateDetailedAssessmentTypeAtRow.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>f700a7c8-4579-43d1-a31d-929f9d36d0b8</id>
-      <BoundTo>4453664d-3c67-4161-8674-c648c3a1bbd4</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\Assembly\ValidateDetailedAssessmentTypeAtRow.UserCode.cs">
-      <DependentUpon>ValidateDetailedAssessmentTypeAtRow.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>ad1ac744-d61e-4ce7-bdee-915c49591142</id>
-      <BoundTo>4453664d-3c67-4161-8674-c648c3a1bbd4</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\Assembly\ValidateDetailedAssessmentTypeAtRowCategoryIIIv.cs">
-      <DependentUpon>ValidateDetailedAssessmentTypeAtRowCategoryIIIv.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>e9212bdc-f4e8-4978-9d5e-641d8249e8b3</id>
-      <BoundTo>51a6d249-6729-4231-9d69-0b2452736022</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\Assembly\ValidateDetailedAssessmentTypeAtRowCategoryIIIv.UserCode.cs">
-      <DependentUpon>ValidateDetailedAssessmentTypeAtRowCategoryIIIv.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>b95238a8-b207-4dfd-82c1-f55d4aaab0dd</id>
-      <BoundTo>51a6d249-6729-4231-9d69-0b2452736022</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\Assembly\ValidateDetailedAssessmentTypeAtRowCategoryIIv.cs">
-      <DependentUpon>ValidateDetailedAssessmentTypeAtRowCategoryIIv.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>bfd47ffa-3154-490c-ac6b-98fca1efc5fd</id>
-      <BoundTo>7fb7b0e0-1e1b-49bc-8ac6-4f0023d522c4</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\Assembly\ValidateDetailedAssessmentTypeAtRowCategoryIIv.UserCode.cs">
-      <DependentUpon>ValidateDetailedAssessmentTypeAtRowCategoryIIv.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>168e21ce-5dcf-4f60-9133-b0f04cdee131</id>
-      <BoundTo>7fb7b0e0-1e1b-49bc-8ac6-4f0023d522c4</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\Assembly\ValidateDetailedAssessmentTypeAtRowCategoryIv.cs">
-      <DependentUpon>ValidateDetailedAssessmentTypeAtRowCategoryIv.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>89e4efcf-119c-434e-8be3-cb2f50575b62</id>
-      <BoundTo>41e0dfba-c060-4616-adbf-a16ee30c5aee</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\Assembly\ValidateDetailedAssessmentTypeAtRowCategoryIv.UserCode.cs">
-      <DependentUpon>ValidateDetailedAssessmentTypeAtRowCategoryIv.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>6e530503-493a-4c79-b4cf-65f91c1f623e</id>
-      <BoundTo>41e0dfba-c060-4616-adbf-a16ee30c5aee</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\Assembly\ValidateDetailedAssessmentTypeAtRowCategoryIVv.cs">
-      <DependentUpon>ValidateDetailedAssessmentTypeAtRowCategoryIVv.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>95a772d9-9c3c-4e64-87f1-9f9ef444aee6</id>
-      <BoundTo>9573ec4e-63a8-44d4-843a-841c7eaaf759</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\Assembly\ValidateDetailedAssessmentTypeAtRowCategoryIVv.UserCode.cs">
-      <DependentUpon>ValidateDetailedAssessmentTypeAtRowCategoryIVv.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>f29bdf61-24fe-4c5c-9638-5224dff5295c</id>
-      <BoundTo>9573ec4e-63a8-44d4-843a-841c7eaaf759</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\Assembly\ValidateDetailedAssessmentTypeAtRowCategoryVv.cs">
-      <DependentUpon>ValidateDetailedAssessmentTypeAtRowCategoryVv.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>37ca9709-a2eb-44db-8993-a9baf0466f76</id>
-      <BoundTo>9ad23365-0d18-4462-ade2-d3e3302b16cd</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\Assembly\ValidateDetailedAssessmentTypeAtRowCategoryVv.UserCode.cs">
-      <DependentUpon>ValidateDetailedAssessmentTypeAtRowCategoryVv.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>4aac8800-a1be-4bd0-9f3c-4fbde9ad0bfa</id>
-      <BoundTo>9ad23365-0d18-4462-ade2-d3e3302b16cd</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\Assembly\ValidateDetailedAssessmentTypeAtRowGroup4.cs">
-      <DependentUpon>ValidateDetailedAssessmentTypeAtRowGroup4.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>a68c1921-9115-476f-bd97-402ecf0846f6</id>
-      <BoundTo>d7cb8aec-0058-4d17-adb7-4422eb8efacd</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\Assembly\ValidateDetailedAssessmentTypeAtRowGroup4.UserCode.cs">
-      <DependentUpon>ValidateDetailedAssessmentTypeAtRowGroup4.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>e4883ff6-42c1-4edd-81e7-3f0987ad6898</id>
-      <BoundTo>d7cb8aec-0058-4d17-adb7-4422eb8efacd</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\Assembly\ValidateDetailedAssessmentValueAtRow.cs">
-      <DependentUpon>ValidateDetailedAssessmentValueAtRow.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>8ef49bdd-b485-4f22-bb85-942be3a64b1b</id>
-      <BoundTo>bbfde277-5adf-4de7-a49e-e6822bc65f48</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\Assembly\ValidateDetailedAssessmentValueAtRow.UserCode.cs">
-      <DependentUpon>ValidateDetailedAssessmentValueAtRow.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>8658e6ac-2879-4557-85a0-bb2867183791</id>
-      <BoundTo>bbfde277-5adf-4de7-a49e-e6822bc65f48</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\Assembly\ValidateDetailedAssessmentValueAtRowPerCategory.cs">
-      <DependentUpon>ValidateDetailedAssessmentValueAtRowPerCategory.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>c5444e15-62da-4bf4-98c9-0ffbed14436f</id>
-      <BoundTo>d713dd0c-6468-4e57-8a1a-9e182f238ec7</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\Assembly\ValidateDetailedAssessmentValueAtRowPerCategory.UserCode.cs">
-      <DependentUpon>ValidateDetailedAssessmentValueAtRowPerCategory.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>f9f9d8e6-595d-4f5d-92b8-116dd957a00c</id>
-      <BoundTo>d713dd0c-6468-4e57-8a1a-9e182f238ec7</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\Assembly\ValidateDetailedAssessmentValueAtRowPerCategoryGroup4.cs">
-      <DependentUpon>ValidateDetailedAssessmentValueAtRowPerCategoryGroup4.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>80370af1-9069-4a06-b106-8d630be01d04</id>
-      <BoundTo>370ab96d-f6b4-4168-9d3d-4ec451d4db1b</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\Assembly\ValidateDetailedAssessmentValueAtRowPerCategoryGroup4.UserCode.cs">
-      <DependentUpon>ValidateDetailedAssessmentValueAtRowPerCategoryGroup4.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>ed9ae4c9-9e1b-4ef1-a043-fccd914ff342</id>
-      <BoundTo>370ab96d-f6b4-4168-9d3d-4ec451d4db1b</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\PropertiesPanel\ValidateParameterDoesNotExistForItemInTraject.cs">
-      <DependentUpon>ValidateParameterDoesNotExistForItemInTraject.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>ea03820d-8779-4d9b-bf7d-5c0a682f2039</id>
-      <BoundTo>27f04823-1f1a-4251-be16-0e92f15ca64c</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\PropertiesPanel\ValidateParameterDoesNotExistForItemInTraject.UserCode.cs">
-      <DependentUpon>ValidateParameterDoesNotExistForItemInTraject.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>d1b69a80-39db-4977-9ba2-8e8a7174b81c</id>
-      <BoundTo>27f04823-1f1a-4251-be16-0e92f15ca64c</BoundTo>
-    </Compile>
     <Compile Include="Modules\Validation\PropertiesPanel\ValidateResultsArePresentInPropertiesPanel.cs">
       <DependentUpon>ValidateResultsArePresentInPropertiesPanel.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -2328,36 +1665,6 @@
       <id>46eccfc3-e1c1-4bd6-ac24-35bcfb7afec3</id>
       <BoundTo>b013a104-0577-4bea-aa06-f81de16bdfdc</BoundTo>
     </Compile>
-    <Compile Include="Modules\Validation\PropertiesPanel\ValidateRowExistsInPropertiesPanel.cs">
-      <DependentUpon>ValidateRowExistsInPropertiesPanel.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>9d15e0a1-ae7a-4048-82cd-ec117aa66989</id>
-      <BoundTo>3c75635e-8e82-4d23-ac92-7e2fe375ba43</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\PropertiesPanel\ValidateRowExistsInPropertiesPanel.UserCode.cs">
-      <DependentUpon>ValidateRowExistsInPropertiesPanel.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>4eb82aeb-b632-4f93-909d-ca316feea9cb</id>
-      <BoundTo>3c75635e-8e82-4d23-ac92-7e2fe375ba43</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\PropertiesPanel\ValidateStringsPropertiesPanelAreEqual.cs">
-      <id>007488a8-5d59-42df-8824-32336f400f51</id>
-    </Compile>
-    <Compile Include="Modules\Validation\PropertiesPanel\ValidateStringsPropertiesPanelAreNotEqual.cs">
-      <id>5d655704-eed1-40fa-a340-b0c2c0e2b5d4</id>
-    </Compile>
-    <Compile Include="Modules\Validation\PropertiesPanel\ValidateSurfaceLineNameInPropertiesPanel.cs">
-      <DependentUpon>ValidateSurfaceLineNameInPropertiesPanel.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>44e0450d-4b8c-4947-bcbc-dde21ac8ab9b</id>
-      <BoundTo>a07de890-0a93-4d5e-865b-7ca9370d261c</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\PropertiesPanel\ValidateSurfaceLineNameInPropertiesPanel.UserCode.cs">
-      <DependentUpon>ValidateSurfaceLineNameInPropertiesPanel.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>efa53e23-d8e4-4e67-ac1c-b7c4fc9f2aaf</id>
-      <BoundTo>a07de890-0a93-4d5e-865b-7ca9370d261c</BoundTo>
-    </Compile>
     <Compile Include="Modules\Validation\PropertiesPanel\ValidateTextValueInPropertiesPanelGivenPath.cs">
       <id>98d5f7ef-17bf-47b6-9f85-7c9a710d142f</id>
     </Compile>
@@ -2372,18 +1679,6 @@
       <UserCode>true</UserCode>
       <id>667f306e-b119-4562-85e4-7686b58596f8</id>
       <BoundTo>2bfa17c2-7838-466c-b4bf-98098cb57bba</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\PropertiesPanel\ValidateValueParameterForItemInTraject.cs">
-      <DependentUpon>ValidateValueParameterForItemInTraject.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>43ecbd4d-2a3e-41b7-a165-ff44c713c769</id>
-      <BoundTo>f146138e-5d6e-47a6-b572-efcb4d6fe1ba</BoundTo>
-    </Compile>
-    <Compile Include="Modules\Validation\PropertiesPanel\ValidateValueParameterForItemInTraject.UserCode.cs">
-      <DependentUpon>ValidateValueParameterForItemInTraject.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>6933b1f0-e685-46fa-afeb-f550560bf1b5</id>
-      <BoundTo>f146138e-5d6e-47a6-b572-efcb4d6fe1ba</BoundTo>
     </Compile>
     <Compile Include="Modules\Wait\WaitForXMiliseconds.cs">
       <DependentUpon>WaitForXMiliseconds.rxrec</DependentUpon>
@@ -2545,11 +1840,6 @@
       <recordtableid>825ce2a6-cd3b-42f6-9972-8ced75f1a54f</recordtableid>
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
     </None>
-    <None Include="Modules\ActionsBackstage\NewProjectBackstage.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>d45e90df-b917-4d7a-86b6-2316333a0f72</id>
-      <recordtableid>2c7465e0-4b16-45ab-a42a-4089c0acceb1</recordtableid>
-    </None>
     <None Include="Modules\ActionsContextMenu\AddBackgroundLayer.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>9a604b1c-d4af-4820-b692-4d7137157976</id>
@@ -2665,11 +1955,6 @@
       <id>a3654dc6-285b-49ee-bbe6-36b98eecb55c</id>
       <recordtableid>7215ea0a-6021-493d-a8b6-e4f22012da8a</recordtableid>
     </None>
-    <None Include="Modules\ActionsDocumentView\AssignManualAssessmentFirstRowResultView.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>2d371475-b0d7-432a-a038-b0eba5ff47af</id>
-      <recordtableid>46249ce6-a33a-4ebb-a47f-9e06323cafdb</recordtableid>
-    </None>
     <None Include="Modules\ActionsDocumentView\ClickOnRunSelectedHBCCalculations.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>656b7e3b-fd9a-4148-9687-72c952815443</id>
@@ -2700,6 +1985,11 @@
       <id>764f9833-0f5f-4be1-ba5b-275a72cc032e</id>
       <recordtableid>cccf5ca1-dd5a-482a-b366-7e44203f42a3</recordtableid>
     </None>
+    <None Include="Modules\ActionsDocumentView\SelectTypeFailureMechanismForFM.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>190c7aaf-3340-4a36-b398-aadf52f77a8b</id>
+      <recordtableid>2a0f9871-da92-4857-a13d-e29c7dfc5043</recordtableid>
+    </None>
     <None Include="Modules\ActionsDocumentView\SetContributionValueInScenariosView.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>da7336ce-fbcd-4009-bf0c-329da5bfb60f</id>
@@ -2709,16 +1999,6 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>4332a6ac-65b6-423f-8688-eb78b2d0cdbe</id>
       <recordtableid>abc7c300-9a65-468b-a578-f8e564738f13</recordtableid>
-    </None>
-    <None Include="Modules\ActionsDocumentView\ValidateFMAssessmentLabelAndProbabilityInResultView.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>7214ed23-f5ef-4f9b-9a63-ddb6b05dbcf7</id>
-      <recordtableid>778be806-02a6-4d3b-92ce-fe995369ab6d</recordtableid>
-    </None>
-    <None Include="Modules\ActionsDocumentView\ValidatePresenceIconWarningManualAssessment.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>bc434fad-2212-4327-8fad-52e26de4e4b1</id>
-      <recordtableid>eda96359-8672-43bd-b08e-6668567acb0a</recordtableid>
     </None>
     <None Include="Modules\ActionsDocumentView\ZoomMapViewWithMouseWheel.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -2760,11 +2040,6 @@
       <id>90b38249-32a6-429f-b4ae-94709c2197eb</id>
       <recordtableid>30f153a9-9c98-400c-a020-34c10ac7af64</recordtableid>
     </None>
-    <None Include="Modules\Calculation\CalculateLinearTransformationOfValue.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>0d625f89-ffec-435d-9b39-d07be9cf66b5</id>
-      <recordtableid>ff1cb4d9-1388-49e6-bf2a-00ed354dca1e</recordtableid>
-    </None>
     <None Include="Modules\Calculation\CalculateNFormula1.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>b06bc5d2-0e53-42a7-8447-1a4e68dfdacf</id>
@@ -2785,40 +2060,15 @@
       <id>169d05de-10e4-4de8-a1e7-b20d6b35e438</id>
       <recordtableid>32a3407b-7f73-4eaf-903a-c752160bcebd</recordtableid>
     </None>
-    <None Include="Modules\Calculation\CalculateValueParameterN.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>0eabce3a-8b80-466b-aa80-402c74d568d4</id>
-      <recordtableid>2fdf315c-3bbf-4b7a-b901-e88b144bf94e</recordtableid>
-    </None>
-    <None Include="Modules\Calculation\ConvertToCurrentCulture.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>5b5e7a94-d166-4447-a367-89316035642d</id>
-      <recordtableid>c1edbea9-a1e3-45d7-835b-452fd53ec06b</recordtableid>
-    </None>
-    <None Include="Modules\Calculation\GenerateRandomNumberInRangeCases.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>ebce4f06-318d-46f0-8678-c8e82cb57486</id>
-      <recordtableid>6104469d-a535-47ca-b393-2256db12cca4</recordtableid>
-    </None>
     <None Include="Modules\Calculation\GetValueParameterCurrentlyVisibleInPropertiesPanel.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>e869c70a-e5ea-48fe-9f4f-c6c0be7e8d15</id>
       <recordtableid>ff7d8015-0aa1-402e-bd87-ce4d514d5e39</recordtableid>
     </None>
-    <None Include="Modules\Calculation\GetValueParameterForItemInTraject.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>0be59255-8483-4bd6-b789-9bb7d1340977</id>
-      <recordtableid>3b08b464-43f7-4e4b-9c47-143e9b31807c</recordtableid>
-    </None>
     <None Include="Modules\ActionsContextMenu\AddCalculationFolder.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>9441f05b-a115-4956-80b5-b0c4190b783c</id>
       <recordtableid>c09a9669-9b00-4ab5-9134-5658e1a585ac</recordtableid>
-    </None>
-    <None Include="Modules\ActionsContextMenu\AddNewTrajectUsingContextMenu.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>bb47bff5-bdca-4a29-99ce-8ef47ebd5348</id>
-      <recordtableid>2f5dc792-0805-4c80-8900-c03885f8e020</recordtableid>
     </None>
     <None Include="Modules\ActionsContextMenu\CoupleCurrentItemToHBCDatabase.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -2870,20 +2120,10 @@
       <id>8a7c290a-c895-4ab6-8417-8c4f981c847e</id>
       <recordtableid>4e9bdd58-dcf1-424d-a224-1d30c86d102b</recordtableid>
     </None>
-    <None Include="Modules\IO\CopyFile.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>fab570ab-705a-4266-9144-f9f477a53503</id>
-      <recordtableid>ad8e1ad4-f412-41ae-a2dc-f39766081df4</recordtableid>
-    </None>
     <None Include="Modules\IO\CreateOutputFolder.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>171d5e60-a4ba-4594-80a1-966838bfcfcd</id>
       <recordtableid>40b6ae98-0f6f-4015-b0b2-13ee7ced6f84</recordtableid>
-    </None>
-    <None Include="Modules\IO\DeleteFileIfExists.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>c72195eb-6d83-44b2-b2f6-96b6855ac1e5</id>
-      <recordtableid>2e4fc24f-fbac-4679-9b7f-37d1c3a42223</recordtableid>
     </None>
     <None Include="Modules\IO\ExportConfigurationSelectedCalculationToXMLFile.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -2920,16 +2160,6 @@
       <id>132fbd7d-950e-46ff-82d8-1c88ec7aba2b</id>
       <recordtableid>080c578e-b4cb-4bb4-945d-26465067449d</recordtableid>
     </None>
-    <None Include="Modules\OpenViews\OpenResultView.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>918d5c65-6117-4065-be77-b86f0dc97b3f</id>
-      <recordtableid>14b19856-facd-4b69-82b3-b7f678560774</recordtableid>
-    </None>
-    <None Include="Modules\OpenViews\OpenTrajectNormenView.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>b4220af5-04f9-4914-8581-74fabf79ebbf</id>
-      <recordtableid>d4189ba6-04e4-4c32-a503-2b635376521a</recordtableid>
-    </None>
     <None Include="Modules\OpenViews\OpenViewForCurrentlySelectedItemInProjectExplorer.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>eeb7ef51-8e00-4dba-a124-aae38b08ccdc</id>
@@ -2954,11 +2184,6 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>a7fe9a81-f30b-4989-93d4-73a3b0f3ece5</id>
       <recordtableid>badbc62e-0842-46fe-b883-582d8a44310b</recordtableid>
-    </None>
-    <None Include="Modules\RepportInfo\CreateScreenshotEntireDesktop.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>c3cbdf07-5f61-4169-8d8b-5e323c3a882c</id>
-      <recordtableid>0f7ebadb-0285-4449-9422-0cd6fde5bf4d</recordtableid>
     </None>
     <None Include="Modules\RepportInfo\CreateScreenshotMessagesPanel.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -3025,46 +2250,6 @@
       <id>0cc48728-8442-42cf-af65-3ac14054b2d3</id>
       <recordtableid>7c3eef7d-4675-4a50-82a1-6f7d0d153cac</recordtableid>
     </None>
-    <None Include="Modules\Selection\Assembly\SelectDetailedAssessmentForRowCategoryIIIv.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>5a4f3fa3-1a87-4396-919f-25c0bf782ff3</id>
-      <recordtableid>a7eb8c7e-6846-46ff-b2ed-97d624f39d39</recordtableid>
-    </None>
-    <None Include="Modules\Selection\Assembly\SelectDetailedAssessmentForRowCategoryIIv.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>a2165335-4b9d-47f7-a826-14947dcfd578</id>
-      <recordtableid>1d451e4f-5f11-43ce-8f5b-c4085d00c239</recordtableid>
-    </None>
-    <None Include="Modules\Selection\Assembly\SelectDetailedAssessmentForRowCategoryIv.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>d52b7eef-7e1b-4b8e-9130-bc710dd5131f</id>
-      <recordtableid>a0648a21-f406-4037-bd0a-c3edb3d869ff</recordtableid>
-    </None>
-    <None Include="Modules\Selection\Assembly\SelectDetailedAssessmentForRowCategoryIVv.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>24111330-65d5-4670-9d7d-9af4307cb26a</id>
-      <recordtableid>a7ae0f4d-d417-4c7b-805b-8057f4e19677</recordtableid>
-    </None>
-    <None Include="Modules\Selection\Assembly\SelectDetailedAssessmentForRowCategoryVv.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>7f9bb519-3fbf-4ff5-9e73-1c24c6aedb69</id>
-      <recordtableid>f1d6edc7-4e95-46f4-a178-9742cb112be4</recordtableid>
-    </None>
-    <None Include="Modules\Selection\Assembly\SelectDetailedAssessmentTypeForRow.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>731610be-3ce8-4f1d-8c8d-98ec88fef6e9</id>
-      <recordtableid>30a2f45d-ee95-4cb0-9ee5-87d71ca20ca5</recordtableid>
-    </None>
-    <None Include="Modules\Selection\Assembly\SelectManualAssessment.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>e73590a3-2dd0-4529-a4ae-7751bcea43a8</id>
-      <recordtableid>5b015ee3-50ff-44a4-90b6-4b97670bff51</recordtableid>
-    </None>
-    <None Include="Modules\Selection\SelecteCasesScript15a_c_Range.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>98b58192-c302-41a8-bc71-46e3d4a052eb</id>
-      <recordtableid>220e925d-6434-4d2c-8772-fc4edd938637</recordtableid>
-    </None>
     <None Include="Modules\Selection\SelectGenericItemInMapLayersPanel.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>ec6d761b-3e0f-4b7c-acd1-c62d5a244213</id>
@@ -3075,25 +2260,20 @@
       <id>77a507ba-55df-4f3b-b312-cdf9eaa7c68b</id>
       <recordtableid>ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e</recordtableid>
     </None>
-    <None Include="Modules\Selection\SelectGenericSectionInListCalculationsView.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>0805e35f-bd37-44da-8b7b-52eadeafb9a4</id>
-      <recordtableid>815c10de-7eb0-4306-b5f0-403e140be625</recordtableid>
-    </None>
     <None Include="Modules\Selection\SelectGenericSectionInListScenariosView.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>97011333-f53c-4153-992d-9d1bed478861</id>
       <recordtableid>c28d218c-b230-4ca9-8820-6cd4085c3ae0</recordtableid>
     </None>
-    <None Include="Modules\Selection\SelectItemBelow.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>1fec213e-fd25-4c96-8055-5d4dad952155</id>
-      <recordtableid>12bc2c02-5298-4ca8-ae8e-6afb9e1b7d0f</recordtableid>
-    </None>
     <None Include="Modules\Selection\SelectItemFromDynamicDropDownMenuInPropertiesPanelRow.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>f00c07a7-1332-49f0-bc26-77f534093d31</id>
       <recordtableid>feb22e37-85f1-4e45-95cc-1cebb52e7292</recordtableid>
+    </None>
+    <None Include="Modules\Selection\SelectOptionDropDownMenuInCellResultView.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>e99ebe9f-4439-4b90-b8c4-ebcb70c69e8e</id>
+      <recordtableid>ddc001ef-088e-4529-8c59-416e11928819</recordtableid>
     </None>
     <None Include="Modules\Selection\SelectRowCalculation.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -3105,16 +2285,6 @@
       <id>28d03374-35b2-44db-81cd-a402f27e8a66</id>
       <recordtableid>41e70303-25bd-42fe-9275-c9f1baa62c5c</recordtableid>
     </None>
-    <None Include="Modules\Selection\Assembly\SelectSimpleAssessmentForRow.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>31496a42-800f-4754-b94c-bdba78e4cd44</id>
-      <recordtableid>e0d85a11-9622-402c-937d-fefa962c3394</recordtableid>
-    </None>
-    <None Include="Modules\Selection\SelectTrajectType.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>bd83daa0-c4f9-4e92-818b-ddb482e0838c</id>
-      <recordtableid>f3cd18f8-b687-4886-b040-fc89f784d832</recordtableid>
-    </None>
     <None Include="Modules\Set_Assign\Assembly\ChangeRelevanceSection.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>289b674a-8b3a-470d-9e12-6cb9e8bba035</id>
@@ -3124,36 +2294,6 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>dfc6ba4f-43bf-4a48-8711-ce1bea002bd4</id>
       <recordtableid>3f50af80-7a9e-4428-b269-4f7f8984a5c6</recordtableid>
-    </None>
-    <None Include="Modules\Set_Assign\Assembly\SetCustomAssessmentAtRow.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>b838adb7-b43d-43a1-864f-14728db0fe9a</id>
-      <recordtableid>dc218a16-91e8-4197-ae23-5bbe0c083a04</recordtableid>
-    </None>
-    <None Include="Modules\Set_Assign\Assembly\SetCustomAssessmentValueAtRow.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>498ef0d1-8bb4-4e35-8289-e4628a561c37</id>
-      <recordtableid>a0a01510-32a1-46ad-b596-d7312f892e5d</recordtableid>
-    </None>
-    <None Include="Modules\Set_Assign\Assembly\SetDetailedAssessmentForRowPerSection.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>a0c074a3-3c19-4557-8ef3-533b43266955</id>
-      <recordtableid>503dc525-67d9-4f84-8c18-ddd376efe5d4</recordtableid>
-    </None>
-    <None Include="Modules\Set_Assign\Assembly\SetDetailedAssessmentValueForRow.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>a6aa9891-7b17-448b-bd52-f69c71b53d62</id>
-      <recordtableid>8ba1a78d-5071-4845-bc94-8ab1fa70f8c1</recordtableid>
-    </None>
-    <None Include="Modules\Set_Assign\Assembly\SetManualAssessmentCategory.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>98a0c5e5-1218-4100-83f1-b8f30614e51d</id>
-      <recordtableid>97f68751-6390-4dac-92f9-cba8feac75de</recordtableid>
-    </None>
-    <None Include="Modules\Set_Assign\Assembly\SetManualAssessmentProbability.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>8669304c-d156-4ba1-82cd-5042b2515286</id>
-      <recordtableid>60536bb5-15fa-40e4-91d6-e5131d3e52c2</recordtableid>
     </None>
     <None Include="Modules\Set_Assign\SetParameterInCalculationsView.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -3165,65 +2305,30 @@
       <id>5bf29cac-081b-4772-a880-80a042909612</id>
       <recordtableid>7d9b109b-9a86-4d14-949e-d6cd5cca905f</recordtableid>
     </None>
-    <None Include="Modules\Set_Assign\SetRangeInTableForPEBasedOnTrajectType.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>fa8863c1-c307-4363-98e1-572ecfc0c2c6</id>
-      <recordtableid>3a6da0ca-5c45-4932-a886-7c30d0e62630</recordtableid>
-    </None>
     <None Include="Modules\Set_Assign\SetFMInsideOutsideAssembly.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>a3cb26e3-a1be-4cb7-b372-a09785de9a9b</id>
       <recordtableid>37154a5a-bed5-4655-91a2-0c5ebc672e77</recordtableid>
-    </None>
-    <None Include="Modules\Set_Assign\SetValueParameterForItemInTraject.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>a2f507da-48e3-4fb8-b387-825031a20ed2</id>
-      <recordtableid>fe097e7d-bf74-4910-a6c5-c4cd7da935d8</recordtableid>
-    </None>
-    <None Include="Modules\Set_Assign\SetValueTextParameterVisibleInPropertiesPanel.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>744ab55a-8d13-4a59-bf1b-edb5fd3394f3</id>
-      <recordtableid>bfe17baf-1a87-4f9c-9a37-719c9b918b43</recordtableid>
     </None>
     <None Include="Modules\Set_Assign\SetValueWithKeyPressParameterForItemInTraject.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>3caad1c0-140c-4fb4-acc6-81005770fc34</id>
       <recordtableid>e550d732-7780-4b40-a989-f787f458a7c7</recordtableid>
     </None>
-    <None Include="Modules\Validation\DocumentView\ValidateAssessmentLabelAndProbForFMInAssemblyTrajectView.rxrec">
+    <None Include="Modules\Validation\DocumentView\ValidateEnabledStateCellInResultView.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>5a5bd4b6-ff89-4604-8bcd-ff8293bb6945</id>
-      <recordtableid>0a4d8d5f-1427-4a9b-9ba1-ee5acbb844db</recordtableid>
+      <id>33d1f416-ee41-4df5-a323-58bc004c8ea0</id>
+      <recordtableid>076c70ca-8c7f-4590-8745-e133434b490b</recordtableid>
     </None>
     <None Include="Modules\Validation\DocumentView\ValidateCalculationWaterLevelInDocumentViewDA.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>98d503cc-6c1d-4e11-b39c-823ac4106391</id>
       <recordtableid>5f11c431-c5f5-43ed-9e90-4eb9ec533e75</recordtableid>
     </None>
-    <None Include="Modules\Validation\DocumentView\ValidateContributionInFailureMechanismContributionView.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>45ca3cad-b4eb-4830-b715-695e59a034fc</id>
-      <recordtableid>4a63a2c8-7cac-4869-96dc-543747d8c4c7</recordtableid>
-    </None>
     <None Include="Modules\Validation\DocumentView\ValidateDataSectionsView.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>aec09b15-20aa-4f46-96b6-b6bd66a8d9b9</id>
       <recordtableid>7bc728af-f14c-4f8b-8354-b59262002f99</recordtableid>
-    </None>
-    <None Include="Modules\Validation\DocumentView\ValidatePresenceWarningIconManualAssessmentInAssemblyCombinedSectionsView.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>b3ae91a9-c3c7-4443-92b0-81a65b646c53</id>
-      <recordtableid>186f0bae-a0e0-45d0-8a1f-fb35c0689c6c</recordtableid>
-    </None>
-    <None Include="Modules\Validation\DocumentView\ValidatePresenceWarningIconManualAssessmentInAssemblyTrajectView.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>234a4d6d-1fcb-4164-a1be-71911fee3ba8</id>
-      <recordtableid>89914775-4f38-4b49-a34b-1f99c7016275</recordtableid>
-    </None>
-    <None Include="Modules\Validation\DocumentView\ValidateProbabilitySpaceInFailureMechanismContributionView.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>e29f7d9b-ae68-4ca7-a428-d70d4680532e</id>
-      <recordtableid>bbbbf5bf-dfd4-4308-9cd1-53e977ec87f1</recordtableid>
     </None>
     <None Include="Modules\Validation\DocumentView\ValidateSectionNameIsPresentInScenariosView.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -3234,16 +2339,6 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>3846c50b-7378-4c21-b12a-9ffd33fd36ab</id>
       <recordtableid>11dc3edb-dbfe-4ce7-9bdc-1b55dd842556</recordtableid>
-    </None>
-    <None Include="Modules\Validation\DocumentView\ValidateSingleValueInTableAssemblyCombinedSections.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>14510b69-cc8d-4fc5-99ee-840c5a0782bf</id>
-      <recordtableid>d0701ab4-190e-4120-9a9a-54b9e846f336</recordtableid>
-    </None>
-    <None Include="Modules\Validation\DocumentView\ValidateSummaryValuesAssemblyTrajectView.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>d3f27e12-e135-4314-b507-79c55387ad03</id>
-      <recordtableid>18ea53f5-f6f7-4204-952e-dfe48e0f31ac</recordtableid>
     </None>
     <None Include="Modules\Validation\DocumentView\ValidateTrajectCategoryBoundaryInDocumentView.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -3265,20 +2360,10 @@
       <id>170e66db-858e-487d-b27b-e52217daf572</id>
       <recordtableid>3dce05d3-19c6-41db-80de-b19fe30c3824</recordtableid>
     </None>
-    <None Include="Modules\Validation\MessagesPanel\ValidateErrorIcon.rxrec">
-      <id>31e81b77-c11e-4528-8722-7adaeeeb11ad</id>
-      <recordtableid>85bd5588-c795-4a99-aeaf-4daebe835849</recordtableid>
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-    </None>
     <None Include="Modules\Validation\MessagesPanel\ValidateTextMesage.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>a1476601-a356-4d9f-b0f2-de9145f718c9</id>
       <recordtableid>c86bbec9-6a02-4170-b9b9-ba60dd06156f</recordtableid>
-    </None>
-    <None Include="Modules\Validation\ProjectExplorer\ValidateSubsurfaceSchematizationInProjectExplorer.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>765678f8-5ac0-425e-af7f-9586f16ef48a</id>
-      <recordtableid>7b0aa06d-511c-46a3-a9a6-082f4011e57c</recordtableid>
     </None>
     <None Include="Modules\Validation\PropertiesPanel\ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -3295,71 +2380,6 @@
       <id>1e3ffeec-c56b-4b2f-84cb-53870e9a4344</id>
       <recordtableid>96402262-15e0-4220-98f9-083d0b2a69c0</recordtableid>
     </None>
-    <None Include="Modules\Validation\Assembly\ValidateCustomAssessmentTypeAtRow.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>dd1e40e5-89cd-4bda-be21-cdfa6fc0f479</id>
-      <recordtableid>4a7e3f6a-b454-48a2-a19c-3321f75bc052</recordtableid>
-    </None>
-    <None Include="Modules\Validation\Assembly\ValidateCustomAssessmentValue.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>33318670-518c-4e04-9e41-efbd1efea647</id>
-      <recordtableid>da4d5264-71fa-4c55-ade2-9344716cd1cc</recordtableid>
-    </None>
-    <None Include="Modules\Validation\Assembly\ValidateDetailedAssessmentTypeAtRow.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>4453664d-3c67-4161-8674-c648c3a1bbd4</id>
-      <recordtableid>f90323b9-0faf-4e8d-ba0d-cddbcaec15a5</recordtableid>
-    </None>
-    <None Include="Modules\Validation\Assembly\ValidateDetailedAssessmentTypeAtRowCategoryIIIv.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>51a6d249-6729-4231-9d69-0b2452736022</id>
-      <recordtableid>395e8850-1508-4f0f-99b2-9269f620fabc</recordtableid>
-    </None>
-    <None Include="Modules\Validation\Assembly\ValidateDetailedAssessmentTypeAtRowCategoryIIv.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>7fb7b0e0-1e1b-49bc-8ac6-4f0023d522c4</id>
-      <recordtableid>d90761a4-7311-4462-be01-cf40cca191d7</recordtableid>
-    </None>
-    <None Include="Modules\Validation\Assembly\ValidateDetailedAssessmentTypeAtRowCategoryIv.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>41e0dfba-c060-4616-adbf-a16ee30c5aee</id>
-      <recordtableid>4ffec84f-aea2-4bf2-96bd-d9f58048fcd6</recordtableid>
-    </None>
-    <None Include="Modules\Validation\Assembly\ValidateDetailedAssessmentTypeAtRowCategoryIVv.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>9573ec4e-63a8-44d4-843a-841c7eaaf759</id>
-      <recordtableid>42cf05e3-77be-41b2-bb8e-2d6b14e70872</recordtableid>
-    </None>
-    <None Include="Modules\Validation\Assembly\ValidateDetailedAssessmentTypeAtRowCategoryVv.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>9ad23365-0d18-4462-ade2-d3e3302b16cd</id>
-      <recordtableid>43df9f01-0547-4bb8-a36b-78e1d73ecc7b</recordtableid>
-    </None>
-    <None Include="Modules\Validation\Assembly\ValidateDetailedAssessmentTypeAtRowGroup4.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>d7cb8aec-0058-4d17-adb7-4422eb8efacd</id>
-      <recordtableid>4bec016b-4d75-4a07-9bb2-a12badf2136b</recordtableid>
-    </None>
-    <None Include="Modules\Validation\Assembly\ValidateDetailedAssessmentValueAtRow.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>bbfde277-5adf-4de7-a49e-e6822bc65f48</id>
-      <recordtableid>91919928-72e3-45e3-8af5-a51f8db749e3</recordtableid>
-    </None>
-    <None Include="Modules\Validation\Assembly\ValidateDetailedAssessmentValueAtRowPerCategory.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>d713dd0c-6468-4e57-8a1a-9e182f238ec7</id>
-      <recordtableid>e8d5931b-4e59-4070-ae4d-51a65c062ea7</recordtableid>
-    </None>
-    <None Include="Modules\Validation\Assembly\ValidateDetailedAssessmentValueAtRowPerCategoryGroup4.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>370ab96d-f6b4-4168-9d3d-4ec451d4db1b</id>
-      <recordtableid>d39d077e-c625-4d57-a6e7-a73a70d77e0d</recordtableid>
-    </None>
-    <None Include="Modules\Validation\PropertiesPanel\ValidateParameterDoesNotExistForItemInTraject.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>27f04823-1f1a-4251-be16-0e92f15ca64c</id>
-      <recordtableid>76b79b85-92aa-460c-b126-3cc5de9d5f07</recordtableid>
-    </None>
     <None Include="Modules\Validation\PropertiesPanel\ValidateResultsArePresentInPropertiesPanel.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>02a853e8-30e4-47a6-a928-24c5b79c0249</id>
@@ -3370,25 +2390,10 @@
       <id>b013a104-0577-4bea-aa06-f81de16bdfdc</id>
       <recordtableid>a91dc990-2aae-4244-86f4-1f59055da825</recordtableid>
     </None>
-    <None Include="Modules\Validation\PropertiesPanel\ValidateRowExistsInPropertiesPanel.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>3c75635e-8e82-4d23-ac92-7e2fe375ba43</id>
-      <recordtableid>f7696db3-8395-4cde-9420-df76b7faa09a</recordtableid>
-    </None>
-    <None Include="Modules\Validation\PropertiesPanel\ValidateSurfaceLineNameInPropertiesPanel.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>a07de890-0a93-4d5e-865b-7ca9370d261c</id>
-      <recordtableid>200d05d0-2615-44bf-991e-2913171cd220</recordtableid>
-    </None>
     <None Include="Modules\Validation\PropertiesPanel\ValidateTextValueParameterCurrentlyShownInPropertiesPanel.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>2bfa17c2-7838-466c-b4bf-98098cb57bba</id>
       <recordtableid>be67159d-b95e-4ab7-8583-e9482fd3475d</recordtableid>
-    </None>
-    <None Include="Modules\Validation\PropertiesPanel\ValidateValueParameterForItemInTraject.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>f146138e-5d6e-47a6-b572-efcb4d6fe1ba</id>
-      <recordtableid>54946666-7cba-49b9-b848-41ea43b074d9</recordtableid>
     </None>
     <None Include="Modules\Wait\WaitForXMiliseconds.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -3416,6 +2421,10 @@
       <id>375f9762-d4f0-4b72-b4a3-9ef27f445667</id>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="ReportDeltaresStyle\LogoPDFReport.png">
+      <id>8f66c31f-1dcd-401d-8ddb-8e648c17cb75</id>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="ReportDeltaresStyle\LogoReport.png">
       <id>7cc7b432-68fb-4ae4-b844-f84f59230578</id>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -3438,6 +2447,14 @@
     </None>
     <None Include="ReportDeltaresStyle\prepareReport.bat">
       <id>38a629fe-c230-41b4-bad8-6c025199c595</id>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ReportDeltaresStyle\style.xml">
+      <id>e7aaa3aa-ff76-41e7-8531-55aab0df137e</id>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ReportDeltaresStyle\style29.xml">
+      <id>bf22c62b-8303-4443-8022-d3560d885068</id>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -3484,9 +2501,6 @@
     <Folder Include="Modules\ActionsMapLayersPanel">
       <id>fe5d5f36-0d60-4a1a-8018-4e469c240742</id>
     </Folder>
-    <Folder Include="Modules\ActionsBackstage">
-      <id>4408b284-562b-42f3-8343-b6584e9b3d60</id>
-    </Folder>
     <Folder Include="Modules\ActionsRibbon">
       <id>7c232303-3507-4621-919f-e51f67706be7</id>
     </Folder>
@@ -3496,14 +2510,8 @@
     <Folder Include="Modules\RepportInfo">
       <id>0333c117-38c9-4dac-9490-c6981c56cc70</id>
     </Folder>
-    <Folder Include="Modules\Selection\Assembly">
-      <id>3371b114-0d7d-4b1b-9c5b-d60e1b860334</id>
-    </Folder>
     <Folder Include="Modules\Set_Assign\Assembly">
       <id>5211b334-8342-4662-8bad-31b62e399e7a</id>
-    </Folder>
-    <Folder Include="Modules\Validation\Assembly">
-      <id>21e8f5e9-9ef8-4627-a95b-0ca15783db8c</id>
     </Folder>
     <Folder Include="Modules\Validation\MessagesPanel">
       <id>7fc24691-8cbb-4cba-9495-5062ec88912d</id>
@@ -3513,9 +2521,6 @@
     </Folder>
     <Folder Include="Modules\Validation\Abstract">
       <id>3153ec44-4733-45ee-afef-35e0aaee4994</id>
-    </Folder>
-    <Folder Include="Modules\Validation\MapLayersPanel">
-      <id>75b687df-7e33-47cf-92ce-9a12e15e17c6</id>
     </Folder>
     <Folder Include="Modules\Validation\IO">
       <id>3c319368-d1f1-4a18-810f-cde21b77210f</id>

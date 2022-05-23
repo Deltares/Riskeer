@@ -79,7 +79,7 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             var dataSectionScenariosView = BuildDataScenariosView(jsonDataScenariosView);
             
 
-            var table = repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.ScenariosView.Table.Self;
+            var table = repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.ScenariosView.Table.Self;
             var rows = table.Rows;
             
             var rowHeader = rows[0];
