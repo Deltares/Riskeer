@@ -2453,6 +2453,10 @@
       <id>e7aaa3aa-ff76-41e7-8531-55aab0df137e</id>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="ReportDeltaresStyle\style29.xml">
+      <id>bf22c62b-8303-4443-8022-d3560d885068</id>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="AutomatedSystemTests.rxtmg">
