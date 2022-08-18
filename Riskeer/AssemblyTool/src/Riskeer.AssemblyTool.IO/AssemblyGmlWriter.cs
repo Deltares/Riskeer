@@ -23,6 +23,7 @@ using System;
 using System.Xml;
 using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
+using Core.Common.Util;
 using Riskeer.AssemblyTool.IO.Helpers;
 using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.AssemblyTool.IO.Properties;
@@ -33,25 +34,40 @@ namespace Riskeer.AssemblyTool.IO
     /// <summary>
     /// Writer for writing the assembly to GML.
     /// </summary>
-    public static class AssemblyGmlWriter
+    public class AssemblyGmlWriter : IDisposable
     {
+        private readonly string filePath;
+        private XmlWriter writer;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AssemblyGmlWriter"/>.
+        /// </summary>
+        /// <param name="filePath">The path of the file to write to.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
+        /// <remarks>A valid path:
+        /// <list type="bullet">
+        /// <item>is not empty or <c>null</c>,</item>
+        /// <item>does not consist out of only whitespace characters,</item>
+        /// <item>does not contain an invalid character,</item>
+        /// <item>does not end with a directory or path separator (empty file name).</item>
+        /// </list></remarks>
+        public AssemblyGmlWriter(string filePath)
+        {
+            this.filePath = filePath;
+            IOUtils.ValidateFilePath(filePath);
+        }
+
         /// <summary>
         /// Writes a <see cref="ExportableAssembly"/> to a file.
         /// </summary>
         /// <param name="assembly">The <see cref="ExportableAssembly"/> to be written to the file.</param>
-        /// <param name="filePath">The path to the file.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="CriticalFileWriteException">Thrown when unable to write to <paramref name="filePath"/>.</exception>
-        public static void Write(ExportableAssembly assembly, string filePath)
+        /// <exception cref="CriticalFileWriteException">Thrown when unable to write the file to the provided file path.</exception>
+        public void Write(ExportableAssembly assembly)
         {
             if (assembly == null)
             {
                 throw new ArgumentNullException(nameof(assembly));
-            }
-
-            if (filePath == null)
-            {
-                throw new ArgumentNullException(nameof(filePath));
             }
 
             try
@@ -61,21 +77,20 @@ namespace Riskeer.AssemblyTool.IO
                     Indent = true
                 };
 
-                using (var writer = XmlWriter.Create(filePath, settings))
-                {
-                    writer.WriteStartDocument();
-                    writer.WriteStartElement(AssemblyXmlIdentifiers.UboiNamespaceIdentifier, AssemblyXmlIdentifiers.AssemblyCollection, AssemblyXmlIdentifiers.UboiNamespace);
-                    writer.WriteAttributeString(AssemblyXmlIdentifiers.XmlnsIdentifier, AssemblyXmlIdentifiers.XLinkNamespaceIdentifier, null, AssemblyXmlIdentifiers.XLinkNamespace);
-                    writer.WriteAttributeString(AssemblyXmlIdentifiers.XmlnsIdentifier, AssemblyXmlIdentifiers.GmlNamespaceIdentifier, null, AssemblyXmlIdentifiers.GmlNamespace);
-                    writer.WriteAttributeString(AssemblyXmlIdentifiers.XmlnsIdentifier, AssemblyXmlIdentifiers.ImwapNamespaceIdentifier, null, AssemblyXmlIdentifiers.ImwapNamespace);
-                    writer.WriteAttributeString(AssemblyXmlIdentifiers.Id, AssemblyXmlIdentifiers.GmlNamespace, assembly.Id);
+                writer = XmlWriter.Create(filePath, settings);
 
-                    WriteFeatureMember(() => WriteAssessmentSection(assembly.AssessmentSection, writer), writer);
-                    WriteFeatureMember(() => WriteAssessmentProcess(assembly.AssessmentProcess, writer), writer);
+                writer.WriteStartDocument();
+                writer.WriteStartElement(AssemblyXmlIdentifiers.UboiNamespaceIdentifier, AssemblyXmlIdentifiers.AssemblyCollection, AssemblyXmlIdentifiers.UboiNamespace);
+                writer.WriteAttributeString(AssemblyXmlIdentifiers.XmlnsIdentifier, AssemblyXmlIdentifiers.XLinkNamespaceIdentifier, null, AssemblyXmlIdentifiers.XLinkNamespace);
+                writer.WriteAttributeString(AssemblyXmlIdentifiers.XmlnsIdentifier, AssemblyXmlIdentifiers.GmlNamespaceIdentifier, null, AssemblyXmlIdentifiers.GmlNamespace);
+                writer.WriteAttributeString(AssemblyXmlIdentifiers.XmlnsIdentifier, AssemblyXmlIdentifiers.ImwapNamespaceIdentifier, null, AssemblyXmlIdentifiers.ImwapNamespace);
+                writer.WriteAttributeString(AssemblyXmlIdentifiers.Id, AssemblyXmlIdentifiers.GmlNamespace, assembly.Id);
 
-                    writer.WriteEndElement();
-                    writer.WriteEndDocument();
-                }
+                WriteFeatureMember(() => WriteAssessmentSection(assembly.AssessmentSection));
+                WriteFeatureMember(() => WriteAssessmentProcess(assembly.AssessmentProcess));
+
+                writer.WriteEndElement();
+                writer.WriteEndDocument();
             }
             catch (SystemException e)
             {
@@ -83,7 +98,21 @@ namespace Riskeer.AssemblyTool.IO
             }
         }
 
-        private static void WriteFeatureMember(Action writeElementAction, XmlWriter writer)
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                writer?.Dispose();
+            }
+        }
+
+        private void WriteFeatureMember(Action writeElementAction)
         {
             writer.WriteStartElement(AssemblyXmlIdentifiers.FeatureMember, AssemblyXmlIdentifiers.UboiNamespace);
 
@@ -92,9 +121,9 @@ namespace Riskeer.AssemblyTool.IO
             writer.WriteEndElement();
         }
 
-        private static void WriteAssessmentSection(ExportableAssessmentSection assessmentSection, XmlWriter writer)
+        private void WriteAssessmentSection(ExportableAssessmentSection assessmentSection)
         {
-            WriteStartElementWithId(AssemblyXmlIdentifiers.AssessmentSection, AssemblyXmlIdentifiers.ImwapNamespace, assessmentSection.Id, writer);
+            WriteStartElementWithId(AssemblyXmlIdentifiers.AssessmentSection, AssemblyXmlIdentifiers.ImwapNamespace, assessmentSection.Id);
 
             writer.WriteElementString(AssemblyXmlIdentifiers.Name, AssemblyXmlIdentifiers.ImwapNamespace, assessmentSection.Name);
 
@@ -111,25 +140,25 @@ namespace Riskeer.AssemblyTool.IO
             writer.WriteEndElement();
         }
 
-        private static void WriteAssessmentProcess(ExportableAssessmentProcess assessmentProcess, XmlWriter writer)
+        private void WriteAssessmentProcess(ExportableAssessmentProcess assessmentProcess)
         {
-            WriteStartElementWithId(AssemblyXmlIdentifiers.AssessmentProcess, AssemblyXmlIdentifiers.UboiNamespace, assessmentProcess.Id, writer);
-            
+            WriteStartElementWithId(AssemblyXmlIdentifiers.AssessmentProcess, AssemblyXmlIdentifiers.UboiNamespace, assessmentProcess.Id);
+
             writer.WriteElementString(AssemblyXmlIdentifiers.StartYear, AssemblyXmlIdentifiers.UboiNamespace, XmlConvert.ToString(assessmentProcess.StartYear));
             writer.WriteElementString(AssemblyXmlIdentifiers.EndYear, AssemblyXmlIdentifiers.UboiNamespace, XmlConvert.ToString(assessmentProcess.EndYear));
 
-            WriteLink(AssemblyXmlIdentifiers.Assesses, assessmentProcess.AssessmentSectionId, writer);
+            WriteLink(AssemblyXmlIdentifiers.Assesses, assessmentProcess.AssessmentSectionId);
 
             writer.WriteEndElement();
         }
 
-        private static void WriteStartElementWithId(string elementName, string elementNamespace, string id, XmlWriter writer)
+        private void WriteStartElementWithId(string elementName, string elementNamespace, string id)
         {
             writer.WriteStartElement(elementName, elementNamespace);
             writer.WriteAttributeString(AssemblyXmlIdentifiers.Id, AssemblyXmlIdentifiers.GmlNamespace, id);
         }
 
-        private static void WriteLink(string elementName, string linkedId, XmlWriter writer)
+        private void WriteLink(string elementName, string linkedId)
         {
             writer.WriteStartElement(elementName, AssemblyXmlIdentifiers.UboiNamespace);
             writer.WriteAttributeString(AssemblyXmlIdentifiers.Link, AssemblyXmlIdentifiers.XLinkNamespace, linkedId);

@@ -39,28 +39,49 @@ namespace Riskeer.AssemblyTool.IO.Test
                                                                           nameof(AssemblyGmlWriterTest));
 
         [Test]
-        public void Write_AssemblyNull_ThrowsArgumentNullException()
+        public void Constructor_FilePathNull_ThrowsArgumentException()
         {
             // Call
-            void Call() => AssemblyGmlWriter.Write(null, string.Empty);
+            void Call() => new AssemblyGmlWriter(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assembly", exception.ParamName);
+            Assert.Throws<ArgumentException>(Call);
         }
 
         [Test]
-        public void Write_FilePathNull_ThrowsArgumentNullException()
+        [TestCaseSource(typeof(InvalidPathHelper), nameof(InvalidPathHelper.InvalidPaths))]
+        public void Constructor_InvalidFilePath_ThrowsArgumentException(string filePath)
         {
-            // Setup
-            ExportableAssembly assembly = CreateExportableAssembly();
-
             // Call
-            void Call() => AssemblyGmlWriter.Write(assembly, null);
+            void Call() => new AssemblyGmlWriter(filePath);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("filePath", exception.ParamName);
+            Assert.Throws<ArgumentException>(Call);
+        }
+
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Call
+            var writer = new AssemblyGmlWriter("filepath");
+
+            // Assert
+            Assert.IsInstanceOf<IDisposable>(writer);
+        }
+
+        [Test]
+        public void Write_AssemblyNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            using (var writer = new AssemblyGmlWriter("filepath"))
+            {
+                // Call
+                void Call() => writer.Write(null);
+
+                // Assert
+                var exception = Assert.Throws<ArgumentNullException>(Call);
+                Assert.AreEqual("assembly", exception.ParamName);
+            }
         }
 
         [Test]
@@ -70,13 +91,16 @@ namespace Riskeer.AssemblyTool.IO.Test
             ExportableAssembly assembly = CreateExportableAssembly();
             var filePath = new string('a', 249);
 
-            // Call
-            void Call() => AssemblyGmlWriter.Write(assembly, filePath);
+            using (var writer = new AssemblyGmlWriter(filePath))
+            {
+                // Call
+                void Call() => writer.Write(assembly);
 
-            // Assert
-            var exception = Assert.Throws<CriticalFileWriteException>(Call);
-            Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.", exception.Message);
-            Assert.IsInstanceOf<PathTooLongException>(exception.InnerException);
+                // Assert
+                var exception = Assert.Throws<CriticalFileWriteException>(Call);
+                Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.", exception.Message);
+                Assert.IsInstanceOf<PathTooLongException>(exception.InnerException);
+            }
         }
 
         [Test]
@@ -91,8 +115,11 @@ namespace Riskeer.AssemblyTool.IO.Test
 
             try
             {
-                // Call
-                AssemblyGmlWriter.Write(assembly, filePath);
+                using (var writer = new AssemblyGmlWriter(filePath))
+                {
+                    // Call
+                    writer.Write(assembly);
+                }
 
                 // Assert
                 Assert.IsTrue(File.Exists(filePath));
@@ -108,7 +135,7 @@ namespace Riskeer.AssemblyTool.IO.Test
             }
         }
 
-        private ExportableAssembly CreateExportableAssembly()
+        private static ExportableAssembly CreateExportableAssembly()
         {
             var assessmentSection = new ExportableAssessmentSection(
                 "Traject A", "section1", new[]
