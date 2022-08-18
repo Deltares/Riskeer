@@ -12,4 +12,11 @@
       <imwap:typeWaterkeringstelsel>Dijktraject</imwap:typeWaterkeringstelsel>
     </imwap:Waterkeringstelsel>
   </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Beoordelingsproces gml:id="beoordelingsproces1">
+      <uboi:beginJaarBeoordelingsronde>2023</uboi:beginJaarBeoordelingsronde>
+      <uboi:eindJaarBeoordelingsronde>2035</uboi:eindJaarBeoordelingsronde>
+      <uboi:beoordeelt xlink:href="section1" />
+    </uboi:Beoordelingsproces>
+  </uboi:featureMember>
 </uboi:Assembleren-collectie>

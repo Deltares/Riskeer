@@ -70,7 +70,8 @@ namespace Riskeer.AssemblyTool.IO
                     writer.WriteAttributeString(AssemblyXmlIdentifiers.XmlnsIdentifier, AssemblyXmlIdentifiers.ImwapNamespaceIdentifier, null, AssemblyXmlIdentifiers.ImwapNamespace);
                     writer.WriteAttributeString(AssemblyXmlIdentifiers.Id, AssemblyXmlIdentifiers.GmlNamespace, assembly.Id);
 
-                    WriteAssessmentSectionFeatureMember(assembly.AssessmentSection, writer);
+                    WriteFeatureMember(() => WriteAssessmentSection(assembly.AssessmentSection, writer), writer);
+                    WriteFeatureMember(() => WriteAssessmentProcess(assembly.AssessmentProcess, writer), writer);
 
                     writer.WriteEndElement();
                     writer.WriteEndDocument();
@@ -82,10 +83,17 @@ namespace Riskeer.AssemblyTool.IO
             }
         }
 
-        private static void WriteAssessmentSectionFeatureMember(ExportableAssessmentSection assessmentSection, XmlWriter writer)
+        private static void WriteFeatureMember(Action writeElementAction, XmlWriter writer)
         {
             writer.WriteStartElement(AssemblyXmlIdentifiers.FeatureMember, AssemblyXmlIdentifiers.UboiNamespace);
 
+            writeElementAction();
+
+            writer.WriteEndElement();
+        }
+
+        private static void WriteAssessmentSection(ExportableAssessmentSection assessmentSection, XmlWriter writer)
+        {
             writer.WriteStartElement(AssemblyXmlIdentifiers.AssessmentSection, AssemblyXmlIdentifiers.ImwapNamespace);
             writer.WriteAttributeString(AssemblyXmlIdentifiers.Id, AssemblyXmlIdentifiers.GmlNamespace, assessmentSection.Id);
 
@@ -101,6 +109,19 @@ namespace Riskeer.AssemblyTool.IO
             writer.WriteElementString(AssemblyXmlIdentifiers.Length, AssemblyXmlIdentifiers.ImwapNamespace, XmlConvert.ToString(Math2D.Length(assessmentSection.Geometry)));
             writer.WriteElementString(AssemblyXmlIdentifiers.AssessmentSectionType, AssemblyXmlIdentifiers.ImwapNamespace, Resources.AssessmentSectionType);
 
+            writer.WriteEndElement();
+        }
+
+        private static void WriteAssessmentProcess(ExportableAssessmentProcess assessmentProcess, XmlWriter writer)
+        {
+            writer.WriteStartElement(AssemblyXmlIdentifiers.AssessmentProcess, AssemblyXmlIdentifiers.UboiNamespace);
+            writer.WriteAttributeString(AssemblyXmlIdentifiers.Id, AssemblyXmlIdentifiers.GmlNamespace, assessmentProcess.Id);
+
+            writer.WriteElementString(AssemblyXmlIdentifiers.StartYear, AssemblyXmlIdentifiers.UboiNamespace, XmlConvert.ToString(assessmentProcess.StartYear));
+            writer.WriteElementString(AssemblyXmlIdentifiers.EndYear, AssemblyXmlIdentifiers.UboiNamespace, XmlConvert.ToString(assessmentProcess.EndYear));
+
+            writer.WriteStartElement(AssemblyXmlIdentifiers.Assesses, AssemblyXmlIdentifiers.UboiNamespace);
+            writer.WriteAttributeString(AssemblyXmlIdentifiers.Link, AssemblyXmlIdentifiers.XLinkNamespace, assessmentProcess.AssessmentSectionId);
             writer.WriteEndElement();
 
             writer.WriteEndElement();
