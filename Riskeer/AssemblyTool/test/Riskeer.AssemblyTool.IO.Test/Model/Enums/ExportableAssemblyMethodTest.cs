@@ -22,9 +22,9 @@
 using System.Collections.Generic;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.AssemblyTool.IO.Model;
+using Riskeer.AssemblyTool.IO.Model.Enums;
 
-namespace Riskeer.AssemblyTool.IO.Test.Model
+namespace Riskeer.AssemblyTool.IO.Test.Model.Enums
 {
     [TestFixture]
     public class ExportableAssemblyMethodTest : EnumValuesTestFixture<ExportableAssemblyMethod, int>

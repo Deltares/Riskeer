@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Riskeer.AssemblyTool.IO.Model.Enums;
 
 namespace Riskeer.AssemblyTool.IO.Model
 {

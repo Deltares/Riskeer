@@ -19,25 +19,21 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
-using Core.Common.TestUtil;
-using NUnit.Framework;
-using Riskeer.AssemblyTool.IO.Model;
-
-namespace Riskeer.AssemblyTool.IO.Test.Model
+namespace Riskeer.AssemblyTool.IO.Model.Enums
 {
-    [TestFixture]
-    public class ExportableFailureMechanismTypeTest : EnumValuesTestFixture<ExportableFailureMechanismType, int>
+    /// <summary>
+    /// Enum representing the exportable failure mechanism types.
+    /// </summary>
+    public enum ExportableFailureMechanismType
     {
-        protected override IDictionary<ExportableFailureMechanismType, int> ExpectedValueForEnumValues =>
-            new Dictionary<ExportableFailureMechanismType, int>
-            {
-                {
-                    ExportableFailureMechanismType.Generic, 1
-                },
-                {
-                    ExportableFailureMechanismType.Specific, 2
-                }
-            };
+        /// <summary>
+        /// Represents a generic failure mechanism.
+        /// </summary>
+        Generic = 1,
+
+        /// <summary>
+        /// Represents a specific failure mechanism.
+        /// </summary>
+        Specific = 2
     }
 }

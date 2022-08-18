@@ -21,6 +21,7 @@
 
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.IO.Model;
+using Riskeer.AssemblyTool.IO.Model.Enums;
 
 namespace Riskeer.AssemblyTool.IO.TestUtil
 {

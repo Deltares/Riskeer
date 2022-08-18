@@ -23,6 +23,7 @@ using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.IO.Model;
+using Riskeer.AssemblyTool.IO.Model.Enums;
 using Riskeer.AssemblyTool.IO.ModelOld.DataTypes;
 using Riskeer.Integration.IO.Creators;
 using Riskeer.Integration.IO.TestUtil;

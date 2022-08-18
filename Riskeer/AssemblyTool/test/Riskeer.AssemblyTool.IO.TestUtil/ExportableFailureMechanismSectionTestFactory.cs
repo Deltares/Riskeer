@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Base.Geometry;
 using Riskeer.AssemblyTool.IO.Model;
+using Riskeer.AssemblyTool.IO.Model.Enums;
 
 namespace Riskeer.AssemblyTool.IO.TestUtil
 {

@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Riskeer.AssemblyTool.IO.Model
+namespace Riskeer.AssemblyTool.IO.Model.Enums
 {
     /// <summary>
     /// Enum defining the exportable assembly methods.

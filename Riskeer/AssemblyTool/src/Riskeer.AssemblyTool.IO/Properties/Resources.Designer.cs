@@ -109,6 +109,51 @@ namespace Riskeer.AssemblyTool.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A.
+        /// </summary>
+        internal static string ExportableAssessmentSectionAssemblyGroup_A_DisplayName {
+            get {
+                return ResourceManager.GetString("ExportableAssessmentSectionAssemblyGroup_A_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A+.
+        /// </summary>
+        internal static string ExportableAssessmentSectionAssemblyGroup_APlus_DisplayName {
+            get {
+                return ResourceManager.GetString("ExportableAssessmentSectionAssemblyGroup_APlus_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to B.
+        /// </summary>
+        internal static string ExportableAssessmentSectionAssemblyGroup_B_DisplayName {
+            get {
+                return ResourceManager.GetString("ExportableAssessmentSectionAssemblyGroup_B_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to C.
+        /// </summary>
+        internal static string ExportableAssessmentSectionAssemblyGroup_C_DisplayName {
+            get {
+                return ResourceManager.GetString("ExportableAssessmentSectionAssemblyGroup_C_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to D.
+        /// </summary>
+        internal static string ExportableAssessmentSectionAssemblyGroup_D_DisplayName {
+            get {
+                return ResourceManager.GetString("ExportableAssessmentSectionAssemblyGroup_D_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to VOLLDG.
         /// </summary>
         internal static string FullAssembly {

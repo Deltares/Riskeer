@@ -21,6 +21,7 @@
 
 using System;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.IO.Model.Enums;
 
 namespace Riskeer.AssemblyTool.IO.Model
 {

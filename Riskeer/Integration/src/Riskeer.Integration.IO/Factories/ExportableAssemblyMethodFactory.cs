@@ -23,6 +23,7 @@ using System;
 using System.ComponentModel;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.IO.Model;
+using Riskeer.AssemblyTool.IO.Model.Enums;
 
 namespace Riskeer.Integration.IO.Factories
 {

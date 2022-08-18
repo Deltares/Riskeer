@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Riskeer.AssemblyTool.IO.Model.Enums;
 
 namespace Riskeer.AssemblyTool.IO.Model
 {

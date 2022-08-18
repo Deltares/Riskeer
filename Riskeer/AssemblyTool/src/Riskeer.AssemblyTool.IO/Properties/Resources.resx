@@ -132,4 +132,19 @@
   <data name="CoordinateSystemName" xml:space="preserve">
     <value>EPSG:28992</value>
   </data>
+  <data name="ExportableAssessmentSectionAssemblyGroup_APlus_DisplayName" xml:space="preserve">
+    <value>A+</value>
+  </data>
+  <data name="ExportableAssessmentSectionAssemblyGroup_A_DisplayName" xml:space="preserve">
+    <value>A</value>
+  </data>
+  <data name="ExportableAssessmentSectionAssemblyGroup_B_DisplayName" xml:space="preserve">
+    <value>B</value>
+  </data>
+  <data name="ExportableAssessmentSectionAssemblyGroup_C_DisplayName" xml:space="preserve">
+    <value>C</value>
+  </data>
+  <data name="ExportableAssessmentSectionAssemblyGroup_D_DisplayName" xml:space="preserve">
+    <value>D</value>
+  </data>
 </root>
