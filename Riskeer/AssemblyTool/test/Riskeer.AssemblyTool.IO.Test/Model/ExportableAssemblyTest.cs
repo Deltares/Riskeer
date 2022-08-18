@@ -40,9 +40,10 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             var assessmentSection = new ExportableAssessmentSection(
                 string.Empty, string.Empty, Enumerable.Empty<Point2D>(), ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
                 Enumerable.Empty<ExportableFailureMechanism>(), Enumerable.Empty<ExportableCombinedSectionAssembly>());
+            var assessmentProcess = new ExportableAssessmentProcess("id", 0, 0, assessmentSection);
 
             // Call
-            void Call() => new ExportableAssembly(invalidId, assessmentSection);
+            void Call() => new ExportableAssembly(invalidId, assessmentSection, assessmentProcess);
 
             // Assert
             const string expectedMessage = "'id' must have a value and consist only of alphanumerical characters, '-', '_' or '.'.";
@@ -52,12 +53,34 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var assessmentSection = new ExportableAssessmentSection(
+                string.Empty, string.Empty, Enumerable.Empty<Point2D>(), ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
+                Enumerable.Empty<ExportableFailureMechanism>(), Enumerable.Empty<ExportableCombinedSectionAssembly>());
+            var assessmentProcess = new ExportableAssessmentProcess("id", 0, 0, assessmentSection);
+
             // Call
-            void Call() => new ExportableAssembly("id", null);
+            void Call() => new ExportableAssembly("id", null, assessmentProcess);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_AssessmentProcessNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var assessmentSection = new ExportableAssessmentSection(
+                string.Empty, string.Empty, Enumerable.Empty<Point2D>(), ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
+                Enumerable.Empty<ExportableFailureMechanism>(), Enumerable.Empty<ExportableCombinedSectionAssembly>());
+
+            // Call
+            void Call() => new ExportableAssembly("id", assessmentSection, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentProcess", exception.ParamName);
         }
 
         [Test]
@@ -68,13 +91,15 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             var assessmentSection = new ExportableAssessmentSection(
                 string.Empty, string.Empty, Enumerable.Empty<Point2D>(), ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
                 Enumerable.Empty<ExportableFailureMechanism>(), Enumerable.Empty<ExportableCombinedSectionAssembly>());
+            var assessmentProcess = new ExportableAssessmentProcess("id2", 0, 0, assessmentSection);
 
             // Call
-            var assembly = new ExportableAssembly(id, assessmentSection);
+            var assembly = new ExportableAssembly(id, assessmentSection, assessmentProcess);
 
             // Assert
             Assert.AreEqual(id, assembly.Id);
             Assert.AreSame(assessmentSection, assembly.AssessmentSection);
+            Assert.AreSame(assessmentProcess, assembly.AssessmentProcess);
         }
     }
 }

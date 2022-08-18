@@ -34,9 +34,10 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// </summary>
         /// <param name="id">The id of the assembly.</param>
         /// <param name="assessmentSection">The assessment section of the assembly.</param>
+        /// <param name="assessmentProcess">The assessment process of the assembly.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter except <paramref name="id"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is invalid.</exception>
-        public ExportableAssembly(string id, ExportableAssessmentSection assessmentSection)
+        public ExportableAssembly(string id, ExportableAssessmentSection assessmentSection, ExportableAssessmentProcess assessmentProcess)
         {
             IdValidationHelper.ThrowIfInvalid(id);
             
@@ -45,8 +46,14 @@ namespace Riskeer.AssemblyTool.IO.Model
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
+            if (assessmentProcess == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentProcess));
+            }
+
             Id = id;
             AssessmentSection = assessmentSection;
+            AssessmentProcess = assessmentProcess;
         }
         
         /// <summary>
@@ -58,5 +65,10 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// Gets the assessment section of the assembly.
         /// </summary>
         public ExportableAssessmentSection AssessmentSection { get; }
+
+        /// <summary>
+        /// Gets the assessment process of the assembly.
+        /// </summary>
+        public ExportableAssessmentProcess AssessmentProcess { get; }
     }
 }
