@@ -23,8 +23,8 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Riskeer.AssemblyTool.IO.Assembly;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Integration.IO.Assembly;
 using Riskeer.Integration.IO.Helpers;
 
 namespace Riskeer.Integration.IO.Test.Helpers

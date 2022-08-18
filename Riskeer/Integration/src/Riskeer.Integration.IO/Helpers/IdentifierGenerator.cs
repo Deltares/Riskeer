@@ -21,7 +21,7 @@
 
 using System;
 using System.Collections.Generic;
-using Riskeer.Integration.IO.Assembly;
+using Riskeer.AssemblyTool.IO.Assembly;
 using Riskeer.Integration.IO.Properties;
 
 namespace Riskeer.Integration.IO.Helpers

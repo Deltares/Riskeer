@@ -21,8 +21,8 @@
 
 using System;
 using System.ComponentModel;
+using Riskeer.AssemblyTool.IO.Assembly;
 using Riskeer.AssemblyTool.IO.Model.Enums;
-using Riskeer.Integration.IO.Assembly;
 
 namespace Riskeer.Integration.IO.Creators
 {

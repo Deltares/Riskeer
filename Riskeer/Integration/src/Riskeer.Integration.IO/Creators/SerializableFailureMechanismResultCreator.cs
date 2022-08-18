@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
+using Riskeer.AssemblyTool.IO.Assembly;
 using Riskeer.AssemblyTool.IO.Model.DataTypes;
-using Riskeer.Integration.IO.Assembly;
 
 namespace Riskeer.Integration.IO.Creators
 {

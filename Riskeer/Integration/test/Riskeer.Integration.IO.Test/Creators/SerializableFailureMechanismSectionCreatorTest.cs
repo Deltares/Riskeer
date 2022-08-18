@@ -21,8 +21,9 @@
 
 using System;
 using NUnit.Framework;
+using Riskeer.AssemblyTool.IO.Assembly;
 using Riskeer.AssemblyTool.IO.Model;
-using Riskeer.Integration.IO.Assembly;
+using Riskeer.AssemblyTool.IO.TestUtil;
 using Riskeer.Integration.IO.Creators;
 using Riskeer.Integration.IO.Helpers;
 using Riskeer.Integration.IO.TestUtil;

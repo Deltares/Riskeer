@@ -25,12 +25,12 @@ using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.IO.Assembly;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.Data;
-using Riskeer.Integration.IO.Assembly;
 using Riskeer.Integration.IO.Factories;
 
 namespace Riskeer.Integration.IO.Test.Factories

@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using NUnit.Framework;
+using Riskeer.AssemblyTool.IO.Assembly;
 using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.AssemblyTool.IO.Model.Enums;
 using Riskeer.AssemblyTool.IO.Model.Helpers;
-using Riskeer.Integration.IO.Assembly;
 using Riskeer.Integration.IO.Creators;
 
 namespace Riskeer.Integration.IO.TestUtil

@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.IO.Assembly;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
@@ -36,7 +37,6 @@ using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Assembly;
 using Riskeer.Integration.Data.StandAlone;
 using Riskeer.Integration.Data.StandAlone.AssemblyFactories;
-using Riskeer.Integration.IO.Assembly;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.Piping.Data;
 using Riskeer.StabilityPointStructures.Data;

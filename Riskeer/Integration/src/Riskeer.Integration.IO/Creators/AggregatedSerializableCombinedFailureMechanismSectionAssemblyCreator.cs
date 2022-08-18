@@ -21,11 +21,11 @@
 
 using System;
 using System.Linq;
+using Riskeer.AssemblyTool.IO.Assembly;
 using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.AssemblyTool.IO.Model.DataTypes;
 using Riskeer.AssemblyTool.IO.Model.Enums;
 using Riskeer.Integration.IO.AggregatedSerializable;
-using Riskeer.Integration.IO.Assembly;
 using Riskeer.Integration.IO.Exceptions;
 using Riskeer.Integration.IO.Helpers;
 using Riskeer.Integration.IO.Properties;

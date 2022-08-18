@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
+using Riskeer.AssemblyTool.IO.Assembly;
 using Riskeer.AssemblyTool.IO.Model;
-using Riskeer.Integration.IO.Assembly;
 using Riskeer.Integration.IO.Exceptions;
 using Riskeer.Integration.IO.Helpers;
 using Riskeer.Integration.IO.Properties;
