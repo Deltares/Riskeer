@@ -19,21 +19,31 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Riskeer.AssemblyTool.IO.Assembly
-{
-    /// <summary>
-    /// Enum representing the exportable failure mechanism types.
-    /// </summary>
-    public enum ExportableFailureMechanismType
-    {
-        /// <summary>
-        /// Represents a generic failure mechanism.
-        /// </summary>
-        Generic = 1,
+using System;
+using Core.Common.TestUtil;
+using NUnit.Framework;
+using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.IO.Model;
 
-        /// <summary>
-        /// Represents a specific failure mechanism.
-        /// </summary>
-        Specific = 2
+namespace Riskeer.AssemblyTool.IO.Test.Model
+{
+    [TestFixture]
+    public class ExportableFailureMechanismSubSectionAssemblyResultTest
+    {
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var random = new Random(21);
+            var assemblyGroup = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>();
+            var assemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
+
+            // Call
+            var assemblyResult = new ExportableFailureMechanismSubSectionAssemblyResult(assemblyGroup, assemblyMethod);
+
+            // Assert
+            Assert.AreEqual(assemblyGroup, assemblyResult.AssemblyGroup);
+            Assert.AreEqual(assemblyMethod, assemblyResult.AssemblyMethod);
+        }
     }
 }

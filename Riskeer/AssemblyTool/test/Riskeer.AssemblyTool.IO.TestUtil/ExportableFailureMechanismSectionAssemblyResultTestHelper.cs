@@ -23,7 +23,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.IO.Assembly;
+using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.Integration.IO.Factories;
 
 namespace Riskeer.AssemblyTool.IO.TestUtil

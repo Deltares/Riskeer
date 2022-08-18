@@ -19,35 +19,32 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Riskeer.AssemblyTool.Data;
-
-namespace Riskeer.AssemblyTool.IO.Assembly
+namespace Riskeer.AssemblyTool.IO.Model
 {
     /// <summary>
-    /// Class that holds all the information to export an assembly result for a failure mechanism sub section.
+    /// Class that holds the information to export the assembly result of a failure mechanism.
     /// </summary>
-    public class ExportableFailureMechanismSubSectionAssemblyResult
+    public class ExportableFailureMechanismAssemblyResult
     {
         /// <summary>
-        /// Creates a new instance of <see cref="ExportableFailureMechanismSubSectionAssemblyResult"/>.
+        /// Creates a new instance of <see cref="ExportableFailureMechanismAssemblyResult"/>.
         /// </summary>
+        /// <param name="probability">The probability of the assembly result.</param>
         /// <param name="assemblyMethod">The method that was used to assemble this result.</param>
-        /// <param name="assemblyGroup">The assembly group of this section.</param>
-        public ExportableFailureMechanismSubSectionAssemblyResult(FailureMechanismSectionAssemblyGroup assemblyGroup,
-                                                                  ExportableAssemblyMethod assemblyMethod)
+        public ExportableFailureMechanismAssemblyResult(double probability, ExportableAssemblyMethod assemblyMethod)
         {
+            Probability = probability;
             AssemblyMethod = assemblyMethod;
-            AssemblyGroup = assemblyGroup;
         }
 
         /// <summary>
-        /// Gets the assembly method that was used to assemble the assembly result.
+        /// Gets the probability of the assembly result of this failure mechanism.
         /// </summary>
-        public ExportableAssemblyMethod AssemblyMethod { get; }
+        public double Probability { get; }
 
         /// <summary>
-        /// Gets the assembly group of this section.
+        /// Gets the method that was used to assemble this result.
         /// </summary>
-        public FailureMechanismSectionAssemblyGroup AssemblyGroup { get; }
+        public ExportableAssemblyMethod AssemblyMethod { get; }
     }
 }

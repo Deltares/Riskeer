@@ -21,7 +21,7 @@
 
 using System;
 using System.Linq;
-using Riskeer.AssemblyTool.IO.Assembly;
+using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.AssemblyTool.IO.ModelOld;
 using Riskeer.Integration.IO.AggregatedSerializable;
 using Riskeer.Integration.IO.Exceptions;

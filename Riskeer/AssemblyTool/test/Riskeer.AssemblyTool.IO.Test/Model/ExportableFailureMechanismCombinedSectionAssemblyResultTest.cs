@@ -23,9 +23,9 @@ using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.IO.Assembly;
+using Riskeer.AssemblyTool.IO.Model;
 
-namespace Riskeer.AssemblyTool.IO.Test.Assembly
+namespace Riskeer.AssemblyTool.IO.Test.Model
 {
     [TestFixture]
     public class ExportableFailureMechanismCombinedSectionAssemblyResultTest

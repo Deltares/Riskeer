@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base.Geometry;
 
-namespace Riskeer.AssemblyTool.IO.Assembly
+namespace Riskeer.AssemblyTool.IO.Model
 {
     /// <summary>
     /// Class that holds all the information to export the assembly results

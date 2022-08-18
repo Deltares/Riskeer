@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.IO.Assembly;
+using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;

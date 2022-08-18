@@ -26,7 +26,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.IO.Assembly;
+using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.AssemblyTool.IO.ModelOld;
 using Riskeer.AssemblyTool.IO.ModelOld.DataTypes;
 using Riskeer.AssemblyTool.IO.ModelOld.Enums;

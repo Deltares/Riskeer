@@ -21,7 +21,7 @@
 
 using System;
 using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.IO.Assembly;
+using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.AssemblyTool.IO.ModelOld.DataTypes;
 using Riskeer.Integration.IO.Exceptions;
 

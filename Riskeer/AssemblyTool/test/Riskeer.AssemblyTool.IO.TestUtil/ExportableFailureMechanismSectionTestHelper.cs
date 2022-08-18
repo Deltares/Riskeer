@@ -23,7 +23,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Riskeer.AssemblyTool.IO.Assembly;
+using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.Common.Data.FailureMechanism;
 
 namespace Riskeer.AssemblyTool.IO.TestUtil

@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Riskeer.AssemblyTool.IO.Assembly;
+using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.AssemblyTool.IO.ModelOld.DataTypes;
 
 namespace Riskeer.Integration.IO.Creators

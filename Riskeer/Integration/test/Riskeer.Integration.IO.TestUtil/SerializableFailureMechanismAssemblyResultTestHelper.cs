@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Riskeer.AssemblyTool.IO.Assembly;
+using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.AssemblyTool.IO.ModelOld.DataTypes;
 using Riskeer.Integration.IO.Creators;
 

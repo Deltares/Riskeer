@@ -23,49 +23,37 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base.Geometry;
 
-namespace Riskeer.AssemblyTool.IO.Assembly
+namespace Riskeer.AssemblyTool.IO.Model
 {
     /// <summary>
-    /// Class which holds all the information to export a failure mechanism section.
+    /// Class that holds all the information to export a failure mechanism section
+    /// which is the result of an combined section assembly.
     /// </summary>
-    public class ExportableFailureMechanismSection
+    public class ExportableCombinedFailureMechanismSection : ExportableFailureMechanismSection
     {
         /// <summary>
-        /// Creates a new instance of <see cref="ExportableFailureMechanismSection"/>.
+        /// Creates a new instance of <see cref="ExportableCombinedFailureMechanismSection"/>.
         /// </summary>
         /// <param name="geometry">The geometry of the failure mechanism section.</param>
         /// <param name="startDistance">The start distance of the failure mechanism section between the section
         /// and the start of the reference line in meters.</param>
         /// <param name="endDistance">The end distance of the failure mechanism section between the section
         /// and the start of the reference line in meters.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="geometry"/> is <c>null</c>.</exception>
-        public ExportableFailureMechanismSection(IEnumerable<Point2D> geometry, double startDistance, double endDistance)
+        /// <param name="assemblyMethod">The assembly method which was used to get this section.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="geometry"/>
+        /// is <c>null</c>.</exception>
+        public ExportableCombinedFailureMechanismSection(IEnumerable<Point2D> geometry,
+                                                         double startDistance,
+                                                         double endDistance,
+                                                         ExportableAssemblyMethod assemblyMethod)
+            : base(geometry, startDistance, endDistance)
         {
-            if (geometry == null)
-            {
-                throw new ArgumentNullException(nameof(geometry));
-            }
-
-            Geometry = geometry;
-            StartDistance = startDistance;
-            EndDistance = endDistance;
+            AssemblyMethod = assemblyMethod;
         }
 
         /// <summary>
-        /// Gets the geometry of this failure mechanism section.
+        /// Gets the assembly method that was used to get this section.
         /// </summary>
-        public IEnumerable<Point2D> Geometry { get; }
-
-        /// <summary>
-        /// Gets the start distance between this failure mechanism section and the start of the reference line.
-        /// [m]
-        /// </summary>
-        public double StartDistance { get; }
-
-        /// <summary>
-        /// Gets the end distance between this failure mechanism section and the reference line.
-        /// [m]
-        /// </summary>
-        public double EndDistance { get; }
+        public ExportableAssemblyMethod AssemblyMethod { get; }
     }
 }

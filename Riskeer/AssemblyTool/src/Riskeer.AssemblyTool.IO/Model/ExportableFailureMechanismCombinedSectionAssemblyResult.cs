@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Riskeer.AssemblyTool.IO.Assembly
+namespace Riskeer.AssemblyTool.IO.Model
 {
     /// <summary>
     /// Class that holds all the information to export a combined section assembly result of a failure mechanism.

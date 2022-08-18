@@ -20,38 +20,29 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.AssemblyTool.IO.Assembly;
+using Riskeer.AssemblyTool.IO.Model;
 
-namespace Riskeer.AssemblyTool.IO.Test.Assembly
+namespace Riskeer.AssemblyTool.IO.Test.Model
 {
     [TestFixture]
-    public class ExportableCombinedFailureMechanismSectionTest
+    public class ExportableFailureMechanismAssemblyResultTest
     {
         [Test]
-        public void Constructor_WithArguments_ExpectedValues()
+        public void Constructor_ExpectedValues()
         {
             // Setup
             var random = new Random(21);
-            IEnumerable<Point2D> geometry = Enumerable.Empty<Point2D>();
+            double probability = random.NextDouble();
             var assemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
-            double startDistance = random.NextDouble();
-            double endDistance = random.NextDouble();
 
             // Call
-            var section = new ExportableCombinedFailureMechanismSection(geometry, startDistance, endDistance, assemblyMethod);
+            var assemblyResult = new ExportableFailureMechanismAssemblyResult(probability, assemblyMethod);
 
             // Assert
-            Assert.IsInstanceOf<ExportableFailureMechanismSection>(section);
-
-            Assert.AreSame(geometry, section.Geometry);
-            Assert.AreEqual(startDistance, section.StartDistance);
-            Assert.AreEqual(endDistance, section.EndDistance);
-            Assert.AreEqual(assemblyMethod, section.AssemblyMethod);
+            Assert.AreEqual(probability, assemblyResult.Probability);
+            Assert.AreEqual(assemblyMethod, assemblyResult.AssemblyMethod);
         }
     }
 }

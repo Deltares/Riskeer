@@ -26,7 +26,7 @@ using Core.Common.IO.Exceptions;
 using Core.Common.Util;
 using log4net;
 using Riskeer.AssemblyTool.IO;
-using Riskeer.AssemblyTool.IO.Assembly;
+using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.IO.Creators;

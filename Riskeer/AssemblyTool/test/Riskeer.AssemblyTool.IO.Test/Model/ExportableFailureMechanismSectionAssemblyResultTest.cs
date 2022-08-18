@@ -25,13 +25,29 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.IO.Assembly;
+using Riskeer.AssemblyTool.IO.Model;
 
-namespace Riskeer.AssemblyTool.IO.Test.Assembly
+namespace Riskeer.AssemblyTool.IO.Test.Model
 {
     [TestFixture]
-    public class ExportableFailureMechanismSectionAssemblyWithProbabilityResultTest
+    public class ExportableFailureMechanismSectionAssemblyResultTest
     {
+        [Test]
+        public void Constructor_FailureMechanismSectionNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var random = new Random(21);
+
+            // Call
+            void Call() => new ExportableFailureMechanismSectionAssemblyResult(
+                null, random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
+                random.NextEnumValue<ExportableAssemblyMethod>());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanismSection", exception.ParamName);
+        }
+
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -39,21 +55,15 @@ namespace Riskeer.AssemblyTool.IO.Test.Assembly
             var random = new Random(21);
             var section = new ExportableFailureMechanismSection(Enumerable.Empty<Point2D>(), random.NextDouble(), random.NextDouble());
             var assemblyGroup = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>();
-            var assemblyGroupAssemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
-            var probabilityAssemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
-            double probability = random.NextDouble();
+            var assemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
 
             // Call
-            var result = new ExportableFailureMechanismSectionAssemblyWithProbabilityResult(
-                section, assemblyGroup, probability, assemblyGroupAssemblyMethod, probabilityAssemblyMethod);
+            var result = new ExportableFailureMechanismSectionAssemblyResult(section, assemblyGroup, assemblyMethod);
 
             // Assert
-            Assert.IsInstanceOf<ExportableFailureMechanismSectionAssemblyResult>(result);
             Assert.AreSame(section, result.FailureMechanismSection);
             Assert.AreEqual(assemblyGroup, result.AssemblyGroup);
-            Assert.AreEqual(assemblyGroupAssemblyMethod, result.AssemblyGroupAssemblyMethod);
-            Assert.AreEqual(probabilityAssemblyMethod, result.ProbabilityAssemblyMethod);
-            Assert.AreEqual(probability, result.Probability);
+            Assert.AreEqual(assemblyMethod, result.AssemblyGroupAssemblyMethod);
         }
     }
 }

@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.IO.Assembly;
+using Riskeer.AssemblyTool.IO.Model;
 
 namespace Riskeer.AssemblyTool.IO.TestUtil
 {

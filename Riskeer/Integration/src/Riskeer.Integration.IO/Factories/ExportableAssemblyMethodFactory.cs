@@ -22,7 +22,7 @@
 using System;
 using System.ComponentModel;
 using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.IO.Assembly;
+using Riskeer.AssemblyTool.IO.Model;
 
 namespace Riskeer.Integration.IO.Factories
 {

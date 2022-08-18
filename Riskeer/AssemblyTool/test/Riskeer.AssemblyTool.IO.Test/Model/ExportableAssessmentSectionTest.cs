@@ -24,10 +24,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Riskeer.AssemblyTool.IO.Assembly;
+using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.AssemblyTool.IO.TestUtil;
 
-namespace Riskeer.AssemblyTool.IO.Test.Assembly
+namespace Riskeer.AssemblyTool.IO.Test.Model
 {
     [TestFixture]
     public class ExportableAssessmentSectionTest

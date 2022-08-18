@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Riskeer.AssemblyTool.IO.Assembly
+namespace Riskeer.AssemblyTool.IO.Model
 {
     /// <summary>
     /// Class that holds all the information to export the assembly of a failure mechanism.

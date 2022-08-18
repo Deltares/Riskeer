@@ -23,27 +23,32 @@ using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.IO.Assembly;
+using Riskeer.AssemblyTool.IO.Model;
 
-namespace Riskeer.AssemblyTool.IO.Test.Assembly
+namespace Riskeer.AssemblyTool.IO.Test.Model
 {
     [TestFixture]
-    public class ExportableFailureMechanismSubSectionAssemblyResultTest
+    public class ExportableAssessmentSectionAssemblyResultTest
     {
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_WithArguments_ExpectedValues()
         {
             // Setup
             var random = new Random(21);
-            var assemblyGroup = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>();
-            var assemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
+            var assemblyGroup = random.NextEnumValue<AssessmentSectionAssemblyGroup>();
+            double probability = random.NextDouble();
+            var assemblyGroupAssemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
+            var probabilityAssemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
 
             // Call
-            var assemblyResult = new ExportableFailureMechanismSubSectionAssemblyResult(assemblyGroup, assemblyMethod);
+            var assembly = new ExportableAssessmentSectionAssemblyResult(
+                assemblyGroup, probability, assemblyGroupAssemblyMethod, probabilityAssemblyMethod);
 
             // Assert
-            Assert.AreEqual(assemblyGroup, assemblyResult.AssemblyGroup);
-            Assert.AreEqual(assemblyMethod, assemblyResult.AssemblyMethod);
+            Assert.AreEqual(assemblyGroup, assembly.AssemblyGroup);
+            Assert.AreEqual(probability, assembly.Probability);
+            Assert.AreEqual(assemblyGroupAssemblyMethod, assembly.AssemblyGroupAssemblyMethod);
+            Assert.AreEqual(probabilityAssemblyMethod, assembly.ProbabilityAssemblyMethod);
         }
     }
 }
