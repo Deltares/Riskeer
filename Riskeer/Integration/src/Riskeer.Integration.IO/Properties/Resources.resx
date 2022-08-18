@@ -126,6 +126,12 @@
   <data name="SerializableAssembly_IdPrefix" xml:space="preserve">
     <value>Assemblage</value>
   </data>
+  <data name="ExportableAssembly_IdPrefix" xml:space="preserve">
+    <value>assemblage</value>
+  </data>
+  <data name="ExportableAssessmentProcess_IdPrefix" xml:space="preserve">
+    <value>Bp</value>
+  </data>
   <data name="SerializableAssessmentProcess_IdPrefix" xml:space="preserve">
     <value>Bp</value>
   </data>

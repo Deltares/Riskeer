@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2022. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -105,6 +105,24 @@ namespace Riskeer.Integration.IO.Properties {
         public static string AssemblyExporter_Specific_failure_mechanisms_must_have_a_unique_name {
             get {
                 return ResourceManager.GetString("AssemblyExporter_Specific_failure_mechanisms_must_have_a_unique_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to assemblage.
+        /// </summary>
+        public static string ExportableAssembly_IdPrefix {
+            get {
+                return ResourceManager.GetString("ExportableAssembly_IdPrefix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bp.
+        /// </summary>
+        public static string ExportableAssessmentProcess_IdPrefix {
+            get {
+                return ResourceManager.GetString("ExportableAssessmentProcess_IdPrefix", resourceCulture);
             }
         }
         
