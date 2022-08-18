@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.IO;
 using System.Linq;
 using Core.Common.Base.Geometry;
+using Core.Common.IO.Exceptions;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.AssemblyTool.IO.TestUtil;
@@ -56,6 +58,25 @@ namespace Riskeer.AssemblyTool.IO.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("filePath", exception.ParamName);
+        }
+
+        [Test]
+        public void Write_FilePathTooLong_ThrowCriticalFileWriteException()
+        {
+            // Setup
+            var assessmentSection = new ExportableAssessmentSection(
+                string.Empty, string.Empty, Enumerable.Empty<Point2D>(), ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
+                Enumerable.Empty<ExportableFailureMechanism>(), Enumerable.Empty<ExportableCombinedSectionAssembly>());
+
+            var filePath = new string('a', 249);
+
+            // Call
+            void Call() => AssemblyGmlWriter.Write(assessmentSection, filePath);
+
+            // Assert
+            var exception = Assert.Throws<CriticalFileWriteException>(Call);
+            Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.", exception.Message);
+            Assert.IsInstanceOf<PathTooLongException>(exception.InnerException);
         }
     }
 }

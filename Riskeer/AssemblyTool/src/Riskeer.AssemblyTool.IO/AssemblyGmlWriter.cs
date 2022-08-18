@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.Xml;
 using Core.Common.IO.Exceptions;
 using Riskeer.AssemblyTool.IO.Model;
+using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 
 namespace Riskeer.AssemblyTool.IO
 {
@@ -47,6 +49,22 @@ namespace Riskeer.AssemblyTool.IO
             if (filePath == null)
             {
                 throw new ArgumentNullException(nameof(filePath));
+            }
+
+            try
+            {
+                var settings = new XmlWriterSettings
+                {
+                    Indent = true
+                };
+
+                using (var writer = XmlWriter.Create(filePath, settings))
+                {
+                }
+            }
+            catch (SystemException e)
+            {
+                throw new CriticalFileWriteException(string.Format(CoreCommonUtilResources.Error_General_output_error_0, filePath), e);
             }
         }
     }
