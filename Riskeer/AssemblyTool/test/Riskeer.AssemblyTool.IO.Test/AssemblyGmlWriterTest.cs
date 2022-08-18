@@ -24,6 +24,8 @@ using System.IO;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
+using Core.Common.TestUtil;
+using Core.Common.Util;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.AssemblyTool.IO.TestUtil;
@@ -33,6 +35,9 @@ namespace Riskeer.AssemblyTool.IO.Test
     [TestFixture]
     public class AssemblyGmlWriterTest
     {
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.AssemblyTool.IO,
+                                                                          nameof(AssemblyGmlWriterTest));
+
         [Test]
         public void Write_AssessmentSectionNull_ThrowsArgumentNullException()
         {
@@ -77,6 +82,42 @@ namespace Riskeer.AssemblyTool.IO.Test
             var exception = Assert.Throws<CriticalFileWriteException>(Call);
             Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.", exception.Message);
             Assert.IsInstanceOf<PathTooLongException>(exception.InnerException);
+        }
+
+        [Test]
+        public void Write_FullyConfiguredAssessmentSection_ReturnsExpectedFile()
+        {
+            // Setup
+            string folderPath = TestHelper.GetScratchPadPath(nameof(Write_FullyConfiguredAssessmentSection_ReturnsExpectedFile));
+            Directory.CreateDirectory(folderPath);
+            string filePath = Path.Combine(folderPath, "actualAssembly.gml");
+
+            ExportableAssessmentSection assessmentSection = CreateExportableAssessmentSection();
+
+            try
+            {
+                // Call
+                AssemblyGmlWriter.Write(assessmentSection, filePath);
+
+                // Assert
+                Assert.IsTrue(File.Exists(filePath));
+
+                string pathToExpectedFile = Path.Combine(testDataPath, "configuredAssembly.gml");
+                string expectedXml = File.ReadAllText(pathToExpectedFile);
+                string actualXml = File.ReadAllText(filePath);
+                Assert.AreEqual(expectedXml, actualXml);
+            }
+            finally
+            {
+                DirectoryHelper.TryDelete(folderPath);
+            }
+        }
+
+        private ExportableAssessmentSection CreateExportableAssessmentSection()
+        {
+            return new ExportableAssessmentSection(
+                string.Empty, string.Empty, Enumerable.Empty<Point2D>(), ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
+                Enumerable.Empty<ExportableFailureMechanism>(), Enumerable.Empty<ExportableCombinedSectionAssembly>());
         }
     }
 }

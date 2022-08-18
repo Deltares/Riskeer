@@ -39,6 +39,7 @@ namespace Riskeer.AssemblyTool.IO.Test
             Assert.AreEqual("href", AssemblyXmlIdentifiers.Link);
             Assert.AreEqual("beoordeelt", AssemblyXmlIdentifiers.Assesses);
 
+            Assert.AreEqual("xmlns", AssemblyXmlIdentifiers.XmlnsIdentifier);
             Assert.AreEqual("xlink", AssemblyXmlIdentifiers.XLinkNamespaceIdentifier);
             Assert.AreEqual("http://www.w3.org/1999/xlink", AssemblyXmlIdentifiers.XLinkNamespace);
             Assert.AreEqual("gml", AssemblyXmlIdentifiers.GmlNamespaceIdentifier);

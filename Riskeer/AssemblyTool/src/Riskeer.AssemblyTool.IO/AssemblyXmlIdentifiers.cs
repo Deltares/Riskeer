@@ -74,6 +74,11 @@ namespace Riskeer.AssemblyTool.IO
         #region Namespaces
 
         /// <summary>
+        /// Identifier for a xmlns attribute.
+        /// </summary>
+        public const string XmlnsIdentifier = "xmlns";
+        
+        /// <summary>
         /// The XML namespace identifier for XLink objects.
         /// </summary>
         public const string XLinkNamespaceIdentifier = "xlink";
