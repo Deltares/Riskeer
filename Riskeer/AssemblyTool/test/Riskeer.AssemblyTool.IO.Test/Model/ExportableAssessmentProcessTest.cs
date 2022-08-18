@@ -30,7 +30,7 @@ using Riskeer.AssemblyTool.IO.TestUtil;
 namespace Riskeer.AssemblyTool.IO.Test.Model
 {
     [TestFixture]
-    public class ExportableAssemblyTest
+    public class ExportableAssessmentProcessTest
     {
         [Test]
         [TestCaseSource(typeof(InvalidIdTestHelper), nameof(InvalidIdTestHelper.InvalidIdCases))]
@@ -42,7 +42,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
                 Enumerable.Empty<ExportableFailureMechanism>(), Enumerable.Empty<ExportableCombinedSectionAssembly>());
 
             // Call
-            void Call() => new ExportableAssembly(invalidId, assessmentSection);
+            void Call() => new ExportableAssessmentProcess(invalidId, 0, 0, assessmentSection);
 
             // Assert
             const string expectedMessage = "'id' must have a value and consist only of alphanumerical characters, '-', '_' or '.'.";
@@ -53,7 +53,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new ExportableAssembly("id", null);
+            void Call() => new ExportableAssessmentProcess("id", 0, 0, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -65,16 +65,20 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
         {
             // Setup
             const string id = "id";
+            const int startYear = 2023;
+            const int endYear = 2035;
             var assessmentSection = new ExportableAssessmentSection(
-                string.Empty, string.Empty, Enumerable.Empty<Point2D>(), ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
+                string.Empty, "id2", Enumerable.Empty<Point2D>(), ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
                 Enumerable.Empty<ExportableFailureMechanism>(), Enumerable.Empty<ExportableCombinedSectionAssembly>());
 
             // Call
-            var assembly = new ExportableAssembly(id, assessmentSection);
+            var assessmentProcess = new ExportableAssessmentProcess(id, startYear, endYear, assessmentSection);
 
             // Assert
-            Assert.AreEqual(id, assembly.Id);
-            Assert.AreSame(assessmentSection, assembly.AssessmentSection);
+            Assert.AreEqual(id, assessmentProcess.Id);
+            Assert.AreEqual(startYear, assessmentProcess.StartYear);
+            Assert.AreEqual(endYear, assessmentProcess.EndYear);
+            Assert.AreSame(assessmentSection.Id, assessmentProcess.AssessmentSectionId);
         }
     }
 }
