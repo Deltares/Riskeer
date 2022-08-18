@@ -21,7 +21,6 @@
 
 using System;
 using System.ComponentModel;
-using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.AssemblyTool.IO.Model.Enums;
 using Riskeer.AssemblyTool.IO.ModelOld.Enums;
 
