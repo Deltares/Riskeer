@@ -82,11 +82,20 @@ namespace Riskeer.AssemblyTool.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to DKTRJCT.
+        ///   Looks up a localized string similar to Dijktraject.
         /// </summary>
         internal static string AssessmentSectionType {
             get {
                 return ResourceManager.GetString("AssessmentSectionType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DKTRJCT.
+        /// </summary>
+        internal static string AssessmentSectionTypeOld {
+            get {
+                return ResourceManager.GetString("AssessmentSectionTypeOld", resourceCulture);
             }
         }
         

@@ -21,8 +21,11 @@
 
 using System;
 using System.Xml;
+using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
+using Riskeer.AssemblyTool.IO.Helpers;
 using Riskeer.AssemblyTool.IO.Model;
+using Riskeer.AssemblyTool.IO.Properties;
 using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 
 namespace Riskeer.AssemblyTool.IO
@@ -66,7 +69,9 @@ namespace Riskeer.AssemblyTool.IO
                     writer.WriteAttributeString(AssemblyXmlIdentifiers.XmlnsIdentifier, AssemblyXmlIdentifiers.GmlNamespaceIdentifier, null, AssemblyXmlIdentifiers.GmlNamespace);
                     writer.WriteAttributeString(AssemblyXmlIdentifiers.XmlnsIdentifier, AssemblyXmlIdentifiers.ImwapNamespaceIdentifier, null, AssemblyXmlIdentifiers.ImwapNamespace);
                     writer.WriteAttributeString(AssemblyXmlIdentifiers.Id, AssemblyXmlIdentifiers.GmlNamespace, "Assemblage.0");
-                    
+
+                    WriteAssessmentSectionFeatureMember(assessmentSection, writer);
+
                     writer.WriteEndElement();
                     writer.WriteEndDocument();
                 }
@@ -75,6 +80,30 @@ namespace Riskeer.AssemblyTool.IO
             {
                 throw new CriticalFileWriteException(string.Format(CoreCommonUtilResources.Error_General_output_error_0, filePath), e);
             }
+        }
+
+        private static void WriteAssessmentSectionFeatureMember(ExportableAssessmentSection assessmentSection, XmlWriter writer)
+        {
+            writer.WriteStartElement(AssemblyXmlIdentifiers.FeatureMember, AssemblyXmlIdentifiers.UboiNamespace);
+
+            writer.WriteStartElement(AssemblyXmlIdentifiers.AssessmentSection, AssemblyXmlIdentifiers.ImwapNamespace);
+            writer.WriteAttributeString(AssemblyXmlIdentifiers.Id, AssemblyXmlIdentifiers.GmlNamespace, assessmentSection.Id);
+
+            writer.WriteElementString(AssemblyXmlIdentifiers.Name, AssemblyXmlIdentifiers.ImwapNamespace, assessmentSection.Name);
+
+            writer.WriteStartElement(AssemblyXmlIdentifiers.Geometry2D, AssemblyXmlIdentifiers.ImwapNamespace);
+            writer.WriteStartElement(AssemblyXmlIdentifiers.LineString, AssemblyXmlIdentifiers.GmlNamespace);
+            writer.WriteAttributeString(AssemblyXmlIdentifiers.CoordinateSystem, Resources.CoordinateSystemName);
+            writer.WriteElementString(AssemblyXmlIdentifiers.Geometry, AssemblyXmlIdentifiers.GmlNamespace, GeometryGmlFormatHelper.Format(assessmentSection.Geometry));
+            writer.WriteEndElement();
+            writer.WriteEndElement();
+
+            writer.WriteElementString(AssemblyXmlIdentifiers.Length, AssemblyXmlIdentifiers.ImwapNamespace, XmlConvert.ToString(Math2D.Length(assessmentSection.Geometry)));
+            writer.WriteElementString(AssemblyXmlIdentifiers.AssessmentSectionType, AssemblyXmlIdentifiers.ImwapNamespace, Resources.AssessmentSectionType);
+
+            writer.WriteEndElement();
+
+            writer.WriteEndElement();
         }
     }
 }

@@ -116,7 +116,12 @@ namespace Riskeer.AssemblyTool.IO.Test
         private ExportableAssessmentSection CreateExportableAssessmentSection()
         {
             return new ExportableAssessmentSection(
-                string.Empty, string.Empty, Enumerable.Empty<Point2D>(), ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
+                "Traject A", "section1", new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(100.0, 0.0)
+                },
+                ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
                 Enumerable.Empty<ExportableFailureMechanism>(), Enumerable.Empty<ExportableCombinedSectionAssembly>());
         }
     }

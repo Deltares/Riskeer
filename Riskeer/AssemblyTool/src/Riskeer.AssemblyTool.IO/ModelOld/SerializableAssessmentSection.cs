@@ -40,7 +40,7 @@ namespace Riskeer.AssemblyTool.IO.ModelOld
         /// </summary>
         public SerializableAssessmentSection()
         {
-            AssessmentSectionType = Resources.AssessmentSectionType;
+            AssessmentSectionType = Resources.AssessmentSectionTypeOld;
         }
 
         /// <summary>
