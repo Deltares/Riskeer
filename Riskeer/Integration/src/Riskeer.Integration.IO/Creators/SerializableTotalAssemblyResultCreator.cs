@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
-using Riskeer.AssemblyTool.IO.Model;
-using Riskeer.AssemblyTool.IO.Model.Enums;
+using Riskeer.AssemblyTool.IO.ModelOld;
+using Riskeer.AssemblyTool.IO.ModelOld.Enums;
 using Riskeer.Integration.IO.Helpers;
 using Riskeer.Integration.IO.Properties;
 

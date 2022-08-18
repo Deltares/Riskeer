@@ -25,8 +25,8 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.IO.Assembly;
-using Riskeer.AssemblyTool.IO.Model;
-using Riskeer.AssemblyTool.IO.Model.Helpers;
+using Riskeer.AssemblyTool.IO.ModelOld;
+using Riskeer.AssemblyTool.IO.ModelOld.Helpers;
 using Riskeer.AssemblyTool.IO.TestUtil;
 using Riskeer.Integration.IO.Creators;
 

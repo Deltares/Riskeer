@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Riskeer.AssemblyTool.IO.Model;
+using Riskeer.AssemblyTool.IO.ModelOld;
 using Riskeer.Integration.IO.Creators;
 using Riskeer.Integration.IO.Helpers;
 

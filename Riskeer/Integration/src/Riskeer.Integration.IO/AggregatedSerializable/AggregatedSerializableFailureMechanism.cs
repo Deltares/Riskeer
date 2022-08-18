@@ -21,7 +21,7 @@
 
 using System;
 using System.Collections.Generic;
-using Riskeer.AssemblyTool.IO.Model;
+using Riskeer.AssemblyTool.IO.ModelOld;
 
 namespace Riskeer.Integration.IO.AggregatedSerializable
 {

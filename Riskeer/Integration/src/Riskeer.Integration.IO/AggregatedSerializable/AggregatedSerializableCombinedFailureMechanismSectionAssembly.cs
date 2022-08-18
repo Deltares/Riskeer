@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Riskeer.AssemblyTool.IO.Model;
+using Riskeer.AssemblyTool.IO.ModelOld;
 
 namespace Riskeer.Integration.IO.AggregatedSerializable
 {

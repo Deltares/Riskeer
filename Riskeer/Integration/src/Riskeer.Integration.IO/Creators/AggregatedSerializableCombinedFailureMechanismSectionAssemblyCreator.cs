@@ -22,9 +22,9 @@
 using System;
 using System.Linq;
 using Riskeer.AssemblyTool.IO.Assembly;
-using Riskeer.AssemblyTool.IO.Model;
-using Riskeer.AssemblyTool.IO.Model.DataTypes;
-using Riskeer.AssemblyTool.IO.Model.Enums;
+using Riskeer.AssemblyTool.IO.ModelOld;
+using Riskeer.AssemblyTool.IO.ModelOld.DataTypes;
+using Riskeer.AssemblyTool.IO.ModelOld.Enums;
 using Riskeer.Integration.IO.AggregatedSerializable;
 using Riskeer.Integration.IO.Exceptions;
 using Riskeer.Integration.IO.Helpers;

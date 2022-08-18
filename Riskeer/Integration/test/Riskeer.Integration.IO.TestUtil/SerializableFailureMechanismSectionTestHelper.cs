@@ -21,9 +21,9 @@
 
 using NUnit.Framework;
 using Riskeer.AssemblyTool.IO.Assembly;
-using Riskeer.AssemblyTool.IO.Model;
-using Riskeer.AssemblyTool.IO.Model.Enums;
-using Riskeer.AssemblyTool.IO.Model.Helpers;
+using Riskeer.AssemblyTool.IO.ModelOld;
+using Riskeer.AssemblyTool.IO.ModelOld.Enums;
+using Riskeer.AssemblyTool.IO.ModelOld.Helpers;
 using Riskeer.Integration.IO.Creators;
 
 namespace Riskeer.Integration.IO.TestUtil

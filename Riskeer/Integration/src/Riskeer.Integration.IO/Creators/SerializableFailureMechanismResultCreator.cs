@@ -21,7 +21,7 @@
 
 using System;
 using Riskeer.AssemblyTool.IO.Assembly;
-using Riskeer.AssemblyTool.IO.Model.DataTypes;
+using Riskeer.AssemblyTool.IO.ModelOld.DataTypes;
 
 namespace Riskeer.Integration.IO.Creators
 {

@@ -21,7 +21,7 @@
 
 using System;
 using Riskeer.AssemblyTool.IO.Assembly;
-using Riskeer.AssemblyTool.IO.Model;
+using Riskeer.AssemblyTool.IO.ModelOld;
 using Riskeer.Integration.IO.Helpers;
 
 namespace Riskeer.Integration.IO.Creators

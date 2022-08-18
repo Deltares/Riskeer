@@ -23,8 +23,8 @@ using System;
 using System.IO;
 using System.Xml.Serialization;
 using Core.Common.IO.Exceptions;
-using Riskeer.AssemblyTool.IO.Model;
-using OldAssemblyXmlIdentifiers = Riskeer.AssemblyTool.IO.Model.AssemblyXmlIdentifiers;
+using Riskeer.AssemblyTool.IO.ModelOld;
+using OldAssemblyXmlIdentifiers = Riskeer.AssemblyTool.IO.ModelOld.AssemblyXmlIdentifiers;
 using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 
 namespace Riskeer.AssemblyTool.IO

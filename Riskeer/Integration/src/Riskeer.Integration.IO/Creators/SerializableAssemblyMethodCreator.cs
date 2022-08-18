@@ -22,7 +22,7 @@
 using System;
 using System.ComponentModel;
 using Riskeer.AssemblyTool.IO.Assembly;
-using Riskeer.AssemblyTool.IO.Model.Enums;
+using Riskeer.AssemblyTool.IO.ModelOld.Enums;
 
 namespace Riskeer.Integration.IO.Creators
 {
