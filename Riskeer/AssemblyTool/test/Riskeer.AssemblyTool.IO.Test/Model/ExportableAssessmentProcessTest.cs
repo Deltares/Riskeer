@@ -37,9 +37,8 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
         public void Constructor_InvalidId_ThrowsArgumentException(string invalidId)
         {
             // Setup
-            var assessmentSection = new ExportableAssessmentSection(
-                string.Empty, string.Empty, Enumerable.Empty<Point2D>(), ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
-                Enumerable.Empty<ExportableFailureMechanism>(), Enumerable.Empty<ExportableCombinedSectionAssembly>());
+            var assessmentSection = new ExportableAssessmentSection("id", string.Empty, Enumerable.Empty<Point2D>(),
+                                                                    ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(), Enumerable.Empty<ExportableFailureMechanism>(), Enumerable.Empty<ExportableCombinedSectionAssembly>());
 
             // Call
             void Call() => new ExportableAssessmentProcess(invalidId, 0, 0, assessmentSection);
@@ -67,9 +66,8 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             const string id = "id";
             const int startYear = 2023;
             const int endYear = 2035;
-            var assessmentSection = new ExportableAssessmentSection(
-                string.Empty, "id2", Enumerable.Empty<Point2D>(), ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
-                Enumerable.Empty<ExportableFailureMechanism>(), Enumerable.Empty<ExportableCombinedSectionAssembly>());
+            var assessmentSection = new ExportableAssessmentSection("id2", string.Empty, Enumerable.Empty<Point2D>(),
+                                                                    ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(), Enumerable.Empty<ExportableFailureMechanism>(), Enumerable.Empty<ExportableCombinedSectionAssembly>());
 
             // Call
             var assessmentProcess = new ExportableAssessmentProcess(id, startYear, endYear, assessmentSection);

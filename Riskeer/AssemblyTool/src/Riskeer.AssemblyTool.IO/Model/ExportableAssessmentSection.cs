@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base.Geometry;
+using Riskeer.AssemblyTool.IO.Helpers;
 
 namespace Riskeer.AssemblyTool.IO.Model
 {
@@ -34,30 +35,28 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// <summary>
         /// Creates an instance of <see cref="ExportableAssessmentSection"/>.
         /// </summary>
-        /// <param name="name">The name of the assessment section.</param>
         /// <param name="id">The id of the assessment section.</param>
+        /// <param name="name">The name of the assessment section.</param>
         /// <param name="geometry">The geometry of the assessment section.</param>
         /// <param name="assessmentSectionAssembly">The assembly result of the assessment section.</param>
         /// <param name="failureMechanisms">The assembly results of failure mechanisms belonging
         /// to this assessment section.</param>
         /// <param name="combinedSectionAssemblyResults">The combined section assembly results
         /// of this assessment section.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public ExportableAssessmentSection(string name,
-                                           string id,
+        /// <exception cref="ArgumentNullException">Thrown when any parameter except <paramref name="id"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is invalid.</exception>
+        public ExportableAssessmentSection(string id,
+                                           string name,
                                            IEnumerable<Point2D> geometry,
                                            ExportableAssessmentSectionAssemblyResult assessmentSectionAssembly,
                                            IEnumerable<ExportableFailureMechanism> failureMechanisms,
                                            IEnumerable<ExportableCombinedSectionAssembly> combinedSectionAssemblyResults)
         {
+            IdValidationHelper.ThrowIfInvalid(id);
+
             if (name == null)
             {
                 throw new ArgumentNullException(nameof(name));
-            }
-
-            if (id == null)
-            {
-                throw new ArgumentNullException(nameof(id));
             }
 
             if (geometry == null)
@@ -80,8 +79,8 @@ namespace Riskeer.AssemblyTool.IO.Model
                 throw new ArgumentNullException(nameof(combinedSectionAssemblyResults));
             }
 
-            Name = name;
             Id = id;
+            Name = name;
             Geometry = geometry;
             AssessmentSectionAssembly = assessmentSectionAssembly;
             FailureMechanisms = failureMechanisms;
@@ -89,14 +88,14 @@ namespace Riskeer.AssemblyTool.IO.Model
         }
 
         /// <summary>
-        /// Gets the name of the assessment section.
-        /// </summary>
-        public string Name { get; }
-
-        /// <summary>
         /// Gets the id of the assessment section.
         /// </summary>
         public string Id { get; }
+
+        /// <summary>
+        /// Gets the name of the assessment section.
+        /// </summary>
+        public string Name { get; }
 
         /// <summary>
         /// Gets the geometry of the assessment section.

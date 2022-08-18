@@ -149,12 +149,11 @@ namespace Riskeer.Integration.IO.Test.Helpers
 
         private static ExportableAssessmentSection CreateAssessmentSection(string id)
         {
-            return new ExportableAssessmentSection(string.Empty,
-                                                   id,
+            return new ExportableAssessmentSection(id,
+                                                   string.Empty,
                                                    Enumerable.Empty<Point2D>(),
                                                    ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
-                                                   Enumerable.Empty<ExportableFailureMechanism>(),
-                                                   Enumerable.Empty<ExportableCombinedSectionAssembly>());
+                                                   Enumerable.Empty<ExportableFailureMechanism>(), Enumerable.Empty<ExportableCombinedSectionAssembly>());
         }
     }
 }

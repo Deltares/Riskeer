@@ -72,10 +72,9 @@ namespace Riskeer.Integration.IO.Test.Creators
 
         private static ExportableAssessmentSection CreateAssessmentSection(string name, string id)
         {
-            return new ExportableAssessmentSection(
-                name, id, CreateGeometry(), ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
-                Enumerable.Empty<ExportableFailureMechanism>(),
-                Enumerable.Empty<ExportableCombinedSectionAssembly>());
+            return new ExportableAssessmentSection(id, name, CreateGeometry(),
+                                                   ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
+                                                   Enumerable.Empty<ExportableFailureMechanism>(), Enumerable.Empty<ExportableCombinedSectionAssembly>());
         }
 
         private static IEnumerable<Point2D> CreateGeometry()

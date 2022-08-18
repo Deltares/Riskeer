@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.AssemblyTool.IO.TestUtil;
@@ -33,10 +34,25 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
     public class ExportableAssessmentSectionTest
     {
         [Test]
+        [TestCaseSource(typeof(InvalidIdTestHelper), nameof(InvalidIdTestHelper.InvalidIdCases))]
+        public void Constructor_InvalidId_ThrowsArgumentException(string invalidId)
+        {
+            // Call
+            void Call() => new ExportableAssessmentSection(invalidId, string.Empty, Enumerable.Empty<Point2D>(),
+                                                           ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
+                                                           Enumerable.Empty<ExportableFailureMechanism>(),
+                                                           Enumerable.Empty<ExportableCombinedSectionAssembly>());
+
+            // Assert
+            const string expectedMessage = "'id' must have a value and consist only of alphanumerical characters, '-', '_' or '.'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
+        }
+
+        [Test]
         public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new ExportableAssessmentSection(null, string.Empty, Enumerable.Empty<Point2D>(),
+            void Call() => new ExportableAssessmentSection("id", null, Enumerable.Empty<Point2D>(),
                                                            ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
                                                            Enumerable.Empty<ExportableFailureMechanism>(),
                                                            Enumerable.Empty<ExportableCombinedSectionAssembly>());
@@ -47,25 +63,11 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
         }
 
         [Test]
-        public void Constructor_IdNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => new ExportableAssessmentSection(string.Empty, null, Enumerable.Empty<Point2D>(),
-                                                           ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
-                                                           Enumerable.Empty<ExportableFailureMechanism>(),
-                                                           Enumerable.Empty<ExportableCombinedSectionAssembly>());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("id", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_GeometryNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new ExportableAssessmentSection(string.Empty, string.Empty, null,
-                                                           ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
+            void Call() => new ExportableAssessmentSection("id", string.Empty,
+                                                           null, ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
                                                            Enumerable.Empty<ExportableFailureMechanism>(),
                                                            Enumerable.Empty<ExportableCombinedSectionAssembly>());
 
@@ -78,8 +80,8 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
         public void Constructor_AssessmentSectionAssemblyNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new ExportableAssessmentSection(string.Empty, string.Empty, Enumerable.Empty<Point2D>(), null,
-                                                           Enumerable.Empty<ExportableFailureMechanism>(),
+            void Call() => new ExportableAssessmentSection("id", string.Empty, Enumerable.Empty<Point2D>(),
+                                                           null, Enumerable.Empty<ExportableFailureMechanism>(), 
                                                            Enumerable.Empty<ExportableCombinedSectionAssembly>());
 
             // Assert
@@ -91,10 +93,10 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
         public void Constructor_FailureMechanismsNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new ExportableAssessmentSection(string.Empty, string.Empty, Enumerable.Empty<Point2D>(),
+            void Call() => new ExportableAssessmentSection("id", string.Empty,
+                                                           Enumerable.Empty<Point2D>(),
                                                            ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
-                                                           null,
-                                                           Enumerable.Empty<ExportableCombinedSectionAssembly>());
+                                                           null, Enumerable.Empty<ExportableCombinedSectionAssembly>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -105,8 +107,9 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
         public void Constructor_CombinedSectionAssemblyResultsNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new ExportableAssessmentSection(string.Empty, string.Empty, Enumerable.Empty<Point2D>(),
-                                                           ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
+            void Call() => new ExportableAssessmentSection("id", string.Empty,
+                                                           Enumerable.Empty<Point2D>(),
+                                                           ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(), 
                                                            Enumerable.Empty<ExportableFailureMechanism>(), null);
 
             // Assert
@@ -115,10 +118,10 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
         }
 
         [Test]
-        [TestCase("", "")]
-        [TestCase("   ", "   ")]
-        [TestCase("Valid name", "Valid Id")]
-        public void Constructor_WithValidArguments_ExpectedValues(string name, string id)
+        [TestCase("id","")]
+        [TestCase("id", "   ")]
+        [TestCase("Valid_id", "Valid name")]
+        public void Constructor_WithValidArguments_ExpectedValues(string id, string name)
         {
             // Setup
             IEnumerable<Point2D> geometry = Enumerable.Empty<Point2D>();
@@ -127,8 +130,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             IEnumerable<ExportableCombinedSectionAssembly> combinedSectionAssemblyResults = Enumerable.Empty<ExportableCombinedSectionAssembly>();
 
             // Call
-            var assessmentSection = new ExportableAssessmentSection(
-                name, id, geometry, assessmentSectionAssembly, failureMechanisms, combinedSectionAssemblyResults);
+            var assessmentSection = new ExportableAssessmentSection(id, name, geometry, assessmentSectionAssembly, failureMechanisms, combinedSectionAssemblyResults);
 
             // Assert
             Assert.AreEqual(name, assessmentSection.Name);

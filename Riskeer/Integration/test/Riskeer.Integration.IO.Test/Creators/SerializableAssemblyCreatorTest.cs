@@ -68,12 +68,11 @@ namespace Riskeer.Integration.IO.Test.Creators
                     CreateFailureMechanism()
                 };
 
-            var exportableAssessmentSection = new ExportableAssessmentSection(assessmentSectionName,
-                                                                              assessmentSectionId,
+            var exportableAssessmentSection = new ExportableAssessmentSection(assessmentSectionId,
+                                                                              assessmentSectionName,
                                                                               geometry,
                                                                               assessmentSectionAssembly,
-                                                                              failureMechanisms,
-                                                                              new[]
+                                                                              failureMechanisms, new[]
                                                                               {
                                                                                   CreateCombinedSectionAssembly(CreateCombinedFailureMechanismSection()),
                                                                                   CreateCombinedSectionAssembly(CreateCombinedFailureMechanismSection())

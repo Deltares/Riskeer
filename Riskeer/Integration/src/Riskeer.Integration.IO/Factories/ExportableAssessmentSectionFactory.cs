@@ -70,12 +70,11 @@ namespace Riskeer.Integration.IO.Factories
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return new ExportableAssessmentSection(assessmentSection.Name,
-                                                   assessmentSection.Id,
+            return new ExportableAssessmentSection(assessmentSection.Id,
+                                                   assessmentSection.Name,
                                                    assessmentSection.ReferenceLine.Points,
                                                    CreateExportableAssessmentSectionAssemblyResult(assessmentSection),
-                                                   CreateExportableFailureMechanisms(assessmentSection),
-                                                   CreateExportableCombinedSectionAssemblyCollection(assessmentSection));
+                                                   CreateExportableFailureMechanisms(assessmentSection), CreateExportableCombinedSectionAssemblyCollection(assessmentSection));
         }
 
         /// <summary>

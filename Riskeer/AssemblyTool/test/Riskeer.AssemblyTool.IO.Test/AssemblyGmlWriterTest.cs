@@ -138,13 +138,13 @@ namespace Riskeer.AssemblyTool.IO.Test
         private static ExportableAssembly CreateExportableAssembly()
         {
             var assessmentSection = new ExportableAssessmentSection(
-                "Traject A", "section1", new[]
+                "section1", "Traject A",
+                new[]
                 {
                     new Point2D(0, 0),
                     new Point2D(100.0, 0.0)
                 },
-                ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
-                Enumerable.Empty<ExportableFailureMechanism>(), Enumerable.Empty<ExportableCombinedSectionAssembly>());
+                ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(), Enumerable.Empty<ExportableFailureMechanism>(), Enumerable.Empty<ExportableCombinedSectionAssembly>());
 
             var assessmentProcess = new ExportableAssessmentProcess("beoordelingsproces1", 2023, 2035, assessmentSection);
 
