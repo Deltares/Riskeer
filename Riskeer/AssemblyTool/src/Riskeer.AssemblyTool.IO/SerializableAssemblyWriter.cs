@@ -24,6 +24,7 @@ using System.IO;
 using System.Xml.Serialization;
 using Core.Common.IO.Exceptions;
 using Riskeer.AssemblyTool.IO.Model;
+using OldAssemblyXmlIdentifiers = Riskeer.AssemblyTool.IO.Model.AssemblyXmlIdentifiers;
 using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 
 namespace Riskeer.AssemblyTool.IO
@@ -58,8 +59,8 @@ namespace Riskeer.AssemblyTool.IO
                 var serializer = new XmlSerializer(typeof(SerializableAssembly));
                 writer = new StreamWriter(filePath);
                 var xmlns = new XmlSerializerNamespaces();
-                xmlns.Add(AssemblyXmlIdentifiers.GmlNamespaceIdentifier, AssemblyXmlIdentifiers.GmlNamespace);
-                xmlns.Add(AssemblyXmlIdentifiers.AssemblyNamespaceIdentifier, AssemblyXmlIdentifiers.AssemblyNamespace);
+                xmlns.Add(OldAssemblyXmlIdentifiers.GmlNamespaceIdentifier, OldAssemblyXmlIdentifiers.GmlNamespace);
+                xmlns.Add(OldAssemblyXmlIdentifiers.AssemblyNamespaceIdentifier, OldAssemblyXmlIdentifiers.AssemblyNamespace);
                 serializer.Serialize(writer, serializableAssembly, xmlns);
             }
             catch (SystemException e)

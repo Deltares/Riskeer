@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Riskeer.AssemblyTool.IO.Model;
+using OldAssemblyXmlIdentifiers = Riskeer.AssemblyTool.IO.Model.AssemblyXmlIdentifiers;
 
 namespace Riskeer.AssemblyTool.IO.Test.Model
 {
@@ -30,78 +30,78 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
         [Test]
         public void AssemblyXmlIdentifiers_ExpectedValues()
         {
-            Assert.AreEqual("Assemblage", AssemblyXmlIdentifiers.Assembly);
-            Assert.AreEqual("assemblagemethode", AssemblyXmlIdentifiers.AssemblyMethod);
-            Assert.AreEqual("assemblagemethodeVeiligheidsoordeel", AssemblyXmlIdentifiers.TotalAssemblyResultAssemblyMethod);
-            Assert.AreEqual("assemblagemethodeFaalkans", AssemblyXmlIdentifiers.ProbabilityAssemblyMethod);
-            Assert.AreEqual("assemblagemethodeDuidingsklasse", AssemblyXmlIdentifiers.AssemblyGroupAssemblyMethod);
-            Assert.AreEqual("http://localhost/standaarden/assemblage", AssemblyXmlIdentifiers.AssemblyNamespace);
-            Assert.AreEqual("asm", AssemblyXmlIdentifiers.AssemblyNamespaceIdentifier);
-            Assert.AreEqual("Beoordelingsproces", AssemblyXmlIdentifiers.AssessmentProcess);
-            Assert.AreEqual("BeoordelingsprocesID", AssemblyXmlIdentifiers.AssessmentProcessId);
-            Assert.AreEqual("BeoordelingsprocesIDRef", AssemblyXmlIdentifiers.AssessmentProcessIdRef);
-            Assert.AreEqual("categorie", AssemblyXmlIdentifiers.AssessmentSectionAssemblyGroup);
-            Assert.AreEqual("WaterkeringstelselIDRef", AssemblyXmlIdentifiers.AssessmentSectionIdRef);
-            Assert.AreEqual("typeWaterkeringstelsel", AssemblyXmlIdentifiers.AssessmentSectionType);
-            Assert.AreEqual("Waterkeringstelsel", AssemblyXmlIdentifiers.AssessmentSection);
+            Assert.AreEqual("Assemblage", OldAssemblyXmlIdentifiers.Assembly);
+            Assert.AreEqual("assemblagemethode", OldAssemblyXmlIdentifiers.AssemblyMethod);
+            Assert.AreEqual("assemblagemethodeVeiligheidsoordeel", OldAssemblyXmlIdentifiers.TotalAssemblyResultAssemblyMethod);
+            Assert.AreEqual("assemblagemethodeFaalkans", OldAssemblyXmlIdentifiers.ProbabilityAssemblyMethod);
+            Assert.AreEqual("assemblagemethodeDuidingsklasse", OldAssemblyXmlIdentifiers.AssemblyGroupAssemblyMethod);
+            Assert.AreEqual("http://localhost/standaarden/assemblage", OldAssemblyXmlIdentifiers.AssemblyNamespace);
+            Assert.AreEqual("asm", OldAssemblyXmlIdentifiers.AssemblyNamespaceIdentifier);
+            Assert.AreEqual("Beoordelingsproces", OldAssemblyXmlIdentifiers.AssessmentProcess);
+            Assert.AreEqual("BeoordelingsprocesID", OldAssemblyXmlIdentifiers.AssessmentProcessId);
+            Assert.AreEqual("BeoordelingsprocesIDRef", OldAssemblyXmlIdentifiers.AssessmentProcessIdRef);
+            Assert.AreEqual("categorie", OldAssemblyXmlIdentifiers.AssessmentSectionAssemblyGroup);
+            Assert.AreEqual("WaterkeringstelselIDRef", OldAssemblyXmlIdentifiers.AssessmentSectionIdRef);
+            Assert.AreEqual("typeWaterkeringstelsel", OldAssemblyXmlIdentifiers.AssessmentSectionType);
+            Assert.AreEqual("Waterkeringstelsel", OldAssemblyXmlIdentifiers.AssessmentSection);
 
-            Assert.AreEqual("boundedBy", AssemblyXmlIdentifiers.BoundedBy);
+            Assert.AreEqual("boundedBy", OldAssemblyXmlIdentifiers.BoundedBy);
 
-            Assert.AreEqual("FaalanalyseGecombineerd", AssemblyXmlIdentifiers.CombinedFailureMechanismSectionAssembly);
-            Assert.AreEqual("FaalanalyseGecombineerdID", AssemblyXmlIdentifiers.CombinedFailureMechanismSectionAssemblyId);
-            Assert.AreEqual("analyseGecombineerdDeelvak", AssemblyXmlIdentifiers.CombinedCombinedSectionResult);
-            Assert.AreEqual("analyseVak", AssemblyXmlIdentifiers.SectionResult);
-            Assert.AreEqual("analyseDeelvak", AssemblyXmlIdentifiers.CombinedSectionFailureMechanismResult);
-            Assert.AreEqual("srsName", AssemblyXmlIdentifiers.CoordinateSystem);
+            Assert.AreEqual("FaalanalyseGecombineerd", OldAssemblyXmlIdentifiers.CombinedFailureMechanismSectionAssembly);
+            Assert.AreEqual("FaalanalyseGecombineerdID", OldAssemblyXmlIdentifiers.CombinedFailureMechanismSectionAssemblyId);
+            Assert.AreEqual("analyseGecombineerdDeelvak", OldAssemblyXmlIdentifiers.CombinedCombinedSectionResult);
+            Assert.AreEqual("analyseVak", OldAssemblyXmlIdentifiers.SectionResult);
+            Assert.AreEqual("analyseDeelvak", OldAssemblyXmlIdentifiers.CombinedSectionFailureMechanismResult);
+            Assert.AreEqual("srsName", OldAssemblyXmlIdentifiers.CoordinateSystem);
 
-            Assert.AreEqual("afstandEinde", AssemblyXmlIdentifiers.EndDistance);
-            Assert.AreEqual("eindJaarBeoordelingsronde", AssemblyXmlIdentifiers.EndYear);
-            Assert.AreEqual("Envelope", AssemblyXmlIdentifiers.Envelope);
+            Assert.AreEqual("afstandEinde", OldAssemblyXmlIdentifiers.EndDistance);
+            Assert.AreEqual("eindJaarBeoordelingsronde", OldAssemblyXmlIdentifiers.EndYear);
+            Assert.AreEqual("Envelope", OldAssemblyXmlIdentifiers.Envelope);
 
-            Assert.AreEqual("Faalmechanisme", AssemblyXmlIdentifiers.FailureMechanism);
-            Assert.AreEqual("analyseFaalmechanisme", AssemblyXmlIdentifiers.FailureMechanismAssemblyResult);
-            Assert.AreEqual("FaalmechanismeID", AssemblyXmlIdentifiers.FailureMechanismId);
-            Assert.AreEqual("FaalmechanismeIDRef", AssemblyXmlIdentifiers.FailureMechanismIdRef);
-            Assert.AreEqual("Deelvak", AssemblyXmlIdentifiers.FailureMechanismSection);
-            Assert.AreEqual("WaterkeringsectieIDRef", AssemblyXmlIdentifiers.FailureMechanismSectionIdRef);
-            Assert.AreEqual("Faalanalyse", AssemblyXmlIdentifiers.FailureMechanismSectionAssembly);
-            Assert.AreEqual("FaalanalyseID", AssemblyXmlIdentifiers.FailureMechanismSectionAssemblyId);
-            Assert.AreEqual("duidingsklasse", AssemblyXmlIdentifiers.FailureMechanismSectionAssemblyGroup);
-            Assert.AreEqual("Vakindeling", AssemblyXmlIdentifiers.FailureMechanismSectionCollection);
-            Assert.AreEqual("VakindelingID", AssemblyXmlIdentifiers.FailureMechanismSectionCollectionId);
-            Assert.AreEqual("VakindelingIDRef", AssemblyXmlIdentifiers.FailureMechanismSectionCollectionIdRef);
-            Assert.AreEqual("typeWaterkeringsectie", AssemblyXmlIdentifiers.FailureMechanismSectionType);
-            Assert.AreEqual("typeFaalmechanisme", AssemblyXmlIdentifiers.FailureMechanismType);
-            Assert.AreEqual("generiekFaalmechanisme", AssemblyXmlIdentifiers.GenericFailureMechanism);
-            Assert.AreEqual("specifiekFaalmechanisme", AssemblyXmlIdentifiers.SpecificFailureMechanism);
-            Assert.AreEqual("featureMember", AssemblyXmlIdentifiers.FeatureMember);
+            Assert.AreEqual("Faalmechanisme", OldAssemblyXmlIdentifiers.FailureMechanism);
+            Assert.AreEqual("analyseFaalmechanisme", OldAssemblyXmlIdentifiers.FailureMechanismAssemblyResult);
+            Assert.AreEqual("FaalmechanismeID", OldAssemblyXmlIdentifiers.FailureMechanismId);
+            Assert.AreEqual("FaalmechanismeIDRef", OldAssemblyXmlIdentifiers.FailureMechanismIdRef);
+            Assert.AreEqual("Deelvak", OldAssemblyXmlIdentifiers.FailureMechanismSection);
+            Assert.AreEqual("WaterkeringsectieIDRef", OldAssemblyXmlIdentifiers.FailureMechanismSectionIdRef);
+            Assert.AreEqual("Faalanalyse", OldAssemblyXmlIdentifiers.FailureMechanismSectionAssembly);
+            Assert.AreEqual("FaalanalyseID", OldAssemblyXmlIdentifiers.FailureMechanismSectionAssemblyId);
+            Assert.AreEqual("duidingsklasse", OldAssemblyXmlIdentifiers.FailureMechanismSectionAssemblyGroup);
+            Assert.AreEqual("Vakindeling", OldAssemblyXmlIdentifiers.FailureMechanismSectionCollection);
+            Assert.AreEqual("VakindelingID", OldAssemblyXmlIdentifiers.FailureMechanismSectionCollectionId);
+            Assert.AreEqual("VakindelingIDRef", OldAssemblyXmlIdentifiers.FailureMechanismSectionCollectionIdRef);
+            Assert.AreEqual("typeWaterkeringsectie", OldAssemblyXmlIdentifiers.FailureMechanismSectionType);
+            Assert.AreEqual("typeFaalmechanisme", OldAssemblyXmlIdentifiers.FailureMechanismType);
+            Assert.AreEqual("generiekFaalmechanisme", OldAssemblyXmlIdentifiers.GenericFailureMechanism);
+            Assert.AreEqual("specifiekFaalmechanisme", OldAssemblyXmlIdentifiers.SpecificFailureMechanism);
+            Assert.AreEqual("featureMember", OldAssemblyXmlIdentifiers.FeatureMember);
 
-            Assert.AreEqual("posList", AssemblyXmlIdentifiers.Geometry);
-            Assert.AreEqual("geometrie2D", AssemblyXmlIdentifiers.Geometry2D);
-            Assert.AreEqual("geometrieLijn2D", AssemblyXmlIdentifiers.GeometryLine2D);
-            Assert.AreEqual("http://www.opengis.net/gml/3.2", AssemblyXmlIdentifiers.GmlNamespace);
-            Assert.AreEqual("gml", AssemblyXmlIdentifiers.GmlNamespaceIdentifier);
+            Assert.AreEqual("posList", OldAssemblyXmlIdentifiers.Geometry);
+            Assert.AreEqual("geometrie2D", OldAssemblyXmlIdentifiers.Geometry2D);
+            Assert.AreEqual("geometrieLijn2D", OldAssemblyXmlIdentifiers.GeometryLine2D);
+            Assert.AreEqual("http://www.opengis.net/gml/3.2", OldAssemblyXmlIdentifiers.GmlNamespace);
+            Assert.AreEqual("gml", OldAssemblyXmlIdentifiers.GmlNamespaceIdentifier);
 
-            Assert.AreEqual("id", AssemblyXmlIdentifiers.Id);
+            Assert.AreEqual("id", OldAssemblyXmlIdentifiers.Id);
 
-            Assert.AreEqual("lengte", AssemblyXmlIdentifiers.Length);
-            Assert.AreEqual("LineString", AssemblyXmlIdentifiers.LineString);
-            Assert.AreEqual("lowerCorner", AssemblyXmlIdentifiers.LowerCorner);
+            Assert.AreEqual("lengte", OldAssemblyXmlIdentifiers.Length);
+            Assert.AreEqual("LineString", OldAssemblyXmlIdentifiers.LineString);
+            Assert.AreEqual("lowerCorner", OldAssemblyXmlIdentifiers.LowerCorner);
 
-            Assert.AreEqual("naam", AssemblyXmlIdentifiers.Name);
+            Assert.AreEqual("naam", OldAssemblyXmlIdentifiers.Name);
 
-            Assert.AreEqual("faalkans", AssemblyXmlIdentifiers.Probability);
+            Assert.AreEqual("faalkans", OldAssemblyXmlIdentifiers.Probability);
 
-            Assert.AreEqual("afstandBegin", AssemblyXmlIdentifiers.StartDistance);
-            Assert.AreEqual("beginJaarBeoordelingsronde", AssemblyXmlIdentifiers.StartYear);
-            Assert.AreEqual("status", AssemblyXmlIdentifiers.Status);
+            Assert.AreEqual("afstandBegin", OldAssemblyXmlIdentifiers.StartDistance);
+            Assert.AreEqual("beginJaarBeoordelingsronde", OldAssemblyXmlIdentifiers.StartYear);
+            Assert.AreEqual("status", OldAssemblyXmlIdentifiers.Status);
 
-            Assert.AreEqual("Veiligheidsoordeel", AssemblyXmlIdentifiers.TotalAssemblyResult);
-            Assert.AreEqual("VeiligheidsoordeelID", AssemblyXmlIdentifiers.TotalAssemblyResultId);
-            Assert.AreEqual("VeiligheidsoordeelIDRef", AssemblyXmlIdentifiers.TotalAssemblyResultIdRef);
+            Assert.AreEqual("Veiligheidsoordeel", OldAssemblyXmlIdentifiers.TotalAssemblyResult);
+            Assert.AreEqual("VeiligheidsoordeelID", OldAssemblyXmlIdentifiers.TotalAssemblyResultId);
+            Assert.AreEqual("VeiligheidsoordeelIDRef", OldAssemblyXmlIdentifiers.TotalAssemblyResultIdRef);
 
-            Assert.AreEqual("uom", AssemblyXmlIdentifiers.UnitOfMeasure);
-            Assert.AreEqual("upperCorner", AssemblyXmlIdentifiers.UpperCorner);
+            Assert.AreEqual("uom", OldAssemblyXmlIdentifiers.UnitOfMeasure);
+            Assert.AreEqual("upperCorner", OldAssemblyXmlIdentifiers.UpperCorner);
         }
     }
 }
