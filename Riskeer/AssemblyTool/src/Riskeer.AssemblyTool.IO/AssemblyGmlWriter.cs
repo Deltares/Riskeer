@@ -94,8 +94,7 @@ namespace Riskeer.AssemblyTool.IO
 
         private static void WriteAssessmentSection(ExportableAssessmentSection assessmentSection, XmlWriter writer)
         {
-            writer.WriteStartElement(AssemblyXmlIdentifiers.AssessmentSection, AssemblyXmlIdentifiers.ImwapNamespace);
-            writer.WriteAttributeString(AssemblyXmlIdentifiers.Id, AssemblyXmlIdentifiers.GmlNamespace, assessmentSection.Id);
+            WriteStartElementWithId(AssemblyXmlIdentifiers.AssessmentSection, AssemblyXmlIdentifiers.ImwapNamespace, assessmentSection.Id, writer);
 
             writer.WriteElementString(AssemblyXmlIdentifiers.Name, AssemblyXmlIdentifiers.ImwapNamespace, assessmentSection.Name);
 
@@ -114,16 +113,26 @@ namespace Riskeer.AssemblyTool.IO
 
         private static void WriteAssessmentProcess(ExportableAssessmentProcess assessmentProcess, XmlWriter writer)
         {
-            writer.WriteStartElement(AssemblyXmlIdentifiers.AssessmentProcess, AssemblyXmlIdentifiers.UboiNamespace);
-            writer.WriteAttributeString(AssemblyXmlIdentifiers.Id, AssemblyXmlIdentifiers.GmlNamespace, assessmentProcess.Id);
-
+            WriteStartElementWithId(AssemblyXmlIdentifiers.AssessmentProcess, AssemblyXmlIdentifiers.UboiNamespace, assessmentProcess.Id, writer);
+            
             writer.WriteElementString(AssemblyXmlIdentifiers.StartYear, AssemblyXmlIdentifiers.UboiNamespace, XmlConvert.ToString(assessmentProcess.StartYear));
             writer.WriteElementString(AssemblyXmlIdentifiers.EndYear, AssemblyXmlIdentifiers.UboiNamespace, XmlConvert.ToString(assessmentProcess.EndYear));
 
-            writer.WriteStartElement(AssemblyXmlIdentifiers.Assesses, AssemblyXmlIdentifiers.UboiNamespace);
-            writer.WriteAttributeString(AssemblyXmlIdentifiers.Link, AssemblyXmlIdentifiers.XLinkNamespace, assessmentProcess.AssessmentSectionId);
-            writer.WriteEndElement();
+            WriteLink(AssemblyXmlIdentifiers.Assesses, assessmentProcess.AssessmentSectionId, writer);
 
+            writer.WriteEndElement();
+        }
+
+        private static void WriteStartElementWithId(string elementName, string elementNamespace, string id, XmlWriter writer)
+        {
+            writer.WriteStartElement(elementName, elementNamespace);
+            writer.WriteAttributeString(AssemblyXmlIdentifiers.Id, AssemblyXmlIdentifiers.GmlNamespace, id);
+        }
+
+        private static void WriteLink(string elementName, string linkedId, XmlWriter writer)
+        {
+            writer.WriteStartElement(elementName, AssemblyXmlIdentifiers.UboiNamespace);
+            writer.WriteAttributeString(AssemblyXmlIdentifiers.Link, AssemblyXmlIdentifiers.XLinkNamespace, linkedId);
             writer.WriteEndElement();
         }
     }
