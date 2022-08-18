@@ -28,7 +28,7 @@ using Core.Common.TestUtil;
 using Core.Common.Util;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.IO.Model;
-using Riskeer.AssemblyTool.IO.TestUtil;
+using Riskeer.AssemblyTool.IO.Model.Enums;
 
 namespace Riskeer.AssemblyTool.IO.Test
 {
@@ -144,11 +144,14 @@ namespace Riskeer.AssemblyTool.IO.Test
                     new Point2D(0, 0),
                     new Point2D(100.0, 0.0)
                 },
-                ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(), Enumerable.Empty<ExportableFailureMechanism>(), Enumerable.Empty<ExportableCombinedSectionAssembly>());
+                new ExportableAssessmentSectionAssemblyResult(
+                    ExportableAssessmentSectionAssemblyGroup.B, 0.00068354,
+                    ExportableAssemblyMethod.BOI2B1, ExportableAssemblyMethod.BOI2A1),
+                Enumerable.Empty<ExportableFailureMechanism>(), Enumerable.Empty<ExportableCombinedSectionAssembly>());
 
             var assessmentProcess = new ExportableAssessmentProcess("beoordelingsproces1", 2023, 2035, assessmentSection);
 
-            return new ExportableAssembly("assemblage_1", assessmentSection, assessmentProcess);
+            return new ExportableAssembly("assemblage1", assessmentSection, assessmentProcess);
         }
     }
 }

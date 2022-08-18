@@ -24,6 +24,7 @@ using System.Xml;
 using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
 using Core.Common.Util;
+using Core.Common.Util.Enums;
 using Riskeer.AssemblyTool.IO.Helpers;
 using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.AssemblyTool.IO.Properties;
@@ -88,6 +89,7 @@ namespace Riskeer.AssemblyTool.IO
 
                 WriteFeatureMember(() => WriteAssessmentSection(assembly.AssessmentSection));
                 WriteFeatureMember(() => WriteAssessmentProcess(assembly.AssessmentProcess));
+                WriteFeatureMember(() => WriteAssessment(assembly));
 
                 writer.WriteEndElement();
                 writer.WriteEndDocument();
@@ -149,6 +151,22 @@ namespace Riskeer.AssemblyTool.IO
 
             WriteLink(AssemblyXmlIdentifiers.Assesses, assessmentProcess.AssessmentSectionId);
 
+            writer.WriteEndElement();
+        }
+        
+        private void WriteAssessment(ExportableAssembly assembly)
+        {
+            WriteStartElementWithId("Veiligheidsoordeel", AssemblyXmlIdentifiers.UboiNamespace, "veiligheidsoordeel1");
+
+            ExportableAssessmentSectionAssemblyResult assessmentSectionAssembly = assembly.AssessmentSection.AssessmentSectionAssembly;
+            
+            writer.WriteElementString("categorie", AssemblyXmlIdentifiers.UboiNamespace, EnumDisplayNameHelper.GetDisplayName(assessmentSectionAssembly.AssemblyGroup));
+            writer.WriteElementString("assemblagemethodeVeiligheidsoordeel", AssemblyXmlIdentifiers.UboiNamespace, "BOI-2B-1");
+            writer.WriteElementString("faalkans", AssemblyXmlIdentifiers.UboiNamespace, XmlConvert.ToString(assessmentSectionAssembly.Probability));
+            writer.WriteElementString("assemblagemethodeFaalkans", AssemblyXmlIdentifiers.UboiNamespace, "BOI-2A-1");
+            writer.WriteElementString("status", AssemblyXmlIdentifiers.UboiNamespace, Resources.FullAssembly);
+            WriteLink("uitkomstVan", assembly.AssessmentProcess.Id);
+            
             writer.WriteEndElement();
         }
 

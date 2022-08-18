@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<uboi:Assembleren-collectie xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:imwap="http://www.aquo.nl/BOI2023/imwaproxies/v20210113" gml:id="assemblage_1" xmlns:uboi="http://www.aquo.nl/BOI2023/uitwisselmodel/v20210113">
+<uboi:Assembleren-collectie xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:imwap="http://www.aquo.nl/BOI2023/imwaproxies/v20210113" gml:id="assemblage1" xmlns:uboi="http://www.aquo.nl/BOI2023/uitwisselmodel/v20210113">
   <uboi:featureMember>
     <imwap:Waterkeringstelsel gml:id="section1">
       <imwap:naam>Traject A</imwap:naam>
@@ -18,5 +18,15 @@
       <uboi:eindJaarBeoordelingsronde>2035</uboi:eindJaarBeoordelingsronde>
       <uboi:beoordeelt xlink:href="section1" />
     </uboi:Beoordelingsproces>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Veiligheidsoordeel gml:id="veiligheidsoordeel1">
+      <uboi:categorie>B</uboi:categorie>
+      <uboi:assemblagemethodeVeiligheidsoordeel>BOI-2B-1</uboi:assemblagemethodeVeiligheidsoordeel>
+      <uboi:faalkans>0.00068354</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-2A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:uitkomstVan xlink:href="beoordelingsproces1" />
+    </uboi:Veiligheidsoordeel>
   </uboi:featureMember>
 </uboi:Assembleren-collectie>
