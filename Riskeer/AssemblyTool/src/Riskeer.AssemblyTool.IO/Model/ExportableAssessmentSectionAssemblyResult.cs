@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.IO.Model.Enums;
 
 namespace Riskeer.AssemblyTool.IO.Model
@@ -37,7 +36,7 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// <param name="probability">The probability of this assembly result.</param>
         /// <param name="assemblyGroupAssemblyMethod">The method that was used to assemble the assembly group of this result.</param>
         /// <param name="probabilityAssemblyMethod">The method that was used to assemble the probability of this result.</param>
-        public ExportableAssessmentSectionAssemblyResult(AssessmentSectionAssemblyGroup assemblyGroup, double probability,
+        public ExportableAssessmentSectionAssemblyResult(ExportableAssessmentSectionAssemblyGroup assemblyGroup, double probability,
                                                          ExportableAssemblyMethod assemblyGroupAssemblyMethod,
                                                          ExportableAssemblyMethod probabilityAssemblyMethod)
         {
@@ -50,7 +49,7 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// <summary>
         /// Gets the group of this assembly result.
         /// </summary>
-        public AssessmentSectionAssemblyGroup AssemblyGroup { get; }
+        public ExportableAssessmentSectionAssemblyGroup AssemblyGroup { get; }
 
         /// <summary>
         /// Gets the probability of this assembly result.

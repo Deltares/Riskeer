@@ -22,7 +22,6 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.AssemblyTool.IO.Model.Enums;
 
@@ -36,7 +35,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
         {
             // Setup
             var random = new Random(21);
-            var assemblyGroup = random.NextEnumValue<AssessmentSectionAssemblyGroup>();
+            var assemblyGroup = random.NextEnumValue<ExportableAssessmentSectionAssemblyGroup>();
             double probability = random.NextDouble();
             var assemblyGroupAssemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
             var probabilityAssemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();

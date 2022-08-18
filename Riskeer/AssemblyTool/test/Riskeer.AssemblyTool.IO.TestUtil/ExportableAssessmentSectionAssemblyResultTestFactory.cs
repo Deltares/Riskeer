@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.AssemblyTool.IO.Model.Enums;
 
@@ -38,7 +37,7 @@ namespace Riskeer.AssemblyTool.IO.TestUtil
         public static ExportableAssessmentSectionAssemblyResult CreateResult()
         {
             return new ExportableAssessmentSectionAssemblyResult(
-                AssessmentSectionAssemblyGroup.C, 0.0, ExportableAssemblyMethod.BOI2B1, ExportableAssemblyMethod.BOI2A1);
+                ExportableAssessmentSectionAssemblyGroup.C, 0.0, ExportableAssemblyMethod.BOI2B1, ExportableAssemblyMethod.BOI2A1);
         }
     }
 }

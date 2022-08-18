@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.AssemblyTool.IO.ModelOld;
 using Riskeer.Integration.IO.AggregatedSerializable;
@@ -66,7 +67,7 @@ namespace Riskeer.Integration.IO.Creators
                     serializableAssessmentProcess,
                     SerializableAssemblyMethodCreator.Create(assessmentSection.AssessmentSectionAssembly.ProbabilityAssemblyMethod),
                     SerializableAssemblyMethodCreator.Create(assessmentSection.AssessmentSectionAssembly.AssemblyGroupAssemblyMethod),
-                    SerializableAssessmentSectionAssemblyGroupCreator.Create(assessmentSection.AssessmentSectionAssembly.AssemblyGroup),
+                    SerializableAssessmentSectionAssemblyGroupCreator.Create(AssessmentSectionAssemblyGroup.APlus),
                     assessmentSection.AssessmentSectionAssembly.Probability);
 
             AggregatedSerializableFailureMechanism[] aggregatedFailureMechanisms = assessmentSection.FailureMechanisms

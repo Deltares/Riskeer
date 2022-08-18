@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.AssemblyTool.IO.Model.Enums;
@@ -89,9 +90,44 @@ namespace Riskeer.Integration.IO.Factories
             AssessmentSectionAssemblyResultWrapper assemblyResultWrapper = AssessmentSectionAssemblyFactory.AssembleAssessmentSection(assessmentSection);
             AssessmentSectionAssemblyResult assemblyResult = assemblyResultWrapper.AssemblyResult;
             return new ExportableAssessmentSectionAssemblyResult(
-                assemblyResult.AssemblyGroup, assemblyResult.Probability,
+                ConvertAssemblyGroup(assemblyResult.AssemblyGroup), assemblyResult.Probability,
                 ExportableAssemblyMethodFactory.Create(assemblyResultWrapper.AssemblyGroupMethod),
                 ExportableAssemblyMethodFactory.Create(assemblyResultWrapper.ProbabilityMethod));
+        }
+
+        /// <summary>
+        /// Converts an <see cref="AssessmentSectionAssemblyGroup"/> into an <see cref="ExportableAssessmentSectionAssemblyGroup"/>.
+        /// </summary>
+        /// <param name="assemblyGroup">The <see cref="AssessmentSectionAssemblyGroup"/> to convert.</param>
+        /// <returns>The converted <see cref="ExportableAssessmentSectionAssemblyGroup"/>.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="assemblyGroup"/>
+        /// is an invalid value.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="assemblyGroup"/>
+        /// is a valid value, but unsupported.</exception>
+        private static ExportableAssessmentSectionAssemblyGroup ConvertAssemblyGroup(AssessmentSectionAssemblyGroup assemblyGroup)
+        {
+            if (!Enum.IsDefined(typeof(AssessmentSectionAssemblyGroup), assemblyGroup))
+            {
+                throw new InvalidEnumArgumentException(nameof(assemblyGroup),
+                                                       (int) assemblyGroup,
+                                                       typeof(AssessmentSectionAssemblyGroup));
+            }
+
+            switch (assemblyGroup)
+            {
+                case AssessmentSectionAssemblyGroup.APlus:
+                    return ExportableAssessmentSectionAssemblyGroup.APlus;
+                case AssessmentSectionAssemblyGroup.A:
+                    return ExportableAssessmentSectionAssemblyGroup.A;
+                case AssessmentSectionAssemblyGroup.B:
+                    return ExportableAssessmentSectionAssemblyGroup.B;
+                case AssessmentSectionAssemblyGroup.C:
+                    return ExportableAssessmentSectionAssemblyGroup.C;
+                case AssessmentSectionAssemblyGroup.D:
+                    return ExportableAssessmentSectionAssemblyGroup.D;
+                default:
+                    throw new NotSupportedException();
+            }
         }
 
         /// <summary>

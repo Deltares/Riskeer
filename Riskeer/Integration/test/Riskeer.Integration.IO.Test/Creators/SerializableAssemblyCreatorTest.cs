@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.AssemblyTool.IO.Model.Enums;
 using Riskeer.AssemblyTool.IO.ModelOld;
@@ -218,7 +219,7 @@ namespace Riskeer.Integration.IO.Test.Creators
                             serializableTotalAssembly.ProbabilityAssemblyMethod);
             Assert.AreEqual(SerializableAssemblyMethodCreator.Create(expectedAssessmentSectionAssemblyResult.AssemblyGroupAssemblyMethod),
                             serializableTotalAssembly.AssemblyGroupAssemblyMethod);
-            Assert.AreEqual(SerializableAssessmentSectionAssemblyGroupCreator.Create(expectedAssessmentSectionAssemblyResult.AssemblyGroup),
+            Assert.AreEqual(SerializableAssessmentSectionAssemblyGroupCreator.Create(AssessmentSectionAssemblyGroup.APlus),
                             serializableTotalAssembly.AssemblyGroup);
             Assert.AreEqual(expectedAssessmentSectionAssemblyResult.Probability, serializableTotalAssembly.Probability);
         }
