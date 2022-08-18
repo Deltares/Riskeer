@@ -31,22 +31,22 @@ using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 namespace Riskeer.AssemblyTool.IO
 {
     /// <summary>
-    /// Writer for writing the assembly results to GML.
+    /// Writer for writing the assembly to GML.
     /// </summary>
     public static class AssemblyGmlWriter
     {
         /// <summary>
-        /// Writes a <see cref="ExportableAssessmentSection"/> to a file.
+        /// Writes a <see cref="ExportableAssembly"/> to a file.
         /// </summary>
-        /// <param name="assessmentSection">The <see cref="ExportableAssessmentSection"/> to be written to the file.</param>
+        /// <param name="assembly">The <see cref="ExportableAssembly"/> to be written to the file.</param>
         /// <param name="filePath">The path to the file.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="CriticalFileWriteException">Thrown when unable to write to <paramref name="filePath"/>.</exception>
-        public static void Write(ExportableAssessmentSection assessmentSection, string filePath)
+        public static void Write(ExportableAssembly assembly, string filePath)
         {
-            if (assessmentSection == null)
+            if (assembly == null)
             {
-                throw new ArgumentNullException(nameof(assessmentSection));
+                throw new ArgumentNullException(nameof(assembly));
             }
 
             if (filePath == null)
@@ -68,9 +68,9 @@ namespace Riskeer.AssemblyTool.IO
                     writer.WriteAttributeString(AssemblyXmlIdentifiers.XmlnsIdentifier, AssemblyXmlIdentifiers.XLinkNamespaceIdentifier, null, AssemblyXmlIdentifiers.XLinkNamespace);
                     writer.WriteAttributeString(AssemblyXmlIdentifiers.XmlnsIdentifier, AssemblyXmlIdentifiers.GmlNamespaceIdentifier, null, AssemblyXmlIdentifiers.GmlNamespace);
                     writer.WriteAttributeString(AssemblyXmlIdentifiers.XmlnsIdentifier, AssemblyXmlIdentifiers.ImwapNamespaceIdentifier, null, AssemblyXmlIdentifiers.ImwapNamespace);
-                    writer.WriteAttributeString(AssemblyXmlIdentifiers.Id, AssemblyXmlIdentifiers.GmlNamespace, "Assemblage.0");
+                    writer.WriteAttributeString(AssemblyXmlIdentifiers.Id, AssemblyXmlIdentifiers.GmlNamespace, assembly.Id);
 
-                    WriteAssessmentSectionFeatureMember(assessmentSection, writer);
+                    WriteAssessmentSectionFeatureMember(assembly.AssessmentSection, writer);
 
                     writer.WriteEndElement();
                     writer.WriteEndDocument();

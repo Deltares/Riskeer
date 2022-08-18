@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<uboi:Assembleren-collectie xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:imwap="http://www.aquo.nl/BOI2023/imwaproxies/v20210113" gml:id="Assemblage.0" xmlns:uboi="http://www.aquo.nl/BOI2023/uitwisselmodel/v20210113">
+<uboi:Assembleren-collectie xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:imwap="http://www.aquo.nl/BOI2023/imwaproxies/v20210113" gml:id="assemblage_1" xmlns:uboi="http://www.aquo.nl/BOI2023/uitwisselmodel/v20210113">
   <uboi:featureMember>
     <imwap:Waterkeringstelsel gml:id="section1">
       <imwap:naam>Traject A</imwap:naam>

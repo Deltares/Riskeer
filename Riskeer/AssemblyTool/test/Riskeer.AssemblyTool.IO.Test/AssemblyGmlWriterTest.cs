@@ -39,26 +39,24 @@ namespace Riskeer.AssemblyTool.IO.Test
                                                                           nameof(AssemblyGmlWriterTest));
 
         [Test]
-        public void Write_AssessmentSectionNull_ThrowsArgumentNullException()
+        public void Write_AssemblyNull_ThrowsArgumentNullException()
         {
             // Call
             void Call() => AssemblyGmlWriter.Write(null, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
+            Assert.AreEqual("assembly", exception.ParamName);
         }
 
         [Test]
         public void Write_FilePathNull_ThrowsArgumentNullException()
         {
             // Setup
-            var assessmentSection = new ExportableAssessmentSection(
-                string.Empty, string.Empty, Enumerable.Empty<Point2D>(), ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
-                Enumerable.Empty<ExportableFailureMechanism>(), Enumerable.Empty<ExportableCombinedSectionAssembly>());
+            ExportableAssembly assembly = CreateExportableAssembly();
 
             // Call
-            void Call() => AssemblyGmlWriter.Write(assessmentSection, null);
+            void Call() => AssemblyGmlWriter.Write(assembly, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -69,14 +67,11 @@ namespace Riskeer.AssemblyTool.IO.Test
         public void Write_FilePathTooLong_ThrowCriticalFileWriteException()
         {
             // Setup
-            var assessmentSection = new ExportableAssessmentSection(
-                string.Empty, string.Empty, Enumerable.Empty<Point2D>(), ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
-                Enumerable.Empty<ExportableFailureMechanism>(), Enumerable.Empty<ExportableCombinedSectionAssembly>());
-
+            ExportableAssembly assembly = CreateExportableAssembly();
             var filePath = new string('a', 249);
 
             // Call
-            void Call() => AssemblyGmlWriter.Write(assessmentSection, filePath);
+            void Call() => AssemblyGmlWriter.Write(assembly, filePath);
 
             // Assert
             var exception = Assert.Throws<CriticalFileWriteException>(Call);
@@ -92,12 +87,12 @@ namespace Riskeer.AssemblyTool.IO.Test
             Directory.CreateDirectory(folderPath);
             string filePath = Path.Combine(folderPath, "actualAssembly.gml");
 
-            ExportableAssessmentSection assessmentSection = CreateExportableAssessmentSection();
+            ExportableAssembly assembly = CreateExportableAssembly();
 
             try
             {
                 // Call
-                AssemblyGmlWriter.Write(assessmentSection, filePath);
+                AssemblyGmlWriter.Write(assembly, filePath);
 
                 // Assert
                 Assert.IsTrue(File.Exists(filePath));
@@ -113,9 +108,9 @@ namespace Riskeer.AssemblyTool.IO.Test
             }
         }
 
-        private ExportableAssessmentSection CreateExportableAssessmentSection()
+        private ExportableAssembly CreateExportableAssembly()
         {
-            return new ExportableAssessmentSection(
+            var assessmentSection = new ExportableAssessmentSection(
                 "Traject A", "section1", new[]
                 {
                     new Point2D(0, 0),
@@ -123,6 +118,10 @@ namespace Riskeer.AssemblyTool.IO.Test
                 },
                 ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
                 Enumerable.Empty<ExportableFailureMechanism>(), Enumerable.Empty<ExportableCombinedSectionAssembly>());
+
+            var assessmentProcess = new ExportableAssessmentProcess("beoordelingsproces1", 2023, 2035, assessmentSection);
+
+            return new ExportableAssembly("assemblage_1", assessmentSection, assessmentProcess);
         }
     }
 }
