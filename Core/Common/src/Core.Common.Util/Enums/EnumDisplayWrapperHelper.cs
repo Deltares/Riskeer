@@ -20,33 +20,26 @@
 // All rights reserved.
 
 using System;
-using System.ComponentModel;
-using Core.Common.Util;
+using System.Linq;
 
-namespace Riskeer.Common.Forms.Helpers
+namespace Core.Common.Util.Enums
 {
     /// <summary>
-    /// Helper class to retrieve display names for <see cref="Enum"/>.
+    /// Helper class for generating <see cref="EnumDisplayWrapper{T}"/> from enum values.
     /// </summary>
-    public static class EnumDisplayNameHelper
+    public static class EnumDisplayWrapperHelper
     {
         /// <summary>
-        /// Gets the display name from a given <see cref="Enum"/>.
+        /// Creates a collection of <see cref="EnumDisplayWrapper{T}"/> from enum values.
         /// </summary>
-        /// <param name="value">The <see cref="Enum"/> to get the display name for.</param>
-        /// <typeparam name="TEnum">The type of <see cref="Enum"/> to get the display name for.</typeparam>
-        /// <returns>The display name.</returns>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="value"/> is an
-        /// invalid <typeparamref name="TEnum"/>.</exception>
-        public static string GetDisplayName<TEnum>(TEnum value)
-            where TEnum : struct
+        /// <typeparam name="T">The type of enum.</typeparam>
+        /// <returns>A collection of <see cref="EnumDisplayWrapper{T}"/>.</returns>
+        public static EnumDisplayWrapper<T>[] GetEnumTypes<T>()
         {
-            if (!Enum.IsDefined(typeof(TEnum), value))
-            {
-                throw new InvalidEnumArgumentException(nameof(value), Convert.ToInt32(value), typeof(TEnum));
-            }
-
-            return new EnumDisplayWrapper<TEnum>(value).DisplayName;
+            return Enum.GetValues(typeof(T))
+                       .OfType<T>()
+                       .Select(et => new EnumDisplayWrapper<T>(et))
+                       .ToArray();
         }
     }
 }

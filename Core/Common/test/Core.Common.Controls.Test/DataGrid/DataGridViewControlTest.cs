@@ -28,7 +28,7 @@ using System.Windows.Forms;
 using Core.Common.Base.Data;
 using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
-using Core.Common.Util;
+using Core.Common.Util.Enums;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 

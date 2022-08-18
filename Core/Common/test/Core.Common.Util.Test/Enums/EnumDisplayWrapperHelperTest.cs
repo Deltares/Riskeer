@@ -19,11 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Util;
+using Core.Common.Util.Enums;
 using NUnit.Framework;
-using Riskeer.Common.Forms.Helpers;
 
-namespace Riskeer.Common.Forms.Test.Helpers
+namespace Core.Common.Util.Test.Enums
 {
     [TestFixture]
     public class EnumDisplayWrapperHelperTest

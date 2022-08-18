@@ -22,12 +22,12 @@
 using System;
 using System.ComponentModel;
 using Core.Common.TestUtil;
+using Core.Common.Util.Enums;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Forms.PropertyClasses;

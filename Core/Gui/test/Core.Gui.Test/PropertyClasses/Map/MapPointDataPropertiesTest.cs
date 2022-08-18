@@ -25,7 +25,7 @@ using System.Drawing;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.TestUtil;
-using Core.Common.Util;
+using Core.Common.Util.Enums;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;

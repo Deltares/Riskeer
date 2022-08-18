@@ -23,7 +23,7 @@ using System;
 using System.Drawing;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
-using Core.Common.Util;
+using Core.Common.Util.Enums;
 using NUnit.Framework;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.MacroStabilityInwards.Forms.Views;

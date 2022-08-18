@@ -22,7 +22,7 @@
 using System;
 using System.Drawing;
 using Core.Common.TestUtil;
-using Core.Common.Util;
+using Core.Common.Util.Enums;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Forms.TypeConverters;

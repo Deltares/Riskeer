@@ -21,10 +21,10 @@
 
 using System.ComponentModel;
 using Core.Common.TestUtil;
+using Core.Common.Util.Enums;
 using NUnit.Framework;
-using Riskeer.Common.Forms.Helpers;
 
-namespace Riskeer.Common.Forms.Test.Helpers
+namespace Core.Common.Util.Test.Enums
 {
     [TestFixture]
     public class EnumDisplayNameHelperTest

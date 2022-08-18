@@ -22,8 +22,8 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Design;
-using Core.Common.Util;
 using Core.Common.Util.Attributes;
+using Core.Common.Util.Enums;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Styles;
 using Core.Gui.Attributes;

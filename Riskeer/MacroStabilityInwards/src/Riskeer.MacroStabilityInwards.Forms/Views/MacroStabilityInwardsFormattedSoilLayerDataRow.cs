@@ -24,7 +24,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Globalization;
 using Core.Common.Base.Data;
-using Core.Common.Util;
+using Core.Common.Util.Enums;
 using Riskeer.Common.Data.Helpers;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.MacroStabilityInwards.Primitives;
