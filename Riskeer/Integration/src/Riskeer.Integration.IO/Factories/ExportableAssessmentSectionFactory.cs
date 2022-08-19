@@ -81,23 +81,26 @@ namespace Riskeer.Integration.IO.Factories
             return new ExportableAssessmentSection($"{Resources.ExportableAssessmentSection_IdPrefix}.{assessmentSection.Id}",
                                                    assessmentSection.Name,
                                                    assessmentSection.ReferenceLine.Points,
-                                                   CreateExportableAssessmentSectionAssemblyResult(assessmentSection),
-                                                   CreateExportableFailureMechanisms(assessmentSection), CreateExportableCombinedSectionAssemblyCollection(assessmentSection));
+                                                   CreateExportableAssessmentSectionAssemblyResult(idGenerator, assessmentSection),
+                                                   CreateExportableFailureMechanisms(assessmentSection), 
+                                                   CreateExportableCombinedSectionAssemblyCollection(assessmentSection));
         }
 
         /// <summary>
         /// Creates an <see cref="ExportableAssessmentSectionAssemblyResult"/> with the assembly result
         /// based on <paramref name="assessmentSection"/>.
         /// </summary>
+        /// <param name="idGenerator">The generator to generate ids for the exportable components.</param>
         /// <param name="assessmentSection">The assessment section to create an <see cref="ExportableAssessmentSectionAssemblyResult"/> for.</param>
         /// <returns>An <see cref="ExportableAssessmentSectionAssemblyResult"/> with assembly result.</returns>
         /// <exception cref="AssemblyException">Thrown when assembly result cannot be created for <paramref name="assessmentSection"/>.</exception>
-        private static ExportableAssessmentSectionAssemblyResult CreateExportableAssessmentSectionAssemblyResult(AssessmentSection assessmentSection)
+        private static ExportableAssessmentSectionAssemblyResult CreateExportableAssessmentSectionAssemblyResult(IdentifierGenerator idGenerator,
+                                                                                                                 AssessmentSection assessmentSection)
         {
             AssessmentSectionAssemblyResultWrapper assemblyResultWrapper = AssessmentSectionAssemblyFactory.AssembleAssessmentSection(assessmentSection);
             AssessmentSectionAssemblyResult assemblyResult = assemblyResultWrapper.AssemblyResult;
             return new ExportableAssessmentSectionAssemblyResult(
-                "id",
+                idGenerator.GetNewId(Resources.ExportableTotalAssemblyResult_IdPrefix),
                 ConvertAssemblyGroup(assemblyResult.AssemblyGroup), assemblyResult.Probability,
                 ExportableAssemblyMethodFactory.Create(assemblyResultWrapper.AssemblyGroupMethod),
                 ExportableAssemblyMethodFactory.Create(assemblyResultWrapper.ProbabilityMethod));

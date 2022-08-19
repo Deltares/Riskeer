@@ -136,6 +136,15 @@ namespace Riskeer.Integration.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Vo.
+        /// </summary>
+        public static string ExportableTotalAssemblyResult_IdPrefix {
+            get {
+                return ResourceManager.GetString("ExportableTotalAssemblyResult_IdPrefix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kon het rekeninstellingen bestand niet openen. {0}.
         /// </summary>
         public static string HydraulicBoundaryDatabaseImporter_Cannot_open_hydraulic_calculation_settings_file_0_ {
