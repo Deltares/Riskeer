@@ -22,11 +22,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base.Geometry;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.IO.Model;
-using Riskeer.AssemblyTool.IO.Model.Enums;
 using Riskeer.AssemblyTool.IO.TestUtil;
 
 namespace Riskeer.AssemblyTool.IO.Test.Model
@@ -54,10 +51,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
         public void Constructor_CombinedSectionAssemblyResultNull_ThrowsArgumentNullException()
         {
             // Setup
-            var random = new Random(21);
-            var section = new ExportableCombinedFailureMechanismSection(
-                Enumerable.Empty<Point2D>(), random.NextDouble(), random.NextDouble(),
-                random.NextEnumValue<ExportableAssemblyMethod>());
+            ExportableCombinedFailureMechanismSection section = ExportableFailureMechanismSectionTestFactory.CreateExportableCombinedFailureMechanismSection();
 
             // Call
             void Call() => new ExportableCombinedSectionAssembly(
@@ -73,10 +67,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
         {
             // Setup
             var random = new Random(21);
-            var section = new ExportableCombinedFailureMechanismSection(
-                Enumerable.Empty<Point2D>(), random.NextDouble(), random.NextDouble(),
-                random.NextEnumValue<ExportableAssemblyMethod>());
-
+            ExportableCombinedFailureMechanismSection section = ExportableFailureMechanismSectionTestFactory.CreateExportableCombinedFailureMechanismSection();
             ExportableFailureMechanismSectionAssemblyResult combinedAssemblyResult = ExportableFailureMechanismSectionAssemblyResultTestFactory.Create(
                 section, random.Next());
 
@@ -93,9 +84,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
         {
             // Setup
             var random = new Random(21);
-            var section = new ExportableCombinedFailureMechanismSection(
-                Enumerable.Empty<Point2D>(), random.NextDouble(), random.NextDouble(),
-                random.NextEnumValue<ExportableAssemblyMethod>());
+            ExportableCombinedFailureMechanismSection section = ExportableFailureMechanismSectionTestFactory.CreateExportableCombinedFailureMechanismSection();
 
             ExportableFailureMechanismSectionAssemblyResult combinedAssemblyResult = ExportableFailureMechanismSectionAssemblyResultTestFactory.Create(
                 section, random.Next());

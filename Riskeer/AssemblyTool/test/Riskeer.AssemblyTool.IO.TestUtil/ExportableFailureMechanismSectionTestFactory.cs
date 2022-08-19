@@ -66,7 +66,7 @@ namespace Riskeer.AssemblyTool.IO.TestUtil
         /// <returns>A default instance of <see cref="ExportableCombinedFailureMechanismSection"/>.</returns>
         public static ExportableCombinedFailureMechanismSection CreateExportableCombinedFailureMechanismSection()
         {
-            return new ExportableCombinedFailureMechanismSection(new[]
+            return new ExportableCombinedFailureMechanismSection("id", new[]
             {
                 new Point2D(1, 1),
                 new Point2D(3, 3)

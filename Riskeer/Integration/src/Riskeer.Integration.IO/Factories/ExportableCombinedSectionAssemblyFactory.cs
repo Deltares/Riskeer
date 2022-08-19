@@ -63,12 +63,11 @@ namespace Riskeer.Integration.IO.Factories
             var sectionResults = new List<ExportableCombinedSectionAssembly>();
             foreach (CombinedFailureMechanismSectionAssemblyResult assemblyResult in combinedSectionAssemblyResults)
             {
-                var exportableSection = new ExportableCombinedFailureMechanismSection(
-                    FailureMechanismSectionHelper.GetFailureMechanismSectionGeometry(
-                        assessmentSection.ReferenceLine, assemblyResult.SectionStart, assemblyResult.SectionEnd),
-                    assemblyResult.SectionStart,
-                    assemblyResult.SectionEnd,
-                    ExportableAssemblyMethodFactory.Create(assemblyResult.CommonSectionAssemblyMethod));
+                var exportableSection = new ExportableCombinedFailureMechanismSection("id", FailureMechanismSectionHelper.GetFailureMechanismSectionGeometry(
+                                                                                          assessmentSection.ReferenceLine, assemblyResult.SectionStart, assemblyResult.SectionEnd),
+                                                                                      assemblyResult.SectionStart,
+                                                                                      assemblyResult.SectionEnd,
+                                                                                      ExportableAssemblyMethodFactory.Create(assemblyResult.CommonSectionAssemblyMethod));
 
                 var exportableSectionResult = new ExportableCombinedSectionAssembly(
                     exportableSection, new ExportableFailureMechanismSectionAssemblyResult(

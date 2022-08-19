@@ -37,6 +37,8 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
         public void Constructor_WithArguments_ExpectedValues()
         {
             // Setup
+            const string id = "id";
+            
             var random = new Random(21);
             IEnumerable<Point2D> geometry = Enumerable.Empty<Point2D>();
             var assemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
@@ -44,11 +46,12 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             double endDistance = random.NextDouble();
 
             // Call
-            var section = new ExportableCombinedFailureMechanismSection(geometry, startDistance, endDistance, assemblyMethod);
+            var section = new ExportableCombinedFailureMechanismSection(id, geometry, startDistance, endDistance, assemblyMethod);
 
             // Assert
             Assert.IsInstanceOf<ExportableFailureMechanismSection>(section);
 
+            Assert.AreEqual(id, section.Id);
             Assert.AreSame(geometry, section.Geometry);
             Assert.AreEqual(startDistance, section.StartDistance);
             Assert.AreEqual(endDistance, section.EndDistance);

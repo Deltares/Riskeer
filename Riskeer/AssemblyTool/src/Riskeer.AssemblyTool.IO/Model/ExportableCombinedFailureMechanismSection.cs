@@ -35,19 +35,19 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// <summary>
         /// Creates a new instance of <see cref="ExportableCombinedFailureMechanismSection"/>.
         /// </summary>
+        /// <param name="id">The id of the failure mechanism section.</param>
         /// <param name="geometry">The geometry of the failure mechanism section.</param>
         /// <param name="startDistance">The start distance of the failure mechanism section between the section
         /// and the start of the reference line in meters.</param>
         /// <param name="endDistance">The end distance of the failure mechanism section between the section
         /// and the start of the reference line in meters.</param>
         /// <param name="assemblyMethod">The assembly method which was used to get this section.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="geometry"/>
-        /// is <c>null</c>.</exception>
-        public ExportableCombinedFailureMechanismSection(IEnumerable<Point2D> geometry,
-                                                         double startDistance,
-                                                         double endDistance,
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="geometry"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is invalid.</exception>
+        public ExportableCombinedFailureMechanismSection(string id, IEnumerable<Point2D> geometry,
+                                                         double startDistance, double endDistance,
                                                          ExportableAssemblyMethod assemblyMethod)
-            : base("id", geometry, startDistance, endDistance)
+            : base(id, geometry, startDistance, endDistance)
         {
             AssemblyMethod = assemblyMethod;
         }
