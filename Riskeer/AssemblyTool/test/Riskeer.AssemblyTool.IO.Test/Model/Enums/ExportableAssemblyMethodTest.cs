@@ -27,7 +27,7 @@ using Riskeer.AssemblyTool.IO.Model.Enums;
 namespace Riskeer.AssemblyTool.IO.Test.Model.Enums
 {
     [TestFixture]
-    public class ExportableAssemblyMethodTest : EnumValuesTestFixture<ExportableAssemblyMethod, int>
+    public class ExportableAssemblyMethodTest : EnumWithResourcesDisplayNameTestFixture<ExportableAssemblyMethod>
     {
         protected override IDictionary<ExportableAssemblyMethod, int> ExpectedValueForEnumValues =>
             new Dictionary<ExportableAssemblyMethod, int>
@@ -70,6 +70,50 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.Enums
                 },
                 {
                     ExportableAssemblyMethod.BOI3C1, 13
+                }
+            };
+
+        protected override IDictionary<ExportableAssemblyMethod, string> ExpectedDisplayNameForEnumValues =>
+            new Dictionary<ExportableAssemblyMethod, string>
+            {
+                {
+                    ExportableAssemblyMethod.BOI0A1, "BOI-0A-1"
+                },
+                {
+                    ExportableAssemblyMethod.BOI0A2, "BOI-0A-2"
+                },
+                {
+                    ExportableAssemblyMethod.BOI0B1, "BOI-0B-1"
+                },
+                {
+                    ExportableAssemblyMethod.BOI0C1, "BOI-0C-1"
+                },
+                {
+                    ExportableAssemblyMethod.BOI0C2, "BOI-0C-2"
+                },
+                {
+                    ExportableAssemblyMethod.BOI1A1, "BOI-1A-1"
+                },
+                {
+                    ExportableAssemblyMethod.BOI1A2, "BOI-1A-2"
+                },
+                {
+                    ExportableAssemblyMethod.Manual, "HANDMATIG"
+                },
+                {
+                    ExportableAssemblyMethod.BOI2A1, "BOI-2A-1"
+                },
+                {
+                    ExportableAssemblyMethod.BOI2B1, "BOI-2B-1"
+                },
+                {
+                    ExportableAssemblyMethod.BOI3A1, "BOI-3A-1"
+                },
+                {
+                    ExportableAssemblyMethod.BOI3B1, "BOI-3B-1"
+                },
+                {
+                    ExportableAssemblyMethod.BOI3C1, "BOI-3C-1"
                 }
             };
     }

@@ -19,6 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Util.Attributes;
+using Riskeer.AssemblyTool.IO.Properties;
+
 namespace Riskeer.AssemblyTool.IO.Model.Enums
 {
     /// <summary>
@@ -29,66 +32,79 @@ namespace Riskeer.AssemblyTool.IO.Model.Enums
         /// <summary>
         /// Represents the assembly method BOI-0A-1.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ExportableAssemblyMethod_BOI0A1_DisplayName))]
         BOI0A1 = 1,
 
         /// <summary>
         /// Represents the assembly method BOI-0A-2.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ExportableAssemblyMethod_BOI0A2_DisplayName))]
         BOI0A2 = 2,
 
         /// <summary>
         /// Represents the assembly method BOI-0B-1.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ExportableAssemblyMethod_BOI0B1_DisplayName))]
         BOI0B1 = 3,
 
         /// <summary>
         /// Represents the assembly method BOI-0C-1.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ExportableAssemblyMethod_BOI0C1_DisplayName))]
         BOI0C1 = 4,
 
         /// <summary>
         /// Represents the assembly method BOI-0C-2.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ExportableAssemblyMethod_BOI0C2_DisplayName))]
         BOI0C2 = 5,
 
         /// <summary>
         /// Represents the assembly method BOI-1A-1.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ExportableAssemblyMethod_BOI1A1_DisplayName))]
         BOI1A1 = 6,
 
         /// <summary>
         /// Represents the assembly method BOI-1A-2.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ExportableAssemblyMethod_BOI1A2_DisplayName))]
         BOI1A2 = 7,
 
         /// <summary>
         /// Represents a manual failure mechanism assembly.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ExportableAssemblyMethod_Manual_DisplayName))]
         Manual = 8,
 
         /// <summary>
         /// Represents the assembly method BOI-2A-1.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ExportableAssemblyMethod_BOI2A1_DisplayName))]
         BOI2A1 = 9,
 
         /// <summary>
         /// Represents the assembly method BOI-2B-1.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ExportableAssemblyMethod_BOI2B1_DisplayName))]
         BOI2B1 = 10,
 
         /// <summary>
         /// Represents the assembly method BOI-3A-1.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ExportableAssemblyMethod_BOI3A1_DisplayName))]
         BOI3A1 = 11,
 
         /// <summary>
         /// Represents the assembly method BOI-3B-1.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ExportableAssemblyMethod_BOI3B1_DisplayName))]
         BOI3B1 = 12,
 
         /// <summary>
         /// Represents the assembly method BOI-3C-1.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ExportableAssemblyMethod_BOI3C1_DisplayName))]
         BOI3C1 = 13
     }
 }

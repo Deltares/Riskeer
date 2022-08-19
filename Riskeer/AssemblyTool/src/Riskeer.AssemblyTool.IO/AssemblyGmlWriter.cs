@@ -153,22 +153,24 @@ namespace Riskeer.AssemblyTool.IO
 
             writer.WriteEndElement();
         }
-        
+
         private void WriteAssessment(ExportableAssembly assembly)
         {
             WriteStartElementWithId(AssemblyXmlIdentifiers.TotalAssemblyResult, AssemblyXmlIdentifiers.UboiNamespace, "veiligheidsoordeel1");
 
             ExportableAssessmentSectionAssemblyResult assessmentSectionAssembly = assembly.AssessmentSection.AssessmentSectionAssembly;
-            
+
             writer.WriteElementString(AssemblyXmlIdentifiers.TotalAssemblyResultAssemblyGroup, AssemblyXmlIdentifiers.UboiNamespace,
                                       EnumDisplayNameHelper.GetDisplayName(assessmentSectionAssembly.AssemblyGroup));
-            writer.WriteElementString(AssemblyXmlIdentifiers.TotalAssemblyResultAssemblyMethod, AssemblyXmlIdentifiers.UboiNamespace, "BOI-2B-1");
+            writer.WriteElementString(AssemblyXmlIdentifiers.TotalAssemblyResultAssemblyMethod, AssemblyXmlIdentifiers.UboiNamespace,
+                                      EnumDisplayNameHelper.GetDisplayName(assessmentSectionAssembly.AssemblyGroupAssemblyMethod));
             writer.WriteElementString(AssemblyXmlIdentifiers.Probability, AssemblyXmlIdentifiers.UboiNamespace,
                                       XmlConvert.ToString(assessmentSectionAssembly.Probability));
-            writer.WriteElementString(AssemblyXmlIdentifiers.ProbabilityAssemblyMethod, AssemblyXmlIdentifiers.UboiNamespace, "BOI-2A-1");
+            writer.WriteElementString(AssemblyXmlIdentifiers.ProbabilityAssemblyMethod, AssemblyXmlIdentifiers.UboiNamespace,
+                                      EnumDisplayNameHelper.GetDisplayName(assessmentSectionAssembly.ProbabilityAssemblyMethod));
             writer.WriteElementString(AssemblyXmlIdentifiers.Status, AssemblyXmlIdentifiers.UboiNamespace, Resources.FullAssembly);
             WriteLink(AssemblyXmlIdentifiers.ResultOf, assembly.AssessmentProcess.Id);
-            
+
             writer.WriteEndElement();
         }
 
