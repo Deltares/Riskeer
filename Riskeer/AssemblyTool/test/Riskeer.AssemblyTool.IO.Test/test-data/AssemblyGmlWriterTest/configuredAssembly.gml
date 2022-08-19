@@ -29,4 +29,22 @@
       <uboi:uitkomstVan xlink:href="beoordelingsproces1" />
     </uboi:Veiligheidsoordeel>
   </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:GeneriekFaalmechanisme gml:id="toetsspoorGABI">
+      <uboi:faalkans>0.08419</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-1A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:bepaalt xlink:href="veiligheidsoordeel1" />
+      <uboi:generiekFaalmechanisme>GABI</uboi:generiekFaalmechanisme>
+    </uboi:GeneriekFaalmechanisme>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:SpecifiekFaalmechanisme gml:id="specifiekFaalmechanisme">
+      <uboi:faalkans>0.002834</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-1A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:bepaalt xlink:href="veiligheidsoordeel1" />
+      <uboi:specifiekFaalmechanisme>Specifiek faalmechanisme</uboi:specifiekFaalmechanisme>
+    </uboi:SpecifiekFaalmechanisme>
+  </uboi:featureMember>
 </uboi:Assembleren-collectie>

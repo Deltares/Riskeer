@@ -62,6 +62,26 @@ namespace Riskeer.AssemblyTool.IO
         /// </summary>
         public const string TotalAssemblyResult = "Veiligheidsoordeel";
 
+        /// <summary>
+        /// Identifier for a generic failure mechanism element.
+        /// </summary>
+        public const string GenericFailureMechanism = "GeneriekFaalmechanisme";
+
+        /// <summary>
+        /// Identifier for a generic failure mechanism name element.
+        /// </summary>
+        public const string GenericFailureMechanismName = "generiekFaalmechanisme";
+
+        /// <summary>
+        /// Identifier for a specific failure mechanism element.
+        /// </summary>
+        public const string SpecificFailureMechanism = "SpecifiekFaalmechanisme";
+
+        /// <summary>
+        /// Identifier for a specific failure mechanism name element.
+        /// </summary>
+        public const string SpecificFailureMechanismName = "specifiekFaalmechanisme";
+
         #region Link identifiers
 
         /// <summary>
@@ -78,6 +98,11 @@ namespace Riskeer.AssemblyTool.IO
         /// Identifier for a result of element.
         /// </summary>
         public const string ResultOf = "uitkomstVan";
+
+        /// <summary>
+        /// Identifier for a determines element.
+        /// </summary>
+        public const string Determines = "bepaalt";
 
         #endregion
 

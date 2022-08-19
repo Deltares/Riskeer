@@ -147,7 +147,15 @@ namespace Riskeer.AssemblyTool.IO.Test
                 new ExportableAssessmentSectionAssemblyResult(
                     "veiligheidsoordeel1", ExportableAssessmentSectionAssemblyGroup.B, 0.00068354,
                     ExportableAssemblyMethod.BOI2B1, ExportableAssemblyMethod.BOI2A1),
-                Enumerable.Empty<ExportableFailureMechanism>(), Enumerable.Empty<ExportableCombinedSectionAssembly>());
+                new[]
+                {
+                    new ExportableFailureMechanism("toetsspoorGABI", new ExportableFailureMechanismAssemblyResult(0.08419, ExportableAssemblyMethod.BOI1A1),
+                                                   Enumerable.Empty<ExportableFailureMechanismSectionAssemblyWithProbabilityResult>(),
+                                                   ExportableFailureMechanismType.Generic, "GABI", "GrassErosionOutwards"),
+                    new ExportableFailureMechanism("specifiekFaalmechanisme", new ExportableFailureMechanismAssemblyResult(0.002834, ExportableAssemblyMethod.BOI1A1),
+                                                   Enumerable.Empty<ExportableFailureMechanismSectionAssemblyWithProbabilityResult>(),
+                                                   ExportableFailureMechanismType.Specific, "", "Specifiek faalmechanisme")
+                }, Enumerable.Empty<ExportableCombinedSectionAssembly>());
 
             var assessmentProcess = new ExportableAssessmentProcess("beoordelingsproces1", 2023, 2035, assessmentSection);
 
