@@ -224,4 +224,7 @@ Er is geen HLCD geïmporteerd.</value>
   <data name="ExportableAssessmentSection_IdPrefix" xml:space="preserve">
     <value>Wks</value>
   </data>
+  <data name="ExportableFailureMechanismSectionCollection_IdPrefix" xml:space="preserve">
+    <value>Vi</value>
+  </data>
 </root>
