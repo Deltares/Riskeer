@@ -156,16 +156,18 @@ namespace Riskeer.AssemblyTool.IO
         
         private void WriteAssessment(ExportableAssembly assembly)
         {
-            WriteStartElementWithId("Veiligheidsoordeel", AssemblyXmlIdentifiers.UboiNamespace, "veiligheidsoordeel1");
+            WriteStartElementWithId(AssemblyXmlIdentifiers.TotalAssemblyResult, AssemblyXmlIdentifiers.UboiNamespace, "veiligheidsoordeel1");
 
             ExportableAssessmentSectionAssemblyResult assessmentSectionAssembly = assembly.AssessmentSection.AssessmentSectionAssembly;
             
-            writer.WriteElementString("categorie", AssemblyXmlIdentifiers.UboiNamespace, EnumDisplayNameHelper.GetDisplayName(assessmentSectionAssembly.AssemblyGroup));
-            writer.WriteElementString("assemblagemethodeVeiligheidsoordeel", AssemblyXmlIdentifiers.UboiNamespace, "BOI-2B-1");
-            writer.WriteElementString("faalkans", AssemblyXmlIdentifiers.UboiNamespace, XmlConvert.ToString(assessmentSectionAssembly.Probability));
-            writer.WriteElementString("assemblagemethodeFaalkans", AssemblyXmlIdentifiers.UboiNamespace, "BOI-2A-1");
-            writer.WriteElementString("status", AssemblyXmlIdentifiers.UboiNamespace, Resources.FullAssembly);
-            WriteLink("uitkomstVan", assembly.AssessmentProcess.Id);
+            writer.WriteElementString(AssemblyXmlIdentifiers.TotalAssemblyResultAssemblyGroup, AssemblyXmlIdentifiers.UboiNamespace,
+                                      EnumDisplayNameHelper.GetDisplayName(assessmentSectionAssembly.AssemblyGroup));
+            writer.WriteElementString(AssemblyXmlIdentifiers.TotalAssemblyResultAssemblyMethod, AssemblyXmlIdentifiers.UboiNamespace, "BOI-2B-1");
+            writer.WriteElementString(AssemblyXmlIdentifiers.Probability, AssemblyXmlIdentifiers.UboiNamespace,
+                                      XmlConvert.ToString(assessmentSectionAssembly.Probability));
+            writer.WriteElementString(AssemblyXmlIdentifiers.ProbabilityAssemblyMethod, AssemblyXmlIdentifiers.UboiNamespace, "BOI-2A-1");
+            writer.WriteElementString(AssemblyXmlIdentifiers.Status, AssemblyXmlIdentifiers.UboiNamespace, Resources.FullAssembly);
+            WriteLink(AssemblyXmlIdentifiers.ResultOf, assembly.AssessmentProcess.Id);
             
             writer.WriteEndElement();
         }

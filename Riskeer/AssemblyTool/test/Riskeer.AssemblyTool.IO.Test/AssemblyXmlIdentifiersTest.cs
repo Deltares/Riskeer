@@ -35,9 +35,11 @@ namespace Riskeer.AssemblyTool.IO.Test
             Assert.AreEqual("Beoordelingsproces", AssemblyXmlIdentifiers.AssessmentProcess);
             Assert.AreEqual("beginJaarBeoordelingsronde", AssemblyXmlIdentifiers.StartYear);
             Assert.AreEqual("eindJaarBeoordelingsronde", AssemblyXmlIdentifiers.EndYear);
+            Assert.AreEqual("Veiligheidsoordeel", AssemblyXmlIdentifiers.TotalAssemblyResult);
 
             Assert.AreEqual("href", AssemblyXmlIdentifiers.Link);
             Assert.AreEqual("beoordeelt", AssemblyXmlIdentifiers.Assesses);
+            Assert.AreEqual("uitkomstVan", AssemblyXmlIdentifiers.ResultOf);
 
             Assert.AreEqual("xmlns", AssemblyXmlIdentifiers.XmlnsIdentifier);
             Assert.AreEqual("xlink", AssemblyXmlIdentifiers.XLinkNamespaceIdentifier);
@@ -52,12 +54,18 @@ namespace Riskeer.AssemblyTool.IO.Test
             Assert.AreEqual("id", AssemblyXmlIdentifiers.Id);
             Assert.AreEqual("naam", AssemblyXmlIdentifiers.Name);
             Assert.AreEqual("featureMember", AssemblyXmlIdentifiers.FeatureMember);
+            Assert.AreEqual("status", AssemblyXmlIdentifiers.Status);
 
             Assert.AreEqual("lengte", AssemblyXmlIdentifiers.Length);
             Assert.AreEqual("LineString", AssemblyXmlIdentifiers.LineString);
             Assert.AreEqual("srsName", AssemblyXmlIdentifiers.CoordinateSystem);
             Assert.AreEqual("posList", AssemblyXmlIdentifiers.Geometry);
             Assert.AreEqual("geometrie2D", AssemblyXmlIdentifiers.Geometry2D);
+
+            Assert.AreEqual("categorie", AssemblyXmlIdentifiers.TotalAssemblyResultAssemblyGroup);
+            Assert.AreEqual("assemblagemethodeVeiligheidsoordeel", AssemblyXmlIdentifiers.TotalAssemblyResultAssemblyMethod);
+            Assert.AreEqual("faalkans", AssemblyXmlIdentifiers.Probability);
+            Assert.AreEqual("assemblagemethodeFaalkans", AssemblyXmlIdentifiers.ProbabilityAssemblyMethod);
         }
     }
 }

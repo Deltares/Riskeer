@@ -57,6 +57,11 @@ namespace Riskeer.AssemblyTool.IO
         /// </summary>
         public const string EndYear = "eindJaarBeoordelingsronde";
 
+        /// <summary>
+        /// Identifier for a total assembly result element.
+        /// </summary>
+        public const string TotalAssemblyResult = "Veiligheidsoordeel";
+
         #region Link identifiers
 
         /// <summary>
@@ -69,6 +74,11 @@ namespace Riskeer.AssemblyTool.IO
         /// </summary>
         public const string Assesses = "beoordeelt";
 
+        /// <summary>
+        /// Identifier for a result of element.
+        /// </summary>
+        public const string ResultOf = "uitkomstVan";
+
         #endregion
 
         #region Namespaces
@@ -77,7 +87,7 @@ namespace Riskeer.AssemblyTool.IO
         /// Identifier for a xmlns attribute.
         /// </summary>
         public const string XmlnsIdentifier = "xmlns";
-        
+
         /// <summary>
         /// The XML namespace identifier for XLink objects.
         /// </summary>
@@ -137,6 +147,11 @@ namespace Riskeer.AssemblyTool.IO
         /// </summary>
         public const string FeatureMember = "featureMember";
 
+        /// <summary>
+        /// Identifier for a status element.
+        /// </summary>
+        public const string Status = "status";
+
         #endregion
 
         #region Geometry
@@ -165,6 +180,30 @@ namespace Riskeer.AssemblyTool.IO
         /// Identifier for a length attribute.
         /// </summary>
         public const string Length = "lengte";
+
+        #endregion
+
+        #region Assembly results
+
+        /// <summary>
+        /// Identifier for a total assembly result assembly group element.
+        /// </summary>
+        public const string TotalAssemblyResultAssemblyGroup = "categorie";
+
+        /// <summary>
+        /// Identifier for a total assembly result assembly method element.
+        /// </summary>
+        public const string TotalAssemblyResultAssemblyMethod = "assemblagemethodeVeiligheidsoordeel";
+
+        /// <summary>
+        /// Identifier for a probability element.
+        /// </summary>
+        public const string Probability = "faalkans";
+
+        /// <summary>
+        /// Identifier for a probability assembly method element.
+        /// </summary>
+        public const string ProbabilityAssemblyMethod = "assemblagemethodeFaalkans";
 
         #endregion
     }
