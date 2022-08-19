@@ -89,7 +89,7 @@ namespace Riskeer.AssemblyTool.IO
 
                 WriteFeatureMember(() => WriteAssessmentSection(assembly.AssessmentSection));
                 WriteFeatureMember(() => WriteAssessmentProcess(assembly.AssessmentProcess));
-                WriteFeatureMember(() => WriteAssessment(assembly));
+                WriteFeatureMember(() => WriteTotalAssemblyResult(assembly.AssessmentSection.AssessmentSectionAssembly, assembly.AssessmentProcess));
 
                 writer.WriteEndElement();
                 writer.WriteEndDocument();
@@ -154,11 +154,10 @@ namespace Riskeer.AssemblyTool.IO
             writer.WriteEndElement();
         }
 
-        private void WriteAssessment(ExportableAssembly assembly)
+        private void WriteTotalAssemblyResult(ExportableAssessmentSectionAssemblyResult assessmentSectionAssembly,
+                                              ExportableAssessmentProcess assessmentProcess)
         {
-            WriteStartElementWithId(AssemblyXmlIdentifiers.TotalAssemblyResult, AssemblyXmlIdentifiers.UboiNamespace, "veiligheidsoordeel1");
-
-            ExportableAssessmentSectionAssemblyResult assessmentSectionAssembly = assembly.AssessmentSection.AssessmentSectionAssembly;
+            WriteStartElementWithId(AssemblyXmlIdentifiers.TotalAssemblyResult, AssemblyXmlIdentifiers.UboiNamespace, assessmentSectionAssembly.Id);
 
             writer.WriteElementString(AssemblyXmlIdentifiers.TotalAssemblyResultAssemblyGroup, AssemblyXmlIdentifiers.UboiNamespace,
                                       EnumDisplayNameHelper.GetDisplayName(assessmentSectionAssembly.AssemblyGroup));
@@ -169,7 +168,7 @@ namespace Riskeer.AssemblyTool.IO
             writer.WriteElementString(AssemblyXmlIdentifiers.ProbabilityAssemblyMethod, AssemblyXmlIdentifiers.UboiNamespace,
                                       EnumDisplayNameHelper.GetDisplayName(assessmentSectionAssembly.ProbabilityAssemblyMethod));
             writer.WriteElementString(AssemblyXmlIdentifiers.Status, AssemblyXmlIdentifiers.UboiNamespace, Resources.FullAssembly);
-            WriteLink(AssemblyXmlIdentifiers.ResultOf, assembly.AssessmentProcess.Id);
+            WriteLink(AssemblyXmlIdentifiers.ResultOf, assessmentProcess.Id);
 
             writer.WriteEndElement();
         }
