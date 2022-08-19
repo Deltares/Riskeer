@@ -28,6 +28,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Integration.IO.Helpers;
+using Riskeer.Integration.IO.Properties;
 
 namespace Riskeer.Integration.IO.Factories
 {
@@ -41,6 +42,7 @@ namespace Riskeer.Integration.IO.Factories
         /// Creates an <see cref="ExportableFailureMechanism"/>
         /// with assembly results based on the input parameters.
         /// </summary>
+        /// <param name="idGenerator">The generator to generate ids for the exportable components.</param>
         /// <param name="failureMechanism">The failure mechanism to create an <see cref="ExportableFailureMechanism"/> for.</param>
         /// <param name="assessmentSection">The assessment section the failure mechanism belongs to.</param>
         /// <param name="assembleFailureMechanismFunc">The <see cref="Func{T1,T2,TResult}"/> to perform
@@ -51,18 +53,23 @@ namespace Riskeer.Integration.IO.Factories
         /// <typeparam name="TFailureMechanism">The type of the failure mechanism.</typeparam>
         /// <typeparam name="TSectionResult">The type of the section result.</typeparam>
         /// <returns>An <see cref="ExportableFailureMechanism"/> with assembly results.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>,
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="idGenerator"/>, <paramref name="failureMechanism"/>,
         /// <paramref name="assessmentSection"/>, <paramref name="assembleFailureMechanismFunc"/> or
         /// <paramref name="assembleFailureMechanismSectionFunc"/> is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created.</exception>
         public static ExportableFailureMechanism CreateExportableFailureMechanism<TFailureMechanism, TSectionResult>(
-            TFailureMechanism failureMechanism, IAssessmentSection assessmentSection,
+            IdentifierGenerator idGenerator, TFailureMechanism failureMechanism, IAssessmentSection assessmentSection,
             Func<TFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> assembleFailureMechanismFunc,
             Func<TSectionResult, TFailureMechanism, IAssessmentSection, FailureMechanismSectionAssemblyResultWrapper> assembleFailureMechanismSectionFunc,
             ExportableFailureMechanismType failureMechanismType)
             where TFailureMechanism : IFailureMechanism<TSectionResult>
             where TSectionResult : FailureMechanismSectionResult
         {
+            if (idGenerator == null)
+            {
+                throw new ArgumentNullException(nameof(idGenerator));
+            }
+
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
@@ -84,7 +91,7 @@ namespace Riskeer.Integration.IO.Factories
             }
 
             FailureMechanismAssemblyResultWrapper assemblyResultWrapper = assembleFailureMechanismFunc(failureMechanism, assessmentSection);
-            return new ExportableFailureMechanism("id", new ExportableFailureMechanismAssemblyResult(
+            return new ExportableFailureMechanism(idGenerator.GetNewId(Resources.ExportableFailureMechanism_IdPrefix), new ExportableFailureMechanismAssemblyResult(
                                                       assemblyResultWrapper.AssemblyResult,
                                                       ExportableAssemblyMethodFactory.Create(assemblyResultWrapper.AssemblyMethod)),
                                                   CreateExportableFailureMechanismSectionResults(

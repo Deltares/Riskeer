@@ -136,6 +136,15 @@ namespace Riskeer.Integration.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fm.
+        /// </summary>
+        public static string ExportableFailureMechanism_IdPrefix {
+            get {
+                return ResourceManager.GetString("ExportableFailureMechanism_IdPrefix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Vo.
         /// </summary>
         public static string ExportableTotalAssemblyResult_IdPrefix {

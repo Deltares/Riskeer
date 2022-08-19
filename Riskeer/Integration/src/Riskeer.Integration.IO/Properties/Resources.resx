@@ -138,6 +138,9 @@
   <data name="SerializableAssessmentProcess_IdPrefix" xml:space="preserve">
     <value>Bp</value>
   </data>
+  <data name="ExportableFailureMechanism_IdPrefix" xml:space="preserve">
+    <value>Fm</value>
+  </data>  
   <data name="SerializableFailureMechanismCreator_IdPrefix" xml:space="preserve">
     <value>Fm</value>
   </data>

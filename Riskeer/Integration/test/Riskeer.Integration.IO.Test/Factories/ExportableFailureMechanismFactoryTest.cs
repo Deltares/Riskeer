@@ -33,12 +33,33 @@ using Riskeer.AssemblyTool.IO.TestUtil;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.IO.Factories;
+using Riskeer.Integration.IO.Helpers;
 
 namespace Riskeer.Integration.IO.Test.Factories
 {
     [TestFixture]
     public class ExportableFailureMechanismFactoryTest
     {
+        [Test]
+        public void CreateExportableFailureMechanism_IdGeneratorNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var random = new Random(21);
+
+            // Call
+            void Call() => ExportableFailureMechanismFactory.CreateExportableFailureMechanism<TestFailureMechanism, TestFailureMechanismSectionResult>(
+                null, new TestFailureMechanism(), assessmentSection, (fm, section) => null, (sr, fm, section) => null, random.NextEnumValue<ExportableFailureMechanismType>());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("idGenerator", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
         [Test]
         public void CreateExportableFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
         {
@@ -51,7 +72,7 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             // Call
             void Call() => ExportableFailureMechanismFactory.CreateExportableFailureMechanism<TestFailureMechanism, TestFailureMechanismSectionResult>(
-                null, assessmentSection, (fm, section) => null, (sr, fm, section) => null, random.NextEnumValue<ExportableFailureMechanismType>());
+                new IdentifierGenerator(), null, assessmentSection, (fm, section) => null, (sr, fm, section) => null, random.NextEnumValue<ExportableFailureMechanismType>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -67,7 +88,7 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             // Call
             void Call() => ExportableFailureMechanismFactory.CreateExportableFailureMechanism<TestFailureMechanism, TestFailureMechanismSectionResult>(
-                new TestFailureMechanism(), null, (fm, section) => null, (sr, fm, section) => null, random.NextEnumValue<ExportableFailureMechanismType>());
+                new IdentifierGenerator(), new TestFailureMechanism(), null, (fm, section) => null, (sr, fm, section) => null, random.NextEnumValue<ExportableFailureMechanismType>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -86,7 +107,7 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             // Call
             void Call() => ExportableFailureMechanismFactory.CreateExportableFailureMechanism<TestFailureMechanism, TestFailureMechanismSectionResult>(
-                new TestFailureMechanism(), assessmentSection, null, (sr, fm, section) => null, random.NextEnumValue<ExportableFailureMechanismType>());
+                new IdentifierGenerator(), new TestFailureMechanism(), assessmentSection, null, (sr, fm, section) => null, random.NextEnumValue<ExportableFailureMechanismType>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -106,7 +127,7 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             // Call
             void Call() => ExportableFailureMechanismFactory.CreateExportableFailureMechanism<TestFailureMechanism, TestFailureMechanismSectionResult>(
-                new TestFailureMechanism(), assessmentSection, (fm, section) => null, null, random.NextEnumValue<ExportableFailureMechanismType>());
+                new IdentifierGenerator(), new TestFailureMechanism(), assessmentSection, (fm, section) => null, null, random.NextEnumValue<ExportableFailureMechanismType>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -129,13 +150,16 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             var failureMechanismType = random.NextEnumValue<ExportableFailureMechanismType>();
 
+            var idGenerator = new IdentifierGenerator();
+
             // Call
             ExportableFailureMechanism exportableFailureMechanism =
                 ExportableFailureMechanismFactory.CreateExportableFailureMechanism<TestFailureMechanism, TestFailureMechanismSectionResult>(
-                    failureMechanism, assessmentSection, (fm, section) => new FailureMechanismAssemblyResultWrapper(probability, assemblyMethod),
+                    idGenerator, failureMechanism, assessmentSection, (fm, section) => new FailureMechanismAssemblyResultWrapper(probability, assemblyMethod),
                     (sr, fm, section) => expectedSectionOutput, failureMechanismType);
 
             // Assert
+            Assert.AreEqual("Fm.0", exportableFailureMechanism.Id);
             Assert.AreEqual(failureMechanismType, exportableFailureMechanism.FailureMechanismType);
             Assert.AreEqual(failureMechanism.Code, exportableFailureMechanism.Code);
 
