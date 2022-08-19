@@ -99,12 +99,11 @@ namespace Riskeer.Integration.IO.Test.Creators
         private static ExportableFailureMechanism CreateExportableFailureMechanism()
         {
             var random = new Random(21);
-            return new ExportableFailureMechanism(
-                ExportableFailureMechanismAssemblyResultTestFactory.CreateResult(),
-                Enumerable.Empty<ExportableFailureMechanismSectionAssemblyWithProbabilityResult>(),
-                random.NextEnumValue<ExportableFailureMechanismType>(),
-                "code",
-                "name");
+            return new ExportableFailureMechanism("id", ExportableFailureMechanismAssemblyResultTestFactory.CreateResult(),
+                                                  Enumerable.Empty<ExportableFailureMechanismSectionAssemblyWithProbabilityResult>(),
+                                                  random.NextEnumValue<ExportableFailureMechanismType>(),
+                                                  "code",
+                                                  "name");
         }
 
         private static SerializableTotalAssemblyResult CreateSerializableTotalAssembly(string totalAssemblyId)

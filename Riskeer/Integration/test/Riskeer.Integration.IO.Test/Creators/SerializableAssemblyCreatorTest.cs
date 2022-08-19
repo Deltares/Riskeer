@@ -158,15 +158,14 @@ namespace Riskeer.Integration.IO.Test.Creators
         {
             var random = new Random(21);
             ExportableFailureMechanismSection failureMechanismSection = ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection();
-            return new ExportableFailureMechanism(
-                ExportableFailureMechanismAssemblyResultTestFactory.CreateResult(),
-                new[]
-                {
-                    ExportableFailureMechanismSectionAssemblyResultTestFactory.CreateWithProbability(failureMechanismSection, random.Next())
-                },
-                random.NextEnumValue<ExportableFailureMechanismType>(),
-                "code",
-                "name");
+            return new ExportableFailureMechanism("id", ExportableFailureMechanismAssemblyResultTestFactory.CreateResult(),
+                                                  new[]
+                                                  {
+                                                      ExportableFailureMechanismSectionAssemblyResultTestFactory.CreateWithProbability(failureMechanismSection, random.Next())
+                                                  },
+                                                  random.NextEnumValue<ExportableFailureMechanismType>(),
+                                                  "code",
+                                                  "name");
         }
 
         #endregion

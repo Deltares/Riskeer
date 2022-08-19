@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Riskeer.AssemblyTool.IO.Helpers;
 using Riskeer.AssemblyTool.IO.Model.Enums;
 
 namespace Riskeer.AssemblyTool.IO.Model
@@ -33,6 +34,7 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// <summary>
         /// Creates a new instance of <see cref="ExportableFailureMechanism"/>.
         /// </summary>
+        /// <param name="id">The id of the failure mechanism.</param>
         /// <param name="failureMechanismAssembly">The assembly result of the failure mechanism.</param>
         /// <param name="sectionAssemblyResults">The assembly results for the failure mechanism sections.</param>
         /// <param name="failureMechanismType">The type of the failure mechanism.</param>
@@ -40,10 +42,13 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// <param name="name">The name of the failure mechanism.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismAssembly"/>
         /// or <paramref name="sectionAssemblyResults"/> is <c>null</c>.</exception>
-        public ExportableFailureMechanism(ExportableFailureMechanismAssemblyResult failureMechanismAssembly,
+        /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is invalid.</exception>
+        public ExportableFailureMechanism(string id, ExportableFailureMechanismAssemblyResult failureMechanismAssembly,
                                           IEnumerable<ExportableFailureMechanismSectionAssemblyWithProbabilityResult> sectionAssemblyResults,
                                           ExportableFailureMechanismType failureMechanismType, string code, string name)
         {
+            IdValidationHelper.ThrowIfInvalid(id);
+            
             if (failureMechanismAssembly == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanismAssembly));
@@ -54,12 +59,18 @@ namespace Riskeer.AssemblyTool.IO.Model
                 throw new ArgumentNullException(nameof(sectionAssemblyResults));
             }
 
+            Id = id;
             FailureMechanismAssembly = failureMechanismAssembly;
             SectionAssemblyResults = sectionAssemblyResults;
             FailureMechanismType = failureMechanismType;
             Code = code;
             Name = name;
         }
+
+        /// <summary>
+        /// Gets the id of the failure mechanism.
+        /// </summary>
+        public string Id { get; }
 
         /// <summary>
         /// Gets the assembly result of the failure mechanism.

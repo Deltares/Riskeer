@@ -34,15 +34,30 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
     public class ExportableFailureMechanismTest
     {
         [Test]
+        [TestCaseSource(typeof(InvalidIdTestHelper), nameof(InvalidIdTestHelper.InvalidIdCases))]
+        public void Constructor_InvalidId_ThrowsArgumentException(string invalidId)
+        {
+            // Setup
+            var random = new Random(21);
+
+            // Call
+            void Call() => new ExportableFailureMechanism(invalidId, null, Enumerable.Empty<ExportableFailureMechanismSectionAssemblyWithProbabilityResult>(),
+                                                          random.NextEnumValue<ExportableFailureMechanismType>(), string.Empty, string.Empty);
+
+            // Assert
+            const string expectedMessage = "'id' must have a value and consist only of alphanumerical characters, '-', '_' or '.'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
+        }
+        
+        [Test]
         public void Constructor_FailureMechanismAssemblyResultNull_ThrowsArgumentNullException()
         {
             // Setup
             var random = new Random(21);
 
             // Call
-            void Call() => new ExportableFailureMechanism(
-                null, Enumerable.Empty<ExportableFailureMechanismSectionAssemblyWithProbabilityResult>(),
-                random.NextEnumValue<ExportableFailureMechanismType>(), string.Empty, string.Empty);
+            void Call() => new ExportableFailureMechanism("id", null, Enumerable.Empty<ExportableFailureMechanismSectionAssemblyWithProbabilityResult>(),
+                                                          random.NextEnumValue<ExportableFailureMechanismType>(), string.Empty, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -56,10 +71,9 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             var random = new Random(21);
 
             // Call
-            void Call() => new ExportableFailureMechanism(
-                ExportableFailureMechanismAssemblyResultTestFactory.CreateResult(),
-                null, random.NextEnumValue<ExportableFailureMechanismType>(),
-                string.Empty, string.Empty);
+            void Call() => new ExportableFailureMechanism("id", ExportableFailureMechanismAssemblyResultTestFactory.CreateResult(),
+                                                          null, random.NextEnumValue<ExportableFailureMechanismType>(),
+                                                          string.Empty, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -70,6 +84,10 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
         public void Constructor_ExpectedValues()
         {
             // Setup
+            const string id = "id";
+            const string code = "code";
+            const string name = "name";
+            
             var random = new Random(21);
 
             ExportableFailureMechanismAssemblyResult failureMechanismAssembly =
@@ -77,14 +95,13 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             IEnumerable<ExportableFailureMechanismSectionAssemblyWithProbabilityResult> sectionAssemblyResults =
                 Enumerable.Empty<ExportableFailureMechanismSectionAssemblyWithProbabilityResult>();
             var failureMechanismType = random.NextEnumValue<ExportableFailureMechanismType>();
-            const string code = "code";
-            const string name = "name";
+            
 
             // Call
-            var failureMechanism = new ExportableFailureMechanism(
-                failureMechanismAssembly, sectionAssemblyResults, failureMechanismType, code, name);
+            var failureMechanism = new ExportableFailureMechanism(id, failureMechanismAssembly, sectionAssemblyResults, failureMechanismType, code, name);
 
             // Assert
+            Assert.AreEqual(id, failureMechanism.Id);
             Assert.AreSame(failureMechanismAssembly, failureMechanism.FailureMechanismAssembly);
             Assert.AreSame(sectionAssemblyResults, failureMechanism.SectionAssemblyResults);
             Assert.AreEqual(failureMechanismType, failureMechanism.FailureMechanismType);

@@ -48,12 +48,11 @@ namespace Riskeer.Integration.IO.Test.Creators
             // Call
             void Call() => AggregatedSerializableFailureMechanismCreator.Create(
                 null, new SerializableTotalAssemblyResult(),
-                new ExportableFailureMechanism(
-                    ExportableFailureMechanismAssemblyResultTestFactory.CreateResult(),
-                    Enumerable.Empty<ExportableFailureMechanismSectionAssemblyWithProbabilityResult>(),
-                    random.NextEnumValue<ExportableFailureMechanismType>(),
-                    string.Empty,
-                    string.Empty));
+                new ExportableFailureMechanism("id", ExportableFailureMechanismAssemblyResultTestFactory.CreateResult(),
+                                               Enumerable.Empty<ExportableFailureMechanismSectionAssemblyWithProbabilityResult>(),
+                                               random.NextEnumValue<ExportableFailureMechanismType>(),
+                                               string.Empty,
+                                               string.Empty));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -69,12 +68,11 @@ namespace Riskeer.Integration.IO.Test.Creators
             // Call
             void Call() => AggregatedSerializableFailureMechanismCreator.Create(
                 new IdentifierGenerator(), null,
-                new ExportableFailureMechanism(
-                    ExportableFailureMechanismAssemblyResultTestFactory.CreateResult(),
-                    Enumerable.Empty<ExportableFailureMechanismSectionAssemblyWithProbabilityResult>(),
-                    random.NextEnumValue<ExportableFailureMechanismType>(),
-                    string.Empty,
-                    string.Empty));
+                new ExportableFailureMechanism("id", ExportableFailureMechanismAssemblyResultTestFactory.CreateResult(),
+                                               Enumerable.Empty<ExportableFailureMechanismSectionAssemblyWithProbabilityResult>(),
+                                               random.NextEnumValue<ExportableFailureMechanismType>(),
+                                               string.Empty,
+                                               string.Empty));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -98,18 +96,17 @@ namespace Riskeer.Integration.IO.Test.Creators
         {
             // Setup
             var random = new Random(21);
-            var failureMechanism = new ExportableFailureMechanism(
-                ExportableFailureMechanismAssemblyResultTestFactory.CreateResult(),
-                new[]
-                {
-                    ExportableFailureMechanismSectionAssemblyResultTestFactory.CreateWithProbability(
-                        ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(random.Next()), random.Next()),
-                    ExportableFailureMechanismSectionAssemblyResultTestFactory.CreateWithProbability(
-                        ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(random.Next()), random.Next())
-                },
-                random.NextEnumValue<ExportableFailureMechanismType>(),
-                "code",
-                "name");
+            var failureMechanism = new ExportableFailureMechanism("id", ExportableFailureMechanismAssemblyResultTestFactory.CreateResult(),
+                                                                  new[]
+                                                                  {
+                                                                      ExportableFailureMechanismSectionAssemblyResultTestFactory.CreateWithProbability(
+                                                                          ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(random.Next()), random.Next()),
+                                                                      ExportableFailureMechanismSectionAssemblyResultTestFactory.CreateWithProbability(
+                                                                          ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(random.Next()), random.Next())
+                                                                  },
+                                                                  random.NextEnumValue<ExportableFailureMechanismType>(),
+                                                                  "code",
+                                                                  "name");
 
             var idGenerator = new IdentifierGenerator();
 

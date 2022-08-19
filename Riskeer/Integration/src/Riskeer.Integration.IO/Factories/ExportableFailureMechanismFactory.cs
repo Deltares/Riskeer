@@ -84,13 +84,12 @@ namespace Riskeer.Integration.IO.Factories
             }
 
             FailureMechanismAssemblyResultWrapper assemblyResultWrapper = assembleFailureMechanismFunc(failureMechanism, assessmentSection);
-            return new ExportableFailureMechanism(
-                new ExportableFailureMechanismAssemblyResult(
-                    assemblyResultWrapper.AssemblyResult,
-                    ExportableAssemblyMethodFactory.Create(assemblyResultWrapper.AssemblyMethod)),
-                CreateExportableFailureMechanismSectionResults(
-                    failureMechanism, assessmentSection, assembleFailureMechanismSectionFunc),
-                failureMechanismType, failureMechanism.Code, failureMechanism.Name);
+            return new ExportableFailureMechanism("id", new ExportableFailureMechanismAssemblyResult(
+                                                      assemblyResultWrapper.AssemblyResult,
+                                                      ExportableAssemblyMethodFactory.Create(assemblyResultWrapper.AssemblyMethod)),
+                                                  CreateExportableFailureMechanismSectionResults(
+                                                      failureMechanism, assessmentSection, assembleFailureMechanismSectionFunc),
+                                                  failureMechanismType, failureMechanism.Code, failureMechanism.Name);
         }
 
         /// <summary>
