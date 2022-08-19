@@ -39,6 +39,8 @@ using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Assembly;
 using Riskeer.Integration.Data.StandAlone;
 using Riskeer.Integration.Data.StandAlone.AssemblyFactories;
+using Riskeer.Integration.IO.Helpers;
+using Riskeer.Integration.IO.Properties;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.Piping.Data;
 using Riskeer.StabilityPointStructures.Data;
@@ -57,21 +59,26 @@ namespace Riskeer.Integration.IO.Factories
         /// Creates an <see cref="ExportableAssessmentSection"/> with assembly results
         /// based on <paramref name="assessmentSection"/>.
         /// </summary>
+        /// <param name="idGenerator">The generator to generate ids for the exportable components.</param>
         /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to create
         /// an <see cref="ExportableAssessmentSection"/> for.</param>
         /// <returns>An <see cref="ExportableAssessmentSection"/> with assembly results.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
-        /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when no reference line is set for <paramref name="assessmentSection"/>.</exception>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created for <paramref name="assessmentSection"/>.</exception>
-        public static ExportableAssessmentSection CreateExportableAssessmentSection(AssessmentSection assessmentSection)
+        public static ExportableAssessmentSection CreateExportableAssessmentSection(IdentifierGenerator idGenerator, AssessmentSection assessmentSection)
         {
+            if (idGenerator == null)
+            {
+                throw new ArgumentNullException(nameof(idGenerator));
+            }
+
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return new ExportableAssessmentSection(assessmentSection.Id,
+            return new ExportableAssessmentSection($"{Resources.ExportableAssessmentSection_IdPrefix}.{assessmentSection.Id}",
                                                    assessmentSection.Name,
                                                    assessmentSection.ReferenceLine.Points,
                                                    CreateExportableAssessmentSectionAssemblyResult(assessmentSection),

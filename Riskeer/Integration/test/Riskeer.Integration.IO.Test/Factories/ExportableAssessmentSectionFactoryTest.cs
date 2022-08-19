@@ -33,6 +33,7 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.IO.Factories;
+using Riskeer.Integration.IO.Helpers;
 
 namespace Riskeer.Integration.IO.Test.Factories
 {
@@ -40,10 +41,25 @@ namespace Riskeer.Integration.IO.Test.Factories
     public class ExportableAssessmentSectionFactoryTest
     {
         [Test]
+        public void CreateExportableAssessmentSection_IdGeneratorNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var random = new Random(21);
+
+            // Call
+            void Call() => ExportableAssessmentSectionFactory.CreateExportableAssessmentSection(
+                null, new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>()));
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("idGenerator", exception.ParamName);
+        }
+
+        [Test]
         public void CreateExportableAssessmentSection_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => ExportableAssessmentSectionFactory.CreateExportableAssessmentSection(null);
+            void Call() => ExportableAssessmentSectionFactory.CreateExportableAssessmentSection(new IdentifierGenerator(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -88,14 +104,16 @@ namespace Riskeer.Integration.IO.Test.Factories
             FailureMechanismTestHelper.AddSections(assessmentSection.SpecificFailureMechanisms.First(), random.Next(1, 10));
             FailureMechanismTestHelper.AddSections(assessmentSection.SpecificFailureMechanisms.Last(), random.Next(1, 10));
 
+            var idGenerator = new IdentifierGenerator();
+
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                ExportableAssessmentSection exportableAssessmentSection = ExportableAssessmentSectionFactory.CreateExportableAssessmentSection(assessmentSection);
+                ExportableAssessmentSection exportableAssessmentSection = ExportableAssessmentSectionFactory.CreateExportableAssessmentSection(idGenerator, assessmentSection);
 
                 // Assert
                 Assert.AreEqual(name, exportableAssessmentSection.Name);
-                Assert.AreEqual(id, exportableAssessmentSection.Id);
+                Assert.AreEqual($"Wks.{assessmentSection.Id}", exportableAssessmentSection.Id);
                 CollectionAssert.AreEqual(assessmentSection.ReferenceLine.Points, exportableAssessmentSection.Geometry);
 
                 ExportableAssessmentSectionAssemblyResult exportableAssessmentSectionAssemblyResult = exportableAssessmentSection.AssessmentSectionAssembly;
@@ -164,14 +182,16 @@ namespace Riskeer.Integration.IO.Test.Factories
                 failureMechanism.InAssembly = false;
             }
 
+            var idGenerator = new IdentifierGenerator();
+
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                ExportableAssessmentSection exportableAssessmentSection = ExportableAssessmentSectionFactory.CreateExportableAssessmentSection(assessmentSection);
+                ExportableAssessmentSection exportableAssessmentSection = ExportableAssessmentSectionFactory.CreateExportableAssessmentSection(idGenerator, assessmentSection);
 
                 // Assert
                 Assert.AreEqual(name, exportableAssessmentSection.Name);
-                Assert.AreEqual(id, exportableAssessmentSection.Id);
+                Assert.AreEqual($"Wks.{assessmentSection.Id}", exportableAssessmentSection.Id);
                 CollectionAssert.AreEqual(assessmentSection.ReferenceLine.Points, exportableAssessmentSection.Geometry);
 
                 ExportableAssessmentSectionAssemblyResult exportableAssessmentSectionAssemblyResult = exportableAssessmentSection.AssessmentSectionAssembly;

@@ -75,7 +75,7 @@ namespace Riskeer.Integration.IO.Test.Factories
             AssessmentSection assessmentSection, ExportableAssessmentSection exportableAssessmentSection)
         {
             Assert.AreEqual(assessmentSection.Name, exportableAssessmentSection.Name);
-            Assert.AreEqual(assessmentSection.Id, exportableAssessmentSection.Id);
+            Assert.AreEqual($"Wks.{assessmentSection.Id}", exportableAssessmentSection.Id);
             CollectionAssert.AreEqual(assessmentSection.ReferenceLine.Points, exportableAssessmentSection.Geometry);
 
             int nrOfFailureMechanisms = assessmentSection.GetFailureMechanisms()

@@ -32,6 +32,7 @@ using Riskeer.Integration.Data;
 using Riskeer.Integration.IO.Creators;
 using Riskeer.Integration.IO.Exceptions;
 using Riskeer.Integration.IO.Factories;
+using Riskeer.Integration.IO.Helpers;
 using Riskeer.Integration.IO.Properties;
 
 namespace Riskeer.Integration.IO.Exporters
@@ -112,7 +113,7 @@ namespace Riskeer.Integration.IO.Exporters
         {
             try
             {
-                return ExportableAssessmentSectionFactory.CreateExportableAssessmentSection(assessmentSection);
+                return ExportableAssessmentSectionFactory.CreateExportableAssessmentSection(new IdentifierGenerator(), assessmentSection);
             }
             catch (AssemblyException)
             {

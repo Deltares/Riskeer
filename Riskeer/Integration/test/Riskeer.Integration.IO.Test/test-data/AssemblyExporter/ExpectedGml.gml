@@ -7,7 +7,7 @@
     </gml:Envelope>
   </gml:boundedBy>
   <asm:featureMember>
-    <asm:Waterkeringstelsel gml:id="Wks.assessmentSectionId">
+    <asm:Waterkeringstelsel gml:id="Wks.Wks.assessmentSectionId">
       <asm:naam>assessmentSectionName</asm:naam>
       <asm:geometrie2D>
         <gml:LineString srsName="EPSG:28992">

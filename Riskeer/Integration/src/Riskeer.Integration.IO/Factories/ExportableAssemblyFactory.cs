@@ -52,7 +52,7 @@ namespace Riskeer.Integration.IO.Factories
 
             var idGenerator = new IdentifierGenerator();
 
-            ExportableAssessmentSection exportableAssessmentSection = ExportableAssessmentSectionFactory.CreateExportableAssessmentSection(assessmentSection);
+            ExportableAssessmentSection exportableAssessmentSection = ExportableAssessmentSectionFactory.CreateExportableAssessmentSection(idGenerator, assessmentSection);
             ExportableAssessmentProcess exportableAssessmentProcess = CreateAssessmentProcess(exportableAssessmentSection, idGenerator);
 
             return new ExportableAssembly(idGenerator.GetNewId(Resources.ExportableAssembly_IdPrefix), exportableAssessmentSection, exportableAssessmentProcess);

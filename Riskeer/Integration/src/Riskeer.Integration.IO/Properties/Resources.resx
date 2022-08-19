@@ -215,4 +215,7 @@ Er is geen HLCD geïmporteerd.</value>
   <data name="WaveHeights_DisplayName" xml:space="preserve">
     <value>Golfhoogten</value>
   </data>
+  <data name="ExportableAssessmentSection_IdPrefix" xml:space="preserve">
+    <value>Wks</value>
+  </data>
 </root>
