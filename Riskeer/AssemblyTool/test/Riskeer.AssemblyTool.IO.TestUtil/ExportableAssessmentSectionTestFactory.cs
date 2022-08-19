@@ -46,10 +46,11 @@ namespace Riskeer.AssemblyTool.IO.TestUtil
         /// <returns>A default instance of <see cref="ExportableAssessmentSection"/>.</returns>
         public static ExportableAssessmentSection Create(string id)
         {
-            return new ExportableAssessmentSection(
-                "id2", string.Empty, Enumerable.Empty<Point2D>(),
-                ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
-                Enumerable.Empty<ExportableFailureMechanism>(), Enumerable.Empty<ExportableCombinedSectionAssembly>());
+            return new ExportableAssessmentSection(id, string.Empty, Enumerable.Empty<Point2D>(), 
+                                                   Enumerable.Empty<ExportableFailureMechanismSectionCollection>(), 
+                                                   ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
+                                                   Enumerable.Empty<ExportableFailureMechanism>(), 
+                                                   Enumerable.Empty<ExportableCombinedSectionAssembly>());
         }
     }
 }

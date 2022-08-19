@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base.Geometry;
 using Riskeer.AssemblyTool.IO.Helpers;
 
@@ -51,6 +52,30 @@ namespace Riskeer.AssemblyTool.IO.Model
                                            ExportableAssessmentSectionAssemblyResult assessmentSectionAssembly,
                                            IEnumerable<ExportableFailureMechanism> failureMechanisms,
                                            IEnumerable<ExportableCombinedSectionAssembly> combinedSectionAssemblyResults)
+            : this(id, name, geometry, Enumerable.Empty<ExportableFailureMechanismSectionCollection>(), assessmentSectionAssembly,
+                   failureMechanisms, combinedSectionAssemblyResults) {}
+
+        /// <summary>
+        /// Creates an instance of <see cref="ExportableAssessmentSection"/>.
+        /// </summary>
+        /// <param name="id">The id of the assessment section.</param>
+        /// <param name="name">The name of the assessment section.</param>
+        /// <param name="geometry">The geometry of the assessment section.</param>
+        /// <param name="failureMechanismSectionCollections">The collection of failure mechanism sections.</param>
+        /// <param name="assessmentSectionAssembly">The assembly result of the assessment section.</param>
+        /// <param name="failureMechanisms">The assembly results of failure mechanisms belonging
+        /// to this assessment section.</param>
+        /// <param name="combinedSectionAssemblyResults">The combined section assembly results
+        /// of this assessment section.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter except <paramref name="id"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is invalid.</exception>
+        public ExportableAssessmentSection(string id,
+                                           string name,
+                                           IEnumerable<Point2D> geometry,
+                                           IEnumerable<ExportableFailureMechanismSectionCollection> failureMechanismSectionCollections,
+                                           ExportableAssessmentSectionAssemblyResult assessmentSectionAssembly,
+                                           IEnumerable<ExportableFailureMechanism> failureMechanisms,
+                                           IEnumerable<ExportableCombinedSectionAssembly> combinedSectionAssemblyResults)
         {
             IdValidationHelper.ThrowIfInvalid(id);
 
@@ -62,6 +87,11 @@ namespace Riskeer.AssemblyTool.IO.Model
             if (geometry == null)
             {
                 throw new ArgumentNullException(nameof(geometry));
+            }
+
+            if (failureMechanismSectionCollections == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanismSectionCollections));
             }
 
             if (assessmentSectionAssembly == null)
@@ -82,6 +112,7 @@ namespace Riskeer.AssemblyTool.IO.Model
             Id = id;
             Name = name;
             Geometry = geometry;
+            FailureMechanismSectionCollections = failureMechanismSectionCollections;
             AssessmentSectionAssembly = assessmentSectionAssembly;
             FailureMechanisms = failureMechanisms;
             CombinedSectionAssemblies = combinedSectionAssemblyResults;
@@ -101,6 +132,11 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// Gets the geometry of the assessment section.
         /// </summary>
         public IEnumerable<Point2D> Geometry { get; }
+
+        /// <summary>
+        /// Gets the collection of failure mechanism sections.
+        /// </summary>
+        public IEnumerable<ExportableFailureMechanismSectionCollection> FailureMechanismSectionCollections { get; }
 
         /// <summary>
         /// Gets the assembly result of the assessment section.

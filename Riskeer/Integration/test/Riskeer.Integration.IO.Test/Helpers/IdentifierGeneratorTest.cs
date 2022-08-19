@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
-using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.IO.Model;
@@ -149,11 +147,7 @@ namespace Riskeer.Integration.IO.Test.Helpers
 
         private static ExportableAssessmentSection CreateAssessmentSection(string id)
         {
-            return new ExportableAssessmentSection(id,
-                                                   string.Empty,
-                                                   Enumerable.Empty<Point2D>(),
-                                                   ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
-                                                   Enumerable.Empty<ExportableFailureMechanism>(), Enumerable.Empty<ExportableCombinedSectionAssembly>());
+            return ExportableAssessmentSectionTestFactory.Create(id);
         }
     }
 }
