@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Riskeer.AssemblyTool.IO.Helpers;
 using Riskeer.AssemblyTool.IO.Model.Enums;
 
 namespace Riskeer.AssemblyTool.IO.Model
@@ -32,14 +34,19 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// <summary>
         /// Creates an instance of <see cref="ExportableAssessmentSectionAssemblyResult"/>.
         /// </summary>
-        /// <param name="assemblyGroup">The group of this assembly result.</param>
-        /// <param name="probability">The probability of this assembly result.</param>
-        /// <param name="assemblyGroupAssemblyMethod">The method that was used to assemble the assembly group of this result.</param>
-        /// <param name="probabilityAssemblyMethod">The method that was used to assemble the probability of this result.</param>
-        public ExportableAssessmentSectionAssemblyResult(ExportableAssessmentSectionAssemblyGroup assemblyGroup, double probability,
-                                                         ExportableAssemblyMethod assemblyGroupAssemblyMethod,
-                                                         ExportableAssemblyMethod probabilityAssemblyMethod)
+        /// <param name="id">The id of the assembly result.</param>
+        /// <param name="assemblyGroup">The group of the assembly result.</param>
+        /// <param name="probability">The probability of the assembly result.</param>
+        /// <param name="assemblyGroupAssemblyMethod">The method that was used to assemble the assembly group of the result.</param>
+        /// <param name="probabilityAssemblyMethod">The method that was used to assemble the probability of the result.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is invalid.</exception>
+        public ExportableAssessmentSectionAssemblyResult(
+            string id, ExportableAssessmentSectionAssemblyGroup assemblyGroup, double probability,
+            ExportableAssemblyMethod assemblyGroupAssemblyMethod, ExportableAssemblyMethod probabilityAssemblyMethod)
         {
+            IdValidationHelper.ThrowIfInvalid(id);
+            
+            Id = id;
             AssemblyGroup = assemblyGroup;
             Probability = probability;
             AssemblyGroupAssemblyMethod = assemblyGroupAssemblyMethod;
@@ -47,22 +54,27 @@ namespace Riskeer.AssemblyTool.IO.Model
         }
 
         /// <summary>
-        /// Gets the group of this assembly result.
+        /// Gets the id of the assembly result.
+        /// </summary>
+        public string Id { get; }
+
+        /// <summary>
+        /// Gets the group of the assembly result.
         /// </summary>
         public ExportableAssessmentSectionAssemblyGroup AssemblyGroup { get; }
 
         /// <summary>
-        /// Gets the probability of this assembly result.
+        /// Gets the probability of the assembly result.
         /// </summary>
         public double Probability { get; }
 
         /// <summary>
-        /// Gets the assembly method that was used to assemble the assembly group of this result.
+        /// Gets the assembly method that was used to assemble the assembly group of the result.
         /// </summary>
         public ExportableAssemblyMethod AssemblyGroupAssemblyMethod { get; }
 
         /// <summary>
-        /// Gets the assembly method that was used to assemble the probability of this result.
+        /// Gets the assembly method that was used to assemble the probability of the result.
         /// </summary>
         public ExportableAssemblyMethod ProbabilityAssemblyMethod { get; }
     }

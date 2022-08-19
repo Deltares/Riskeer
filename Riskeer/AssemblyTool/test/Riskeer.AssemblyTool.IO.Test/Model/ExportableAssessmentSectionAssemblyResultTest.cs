@@ -24,6 +24,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.AssemblyTool.IO.Model.Enums;
+using Riskeer.AssemblyTool.IO.TestUtil;
 
 namespace Riskeer.AssemblyTool.IO.Test.Model
 {
@@ -31,10 +32,25 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
     public class ExportableAssessmentSectionAssemblyResultTest
     {
         [Test]
-        public void Constructor_WithArguments_ExpectedValues()
+        [TestCaseSource(typeof(InvalidIdTestHelper), nameof(InvalidIdTestHelper.InvalidIdCases))]
+        public void Constructor_InvalidId_ThrowsArgumentException(string invalidId)
+        {
+            // Call
+            void Call() => new ExportableAssessmentSectionAssemblyResult(
+                invalidId, ExportableAssessmentSectionAssemblyGroup.A, double.NaN,
+                ExportableAssemblyMethod.Manual, ExportableAssemblyMethod.Manual);
+
+            // Assert
+            const string expectedMessage = "'id' must have a value and consist only of alphanumerical characters, '-', '_' or '.'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
+        }
+
+        [Test]
+        public void Constructor_ExpectedValues()
         {
             // Setup
             var random = new Random(21);
+            const string id = "id";
             var assemblyGroup = random.NextEnumValue<ExportableAssessmentSectionAssemblyGroup>();
             double probability = random.NextDouble();
             var assemblyGroupAssemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
@@ -42,9 +58,10 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
 
             // Call
             var assembly = new ExportableAssessmentSectionAssemblyResult(
-                assemblyGroup, probability, assemblyGroupAssemblyMethod, probabilityAssemblyMethod);
+                id, assemblyGroup, probability, assemblyGroupAssemblyMethod, probabilityAssemblyMethod);
 
             // Assert
+            Assert.AreEqual(id, assembly.Id);
             Assert.AreEqual(assemblyGroup, assembly.AssemblyGroup);
             Assert.AreEqual(probability, assembly.Probability);
             Assert.AreEqual(assemblyGroupAssemblyMethod, assembly.AssemblyGroupAssemblyMethod);

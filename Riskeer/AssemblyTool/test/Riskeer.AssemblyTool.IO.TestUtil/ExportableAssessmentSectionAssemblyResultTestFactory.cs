@@ -37,7 +37,8 @@ namespace Riskeer.AssemblyTool.IO.TestUtil
         public static ExportableAssessmentSectionAssemblyResult CreateResult()
         {
             return new ExportableAssessmentSectionAssemblyResult(
-                ExportableAssessmentSectionAssemblyGroup.C, 0.0, ExportableAssemblyMethod.BOI2B1, ExportableAssemblyMethod.BOI2A1);
+                "assemblyResult", ExportableAssessmentSectionAssemblyGroup.C, 0.0,
+                ExportableAssemblyMethod.BOI2B1, ExportableAssemblyMethod.BOI2A1);
         }
     }
 }

@@ -145,7 +145,7 @@ namespace Riskeer.AssemblyTool.IO.Test
                     new Point2D(100.0, 0.0)
                 },
                 new ExportableAssessmentSectionAssemblyResult(
-                    ExportableAssessmentSectionAssemblyGroup.B, 0.00068354,
+                    "veiligheidsoordeel1", ExportableAssessmentSectionAssemblyGroup.B, 0.00068354,
                     ExportableAssemblyMethod.BOI2B1, ExportableAssemblyMethod.BOI2A1),
                 Enumerable.Empty<ExportableFailureMechanism>(), Enumerable.Empty<ExportableCombinedSectionAssembly>());
 
