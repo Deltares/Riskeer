@@ -29,10 +29,8 @@ using Riskeer.AssemblyTool.IO;
 using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Integration.Data;
-using Riskeer.Integration.IO.Creators;
 using Riskeer.Integration.IO.Exceptions;
 using Riskeer.Integration.IO.Factories;
-using Riskeer.Integration.IO.Helpers;
 using Riskeer.Integration.IO.Properties;
 
 namespace Riskeer.Integration.IO.Exporters
@@ -74,8 +72,8 @@ namespace Riskeer.Integration.IO.Exporters
                 return false;
             }
 
-            ExportableAssessmentSection exportableAssessmentSection = CreateExportableAssessmentSection();
-            if (exportableAssessmentSection == null)
+            ExportableAssembly exportableAssembly = CreateExportableAssembly();
+            if (exportableAssembly == null)
             {
                 log.Error(Resources.AssemblyExporter_No_AssemblyResult_exported_Check_results_for_details);
                 return false;
@@ -83,8 +81,10 @@ namespace Riskeer.Integration.IO.Exporters
 
             try
             {
-                SerializableAssemblyWriter.WriteAssembly(SerializableAssemblyCreator.Create(exportableAssessmentSection),
-                                                         filePath);
+                using (var writer = new AssemblyGmlWriter(filePath))
+                {
+                    writer.Write(exportableAssembly);
+                }
             }
             catch (AssemblyCreatorException)
             {
@@ -109,11 +109,11 @@ namespace Riskeer.Integration.IO.Exporters
                                     .All(group => group.Count() == 1);
         }
 
-        private ExportableAssessmentSection CreateExportableAssessmentSection()
+        private ExportableAssembly CreateExportableAssembly()
         {
             try
             {
-                return ExportableAssessmentSectionFactory.CreateExportableAssessmentSection(new IdentifierGenerator(), assessmentSection);
+                return ExportableAssemblyFactory.CreateExportableAssembly(assessmentSection);
             }
             catch (AssemblyException)
             {

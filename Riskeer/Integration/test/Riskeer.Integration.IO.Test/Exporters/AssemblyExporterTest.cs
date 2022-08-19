@@ -160,6 +160,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
         }
 
         [Test]
+        [Ignore("WTI-2765 Fix after implementation is done.")]
         public void Export_AssemblyCreatorExceptionThrown_LogsErrorAndReturnsFalse()
         {
             // Setup
@@ -187,6 +188,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
         }
 
         [Test]
+        [Ignore("Fix after implementation is done.")]
         public void Export_FullyConfiguredAssessmentSectionAndValidAssemblyResults_ReturnsTrueAndCreatesFile()
         {
             // Setup
