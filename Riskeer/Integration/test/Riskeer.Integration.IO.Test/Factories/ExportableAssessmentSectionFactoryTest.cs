@@ -221,82 +221,77 @@ namespace Riskeer.Integration.IO.Test.Factories
         {
             Assert.AreEqual(17, exportableFailureMechanisms.Count());
 
-            AssertExportableFailureMechanism(assessmentSection.Piping,
-                                             ExportableFailureMechanismType.Generic,
-                                             exportableFailureMechanisms.ElementAt(0));
+            AssertExportableGenericFailureMechanism(assessmentSection.Piping,
+                                                    (ExportableGenericFailureMechanism) exportableFailureMechanisms.ElementAt(0));
 
-            AssertExportableFailureMechanism(assessmentSection.GrassCoverErosionInwards,
-                                             ExportableFailureMechanismType.Generic,
-                                             exportableFailureMechanisms.ElementAt(1));
+            AssertExportableGenericFailureMechanism(assessmentSection.GrassCoverErosionInwards,
+                                                    (ExportableGenericFailureMechanism) exportableFailureMechanisms.ElementAt(1));
 
-            AssertExportableFailureMechanism(assessmentSection.MacroStabilityInwards,
-                                             ExportableFailureMechanismType.Generic,
-                                             exportableFailureMechanisms.ElementAt(2));
+            AssertExportableGenericFailureMechanism(assessmentSection.MacroStabilityInwards,
+                                                    (ExportableGenericFailureMechanism) exportableFailureMechanisms.ElementAt(2));
 
-            AssertExportableFailureMechanism(assessmentSection.Microstability,
-                                             ExportableFailureMechanismType.Generic,
-                                             exportableFailureMechanisms.ElementAt(3));
+            AssertExportableGenericFailureMechanism(assessmentSection.Microstability,
+                                                    (ExportableGenericFailureMechanism) exportableFailureMechanisms.ElementAt(3));
 
-            AssertExportableFailureMechanism(assessmentSection.StabilityStoneCover,
-                                             ExportableFailureMechanismType.Generic,
-                                             exportableFailureMechanisms.ElementAt(4));
+            AssertExportableGenericFailureMechanism(assessmentSection.StabilityStoneCover,
+                                                    (ExportableGenericFailureMechanism) exportableFailureMechanisms.ElementAt(4));
 
-            AssertExportableFailureMechanism(assessmentSection.WaveImpactAsphaltCover,
-                                             ExportableFailureMechanismType.Generic,
-                                             exportableFailureMechanisms.ElementAt(5));
+            AssertExportableGenericFailureMechanism(assessmentSection.WaveImpactAsphaltCover,
+                                                    (ExportableGenericFailureMechanism) exportableFailureMechanisms.ElementAt(5));
 
-            AssertExportableFailureMechanism(assessmentSection.WaterPressureAsphaltCover,
-                                             ExportableFailureMechanismType.Generic,
-                                             exportableFailureMechanisms.ElementAt(6));
+            AssertExportableGenericFailureMechanism(assessmentSection.WaterPressureAsphaltCover,
+                                                    (ExportableGenericFailureMechanism) exportableFailureMechanisms.ElementAt(6));
 
-            AssertExportableFailureMechanism(assessmentSection.GrassCoverErosionOutwards,
-                                             ExportableFailureMechanismType.Generic,
-                                             exportableFailureMechanisms.ElementAt(7));
+            AssertExportableGenericFailureMechanism(assessmentSection.GrassCoverErosionOutwards,
+                                                    (ExportableGenericFailureMechanism) exportableFailureMechanisms.ElementAt(7));
 
-            AssertExportableFailureMechanism(assessmentSection.GrassCoverSlipOffOutwards,
-                                             ExportableFailureMechanismType.Generic,
-                                             exportableFailureMechanisms.ElementAt(8));
+            AssertExportableGenericFailureMechanism(assessmentSection.GrassCoverSlipOffOutwards,
+                                                    (ExportableGenericFailureMechanism) exportableFailureMechanisms.ElementAt(8));
 
-            AssertExportableFailureMechanism(assessmentSection.GrassCoverSlipOffInwards,
-                                             ExportableFailureMechanismType.Generic,
-                                             exportableFailureMechanisms.ElementAt(9));
+            AssertExportableGenericFailureMechanism(assessmentSection.GrassCoverSlipOffInwards,
+                                                    (ExportableGenericFailureMechanism) exportableFailureMechanisms.ElementAt(9));
 
-            AssertExportableFailureMechanism(assessmentSection.HeightStructures,
-                                             ExportableFailureMechanismType.Generic,
-                                             exportableFailureMechanisms.ElementAt(10));
+            AssertExportableGenericFailureMechanism(assessmentSection.HeightStructures,
+                                                    (ExportableGenericFailureMechanism) exportableFailureMechanisms.ElementAt(10));
 
-            AssertExportableFailureMechanism(assessmentSection.ClosingStructures,
-                                             ExportableFailureMechanismType.Generic,
-                                             exportableFailureMechanisms.ElementAt(11));
+            AssertExportableGenericFailureMechanism(assessmentSection.ClosingStructures,
+                                                    (ExportableGenericFailureMechanism) exportableFailureMechanisms.ElementAt(11));
 
-            AssertExportableFailureMechanism(assessmentSection.PipingStructure,
-                                             ExportableFailureMechanismType.Generic,
-                                             exportableFailureMechanisms.ElementAt(12));
+            AssertExportableGenericFailureMechanism(assessmentSection.PipingStructure,
+                                                    (ExportableGenericFailureMechanism) exportableFailureMechanisms.ElementAt(12));
 
-            AssertExportableFailureMechanism(assessmentSection.StabilityPointStructures,
-                                             ExportableFailureMechanismType.Generic,
-                                             exportableFailureMechanisms.ElementAt(13));
+            AssertExportableGenericFailureMechanism(assessmentSection.StabilityPointStructures,
+                                                    (ExportableGenericFailureMechanism) exportableFailureMechanisms.ElementAt(13));
 
-            AssertExportableFailureMechanism(assessmentSection.DuneErosion,
-                                             ExportableFailureMechanismType.Generic,
-                                             exportableFailureMechanisms.ElementAt(14));
+            AssertExportableGenericFailureMechanism(assessmentSection.DuneErosion,
+                                                    (ExportableGenericFailureMechanism) exportableFailureMechanisms.ElementAt(14));
 
-            AssertExportableFailureMechanism(assessmentSection.SpecificFailureMechanisms.First(),
-                                             ExportableFailureMechanismType.Specific,
-                                             exportableFailureMechanisms.ElementAt(15));
+            AssertExportableSpecificFailureMechanism(assessmentSection.SpecificFailureMechanisms.First(),
+                                                     (ExportableSpecificFailureMechanism) exportableFailureMechanisms.ElementAt(15));
 
-            AssertExportableFailureMechanism(assessmentSection.SpecificFailureMechanisms.Last(),
-                                             ExportableFailureMechanismType.Specific,
-                                             exportableFailureMechanisms.ElementAt(16));
+            AssertExportableSpecificFailureMechanism(assessmentSection.SpecificFailureMechanisms.Last(),
+                                                     (ExportableSpecificFailureMechanism) exportableFailureMechanisms.ElementAt(16));
+        }
+
+        private static void AssertExportableGenericFailureMechanism(IFailureMechanism<FailureMechanismSectionResult> failureMechanism,
+                                                                    ExportableGenericFailureMechanism actualExportableFailureMechanism)
+        {
+            Assert.AreEqual(failureMechanism.Code, actualExportableFailureMechanism.Code);
+
+            AssertExportableFailureMechanism(failureMechanism, actualExportableFailureMechanism);
+        }
+
+        private static void AssertExportableSpecificFailureMechanism(IFailureMechanism<FailureMechanismSectionResult> failureMechanism,
+                                                                     ExportableSpecificFailureMechanism actualExportableFailureMechanism)
+        {
+            Assert.AreEqual(failureMechanism.Name, actualExportableFailureMechanism.Name);
+
+            AssertExportableFailureMechanism(failureMechanism, actualExportableFailureMechanism);
         }
 
         private static void AssertExportableFailureMechanism(IFailureMechanism<FailureMechanismSectionResult> failureMechanism,
-                                                             ExportableFailureMechanismType expectedFailureMechanismType,
                                                              ExportableFailureMechanism actualExportableFailureMechanism)
         {
-            Assert.AreEqual(expectedFailureMechanismType, actualExportableFailureMechanism.FailureMechanismType);
-            Assert.AreEqual(failureMechanism.Code, actualExportableFailureMechanism.Code);
-
             ExportableFailureMechanismAssemblyResult exportableFailureMechanismAssemblyResult = actualExportableFailureMechanism.FailureMechanismAssembly;
             Assert.AreEqual(0.1, exportableFailureMechanismAssemblyResult.Probability);
             Assert.AreEqual(ExportableAssemblyMethod.BOI1A1, exportableFailureMechanismAssemblyResult.AssemblyMethod);

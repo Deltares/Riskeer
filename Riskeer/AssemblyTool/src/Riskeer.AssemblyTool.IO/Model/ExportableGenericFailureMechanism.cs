@@ -21,57 +21,35 @@
 
 using System;
 using System.Collections.Generic;
-using Riskeer.AssemblyTool.IO.Helpers;
 
 namespace Riskeer.AssemblyTool.IO.Model
 {
     /// <summary>
-    /// Class that holds all the information to export the assembly of a failure mechanism.
+    /// Class that holds all the information to export the assembly of a generic failure mechanism.
     /// </summary>
-    public abstract class ExportableFailureMechanism
+    public class ExportableGenericFailureMechanism : ExportableFailureMechanism
     {
         /// <summary>
-        /// Creates a new instance of <see cref="ExportableFailureMechanism"/>.
+        /// Creates a new instance of <see cref="ExportableGenericFailureMechanism"/>.
         /// </summary>
         /// <param name="id">The id of the failure mechanism.</param>
         /// <param name="failureMechanismAssembly">The assembly result of the failure mechanism.</param>
         /// <param name="sectionAssemblyResults">The assembly results for the failure mechanism sections.</param>
+        /// <param name="code">The code of the failure mechanism.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismAssembly"/>
         /// or <paramref name="sectionAssemblyResults"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is invalid.</exception>
-        protected ExportableFailureMechanism(string id, ExportableFailureMechanismAssemblyResult failureMechanismAssembly,
-                                             IEnumerable<ExportableFailureMechanismSectionAssemblyWithProbabilityResult> sectionAssemblyResults)
+        public ExportableGenericFailureMechanism(string id, ExportableFailureMechanismAssemblyResult failureMechanismAssembly,
+                                                 IEnumerable<ExportableFailureMechanismSectionAssemblyWithProbabilityResult> sectionAssemblyResults,
+                                                 string code)
+            : base(id, failureMechanismAssembly, sectionAssemblyResults)
         {
-            IdValidationHelper.ThrowIfInvalid(id);
-
-            if (failureMechanismAssembly == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanismAssembly));
-            }
-
-            if (sectionAssemblyResults == null)
-            {
-                throw new ArgumentNullException(nameof(sectionAssemblyResults));
-            }
-
-            Id = id;
-            FailureMechanismAssembly = failureMechanismAssembly;
-            SectionAssemblyResults = sectionAssemblyResults;
+            Code = code;
         }
 
         /// <summary>
-        /// Gets the id of the failure mechanism.
+        /// Gets the code of the failure mechanism.
         /// </summary>
-        public string Id { get; }
-
-        /// <summary>
-        /// Gets the assembly result of the failure mechanism.
-        /// </summary>
-        public ExportableFailureMechanismAssemblyResult FailureMechanismAssembly { get; }
-
-        /// <summary>
-        /// Gets the collection of assembly results.
-        /// </summary>
-        public IEnumerable<ExportableFailureMechanismSectionAssemblyWithProbabilityResult> SectionAssemblyResults { get; }
+        public string Code { get; }
     }
 }

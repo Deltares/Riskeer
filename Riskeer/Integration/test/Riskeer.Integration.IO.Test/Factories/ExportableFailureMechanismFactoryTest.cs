@@ -28,9 +28,9 @@ using Rhino.Mocks;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.Data.TestUtil;
 using Riskeer.AssemblyTool.IO.Model;
-using Riskeer.AssemblyTool.IO.Model.Enums;
 using Riskeer.AssemblyTool.IO.TestUtil;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.IO.Factories;
 using Riskeer.Integration.IO.Helpers;
@@ -41,18 +41,16 @@ namespace Riskeer.Integration.IO.Test.Factories
     public class ExportableFailureMechanismFactoryTest
     {
         [Test]
-        public void CreateExportableFailureMechanism_IdGeneratorNull_ThrowsArgumentNullException()
+        public void CreateExportableGenericFailureMechanism_IdGeneratorNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var random = new Random(21);
-
             // Call
-            void Call() => ExportableFailureMechanismFactory.CreateExportableFailureMechanism<TestFailureMechanism, TestFailureMechanismSectionResult>(
-                null, new TestFailureMechanism(), assessmentSection, (fm, section) => null, (sr, fm, section) => null, random.NextEnumValue<ExportableFailureMechanismType>());
+            void Call() => ExportableFailureMechanismFactory.CreateExportableGenericFailureMechanism<TestFailureMechanism, TestFailureMechanismSectionResult>(
+                null, new TestFailureMechanism(), assessmentSection, (fm, section) => null, (sr, fm, section) => null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -61,18 +59,16 @@ namespace Riskeer.Integration.IO.Test.Factories
         }
 
         [Test]
-        public void CreateExportableFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
+        public void CreateExportableGenericFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var random = new Random(21);
-
             // Call
-            void Call() => ExportableFailureMechanismFactory.CreateExportableFailureMechanism<TestFailureMechanism, TestFailureMechanismSectionResult>(
-                new IdentifierGenerator(), null, assessmentSection, (fm, section) => null, (sr, fm, section) => null, random.NextEnumValue<ExportableFailureMechanismType>());
+            void Call() => ExportableFailureMechanismFactory.CreateExportableGenericFailureMechanism<TestFailureMechanism, TestFailureMechanismSectionResult>(
+                new IdentifierGenerator(), null, assessmentSection, (fm, section) => null, (sr, fm, section) => null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -81,14 +77,11 @@ namespace Riskeer.Integration.IO.Test.Factories
         }
 
         [Test]
-        public void CreateExportableFailureMechanism_AssessmentSectionNull_ThrowsArgumentNullException()
+        public void CreateExportableGenericFailureMechanism_AssessmentSectionNull_ThrowsArgumentNullException()
         {
-            // Setup
-            var random = new Random(21);
-
             // Call
-            void Call() => ExportableFailureMechanismFactory.CreateExportableFailureMechanism<TestFailureMechanism, TestFailureMechanismSectionResult>(
-                new IdentifierGenerator(), new TestFailureMechanism(), null, (fm, section) => null, (sr, fm, section) => null, random.NextEnumValue<ExportableFailureMechanismType>());
+            void Call() => ExportableFailureMechanismFactory.CreateExportableGenericFailureMechanism<TestFailureMechanism, TestFailureMechanismSectionResult>(
+                new IdentifierGenerator(), new TestFailureMechanism(), null, (fm, section) => null, (sr, fm, section) => null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -96,18 +89,16 @@ namespace Riskeer.Integration.IO.Test.Factories
         }
 
         [Test]
-        public void CreateExportableFailureMechanism_AssembleFailureMechanismFuncNull_ThrowsArgumentNullException()
+        public void CreateExportableGenericFailureMechanism_AssembleFailureMechanismFuncNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var random = new Random(21);
-
             // Call
-            void Call() => ExportableFailureMechanismFactory.CreateExportableFailureMechanism<TestFailureMechanism, TestFailureMechanismSectionResult>(
-                new IdentifierGenerator(), new TestFailureMechanism(), assessmentSection, null, (sr, fm, section) => null, random.NextEnumValue<ExportableFailureMechanismType>());
+            void Call() => ExportableFailureMechanismFactory.CreateExportableGenericFailureMechanism<TestFailureMechanism, TestFailureMechanismSectionResult>(
+                new IdentifierGenerator(), new TestFailureMechanism(), assessmentSection, null, (sr, fm, section) => null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -116,18 +107,16 @@ namespace Riskeer.Integration.IO.Test.Factories
         }
 
         [Test]
-        public void CreateExportableFailureMechanism_AssembleFailureMechanismSectionFuncNull_ThrowsArgumentNullException()
+        public void CreateExportableGenericFailureMechanism_AssembleFailureMechanismSectionFuncNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var random = new Random(21);
-
             // Call
-            void Call() => ExportableFailureMechanismFactory.CreateExportableFailureMechanism<TestFailureMechanism, TestFailureMechanismSectionResult>(
-                new IdentifierGenerator(), new TestFailureMechanism(), assessmentSection, (fm, section) => null, null, random.NextEnumValue<ExportableFailureMechanismType>());
+            void Call() => ExportableFailureMechanismFactory.CreateExportableGenericFailureMechanism<TestFailureMechanism, TestFailureMechanismSectionResult>(
+                new IdentifierGenerator(), new TestFailureMechanism(), assessmentSection, (fm, section) => null, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -136,7 +125,7 @@ namespace Riskeer.Integration.IO.Test.Factories
         }
 
         [Test]
-        public void CreateExportableFailureMechanism_WithValidData_ReturnsExportableFailureMechanism()
+        public void CreateExportableGenericFailureMechanismCreateExportableFailureMechanism_WithValidData_ReturnsExportableFailureMechanism()
         {
             // Setup
             var random = new Random(21);
@@ -148,20 +137,138 @@ namespace Riskeer.Integration.IO.Test.Factories
             var assemblyMethod = random.NextEnumValue<AssemblyMethod>();
             FailureMechanismSectionAssemblyResultWrapper expectedSectionOutput = FailureMechanismSectionAssemblyResultWrapperTestFactory.Create();
 
-            var failureMechanismType = random.NextEnumValue<ExportableFailureMechanismType>();
+            var idGenerator = new IdentifierGenerator();
+
+            // Call
+            ExportableGenericFailureMechanism exportableFailureMechanism =
+                ExportableFailureMechanismFactory.CreateExportableGenericFailureMechanism<TestFailureMechanism, TestFailureMechanismSectionResult>(
+                    idGenerator, failureMechanism, assessmentSection, (fm, section) => new FailureMechanismAssemblyResultWrapper(probability, assemblyMethod),
+                    (sr, fm, section) => expectedSectionOutput);
+
+            // Assert
+            Assert.AreEqual("Fm.0", exportableFailureMechanism.Id);
+            Assert.AreEqual(failureMechanism.Code, exportableFailureMechanism.Code);
+
+            ExportableFailureMechanismAssemblyResult exportableFailureMechanismAssembly = exportableFailureMechanism.FailureMechanismAssembly;
+            Assert.AreEqual(probability, exportableFailureMechanismAssembly.Probability);
+            Assert.AreEqual(ExportableAssemblyMethodFactory.Create(assemblyMethod), exportableFailureMechanismAssembly.AssemblyMethod);
+
+            IEnumerable<ExportableFailureMechanismSection> exportableFailureMechanismSections = exportableFailureMechanism.SectionAssemblyResults
+                                                                                                                          .Select(sar => sar.FailureMechanismSection);
+            ExportableFailureMechanismSectionTestHelper.AssertExportableFailureMechanismSections(failureMechanism.Sections, exportableFailureMechanismSections);
+
+            ExportableFailureMechanismSectionAssemblyResultTestHelper.AssertExportableFailureMechanismSectionResults(
+                expectedSectionOutput, exportableFailureMechanismSections, exportableFailureMechanism.SectionAssemblyResults);
+        }
+
+        [Test]
+        public void CreateExportableSpecificFailureMechanism_IdGeneratorNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            void Call() => ExportableFailureMechanismFactory.CreateExportableSpecificFailureMechanism(
+                null, new SpecificFailureMechanism(), assessmentSection, (fm, section) => null, (sr, fm, section) => null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("idGenerator", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateExportableSpecificFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            void Call() => ExportableFailureMechanismFactory.CreateExportableSpecificFailureMechanism(
+                new IdentifierGenerator(), null, assessmentSection, (fm, section) => null, (sr, fm, section) => null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateExportableSpecificFailureMechanism_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => ExportableFailureMechanismFactory.CreateExportableSpecificFailureMechanism(
+                new IdentifierGenerator(), new SpecificFailureMechanism(), null, (fm, section) => null, (sr, fm, section) => null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateExportableSpecificFailureMechanism_AssembleFailureMechanismFuncNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            void Call() => ExportableFailureMechanismFactory.CreateExportableSpecificFailureMechanism(
+                new IdentifierGenerator(), new SpecificFailureMechanism(), assessmentSection, null, (sr, fm, section) => null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assembleFailureMechanismFunc", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateExportableSpecificFailureMechanism_AssembleFailureMechanismSectionFuncNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            void Call() => ExportableFailureMechanismFactory.CreateExportableSpecificFailureMechanism(
+                new IdentifierGenerator(), new SpecificFailureMechanism(), assessmentSection, (fm, section) => null, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assembleFailureMechanismSectionFunc", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateExportableSpecificFailureMechanism_WithValidData_ReturnsExportableFailureMechanism()
+        {
+            // Setup
+            var random = new Random(21);
+            var failureMechanism = new SpecificFailureMechanism();
+            FailureMechanismTestHelper.AddSections(failureMechanism, random.Next(2, 10));
+            var assessmentSection = new AssessmentSectionStub();
+
+            double probability = random.NextDouble();
+            var assemblyMethod = random.NextEnumValue<AssemblyMethod>();
+            FailureMechanismSectionAssemblyResultWrapper expectedSectionOutput = FailureMechanismSectionAssemblyResultWrapperTestFactory.Create();
 
             var idGenerator = new IdentifierGenerator();
 
             // Call
-            ExportableFailureMechanism exportableFailureMechanism =
-                ExportableFailureMechanismFactory.CreateExportableFailureMechanism<TestFailureMechanism, TestFailureMechanismSectionResult>(
+            ExportableSpecificFailureMechanism exportableFailureMechanism =
+                ExportableFailureMechanismFactory.CreateExportableSpecificFailureMechanism(
                     idGenerator, failureMechanism, assessmentSection, (fm, section) => new FailureMechanismAssemblyResultWrapper(probability, assemblyMethod),
-                    (sr, fm, section) => expectedSectionOutput, failureMechanismType);
+                    (sr, fm, section) => expectedSectionOutput);
 
             // Assert
             Assert.AreEqual("Fm.0", exportableFailureMechanism.Id);
-            Assert.AreEqual(failureMechanismType, exportableFailureMechanism.FailureMechanismType);
-            Assert.AreEqual(failureMechanism.Code, exportableFailureMechanism.Code);
+            Assert.AreEqual(failureMechanism.Name, exportableFailureMechanism.Name);
 
             ExportableFailureMechanismAssemblyResult exportableFailureMechanismAssembly = exportableFailureMechanism.FailureMechanismAssembly;
             Assert.AreEqual(probability, exportableFailureMechanismAssembly.Probability);
