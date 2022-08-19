@@ -92,15 +92,18 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             ExportableFailureMechanismSection firstExportableSection = collection.Sections.ElementAt(0);
             Assert.AreSame(sections[0].Points, firstExportableSection.Geometry);
+            Assert.AreEqual("Bv.0", firstExportableSection.Id);
             Assert.AreEqual(0, firstExportableSection.StartDistance);
             Assert.AreEqual(10, firstExportableSection.EndDistance);
             
             ExportableFailureMechanismSection secondExportableSection = collection.Sections.ElementAt(1);
             Assert.AreSame(sections[1].Points, secondExportableSection.Geometry);
+            Assert.AreEqual("Bv.1", secondExportableSection.Id);
             Assert.AreEqual(10, secondExportableSection.StartDistance);
             Assert.AreEqual(20, secondExportableSection.EndDistance);
             
             ExportableFailureMechanismSection thirdExportableSection = collection.Sections.ElementAt(2);
+            Assert.AreEqual("Bv.2", thirdExportableSection.Id);
             Assert.AreSame(sections[2].Points, thirdExportableSection.Geometry);
             Assert.AreEqual(20, thirdExportableSection.StartDistance);
             Assert.AreEqual(40, thirdExportableSection.EndDistance);

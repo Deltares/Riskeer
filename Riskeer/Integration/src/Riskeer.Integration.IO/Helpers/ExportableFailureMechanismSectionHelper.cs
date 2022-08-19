@@ -58,7 +58,7 @@ namespace Riskeer.Integration.IO.Helpers
                 FailureMechanismSection failureMechanismSection = sectionResult.Section;
                 double endDistance = startDistance + failureMechanismSection.Length;
 
-                failureMechanismSectionsLookup[sectionResult] = new ExportableFailureMechanismSection(failureMechanismSection.Points,
+                failureMechanismSectionsLookup[sectionResult] = new ExportableFailureMechanismSection("id", failureMechanismSection.Points,
                                                                                                       startDistance,
                                                                                                       endDistance);
 

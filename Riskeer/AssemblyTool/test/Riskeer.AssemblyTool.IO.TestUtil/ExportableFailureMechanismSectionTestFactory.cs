@@ -40,7 +40,7 @@ namespace Riskeer.AssemblyTool.IO.TestUtil
         public static ExportableFailureMechanismSection CreateExportableFailureMechanismSection(int seed)
         {
             var random = new Random(seed);
-            return new ExportableFailureMechanismSection(new[]
+            return new ExportableFailureMechanismSection("id", new[]
             {
                 new Point2D(random.NextDouble(), random.NextDouble()),
                 new Point2D(random.NextDouble(), random.NextDouble())
@@ -53,7 +53,7 @@ namespace Riskeer.AssemblyTool.IO.TestUtil
         /// <returns>A default instance of <see cref="ExportableFailureMechanismSection"/>.</returns>
         public static ExportableFailureMechanismSection CreateExportableFailureMechanismSection()
         {
-            return new ExportableFailureMechanismSection(new[]
+            return new ExportableFailureMechanismSection("id", new[]
             {
                 new Point2D(1, 1),
                 new Point2D(2, 2)

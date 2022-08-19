@@ -145,6 +145,15 @@ namespace Riskeer.Integration.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bv.
+        /// </summary>
+        public static string ExportableFailureMechanismSection_IdPrefix {
+            get {
+                return ResourceManager.GetString("ExportableFailureMechanismSection_IdPrefix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Vi.
         /// </summary>
         public static string ExportableFailureMechanismSectionCollection_IdPrefix {

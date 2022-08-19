@@ -20,13 +20,12 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
-using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.AssemblyTool.IO.Model.Enums;
+using Riskeer.AssemblyTool.IO.TestUtil;
 
 namespace Riskeer.AssemblyTool.IO.Test.Model
 {
@@ -54,7 +53,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
         {
             // Setup
             var random = new Random(21);
-            var section = new ExportableFailureMechanismSection(Enumerable.Empty<Point2D>(), random.NextDouble(), random.NextDouble());
+            ExportableFailureMechanismSection section = ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection();
             var assemblyGroup = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>();
             var assemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
 

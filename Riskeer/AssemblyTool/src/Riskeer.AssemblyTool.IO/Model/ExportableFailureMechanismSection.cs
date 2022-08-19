@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base.Geometry;
+using Riskeer.AssemblyTool.IO.Helpers;
 
 namespace Riskeer.AssemblyTool.IO.Model
 {
@@ -33,23 +34,33 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// <summary>
         /// Creates a new instance of <see cref="ExportableFailureMechanismSection"/>.
         /// </summary>
+        /// <param name="id">The id of the failure mechanism section.</param>
         /// <param name="geometry">The geometry of the failure mechanism section.</param>
         /// <param name="startDistance">The start distance of the failure mechanism section between the section
         /// and the start of the reference line in meters.</param>
         /// <param name="endDistance">The end distance of the failure mechanism section between the section
         /// and the start of the reference line in meters.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="geometry"/> is <c>null</c>.</exception>
-        public ExportableFailureMechanismSection(IEnumerable<Point2D> geometry, double startDistance, double endDistance)
+        /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is invalid.</exception>
+        public ExportableFailureMechanismSection(string id, IEnumerable<Point2D> geometry, double startDistance, double endDistance)
         {
+            IdValidationHelper.ThrowIfInvalid(id);
+            
             if (geometry == null)
             {
                 throw new ArgumentNullException(nameof(geometry));
             }
 
+            Id = id;
             Geometry = geometry;
             StartDistance = startDistance;
             EndDistance = endDistance;
         }
+
+        /// <summary>
+        /// Gets the id of the failure mechanism section.
+        /// </summary>
+        public string Id { get; }
 
         /// <summary>
         /// Gets the geometry of this failure mechanism section.

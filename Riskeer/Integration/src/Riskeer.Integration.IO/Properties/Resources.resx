@@ -227,4 +227,7 @@ Er is geen HLCD geïmporteerd.</value>
   <data name="ExportableFailureMechanismSectionCollection_IdPrefix" xml:space="preserve">
     <value>Vi</value>
   </data>
+  <data name="ExportableFailureMechanismSection_IdPrefix" xml:space="preserve">
+    <value>Bv</value>
+  </data>
 </root>

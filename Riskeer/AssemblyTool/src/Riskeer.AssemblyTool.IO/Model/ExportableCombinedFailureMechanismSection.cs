@@ -47,7 +47,7 @@ namespace Riskeer.AssemblyTool.IO.Model
                                                          double startDistance,
                                                          double endDistance,
                                                          ExportableAssemblyMethod assemblyMethod)
-            : base(geometry, startDistance, endDistance)
+            : base("id", geometry, startDistance, endDistance)
         {
             AssemblyMethod = assemblyMethod;
         }

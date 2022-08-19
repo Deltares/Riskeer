@@ -60,12 +60,13 @@ namespace Riskeer.Integration.IO.Factories
             foreach (FailureMechanismSection section in sections)
             {
                 double endDistance = startDistance + section.Length;
-                exportableSections.Add(new ExportableFailureMechanismSection(section.Points, startDistance, endDistance));
+                exportableSections.Add(new ExportableFailureMechanismSection(idGenerator.GetNewId(Resources.ExportableFailureMechanismSection_IdPrefix),
+                                                                             section.Points, startDistance, endDistance));
 
                 startDistance = endDistance;
             }
 
-            return new ExportableFailureMechanismSectionCollection(idGenerator.GetNewId(Resources.ExportableFailureMechanismSectionCollection_IdPrefix), 
+            return new ExportableFailureMechanismSectionCollection(idGenerator.GetNewId(Resources.ExportableFailureMechanismSectionCollection_IdPrefix),
                                                                    exportableSections);
         }
     }

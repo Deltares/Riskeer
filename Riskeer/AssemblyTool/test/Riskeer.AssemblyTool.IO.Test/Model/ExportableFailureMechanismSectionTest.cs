@@ -23,8 +23,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.IO.Model;
+using Riskeer.AssemblyTool.IO.TestUtil;
 
 namespace Riskeer.AssemblyTool.IO.Test.Model
 {
@@ -32,13 +34,30 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
     public class ExportableFailureMechanismSectionTest
     {
         [Test]
+        [TestCaseSource(typeof(InvalidIdTestHelper), nameof(InvalidIdTestHelper.InvalidIdCases))]
+        public void Constructor_InvalidId_ThrowsArgumentException(string invalidId)
+        {
+            // Setup
+            var random = new Random(21);
+
+            // Call
+            void Call() => new ExportableFailureMechanismSection(invalidId, null,
+                                                                 random.NextDouble(),
+                                                                 random.NextDouble());
+
+            // Assert
+            const string expectedMessage = "'id' must have a value and consist only of alphanumerical characters, '-', '_' or '.'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
+        }
+
+        [Test]
         public void Constructor_GeometryNull_ThrowsArgumentNullException()
         {
             // Setup
             var random = new Random(21);
 
             // Call
-            TestDelegate call = () => new ExportableFailureMechanismSection(null,
+            TestDelegate call = () => new ExportableFailureMechanismSection("id", null,
                                                                             random.NextDouble(),
                                                                             random.NextDouble());
 
@@ -51,15 +70,18 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
         public void Constructor_WithGeometry_ExpectedValues()
         {
             // Setup
+            const string id = "id";
+
             var random = new Random(21);
             IEnumerable<Point2D> geometry = Enumerable.Empty<Point2D>();
             double startDistance = random.NextDouble();
             double endDistance = random.NextDouble();
 
             // Call
-            var section = new ExportableFailureMechanismSection(geometry, startDistance, endDistance);
+            var section = new ExportableFailureMechanismSection(id, geometry, startDistance, endDistance);
 
             // Assert
+            Assert.AreEqual(id, section.Id);
             Assert.AreSame(geometry, section.Geometry);
             Assert.AreEqual(startDistance, section.StartDistance);
             Assert.AreEqual(endDistance, section.EndDistance);
