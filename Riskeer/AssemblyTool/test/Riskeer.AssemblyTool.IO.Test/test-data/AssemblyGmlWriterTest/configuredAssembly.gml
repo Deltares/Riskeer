@@ -72,7 +72,7 @@
       <imwap:afstandBegin>0.12</imwap:afstandBegin>
       <imwap:afstandEinde>10.23</imwap:afstandEinde>
       <imwap:lengte>14.142135623730951</imwap:lengte>
-      <uboi:onderdeelVan xlink:href="vakindelingGABI" />
+      <imwap:onderdeelVan xlink:href="vakindelingGABI" />
     </uboi:Deelvak>
   </uboi:featureMember>
 </uboi:Assembleren-collectie>

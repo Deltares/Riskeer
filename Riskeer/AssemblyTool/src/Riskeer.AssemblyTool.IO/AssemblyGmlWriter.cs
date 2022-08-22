@@ -152,7 +152,7 @@ namespace Riskeer.AssemblyTool.IO
             writer.WriteElementString(AssemblyXmlIdentifiers.StartYear, AssemblyXmlIdentifiers.UboiNamespace, XmlConvert.ToString(assessmentProcess.StartYear));
             writer.WriteElementString(AssemblyXmlIdentifiers.EndYear, AssemblyXmlIdentifiers.UboiNamespace, XmlConvert.ToString(assessmentProcess.EndYear));
 
-            WriteLink(AssemblyXmlIdentifiers.Assesses, assessmentSectionId);
+            WriteLink(AssemblyXmlIdentifiers.Assesses, AssemblyXmlIdentifiers.UboiNamespace, assessmentSectionId);
 
             writer.WriteEndElement();
         }
@@ -171,7 +171,7 @@ namespace Riskeer.AssemblyTool.IO
                                       EnumDisplayNameHelper.GetDisplayName(assessmentSectionAssembly.ProbabilityAssemblyMethod));
             writer.WriteElementString(AssemblyXmlIdentifiers.Status, AssemblyXmlIdentifiers.UboiNamespace, Resources.FullAssembly);
 
-            WriteLink(AssemblyXmlIdentifiers.ResultOf, assessmentProcessId);
+            WriteLink(AssemblyXmlIdentifiers.ResultOf, AssemblyXmlIdentifiers.UboiNamespace, assessmentProcessId);
 
             writer.WriteEndElement();
         }
@@ -216,7 +216,7 @@ namespace Riskeer.AssemblyTool.IO
                                       EnumDisplayNameHelper.GetDisplayName(failureMechanism.FailureMechanismAssembly.AssemblyMethod));
             writer.WriteElementString(AssemblyXmlIdentifiers.Status, AssemblyXmlIdentifiers.UboiNamespace, Resources.FullAssembly);
 
-            WriteLink(AssemblyXmlIdentifiers.Determines, assessmentSectionAssemblyId);
+            WriteLink(AssemblyXmlIdentifiers.Determines, AssemblyXmlIdentifiers.UboiNamespace, assessmentSectionAssemblyId);
 
             writer.WriteElementString(nameElementName, AssemblyXmlIdentifiers.UboiNamespace, nameElementValue);
 
@@ -238,8 +238,8 @@ namespace Riskeer.AssemblyTool.IO
                                       EnumDisplayNameHelper.GetDisplayName(sectionAssemblyResult.ProbabilityAssemblyMethod));
             writer.WriteElementString(AssemblyXmlIdentifiers.Status, AssemblyXmlIdentifiers.UboiNamespace, Resources.FullAssembly);
 
-            WriteLink(AssemblyXmlIdentifiers.Analyses, failureMechanismId);
-            WriteLink(AssemblyXmlIdentifiers.AppliesTo, sectionAssemblyResult.FailureMechanismSection.Id);
+            WriteLink(AssemblyXmlIdentifiers.Analyses, AssemblyXmlIdentifiers.UboiNamespace, failureMechanismId);
+            WriteLink(AssemblyXmlIdentifiers.AppliesTo, AssemblyXmlIdentifiers.UboiNamespace, sectionAssemblyResult.FailureMechanismSection.Id);
 
             writer.WriteEndElement();
         }
@@ -274,7 +274,7 @@ namespace Riskeer.AssemblyTool.IO
             writer.WriteElementString(AssemblyXmlIdentifiers.EndDistance, AssemblyXmlIdentifiers.ImwapNamespace, XmlConvert.ToString(section.EndDistance));
             writer.WriteElementString(AssemblyXmlIdentifiers.Length, AssemblyXmlIdentifiers.ImwapNamespace, XmlConvert.ToString(Math2D.Length(section.Geometry)));
 
-            WriteLink(AssemblyXmlIdentifiers.PartOf, failureMechanismSectionCollectionId);
+            WriteLink(AssemblyXmlIdentifiers.PartOf, AssemblyXmlIdentifiers.ImwapNamespace, failureMechanismSectionCollectionId);
 
             writer.WriteEndElement();
         }
@@ -295,9 +295,9 @@ namespace Riskeer.AssemblyTool.IO
             writer.WriteEndElement();
         }
 
-        private void WriteLink(string elementName, string linkedId)
+        private void WriteLink(string elementName, string elementNamespace, string linkedId)
         {
-            writer.WriteStartElement(elementName, AssemblyXmlIdentifiers.UboiNamespace);
+            writer.WriteStartElement(elementName, elementNamespace);
             writer.WriteAttributeString(AssemblyXmlIdentifiers.Link, AssemblyXmlIdentifiers.XLinkNamespace, linkedId);
             writer.WriteEndElement();
         }
