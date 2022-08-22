@@ -575,7 +575,7 @@ namespace Riskeer.Storage.Core.Create
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidOperationException">Thrown when no create operation 
         /// has been registered for <paramref name="model"/>.</exception>
-        /// <remarks>Use <see cref="Contains(DikeProfile)"/> to find out whether a create
+        /// <remarks>Use <see cref="Contains(ForeshoreProfile)"/> to find out whether a create
         /// operation has been registered for <paramref name="model"/>.</remarks>
         public ForeshoreProfileEntity Get(ForeshoreProfile model)
         {
