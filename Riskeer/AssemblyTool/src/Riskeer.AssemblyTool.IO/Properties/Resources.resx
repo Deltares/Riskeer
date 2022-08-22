@@ -186,4 +186,7 @@
   <data name="ExportableAssemblyMethod_BOI3C1_DisplayName" xml:space="preserve">
     <value>BOI-3C-1</value>
   </data>
+  <data name="FailureMechanismSectionType_FailureMechanism" xml:space="preserve">
+    <value>FAALMVK</value>
+  </data>
 </root>

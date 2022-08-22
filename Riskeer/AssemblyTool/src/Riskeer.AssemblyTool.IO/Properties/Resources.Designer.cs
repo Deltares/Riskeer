@@ -271,6 +271,15 @@ namespace Riskeer.AssemblyTool.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to FAALMVK.
+        /// </summary>
+        internal static string FailureMechanismSectionType_FailureMechanism {
+            get {
+                return ResourceManager.GetString("FailureMechanismSectionType_FailureMechanism", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to VOLLDG.
         /// </summary>
         internal static string FullAssembly {

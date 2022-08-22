@@ -144,6 +144,17 @@ namespace Riskeer.AssemblyTool.IO.Test
                     new Point2D(0, 0),
                     new Point2D(100.0, 0.0)
                 },
+                new[]
+                {
+                    new ExportableFailureMechanismSectionCollection("vakindelingGABI", new []
+                    {
+                        new ExportableFailureMechanismSection("vak_GABI_1", new[]
+                        {
+                            new Point2D(0.23, 0.24),
+                            new Point2D(10.23, 10.24)
+                        }, 0.12, 10.23)
+                    })
+                },
                 new ExportableAssessmentSectionAssemblyResult(
                     "veiligheidsoordeel1", ExportableAssessmentSectionAssemblyGroup.B, 0.00068354,
                     ExportableAssemblyMethod.BOI2B1, ExportableAssemblyMethod.BOI2A1),

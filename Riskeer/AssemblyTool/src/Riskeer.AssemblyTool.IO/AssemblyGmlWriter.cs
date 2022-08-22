@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Xml;
 using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
@@ -93,26 +94,9 @@ namespace Riskeer.AssemblyTool.IO
                 WriteFeatureMember(() => WriteAssessmentProcess(assembly.AssessmentProcess));
                 WriteFeatureMember(() => WriteTotalAssemblyResult(assessmentSectionAssembly, assembly.AssessmentProcess));
 
-                foreach (ExportableFailureMechanism failureMechanism in assembly.AssessmentSection.FailureMechanisms)
-                {
-                    Action writeFailureMechanismAction = null;
+                WriteFailureMechanisms(assembly, assessmentSectionAssembly);
 
-                    if (failureMechanism is ExportableGenericFailureMechanism genericFailureMechanism)
-                    {
-                        writeFailureMechanismAction = () => WriteFailureMechanism(
-                            genericFailureMechanism, assessmentSectionAssembly, AssemblyXmlIdentifiers.GenericFailureMechanism,
-                            AssemblyXmlIdentifiers.GenericFailureMechanismName, genericFailureMechanism.Code);
-                    }
-
-                    if (failureMechanism is ExportableSpecificFailureMechanism specificFailureMechanism)
-                    {
-                        writeFailureMechanismAction = () => WriteFailureMechanism(
-                            specificFailureMechanism, assessmentSectionAssembly, AssemblyXmlIdentifiers.SpecificFailureMechanism,
-                            AssemblyXmlIdentifiers.SpecificFailureMechanismName, specificFailureMechanism.Name);
-                    }
-
-                    WriteFeatureMember(writeFailureMechanismAction);
-                }
+                WriteFailureMechanismSectionCollections(assembly.AssessmentSection.FailureMechanismSectionCollections);
 
                 writer.WriteEndElement();
                 writer.WriteEndDocument();
@@ -152,12 +136,7 @@ namespace Riskeer.AssemblyTool.IO
 
             writer.WriteElementString(AssemblyXmlIdentifiers.Name, AssemblyXmlIdentifiers.ImwapNamespace, assessmentSection.Name);
 
-            writer.WriteStartElement(AssemblyXmlIdentifiers.Geometry2D, AssemblyXmlIdentifiers.ImwapNamespace);
-            writer.WriteStartElement(AssemblyXmlIdentifiers.LineString, AssemblyXmlIdentifiers.GmlNamespace);
-            writer.WriteAttributeString(AssemblyXmlIdentifiers.CoordinateSystem, Resources.CoordinateSystemName);
-            writer.WriteElementString(AssemblyXmlIdentifiers.Geometry, AssemblyXmlIdentifiers.GmlNamespace, GeometryGmlFormatHelper.Format(assessmentSection.Geometry));
-            writer.WriteEndElement();
-            writer.WriteEndElement();
+            WriteGeometry(AssemblyXmlIdentifiers.Geometry2D, assessmentSection.Geometry);
 
             writer.WriteElementString(AssemblyXmlIdentifiers.Length, AssemblyXmlIdentifiers.ImwapNamespace, XmlConvert.ToString(Math2D.Length(assessmentSection.Geometry)));
             writer.WriteElementString(AssemblyXmlIdentifiers.AssessmentSectionType, AssemblyXmlIdentifiers.ImwapNamespace, Resources.AssessmentSectionType);
@@ -197,6 +176,30 @@ namespace Riskeer.AssemblyTool.IO
             writer.WriteEndElement();
         }
 
+        private void WriteFailureMechanisms(ExportableAssembly assembly, ExportableAssessmentSectionAssemblyResult assessmentSectionAssembly)
+        {
+            foreach (ExportableFailureMechanism failureMechanism in assembly.AssessmentSection.FailureMechanisms)
+            {
+                Action writeFailureMechanismAction = null;
+
+                if (failureMechanism is ExportableGenericFailureMechanism genericFailureMechanism)
+                {
+                    writeFailureMechanismAction = () => WriteFailureMechanism(
+                        genericFailureMechanism, assessmentSectionAssembly, AssemblyXmlIdentifiers.GenericFailureMechanism,
+                        AssemblyXmlIdentifiers.GenericFailureMechanismName, genericFailureMechanism.Code);
+                }
+
+                if (failureMechanism is ExportableSpecificFailureMechanism specificFailureMechanism)
+                {
+                    writeFailureMechanismAction = () => WriteFailureMechanism(
+                        specificFailureMechanism, assessmentSectionAssembly, AssemblyXmlIdentifiers.SpecificFailureMechanism,
+                        AssemblyXmlIdentifiers.SpecificFailureMechanismName, specificFailureMechanism.Name);
+                }
+
+                WriteFeatureMember(writeFailureMechanismAction);
+            }
+        }
+
         private void WriteFailureMechanism(ExportableFailureMechanism failureMechanism, ExportableAssessmentSectionAssemblyResult assessmentSectionAssembly,
                                            string startElementName, string nameElementName, string nameElementValue)
         {
@@ -215,10 +218,55 @@ namespace Riskeer.AssemblyTool.IO
             writer.WriteEndElement();
         }
 
+        private void WriteFailureMechanismSectionCollections(IEnumerable<ExportableFailureMechanismSectionCollection> failureMechanismSectionCollections)
+        {
+            foreach (ExportableFailureMechanismSectionCollection failureMechanismSectionCollection in failureMechanismSectionCollections)
+            {
+                WriteFeatureMember(() => WriteFailureMechanismSectionCollection(failureMechanismSectionCollection));
+
+                foreach (ExportableFailureMechanismSection section in failureMechanismSectionCollection.Sections)
+                {
+                    WriteFeatureMember(() => WriteFailureMechanismSection(section, failureMechanismSectionCollection));
+                }
+            }
+        }
+
+        private void WriteFailureMechanismSectionCollection(ExportableFailureMechanismSectionCollection failureMechanismSectionCollection)
+        {
+            WriteStartElementWithId(AssemblyXmlIdentifiers.FailureMechanismSectionCollection, AssemblyXmlIdentifiers.ImwapNamespace, failureMechanismSectionCollection.Id);
+            writer.WriteEndElement();
+        }
+
+        private void WriteFailureMechanismSection(ExportableFailureMechanismSection section, ExportableFailureMechanismSectionCollection failureMechanismSectionCollection)
+        {
+            WriteStartElementWithId(AssemblyXmlIdentifiers.FailureMechanismSection, AssemblyXmlIdentifiers.UboiNamespace, section.Id);
+
+            WriteGeometry(AssemblyXmlIdentifiers.GeometryLine2D, section.Geometry);
+
+            writer.WriteElementString(AssemblyXmlIdentifiers.FailureMechanismSectionType, AssemblyXmlIdentifiers.ImwapNamespace, Resources.FailureMechanismSectionType_FailureMechanism);
+            writer.WriteElementString(AssemblyXmlIdentifiers.StartDistance, AssemblyXmlIdentifiers.ImwapNamespace, XmlConvert.ToString(section.StartDistance));
+            writer.WriteElementString(AssemblyXmlIdentifiers.EndDistance, AssemblyXmlIdentifiers.ImwapNamespace, XmlConvert.ToString(section.EndDistance));
+            writer.WriteElementString(AssemblyXmlIdentifiers.Length, AssemblyXmlIdentifiers.ImwapNamespace, XmlConvert.ToString(Math2D.Length(section.Geometry)));
+
+            WriteLink(AssemblyXmlIdentifiers.PartOf, failureMechanismSectionCollection.Id);
+
+            writer.WriteEndElement();
+        }
+
         private void WriteStartElementWithId(string elementName, string elementNamespace, string id)
         {
             writer.WriteStartElement(elementName, elementNamespace);
             writer.WriteAttributeString(AssemblyXmlIdentifiers.Id, AssemblyXmlIdentifiers.GmlNamespace, id);
+        }
+
+        private void WriteGeometry(string geometryElementName, IEnumerable<Point2D> geometry)
+        {
+            writer.WriteStartElement(geometryElementName, AssemblyXmlIdentifiers.ImwapNamespace);
+            writer.WriteStartElement(AssemblyXmlIdentifiers.LineString, AssemblyXmlIdentifiers.GmlNamespace);
+            writer.WriteAttributeString(AssemblyXmlIdentifiers.CoordinateSystem, Resources.CoordinateSystemName);
+            writer.WriteElementString(AssemblyXmlIdentifiers.Geometry, AssemblyXmlIdentifiers.GmlNamespace, GeometryGmlFormatHelper.Format(geometry));
+            writer.WriteEndElement();
+            writer.WriteEndElement();
         }
 
         private void WriteLink(string elementName, string linkedId)

@@ -47,4 +47,21 @@
       <uboi:specifiekFaalmechanisme>Specifiek faalmechanisme</uboi:specifiekFaalmechanisme>
     </uboi:SpecifiekFaalmechanisme>
   </uboi:featureMember>
+  <uboi:featureMember>
+    <imwap:Vakindeling gml:id="vakindelingGABI" />
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Deelvak gml:id="vak_GABI_1">
+      <imwap:geometrieLijn2D>
+        <gml:LineString srsName="EPSG:28992">
+          <gml:posList>0.23 0.24 10.23 10.24</gml:posList>
+        </gml:LineString>
+      </imwap:geometrieLijn2D>
+      <imwap:typeWaterkeringsectie>FAALMVK</imwap:typeWaterkeringsectie>
+      <imwap:afstandBegin>0.12</imwap:afstandBegin>
+      <imwap:afstandEinde>10.23</imwap:afstandEinde>
+      <imwap:lengte>14.142135623730951</imwap:lengte>
+      <uboi:onderdeelVan xlink:href="vakindelingGABI" />
+    </uboi:Deelvak>
+  </uboi:featureMember>
 </uboi:Assembleren-collectie>

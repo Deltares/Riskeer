@@ -58,11 +58,6 @@ namespace Riskeer.AssemblyTool.IO
         public const string EndYear = "eindJaarBeoordelingsronde";
 
         /// <summary>
-        /// Identifier for a total assembly result element.
-        /// </summary>
-        public const string TotalAssemblyResult = "Veiligheidsoordeel";
-
-        /// <summary>
         /// Identifier for a generic failure mechanism element.
         /// </summary>
         public const string GenericFailureMechanism = "GeneriekFaalmechanisme";
@@ -103,6 +98,11 @@ namespace Riskeer.AssemblyTool.IO
         /// Identifier for a determines element.
         /// </summary>
         public const string Determines = "bepaalt";
+
+        /// <summary>
+        /// Identifier for a part of element.
+        /// </summary>
+        public const string PartOf = "onderdeelVan";
 
         #endregion
 
@@ -202,14 +202,53 @@ namespace Riskeer.AssemblyTool.IO
         public const string Geometry2D = "geometrie2D";
 
         /// <summary>
+        /// Identifier for a 2D geometry line element.
+        /// </summary>
+        public const string GeometryLine2D = "geometrieLijn2D";
+
+        /// <summary>
         /// Identifier for a length attribute.
         /// </summary>
         public const string Length = "lengte";
 
         #endregion
+        
+        #region Failure mechanism sections
+        
+        /// <summary>
+        /// Identifier for a failure mechanism section collection element.
+        /// </summary>
+        public const string FailureMechanismSectionCollection = "Vakindeling";
+
+        /// <summary>
+        /// Identifier for a failure mechanism section element.
+        /// </summary>
+        public const string FailureMechanismSection = "Deelvak";
+
+        /// <summary>
+        /// Identifier for a failure mechanism section type element.
+        /// </summary>
+        public const string FailureMechanismSectionType = "typeWaterkeringsectie";
+
+        /// <summary>
+        /// Identifier for a start distance element.
+        /// </summary>
+        public const string StartDistance = "afstandBegin"; 
+
+        /// <summary>
+        /// Identifier for an end distance element.
+        /// </summary>
+        public const string EndDistance = "afstandEinde"; 
+        
+        #endregion
 
         #region Assembly results
 
+        /// <summary>
+        /// Identifier for a total assembly result element.
+        /// </summary>
+        public const string TotalAssemblyResult = "Veiligheidsoordeel";
+        
         /// <summary>
         /// Identifier for a total assembly result assembly group element.
         /// </summary>

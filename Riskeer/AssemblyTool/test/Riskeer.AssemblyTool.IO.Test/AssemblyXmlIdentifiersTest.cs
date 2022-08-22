@@ -35,7 +35,6 @@ namespace Riskeer.AssemblyTool.IO.Test
             Assert.AreEqual("Beoordelingsproces", AssemblyXmlIdentifiers.AssessmentProcess);
             Assert.AreEqual("beginJaarBeoordelingsronde", AssemblyXmlIdentifiers.StartYear);
             Assert.AreEqual("eindJaarBeoordelingsronde", AssemblyXmlIdentifiers.EndYear);
-            Assert.AreEqual("Veiligheidsoordeel", AssemblyXmlIdentifiers.TotalAssemblyResult);
             Assert.AreEqual("GeneriekFaalmechanisme", AssemblyXmlIdentifiers.GenericFailureMechanism);
             Assert.AreEqual("generiekFaalmechanisme", AssemblyXmlIdentifiers.GenericFailureMechanismName);
             Assert.AreEqual("SpecifiekFaalmechanisme", AssemblyXmlIdentifiers.SpecificFailureMechanism);
@@ -45,6 +44,7 @@ namespace Riskeer.AssemblyTool.IO.Test
             Assert.AreEqual("beoordeelt", AssemblyXmlIdentifiers.Assesses);
             Assert.AreEqual("uitkomstVan", AssemblyXmlIdentifiers.ResultOf);
             Assert.AreEqual("bepaalt", AssemblyXmlIdentifiers.Determines);
+            Assert.AreEqual("onderdeelVan", AssemblyXmlIdentifiers.PartOf);
 
             Assert.AreEqual("xmlns", AssemblyXmlIdentifiers.XmlnsIdentifier);
             Assert.AreEqual("xlink", AssemblyXmlIdentifiers.XLinkNamespaceIdentifier);
@@ -61,12 +61,20 @@ namespace Riskeer.AssemblyTool.IO.Test
             Assert.AreEqual("featureMember", AssemblyXmlIdentifiers.FeatureMember);
             Assert.AreEqual("status", AssemblyXmlIdentifiers.Status);
 
-            Assert.AreEqual("lengte", AssemblyXmlIdentifiers.Length);
             Assert.AreEqual("LineString", AssemblyXmlIdentifiers.LineString);
             Assert.AreEqual("srsName", AssemblyXmlIdentifiers.CoordinateSystem);
             Assert.AreEqual("posList", AssemblyXmlIdentifiers.Geometry);
             Assert.AreEqual("geometrie2D", AssemblyXmlIdentifiers.Geometry2D);
+            Assert.AreEqual("geometrieLijn2D", AssemblyXmlIdentifiers.GeometryLine2D);
+            Assert.AreEqual("lengte", AssemblyXmlIdentifiers.Length);
 
+            Assert.AreEqual("Vakindeling", AssemblyXmlIdentifiers.FailureMechanismSectionCollection);
+            Assert.AreEqual("Deelvak", AssemblyXmlIdentifiers.FailureMechanismSection);
+            Assert.AreEqual("typeWaterkeringsectie", AssemblyXmlIdentifiers.FailureMechanismSectionType);
+            Assert.AreEqual("afstandBegin", AssemblyXmlIdentifiers.StartDistance);
+            Assert.AreEqual("afstandEinde", AssemblyXmlIdentifiers.EndDistance);
+
+            Assert.AreEqual("Veiligheidsoordeel", AssemblyXmlIdentifiers.TotalAssemblyResult);
             Assert.AreEqual("categorie", AssemblyXmlIdentifiers.TotalAssemblyResultAssemblyGroup);
             Assert.AreEqual("assemblagemethodeVeiligheidsoordeel", AssemblyXmlIdentifiers.TotalAssemblyResultAssemblyMethod);
             Assert.AreEqual("faalkans", AssemblyXmlIdentifiers.Probability);
