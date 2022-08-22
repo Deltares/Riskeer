@@ -104,6 +104,16 @@ namespace Riskeer.AssemblyTool.IO
         /// </summary>
         public const string PartOf = "onderdeelVan";
 
+        /// <summary>
+        /// Identifier for an analyses element.
+        /// </summary>
+        public const string Analyses = "analyseert";
+
+        /// <summary>
+        /// Identifier for an applies to element.
+        /// </summary>
+        public const string AppliesTo = "geldtVoor";
+
         #endregion
 
         #region Namespaces
@@ -212,9 +222,9 @@ namespace Riskeer.AssemblyTool.IO
         public const string Length = "lengte";
 
         #endregion
-        
+
         #region Failure mechanism sections
-        
+
         /// <summary>
         /// Identifier for a failure mechanism section collection element.
         /// </summary>
@@ -233,13 +243,18 @@ namespace Riskeer.AssemblyTool.IO
         /// <summary>
         /// Identifier for a start distance element.
         /// </summary>
-        public const string StartDistance = "afstandBegin"; 
+        public const string StartDistance = "afstandBegin";
 
         /// <summary>
         /// Identifier for an end distance element.
         /// </summary>
-        public const string EndDistance = "afstandEinde"; 
-        
+        public const string EndDistance = "afstandEinde";
+
+        /// <summary>
+        /// Identifier for a failure mechanism section assembly element.
+        /// </summary>
+        public const string FailureMechanismSectionAssembly = "Faalanalyse";
+
         #endregion
 
         #region Assembly results
@@ -248,7 +263,7 @@ namespace Riskeer.AssemblyTool.IO
         /// Identifier for a total assembly result element.
         /// </summary>
         public const string TotalAssemblyResult = "Veiligheidsoordeel";
-        
+
         /// <summary>
         /// Identifier for a total assembly result assembly group element.
         /// </summary>
@@ -268,6 +283,16 @@ namespace Riskeer.AssemblyTool.IO
         /// Identifier for a probability assembly method element.
         /// </summary>
         public const string ProbabilityAssemblyMethod = "assemblagemethodeFaalkans";
+
+        /// <summary>
+        /// Identifier for a failure mechanism section assembly group element.
+        /// </summary>
+        public const string FailureMechanismSectionAssemblyGroup = "duidingsklasse";
+
+        /// <summary>
+        /// Identifier for a failure mechanism section assembly group assembly method element.
+        /// </summary>
+        public const string FailureMechanismSectionAssemblyGroupAssemblyMethod = "assemblagemethodeDuidingsklasse";
 
         #endregion
     }

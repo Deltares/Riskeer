@@ -197,6 +197,11 @@ namespace Riskeer.AssemblyTool.IO
                 }
 
                 WriteFeatureMember(writeFailureMechanismAction);
+
+                foreach (ExportableFailureMechanismSectionAssemblyWithProbabilityResult sectionAssemblyResult in failureMechanism.SectionAssemblyResults)
+                {
+                    WriteFeatureMember(() => WriteSectionAssemblyResult(sectionAssemblyResult, failureMechanism.Id));
+                }
             }
         }
 
@@ -214,6 +219,27 @@ namespace Riskeer.AssemblyTool.IO
             WriteLink(AssemblyXmlIdentifiers.Determines, assessmentSectionAssembly.Id);
 
             writer.WriteElementString(nameElementName, AssemblyXmlIdentifiers.UboiNamespace, nameElementValue);
+
+            writer.WriteEndElement();
+        }
+
+        private void WriteSectionAssemblyResult(ExportableFailureMechanismSectionAssemblyWithProbabilityResult sectionAssemblyResult,
+                                                string failureMechanismId)
+        {
+            WriteStartElementWithId(AssemblyXmlIdentifiers.FailureMechanismSectionAssembly, AssemblyXmlIdentifiers.UboiNamespace, sectionAssemblyResult.Id);
+
+            writer.WriteElementString(AssemblyXmlIdentifiers.FailureMechanismSectionAssemblyGroup, AssemblyXmlIdentifiers.UboiNamespace,
+                                      EnumDisplayNameHelper.GetDisplayName(sectionAssemblyResult.AssemblyGroup));
+            writer.WriteElementString(AssemblyXmlIdentifiers.FailureMechanismSectionAssemblyGroupAssemblyMethod, AssemblyXmlIdentifiers.UboiNamespace,
+                                      EnumDisplayNameHelper.GetDisplayName(sectionAssemblyResult.AssemblyGroupAssemblyMethod));
+            writer.WriteElementString(AssemblyXmlIdentifiers.Probability, AssemblyXmlIdentifiers.UboiNamespace,
+                                      XmlConvert.ToString(sectionAssemblyResult.Probability));
+            writer.WriteElementString(AssemblyXmlIdentifiers.ProbabilityAssemblyMethod, AssemblyXmlIdentifiers.UboiNamespace,
+                                      EnumDisplayNameHelper.GetDisplayName(sectionAssemblyResult.ProbabilityAssemblyMethod));
+            writer.WriteElementString(AssemblyXmlIdentifiers.Status, AssemblyXmlIdentifiers.UboiNamespace, Resources.FullAssembly);
+
+            WriteLink(AssemblyXmlIdentifiers.Analyses, failureMechanismId);
+            WriteLink(AssemblyXmlIdentifiers.AppliesTo, sectionAssemblyResult.FailureMechanismSection.Id);
 
             writer.WriteEndElement();
         }

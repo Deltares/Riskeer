@@ -27,6 +27,7 @@ using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using NUnit.Framework;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.AssemblyTool.IO.Model.Enums;
 
@@ -137,6 +138,11 @@ namespace Riskeer.AssemblyTool.IO.Test
 
         private static ExportableAssembly CreateExportableAssembly()
         {
+            var failureMechanismSection = new ExportableFailureMechanismSection("vak_GABI_1", new[]
+            {
+                new Point2D(0.23, 0.24),
+                new Point2D(10.23, 10.24)
+            }, 0.12, 10.23);
             var assessmentSection = new ExportableAssessmentSection(
                 "section1", "Traject A",
                 new[]
@@ -146,13 +152,9 @@ namespace Riskeer.AssemblyTool.IO.Test
                 },
                 new[]
                 {
-                    new ExportableFailureMechanismSectionCollection("vakindelingGABI", new []
+                    new ExportableFailureMechanismSectionCollection("vakindelingGABI", new[]
                     {
-                        new ExportableFailureMechanismSection("vak_GABI_1", new[]
-                        {
-                            new Point2D(0.23, 0.24),
-                            new Point2D(10.23, 10.24)
-                        }, 0.12, 10.23)
+                        failureMechanismSection
                     })
                 },
                 new ExportableAssessmentSectionAssemblyResult(
@@ -161,7 +163,12 @@ namespace Riskeer.AssemblyTool.IO.Test
                 new ExportableFailureMechanism[]
                 {
                     new ExportableGenericFailureMechanism("toetsspoorGABI", new ExportableFailureMechanismAssemblyResult(0.08419, ExportableAssemblyMethod.BOI1A1),
-                                                          Enumerable.Empty<ExportableFailureMechanismSectionAssemblyWithProbabilityResult>(), "GABI"),
+                                                          new[]
+                                                          {
+                                                              new ExportableFailureMechanismSectionAssemblyWithProbabilityResult(
+                                                                  "resultaat_GABI_1", failureMechanismSection, FailureMechanismSectionAssemblyGroup.III,
+                                                                  0.00073, ExportableAssemblyMethod.BOI0B1, ExportableAssemblyMethod.BOI0A2)
+                                                          }, "GABI"),
                     new ExportableSpecificFailureMechanism("specifiekFaalmechanisme", new ExportableFailureMechanismAssemblyResult(0.002834, ExportableAssemblyMethod.BOI1A1),
                                                            Enumerable.Empty<ExportableFailureMechanismSectionAssemblyWithProbabilityResult>(), "Specifiek faalmechanisme")
                 }, Enumerable.Empty<ExportableCombinedSectionAssembly>());
