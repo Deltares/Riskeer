@@ -93,7 +93,7 @@ namespace Riskeer.AssemblyTool.IO
                 ExportableAssessmentProcess assessmentProcess = assembly.AssessmentProcess;
 
                 WriteFeatureMember(() => WriteAssessmentSection(assessmentSection));
-                WriteFeatureMember(() => WriteAssessmentProcess(assessmentProcess));
+                WriteFeatureMember(() => WriteAssessmentProcess(assessmentProcess, assessmentSection.Id));
                 WriteFeatureMember(() => WriteTotalAssemblyResult(assessmentSectionAssembly, assessmentProcess.Id));
 
                 WriteFailureMechanisms(assembly, assessmentSectionAssembly);
@@ -146,14 +146,14 @@ namespace Riskeer.AssemblyTool.IO
             writer.WriteEndElement();
         }
 
-        private void WriteAssessmentProcess(ExportableAssessmentProcess assessmentProcess)
+        private void WriteAssessmentProcess(ExportableAssessmentProcess assessmentProcess, string assessmentSectionId)
         {
             WriteStartElementWithId(AssemblyXmlIdentifiers.AssessmentProcess, AssemblyXmlIdentifiers.UboiNamespace, assessmentProcess.Id);
 
             writer.WriteElementString(AssemblyXmlIdentifiers.StartYear, AssemblyXmlIdentifiers.UboiNamespace, XmlConvert.ToString(assessmentProcess.StartYear));
             writer.WriteElementString(AssemblyXmlIdentifiers.EndYear, AssemblyXmlIdentifiers.UboiNamespace, XmlConvert.ToString(assessmentProcess.EndYear));
 
-            WriteLink(AssemblyXmlIdentifiers.Assesses, assessmentProcess.AssessmentSectionId);
+            WriteLink(AssemblyXmlIdentifiers.Assesses, assessmentSectionId);
 
             writer.WriteEndElement();
         }

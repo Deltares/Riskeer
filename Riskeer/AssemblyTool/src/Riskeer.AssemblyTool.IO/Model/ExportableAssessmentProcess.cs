@@ -35,22 +35,14 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// <param name="id">The id of the assessment process.</param>
         /// <param name="startYear">The start year of the assessment process.</param>
         /// <param name="endYear">The en year of the assessment process.</param>
-        /// <param name="assessmentSection">The assessment section of the assessment process.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is invalid.</exception>
-        public ExportableAssessmentProcess(string id, int startYear, int endYear, ExportableAssessmentSection assessmentSection)
+        public ExportableAssessmentProcess(string id, int startYear, int endYear)
         {
             IdValidationHelper.ThrowIfInvalid(id);
-
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
 
             Id = id;
             StartYear = startYear;
             EndYear = endYear;
-            AssessmentSectionId = assessmentSection.Id;
         }
 
         /// <summary>
@@ -67,10 +59,5 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// Gets the end year of the assessment process.
         /// </summary>
         public int EndYear { get; }
-
-        /// <summary>
-        /// Gets the id of the assessment section.
-        /// </summary>
-        public string AssessmentSectionId { get; }
     }
 }

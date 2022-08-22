@@ -67,7 +67,7 @@ namespace Riskeer.Integration.IO.Test.Factories
                 // Assert
                 Assert.AreEqual("assemblage.0", result.Id);
                 AssertExportableAssessmentSection(assessmentSection, result.AssessmentSection);
-                AssertExportableAssessmentProcess(result.AssessmentSection.Id, result.AssessmentProcess);
+                AssertExportableAssessmentProcess(result.AssessmentProcess);
             }
         }
 
@@ -85,13 +85,11 @@ namespace Riskeer.Integration.IO.Test.Factories
             Assert.AreEqual(1, exportableAssessmentSection.CombinedSectionAssemblies.Count());
         }
 
-        private static void AssertExportableAssessmentProcess(
-            string linkedAssessmentSectionId, ExportableAssessmentProcess exportableAssessmentProcess)
+        private static void AssertExportableAssessmentProcess(ExportableAssessmentProcess exportableAssessmentProcess)
         {
             Assert.AreEqual("Bp.0", exportableAssessmentProcess.Id);
             Assert.AreEqual(2023, exportableAssessmentProcess.StartYear);
             Assert.AreEqual(2035, exportableAssessmentProcess.EndYear);
-            Assert.AreEqual(linkedAssessmentSectionId, exportableAssessmentProcess.AssessmentSectionId);
         }
     }
 }

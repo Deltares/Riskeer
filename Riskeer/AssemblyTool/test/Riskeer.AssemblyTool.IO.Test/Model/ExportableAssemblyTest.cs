@@ -36,7 +36,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
         {
             // Setup
             ExportableAssessmentSection assessmentSection = ExportableAssessmentSectionTestFactory.Create();
-            var assessmentProcess = new ExportableAssessmentProcess("id", 0, 0, assessmentSection);
+            var assessmentProcess = new ExportableAssessmentProcess("id", 0, 0);
 
             // Call
             void Call() => new ExportableAssembly(invalidId, assessmentSection, assessmentProcess);
@@ -50,8 +50,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            ExportableAssessmentSection assessmentSection = ExportableAssessmentSectionTestFactory.Create();
-            var assessmentProcess = new ExportableAssessmentProcess("id", 0, 0, assessmentSection);
+            var assessmentProcess = new ExportableAssessmentProcess("id", 0, 0);
 
             // Call
             void Call() => new ExportableAssembly("id", null, assessmentProcess);
@@ -82,7 +81,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             const string id = "id";
             
             ExportableAssessmentSection assessmentSection = ExportableAssessmentSectionTestFactory.Create();
-            var assessmentProcess = new ExportableAssessmentProcess("id2", 0, 0, assessmentSection);
+            var assessmentProcess = new ExportableAssessmentProcess("id2", 0, 0);
 
             // Call
             var assembly = new ExportableAssembly(id, assessmentSection, assessmentProcess);

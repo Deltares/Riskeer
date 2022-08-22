@@ -34,26 +34,12 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
         [TestCaseSource(typeof(InvalidIdTestHelper), nameof(InvalidIdTestHelper.InvalidIdCases))]
         public void Constructor_InvalidId_ThrowsArgumentException(string invalidId)
         {
-            // Setup
-            ExportableAssessmentSection assessmentSection = ExportableAssessmentSectionTestFactory.Create();
-
             // Call
-            void Call() => new ExportableAssessmentProcess(invalidId, 0, 0, assessmentSection);
+            void Call() => new ExportableAssessmentProcess(invalidId, 0, 0);
 
             // Assert
             const string expectedMessage = "'id' must have a value and consist only of alphanumerical characters, '-', '_' or '.'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
-        }
-
-        [Test]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => new ExportableAssessmentProcess("id", 0, 0, null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
@@ -63,16 +49,14 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             const string id = "id";
             const int startYear = 2023;
             const int endYear = 2035;
-            ExportableAssessmentSection assessmentSection = ExportableAssessmentSectionTestFactory.Create("id2");
 
             // Call
-            var assessmentProcess = new ExportableAssessmentProcess(id, startYear, endYear, assessmentSection);
+            var assessmentProcess = new ExportableAssessmentProcess(id, startYear, endYear);
 
             // Assert
             Assert.AreEqual(id, assessmentProcess.Id);
             Assert.AreEqual(startYear, assessmentProcess.StartYear);
             Assert.AreEqual(endYear, assessmentProcess.EndYear);
-            Assert.AreSame(assessmentSection.Id, assessmentProcess.AssessmentSectionId);
         }
     }
 }

@@ -173,7 +173,7 @@ namespace Riskeer.AssemblyTool.IO.Test
                                                            Enumerable.Empty<ExportableFailureMechanismSectionAssemblyWithProbabilityResult>(), "Specifiek faalmechanisme")
                 }, Enumerable.Empty<ExportableCombinedSectionAssembly>());
 
-            var assessmentProcess = new ExportableAssessmentProcess("beoordelingsproces1", 2023, 2035, assessmentSection);
+            var assessmentProcess = new ExportableAssessmentProcess("beoordelingsproces1", 2023, 2035);
 
             return new ExportableAssembly("assemblage1", assessmentSection, assessmentProcess);
         }
