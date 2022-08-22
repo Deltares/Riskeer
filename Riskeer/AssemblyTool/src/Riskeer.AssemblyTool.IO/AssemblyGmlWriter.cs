@@ -88,15 +88,17 @@ namespace Riskeer.AssemblyTool.IO
                 writer.WriteAttributeString(AssemblyXmlIdentifiers.XmlnsIdentifier, AssemblyXmlIdentifiers.ImwapNamespaceIdentifier, null, AssemblyXmlIdentifiers.ImwapNamespace);
                 writer.WriteAttributeString(AssemblyXmlIdentifiers.Id, AssemblyXmlIdentifiers.GmlNamespace, assembly.Id);
 
-                ExportableAssessmentSectionAssemblyResult assessmentSectionAssembly = assembly.AssessmentSection.AssessmentSectionAssembly;
+                ExportableAssessmentSection assessmentSection = assembly.AssessmentSection;
+                ExportableAssessmentSectionAssemblyResult assessmentSectionAssembly = assessmentSection.AssessmentSectionAssembly;
+                ExportableAssessmentProcess assessmentProcess = assembly.AssessmentProcess;
 
-                WriteFeatureMember(() => WriteAssessmentSection(assembly.AssessmentSection));
-                WriteFeatureMember(() => WriteAssessmentProcess(assembly.AssessmentProcess));
-                WriteFeatureMember(() => WriteTotalAssemblyResult(assessmentSectionAssembly, assembly.AssessmentProcess));
+                WriteFeatureMember(() => WriteAssessmentSection(assessmentSection));
+                WriteFeatureMember(() => WriteAssessmentProcess(assessmentProcess));
+                WriteFeatureMember(() => WriteTotalAssemblyResult(assessmentSectionAssembly, assessmentProcess.Id));
 
                 WriteFailureMechanisms(assembly, assessmentSectionAssembly);
 
-                WriteFailureMechanismSectionCollections(assembly.AssessmentSection.FailureMechanismSectionCollections);
+                WriteFailureMechanismSectionCollections(assessmentSection.FailureMechanismSectionCollections);
 
                 writer.WriteEndElement();
                 writer.WriteEndDocument();
@@ -156,8 +158,7 @@ namespace Riskeer.AssemblyTool.IO
             writer.WriteEndElement();
         }
 
-        private void WriteTotalAssemblyResult(ExportableAssessmentSectionAssemblyResult assessmentSectionAssembly,
-                                              ExportableAssessmentProcess assessmentProcess)
+        private void WriteTotalAssemblyResult(ExportableAssessmentSectionAssemblyResult assessmentSectionAssembly, string assessmentProcessId)
         {
             WriteStartElementWithId(AssemblyXmlIdentifiers.TotalAssemblyResult, AssemblyXmlIdentifiers.UboiNamespace, assessmentSectionAssembly.Id);
 
@@ -171,7 +172,7 @@ namespace Riskeer.AssemblyTool.IO
                                       EnumDisplayNameHelper.GetDisplayName(assessmentSectionAssembly.ProbabilityAssemblyMethod));
             writer.WriteElementString(AssemblyXmlIdentifiers.Status, AssemblyXmlIdentifiers.UboiNamespace, Resources.FullAssembly);
 
-            WriteLink(AssemblyXmlIdentifiers.ResultOf, assessmentProcess.Id);
+            WriteLink(AssemblyXmlIdentifiers.ResultOf, assessmentProcessId);
 
             writer.WriteEndElement();
         }
@@ -252,7 +253,7 @@ namespace Riskeer.AssemblyTool.IO
 
                 foreach (ExportableFailureMechanismSection section in failureMechanismSectionCollection.Sections)
                 {
-                    WriteFeatureMember(() => WriteFailureMechanismSection(section, failureMechanismSectionCollection));
+                    WriteFeatureMember(() => WriteFailureMechanismSection(section, failureMechanismSectionCollection.Id));
                 }
             }
         }
@@ -263,7 +264,7 @@ namespace Riskeer.AssemblyTool.IO
             writer.WriteEndElement();
         }
 
-        private void WriteFailureMechanismSection(ExportableFailureMechanismSection section, ExportableFailureMechanismSectionCollection failureMechanismSectionCollection)
+        private void WriteFailureMechanismSection(ExportableFailureMechanismSection section, string failureMechanismSectionCollectionId)
         {
             WriteStartElementWithId(AssemblyXmlIdentifiers.FailureMechanismSection, AssemblyXmlIdentifiers.UboiNamespace, section.Id);
 
@@ -274,7 +275,7 @@ namespace Riskeer.AssemblyTool.IO
             writer.WriteElementString(AssemblyXmlIdentifiers.EndDistance, AssemblyXmlIdentifiers.ImwapNamespace, XmlConvert.ToString(section.EndDistance));
             writer.WriteElementString(AssemblyXmlIdentifiers.Length, AssemblyXmlIdentifiers.ImwapNamespace, XmlConvert.ToString(Math2D.Length(section.Geometry)));
 
-            WriteLink(AssemblyXmlIdentifiers.PartOf, failureMechanismSectionCollection.Id);
+            WriteLink(AssemblyXmlIdentifiers.PartOf, failureMechanismSectionCollectionId);
 
             writer.WriteEndElement();
         }
