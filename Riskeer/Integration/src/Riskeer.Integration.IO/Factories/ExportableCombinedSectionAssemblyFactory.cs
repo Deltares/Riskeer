@@ -71,7 +71,7 @@ namespace Riskeer.Integration.IO.Factories
 
                 var exportableSectionResult = new ExportableCombinedSectionAssembly(
                     exportableSection, new ExportableFailureMechanismSectionAssemblyResult(
-                        exportableSection, assemblyResult.TotalResult, ExportableAssemblyMethodFactory.Create(assemblyResult.CombinedSectionResultAssemblyMethod)),
+                        "id", exportableSection, assemblyResult.TotalResult, ExportableAssemblyMethodFactory.Create(assemblyResult.CombinedSectionResultAssemblyMethod)),
                     CreateFailureMechanismCombinedSectionAssemblyResults(assemblyResult, assessmentSection));
 
                 sectionResults.Add(exportableSectionResult);

@@ -33,15 +33,31 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
     public class ExportableFailureMechanismSectionAssemblyResultTest
     {
         [Test]
+        [TestCaseSource(typeof(InvalidIdTestHelper), nameof(InvalidIdTestHelper.InvalidIdCases))]
+        public void Constructor_InvalidId_ThrowsArgumentException(string invalidId)
+        {
+            // Setup
+            var random = new Random(21);
+            ExportableFailureMechanismSection section = ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection();
+
+            // Call
+            void Call() => new ExportableFailureMechanismSectionAssemblyResult(invalidId, section, random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
+                                                                               random.NextEnumValue<ExportableAssemblyMethod>());
+
+            // Assert
+            const string expectedMessage = "'id' must have a value and consist only of alphanumerical characters, '-', '_' or '.'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
+        }
+
+        [Test]
         public void Constructor_FailureMechanismSectionNull_ThrowsArgumentNullException()
         {
             // Setup
             var random = new Random(21);
 
             // Call
-            void Call() => new ExportableFailureMechanismSectionAssemblyResult(
-                null, random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
-                random.NextEnumValue<ExportableAssemblyMethod>());
+            void Call() => new ExportableFailureMechanismSectionAssemblyResult("id", null, random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
+                                                                               random.NextEnumValue<ExportableAssemblyMethod>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -52,15 +68,18 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
         public void Constructor_ExpectedValues()
         {
             // Setup
+            const string id = "id";
+
             var random = new Random(21);
             ExportableFailureMechanismSection section = ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection();
             var assemblyGroup = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>();
             var assemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
 
             // Call
-            var result = new ExportableFailureMechanismSectionAssemblyResult(section, assemblyGroup, assemblyMethod);
+            var result = new ExportableFailureMechanismSectionAssemblyResult(id, section, assemblyGroup, assemblyMethod);
 
             // Assert
+            Assert.AreEqual(id, result.Id);
             Assert.AreSame(section, result.FailureMechanismSection);
             Assert.AreEqual(assemblyGroup, result.AssemblyGroup);
             Assert.AreEqual(assemblyMethod, result.AssemblyGroupAssemblyMethod);

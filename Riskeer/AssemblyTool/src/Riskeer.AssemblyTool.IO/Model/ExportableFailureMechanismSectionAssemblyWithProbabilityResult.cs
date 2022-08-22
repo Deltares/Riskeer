@@ -44,7 +44,7 @@ namespace Riskeer.AssemblyTool.IO.Model
                                                                               double probability,
                                                                               ExportableAssemblyMethod assemblyGroupAssemblyMethod,
                                                                               ExportableAssemblyMethod probabilityAssemblyMethod)
-            : base(failureMechanismSection, assemblyGroup, assemblyGroupAssemblyMethod)
+            : base("id", failureMechanismSection, assemblyGroup, assemblyGroupAssemblyMethod)
         {
             Probability = probability;
             ProbabilityAssemblyMethod = probabilityAssemblyMethod;
