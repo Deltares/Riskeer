@@ -185,7 +185,7 @@ namespace Riskeer.Integration.IO.Factories
 
                 exportableResults.Add(
                     new ExportableFailureMechanismSectionAssemblyWithProbabilityResult(
-                        failureMechanismSectionPair.Value, assemblyResult.FailureMechanismSectionAssemblyGroup, assemblyResult.SectionProbability,
+                        "id", failureMechanismSectionPair.Value, assemblyResult.FailureMechanismSectionAssemblyGroup, assemblyResult.SectionProbability,
                         ExportableAssemblyMethodFactory.Create(assemblyResultWrapper.AssemblyGroupMethod),
                         ExportableAssemblyMethodFactory.Create(assemblyResultWrapper.ProbabilityMethod)));
             }

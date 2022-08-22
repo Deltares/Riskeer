@@ -73,7 +73,7 @@ namespace Riskeer.AssemblyTool.IO.TestUtil
             var random = new Random(seed);
 
             return new ExportableFailureMechanismSectionAssemblyWithProbabilityResult(
-                section,
+                "id", section,
                 random.NextEnumValue(new[]
                 {
                     FailureMechanismSectionAssemblyGroup.NotDominant,

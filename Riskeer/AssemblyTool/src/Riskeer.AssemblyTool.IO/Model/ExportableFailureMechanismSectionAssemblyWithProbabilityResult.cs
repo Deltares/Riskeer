@@ -33,18 +33,21 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// <summary>
         /// Creates a new instance of <see cref="ExportableFailureMechanismSectionAssemblyResult"/>.
         /// </summary>
+        /// <param name="id">The id of the failure mechanism section assembly result.</param>
         /// <param name="failureMechanismSection">The failure mechanism section.</param>
         /// <param name="assemblyGroup">The assembly group of this section.</param>
         /// <param name="probability">The probability of this section.</param>
         /// <param name="assemblyGroupAssemblyMethod">The method used to assemble the assembly group for this section.</param>
         /// <param name="probabilityAssemblyMethod">The method used to assemble the probability for this section.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSection"/> is <c>null</c>.</exception>
-        public ExportableFailureMechanismSectionAssemblyWithProbabilityResult(ExportableFailureMechanismSection failureMechanismSection,
+        /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is invalid.</exception>
+        public ExportableFailureMechanismSectionAssemblyWithProbabilityResult(string id,
+                                                                              ExportableFailureMechanismSection failureMechanismSection,
                                                                               FailureMechanismSectionAssemblyGroup assemblyGroup,
                                                                               double probability,
                                                                               ExportableAssemblyMethod assemblyGroupAssemblyMethod,
                                                                               ExportableAssemblyMethod probabilityAssemblyMethod)
-            : base("id", failureMechanismSection, assemblyGroup, assemblyGroupAssemblyMethod)
+            : base(id, failureMechanismSection, assemblyGroup, assemblyGroupAssemblyMethod)
         {
             Probability = probability;
             ProbabilityAssemblyMethod = probabilityAssemblyMethod;

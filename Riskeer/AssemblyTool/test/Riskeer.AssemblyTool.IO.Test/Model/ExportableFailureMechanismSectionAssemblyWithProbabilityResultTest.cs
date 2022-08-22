@@ -36,6 +36,8 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
         public void Constructor_ExpectedValues()
         {
             // Setup
+            const string id = "id";
+            
             var random = new Random(21);
             ExportableFailureMechanismSection section = ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection();
             var assemblyGroup = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>();
@@ -45,10 +47,11 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
 
             // Call
             var result = new ExportableFailureMechanismSectionAssemblyWithProbabilityResult(
-                section, assemblyGroup, probability, assemblyGroupAssemblyMethod, probabilityAssemblyMethod);
+                id, section, assemblyGroup, probability, assemblyGroupAssemblyMethod, probabilityAssemblyMethod);
 
             // Assert
             Assert.IsInstanceOf<ExportableFailureMechanismSectionAssemblyResult>(result);
+            Assert.AreEqual(id, result.Id);
             Assert.AreSame(section, result.FailureMechanismSection);
             Assert.AreEqual(assemblyGroup, result.AssemblyGroup);
             Assert.AreEqual(assemblyGroupAssemblyMethod, result.AssemblyGroupAssemblyMethod);
