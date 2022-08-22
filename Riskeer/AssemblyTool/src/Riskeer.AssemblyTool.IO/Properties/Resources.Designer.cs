@@ -271,6 +271,15 @@ namespace Riskeer.AssemblyTool.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to DEELVK.
+        /// </summary>
+        internal static string FailureMechanismSectionType_Combined {
+            get {
+                return ResourceManager.GetString("FailureMechanismSectionType_Combined", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to FAALMVK.
         /// </summary>
         internal static string FailureMechanismSectionType_FailureMechanism {

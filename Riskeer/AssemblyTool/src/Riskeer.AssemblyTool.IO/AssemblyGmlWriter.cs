@@ -252,7 +252,11 @@ namespace Riskeer.AssemblyTool.IO
 
                 foreach (ExportableFailureMechanismSection section in failureMechanismSectionCollection.Sections)
                 {
-                    WriteFeatureMember(() => WriteFailureMechanismSection(section, failureMechanismSectionCollection.Id));
+                    Action writeFailureMechanismSectionAction = section is ExportableCombinedFailureMechanismSection combinedFailureMechanismSection
+                                                                    ? () => WriteCombinedFailureMechanismSection(combinedFailureMechanismSection, failureMechanismSectionCollection.Id)
+                                                                    : (Action) (() => WriteFailureMechanismSection(section, failureMechanismSectionCollection.Id));
+
+                    WriteFeatureMember(writeFailureMechanismSectionAction);
                 }
             }
         }
@@ -265,18 +269,33 @@ namespace Riskeer.AssemblyTool.IO
 
         private void WriteFailureMechanismSection(ExportableFailureMechanismSection section, string failureMechanismSectionCollectionId)
         {
+            WriteFailureMechanismSection(section, Resources.FailureMechanismSectionType_FailureMechanism, failureMechanismSectionCollectionId);
+            writer.WriteEndElement();
+        }
+
+        private void WriteCombinedFailureMechanismSection(ExportableCombinedFailureMechanismSection section, string failureMechanismSectionCollectionId)
+        {
+            WriteFailureMechanismSection(section, Resources.FailureMechanismSectionType_Combined, failureMechanismSectionCollectionId);
+
+            writer.WriteElementString(AssemblyXmlIdentifiers.AssemblyMethod, AssemblyXmlIdentifiers.UboiNamespace,
+                                      EnumDisplayNameHelper.GetDisplayName(section.AssemblyMethod));
+
+            writer.WriteEndElement();
+        }
+
+        private void WriteFailureMechanismSection(ExportableFailureMechanismSection section, string failureMechanismSectionType,
+                                                  string failureMechanismSectionCollectionId)
+        {
             WriteStartElementWithId(AssemblyXmlIdentifiers.FailureMechanismSection, AssemblyXmlIdentifiers.UboiNamespace, section.Id);
 
             WriteGeometry(AssemblyXmlIdentifiers.GeometryLine2D, section.Geometry);
 
-            writer.WriteElementString(AssemblyXmlIdentifiers.FailureMechanismSectionType, AssemblyXmlIdentifiers.ImwapNamespace, Resources.FailureMechanismSectionType_FailureMechanism);
+            writer.WriteElementString(AssemblyXmlIdentifiers.FailureMechanismSectionType, AssemblyXmlIdentifiers.ImwapNamespace, failureMechanismSectionType);
             writer.WriteElementString(AssemblyXmlIdentifiers.StartDistance, AssemblyXmlIdentifiers.ImwapNamespace, XmlConvert.ToString(section.StartDistance));
             writer.WriteElementString(AssemblyXmlIdentifiers.EndDistance, AssemblyXmlIdentifiers.ImwapNamespace, XmlConvert.ToString(section.EndDistance));
             writer.WriteElementString(AssemblyXmlIdentifiers.Length, AssemblyXmlIdentifiers.ImwapNamespace, XmlConvert.ToString(Math2D.Length(section.Geometry)));
 
             WriteLink(AssemblyXmlIdentifiers.PartOf, AssemblyXmlIdentifiers.ImwapNamespace, failureMechanismSectionCollectionId);
-
-            writer.WriteEndElement();
         }
 
         private void WriteStartElementWithId(string elementName, string elementNamespace, string id)

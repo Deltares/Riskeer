@@ -75,4 +75,22 @@
       <imwap:onderdeelVan xlink:href="vakindelingGABI" />
     </uboi:Deelvak>
   </uboi:featureMember>
+  <uboi:featureMember>
+    <imwap:Vakindeling gml:id="vakindeling_gecombineerd" />
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Deelvak gml:id="vak_gecombineerd_1">
+      <imwap:geometrieLijn2D>
+        <gml:LineString srsName="EPSG:28992">
+          <gml:posList>0.23 0.24 10.23 10.24</gml:posList>
+        </gml:LineString>
+      </imwap:geometrieLijn2D>
+      <imwap:typeWaterkeringsectie>DEELVK</imwap:typeWaterkeringsectie>
+      <imwap:afstandBegin>0.12</imwap:afstandBegin>
+      <imwap:afstandEinde>10.23</imwap:afstandEinde>
+      <imwap:lengte>14.142135623730951</imwap:lengte>
+      <imwap:onderdeelVan xlink:href="vakindeling_gecombineerd" />
+      <uboi:assemblagemethode>BOI-3A-1</uboi:assemblagemethode>
+    </uboi:Deelvak>
+  </uboi:featureMember>
 </uboi:Assembleren-collectie>

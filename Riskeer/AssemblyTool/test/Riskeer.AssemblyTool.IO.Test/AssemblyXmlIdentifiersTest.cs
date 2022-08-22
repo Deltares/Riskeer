@@ -84,6 +84,7 @@ namespace Riskeer.AssemblyTool.IO.Test
             Assert.AreEqual("assemblagemethodeFaalkans", AssemblyXmlIdentifiers.ProbabilityAssemblyMethod);
             Assert.AreEqual("duidingsklasse", AssemblyXmlIdentifiers.FailureMechanismSectionAssemblyGroup);
             Assert.AreEqual("assemblagemethodeDuidingsklasse", AssemblyXmlIdentifiers.FailureMechanismSectionAssemblyGroupAssemblyMethod);
+            Assert.AreEqual("assemblagemethode", AssemblyXmlIdentifiers.AssemblyMethod);
         }
     }
 }
