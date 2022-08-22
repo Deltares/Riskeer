@@ -96,8 +96,7 @@ namespace Riskeer.AssemblyTool.IO
                 WriteFeatureMember(() => WriteAssessmentProcess(assessmentProcess, assessmentSection.Id));
                 WriteFeatureMember(() => WriteTotalAssemblyResult(assessmentSectionAssembly, assessmentProcess.Id));
 
-                WriteFailureMechanisms(assembly, assessmentSectionAssembly);
-
+                WriteFailureMechanisms(assessmentSection.FailureMechanisms, assessmentSectionAssembly.Id);
                 WriteFailureMechanismSectionCollections(assessmentSection.FailureMechanismSectionCollections);
 
                 writer.WriteEndElement();
@@ -177,23 +176,23 @@ namespace Riskeer.AssemblyTool.IO
             writer.WriteEndElement();
         }
 
-        private void WriteFailureMechanisms(ExportableAssembly assembly, ExportableAssessmentSectionAssemblyResult assessmentSectionAssembly)
+        private void WriteFailureMechanisms(IEnumerable<ExportableFailureMechanism> failureMechanisms, string assessmentSectionAssemblyId)
         {
-            foreach (ExportableFailureMechanism failureMechanism in assembly.AssessmentSection.FailureMechanisms)
+            foreach (ExportableFailureMechanism failureMechanism in failureMechanisms)
             {
                 Action writeFailureMechanismAction = null;
 
                 if (failureMechanism is ExportableGenericFailureMechanism genericFailureMechanism)
                 {
                     writeFailureMechanismAction = () => WriteFailureMechanism(
-                        genericFailureMechanism, assessmentSectionAssembly, AssemblyXmlIdentifiers.GenericFailureMechanism,
+                        genericFailureMechanism, assessmentSectionAssemblyId, AssemblyXmlIdentifiers.GenericFailureMechanism,
                         AssemblyXmlIdentifiers.GenericFailureMechanismName, genericFailureMechanism.Code);
                 }
 
                 if (failureMechanism is ExportableSpecificFailureMechanism specificFailureMechanism)
                 {
                     writeFailureMechanismAction = () => WriteFailureMechanism(
-                        specificFailureMechanism, assessmentSectionAssembly, AssemblyXmlIdentifiers.SpecificFailureMechanism,
+                        specificFailureMechanism, assessmentSectionAssemblyId, AssemblyXmlIdentifiers.SpecificFailureMechanism,
                         AssemblyXmlIdentifiers.SpecificFailureMechanismName, specificFailureMechanism.Name);
                 }
 
@@ -206,7 +205,7 @@ namespace Riskeer.AssemblyTool.IO
             }
         }
 
-        private void WriteFailureMechanism(ExportableFailureMechanism failureMechanism, ExportableAssessmentSectionAssemblyResult assessmentSectionAssembly,
+        private void WriteFailureMechanism(ExportableFailureMechanism failureMechanism, string assessmentSectionAssemblyId,
                                            string startElementName, string nameElementName, string nameElementValue)
         {
             WriteStartElementWithId(startElementName, AssemblyXmlIdentifiers.UboiNamespace, failureMechanism.Id);
@@ -217,7 +216,7 @@ namespace Riskeer.AssemblyTool.IO
                                       EnumDisplayNameHelper.GetDisplayName(failureMechanism.FailureMechanismAssembly.AssemblyMethod));
             writer.WriteElementString(AssemblyXmlIdentifiers.Status, AssemblyXmlIdentifiers.UboiNamespace, Resources.FullAssembly);
 
-            WriteLink(AssemblyXmlIdentifiers.Determines, assessmentSectionAssembly.Id);
+            WriteLink(AssemblyXmlIdentifiers.Determines, assessmentSectionAssemblyId);
 
             writer.WriteElementString(nameElementName, AssemblyXmlIdentifiers.UboiNamespace, nameElementValue);
 
