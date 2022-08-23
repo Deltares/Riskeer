@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
@@ -39,7 +40,7 @@ namespace Riskeer.Integration.IO.Test.Factories
         {
             // Call
             void Call() => ExportableFailureMechanismSectionCollectionFactory.CreateExportableFailureMechanismSectionCollection(
-                null, Enumerable.Empty<FailureMechanismSection>());
+                null, new ExportableModelRegistry(), Enumerable.Empty<FailureMechanismSection>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -51,7 +52,7 @@ namespace Riskeer.Integration.IO.Test.Factories
         {
             // Call
             void Call() => ExportableFailureMechanismSectionCollectionFactory.CreateExportableFailureMechanismSectionCollection(
-                new IdentifierGenerator(), null);
+                new IdentifierGenerator(), new ExportableModelRegistry(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -82,9 +83,11 @@ namespace Riskeer.Integration.IO.Test.Factories
                 })
             };
 
+            var registry = new ExportableModelRegistry();
+
             // Call
             ExportableFailureMechanismSectionCollection collection =
-                ExportableFailureMechanismSectionCollectionFactory.CreateExportableFailureMechanismSectionCollection(idGenerator, sections);
+                ExportableFailureMechanismSectionCollectionFactory.CreateExportableFailureMechanismSectionCollection(idGenerator, registry, sections);
 
             // Assert
             Assert.AreEqual("Vi.0", collection.Id);
@@ -107,6 +110,29 @@ namespace Riskeer.Integration.IO.Test.Factories
             Assert.AreSame(sections[2].Points, thirdExportableSection.Geometry);
             Assert.AreEqual(20, thirdExportableSection.StartDistance);
             Assert.AreEqual(40, thirdExportableSection.EndDistance);
+        }
+
+        [Test]
+        public void CreateExportableFailureMechanismSectionCollection_SectionsAlreadyRegistered_ReturnsRegisteredExportableMode()
+        {
+            // Setup
+            var sections = new List<FailureMechanismSection>();
+            
+            var registry = new ExportableModelRegistry();
+            var idGenerator = new IdentifierGenerator();
+            ExportableFailureMechanismSectionCollection exportableCollection1 = 
+                ExportableFailureMechanismSectionCollectionFactory.CreateExportableFailureMechanismSectionCollection(idGenerator, registry, sections);
+
+            
+            // Precondition
+            Assert.True(registry.Contains(sections));
+            
+            // Call
+            ExportableFailureMechanismSectionCollection exportableCollection2 =
+                ExportableFailureMechanismSectionCollectionFactory.CreateExportableFailureMechanismSectionCollection(idGenerator, registry, sections);
+
+            // Assert
+            Assert.AreSame(exportableCollection1, exportableCollection2);
         }
     }
 }

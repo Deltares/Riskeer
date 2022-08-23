@@ -38,21 +38,32 @@ namespace Riskeer.Integration.IO.Factories
         /// <see cref="FailureMechanismSection"/>.
         /// </summary>
         /// <param name="idGenerator">The generator to generate ids for the exportable components.</param>
+        /// <param name="registry">The <see cref="ExportableModelRegistry"/> to keep track of the created items.</param>
         /// <param name="sections">The collection of <see cref="FailureMechanismSection"/> to create the
         /// <see cref="ExportableFailureMechanismSectionCollection"/> with.</param>
         /// <returns>A <see cref="ExportableFailureMechanismSectionCollection"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static ExportableFailureMechanismSectionCollection CreateExportableFailureMechanismSectionCollection(
-            IdentifierGenerator idGenerator, IEnumerable<FailureMechanismSection> sections)
+            IdentifierGenerator idGenerator, ExportableModelRegistry registry, IEnumerable<FailureMechanismSection> sections)
         {
             if (idGenerator == null)
             {
                 throw new ArgumentNullException(nameof(idGenerator));
             }
 
+            if (registry == null)
+            {
+                throw new ArgumentNullException(nameof(registry));
+            }
+
             if (sections == null)
             {
                 throw new ArgumentNullException(nameof(sections));
+            }
+
+            if (registry.Contains(sections))
+            {
+                return registry.Get(sections);
             }
 
             var exportableSections = new List<ExportableFailureMechanismSection>();
@@ -66,8 +77,10 @@ namespace Riskeer.Integration.IO.Factories
                 startDistance = endDistance;
             }
 
-            return new ExportableFailureMechanismSectionCollection(idGenerator.GetNewId(Resources.ExportableFailureMechanismSectionCollection_IdPrefix),
-                                                                   exportableSections);
+            var exportableCollection = new ExportableFailureMechanismSectionCollection(idGenerator.GetNewId(Resources.ExportableFailureMechanismSectionCollection_IdPrefix),
+                                                                                       exportableSections);
+            registry.Register(exportableCollection, sections);
+            return exportableCollection;
         }
     }
 }
