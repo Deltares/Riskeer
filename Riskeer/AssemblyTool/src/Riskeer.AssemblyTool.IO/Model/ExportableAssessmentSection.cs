@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base.Geometry;
 using Riskeer.AssemblyTool.IO.Helpers;
 
@@ -33,28 +32,6 @@ namespace Riskeer.AssemblyTool.IO.Model
     /// </summary>
     public class ExportableAssessmentSection
     {
-        /// <summary>
-        /// Creates an instance of <see cref="ExportableAssessmentSection"/>.
-        /// </summary>
-        /// <param name="id">The id of the assessment section.</param>
-        /// <param name="name">The name of the assessment section.</param>
-        /// <param name="geometry">The geometry of the assessment section.</param>
-        /// <param name="assessmentSectionAssembly">The assembly result of the assessment section.</param>
-        /// <param name="failureMechanisms">The assembly results of failure mechanisms belonging
-        /// to this assessment section.</param>
-        /// <param name="combinedSectionAssemblyResults">The combined section assembly results
-        /// of this assessment section.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter except <paramref name="id"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is invalid.</exception>
-        public ExportableAssessmentSection(string id,
-                                           string name,
-                                           IEnumerable<Point2D> geometry,
-                                           ExportableAssessmentSectionAssemblyResult assessmentSectionAssembly,
-                                           IEnumerable<ExportableFailureMechanism> failureMechanisms,
-                                           IEnumerable<ExportableCombinedSectionAssembly> combinedSectionAssemblyResults)
-            : this(id, name, geometry, Enumerable.Empty<ExportableFailureMechanismSectionCollection>(), assessmentSectionAssembly,
-                   failureMechanisms, combinedSectionAssemblyResults) {}
-
         /// <summary>
         /// Creates an instance of <see cref="ExportableAssessmentSection"/>.
         /// </summary>
