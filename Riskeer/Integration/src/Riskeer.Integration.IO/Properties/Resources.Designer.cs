@@ -154,6 +154,15 @@ namespace Riskeer.Integration.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fa.
+        /// </summary>
+        public static string ExportableFailureMechanismSectionAssemblyResult_IdPrefix {
+            get {
+                return ResourceManager.GetString("ExportableFailureMechanismSectionAssemblyResult_IdPrefix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Vi.
         /// </summary>
         public static string ExportableFailureMechanismSectionCollection_IdPrefix {

@@ -43,7 +43,8 @@ namespace Riskeer.AssemblyTool.IO.TestUtil
         /// <list type="bullet">
         /// <item>The number of sections between <paramref name="expectedSections"/> and <paramref name="actualSections"/>
         /// do not match. </item>
-        /// <item>The geometry of any the sections are not equal.</item>
+        /// <item>The geometry of the sections are not equal.</item>
+        /// <item>The id does not contain the expected value.</item>
         /// </list></exception>
         public static void AssertExportableFailureMechanismSections(IEnumerable<FailureMechanismSection> expectedSections,
                                                                     IEnumerable<ExportableFailureMechanismSection> actualSections)
@@ -56,6 +57,8 @@ namespace Riskeer.AssemblyTool.IO.TestUtil
             {
                 FailureMechanismSection expectedSection = expectedSections.ElementAt(i);
                 ExportableFailureMechanismSection actualSection = actualSections.ElementAt(i);
+                
+                Assert.AreEqual($"Bv.{i}", actualSection.Id);
 
                 double expectedEndDistance = expectedStartDistance + Math2D.Length(expectedSection.Points);
 
