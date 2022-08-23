@@ -46,6 +46,7 @@ namespace Riskeer.AssemblyTool.IO.TestUtil
 
             return new ExportableFailureMechanismSectionAssemblyResult(
                 "id", section,
+                random.NextDouble(),
                 random.NextEnumValue(new[]
                 {
                     FailureMechanismSectionAssemblyGroup.NotDominant,
@@ -58,6 +59,7 @@ namespace Riskeer.AssemblyTool.IO.TestUtil
                     FailureMechanismSectionAssemblyGroup.IIIMin,
                     FailureMechanismSectionAssemblyGroup.NotRelevant
                 }),
+                random.NextEnumValue<ExportableAssemblyMethod>(),
                 random.NextEnumValue<ExportableAssemblyMethod>());
         }
 

@@ -47,20 +47,6 @@ namespace Riskeer.AssemblyTool.IO.Model
                                                                               double probability,
                                                                               ExportableAssemblyMethod assemblyGroupAssemblyMethod,
                                                                               ExportableAssemblyMethod probabilityAssemblyMethod)
-            : base(id, failureMechanismSection, assemblyGroup, assemblyGroupAssemblyMethod)
-        {
-            Probability = probability;
-            ProbabilityAssemblyMethod = probabilityAssemblyMethod;
-        }
-
-        /// <summary>
-        /// Gets the probability of this section.
-        /// </summary>
-        public double Probability { get; }
-
-        /// <summary>
-        /// Gets the method used to assemble the probability for this section.
-        /// </summary>
-        public ExportableAssemblyMethod ProbabilityAssemblyMethod { get; }
+            : base(id, failureMechanismSection, probability, assemblyGroup, assemblyGroupAssemblyMethod, probabilityAssemblyMethod) {}
     }
 }

@@ -184,8 +184,8 @@ namespace Riskeer.AssemblyTool.IO.Test
                 }, new[]
                 {
                     new ExportableCombinedSectionAssembly(combinedSection, new ExportableFailureMechanismSectionAssemblyResult(
-                                                              "resultaat_gecombineerd_1", combinedSection,
-                                                              FailureMechanismSectionAssemblyGroup.I, ExportableAssemblyMethod.BOI3C1),
+                                                              "resultaat_gecombineerd_1", combinedSection, 0.37,
+                                                              FailureMechanismSectionAssemblyGroup.I, ExportableAssemblyMethod.BOI3C1, ExportableAssemblyMethod.Manual),
                                                           new[]
                                                           {
                                                               new ExportableFailureMechanismCombinedSectionAssemblyResult(

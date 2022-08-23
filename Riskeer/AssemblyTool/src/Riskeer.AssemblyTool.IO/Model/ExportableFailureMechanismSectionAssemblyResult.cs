@@ -36,14 +36,18 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// </summary>
         /// <param name="id">The id of the failure mechanism section assembly result.</param>
         /// <param name="failureMechanismSection">The failure mechanism section.</param>
+        /// <param name="probability">The probability of this section.</param>
         /// <param name="assemblyGroup">The assembly group of this section.</param>
         /// <param name="assemblyGroupAssemblyMethod">The method used to assemble the assembly group for this section.</param>
+        /// <param name="probabilityAssemblyMethod">The method used to assemble the probability for this section.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSection"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is invalid.</exception>
-        public ExportableFailureMechanismSectionAssemblyResult(string id, 
+        public ExportableFailureMechanismSectionAssemblyResult(string id,
                                                                ExportableFailureMechanismSection failureMechanismSection,
+                                                               double probability,
                                                                FailureMechanismSectionAssemblyGroup assemblyGroup,
-                                                               ExportableAssemblyMethod assemblyGroupAssemblyMethod)
+                                                               ExportableAssemblyMethod assemblyGroupAssemblyMethod,
+                                                               ExportableAssemblyMethod probabilityAssemblyMethod)
         {
             IdValidationHelper.ThrowIfInvalid(id);
             
@@ -54,8 +58,10 @@ namespace Riskeer.AssemblyTool.IO.Model
 
             Id = id;
             FailureMechanismSection = failureMechanismSection;
+            Probability = probability;
             AssemblyGroup = assemblyGroup;
             AssemblyGroupAssemblyMethod = assemblyGroupAssemblyMethod;
+            ProbabilityAssemblyMethod = probabilityAssemblyMethod;
         }
 
         /// <summary>
@@ -77,5 +83,15 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// Gets the method that was used to assemble the assembly group for this section.
         /// </summary>
         public ExportableAssemblyMethod AssemblyGroupAssemblyMethod { get; }
+
+        /// <summary>
+        /// Gets the probability of this section.
+        /// </summary>
+        public double Probability { get; }
+
+        /// <summary>
+        /// Gets the method used to assemble the probability for this section.
+        /// </summary>
+        public ExportableAssemblyMethod ProbabilityAssemblyMethod { get; }
     }
 }
