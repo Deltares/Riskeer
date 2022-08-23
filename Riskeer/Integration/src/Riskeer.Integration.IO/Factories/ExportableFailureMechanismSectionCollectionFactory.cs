@@ -70,11 +70,11 @@ namespace Riskeer.Integration.IO.Factories
             double startDistance = 0;
             foreach (FailureMechanismSection section in sections)
             {
-                double endDistance = startDistance + section.Length;
-                exportableSections.Add(new ExportableFailureMechanismSection(idGenerator.GetNewId(Resources.ExportableFailureMechanismSection_IdPrefix),
-                                                                             section.Points, startDistance, endDistance));
+                ExportableFailureMechanismSection exportableFailureMechanismSection =
+                    ExportableFailureMechanismSectionFactory.CreateExportableFailureMechanismSection(idGenerator, registry, section, startDistance);
+                exportableSections.Add(exportableFailureMechanismSection);
 
-                startDistance = endDistance;
+                startDistance = exportableFailureMechanismSection.EndDistance;
             }
 
             var exportableCollection = new ExportableFailureMechanismSectionCollection(idGenerator.GetNewId(Resources.ExportableFailureMechanismSectionCollection_IdPrefix),
