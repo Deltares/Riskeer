@@ -22,8 +22,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.TestUtil;
 using NUnit.Framework;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.IO.Model;
+using Riskeer.AssemblyTool.IO.Model.Enums;
 using Riskeer.AssemblyTool.IO.TestUtil;
 
 namespace Riskeer.AssemblyTool.IO.Test.Model
@@ -32,34 +35,37 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
     public class ExportableCombinedSectionAssemblyTest
     {
         [Test]
-        public void Constructor_SectionNull_ThrowsArgumentNullException()
+        [TestCaseSource(typeof(InvalidIdTestHelper), nameof(InvalidIdTestHelper.InvalidIdCases))]
+        public void Constructor_InvalidId_ThrowsArgumentException(string invalidId)
         {
             // Setup
-            ExportableFailureMechanismSection section = ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection();
-            ExportableFailureMechanismSectionAssemblyResult combinedAssemblyResult = ExportableFailureMechanismSectionAssemblyResultTestFactory.Create(section, 21);
-
-            // Call
-            void Call() => new ExportableCombinedSectionAssembly(
-                null, combinedAssemblyResult, Enumerable.Empty<ExportableFailureMechanismCombinedSectionAssemblyResult>());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("section", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_CombinedSectionAssemblyResultNull_ThrowsArgumentNullException()
-        {
-            // Setup
+            var random = new Random(21);
             ExportableCombinedFailureMechanismSection section = ExportableFailureMechanismSectionTestFactory.CreateExportableCombinedFailureMechanismSection();
 
             // Call
             void Call() => new ExportableCombinedSectionAssembly(
-                section, null, Enumerable.Empty<ExportableFailureMechanismCombinedSectionAssemblyResult>());
+                invalidId, section, random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
+                random.NextEnumValue<ExportableAssemblyMethod>(), Enumerable.Empty<ExportableFailureMechanismCombinedSectionAssemblyResult>());
+
+            // Assert
+            const string expectedMessage = "'id' must have a value and consist only of alphanumerical characters, '-', '_' or '.'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
+        }
+
+        [Test]
+        public void Constructor_SectionNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var random = new Random(21);
+
+            // Call
+            void Call() => new ExportableCombinedSectionAssembly(
+                "id", null, random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
+                random.NextEnumValue<ExportableAssemblyMethod>(), Enumerable.Empty<ExportableFailureMechanismCombinedSectionAssemblyResult>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("combinedSectionAssemblyResult", exception.ParamName);
+            Assert.AreEqual("section", exception.ParamName);
         }
 
         [Test]
@@ -68,11 +74,11 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             // Setup
             var random = new Random(21);
             ExportableCombinedFailureMechanismSection section = ExportableFailureMechanismSectionTestFactory.CreateExportableCombinedFailureMechanismSection();
-            ExportableFailureMechanismSectionAssemblyResult combinedAssemblyResult = ExportableFailureMechanismSectionAssemblyResultTestFactory.Create(
-                section, random.Next());
 
             // Call
-            void Call() => new ExportableCombinedSectionAssembly(section, combinedAssemblyResult, null);
+            void Call() => new ExportableCombinedSectionAssembly(
+                "id", section, random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
+                random.NextEnumValue<ExportableAssemblyMethod>(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -84,20 +90,23 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
         {
             // Setup
             var random = new Random(21);
-            ExportableCombinedFailureMechanismSection section = ExportableFailureMechanismSectionTestFactory.CreateExportableCombinedFailureMechanismSection();
+            const string id = "id";
+            var assemblyGroup = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>();
+            var assemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
 
-            ExportableFailureMechanismSectionAssemblyResult combinedAssemblyResult = ExportableFailureMechanismSectionAssemblyResultTestFactory.Create(
-                section, random.Next());
+            ExportableCombinedFailureMechanismSection section = ExportableFailureMechanismSectionTestFactory.CreateExportableCombinedFailureMechanismSection();
 
             IEnumerable<ExportableFailureMechanismCombinedSectionAssemblyResult> failureMechanismResults =
                 Enumerable.Empty<ExportableFailureMechanismCombinedSectionAssemblyResult>();
 
             // Call
-            var result = new ExportableCombinedSectionAssembly(section, combinedAssemblyResult, failureMechanismResults);
+            var result = new ExportableCombinedSectionAssembly(id, section, assemblyGroup, assemblyMethod, failureMechanismResults);
 
             // Assert
+            Assert.AreEqual(id, result.Id);
             Assert.AreSame(section, result.Section);
-            Assert.AreSame(combinedAssemblyResult, result.CombinedSectionAssemblyResult);
+            Assert.AreEqual(assemblyGroup, result.AssemblyGroup);
+            Assert.AreEqual(assemblyMethod, result.AssemblyGroupAssemblyMethod);
             Assert.AreSame(failureMechanismResults, result.FailureMechanismResults);
         }
     }

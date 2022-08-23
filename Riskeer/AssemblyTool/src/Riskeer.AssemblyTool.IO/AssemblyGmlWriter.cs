@@ -253,7 +253,7 @@ namespace Riskeer.AssemblyTool.IO
 
                 foreach (ExportableFailureMechanismCombinedSectionAssemblyResult failureMechanismResult in combinedSectionAssembly.FailureMechanismResults)
                 {
-                    WriteFeatureMember(() => WriteCombinedSectionAssemblyFailureMechanismResult(failureMechanismResult, combinedSectionAssembly.CombinedSectionAssemblyResult.Id));
+                    WriteFeatureMember(() => WriteCombinedSectionAssemblyFailureMechanismResult(failureMechanismResult, combinedSectionAssembly.Id));
                 }
             }
         }
@@ -261,13 +261,12 @@ namespace Riskeer.AssemblyTool.IO
         private void WriteCombinedSectionAssembly(ExportableCombinedSectionAssembly combinedSectionAssembly, string assessmentSectionAssemblyId)
         {
             WriteStartElementWithId(AssemblyXmlIdentifiers.CombinedFailureMechanismSection, AssemblyXmlIdentifiers.UboiNamespace,
-                                    combinedSectionAssembly.CombinedSectionAssemblyResult.Id);
+                                    combinedSectionAssembly.Id);
 
-            ExportableFailureMechanismSectionAssemblyResult combinedSectionAssemblyResult = combinedSectionAssembly.CombinedSectionAssemblyResult;
             writer.WriteElementString(AssemblyXmlIdentifiers.FailureMechanismSectionAssemblyGroup, AssemblyXmlIdentifiers.UboiNamespace,
-                                      EnumDisplayNameHelper.GetDisplayName(combinedSectionAssemblyResult.AssemblyGroup));
+                                      EnumDisplayNameHelper.GetDisplayName(combinedSectionAssembly.AssemblyGroup));
             writer.WriteElementString(AssemblyXmlIdentifiers.AssemblyMethod, AssemblyXmlIdentifiers.UboiNamespace,
-                                      EnumDisplayNameHelper.GetDisplayName(combinedSectionAssemblyResult.AssemblyGroupAssemblyMethod));
+                                      EnumDisplayNameHelper.GetDisplayName(combinedSectionAssembly.AssemblyGroupAssemblyMethod));
             writer.WriteElementString(AssemblyXmlIdentifiers.Status, AssemblyXmlIdentifiers.UboiNamespace, Resources.FullAssembly);
 
             WriteLink(AssemblyXmlIdentifiers.Specifies, AssemblyXmlIdentifiers.UboiNamespace, assessmentSectionAssemblyId);

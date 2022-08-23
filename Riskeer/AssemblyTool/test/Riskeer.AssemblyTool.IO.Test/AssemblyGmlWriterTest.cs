@@ -183,9 +183,8 @@ namespace Riskeer.AssemblyTool.IO.Test
                                                            Enumerable.Empty<ExportableFailureMechanismSectionAssemblyResult>(), "Specifiek faalmechanisme")
                 }, new[]
                 {
-                    new ExportableCombinedSectionAssembly(combinedSection, new ExportableFailureMechanismSectionAssemblyResult(
-                                                              "resultaat_gecombineerd_1", combinedSection, 0.37,
-                                                              FailureMechanismSectionAssemblyGroup.I, ExportableAssemblyMethod.BOI3C1, ExportableAssemblyMethod.Manual),
+                    new ExportableCombinedSectionAssembly("resultaat_gecombineerd_1", combinedSection,
+                                                          FailureMechanismSectionAssemblyGroup.I, ExportableAssemblyMethod.BOI3C1,
                                                           new[]
                                                           {
                                                               new ExportableFailureMechanismCombinedSectionAssemblyResult(

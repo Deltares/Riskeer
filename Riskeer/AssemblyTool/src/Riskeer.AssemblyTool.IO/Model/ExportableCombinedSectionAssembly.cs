@@ -21,6 +21,9 @@
 
 using System;
 using System.Collections.Generic;
+using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.IO.Helpers;
+using Riskeer.AssemblyTool.IO.Model.Enums;
 
 namespace Riskeer.AssemblyTool.IO.Model
 {
@@ -32,22 +35,25 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// <summary>
         /// Creates a new instance of <see cref="ExportableCombinedSectionAssembly"/>.
         /// </summary>
+        /// <param name="id">The id of the section assembly result.</param>
         /// <param name="section">The section that belongs to the assembly result.</param>
-        /// <param name="combinedSectionAssemblyResult">The combined assembly result of this section.</param>
+        /// <param name="assemblyGroup">The assembly group of this combined section.</param>
+        /// <param name="assemblyGroupAssemblyMethod">The method used to assemble the assembly group for this combined section.</param>
         /// <param name="failureMechanismResults">The assembly results per failure mechanism.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public ExportableCombinedSectionAssembly(ExportableCombinedFailureMechanismSection section,
-                                                 ExportableFailureMechanismSectionAssemblyResult combinedSectionAssemblyResult,
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> or
+        /// <paramref name="failureMechanismResults"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is invalid.</exception>
+        public ExportableCombinedSectionAssembly(string id,
+                                                 ExportableCombinedFailureMechanismSection section,
+                                                 FailureMechanismSectionAssemblyGroup assemblyGroup,
+                                                 ExportableAssemblyMethod assemblyGroupAssemblyMethod,
                                                  IEnumerable<ExportableFailureMechanismCombinedSectionAssemblyResult> failureMechanismResults)
         {
+            IdValidationHelper.ThrowIfInvalid(id);
+            
             if (section == null)
             {
                 throw new ArgumentNullException(nameof(section));
-            }
-
-            if (combinedSectionAssemblyResult == null)
-            {
-                throw new ArgumentNullException(nameof(combinedSectionAssemblyResult));
             }
 
             if (failureMechanismResults == null)
@@ -55,20 +61,32 @@ namespace Riskeer.AssemblyTool.IO.Model
                 throw new ArgumentNullException(nameof(failureMechanismResults));
             }
 
+            Id = id;
             Section = section;
-            CombinedSectionAssemblyResult = combinedSectionAssemblyResult;
+            AssemblyGroup = assemblyGroup;
+            AssemblyGroupAssemblyMethod = assemblyGroupAssemblyMethod;
             FailureMechanismResults = failureMechanismResults;
         }
+        
+        /// <summary>
+        /// Gets the id of the combined section assembly.
+        /// </summary>
+        public string Id { get; }
 
         /// <summary>
-        /// Gets the section of the assembly.
+        /// Gets the section.
         /// </summary>
         public ExportableCombinedFailureMechanismSection Section { get; }
 
         /// <summary>
-        /// Gets the combined assembly result of this section.
+        /// Gets the assembly group.
         /// </summary>
-        public ExportableFailureMechanismSectionAssemblyResult CombinedSectionAssemblyResult { get; }
+        public FailureMechanismSectionAssemblyGroup AssemblyGroup { get; }
+
+        /// <summary>
+        /// Gets the method that was used to assemble the assembly group for this combined section.
+        /// </summary>
+        public ExportableAssemblyMethod AssemblyGroupAssemblyMethod { get; }
 
         /// <summary>
         /// Gets the assembly results per failure mechanism.

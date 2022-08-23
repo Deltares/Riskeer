@@ -184,8 +184,8 @@ namespace Riskeer.Integration.IO.Test.Factories
                                                                                   bool hasAssemblyGroupResults)
         {
             Assert.AreSame(actualSection, actualSectionResult.Section);
-            Assert.AreEqual(expectedSection.TotalResult, actualSectionResult.CombinedSectionAssemblyResult.AssemblyGroup);
-            Assert.AreEqual(ExportableAssemblyMethodFactory.Create(expectedSection.CombinedSectionResultAssemblyMethod), actualSectionResult.CombinedSectionAssemblyResult.AssemblyGroupAssemblyMethod);
+            Assert.AreEqual(expectedSection.TotalResult, actualSectionResult.AssemblyGroup);
+            Assert.AreEqual(ExportableAssemblyMethodFactory.Create(expectedSection.CombinedSectionResultAssemblyMethod), actualSectionResult.AssemblyGroupAssemblyMethod);
 
             IEnumerable<ExportableFailureMechanismCombinedSectionAssemblyResult> failureMechanismCombinedSectionResults = actualSectionResult.FailureMechanismResults;
 

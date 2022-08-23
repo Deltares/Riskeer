@@ -63,15 +63,15 @@ namespace Riskeer.Integration.IO.Factories
             var sectionResults = new List<ExportableCombinedSectionAssembly>();
             foreach (CombinedFailureMechanismSectionAssemblyResult assemblyResult in combinedSectionAssemblyResults)
             {
-                var exportableSection = new ExportableCombinedFailureMechanismSection("id", FailureMechanismSectionHelper.GetFailureMechanismSectionGeometry(
-                                                                                          assessmentSection.ReferenceLine, assemblyResult.SectionStart, assemblyResult.SectionEnd),
-                                                                                      assemblyResult.SectionStart,
-                                                                                      assemblyResult.SectionEnd,
-                                                                                      ExportableAssemblyMethodFactory.Create(assemblyResult.CommonSectionAssemblyMethod));
+                var exportableSection = new ExportableCombinedFailureMechanismSection(
+                    "id", FailureMechanismSectionHelper.GetFailureMechanismSectionGeometry(
+                        assessmentSection.ReferenceLine, assemblyResult.SectionStart, assemblyResult.SectionEnd),
+                    assemblyResult.SectionStart, assemblyResult.SectionEnd,
+                    ExportableAssemblyMethodFactory.Create(assemblyResult.CommonSectionAssemblyMethod));
 
                 var exportableSectionResult = new ExportableCombinedSectionAssembly(
-                    exportableSection, new ExportableFailureMechanismSectionAssemblyResult(
-                        "id", exportableSection, 13.37, assemblyResult.TotalResult, ExportableAssemblyMethodFactory.Create(assemblyResult.CombinedSectionResultAssemblyMethod), ExportableAssemblyMethod.Manual),
+                    "id", exportableSection, assemblyResult.TotalResult,
+                    ExportableAssemblyMethodFactory.Create(assemblyResult.CombinedSectionResultAssemblyMethod),
                     CreateFailureMechanismCombinedSectionAssemblyResults(assemblyResult, assessmentSection));
 
                 sectionResults.Add(exportableSectionResult);
