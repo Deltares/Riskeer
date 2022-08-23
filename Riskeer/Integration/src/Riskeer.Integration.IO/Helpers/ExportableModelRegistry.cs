@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Util;
 using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.Common.Data.FailureMechanism;
@@ -33,32 +32,32 @@ namespace Riskeer.Integration.IO.Helpers
     /// </summary>
     public class ExportableModelRegistry
     {
-        private readonly Dictionary<ExportableFailureMechanismSectionCollection, IEnumerable<FailureMechanismSection>> failureMechanismSectionCollections =
-            CreateDictionary<ExportableFailureMechanismSectionCollection, IEnumerable<FailureMechanismSection>>();
+        private readonly Dictionary<IEnumerable<FailureMechanismSection>, ExportableFailureMechanismSectionCollection> failureMechanismSectionCollections =
+            CreateDictionary<IEnumerable<FailureMechanismSection>, ExportableFailureMechanismSectionCollection>();
 
-        private readonly Dictionary<ExportableFailureMechanismSection, FailureMechanismSection> failureMechanismSections =
-            CreateDictionary<ExportableFailureMechanismSection, FailureMechanismSection>();
-        
-        private static Dictionary<TExportableModel, TModel> CreateDictionary<TExportableModel, TModel>()
+        private readonly Dictionary<FailureMechanismSection, ExportableFailureMechanismSection> failureMechanismSections =
+            CreateDictionary<FailureMechanismSection, ExportableFailureMechanismSection>();
+
+        private static Dictionary<TModel, TExportableModel> CreateDictionary<TModel, TExportableModel>()
         {
-            return new Dictionary<TExportableModel, TModel>(new ReferenceEqualityComparer<TExportableModel>());
+            return new Dictionary<TModel, TExportableModel>(new ReferenceEqualityComparer<TModel>());
         }
 
-        private static bool ContainsValue<TExportableModel, TModel>(Dictionary<TExportableModel, TModel> collection, TModel model)
+        private static bool ContainsValue<TModel, TExportableModel>(Dictionary<TModel, TExportableModel> collection, TModel model)
         {
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
             }
 
-            return collection.Values.Contains(model, new ReferenceEqualityComparer<TModel>());
+            return collection.ContainsKey(model);
         }
 
-        private static void Register<TExportableModel, TModel>(Dictionary<TExportableModel, TModel> collection, TExportableModel entity, TModel model)
+        private static void Register<TModel, TExportableModel>(Dictionary<TModel, TExportableModel> collection, TModel model, TExportableModel exportableModel)
         {
-            if (entity == null)
+            if (exportableModel == null)
             {
-                throw new ArgumentNullException(nameof(entity));
+                throw new ArgumentNullException(nameof(exportableModel));
             }
 
             if (model == null)
@@ -66,17 +65,40 @@ namespace Riskeer.Integration.IO.Helpers
                 throw new ArgumentNullException(nameof(model));
             }
 
-            collection[entity] = model;
+            collection[model] = exportableModel;
         }
 
-        private TExportableModel Get<TExportableModel, TModel>(Dictionary<TExportableModel, TModel> collection, TModel model)
+        /// <summary>
+        /// Obtains the <typeparamref name="TExportableModel"/> from a registered <typeparamref name="TModel"/>.
+        /// </summary>
+        /// <param name="collection">The collection that contains the lookup information of <typeparamref name="TModel"/>
+        /// and <typeparamref name="TExportableModel"/>.</param>
+        /// <param name="model">The <typeparamref name="TModel"/> to retrieve the <typeparamref name="TExportableModel"/> for.</param>
+        /// <typeparam name="TModel">The model that was registered.</typeparam>
+        /// <typeparam name="TExportableModel">The type of exportable model that was registered with <typeparamref name="TModel"/>.</typeparam>
+        /// <returns>A <typeparamref name="TExportableModel"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when no item was registered for <paramref name="model"/>.</exception>
+        private static TExportableModel Get<TModel, TExportableModel>(Dictionary<TModel, TExportableModel> collection, TModel model)
         {
+            if (collection == null)
+            {
+                throw new ArgumentNullException(nameof(collection));
+            }
+
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
             }
 
-            return collection.Keys.Single(k => ReferenceEquals(collection[k], model));
+            try
+            {
+                return collection[model];
+            }
+            catch (KeyNotFoundException e)
+            {
+                throw new InvalidOperationException(e.Message);
+            }
         }
 
         #region Register methods
@@ -85,24 +107,24 @@ namespace Riskeer.Integration.IO.Helpers
         /// Registers a create operation for <paramref name="model"/> and the <paramref name="exportableModel"/>
         /// that was constructed with the information.
         /// </summary>
-        /// <param name="exportableModel">The <see cref="ExportableFailureMechanismSectionCollection"/> to be registered.</param>
         /// <param name="model">The collection of <see cref="FailureMechanismSection"/> to be registered.</param>
+        /// <param name="exportableModel">The <see cref="ExportableFailureMechanismSectionCollection"/> to be registered with.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
-        public void Register(ExportableFailureMechanismSectionCollection exportableModel, IEnumerable<FailureMechanismSection> model)
+        public void Register(IEnumerable<FailureMechanismSection> model, ExportableFailureMechanismSectionCollection exportableModel)
         {
-            Register(failureMechanismSectionCollections, exportableModel, model);
+            Register(failureMechanismSectionCollections, model, exportableModel);
         }
-        
+
         /// <summary>
         /// Registers a create operation for <paramref name="model"/> and the <paramref name="exportableModel"/>
         /// that was constructed with the information.
         /// </summary>
+        /// <param name="model">The <see cref="FailureMechanismSection"/> to be registered with.</param>
         /// <param name="exportableModel">The <see cref="ExportableFailureMechanismSection"/> to be registered.</param>
-        /// <param name="model">The <see cref="FailureMechanismSection"/> to be registered.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
-        internal void Register(ExportableFailureMechanismSection exportableModel, FailureMechanismSection model)
+        internal void Register(FailureMechanismSection model, ExportableFailureMechanismSection exportableModel)
         {
-            Register(failureMechanismSections, exportableModel, model);
+            Register(failureMechanismSections, model, exportableModel);
         }
 
         #endregion
@@ -119,7 +141,7 @@ namespace Riskeer.Integration.IO.Helpers
         {
             return ContainsValue(failureMechanismSectionCollections, model);
         }
-        
+
         /// <summary>
         /// Checks whether a create operations has been registered for the given <paramref name="model"/>.
         /// </summary>
@@ -150,7 +172,7 @@ namespace Riskeer.Integration.IO.Helpers
         {
             return Get(failureMechanismSectionCollections, model);
         }
-        
+
         /// <summary>
         /// Obtains the <see cref="ExportableFailureMechanismSection"/> which was registered for the
         /// given <paramref name="model"/>.
@@ -168,6 +190,5 @@ namespace Riskeer.Integration.IO.Helpers
         }
 
         #endregion
-
     }
 }

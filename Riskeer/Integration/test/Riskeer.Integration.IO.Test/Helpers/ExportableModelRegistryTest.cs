@@ -78,7 +78,7 @@ namespace Riskeer.Integration.IO.Test.Helpers
 
                 // Assert
                 string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
-                Assert.AreEqual("entity", paramName);
+                Assert.AreEqual("exportableModel", paramName);
             }
 
             [Test]
@@ -229,7 +229,7 @@ namespace Riskeer.Integration.IO.Test.Helpers
             ExportableFailureMechanismSectionCollection>
         {
             public FailureMechanismSectionCollectionTest() : base(
-                (r, e, m) => r.Register(e, m),
+                (r, e, m) => r.Register(m, e),
                 (r, m) => r.Contains(m),
                 (r, m) => r.Get(m)) {}
 
@@ -249,7 +249,7 @@ namespace Riskeer.Integration.IO.Test.Helpers
             ExportableFailureMechanismSection>
         {
             public FailureMechanismSectionTest() : base(
-                (r, e, m) => r.Register(e, m),
+                (r, e, m) => r.Register(m, e),
                 (r, m) => r.Contains(m),
                 (r, m) => r.Get(m)) {}
 

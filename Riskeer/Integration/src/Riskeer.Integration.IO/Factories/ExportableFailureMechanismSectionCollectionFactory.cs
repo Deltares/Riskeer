@@ -29,19 +29,19 @@ using Riskeer.Integration.IO.Properties;
 namespace Riskeer.Integration.IO.Factories
 {
     /// <summary>
-    /// Factory for creating <see cref="ExportableFailureMechanismSection"/>.
+    /// Factory for creating <see cref="ExportableFailureMechanismSectionCollection"/>.
     /// </summary>
     public static class ExportableFailureMechanismSectionCollectionFactory
     {
         /// <summary>
-        /// Creates an <see cref="CreateExportableFailureMechanismSectionCollection"/> based on a collection of
+        /// Creates an <see cref="ExportableFailureMechanismSectionCollection"/> based on a collection of
         /// <see cref="FailureMechanismSection"/>.
         /// </summary>
         /// <param name="idGenerator">The generator to generate ids for the exportable components.</param>
         /// <param name="registry">The <see cref="ExportableModelRegistry"/> to keep track of the created items.</param>
         /// <param name="sections">The collection of <see cref="FailureMechanismSection"/> to create the
         /// <see cref="ExportableFailureMechanismSectionCollection"/> with.</param>
-        /// <returns>A <see cref="ExportableFailureMechanismSectionCollection"/>.</returns>
+        /// <returns>An <see cref="ExportableFailureMechanismSectionCollection"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static ExportableFailureMechanismSectionCollection CreateExportableFailureMechanismSectionCollection(
             IdentifierGenerator idGenerator, ExportableModelRegistry registry, IEnumerable<FailureMechanismSection> sections)
@@ -79,7 +79,7 @@ namespace Riskeer.Integration.IO.Factories
 
             var exportableCollection = new ExportableFailureMechanismSectionCollection(idGenerator.GetNewId(Resources.ExportableFailureMechanismSectionCollection_IdPrefix),
                                                                                        exportableSections);
-            registry.Register(exportableCollection, sections);
+            registry.Register(sections, exportableCollection);
             return exportableCollection;
         }
     }
