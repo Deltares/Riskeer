@@ -79,7 +79,7 @@ namespace Riskeer.Integration.IO.Factories
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            var registry = new ExportableModelRegistry();
+            var registry = new ExportableFailureMechanismSectionRegistry();
             return new ExportableAssessmentSection(IdentifierGenerator.GenerateId(assessmentSection),
                                                    assessmentSection.Name,
                                                    assessmentSection.ReferenceLine.Points,
@@ -149,14 +149,14 @@ namespace Riskeer.Integration.IO.Factories
         /// for failure mechanisms that are in assembly based on <paramref name="assessmentSection"/>.
         /// </summary>
         /// <param name="idGenerator">The generator to generate ids for the exportable components.</param>
-        /// <param name="registry">The <see cref="ExportableModelRegistry"/> to keep track of the created items.</param>
+        /// <param name="registry">The <see cref="ExportableFailureMechanismSectionRegistry"/> to keep track of the created <see cref="ExportableFailureMechanismSection"/>.</param>
         /// <param name="assessmentSection">The assessment section to create a collection of
         /// <see cref="ExportableFailureMechanism"/> with probability for.</param>
         /// <returns>A collection of <see cref="ExportableFailureMechanism"/> based on failure
         /// mechanisms that are in assembly.</returns>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created for <paramref name="assessmentSection"/>.</exception>
         private static IEnumerable<ExportableFailureMechanism> CreateExportableFailureMechanisms(
-            IdentifierGenerator idGenerator, ExportableModelRegistry registry, AssessmentSection assessmentSection)
+            IdentifierGenerator idGenerator, ExportableFailureMechanismSectionRegistry registry, AssessmentSection assessmentSection)
         {
             var exportableFailureMechanisms = new List<ExportableFailureMechanism>();
 
@@ -235,7 +235,7 @@ namespace Riskeer.Integration.IO.Factories
         }
 
         private static void AddGenericFailureMechanismWhenInAssembly<TFailureMechanism, TSectionResult>(
-            IdentifierGenerator idGenerator, ExportableModelRegistry registry, List<ExportableFailureMechanism> exportableFailureMechanisms, 
+            IdentifierGenerator idGenerator, ExportableFailureMechanismSectionRegistry registry, List<ExportableFailureMechanism> exportableFailureMechanisms, 
             TFailureMechanism failureMechanism, IAssessmentSection assessmentSection,
             Func<TFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> assembleFailureMechanismFunc,
             Func<TSectionResult, TFailureMechanism, IAssessmentSection, FailureMechanismSectionAssemblyResultWrapper> assembleFailureMechanismSectionFunc)
@@ -251,7 +251,7 @@ namespace Riskeer.Integration.IO.Factories
         }
 
         private static IEnumerable<ExportableFailureMechanismSectionCollection> CreateExportableFailureMechanismSectionCollections(
-            IdentifierGenerator idGenerator, ExportableModelRegistry registry, AssessmentSection assessmentSection)
+            IdentifierGenerator idGenerator, ExportableFailureMechanismSectionRegistry registry, AssessmentSection assessmentSection)
         {
             IEnumerable<IFailureMechanism> failureMechanismsInAssembly = assessmentSection.GetFailureMechanisms()
                                                                                           .Concat(assessmentSection.SpecificFailureMechanisms)

@@ -40,7 +40,7 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             // Call
             void Call() => ExportableFailureMechanismSectionFactory.CreateExportableFailureMechanismSection(
-                null, new ExportableModelRegistry(), FailureMechanismSectionTestFactory.CreateFailureMechanismSection(), random.NextDouble());
+                null, new ExportableFailureMechanismSectionRegistry(), FailureMechanismSectionTestFactory.CreateFailureMechanismSection(), random.NextDouble());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -70,7 +70,7 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             // Call
             void Call() => ExportableFailureMechanismSectionFactory.CreateExportableFailureMechanismSection(
-                new IdentifierGenerator(), new ExportableModelRegistry(), null, random.NextDouble());
+                new IdentifierGenerator(), new ExportableFailureMechanismSectionRegistry(), null, random.NextDouble());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -87,7 +87,7 @@ namespace Riskeer.Integration.IO.Test.Factories
             var idGenerator = new IdentifierGenerator();
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
-            var registry = new ExportableModelRegistry();
+            var registry = new ExportableFailureMechanismSectionRegistry();
 
             // Call
             ExportableFailureMechanismSection exportableSection =
@@ -110,7 +110,7 @@ namespace Riskeer.Integration.IO.Test.Factories
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             var idGenerator = new IdentifierGenerator();
-            var registry = new ExportableModelRegistry();
+            var registry = new ExportableFailureMechanismSectionRegistry();
             ExportableFailureMechanismSection exportableModel1 =
                 ExportableFailureMechanismSectionFactory.CreateExportableFailureMechanismSection(idGenerator, registry, section, random.NextDouble());
 
