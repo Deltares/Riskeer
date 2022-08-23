@@ -82,6 +82,11 @@ namespace Riskeer.AssemblyTool.IO
         /// </summary>
         public const string CombinedFailureMechanismSection = "AnalyseDeelvakGecombineerd";
 
+        /// <summary>
+        /// Identifier for a combined failure mechanism section result element.
+        /// </summary>
+        public const string CombinedFailureMechanismSectionResult = "AnalyseDeelvak";
+
         #region Link identifiers
 
         /// <summary>
@@ -123,6 +128,16 @@ namespace Riskeer.AssemblyTool.IO
         /// Identifier for a specifies element.
         /// </summary>
         public const string Specifies = "specificeert";
+
+        /// <summary>
+        /// Identifier for a derived from element.
+        /// </summary>
+        public const string DerivedFrom = "afgeleidVan";
+
+        /// <summary>
+        /// Identifier for a indicates element.
+        /// </summary>
+        public const string Indicates = "duidt";
 
         #endregion
 

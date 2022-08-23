@@ -186,7 +186,13 @@ namespace Riskeer.AssemblyTool.IO.Test
                     new ExportableCombinedSectionAssembly(combinedSection, new ExportableFailureMechanismSectionAssemblyResult(
                                                               "resultaat_gecombineerd_1", combinedSection,
                                                               FailureMechanismSectionAssemblyGroup.I, ExportableAssemblyMethod.BOI3C1),
-                                                          Array.Empty<ExportableFailureMechanismCombinedSectionAssemblyResult>())
+                                                          new[]
+                                                          {
+                                                              new ExportableFailureMechanismCombinedSectionAssemblyResult(
+                                                                  new ExportableFailureMechanismSubSectionAssemblyResult(
+                                                                      FailureMechanismSectionAssemblyGroup.I, ExportableAssemblyMethod.BOI3B1),
+                                                                  ExportableFailureMechanismType.Generic, string.Empty, string.Empty)
+                                                          })
                 });
 
             var assessmentProcess = new ExportableAssessmentProcess("beoordelingsproces1", 2023, 2035);

@@ -40,6 +40,7 @@ namespace Riskeer.AssemblyTool.IO.Test
             Assert.AreEqual("SpecifiekFaalmechanisme", AssemblyXmlIdentifiers.SpecificFailureMechanism);
             Assert.AreEqual("specifiekFaalmechanisme", AssemblyXmlIdentifiers.SpecificFailureMechanismName);
             Assert.AreEqual("AnalyseDeelvakGecombineerd", AssemblyXmlIdentifiers.CombinedFailureMechanismSection);
+            Assert.AreEqual("AnalyseDeelvak", AssemblyXmlIdentifiers.CombinedFailureMechanismSectionResult);
 
             Assert.AreEqual("href", AssemblyXmlIdentifiers.Link);
             Assert.AreEqual("beoordeelt", AssemblyXmlIdentifiers.Assesses);
@@ -49,6 +50,8 @@ namespace Riskeer.AssemblyTool.IO.Test
             Assert.AreEqual("analyseert", AssemblyXmlIdentifiers.Analyses);
             Assert.AreEqual("geldtVoor", AssemblyXmlIdentifiers.AppliesTo);
             Assert.AreEqual("specificeert", AssemblyXmlIdentifiers.Specifies);
+            Assert.AreEqual("afgeleidVan", AssemblyXmlIdentifiers.DerivedFrom);
+            Assert.AreEqual("duidt", AssemblyXmlIdentifiers.Indicates);
 
             Assert.AreEqual("xmlns", AssemblyXmlIdentifiers.XmlnsIdentifier);
             Assert.AreEqual("xlink", AssemblyXmlIdentifiers.XLinkNamespaceIdentifier);

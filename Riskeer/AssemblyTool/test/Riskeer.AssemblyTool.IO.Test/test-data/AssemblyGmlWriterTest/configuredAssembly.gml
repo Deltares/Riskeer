@@ -68,6 +68,15 @@
     </uboi:AnalyseDeelvakGecombineerd>
   </uboi:featureMember>
   <uboi:featureMember>
+    <uboi:AnalyseDeelvak>
+      <uboi:duidingsklasse>+I</uboi:duidingsklasse>
+      <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:afgeleidVan xlink:href="resultaat_GABI_1" />
+      <uboi:duidt xlink:href="resultaat_gecombineerd_1" />
+    </uboi:AnalyseDeelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
     <imwap:Vakindeling gml:id="vakindelingGABI" />
   </uboi:featureMember>
   <uboi:featureMember>
