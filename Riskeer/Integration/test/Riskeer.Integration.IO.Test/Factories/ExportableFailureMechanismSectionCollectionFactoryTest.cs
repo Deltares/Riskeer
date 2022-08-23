@@ -48,6 +48,18 @@ namespace Riskeer.Integration.IO.Test.Factories
         }
 
         [Test]
+        public void CreateExportableFailureMechanismCollection_RegistryNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => ExportableFailureMechanismSectionCollectionFactory.CreateExportableFailureMechanismSectionCollection(
+                new IdentifierGenerator(), null, Enumerable.Empty<FailureMechanismSection>());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("registry", exception.ParamName);
+        }
+        
+        [Test]
         public void CreateExportableFailureMechanismSectionCollection_SectionsNull_ThrowsArgumentNullException()
         {
             // Call
@@ -113,7 +125,7 @@ namespace Riskeer.Integration.IO.Test.Factories
         }
 
         [Test]
-        public void CreateExportableFailureMechanismSectionCollection_SectionsAlreadyRegistered_ReturnsRegisteredExportableMode()
+        public void CreateExportableFailureMechanismSectionCollection_SectionsAlreadyRegistered_ReturnsRegisteredExportableModel()
         {
             // Setup
             var sections = new List<FailureMechanismSection>();
