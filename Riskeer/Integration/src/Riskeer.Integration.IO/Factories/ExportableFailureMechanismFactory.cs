@@ -92,8 +92,7 @@ namespace Riskeer.Integration.IO.Factories
                                                          new ExportableFailureMechanismAssemblyResult(
                                                              assemblyResultWrapper.AssemblyResult,
                                                              ExportableAssemblyMethodFactory.Create(assemblyResultWrapper.AssemblyMethod)),
-                                                         CreateExportableFailureMechanismSectionResults(
-                                                             failureMechanism, assessmentSection, assembleFailureMechanismSectionFunc),
+                                                         CreateExportableFailureMechanismSectionResults(idGenerator, failureMechanism, assessmentSection, assembleFailureMechanismSectionFunc),
                                                          failureMechanism.Code);
         }
 
@@ -148,8 +147,7 @@ namespace Riskeer.Integration.IO.Factories
                                                           new ExportableFailureMechanismAssemblyResult(
                                                               assemblyResultWrapper.AssemblyResult,
                                                               ExportableAssemblyMethodFactory.Create(assemblyResultWrapper.AssemblyMethod)),
-                                                          CreateExportableFailureMechanismSectionResults(
-                                                              failureMechanism, assessmentSection, assembleFailureMechanismSectionFunc),
+                                                          CreateExportableFailureMechanismSectionResults(idGenerator, failureMechanism, assessmentSection, assembleFailureMechanismSectionFunc),
                                                           failureMechanism.Name);
         }
 
@@ -157,6 +155,7 @@ namespace Riskeer.Integration.IO.Factories
         /// Creates a collection of <see cref="ExportableFailureMechanismSectionAssemblyResult"/>
         /// with assembly results based on <paramref name="failureMechanism"/>.
         /// </summary>
+        /// <param name="idGenerator">The generator to generate ids for the exportable components.</param>
         /// <param name="failureMechanism">The failure mechanism to create a collection of
         /// <see cref="ExportableFailureMechanismSectionAssemblyResult"/> for.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to use in the assembly.</param>
@@ -167,9 +166,8 @@ namespace Riskeer.Integration.IO.Factories
         /// <returns>A collection of <see cref="ExportableFailureMechanismSectionAssemblyResult"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created.</exception>
         private static IEnumerable<ExportableFailureMechanismSectionAssemblyResult> CreateExportableFailureMechanismSectionResults
-            <TFailureMechanism, TSectionResult>(
-                TFailureMechanism failureMechanism, IAssessmentSection assessmentSection,
-                Func<TSectionResult, TFailureMechanism, IAssessmentSection, FailureMechanismSectionAssemblyResultWrapper> assembleFailureMechanismSectionFunc)
+            <TFailureMechanism, TSectionResult>(IdentifierGenerator idGenerator, TFailureMechanism failureMechanism, IAssessmentSection assessmentSection,
+                                                Func<TSectionResult, TFailureMechanism, IAssessmentSection, FailureMechanismSectionAssemblyResultWrapper> assembleFailureMechanismSectionFunc)
             where TFailureMechanism : IFailureMechanism<TSectionResult>
             where TSectionResult : FailureMechanismSectionResult
         {
@@ -185,7 +183,7 @@ namespace Riskeer.Integration.IO.Factories
 
                 exportableResults.Add(
                     new ExportableFailureMechanismSectionAssemblyResult(
-                        "id", failureMechanismSectionPair.Value, assemblyResult.SectionProbability, assemblyResult.FailureMechanismSectionAssemblyGroup,
+                        idGenerator.GetNewId("Fa"), failureMechanismSectionPair.Value, assemblyResult.SectionProbability, assemblyResult.FailureMechanismSectionAssemblyGroup,
                         ExportableAssemblyMethodFactory.Create(assemblyResultWrapper.AssemblyGroupMethod),
                         ExportableAssemblyMethodFactory.Create(assemblyResultWrapper.ProbabilityMethod)));
             }

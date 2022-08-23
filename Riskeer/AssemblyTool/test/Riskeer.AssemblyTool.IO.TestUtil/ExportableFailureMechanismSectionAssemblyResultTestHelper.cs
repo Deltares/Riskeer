@@ -45,6 +45,7 @@ namespace Riskeer.AssemblyTool.IO.TestUtil
         /// <item>The number of <paramref name="sections"/> and number of <paramref name="results"/> do not match.</item>
         /// <item>The values between <paramref name="expectedAssemblyResultWrapper"/> and <paramref name="results"/>
         /// do not match.</item>
+        /// <item>The id does not contain the expected value.</item>
         /// </list></exception>
         public static void AssertExportableFailureMechanismSectionResults(FailureMechanismSectionAssemblyResultWrapper expectedAssemblyResultWrapper,
                                                                           IEnumerable<ExportableFailureMechanismSection> sections,
@@ -58,6 +59,7 @@ namespace Riskeer.AssemblyTool.IO.TestUtil
                 ExportableFailureMechanismSection section = sections.ElementAt(i);
                 ExportableFailureMechanismSectionAssemblyResult actualExportableAssemblyResult = results.ElementAt(i);
 
+                Assert.AreEqual($"Fa.{i}", actualExportableAssemblyResult.Id);
                 Assert.AreSame(section, actualExportableAssemblyResult.FailureMechanismSection);
                 FailureMechanismSectionAssemblyResult expectedAssemblyResult = expectedAssemblyResultWrapper.AssemblyResult;
                 Assert.AreEqual(expectedAssemblyResult.FailureMechanismSectionAssemblyGroup, actualExportableAssemblyResult.AssemblyGroup);
