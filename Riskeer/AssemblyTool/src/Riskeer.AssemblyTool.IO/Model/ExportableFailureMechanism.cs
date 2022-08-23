@@ -40,7 +40,7 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// or <paramref name="sectionAssemblyResults"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is invalid.</exception>
         protected ExportableFailureMechanism(string id, ExportableFailureMechanismAssemblyResult failureMechanismAssembly,
-                                             IEnumerable<ExportableFailureMechanismSectionAssemblyWithProbabilityResult> sectionAssemblyResults)
+                                             IEnumerable<ExportableFailureMechanismSectionAssemblyResult> sectionAssemblyResults)
         {
             IdValidationHelper.ThrowIfInvalid(id);
 
@@ -72,6 +72,6 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// <summary>
         /// Gets the collection of assembly results.
         /// </summary>
-        public IEnumerable<ExportableFailureMechanismSectionAssemblyWithProbabilityResult> SectionAssemblyResults { get; }
+        public IEnumerable<ExportableFailureMechanismSectionAssemblyResult> SectionAssemblyResults { get; }
     }
 }

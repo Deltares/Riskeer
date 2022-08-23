@@ -48,7 +48,7 @@ namespace Riskeer.AssemblyTool.IO.TestUtil
         /// </list></exception>
         public static void AssertExportableFailureMechanismSectionResults(FailureMechanismSectionAssemblyResultWrapper expectedAssemblyResultWrapper,
                                                                           IEnumerable<ExportableFailureMechanismSection> sections,
-                                                                          IEnumerable<ExportableFailureMechanismSectionAssemblyWithProbabilityResult> results)
+                                                                          IEnumerable<ExportableFailureMechanismSectionAssemblyResult> results)
         {
             int expectedNrOfResults = sections.Count();
             Assert.AreEqual(expectedNrOfResults, results.Count());
@@ -56,7 +56,7 @@ namespace Riskeer.AssemblyTool.IO.TestUtil
             for (var i = 0; i < expectedNrOfResults; i++)
             {
                 ExportableFailureMechanismSection section = sections.ElementAt(i);
-                ExportableFailureMechanismSectionAssemblyWithProbabilityResult actualExportableAssemblyResult = results.ElementAt(i);
+                ExportableFailureMechanismSectionAssemblyResult actualExportableAssemblyResult = results.ElementAt(i);
 
                 Assert.AreSame(section, actualExportableAssemblyResult.FailureMechanismSection);
                 FailureMechanismSectionAssemblyResult expectedAssemblyResult = expectedAssemblyResultWrapper.AssemblyResult;
