@@ -80,7 +80,7 @@ namespace Riskeer.Integration.IO.Factories
             }
 
             var registry = new ExportableModelRegistry();
-            return new ExportableAssessmentSection($"{Resources.ExportableAssessmentSection_IdPrefix}.{assessmentSection.Id}",
+            return new ExportableAssessmentSection(IdentifierGenerator.GenerateId(assessmentSection),
                                                    assessmentSection.Name,
                                                    assessmentSection.ReferenceLine.Points,
                                                    CreateExportableFailureMechanismSectionCollections(idGenerator, registry, assessmentSection),

@@ -22,8 +22,8 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.AssemblyTool.IO.Model;
-using Riskeer.AssemblyTool.IO.TestUtil;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Integration.Data;
 using Riskeer.Integration.IO.Helpers;
 
 namespace Riskeer.Integration.IO.Test.Helpers
@@ -124,7 +124,7 @@ namespace Riskeer.Integration.IO.Test.Helpers
         public void GenerateId_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => IdentifierGenerator.GeneratedId(null);
+            void Call() => IdentifierGenerator.GenerateId(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -136,18 +136,23 @@ namespace Riskeer.Integration.IO.Test.Helpers
         {
             // Setup
             const string assessmentSectionId = "AssessmentSectionId";
-            ExportableAssessmentSection assessmentSection = CreateAssessmentSection(assessmentSectionId);
+            AssessmentSection assessmentSection = CreateAssessmentSection(assessmentSectionId);
 
             // Call
-            string generatedId = IdentifierGenerator.GeneratedId(assessmentSection);
+            string generatedId = IdentifierGenerator.GenerateId(assessmentSection);
 
             // Assert
             Assert.AreEqual($"Wks.{assessmentSection.Id}", generatedId);
         }
 
-        private static ExportableAssessmentSection CreateAssessmentSection(string id)
+        private static AssessmentSection CreateAssessmentSection(string id)
         {
-            return ExportableAssessmentSectionTestFactory.Create(id);
+            var random = new Random(21);
+            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>())
+            {
+                Id = id
+            };
+            return assessmentSection;
         }
     }
 }

@@ -21,7 +21,7 @@
 
 using System;
 using System.Collections.Generic;
-using Riskeer.AssemblyTool.IO.Model;
+using Riskeer.Integration.Data;
 using Riskeer.Integration.IO.Properties;
 
 namespace Riskeer.Integration.IO.Helpers
@@ -70,18 +70,18 @@ namespace Riskeer.Integration.IO.Helpers
         /// <summary>
         /// Gets an id based on <paramref name="assessmentSection"/>.
         /// </summary>
-        /// <param name="assessmentSection">The <see cref="ExportableAssessmentSection"/>
+        /// <param name="assessmentSection">The <see cref="AssessmentSection"/>
         /// to generate an id for.</param>
         /// <returns>An id.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
-        public static string GeneratedId(ExportableAssessmentSection assessmentSection)
+        public static string GenerateId(AssessmentSection assessmentSection)
         {
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return $"{Resources.SerializableAssessmentSection_IdPrefix}.{assessmentSection.Id}";
+            return $"{Resources.ExportableAssessmentSection_IdPrefix}.{assessmentSection.Id}";
         }
     }
 }
