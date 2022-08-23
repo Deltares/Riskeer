@@ -125,7 +125,7 @@ namespace Riskeer.Integration.IO.Test.Factories
                 AssertExportableFailureMechanisms(exportableAssessmentSection.FailureMechanisms, assessmentSection);
                 IEnumerable<IFailureMechanism> expectedFailureMechanisms = assessmentSection.GetFailureMechanisms()
                                                                                             .Concat(assessmentSection.SpecificFailureMechanisms);
-                AssertExportableFailureMechanismSectionCollection(expectedFailureMechanisms, exportableAssessmentSection.FailureMechanismSectionCollections);
+                AssertExportableFailureMechanismSectionCollections(expectedFailureMechanisms, exportableAssessmentSection.FailureMechanismSectionCollections);
 
                 Assert.AreEqual(1, exportableAssessmentSection.CombinedSectionAssemblies.Count());
                 ExportableCombinedSectionAssembly exportableCombinedSectionAssembly = exportableAssessmentSection.CombinedSectionAssemblies.ElementAt(0);
@@ -219,7 +219,7 @@ namespace Riskeer.Integration.IO.Test.Factories
             }
         }
 
-        private static void AssertExportableFailureMechanismSectionCollection(
+        private static void AssertExportableFailureMechanismSectionCollections(
             IEnumerable<IFailureMechanism> failureMechanisms, IEnumerable<ExportableFailureMechanismSectionCollection> failureMechanismSectionCollections)
         {
             int nrOfExpectedCollections = failureMechanisms.Count();
