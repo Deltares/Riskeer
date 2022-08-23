@@ -37,7 +37,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
         public void Constructor_InvalidId_ThrowsArgumentException(string invalidId)
         {
             // Call
-            void Call() => new TestExportableFailureMechanism(invalidId, null, Enumerable.Empty<ExportableFailureMechanismSectionAssemblyWithProbabilityResult>());
+            void Call() => new TestExportableFailureMechanism(invalidId, null, Enumerable.Empty<ExportableFailureMechanismSectionAssemblyResult>());
 
             // Assert
             const string expectedMessage = "'id' must have a value and consist only of alphanumerical characters, '-', '_' or '.'.";
@@ -48,7 +48,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
         public void Constructor_FailureMechanismAssemblyResultNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new TestExportableFailureMechanism("id", null, Enumerable.Empty<ExportableFailureMechanismSectionAssemblyWithProbabilityResult>());
+            void Call() => new TestExportableFailureMechanism("id", null, Enumerable.Empty<ExportableFailureMechanismSectionAssemblyResult>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -74,8 +74,8 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
 
             ExportableFailureMechanismAssemblyResult failureMechanismAssembly =
                 ExportableFailureMechanismAssemblyResultTestFactory.CreateResult();
-            IEnumerable<ExportableFailureMechanismSectionAssemblyWithProbabilityResult> sectionAssemblyResults =
-                Enumerable.Empty<ExportableFailureMechanismSectionAssemblyWithProbabilityResult>();
+            IEnumerable<ExportableFailureMechanismSectionAssemblyResult> sectionAssemblyResults =
+                Enumerable.Empty<ExportableFailureMechanismSectionAssemblyResult>();
 
             // Call
             var failureMechanism = new TestExportableFailureMechanism(id, failureMechanismAssembly, sectionAssemblyResults);
@@ -89,7 +89,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
         private class TestExportableFailureMechanism : ExportableFailureMechanism
         {
             public TestExportableFailureMechanism(string id, ExportableFailureMechanismAssemblyResult failureMechanismAssembly,
-                                                  IEnumerable<ExportableFailureMechanismSectionAssemblyWithProbabilityResult> sectionAssemblyResults)
+                                                  IEnumerable<ExportableFailureMechanismSectionAssemblyResult> sectionAssemblyResults)
                 : base(id, failureMechanismAssembly, sectionAssemblyResults) {}
         }
     }

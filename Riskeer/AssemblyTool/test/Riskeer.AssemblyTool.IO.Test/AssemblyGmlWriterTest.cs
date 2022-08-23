@@ -175,12 +175,12 @@ namespace Riskeer.AssemblyTool.IO.Test
                     new ExportableGenericFailureMechanism("toetsspoorGABI", new ExportableFailureMechanismAssemblyResult(0.08419, ExportableAssemblyMethod.BOI1A1),
                                                           new[]
                                                           {
-                                                              new ExportableFailureMechanismSectionAssemblyWithProbabilityResult(
-                                                                  "resultaat_GABI_1", failureMechanismSection, FailureMechanismSectionAssemblyGroup.III,
-                                                                  0.00073, ExportableAssemblyMethod.BOI0B1, ExportableAssemblyMethod.BOI0A2)
+                                                              new ExportableFailureMechanismSectionAssemblyResult(
+                                                                  "resultaat_GABI_1", failureMechanismSection, 0.00073, FailureMechanismSectionAssemblyGroup.III,
+                                                                  ExportableAssemblyMethod.BOI0B1, ExportableAssemblyMethod.BOI0A2)
                                                           }, "GABI"),
                     new ExportableSpecificFailureMechanism("specifiekFaalmechanisme", new ExportableFailureMechanismAssemblyResult(0.002834, ExportableAssemblyMethod.BOI1A1),
-                                                           Enumerable.Empty<ExportableFailureMechanismSectionAssemblyWithProbabilityResult>(), "Specifiek faalmechanisme")
+                                                           Enumerable.Empty<ExportableFailureMechanismSectionAssemblyResult>(), "Specifiek faalmechanisme")
                 }, new[]
                 {
                     new ExportableCombinedSectionAssembly(combinedSection, new ExportableFailureMechanismSectionAssemblyResult(

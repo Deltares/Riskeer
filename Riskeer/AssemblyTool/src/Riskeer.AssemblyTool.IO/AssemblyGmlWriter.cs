@@ -199,7 +199,7 @@ namespace Riskeer.AssemblyTool.IO
 
                 WriteFeatureMember(writeFailureMechanismAction);
 
-                foreach (ExportableFailureMechanismSectionAssemblyWithProbabilityResult sectionAssemblyResult in failureMechanism.SectionAssemblyResults)
+                foreach (ExportableFailureMechanismSectionAssemblyResult sectionAssemblyResult in failureMechanism.SectionAssemblyResults)
                 {
                     WriteFeatureMember(() => WriteSectionAssemblyResult(sectionAssemblyResult, failureMechanism.Id));
                 }
@@ -224,7 +224,7 @@ namespace Riskeer.AssemblyTool.IO
             writer.WriteEndElement();
         }
 
-        private void WriteSectionAssemblyResult(ExportableFailureMechanismSectionAssemblyWithProbabilityResult sectionAssemblyResult,
+        private void WriteSectionAssemblyResult(ExportableFailureMechanismSectionAssemblyResult sectionAssemblyResult,
                                                 string failureMechanismId)
         {
             WriteStartElementWithId(AssemblyXmlIdentifiers.FailureMechanismSectionAssembly, AssemblyXmlIdentifiers.UboiNamespace, sectionAssemblyResult.Id);

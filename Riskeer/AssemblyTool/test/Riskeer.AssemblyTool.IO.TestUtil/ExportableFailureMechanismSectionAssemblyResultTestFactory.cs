@@ -62,35 +62,5 @@ namespace Riskeer.AssemblyTool.IO.TestUtil
                 random.NextEnumValue<ExportableAssemblyMethod>(),
                 random.NextEnumValue<ExportableAssemblyMethod>());
         }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="ExportableFailureMechanismSectionAssemblyWithProbabilityResult"/>.
-        /// </summary>
-        /// <param name="section">The <see cref="ExportableFailureMechanismSection"/>.</param>
-        /// <param name="seed">The seed to use.</param>
-        /// <returns>The created <see cref="ExportableFailureMechanismSectionAssemblyWithProbabilityResult"/></returns>
-        public static ExportableFailureMechanismSectionAssemblyWithProbabilityResult CreateWithProbability(
-            ExportableFailureMechanismSection section, int seed)
-        {
-            var random = new Random(seed);
-
-            return new ExportableFailureMechanismSectionAssemblyWithProbabilityResult(
-                "id", section,
-                random.NextEnumValue(new[]
-                {
-                    FailureMechanismSectionAssemblyGroup.NotDominant,
-                    FailureMechanismSectionAssemblyGroup.III,
-                    FailureMechanismSectionAssemblyGroup.II,
-                    FailureMechanismSectionAssemblyGroup.I,
-                    FailureMechanismSectionAssemblyGroup.Zero,
-                    FailureMechanismSectionAssemblyGroup.IMin,
-                    FailureMechanismSectionAssemblyGroup.IIMin,
-                    FailureMechanismSectionAssemblyGroup.IIIMin,
-                    FailureMechanismSectionAssemblyGroup.NotRelevant
-                }),
-                random.NextDouble(),
-                random.NextEnumValue<ExportableAssemblyMethod>(),
-                random.NextEnumValue<ExportableAssemblyMethod>());
-        }
     }
 }

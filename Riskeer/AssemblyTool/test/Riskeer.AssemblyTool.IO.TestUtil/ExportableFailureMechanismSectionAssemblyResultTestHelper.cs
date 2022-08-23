@@ -29,12 +29,12 @@ using Riskeer.Integration.IO.Factories;
 namespace Riskeer.AssemblyTool.IO.TestUtil
 {
     /// <summary>
-    /// Helper class to assert <see cref="ExportableFailureMechanismSectionAssemblyWithProbabilityResult"/>.
+    /// Helper class to assert <see cref="ExportableFailureMechanismSectionAssemblyResult"/>.
     /// </summary>
     public static class ExportableFailureMechanismSectionAssemblyResultTestHelper
     {
         /// <summary>
-        /// Asserts a collection of <see cref="ExportableFailureMechanismSectionAssemblyWithProbabilityResult"/>
+        /// Asserts a collection of <see cref="ExportableFailureMechanismSectionAssemblyResult"/>
         /// against the assembly result.
         /// </summary>
         /// <param name="expectedAssemblyResultWrapper">The expected <see cref="FailureMechanismSectionAssemblyResultWrapper"/>.</param>

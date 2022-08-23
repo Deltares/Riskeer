@@ -154,19 +154,19 @@ namespace Riskeer.Integration.IO.Factories
         }
 
         /// <summary>
-        /// Creates a collection of <see cref="ExportableFailureMechanismSectionAssemblyWithProbabilityResult"/>
+        /// Creates a collection of <see cref="ExportableFailureMechanismSectionAssemblyResult"/>
         /// with assembly results based on <paramref name="failureMechanism"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to create a collection of
-        /// <see cref="ExportableFailureMechanismSectionAssemblyWithProbabilityResult"/> for.</param>
+        /// <see cref="ExportableFailureMechanismSectionAssemblyResult"/> for.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to use in the assembly.</param>
         /// <param name="assembleFailureMechanismSectionFunc">The <see cref="Func{T1,T2,T3,TResult}"/>
         /// to perform the failure mechanism section assembly.</param>
         /// <typeparam name="TFailureMechanism">The type of the failure mechanism.</typeparam>
         /// <typeparam name="TSectionResult">The type of the section result.</typeparam>
-        /// <returns>A collection of <see cref="ExportableFailureMechanismSectionAssemblyWithProbabilityResult"/>.</returns>
+        /// <returns>A collection of <see cref="ExportableFailureMechanismSectionAssemblyResult"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created.</exception>
-        private static IEnumerable<ExportableFailureMechanismSectionAssemblyWithProbabilityResult> CreateExportableFailureMechanismSectionResults
+        private static IEnumerable<ExportableFailureMechanismSectionAssemblyResult> CreateExportableFailureMechanismSectionResults
             <TFailureMechanism, TSectionResult>(
                 TFailureMechanism failureMechanism, IAssessmentSection assessmentSection,
                 Func<TSectionResult, TFailureMechanism, IAssessmentSection, FailureMechanismSectionAssemblyResultWrapper> assembleFailureMechanismSectionFunc)
@@ -176,7 +176,7 @@ namespace Riskeer.Integration.IO.Factories
             IDictionary<TSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
                 ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanism.SectionResults);
 
-            var exportableResults = new List<ExportableFailureMechanismSectionAssemblyWithProbabilityResult>();
+            var exportableResults = new List<ExportableFailureMechanismSectionAssemblyResult>();
             foreach (KeyValuePair<TSectionResult, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSectionsLookup)
             {
                 FailureMechanismSectionAssemblyResultWrapper assemblyResultWrapper = assembleFailureMechanismSectionFunc(
@@ -184,8 +184,8 @@ namespace Riskeer.Integration.IO.Factories
                 FailureMechanismSectionAssemblyResult assemblyResult = assemblyResultWrapper.AssemblyResult;
 
                 exportableResults.Add(
-                    new ExportableFailureMechanismSectionAssemblyWithProbabilityResult(
-                        "id", failureMechanismSectionPair.Value, assemblyResult.FailureMechanismSectionAssemblyGroup, assemblyResult.SectionProbability,
+                    new ExportableFailureMechanismSectionAssemblyResult(
+                        "id", failureMechanismSectionPair.Value, assemblyResult.SectionProbability, assemblyResult.FailureMechanismSectionAssemblyGroup,
                         ExportableAssemblyMethodFactory.Create(assemblyResultWrapper.AssemblyGroupMethod),
                         ExportableAssemblyMethodFactory.Create(assemblyResultWrapper.ProbabilityMethod)));
             }

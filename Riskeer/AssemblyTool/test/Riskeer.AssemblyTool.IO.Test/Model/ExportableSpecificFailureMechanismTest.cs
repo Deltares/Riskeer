@@ -39,8 +39,8 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
 
             ExportableFailureMechanismAssemblyResult failureMechanismAssembly =
                 ExportableFailureMechanismAssemblyResultTestFactory.CreateResult();
-            IEnumerable<ExportableFailureMechanismSectionAssemblyWithProbabilityResult> sectionAssemblyResults =
-                Enumerable.Empty<ExportableFailureMechanismSectionAssemblyWithProbabilityResult>();
+            IEnumerable<ExportableFailureMechanismSectionAssemblyResult> sectionAssemblyResults =
+                Enumerable.Empty<ExportableFailureMechanismSectionAssemblyResult>();
 
             // Call
             var failureMechanism = new ExportableSpecificFailureMechanism(
