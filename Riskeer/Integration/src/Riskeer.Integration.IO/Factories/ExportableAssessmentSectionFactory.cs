@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.AssemblyTool.IO.Model.Enums;
@@ -78,9 +79,11 @@ namespace Riskeer.Integration.IO.Factories
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
+            var registry = new ExportableModelRegistry();
             return new ExportableAssessmentSection($"{Resources.ExportableAssessmentSection_IdPrefix}.{assessmentSection.Id}",
                                                    assessmentSection.Name,
                                                    assessmentSection.ReferenceLine.Points,
+                                                   CreateExportableFailureMechanismSectionCollections(idGenerator, registry, assessmentSection),
                                                    CreateExportableAssessmentSectionAssemblyResult(idGenerator, assessmentSection),
                                                    CreateExportableFailureMechanisms(idGenerator, assessmentSection),
                                                    CreateExportableCombinedSectionAssemblyCollection(assessmentSection));
@@ -242,6 +245,18 @@ namespace Riskeer.Integration.IO.Factories
                     ExportableFailureMechanismFactory.CreateExportableGenericFailureMechanism(
                         idGenerator, failureMechanism, assessmentSection, assembleFailureMechanismFunc, assembleFailureMechanismSectionFunc));
             }
+        }
+
+        private static IEnumerable<ExportableFailureMechanismSectionCollection> CreateExportableFailureMechanismSectionCollections(
+            IdentifierGenerator idGenerator, ExportableModelRegistry registry, AssessmentSection assessmentSection)
+        {
+            IEnumerable<IFailureMechanism> failureMechanismsInAssembly = assessmentSection.GetFailureMechanisms()
+                                                                                          .Concat(assessmentSection.SpecificFailureMechanisms)
+                                                                                          .Where(fm => fm.InAssembly);
+
+            return failureMechanismsInAssembly.Select(failureMechanism => ExportableFailureMechanismSectionCollectionFactory.CreateExportableFailureMechanismSectionCollection(
+                                                          idGenerator, registry, failureMechanism.Sections))
+                                              .ToArray();
         }
 
         /// <summary>

@@ -123,6 +123,9 @@ namespace Riskeer.Integration.IO.Test.Factories
                 Assert.AreEqual(0.14, exportableAssessmentSectionAssemblyResult.Probability);
 
                 AssertExportableFailureMechanisms(exportableAssessmentSection.FailureMechanisms, assessmentSection);
+                IEnumerable<IFailureMechanism> expectedFailureMechanisms = assessmentSection.GetFailureMechanisms()
+                                                                                            .Concat(assessmentSection.SpecificFailureMechanisms);
+                AssertExportableFailureMechanismSectionCollection(expectedFailureMechanisms, exportableAssessmentSection.FailureMechanismSectionCollections);
 
                 Assert.AreEqual(1, exportableAssessmentSection.CombinedSectionAssemblies.Count());
                 ExportableCombinedSectionAssembly exportableCombinedSectionAssembly = exportableAssessmentSection.CombinedSectionAssemblies.ElementAt(0);
@@ -201,6 +204,7 @@ namespace Riskeer.Integration.IO.Test.Factories
                 Assert.AreEqual(0.14, exportableAssessmentSectionAssemblyResult.Probability);
 
                 CollectionAssert.IsEmpty(exportableAssessmentSection.FailureMechanisms);
+                CollectionAssert.IsEmpty(exportableAssessmentSection.FailureMechanismSectionCollections);
 
                 Assert.AreEqual(1, exportableAssessmentSection.CombinedSectionAssemblies.Count());
                 ExportableCombinedSectionAssembly exportableCombinedSectionAssembly = exportableAssessmentSection.CombinedSectionAssemblies.ElementAt(0);
@@ -212,6 +216,18 @@ namespace Riskeer.Integration.IO.Test.Factories
                 Assert.AreEqual(ExportableAssemblyMethod.BOI3A1, exportableCombinedSectionAssembly.Section.AssemblyMethod);
                 Assert.AreEqual(0.0, exportableCombinedSectionAssembly.Section.StartDistance);
                 Assert.AreEqual(1.0, exportableCombinedSectionAssembly.Section.EndDistance);
+            }
+        }
+
+        private static void AssertExportableFailureMechanismSectionCollection(
+            IEnumerable<IFailureMechanism> failureMechanisms, IEnumerable<ExportableFailureMechanismSectionCollection> failureMechanismSectionCollections)
+        {
+            int nrOfExpectedCollections = failureMechanisms.Count();
+            Assert.AreEqual(nrOfExpectedCollections, failureMechanismSectionCollections.Count());
+            for (var i = 0; i < nrOfExpectedCollections; i++)
+            {
+                int nrOfExpectedSections = failureMechanisms.ElementAt(i).Sections.Count();
+                Assert.AreEqual(nrOfExpectedSections, failureMechanismSectionCollections.ElementAt(i).Sections.Count());
             }
         }
 
