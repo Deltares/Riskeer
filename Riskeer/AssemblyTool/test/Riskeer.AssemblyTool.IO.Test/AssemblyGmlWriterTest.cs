@@ -149,6 +149,10 @@ namespace Riskeer.AssemblyTool.IO.Test
                 new Point2D(10.23, 10.24)
             }, 0.12, 10.23, ExportableAssemblyMethod.BOI3A1);
 
+            var failureMechanismSectionAssemblyResult = new ExportableFailureMechanismSectionAssemblyResult(
+                "resultaat_GABI_1", failureMechanismSection, 0.00073, FailureMechanismSectionAssemblyGroup.III,
+                ExportableAssemblyMethod.BOI0B1, ExportableAssemblyMethod.BOI0A2);
+
             var assessmentSection = new ExportableAssessmentSection(
                 "section1", "Traject A",
                 new[]
@@ -175,9 +179,7 @@ namespace Riskeer.AssemblyTool.IO.Test
                     new ExportableGenericFailureMechanism("toetsspoorGABI", new ExportableFailureMechanismAssemblyResult(0.08419, ExportableAssemblyMethod.BOI1A1),
                                                           new[]
                                                           {
-                                                              new ExportableFailureMechanismSectionAssemblyResult(
-                                                                  "resultaat_GABI_1", failureMechanismSection, 0.00073, FailureMechanismSectionAssemblyGroup.III,
-                                                                  ExportableAssemblyMethod.BOI0B1, ExportableAssemblyMethod.BOI0A2)
+                                                              failureMechanismSectionAssemblyResult
                                                           }, "GABI"),
                     new ExportableSpecificFailureMechanism("specifiekFaalmechanisme", new ExportableFailureMechanismAssemblyResult(0.002834, ExportableAssemblyMethod.BOI1A1),
                                                            Enumerable.Empty<ExportableFailureMechanismSectionAssemblyResult>(), "Specifiek faalmechanisme")
@@ -188,9 +190,8 @@ namespace Riskeer.AssemblyTool.IO.Test
                                                           new[]
                                                           {
                                                               new ExportableFailureMechanismCombinedSectionAssemblyResult(
-                                                                  new ExportableFailureMechanismSubSectionAssemblyResult(
-                                                                      FailureMechanismSectionAssemblyGroup.I, ExportableAssemblyMethod.BOI3B1),
-                                                                  ExportableFailureMechanismType.Generic, string.Empty, string.Empty)
+                                                                  FailureMechanismSectionAssemblyGroup.I, ExportableAssemblyMethod.BOI3B1,
+                                                                  failureMechanismSectionAssemblyResult)
                                                           })
                 });
 

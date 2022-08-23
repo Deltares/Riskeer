@@ -196,7 +196,7 @@ namespace Riskeer.Integration.IO.Test.Factories
             }
 
             Assert.AreEqual(17, failureMechanismCombinedSectionResults.Count());
-            Assert.IsTrue(failureMechanismCombinedSectionResults.All(result => result.SectionAssemblyResult.AssemblyMethod == ExportableAssemblyMethodFactory.Create(
+            Assert.IsTrue(failureMechanismCombinedSectionResults.All(result => result.AssemblyMethod == ExportableAssemblyMethodFactory.Create(
                                                                                    expectedSection.FailureMechanismResultsAssemblyMethod)));
 
             AssertSubSection(expectedSection.Piping, "STPH", ExportableFailureMechanismType.Generic,
@@ -239,9 +239,7 @@ namespace Riskeer.Integration.IO.Test.Factories
                                              ExportableFailureMechanismType failureMechanismType,
                                              ExportableFailureMechanismCombinedSectionAssemblyResult actualResult)
         {
-            Assert.AreEqual(subSectionGroup, actualResult.SectionAssemblyResult.AssemblyGroup);
-            Assert.AreEqual(subSectionCode, actualResult.Code);
-            Assert.AreEqual(failureMechanismType, actualResult.FailureMechanismType);
+            Assert.AreEqual(subSectionGroup, actualResult.AssemblyGroup);
         }
     }
 }

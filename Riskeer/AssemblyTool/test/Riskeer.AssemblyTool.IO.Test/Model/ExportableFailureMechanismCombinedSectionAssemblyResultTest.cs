@@ -25,6 +25,7 @@ using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.AssemblyTool.IO.Model.Enums;
+using Riskeer.AssemblyTool.IO.TestUtil;
 
 namespace Riskeer.AssemblyTool.IO.Test.Model
 {
@@ -32,40 +33,39 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
     public class ExportableFailureMechanismCombinedSectionAssemblyResultTest
     {
         [Test]
-        public void Constructor_SectionAssemblyResultNull_ThrowsArgumentNullException()
+        public void Constructor_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Setup
             var random = new Random(21);
 
             // Call
             void Call() => new ExportableFailureMechanismCombinedSectionAssemblyResult(
-                null, random.NextEnumValue<ExportableFailureMechanismType>(), string.Empty, string.Empty);
+                random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(), random.NextEnumValue<ExportableAssemblyMethod>(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("sectionAssemblyResult", exception.ParamName);
+            Assert.AreEqual("failureMechanismSectionResult", exception.ParamName);
         }
 
         [Test]
-        public void Constructor_WithArguments_ExpectedValues()
+        public void Constructor_ExpectedValues()
         {
             // Setup
-            const string code = "code";
-            const string name = "name";
-            var random = new Random(21);
-            var combinedSectionAssembly = new ExportableFailureMechanismSubSectionAssemblyResult(
-                random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(), random.NextEnumValue<ExportableAssemblyMethod>());
-            var failureMechanismType = random.NextEnumValue<ExportableFailureMechanismType>();
+            const int seed = 21;
+            ExportableFailureMechanismSection section = ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection();
+            ExportableFailureMechanismSectionAssemblyResult failureMechanismSectionAssemblyResult = ExportableFailureMechanismSectionAssemblyResultTestFactory.Create(section, seed);
+
+            var random = new Random(seed);
+            var assemblyGroup = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>();
+            var assemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
 
             // Call
-            var assemblyResult = new ExportableFailureMechanismCombinedSectionAssemblyResult(
-                combinedSectionAssembly, failureMechanismType, code, name);
+            var assemblyResult = new ExportableFailureMechanismCombinedSectionAssemblyResult(assemblyGroup, assemblyMethod, failureMechanismSectionAssemblyResult);
 
             // Assert
-            Assert.AreSame(combinedSectionAssembly, assemblyResult.SectionAssemblyResult);
-            Assert.AreEqual(failureMechanismType, assemblyResult.FailureMechanismType);
-            Assert.AreEqual(code, assemblyResult.Code);
-            Assert.AreEqual(name, assemblyResult.Name);
+            Assert.AreEqual(assemblyGroup, assemblyResult.AssemblyGroup);
+            Assert.AreEqual(assemblyMethod, assemblyResult.AssemblyMethod);
+            Assert.AreSame(failureMechanismSectionAssemblyResult, assemblyResult.FailureMechanismSectionResult);
         }
     }
 }

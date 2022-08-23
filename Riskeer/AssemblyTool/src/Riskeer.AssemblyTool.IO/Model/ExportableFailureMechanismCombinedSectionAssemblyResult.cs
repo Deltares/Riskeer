@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.IO.Model.Enums;
 
 namespace Riskeer.AssemblyTool.IO.Model
@@ -32,45 +33,37 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// <summary>
         /// Creates a new instance of <see cref="ExportableFailureMechanismCombinedSectionAssemblyResult"/>
         /// </summary>
-        /// <param name="sectionAssemblyResult">The assembly result of the combined section.</param>
-        /// <param name="failureMechanismType">The type of the failure mechanism.</param>
-        /// <param name="code">The code of the failure mechanism.</param>
-        /// <param name="name">The name of the failure mechanism.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionAssemblyResult"/> is <c>null</c>.</exception>
-        public ExportableFailureMechanismCombinedSectionAssemblyResult(ExportableFailureMechanismSubSectionAssemblyResult sectionAssemblyResult,
-                                                                       ExportableFailureMechanismType failureMechanismType,
-                                                                       string code,
-                                                                       string name)
+        /// <param name="assemblyMethod">The method that was used to assemble this result.</param>
+        /// <param name="assemblyGroup">The assembly group of this section.</param>
+        /// <param name="failureMechanismSectionResult">The associated failure mechanism section result.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionResult"/> is <c>null</c>.</exception>
+        public ExportableFailureMechanismCombinedSectionAssemblyResult(FailureMechanismSectionAssemblyGroup assemblyGroup,
+                                                                       ExportableAssemblyMethod assemblyMethod,
+                                                                       ExportableFailureMechanismSectionAssemblyResult failureMechanismSectionResult)
         {
-            if (sectionAssemblyResult == null)
+            if (failureMechanismSectionResult == null)
             {
-                throw new ArgumentNullException(nameof(sectionAssemblyResult));
+                throw new ArgumentNullException(nameof(failureMechanismSectionResult));
             }
 
-            SectionAssemblyResult = sectionAssemblyResult;
-            FailureMechanismType = failureMechanismType;
-            Code = code;
-            Name = name;
+            AssemblyGroup = assemblyGroup;
+            AssemblyMethod = assemblyMethod;
+            FailureMechanismSectionResult = failureMechanismSectionResult;
         }
 
         /// <summary>
-        /// Gets the assembly result of this combined section.
+        /// Gets the assembly group of this section.
         /// </summary>
-        public ExportableFailureMechanismSubSectionAssemblyResult SectionAssemblyResult { get; }
-
+        public FailureMechanismSectionAssemblyGroup AssemblyGroup { get; }
+        
         /// <summary>
-        /// Gets the failure mechanism type.
+        /// Gets the assembly method that was used to assemble the assembly result.
         /// </summary>
-        public ExportableFailureMechanismType FailureMechanismType { get; }
-
+        public ExportableAssemblyMethod AssemblyMethod { get; }
+        
         /// <summary>
-        /// Gets the code of the failure mechanism.
+        /// Gets the associated failure mechanism section result.
         /// </summary>
-        public string Code { get; }
-
-        /// <summary>
-        /// Gets the name of the failure mechanism.
-        /// </summary>
-        public string Name { get; }
+        public ExportableFailureMechanismSectionAssemblyResult FailureMechanismSectionResult { get; }
     }
 }

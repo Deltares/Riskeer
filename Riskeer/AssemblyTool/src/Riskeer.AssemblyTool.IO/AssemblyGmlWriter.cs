@@ -280,12 +280,12 @@ namespace Riskeer.AssemblyTool.IO
             writer.WriteStartElement(AssemblyXmlIdentifiers.CombinedFailureMechanismSectionResult, AssemblyXmlIdentifiers.UboiNamespace);
 
             writer.WriteElementString(AssemblyXmlIdentifiers.FailureMechanismSectionAssemblyGroup, AssemblyXmlIdentifiers.UboiNamespace,
-                                      EnumDisplayNameHelper.GetDisplayName(failureMechanismResult.SectionAssemblyResult.AssemblyGroup));
+                                      EnumDisplayNameHelper.GetDisplayName(failureMechanismResult.AssemblyGroup));
             writer.WriteElementString(AssemblyXmlIdentifiers.AssemblyMethod, AssemblyXmlIdentifiers.UboiNamespace,
-                                      EnumDisplayNameHelper.GetDisplayName(failureMechanismResult.SectionAssemblyResult.AssemblyMethod));
+                                      EnumDisplayNameHelper.GetDisplayName(failureMechanismResult.AssemblyMethod));
             writer.WriteElementString(AssemblyXmlIdentifiers.Status, AssemblyXmlIdentifiers.UboiNamespace, Resources.FullAssembly);
 
-            WriteLink(AssemblyXmlIdentifiers.DerivedFrom, AssemblyXmlIdentifiers.UboiNamespace, "resultaat_GABI_1");
+            WriteLink(AssemblyXmlIdentifiers.DerivedFrom, AssemblyXmlIdentifiers.UboiNamespace, failureMechanismResult.FailureMechanismSectionResult.Id);
             WriteLink(AssemblyXmlIdentifiers.Indicates, AssemblyXmlIdentifiers.UboiNamespace, combinedSectionAssemblyResultId);
 
             writer.WriteEndElement();
