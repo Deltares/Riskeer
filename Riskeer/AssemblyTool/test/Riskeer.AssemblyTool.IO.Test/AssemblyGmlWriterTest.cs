@@ -143,6 +143,12 @@ namespace Riskeer.AssemblyTool.IO.Test
                 new Point2D(0.23, 0.24),
                 new Point2D(10.23, 10.24)
             }, 0.12, 10.23);
+            var combinedSection = new ExportableCombinedFailureMechanismSection("vak_gecombineerd_1", new[]
+            {
+                new Point2D(0.23, 0.24),
+                new Point2D(10.23, 10.24)
+            }, 0.12, 10.23, ExportableAssemblyMethod.BOI3A1);
+
             var assessmentSection = new ExportableAssessmentSection(
                 "section1", "Traject A",
                 new[]
@@ -158,11 +164,7 @@ namespace Riskeer.AssemblyTool.IO.Test
                     }),
                     new ExportableFailureMechanismSectionCollection("vakindeling_gecombineerd", new[]
                     {
-                        new ExportableCombinedFailureMechanismSection("vak_gecombineerd_1", new[]
-                        {
-                            new Point2D(0.23, 0.24),
-                            new Point2D(10.23, 10.24)
-                        }, 0.12, 10.23, ExportableAssemblyMethod.BOI3A1)
+                        combinedSection
                     })
                 },
                 new ExportableAssessmentSectionAssemblyResult(
@@ -179,7 +181,13 @@ namespace Riskeer.AssemblyTool.IO.Test
                                                           }, "GABI"),
                     new ExportableSpecificFailureMechanism("specifiekFaalmechanisme", new ExportableFailureMechanismAssemblyResult(0.002834, ExportableAssemblyMethod.BOI1A1),
                                                            Enumerable.Empty<ExportableFailureMechanismSectionAssemblyWithProbabilityResult>(), "Specifiek faalmechanisme")
-                }, Enumerable.Empty<ExportableCombinedSectionAssembly>());
+                }, new[]
+                {
+                    new ExportableCombinedSectionAssembly(combinedSection, new ExportableFailureMechanismSectionAssemblyResult(
+                                                              "resultaat_gecombineerd_1", combinedSection,
+                                                              FailureMechanismSectionAssemblyGroup.I, ExportableAssemblyMethod.BOI3C1),
+                                                          Array.Empty<ExportableFailureMechanismCombinedSectionAssemblyResult>())
+                });
 
             var assessmentProcess = new ExportableAssessmentProcess("beoordelingsproces1", 2023, 2035);
 

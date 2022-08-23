@@ -97,6 +97,7 @@ namespace Riskeer.AssemblyTool.IO
                 WriteFeatureMember(() => WriteTotalAssemblyResult(assessmentSectionAssembly, assessmentProcess.Id));
 
                 WriteFailureMechanisms(assessmentSection.FailureMechanisms, assessmentSectionAssembly.Id);
+                WriteCombinedSectionAssemblies(assessmentSection.CombinedSectionAssemblies, assessmentSectionAssembly.Id);
                 WriteFailureMechanismSectionCollections(assessmentSection.FailureMechanismSectionCollections);
 
                 writer.WriteEndElement();
@@ -240,6 +241,32 @@ namespace Riskeer.AssemblyTool.IO
 
             WriteLink(AssemblyXmlIdentifiers.Analyses, AssemblyXmlIdentifiers.UboiNamespace, failureMechanismId);
             WriteLink(AssemblyXmlIdentifiers.AppliesTo, AssemblyXmlIdentifiers.UboiNamespace, sectionAssemblyResult.FailureMechanismSection.Id);
+
+            writer.WriteEndElement();
+        }
+
+        private void WriteCombinedSectionAssemblies(IEnumerable<ExportableCombinedSectionAssembly> combinedSectionAssemblies, string assessmentSectionAssemblyId)
+        {
+            foreach (ExportableCombinedSectionAssembly combinedSectionAssembly in combinedSectionAssemblies)
+            {
+                WriteFeatureMember(() => WriteCombinedSectionAssembly(combinedSectionAssembly, assessmentSectionAssemblyId));
+            }
+        }
+
+        private void WriteCombinedSectionAssembly(ExportableCombinedSectionAssembly combinedSectionAssembly, string assessmentSectionAssemblyId)
+        {
+            WriteStartElementWithId(AssemblyXmlIdentifiers.CombinedFailureMechanismSection, AssemblyXmlIdentifiers.UboiNamespace,
+                                    combinedSectionAssembly.CombinedSectionAssemblyResult.Id);
+
+            ExportableFailureMechanismSectionAssemblyResult combinedSectionAssemblyResult = combinedSectionAssembly.CombinedSectionAssemblyResult;
+            writer.WriteElementString(AssemblyXmlIdentifiers.FailureMechanismSectionAssemblyGroup, AssemblyXmlIdentifiers.UboiNamespace,
+                                      EnumDisplayNameHelper.GetDisplayName(combinedSectionAssemblyResult.AssemblyGroup));
+            writer.WriteElementString(AssemblyXmlIdentifiers.AssemblyMethod, AssemblyXmlIdentifiers.UboiNamespace,
+                                      EnumDisplayNameHelper.GetDisplayName(combinedSectionAssemblyResult.AssemblyGroupAssemblyMethod));
+            writer.WriteElementString(AssemblyXmlIdentifiers.Status, AssemblyXmlIdentifiers.UboiNamespace, Resources.FullAssembly);
+
+            WriteLink(AssemblyXmlIdentifiers.Specifies, AssemblyXmlIdentifiers.UboiNamespace, assessmentSectionAssemblyId);
+            WriteLink(AssemblyXmlIdentifiers.AppliesTo, AssemblyXmlIdentifiers.UboiNamespace, combinedSectionAssembly.Section.Id);
 
             writer.WriteEndElement();
         }

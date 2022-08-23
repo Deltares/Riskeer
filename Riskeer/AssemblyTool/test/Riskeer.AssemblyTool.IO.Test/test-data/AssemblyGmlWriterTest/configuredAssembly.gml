@@ -59,6 +59,15 @@
     </uboi:SpecifiekFaalmechanisme>
   </uboi:featureMember>
   <uboi:featureMember>
+    <uboi:AnalyseDeelvakGecombineerd gml:id="resultaat_gecombineerd_1">
+      <uboi:duidingsklasse>+I</uboi:duidingsklasse>
+      <uboi:assemblagemethode>BOI-3C-1</uboi:assemblagemethode>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:specificeert xlink:href="veiligheidsoordeel1" />
+      <uboi:geldtVoor xlink:href="vak_gecombineerd_1" />
+    </uboi:AnalyseDeelvakGecombineerd>
+  </uboi:featureMember>
+  <uboi:featureMember>
     <imwap:Vakindeling gml:id="vakindelingGABI" />
   </uboi:featureMember>
   <uboi:featureMember>
