@@ -61,11 +61,6 @@ namespace Riskeer.Integration.IO.Factories
                 throw new ArgumentNullException(nameof(sections));
             }
 
-            if (registry.Contains(sections))
-            {
-                return registry.Get(sections);
-            }
-
             var exportableSections = new List<ExportableFailureMechanismSection>();
             double startDistance = 0;
             foreach (FailureMechanismSection section in sections)
@@ -77,10 +72,8 @@ namespace Riskeer.Integration.IO.Factories
                 startDistance = exportableFailureMechanismSection.EndDistance;
             }
 
-            var exportableCollection = new ExportableFailureMechanismSectionCollection(idGenerator.GetNewId(Resources.ExportableFailureMechanismSectionCollection_IdPrefix),
-                                                                                       exportableSections);
-            registry.Register(sections, exportableCollection);
-            return exportableCollection;
+            return new ExportableFailureMechanismSectionCollection(idGenerator.GetNewId(Resources.ExportableFailureMechanismSectionCollection_IdPrefix),
+                                                                   exportableSections);
         }
     }
 }
