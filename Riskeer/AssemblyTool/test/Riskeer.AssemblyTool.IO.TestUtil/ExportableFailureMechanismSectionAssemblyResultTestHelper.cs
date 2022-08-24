@@ -43,9 +43,9 @@ namespace Riskeer.AssemblyTool.IO.TestUtil
         /// <exception cref="AssertionException">Thrown when:
         /// <list type="bullet">
         /// <item>The number of <paramref name="sections"/> and number of <paramref name="results"/> do not match.</item>
+        /// <item>The id does not contain the expected value.</item>
         /// <item>The values between <paramref name="expectedAssemblyResultWrapper"/> and <paramref name="results"/>
         /// do not match.</item>
-        /// <item>The id does not contain the expected value.</item>
         /// </list></exception>
         public static void AssertExportableFailureMechanismSectionResults(FailureMechanismSectionAssemblyResultWrapper expectedAssemblyResultWrapper,
                                                                           IEnumerable<ExportableFailureMechanismSection> sections,
@@ -59,16 +59,36 @@ namespace Riskeer.AssemblyTool.IO.TestUtil
                 ExportableFailureMechanismSection section = sections.ElementAt(i);
                 ExportableFailureMechanismSectionAssemblyResult actualExportableAssemblyResult = results.ElementAt(i);
 
-                Assert.AreEqual($"Fa.{i}", actualExportableAssemblyResult.Id);
-                Assert.AreSame(section, actualExportableAssemblyResult.FailureMechanismSection);
-                FailureMechanismSectionAssemblyResult expectedAssemblyResult = expectedAssemblyResultWrapper.AssemblyResult;
-                Assert.AreEqual(expectedAssemblyResult.FailureMechanismSectionAssemblyGroup, actualExportableAssemblyResult.AssemblyGroup);
-                Assert.AreEqual(expectedAssemblyResult.SectionProbability, actualExportableAssemblyResult.Probability);
-                Assert.AreEqual(ExportableAssemblyMethodFactory.Create(expectedAssemblyResultWrapper.AssemblyGroupMethod),
-                                actualExportableAssemblyResult.AssemblyGroupAssemblyMethod);
-                Assert.AreEqual(ExportableAssemblyMethodFactory.Create(expectedAssemblyResultWrapper.ProbabilityMethod),
-                                actualExportableAssemblyResult.ProbabilityAssemblyMethod);
+                AssertExportableFailureMechanismSectionResult(expectedAssemblyResultWrapper, actualExportableAssemblyResult, section, i);
             }
+        }
+
+        /// <summary>
+        /// Asserts the <see cref="ExportableFailureMechanismSectionAssemblyResult"/> against the assembly result.
+        /// </summary>
+        /// <param name="expectedAssemblyResultWrapper">The expected <see cref="FailureMechanismSectionAssemblyResultWrapper"/>.</param>
+        /// <param name="actualExportableAssemblyResult">The actual <see cref="ExportableFailureMechanismSectionAssemblyResult"/>.</param>
+        /// <param name="section">The used <see cref="ExportableFailureMechanismSection"/>.</param>
+        /// <param name="i">The number of the section result.</param>
+        /// <exception cref="AssertionException">Thrown when:
+        /// <list type="bullet">
+        /// <item>The id does not contain the expected value.</item>
+        /// <item>The values between <paramref name="expectedAssemblyResultWrapper"/> and <paramref name="actualExportableAssemblyResult"/>
+        /// do not match.</item>
+        /// </list></exception>
+        public static void AssertExportableFailureMechanismSectionResult(FailureMechanismSectionAssemblyResultWrapper expectedAssemblyResultWrapper,
+                                                                         ExportableFailureMechanismSectionAssemblyResult actualExportableAssemblyResult,
+                                                                         ExportableFailureMechanismSection section, int i = 0)
+        {
+            Assert.AreEqual($"Fa.{i}", actualExportableAssemblyResult.Id);
+            Assert.AreSame(section, actualExportableAssemblyResult.FailureMechanismSection);
+            FailureMechanismSectionAssemblyResult expectedAssemblyResult = expectedAssemblyResultWrapper.AssemblyResult;
+            Assert.AreEqual(expectedAssemblyResult.FailureMechanismSectionAssemblyGroup, actualExportableAssemblyResult.AssemblyGroup);
+            Assert.AreEqual(expectedAssemblyResult.SectionProbability, actualExportableAssemblyResult.Probability);
+            Assert.AreEqual(ExportableAssemblyMethodFactory.Create(expectedAssemblyResultWrapper.AssemblyGroupMethod),
+                            actualExportableAssemblyResult.AssemblyGroupAssemblyMethod);
+            Assert.AreEqual(ExportableAssemblyMethodFactory.Create(expectedAssemblyResultWrapper.ProbabilityMethod),
+                            actualExportableAssemblyResult.ProbabilityAssemblyMethod);
         }
     }
 }

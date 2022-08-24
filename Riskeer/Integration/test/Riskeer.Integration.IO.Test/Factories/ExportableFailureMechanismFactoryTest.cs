@@ -32,7 +32,6 @@ using Riskeer.AssemblyTool.IO.TestUtil;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Integration.IO.Exceptions;
 using Riskeer.Integration.IO.Factories;
 using Riskeer.Integration.IO.Helpers;
 
@@ -141,37 +140,6 @@ namespace Riskeer.Integration.IO.Test.Factories
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assembleFailureMechanismSectionFunc", exception.ParamName);
             mocks.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(FailureMechanismSectionAssemblyGroup.NoResult)]
-        [TestCase(FailureMechanismSectionAssemblyGroup.Dominant)]
-        public void CreateExportableGenericFailureMechanism_InvalidFailureMechanismSectionAssemblyResult_ThrowsAssemblyFactoryException(
-            FailureMechanismSectionAssemblyGroup assemblyGroup)
-        {
-            // Setup
-            var random = new Random(21);
-            var failureMechanism = new TestFailureMechanism();
-            FailureMechanismTestHelper.AddSections(failureMechanism, random.Next(2, 10));
-            var assessmentSection = new AssessmentSectionStub();
-
-            var idGenerator = new IdentifierGenerator();
-
-            var registry = new ExportableFailureMechanismSectionRegistry();
-            RegisterFailureMechanismSections(registry, failureMechanism.Sections);
-
-            // Call
-            void Call() => ExportableFailureMechanismFactory.CreateExportableGenericFailureMechanism<TestFailureMechanism, TestFailureMechanismSectionResult>(
-                idGenerator, registry, failureMechanism, assessmentSection, (fm, section) => new FailureMechanismAssemblyResultWrapper(
-                    random.NextDouble(), random.NextEnumValue<AssemblyMethod>()),
-                (sr, fm, section) => new FailureMechanismSectionAssemblyResultWrapper(
-                    new FailureMechanismSectionAssemblyResult(
-                        random.NextDouble(), random.NextDouble(), random.NextDouble(), assemblyGroup),
-                    random.NextEnumValue<AssemblyMethod>(), random.NextEnumValue<AssemblyMethod>()));
-
-            // Assert
-            var exception = Assert.Throws<AssemblyFactoryException>(Call);
-            Assert.AreEqual("The assembly result is invalid and cannot be created.", exception.Message);
         }
 
         [Test]
@@ -314,37 +282,6 @@ namespace Riskeer.Integration.IO.Test.Factories
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assembleFailureMechanismSectionFunc", exception.ParamName);
             mocks.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(FailureMechanismSectionAssemblyGroup.NoResult)]
-        [TestCase(FailureMechanismSectionAssemblyGroup.Dominant)]
-        public void CreateExportableSpecificFailureMechanism_InvalidFailureMechanismSectionAssemblyResult_ThrowsAssemblyFactoryException(
-            FailureMechanismSectionAssemblyGroup assemblyGroup)
-        {
-            // Setup
-            var random = new Random(21);
-            var failureMechanism = new SpecificFailureMechanism();
-            FailureMechanismTestHelper.AddSections(failureMechanism, random.Next(2, 10));
-            var assessmentSection = new AssessmentSectionStub();
-
-            var idGenerator = new IdentifierGenerator();
-
-            var registry = new ExportableFailureMechanismSectionRegistry();
-            RegisterFailureMechanismSections(registry, failureMechanism.Sections);
-
-            // Call
-            void Call() => ExportableFailureMechanismFactory.CreateExportableSpecificFailureMechanism(
-                idGenerator, registry, failureMechanism, assessmentSection, (fm, section) => new FailureMechanismAssemblyResultWrapper(
-                    random.NextDouble(), random.NextEnumValue<AssemblyMethod>()),
-                (sr, fm, section) => new FailureMechanismSectionAssemblyResultWrapper(
-                    new FailureMechanismSectionAssemblyResult(
-                        random.NextDouble(), random.NextDouble(), random.NextDouble(), assemblyGroup),
-                    random.NextEnumValue<AssemblyMethod>(), random.NextEnumValue<AssemblyMethod>()));
-
-            // Assert
-            var exception = Assert.Throws<AssemblyFactoryException>(Call);
-            Assert.AreEqual("The assembly result is invalid and cannot be created.", exception.Message);
         }
 
         [Test]
