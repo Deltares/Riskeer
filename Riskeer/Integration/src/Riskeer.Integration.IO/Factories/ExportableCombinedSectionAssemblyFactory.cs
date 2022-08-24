@@ -29,6 +29,7 @@ using Riskeer.AssemblyTool.IO.Model.Enums;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Assembly;
+using Riskeer.Integration.IO.Exceptions;
 using Riskeer.Integration.Util;
 
 namespace Riskeer.Integration.IO.Factories
@@ -47,6 +48,8 @@ namespace Riskeer.Integration.IO.Factories
         /// <param name="assessmentSection">The <see cref="AssessmentSection"/> the section results belong to.</param>
         /// <returns>A collection of <see cref="ExportableCombinedSectionAssembly"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="AssemblyFactoryException">Thrown when <see cref="CombinedFailureMechanismSectionAssemblyResult.TotalResult"/>
+        /// is invalid and cannot be exported.</exception>
         public static IEnumerable<ExportableCombinedSectionAssembly> CreateExportableCombinedSectionAssemblyCollection(
             IEnumerable<CombinedFailureMechanismSectionAssemblyResult> combinedSectionAssemblyResults,
             AssessmentSection assessmentSection)
@@ -64,6 +67,12 @@ namespace Riskeer.Integration.IO.Factories
             var sectionResults = new List<ExportableCombinedSectionAssembly>();
             foreach (CombinedFailureMechanismSectionAssemblyResult assemblyResult in combinedSectionAssemblyResults)
             {
+                if (assemblyResult.TotalResult == FailureMechanismSectionAssemblyGroup.NoResult
+                    || assemblyResult.TotalResult == FailureMechanismSectionAssemblyGroup.Dominant)
+                {
+                    throw new AssemblyFactoryException("The assembly result is invalid and cannot be created.");
+                }
+                
                 var exportableSection = new ExportableCombinedFailureMechanismSection(
                     "id", FailureMechanismSectionHelper.GetFailureMechanismSectionGeometry(
                         assessmentSection.ReferenceLine, assemblyResult.SectionStart, assemblyResult.SectionEnd),

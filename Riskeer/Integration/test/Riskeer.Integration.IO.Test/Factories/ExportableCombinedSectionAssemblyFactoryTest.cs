@@ -32,6 +32,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Assembly;
+using Riskeer.Integration.IO.Exceptions;
 using Riskeer.Integration.IO.Factories;
 using Riskeer.Integration.Util;
 
@@ -62,6 +63,31 @@ namespace Riskeer.Integration.IO.Test.Factories
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        [TestCase(FailureMechanismSectionAssemblyGroup.NoResult)]
+        [TestCase(FailureMechanismSectionAssemblyGroup.Dominant)]
+        public void CreateExportableCombinedSectionAssemblyCollection_WithInvalidAssemblyResults_ThrowsAssemblyFactoryException(
+            FailureMechanismSectionAssemblyGroup assemblyGroup)
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            var random = new Random(21);
+            CombinedFailureMechanismSectionAssemblyResult[] assemblyResults =
+            {
+                new CombinedFailureMechanismSectionAssemblyResult(random.NextDouble(), random.NextDouble(), assemblyGroup,
+                random.NextEnumValue<AssemblyMethod>(), random.NextEnumValue<AssemblyMethod>(), random.NextEnumValue<AssemblyMethod>(),
+                new CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties())
+            };
+
+            // Call
+            void Call() => ExportableCombinedSectionAssemblyFactory.CreateExportableCombinedSectionAssemblyCollection(assemblyResults, assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<AssemblyFactoryException>(Call);
+            Assert.AreEqual("The assembly result is invalid and cannot be created.", exception.Message);
         }
 
         [Test]
