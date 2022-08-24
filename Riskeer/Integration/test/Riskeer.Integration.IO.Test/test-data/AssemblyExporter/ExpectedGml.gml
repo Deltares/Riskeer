@@ -1327,4 +1327,37 @@
       <imwap:onderdeelVan xlink:href="Vi.15" />
     </uboi:Deelvak>
   </uboi:featureMember>
+  <uboi:featureMember>
+    <imwap:Vakindeling gml:id="Vi.16" />
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Deelvak gml:id="Bv.32">
+      <imwap:geometrieLijn2D>
+        <gml:LineString srsName="EPSG:28992">
+          <gml:posList>0 0 1.5 2</gml:posList>
+        </gml:LineString>
+      </imwap:geometrieLijn2D>
+      <imwap:typeWaterkeringsectie>DEELVK</imwap:typeWaterkeringsectie>
+      <imwap:afstandBegin>0</imwap:afstandBegin>
+      <imwap:afstandEinde>2.5</imwap:afstandEinde>
+      <imwap:lengte>2.5</imwap:lengte>
+      <imwap:onderdeelVan xlink:href="Vi.16" />
+      <uboi:assemblagemethode>BOI-3A-1</uboi:assemblagemethode>
+    </uboi:Deelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Deelvak gml:id="Bv.33">
+      <imwap:geometrieLijn2D>
+        <gml:LineString srsName="EPSG:28992">
+          <gml:posList>1.5 2 3 4</gml:posList>
+        </gml:LineString>
+      </imwap:geometrieLijn2D>
+      <imwap:typeWaterkeringsectie>DEELVK</imwap:typeWaterkeringsectie>
+      <imwap:afstandBegin>2.5</imwap:afstandBegin>
+      <imwap:afstandEinde>5</imwap:afstandEinde>
+      <imwap:lengte>2.5</imwap:lengte>
+      <imwap:onderdeelVan xlink:href="Vi.16" />
+      <uboi:assemblagemethode>BOI-3A-1</uboi:assemblagemethode>
+    </uboi:Deelvak>
+  </uboi:featureMember>
 </uboi:Assembleren-collectie>
