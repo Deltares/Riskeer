@@ -44,6 +44,14 @@ namespace Riskeer.Integration.IO.Helpers
             return new Dictionary<TModel, TExportableModel>(new ReferenceEqualityComparer<TModel>());
         }
 
+        /// <summary>
+        /// Gets an indicator whether the <paramref name="collection"/> contains a value for <paramref name="model"/>.
+        /// </summary>
+        /// <param name="collection">The collection to determine whether the <paramref name="model"/> is registered.</param>
+        /// <param name="model">The <typeparamref name="TModel"/> to determine whether it is registered..</param>
+        /// <typeparam name="TModel">The type of model that was registered.</typeparam>
+        /// <typeparam name="TExportableModel">The type of exportable model that is registered with <typeparamref name="TModel"/>.</typeparam>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
         private static bool ContainsValue<TModel, TExportableModel>(Dictionary<TModel, TExportableModel> collection, TModel model)
         {
             if (model == null)
@@ -54,17 +62,26 @@ namespace Riskeer.Integration.IO.Helpers
             return collection.ContainsKey(model);
         }
 
+        /// <summary>
+        /// Registers a <paramref name="model"/> with the value <paramref name="exportableModel"/> in a collection.
+        /// </summary>
+        /// <param name="collection">The collection to register to.</param>
+        /// <param name="model">The <typeparamref name="TModel"/> to register.</param>
+        /// <param name="exportableModel">The <typeparamref name="TExportableModel"/> that is associated with the <paramref name="model"/>.</param>
+        /// <typeparam name="TModel">The type of model that was registered.</typeparam>
+        /// <typeparam name="TExportableModel">The type of exportable model to register  with <typeparamref name="TModel"/>.</typeparam>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> or <paramref name="exportableModel"/> is <c>null</c>.</exception>
         private static void Register<TModel, TExportableModel>(Dictionary<TModel, TExportableModel> collection, TModel model,
                                                                TExportableModel exportableModel)
         {
-            if (exportableModel == null)
-            {
-                throw new ArgumentNullException(nameof(exportableModel));
-            }
-
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
+            }
+            
+            if (exportableModel == null)
+            {
+                throw new ArgumentNullException(nameof(exportableModel));
             }
 
             collection[model] = exportableModel;
@@ -76,18 +93,13 @@ namespace Riskeer.Integration.IO.Helpers
         /// <param name="collection">The collection that contains the lookup information of <typeparamref name="TModel"/>
         /// and <typeparamref name="TExportableModel"/>.</param>
         /// <param name="model">The <typeparamref name="TModel"/> to retrieve the <typeparamref name="TExportableModel"/> for.</param>
-        /// <typeparam name="TModel">The model that was registered.</typeparam>
+        /// <typeparam name="TModel">The type of model that was registered.</typeparam>
         /// <typeparam name="TExportableModel">The type of exportable model that was registered with <typeparamref name="TModel"/>.</typeparam>
         /// <returns>A <typeparamref name="TExportableModel"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any <paramref name="model"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidOperationException">Thrown when no item was registered for <paramref name="model"/>.</exception>
         private static TExportableModel Get<TModel, TExportableModel>(Dictionary<TModel, TExportableModel> collection, TModel model)
         {
-            if (collection == null)
-            {
-                throw new ArgumentNullException(nameof(collection));
-            }
-
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
@@ -108,7 +120,7 @@ namespace Riskeer.Integration.IO.Helpers
         /// <summary>
         /// Registers the  <paramref name="model"/> with the value <paramref name="exportableModel"/>.
         /// </summary>
-        /// <param name="model">The collection of <see cref="FailureMechanismSection"/> to be registered.</param>
+        /// <param name="model">The <see cref="CombinedFailureMechanismSectionAssemblyResult"/> to be registered.</param>
         /// <param name="exportableModel">The <see cref="ExportableFailureMechanismSectionCollection"/> to be registered with.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
         public void Register(CombinedFailureMechanismSectionAssemblyResult model, ExportableCombinedFailureMechanismSection exportableModel)
@@ -134,7 +146,7 @@ namespace Riskeer.Integration.IO.Helpers
         /// <summary>
         /// Checks whether a value has been registered for the given <paramref name="model"/>.
         /// </summary>
-        /// <param name="model">The collection of <see cref="FailureMechanismSection"/> to check for.</param>
+        /// <param name="model">The <see cref="CombinedFailureMechanismSectionAssemblyResult"/> to check for.</param>
         /// <returns><c>true</c> if the <see cref="model"/> was registered before, <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
         internal bool Contains(CombinedFailureMechanismSectionAssemblyResult model)
