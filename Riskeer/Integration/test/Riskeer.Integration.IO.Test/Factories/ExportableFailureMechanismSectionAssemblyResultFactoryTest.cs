@@ -201,5 +201,39 @@ namespace Riskeer.Integration.IO.Test.Factories
             ExportableFailureMechanismSectionAssemblyResultTestHelper.AssertExportableFailureMechanismSectionResult(
                 expectedSectionOutput, assemblyResult, registry.Get(failureMechanism.Sections.First()));
         }
+
+        [Test]
+        public void Create_SectionResultAlreadyRegistered_ReturnsRegisteredExportableFailureMechanismSectionAssemblyResult()
+        {
+            // Setup
+            var random = new Random(21);
+            var failureMechanism = new TestFailureMechanism();
+            FailureMechanismTestHelper.AddSections(failureMechanism, random.Next(2, 10));
+            var assessmentSection = new AssessmentSectionStub();
+
+            FailureMechanismSectionAssemblyResultWrapper expectedSectionOutput = FailureMechanismSectionAssemblyResultWrapperTestFactory.Create();
+
+            var idGenerator = new IdentifierGenerator();
+
+            var registry = new ExportableModelRegistry();
+            ExportableFailureMechanismSectionCollectionFactory.CreateExportableFailureMechanismSectionCollection(
+                new IdentifierGenerator(), registry, failureMechanism.Sections);
+
+            TestFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.First();
+            ExportableFailureMechanismSectionAssemblyResult assemblyResult1 = ExportableFailureMechanismSectionAssemblyResultFactory.Create(
+                idGenerator, registry, sectionResult, failureMechanism, assessmentSection,
+                (sr, fm, section) => expectedSectionOutput);
+
+            // Precondition
+            Assert.True(registry.Contains(sectionResult));
+
+            // Call
+            ExportableFailureMechanismSectionAssemblyResult assemblyResult2 = ExportableFailureMechanismSectionAssemblyResultFactory.Create(
+                idGenerator, registry, sectionResult, failureMechanism, assessmentSection,
+                (sr, fm, section) => expectedSectionOutput);
+
+            // Assert
+            Assert.AreSame(assemblyResult1, assemblyResult2);
+        }
     }
 }

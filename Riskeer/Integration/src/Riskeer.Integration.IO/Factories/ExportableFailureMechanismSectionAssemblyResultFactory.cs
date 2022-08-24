@@ -89,6 +89,11 @@ namespace Riskeer.Integration.IO.Factories
                 throw new ArgumentNullException(nameof(assemblyFunc));
             }
 
+            if (registry.Contains(sectionResult))
+            {
+                return registry.Get(sectionResult);
+            }
+
             FailureMechanismSectionAssemblyResultWrapper assemblyResultWrapper = assemblyFunc(
                 sectionResult, failureMechanism, assessmentSection);
             FailureMechanismSectionAssemblyResult assemblyResult = assemblyResultWrapper.AssemblyResult;
@@ -99,12 +104,15 @@ namespace Riskeer.Integration.IO.Factories
                 throw new AssemblyFactoryException("The assembly result is invalid and cannot be created.");
             }
 
-            return new ExportableFailureMechanismSectionAssemblyResult(
+            var exportableFailureMechanismSectionAssemblyResult = new ExportableFailureMechanismSectionAssemblyResult(
                 idGenerator.GetNewId(Resources.ExportableFailureMechanismSectionAssemblyResult_IdPrefix),
                 registry.Get(sectionResult.Section),
                 assemblyResult.SectionProbability, assemblyResult.FailureMechanismSectionAssemblyGroup,
                 ExportableAssemblyMethodConverter.ConvertTo(assemblyResultWrapper.AssemblyGroupMethod),
                 ExportableAssemblyMethodConverter.ConvertTo(assemblyResultWrapper.ProbabilityMethod));
+            
+            registry.Register(sectionResult, exportableFailureMechanismSectionAssemblyResult);
+            return exportableFailureMechanismSectionAssemblyResult;
         }
     }
 }
