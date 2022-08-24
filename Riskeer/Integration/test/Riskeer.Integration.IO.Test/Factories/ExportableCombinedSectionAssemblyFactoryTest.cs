@@ -27,7 +27,6 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.IO.Model;
-using Riskeer.AssemblyTool.IO.Model.Enums;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Integration.Data;
@@ -213,44 +212,43 @@ namespace Riskeer.Integration.IO.Test.Factories
             Assert.IsTrue(failureMechanismCombinedSectionResults.All(result => result.AssemblyMethod == ExportableAssemblyMethodConverter.ConvertTo(
                                                                                    expectedSection.FailureMechanismResultsAssemblyMethod)));
 
-            AssertSubSection(expectedSection.Piping, "STPH", ExportableFailureMechanismType.Generic,
+            AssertSubSection(expectedSection.Piping, "STPH",
                              failureMechanismCombinedSectionResults.ElementAt(0));
-            AssertSubSection(expectedSection.GrassCoverErosionInwards, "GEKB", ExportableFailureMechanismType.Generic,
+            AssertSubSection(expectedSection.GrassCoverErosionInwards, "GEKB",
                              failureMechanismCombinedSectionResults.ElementAt(1));
-            AssertSubSection(expectedSection.MacroStabilityInwards, "STBI", ExportableFailureMechanismType.Generic,
+            AssertSubSection(expectedSection.MacroStabilityInwards, "STBI",
                              failureMechanismCombinedSectionResults.ElementAt(2));
-            AssertSubSection(expectedSection.Microstability, "STMI", ExportableFailureMechanismType.Generic,
+            AssertSubSection(expectedSection.Microstability, "STMI",
                              failureMechanismCombinedSectionResults.ElementAt(3));
-            AssertSubSection(expectedSection.StabilityStoneCover, "ZST", ExportableFailureMechanismType.Generic,
+            AssertSubSection(expectedSection.StabilityStoneCover, "ZST",
                              failureMechanismCombinedSectionResults.ElementAt(4));
-            AssertSubSection(expectedSection.WaveImpactAsphaltCover, "AGK", ExportableFailureMechanismType.Generic,
+            AssertSubSection(expectedSection.WaveImpactAsphaltCover, "AGK",
                              failureMechanismCombinedSectionResults.ElementAt(5));
-            AssertSubSection(expectedSection.WaterPressureAsphaltCover, "AWO", ExportableFailureMechanismType.Generic,
+            AssertSubSection(expectedSection.WaterPressureAsphaltCover, "AWO",
                              failureMechanismCombinedSectionResults.ElementAt(6));
-            AssertSubSection(expectedSection.GrassCoverErosionOutwards, "GEBU", ExportableFailureMechanismType.Generic,
+            AssertSubSection(expectedSection.GrassCoverErosionOutwards, "GEBU",
                              failureMechanismCombinedSectionResults.ElementAt(7));
-            AssertSubSection(expectedSection.GrassCoverSlipOffOutwards, "GABU", ExportableFailureMechanismType.Generic,
+            AssertSubSection(expectedSection.GrassCoverSlipOffOutwards, "GABU",
                              failureMechanismCombinedSectionResults.ElementAt(8));
-            AssertSubSection(expectedSection.GrassCoverSlipOffInwards, "GABI", ExportableFailureMechanismType.Generic,
+            AssertSubSection(expectedSection.GrassCoverSlipOffInwards, "GABI",
                              failureMechanismCombinedSectionResults.ElementAt(9));
-            AssertSubSection(expectedSection.HeightStructures, "HTKW", ExportableFailureMechanismType.Generic,
+            AssertSubSection(expectedSection.HeightStructures, "HTKW",
                              failureMechanismCombinedSectionResults.ElementAt(10));
-            AssertSubSection(expectedSection.ClosingStructures, "BSKW", ExportableFailureMechanismType.Generic,
+            AssertSubSection(expectedSection.ClosingStructures, "BSKW",
                              failureMechanismCombinedSectionResults.ElementAt(11));
-            AssertSubSection(expectedSection.PipingStructure, "PKW", ExportableFailureMechanismType.Generic,
+            AssertSubSection(expectedSection.PipingStructure, "PKW",
                              failureMechanismCombinedSectionResults.ElementAt(12));
-            AssertSubSection(expectedSection.StabilityPointStructures, "STKWp", ExportableFailureMechanismType.Generic,
+            AssertSubSection(expectedSection.StabilityPointStructures, "STKWp",
                              failureMechanismCombinedSectionResults.ElementAt(13));
-            AssertSubSection(expectedSection.DuneErosion, "DA", ExportableFailureMechanismType.Generic,
+            AssertSubSection(expectedSection.DuneErosion, "DA",
                              failureMechanismCombinedSectionResults.ElementAt(14));
-            AssertSubSection(expectedSection.SpecificFailureMechanisms[0], "Nieuw1", ExportableFailureMechanismType.Specific,
+            AssertSubSection(expectedSection.SpecificFailureMechanisms[0], "Nieuw1",
                              failureMechanismCombinedSectionResults.ElementAt(15));
-            AssertSubSection(expectedSection.SpecificFailureMechanisms[1], "Nieuw2", ExportableFailureMechanismType.Specific,
+            AssertSubSection(expectedSection.SpecificFailureMechanisms[1], "Nieuw2",
                              failureMechanismCombinedSectionResults.ElementAt(16));
         }
 
         private static void AssertSubSection(FailureMechanismSectionAssemblyGroup? subSectionGroup, string subSectionCode,
-                                             ExportableFailureMechanismType failureMechanismType,
                                              ExportableFailureMechanismCombinedSectionAssemblyResult actualResult)
         {
             Assert.AreEqual(subSectionGroup, actualResult.AssemblyGroup);
