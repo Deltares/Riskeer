@@ -1,1095 +1,1330 @@
 <?xml version="1.0" encoding="utf-8"?>
-<asm:Assemblage xmlns:gml="http://www.opengis.net/gml/3.2" gml:id="Assemblage.0" xmlns:asm="http://localhost/standaarden/assemblage">
-  <gml:boundedBy>
-    <gml:Envelope>
-      <gml:lowerCorner>0 0</gml:lowerCorner>
-      <gml:upperCorner>3 4</gml:upperCorner>
-    </gml:Envelope>
-  </gml:boundedBy>
-  <asm:featureMember>
-    <asm:Waterkeringstelsel gml:id="Wks.Wks.assessmentSectionId">
-      <asm:naam>assessmentSectionName</asm:naam>
-      <asm:geometrie2D>
+<uboi:Assembleren-collectie xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:imwap="http://www.aquo.nl/BOI2023/imwaproxies/v20210113" gml:id="assemblage.0" xmlns:uboi="http://www.aquo.nl/BOI2023/uitwisselmodel/v20210113">
+  <uboi:featureMember>
+    <imwap:Waterkeringstelsel gml:id="Wks.assessmentSectionId">
+      <imwap:naam>assessmentSectionName</imwap:naam>
+      <imwap:geometrie2D>
         <gml:LineString srsName="EPSG:28992">
           <gml:posList>0 0 3 4</gml:posList>
         </gml:LineString>
-      </asm:geometrie2D>
-      <asm:lengte uom="m">5</asm:lengte>
-      <asm:typeWaterkeringstelsel>DKTRJCT</asm:typeWaterkeringstelsel>
-    </asm:Waterkeringstelsel>
-    <asm:Beoordelingsproces BeoordelingsprocesID="Bp.0" WaterkeringstelselIDRef="Wks.Wks.assessmentSectionId">
-      <asm:beginJaarBeoordelingsronde>2023</asm:beginJaarBeoordelingsronde>
-      <asm:eindJaarBeoordelingsronde>2035</asm:eindJaarBeoordelingsronde>
-    </asm:Beoordelingsproces>
-    <asm:Veiligheidsoordeel VeiligheidsoordeelID="Vo.0" BeoordelingsprocesIDRef="Bp.0">
-      <asm:assemblagemethodeFaalkans>BOI-2A-1</asm:assemblagemethodeFaalkans>
-      <asm:assemblagemethodeVeiligheidsoordeel>BOI-2B-1</asm:assemblagemethodeVeiligheidsoordeel>
-      <asm:categorie>A+</asm:categorie>
-      <asm:faalkans>0.14</asm:faalkans>
-      <asm:status>VOLLDG</asm:status>
-    </asm:Veiligheidsoordeel>
-    <asm:Faalmechanisme FaalmechanismeID="Fm.0" VeiligheidsoordeelIDRef="Vo.0">
-      <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
-      <asm:generiekFaalmechanisme>STPH</asm:generiekFaalmechanisme>
-      <asm:analyseFaalmechanisme>
-        <asm:assemblagemethodeFaalkans>BOI-1A-1</asm:assemblagemethodeFaalkans>
-        <asm:faalkans>0.1</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseFaalmechanisme>
-    </asm:Faalmechanisme>
-    <asm:Faalmechanisme FaalmechanismeID="Fm.1" VeiligheidsoordeelIDRef="Vo.0">
-      <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
-      <asm:generiekFaalmechanisme>GEKB</asm:generiekFaalmechanisme>
-      <asm:analyseFaalmechanisme>
-        <asm:assemblagemethodeFaalkans>BOI-1A-1</asm:assemblagemethodeFaalkans>
-        <asm:faalkans>0.1</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseFaalmechanisme>
-    </asm:Faalmechanisme>
-    <asm:Faalmechanisme FaalmechanismeID="Fm.2" VeiligheidsoordeelIDRef="Vo.0">
-      <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
-      <asm:generiekFaalmechanisme>STBI</asm:generiekFaalmechanisme>
-      <asm:analyseFaalmechanisme>
-        <asm:assemblagemethodeFaalkans>BOI-1A-1</asm:assemblagemethodeFaalkans>
-        <asm:faalkans>0.1</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseFaalmechanisme>
-    </asm:Faalmechanisme>
-    <asm:Faalmechanisme FaalmechanismeID="Fm.3" VeiligheidsoordeelIDRef="Vo.0">
-      <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
-      <asm:generiekFaalmechanisme>STMI</asm:generiekFaalmechanisme>
-      <asm:analyseFaalmechanisme>
-        <asm:assemblagemethodeFaalkans>BOI-1A-1</asm:assemblagemethodeFaalkans>
-        <asm:faalkans>0.1</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseFaalmechanisme>
-    </asm:Faalmechanisme>
-    <asm:Faalmechanisme FaalmechanismeID="Fm.4" VeiligheidsoordeelIDRef="Vo.0">
-      <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
-      <asm:generiekFaalmechanisme>ZST</asm:generiekFaalmechanisme>
-      <asm:analyseFaalmechanisme>
-        <asm:assemblagemethodeFaalkans>BOI-1A-1</asm:assemblagemethodeFaalkans>
-        <asm:faalkans>0.1</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseFaalmechanisme>
-    </asm:Faalmechanisme>
-    <asm:Faalmechanisme FaalmechanismeID="Fm.5" VeiligheidsoordeelIDRef="Vo.0">
-      <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
-      <asm:generiekFaalmechanisme>AGK</asm:generiekFaalmechanisme>
-      <asm:analyseFaalmechanisme>
-        <asm:assemblagemethodeFaalkans>BOI-1A-1</asm:assemblagemethodeFaalkans>
-        <asm:faalkans>0.1</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseFaalmechanisme>
-    </asm:Faalmechanisme>
-    <asm:Faalmechanisme FaalmechanismeID="Fm.6" VeiligheidsoordeelIDRef="Vo.0">
-      <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
-      <asm:generiekFaalmechanisme>AWO</asm:generiekFaalmechanisme>
-      <asm:analyseFaalmechanisme>
-        <asm:assemblagemethodeFaalkans>BOI-1A-1</asm:assemblagemethodeFaalkans>
-        <asm:faalkans>0.1</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseFaalmechanisme>
-    </asm:Faalmechanisme>
-    <asm:Faalmechanisme FaalmechanismeID="Fm.7" VeiligheidsoordeelIDRef="Vo.0">
-      <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
-      <asm:generiekFaalmechanisme>GEBU</asm:generiekFaalmechanisme>
-      <asm:analyseFaalmechanisme>
-        <asm:assemblagemethodeFaalkans>BOI-1A-1</asm:assemblagemethodeFaalkans>
-        <asm:faalkans>0.1</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseFaalmechanisme>
-    </asm:Faalmechanisme>
-    <asm:Faalmechanisme FaalmechanismeID="Fm.8" VeiligheidsoordeelIDRef="Vo.0">
-      <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
-      <asm:generiekFaalmechanisme>GABU</asm:generiekFaalmechanisme>
-      <asm:analyseFaalmechanisme>
-        <asm:assemblagemethodeFaalkans>BOI-1A-1</asm:assemblagemethodeFaalkans>
-        <asm:faalkans>0.1</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseFaalmechanisme>
-    </asm:Faalmechanisme>
-    <asm:Faalmechanisme FaalmechanismeID="Fm.9" VeiligheidsoordeelIDRef="Vo.0">
-      <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
-      <asm:generiekFaalmechanisme>GABI</asm:generiekFaalmechanisme>
-      <asm:analyseFaalmechanisme>
-        <asm:assemblagemethodeFaalkans>BOI-1A-1</asm:assemblagemethodeFaalkans>
-        <asm:faalkans>0.1</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseFaalmechanisme>
-    </asm:Faalmechanisme>
-    <asm:Faalmechanisme FaalmechanismeID="Fm.10" VeiligheidsoordeelIDRef="Vo.0">
-      <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
-      <asm:generiekFaalmechanisme>HTKW</asm:generiekFaalmechanisme>
-      <asm:analyseFaalmechanisme>
-        <asm:assemblagemethodeFaalkans>BOI-1A-1</asm:assemblagemethodeFaalkans>
-        <asm:faalkans>0.1</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseFaalmechanisme>
-    </asm:Faalmechanisme>
-    <asm:Faalmechanisme FaalmechanismeID="Fm.11" VeiligheidsoordeelIDRef="Vo.0">
-      <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
-      <asm:generiekFaalmechanisme>BSKW</asm:generiekFaalmechanisme>
-      <asm:analyseFaalmechanisme>
-        <asm:assemblagemethodeFaalkans>BOI-1A-1</asm:assemblagemethodeFaalkans>
-        <asm:faalkans>0.1</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseFaalmechanisme>
-    </asm:Faalmechanisme>
-    <asm:Faalmechanisme FaalmechanismeID="Fm.12" VeiligheidsoordeelIDRef="Vo.0">
-      <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
-      <asm:generiekFaalmechanisme>PKW</asm:generiekFaalmechanisme>
-      <asm:analyseFaalmechanisme>
-        <asm:assemblagemethodeFaalkans>BOI-1A-1</asm:assemblagemethodeFaalkans>
-        <asm:faalkans>0.1</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseFaalmechanisme>
-    </asm:Faalmechanisme>
-    <asm:Faalmechanisme FaalmechanismeID="Fm.13" VeiligheidsoordeelIDRef="Vo.0">
-      <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
-      <asm:generiekFaalmechanisme>STKWp</asm:generiekFaalmechanisme>
-      <asm:analyseFaalmechanisme>
-        <asm:assemblagemethodeFaalkans>BOI-1A-1</asm:assemblagemethodeFaalkans>
-        <asm:faalkans>0.1</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseFaalmechanisme>
-    </asm:Faalmechanisme>
-    <asm:Faalmechanisme FaalmechanismeID="Fm.14" VeiligheidsoordeelIDRef="Vo.0">
-      <asm:typeFaalmechanisme>SPECFK</asm:typeFaalmechanisme>
-      <asm:specifiekFaalmechanisme>Specific failure mechanism 1</asm:specifiekFaalmechanisme>
-      <asm:analyseFaalmechanisme>
-        <asm:assemblagemethodeFaalkans>BOI-1A-1</asm:assemblagemethodeFaalkans>
-        <asm:faalkans>0.1</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseFaalmechanisme>
-    </asm:Faalmechanisme>
-    <asm:Faalmechanisme FaalmechanismeID="Fm.15" VeiligheidsoordeelIDRef="Vo.0">
-      <asm:typeFaalmechanisme>SPECFK</asm:typeFaalmechanisme>
-      <asm:specifiekFaalmechanisme>Specific failure mechanism 2</asm:specifiekFaalmechanisme>
-      <asm:analyseFaalmechanisme>
-        <asm:assemblagemethodeFaalkans>BOI-1A-1</asm:assemblagemethodeFaalkans>
-        <asm:faalkans>0.1</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseFaalmechanisme>
-    </asm:Faalmechanisme>
-    <asm:Faalanalyse FaalanalyseID="Fa.0" FaalmechanismeIDRef="Fm.0" WaterkeringsectieIDRef="Bv.0">
-      <asm:analyseVak>
-        <asm:assemblagemethodeFaalkans>BOI-0A-1</asm:assemblagemethodeFaalkans>
-        <asm:assemblagemethodeDuidingsklasse>BOI-0B-1</asm:assemblagemethodeDuidingsklasse>
-        <asm:duidingsklasse>+I</asm:duidingsklasse>
-        <asm:faalkans>0.1</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseVak>
-    </asm:Faalanalyse>
-    <asm:Faalanalyse FaalanalyseID="Fa.1" FaalmechanismeIDRef="Fm.0" WaterkeringsectieIDRef="Bv.1">
-      <asm:analyseVak>
-        <asm:assemblagemethodeFaalkans>BOI-0A-1</asm:assemblagemethodeFaalkans>
-        <asm:assemblagemethodeDuidingsklasse>BOI-0B-1</asm:assemblagemethodeDuidingsklasse>
-        <asm:duidingsklasse>+I</asm:duidingsklasse>
-        <asm:faalkans>0.1</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseVak>
-    </asm:Faalanalyse>
-    <asm:Faalanalyse FaalanalyseID="Fa.2" FaalmechanismeIDRef="Fm.1" WaterkeringsectieIDRef="Bv.2">
-      <asm:analyseVak>
-        <asm:assemblagemethodeFaalkans>BOI-0A-1</asm:assemblagemethodeFaalkans>
-        <asm:assemblagemethodeDuidingsklasse>BOI-0B-1</asm:assemblagemethodeDuidingsklasse>
-        <asm:duidingsklasse>+I</asm:duidingsklasse>
-        <asm:faalkans>0.1</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseVak>
-    </asm:Faalanalyse>
-    <asm:Faalanalyse FaalanalyseID="Fa.3" FaalmechanismeIDRef="Fm.1" WaterkeringsectieIDRef="Bv.3">
-      <asm:analyseVak>
-        <asm:assemblagemethodeFaalkans>BOI-0A-1</asm:assemblagemethodeFaalkans>
-        <asm:assemblagemethodeDuidingsklasse>BOI-0B-1</asm:assemblagemethodeDuidingsklasse>
-        <asm:duidingsklasse>+I</asm:duidingsklasse>
-        <asm:faalkans>0.1</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseVak>
-    </asm:Faalanalyse>
-    <asm:Faalanalyse FaalanalyseID="Fa.4" FaalmechanismeIDRef="Fm.2" WaterkeringsectieIDRef="Bv.4">
-      <asm:analyseVak>
-        <asm:assemblagemethodeFaalkans>BOI-0A-1</asm:assemblagemethodeFaalkans>
-        <asm:assemblagemethodeDuidingsklasse>BOI-0B-1</asm:assemblagemethodeDuidingsklasse>
-        <asm:duidingsklasse>+I</asm:duidingsklasse>
-        <asm:faalkans>0.1</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseVak>
-    </asm:Faalanalyse>
-    <asm:Faalanalyse FaalanalyseID="Fa.5" FaalmechanismeIDRef="Fm.2" WaterkeringsectieIDRef="Bv.5">
-      <asm:analyseVak>
-        <asm:assemblagemethodeFaalkans>BOI-0A-1</asm:assemblagemethodeFaalkans>
-        <asm:assemblagemethodeDuidingsklasse>BOI-0B-1</asm:assemblagemethodeDuidingsklasse>
-        <asm:duidingsklasse>+I</asm:duidingsklasse>
-        <asm:faalkans>0.1</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseVak>
-    </asm:Faalanalyse>
-    <asm:Faalanalyse FaalanalyseID="Fa.6" FaalmechanismeIDRef="Fm.3" WaterkeringsectieIDRef="Bv.6">
-      <asm:analyseVak>
-        <asm:assemblagemethodeFaalkans>BOI-0A-1</asm:assemblagemethodeFaalkans>
-        <asm:assemblagemethodeDuidingsklasse>BOI-0B-1</asm:assemblagemethodeDuidingsklasse>
-        <asm:duidingsklasse>+I</asm:duidingsklasse>
-        <asm:faalkans>0.1</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseVak>
-    </asm:Faalanalyse>
-    <asm:Faalanalyse FaalanalyseID="Fa.7" FaalmechanismeIDRef="Fm.3" WaterkeringsectieIDRef="Bv.7">
-      <asm:analyseVak>
-        <asm:assemblagemethodeFaalkans>BOI-0A-1</asm:assemblagemethodeFaalkans>
-        <asm:assemblagemethodeDuidingsklasse>BOI-0B-1</asm:assemblagemethodeDuidingsklasse>
-        <asm:duidingsklasse>+I</asm:duidingsklasse>
-        <asm:faalkans>0.1</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseVak>
-    </asm:Faalanalyse>
-    <asm:Faalanalyse FaalanalyseID="Fa.8" FaalmechanismeIDRef="Fm.4" WaterkeringsectieIDRef="Bv.8">
-      <asm:analyseVak>
-        <asm:assemblagemethodeFaalkans>BOI-0A-1</asm:assemblagemethodeFaalkans>
-        <asm:assemblagemethodeDuidingsklasse>BOI-0B-1</asm:assemblagemethodeDuidingsklasse>
-        <asm:duidingsklasse>+I</asm:duidingsklasse>
-        <asm:faalkans>0.1</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseVak>
-    </asm:Faalanalyse>
-    <asm:Faalanalyse FaalanalyseID="Fa.9" FaalmechanismeIDRef="Fm.4" WaterkeringsectieIDRef="Bv.9">
-      <asm:analyseVak>
-        <asm:assemblagemethodeFaalkans>BOI-0A-1</asm:assemblagemethodeFaalkans>
-        <asm:assemblagemethodeDuidingsklasse>BOI-0B-1</asm:assemblagemethodeDuidingsklasse>
-        <asm:duidingsklasse>+I</asm:duidingsklasse>
-        <asm:faalkans>0.1</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseVak>
-    </asm:Faalanalyse>
-    <asm:Faalanalyse FaalanalyseID="Fa.10" FaalmechanismeIDRef="Fm.5" WaterkeringsectieIDRef="Bv.10">
-      <asm:analyseVak>
-        <asm:assemblagemethodeFaalkans>BOI-0A-1</asm:assemblagemethodeFaalkans>
-        <asm:assemblagemethodeDuidingsklasse>BOI-0B-1</asm:assemblagemethodeDuidingsklasse>
-        <asm:duidingsklasse>+I</asm:duidingsklasse>
-        <asm:faalkans>0.1</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseVak>
-    </asm:Faalanalyse>
-    <asm:Faalanalyse FaalanalyseID="Fa.11" FaalmechanismeIDRef="Fm.5" WaterkeringsectieIDRef="Bv.11">
-      <asm:analyseVak>
-        <asm:assemblagemethodeFaalkans>BOI-0A-1</asm:assemblagemethodeFaalkans>
-        <asm:assemblagemethodeDuidingsklasse>BOI-0B-1</asm:assemblagemethodeDuidingsklasse>
-        <asm:duidingsklasse>+I</asm:duidingsklasse>
-        <asm:faalkans>0.1</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseVak>
-    </asm:Faalanalyse>
-    <asm:Faalanalyse FaalanalyseID="Fa.12" FaalmechanismeIDRef="Fm.6" WaterkeringsectieIDRef="Bv.12">
-      <asm:analyseVak>
-        <asm:assemblagemethodeFaalkans>BOI-0A-1</asm:assemblagemethodeFaalkans>
-        <asm:assemblagemethodeDuidingsklasse>BOI-0B-1</asm:assemblagemethodeDuidingsklasse>
-        <asm:duidingsklasse>+I</asm:duidingsklasse>
-        <asm:faalkans>0.1</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseVak>
-    </asm:Faalanalyse>
-    <asm:Faalanalyse FaalanalyseID="Fa.13" FaalmechanismeIDRef="Fm.6" WaterkeringsectieIDRef="Bv.13">
-      <asm:analyseVak>
-        <asm:assemblagemethodeFaalkans>BOI-0A-1</asm:assemblagemethodeFaalkans>
-        <asm:assemblagemethodeDuidingsklasse>BOI-0B-1</asm:assemblagemethodeDuidingsklasse>
-        <asm:duidingsklasse>+I</asm:duidingsklasse>
-        <asm:faalkans>0.1</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseVak>
-    </asm:Faalanalyse>
-    <asm:Faalanalyse FaalanalyseID="Fa.14" FaalmechanismeIDRef="Fm.7" WaterkeringsectieIDRef="Bv.14">
-      <asm:analyseVak>
-        <asm:assemblagemethodeFaalkans>BOI-0A-1</asm:assemblagemethodeFaalkans>
-        <asm:assemblagemethodeDuidingsklasse>BOI-0B-1</asm:assemblagemethodeDuidingsklasse>
-        <asm:duidingsklasse>+I</asm:duidingsklasse>
-        <asm:faalkans>0.1</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseVak>
-    </asm:Faalanalyse>
-    <asm:Faalanalyse FaalanalyseID="Fa.15" FaalmechanismeIDRef="Fm.7" WaterkeringsectieIDRef="Bv.15">
-      <asm:analyseVak>
-        <asm:assemblagemethodeFaalkans>BOI-0A-1</asm:assemblagemethodeFaalkans>
-        <asm:assemblagemethodeDuidingsklasse>BOI-0B-1</asm:assemblagemethodeDuidingsklasse>
-        <asm:duidingsklasse>+I</asm:duidingsklasse>
-        <asm:faalkans>0.1</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseVak>
-    </asm:Faalanalyse>
-    <asm:Faalanalyse FaalanalyseID="Fa.16" FaalmechanismeIDRef="Fm.8" WaterkeringsectieIDRef="Bv.16">
-      <asm:analyseVak>
-        <asm:assemblagemethodeFaalkans>BOI-0A-1</asm:assemblagemethodeFaalkans>
-        <asm:assemblagemethodeDuidingsklasse>BOI-0B-1</asm:assemblagemethodeDuidingsklasse>
-        <asm:duidingsklasse>+I</asm:duidingsklasse>
-        <asm:faalkans>0.1</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseVak>
-    </asm:Faalanalyse>
-    <asm:Faalanalyse FaalanalyseID="Fa.17" FaalmechanismeIDRef="Fm.8" WaterkeringsectieIDRef="Bv.17">
-      <asm:analyseVak>
-        <asm:assemblagemethodeFaalkans>BOI-0A-1</asm:assemblagemethodeFaalkans>
-        <asm:assemblagemethodeDuidingsklasse>BOI-0B-1</asm:assemblagemethodeDuidingsklasse>
-        <asm:duidingsklasse>+I</asm:duidingsklasse>
-        <asm:faalkans>0.1</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseVak>
-    </asm:Faalanalyse>
-    <asm:Faalanalyse FaalanalyseID="Fa.18" FaalmechanismeIDRef="Fm.9" WaterkeringsectieIDRef="Bv.18">
-      <asm:analyseVak>
-        <asm:assemblagemethodeFaalkans>BOI-0A-1</asm:assemblagemethodeFaalkans>
-        <asm:assemblagemethodeDuidingsklasse>BOI-0B-1</asm:assemblagemethodeDuidingsklasse>
-        <asm:duidingsklasse>+I</asm:duidingsklasse>
-        <asm:faalkans>0.1</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseVak>
-    </asm:Faalanalyse>
-    <asm:Faalanalyse FaalanalyseID="Fa.19" FaalmechanismeIDRef="Fm.9" WaterkeringsectieIDRef="Bv.19">
-      <asm:analyseVak>
-        <asm:assemblagemethodeFaalkans>BOI-0A-1</asm:assemblagemethodeFaalkans>
-        <asm:assemblagemethodeDuidingsklasse>BOI-0B-1</asm:assemblagemethodeDuidingsklasse>
-        <asm:duidingsklasse>+I</asm:duidingsklasse>
-        <asm:faalkans>0.1</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseVak>
-    </asm:Faalanalyse>
-    <asm:Faalanalyse FaalanalyseID="Fa.20" FaalmechanismeIDRef="Fm.10" WaterkeringsectieIDRef="Bv.20">
-      <asm:analyseVak>
-        <asm:assemblagemethodeFaalkans>BOI-0A-1</asm:assemblagemethodeFaalkans>
-        <asm:assemblagemethodeDuidingsklasse>BOI-0B-1</asm:assemblagemethodeDuidingsklasse>
-        <asm:duidingsklasse>+I</asm:duidingsklasse>
-        <asm:faalkans>0.1</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseVak>
-    </asm:Faalanalyse>
-    <asm:Faalanalyse FaalanalyseID="Fa.21" FaalmechanismeIDRef="Fm.10" WaterkeringsectieIDRef="Bv.21">
-      <asm:analyseVak>
-        <asm:assemblagemethodeFaalkans>BOI-0A-1</asm:assemblagemethodeFaalkans>
-        <asm:assemblagemethodeDuidingsklasse>BOI-0B-1</asm:assemblagemethodeDuidingsklasse>
-        <asm:duidingsklasse>+I</asm:duidingsklasse>
-        <asm:faalkans>0.1</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseVak>
-    </asm:Faalanalyse>
-    <asm:Faalanalyse FaalanalyseID="Fa.22" FaalmechanismeIDRef="Fm.11" WaterkeringsectieIDRef="Bv.22">
-      <asm:analyseVak>
-        <asm:assemblagemethodeFaalkans>BOI-0A-1</asm:assemblagemethodeFaalkans>
-        <asm:assemblagemethodeDuidingsklasse>BOI-0B-1</asm:assemblagemethodeDuidingsklasse>
-        <asm:duidingsklasse>+I</asm:duidingsklasse>
-        <asm:faalkans>0.1</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseVak>
-    </asm:Faalanalyse>
-    <asm:Faalanalyse FaalanalyseID="Fa.23" FaalmechanismeIDRef="Fm.11" WaterkeringsectieIDRef="Bv.23">
-      <asm:analyseVak>
-        <asm:assemblagemethodeFaalkans>BOI-0A-1</asm:assemblagemethodeFaalkans>
-        <asm:assemblagemethodeDuidingsklasse>BOI-0B-1</asm:assemblagemethodeDuidingsklasse>
-        <asm:duidingsklasse>+I</asm:duidingsklasse>
-        <asm:faalkans>0.1</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseVak>
-    </asm:Faalanalyse>
-    <asm:Faalanalyse FaalanalyseID="Fa.24" FaalmechanismeIDRef="Fm.12" WaterkeringsectieIDRef="Bv.24">
-      <asm:analyseVak>
-        <asm:assemblagemethodeFaalkans>BOI-0A-1</asm:assemblagemethodeFaalkans>
-        <asm:assemblagemethodeDuidingsklasse>BOI-0B-1</asm:assemblagemethodeDuidingsklasse>
-        <asm:duidingsklasse>+I</asm:duidingsklasse>
-        <asm:faalkans>0.1</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseVak>
-    </asm:Faalanalyse>
-    <asm:Faalanalyse FaalanalyseID="Fa.25" FaalmechanismeIDRef="Fm.12" WaterkeringsectieIDRef="Bv.25">
-      <asm:analyseVak>
-        <asm:assemblagemethodeFaalkans>BOI-0A-1</asm:assemblagemethodeFaalkans>
-        <asm:assemblagemethodeDuidingsklasse>BOI-0B-1</asm:assemblagemethodeDuidingsklasse>
-        <asm:duidingsklasse>+I</asm:duidingsklasse>
-        <asm:faalkans>0.1</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseVak>
-    </asm:Faalanalyse>
-    <asm:Faalanalyse FaalanalyseID="Fa.26" FaalmechanismeIDRef="Fm.13" WaterkeringsectieIDRef="Bv.26">
-      <asm:analyseVak>
-        <asm:assemblagemethodeFaalkans>BOI-0A-1</asm:assemblagemethodeFaalkans>
-        <asm:assemblagemethodeDuidingsklasse>BOI-0B-1</asm:assemblagemethodeDuidingsklasse>
-        <asm:duidingsklasse>+I</asm:duidingsklasse>
-        <asm:faalkans>0.1</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseVak>
-    </asm:Faalanalyse>
-    <asm:Faalanalyse FaalanalyseID="Fa.27" FaalmechanismeIDRef="Fm.13" WaterkeringsectieIDRef="Bv.27">
-      <asm:analyseVak>
-        <asm:assemblagemethodeFaalkans>BOI-0A-1</asm:assemblagemethodeFaalkans>
-        <asm:assemblagemethodeDuidingsklasse>BOI-0B-1</asm:assemblagemethodeDuidingsklasse>
-        <asm:duidingsklasse>+I</asm:duidingsklasse>
-        <asm:faalkans>0.1</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseVak>
-    </asm:Faalanalyse>
-    <asm:Faalanalyse FaalanalyseID="Fa.28" FaalmechanismeIDRef="Fm.14" WaterkeringsectieIDRef="Bv.28">
-      <asm:analyseVak>
-        <asm:assemblagemethodeFaalkans>BOI-0A-1</asm:assemblagemethodeFaalkans>
-        <asm:assemblagemethodeDuidingsklasse>BOI-0B-1</asm:assemblagemethodeDuidingsklasse>
-        <asm:duidingsklasse>+I</asm:duidingsklasse>
-        <asm:faalkans>0.1</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseVak>
-    </asm:Faalanalyse>
-    <asm:Faalanalyse FaalanalyseID="Fa.29" FaalmechanismeIDRef="Fm.14" WaterkeringsectieIDRef="Bv.29">
-      <asm:analyseVak>
-        <asm:assemblagemethodeFaalkans>BOI-0A-1</asm:assemblagemethodeFaalkans>
-        <asm:assemblagemethodeDuidingsklasse>BOI-0B-1</asm:assemblagemethodeDuidingsklasse>
-        <asm:duidingsklasse>+I</asm:duidingsklasse>
-        <asm:faalkans>0.1</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseVak>
-    </asm:Faalanalyse>
-    <asm:Faalanalyse FaalanalyseID="Fa.30" FaalmechanismeIDRef="Fm.15" WaterkeringsectieIDRef="Bv.30">
-      <asm:analyseVak>
-        <asm:assemblagemethodeFaalkans>BOI-0A-1</asm:assemblagemethodeFaalkans>
-        <asm:assemblagemethodeDuidingsklasse>BOI-0B-1</asm:assemblagemethodeDuidingsklasse>
-        <asm:duidingsklasse>+I</asm:duidingsklasse>
-        <asm:faalkans>0.1</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseVak>
-    </asm:Faalanalyse>
-    <asm:Faalanalyse FaalanalyseID="Fa.31" FaalmechanismeIDRef="Fm.15" WaterkeringsectieIDRef="Bv.31">
-      <asm:analyseVak>
-        <asm:assemblagemethodeFaalkans>BOI-0A-1</asm:assemblagemethodeFaalkans>
-        <asm:assemblagemethodeDuidingsklasse>BOI-0B-1</asm:assemblagemethodeDuidingsklasse>
-        <asm:duidingsklasse>+I</asm:duidingsklasse>
-        <asm:faalkans>0.1</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseVak>
-    </asm:Faalanalyse>
-    <asm:FaalanalyseGecombineerd FaalanalyseGecombineerdID="Gf.0" VeiligheidsoordeelIDRef="Vo.0" WaterkeringsectieIDRef="Bv.32">
-      <asm:analyseGecombineerdDeelvak>
-        <asm:assemblagemethode>BOI-3C-1</asm:assemblagemethode>
-        <asm:duidingsklasse>+II</asm:duidingsklasse>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseGecombineerdDeelvak>
-      <asm:analyseDeelvak>
-        <asm:assemblagemethode>BOI-3B-1</asm:assemblagemethode>
-        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
-        <asm:generiekFaalmechanisme>STPH</asm:generiekFaalmechanisme>
-        <asm:duidingsklasse>+II</asm:duidingsklasse>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseDeelvak>
-      <asm:analyseDeelvak>
-        <asm:assemblagemethode>BOI-3B-1</asm:assemblagemethode>
-        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
-        <asm:generiekFaalmechanisme>GEKB</asm:generiekFaalmechanisme>
-        <asm:duidingsklasse>+II</asm:duidingsklasse>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseDeelvak>
-      <asm:analyseDeelvak>
-        <asm:assemblagemethode>BOI-3B-1</asm:assemblagemethode>
-        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
-        <asm:generiekFaalmechanisme>STBI</asm:generiekFaalmechanisme>
-        <asm:duidingsklasse>+II</asm:duidingsklasse>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseDeelvak>
-      <asm:analyseDeelvak>
-        <asm:assemblagemethode>BOI-3B-1</asm:assemblagemethode>
-        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
-        <asm:generiekFaalmechanisme>STMI</asm:generiekFaalmechanisme>
-        <asm:duidingsklasse>+II</asm:duidingsklasse>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseDeelvak>
-      <asm:analyseDeelvak>
-        <asm:assemblagemethode>BOI-3B-1</asm:assemblagemethode>
-        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
-        <asm:generiekFaalmechanisme>ZST</asm:generiekFaalmechanisme>
-        <asm:duidingsklasse>+II</asm:duidingsklasse>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseDeelvak>
-      <asm:analyseDeelvak>
-        <asm:assemblagemethode>BOI-3B-1</asm:assemblagemethode>
-        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
-        <asm:generiekFaalmechanisme>AGK</asm:generiekFaalmechanisme>
-        <asm:duidingsklasse>+II</asm:duidingsklasse>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseDeelvak>
-      <asm:analyseDeelvak>
-        <asm:assemblagemethode>BOI-3B-1</asm:assemblagemethode>
-        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
-        <asm:generiekFaalmechanisme>AWO</asm:generiekFaalmechanisme>
-        <asm:duidingsklasse>+II</asm:duidingsklasse>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseDeelvak>
-      <asm:analyseDeelvak>
-        <asm:assemblagemethode>BOI-3B-1</asm:assemblagemethode>
-        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
-        <asm:generiekFaalmechanisme>GEBU</asm:generiekFaalmechanisme>
-        <asm:duidingsklasse>+II</asm:duidingsklasse>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseDeelvak>
-      <asm:analyseDeelvak>
-        <asm:assemblagemethode>BOI-3B-1</asm:assemblagemethode>
-        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
-        <asm:generiekFaalmechanisme>GABU</asm:generiekFaalmechanisme>
-        <asm:duidingsklasse>+II</asm:duidingsklasse>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseDeelvak>
-      <asm:analyseDeelvak>
-        <asm:assemblagemethode>BOI-3B-1</asm:assemblagemethode>
-        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
-        <asm:generiekFaalmechanisme>GABI</asm:generiekFaalmechanisme>
-        <asm:duidingsklasse>+II</asm:duidingsklasse>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseDeelvak>
-      <asm:analyseDeelvak>
-        <asm:assemblagemethode>BOI-3B-1</asm:assemblagemethode>
-        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
-        <asm:generiekFaalmechanisme>HTKW</asm:generiekFaalmechanisme>
-        <asm:duidingsklasse>+II</asm:duidingsklasse>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseDeelvak>
-      <asm:analyseDeelvak>
-        <asm:assemblagemethode>BOI-3B-1</asm:assemblagemethode>
-        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
-        <asm:generiekFaalmechanisme>BSKW</asm:generiekFaalmechanisme>
-        <asm:duidingsklasse>+II</asm:duidingsklasse>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseDeelvak>
-      <asm:analyseDeelvak>
-        <asm:assemblagemethode>BOI-3B-1</asm:assemblagemethode>
-        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
-        <asm:generiekFaalmechanisme>PKW</asm:generiekFaalmechanisme>
-        <asm:duidingsklasse>+II</asm:duidingsklasse>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseDeelvak>
-      <asm:analyseDeelvak>
-        <asm:assemblagemethode>BOI-3B-1</asm:assemblagemethode>
-        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
-        <asm:generiekFaalmechanisme>STKWp</asm:generiekFaalmechanisme>
-        <asm:duidingsklasse>+II</asm:duidingsklasse>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseDeelvak>
-      <asm:analyseDeelvak>
-        <asm:assemblagemethode>BOI-3B-1</asm:assemblagemethode>
-        <asm:typeFaalmechanisme>SPECFK</asm:typeFaalmechanisme>
-        <asm:specifiekFaalmechanisme>Specific failure mechanism 1</asm:specifiekFaalmechanisme>
-        <asm:duidingsklasse>+II</asm:duidingsklasse>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseDeelvak>
-      <asm:analyseDeelvak>
-        <asm:assemblagemethode>BOI-3B-1</asm:assemblagemethode>
-        <asm:typeFaalmechanisme>SPECFK</asm:typeFaalmechanisme>
-        <asm:specifiekFaalmechanisme>Specific failure mechanism 2</asm:specifiekFaalmechanisme>
-        <asm:duidingsklasse>+II</asm:duidingsklasse>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseDeelvak>
-    </asm:FaalanalyseGecombineerd>
-    <asm:FaalanalyseGecombineerd FaalanalyseGecombineerdID="Gf.1" VeiligheidsoordeelIDRef="Vo.0" WaterkeringsectieIDRef="Bv.33">
-      <asm:analyseGecombineerdDeelvak>
-        <asm:assemblagemethode>BOI-3C-1</asm:assemblagemethode>
-        <asm:duidingsklasse>+III</asm:duidingsklasse>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseGecombineerdDeelvak>
-      <asm:analyseDeelvak>
-        <asm:assemblagemethode>BOI-3B-1</asm:assemblagemethode>
-        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
-        <asm:generiekFaalmechanisme>STPH</asm:generiekFaalmechanisme>
-        <asm:duidingsklasse>+III</asm:duidingsklasse>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseDeelvak>
-      <asm:analyseDeelvak>
-        <asm:assemblagemethode>BOI-3B-1</asm:assemblagemethode>
-        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
-        <asm:generiekFaalmechanisme>GEKB</asm:generiekFaalmechanisme>
-        <asm:duidingsklasse>+III</asm:duidingsklasse>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseDeelvak>
-      <asm:analyseDeelvak>
-        <asm:assemblagemethode>BOI-3B-1</asm:assemblagemethode>
-        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
-        <asm:generiekFaalmechanisme>STBI</asm:generiekFaalmechanisme>
-        <asm:duidingsklasse>+III</asm:duidingsklasse>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseDeelvak>
-      <asm:analyseDeelvak>
-        <asm:assemblagemethode>BOI-3B-1</asm:assemblagemethode>
-        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
-        <asm:generiekFaalmechanisme>STMI</asm:generiekFaalmechanisme>
-        <asm:duidingsklasse>+III</asm:duidingsklasse>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseDeelvak>
-      <asm:analyseDeelvak>
-        <asm:assemblagemethode>BOI-3B-1</asm:assemblagemethode>
-        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
-        <asm:generiekFaalmechanisme>ZST</asm:generiekFaalmechanisme>
-        <asm:duidingsklasse>+III</asm:duidingsklasse>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseDeelvak>
-      <asm:analyseDeelvak>
-        <asm:assemblagemethode>BOI-3B-1</asm:assemblagemethode>
-        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
-        <asm:generiekFaalmechanisme>AGK</asm:generiekFaalmechanisme>
-        <asm:duidingsklasse>+III</asm:duidingsklasse>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseDeelvak>
-      <asm:analyseDeelvak>
-        <asm:assemblagemethode>BOI-3B-1</asm:assemblagemethode>
-        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
-        <asm:generiekFaalmechanisme>AWO</asm:generiekFaalmechanisme>
-        <asm:duidingsklasse>+III</asm:duidingsklasse>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseDeelvak>
-      <asm:analyseDeelvak>
-        <asm:assemblagemethode>BOI-3B-1</asm:assemblagemethode>
-        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
-        <asm:generiekFaalmechanisme>GEBU</asm:generiekFaalmechanisme>
-        <asm:duidingsklasse>+III</asm:duidingsklasse>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseDeelvak>
-      <asm:analyseDeelvak>
-        <asm:assemblagemethode>BOI-3B-1</asm:assemblagemethode>
-        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
-        <asm:generiekFaalmechanisme>GABU</asm:generiekFaalmechanisme>
-        <asm:duidingsklasse>+III</asm:duidingsklasse>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseDeelvak>
-      <asm:analyseDeelvak>
-        <asm:assemblagemethode>BOI-3B-1</asm:assemblagemethode>
-        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
-        <asm:generiekFaalmechanisme>GABI</asm:generiekFaalmechanisme>
-        <asm:duidingsklasse>+III</asm:duidingsklasse>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseDeelvak>
-      <asm:analyseDeelvak>
-        <asm:assemblagemethode>BOI-3B-1</asm:assemblagemethode>
-        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
-        <asm:generiekFaalmechanisme>HTKW</asm:generiekFaalmechanisme>
-        <asm:duidingsklasse>+III</asm:duidingsklasse>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseDeelvak>
-      <asm:analyseDeelvak>
-        <asm:assemblagemethode>BOI-3B-1</asm:assemblagemethode>
-        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
-        <asm:generiekFaalmechanisme>BSKW</asm:generiekFaalmechanisme>
-        <asm:duidingsklasse>+III</asm:duidingsklasse>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseDeelvak>
-      <asm:analyseDeelvak>
-        <asm:assemblagemethode>BOI-3B-1</asm:assemblagemethode>
-        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
-        <asm:generiekFaalmechanisme>PKW</asm:generiekFaalmechanisme>
-        <asm:duidingsklasse>+III</asm:duidingsklasse>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseDeelvak>
-      <asm:analyseDeelvak>
-        <asm:assemblagemethode>BOI-3B-1</asm:assemblagemethode>
-        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
-        <asm:generiekFaalmechanisme>STKWp</asm:generiekFaalmechanisme>
-        <asm:duidingsklasse>+III</asm:duidingsklasse>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseDeelvak>
-      <asm:analyseDeelvak>
-        <asm:assemblagemethode>BOI-3B-1</asm:assemblagemethode>
-        <asm:typeFaalmechanisme>SPECFK</asm:typeFaalmechanisme>
-        <asm:specifiekFaalmechanisme>Specific failure mechanism 1</asm:specifiekFaalmechanisme>
-        <asm:duidingsklasse>+III</asm:duidingsklasse>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseDeelvak>
-      <asm:analyseDeelvak>
-        <asm:assemblagemethode>BOI-3B-1</asm:assemblagemethode>
-        <asm:typeFaalmechanisme>SPECFK</asm:typeFaalmechanisme>
-        <asm:specifiekFaalmechanisme>Specific failure mechanism 2</asm:specifiekFaalmechanisme>
-        <asm:duidingsklasse>+III</asm:duidingsklasse>
-        <asm:status>VOLLDG</asm:status>
-      </asm:analyseDeelvak>
-    </asm:FaalanalyseGecombineerd>
-    <asm:Vakindeling VakindelingID="Vi.0" />
-    <asm:Vakindeling VakindelingID="Vi.1" />
-    <asm:Vakindeling VakindelingID="Vi.2" />
-    <asm:Vakindeling VakindelingID="Vi.3" />
-    <asm:Vakindeling VakindelingID="Vi.4" />
-    <asm:Vakindeling VakindelingID="Vi.5" />
-    <asm:Vakindeling VakindelingID="Vi.6" />
-    <asm:Vakindeling VakindelingID="Vi.7" />
-    <asm:Vakindeling VakindelingID="Vi.8" />
-    <asm:Vakindeling VakindelingID="Vi.9" />
-    <asm:Vakindeling VakindelingID="Vi.10" />
-    <asm:Vakindeling VakindelingID="Vi.11" />
-    <asm:Vakindeling VakindelingID="Vi.12" />
-    <asm:Vakindeling VakindelingID="Vi.13" />
-    <asm:Vakindeling VakindelingID="Vi.14" />
-    <asm:Vakindeling VakindelingID="Vi.15" />
-    <asm:Vakindeling VakindelingID="Vi.16" />
-    <asm:Deelvak gml:id="Bv.0" VakindelingIDRef="Vi.0">
-      <asm:afstandBegin uom="m">0</asm:afstandBegin>
-      <asm:afstandEinde uom="m">11.313708498984761</asm:afstandEinde>
-      <asm:geometrieLijn2D>
+      </imwap:geometrie2D>
+      <imwap:lengte>5</imwap:lengte>
+      <imwap:typeWaterkeringstelsel>Dijktraject</imwap:typeWaterkeringstelsel>
+    </imwap:Waterkeringstelsel>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Beoordelingsproces gml:id="Bp.0">
+      <uboi:beginJaarBeoordelingsronde>2023</uboi:beginJaarBeoordelingsronde>
+      <uboi:eindJaarBeoordelingsronde>2035</uboi:eindJaarBeoordelingsronde>
+      <uboi:beoordeelt xlink:href="Wks.assessmentSectionId" />
+    </uboi:Beoordelingsproces>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Veiligheidsoordeel gml:id="Vo.0">
+      <uboi:categorie>A+</uboi:categorie>
+      <uboi:assemblagemethodeVeiligheidsoordeel>BOI-2B-1</uboi:assemblagemethodeVeiligheidsoordeel>
+      <uboi:faalkans>0.14</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-2A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:uitkomstVan xlink:href="Bp.0" />
+    </uboi:Veiligheidsoordeel>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:GeneriekFaalmechanisme gml:id="Fm.0">
+      <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-1A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:bepaalt xlink:href="Vo.0" />
+      <uboi:generiekFaalmechanisme>STPH</uboi:generiekFaalmechanisme>
+    </uboi:GeneriekFaalmechanisme>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Faalanalyse gml:id="Fa.0">
+      <uboi:duidingsklasse>+I</uboi:duidingsklasse>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
+      <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:analyseert xlink:href="Fm.0" />
+      <uboi:geldtVoor xlink:href="Bv.0" />
+    </uboi:Faalanalyse>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Faalanalyse gml:id="Fa.1">
+      <uboi:duidingsklasse>+I</uboi:duidingsklasse>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
+      <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:analyseert xlink:href="Fm.0" />
+      <uboi:geldtVoor xlink:href="Bv.1" />
+    </uboi:Faalanalyse>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:GeneriekFaalmechanisme gml:id="Fm.1">
+      <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-1A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:bepaalt xlink:href="Vo.0" />
+      <uboi:generiekFaalmechanisme>GEKB</uboi:generiekFaalmechanisme>
+    </uboi:GeneriekFaalmechanisme>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Faalanalyse gml:id="Fa.2">
+      <uboi:duidingsklasse>+I</uboi:duidingsklasse>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
+      <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:analyseert xlink:href="Fm.1" />
+      <uboi:geldtVoor xlink:href="Bv.2" />
+    </uboi:Faalanalyse>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Faalanalyse gml:id="Fa.3">
+      <uboi:duidingsklasse>+I</uboi:duidingsklasse>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
+      <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:analyseert xlink:href="Fm.1" />
+      <uboi:geldtVoor xlink:href="Bv.3" />
+    </uboi:Faalanalyse>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:GeneriekFaalmechanisme gml:id="Fm.2">
+      <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-1A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:bepaalt xlink:href="Vo.0" />
+      <uboi:generiekFaalmechanisme>STBI</uboi:generiekFaalmechanisme>
+    </uboi:GeneriekFaalmechanisme>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Faalanalyse gml:id="Fa.4">
+      <uboi:duidingsklasse>+I</uboi:duidingsklasse>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
+      <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:analyseert xlink:href="Fm.2" />
+      <uboi:geldtVoor xlink:href="Bv.4" />
+    </uboi:Faalanalyse>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Faalanalyse gml:id="Fa.5">
+      <uboi:duidingsklasse>+I</uboi:duidingsklasse>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
+      <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:analyseert xlink:href="Fm.2" />
+      <uboi:geldtVoor xlink:href="Bv.5" />
+    </uboi:Faalanalyse>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:GeneriekFaalmechanisme gml:id="Fm.3">
+      <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-1A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:bepaalt xlink:href="Vo.0" />
+      <uboi:generiekFaalmechanisme>STMI</uboi:generiekFaalmechanisme>
+    </uboi:GeneriekFaalmechanisme>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Faalanalyse gml:id="Fa.6">
+      <uboi:duidingsklasse>+I</uboi:duidingsklasse>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
+      <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:analyseert xlink:href="Fm.3" />
+      <uboi:geldtVoor xlink:href="Bv.6" />
+    </uboi:Faalanalyse>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Faalanalyse gml:id="Fa.7">
+      <uboi:duidingsklasse>+I</uboi:duidingsklasse>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
+      <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:analyseert xlink:href="Fm.3" />
+      <uboi:geldtVoor xlink:href="Bv.7" />
+    </uboi:Faalanalyse>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:GeneriekFaalmechanisme gml:id="Fm.4">
+      <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-1A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:bepaalt xlink:href="Vo.0" />
+      <uboi:generiekFaalmechanisme>ZST</uboi:generiekFaalmechanisme>
+    </uboi:GeneriekFaalmechanisme>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Faalanalyse gml:id="Fa.8">
+      <uboi:duidingsklasse>+I</uboi:duidingsklasse>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
+      <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:analyseert xlink:href="Fm.4" />
+      <uboi:geldtVoor xlink:href="Bv.8" />
+    </uboi:Faalanalyse>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Faalanalyse gml:id="Fa.9">
+      <uboi:duidingsklasse>+I</uboi:duidingsklasse>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
+      <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:analyseert xlink:href="Fm.4" />
+      <uboi:geldtVoor xlink:href="Bv.9" />
+    </uboi:Faalanalyse>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:GeneriekFaalmechanisme gml:id="Fm.5">
+      <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-1A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:bepaalt xlink:href="Vo.0" />
+      <uboi:generiekFaalmechanisme>AGK</uboi:generiekFaalmechanisme>
+    </uboi:GeneriekFaalmechanisme>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Faalanalyse gml:id="Fa.10">
+      <uboi:duidingsklasse>+I</uboi:duidingsklasse>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
+      <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:analyseert xlink:href="Fm.5" />
+      <uboi:geldtVoor xlink:href="Bv.10" />
+    </uboi:Faalanalyse>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Faalanalyse gml:id="Fa.11">
+      <uboi:duidingsklasse>+I</uboi:duidingsklasse>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
+      <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:analyseert xlink:href="Fm.5" />
+      <uboi:geldtVoor xlink:href="Bv.11" />
+    </uboi:Faalanalyse>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:GeneriekFaalmechanisme gml:id="Fm.6">
+      <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-1A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:bepaalt xlink:href="Vo.0" />
+      <uboi:generiekFaalmechanisme>AWO</uboi:generiekFaalmechanisme>
+    </uboi:GeneriekFaalmechanisme>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Faalanalyse gml:id="Fa.12">
+      <uboi:duidingsklasse>+I</uboi:duidingsklasse>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
+      <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:analyseert xlink:href="Fm.6" />
+      <uboi:geldtVoor xlink:href="Bv.12" />
+    </uboi:Faalanalyse>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Faalanalyse gml:id="Fa.13">
+      <uboi:duidingsklasse>+I</uboi:duidingsklasse>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
+      <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:analyseert xlink:href="Fm.6" />
+      <uboi:geldtVoor xlink:href="Bv.13" />
+    </uboi:Faalanalyse>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:GeneriekFaalmechanisme gml:id="Fm.7">
+      <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-1A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:bepaalt xlink:href="Vo.0" />
+      <uboi:generiekFaalmechanisme>GEBU</uboi:generiekFaalmechanisme>
+    </uboi:GeneriekFaalmechanisme>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Faalanalyse gml:id="Fa.14">
+      <uboi:duidingsklasse>+I</uboi:duidingsklasse>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
+      <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:analyseert xlink:href="Fm.7" />
+      <uboi:geldtVoor xlink:href="Bv.14" />
+    </uboi:Faalanalyse>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Faalanalyse gml:id="Fa.15">
+      <uboi:duidingsklasse>+I</uboi:duidingsklasse>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
+      <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:analyseert xlink:href="Fm.7" />
+      <uboi:geldtVoor xlink:href="Bv.15" />
+    </uboi:Faalanalyse>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:GeneriekFaalmechanisme gml:id="Fm.8">
+      <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-1A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:bepaalt xlink:href="Vo.0" />
+      <uboi:generiekFaalmechanisme>GABU</uboi:generiekFaalmechanisme>
+    </uboi:GeneriekFaalmechanisme>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Faalanalyse gml:id="Fa.16">
+      <uboi:duidingsklasse>+I</uboi:duidingsklasse>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
+      <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:analyseert xlink:href="Fm.8" />
+      <uboi:geldtVoor xlink:href="Bv.16" />
+    </uboi:Faalanalyse>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Faalanalyse gml:id="Fa.17">
+      <uboi:duidingsklasse>+I</uboi:duidingsklasse>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
+      <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:analyseert xlink:href="Fm.8" />
+      <uboi:geldtVoor xlink:href="Bv.17" />
+    </uboi:Faalanalyse>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:GeneriekFaalmechanisme gml:id="Fm.9">
+      <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-1A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:bepaalt xlink:href="Vo.0" />
+      <uboi:generiekFaalmechanisme>GABI</uboi:generiekFaalmechanisme>
+    </uboi:GeneriekFaalmechanisme>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Faalanalyse gml:id="Fa.18">
+      <uboi:duidingsklasse>+I</uboi:duidingsklasse>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
+      <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:analyseert xlink:href="Fm.9" />
+      <uboi:geldtVoor xlink:href="Bv.18" />
+    </uboi:Faalanalyse>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Faalanalyse gml:id="Fa.19">
+      <uboi:duidingsklasse>+I</uboi:duidingsklasse>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
+      <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:analyseert xlink:href="Fm.9" />
+      <uboi:geldtVoor xlink:href="Bv.19" />
+    </uboi:Faalanalyse>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:GeneriekFaalmechanisme gml:id="Fm.10">
+      <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-1A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:bepaalt xlink:href="Vo.0" />
+      <uboi:generiekFaalmechanisme>HTKW</uboi:generiekFaalmechanisme>
+    </uboi:GeneriekFaalmechanisme>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Faalanalyse gml:id="Fa.20">
+      <uboi:duidingsklasse>+I</uboi:duidingsklasse>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
+      <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:analyseert xlink:href="Fm.10" />
+      <uboi:geldtVoor xlink:href="Bv.20" />
+    </uboi:Faalanalyse>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Faalanalyse gml:id="Fa.21">
+      <uboi:duidingsklasse>+I</uboi:duidingsklasse>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
+      <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:analyseert xlink:href="Fm.10" />
+      <uboi:geldtVoor xlink:href="Bv.21" />
+    </uboi:Faalanalyse>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:GeneriekFaalmechanisme gml:id="Fm.11">
+      <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-1A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:bepaalt xlink:href="Vo.0" />
+      <uboi:generiekFaalmechanisme>BSKW</uboi:generiekFaalmechanisme>
+    </uboi:GeneriekFaalmechanisme>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Faalanalyse gml:id="Fa.22">
+      <uboi:duidingsklasse>+I</uboi:duidingsklasse>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
+      <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:analyseert xlink:href="Fm.11" />
+      <uboi:geldtVoor xlink:href="Bv.22" />
+    </uboi:Faalanalyse>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Faalanalyse gml:id="Fa.23">
+      <uboi:duidingsklasse>+I</uboi:duidingsklasse>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
+      <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:analyseert xlink:href="Fm.11" />
+      <uboi:geldtVoor xlink:href="Bv.23" />
+    </uboi:Faalanalyse>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:GeneriekFaalmechanisme gml:id="Fm.12">
+      <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-1A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:bepaalt xlink:href="Vo.0" />
+      <uboi:generiekFaalmechanisme>PKW</uboi:generiekFaalmechanisme>
+    </uboi:GeneriekFaalmechanisme>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Faalanalyse gml:id="Fa.24">
+      <uboi:duidingsklasse>+I</uboi:duidingsklasse>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
+      <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:analyseert xlink:href="Fm.12" />
+      <uboi:geldtVoor xlink:href="Bv.24" />
+    </uboi:Faalanalyse>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Faalanalyse gml:id="Fa.25">
+      <uboi:duidingsklasse>+I</uboi:duidingsklasse>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
+      <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:analyseert xlink:href="Fm.12" />
+      <uboi:geldtVoor xlink:href="Bv.25" />
+    </uboi:Faalanalyse>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:GeneriekFaalmechanisme gml:id="Fm.13">
+      <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-1A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:bepaalt xlink:href="Vo.0" />
+      <uboi:generiekFaalmechanisme>STKWp</uboi:generiekFaalmechanisme>
+    </uboi:GeneriekFaalmechanisme>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Faalanalyse gml:id="Fa.26">
+      <uboi:duidingsklasse>+I</uboi:duidingsklasse>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
+      <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:analyseert xlink:href="Fm.13" />
+      <uboi:geldtVoor xlink:href="Bv.26" />
+    </uboi:Faalanalyse>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Faalanalyse gml:id="Fa.27">
+      <uboi:duidingsklasse>+I</uboi:duidingsklasse>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
+      <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:analyseert xlink:href="Fm.13" />
+      <uboi:geldtVoor xlink:href="Bv.27" />
+    </uboi:Faalanalyse>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:SpecifiekFaalmechanisme gml:id="Fm.14">
+      <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-1A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:bepaalt xlink:href="Vo.0" />
+      <uboi:specifiekFaalmechanisme>Specific failure mechanism 1</uboi:specifiekFaalmechanisme>
+    </uboi:SpecifiekFaalmechanisme>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Faalanalyse gml:id="Fa.28">
+      <uboi:duidingsklasse>+I</uboi:duidingsklasse>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
+      <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:analyseert xlink:href="Fm.14" />
+      <uboi:geldtVoor xlink:href="Bv.28" />
+    </uboi:Faalanalyse>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Faalanalyse gml:id="Fa.29">
+      <uboi:duidingsklasse>+I</uboi:duidingsklasse>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
+      <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:analyseert xlink:href="Fm.14" />
+      <uboi:geldtVoor xlink:href="Bv.29" />
+    </uboi:Faalanalyse>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:SpecifiekFaalmechanisme gml:id="Fm.15">
+      <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-1A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:bepaalt xlink:href="Vo.0" />
+      <uboi:specifiekFaalmechanisme>Specific failure mechanism 2</uboi:specifiekFaalmechanisme>
+    </uboi:SpecifiekFaalmechanisme>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Faalanalyse gml:id="Fa.30">
+      <uboi:duidingsklasse>+I</uboi:duidingsklasse>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
+      <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:analyseert xlink:href="Fm.15" />
+      <uboi:geldtVoor xlink:href="Bv.30" />
+    </uboi:Faalanalyse>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Faalanalyse gml:id="Fa.31">
+      <uboi:duidingsklasse>+I</uboi:duidingsklasse>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
+      <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:analyseert xlink:href="Fm.15" />
+      <uboi:geldtVoor xlink:href="Bv.31" />
+    </uboi:Faalanalyse>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:AnalyseDeelvakGecombineerd gml:id="id">
+      <uboi:duidingsklasse>+II</uboi:duidingsklasse>
+      <uboi:assemblagemethode>BOI-3C-1</uboi:assemblagemethode>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:specificeert xlink:href="Vo.0" />
+      <uboi:geldtVoor xlink:href="id" />
+    </uboi:AnalyseDeelvakGecombineerd>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:AnalyseDeelvak>
+      <uboi:duidingsklasse>+II</uboi:duidingsklasse>
+      <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:afgeleidVan xlink:href="id" />
+      <uboi:duidt xlink:href="id" />
+    </uboi:AnalyseDeelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:AnalyseDeelvak>
+      <uboi:duidingsklasse>+II</uboi:duidingsklasse>
+      <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:afgeleidVan xlink:href="id" />
+      <uboi:duidt xlink:href="id" />
+    </uboi:AnalyseDeelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:AnalyseDeelvak>
+      <uboi:duidingsklasse>+II</uboi:duidingsklasse>
+      <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:afgeleidVan xlink:href="id" />
+      <uboi:duidt xlink:href="id" />
+    </uboi:AnalyseDeelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:AnalyseDeelvak>
+      <uboi:duidingsklasse>+II</uboi:duidingsklasse>
+      <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:afgeleidVan xlink:href="id" />
+      <uboi:duidt xlink:href="id" />
+    </uboi:AnalyseDeelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:AnalyseDeelvak>
+      <uboi:duidingsklasse>+II</uboi:duidingsklasse>
+      <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:afgeleidVan xlink:href="id" />
+      <uboi:duidt xlink:href="id" />
+    </uboi:AnalyseDeelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:AnalyseDeelvak>
+      <uboi:duidingsklasse>+II</uboi:duidingsklasse>
+      <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:afgeleidVan xlink:href="id" />
+      <uboi:duidt xlink:href="id" />
+    </uboi:AnalyseDeelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:AnalyseDeelvak>
+      <uboi:duidingsklasse>+II</uboi:duidingsklasse>
+      <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:afgeleidVan xlink:href="id" />
+      <uboi:duidt xlink:href="id" />
+    </uboi:AnalyseDeelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:AnalyseDeelvak>
+      <uboi:duidingsklasse>+II</uboi:duidingsklasse>
+      <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:afgeleidVan xlink:href="id" />
+      <uboi:duidt xlink:href="id" />
+    </uboi:AnalyseDeelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:AnalyseDeelvak>
+      <uboi:duidingsklasse>+II</uboi:duidingsklasse>
+      <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:afgeleidVan xlink:href="id" />
+      <uboi:duidt xlink:href="id" />
+    </uboi:AnalyseDeelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:AnalyseDeelvak>
+      <uboi:duidingsklasse>+II</uboi:duidingsklasse>
+      <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:afgeleidVan xlink:href="id" />
+      <uboi:duidt xlink:href="id" />
+    </uboi:AnalyseDeelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:AnalyseDeelvak>
+      <uboi:duidingsklasse>+II</uboi:duidingsklasse>
+      <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:afgeleidVan xlink:href="id" />
+      <uboi:duidt xlink:href="id" />
+    </uboi:AnalyseDeelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:AnalyseDeelvak>
+      <uboi:duidingsklasse>+II</uboi:duidingsklasse>
+      <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:afgeleidVan xlink:href="id" />
+      <uboi:duidt xlink:href="id" />
+    </uboi:AnalyseDeelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:AnalyseDeelvak>
+      <uboi:duidingsklasse>+II</uboi:duidingsklasse>
+      <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:afgeleidVan xlink:href="id" />
+      <uboi:duidt xlink:href="id" />
+    </uboi:AnalyseDeelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:AnalyseDeelvak>
+      <uboi:duidingsklasse>+II</uboi:duidingsklasse>
+      <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:afgeleidVan xlink:href="id" />
+      <uboi:duidt xlink:href="id" />
+    </uboi:AnalyseDeelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:AnalyseDeelvak>
+      <uboi:duidingsklasse>+II</uboi:duidingsklasse>
+      <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:afgeleidVan xlink:href="id" />
+      <uboi:duidt xlink:href="id" />
+    </uboi:AnalyseDeelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:AnalyseDeelvak>
+      <uboi:duidingsklasse>+II</uboi:duidingsklasse>
+      <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:afgeleidVan xlink:href="id" />
+      <uboi:duidt xlink:href="id" />
+    </uboi:AnalyseDeelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:AnalyseDeelvakGecombineerd gml:id="id">
+      <uboi:duidingsklasse>+III</uboi:duidingsklasse>
+      <uboi:assemblagemethode>BOI-3C-1</uboi:assemblagemethode>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:specificeert xlink:href="Vo.0" />
+      <uboi:geldtVoor xlink:href="id" />
+    </uboi:AnalyseDeelvakGecombineerd>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:AnalyseDeelvak>
+      <uboi:duidingsklasse>+III</uboi:duidingsklasse>
+      <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:afgeleidVan xlink:href="id" />
+      <uboi:duidt xlink:href="id" />
+    </uboi:AnalyseDeelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:AnalyseDeelvak>
+      <uboi:duidingsklasse>+III</uboi:duidingsklasse>
+      <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:afgeleidVan xlink:href="id" />
+      <uboi:duidt xlink:href="id" />
+    </uboi:AnalyseDeelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:AnalyseDeelvak>
+      <uboi:duidingsklasse>+III</uboi:duidingsklasse>
+      <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:afgeleidVan xlink:href="id" />
+      <uboi:duidt xlink:href="id" />
+    </uboi:AnalyseDeelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:AnalyseDeelvak>
+      <uboi:duidingsklasse>+III</uboi:duidingsklasse>
+      <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:afgeleidVan xlink:href="id" />
+      <uboi:duidt xlink:href="id" />
+    </uboi:AnalyseDeelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:AnalyseDeelvak>
+      <uboi:duidingsklasse>+III</uboi:duidingsklasse>
+      <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:afgeleidVan xlink:href="id" />
+      <uboi:duidt xlink:href="id" />
+    </uboi:AnalyseDeelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:AnalyseDeelvak>
+      <uboi:duidingsklasse>+III</uboi:duidingsklasse>
+      <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:afgeleidVan xlink:href="id" />
+      <uboi:duidt xlink:href="id" />
+    </uboi:AnalyseDeelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:AnalyseDeelvak>
+      <uboi:duidingsklasse>+III</uboi:duidingsklasse>
+      <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:afgeleidVan xlink:href="id" />
+      <uboi:duidt xlink:href="id" />
+    </uboi:AnalyseDeelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:AnalyseDeelvak>
+      <uboi:duidingsklasse>+III</uboi:duidingsklasse>
+      <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:afgeleidVan xlink:href="id" />
+      <uboi:duidt xlink:href="id" />
+    </uboi:AnalyseDeelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:AnalyseDeelvak>
+      <uboi:duidingsklasse>+III</uboi:duidingsklasse>
+      <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:afgeleidVan xlink:href="id" />
+      <uboi:duidt xlink:href="id" />
+    </uboi:AnalyseDeelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:AnalyseDeelvak>
+      <uboi:duidingsklasse>+III</uboi:duidingsklasse>
+      <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:afgeleidVan xlink:href="id" />
+      <uboi:duidt xlink:href="id" />
+    </uboi:AnalyseDeelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:AnalyseDeelvak>
+      <uboi:duidingsklasse>+III</uboi:duidingsklasse>
+      <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:afgeleidVan xlink:href="id" />
+      <uboi:duidt xlink:href="id" />
+    </uboi:AnalyseDeelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:AnalyseDeelvak>
+      <uboi:duidingsklasse>+III</uboi:duidingsklasse>
+      <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:afgeleidVan xlink:href="id" />
+      <uboi:duidt xlink:href="id" />
+    </uboi:AnalyseDeelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:AnalyseDeelvak>
+      <uboi:duidingsklasse>+III</uboi:duidingsklasse>
+      <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:afgeleidVan xlink:href="id" />
+      <uboi:duidt xlink:href="id" />
+    </uboi:AnalyseDeelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:AnalyseDeelvak>
+      <uboi:duidingsklasse>+III</uboi:duidingsklasse>
+      <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:afgeleidVan xlink:href="id" />
+      <uboi:duidt xlink:href="id" />
+    </uboi:AnalyseDeelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:AnalyseDeelvak>
+      <uboi:duidingsklasse>+III</uboi:duidingsklasse>
+      <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:afgeleidVan xlink:href="id" />
+      <uboi:duidt xlink:href="id" />
+    </uboi:AnalyseDeelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:AnalyseDeelvak>
+      <uboi:duidingsklasse>+III</uboi:duidingsklasse>
+      <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:afgeleidVan xlink:href="id" />
+      <uboi:duidt xlink:href="id" />
+    </uboi:AnalyseDeelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <imwap:Vakindeling gml:id="Vi.0" />
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Deelvak gml:id="Bv.0">
+      <imwap:geometrieLijn2D>
         <gml:LineString srsName="EPSG:28992">
           <gml:posList>-1 -1 7 7</gml:posList>
         </gml:LineString>
-      </asm:geometrieLijn2D>
-      <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
-    </asm:Deelvak>
-    <asm:Deelvak gml:id="Bv.1" VakindelingIDRef="Vi.0">
-      <asm:afstandBegin uom="m">11.313708498984761</asm:afstandBegin>
-      <asm:afstandEinde uom="m">22.627416997969522</asm:afstandEinde>
-      <asm:geometrieLijn2D>
+      </imwap:geometrieLijn2D>
+      <imwap:typeWaterkeringsectie>FAALMVK</imwap:typeWaterkeringsectie>
+      <imwap:afstandBegin>0</imwap:afstandBegin>
+      <imwap:afstandEinde>11.313708498984761</imwap:afstandEinde>
+      <imwap:lengte>11.313708498984761</imwap:lengte>
+      <imwap:onderdeelVan xlink:href="Vi.0" />
+    </uboi:Deelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Deelvak gml:id="Bv.1">
+      <imwap:geometrieLijn2D>
         <gml:LineString srsName="EPSG:28992">
           <gml:posList>7 7 15 15</gml:posList>
         </gml:LineString>
-      </asm:geometrieLijn2D>
-      <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
-    </asm:Deelvak>
-    <asm:Deelvak gml:id="Bv.2" VakindelingIDRef="Vi.1">
-      <asm:afstandBegin uom="m">0</asm:afstandBegin>
-      <asm:afstandEinde uom="m">11.313708498984761</asm:afstandEinde>
-      <asm:geometrieLijn2D>
+      </imwap:geometrieLijn2D>
+      <imwap:typeWaterkeringsectie>FAALMVK</imwap:typeWaterkeringsectie>
+      <imwap:afstandBegin>11.313708498984761</imwap:afstandBegin>
+      <imwap:afstandEinde>22.627416997969522</imwap:afstandEinde>
+      <imwap:lengte>11.313708498984761</imwap:lengte>
+      <imwap:onderdeelVan xlink:href="Vi.0" />
+    </uboi:Deelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <imwap:Vakindeling gml:id="Vi.1" />
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Deelvak gml:id="Bv.2">
+      <imwap:geometrieLijn2D>
         <gml:LineString srsName="EPSG:28992">
           <gml:posList>-1 -1 7 7</gml:posList>
         </gml:LineString>
-      </asm:geometrieLijn2D>
-      <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
-    </asm:Deelvak>
-    <asm:Deelvak gml:id="Bv.3" VakindelingIDRef="Vi.1">
-      <asm:afstandBegin uom="m">11.313708498984761</asm:afstandBegin>
-      <asm:afstandEinde uom="m">22.627416997969522</asm:afstandEinde>
-      <asm:geometrieLijn2D>
+      </imwap:geometrieLijn2D>
+      <imwap:typeWaterkeringsectie>FAALMVK</imwap:typeWaterkeringsectie>
+      <imwap:afstandBegin>0</imwap:afstandBegin>
+      <imwap:afstandEinde>11.313708498984761</imwap:afstandEinde>
+      <imwap:lengte>11.313708498984761</imwap:lengte>
+      <imwap:onderdeelVan xlink:href="Vi.1" />
+    </uboi:Deelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Deelvak gml:id="Bv.3">
+      <imwap:geometrieLijn2D>
         <gml:LineString srsName="EPSG:28992">
           <gml:posList>7 7 15 15</gml:posList>
         </gml:LineString>
-      </asm:geometrieLijn2D>
-      <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
-    </asm:Deelvak>
-    <asm:Deelvak gml:id="Bv.4" VakindelingIDRef="Vi.2">
-      <asm:afstandBegin uom="m">0</asm:afstandBegin>
-      <asm:afstandEinde uom="m">11.313708498984761</asm:afstandEinde>
-      <asm:geometrieLijn2D>
+      </imwap:geometrieLijn2D>
+      <imwap:typeWaterkeringsectie>FAALMVK</imwap:typeWaterkeringsectie>
+      <imwap:afstandBegin>11.313708498984761</imwap:afstandBegin>
+      <imwap:afstandEinde>22.627416997969522</imwap:afstandEinde>
+      <imwap:lengte>11.313708498984761</imwap:lengte>
+      <imwap:onderdeelVan xlink:href="Vi.1" />
+    </uboi:Deelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <imwap:Vakindeling gml:id="Vi.2" />
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Deelvak gml:id="Bv.4">
+      <imwap:geometrieLijn2D>
         <gml:LineString srsName="EPSG:28992">
           <gml:posList>-1 -1 7 7</gml:posList>
         </gml:LineString>
-      </asm:geometrieLijn2D>
-      <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
-    </asm:Deelvak>
-    <asm:Deelvak gml:id="Bv.5" VakindelingIDRef="Vi.2">
-      <asm:afstandBegin uom="m">11.313708498984761</asm:afstandBegin>
-      <asm:afstandEinde uom="m">22.627416997969522</asm:afstandEinde>
-      <asm:geometrieLijn2D>
+      </imwap:geometrieLijn2D>
+      <imwap:typeWaterkeringsectie>FAALMVK</imwap:typeWaterkeringsectie>
+      <imwap:afstandBegin>0</imwap:afstandBegin>
+      <imwap:afstandEinde>11.313708498984761</imwap:afstandEinde>
+      <imwap:lengte>11.313708498984761</imwap:lengte>
+      <imwap:onderdeelVan xlink:href="Vi.2" />
+    </uboi:Deelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Deelvak gml:id="Bv.5">
+      <imwap:geometrieLijn2D>
         <gml:LineString srsName="EPSG:28992">
           <gml:posList>7 7 15 15</gml:posList>
         </gml:LineString>
-      </asm:geometrieLijn2D>
-      <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
-    </asm:Deelvak>
-    <asm:Deelvak gml:id="Bv.6" VakindelingIDRef="Vi.3">
-      <asm:afstandBegin uom="m">0</asm:afstandBegin>
-      <asm:afstandEinde uom="m">11.313708498984761</asm:afstandEinde>
-      <asm:geometrieLijn2D>
+      </imwap:geometrieLijn2D>
+      <imwap:typeWaterkeringsectie>FAALMVK</imwap:typeWaterkeringsectie>
+      <imwap:afstandBegin>11.313708498984761</imwap:afstandBegin>
+      <imwap:afstandEinde>22.627416997969522</imwap:afstandEinde>
+      <imwap:lengte>11.313708498984761</imwap:lengte>
+      <imwap:onderdeelVan xlink:href="Vi.2" />
+    </uboi:Deelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <imwap:Vakindeling gml:id="Vi.3" />
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Deelvak gml:id="Bv.6">
+      <imwap:geometrieLijn2D>
         <gml:LineString srsName="EPSG:28992">
           <gml:posList>-1 -1 7 7</gml:posList>
         </gml:LineString>
-      </asm:geometrieLijn2D>
-      <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
-    </asm:Deelvak>
-    <asm:Deelvak gml:id="Bv.7" VakindelingIDRef="Vi.3">
-      <asm:afstandBegin uom="m">11.313708498984761</asm:afstandBegin>
-      <asm:afstandEinde uom="m">22.627416997969522</asm:afstandEinde>
-      <asm:geometrieLijn2D>
+      </imwap:geometrieLijn2D>
+      <imwap:typeWaterkeringsectie>FAALMVK</imwap:typeWaterkeringsectie>
+      <imwap:afstandBegin>0</imwap:afstandBegin>
+      <imwap:afstandEinde>11.313708498984761</imwap:afstandEinde>
+      <imwap:lengte>11.313708498984761</imwap:lengte>
+      <imwap:onderdeelVan xlink:href="Vi.3" />
+    </uboi:Deelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Deelvak gml:id="Bv.7">
+      <imwap:geometrieLijn2D>
         <gml:LineString srsName="EPSG:28992">
           <gml:posList>7 7 15 15</gml:posList>
         </gml:LineString>
-      </asm:geometrieLijn2D>
-      <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
-    </asm:Deelvak>
-    <asm:Deelvak gml:id="Bv.8" VakindelingIDRef="Vi.4">
-      <asm:afstandBegin uom="m">0</asm:afstandBegin>
-      <asm:afstandEinde uom="m">11.313708498984761</asm:afstandEinde>
-      <asm:geometrieLijn2D>
+      </imwap:geometrieLijn2D>
+      <imwap:typeWaterkeringsectie>FAALMVK</imwap:typeWaterkeringsectie>
+      <imwap:afstandBegin>11.313708498984761</imwap:afstandBegin>
+      <imwap:afstandEinde>22.627416997969522</imwap:afstandEinde>
+      <imwap:lengte>11.313708498984761</imwap:lengte>
+      <imwap:onderdeelVan xlink:href="Vi.3" />
+    </uboi:Deelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <imwap:Vakindeling gml:id="Vi.4" />
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Deelvak gml:id="Bv.8">
+      <imwap:geometrieLijn2D>
         <gml:LineString srsName="EPSG:28992">
           <gml:posList>-1 -1 7 7</gml:posList>
         </gml:LineString>
-      </asm:geometrieLijn2D>
-      <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
-    </asm:Deelvak>
-    <asm:Deelvak gml:id="Bv.9" VakindelingIDRef="Vi.4">
-      <asm:afstandBegin uom="m">11.313708498984761</asm:afstandBegin>
-      <asm:afstandEinde uom="m">22.627416997969522</asm:afstandEinde>
-      <asm:geometrieLijn2D>
+      </imwap:geometrieLijn2D>
+      <imwap:typeWaterkeringsectie>FAALMVK</imwap:typeWaterkeringsectie>
+      <imwap:afstandBegin>0</imwap:afstandBegin>
+      <imwap:afstandEinde>11.313708498984761</imwap:afstandEinde>
+      <imwap:lengte>11.313708498984761</imwap:lengte>
+      <imwap:onderdeelVan xlink:href="Vi.4" />
+    </uboi:Deelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Deelvak gml:id="Bv.9">
+      <imwap:geometrieLijn2D>
         <gml:LineString srsName="EPSG:28992">
           <gml:posList>7 7 15 15</gml:posList>
         </gml:LineString>
-      </asm:geometrieLijn2D>
-      <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
-    </asm:Deelvak>
-    <asm:Deelvak gml:id="Bv.10" VakindelingIDRef="Vi.5">
-      <asm:afstandBegin uom="m">0</asm:afstandBegin>
-      <asm:afstandEinde uom="m">11.313708498984761</asm:afstandEinde>
-      <asm:geometrieLijn2D>
+      </imwap:geometrieLijn2D>
+      <imwap:typeWaterkeringsectie>FAALMVK</imwap:typeWaterkeringsectie>
+      <imwap:afstandBegin>11.313708498984761</imwap:afstandBegin>
+      <imwap:afstandEinde>22.627416997969522</imwap:afstandEinde>
+      <imwap:lengte>11.313708498984761</imwap:lengte>
+      <imwap:onderdeelVan xlink:href="Vi.4" />
+    </uboi:Deelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <imwap:Vakindeling gml:id="Vi.5" />
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Deelvak gml:id="Bv.10">
+      <imwap:geometrieLijn2D>
         <gml:LineString srsName="EPSG:28992">
           <gml:posList>-1 -1 7 7</gml:posList>
         </gml:LineString>
-      </asm:geometrieLijn2D>
-      <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
-    </asm:Deelvak>
-    <asm:Deelvak gml:id="Bv.11" VakindelingIDRef="Vi.5">
-      <asm:afstandBegin uom="m">11.313708498984761</asm:afstandBegin>
-      <asm:afstandEinde uom="m">22.627416997969522</asm:afstandEinde>
-      <asm:geometrieLijn2D>
+      </imwap:geometrieLijn2D>
+      <imwap:typeWaterkeringsectie>FAALMVK</imwap:typeWaterkeringsectie>
+      <imwap:afstandBegin>0</imwap:afstandBegin>
+      <imwap:afstandEinde>11.313708498984761</imwap:afstandEinde>
+      <imwap:lengte>11.313708498984761</imwap:lengte>
+      <imwap:onderdeelVan xlink:href="Vi.5" />
+    </uboi:Deelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Deelvak gml:id="Bv.11">
+      <imwap:geometrieLijn2D>
         <gml:LineString srsName="EPSG:28992">
           <gml:posList>7 7 15 15</gml:posList>
         </gml:LineString>
-      </asm:geometrieLijn2D>
-      <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
-    </asm:Deelvak>
-    <asm:Deelvak gml:id="Bv.12" VakindelingIDRef="Vi.6">
-      <asm:afstandBegin uom="m">0</asm:afstandBegin>
-      <asm:afstandEinde uom="m">11.313708498984761</asm:afstandEinde>
-      <asm:geometrieLijn2D>
+      </imwap:geometrieLijn2D>
+      <imwap:typeWaterkeringsectie>FAALMVK</imwap:typeWaterkeringsectie>
+      <imwap:afstandBegin>11.313708498984761</imwap:afstandBegin>
+      <imwap:afstandEinde>22.627416997969522</imwap:afstandEinde>
+      <imwap:lengte>11.313708498984761</imwap:lengte>
+      <imwap:onderdeelVan xlink:href="Vi.5" />
+    </uboi:Deelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <imwap:Vakindeling gml:id="Vi.6" />
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Deelvak gml:id="Bv.12">
+      <imwap:geometrieLijn2D>
         <gml:LineString srsName="EPSG:28992">
           <gml:posList>-1 -1 7 7</gml:posList>
         </gml:LineString>
-      </asm:geometrieLijn2D>
-      <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
-    </asm:Deelvak>
-    <asm:Deelvak gml:id="Bv.13" VakindelingIDRef="Vi.6">
-      <asm:afstandBegin uom="m">11.313708498984761</asm:afstandBegin>
-      <asm:afstandEinde uom="m">22.627416997969522</asm:afstandEinde>
-      <asm:geometrieLijn2D>
+      </imwap:geometrieLijn2D>
+      <imwap:typeWaterkeringsectie>FAALMVK</imwap:typeWaterkeringsectie>
+      <imwap:afstandBegin>0</imwap:afstandBegin>
+      <imwap:afstandEinde>11.313708498984761</imwap:afstandEinde>
+      <imwap:lengte>11.313708498984761</imwap:lengte>
+      <imwap:onderdeelVan xlink:href="Vi.6" />
+    </uboi:Deelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Deelvak gml:id="Bv.13">
+      <imwap:geometrieLijn2D>
         <gml:LineString srsName="EPSG:28992">
           <gml:posList>7 7 15 15</gml:posList>
         </gml:LineString>
-      </asm:geometrieLijn2D>
-      <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
-    </asm:Deelvak>
-    <asm:Deelvak gml:id="Bv.14" VakindelingIDRef="Vi.7">
-      <asm:afstandBegin uom="m">0</asm:afstandBegin>
-      <asm:afstandEinde uom="m">11.313708498984761</asm:afstandEinde>
-      <asm:geometrieLijn2D>
+      </imwap:geometrieLijn2D>
+      <imwap:typeWaterkeringsectie>FAALMVK</imwap:typeWaterkeringsectie>
+      <imwap:afstandBegin>11.313708498984761</imwap:afstandBegin>
+      <imwap:afstandEinde>22.627416997969522</imwap:afstandEinde>
+      <imwap:lengte>11.313708498984761</imwap:lengte>
+      <imwap:onderdeelVan xlink:href="Vi.6" />
+    </uboi:Deelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <imwap:Vakindeling gml:id="Vi.7" />
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Deelvak gml:id="Bv.14">
+      <imwap:geometrieLijn2D>
         <gml:LineString srsName="EPSG:28992">
           <gml:posList>-1 -1 7 7</gml:posList>
         </gml:LineString>
-      </asm:geometrieLijn2D>
-      <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
-    </asm:Deelvak>
-    <asm:Deelvak gml:id="Bv.15" VakindelingIDRef="Vi.7">
-      <asm:afstandBegin uom="m">11.313708498984761</asm:afstandBegin>
-      <asm:afstandEinde uom="m">22.627416997969522</asm:afstandEinde>
-      <asm:geometrieLijn2D>
+      </imwap:geometrieLijn2D>
+      <imwap:typeWaterkeringsectie>FAALMVK</imwap:typeWaterkeringsectie>
+      <imwap:afstandBegin>0</imwap:afstandBegin>
+      <imwap:afstandEinde>11.313708498984761</imwap:afstandEinde>
+      <imwap:lengte>11.313708498984761</imwap:lengte>
+      <imwap:onderdeelVan xlink:href="Vi.7" />
+    </uboi:Deelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Deelvak gml:id="Bv.15">
+      <imwap:geometrieLijn2D>
         <gml:LineString srsName="EPSG:28992">
           <gml:posList>7 7 15 15</gml:posList>
         </gml:LineString>
-      </asm:geometrieLijn2D>
-      <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
-    </asm:Deelvak>
-    <asm:Deelvak gml:id="Bv.16" VakindelingIDRef="Vi.8">
-      <asm:afstandBegin uom="m">0</asm:afstandBegin>
-      <asm:afstandEinde uom="m">11.313708498984761</asm:afstandEinde>
-      <asm:geometrieLijn2D>
+      </imwap:geometrieLijn2D>
+      <imwap:typeWaterkeringsectie>FAALMVK</imwap:typeWaterkeringsectie>
+      <imwap:afstandBegin>11.313708498984761</imwap:afstandBegin>
+      <imwap:afstandEinde>22.627416997969522</imwap:afstandEinde>
+      <imwap:lengte>11.313708498984761</imwap:lengte>
+      <imwap:onderdeelVan xlink:href="Vi.7" />
+    </uboi:Deelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <imwap:Vakindeling gml:id="Vi.8" />
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Deelvak gml:id="Bv.16">
+      <imwap:geometrieLijn2D>
         <gml:LineString srsName="EPSG:28992">
           <gml:posList>-1 -1 7 7</gml:posList>
         </gml:LineString>
-      </asm:geometrieLijn2D>
-      <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
-    </asm:Deelvak>
-    <asm:Deelvak gml:id="Bv.17" VakindelingIDRef="Vi.8">
-      <asm:afstandBegin uom="m">11.313708498984761</asm:afstandBegin>
-      <asm:afstandEinde uom="m">22.627416997969522</asm:afstandEinde>
-      <asm:geometrieLijn2D>
+      </imwap:geometrieLijn2D>
+      <imwap:typeWaterkeringsectie>FAALMVK</imwap:typeWaterkeringsectie>
+      <imwap:afstandBegin>0</imwap:afstandBegin>
+      <imwap:afstandEinde>11.313708498984761</imwap:afstandEinde>
+      <imwap:lengte>11.313708498984761</imwap:lengte>
+      <imwap:onderdeelVan xlink:href="Vi.8" />
+    </uboi:Deelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Deelvak gml:id="Bv.17">
+      <imwap:geometrieLijn2D>
         <gml:LineString srsName="EPSG:28992">
           <gml:posList>7 7 15 15</gml:posList>
         </gml:LineString>
-      </asm:geometrieLijn2D>
-      <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
-    </asm:Deelvak>
-    <asm:Deelvak gml:id="Bv.18" VakindelingIDRef="Vi.9">
-      <asm:afstandBegin uom="m">0</asm:afstandBegin>
-      <asm:afstandEinde uom="m">11.313708498984761</asm:afstandEinde>
-      <asm:geometrieLijn2D>
+      </imwap:geometrieLijn2D>
+      <imwap:typeWaterkeringsectie>FAALMVK</imwap:typeWaterkeringsectie>
+      <imwap:afstandBegin>11.313708498984761</imwap:afstandBegin>
+      <imwap:afstandEinde>22.627416997969522</imwap:afstandEinde>
+      <imwap:lengte>11.313708498984761</imwap:lengte>
+      <imwap:onderdeelVan xlink:href="Vi.8" />
+    </uboi:Deelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <imwap:Vakindeling gml:id="Vi.9" />
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Deelvak gml:id="Bv.18">
+      <imwap:geometrieLijn2D>
         <gml:LineString srsName="EPSG:28992">
           <gml:posList>-1 -1 7 7</gml:posList>
         </gml:LineString>
-      </asm:geometrieLijn2D>
-      <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
-    </asm:Deelvak>
-    <asm:Deelvak gml:id="Bv.19" VakindelingIDRef="Vi.9">
-      <asm:afstandBegin uom="m">11.313708498984761</asm:afstandBegin>
-      <asm:afstandEinde uom="m">22.627416997969522</asm:afstandEinde>
-      <asm:geometrieLijn2D>
+      </imwap:geometrieLijn2D>
+      <imwap:typeWaterkeringsectie>FAALMVK</imwap:typeWaterkeringsectie>
+      <imwap:afstandBegin>0</imwap:afstandBegin>
+      <imwap:afstandEinde>11.313708498984761</imwap:afstandEinde>
+      <imwap:lengte>11.313708498984761</imwap:lengte>
+      <imwap:onderdeelVan xlink:href="Vi.9" />
+    </uboi:Deelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Deelvak gml:id="Bv.19">
+      <imwap:geometrieLijn2D>
         <gml:LineString srsName="EPSG:28992">
           <gml:posList>7 7 15 15</gml:posList>
         </gml:LineString>
-      </asm:geometrieLijn2D>
-      <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
-    </asm:Deelvak>
-    <asm:Deelvak gml:id="Bv.20" VakindelingIDRef="Vi.10">
-      <asm:afstandBegin uom="m">0</asm:afstandBegin>
-      <asm:afstandEinde uom="m">11.313708498984761</asm:afstandEinde>
-      <asm:geometrieLijn2D>
+      </imwap:geometrieLijn2D>
+      <imwap:typeWaterkeringsectie>FAALMVK</imwap:typeWaterkeringsectie>
+      <imwap:afstandBegin>11.313708498984761</imwap:afstandBegin>
+      <imwap:afstandEinde>22.627416997969522</imwap:afstandEinde>
+      <imwap:lengte>11.313708498984761</imwap:lengte>
+      <imwap:onderdeelVan xlink:href="Vi.9" />
+    </uboi:Deelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <imwap:Vakindeling gml:id="Vi.10" />
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Deelvak gml:id="Bv.20">
+      <imwap:geometrieLijn2D>
         <gml:LineString srsName="EPSG:28992">
           <gml:posList>-1 -1 7 7</gml:posList>
         </gml:LineString>
-      </asm:geometrieLijn2D>
-      <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
-    </asm:Deelvak>
-    <asm:Deelvak gml:id="Bv.21" VakindelingIDRef="Vi.10">
-      <asm:afstandBegin uom="m">11.313708498984761</asm:afstandBegin>
-      <asm:afstandEinde uom="m">22.627416997969522</asm:afstandEinde>
-      <asm:geometrieLijn2D>
+      </imwap:geometrieLijn2D>
+      <imwap:typeWaterkeringsectie>FAALMVK</imwap:typeWaterkeringsectie>
+      <imwap:afstandBegin>0</imwap:afstandBegin>
+      <imwap:afstandEinde>11.313708498984761</imwap:afstandEinde>
+      <imwap:lengte>11.313708498984761</imwap:lengte>
+      <imwap:onderdeelVan xlink:href="Vi.10" />
+    </uboi:Deelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Deelvak gml:id="Bv.21">
+      <imwap:geometrieLijn2D>
         <gml:LineString srsName="EPSG:28992">
           <gml:posList>7 7 15 15</gml:posList>
         </gml:LineString>
-      </asm:geometrieLijn2D>
-      <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
-    </asm:Deelvak>
-    <asm:Deelvak gml:id="Bv.22" VakindelingIDRef="Vi.11">
-      <asm:afstandBegin uom="m">0</asm:afstandBegin>
-      <asm:afstandEinde uom="m">11.313708498984761</asm:afstandEinde>
-      <asm:geometrieLijn2D>
+      </imwap:geometrieLijn2D>
+      <imwap:typeWaterkeringsectie>FAALMVK</imwap:typeWaterkeringsectie>
+      <imwap:afstandBegin>11.313708498984761</imwap:afstandBegin>
+      <imwap:afstandEinde>22.627416997969522</imwap:afstandEinde>
+      <imwap:lengte>11.313708498984761</imwap:lengte>
+      <imwap:onderdeelVan xlink:href="Vi.10" />
+    </uboi:Deelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <imwap:Vakindeling gml:id="Vi.11" />
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Deelvak gml:id="Bv.22">
+      <imwap:geometrieLijn2D>
         <gml:LineString srsName="EPSG:28992">
           <gml:posList>-1 -1 7 7</gml:posList>
         </gml:LineString>
-      </asm:geometrieLijn2D>
-      <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
-    </asm:Deelvak>
-    <asm:Deelvak gml:id="Bv.23" VakindelingIDRef="Vi.11">
-      <asm:afstandBegin uom="m">11.313708498984761</asm:afstandBegin>
-      <asm:afstandEinde uom="m">22.627416997969522</asm:afstandEinde>
-      <asm:geometrieLijn2D>
+      </imwap:geometrieLijn2D>
+      <imwap:typeWaterkeringsectie>FAALMVK</imwap:typeWaterkeringsectie>
+      <imwap:afstandBegin>0</imwap:afstandBegin>
+      <imwap:afstandEinde>11.313708498984761</imwap:afstandEinde>
+      <imwap:lengte>11.313708498984761</imwap:lengte>
+      <imwap:onderdeelVan xlink:href="Vi.11" />
+    </uboi:Deelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Deelvak gml:id="Bv.23">
+      <imwap:geometrieLijn2D>
         <gml:LineString srsName="EPSG:28992">
           <gml:posList>7 7 15 15</gml:posList>
         </gml:LineString>
-      </asm:geometrieLijn2D>
-      <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
-    </asm:Deelvak>
-    <asm:Deelvak gml:id="Bv.24" VakindelingIDRef="Vi.12">
-      <asm:afstandBegin uom="m">0</asm:afstandBegin>
-      <asm:afstandEinde uom="m">11.313708498984761</asm:afstandEinde>
-      <asm:geometrieLijn2D>
+      </imwap:geometrieLijn2D>
+      <imwap:typeWaterkeringsectie>FAALMVK</imwap:typeWaterkeringsectie>
+      <imwap:afstandBegin>11.313708498984761</imwap:afstandBegin>
+      <imwap:afstandEinde>22.627416997969522</imwap:afstandEinde>
+      <imwap:lengte>11.313708498984761</imwap:lengte>
+      <imwap:onderdeelVan xlink:href="Vi.11" />
+    </uboi:Deelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <imwap:Vakindeling gml:id="Vi.12" />
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Deelvak gml:id="Bv.24">
+      <imwap:geometrieLijn2D>
         <gml:LineString srsName="EPSG:28992">
           <gml:posList>-1 -1 7 7</gml:posList>
         </gml:LineString>
-      </asm:geometrieLijn2D>
-      <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
-    </asm:Deelvak>
-    <asm:Deelvak gml:id="Bv.25" VakindelingIDRef="Vi.12">
-      <asm:afstandBegin uom="m">11.313708498984761</asm:afstandBegin>
-      <asm:afstandEinde uom="m">22.627416997969522</asm:afstandEinde>
-      <asm:geometrieLijn2D>
+      </imwap:geometrieLijn2D>
+      <imwap:typeWaterkeringsectie>FAALMVK</imwap:typeWaterkeringsectie>
+      <imwap:afstandBegin>0</imwap:afstandBegin>
+      <imwap:afstandEinde>11.313708498984761</imwap:afstandEinde>
+      <imwap:lengte>11.313708498984761</imwap:lengte>
+      <imwap:onderdeelVan xlink:href="Vi.12" />
+    </uboi:Deelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Deelvak gml:id="Bv.25">
+      <imwap:geometrieLijn2D>
         <gml:LineString srsName="EPSG:28992">
           <gml:posList>7 7 15 15</gml:posList>
         </gml:LineString>
-      </asm:geometrieLijn2D>
-      <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
-    </asm:Deelvak>
-    <asm:Deelvak gml:id="Bv.26" VakindelingIDRef="Vi.13">
-      <asm:afstandBegin uom="m">0</asm:afstandBegin>
-      <asm:afstandEinde uom="m">11.313708498984761</asm:afstandEinde>
-      <asm:geometrieLijn2D>
+      </imwap:geometrieLijn2D>
+      <imwap:typeWaterkeringsectie>FAALMVK</imwap:typeWaterkeringsectie>
+      <imwap:afstandBegin>11.313708498984761</imwap:afstandBegin>
+      <imwap:afstandEinde>22.627416997969522</imwap:afstandEinde>
+      <imwap:lengte>11.313708498984761</imwap:lengte>
+      <imwap:onderdeelVan xlink:href="Vi.12" />
+    </uboi:Deelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <imwap:Vakindeling gml:id="Vi.13" />
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Deelvak gml:id="Bv.26">
+      <imwap:geometrieLijn2D>
         <gml:LineString srsName="EPSG:28992">
           <gml:posList>-1 -1 7 7</gml:posList>
         </gml:LineString>
-      </asm:geometrieLijn2D>
-      <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
-    </asm:Deelvak>
-    <asm:Deelvak gml:id="Bv.27" VakindelingIDRef="Vi.13">
-      <asm:afstandBegin uom="m">11.313708498984761</asm:afstandBegin>
-      <asm:afstandEinde uom="m">22.627416997969522</asm:afstandEinde>
-      <asm:geometrieLijn2D>
+      </imwap:geometrieLijn2D>
+      <imwap:typeWaterkeringsectie>FAALMVK</imwap:typeWaterkeringsectie>
+      <imwap:afstandBegin>0</imwap:afstandBegin>
+      <imwap:afstandEinde>11.313708498984761</imwap:afstandEinde>
+      <imwap:lengte>11.313708498984761</imwap:lengte>
+      <imwap:onderdeelVan xlink:href="Vi.13" />
+    </uboi:Deelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Deelvak gml:id="Bv.27">
+      <imwap:geometrieLijn2D>
         <gml:LineString srsName="EPSG:28992">
           <gml:posList>7 7 15 15</gml:posList>
         </gml:LineString>
-      </asm:geometrieLijn2D>
-      <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
-    </asm:Deelvak>
-    <asm:Deelvak gml:id="Bv.28" VakindelingIDRef="Vi.14">
-      <asm:afstandBegin uom="m">0</asm:afstandBegin>
-      <asm:afstandEinde uom="m">11.313708498984761</asm:afstandEinde>
-      <asm:geometrieLijn2D>
+      </imwap:geometrieLijn2D>
+      <imwap:typeWaterkeringsectie>FAALMVK</imwap:typeWaterkeringsectie>
+      <imwap:afstandBegin>11.313708498984761</imwap:afstandBegin>
+      <imwap:afstandEinde>22.627416997969522</imwap:afstandEinde>
+      <imwap:lengte>11.313708498984761</imwap:lengte>
+      <imwap:onderdeelVan xlink:href="Vi.13" />
+    </uboi:Deelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <imwap:Vakindeling gml:id="Vi.14" />
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Deelvak gml:id="Bv.28">
+      <imwap:geometrieLijn2D>
         <gml:LineString srsName="EPSG:28992">
           <gml:posList>-1 -1 7 7</gml:posList>
         </gml:LineString>
-      </asm:geometrieLijn2D>
-      <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
-    </asm:Deelvak>
-    <asm:Deelvak gml:id="Bv.29" VakindelingIDRef="Vi.14">
-      <asm:afstandBegin uom="m">11.313708498984761</asm:afstandBegin>
-      <asm:afstandEinde uom="m">22.627416997969522</asm:afstandEinde>
-      <asm:geometrieLijn2D>
+      </imwap:geometrieLijn2D>
+      <imwap:typeWaterkeringsectie>FAALMVK</imwap:typeWaterkeringsectie>
+      <imwap:afstandBegin>0</imwap:afstandBegin>
+      <imwap:afstandEinde>11.313708498984761</imwap:afstandEinde>
+      <imwap:lengte>11.313708498984761</imwap:lengte>
+      <imwap:onderdeelVan xlink:href="Vi.14" />
+    </uboi:Deelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Deelvak gml:id="Bv.29">
+      <imwap:geometrieLijn2D>
         <gml:LineString srsName="EPSG:28992">
           <gml:posList>7 7 15 15</gml:posList>
         </gml:LineString>
-      </asm:geometrieLijn2D>
-      <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
-    </asm:Deelvak>
-    <asm:Deelvak gml:id="Bv.30" VakindelingIDRef="Vi.15">
-      <asm:afstandBegin uom="m">0</asm:afstandBegin>
-      <asm:afstandEinde uom="m">11.313708498984761</asm:afstandEinde>
-      <asm:geometrieLijn2D>
+      </imwap:geometrieLijn2D>
+      <imwap:typeWaterkeringsectie>FAALMVK</imwap:typeWaterkeringsectie>
+      <imwap:afstandBegin>11.313708498984761</imwap:afstandBegin>
+      <imwap:afstandEinde>22.627416997969522</imwap:afstandEinde>
+      <imwap:lengte>11.313708498984761</imwap:lengte>
+      <imwap:onderdeelVan xlink:href="Vi.14" />
+    </uboi:Deelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <imwap:Vakindeling gml:id="Vi.15" />
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Deelvak gml:id="Bv.30">
+      <imwap:geometrieLijn2D>
         <gml:LineString srsName="EPSG:28992">
           <gml:posList>-1 -1 7 7</gml:posList>
         </gml:LineString>
-      </asm:geometrieLijn2D>
-      <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
-    </asm:Deelvak>
-    <asm:Deelvak gml:id="Bv.31" VakindelingIDRef="Vi.15">
-      <asm:afstandBegin uom="m">11.313708498984761</asm:afstandBegin>
-      <asm:afstandEinde uom="m">22.627416997969522</asm:afstandEinde>
-      <asm:geometrieLijn2D>
+      </imwap:geometrieLijn2D>
+      <imwap:typeWaterkeringsectie>FAALMVK</imwap:typeWaterkeringsectie>
+      <imwap:afstandBegin>0</imwap:afstandBegin>
+      <imwap:afstandEinde>11.313708498984761</imwap:afstandEinde>
+      <imwap:lengte>11.313708498984761</imwap:lengte>
+      <imwap:onderdeelVan xlink:href="Vi.15" />
+    </uboi:Deelvak>
+  </uboi:featureMember>
+  <uboi:featureMember>
+    <uboi:Deelvak gml:id="Bv.31">
+      <imwap:geometrieLijn2D>
         <gml:LineString srsName="EPSG:28992">
           <gml:posList>7 7 15 15</gml:posList>
         </gml:LineString>
-      </asm:geometrieLijn2D>
-      <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
-    </asm:Deelvak>
-    <asm:Deelvak gml:id="Bv.32" VakindelingIDRef="Vi.16">
-      <asm:afstandBegin uom="m">0</asm:afstandBegin>
-      <asm:afstandEinde uom="m">2.5</asm:afstandEinde>
-      <asm:geometrieLijn2D>
-        <gml:LineString srsName="EPSG:28992">
-          <gml:posList>0 0 1.5 2</gml:posList>
-        </gml:LineString>
-      </asm:geometrieLijn2D>
-      <asm:lengte uom="m">2.5</asm:lengte>
-      <asm:typeWaterkeringsectie>DEELVK</asm:typeWaterkeringsectie>
-      <asm:assemblagemethode>BOI-3A-1</asm:assemblagemethode>
-    </asm:Deelvak>
-    <asm:Deelvak gml:id="Bv.33" VakindelingIDRef="Vi.16">
-      <asm:afstandBegin uom="m">2.5</asm:afstandBegin>
-      <asm:afstandEinde uom="m">5</asm:afstandEinde>
-      <asm:geometrieLijn2D>
-        <gml:LineString srsName="EPSG:28992">
-          <gml:posList>1.5 2 3 4</gml:posList>
-        </gml:LineString>
-      </asm:geometrieLijn2D>
-      <asm:lengte uom="m">2.5</asm:lengte>
-      <asm:typeWaterkeringsectie>DEELVK</asm:typeWaterkeringsectie>
-      <asm:assemblagemethode>BOI-3A-1</asm:assemblagemethode>
-    </asm:Deelvak>
-  </asm:featureMember>
-</asm:Assemblage>
+      </imwap:geometrieLijn2D>
+      <imwap:typeWaterkeringsectie>FAALMVK</imwap:typeWaterkeringsectie>
+      <imwap:afstandBegin>11.313708498984761</imwap:afstandBegin>
+      <imwap:afstandEinde>22.627416997969522</imwap:afstandEinde>
+      <imwap:lengte>11.313708498984761</imwap:lengte>
+      <imwap:onderdeelVan xlink:href="Vi.15" />
+    </uboi:Deelvak>
+  </uboi:featureMember>
+</uboi:Assembleren-collectie>

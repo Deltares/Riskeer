@@ -72,7 +72,7 @@ namespace Riskeer.Integration.IO.Test.Factories
         }
 
         private static void AssertExportableAssessmentSection(
-            AssessmentSection assessmentSection, ExportableAssessmentSection exportableAssessmentSection)
+            IAssessmentSection assessmentSection, ExportableAssessmentSection exportableAssessmentSection)
         {
             Assert.AreEqual(assessmentSection.Name, exportableAssessmentSection.Name);
             Assert.AreEqual($"Wks.{assessmentSection.Id}", exportableAssessmentSection.Id);

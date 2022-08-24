@@ -187,7 +187,6 @@ namespace Riskeer.Integration.IO.Test.Exporters
         }
 
         [Test]
-        [Ignore("Fix after implementation is done.")]
         public void Export_FullyConfiguredAssessmentSectionAndValidAssemblyResults_ReturnsTrueAndCreatesFile()
         {
             // Setup
