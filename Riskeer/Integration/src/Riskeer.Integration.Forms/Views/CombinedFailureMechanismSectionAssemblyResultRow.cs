@@ -25,6 +25,7 @@ using System.Drawing;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Controls.DataGrid;
+using Core.Common.Util.Enums;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Integration.Data.Assembly;

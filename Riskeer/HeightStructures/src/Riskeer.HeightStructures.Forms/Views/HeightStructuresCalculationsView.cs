@@ -26,7 +26,7 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
-using Core.Common.Util;
+using Core.Common.Util.Enums;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;

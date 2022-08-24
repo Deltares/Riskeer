@@ -20,12 +20,12 @@
 // All rights reserved.
 
 using System.ComponentModel;
+using Core.Common.Util.Enums;
 using Core.Gui.Converters;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Common.Forms.Helpers;
 using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Data.TestUtil;
 using Riskeer.Revetment.Forms.PropertyClasses;

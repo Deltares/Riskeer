@@ -22,6 +22,7 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Controls.DataGrid;
+using Core.Common.Util.Enums;
 using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;

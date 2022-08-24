@@ -22,8 +22,8 @@
 using System.ComponentModel;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-using Core.Common.Util;
 using Core.Common.Util.Attributes;
+using Core.Common.Util.Enums;
 using Core.Gui.Attributes;
 using Core.Gui.PropertyBag;
 using Riskeer.Common.Forms.Helpers;

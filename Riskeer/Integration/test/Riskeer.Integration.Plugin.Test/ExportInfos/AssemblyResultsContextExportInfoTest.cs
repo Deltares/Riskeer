@@ -26,6 +26,7 @@ using Core.Common.TestUtil;
 using Core.Gui.Plugin;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PresentationObjects;
 using Riskeer.Integration.IO.Exporters;
@@ -95,7 +96,7 @@ namespace Riskeer.Integration.Plugin.Test.ExportInfos
         }
 
         [Test]
-        public void IsEnabled_Always_ReturnsFalse()
+        public void IsEnabled_ReferenceLineWithoutGeometry_ReturnsFalse()
         {
             // Setup
             var random = new Random(21);
@@ -111,6 +112,28 @@ namespace Riskeer.Integration.Plugin.Test.ExportInfos
 
                 // Assert
                 Assert.IsFalse(isEnabled);
+            }
+        }
+
+        [Test]
+        public void IsEnabled_ReferenceLineWithGeometry_ReturnsTrue()
+        {
+            // Setup
+            var random = new Random(21);
+            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
+            ReferenceLineTestFactory.SetReferenceLineGeometry(assessmentSection.ReferenceLine);
+
+            var context = new AssemblyResultsContext(assessmentSection);
+
+            using (var plugin = new RiskeerPlugin())
+            {
+                ExportInfo info = GetExportInfo(plugin);
+
+                // Call
+                bool isEnabled = info.IsEnabled(context);
+
+                // Assert
+                Assert.IsTrue(isEnabled);
             }
         }
 

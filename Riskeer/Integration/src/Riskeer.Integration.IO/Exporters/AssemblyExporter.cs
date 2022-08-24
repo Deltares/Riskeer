@@ -26,10 +26,9 @@ using Core.Common.IO.Exceptions;
 using Core.Common.Util;
 using log4net;
 using Riskeer.AssemblyTool.IO;
+using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Integration.Data;
-using Riskeer.Integration.IO.Assembly;
-using Riskeer.Integration.IO.Creators;
 using Riskeer.Integration.IO.Exceptions;
 using Riskeer.Integration.IO.Factories;
 using Riskeer.Integration.IO.Properties;
@@ -73,8 +72,12 @@ namespace Riskeer.Integration.IO.Exporters
                 return false;
             }
 
-            ExportableAssessmentSection exportableAssessmentSection = CreateExportableAssessmentSection();
-            if (exportableAssessmentSection == null)
+            ExportableAssembly exportableAssembly;
+            try
+            {
+                exportableAssembly = ExportableAssemblyFactory.CreateExportableAssembly(assessmentSection);
+            }
+            catch (Exception e) when (e is AssemblyException || e is AssemblyFactoryException)
             {
                 log.Error(Resources.AssemblyExporter_No_AssemblyResult_exported_Check_results_for_details);
                 return false;
@@ -82,13 +85,10 @@ namespace Riskeer.Integration.IO.Exporters
 
             try
             {
-                SerializableAssemblyWriter.WriteAssembly(SerializableAssemblyCreator.Create(exportableAssessmentSection),
-                                                         filePath);
-            }
-            catch (AssemblyCreatorException)
-            {
-                log.Error(Resources.AssemblyExporter_No_AssemblyResult_exported_Check_results_for_details);
-                return false;
+                using (var writer = new AssemblyGmlWriter(filePath))
+                {
+                    writer.Write(exportableAssembly);
+                }
             }
             catch (CriticalFileWriteException e)
             {
@@ -106,18 +106,6 @@ namespace Riskeer.Integration.IO.Exporters
                                     .Select(fp => fp.Name)
                                     .GroupBy(name => name)
                                     .All(group => group.Count() == 1);
-        }
-
-        private ExportableAssessmentSection CreateExportableAssessmentSection()
-        {
-            try
-            {
-                return ExportableAssessmentSectionFactory.CreateExportableAssessmentSection(assessmentSection);
-            }
-            catch (AssemblyException)
-            {
-                return null;
-            }
         }
     }
 }

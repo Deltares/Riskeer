@@ -24,6 +24,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls;
 using Core.Common.TestUtil;
+using Core.Common.Util.Enums;
 using Core.Common.Util.Reflection;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;

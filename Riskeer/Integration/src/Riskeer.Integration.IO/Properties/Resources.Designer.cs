@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2022. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -105,6 +105,78 @@ namespace Riskeer.Integration.IO.Properties {
         public static string AssemblyExporter_Specific_failure_mechanisms_must_have_a_unique_name {
             get {
                 return ResourceManager.GetString("AssemblyExporter_Specific_failure_mechanisms_must_have_a_unique_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to assemblage.
+        /// </summary>
+        public static string ExportableAssembly_IdPrefix {
+            get {
+                return ResourceManager.GetString("ExportableAssembly_IdPrefix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bp.
+        /// </summary>
+        public static string ExportableAssessmentProcess_IdPrefix {
+            get {
+                return ResourceManager.GetString("ExportableAssessmentProcess_IdPrefix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wks.
+        /// </summary>
+        public static string ExportableAssessmentSection_IdPrefix {
+            get {
+                return ResourceManager.GetString("ExportableAssessmentSection_IdPrefix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fm.
+        /// </summary>
+        public static string ExportableFailureMechanism_IdPrefix {
+            get {
+                return ResourceManager.GetString("ExportableFailureMechanism_IdPrefix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bv.
+        /// </summary>
+        public static string ExportableFailureMechanismSection_IdPrefix {
+            get {
+                return ResourceManager.GetString("ExportableFailureMechanismSection_IdPrefix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fa.
+        /// </summary>
+        public static string ExportableFailureMechanismSectionAssemblyResult_IdPrefix {
+            get {
+                return ResourceManager.GetString("ExportableFailureMechanismSectionAssemblyResult_IdPrefix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vi.
+        /// </summary>
+        public static string ExportableFailureMechanismSectionCollection_IdPrefix {
+            get {
+                return ResourceManager.GetString("ExportableFailureMechanismSectionCollection_IdPrefix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vo.
+        /// </summary>
+        public static string ExportableTotalAssemblyResult_IdPrefix {
+            get {
+                return ResourceManager.GetString("ExportableTotalAssemblyResult_IdPrefix", resourceCulture);
             }
         }
         
@@ -259,87 +331,6 @@ namespace Riskeer.Integration.IO.Properties {
             get {
                 return ResourceManager.GetString("HydraulicLocationConfigurationDatabaseImporter_ProgressText_Import_canceled_No_da" +
                         "ta_changed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Assemblage.
-        /// </summary>
-        public static string SerializableAssembly_IdPrefix {
-            get {
-                return ResourceManager.GetString("SerializableAssembly_IdPrefix", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bp.
-        /// </summary>
-        public static string SerializableAssessmentProcess_IdPrefix {
-            get {
-                return ResourceManager.GetString("SerializableAssessmentProcess_IdPrefix", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Wks.
-        /// </summary>
-        public static string SerializableAssessmentSection_IdPrefix {
-            get {
-                return ResourceManager.GetString("SerializableAssessmentSection_IdPrefix", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Gf.
-        /// </summary>
-        public static string SerializableCombinedFailureMechanismSectionAssembly_IdPrefix {
-            get {
-                return ResourceManager.GetString("SerializableCombinedFailureMechanismSectionAssembly_IdPrefix", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Fm.
-        /// </summary>
-        public static string SerializableFailureMechanismCreator_IdPrefix {
-            get {
-                return ResourceManager.GetString("SerializableFailureMechanismCreator_IdPrefix", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bv.
-        /// </summary>
-        public static string SerializableFailureMechanismSection_IdPrefix {
-            get {
-                return ResourceManager.GetString("SerializableFailureMechanismSection_IdPrefix", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Fa.
-        /// </summary>
-        public static string SerializableFailureMechanismSectionAssembly_IdPrefix {
-            get {
-                return ResourceManager.GetString("SerializableFailureMechanismSectionAssembly_IdPrefix", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Vi.
-        /// </summary>
-        public static string SerializableFailureMechanismSectionCollection_IdPrefix {
-            get {
-                return ResourceManager.GetString("SerializableFailureMechanismSectionCollection_IdPrefix", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Vo.
-        /// </summary>
-        public static string SerializableTotalAssemblyResult_IdPrefix {
-            get {
-                return ResourceManager.GetString("SerializableTotalAssemblyResult_IdPrefix", resourceCulture);
             }
         }
         

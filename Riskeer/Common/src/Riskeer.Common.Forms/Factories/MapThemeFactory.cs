@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System.Drawing;
+using Core.Common.Util.Enums;
 using Core.Components.Gis.Style;
 using Core.Components.Gis.Theme;
 using Riskeer.AssemblyTool.Data;
-using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.Properties;
 
 namespace Riskeer.Common.Forms.Factories

@@ -28,7 +28,7 @@ using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Core.Common.TestUtil;
-using Core.Common.Util;
+using Core.Common.Util.Enums;
 using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;

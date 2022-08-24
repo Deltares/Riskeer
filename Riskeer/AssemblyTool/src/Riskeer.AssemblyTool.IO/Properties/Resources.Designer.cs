@@ -82,11 +82,20 @@ namespace Riskeer.AssemblyTool.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to DKTRJCT.
+        ///   Looks up a localized string similar to Dijktraject.
         /// </summary>
         internal static string AssessmentSectionType {
             get {
                 return ResourceManager.GetString("AssessmentSectionType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DKTRJCT.
+        /// </summary>
+        internal static string AssessmentSectionTypeOld {
+            get {
+                return ResourceManager.GetString("AssessmentSectionTypeOld", resourceCulture);
             }
         }
         
@@ -96,6 +105,186 @@ namespace Riskeer.AssemblyTool.IO.Properties {
         internal static string CoordinateSystemName {
             get {
                 return ResourceManager.GetString("CoordinateSystemName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BOI-0A-1.
+        /// </summary>
+        internal static string ExportableAssemblyMethod_BOI0A1_DisplayName {
+            get {
+                return ResourceManager.GetString("ExportableAssemblyMethod_BOI0A1_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BOI-0A-2.
+        /// </summary>
+        internal static string ExportableAssemblyMethod_BOI0A2_DisplayName {
+            get {
+                return ResourceManager.GetString("ExportableAssemblyMethod_BOI0A2_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BOI-0B-1.
+        /// </summary>
+        internal static string ExportableAssemblyMethod_BOI0B1_DisplayName {
+            get {
+                return ResourceManager.GetString("ExportableAssemblyMethod_BOI0B1_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BOI-0C-1.
+        /// </summary>
+        internal static string ExportableAssemblyMethod_BOI0C1_DisplayName {
+            get {
+                return ResourceManager.GetString("ExportableAssemblyMethod_BOI0C1_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BOI-0C-2.
+        /// </summary>
+        internal static string ExportableAssemblyMethod_BOI0C2_DisplayName {
+            get {
+                return ResourceManager.GetString("ExportableAssemblyMethod_BOI0C2_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BOI-1A-1.
+        /// </summary>
+        internal static string ExportableAssemblyMethod_BOI1A1_DisplayName {
+            get {
+                return ResourceManager.GetString("ExportableAssemblyMethod_BOI1A1_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BOI-1A-2.
+        /// </summary>
+        internal static string ExportableAssemblyMethod_BOI1A2_DisplayName {
+            get {
+                return ResourceManager.GetString("ExportableAssemblyMethod_BOI1A2_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BOI-2A-1.
+        /// </summary>
+        internal static string ExportableAssemblyMethod_BOI2A1_DisplayName {
+            get {
+                return ResourceManager.GetString("ExportableAssemblyMethod_BOI2A1_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BOI-2B-1.
+        /// </summary>
+        internal static string ExportableAssemblyMethod_BOI2B1_DisplayName {
+            get {
+                return ResourceManager.GetString("ExportableAssemblyMethod_BOI2B1_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BOI-3A-1.
+        /// </summary>
+        internal static string ExportableAssemblyMethod_BOI3A1_DisplayName {
+            get {
+                return ResourceManager.GetString("ExportableAssemblyMethod_BOI3A1_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BOI-3B-1.
+        /// </summary>
+        internal static string ExportableAssemblyMethod_BOI3B1_DisplayName {
+            get {
+                return ResourceManager.GetString("ExportableAssemblyMethod_BOI3B1_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BOI-3C-1.
+        /// </summary>
+        internal static string ExportableAssemblyMethod_BOI3C1_DisplayName {
+            get {
+                return ResourceManager.GetString("ExportableAssemblyMethod_BOI3C1_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HANDMATIG.
+        /// </summary>
+        internal static string ExportableAssemblyMethod_Manual_DisplayName {
+            get {
+                return ResourceManager.GetString("ExportableAssemblyMethod_Manual_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A.
+        /// </summary>
+        internal static string ExportableAssessmentSectionAssemblyGroup_A_DisplayName {
+            get {
+                return ResourceManager.GetString("ExportableAssessmentSectionAssemblyGroup_A_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A+.
+        /// </summary>
+        internal static string ExportableAssessmentSectionAssemblyGroup_APlus_DisplayName {
+            get {
+                return ResourceManager.GetString("ExportableAssessmentSectionAssemblyGroup_APlus_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to B.
+        /// </summary>
+        internal static string ExportableAssessmentSectionAssemblyGroup_B_DisplayName {
+            get {
+                return ResourceManager.GetString("ExportableAssessmentSectionAssemblyGroup_B_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to C.
+        /// </summary>
+        internal static string ExportableAssessmentSectionAssemblyGroup_C_DisplayName {
+            get {
+                return ResourceManager.GetString("ExportableAssessmentSectionAssemblyGroup_C_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to D.
+        /// </summary>
+        internal static string ExportableAssessmentSectionAssemblyGroup_D_DisplayName {
+            get {
+                return ResourceManager.GetString("ExportableAssessmentSectionAssemblyGroup_D_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DEELVK.
+        /// </summary>
+        internal static string FailureMechanismSectionType_Combined {
+            get {
+                return ResourceManager.GetString("FailureMechanismSectionType_Combined", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FAALMVK.
+        /// </summary>
+        internal static string FailureMechanismSectionType_FailureMechanism {
+            get {
+                return ResourceManager.GetString("FailureMechanismSectionType_FailureMechanism", resourceCulture);
             }
         }
         

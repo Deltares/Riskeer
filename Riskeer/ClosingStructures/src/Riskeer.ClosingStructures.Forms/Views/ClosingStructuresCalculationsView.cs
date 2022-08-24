@@ -26,7 +26,7 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
-using Core.Common.Util;
+using Core.Common.Util.Enums;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Forms.PresentationObjects;
 using Riskeer.ClosingStructures.Forms.Properties;

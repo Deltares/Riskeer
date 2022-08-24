@@ -20,13 +20,11 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
-using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.Integration.IO.Assembly;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Integration.Data;
 using Riskeer.Integration.IO.Helpers;
-using Riskeer.Integration.IO.TestUtil;
 
 namespace Riskeer.Integration.IO.Test.Helpers
 {
@@ -126,7 +124,7 @@ namespace Riskeer.Integration.IO.Test.Helpers
         public void GenerateId_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => IdentifierGenerator.GeneratedId(null);
+            void Call() => IdentifierGenerator.GenerateId(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -138,23 +136,23 @@ namespace Riskeer.Integration.IO.Test.Helpers
         {
             // Setup
             const string assessmentSectionId = "AssessmentSectionId";
-            ExportableAssessmentSection assessmentSection = CreateAssessmentSection(assessmentSectionId);
+            AssessmentSection assessmentSection = CreateAssessmentSection(assessmentSectionId);
 
             // Call
-            string generatedId = IdentifierGenerator.GeneratedId(assessmentSection);
+            string generatedId = IdentifierGenerator.GenerateId(assessmentSection);
 
             // Assert
             Assert.AreEqual($"Wks.{assessmentSection.Id}", generatedId);
         }
 
-        private static ExportableAssessmentSection CreateAssessmentSection(string id)
+        private static AssessmentSection CreateAssessmentSection(string id)
         {
-            return new ExportableAssessmentSection(string.Empty,
-                                                   id,
-                                                   Enumerable.Empty<Point2D>(),
-                                                   ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
-                                                   Enumerable.Empty<ExportableFailureMechanism>(),
-                                                   Enumerable.Empty<ExportableCombinedSectionAssembly>());
+            var random = new Random(21);
+            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>())
+            {
+                Id = id
+            };
+            return assessmentSection;
         }
     }
 }

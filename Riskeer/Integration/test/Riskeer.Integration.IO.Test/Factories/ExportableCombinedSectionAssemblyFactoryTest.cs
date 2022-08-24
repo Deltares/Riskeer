@@ -26,11 +26,13 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.IO.Model;
+using Riskeer.AssemblyTool.IO.Model.Enums;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Assembly;
-using Riskeer.Integration.IO.Assembly;
+using Riskeer.Integration.IO.Exceptions;
 using Riskeer.Integration.IO.Factories;
 using Riskeer.Integration.Util;
 
@@ -61,6 +63,31 @@ namespace Riskeer.Integration.IO.Test.Factories
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        [TestCase(FailureMechanismSectionAssemblyGroup.NoResult)]
+        [TestCase(FailureMechanismSectionAssemblyGroup.Dominant)]
+        public void CreateExportableCombinedSectionAssemblyCollection_WithInvalidAssemblyResults_ThrowsAssemblyFactoryException(
+            FailureMechanismSectionAssemblyGroup assemblyGroup)
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            var random = new Random(21);
+            CombinedFailureMechanismSectionAssemblyResult[] assemblyResults =
+            {
+                new CombinedFailureMechanismSectionAssemblyResult(random.NextDouble(), random.NextDouble(), assemblyGroup,
+                random.NextEnumValue<AssemblyMethod>(), random.NextEnumValue<AssemblyMethod>(), random.NextEnumValue<AssemblyMethod>(),
+                new CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties())
+            };
+
+            // Call
+            void Call() => ExportableCombinedSectionAssemblyFactory.CreateExportableCombinedSectionAssemblyCollection(assemblyResults, assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<AssemblyFactoryException>(Call);
+            Assert.AreEqual("The assembly result is invalid and cannot be created.", exception.Message);
         }
 
         [Test]
@@ -183,8 +210,8 @@ namespace Riskeer.Integration.IO.Test.Factories
                                                                                   bool hasAssemblyGroupResults)
         {
             Assert.AreSame(actualSection, actualSectionResult.Section);
-            Assert.AreEqual(expectedSection.TotalResult, actualSectionResult.CombinedSectionAssemblyResult.AssemblyGroup);
-            Assert.AreEqual(ExportableAssemblyMethodFactory.Create(expectedSection.CombinedSectionResultAssemblyMethod), actualSectionResult.CombinedSectionAssemblyResult.AssemblyGroupAssemblyMethod);
+            Assert.AreEqual(expectedSection.TotalResult, actualSectionResult.AssemblyGroup);
+            Assert.AreEqual(ExportableAssemblyMethodFactory.Create(expectedSection.CombinedSectionResultAssemblyMethod), actualSectionResult.AssemblyGroupAssemblyMethod);
 
             IEnumerable<ExportableFailureMechanismCombinedSectionAssemblyResult> failureMechanismCombinedSectionResults = actualSectionResult.FailureMechanismResults;
 
@@ -195,7 +222,7 @@ namespace Riskeer.Integration.IO.Test.Factories
             }
 
             Assert.AreEqual(17, failureMechanismCombinedSectionResults.Count());
-            Assert.IsTrue(failureMechanismCombinedSectionResults.All(result => result.SectionAssemblyResult.AssemblyMethod == ExportableAssemblyMethodFactory.Create(
+            Assert.IsTrue(failureMechanismCombinedSectionResults.All(result => result.AssemblyMethod == ExportableAssemblyMethodFactory.Create(
                                                                                    expectedSection.FailureMechanismResultsAssemblyMethod)));
 
             AssertSubSection(expectedSection.Piping, "STPH", ExportableFailureMechanismType.Generic,
@@ -238,9 +265,7 @@ namespace Riskeer.Integration.IO.Test.Factories
                                              ExportableFailureMechanismType failureMechanismType,
                                              ExportableFailureMechanismCombinedSectionAssemblyResult actualResult)
         {
-            Assert.AreEqual(subSectionGroup, actualResult.SectionAssemblyResult.AssemblyGroup);
-            Assert.AreEqual(subSectionCode, actualResult.Code);
-            Assert.AreEqual(failureMechanismType, actualResult.FailureMechanismType);
+            Assert.AreEqual(subSectionGroup, actualResult.AssemblyGroup);
         }
     }
 }

@@ -22,6 +22,7 @@
     <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.IO\Riskeer.AssemblyTool.IO.csproj" />
     <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.KernelWrapper\Riskeer.AssemblyTool.KernelWrapper.csproj" />
     <ProjectReference Include="..\..\..\AssemblyTool\test\Riskeer.AssemblyTool.Data.TestUtil\Riskeer.AssemblyTool.Data.TestUtil.csproj" />
+    <ProjectReference Include="..\..\..\AssemblyTool\test\Riskeer.AssemblyTool.IO.TestUtil\Riskeer.AssemblyTool.IO.TestUtil.csproj" />
     <ProjectReference Include="..\..\..\AssemblyTool\test\Riskeer.AssemblyTool.KernelWrapper.TestUtil\Riskeer.AssemblyTool.KernelWrapper.TestUtil.csproj" />
     <ProjectReference Include="..\..\..\ClosingStructures\src\Riskeer.ClosingStructures.Data\Riskeer.ClosingStructures.Data.csproj" />
     <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj" />

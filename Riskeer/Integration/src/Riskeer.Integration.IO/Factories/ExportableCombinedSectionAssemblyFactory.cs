@@ -22,11 +22,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Geometry;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.IO.Model;
+using Riskeer.AssemblyTool.IO.Model.Enums;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Assembly;
-using Riskeer.Integration.IO.Assembly;
+using Riskeer.Integration.IO.Exceptions;
 using Riskeer.Integration.Util;
 
 namespace Riskeer.Integration.IO.Factories
@@ -45,6 +48,8 @@ namespace Riskeer.Integration.IO.Factories
         /// <param name="assessmentSection">The <see cref="AssessmentSection"/> the section results belong to.</param>
         /// <returns>A collection of <see cref="ExportableCombinedSectionAssembly"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="AssemblyFactoryException">Thrown when <see cref="CombinedFailureMechanismSectionAssemblyResult.TotalResult"/>
+        /// is invalid and cannot be exported.</exception>
         public static IEnumerable<ExportableCombinedSectionAssembly> CreateExportableCombinedSectionAssemblyCollection(
             IEnumerable<CombinedFailureMechanismSectionAssemblyResult> combinedSectionAssemblyResults,
             AssessmentSection assessmentSection)
@@ -62,16 +67,21 @@ namespace Riskeer.Integration.IO.Factories
             var sectionResults = new List<ExportableCombinedSectionAssembly>();
             foreach (CombinedFailureMechanismSectionAssemblyResult assemblyResult in combinedSectionAssemblyResults)
             {
+                if (assemblyResult.TotalResult == FailureMechanismSectionAssemblyGroup.NoResult
+                    || assemblyResult.TotalResult == FailureMechanismSectionAssemblyGroup.Dominant)
+                {
+                    throw new AssemblyFactoryException("The assembly result is invalid and cannot be created.");
+                }
+                
                 var exportableSection = new ExportableCombinedFailureMechanismSection(
-                    FailureMechanismSectionHelper.GetFailureMechanismSectionGeometry(
+                    "id", FailureMechanismSectionHelper.GetFailureMechanismSectionGeometry(
                         assessmentSection.ReferenceLine, assemblyResult.SectionStart, assemblyResult.SectionEnd),
-                    assemblyResult.SectionStart,
-                    assemblyResult.SectionEnd,
+                    assemblyResult.SectionStart, assemblyResult.SectionEnd,
                     ExportableAssemblyMethodFactory.Create(assemblyResult.CommonSectionAssemblyMethod));
 
                 var exportableSectionResult = new ExportableCombinedSectionAssembly(
-                    exportableSection, new ExportableFailureMechanismSectionAssemblyResult(
-                        exportableSection, assemblyResult.TotalResult, ExportableAssemblyMethodFactory.Create(assemblyResult.CombinedSectionResultAssemblyMethod)),
+                    "id", exportableSection, assemblyResult.TotalResult,
+                    ExportableAssemblyMethodFactory.Create(assemblyResult.CombinedSectionResultAssemblyMethod),
                     CreateFailureMechanismCombinedSectionAssemblyResults(assemblyResult, assessmentSection));
 
                 sectionResults.Add(exportableSectionResult);
@@ -105,8 +115,7 @@ namespace Riskeer.Integration.IO.Factories
             List<ExportableFailureMechanismCombinedSectionAssemblyResult> exportableAssemblyResults =
                 failureMechanisms.Where(fm => fm.Item1.HasValue)
                                  .Select(fm => CreateExportableFailureMechanismCombinedSectionAssemblyResult(
-                                             fm.Item1.Value, assemblyResult.FailureMechanismResultsAssemblyMethod,
-                                             ExportableFailureMechanismType.Generic, fm.Item2, fm.Item3))
+                                             fm.Item1.Value, assemblyResult.FailureMechanismResultsAssemblyMethod))
                                  .ToList();
 
             for (var i = 0; i < assessmentSection.SpecificFailureMechanisms.Count; i++)
@@ -117,8 +126,7 @@ namespace Riskeer.Integration.IO.Factories
                 {
                     SpecificFailureMechanism specificFailureMechanism = assessmentSection.SpecificFailureMechanisms.ElementAt(i);
                     exportableAssemblyResults.Add(CreateExportableFailureMechanismCombinedSectionAssemblyResult(
-                                                      specificFailureMechanismAssemblyResult.Value, assemblyResult.FailureMechanismResultsAssemblyMethod,
-                                                      ExportableFailureMechanismType.Specific, specificFailureMechanism.Code, specificFailureMechanism.Name));
+                                                      specificFailureMechanismAssemblyResult.Value, assemblyResult.FailureMechanismResultsAssemblyMethod));
                 }
             }
 
@@ -132,12 +140,13 @@ namespace Riskeer.Integration.IO.Factories
         }
 
         private static ExportableFailureMechanismCombinedSectionAssemblyResult CreateExportableFailureMechanismCombinedSectionAssemblyResult(
-            FailureMechanismSectionAssemblyGroup sectionAssemblyGroup, AssemblyMethod assemblyMethod,
-            ExportableFailureMechanismType failureMechanismType, string failureMechanismCode, string failureMechanismName)
+            FailureMechanismSectionAssemblyGroup sectionAssemblyGroup, AssemblyMethod assemblyMethod)
         {
             return new ExportableFailureMechanismCombinedSectionAssemblyResult(
-                new ExportableFailureMechanismSubSectionAssemblyResult(sectionAssemblyGroup, ExportableAssemblyMethodFactory.Create(assemblyMethod)),
-                failureMechanismType, failureMechanismCode, failureMechanismName);
+                sectionAssemblyGroup, ExportableAssemblyMethodFactory.Create(assemblyMethod),
+                new ExportableFailureMechanismSectionAssemblyResult(
+                    "id", new ExportableFailureMechanismSection("id", Array.Empty<Point2D>(), double.NaN, double.NaN), double.NaN,
+                    FailureMechanismSectionAssemblyGroup.Zero, ExportableAssemblyMethod.Manual, ExportableAssemblyMethod.Manual));
         }
     }
 }

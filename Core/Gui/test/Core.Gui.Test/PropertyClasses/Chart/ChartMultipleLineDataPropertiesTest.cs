@@ -22,7 +22,7 @@
 using System.ComponentModel;
 using System.Drawing;
 using Core.Common.Base;
-using Core.Common.Util;
+using Core.Common.Util.Enums;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Styles;
 using Core.Gui.Converters;

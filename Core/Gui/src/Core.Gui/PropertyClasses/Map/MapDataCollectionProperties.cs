@@ -21,8 +21,8 @@
 
 using System;
 using System.ComponentModel;
-using Core.Common.Util;
 using Core.Common.Util.Attributes;
+using Core.Common.Util.Enums;
 using Core.Components.Gis.Data;
 using Core.Gui.Properties;
 using Core.Gui.PropertyBag;

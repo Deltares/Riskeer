@@ -7,7 +7,7 @@
     </gml:Envelope>
   </gml:boundedBy>
   <asm:featureMember>
-    <asm:Waterkeringstelsel gml:id="Wks.assessmentSectionId">
+    <asm:Waterkeringstelsel gml:id="Wks.Wks.assessmentSectionId">
       <asm:naam>assessmentSectionName</asm:naam>
       <asm:geometrie2D>
         <gml:LineString srsName="EPSG:28992">
@@ -17,7 +17,7 @@
       <asm:lengte uom="m">5</asm:lengte>
       <asm:typeWaterkeringstelsel>DKTRJCT</asm:typeWaterkeringstelsel>
     </asm:Waterkeringstelsel>
-    <asm:Beoordelingsproces BeoordelingsprocesID="Bp.0" WaterkeringstelselIDRef="Wks.assessmentSectionId">
+    <asm:Beoordelingsproces BeoordelingsprocesID="Bp.0" WaterkeringstelselIDRef="Wks.Wks.assessmentSectionId">
       <asm:beginJaarBeoordelingsronde>2023</asm:beginJaarBeoordelingsronde>
       <asm:eindJaarBeoordelingsronde>2035</asm:eindJaarBeoordelingsronde>
     </asm:Beoordelingsproces>

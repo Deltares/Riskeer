@@ -25,12 +25,11 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
-using Core.Common.Util;
+using Core.Common.Util.Enums;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Builders;
-using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Primitives;
 
 namespace Riskeer.Common.Forms.Test.Builders

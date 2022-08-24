@@ -27,7 +27,7 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
-using Core.Common.Util;
+using Core.Common.Util.Enums;
 using Core.Gui.Converters;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;

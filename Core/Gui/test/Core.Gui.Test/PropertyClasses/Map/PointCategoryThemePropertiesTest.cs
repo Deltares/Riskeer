@@ -24,7 +24,7 @@ using System.ComponentModel;
 using System.Drawing;
 using Core.Common.Base;
 using Core.Common.TestUtil;
-using Core.Common.Util;
+using Core.Common.Util.Enums;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Style;
 using Core.Components.Gis.TestUtil;

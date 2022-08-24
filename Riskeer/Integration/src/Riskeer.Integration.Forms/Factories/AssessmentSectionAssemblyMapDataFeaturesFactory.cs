@@ -22,10 +22,10 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base.Geometry;
+using Core.Common.Util.Enums;
 using Core.Components.Gis.Features;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Forms.Factories;
-using Riskeer.Common.Forms.Helpers;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Assembly;
 using Riskeer.Integration.Util;

@@ -22,7 +22,7 @@
 using System;
 using System.ComponentModel;
 using System.Drawing;
-using Core.Common.Util;
+using Core.Common.Util.Enums;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Forms.TypeConverters;
 

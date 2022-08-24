@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.TestUtil;
+using Core.Common.Util.Enums;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
@@ -31,7 +32,6 @@ using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Factories;
-using Riskeer.Common.Forms.Helpers;
 
 namespace Riskeer.Common.Forms.Test.Factories
 {

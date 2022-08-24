@@ -22,6 +22,7 @@
 using System;
 using System.ComponentModel;
 using Core.Common.TestUtil;
+using Core.Common.Util.Enums;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;

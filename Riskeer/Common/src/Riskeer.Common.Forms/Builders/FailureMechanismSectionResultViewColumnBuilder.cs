@@ -22,9 +22,8 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Controls.DataGrid;
-using Core.Common.Util;
+using Core.Common.Util.Enums;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.Properties;
 using Riskeer.Common.Primitives;
 
