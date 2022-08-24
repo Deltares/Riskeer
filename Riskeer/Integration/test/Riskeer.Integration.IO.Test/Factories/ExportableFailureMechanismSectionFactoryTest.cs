@@ -210,7 +210,7 @@ namespace Riskeer.Integration.IO.Test.Factories
             Assert.AreEqual(assemblyResult.SectionStart, exportableSection.StartDistance);
             Assert.AreEqual(assemblyResult.SectionEnd, exportableSection.EndDistance);
             CollectionAssert.AreEqual(expectedGeometry, exportableSection.Geometry);
-            Assert.AreEqual(ExportableAssemblyMethodFactory.Create(assemblyResult.CommonSectionAssemblyMethod), exportableSection.AssemblyMethod);
+            Assert.AreEqual(ExportableAssemblyMethodConverter.ConvertTo(assemblyResult.CommonSectionAssemblyMethod), exportableSection.AssemblyMethod);
         }
 
         [Test]

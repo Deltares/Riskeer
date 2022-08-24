@@ -120,7 +120,7 @@ namespace Riskeer.Integration.IO.Factories
                 idGenerator.GetNewId(Resources.ExportableFailureMechanismSection_IdPrefix),
                 FailureMechanismSectionHelper.GetFailureMechanismSectionGeometry(referenceLine, assemblyResult.SectionStart, assemblyResult.SectionEnd),
                 assemblyResult.SectionStart, assemblyResult.SectionEnd,
-                ExportableAssemblyMethodFactory.Create(assemblyResult.CommonSectionAssemblyMethod));
+                ExportableAssemblyMethodConverter.ConvertTo(assemblyResult.CommonSectionAssemblyMethod));
 
             registry.Register(assemblyResult, exportableSection);
             return exportableSection;

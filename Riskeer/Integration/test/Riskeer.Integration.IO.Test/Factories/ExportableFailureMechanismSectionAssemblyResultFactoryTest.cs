@@ -48,7 +48,7 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             // Call
             void Call() => ExportableFailureMechanismSectionAssemblyResultFactory.Create(
-                null, new ExportableFailureMechanismSectionRegistry(), failureMechanism.SectionResults.First(),
+                null, new ExportableModelRegistry(), failureMechanism.SectionResults.First(),
                 failureMechanism, assessmentSection, (sr, fm, section) => null);
 
             // Assert
@@ -86,7 +86,7 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             // Call
             void Call() => ExportableFailureMechanismSectionAssemblyResultFactory.Create<TestFailureMechanismSectionResult, TestFailureMechanism>(
-                new IdentifierGenerator(), new ExportableFailureMechanismSectionRegistry(), null,
+                new IdentifierGenerator(), new ExportableModelRegistry(), null,
                 failureMechanism, assessmentSection, (sr, fm, section) => null);
 
             // Assert
@@ -105,7 +105,7 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             // Call
             void Call() => ExportableFailureMechanismSectionAssemblyResultFactory.Create<TestFailureMechanismSectionResult, TestFailureMechanism>(
-                new IdentifierGenerator(), new ExportableFailureMechanismSectionRegistry(), failureMechanism.SectionResults.First(),
+                new IdentifierGenerator(), new ExportableModelRegistry(), failureMechanism.SectionResults.First(),
                 null, assessmentSection, (sr, fm, section) => null);
 
             // Assert
@@ -123,7 +123,7 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             // Call
             void Call() => ExportableFailureMechanismSectionAssemblyResultFactory.Create(
-                new IdentifierGenerator(), new ExportableFailureMechanismSectionRegistry(), failureMechanism.SectionResults.First(),
+                new IdentifierGenerator(), new ExportableModelRegistry(), failureMechanism.SectionResults.First(),
                 failureMechanism, null, (sr, fm, section) => null);
 
             // Assert
@@ -142,7 +142,7 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             // Call
             void Call() => ExportableFailureMechanismSectionAssemblyResultFactory.Create(
-                new IdentifierGenerator(), new ExportableFailureMechanismSectionRegistry(), failureMechanism.SectionResults.First(),
+                new IdentifierGenerator(), new ExportableModelRegistry(), failureMechanism.SectionResults.First(),
                 failureMechanism, assessmentSection, null);
 
             // Assert
@@ -164,7 +164,7 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             // Call
             void Call() => ExportableFailureMechanismSectionAssemblyResultFactory.Create(
-                new IdentifierGenerator(), new ExportableFailureMechanismSectionRegistry(), failureMechanism.SectionResults.First(),
+                new IdentifierGenerator(), new ExportableModelRegistry(), failureMechanism.SectionResults.First(),
                 failureMechanism, assessmentSection, (sr, fm, section) => new FailureMechanismSectionAssemblyResultWrapper(
                     new FailureMechanismSectionAssemblyResult(
                         random.NextDouble(), random.NextDouble(), random.NextDouble(), assemblyGroup),
@@ -188,7 +188,7 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             var idGenerator = new IdentifierGenerator();
 
-            var registry = new ExportableFailureMechanismSectionRegistry();
+            var registry = new ExportableModelRegistry();
             ExportableFailureMechanismSectionCollectionFactory.CreateExportableFailureMechanismSectionCollection(
                 new IdentifierGenerator(), registry, failureMechanism.Sections);
 

@@ -39,7 +39,7 @@ namespace Riskeer.Integration.IO.Factories
         /// Creates a <see cref="ExportableFailureMechanismSectionAssemblyResult"/>.
         /// </summary>
         /// <param name="idGenerator">The generator to generate ids for the exportable components.</param>
-        /// <param name="registry">The <see cref="ExportableFailureMechanismSectionRegistry"/> to keep track of
+        /// <param name="registry">The <see cref="ExportableModelRegistry"/> to keep track of
         /// the created <see cref="ExportableFailureMechanismSection"/>.</param>
         /// <param name="sectionResult">The <see cref="TSectionResult"/> to assemble for.</param>
         /// <param name="failureMechanism">The <see cref="TFailureMechanism"/> the <paramref name="sectionResult"/>
@@ -53,7 +53,7 @@ namespace Riskeer.Integration.IO.Factories
         /// <exception cref="AssemblyFactoryException">Thrown when <paramref name="assemblyFunc"/> returns an invalid value
         /// that cannot be exported.</exception>
         public static ExportableFailureMechanismSectionAssemblyResult Create<TSectionResult, TFailureMechanism>(
-            IdentifierGenerator idGenerator, ExportableFailureMechanismSectionRegistry registry,
+            IdentifierGenerator idGenerator, ExportableModelRegistry registry,
             TSectionResult sectionResult, TFailureMechanism failureMechanism, IAssessmentSection assessmentSection,
             Func<TSectionResult, TFailureMechanism, IAssessmentSection, FailureMechanismSectionAssemblyResultWrapper> assemblyFunc)
             where TFailureMechanism : IFailureMechanism<TSectionResult>
