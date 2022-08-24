@@ -81,14 +81,18 @@ namespace Riskeer.Integration.IO.Factories
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
+            IEnumerable<CombinedFailureMechanismSectionAssemblyResult> combinedSectionAssemblyResults =
+                AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection)
+                                                .ToArray();
+
             var registry = new ExportableModelRegistry();
             return new ExportableAssessmentSection(IdentifierGenerator.GenerateId(assessmentSection),
                                                    assessmentSection.Name,
                                                    assessmentSection.ReferenceLine.Points,
-                                                   CreateExportableFailureMechanismSectionCollections(idGenerator, registry, assessmentSection),
+                                                   CreateExportableFailureMechanismSectionCollections(idGenerator, registry, assessmentSection, combinedSectionAssemblyResults),
                                                    CreateExportableAssessmentSectionAssemblyResult(idGenerator, assessmentSection),
                                                    CreateExportableFailureMechanisms(idGenerator, registry, assessmentSection),
-                                                   CreateExportableCombinedSectionAssemblyCollection(assessmentSection));
+                                                   CreateExportableCombinedSectionAssemblyCollection(assessmentSection, combinedSectionAssemblyResults));
         }
 
         /// <summary>
@@ -255,7 +259,7 @@ namespace Riskeer.Integration.IO.Factories
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created for <paramref name="failureMechanism"/>.</exception>
         /// <exception cref="AssemblyFactoryException">Thrown when assembly results are invalid and cannot be exported.</exception>
         private static void AddGenericFailureMechanismWhenInAssembly<TFailureMechanism, TSectionResult>(
-            IdentifierGenerator idGenerator, ExportableModelRegistry registry, List<ExportableFailureMechanism> exportableFailureMechanisms, 
+            IdentifierGenerator idGenerator, ExportableModelRegistry registry, List<ExportableFailureMechanism> exportableFailureMechanisms,
             TFailureMechanism failureMechanism, IAssessmentSection assessmentSection,
             Func<TFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> assembleFailureMechanismFunc,
             Func<TSectionResult, TFailureMechanism, IAssessmentSection, FailureMechanismSectionAssemblyResultWrapper> assembleFailureMechanismSectionFunc)
@@ -271,28 +275,40 @@ namespace Riskeer.Integration.IO.Factories
         }
 
         private static IEnumerable<ExportableFailureMechanismSectionCollection> CreateExportableFailureMechanismSectionCollections(
-            IdentifierGenerator idGenerator, ExportableModelRegistry registry, AssessmentSection assessmentSection)
+            IdentifierGenerator idGenerator, ExportableModelRegistry registry, AssessmentSection assessmentSection,
+            IEnumerable<CombinedFailureMechanismSectionAssemblyResult> combinedSectionAssemblyResults)
         {
             IEnumerable<IFailureMechanism> failureMechanismsInAssembly = assessmentSection.GetFailureMechanisms()
                                                                                           .Concat(assessmentSection.SpecificFailureMechanisms)
                                                                                           .Where(fm => fm.InAssembly);
-
-            return failureMechanismsInAssembly.Select(failureMechanism => ExportableFailureMechanismSectionCollectionFactory.CreateExportableFailureMechanismSectionCollection(
-                                                          idGenerator, registry, failureMechanism.Sections))
-                                              .ToArray();
+            IEnumerable<ExportableFailureMechanismSectionCollection> failureMechanismsInAssemblySectionCollections =
+                failureMechanismsInAssembly.Select(failureMechanism => ExportableFailureMechanismSectionCollectionFactory.CreateExportableFailureMechanismSectionCollection(
+                                                       idGenerator, registry, failureMechanism.Sections))
+                                           .ToArray();
+            
+            var failureMechanismSectionCollections = new List<ExportableFailureMechanismSectionCollection>();
+            failureMechanismSectionCollections.AddRange(failureMechanismsInAssemblySectionCollections);
+            if (combinedSectionAssemblyResults.Any())
+            {
+                failureMechanismSectionCollections.Add(ExportableFailureMechanismSectionCollectionFactory.CreateExportableFailureMechanismSectionCollection(
+                                                           idGenerator, registry, assessmentSection.ReferenceLine, combinedSectionAssemblyResults));
+            }
+            
+            return failureMechanismSectionCollections;
         }
 
         /// <summary>
         /// Creates a collection of <see cref="ExportableCombinedSectionAssembly"/> based on <paramref name="assessmentSection"/>.
         /// </summary>
         /// <param name="assessmentSection">The assessment section to create a collection of <see cref="ExportableCombinedSectionAssembly"/> for.</param>
+        /// <param name="combinedFailureMechanismSectionAssemblyResults">The collection of <see cref="CombinedFailureMechanismSectionAssemblyResult"/>.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="ExportableCombinedSectionAssembly"/>.</returns>
-        /// <exception cref="AssemblyException">Thrown when assembly results cannot be created for <paramref name="assessmentSection"/>.</exception>
         /// <exception cref="AssemblyFactoryException">Thrown when assembly results are invalid and cannot be exported.</exception>
-        private static IEnumerable<ExportableCombinedSectionAssembly> CreateExportableCombinedSectionAssemblyCollection(AssessmentSection assessmentSection)
+        private static IEnumerable<ExportableCombinedSectionAssembly> CreateExportableCombinedSectionAssemblyCollection(
+            AssessmentSection assessmentSection, IEnumerable<CombinedFailureMechanismSectionAssemblyResult> combinedFailureMechanismSectionAssemblyResults)
         {
             return ExportableCombinedSectionAssemblyFactory.CreateExportableCombinedSectionAssemblyCollection(
-                AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection),
+                combinedFailureMechanismSectionAssemblyResults,
                 assessmentSection);
         }
     }

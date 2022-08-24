@@ -123,9 +123,7 @@ namespace Riskeer.Integration.IO.Test.Factories
                 Assert.AreEqual(0.14, exportableAssessmentSectionAssemblyResult.Probability);
 
                 AssertExportableFailureMechanisms(exportableAssessmentSection.FailureMechanisms, assessmentSection);
-                IEnumerable<IFailureMechanism> expectedFailureMechanisms = assessmentSection.GetFailureMechanisms()
-                                                                                            .Concat(assessmentSection.SpecificFailureMechanisms);
-                AssertExportableFailureMechanismSectionCollections(expectedFailureMechanisms, exportableAssessmentSection.FailureMechanismSectionCollections);
+                AssertExportableFailureMechanismSectionCollections(assessmentSection, exportableAssessmentSection.FailureMechanismSectionCollections);
 
                 Assert.AreEqual(1, exportableAssessmentSection.CombinedSectionAssemblies.Count());
                 ExportableCombinedSectionAssembly exportableCombinedSectionAssembly = exportableAssessmentSection.CombinedSectionAssemblies.ElementAt(0);
@@ -204,7 +202,7 @@ namespace Riskeer.Integration.IO.Test.Factories
                 Assert.AreEqual(0.14, exportableAssessmentSectionAssemblyResult.Probability);
 
                 CollectionAssert.IsEmpty(exportableAssessmentSection.FailureMechanisms);
-                CollectionAssert.IsEmpty(exportableAssessmentSection.FailureMechanismSectionCollections);
+                AssertExportableFailureMechanismSectionCollections(assessmentSection, exportableAssessmentSection.FailureMechanismSectionCollections);
 
                 Assert.AreEqual(1, exportableAssessmentSection.CombinedSectionAssemblies.Count());
                 ExportableCombinedSectionAssembly exportableCombinedSectionAssembly = exportableAssessmentSection.CombinedSectionAssemblies.ElementAt(0);
@@ -220,15 +218,26 @@ namespace Riskeer.Integration.IO.Test.Factories
         }
 
         private static void AssertExportableFailureMechanismSectionCollections(
-            IEnumerable<IFailureMechanism> failureMechanisms, IEnumerable<ExportableFailureMechanismSectionCollection> failureMechanismSectionCollections)
+            AssessmentSection assessmentSection, IEnumerable<ExportableFailureMechanismSectionCollection> failureMechanismSectionCollections)
         {
-            int nrOfExpectedCollections = failureMechanisms.Count();
+            IEnumerable<IFailureMechanism> failureMechanismsInAssembly = assessmentSection.GetFailureMechanisms()
+                                                                                          .Concat(assessmentSection.SpecificFailureMechanisms)
+                                                                                          .Where(fm => fm.InAssembly);
+
+            int nrOfFailureMechanismsInAssembly = failureMechanismsInAssembly.Count();
+            int nrOfExpectedCollections = nrOfFailureMechanismsInAssembly + 1;
             Assert.AreEqual(nrOfExpectedCollections, failureMechanismSectionCollections.Count());
-            for (var i = 0; i < nrOfExpectedCollections; i++)
+
+            for (var i = 0; i < nrOfFailureMechanismsInAssembly; i++)
             {
-                int nrOfExpectedSections = failureMechanisms.ElementAt(i).Sections.Count();
+                int nrOfExpectedSections = failureMechanismsInAssembly.ElementAt(i).Sections.Count();
                 Assert.AreEqual(nrOfExpectedSections, failureMechanismSectionCollections.ElementAt(i).Sections.Count());
             }
+
+            ExportableFailureMechanismSectionCollection combinedFailureMechanismSectionCollection = failureMechanismSectionCollections.Last();
+            IEnumerable<ExportableFailureMechanismSection> exportableCombinedFailureMechanismSections = combinedFailureMechanismSectionCollection.Sections;
+            CollectionAssert.AllItemsAreInstancesOfType(exportableCombinedFailureMechanismSections, typeof(ExportableCombinedFailureMechanismSection));
+            Assert.AreEqual(1, exportableCombinedFailureMechanismSections.Count());
         }
 
         private static void AssertExportableFailureMechanisms(
