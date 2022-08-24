@@ -23,6 +23,7 @@ using System;
 using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Integration.Data;
+using Riskeer.Integration.IO.Exceptions;
 using Riskeer.Integration.IO.Helpers;
 using Riskeer.Integration.IO.Properties;
 
@@ -43,6 +44,7 @@ namespace Riskeer.Integration.IO.Factories
         /// is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when no reference line is set for <paramref name="assessmentSection"/>.</exception>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created for <paramref name="assessmentSection"/>.</exception>
+        /// <exception cref="AssemblyFactoryException">Thrown when assembly results are invalid and cannot be exported.</exception>
         public static ExportableAssembly CreateExportableAssembly(AssessmentSection assessmentSection)
         {
             if (assessmentSection == null)

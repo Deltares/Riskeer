@@ -40,6 +40,7 @@ using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Assembly;
 using Riskeer.Integration.Data.StandAlone;
 using Riskeer.Integration.Data.StandAlone.AssemblyFactories;
+using Riskeer.Integration.IO.Exceptions;
 using Riskeer.Integration.IO.Helpers;
 using Riskeer.Integration.IO.Properties;
 using Riskeer.MacroStabilityInwards.Data;
@@ -67,6 +68,7 @@ namespace Riskeer.Integration.IO.Factories
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when no reference line is set for <paramref name="assessmentSection"/>.</exception>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created for <paramref name="assessmentSection"/>.</exception>
+        /// <exception cref="AssemblyFactoryException">Thrown when assembly results are invalid and cannot be exported.</exception>
         public static ExportableAssessmentSection CreateExportableAssessmentSection(IdentifierGenerator idGenerator, AssessmentSection assessmentSection)
         {
             if (idGenerator == null)
@@ -149,12 +151,14 @@ namespace Riskeer.Integration.IO.Factories
         /// for failure mechanisms that are in assembly based on <paramref name="assessmentSection"/>.
         /// </summary>
         /// <param name="idGenerator">The generator to generate ids for the exportable components.</param>
-        /// <param name="registry">The <see cref="ExportableFailureMechanismSectionRegistry"/> to keep track of the created <see cref="ExportableFailureMechanismSection"/>.</param>
+        /// <param name="registry">The <see cref="ExportableFailureMechanismSectionRegistry"/>
+        /// to keep track of the created <see cref="ExportableFailureMechanismSection"/>.</param>
         /// <param name="assessmentSection">The assessment section to create a collection of
         /// <see cref="ExportableFailureMechanism"/> with probability for.</param>
         /// <returns>A collection of <see cref="ExportableFailureMechanism"/> based on failure
         /// mechanisms that are in assembly.</returns>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created for <paramref name="assessmentSection"/>.</exception>
+        /// <exception cref="AssemblyFactoryException">Thrown when assembly results are invalid and cannot be exported.</exception>
         private static IEnumerable<ExportableFailureMechanism> CreateExportableFailureMechanisms(
             IdentifierGenerator idGenerator, ExportableFailureMechanismSectionRegistry registry, AssessmentSection assessmentSection)
         {
@@ -234,6 +238,22 @@ namespace Riskeer.Integration.IO.Factories
             return exportableFailureMechanisms;
         }
 
+        /// <summary>
+        /// Adds a generic failure mechanism to the <paramref name="exportableFailureMechanisms"/> when it is in assembly.
+        /// </summary>
+        /// <param name="idGenerator">The generator to generate ids for the exportable components.</param>
+        /// <param name="registry">The <see cref="ExportableFailureMechanismSectionRegistry"/>
+        /// to keep track of the created <see cref="ExportableFailureMechanismSection"/>.</param>
+        /// <param name="exportableFailureMechanisms">The <see cref="List{T}"/> with <see cref="ExportableFailureMechanism"/>
+        /// to add the failure mechanism to.</param>
+        /// <param name="failureMechanism">The failure mechanism to export.</param>
+        /// <param name="assessmentSection">The assessment section the failure mechanism belongs to.</param>
+        /// <param name="assembleFailureMechanismFunc">The <see cref="Func{T1,T2,TResult}"/> to assemble the failure mechanism.</param>
+        /// <param name="assembleFailureMechanismSectionFunc">The <see cref="Func{T1,T2,T3,TResult}"/> to assemble the failure mechanism section.</param>
+        /// <typeparam name="TFailureMechanism">The type of failure mechanism.</typeparam>
+        /// <typeparam name="TSectionResult">The type of section result.</typeparam>
+        /// <exception cref="AssemblyException">Thrown when assembly results cannot be created for <paramref name="failureMechanism"/>.</exception>
+        /// <exception cref="AssemblyFactoryException">Thrown when assembly results are invalid and cannot be exported.</exception>
         private static void AddGenericFailureMechanismWhenInAssembly<TFailureMechanism, TSectionResult>(
             IdentifierGenerator idGenerator, ExportableFailureMechanismSectionRegistry registry, List<ExportableFailureMechanism> exportableFailureMechanisms, 
             TFailureMechanism failureMechanism, IAssessmentSection assessmentSection,
@@ -266,8 +286,9 @@ namespace Riskeer.Integration.IO.Factories
         /// Creates a collection of <see cref="ExportableCombinedSectionAssembly"/> based on <paramref name="assessmentSection"/>.
         /// </summary>
         /// <param name="assessmentSection">The assessment section to create a collection of <see cref="ExportableCombinedSectionAssembly"/> for.</param>
-        /// <returns>A <see cref="CreateExportableCombinedSectionAssemblyCollection"/>.</returns>
+        /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="ExportableCombinedSectionAssembly"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created for <paramref name="assessmentSection"/>.</exception>
+        /// <exception cref="AssemblyFactoryException">Thrown when assembly results are invalid and cannot be exported.</exception>
         private static IEnumerable<ExportableCombinedSectionAssembly> CreateExportableCombinedSectionAssemblyCollection(AssessmentSection assessmentSection)
         {
             return ExportableCombinedSectionAssemblyFactory.CreateExportableCombinedSectionAssemblyCollection(
