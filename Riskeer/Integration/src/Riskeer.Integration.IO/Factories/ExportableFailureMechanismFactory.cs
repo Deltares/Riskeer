@@ -26,6 +26,7 @@ using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Integration.IO.Exceptions;
 using Riskeer.Integration.IO.Helpers;
 using Riskeer.Integration.IO.Properties;
 
@@ -54,6 +55,8 @@ namespace Riskeer.Integration.IO.Factories
         /// <returns>An <see cref="ExportableFailureMechanism"/> with assembly results.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created.</exception>
+        /// <exception cref="AssemblyFactoryException">Thrown when <paramref name="assembleFailureMechanismSectionFunc"/>
+        /// returns an invalid result that cannot be exported.</exception>
         public static ExportableGenericFailureMechanism CreateExportableGenericFailureMechanism<TFailureMechanism, TSectionResult>(
             IdentifierGenerator idGenerator, ExportableFailureMechanismSectionRegistry registry, TFailureMechanism failureMechanism, IAssessmentSection assessmentSection,
             Func<TFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> assembleFailureMechanismFunc,
@@ -96,8 +99,8 @@ namespace Riskeer.Integration.IO.Factories
                                                          new ExportableFailureMechanismAssemblyResult(
                                                              assemblyResultWrapper.AssemblyResult,
                                                              ExportableAssemblyMethodFactory.Create(assemblyResultWrapper.AssemblyMethod)),
-                                                         CreateExportableFailureMechanismSectionResults(idGenerator, registry,
-                                                                                                        failureMechanism, assessmentSection, assembleFailureMechanismSectionFunc),
+                                                         CreateExportableFailureMechanismSectionResults(
+                                                             idGenerator, registry, failureMechanism, assessmentSection, assembleFailureMechanismSectionFunc),
                                                          failureMechanism.Code);
         }
 
@@ -116,6 +119,8 @@ namespace Riskeer.Integration.IO.Factories
         /// <returns>An <see cref="ExportableFailureMechanism"/> with assembly results.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created.</exception>
+        /// <exception cref="AssemblyFactoryException">Thrown when <paramref name="assembleFailureMechanismSectionFunc"/>
+        /// returns an invalid result that cannot be exported.</exception>
         public static ExportableSpecificFailureMechanism CreateExportableSpecificFailureMechanism(
             IdentifierGenerator idGenerator, ExportableFailureMechanismSectionRegistry registry, SpecificFailureMechanism failureMechanism, IAssessmentSection assessmentSection,
             Func<SpecificFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> assembleFailureMechanismFunc,
@@ -156,8 +161,8 @@ namespace Riskeer.Integration.IO.Factories
                                                           new ExportableFailureMechanismAssemblyResult(
                                                               assemblyResultWrapper.AssemblyResult,
                                                               ExportableAssemblyMethodFactory.Create(assemblyResultWrapper.AssemblyMethod)),
-                                                          CreateExportableFailureMechanismSectionResults(idGenerator, registry, failureMechanism,
-                                                                                                         assessmentSection, assembleFailureMechanismSectionFunc),
+                                                          CreateExportableFailureMechanismSectionResults(
+                                                              idGenerator, registry, failureMechanism, assessmentSection, assembleFailureMechanismSectionFunc),
                                                           failureMechanism.Name);
         }
 
@@ -176,8 +181,9 @@ namespace Riskeer.Integration.IO.Factories
         /// <typeparam name="TSectionResult">The type of the section result.</typeparam>
         /// <returns>A collection of <see cref="ExportableFailureMechanismSectionAssemblyResult"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created.</exception>
-        private static IEnumerable<ExportableFailureMechanismSectionAssemblyResult> CreateExportableFailureMechanismSectionResults
-            <TFailureMechanism, TSectionResult>(
+        /// <exception cref="AssemblyFactoryException">Thrown when <paramref name="assembleFailureMechanismSectionFunc"/>
+        /// returns an invalid result that cannot be exported.</exception>
+        private static IEnumerable<ExportableFailureMechanismSectionAssemblyResult> CreateExportableFailureMechanismSectionResults<TFailureMechanism, TSectionResult>(
                 IdentifierGenerator idGenerator, ExportableFailureMechanismSectionRegistry registry, TFailureMechanism failureMechanism, IAssessmentSection assessmentSection,
                 Func<TSectionResult, TFailureMechanism, IAssessmentSection, FailureMechanismSectionAssemblyResultWrapper> assembleFailureMechanismSectionFunc)
             where TFailureMechanism : IFailureMechanism<TSectionResult>
@@ -190,9 +196,16 @@ namespace Riskeer.Integration.IO.Factories
                     sectionResult, failureMechanism, assessmentSection);
                 FailureMechanismSectionAssemblyResult assemblyResult = assemblyResultWrapper.AssemblyResult;
 
+                if (assemblyResult.FailureMechanismSectionAssemblyGroup == FailureMechanismSectionAssemblyGroup.NoResult
+                    || assemblyResult.FailureMechanismSectionAssemblyGroup == FailureMechanismSectionAssemblyGroup.Dominant)
+                {
+                    throw new AssemblyFactoryException("The assembly result is invalid and cannot be created.");
+                }
+
                 exportableResults.Add(
                     new ExportableFailureMechanismSectionAssemblyResult(
-                        idGenerator.GetNewId(Resources.ExportableFailureMechanismSectionAssemblyResult_IdPrefix), registry.Get(sectionResult.Section),
+                        idGenerator.GetNewId(Resources.ExportableFailureMechanismSectionAssemblyResult_IdPrefix),
+                        registry.Get(sectionResult.Section),
                         assemblyResult.SectionProbability, assemblyResult.FailureMechanismSectionAssemblyGroup,
                         ExportableAssemblyMethodFactory.Create(assemblyResultWrapper.AssemblyGroupMethod),
                         ExportableAssemblyMethodFactory.Create(assemblyResultWrapper.ProbabilityMethod)));
