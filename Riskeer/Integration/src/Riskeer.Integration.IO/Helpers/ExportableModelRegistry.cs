@@ -38,6 +38,9 @@ namespace Riskeer.Integration.IO.Helpers
 
         private readonly Dictionary<FailureMechanismSection, ExportableFailureMechanismSection> failureMechanismSections =
             CreateDictionary<FailureMechanismSection, ExportableFailureMechanismSection>();
+        
+        private readonly Dictionary<FailureMechanismSectionResult, ExportableFailureMechanismSectionAssemblyResult> failureMechanismSectionResults =
+            CreateDictionary<FailureMechanismSectionResult, ExportableFailureMechanismSectionAssemblyResult>();
 
         private static Dictionary<TModel, TExportableModel> CreateDictionary<TModel, TExportableModel>()
         {
@@ -138,6 +141,17 @@ namespace Riskeer.Integration.IO.Helpers
         {
             Register(failureMechanismSections, model, exportableModel);
         }
+        
+        /// <summary>
+        /// Registers the <paramref name="model"/> with the value <paramref name="exportableModel"/>.
+        /// </summary>
+        /// <param name="model">The <see cref="FailureMechanismSectionResult"/> to be registered.</param>
+        /// <param name="exportableModel">The <see cref="ExportableFailureMechanismSectionAssemblyResult"/> to be registered with.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
+        internal void Register(FailureMechanismSectionResult model, ExportableFailureMechanismSectionAssemblyResult exportableModel)
+        {
+            Register(failureMechanismSectionResults, model, exportableModel);
+        }
 
         #endregion
 
@@ -163,6 +177,17 @@ namespace Riskeer.Integration.IO.Helpers
         internal bool Contains(FailureMechanismSection model)
         {
             return ContainsValue(failureMechanismSections, model);
+        }
+        
+        /// <summary>
+        /// Checks whether a value has been registered for the given <paramref name="model"/>.
+        /// </summary>
+        /// <param name="model">The <see cref="FailureMechanismSectionResult"/> to check for.</param>
+        /// <returns><c>true</c> if the <see cref="model"/> was registered before, <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
+        internal bool Contains(FailureMechanismSectionResult model)
+        {
+            return ContainsValue(failureMechanismSectionResults, model);
         }
 
         #endregion
@@ -199,6 +224,22 @@ namespace Riskeer.Integration.IO.Helpers
         public ExportableFailureMechanismSection Get(FailureMechanismSection model)
         {
             return Get(failureMechanismSections, model);
+        }
+        
+        /// <summary>
+        /// Obtains the <see cref="ExportableFailureMechanismSectionAssemblyResult"/> which was registered for the
+        /// given <paramref name="model"/>.
+        /// </summary>
+        /// <param name="model">The <see cref="FailureMechanismSectionResult"/> that has been registered.</param>
+        /// <returns>The associated <see cref="ExportableFailureMechanismSectionAssemblyResult"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when no exportable model 
+        /// has been registered for <paramref name="model"/>.</exception>
+        /// <remarks>Use <see cref="Contains(FailureMechanismSectionResult)"/> to find out whether a create
+        /// operation has been registered for <paramref name="model"/>.</remarks>
+        public ExportableFailureMechanismSectionAssemblyResult Get(FailureMechanismSectionResult model)
+        {
+            return Get(failureMechanismSectionResults, model);
         }
 
         #endregion

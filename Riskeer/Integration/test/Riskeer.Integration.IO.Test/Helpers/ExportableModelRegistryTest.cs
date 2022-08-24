@@ -284,5 +284,27 @@ namespace Riskeer.Integration.IO.Test.Helpers
                 return ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection();
             }
         }
+
+        [TestFixture]
+        private class FailureMechanismSectionResultTest : RegistryTest<FailureMechanismSectionResult,
+            ExportableFailureMechanismSectionAssemblyResult>
+        {
+            public FailureMechanismSectionResultTest() : base(
+                (r, e, m) => r.Register(m, e),
+                (r, m) => r.Contains(m),
+                (r, m) => r.Get(m)) {}
+
+            protected override FailureMechanismSectionResult CreateDataModel()
+            {
+                return FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
+            }
+
+            protected override ExportableFailureMechanismSectionAssemblyResult CreateExportableModel()
+            {
+                ExportableFailureMechanismSection exportableSection =
+                    ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection();
+                return ExportableFailureMechanismSectionAssemblyResultTestFactory.Create(exportableSection, 21);
+            }
+        }
     }
 }
