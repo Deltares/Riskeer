@@ -35,7 +35,7 @@ using Riskeer.Integration.Data.Assembly;
 using Riskeer.Integration.Data.TestUtil;
 using Riskeer.Integration.IO.Exceptions;
 using Riskeer.Integration.IO.Factories;
-using Riskeer.Integration.Util;
+using Riskeer.Integration.IO.Helpers;
 
 namespace Riskeer.Integration.IO.Test.Factories
 {
@@ -43,11 +43,37 @@ namespace Riskeer.Integration.IO.Test.Factories
     public class ExportableCombinedSectionAssemblyFactoryTest
     {
         [Test]
+        public void CreateExportableCombinedSectionAssemblyCollection_IdGeneratorNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => ExportableCombinedSectionAssemblyFactory.CreateExportableCombinedSectionAssemblyCollection(
+                null, new ExportableModelRegistry(), Enumerable.Empty<CombinedFailureMechanismSectionAssemblyResult>(),
+                new AssessmentSection(AssessmentSectionComposition.Dike));
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("idGenerator", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateExportableCombinedSectionAssemblyCollection_RegistryNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => ExportableCombinedSectionAssemblyFactory.CreateExportableCombinedSectionAssemblyCollection(
+                new IdentifierGenerator(), null, Enumerable.Empty<CombinedFailureMechanismSectionAssemblyResult>(),
+                new AssessmentSection(AssessmentSectionComposition.Dike));
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("registry", exception.ParamName);
+        }
+
+        [Test]
         public void CreateExportableCombinedSectionAssemblyCollection_CombinedSectionAssemblyResultsNull_ThrowsArgumentNullException()
         {
             // Call
             void Call() => ExportableCombinedSectionAssemblyFactory.CreateExportableCombinedSectionAssemblyCollection(
-                null, new AssessmentSection(AssessmentSectionComposition.Dike));
+                new IdentifierGenerator(), new ExportableModelRegistry(), null, new AssessmentSection(AssessmentSectionComposition.Dike));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -59,7 +85,7 @@ namespace Riskeer.Integration.IO.Test.Factories
         {
             // Call
             void Call() => ExportableCombinedSectionAssemblyFactory.CreateExportableCombinedSectionAssemblyCollection(
-                Enumerable.Empty<CombinedFailureMechanismSectionAssemblyResult>(), null);
+                new IdentifierGenerator(), new ExportableModelRegistry(), Enumerable.Empty<CombinedFailureMechanismSectionAssemblyResult>(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -79,12 +105,13 @@ namespace Riskeer.Integration.IO.Test.Factories
             CombinedFailureMechanismSectionAssemblyResult[] assemblyResults =
             {
                 new CombinedFailureMechanismSectionAssemblyResult(random.NextDouble(), random.NextDouble(), assemblyGroup,
-                random.NextEnumValue<AssemblyMethod>(), random.NextEnumValue<AssemblyMethod>(), random.NextEnumValue<AssemblyMethod>(),
-                new CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties())
+                                                                  random.NextEnumValue<AssemblyMethod>(), random.NextEnumValue<AssemblyMethod>(), random.NextEnumValue<AssemblyMethod>(),
+                                                                  new CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties())
             };
 
             // Call
-            void Call() => ExportableCombinedSectionAssemblyFactory.CreateExportableCombinedSectionAssemblyCollection(assemblyResults, assessmentSection);
+            void Call() => ExportableCombinedSectionAssemblyFactory.CreateExportableCombinedSectionAssemblyCollection(
+                new IdentifierGenerator(), new ExportableModelRegistry(), assemblyResults, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<AssemblyFactoryException>(Call);
@@ -122,19 +149,31 @@ namespace Riskeer.Integration.IO.Test.Factories
                 CombinedFailureMechanismSectionAssemblyResultTestFactory.Create(22, hasAssemblyGroupResults)
             };
 
+            var idGenerator = new IdentifierGenerator();
+            var registry = new ExportableModelRegistry();
+            RegisterFailureMechanismSections(registry, assessmentSection.ReferenceLine, assemblyResults);
+
             // Call
             IEnumerable<ExportableCombinedSectionAssembly> exportableCombinedSectionAssemblies =
-                ExportableCombinedSectionAssemblyFactory.CreateExportableCombinedSectionAssemblyCollection(assemblyResults, assessmentSection);
+                ExportableCombinedSectionAssemblyFactory.CreateExportableCombinedSectionAssemblyCollection(
+                    idGenerator, registry, assemblyResults, assessmentSection);
 
             // Assert
-            AssertCombinedFailureMechanismSectionAssemblyResults(
-                assemblyResults, exportableCombinedSectionAssemblies,
-                assessmentSection.ReferenceLine, hasAssemblyGroupResults);
+            AssertCombinedFailureMechanismSectionAssemblyResults(registry, assemblyResults, exportableCombinedSectionAssemblies,
+                                                                 hasAssemblyGroupResults);
         }
 
-        private static void AssertCombinedFailureMechanismSectionAssemblyResults(IEnumerable<CombinedFailureMechanismSectionAssemblyResult> assemblyResults,
-                                                                                 IEnumerable<ExportableCombinedSectionAssembly> exportableCombinedSectionAssemblies,
-                                                                                 ReferenceLine referenceLine, bool hasAssemblyGroupResults)
+        private static void RegisterFailureMechanismSections(ExportableModelRegistry registry, ReferenceLine referenceLine,
+                                                             IEnumerable<CombinedFailureMechanismSectionAssemblyResult> assemblyResults)
+        {
+            ExportableFailureMechanismSectionCollectionFactory.CreateExportableFailureMechanismSectionCollection(new IdentifierGenerator(), registry, referenceLine, assemblyResults);
+        }
+
+        private static void AssertCombinedFailureMechanismSectionAssemblyResults(
+            ExportableModelRegistry registry,
+            IEnumerable<CombinedFailureMechanismSectionAssemblyResult> assemblyResults,
+            IEnumerable<ExportableCombinedSectionAssembly> exportableCombinedSectionAssemblies,
+            bool hasAssemblyGroupResults)
         {
             int expectedNrOfSections = assemblyResults.Count();
             Assert.AreEqual(expectedNrOfSections, exportableCombinedSectionAssemblies.Count());
@@ -144,34 +183,20 @@ namespace Riskeer.Integration.IO.Test.Factories
                 CombinedFailureMechanismSectionAssemblyResult combinedFailureMechanismSectionAssemblyResult = assemblyResults.ElementAt(i);
                 ExportableCombinedSectionAssembly exportableCombinedSectionAssembly = exportableCombinedSectionAssemblies.ElementAt(i);
 
-                AssertExportableCombinedFailureMechanismSection(combinedFailureMechanismSectionAssemblyResult, exportableCombinedSectionAssembly.Section, referenceLine);
                 AssertExportableCombinedFailureMechanismSectionResult(
-                    combinedFailureMechanismSectionAssemblyResult, exportableCombinedSectionAssembly.Section, exportableCombinedSectionAssembly,
-                    hasAssemblyGroupResults);
+                    i, combinedFailureMechanismSectionAssemblyResult, registry.Get(combinedFailureMechanismSectionAssemblyResult),
+                    exportableCombinedSectionAssembly, hasAssemblyGroupResults);
             }
         }
 
-        private static void AssertExportableCombinedFailureMechanismSection(CombinedFailureMechanismSectionAssemblyResult expectedSection,
-                                                                            ExportableCombinedFailureMechanismSection actualSection,
-                                                                            ReferenceLine referenceLine)
-        {
-            IEnumerable<Point2D> expectedGeometry = FailureMechanismSectionHelper.GetFailureMechanismSectionGeometry(
-                referenceLine,
-                actualSection.StartDistance,
-                actualSection.EndDistance).ToArray();
-            CollectionAssert.IsNotEmpty(expectedGeometry);
-
-            Assert.AreEqual(expectedSection.SectionStart, actualSection.StartDistance);
-            Assert.AreEqual(expectedSection.SectionEnd, actualSection.EndDistance);
-            CollectionAssert.AreEqual(expectedGeometry, actualSection.Geometry);
-            Assert.AreEqual(ExportableAssemblyMethodConverter.ConvertTo(expectedSection.CommonSectionAssemblyMethod), actualSection.AssemblyMethod);
-        }
-
-        private static void AssertExportableCombinedFailureMechanismSectionResult(CombinedFailureMechanismSectionAssemblyResult expectedSection,
+        private static void AssertExportableCombinedFailureMechanismSectionResult(int index,
+                                                                                  CombinedFailureMechanismSectionAssemblyResult expectedSection,
                                                                                   ExportableCombinedFailureMechanismSection actualSection,
                                                                                   ExportableCombinedSectionAssembly actualSectionResult,
                                                                                   bool hasAssemblyGroupResults)
         {
+            Assert.AreEqual($"Gf.{index}", actualSectionResult.Id);
+
             Assert.AreSame(actualSection, actualSectionResult.Section);
             Assert.AreEqual(expectedSection.TotalResult, actualSectionResult.AssemblyGroup);
             Assert.AreEqual(ExportableAssemblyMethodConverter.ConvertTo(expectedSection.CombinedSectionResultAssemblyMethod), actualSectionResult.AssemblyGroupAssemblyMethod);

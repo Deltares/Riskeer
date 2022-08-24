@@ -526,12 +526,12 @@
     </uboi:Faalanalyse>
   </uboi:featureMember>
   <uboi:featureMember>
-    <uboi:AnalyseDeelvakGecombineerd gml:id="id">
+    <uboi:AnalyseDeelvakGecombineerd gml:id="Gf.0">
       <uboi:duidingsklasse>+II</uboi:duidingsklasse>
       <uboi:assemblagemethode>BOI-3C-1</uboi:assemblagemethode>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:specificeert xlink:href="Vo.0" />
-      <uboi:geldtVoor xlink:href="id" />
+      <uboi:geldtVoor xlink:href="Bv.32" />
     </uboi:AnalyseDeelvakGecombineerd>
   </uboi:featureMember>
   <uboi:featureMember>
@@ -540,7 +540,7 @@
       <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:afgeleidVan xlink:href="id" />
-      <uboi:duidt xlink:href="id" />
+      <uboi:duidt xlink:href="Gf.0" />
     </uboi:AnalyseDeelvak>
   </uboi:featureMember>
   <uboi:featureMember>
@@ -549,7 +549,7 @@
       <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:afgeleidVan xlink:href="id" />
-      <uboi:duidt xlink:href="id" />
+      <uboi:duidt xlink:href="Gf.0" />
     </uboi:AnalyseDeelvak>
   </uboi:featureMember>
   <uboi:featureMember>
@@ -558,7 +558,7 @@
       <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:afgeleidVan xlink:href="id" />
-      <uboi:duidt xlink:href="id" />
+      <uboi:duidt xlink:href="Gf.0" />
     </uboi:AnalyseDeelvak>
   </uboi:featureMember>
   <uboi:featureMember>
@@ -567,7 +567,7 @@
       <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:afgeleidVan xlink:href="id" />
-      <uboi:duidt xlink:href="id" />
+      <uboi:duidt xlink:href="Gf.0" />
     </uboi:AnalyseDeelvak>
   </uboi:featureMember>
   <uboi:featureMember>
@@ -576,7 +576,7 @@
       <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:afgeleidVan xlink:href="id" />
-      <uboi:duidt xlink:href="id" />
+      <uboi:duidt xlink:href="Gf.0" />
     </uboi:AnalyseDeelvak>
   </uboi:featureMember>
   <uboi:featureMember>
@@ -585,7 +585,7 @@
       <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:afgeleidVan xlink:href="id" />
-      <uboi:duidt xlink:href="id" />
+      <uboi:duidt xlink:href="Gf.0" />
     </uboi:AnalyseDeelvak>
   </uboi:featureMember>
   <uboi:featureMember>
@@ -594,7 +594,7 @@
       <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:afgeleidVan xlink:href="id" />
-      <uboi:duidt xlink:href="id" />
+      <uboi:duidt xlink:href="Gf.0" />
     </uboi:AnalyseDeelvak>
   </uboi:featureMember>
   <uboi:featureMember>
@@ -603,7 +603,7 @@
       <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:afgeleidVan xlink:href="id" />
-      <uboi:duidt xlink:href="id" />
+      <uboi:duidt xlink:href="Gf.0" />
     </uboi:AnalyseDeelvak>
   </uboi:featureMember>
   <uboi:featureMember>
@@ -612,7 +612,7 @@
       <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:afgeleidVan xlink:href="id" />
-      <uboi:duidt xlink:href="id" />
+      <uboi:duidt xlink:href="Gf.0" />
     </uboi:AnalyseDeelvak>
   </uboi:featureMember>
   <uboi:featureMember>
@@ -621,7 +621,7 @@
       <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:afgeleidVan xlink:href="id" />
-      <uboi:duidt xlink:href="id" />
+      <uboi:duidt xlink:href="Gf.0" />
     </uboi:AnalyseDeelvak>
   </uboi:featureMember>
   <uboi:featureMember>
@@ -630,7 +630,7 @@
       <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:afgeleidVan xlink:href="id" />
-      <uboi:duidt xlink:href="id" />
+      <uboi:duidt xlink:href="Gf.0" />
     </uboi:AnalyseDeelvak>
   </uboi:featureMember>
   <uboi:featureMember>
@@ -639,7 +639,7 @@
       <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:afgeleidVan xlink:href="id" />
-      <uboi:duidt xlink:href="id" />
+      <uboi:duidt xlink:href="Gf.0" />
     </uboi:AnalyseDeelvak>
   </uboi:featureMember>
   <uboi:featureMember>
@@ -648,7 +648,7 @@
       <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:afgeleidVan xlink:href="id" />
-      <uboi:duidt xlink:href="id" />
+      <uboi:duidt xlink:href="Gf.0" />
     </uboi:AnalyseDeelvak>
   </uboi:featureMember>
   <uboi:featureMember>
@@ -657,7 +657,7 @@
       <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:afgeleidVan xlink:href="id" />
-      <uboi:duidt xlink:href="id" />
+      <uboi:duidt xlink:href="Gf.0" />
     </uboi:AnalyseDeelvak>
   </uboi:featureMember>
   <uboi:featureMember>
@@ -666,7 +666,7 @@
       <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:afgeleidVan xlink:href="id" />
-      <uboi:duidt xlink:href="id" />
+      <uboi:duidt xlink:href="Gf.0" />
     </uboi:AnalyseDeelvak>
   </uboi:featureMember>
   <uboi:featureMember>
@@ -675,16 +675,16 @@
       <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:afgeleidVan xlink:href="id" />
-      <uboi:duidt xlink:href="id" />
+      <uboi:duidt xlink:href="Gf.0" />
     </uboi:AnalyseDeelvak>
   </uboi:featureMember>
   <uboi:featureMember>
-    <uboi:AnalyseDeelvakGecombineerd gml:id="id">
+    <uboi:AnalyseDeelvakGecombineerd gml:id="Gf.1">
       <uboi:duidingsklasse>+III</uboi:duidingsklasse>
       <uboi:assemblagemethode>BOI-3C-1</uboi:assemblagemethode>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:specificeert xlink:href="Vo.0" />
-      <uboi:geldtVoor xlink:href="id" />
+      <uboi:geldtVoor xlink:href="Bv.33" />
     </uboi:AnalyseDeelvakGecombineerd>
   </uboi:featureMember>
   <uboi:featureMember>
@@ -693,7 +693,7 @@
       <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:afgeleidVan xlink:href="id" />
-      <uboi:duidt xlink:href="id" />
+      <uboi:duidt xlink:href="Gf.1" />
     </uboi:AnalyseDeelvak>
   </uboi:featureMember>
   <uboi:featureMember>
@@ -702,7 +702,7 @@
       <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:afgeleidVan xlink:href="id" />
-      <uboi:duidt xlink:href="id" />
+      <uboi:duidt xlink:href="Gf.1" />
     </uboi:AnalyseDeelvak>
   </uboi:featureMember>
   <uboi:featureMember>
@@ -711,7 +711,7 @@
       <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:afgeleidVan xlink:href="id" />
-      <uboi:duidt xlink:href="id" />
+      <uboi:duidt xlink:href="Gf.1" />
     </uboi:AnalyseDeelvak>
   </uboi:featureMember>
   <uboi:featureMember>
@@ -720,7 +720,7 @@
       <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:afgeleidVan xlink:href="id" />
-      <uboi:duidt xlink:href="id" />
+      <uboi:duidt xlink:href="Gf.1" />
     </uboi:AnalyseDeelvak>
   </uboi:featureMember>
   <uboi:featureMember>
@@ -729,7 +729,7 @@
       <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:afgeleidVan xlink:href="id" />
-      <uboi:duidt xlink:href="id" />
+      <uboi:duidt xlink:href="Gf.1" />
     </uboi:AnalyseDeelvak>
   </uboi:featureMember>
   <uboi:featureMember>
@@ -738,7 +738,7 @@
       <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:afgeleidVan xlink:href="id" />
-      <uboi:duidt xlink:href="id" />
+      <uboi:duidt xlink:href="Gf.1" />
     </uboi:AnalyseDeelvak>
   </uboi:featureMember>
   <uboi:featureMember>
@@ -747,7 +747,7 @@
       <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:afgeleidVan xlink:href="id" />
-      <uboi:duidt xlink:href="id" />
+      <uboi:duidt xlink:href="Gf.1" />
     </uboi:AnalyseDeelvak>
   </uboi:featureMember>
   <uboi:featureMember>
@@ -756,7 +756,7 @@
       <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:afgeleidVan xlink:href="id" />
-      <uboi:duidt xlink:href="id" />
+      <uboi:duidt xlink:href="Gf.1" />
     </uboi:AnalyseDeelvak>
   </uboi:featureMember>
   <uboi:featureMember>
@@ -765,7 +765,7 @@
       <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:afgeleidVan xlink:href="id" />
-      <uboi:duidt xlink:href="id" />
+      <uboi:duidt xlink:href="Gf.1" />
     </uboi:AnalyseDeelvak>
   </uboi:featureMember>
   <uboi:featureMember>
@@ -774,7 +774,7 @@
       <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:afgeleidVan xlink:href="id" />
-      <uboi:duidt xlink:href="id" />
+      <uboi:duidt xlink:href="Gf.1" />
     </uboi:AnalyseDeelvak>
   </uboi:featureMember>
   <uboi:featureMember>
@@ -783,7 +783,7 @@
       <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:afgeleidVan xlink:href="id" />
-      <uboi:duidt xlink:href="id" />
+      <uboi:duidt xlink:href="Gf.1" />
     </uboi:AnalyseDeelvak>
   </uboi:featureMember>
   <uboi:featureMember>
@@ -792,7 +792,7 @@
       <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:afgeleidVan xlink:href="id" />
-      <uboi:duidt xlink:href="id" />
+      <uboi:duidt xlink:href="Gf.1" />
     </uboi:AnalyseDeelvak>
   </uboi:featureMember>
   <uboi:featureMember>
@@ -801,7 +801,7 @@
       <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:afgeleidVan xlink:href="id" />
-      <uboi:duidt xlink:href="id" />
+      <uboi:duidt xlink:href="Gf.1" />
     </uboi:AnalyseDeelvak>
   </uboi:featureMember>
   <uboi:featureMember>
@@ -810,7 +810,7 @@
       <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:afgeleidVan xlink:href="id" />
-      <uboi:duidt xlink:href="id" />
+      <uboi:duidt xlink:href="Gf.1" />
     </uboi:AnalyseDeelvak>
   </uboi:featureMember>
   <uboi:featureMember>
@@ -819,7 +819,7 @@
       <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:afgeleidVan xlink:href="id" />
-      <uboi:duidt xlink:href="id" />
+      <uboi:duidt xlink:href="Gf.1" />
     </uboi:AnalyseDeelvak>
   </uboi:featureMember>
   <uboi:featureMember>
@@ -828,7 +828,7 @@
       <uboi:assemblagemethode>BOI-3B-1</uboi:assemblagemethode>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:afgeleidVan xlink:href="id" />
-      <uboi:duidt xlink:href="id" />
+      <uboi:duidt xlink:href="Gf.1" />
     </uboi:AnalyseDeelvak>
   </uboi:featureMember>
   <uboi:featureMember>

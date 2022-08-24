@@ -136,6 +136,15 @@ namespace Riskeer.Integration.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Gf.
+        /// </summary>
+        public static string ExportableCombinedSectionAssembly_IdPrefix {
+            get {
+                return ResourceManager.GetString("ExportableCombinedSectionAssembly_IdPrefix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fm.
         /// </summary>
         public static string ExportableFailureMechanism_IdPrefix {

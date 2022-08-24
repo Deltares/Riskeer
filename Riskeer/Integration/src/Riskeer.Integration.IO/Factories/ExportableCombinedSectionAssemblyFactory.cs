@@ -30,7 +30,8 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Assembly;
 using Riskeer.Integration.IO.Exceptions;
-using Riskeer.Integration.Util;
+using Riskeer.Integration.IO.Helpers;
+using Riskeer.Integration.IO.Properties;
 
 namespace Riskeer.Integration.IO.Factories
 {
@@ -43,6 +44,8 @@ namespace Riskeer.Integration.IO.Factories
         /// Creates a collection of <see cref="ExportableCombinedSectionAssembly"/>
         /// based on <paramref name="combinedSectionAssemblyResults"/>.
         /// </summary>
+        /// <param name="idGenerator">The generator to generate ids for the exportable components.</param>
+        /// <param name="registry">The <see cref="ExportableModelRegistry"/> to keep track of the created items.</param>
         /// <param name="combinedSectionAssemblyResults">A collection of combined section results to
         /// create a collection of <see cref="ExportableCombinedSectionAssembly"/> for.</param>
         /// <param name="assessmentSection">The <see cref="AssessmentSection"/> the section results belong to.</param>
@@ -51,9 +54,20 @@ namespace Riskeer.Integration.IO.Factories
         /// <exception cref="AssemblyFactoryException">Thrown when <see cref="CombinedFailureMechanismSectionAssemblyResult.TotalResult"/>
         /// is invalid and cannot be exported.</exception>
         public static IEnumerable<ExportableCombinedSectionAssembly> CreateExportableCombinedSectionAssemblyCollection(
+            IdentifierGenerator idGenerator, ExportableModelRegistry registry,
             IEnumerable<CombinedFailureMechanismSectionAssemblyResult> combinedSectionAssemblyResults,
             AssessmentSection assessmentSection)
         {
+            if (idGenerator == null)
+            {
+                throw new ArgumentNullException(nameof(idGenerator));
+            }
+
+            if (registry == null)
+            {
+                throw new ArgumentNullException(nameof(registry));
+            }
+
             if (combinedSectionAssemblyResults == null)
             {
                 throw new ArgumentNullException(nameof(combinedSectionAssemblyResults));
@@ -72,15 +86,11 @@ namespace Riskeer.Integration.IO.Factories
                 {
                     throw new AssemblyFactoryException("The assembly result is invalid and cannot be created.");
                 }
-                
-                var exportableSection = new ExportableCombinedFailureMechanismSection(
-                    "id", FailureMechanismSectionHelper.GetFailureMechanismSectionGeometry(
-                        assessmentSection.ReferenceLine, assemblyResult.SectionStart, assemblyResult.SectionEnd),
-                    assemblyResult.SectionStart, assemblyResult.SectionEnd,
-                    ExportableAssemblyMethodConverter.ConvertTo(assemblyResult.CommonSectionAssemblyMethod));
+
+                ExportableCombinedFailureMechanismSection exportableSection = registry.Get(assemblyResult);
 
                 var exportableSectionResult = new ExportableCombinedSectionAssembly(
-                    "id", exportableSection, assemblyResult.TotalResult,
+                    idGenerator.GetNewId(Resources.ExportableCombinedSectionAssembly_IdPrefix), exportableSection, assemblyResult.TotalResult,
                     ExportableAssemblyMethodConverter.ConvertTo(assemblyResult.CombinedSectionResultAssemblyMethod),
                     CreateFailureMechanismCombinedSectionAssemblyResults(assemblyResult, assessmentSection));
 
