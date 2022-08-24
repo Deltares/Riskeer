@@ -72,8 +72,12 @@ namespace Riskeer.Integration.IO.Exporters
                 return false;
             }
 
-            ExportableAssembly exportableAssembly = CreateExportableAssembly();
-            if (exportableAssembly == null)
+            ExportableAssembly exportableAssembly;
+            try
+            {
+                exportableAssembly = ExportableAssemblyFactory.CreateExportableAssembly(assessmentSection);
+            }
+            catch (Exception e) when (e is AssemblyException || e is AssemblyFactoryException)
             {
                 log.Error(Resources.AssemblyExporter_No_AssemblyResult_exported_Check_results_for_details);
                 return false;
@@ -85,11 +89,6 @@ namespace Riskeer.Integration.IO.Exporters
                 {
                     writer.Write(exportableAssembly);
                 }
-            }
-            catch (AssemblyFactoryException)
-            {
-                log.Error(Resources.AssemblyExporter_No_AssemblyResult_exported_Check_results_for_details);
-                return false;
             }
             catch (CriticalFileWriteException e)
             {
@@ -107,18 +106,6 @@ namespace Riskeer.Integration.IO.Exporters
                                     .Select(fp => fp.Name)
                                     .GroupBy(name => name)
                                     .All(group => group.Count() == 1);
-        }
-
-        private ExportableAssembly CreateExportableAssembly()
-        {
-            try
-            {
-                return ExportableAssemblyFactory.CreateExportableAssembly(assessmentSection);
-            }
-            catch (AssemblyException)
-            {
-                return null;
-            }
         }
     }
 }
