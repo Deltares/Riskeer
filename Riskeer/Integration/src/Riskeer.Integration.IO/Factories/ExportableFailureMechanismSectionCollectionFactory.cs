@@ -38,13 +38,13 @@ namespace Riskeer.Integration.IO.Factories
         /// <see cref="FailureMechanismSection"/>.
         /// </summary>
         /// <param name="idGenerator">The generator to generate ids for the exportable components.</param>
-        /// <param name="registry">The <see cref="ExportableFailureMechanismSectionRegistry"/> to keep track of the created <see cref="ExportableFailureMechanismSection"/>.</param>
+        /// <param name="registry">The <see cref="ExportableModelRegistry"/> to keep track of the created items.</param>
         /// <param name="sections">The collection of <see cref="FailureMechanismSection"/> to create the
         /// <see cref="ExportableFailureMechanismSectionCollection"/> with.</param>
         /// <returns>An <see cref="ExportableFailureMechanismSectionCollection"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static ExportableFailureMechanismSectionCollection CreateExportableFailureMechanismSectionCollection(
-            IdentifierGenerator idGenerator, ExportableFailureMechanismSectionRegistry registry, IEnumerable<FailureMechanismSection> sections)
+            IdentifierGenerator idGenerator, ExportableModelRegistry registry, IEnumerable<FailureMechanismSection> sections)
         {
             if (idGenerator == null)
             {
@@ -61,6 +61,11 @@ namespace Riskeer.Integration.IO.Factories
                 throw new ArgumentNullException(nameof(sections));
             }
 
+            if (registry.Contains(sections))
+            {
+                return registry.Get(sections);
+            }
+
             var exportableSections = new List<ExportableFailureMechanismSection>();
             double startDistance = 0;
             foreach (FailureMechanismSection section in sections)
@@ -74,6 +79,7 @@ namespace Riskeer.Integration.IO.Factories
 
             var exportableCollection = new ExportableFailureMechanismSectionCollection(idGenerator.GetNewId(Resources.ExportableFailureMechanismSectionCollection_IdPrefix),
                                                                                        exportableSections);
+            registry.Register(sections, exportableCollection);
             return exportableCollection;
         }
     }

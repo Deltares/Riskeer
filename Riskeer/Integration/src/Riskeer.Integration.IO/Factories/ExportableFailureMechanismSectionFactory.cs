@@ -36,7 +36,7 @@ namespace Riskeer.Integration.IO.Factories
         /// Creates an <see cref="ExportableFailureMechanismSection"/> based on its input arguments.
         /// </summary>
         /// <param name="idGenerator">The generator to generate ids for the exportable components.</param>
-        /// <param name="registry">The <see cref="ExportableFailureMechanismSectionRegistry"/> to keep track of the created <see cref="ExportableFailureMechanismSection"/>.</param>
+        /// <param name="registry">The <see cref="ExportableModelRegistry"/> to keep track of the created items.</param>
         /// <param name="section">The <see cref="FailureMechanismSection"/> to create the
         /// <see cref="ExportableFailureMechanismSection"/> with.</param>
         /// <param name="startDistance">The start distance of the failure mechanism section between the section
@@ -45,7 +45,7 @@ namespace Riskeer.Integration.IO.Factories
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="idGenerator"/>, <paramref name="registry"/>
         /// or <paramref name="section"/> is <c>null</c>.</exception>
         public static ExportableFailureMechanismSection CreateExportableFailureMechanismSection(
-            IdentifierGenerator idGenerator, ExportableFailureMechanismSectionRegistry registry, FailureMechanismSection section,
+            IdentifierGenerator idGenerator, ExportableModelRegistry registry, FailureMechanismSection section,
             double startDistance)
         {
             if (idGenerator == null)
