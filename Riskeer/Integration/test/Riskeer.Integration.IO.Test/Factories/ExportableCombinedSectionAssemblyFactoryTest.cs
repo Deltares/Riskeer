@@ -201,7 +201,7 @@ namespace Riskeer.Integration.IO.Test.Factories
             Assert.AreEqual(expectedSection.SectionStart, actualSection.StartDistance);
             Assert.AreEqual(expectedSection.SectionEnd, actualSection.EndDistance);
             CollectionAssert.AreEqual(expectedGeometry, actualSection.Geometry);
-            Assert.AreEqual(ExportableAssemblyMethodFactory.Create(expectedSection.CommonSectionAssemblyMethod), actualSection.AssemblyMethod);
+            Assert.AreEqual(ExportableAssemblyMethodConverter.ConvertTo(expectedSection.CommonSectionAssemblyMethod), actualSection.AssemblyMethod);
         }
 
         private static void AssertExportableCombinedFailureMechanismSectionResult(CombinedFailureMechanismSectionAssemblyResult expectedSection,
@@ -211,7 +211,7 @@ namespace Riskeer.Integration.IO.Test.Factories
         {
             Assert.AreSame(actualSection, actualSectionResult.Section);
             Assert.AreEqual(expectedSection.TotalResult, actualSectionResult.AssemblyGroup);
-            Assert.AreEqual(ExportableAssemblyMethodFactory.Create(expectedSection.CombinedSectionResultAssemblyMethod), actualSectionResult.AssemblyGroupAssemblyMethod);
+            Assert.AreEqual(ExportableAssemblyMethodConverter.ConvertTo(expectedSection.CombinedSectionResultAssemblyMethod), actualSectionResult.AssemblyGroupAssemblyMethod);
 
             IEnumerable<ExportableFailureMechanismCombinedSectionAssemblyResult> failureMechanismCombinedSectionResults = actualSectionResult.FailureMechanismResults;
 
@@ -222,7 +222,7 @@ namespace Riskeer.Integration.IO.Test.Factories
             }
 
             Assert.AreEqual(17, failureMechanismCombinedSectionResults.Count());
-            Assert.IsTrue(failureMechanismCombinedSectionResults.All(result => result.AssemblyMethod == ExportableAssemblyMethodFactory.Create(
+            Assert.IsTrue(failureMechanismCombinedSectionResults.All(result => result.AssemblyMethod == ExportableAssemblyMethodConverter.ConvertTo(
                                                                                    expectedSection.FailureMechanismResultsAssemblyMethod)));
 
             AssertSubSection(expectedSection.Piping, "STPH", ExportableFailureMechanismType.Generic,

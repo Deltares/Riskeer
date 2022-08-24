@@ -107,8 +107,8 @@ namespace Riskeer.Integration.IO.Factories
             return new ExportableAssessmentSectionAssemblyResult(
                 idGenerator.GetNewId(Resources.ExportableTotalAssemblyResult_IdPrefix),
                 ConvertAssemblyGroup(assemblyResult.AssemblyGroup), assemblyResult.Probability,
-                ExportableAssemblyMethodFactory.Create(assemblyResultWrapper.AssemblyGroupMethod),
-                ExportableAssemblyMethodFactory.Create(assemblyResultWrapper.ProbabilityMethod));
+                ExportableAssemblyMethodConverter.ConvertTo(assemblyResultWrapper.AssemblyGroupMethod),
+                ExportableAssemblyMethodConverter.ConvertTo(assemblyResultWrapper.ProbabilityMethod));
         }
 
         /// <summary>

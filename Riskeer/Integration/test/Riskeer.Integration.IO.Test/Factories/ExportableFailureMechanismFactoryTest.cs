@@ -172,7 +172,7 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             ExportableFailureMechanismAssemblyResult exportableFailureMechanismAssembly = exportableFailureMechanism.FailureMechanismAssembly;
             Assert.AreEqual(probability, exportableFailureMechanismAssembly.Probability);
-            Assert.AreEqual(ExportableAssemblyMethodFactory.Create(assemblyMethod), exportableFailureMechanismAssembly.AssemblyMethod);
+            Assert.AreEqual(ExportableAssemblyMethodConverter.ConvertTo(assemblyMethod), exportableFailureMechanismAssembly.AssemblyMethod);
 
             IEnumerable<ExportableFailureMechanismSection> exportableFailureMechanismSections = exportableFailureMechanism.SectionAssemblyResults
                                                                                                                           .Select(sar => sar.FailureMechanismSection);
@@ -313,7 +313,7 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             ExportableFailureMechanismAssemblyResult exportableFailureMechanismAssembly = exportableFailureMechanism.FailureMechanismAssembly;
             Assert.AreEqual(probability, exportableFailureMechanismAssembly.Probability);
-            Assert.AreEqual(ExportableAssemblyMethodFactory.Create(assemblyMethod), exportableFailureMechanismAssembly.AssemblyMethod);
+            Assert.AreEqual(ExportableAssemblyMethodConverter.ConvertTo(assemblyMethod), exportableFailureMechanismAssembly.AssemblyMethod);
 
             IEnumerable<ExportableFailureMechanismSection> exportableFailureMechanismSections = exportableFailureMechanism.SectionAssemblyResults
                                                                                                                           .Select(sar => sar.FailureMechanismSection);

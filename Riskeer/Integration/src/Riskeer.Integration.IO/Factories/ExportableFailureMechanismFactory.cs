@@ -99,7 +99,7 @@ namespace Riskeer.Integration.IO.Factories
             return new ExportableGenericFailureMechanism(idGenerator.GetNewId(Resources.ExportableFailureMechanism_IdPrefix),
                                                          new ExportableFailureMechanismAssemblyResult(
                                                              assemblyResultWrapper.AssemblyResult,
-                                                             ExportableAssemblyMethodFactory.Create(assemblyResultWrapper.AssemblyMethod)),
+                                                             ExportableAssemblyMethodConverter.ConvertTo(assemblyResultWrapper.AssemblyMethod)),
                                                          CreateExportableFailureMechanismSectionResults(
                                                              idGenerator, registry, failureMechanism, assessmentSection, assembleFailureMechanismSectionFunc),
                                                          failureMechanism.Code);
@@ -161,7 +161,7 @@ namespace Riskeer.Integration.IO.Factories
             return new ExportableSpecificFailureMechanism(idGenerator.GetNewId(Resources.ExportableFailureMechanism_IdPrefix),
                                                           new ExportableFailureMechanismAssemblyResult(
                                                               assemblyResultWrapper.AssemblyResult,
-                                                              ExportableAssemblyMethodFactory.Create(assemblyResultWrapper.AssemblyMethod)),
+                                                              ExportableAssemblyMethodConverter.ConvertTo(assemblyResultWrapper.AssemblyMethod)),
                                                           CreateExportableFailureMechanismSectionResults(
                                                               idGenerator, registry, failureMechanism, assessmentSection, assembleFailureMechanismSectionFunc),
                                                           failureMechanism.Name);

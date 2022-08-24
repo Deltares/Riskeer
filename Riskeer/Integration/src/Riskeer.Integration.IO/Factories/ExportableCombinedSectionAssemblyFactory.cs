@@ -77,11 +77,11 @@ namespace Riskeer.Integration.IO.Factories
                     "id", FailureMechanismSectionHelper.GetFailureMechanismSectionGeometry(
                         assessmentSection.ReferenceLine, assemblyResult.SectionStart, assemblyResult.SectionEnd),
                     assemblyResult.SectionStart, assemblyResult.SectionEnd,
-                    ExportableAssemblyMethodFactory.Create(assemblyResult.CommonSectionAssemblyMethod));
+                    ExportableAssemblyMethodConverter.ConvertTo(assemblyResult.CommonSectionAssemblyMethod));
 
                 var exportableSectionResult = new ExportableCombinedSectionAssembly(
                     "id", exportableSection, assemblyResult.TotalResult,
-                    ExportableAssemblyMethodFactory.Create(assemblyResult.CombinedSectionResultAssemblyMethod),
+                    ExportableAssemblyMethodConverter.ConvertTo(assemblyResult.CombinedSectionResultAssemblyMethod),
                     CreateFailureMechanismCombinedSectionAssemblyResults(assemblyResult, assessmentSection));
 
                 sectionResults.Add(exportableSectionResult);
@@ -143,7 +143,7 @@ namespace Riskeer.Integration.IO.Factories
             FailureMechanismSectionAssemblyGroup sectionAssemblyGroup, AssemblyMethod assemblyMethod)
         {
             return new ExportableFailureMechanismCombinedSectionAssemblyResult(
-                sectionAssemblyGroup, ExportableAssemblyMethodFactory.Create(assemblyMethod),
+                sectionAssemblyGroup, ExportableAssemblyMethodConverter.ConvertTo(assemblyMethod),
                 new ExportableFailureMechanismSectionAssemblyResult(
                     "id", new ExportableFailureMechanismSection("id", Array.Empty<Point2D>(), double.NaN, double.NaN), double.NaN,
                     FailureMechanismSectionAssemblyGroup.Zero, ExportableAssemblyMethod.Manual, ExportableAssemblyMethod.Manual));

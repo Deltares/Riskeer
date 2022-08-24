@@ -103,8 +103,8 @@ namespace Riskeer.Integration.IO.Factories
                 idGenerator.GetNewId(Resources.ExportableFailureMechanismSectionAssemblyResult_IdPrefix),
                 registry.Get(sectionResult.Section),
                 assemblyResult.SectionProbability, assemblyResult.FailureMechanismSectionAssemblyGroup,
-                ExportableAssemblyMethodFactory.Create(assemblyResultWrapper.AssemblyGroupMethod),
-                ExportableAssemblyMethodFactory.Create(assemblyResultWrapper.ProbabilityMethod));
+                ExportableAssemblyMethodConverter.ConvertTo(assemblyResultWrapper.AssemblyGroupMethod),
+                ExportableAssemblyMethodConverter.ConvertTo(assemblyResultWrapper.ProbabilityMethod));
         }
     }
 }
