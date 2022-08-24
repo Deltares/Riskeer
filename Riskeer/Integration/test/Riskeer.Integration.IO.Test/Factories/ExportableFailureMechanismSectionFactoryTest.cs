@@ -20,12 +20,19 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.IO.Model;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Integration.Data.Assembly;
+using Riskeer.Integration.Data.TestUtil;
 using Riskeer.Integration.IO.Factories;
 using Riskeer.Integration.IO.Helpers;
+using Riskeer.Integration.Util;
 
 namespace Riskeer.Integration.IO.Test.Factories
 {
@@ -63,7 +70,7 @@ namespace Riskeer.Integration.IO.Test.Factories
         }
 
         [Test]
-        public void CreateExportableFailureMechanismSection_SectionsNull_ThrowsArgumentNullException()
+        public void CreateExportableFailureMechanismSection_SectionNull_ThrowsArgumentNullException()
         {
             // Setup
             var random = new Random(21);
@@ -103,7 +110,7 @@ namespace Riskeer.Integration.IO.Test.Factories
         }
 
         [Test]
-        public void CreateExportableFailureMechanismSection_SectionAlreadyRegistered_ReturnsRegisteredExportableModel()
+        public void CreateExportableFailureMechanismSection_SectionAlreadyRegistered_ReturnsRegisteredExportableFailureMechanismSection()
         {
             // Setup
             var random = new Random(21);
@@ -111,18 +118,123 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             var idGenerator = new IdentifierGenerator();
             var registry = new ExportableModelRegistry();
-            ExportableFailureMechanismSection exportableModel1 =
+            ExportableFailureMechanismSection exportableSection1 =
                 ExportableFailureMechanismSectionFactory.CreateExportableFailureMechanismSection(idGenerator, registry, section, random.NextDouble());
 
             // Precondition
             Assert.True(registry.Contains(section));
 
             // Call
-            ExportableFailureMechanismSection exportableModel2 =
+            ExportableFailureMechanismSection exportableSection2 =
                 ExportableFailureMechanismSectionFactory.CreateExportableFailureMechanismSection(idGenerator, registry, section, random.NextDouble());
 
             // Assert
-            Assert.AreSame(exportableModel1, exportableModel2);
+            Assert.AreSame(exportableSection1, exportableSection2);
+        }
+
+        [Test]
+        public void CreateExportableCombinedFailureMechanismSection_IdGeneratorNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => ExportableFailureMechanismSectionFactory.CreateExportableCombinedFailureMechanismSection(
+                null, new ExportableModelRegistry(), ReferenceLineTestFactory.CreateReferenceLineWithGeometry(),
+                CombinedFailureMechanismSectionAssemblyResultTestFactory.Create());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("idGenerator", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateExportableCombinedFailureMechanismSection_RegistryNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => ExportableFailureMechanismSectionFactory.CreateExportableCombinedFailureMechanismSection(
+                new IdentifierGenerator(), null, ReferenceLineTestFactory.CreateReferenceLineWithGeometry(),
+                CombinedFailureMechanismSectionAssemblyResultTestFactory.Create());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("registry", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateExportableCombinedFailureMechanismSection_ReferenceLineNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => ExportableFailureMechanismSectionFactory.CreateExportableCombinedFailureMechanismSection(
+                new IdentifierGenerator(), new ExportableModelRegistry(), null,
+                CombinedFailureMechanismSectionAssemblyResultTestFactory.Create());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("referenceLine", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateExportableCombinedFailureMechanismSection_AssemblyResultNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => ExportableFailureMechanismSectionFactory.CreateExportableCombinedFailureMechanismSection(
+                new IdentifierGenerator(), new ExportableModelRegistry(), ReferenceLineTestFactory.CreateReferenceLineWithGeometry(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assemblyResult", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateExportableCombinedFailureMechanismSection_WithValidArguments_ReturnsExpectedExportableCombinedFailureMechanismSection()
+        {
+            // Setup
+            var idGenerator = new IdentifierGenerator();
+            ReferenceLine referenceLine = ReferenceLineTestFactory.CreateReferenceLineWithGeometry();
+            CombinedFailureMechanismSectionAssemblyResult assemblyResult = CombinedFailureMechanismSectionAssemblyResultTestFactory.Create();
+
+            var registry = new ExportableModelRegistry();
+
+            // Call
+            ExportableCombinedFailureMechanismSection exportableSection =
+                ExportableFailureMechanismSectionFactory.CreateExportableCombinedFailureMechanismSection(idGenerator, registry,
+                                                                                                         referenceLine, assemblyResult);
+
+            // Assert
+            Assert.AreEqual("Bv.0", exportableSection.Id);
+
+            IEnumerable<Point2D> expectedGeometry = FailureMechanismSectionHelper.GetFailureMechanismSectionGeometry(
+                referenceLine,
+                exportableSection.StartDistance,
+                exportableSection.EndDistance).ToArray();
+            CollectionAssert.IsNotEmpty(expectedGeometry);
+
+            Assert.AreEqual(assemblyResult.SectionStart, exportableSection.StartDistance);
+            Assert.AreEqual(assemblyResult.SectionEnd, exportableSection.EndDistance);
+            CollectionAssert.AreEqual(expectedGeometry, exportableSection.Geometry);
+            Assert.AreEqual(ExportableAssemblyMethodFactory.Create(assemblyResult.CommonSectionAssemblyMethod), exportableSection.AssemblyMethod);
+        }
+
+        [Test]
+        public void CreateExportableCombinedFailureMechanismSection_AssemblyResultAlreadyRegistered_ReturnsRegisteredExportableCombinedFailureMechanismSection()
+        {
+            // Setup
+            CombinedFailureMechanismSectionAssemblyResult assemblyResult = CombinedFailureMechanismSectionAssemblyResultTestFactory.Create();
+
+            var idGenerator = new IdentifierGenerator();
+            var registry = new ExportableModelRegistry();
+            ExportableCombinedFailureMechanismSection exportableSection1 =
+                ExportableFailureMechanismSectionFactory.CreateExportableCombinedFailureMechanismSection(
+                    idGenerator, registry, ReferenceLineTestFactory.CreateReferenceLineWithGeometry(), assemblyResult);
+
+            // Precondition
+            Assert.True(registry.Contains(assemblyResult));
+
+            // Call
+            ExportableCombinedFailureMechanismSection exportableSection2 =
+                ExportableFailureMechanismSectionFactory.CreateExportableCombinedFailureMechanismSection(
+                    idGenerator, registry, ReferenceLineTestFactory.CreateReferenceLineWithGeometry(), assemblyResult);
+
+            // Assert
+            Assert.AreSame(exportableSection1, exportableSection2);
         }
     }
 }

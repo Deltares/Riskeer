@@ -20,14 +20,13 @@
 // All rights reserved.
 
 using System;
-using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.AssemblyTool.IO.TestUtil;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.Data.Assembly;
+using Riskeer.Integration.Data.TestUtil;
 using Riskeer.Integration.IO.Helpers;
 
 namespace Riskeer.Integration.IO.Test.Helpers
@@ -257,17 +256,7 @@ namespace Riskeer.Integration.IO.Test.Helpers
 
             protected override CombinedFailureMechanismSectionAssemblyResult CreateDataModel()
             {
-                var random = new Random(21);
-                double sectionStart = random.NextDouble();
-                double sectionEnd = random.NextDouble();
-                var totalResult = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>();
-                var commonSectionAssemblyMethod = random.NextEnumValue<AssemblyMethod>();
-                var failureMechanismResultsAssemblyMethod = random.NextEnumValue<AssemblyMethod>();
-                var combinedSectionResultAssemblyMethod = random.NextEnumValue<AssemblyMethod>();
-
-                return new CombinedFailureMechanismSectionAssemblyResult(sectionStart, sectionEnd, totalResult, commonSectionAssemblyMethod,
-                                                                         failureMechanismResultsAssemblyMethod, combinedSectionResultAssemblyMethod,
-                                                                         new CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties());
+                return CombinedFailureMechanismSectionAssemblyResultTestFactory.Create();
             }
 
             protected override ExportableCombinedFailureMechanismSection CreateExportableModel()
