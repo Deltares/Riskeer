@@ -21,8 +21,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Riskeer.AssemblyTool.IO.Model;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Integration.Data.Assembly;
 using Riskeer.Integration.IO.Helpers;
 using Riskeer.Integration.IO.Properties;
 
@@ -72,8 +75,53 @@ namespace Riskeer.Integration.IO.Factories
                 startDistance = exportableFailureMechanismSection.EndDistance;
             }
 
-            return new ExportableFailureMechanismSectionCollection(idGenerator.GetNewId(Resources.ExportableFailureMechanismSectionCollection_IdPrefix),
-                                                                   exportableSections);
+            return new ExportableFailureMechanismSectionCollection(idGenerator.GetNewId(Resources.ExportableFailureMechanismSectionCollection_IdPrefix), exportableSections);
+        }
+
+        /// <summary>
+        /// Creates an <see cref="ExportableFailureMechanismSectionCollection"/> based on a collection of
+        /// <see cref="CombinedFailureMechanismSectionAssemblyResult"/>.
+        /// </summary>
+        /// <param name="idGenerator">The generator to generate ids for the exportable components.</param>
+        /// <param name="registry">The <see cref="ExportableModelRegistry"/> to keep track of the created items.</param>
+        /// <param name="referenceLine">The <see cref="ReferenceLine"/> to create the
+        /// <see cref="ExportableFailureMechanismSectionCollection"/> with.</param>
+        /// <param name="assemblyResults">The collection of <see cref="CombinedFailureMechanismSectionAssemblyResult"/> to create the
+        /// <see cref="ExportableFailureMechanismSectionCollection"/> with.</param>
+        /// <returns>An <see cref="ExportableFailureMechanismSectionCollection"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static ExportableFailureMechanismSectionCollection CreateExportableFailureMechanismSectionCollection(
+            IdentifierGenerator idGenerator, ExportableModelRegistry registry,
+            ReferenceLine referenceLine, IEnumerable<CombinedFailureMechanismSectionAssemblyResult> assemblyResults)
+        {
+            if (idGenerator == null)
+            {
+                throw new ArgumentNullException(nameof(idGenerator));
+            }
+
+            if (registry == null)
+            {
+                throw new ArgumentNullException(nameof(registry));
+            }
+
+            if (referenceLine == null)
+            {
+                throw new ArgumentNullException(nameof(referenceLine));
+            }
+
+            if (assemblyResults == null)
+            {
+                throw new ArgumentNullException(nameof(assemblyResults));
+            }
+
+            IEnumerable<ExportableCombinedFailureMechanismSection> exportableSections =
+                assemblyResults.Select(assemblyResult => ExportableFailureMechanismSectionFactory.CreateExportableCombinedFailureMechanismSection(
+                                           idGenerator, registry, referenceLine, assemblyResult))
+                               .ToArray();
+
+            var exportableCollection = new ExportableFailureMechanismSectionCollection(idGenerator.GetNewId(Resources.ExportableFailureMechanismSectionCollection_IdPrefix),
+                                                                                       exportableSections);
+            return exportableCollection;
         }
     }
 }
