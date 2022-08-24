@@ -314,12 +314,6 @@ namespace Riskeer.AssemblyTool.IO
             writer.WriteEndElement();
         }
 
-        private void WriteFailureMechanismSection(ExportableFailureMechanismSection section, string failureMechanismSectionCollectionId)
-        {
-            WriteFailureMechanismSection(section, Resources.FailureMechanismSectionType_FailureMechanism, failureMechanismSectionCollectionId);
-            writer.WriteEndElement();
-        }
-
         private void WriteCombinedFailureMechanismSection(ExportableCombinedFailureMechanismSection section, string failureMechanismSectionCollectionId)
         {
             WriteFailureMechanismSection(section, Resources.FailureMechanismSectionType_Combined, failureMechanismSectionCollectionId);
@@ -327,6 +321,12 @@ namespace Riskeer.AssemblyTool.IO
             writer.WriteElementString(AssemblyXmlIdentifiers.AssemblyMethod, AssemblyXmlIdentifiers.UboiNamespace,
                                       EnumDisplayNameHelper.GetDisplayName(section.AssemblyMethod));
 
+            writer.WriteEndElement();
+        }
+
+        private void WriteFailureMechanismSection(ExportableFailureMechanismSection section, string failureMechanismSectionCollectionId)
+        {
+            WriteFailureMechanismSection(section, Resources.FailureMechanismSectionType_FailureMechanism, failureMechanismSectionCollectionId);
             writer.WriteEndElement();
         }
 
