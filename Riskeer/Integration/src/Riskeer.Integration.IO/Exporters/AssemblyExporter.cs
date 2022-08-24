@@ -86,7 +86,7 @@ namespace Riskeer.Integration.IO.Exporters
                     writer.Write(exportableAssembly);
                 }
             }
-            catch (AssemblyCreatorException)
+            catch (AssemblyFactoryException)
             {
                 log.Error(Resources.AssemblyExporter_No_AssemblyResult_exported_Check_results_for_details);
                 return false;

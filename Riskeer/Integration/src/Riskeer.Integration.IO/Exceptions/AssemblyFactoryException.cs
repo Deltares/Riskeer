@@ -28,32 +28,32 @@ namespace Riskeer.Integration.IO.Exceptions
     /// Exception thrown when the assembly result cannot be created.
     /// </summary>
     [Serializable]
-    public class AssemblyCreatorException : Exception
+    public class AssemblyFactoryException : Exception
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="AssemblyCreatorException"/> class.
+        /// Initializes a new instance of the <see cref="AssemblyFactoryException"/> class.
         /// </summary>
-        public AssemblyCreatorException() {}
+        public AssemblyFactoryException() {}
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AssemblyCreatorException"/> class 
+        /// Initializes a new instance of the <see cref="AssemblyFactoryException"/> class 
         /// with a specified error message.
         /// </summary>
         /// <param name="message">The message that describes the error.</param>
-        public AssemblyCreatorException(string message)
+        public AssemblyFactoryException(string message)
             : base(message) {}
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AssemblyCreatorException"/> class with a specified error message 
+        /// Initializes a new instance of the <see cref="AssemblyFactoryException"/> class with a specified error message 
         /// and a reference to the inner exception that is the cause of this exception.
         /// </summary>
         /// <param name="message">The error message that explains the reason for the exception.</param>
         /// <param name="innerException">The exception that is the cause of the current exception,
         /// or <c>null</c> if no inner exception is specified.</param>
-        public AssemblyCreatorException(string message, Exception innerException) : base(message, innerException) {}
+        public AssemblyFactoryException(string message, Exception innerException) : base(message, innerException) {}
 
         /// <summary>
-        /// Initializes a new instance of <see cref="AssemblyCreatorException"/> with
+        /// Initializes a new instance of <see cref="AssemblyFactoryException"/> with
         /// serialized data.</summary>
         /// <param name="info">The <see cref="SerializationInfo"/> that holds the serialized
         /// object data about the exception being thrown.</param>
@@ -63,6 +63,6 @@ namespace Riskeer.Integration.IO.Exceptions
         /// <c>null</c>.</exception>
         /// <exception cref="SerializationException">The class name is <c>null</c> or
         /// <see cref="Exception.HResult" /> is zero (0).</exception>
-        protected AssemblyCreatorException(SerializationInfo info, StreamingContext context) : base(info, context) {}
+        protected AssemblyFactoryException(SerializationInfo info, StreamingContext context) : base(info, context) {}
     }
 }

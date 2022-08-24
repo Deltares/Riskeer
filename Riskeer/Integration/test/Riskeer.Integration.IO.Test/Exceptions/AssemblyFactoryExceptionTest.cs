@@ -27,6 +27,6 @@ using Riskeer.Integration.IO.Exceptions;
 namespace Riskeer.Integration.IO.Test.Exceptions
 {
     [TestFixture]
-    public class AssemblyCreatorExceptionTest :
-        CustomExceptionDesignGuidelinesTestFixture<AssemblyCreatorException, Exception> {}
+    public class AssemblyFactoryExceptionTest :
+        CustomExceptionDesignGuidelinesTestFixture<AssemblyFactoryException, Exception> {}
 }
