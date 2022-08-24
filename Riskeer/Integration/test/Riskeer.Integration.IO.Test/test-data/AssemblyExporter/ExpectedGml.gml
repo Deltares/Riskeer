@@ -2,14 +2,14 @@
 <uboi:Assembleren-collectie xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:imwap="http://www.aquo.nl/BOI2023/imwaproxies/v20210113" gml:id="assemblage.0" xmlns:uboi="http://www.aquo.nl/BOI2023/uitwisselmodel/v20210113">
   <uboi:featureMember>
     <imwap:Waterkeringstelsel gml:id="Wks.assessmentSectionId">
-      <imwap:naam>assessmentSectionName</imwap:naam>
       <imwap:geometrie2D>
         <gml:LineString srsName="EPSG:28992">
           <gml:posList>0 0 3 4</gml:posList>
         </gml:LineString>
       </imwap:geometrie2D>
-      <imwap:lengte>5</imwap:lengte>
       <imwap:typeWaterkeringstelsel>Dijktraject</imwap:typeWaterkeringstelsel>
+      <imwap:naam>assessmentSectionName</imwap:naam>
+      <imwap:lengte>5</imwap:lengte>
     </imwap:Waterkeringstelsel>
   </uboi:featureMember>
   <uboi:featureMember>
@@ -41,8 +41,8 @@
   <uboi:featureMember>
     <uboi:Faalanalyse gml:id="Fa.0">
       <uboi:duidingsklasse>+I</uboi:duidingsklasse>
-      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:analyseert xlink:href="Fm.0" />
@@ -52,8 +52,8 @@
   <uboi:featureMember>
     <uboi:Faalanalyse gml:id="Fa.1">
       <uboi:duidingsklasse>+I</uboi:duidingsklasse>
-      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:analyseert xlink:href="Fm.0" />
@@ -72,8 +72,8 @@
   <uboi:featureMember>
     <uboi:Faalanalyse gml:id="Fa.2">
       <uboi:duidingsklasse>+I</uboi:duidingsklasse>
-      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:analyseert xlink:href="Fm.1" />
@@ -83,8 +83,8 @@
   <uboi:featureMember>
     <uboi:Faalanalyse gml:id="Fa.3">
       <uboi:duidingsklasse>+I</uboi:duidingsklasse>
-      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:analyseert xlink:href="Fm.1" />
@@ -103,8 +103,8 @@
   <uboi:featureMember>
     <uboi:Faalanalyse gml:id="Fa.4">
       <uboi:duidingsklasse>+I</uboi:duidingsklasse>
-      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:analyseert xlink:href="Fm.2" />
@@ -114,8 +114,8 @@
   <uboi:featureMember>
     <uboi:Faalanalyse gml:id="Fa.5">
       <uboi:duidingsklasse>+I</uboi:duidingsklasse>
-      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:analyseert xlink:href="Fm.2" />
@@ -134,8 +134,8 @@
   <uboi:featureMember>
     <uboi:Faalanalyse gml:id="Fa.6">
       <uboi:duidingsklasse>+I</uboi:duidingsklasse>
-      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:analyseert xlink:href="Fm.3" />
@@ -145,8 +145,8 @@
   <uboi:featureMember>
     <uboi:Faalanalyse gml:id="Fa.7">
       <uboi:duidingsklasse>+I</uboi:duidingsklasse>
-      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:analyseert xlink:href="Fm.3" />
@@ -165,8 +165,8 @@
   <uboi:featureMember>
     <uboi:Faalanalyse gml:id="Fa.8">
       <uboi:duidingsklasse>+I</uboi:duidingsklasse>
-      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:analyseert xlink:href="Fm.4" />
@@ -176,8 +176,8 @@
   <uboi:featureMember>
     <uboi:Faalanalyse gml:id="Fa.9">
       <uboi:duidingsklasse>+I</uboi:duidingsklasse>
-      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:analyseert xlink:href="Fm.4" />
@@ -196,8 +196,8 @@
   <uboi:featureMember>
     <uboi:Faalanalyse gml:id="Fa.10">
       <uboi:duidingsklasse>+I</uboi:duidingsklasse>
-      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:analyseert xlink:href="Fm.5" />
@@ -207,8 +207,8 @@
   <uboi:featureMember>
     <uboi:Faalanalyse gml:id="Fa.11">
       <uboi:duidingsklasse>+I</uboi:duidingsklasse>
-      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:analyseert xlink:href="Fm.5" />
@@ -227,8 +227,8 @@
   <uboi:featureMember>
     <uboi:Faalanalyse gml:id="Fa.12">
       <uboi:duidingsklasse>+I</uboi:duidingsklasse>
-      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:analyseert xlink:href="Fm.6" />
@@ -238,8 +238,8 @@
   <uboi:featureMember>
     <uboi:Faalanalyse gml:id="Fa.13">
       <uboi:duidingsklasse>+I</uboi:duidingsklasse>
-      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:analyseert xlink:href="Fm.6" />
@@ -258,8 +258,8 @@
   <uboi:featureMember>
     <uboi:Faalanalyse gml:id="Fa.14">
       <uboi:duidingsklasse>+I</uboi:duidingsklasse>
-      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:analyseert xlink:href="Fm.7" />
@@ -269,8 +269,8 @@
   <uboi:featureMember>
     <uboi:Faalanalyse gml:id="Fa.15">
       <uboi:duidingsklasse>+I</uboi:duidingsklasse>
-      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:analyseert xlink:href="Fm.7" />
@@ -289,8 +289,8 @@
   <uboi:featureMember>
     <uboi:Faalanalyse gml:id="Fa.16">
       <uboi:duidingsklasse>+I</uboi:duidingsklasse>
-      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:analyseert xlink:href="Fm.8" />
@@ -300,8 +300,8 @@
   <uboi:featureMember>
     <uboi:Faalanalyse gml:id="Fa.17">
       <uboi:duidingsklasse>+I</uboi:duidingsklasse>
-      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:analyseert xlink:href="Fm.8" />
@@ -320,8 +320,8 @@
   <uboi:featureMember>
     <uboi:Faalanalyse gml:id="Fa.18">
       <uboi:duidingsklasse>+I</uboi:duidingsklasse>
-      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:analyseert xlink:href="Fm.9" />
@@ -331,8 +331,8 @@
   <uboi:featureMember>
     <uboi:Faalanalyse gml:id="Fa.19">
       <uboi:duidingsklasse>+I</uboi:duidingsklasse>
-      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:analyseert xlink:href="Fm.9" />
@@ -351,8 +351,8 @@
   <uboi:featureMember>
     <uboi:Faalanalyse gml:id="Fa.20">
       <uboi:duidingsklasse>+I</uboi:duidingsklasse>
-      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:analyseert xlink:href="Fm.10" />
@@ -362,8 +362,8 @@
   <uboi:featureMember>
     <uboi:Faalanalyse gml:id="Fa.21">
       <uboi:duidingsklasse>+I</uboi:duidingsklasse>
-      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:analyseert xlink:href="Fm.10" />
@@ -382,8 +382,8 @@
   <uboi:featureMember>
     <uboi:Faalanalyse gml:id="Fa.22">
       <uboi:duidingsklasse>+I</uboi:duidingsklasse>
-      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:analyseert xlink:href="Fm.11" />
@@ -393,8 +393,8 @@
   <uboi:featureMember>
     <uboi:Faalanalyse gml:id="Fa.23">
       <uboi:duidingsklasse>+I</uboi:duidingsklasse>
-      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:analyseert xlink:href="Fm.11" />
@@ -413,8 +413,8 @@
   <uboi:featureMember>
     <uboi:Faalanalyse gml:id="Fa.24">
       <uboi:duidingsklasse>+I</uboi:duidingsklasse>
-      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:analyseert xlink:href="Fm.12" />
@@ -424,8 +424,8 @@
   <uboi:featureMember>
     <uboi:Faalanalyse gml:id="Fa.25">
       <uboi:duidingsklasse>+I</uboi:duidingsklasse>
-      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:analyseert xlink:href="Fm.12" />
@@ -444,8 +444,8 @@
   <uboi:featureMember>
     <uboi:Faalanalyse gml:id="Fa.26">
       <uboi:duidingsklasse>+I</uboi:duidingsklasse>
-      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:analyseert xlink:href="Fm.13" />
@@ -455,8 +455,8 @@
   <uboi:featureMember>
     <uboi:Faalanalyse gml:id="Fa.27">
       <uboi:duidingsklasse>+I</uboi:duidingsklasse>
-      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:analyseert xlink:href="Fm.13" />
@@ -475,8 +475,8 @@
   <uboi:featureMember>
     <uboi:Faalanalyse gml:id="Fa.28">
       <uboi:duidingsklasse>+I</uboi:duidingsklasse>
-      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:analyseert xlink:href="Fm.14" />
@@ -486,8 +486,8 @@
   <uboi:featureMember>
     <uboi:Faalanalyse gml:id="Fa.29">
       <uboi:duidingsklasse>+I</uboi:duidingsklasse>
-      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:analyseert xlink:href="Fm.14" />
@@ -506,8 +506,8 @@
   <uboi:featureMember>
     <uboi:Faalanalyse gml:id="Fa.30">
       <uboi:duidingsklasse>+I</uboi:duidingsklasse>
-      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:analyseert xlink:href="Fm.15" />
@@ -517,8 +517,8 @@
   <uboi:featureMember>
     <uboi:Faalanalyse gml:id="Fa.31">
       <uboi:duidingsklasse>+I</uboi:duidingsklasse>
-      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:faalkans>0.1</uboi:faalkans>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:assemblagemethodeFaalkans>BOI-0A-1</uboi:assemblagemethodeFaalkans>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:analyseert xlink:href="Fm.15" />

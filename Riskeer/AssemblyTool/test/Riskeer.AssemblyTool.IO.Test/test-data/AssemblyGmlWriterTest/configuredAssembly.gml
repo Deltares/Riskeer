@@ -2,14 +2,14 @@
 <uboi:Assembleren-collectie xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:imwap="http://www.aquo.nl/BOI2023/imwaproxies/v20210113" gml:id="assemblage1" xmlns:uboi="http://www.aquo.nl/BOI2023/uitwisselmodel/v20210113">
   <uboi:featureMember>
     <imwap:Waterkeringstelsel gml:id="section1">
-      <imwap:naam>Traject A</imwap:naam>
       <imwap:geometrie2D>
         <gml:LineString srsName="EPSG:28992">
           <gml:posList>0 0 100 0</gml:posList>
         </gml:LineString>
       </imwap:geometrie2D>
-      <imwap:lengte>100</imwap:lengte>
       <imwap:typeWaterkeringstelsel>Dijktraject</imwap:typeWaterkeringstelsel>
+      <imwap:naam>Traject A</imwap:naam>
+      <imwap:lengte>100</imwap:lengte>
     </imwap:Waterkeringstelsel>
   </uboi:featureMember>
   <uboi:featureMember>
@@ -41,8 +41,8 @@
   <uboi:featureMember>
     <uboi:Faalanalyse gml:id="resultaat_GABI_1">
       <uboi:duidingsklasse>+III</uboi:duidingsklasse>
-      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:faalkans>0.00073</uboi:faalkans>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
       <uboi:assemblagemethodeFaalkans>BOI-0A-2</uboi:assemblagemethodeFaalkans>
       <uboi:status>VOLLDG</uboi:status>
       <uboi:analyseert xlink:href="toetsspoorGABI" />

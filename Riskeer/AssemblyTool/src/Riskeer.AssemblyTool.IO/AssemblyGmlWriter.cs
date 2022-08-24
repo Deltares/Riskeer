@@ -136,12 +136,11 @@ namespace Riskeer.AssemblyTool.IO
         {
             WriteStartElementWithId(AssemblyXmlIdentifiers.AssessmentSection, AssemblyXmlIdentifiers.ImwapNamespace, assessmentSection.Id);
 
-            writer.WriteElementString(AssemblyXmlIdentifiers.Name, AssemblyXmlIdentifiers.ImwapNamespace, assessmentSection.Name);
-
             WriteGeometry(AssemblyXmlIdentifiers.Geometry2D, assessmentSection.Geometry);
 
-            writer.WriteElementString(AssemblyXmlIdentifiers.Length, AssemblyXmlIdentifiers.ImwapNamespace, XmlConvert.ToString(Math2D.Length(assessmentSection.Geometry)));
             writer.WriteElementString(AssemblyXmlIdentifiers.AssessmentSectionType, AssemblyXmlIdentifiers.ImwapNamespace, Resources.AssessmentSectionType);
+            writer.WriteElementString(AssemblyXmlIdentifiers.Name, AssemblyXmlIdentifiers.ImwapNamespace, assessmentSection.Name);
+            writer.WriteElementString(AssemblyXmlIdentifiers.Length, AssemblyXmlIdentifiers.ImwapNamespace, XmlConvert.ToString(Math2D.Length(assessmentSection.Geometry)));
 
             writer.WriteEndElement();
         }
@@ -231,10 +230,10 @@ namespace Riskeer.AssemblyTool.IO
 
             writer.WriteElementString(AssemblyXmlIdentifiers.FailureMechanismSectionAssemblyGroup, AssemblyXmlIdentifiers.UboiNamespace,
                                       EnumDisplayNameHelper.GetDisplayName(sectionAssemblyResult.AssemblyGroup));
-            writer.WriteElementString(AssemblyXmlIdentifiers.FailureMechanismSectionAssemblyGroupAssemblyMethod, AssemblyXmlIdentifiers.UboiNamespace,
-                                      EnumDisplayNameHelper.GetDisplayName(sectionAssemblyResult.AssemblyGroupAssemblyMethod));
             writer.WriteElementString(AssemblyXmlIdentifiers.Probability, AssemblyXmlIdentifiers.UboiNamespace,
                                       XmlConvert.ToString(sectionAssemblyResult.Probability));
+            writer.WriteElementString(AssemblyXmlIdentifiers.FailureMechanismSectionAssemblyGroupAssemblyMethod, AssemblyXmlIdentifiers.UboiNamespace,
+                                      EnumDisplayNameHelper.GetDisplayName(sectionAssemblyResult.AssemblyGroupAssemblyMethod));
             writer.WriteElementString(AssemblyXmlIdentifiers.ProbabilityAssemblyMethod, AssemblyXmlIdentifiers.UboiNamespace,
                                       EnumDisplayNameHelper.GetDisplayName(sectionAssemblyResult.ProbabilityAssemblyMethod));
             writer.WriteElementString(AssemblyXmlIdentifiers.Status, AssemblyXmlIdentifiers.UboiNamespace, Resources.FullAssembly);
