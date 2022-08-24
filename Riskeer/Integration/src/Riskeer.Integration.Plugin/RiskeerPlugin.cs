@@ -602,7 +602,7 @@ namespace Riskeer.Integration.Plugin
                 Name = context => Resources.AssemblyResults_DisplayName,
                 Extension = Resources.AssemblyResults_file_filter_Extension,
                 CreateFileExporter = (context, filePath) => new AssemblyExporter(context.WrappedData, filePath),
-                IsEnabled = context => false,
+                IsEnabled = context => HasGeometry(context.WrappedData.ReferenceLine),
                 GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(Resources.AssemblyResults_file_filter_Extension,
                                                                                                            Resources.AssemblyResults_DisplayName))
             };
