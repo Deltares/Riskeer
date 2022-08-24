@@ -22,6 +22,8 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Xml.Linq;
+using System.Xml.Schema;
 using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
@@ -133,6 +135,57 @@ namespace Riskeer.AssemblyTool.IO.Test
             finally
             {
                 DirectoryHelper.TryDelete(folderPath);
+            }
+        }
+
+        [Test]
+        [Explicit("Use for writer validation after changes. XSD validation requires internet connection and takes about 20 seconds to complete.")]
+        public void GivenFullyConfiguredAssembly_WhenWrittenToFile_ThenValidFileCreated()
+        {
+            // Given
+            string folderPath = TestHelper.GetScratchPadPath(nameof(GivenFullyConfiguredAssembly_WhenWrittenToFile_ThenValidFileCreated));
+            Directory.CreateDirectory(folderPath);
+            string filePath = Path.Combine(folderPath, "actualAssembly.gml");
+
+            ExportableAssembly assembly = CreateExportableAssembly();
+
+            try
+            {
+                // When
+                using (var writer = new AssemblyGmlWriter(filePath))
+                {
+                    writer.Write(assembly);
+                }
+
+                // Then
+                Assert.IsTrue(File.Exists(filePath));
+                string fileContent = File.ReadAllText(filePath);
+                Console.WriteLine(fileContent);
+
+                var schema = new XmlSchemaSet();
+                schema.Add("http://www.aquo.nl/BOI2023/uitwisselmodel/v20210113",
+                           Path.Combine(testDataPath, "xsd", "BOI2023", "uitwisselmodel", "v20210113",
+                                        "BOI2023_Uitwisselmodel_v1_0.xsd"));
+
+                XDocument doc = XDocument.Parse(fileContent);
+
+                var msg = string.Empty;
+                doc.Validate(schema, (o, e) =>
+                {
+                    msg += e.Message + Environment.NewLine;
+                });
+                if (msg == string.Empty)
+                {
+                    Assert.Pass("Serialized document is valid" + Environment.NewLine);
+                }
+                else
+                {
+                    Assert.Fail("Serialized document is invalid:" + Environment.NewLine + msg);
+                }
+            }
+            finally
+            {
+                File.Delete(filePath);
             }
         }
 
