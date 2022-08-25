@@ -43,7 +43,7 @@ namespace Riskeer.Integration.IO.Factories
         /// based on <paramref name="combinedSectionAssemblyResults"/>.
         /// </summary>
         /// <param name="idGenerator">The generator to generate ids for the exportable components.</param>
-        /// <param name="registry">The <see cref="ExportableModelRegistry"/> to keep track of the created items.</param>
+        /// <param name="registry">The <see cref="ExportableModelRegistry"/> that keeps track of the created items.</param>
         /// <param name="combinedSectionAssemblyResults">A collection of combined section results to
         /// create a collection of <see cref="ExportableCombinedSectionAssembly"/> for.</param>
         /// <param name="assessmentSection">The <see cref="AssessmentSection"/> the section results belong to.</param>

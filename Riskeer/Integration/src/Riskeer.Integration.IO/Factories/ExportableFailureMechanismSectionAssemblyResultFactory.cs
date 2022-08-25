@@ -40,7 +40,7 @@ namespace Riskeer.Integration.IO.Factories
         /// </summary>
         /// <param name="idGenerator">The generator to generate ids for the exportable components.</param>
         /// <param name="registry">The <see cref="ExportableModelRegistry"/> to keep track of
-        /// the created <see cref="ExportableFailureMechanismSection"/>.</param>
+        /// the created <see cref="ExportableFailureMechanismSectionAssemblyResult"/>.</param>
         /// <param name="sectionResult">The <see cref="TSectionResult"/> to assemble for.</param>
         /// <param name="failureMechanism">The <see cref="TFailureMechanism"/> the <paramref name="sectionResult"/>
         /// belongs to.</param>

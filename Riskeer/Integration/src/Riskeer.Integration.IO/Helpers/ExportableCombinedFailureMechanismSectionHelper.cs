@@ -36,7 +36,8 @@ namespace Riskeer.Integration.IO.Helpers
         /// Gets the matching <see cref="ExportableFailureMechanismAssemblyResult"/> that contains a section corresponding with
         /// the <paramref name="exportableCombinedFailureMechanismSection"/>.
         /// </summary>
-        /// <param name="registry">The <see cref="ExportableModelRegistry"/> that keeps track of the created items.</param>
+        /// <param name="registry">The <see cref="ExportableModelRegistry"/> that keeps track of the created
+        /// <see cref="ExportableFailureMechanismSectionAssemblyResult"/>.</param>
         /// <param name="sectionResults">The collection of <see cref="FailureMechanismSectionResult"/>.</param>
         /// <param name="exportableCombinedFailureMechanismSection">The <see cref="ExportableCombinedFailureMechanismSection"/> to
         /// find the corresponding <see cref="ExportableFailureMechanismAssemblyResult"/> for.</param>

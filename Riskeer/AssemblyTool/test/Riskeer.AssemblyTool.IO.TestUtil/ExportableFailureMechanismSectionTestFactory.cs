@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Base.Geometry;
 using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.AssemblyTool.IO.Model.Enums;
@@ -32,21 +31,6 @@ namespace Riskeer.AssemblyTool.IO.TestUtil
     /// </summary>
     public static class ExportableFailureMechanismSectionTestFactory
     {
-        /// <summary>
-        /// Creates a default <see cref="ExportableFailureMechanismSection"/>.
-        /// </summary>
-        /// <param name="seed">The seed.</param>
-        /// <returns>A default instance of <see cref="ExportableFailureMechanismSection"/>.</returns>
-        public static ExportableFailureMechanismSection CreateExportableFailureMechanismSection(int seed)
-        {
-            var random = new Random(seed);
-            return new ExportableFailureMechanismSection("id", new[]
-            {
-                new Point2D(random.NextDouble(), random.NextDouble()),
-                new Point2D(random.NextDouble(), random.NextDouble())
-            }, random.NextDouble(), random.NextDouble());
-        }
-
         /// <summary>
         /// Creates a default <see cref="ExportableFailureMechanismSection"/>.
         /// </summary>

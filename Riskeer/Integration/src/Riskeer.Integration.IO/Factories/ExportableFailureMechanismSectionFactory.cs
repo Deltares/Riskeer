@@ -39,7 +39,8 @@ namespace Riskeer.Integration.IO.Factories
         /// Creates an <see cref="ExportableFailureMechanismSection"/> based on its input arguments.
         /// </summary>
         /// <param name="idGenerator">The generator to generate ids for the exportable components.</param>
-        /// <param name="registry">The <see cref="ExportableModelRegistry"/> to keep track of the created items.</param>
+        /// <param name="registry">The <see cref="ExportableModelRegistry"/> to keep track of the created
+        /// <see cref="ExportableFailureMechanismSection"/>.</param>
         /// <param name="section">The <see cref="FailureMechanismSection"/> to create the
         /// <see cref="ExportableFailureMechanismSection"/> with.</param>
         /// <param name="startDistance">The start distance of the failure mechanism section between the section
@@ -82,7 +83,8 @@ namespace Riskeer.Integration.IO.Factories
         /// Creates a <see cref="ExportableCombinedFailureMechanismSection"/> based on its input arguments.
         /// </summary>
         /// <param name="idGenerator">The generator to generate ids for the exportable components.</param>
-        /// <param name="registry">The <see cref="ExportableModelRegistry"/> to keep track of the created items.</param>
+        /// <param name="registry">The <see cref="ExportableModelRegistry"/> to keep track of the created
+        /// <see cref="ExportableCombinedFailureMechanismSection"/>.</param>
         /// <param name="referenceLine">The <see cref="ReferenceLine"/> the section results belong to.</param>
         /// <param name="assemblyResult">The <see cref="CombinedFailureMechanismSectionAssemblyResult"/> to create the section with.</param>
         /// <returns>An <see cref="ExportableCombinedFailureMechanismSection"/>.</returns>

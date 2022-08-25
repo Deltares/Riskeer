@@ -159,8 +159,7 @@ namespace Riskeer.Integration.IO.Factories
         /// for failure mechanisms that are in assembly based on <paramref name="assessmentSection"/>.
         /// </summary>
         /// <param name="idGenerator">The generator to generate ids for the exportable components.</param>
-        /// <param name="registry">The <see cref="ExportableModelRegistry"/>
-        /// to keep track of the created <see cref="ExportableFailureMechanismSection"/>.</param>
+        /// <param name="registry">The <see cref="ExportableModelRegistry"/> to keep track of the created items.</param>
         /// <param name="assessmentSection">The assessment section to create a collection of
         /// <see cref="ExportableFailureMechanism"/> with probability for.</param>
         /// <returns>A collection of <see cref="ExportableFailureMechanism"/> based on failure
@@ -251,8 +250,7 @@ namespace Riskeer.Integration.IO.Factories
         /// Adds a generic failure mechanism to the <paramref name="exportableFailureMechanisms"/> when it is in assembly.
         /// </summary>
         /// <param name="idGenerator">The generator to generate ids for the exportable components.</param>
-        /// <param name="registry">The <see cref="ExportableModelRegistry"/>
-        /// to keep track of the created <see cref="ExportableFailureMechanismSection"/>.</param>
+        /// <param name="registry">The <see cref="ExportableModelRegistry"/> to keep track of the created items.</param>
         /// <param name="exportableFailureMechanisms">The <see cref="List{T}"/> with <see cref="ExportableFailureMechanism"/>
         /// to add the failure mechanism to.</param>
         /// <param name="failureMechanism">The failure mechanism to export.</param>
