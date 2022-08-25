@@ -206,4 +206,7 @@ Er is geen HLCD geïmporteerd.</value>
   <data name="ExportableFailureMechanismSectionAssemblyResult_IdPrefix" xml:space="preserve">
     <value>Fa</value>
   </data>
+  <data name="ExportableCombinedSectionAssembly_IdPrefix" xml:space="preserve">
+    <value>Gf</value>
+  </data>
 </root>

@@ -58,6 +58,7 @@ namespace Riskeer.Integration.IO.Test.Factories
                 Id = id
             };
             ReferenceLineTestFactory.SetReferenceLineGeometry(assessmentSection.ReferenceLine);
+            AddFailureMechanismSections(assessmentSection);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -71,8 +72,30 @@ namespace Riskeer.Integration.IO.Test.Factories
             }
         }
 
+        private static void AddFailureMechanismSections(AssessmentSection assessmentSection)
+        {
+            var random = new Random(21);
+            FailureMechanismTestHelper.AddSections(assessmentSection.Piping, random.Next(1, 10));
+            FailureMechanismTestHelper.AddSections(assessmentSection.MacroStabilityInwards, random.Next(1, 10));
+            FailureMechanismTestHelper.AddSections(assessmentSection.GrassCoverErosionInwards, random.Next(1, 10));
+            FailureMechanismTestHelper.AddSections(assessmentSection.HeightStructures, random.Next(1, 10));
+            FailureMechanismTestHelper.AddSections(assessmentSection.ClosingStructures, random.Next(1, 10));
+            FailureMechanismTestHelper.AddSections(assessmentSection.StabilityPointStructures, random.Next(1, 10));
+
+            FailureMechanismTestHelper.AddSections(assessmentSection.StabilityStoneCover, random.Next(1, 10));
+            FailureMechanismTestHelper.AddSections(assessmentSection.WaveImpactAsphaltCover, random.Next(1, 10));
+            FailureMechanismTestHelper.AddSections(assessmentSection.GrassCoverErosionOutwards, random.Next(1, 10));
+            FailureMechanismTestHelper.AddSections(assessmentSection.DuneErosion, random.Next(1, 10));
+
+            FailureMechanismTestHelper.AddSections(assessmentSection.Microstability, random.Next(1, 10));
+            FailureMechanismTestHelper.AddSections(assessmentSection.GrassCoverSlipOffOutwards, random.Next(1, 10));
+            FailureMechanismTestHelper.AddSections(assessmentSection.GrassCoverSlipOffInwards, random.Next(1, 10));
+            FailureMechanismTestHelper.AddSections(assessmentSection.PipingStructure, random.Next(1, 10));
+            FailureMechanismTestHelper.AddSections(assessmentSection.WaterPressureAsphaltCover, random.Next(1, 10));
+        }
+
         private static void AssertExportableAssessmentSection(
-            AssessmentSection assessmentSection, ExportableAssessmentSection exportableAssessmentSection)
+            IAssessmentSection assessmentSection, ExportableAssessmentSection exportableAssessmentSection)
         {
             Assert.AreEqual(assessmentSection.Name, exportableAssessmentSection.Name);
             Assert.AreEqual($"Wks.{assessmentSection.Id}", exportableAssessmentSection.Id);

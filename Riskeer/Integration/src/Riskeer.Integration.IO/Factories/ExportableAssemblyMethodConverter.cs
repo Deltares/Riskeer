@@ -27,22 +27,21 @@ using Riskeer.AssemblyTool.IO.Model.Enums;
 namespace Riskeer.Integration.IO.Factories
 {
     /// <summary>
-    /// Factory for creating <see cref="ExportableAssemblyMethod"/>.
+    /// Converter for converting <see cref="AssemblyMethod"/> into <see cref="ExportableAssemblyMethod"/>.
     /// </summary>
-    public static class ExportableAssemblyMethodFactory
+    public static class ExportableAssemblyMethodConverter
     {
         /// <summary>
-        /// Creates a <see cref="ExportableAssemblyMethod"/> based on
-        /// <paramref name="assemblyMethod"/>.
+        /// Converts an <see cref="AssemblyMethod"/> into an <see cref="ExportableAssemblyMethod"/>.
         /// </summary>
         /// <param name="assemblyMethod">The <see cref="AssemblyMethod"/>
-        /// to create a <see cref="ExportableAssemblyMethod"/> for.</param>
+        /// to convert into an <see cref="ExportableAssemblyMethod"/>.</param>
         /// <returns>An <see cref="ExportableAssemblyMethod"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="assemblyMethod"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="assemblyMethod"/>
         /// is a valid value, but unsupported.</exception>
-        public static ExportableAssemblyMethod Create(AssemblyMethod assemblyMethod)
+        public static ExportableAssemblyMethod ConvertTo(AssemblyMethod assemblyMethod)
         {
             if (!Enum.IsDefined(typeof(AssemblyMethod), assemblyMethod))
             {

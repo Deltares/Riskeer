@@ -21,9 +21,12 @@
 
 using System;
 using Riskeer.AssemblyTool.IO.Model;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Integration.Data.Assembly;
 using Riskeer.Integration.IO.Helpers;
 using Riskeer.Integration.IO.Properties;
+using Riskeer.Integration.Util;
 
 namespace Riskeer.Integration.IO.Factories
 {
@@ -36,7 +39,8 @@ namespace Riskeer.Integration.IO.Factories
         /// Creates an <see cref="ExportableFailureMechanismSection"/> based on its input arguments.
         /// </summary>
         /// <param name="idGenerator">The generator to generate ids for the exportable components.</param>
-        /// <param name="registry">The <see cref="ExportableFailureMechanismSectionRegistry"/> to keep track of the created <see cref="ExportableFailureMechanismSection"/>.</param>
+        /// <param name="registry">The <see cref="ExportableModelRegistry"/> to keep track of the created
+        /// <see cref="ExportableFailureMechanismSection"/>.</param>
         /// <param name="section">The <see cref="FailureMechanismSection"/> to create the
         /// <see cref="ExportableFailureMechanismSection"/> with.</param>
         /// <param name="startDistance">The start distance of the failure mechanism section between the section
@@ -45,7 +49,7 @@ namespace Riskeer.Integration.IO.Factories
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="idGenerator"/>, <paramref name="registry"/>
         /// or <paramref name="section"/> is <c>null</c>.</exception>
         public static ExportableFailureMechanismSection CreateExportableFailureMechanismSection(
-            IdentifierGenerator idGenerator, ExportableFailureMechanismSectionRegistry registry, FailureMechanismSection section,
+            IdentifierGenerator idGenerator, ExportableModelRegistry registry, FailureMechanismSection section,
             double startDistance)
         {
             if (idGenerator == null)
@@ -72,6 +76,55 @@ namespace Riskeer.Integration.IO.Factories
             var exportableSection = new ExportableFailureMechanismSection(idGenerator.GetNewId(Resources.ExportableFailureMechanismSection_IdPrefix),
                                                                           section.Points, startDistance, endDistance);
             registry.Register(section, exportableSection);
+            return exportableSection;
+        }
+
+        /// <summary>
+        /// Creates a <see cref="ExportableCombinedFailureMechanismSection"/> based on its input arguments.
+        /// </summary>
+        /// <param name="idGenerator">The generator to generate ids for the exportable components.</param>
+        /// <param name="registry">The <see cref="ExportableModelRegistry"/> to keep track of the created
+        /// <see cref="ExportableCombinedFailureMechanismSection"/>.</param>
+        /// <param name="referenceLine">The <see cref="ReferenceLine"/> the section results belong to.</param>
+        /// <param name="assemblyResult">The <see cref="CombinedFailureMechanismSectionAssemblyResult"/> to create the section with.</param>
+        /// <returns>An <see cref="ExportableCombinedFailureMechanismSection"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static ExportableCombinedFailureMechanismSection CreateExportableCombinedFailureMechanismSection(
+            IdentifierGenerator idGenerator, ExportableModelRegistry registry,
+            ReferenceLine referenceLine, CombinedFailureMechanismSectionAssemblyResult assemblyResult)
+        {
+            if (idGenerator == null)
+            {
+                throw new ArgumentNullException(nameof(idGenerator));
+            }
+
+            if (registry == null)
+            {
+                throw new ArgumentNullException(nameof(registry));
+            }
+
+            if (referenceLine == null)
+            {
+                throw new ArgumentNullException(nameof(referenceLine));
+            }
+
+            if (assemblyResult == null)
+            {
+                throw new ArgumentNullException(nameof(assemblyResult));
+            }
+
+            if (registry.Contains(assemblyResult))
+            {
+                return registry.Get(assemblyResult);
+            }
+
+            var exportableSection = new ExportableCombinedFailureMechanismSection(
+                idGenerator.GetNewId(Resources.ExportableFailureMechanismSection_IdPrefix),
+                FailureMechanismSectionHelper.GetFailureMechanismSectionGeometry(referenceLine, assemblyResult.SectionStart, assemblyResult.SectionEnd),
+                assemblyResult.SectionStart, assemblyResult.SectionEnd,
+                ExportableAssemblyMethodConverter.ConvertTo(assemblyResult.CommonSectionAssemblyMethod));
+
+            registry.Register(assemblyResult, exportableSection);
             return exportableSection;
         }
     }

@@ -29,16 +29,16 @@ using Riskeer.Integration.IO.Factories;
 namespace Riskeer.Integration.IO.Test.Factories
 {
     [TestFixture]
-    public class ExportableAssemblyMethodFactoryTest
+    public class ExportableAssemblyMethodConverterTest
     {
         [Test]
-        public void Create_InvalidAssemblyMethod_ThrowInvalidEnumArgumentException()
+        public void ConvertTo_InvalidAssemblyMethod_ThrowInvalidEnumArgumentException()
         {
             // Setup
             const AssemblyMethod assemblyMethod = (AssemblyMethod) 999;
 
             // ExportableAssemblyMethodFactory
-            void Call() => ExportableAssemblyMethodFactory.Create(assemblyMethod);
+            void Call() => ExportableAssemblyMethodConverter.ConvertTo(assemblyMethod);
 
             // Assert
             var message = $"The value of argument 'assemblyMethod' ({assemblyMethod}) is invalid for Enum type '{nameof(AssemblyMethod)}'.";
@@ -58,11 +58,11 @@ namespace Riskeer.Integration.IO.Test.Factories
         [TestCase(AssemblyMethod.BOI3A1, ExportableAssemblyMethod.BOI3A1)]
         [TestCase(AssemblyMethod.BOI3B1, ExportableAssemblyMethod.BOI3B1)]
         [TestCase(AssemblyMethod.BOI3C1, ExportableAssemblyMethod.BOI3C1)]
-        public void Create_WithAssemblyMethod_ReturnsExpectedValues(AssemblyMethod assemblyMethod,
-                                                                    ExportableAssemblyMethod expectedAssemblyMethod)
+        public void ConvertTo_WithAssemblyMethod_ReturnsExpectedValues(AssemblyMethod assemblyMethod,
+                                                                       ExportableAssemblyMethod expectedAssemblyMethod)
         {
             // Call
-            ExportableAssemblyMethod exportableAssemblyMethod = ExportableAssemblyMethodFactory.Create(assemblyMethod);
+            ExportableAssemblyMethod exportableAssemblyMethod = ExportableAssemblyMethodConverter.ConvertTo(assemblyMethod);
 
             // Assert
             Assert.AreEqual(expectedAssemblyMethod, exportableAssemblyMethod);
