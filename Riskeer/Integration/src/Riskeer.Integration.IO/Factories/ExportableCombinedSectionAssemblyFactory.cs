@@ -22,10 +22,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base.Geometry;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.IO.Model;
-using Riskeer.AssemblyTool.IO.Model.Enums;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Assembly;
@@ -87,12 +85,12 @@ namespace Riskeer.Integration.IO.Factories
                     throw new AssemblyFactoryException("The assembly result is invalid and cannot be created.");
                 }
 
-                ExportableCombinedFailureMechanismSection exportableSection = registry.Get(assemblyResult);
+                ExportableCombinedFailureMechanismSection exportableCombinedSection = registry.Get(assemblyResult);
 
                 var exportableSectionResult = new ExportableCombinedSectionAssembly(
-                    idGenerator.GetNewId(Resources.ExportableCombinedSectionAssembly_IdPrefix), exportableSection, assemblyResult.TotalResult,
+                    idGenerator.GetNewId(Resources.ExportableCombinedSectionAssembly_IdPrefix), exportableCombinedSection, assemblyResult.TotalResult,
                     ExportableAssemblyMethodConverter.ConvertTo(assemblyResult.CombinedSectionResultAssemblyMethod),
-                    CreateFailureMechanismCombinedSectionAssemblyResults(assemblyResult, assessmentSection));
+                    CreateFailureMechanismCombinedSectionAssemblyResults(registry, exportableCombinedSection, assemblyResult, assessmentSection));
 
                 sectionResults.Add(exportableSectionResult);
             }
@@ -101,31 +99,33 @@ namespace Riskeer.Integration.IO.Factories
         }
 
         private static IEnumerable<ExportableFailureMechanismCombinedSectionAssemblyResult> CreateFailureMechanismCombinedSectionAssemblyResults(
+            ExportableModelRegistry registry, ExportableCombinedFailureMechanismSection combinedFailureMechanismSection,
             CombinedFailureMechanismSectionAssemblyResult assemblyResult, AssessmentSection assessmentSection)
         {
-            Tuple<FailureMechanismSectionAssemblyGroup?, string, string>[] failureMechanisms =
+            Tuple<FailureMechanismSectionAssemblyGroup?, IEnumerable<FailureMechanismSectionResult>>[] failureMechanisms =
             {
-                CreateTuple(assemblyResult.Piping, assessmentSection.Piping),
-                CreateTuple(assemblyResult.GrassCoverErosionInwards, assessmentSection.GrassCoverErosionInwards),
-                CreateTuple(assemblyResult.MacroStabilityInwards, assessmentSection.MacroStabilityInwards),
-                CreateTuple(assemblyResult.Microstability, assessmentSection.Microstability),
-                CreateTuple(assemblyResult.StabilityStoneCover, assessmentSection.StabilityStoneCover),
-                CreateTuple(assemblyResult.WaveImpactAsphaltCover, assessmentSection.WaveImpactAsphaltCover),
-                CreateTuple(assemblyResult.WaterPressureAsphaltCover, assessmentSection.WaterPressureAsphaltCover),
-                CreateTuple(assemblyResult.GrassCoverErosionOutwards, assessmentSection.GrassCoverErosionOutwards),
-                CreateTuple(assemblyResult.GrassCoverSlipOffOutwards, assessmentSection.GrassCoverSlipOffOutwards),
-                CreateTuple(assemblyResult.GrassCoverSlipOffInwards, assessmentSection.GrassCoverSlipOffInwards),
-                CreateTuple(assemblyResult.HeightStructures, assessmentSection.HeightStructures),
-                CreateTuple(assemblyResult.ClosingStructures, assessmentSection.ClosingStructures),
-                CreateTuple(assemblyResult.PipingStructure, assessmentSection.PipingStructure),
-                CreateTuple(assemblyResult.StabilityPointStructures, assessmentSection.StabilityPointStructures),
-                CreateTuple(assemblyResult.DuneErosion, assessmentSection.DuneErosion)
+                CreateTuple(assemblyResult.Piping, assessmentSection.Piping.SectionResults),
+                CreateTuple(assemblyResult.GrassCoverErosionInwards, assessmentSection.GrassCoverErosionInwards.SectionResults),
+                CreateTuple(assemblyResult.MacroStabilityInwards, assessmentSection.MacroStabilityInwards.SectionResults),
+                CreateTuple(assemblyResult.Microstability, assessmentSection.Microstability.SectionResults),
+                CreateTuple(assemblyResult.StabilityStoneCover, assessmentSection.StabilityStoneCover.SectionResults),
+                CreateTuple(assemblyResult.WaveImpactAsphaltCover, assessmentSection.WaveImpactAsphaltCover.SectionResults),
+                CreateTuple(assemblyResult.WaterPressureAsphaltCover, assessmentSection.WaterPressureAsphaltCover.SectionResults),
+                CreateTuple(assemblyResult.GrassCoverErosionOutwards, assessmentSection.GrassCoverErosionOutwards.SectionResults),
+                CreateTuple(assemblyResult.GrassCoverSlipOffOutwards, assessmentSection.GrassCoverSlipOffOutwards.SectionResults),
+                CreateTuple(assemblyResult.GrassCoverSlipOffInwards, assessmentSection.GrassCoverSlipOffInwards.SectionResults),
+                CreateTuple(assemblyResult.HeightStructures, assessmentSection.HeightStructures.SectionResults),
+                CreateTuple(assemblyResult.ClosingStructures, assessmentSection.ClosingStructures.SectionResults),
+                CreateTuple(assemblyResult.PipingStructure, assessmentSection.PipingStructure.SectionResults),
+                CreateTuple(assemblyResult.StabilityPointStructures, assessmentSection.StabilityPointStructures.SectionResults),
+                CreateTuple(assemblyResult.DuneErosion, assessmentSection.DuneErosion.SectionResults)
             };
 
             List<ExportableFailureMechanismCombinedSectionAssemblyResult> exportableAssemblyResults =
                 failureMechanisms.Where(fm => fm.Item1.HasValue)
                                  .Select(fm => CreateExportableFailureMechanismCombinedSectionAssemblyResult(
-                                             fm.Item1.Value, assemblyResult.FailureMechanismResultsAssemblyMethod))
+                                             registry, fm.Item2, combinedFailureMechanismSection, fm.Item1.Value,
+                                             assemblyResult.FailureMechanismResultsAssemblyMethod))
                                  .ToList();
 
             for (var i = 0; i < assessmentSection.SpecificFailureMechanisms.Count; i++)
@@ -136,6 +136,7 @@ namespace Riskeer.Integration.IO.Factories
                 {
                     SpecificFailureMechanism specificFailureMechanism = assessmentSection.SpecificFailureMechanisms.ElementAt(i);
                     exportableAssemblyResults.Add(CreateExportableFailureMechanismCombinedSectionAssemblyResult(
+                                                      registry, specificFailureMechanism.SectionResults, combinedFailureMechanismSection,
                                                       specificFailureMechanismAssemblyResult.Value, assemblyResult.FailureMechanismResultsAssemblyMethod));
                 }
             }
@@ -143,20 +144,21 @@ namespace Riskeer.Integration.IO.Factories
             return exportableAssemblyResults;
         }
 
-        private static Tuple<FailureMechanismSectionAssemblyGroup?, string, string> CreateTuple(
-            FailureMechanismSectionAssemblyGroup? assemblyResultGroup, IFailureMechanism failureMechanism)
+        private static Tuple<FailureMechanismSectionAssemblyGroup?, IEnumerable<FailureMechanismSectionResult>> CreateTuple(
+            FailureMechanismSectionAssemblyGroup? assemblyResultGroup, IEnumerable<FailureMechanismSectionResult> sectionResults)
         {
-            return new Tuple<FailureMechanismSectionAssemblyGroup?, string, string>(assemblyResultGroup, failureMechanism.Code, failureMechanism.Name);
+            return new Tuple<FailureMechanismSectionAssemblyGroup?, IEnumerable<FailureMechanismSectionResult>>(assemblyResultGroup, sectionResults);
         }
 
         private static ExportableFailureMechanismCombinedSectionAssemblyResult CreateExportableFailureMechanismCombinedSectionAssemblyResult(
+            ExportableModelRegistry registry, IEnumerable<FailureMechanismSectionResult> sectionResults, ExportableCombinedFailureMechanismSection combinedFailureMechanismSection,
             FailureMechanismSectionAssemblyGroup sectionAssemblyGroup, AssemblyMethod assemblyMethod)
         {
+            ExportableFailureMechanismSectionAssemblyResult failureMechanismSectionAssemblyResult =
+                ExportableCombinedFailureMechanismSectionHelper.GetExportableFailureMechanismSectionAssemblyResult(registry, sectionResults, combinedFailureMechanismSection);
+
             return new ExportableFailureMechanismCombinedSectionAssemblyResult(
-                sectionAssemblyGroup, ExportableAssemblyMethodConverter.ConvertTo(assemblyMethod),
-                new ExportableFailureMechanismSectionAssemblyResult(
-                    "id", new ExportableFailureMechanismSection("id", Array.Empty<Point2D>(), double.NaN, double.NaN), double.NaN,
-                    FailureMechanismSectionAssemblyGroup.Zero, ExportableAssemblyMethod.Manual, ExportableAssemblyMethod.Manual));
+                sectionAssemblyGroup, ExportableAssemblyMethodConverter.ConvertTo(assemblyMethod), failureMechanismSectionAssemblyResult);
         }
     }
 }
