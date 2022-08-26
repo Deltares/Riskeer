@@ -87,13 +87,12 @@ namespace Riskeer.Integration.IO.Factories
 
                 ExportableCombinedFailureMechanismSection exportableCombinedSection = registry.Get(assemblyResult);
 
-                var exportableSectionResult = new ExportableCombinedSectionAssembly(
-                    idGenerator.GetUniqueId(Resources.ExportableCombinedSectionAssembly_IdPrefix), exportableCombinedSection,
-                    ExportableFailureMechanismSectionAssemblyGroupConverter.ConvertTo(assemblyResult.TotalResult),
-                    ExportableAssemblyMethodConverter.ConvertTo(assemblyResult.CombinedSectionResultAssemblyMethod),
-                    CreateFailureMechanismCombinedSectionAssemblyResults(registry, exportableCombinedSection, assemblyResult, assessmentSection));
-
-                sectionResults.Add(exportableSectionResult);
+                sectionResults.Add(
+                    new ExportableCombinedSectionAssembly(
+                        idGenerator.GetUniqueId(Resources.ExportableCombinedSectionAssembly_IdPrefix), exportableCombinedSection,
+                        ExportableFailureMechanismSectionAssemblyGroupConverter.ConvertTo(assemblyResult.TotalResult),
+                        ExportableAssemblyMethodConverter.ConvertTo(assemblyResult.CombinedSectionResultAssemblyMethod),
+                        CreateFailureMechanismCombinedSectionAssemblyResults(registry, exportableCombinedSection, assemblyResult, assessmentSection)));
             }
 
             return sectionResults;
@@ -155,11 +154,10 @@ namespace Riskeer.Integration.IO.Factories
             ExportableModelRegistry registry, IEnumerable<FailureMechanismSectionResult> sectionResults, ExportableCombinedFailureMechanismSection combinedFailureMechanismSection,
             FailureMechanismSectionAssemblyGroup sectionAssemblyGroup, AssemblyMethod assemblyMethod)
         {
-            ExportableFailureMechanismSectionAssemblyResult failureMechanismSectionAssemblyResult =
-                ExportableCombinedFailureMechanismSectionHelper.GetExportableFailureMechanismSectionAssemblyResult(registry, sectionResults, combinedFailureMechanismSection);
-
             return new ExportableFailureMechanismCombinedSectionAssemblyResult(
-                sectionAssemblyGroup, ExportableAssemblyMethodConverter.ConvertTo(assemblyMethod), failureMechanismSectionAssemblyResult);
+                sectionAssemblyGroup, ExportableAssemblyMethodConverter.ConvertTo(assemblyMethod),
+                ExportableCombinedFailureMechanismSectionHelper.GetExportableFailureMechanismSectionAssemblyResult(
+                    registry, sectionResults, combinedFailureMechanismSection));
         }
     }
 }

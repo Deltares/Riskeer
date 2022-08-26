@@ -73,8 +73,10 @@ namespace Riskeer.Integration.IO.Factories
             }
 
             double endDistance = startDistance + section.Length;
-            var exportableSection = new ExportableFailureMechanismSection(idGenerator.GetUniqueId(Resources.ExportableFailureMechanismSection_IdPrefix),
-                                                                          section.Points, startDistance, endDistance);
+            var exportableSection = new ExportableFailureMechanismSection(
+                idGenerator.GetUniqueId(Resources.ExportableFailureMechanismSection_IdPrefix),
+                section.Points, startDistance, endDistance);
+            
             registry.Register(section, exportableSection);
             return exportableSection;
         }
