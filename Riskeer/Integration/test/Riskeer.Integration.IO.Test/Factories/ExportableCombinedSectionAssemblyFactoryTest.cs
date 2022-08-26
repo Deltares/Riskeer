@@ -250,7 +250,7 @@ namespace Riskeer.Integration.IO.Test.Factories
             Assert.AreEqual($"Gf.{index}", actualSectionResult.Id);
 
             Assert.AreSame(actualSection, actualSectionResult.Section);
-            Assert.AreEqual(expectedSection.TotalResult, actualSectionResult.AssemblyGroup);
+            Assert.AreEqual(ExportableFailureMechanismSectionAssemblyGroupConverter.ConvertTo(expectedSection.TotalResult), actualSectionResult.AssemblyGroup);
             Assert.AreEqual(ExportableAssemblyMethodConverter.ConvertTo(expectedSection.CombinedSectionResultAssemblyMethod), actualSectionResult.AssemblyGroupAssemblyMethod);
 
             IEnumerable<ExportableFailureMechanismCombinedSectionAssemblyResult> failureMechanismCombinedSectionResults = actualSectionResult.FailureMechanismResults;
