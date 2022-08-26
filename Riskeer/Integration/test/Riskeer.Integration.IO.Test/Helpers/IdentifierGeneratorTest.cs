@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -22,8 +22,6 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Integration.Data;
 using Riskeer.Integration.IO.Helpers;
 
 namespace Riskeer.Integration.IO.Test.Helpers
@@ -121,38 +119,45 @@ namespace Riskeer.Integration.IO.Test.Helpers
         }
 
         [Test]
-        public void GenerateId_AssessmentSectionNull_ThrowsArgumentNullException()
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("   ")]
+        public void GenerateId_InvalidPrefix_ThrowsArgumentException(string invalidPrefix)
         {
             // Call
-            void Call() => IdentifierGenerator.GenerateId(null);
+            void Call() => IdentifierGenerator.GenerateId(invalidPrefix, "id");
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
+            const string expectedMessage = "'prefix' is null, empty or consists of whitespace.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
+        }
+
+        [Test]
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("   ")]
+        public void GenerateId_InvalidId_ThrowsArgumentException(string invalidId)
+        {
+            // Call
+            void Call() => IdentifierGenerator.GenerateId("prefix", invalidId);
+
+            // Assert
+            const string expectedMessage = "'id' is null, empty or consists of whitespace.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
         }
 
         [Test]
         public void GenerateId_WithAssessmentSection_GeneratesId()
         {
             // Setup
-            const string assessmentSectionId = "AssessmentSectionId";
-            AssessmentSection assessmentSection = CreateAssessmentSection(assessmentSectionId);
+            const string prefix = "prefix";
+            const string id = "id";
 
             // Call
-            string generatedId = IdentifierGenerator.GenerateId(assessmentSection);
+            string generatedId = IdentifierGenerator.GenerateId(prefix, id);
 
             // Assert
-            Assert.AreEqual($"Wks.{assessmentSection.Id}", generatedId);
-        }
-
-        private static AssessmentSection CreateAssessmentSection(string id)
-        {
-            var random = new Random(21);
-            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>())
-            {
-                Id = id
-            };
-            return assessmentSection;
+            Assert.AreEqual($"{prefix}.{id}", generatedId);
         }
     }
 }

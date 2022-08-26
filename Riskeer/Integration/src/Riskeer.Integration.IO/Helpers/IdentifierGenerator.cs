@@ -21,8 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using Riskeer.Integration.Data;
-using Riskeer.Integration.IO.Properties;
 
 namespace Riskeer.Integration.IO.Helpers
 {
@@ -55,33 +53,35 @@ namespace Riskeer.Integration.IO.Helpers
                 throw new ArgumentException($@"'{nameof(prefix)}' is null, empty or consists of whitespace.", nameof(prefix));
             }
 
-            if (idLookup.ContainsKey(prefix))
-            {
-                idLookup[prefix]++;
-            }
-            else
+            if (!idLookup.ContainsKey(prefix))
             {
                 idLookup[prefix] = 0;
             }
 
-            return $"{prefix}.{idLookup[prefix]}";
+            return $"{prefix}.{idLookup[prefix]++}";
         }
 
         /// <summary>
-        /// Gets an id based on <paramref name="assessmentSection"/>.
+        /// Gets an id based on <paramref name="prefix"/> and <paramref name="id"/>.
         /// </summary>
-        /// <param name="assessmentSection">The <see cref="AssessmentSection"/>
-        /// to generate an id for.</param>
+        /// <param name="prefix">The prefix to be used for the generated id.</param>
+        /// <param name="id">The id to be used for the generated id.</param>
         /// <returns>An id.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
-        public static string GenerateId(AssessmentSection assessmentSection)
+        /// <exception cref="ArgumentException">Thrown when any parameter is
+        /// <c>null</c>, empty or consists of only whitespaces.</exception>
+        public static string GenerateId(string prefix, string id)
         {
-            if (assessmentSection == null)
+            if (string.IsNullOrWhiteSpace(prefix))
             {
-                throw new ArgumentNullException(nameof(assessmentSection));
+                throw new ArgumentException($@"'{nameof(prefix)}' is null, empty or consists of whitespace.", nameof(prefix));
             }
-
-            return $"{Resources.ExportableAssessmentSection_IdPrefix}.{assessmentSection.Id}";
+            
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                throw new ArgumentException($@"'{nameof(id)}' is null, empty or consists of whitespace.", nameof(id));
+            }
+            
+            return $"{prefix}.{id}";
         }
     }
 }
