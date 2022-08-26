@@ -306,7 +306,7 @@ namespace Riskeer.Integration.IO.Test.Factories
                                                 ExportableFailureMechanismCombinedSectionAssemblyResult actualResult)
             where T : FailureMechanismSectionResult
         {
-            Assert.AreEqual(subSectionGroup, actualResult.AssemblyGroup);
+            Assert.AreEqual(ExportableFailureMechanismSectionAssemblyGroupConverter.ConvertTo(subSectionGroup.Value), actualResult.AssemblyGroup);
 
             T sectionResult = failureMechanism.SectionResults.ElementAt(index);
             ExportableFailureMechanismSectionAssemblyResult expectedExportableSectionResult = registry.Get(sectionResult);

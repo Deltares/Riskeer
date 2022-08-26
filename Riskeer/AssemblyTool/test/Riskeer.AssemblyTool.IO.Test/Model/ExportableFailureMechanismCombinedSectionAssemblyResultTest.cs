@@ -22,7 +22,6 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.AssemblyTool.IO.Model.Enums;
 using Riskeer.AssemblyTool.IO.TestUtil;
@@ -40,7 +39,8 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
 
             // Call
             void Call() => new ExportableFailureMechanismCombinedSectionAssemblyResult(
-                random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(), random.NextEnumValue<ExportableAssemblyMethod>(), null);
+                random.NextEnumValue<ExportableFailureMechanismSectionAssemblyGroup>(),
+                random.NextEnumValue<ExportableAssemblyMethod>(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -56,7 +56,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             ExportableFailureMechanismSectionAssemblyResult failureMechanismSectionAssemblyResult = ExportableFailureMechanismSectionAssemblyResultTestFactory.Create(section, seed);
 
             var random = new Random(seed);
-            var assemblyGroup = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>();
+            var assemblyGroup = random.NextEnumValue<ExportableFailureMechanismSectionAssemblyGroup>();
             var assemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
 
             // Call

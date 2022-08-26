@@ -29,7 +29,6 @@ using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using NUnit.Framework;
-using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.AssemblyTool.IO.Model.Enums;
 
@@ -243,7 +242,7 @@ namespace Riskeer.AssemblyTool.IO.Test
                                                           new[]
                                                           {
                                                               new ExportableFailureMechanismCombinedSectionAssemblyResult(
-                                                                  FailureMechanismSectionAssemblyGroup.I, ExportableAssemblyMethod.BOI3B1,
+                                                                  ExportableFailureMechanismSectionAssemblyGroup.I, ExportableAssemblyMethod.BOI3B1,
                                                                   failureMechanismSectionAssemblyResult)
                                                           })
                 });

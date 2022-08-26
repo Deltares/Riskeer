@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.AssemblyTool.IO.Model.Enums;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
@@ -420,7 +419,7 @@ namespace Riskeer.Integration.IO.Test.Factories
             ExportableFailureMechanismSectionAssemblyResult associatedAssemblyResult = GetCorrespondingSectionAssemblyResultResult(
                 combinedFailureMechanismSectionAssembly, failureMechanismSectionAssemblyResults);
             Assert.AreSame(associatedAssemblyResult, actualExportableFailureMechanismCombinedSectionAssemblyResult.FailureMechanismSectionResult);
-            Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Dominant, actualExportableFailureMechanismCombinedSectionAssemblyResult.AssemblyGroup);
+            Assert.AreEqual(ExportableFailureMechanismSectionAssemblyGroup.Dominant, actualExportableFailureMechanismCombinedSectionAssemblyResult.AssemblyGroup);
             Assert.AreEqual(ExportableAssemblyMethod.BOI3B1, actualExportableFailureMechanismCombinedSectionAssemblyResult.AssemblyMethod);
         }
 

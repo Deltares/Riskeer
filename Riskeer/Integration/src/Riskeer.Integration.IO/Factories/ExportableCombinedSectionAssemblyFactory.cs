@@ -155,7 +155,8 @@ namespace Riskeer.Integration.IO.Factories
             FailureMechanismSectionAssemblyGroup sectionAssemblyGroup, AssemblyMethod assemblyMethod)
         {
             return new ExportableFailureMechanismCombinedSectionAssemblyResult(
-                sectionAssemblyGroup, ExportableAssemblyMethodConverter.ConvertTo(assemblyMethod),
+                ExportableFailureMechanismSectionAssemblyGroupConverter.ConvertTo(sectionAssemblyGroup),
+                ExportableAssemblyMethodConverter.ConvertTo(assemblyMethod),
                 ExportableCombinedFailureMechanismSectionHelper.GetExportableFailureMechanismSectionAssemblyResult(
                     registry, sectionResults, combinedFailureMechanismSection));
         }
