@@ -291,16 +291,14 @@ namespace Riskeer.Integration.IO.Factories
             IdentifierGenerator idGenerator, ExportableModelRegistry registry, IAssessmentSection assessmentSection,
             IEnumerable<CombinedFailureMechanismSectionAssemblyResult> combinedSectionAssemblyResults)
         {
-            IEnumerable<IFailureMechanism> failureMechanismsInAssembly = assessmentSection.GetFailureMechanisms()
-                                                                                          .Concat(assessmentSection.SpecificFailureMechanisms)
-                                                                                          .Where(fm => fm.InAssembly);
-            IEnumerable<ExportableFailureMechanismSectionCollection> failureMechanismsInAssemblySectionCollections =
-                failureMechanismsInAssembly.Select(failureMechanism => ExportableFailureMechanismSectionCollectionFactory.CreateExportableFailureMechanismSectionCollection(
-                                                       idGenerator, registry, failureMechanism.Sections))
-                                           .ToArray();
+            List<ExportableFailureMechanismSectionCollection> failureMechanismSectionCollections =
+                assessmentSection.GetFailureMechanisms()
+                                 .Concat(assessmentSection.SpecificFailureMechanisms)
+                                 .Where(fm => fm.InAssembly)
+                                 .Select(failureMechanism => ExportableFailureMechanismSectionCollectionFactory.CreateExportableFailureMechanismSectionCollection(
+                                             idGenerator, registry, failureMechanism.Sections))
+                                 .ToList();
 
-            var failureMechanismSectionCollections = new List<ExportableFailureMechanismSectionCollection>();
-            failureMechanismSectionCollections.AddRange(failureMechanismsInAssemblySectionCollections);
             if (combinedSectionAssemblyResults.Any())
             {
                 failureMechanismSectionCollections.Add(ExportableFailureMechanismSectionCollectionFactory.CreateExportableFailureMechanismSectionCollection(
