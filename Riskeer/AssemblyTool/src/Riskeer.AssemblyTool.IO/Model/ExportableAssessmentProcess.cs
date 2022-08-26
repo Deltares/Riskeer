@@ -34,7 +34,7 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// </summary>
         /// <param name="id">The id of the assessment process.</param>
         /// <param name="startYear">The start year of the assessment process.</param>
-        /// <param name="endYear">The en year of the assessment process.</param>
+        /// <param name="endYear">The end year of the assessment process.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is invalid.</exception>
         public ExportableAssessmentProcess(string id, int startYear, int endYear)
         {
