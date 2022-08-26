@@ -40,8 +40,9 @@ namespace Riskeer.Integration.IO.Test.Helpers
         /// </summary>
         /// <typeparam name="TDataModel">The data model.</typeparam>
         /// <typeparam name="TExportableModel">The exportable model.</typeparam>
-        private abstract class RegistryTest<TDataModel, TExportableModel> where TDataModel : class
-                                                                          where TExportableModel : class
+        private abstract class RegistryTest<TDataModel, TExportableModel>
+            where TDataModel : class
+            where TExportableModel : class
         {
             private readonly Action<ExportableModelRegistry, TExportableModel, TDataModel> registerToRegistry;
             private readonly Func<ExportableModelRegistry, TDataModel, bool> containsInRegistry;
@@ -98,8 +99,8 @@ namespace Riskeer.Integration.IO.Test.Helpers
                 void Call() => registerToRegistry(registry, null, CreateDataModel());
 
                 // Assert
-                string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
-                Assert.AreEqual("exportableModel", paramName);
+                var exception = Assert.Throws<ArgumentNullException>(Call);
+                Assert.AreEqual("exportableModel", exception.ParamName);
             }
 
             [Test]
@@ -109,11 +110,11 @@ namespace Riskeer.Integration.IO.Test.Helpers
                 var registry = new ExportableModelRegistry();
 
                 // Call
-                TestDelegate test = () => registerToRegistry(registry, CreateExportableModel(), null);
+                void Call() => registerToRegistry(registry, CreateExportableModel(), null);
 
                 // Assert
-                string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-                Assert.AreEqual("model", paramName);
+                var exception = Assert.Throws<ArgumentNullException>(Call);
+                Assert.AreEqual("model", exception.ParamName);
             }
 
             [Test]
@@ -126,8 +127,8 @@ namespace Riskeer.Integration.IO.Test.Helpers
                 void Call() => containsInRegistry(registry, null);
 
                 // Assert
-                string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
-                Assert.AreEqual("model", paramName);
+                var exception = Assert.Throws<ArgumentNullException>(Call);
+                Assert.AreEqual("model", exception.ParamName);
             }
 
             [Test]
