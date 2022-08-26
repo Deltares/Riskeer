@@ -26,6 +26,7 @@ using NUnit.Framework;
 using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.IO.Factories;
@@ -55,8 +56,13 @@ namespace Riskeer.Integration.IO.Test.Factories
             var random = new Random(21);
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>())
             {
-                Id = id
+                Id = id,
+                SpecificFailureMechanisms =
+                {
+                    new SpecificFailureMechanism()
+                }
             };
+
             ReferenceLineTestFactory.SetReferenceLineGeometry(assessmentSection.ReferenceLine);
             AddFailureMechanismSections(assessmentSection);
 
@@ -92,6 +98,8 @@ namespace Riskeer.Integration.IO.Test.Factories
             FailureMechanismTestHelper.AddSections(assessmentSection.GrassCoverSlipOffInwards, random.Next(1, 10));
             FailureMechanismTestHelper.AddSections(assessmentSection.PipingStructure, random.Next(1, 10));
             FailureMechanismTestHelper.AddSections(assessmentSection.WaterPressureAsphaltCover, random.Next(1, 10));
+
+            FailureMechanismTestHelper.AddSections(assessmentSection.SpecificFailureMechanisms.First(), random.Next(1, 10));
         }
 
         private static void AssertExportableAssessmentSection(
@@ -103,7 +111,7 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             int nrOfFailureMechanisms = assessmentSection.GetFailureMechanisms()
                                                          .Concat(assessmentSection.SpecificFailureMechanisms.Select(fm => fm))
-                                                         .Count(fm => fm.InAssembly);
+                                                         .Count();
             Assert.AreEqual(nrOfFailureMechanisms, exportableAssessmentSection.FailureMechanisms.Count());
             Assert.AreEqual(1, exportableAssessmentSection.CombinedSectionAssemblies.Count());
         }
