@@ -47,7 +47,7 @@ namespace Riskeer.AssemblyTool.IO.Test
             Assert.AreEqual("uitkomstVan", AssemblyXmlIdentifiers.ResultOf);
             Assert.AreEqual("bepaalt", AssemblyXmlIdentifiers.Determines);
             Assert.AreEqual("onderdeelVan", AssemblyXmlIdentifiers.PartOf);
-            Assert.AreEqual("analyseert", AssemblyXmlIdentifiers.Analyses);
+            Assert.AreEqual("analyseert", AssemblyXmlIdentifiers.Analyzes);
             Assert.AreEqual("geldtVoor", AssemblyXmlIdentifiers.AppliesTo);
             Assert.AreEqual("specificeert", AssemblyXmlIdentifiers.Specifies);
             Assert.AreEqual("afgeleidVan", AssemblyXmlIdentifiers.DerivedFrom);

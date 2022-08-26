@@ -115,9 +115,9 @@ namespace Riskeer.AssemblyTool.IO
         public const string PartOf = "onderdeelVan";
 
         /// <summary>
-        /// Identifier for an analyses element.
+        /// Identifier for an analyzes element.
         /// </summary>
-        public const string Analyses = "analyseert";
+        public const string Analyzes = "analyseert";
 
         /// <summary>
         /// Identifier for an applies to element.

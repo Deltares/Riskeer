@@ -238,7 +238,7 @@ namespace Riskeer.AssemblyTool.IO
                                       EnumDisplayNameHelper.GetDisplayName(sectionAssemblyResult.ProbabilityAssemblyMethod));
             writer.WriteElementString(AssemblyXmlIdentifiers.Status, AssemblyXmlIdentifiers.UboiNamespace, Resources.FullAssembly);
 
-            WriteLink(AssemblyXmlIdentifiers.Analyses, AssemblyXmlIdentifiers.UboiNamespace, failureMechanismId);
+            WriteLink(AssemblyXmlIdentifiers.Analyzes, AssemblyXmlIdentifiers.UboiNamespace, failureMechanismId);
             WriteLink(AssemblyXmlIdentifiers.AppliesTo, AssemblyXmlIdentifiers.UboiNamespace, sectionAssemblyResult.FailureMechanismSection.Id);
 
             writer.WriteEndElement();
