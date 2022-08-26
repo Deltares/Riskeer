@@ -107,7 +107,8 @@ namespace Riskeer.Integration.IO.Factories
             var exportableFailureMechanismSectionAssemblyResult = new ExportableFailureMechanismSectionAssemblyResult(
                 idGenerator.GetNewId(Resources.ExportableFailureMechanismSectionAssemblyResult_IdPrefix),
                 registry.Get(sectionResult.Section),
-                assemblyResult.SectionProbability, assemblyResult.FailureMechanismSectionAssemblyGroup,
+                assemblyResult.SectionProbability,
+                ExportableFailureMechanismSectionAssemblyGroupConverter.ConvertTo(assemblyResult.FailureMechanismSectionAssemblyGroup),
                 ExportableAssemblyMethodConverter.ConvertTo(assemblyResultWrapper.AssemblyGroupMethod),
                 ExportableAssemblyMethodConverter.ConvertTo(assemblyResultWrapper.ProbabilityMethod));
             

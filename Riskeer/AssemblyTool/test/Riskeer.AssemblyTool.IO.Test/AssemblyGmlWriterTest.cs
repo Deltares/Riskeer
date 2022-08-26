@@ -203,7 +203,7 @@ namespace Riskeer.AssemblyTool.IO.Test
             }, 0.12, 10.23, ExportableAssemblyMethod.BOI3A1);
 
             var failureMechanismSectionAssemblyResult = new ExportableFailureMechanismSectionAssemblyResult(
-                "resultaat_GABI_1", failureMechanismSection, 0.00073, FailureMechanismSectionAssemblyGroup.III,
+                "resultaat_GABI_1", failureMechanismSection, 0.00073, ExportableFailureMechanismSectionAssemblyGroup.III,
                 ExportableAssemblyMethod.BOI0B1, ExportableAssemblyMethod.BOI0A2);
 
             var assessmentSection = new ExportableAssessmentSection(

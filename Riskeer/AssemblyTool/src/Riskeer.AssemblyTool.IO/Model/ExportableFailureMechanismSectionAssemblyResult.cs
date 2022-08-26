@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.IO.Helpers;
 using Riskeer.AssemblyTool.IO.Model.Enums;
 
@@ -45,12 +44,12 @@ namespace Riskeer.AssemblyTool.IO.Model
         public ExportableFailureMechanismSectionAssemblyResult(string id,
                                                                ExportableFailureMechanismSection failureMechanismSection,
                                                                double probability,
-                                                               FailureMechanismSectionAssemblyGroup assemblyGroup,
+                                                               ExportableFailureMechanismSectionAssemblyGroup assemblyGroup,
                                                                ExportableAssemblyMethod assemblyGroupAssemblyMethod,
                                                                ExportableAssemblyMethod probabilityAssemblyMethod)
         {
             IdValidationHelper.ThrowIfInvalid(id);
-            
+
             if (failureMechanismSection == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanismSection));
@@ -77,7 +76,7 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// <summary>
         /// Gets the assembly group.
         /// </summary>
-        public FailureMechanismSectionAssemblyGroup AssemblyGroup { get; }
+        public ExportableFailureMechanismSectionAssemblyGroup AssemblyGroup { get; }
 
         /// <summary>
         /// Gets the method that was used to assemble the assembly group for this section.
