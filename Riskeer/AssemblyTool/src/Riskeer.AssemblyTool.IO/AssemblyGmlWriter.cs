@@ -55,15 +55,16 @@ namespace Riskeer.AssemblyTool.IO
         /// </list></remarks>
         public AssemblyGmlWriter(string filePath)
         {
-            this.filePath = filePath;
             IOUtils.ValidateFilePath(filePath);
+
+            this.filePath = filePath;
         }
 
         /// <summary>
         /// Writes a <see cref="ExportableAssembly"/> to a file.
         /// </summary>
         /// <param name="assembly">The <see cref="ExportableAssembly"/> to be written to the file.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assembly"/> is <c>null</c>.</exception>
         /// <exception cref="CriticalFileWriteException">Thrown when unable to write the file to the provided file path.</exception>
         public void Write(ExportableAssembly assembly)
         {
