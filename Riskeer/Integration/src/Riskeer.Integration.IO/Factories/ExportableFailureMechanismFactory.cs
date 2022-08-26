@@ -111,13 +111,13 @@ namespace Riskeer.Integration.IO.Factories
         /// </summary>
         /// <param name="idGenerator">The generator to generate ids for the exportable components.</param>
         /// <param name="registry">The <see cref="ExportableModelRegistry"/> to keep track of the created items.</param>
-        /// <param name="failureMechanism">The failure mechanism to create an <see cref="ExportableFailureMechanism"/> for.</param>
+        /// <param name="failureMechanism">The failure mechanism to create an <see cref="ExportableSpecificFailureMechanism"/> for.</param>
         /// <param name="assessmentSection">The assessment section the failure mechanism belongs to.</param>
         /// <param name="assembleFailureMechanismFunc">The <see cref="Func{T1,T2,TResult}"/> to perform
         /// the failure mechanism assembly.</param>
         /// <param name="assembleFailureMechanismSectionFunc">The <see cref="Func{T1,T2,T3,TResult}"/>
         /// to perform the failure mechanism section assembly.</param>
-        /// <returns>An <see cref="ExportableFailureMechanism"/> with assembly results.</returns>
+        /// <returns>An <see cref="ExportableSpecificFailureMechanism"/> with assembly results.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created.</exception>
         /// <exception cref="AssemblyFactoryException">Thrown when <paramref name="assembleFailureMechanismSectionFunc"/>
