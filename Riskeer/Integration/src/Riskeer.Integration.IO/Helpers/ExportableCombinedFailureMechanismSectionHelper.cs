@@ -69,6 +69,7 @@ namespace Riskeer.Integration.IO.Helpers
             {
                 ExportableFailureMechanismSectionAssemblyResult exportableSectionResult = registry.Get(sectionResult);
                 ExportableFailureMechanismSection exportableFailureMechanismSection = exportableSectionResult.FailureMechanismSection;
+                
                 if (IsMatchingSection(exportableFailureMechanismSection, exportableCombinedFailureMechanismSection))
                 {
                     return exportableSectionResult;
@@ -79,7 +80,7 @@ namespace Riskeer.Integration.IO.Helpers
         }
 
         private static bool IsMatchingSection(ExportableFailureMechanismSection exportableFailureMechanismSection,
-                                              ExportableCombinedFailureMechanismSection exportableCombinedFailureMechanismSection)
+                                              ExportableFailureMechanismSection exportableCombinedFailureMechanismSection)
         {
             return exportableCombinedFailureMechanismSection.StartDistance >= exportableFailureMechanismSection.StartDistance
                    && exportableCombinedFailureMechanismSection.EndDistance <= exportableFailureMechanismSection.EndDistance;

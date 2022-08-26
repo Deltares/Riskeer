@@ -27,7 +27,7 @@ using Riskeer.Integration.Data.Assembly;
 namespace Riskeer.Integration.Data.TestUtil
 {
     /// <summary>
-    /// Creates <see cref="CombinedFailureMechanismSectionAssemblyResult"/> for test purposes.
+    /// Creates <see cref="CombinedFailureMechanismSectionAssemblyResult"/> instances for test purposes.
     /// </summary>
     public static class CombinedFailureMechanismSectionAssemblyResultTestFactory
     {
@@ -57,9 +57,10 @@ namespace Riskeer.Integration.Data.TestUtil
             var failureMechanismResultsAssemblyMethod = random.NextEnumValue<AssemblyMethod>();
             var combinedSectionResultAssemblyMethod = random.NextEnumValue<AssemblyMethod>();
 
-            return new CombinedFailureMechanismSectionAssemblyResult(sectionStart, sectionEnd, totalResult, commonSectionAssemblyMethod,
-                                                                     failureMechanismResultsAssemblyMethod, combinedSectionResultAssemblyMethod,
-                                                                     new CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties());
+            return new CombinedFailureMechanismSectionAssemblyResult(
+                sectionStart, sectionEnd, totalResult, commonSectionAssemblyMethod,
+                failureMechanismResultsAssemblyMethod, combinedSectionResultAssemblyMethod,
+                new CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties());
         }
 
         /// <summary>
@@ -71,31 +72,32 @@ namespace Riskeer.Integration.Data.TestUtil
         public static CombinedFailureMechanismSectionAssemblyResult Create(int seed, bool hasAssemblyGroupResults)
         {
             var random = new Random(seed);
-            return new CombinedFailureMechanismSectionAssemblyResult(random.NextDouble(), random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
-                                                                     random.NextEnumValue<AssemblyMethod>(), random.NextEnumValue<AssemblyMethod>(), random.NextEnumValue<AssemblyMethod>(),
-                                                                     new CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties
-                                                                     {
-                                                                         Piping = GetAssemblyGroup(random, hasAssemblyGroupResults),
-                                                                         GrassCoverErosionInwards = GetAssemblyGroup(random, hasAssemblyGroupResults),
-                                                                         MacroStabilityInwards = GetAssemblyGroup(random, hasAssemblyGroupResults),
-                                                                         Microstability = GetAssemblyGroup(random, hasAssemblyGroupResults),
-                                                                         StabilityStoneCover = GetAssemblyGroup(random, hasAssemblyGroupResults),
-                                                                         WaveImpactAsphaltCover = GetAssemblyGroup(random, hasAssemblyGroupResults),
-                                                                         WaterPressureAsphaltCover = GetAssemblyGroup(random, hasAssemblyGroupResults),
-                                                                         GrassCoverErosionOutwards = GetAssemblyGroup(random, hasAssemblyGroupResults),
-                                                                         GrassCoverSlipOffOutwards = GetAssemblyGroup(random, hasAssemblyGroupResults),
-                                                                         GrassCoverSlipOffInwards = GetAssemblyGroup(random, hasAssemblyGroupResults),
-                                                                         HeightStructures = GetAssemblyGroup(random, hasAssemblyGroupResults),
-                                                                         ClosingStructures = GetAssemblyGroup(random, hasAssemblyGroupResults),
-                                                                         PipingStructure = GetAssemblyGroup(random, hasAssemblyGroupResults),
-                                                                         StabilityPointStructures = GetAssemblyGroup(random, hasAssemblyGroupResults),
-                                                                         DuneErosion = GetAssemblyGroup(random, hasAssemblyGroupResults),
-                                                                         SpecificFailureMechanisms = new[]
-                                                                         {
-                                                                             GetAssemblyGroup(random, hasAssemblyGroupResults),
-                                                                             GetAssemblyGroup(random, hasAssemblyGroupResults)
-                                                                         }
-                                                                     });
+            return new CombinedFailureMechanismSectionAssemblyResult(
+                random.NextDouble(), random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
+                random.NextEnumValue<AssemblyMethod>(), random.NextEnumValue<AssemblyMethod>(), random.NextEnumValue<AssemblyMethod>(),
+                new CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties
+                {
+                    Piping = GetAssemblyGroup(random, hasAssemblyGroupResults),
+                    GrassCoverErosionInwards = GetAssemblyGroup(random, hasAssemblyGroupResults),
+                    MacroStabilityInwards = GetAssemblyGroup(random, hasAssemblyGroupResults),
+                    Microstability = GetAssemblyGroup(random, hasAssemblyGroupResults),
+                    StabilityStoneCover = GetAssemblyGroup(random, hasAssemblyGroupResults),
+                    WaveImpactAsphaltCover = GetAssemblyGroup(random, hasAssemblyGroupResults),
+                    WaterPressureAsphaltCover = GetAssemblyGroup(random, hasAssemblyGroupResults),
+                    GrassCoverErosionOutwards = GetAssemblyGroup(random, hasAssemblyGroupResults),
+                    GrassCoverSlipOffOutwards = GetAssemblyGroup(random, hasAssemblyGroupResults),
+                    GrassCoverSlipOffInwards = GetAssemblyGroup(random, hasAssemblyGroupResults),
+                    HeightStructures = GetAssemblyGroup(random, hasAssemblyGroupResults),
+                    ClosingStructures = GetAssemblyGroup(random, hasAssemblyGroupResults),
+                    PipingStructure = GetAssemblyGroup(random, hasAssemblyGroupResults),
+                    StabilityPointStructures = GetAssemblyGroup(random, hasAssemblyGroupResults),
+                    DuneErosion = GetAssemblyGroup(random, hasAssemblyGroupResults),
+                    SpecificFailureMechanisms = new[]
+                    {
+                        GetAssemblyGroup(random, hasAssemblyGroupResults),
+                        GetAssemblyGroup(random, hasAssemblyGroupResults)
+                    }
+                });
         }
 
         private static FailureMechanismSectionAssemblyGroup? GetAssemblyGroup(Random random, bool hasAssemblyGroupResults)
