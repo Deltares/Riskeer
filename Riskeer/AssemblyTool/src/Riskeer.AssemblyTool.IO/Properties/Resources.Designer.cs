@@ -261,6 +261,105 @@ namespace Riskeer.AssemblyTool.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do.
+        /// </summary>
+        internal static string ExportableFailureMechanismSectionAssemblyGroup_Dominant_DisplayName {
+            get {
+                return ResourceManager.GetString("ExportableFailureMechanismSectionAssemblyGroup_Dominant_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to +I.
+        /// </summary>
+        internal static string ExportableFailureMechanismSectionAssemblyGroup_I_DisplayName {
+            get {
+                return ResourceManager.GetString("ExportableFailureMechanismSectionAssemblyGroup_I_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to +II.
+        /// </summary>
+        internal static string ExportableFailureMechanismSectionAssemblyGroup_II_DisplayName {
+            get {
+                return ResourceManager.GetString("ExportableFailureMechanismSectionAssemblyGroup_II_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to +III.
+        /// </summary>
+        internal static string ExportableFailureMechanismSectionAssemblyGroup_III_DisplayName {
+            get {
+                return ResourceManager.GetString("ExportableFailureMechanismSectionAssemblyGroup_III_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -III.
+        /// </summary>
+        internal static string ExportableFailureMechanismSectionAssemblyGroup_IIIMin_DisplayName {
+            get {
+                return ResourceManager.GetString("ExportableFailureMechanismSectionAssemblyGroup_IIIMin_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -II.
+        /// </summary>
+        internal static string ExportableFailureMechanismSectionAssemblyGroup_IIMin_DisplayName {
+            get {
+                return ResourceManager.GetString("ExportableFailureMechanismSectionAssemblyGroup_IIMin_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -I.
+        /// </summary>
+        internal static string ExportableFailureMechanismSectionAssemblyGroup_IMin_DisplayName {
+            get {
+                return ResourceManager.GetString("ExportableFailureMechanismSectionAssemblyGroup_IMin_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ExportableFailureMechanismSectionAssemblyGroup_NoResult_DisplayName {
+            get {
+                return ResourceManager.GetString("ExportableFailureMechanismSectionAssemblyGroup_NoResult_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NDo.
+        /// </summary>
+        internal static string ExportableFailureMechanismSectionAssemblyGroup_NotDominant_DisplayName {
+            get {
+                return ResourceManager.GetString("ExportableFailureMechanismSectionAssemblyGroup_NotDominant_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NR.
+        /// </summary>
+        internal static string ExportableFailureMechanismSectionAssemblyGroup_NotRelevant_DisplayName {
+            get {
+                return ResourceManager.GetString("ExportableFailureMechanismSectionAssemblyGroup_NotRelevant_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 0.
+        /// </summary>
+        internal static string ExportableFailureMechanismSectionAssemblyGroup_Zero_DisplayName {
+            get {
+                return ResourceManager.GetString("ExportableFailureMechanismSectionAssemblyGroup_Zero_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to DEELVK.
         /// </summary>
         internal static string FailureMechanismSectionType_Combined {

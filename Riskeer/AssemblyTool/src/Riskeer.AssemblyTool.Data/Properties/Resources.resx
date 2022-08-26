@@ -132,7 +132,7 @@
   <data name="AssessmentSectionAssemblyGroup_D_DisplayName" xml:space="preserve">
     <value>D</value>
   </data>
-    <data name="FailureMechanismSectionAssemblyGroup_NotDominant_DisplayName" xml:space="preserve">
+  <data name="FailureMechanismSectionAssemblyGroup_NotDominant_DisplayName" xml:space="preserve">
     <value>NDo</value>
   </data>
     <data name="FailureMechanismSectionAssemblyGroup_III_DisplayName" xml:space="preserve">
