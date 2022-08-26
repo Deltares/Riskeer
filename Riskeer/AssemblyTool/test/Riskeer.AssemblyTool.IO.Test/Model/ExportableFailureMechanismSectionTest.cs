@@ -41,9 +41,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             var random = new Random(21);
 
             // Call
-            void Call() => new ExportableFailureMechanismSection(invalidId, null,
-                                                                 random.NextDouble(),
-                                                                 random.NextDouble());
+            void Call() => new ExportableFailureMechanismSection(invalidId, null, random.NextDouble(), random.NextDouble());
 
             // Assert
             const string expectedMessage = "'id' must have a value and consist only of alphanumerical characters, '-', '_' or '.'.";
@@ -57,12 +55,10 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             var random = new Random(21);
 
             // Call
-            TestDelegate call = () => new ExportableFailureMechanismSection("id", null,
-                                                                            random.NextDouble(),
-                                                                            random.NextDouble());
+            void Call() => new ExportableFailureMechanismSection("id", null, random.NextDouble(), random.NextDouble());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("geometry", exception.ParamName);
         }
 
