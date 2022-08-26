@@ -56,10 +56,10 @@ namespace Riskeer.Integration.IO.Factories
             ExportableAssessmentSection exportableAssessmentSection = ExportableAssessmentSectionFactory.CreateExportableAssessmentSection(
                 idGenerator, assessmentSection);
 
-            var exportableAssessmentProcess = new ExportableAssessmentProcess(idGenerator.GetNewId(Resources.ExportableAssessmentProcess_IdPrefix),
+            var exportableAssessmentProcess = new ExportableAssessmentProcess(idGenerator.GetUniqueId(Resources.ExportableAssessmentProcess_IdPrefix),
                                                                               2023, 2035);
 
-            return new ExportableAssembly(idGenerator.GetNewId(Resources.ExportableAssembly_IdPrefix),
+            return new ExportableAssembly(idGenerator.GetUniqueId(Resources.ExportableAssembly_IdPrefix),
                                           exportableAssessmentSection, exportableAssessmentProcess);
         }
     }

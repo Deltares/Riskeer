@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2022. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -33,13 +33,13 @@ namespace Riskeer.Integration.IO.Test.Helpers
         [TestCase(null)]
         [TestCase("")]
         [TestCase("   ")]
-        public void GetNewId_InvalidPrefix_ThrowsArgumentException(string invalidPrefix)
+        public void GetUniqueId_InvalidPrefix_ThrowsArgumentException(string invalidPrefix)
         {
             // Setup
             var generator = new IdentifierGenerator();
 
             // Call
-            void Call() => generator.GetNewId(invalidPrefix);
+            void Call() => generator.GetUniqueId(invalidPrefix);
 
             // Assert
             const string expectedMessage = "'prefix' is null, empty or consists of whitespace.";
@@ -47,74 +47,53 @@ namespace Riskeer.Integration.IO.Test.Helpers
         }
 
         [Test]
-        public void GetNewId_WithPrefix_ReturnsExpectedValue()
+        public void GetUniqueId_WithPrefix_ReturnsExpectedValue()
         {
             // Setup
             const string prefix = "prefix";
             var generator = new IdentifierGenerator();
 
             // Call
-            string id = generator.GetNewId(prefix);
+            string id = generator.GetUniqueId(prefix);
 
             // Assert
             Assert.AreEqual($"{prefix}.0", id);
         }
 
         [Test]
-        public void GetNewId_PrefixAlreadyUsed_ReturnsExpectedValue()
+        public void GetUniqueId_PrefixAlreadyUsed_ReturnsExpectedValue()
         {
             // Setup
             const string prefix = "prefix";
             var generator = new IdentifierGenerator();
-            string currentId = generator.GetNewId(prefix);
+            string currentId = generator.GetUniqueId(prefix);
 
             // Precondition
             Assert.AreEqual($"{prefix}.0", currentId);
 
             // Call
-            string generatedId = generator.GetNewId(prefix);
+            string generatedId = generator.GetUniqueId(prefix);
 
             // Assert
             Assert.AreEqual($"{prefix}.1", generatedId);
         }
 
         [Test]
-        public void GetNewId_NewPrefix_ReturnsExpectedValues()
+        public void GetUniqueId_NewPrefix_ReturnsExpectedValues()
         {
             // Given
             const string prefix = "prefix";
             var generator = new IdentifierGenerator();
 
             // Precondition
-            Assert.AreEqual($"{prefix}.0", generator.GetNewId(prefix));
+            Assert.AreEqual($"{prefix}.0", generator.GetUniqueId(prefix));
 
             const string newPrefix = "NewPrefix";
 
             // When
-            string newPrefixId = generator.GetNewId(newPrefix);
+            string newPrefixId = generator.GetUniqueId(newPrefix);
 
             // Then
-            Assert.AreEqual($"{newPrefix}.0", newPrefixId);
-        }
-
-        [Test]
-        public void GivenIdGenerator_WhenMultiplePrefixesUsed_ThenReturnsExpectedValues()
-        {
-            // Given
-            const string prefix = "prefix";
-            var generator = new IdentifierGenerator();
-
-            // Precondition
-            Assert.AreEqual($"{prefix}.0", generator.GetNewId(prefix));
-
-            const string newPrefix = "NewPrefix";
-
-            // When
-            string oldPrefixId = generator.GetNewId(prefix);
-            string newPrefixId = generator.GetNewId(newPrefix);
-
-            // Then
-            Assert.AreEqual($"{prefix}.1", oldPrefixId);
             Assert.AreEqual($"{newPrefix}.0", newPrefixId);
         }
 

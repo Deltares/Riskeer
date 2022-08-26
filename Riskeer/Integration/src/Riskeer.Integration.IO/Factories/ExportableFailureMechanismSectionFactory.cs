@@ -73,7 +73,7 @@ namespace Riskeer.Integration.IO.Factories
             }
 
             double endDistance = startDistance + section.Length;
-            var exportableSection = new ExportableFailureMechanismSection(idGenerator.GetNewId(Resources.ExportableFailureMechanismSection_IdPrefix),
+            var exportableSection = new ExportableFailureMechanismSection(idGenerator.GetUniqueId(Resources.ExportableFailureMechanismSection_IdPrefix),
                                                                           section.Points, startDistance, endDistance);
             registry.Register(section, exportableSection);
             return exportableSection;
@@ -119,7 +119,7 @@ namespace Riskeer.Integration.IO.Factories
             }
 
             var exportableSection = new ExportableCombinedFailureMechanismSection(
-                idGenerator.GetNewId(Resources.ExportableFailureMechanismSection_IdPrefix),
+                idGenerator.GetUniqueId(Resources.ExportableFailureMechanismSection_IdPrefix),
                 FailureMechanismSectionHelper.GetFailureMechanismSectionGeometry(referenceLine, assemblyResult.SectionStart, assemblyResult.SectionEnd),
                 assemblyResult.SectionStart, assemblyResult.SectionEnd,
                 ExportableAssemblyMethodConverter.ConvertTo(assemblyResult.CommonSectionAssemblyMethod));

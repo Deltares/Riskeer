@@ -75,7 +75,7 @@ namespace Riskeer.Integration.IO.Factories
                 startDistance = exportableFailureMechanismSection.EndDistance;
             }
 
-            return new ExportableFailureMechanismSectionCollection(idGenerator.GetNewId(Resources.ExportableFailureMechanismSectionCollection_IdPrefix), exportableSections);
+            return new ExportableFailureMechanismSectionCollection(idGenerator.GetUniqueId(Resources.ExportableFailureMechanismSectionCollection_IdPrefix), exportableSections);
         }
 
         /// <summary>
@@ -119,7 +119,7 @@ namespace Riskeer.Integration.IO.Factories
                                            idGenerator, registry, referenceLine, assemblyResult))
                                .ToArray();
 
-            var exportableCollection = new ExportableFailureMechanismSectionCollection(idGenerator.GetNewId(Resources.ExportableFailureMechanismSectionCollection_IdPrefix),
+            var exportableCollection = new ExportableFailureMechanismSectionCollection(idGenerator.GetUniqueId(Resources.ExportableFailureMechanismSectionCollection_IdPrefix),
                                                                                        exportableSections);
             return exportableCollection;
         }

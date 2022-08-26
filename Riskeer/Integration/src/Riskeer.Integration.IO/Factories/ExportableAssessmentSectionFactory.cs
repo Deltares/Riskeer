@@ -110,7 +110,7 @@ namespace Riskeer.Integration.IO.Factories
             AssessmentSectionAssemblyResultWrapper assemblyResultWrapper = AssessmentSectionAssemblyFactory.AssembleAssessmentSection(assessmentSection);
             AssessmentSectionAssemblyResult assemblyResult = assemblyResultWrapper.AssemblyResult;
             return new ExportableAssessmentSectionAssemblyResult(
-                idGenerator.GetNewId(Resources.ExportableTotalAssemblyResult_IdPrefix),
+                idGenerator.GetUniqueId(Resources.ExportableTotalAssemblyResult_IdPrefix),
                 ConvertAssemblyGroup(assemblyResult.AssemblyGroup), assemblyResult.Probability,
                 ExportableAssemblyMethodConverter.ConvertTo(assemblyResultWrapper.AssemblyGroupMethod),
                 ExportableAssemblyMethodConverter.ConvertTo(assemblyResultWrapper.ProbabilityMethod));

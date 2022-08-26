@@ -96,7 +96,7 @@ namespace Riskeer.Integration.IO.Factories
             }
 
             FailureMechanismAssemblyResultWrapper assemblyResultWrapper = assembleFailureMechanismFunc(failureMechanism, assessmentSection);
-            return new ExportableGenericFailureMechanism(idGenerator.GetNewId(Resources.ExportableFailureMechanism_IdPrefix),
+            return new ExportableGenericFailureMechanism(idGenerator.GetUniqueId(Resources.ExportableFailureMechanism_IdPrefix),
                                                          new ExportableFailureMechanismAssemblyResult(
                                                              assemblyResultWrapper.AssemblyResult,
                                                              ExportableAssemblyMethodConverter.ConvertTo(assemblyResultWrapper.AssemblyMethod)),
@@ -158,7 +158,7 @@ namespace Riskeer.Integration.IO.Factories
             }
 
             FailureMechanismAssemblyResultWrapper assemblyResultWrapper = assembleFailureMechanismFunc(failureMechanism, assessmentSection);
-            return new ExportableSpecificFailureMechanism(idGenerator.GetNewId(Resources.ExportableFailureMechanism_IdPrefix),
+            return new ExportableSpecificFailureMechanism(idGenerator.GetUniqueId(Resources.ExportableFailureMechanism_IdPrefix),
                                                           new ExportableFailureMechanismAssemblyResult(
                                                               assemblyResultWrapper.AssemblyResult,
                                                               ExportableAssemblyMethodConverter.ConvertTo(assemblyResultWrapper.AssemblyMethod)),

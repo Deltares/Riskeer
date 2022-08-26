@@ -25,7 +25,7 @@ using System.Collections.Generic;
 namespace Riskeer.Integration.IO.Helpers
 {
     /// <summary>
-    /// Class to generate unique ids.
+    /// Class to generate ids.
     /// </summary>
     public class IdentifierGenerator
     {
@@ -40,13 +40,13 @@ namespace Riskeer.Integration.IO.Helpers
         }
 
         /// <summary>
-        /// Gets a new unique id prefixed by <paramref name="prefix"/>.
+        /// Gets an unique id prefixed by <paramref name="prefix"/>.
         /// </summary>
         /// <param name="prefix">The prefix to be used for the generated id.</param>
         /// <returns>An unique id.</returns>
         /// <exception cref="ArgumentException">Thrown when <paramref name="prefix"/> is
         /// <c>null</c>, empty or consists of only whitespaces.</exception>
-        public string GetNewId(string prefix)
+        public string GetUniqueId(string prefix)
         {
             if (string.IsNullOrWhiteSpace(prefix))
             {

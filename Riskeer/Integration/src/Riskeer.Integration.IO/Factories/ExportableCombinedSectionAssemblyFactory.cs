@@ -88,7 +88,7 @@ namespace Riskeer.Integration.IO.Factories
                 ExportableCombinedFailureMechanismSection exportableCombinedSection = registry.Get(assemblyResult);
 
                 var exportableSectionResult = new ExportableCombinedSectionAssembly(
-                    idGenerator.GetNewId(Resources.ExportableCombinedSectionAssembly_IdPrefix), exportableCombinedSection,
+                    idGenerator.GetUniqueId(Resources.ExportableCombinedSectionAssembly_IdPrefix), exportableCombinedSection,
                     ExportableFailureMechanismSectionAssemblyGroupConverter.ConvertTo(assemblyResult.TotalResult),
                     ExportableAssemblyMethodConverter.ConvertTo(assemblyResult.CombinedSectionResultAssemblyMethod),
                     CreateFailureMechanismCombinedSectionAssemblyResults(registry, exportableCombinedSection, assemblyResult, assessmentSection));
