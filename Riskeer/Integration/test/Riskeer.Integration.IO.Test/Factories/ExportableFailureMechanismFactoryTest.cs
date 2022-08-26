@@ -176,9 +176,9 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             IEnumerable<ExportableFailureMechanismSection> exportableFailureMechanismSections = exportableFailureMechanism.SectionAssemblyResults
                                                                                                                           .Select(sar => sar.FailureMechanismSection);
-            ExportableFailureMechanismSectionTestHelper.AssertExportableFailureMechanismSections(failureMechanism.Sections, exportableFailureMechanismSections);
+            ExportableFailureMechanismSectionAssertHelper.AssertExportableFailureMechanismSections(failureMechanism.Sections, exportableFailureMechanismSections);
 
-            ExportableFailureMechanismSectionAssemblyResultTestHelper.AssertExportableFailureMechanismSectionResults(
+            ExportableFailureMechanismSectionAssemblyResultAssertHelper.AssertExportableFailureMechanismSectionResults(
                 expectedSectionOutput, exportableFailureMechanismSections, exportableFailureMechanism.SectionAssemblyResults);
         }
 
@@ -317,9 +317,9 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             IEnumerable<ExportableFailureMechanismSection> exportableFailureMechanismSections = exportableFailureMechanism.SectionAssemblyResults
                                                                                                                           .Select(sar => sar.FailureMechanismSection);
-            ExportableFailureMechanismSectionTestHelper.AssertExportableFailureMechanismSections(failureMechanism.Sections, exportableFailureMechanismSections);
+            ExportableFailureMechanismSectionAssertHelper.AssertExportableFailureMechanismSections(failureMechanism.Sections, exportableFailureMechanismSections);
 
-            ExportableFailureMechanismSectionAssemblyResultTestHelper.AssertExportableFailureMechanismSectionResults(
+            ExportableFailureMechanismSectionAssemblyResultAssertHelper.AssertExportableFailureMechanismSectionResults(
                 expectedSectionOutput, exportableFailureMechanismSections, exportableFailureMechanism.SectionAssemblyResults);
         }
 

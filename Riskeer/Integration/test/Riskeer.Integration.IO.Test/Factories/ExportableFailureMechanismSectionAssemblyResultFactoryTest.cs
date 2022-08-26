@@ -198,7 +198,7 @@ namespace Riskeer.Integration.IO.Test.Factories
                 (sr, fm, section) => expectedSectionOutput);
 
             // Assert
-            ExportableFailureMechanismSectionAssemblyResultTestHelper.AssertExportableFailureMechanismSectionResult(
+            ExportableFailureMechanismSectionAssemblyResultAssertHelper.AssertExportableFailureMechanismSectionResult(
                 expectedSectionOutput, assemblyResult, registry.Get(failureMechanism.Sections.First()));
         }
 
