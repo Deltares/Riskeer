@@ -306,7 +306,7 @@ namespace Riskeer.Integration.IO.Factories
         /// <param name="registry">The <see cref="ExportableModelRegistry"/> to keep track of the created items.</param>
         /// <param name="assessmentSection">The assessment section to create a collection of
         /// <see cref="ExportableCombinedSectionAssembly"/> for.</param>
-        /// <param name="failureMechanismSectionCollections">The collection of
+        /// <param name="failureMechanismSectionCollections">The <see cref="List{T}"/> of
         /// <see cref="ExportableFailureMechanismSectionCollection"/>.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="ExportableCombinedSectionAssembly"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created for <paramref name="assessmentSection"/>.</exception>

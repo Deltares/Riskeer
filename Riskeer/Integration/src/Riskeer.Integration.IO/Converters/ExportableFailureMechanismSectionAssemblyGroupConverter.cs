@@ -32,7 +32,7 @@ namespace Riskeer.Integration.IO.Converters
     public static class ExportableFailureMechanismSectionAssemblyGroupConverter
     {
         /// <summary>
-        /// Converts an <see cref="FailureMechanismSectionAssemblyGroup"/> into an <see cref="ExportableFailureMechanismSectionAssemblyGroup"/>.
+        /// Converts a <see cref="FailureMechanismSectionAssemblyGroup"/> into an <see cref="ExportableFailureMechanismSectionAssemblyGroup"/>.
         /// </summary>
         /// <param name="failureMechanismSectionAssemblyGroup">The <see cref="FailureMechanismSectionAssemblyGroup"/>
         /// to convert into an <see cref="ExportableFailureMechanismSectionAssemblyGroup"/>.</param>
