@@ -184,7 +184,7 @@ namespace Riskeer.AssemblyTool.IO.Test
             }
             finally
             {
-                File.Delete(filePath);
+                DirectoryHelper.TryDelete(folderPath);
             }
         }
 
