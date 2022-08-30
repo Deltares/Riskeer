@@ -117,17 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AssessmentSectionTypeOld" xml:space="preserve">
-    <value>DKTRJCT</value>
-  </data>
   <data name="AssessmentSectionType" xml:space="preserve">
     <value>Dijktraject</value>
   </data>
   <data name="FullAssembly" xml:space="preserve">
     <value>VOLLDG</value>
-  </data>
-  <data name="SerializableMeasure_Meter" xml:space="preserve">
-    <value>m</value>
   </data>
   <data name="CoordinateSystemName" xml:space="preserve">
     <value>EPSG:28992</value>
@@ -191,5 +185,38 @@
   </data>
   <data name="FailureMechanismSectionType_Combined" xml:space="preserve">
     <value>DEELVK</value>
+  </data>
+  <data name="ExportableFailureMechanismSectionAssemblyGroup_NotDominant_DisplayName" xml:space="preserve">
+    <value>NDo</value>
+  </data>
+  <data name="ExportableFailureMechanismSectionAssemblyGroup_III_DisplayName" xml:space="preserve">
+    <value>+III</value>
+  </data>
+  <data name="ExportableFailureMechanismSectionAssemblyGroup_II_DisplayName" xml:space="preserve">
+    <value>+II</value>
+  </data>
+  <data name="ExportableFailureMechanismSectionAssemblyGroup_I_DisplayName" xml:space="preserve">
+    <value>+I</value>
+  </data>
+  <data name="ExportableFailureMechanismSectionAssemblyGroup_Zero_DisplayName" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="ExportableFailureMechanismSectionAssemblyGroup_IMin_DisplayName" xml:space="preserve">
+    <value>-I</value>
+  </data>
+  <data name="ExportableFailureMechanismSectionAssemblyGroup_IIMin_DisplayName" xml:space="preserve">
+    <value>-II</value>
+  </data>
+  <data name="ExportableFailureMechanismSectionAssemblyGroup_IIIMin_DisplayName" xml:space="preserve">
+    <value>-III</value>
+  </data>
+  <data name="ExportableFailureMechanismSectionAssemblyGroup_Dominant_DisplayName" xml:space="preserve">
+    <value>Do</value>
+  </data>
+  <data name="ExportableFailureMechanismSectionAssemblyGroup_NoResult_DisplayName" xml:space="preserve">
+    <value/>
+  </data>
+  <data name="ExportableFailureMechanismSectionAssemblyGroup_NotRelevant_DisplayName" xml:space="preserve">
+    <value>NR</value>
   </data>
 </root>

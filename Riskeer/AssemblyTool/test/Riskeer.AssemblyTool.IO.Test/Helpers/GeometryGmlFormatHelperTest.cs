@@ -74,31 +74,5 @@ namespace Riskeer.AssemblyTool.IO.Test.Helpers
                                     .Aggregate((p1, p2) => p1 + " " + p2),
                             formattedPoint);
         }
-
-        [Test]
-        public void Format_PointNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => GeometryGmlFormatHelper.Format((Point2D) null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("point", exception.ParamName);
-        }
-
-        [Test]
-        public void Format_WithPoint_ReturnsFormattedString()
-        {
-            // Setup
-            var random = new Random(39);
-            var point = new Point2D(random.NextDouble(), random.NextDouble());
-
-            // Call
-            string formattedPoint = GeometryGmlFormatHelper.Format(point);
-
-            // Assert
-            Assert.AreEqual(point.X.ToString(CultureInfo.InvariantCulture) + " " + point.Y.ToString(CultureInfo.InvariantCulture),
-                            formattedPoint);
-        }
     }
 }

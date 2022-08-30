@@ -75,7 +75,9 @@ namespace Riskeer.Integration.IO.Factories
                 startDistance = exportableFailureMechanismSection.EndDistance;
             }
 
-            return new ExportableFailureMechanismSectionCollection(idGenerator.GetNewId(Resources.ExportableFailureMechanismSectionCollection_IdPrefix), exportableSections);
+            return new ExportableFailureMechanismSectionCollection(
+                idGenerator.GetUniqueId(Resources.ExportableFailureMechanismSectionCollection_IdPrefix),
+                exportableSections);
         }
 
         /// <summary>
@@ -114,14 +116,11 @@ namespace Riskeer.Integration.IO.Factories
                 throw new ArgumentNullException(nameof(assemblyResults));
             }
 
-            IEnumerable<ExportableCombinedFailureMechanismSection> exportableSections =
+            return new ExportableFailureMechanismSectionCollection(
+                idGenerator.GetUniqueId(Resources.ExportableFailureMechanismSectionCollection_IdPrefix),
                 assemblyResults.Select(assemblyResult => ExportableFailureMechanismSectionFactory.CreateExportableCombinedFailureMechanismSection(
                                            idGenerator, registry, referenceLine, assemblyResult))
-                               .ToArray();
-
-            var exportableCollection = new ExportableFailureMechanismSectionCollection(idGenerator.GetNewId(Resources.ExportableFailureMechanismSectionCollection_IdPrefix),
-                                                                                       exportableSections);
-            return exportableCollection;
+                               .ToArray());
         }
     }
 }

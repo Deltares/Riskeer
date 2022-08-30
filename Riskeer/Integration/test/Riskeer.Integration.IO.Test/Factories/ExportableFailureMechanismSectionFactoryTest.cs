@@ -20,9 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.Common.Data.AssessmentSection;
@@ -30,6 +27,7 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.Data.Assembly;
 using Riskeer.Integration.Data.TestUtil;
+using Riskeer.Integration.IO.Converters;
 using Riskeer.Integration.IO.Factories;
 using Riskeer.Integration.IO.Helpers;
 using Riskeer.Integration.Util;
@@ -98,7 +96,8 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             // Call
             ExportableFailureMechanismSection exportableSection =
-                ExportableFailureMechanismSectionFactory.CreateExportableFailureMechanismSection(idGenerator, registry, section, startDistance);
+                ExportableFailureMechanismSectionFactory.CreateExportableFailureMechanismSection(
+                    idGenerator, registry, section, startDistance);
 
             // Assert
             Assert.AreEqual("Bv.0", exportableSection.Id);
@@ -119,14 +118,16 @@ namespace Riskeer.Integration.IO.Test.Factories
             var idGenerator = new IdentifierGenerator();
             var registry = new ExportableModelRegistry();
             ExportableFailureMechanismSection exportableSection1 =
-                ExportableFailureMechanismSectionFactory.CreateExportableFailureMechanismSection(idGenerator, registry, section, random.NextDouble());
+                ExportableFailureMechanismSectionFactory.CreateExportableFailureMechanismSection(
+                    idGenerator, registry, section, random.NextDouble());
 
             // Precondition
             Assert.True(registry.Contains(section));
 
             // Call
             ExportableFailureMechanismSection exportableSection2 =
-                ExportableFailureMechanismSectionFactory.CreateExportableFailureMechanismSection(idGenerator, registry, section, random.NextDouble());
+                ExportableFailureMechanismSectionFactory.CreateExportableFailureMechanismSection(
+                    idGenerator, registry, section, random.NextDouble());
 
             // Assert
             Assert.AreSame(exportableSection1, exportableSection2);
@@ -195,22 +196,19 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             // Call
             ExportableCombinedFailureMechanismSection exportableSection =
-                ExportableFailureMechanismSectionFactory.CreateExportableCombinedFailureMechanismSection(idGenerator, registry,
-                                                                                                         referenceLine, assemblyResult);
+                ExportableFailureMechanismSectionFactory.CreateExportableCombinedFailureMechanismSection(
+                    idGenerator, registry, referenceLine, assemblyResult);
 
             // Assert
             Assert.AreEqual("Bv.0", exportableSection.Id);
 
-            IEnumerable<Point2D> expectedGeometry = FailureMechanismSectionHelper.GetFailureMechanismSectionGeometry(
-                referenceLine,
-                exportableSection.StartDistance,
-                exportableSection.EndDistance).ToArray();
-            CollectionAssert.IsNotEmpty(expectedGeometry);
-
             Assert.AreEqual(assemblyResult.SectionStart, exportableSection.StartDistance);
             Assert.AreEqual(assemblyResult.SectionEnd, exportableSection.EndDistance);
-            CollectionAssert.AreEqual(expectedGeometry, exportableSection.Geometry);
-            Assert.AreEqual(ExportableAssemblyMethodConverter.ConvertTo(assemblyResult.CommonSectionAssemblyMethod), exportableSection.AssemblyMethod);
+            CollectionAssert.AreEqual(FailureMechanismSectionHelper.GetFailureMechanismSectionGeometry(
+                                          referenceLine, exportableSection.StartDistance, exportableSection.EndDistance),
+                                      exportableSection.Geometry);
+            Assert.AreEqual(ExportableAssemblyMethodConverter.ConvertTo(assemblyResult.CommonSectionAssemblyMethod),
+                            exportableSection.AssemblyMethod);
         }
 
         [Test]

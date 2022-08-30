@@ -27,6 +27,7 @@ using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.Data.TestUtil;
 using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.AssemblyTool.IO.TestUtil;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.IO.Exceptions;
 using Riskeer.Integration.IO.Factories;
@@ -159,12 +160,11 @@ namespace Riskeer.Integration.IO.Test.Factories
             // Setup
             var random = new Random(21);
             var failureMechanism = new TestFailureMechanism();
-            FailureMechanismTestHelper.AddSections(failureMechanism, random.Next(2, 10));
             var assessmentSection = new AssessmentSectionStub();
 
             // Call
             void Call() => ExportableFailureMechanismSectionAssemblyResultFactory.Create(
-                new IdentifierGenerator(), new ExportableModelRegistry(), failureMechanism.SectionResults.First(),
+                new IdentifierGenerator(), new ExportableModelRegistry(), CreateSectionResult(),
                 failureMechanism, assessmentSection, (sr, fm, section) => new FailureMechanismSectionAssemblyResultWrapper(
                     new FailureMechanismSectionAssemblyResult(
                         random.NextDouble(), random.NextDouble(), random.NextDouble(), assemblyGroup),
@@ -179,27 +179,27 @@ namespace Riskeer.Integration.IO.Test.Factories
         public void Create_ValidData_ReturnsExportableFailureMechanismSectionAssemblyResult()
         {
             // Setup
-            var random = new Random(21);
             var failureMechanism = new TestFailureMechanism();
-            FailureMechanismTestHelper.AddSections(failureMechanism, random.Next(2, 10));
             var assessmentSection = new AssessmentSectionStub();
 
-            FailureMechanismSectionAssemblyResultWrapper expectedSectionOutput = FailureMechanismSectionAssemblyResultWrapperTestFactory.Create();
+            FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var registry = new ExportableModelRegistry();
+            ExportableFailureMechanismSection exportableSection =
+                ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection();
+            registry.Register(failureMechanismSection, exportableSection);
 
             var idGenerator = new IdentifierGenerator();
-
-            var registry = new ExportableModelRegistry();
-            ExportableFailureMechanismSectionCollectionFactory.CreateExportableFailureMechanismSectionCollection(
-                new IdentifierGenerator(), registry, failureMechanism.Sections);
+            var sectionResult = new TestFailureMechanismSectionResult(failureMechanismSection);
+            FailureMechanismSectionAssemblyResultWrapper expectedSectionOutput = FailureMechanismSectionAssemblyResultWrapperTestFactory.Create();
 
             // Call
             ExportableFailureMechanismSectionAssemblyResult assemblyResult = ExportableFailureMechanismSectionAssemblyResultFactory.Create(
-                idGenerator, registry, failureMechanism.SectionResults.First(), failureMechanism, assessmentSection,
+                idGenerator, registry, sectionResult, failureMechanism, assessmentSection,
                 (sr, fm, section) => expectedSectionOutput);
 
             // Assert
-            ExportableFailureMechanismSectionAssemblyResultTestHelper.AssertExportableFailureMechanismSectionResult(
-                expectedSectionOutput, assemblyResult, registry.Get(failureMechanism.Sections.First()));
+            ExportableFailureMechanismSectionAssemblyResultAssertHelper.AssertExportableFailureMechanismSectionResult(
+                expectedSectionOutput, assemblyResult, exportableSection);
         }
 
         [Test]
@@ -211,15 +211,16 @@ namespace Riskeer.Integration.IO.Test.Factories
             FailureMechanismTestHelper.AddSections(failureMechanism, random.Next(2, 10));
             var assessmentSection = new AssessmentSectionStub();
 
-            FailureMechanismSectionAssemblyResultWrapper expectedSectionOutput = FailureMechanismSectionAssemblyResultWrapperTestFactory.Create();
+            FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var registry = new ExportableModelRegistry();
+            ExportableFailureMechanismSection exportableSection =
+                ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection();
+            registry.Register(failureMechanismSection, exportableSection);
 
             var idGenerator = new IdentifierGenerator();
+            var sectionResult = new TestFailureMechanismSectionResult(failureMechanismSection);
+            FailureMechanismSectionAssemblyResultWrapper expectedSectionOutput = FailureMechanismSectionAssemblyResultWrapperTestFactory.Create();
 
-            var registry = new ExportableModelRegistry();
-            ExportableFailureMechanismSectionCollectionFactory.CreateExportableFailureMechanismSectionCollection(
-                new IdentifierGenerator(), registry, failureMechanism.Sections);
-
-            TestFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.First();
             ExportableFailureMechanismSectionAssemblyResult assemblyResult1 = ExportableFailureMechanismSectionAssemblyResultFactory.Create(
                 idGenerator, registry, sectionResult, failureMechanism, assessmentSection,
                 (sr, fm, section) => expectedSectionOutput);
@@ -234,6 +235,12 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             // Assert
             Assert.AreSame(assemblyResult1, assemblyResult2);
+        }
+
+        private static TestFailureMechanismSectionResult CreateSectionResult()
+        {
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            return new TestFailureMechanismSectionResult(section);
         }
     }
 }

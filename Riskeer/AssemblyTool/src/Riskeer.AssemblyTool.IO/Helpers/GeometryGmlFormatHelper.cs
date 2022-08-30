@@ -55,20 +55,8 @@ namespace Riskeer.AssemblyTool.IO.Helpers
             return geometry.Select(Format).Aggregate((c1, c2) => c1 + " " + c2);
         }
 
-        /// <summary>
-        /// Formats a <see cref="Point2D"/> to a string for GML.
-        /// </summary>
-        /// <param name="point">The point to format.</param>
-        /// <returns>A formatted string of the given point.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="point"/>
-        /// is <c>null</c>.</exception>
-        public static string Format(Point2D point)
+        private static string Format(Point2D point)
         {
-            if (point == null)
-            {
-                throw new ArgumentNullException(nameof(point));
-            }
-
             return point.X.ToString(CultureInfo.InvariantCulture) + " " + point.Y.ToString(CultureInfo.InvariantCulture);
         }
     }

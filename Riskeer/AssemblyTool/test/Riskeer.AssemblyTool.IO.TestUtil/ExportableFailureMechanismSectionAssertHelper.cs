@@ -31,7 +31,7 @@ namespace Riskeer.AssemblyTool.IO.TestUtil
     /// <summary>
     /// Helper class to assert <see cref="ExportableFailureMechanismSection"/>
     /// </summary>
-    public static class ExportableFailureMechanismSectionTestHelper
+    public static class ExportableFailureMechanismSectionAssertHelper
     {
         /// <summary>
         /// Asserts a collection of <see cref="ExportableFailureMechanismSection"/>

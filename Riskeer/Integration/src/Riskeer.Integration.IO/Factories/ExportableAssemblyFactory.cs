@@ -40,8 +40,7 @@ namespace Riskeer.Integration.IO.Factories
         /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to create
         /// an <see cref="ExportableAssessmentSection"/> for.</param>
         /// <returns>An <see cref="ExportableAssessmentSection"/> with assembly results.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
-        /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when no reference line is set for <paramref name="assessmentSection"/>.</exception>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created for <paramref name="assessmentSection"/>.</exception>
         /// <exception cref="AssemblyFactoryException">Thrown when assembly results are invalid and cannot be exported.</exception>
@@ -54,15 +53,14 @@ namespace Riskeer.Integration.IO.Factories
 
             var idGenerator = new IdentifierGenerator();
 
-            ExportableAssessmentSection exportableAssessmentSection = ExportableAssessmentSectionFactory.CreateExportableAssessmentSection(idGenerator, assessmentSection);
-            ExportableAssessmentProcess exportableAssessmentProcess = CreateAssessmentProcess(idGenerator);
+            ExportableAssessmentSection exportableAssessmentSection = ExportableAssessmentSectionFactory.CreateExportableAssessmentSection(
+                idGenerator, assessmentSection);
 
-            return new ExportableAssembly(idGenerator.GetNewId(Resources.ExportableAssembly_IdPrefix), exportableAssessmentSection, exportableAssessmentProcess);
-        }
+            var exportableAssessmentProcess = new ExportableAssessmentProcess(idGenerator.GetUniqueId(Resources.ExportableAssessmentProcess_IdPrefix),
+                                                                              2023, 2035);
 
-        private static ExportableAssessmentProcess CreateAssessmentProcess(IdentifierGenerator idGenerator)
-        {
-            return new ExportableAssessmentProcess(idGenerator.GetNewId(Resources.ExportableAssessmentProcess_IdPrefix), 2023, 2035);
+            return new ExportableAssembly(idGenerator.GetUniqueId(Resources.ExportableAssembly_IdPrefix),
+                                          exportableAssessmentSection, exportableAssessmentProcess);
         }
     }
 }

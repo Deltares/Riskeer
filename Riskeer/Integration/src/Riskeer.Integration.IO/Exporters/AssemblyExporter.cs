@@ -72,23 +72,18 @@ namespace Riskeer.Integration.IO.Exporters
                 return false;
             }
 
-            ExportableAssembly exportableAssembly;
             try
             {
-                exportableAssembly = ExportableAssemblyFactory.CreateExportableAssembly(assessmentSection);
+                ExportableAssembly exportableAssembly = ExportableAssemblyFactory.CreateExportableAssembly(assessmentSection);
+                using (var writer = new AssemblyGmlWriter(filePath))
+                {
+                    writer.Write(exportableAssembly);
+                }
             }
             catch (Exception e) when (e is AssemblyException || e is AssemblyFactoryException)
             {
                 log.Error(Resources.AssemblyExporter_No_AssemblyResult_exported_Check_results_for_details);
                 return false;
-            }
-
-            try
-            {
-                using (var writer = new AssemblyGmlWriter(filePath))
-                {
-                    writer.Write(exportableAssembly);
-                }
             }
             catch (CriticalFileWriteException e)
             {

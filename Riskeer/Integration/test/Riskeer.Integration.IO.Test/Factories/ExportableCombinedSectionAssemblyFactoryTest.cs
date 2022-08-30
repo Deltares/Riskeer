@@ -34,6 +34,7 @@ using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Assembly;
 using Riskeer.Integration.Data.TestUtil;
+using Riskeer.Integration.IO.Converters;
 using Riskeer.Integration.IO.Exceptions;
 using Riskeer.Integration.IO.Factories;
 using Riskeer.Integration.IO.Helpers;
@@ -105,9 +106,10 @@ namespace Riskeer.Integration.IO.Test.Factories
             var random = new Random(21);
             CombinedFailureMechanismSectionAssemblyResult[] assemblyResults =
             {
-                new CombinedFailureMechanismSectionAssemblyResult(random.NextDouble(), random.NextDouble(), assemblyGroup,
-                                                                  random.NextEnumValue<AssemblyMethod>(), random.NextEnumValue<AssemblyMethod>(), random.NextEnumValue<AssemblyMethod>(),
-                                                                  new CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties())
+                new CombinedFailureMechanismSectionAssemblyResult(
+                    random.NextDouble(), random.NextDouble(), assemblyGroup,
+                    random.NextEnumValue<AssemblyMethod>(), random.NextEnumValue<AssemblyMethod>(),
+                    random.NextEnumValue<AssemblyMethod>(), new CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties())
             };
 
             // Call
@@ -166,7 +168,7 @@ namespace Riskeer.Integration.IO.Test.Factories
                                                                  exportableCombinedSectionAssemblies, hasAssemblyGroupResults);
         }
 
-        private static void SetFailureMechanismSections(AssessmentSection assessmentSection, int nrOfCombinedAssemblyResults)
+        private static void SetFailureMechanismSections(IAssessmentSection assessmentSection, int nrOfCombinedAssemblyResults)
         {
             IEnumerable<IFailureMechanism> failureMechanisms = assessmentSection.GetFailureMechanisms()
                                                                                 .Concat(assessmentSection.SpecificFailureMechanisms);
@@ -212,7 +214,7 @@ namespace Riskeer.Integration.IO.Test.Factories
                                                                    IEnumerable<FailureMechanismSectionResult> sectionAssemblyResults,
                                                                    IEnumerable<CombinedFailureMechanismSectionAssemblyResult> combinedSectionAssemblyResults)
         {
-            for (int i = 0; i < combinedSectionAssemblyResults.Count(); i++)
+            for (var i = 0; i < combinedSectionAssemblyResults.Count(); i++)
             {
                 CombinedFailureMechanismSectionAssemblyResult assemblyResult = combinedSectionAssemblyResults.ElementAt(i);
                 ExportableFailureMechanismSection exportableSection = ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(
@@ -239,18 +241,15 @@ namespace Riskeer.Integration.IO.Test.Factories
             }
         }
 
-        private static void AssertExportableCombinedFailureMechanismSectionResult(int index,
-                                                                                  ExportableModelRegistry registry,
-                                                                                  AssessmentSection assessmentSection,
-                                                                                  CombinedFailureMechanismSectionAssemblyResult expectedSection,
-                                                                                  ExportableCombinedFailureMechanismSection actualSection,
-                                                                                  ExportableCombinedSectionAssembly actualSectionResult,
-                                                                                  bool hasAssemblyGroupResults)
+        private static void AssertExportableCombinedFailureMechanismSectionResult(
+            int index, ExportableModelRegistry registry, AssessmentSection assessmentSection,
+            CombinedFailureMechanismSectionAssemblyResult expectedSection, ExportableCombinedFailureMechanismSection actualSection,
+            ExportableCombinedSectionAssembly actualSectionResult, bool hasAssemblyGroupResults)
         {
             Assert.AreEqual($"Gf.{index}", actualSectionResult.Id);
 
             Assert.AreSame(actualSection, actualSectionResult.Section);
-            Assert.AreEqual(expectedSection.TotalResult, actualSectionResult.AssemblyGroup);
+            Assert.AreEqual(ExportableFailureMechanismSectionAssemblyGroupConverter.ConvertTo(expectedSection.TotalResult), actualSectionResult.AssemblyGroup);
             Assert.AreEqual(ExportableAssemblyMethodConverter.ConvertTo(expectedSection.CombinedSectionResultAssemblyMethod), actualSectionResult.AssemblyGroupAssemblyMethod);
 
             IEnumerable<ExportableFailureMechanismCombinedSectionAssemblyResult> failureMechanismCombinedSectionResults = actualSectionResult.FailureMechanismResults;
@@ -306,7 +305,7 @@ namespace Riskeer.Integration.IO.Test.Factories
                                                 ExportableFailureMechanismCombinedSectionAssemblyResult actualResult)
             where T : FailureMechanismSectionResult
         {
-            Assert.AreEqual(subSectionGroup, actualResult.AssemblyGroup);
+            Assert.AreEqual(ExportableFailureMechanismSectionAssemblyGroupConverter.ConvertTo(subSectionGroup.Value), actualResult.AssemblyGroup);
 
             T sectionResult = failureMechanism.SectionResults.ElementAt(index);
             ExportableFailureMechanismSectionAssemblyResult expectedExportableSectionResult = registry.Get(sectionResult);

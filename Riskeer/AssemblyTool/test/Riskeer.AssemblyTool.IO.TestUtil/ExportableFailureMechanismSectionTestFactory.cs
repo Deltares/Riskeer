@@ -32,15 +32,6 @@ namespace Riskeer.AssemblyTool.IO.TestUtil
     public static class ExportableFailureMechanismSectionTestFactory
     {
         /// <summary>
-        /// Creates a default <see cref="ExportableFailureMechanismSection"/>.
-        /// </summary>
-        /// <returns>A default instance of <see cref="ExportableFailureMechanismSection"/>.</returns>
-        public static ExportableFailureMechanismSection CreateExportableFailureMechanismSection()
-        {
-            return CreateExportableFailureMechanismSection(1, 2);
-        }
-
-        /// <summary>
         /// Creates a <see cref="ExportableFailureMechanismSection"/> with a given start and end distance.
         /// </summary>
         /// <param name="startDistance">The start distance of the failure mechanism section between the section
@@ -48,22 +39,13 @@ namespace Riskeer.AssemblyTool.IO.TestUtil
         /// <param name="endDistance">The end distance of the failure mechanism section between the section
         /// and the start of the reference line in meters.</param>
         /// <returns>A <see cref="ExportableFailureMechanismSection"/>.</returns>
-        public static ExportableFailureMechanismSection CreateExportableFailureMechanismSection(double startDistance, double endDistance)
+        public static ExportableFailureMechanismSection CreateExportableFailureMechanismSection(double startDistance = 1, double endDistance = 2)
         {
             return new ExportableFailureMechanismSection("id", new[]
             {
                 new Point2D(1, 1),
                 new Point2D(2, 2)
             }, startDistance, endDistance);
-        }
-
-        /// <summary>
-        /// Creates a default <see cref="ExportableCombinedFailureMechanismSection"/>.
-        /// </summary>
-        /// <returns>A default instance of <see cref="ExportableCombinedFailureMechanismSection"/>.</returns>
-        public static ExportableCombinedFailureMechanismSection CreateExportableCombinedFailureMechanismSection()
-        {
-            return CreateExportableCombinedFailureMechanismSection(1, 3);
         }
 
         /// <summary>
@@ -74,7 +56,7 @@ namespace Riskeer.AssemblyTool.IO.TestUtil
         /// <param name="endDistance">The end distance of the failure mechanism section between the section
         /// and the start of the reference line in meters.</param>
         /// <returns>A <see cref="ExportableCombinedFailureMechanismSection"/>.</returns>
-        public static ExportableCombinedFailureMechanismSection CreateExportableCombinedFailureMechanismSection(double startDistance, double endDistance)
+        public static ExportableCombinedFailureMechanismSection CreateExportableCombinedFailureMechanismSection(double startDistance = 1, double endDistance = 3)
         {
             return new ExportableCombinedFailureMechanismSection("id", new[]
             {

@@ -38,7 +38,7 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// <param name="id">The id of the assessment section.</param>
         /// <param name="name">The name of the assessment section.</param>
         /// <param name="geometry">The geometry of the assessment section.</param>
-        /// <param name="failureMechanismSectionCollections">The collection of failure mechanism sections.</param>
+        /// <param name="failureMechanismSectionCollections">The collection of failure mechanism section collections.</param>
         /// <param name="assessmentSectionAssembly">The assembly result of the assessment section.</param>
         /// <param name="failureMechanisms">The assembly results of failure mechanisms belonging
         /// to this assessment section.</param>
@@ -111,7 +111,7 @@ namespace Riskeer.AssemblyTool.IO.Model
         public IEnumerable<Point2D> Geometry { get; }
 
         /// <summary>
-        /// Gets the collection of failure mechanism sections.
+        /// Gets the collection of failure mechanism section collections.
         /// </summary>
         public IEnumerable<ExportableFailureMechanismSectionCollection> FailureMechanismSectionCollections { get; }
 

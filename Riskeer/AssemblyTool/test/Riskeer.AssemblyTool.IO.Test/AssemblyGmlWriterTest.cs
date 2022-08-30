@@ -29,7 +29,6 @@ using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using NUnit.Framework;
-using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.AssemblyTool.IO.Model.Enums;
 
@@ -185,7 +184,7 @@ namespace Riskeer.AssemblyTool.IO.Test
             }
             finally
             {
-                File.Delete(filePath);
+                DirectoryHelper.TryDelete(folderPath);
             }
         }
 
@@ -203,7 +202,7 @@ namespace Riskeer.AssemblyTool.IO.Test
             }, 0.12, 10.23, ExportableAssemblyMethod.BOI3A1);
 
             var failureMechanismSectionAssemblyResult = new ExportableFailureMechanismSectionAssemblyResult(
-                "resultaat_GABI_1", failureMechanismSection, 0.00073, FailureMechanismSectionAssemblyGroup.III,
+                "resultaat_GABI_1", failureMechanismSection, 0.00073, ExportableFailureMechanismSectionAssemblyGroup.III,
                 ExportableAssemblyMethod.BOI0B1, ExportableAssemblyMethod.BOI0A2);
 
             var assessmentSection = new ExportableAssessmentSection(
@@ -239,11 +238,11 @@ namespace Riskeer.AssemblyTool.IO.Test
                 }, new[]
                 {
                     new ExportableCombinedSectionAssembly("resultaat_gecombineerd_1", combinedSection,
-                                                          FailureMechanismSectionAssemblyGroup.I, ExportableAssemblyMethod.BOI3C1,
+                                                          ExportableFailureMechanismSectionAssemblyGroup.I, ExportableAssemblyMethod.BOI3C1,
                                                           new[]
                                                           {
                                                               new ExportableFailureMechanismCombinedSectionAssemblyResult(
-                                                                  FailureMechanismSectionAssemblyGroup.I, ExportableAssemblyMethod.BOI3B1,
+                                                                  ExportableFailureMechanismSectionAssemblyGroup.I, ExportableAssemblyMethod.BOI3B1,
                                                                   failureMechanismSectionAssemblyResult)
                                                           })
                 });

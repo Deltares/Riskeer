@@ -24,6 +24,7 @@ using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Integration.IO.Converters;
 using Riskeer.Integration.IO.Exceptions;
 using Riskeer.Integration.IO.Helpers;
 using Riskeer.Integration.IO.Properties;
@@ -105,9 +106,10 @@ namespace Riskeer.Integration.IO.Factories
             }
 
             var exportableFailureMechanismSectionAssemblyResult = new ExportableFailureMechanismSectionAssemblyResult(
-                idGenerator.GetNewId(Resources.ExportableFailureMechanismSectionAssemblyResult_IdPrefix),
+                idGenerator.GetUniqueId(Resources.ExportableFailureMechanismSectionAssemblyResult_IdPrefix),
                 registry.Get(sectionResult.Section),
-                assemblyResult.SectionProbability, assemblyResult.FailureMechanismSectionAssemblyGroup,
+                assemblyResult.SectionProbability,
+                ExportableFailureMechanismSectionAssemblyGroupConverter.ConvertTo(assemblyResult.FailureMechanismSectionAssemblyGroup),
                 ExportableAssemblyMethodConverter.ConvertTo(assemblyResultWrapper.AssemblyGroupMethod),
                 ExportableAssemblyMethodConverter.ConvertTo(assemblyResultWrapper.ProbabilityMethod));
             

@@ -24,14 +24,14 @@ using System.Linq;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.IO.Model;
-using Riskeer.Integration.IO.Factories;
+using Riskeer.Integration.IO.Converters;
 
 namespace Riskeer.AssemblyTool.IO.TestUtil
 {
     /// <summary>
     /// Helper class to assert <see cref="ExportableFailureMechanismSectionAssemblyResult"/>.
     /// </summary>
-    public static class ExportableFailureMechanismSectionAssemblyResultTestHelper
+    public static class ExportableFailureMechanismSectionAssemblyResultAssertHelper
     {
         /// <summary>
         /// Asserts a collection of <see cref="ExportableFailureMechanismSectionAssemblyResult"/>
@@ -83,7 +83,7 @@ namespace Riskeer.AssemblyTool.IO.TestUtil
             Assert.AreEqual($"Fa.{i}", actualExportableAssemblyResult.Id);
             Assert.AreSame(section, actualExportableAssemblyResult.FailureMechanismSection);
             FailureMechanismSectionAssemblyResult expectedAssemblyResult = expectedAssemblyResultWrapper.AssemblyResult;
-            Assert.AreEqual(expectedAssemblyResult.FailureMechanismSectionAssemblyGroup, actualExportableAssemblyResult.AssemblyGroup);
+            Assert.AreEqual(ExportableFailureMechanismSectionAssemblyGroupConverter.ConvertTo(expectedAssemblyResult.FailureMechanismSectionAssemblyGroup), actualExportableAssemblyResult.AssemblyGroup);
             Assert.AreEqual(expectedAssemblyResult.SectionProbability, actualExportableAssemblyResult.Probability);
             Assert.AreEqual(ExportableAssemblyMethodConverter.ConvertTo(expectedAssemblyResultWrapper.AssemblyGroupMethod),
                             actualExportableAssemblyResult.AssemblyGroupAssemblyMethod);

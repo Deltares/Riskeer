@@ -24,9 +24,9 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.IO.Model.Enums;
-using Riskeer.Integration.IO.Factories;
+using Riskeer.Integration.IO.Converters;
 
-namespace Riskeer.Integration.IO.Test.Factories
+namespace Riskeer.Integration.IO.Test.Converters
 {
     [TestFixture]
     public class ExportableAssemblyMethodConverterTest

@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.IO.Helpers;
 using Riskeer.AssemblyTool.IO.Model.Enums;
 
@@ -45,12 +44,12 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is invalid.</exception>
         public ExportableCombinedSectionAssembly(string id,
                                                  ExportableCombinedFailureMechanismSection section,
-                                                 FailureMechanismSectionAssemblyGroup assemblyGroup,
+                                                 ExportableFailureMechanismSectionAssemblyGroup assemblyGroup,
                                                  ExportableAssemblyMethod assemblyGroupAssemblyMethod,
                                                  IEnumerable<ExportableFailureMechanismCombinedSectionAssemblyResult> failureMechanismResults)
         {
             IdValidationHelper.ThrowIfInvalid(id);
-            
+
             if (section == null)
             {
                 throw new ArgumentNullException(nameof(section));
@@ -67,7 +66,7 @@ namespace Riskeer.AssemblyTool.IO.Model
             AssemblyGroupAssemblyMethod = assemblyGroupAssemblyMethod;
             FailureMechanismResults = failureMechanismResults;
         }
-        
+
         /// <summary>
         /// Gets the id of the combined section assembly.
         /// </summary>
@@ -81,7 +80,7 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// <summary>
         /// Gets the assembly group.
         /// </summary>
-        public FailureMechanismSectionAssemblyGroup AssemblyGroup { get; }
+        public ExportableFailureMechanismSectionAssemblyGroup AssemblyGroup { get; }
 
         /// <summary>
         /// Gets the method that was used to assemble the assembly group for this combined section.

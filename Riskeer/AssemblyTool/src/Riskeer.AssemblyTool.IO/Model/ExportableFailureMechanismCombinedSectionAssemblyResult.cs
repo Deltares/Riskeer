@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.IO.Model.Enums;
 
 namespace Riskeer.AssemblyTool.IO.Model
@@ -37,7 +36,7 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// <param name="assemblyGroup">The assembly group of this section.</param>
         /// <param name="failureMechanismSectionResult">The associated failure mechanism section result.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionResult"/> is <c>null</c>.</exception>
-        public ExportableFailureMechanismCombinedSectionAssemblyResult(FailureMechanismSectionAssemblyGroup assemblyGroup,
+        public ExportableFailureMechanismCombinedSectionAssemblyResult(ExportableFailureMechanismSectionAssemblyGroup assemblyGroup,
                                                                        ExportableAssemblyMethod assemblyMethod,
                                                                        ExportableFailureMechanismSectionAssemblyResult failureMechanismSectionResult)
         {
@@ -54,13 +53,13 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// <summary>
         /// Gets the assembly group of this section.
         /// </summary>
-        public FailureMechanismSectionAssemblyGroup AssemblyGroup { get; }
-        
+        public ExportableFailureMechanismSectionAssemblyGroup AssemblyGroup { get; }
+
         /// <summary>
         /// Gets the assembly method that was used to assemble the assembly result.
         /// </summary>
         public ExportableAssemblyMethod AssemblyMethod { get; }
-        
+
         /// <summary>
         /// Gets the associated failure mechanism section result.
         /// </summary>

@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.TestUtil;
-using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.AssemblyTool.IO.Model.Enums;
 
@@ -49,15 +48,15 @@ namespace Riskeer.AssemblyTool.IO.TestUtil
                 random.NextDouble(),
                 random.NextEnumValue(new[]
                 {
-                    FailureMechanismSectionAssemblyGroup.NotDominant,
-                    FailureMechanismSectionAssemblyGroup.III,
-                    FailureMechanismSectionAssemblyGroup.II,
-                    FailureMechanismSectionAssemblyGroup.I,
-                    FailureMechanismSectionAssemblyGroup.Zero,
-                    FailureMechanismSectionAssemblyGroup.IMin,
-                    FailureMechanismSectionAssemblyGroup.IIMin,
-                    FailureMechanismSectionAssemblyGroup.IIIMin,
-                    FailureMechanismSectionAssemblyGroup.NotRelevant
+                    ExportableFailureMechanismSectionAssemblyGroup.NotDominant,
+                    ExportableFailureMechanismSectionAssemblyGroup.III,
+                    ExportableFailureMechanismSectionAssemblyGroup.II,
+                    ExportableFailureMechanismSectionAssemblyGroup.I,
+                    ExportableFailureMechanismSectionAssemblyGroup.Zero,
+                    ExportableFailureMechanismSectionAssemblyGroup.IMin,
+                    ExportableFailureMechanismSectionAssemblyGroup.IIMin,
+                    ExportableFailureMechanismSectionAssemblyGroup.IIIMin,
+                    ExportableFailureMechanismSectionAssemblyGroup.NotRelevant
                 }),
                 random.NextEnumValue<ExportableAssemblyMethod>(),
                 random.NextEnumValue<ExportableAssemblyMethod>());

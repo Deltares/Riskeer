@@ -24,6 +24,7 @@ using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Integration.Data.Assembly;
+using Riskeer.Integration.IO.Converters;
 using Riskeer.Integration.IO.Helpers;
 using Riskeer.Integration.IO.Properties;
 using Riskeer.Integration.Util;
@@ -73,8 +74,10 @@ namespace Riskeer.Integration.IO.Factories
             }
 
             double endDistance = startDistance + section.Length;
-            var exportableSection = new ExportableFailureMechanismSection(idGenerator.GetNewId(Resources.ExportableFailureMechanismSection_IdPrefix),
-                                                                          section.Points, startDistance, endDistance);
+            var exportableSection = new ExportableFailureMechanismSection(
+                idGenerator.GetUniqueId(Resources.ExportableFailureMechanismSection_IdPrefix),
+                section.Points, startDistance, endDistance);
+            
             registry.Register(section, exportableSection);
             return exportableSection;
         }
@@ -119,7 +122,7 @@ namespace Riskeer.Integration.IO.Factories
             }
 
             var exportableSection = new ExportableCombinedFailureMechanismSection(
-                idGenerator.GetNewId(Resources.ExportableFailureMechanismSection_IdPrefix),
+                idGenerator.GetUniqueId(Resources.ExportableFailureMechanismSection_IdPrefix),
                 FailureMechanismSectionHelper.GetFailureMechanismSectionGeometry(referenceLine, assemblyResult.SectionStart, assemblyResult.SectionEnd),
                 assemblyResult.SectionStart, assemblyResult.SectionEnd,
                 ExportableAssemblyMethodConverter.ConvertTo(assemblyResult.CommonSectionAssemblyMethod));

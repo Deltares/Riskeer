@@ -34,11 +34,11 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
     public class ExportableCombinedFailureMechanismSectionTest
     {
         [Test]
-        public void Constructor_WithArguments_ExpectedValues()
+        public void Constructor_ExpectedValues()
         {
             // Setup
             const string id = "id";
-            
+
             var random = new Random(21);
             IEnumerable<Point2D> geometry = Enumerable.Empty<Point2D>();
             var assemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();

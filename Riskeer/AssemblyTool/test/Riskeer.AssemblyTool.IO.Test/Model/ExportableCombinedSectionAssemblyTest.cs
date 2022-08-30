@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.AssemblyTool.IO.Model.Enums;
 using Riskeer.AssemblyTool.IO.TestUtil;
@@ -44,7 +43,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
 
             // Call
             void Call() => new ExportableCombinedSectionAssembly(
-                invalidId, section, random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
+                invalidId, section, random.NextEnumValue<ExportableFailureMechanismSectionAssemblyGroup>(),
                 random.NextEnumValue<ExportableAssemblyMethod>(), Enumerable.Empty<ExportableFailureMechanismCombinedSectionAssemblyResult>());
 
             // Assert
@@ -60,7 +59,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
 
             // Call
             void Call() => new ExportableCombinedSectionAssembly(
-                "id", null, random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
+                "id", null, random.NextEnumValue<ExportableFailureMechanismSectionAssemblyGroup>(),
                 random.NextEnumValue<ExportableAssemblyMethod>(), Enumerable.Empty<ExportableFailureMechanismCombinedSectionAssemblyResult>());
 
             // Assert
@@ -77,7 +76,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
 
             // Call
             void Call() => new ExportableCombinedSectionAssembly(
-                "id", section, random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
+                "id", section, random.NextEnumValue<ExportableFailureMechanismSectionAssemblyGroup>(),
                 random.NextEnumValue<ExportableAssemblyMethod>(), null);
 
             // Assert
@@ -91,7 +90,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             // Setup
             var random = new Random(21);
             const string id = "id";
-            var assemblyGroup = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>();
+            var assemblyGroup = random.NextEnumValue<ExportableFailureMechanismSectionAssemblyGroup>();
             var assemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
 
             ExportableCombinedFailureMechanismSection section = ExportableFailureMechanismSectionTestFactory.CreateExportableCombinedFailureMechanismSection();
