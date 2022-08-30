@@ -213,7 +213,7 @@ namespace Riskeer.Integration.IO.Test.Factories
                                                                    IEnumerable<FailureMechanismSectionResult> sectionAssemblyResults,
                                                                    IEnumerable<CombinedFailureMechanismSectionAssemblyResult> combinedSectionAssemblyResults)
         {
-            for (int i = 0; i < combinedSectionAssemblyResults.Count(); i++)
+            for (var i = 0; i < combinedSectionAssemblyResults.Count(); i++)
             {
                 CombinedFailureMechanismSectionAssemblyResult assemblyResult = combinedSectionAssemblyResults.ElementAt(i);
                 ExportableFailureMechanismSection exportableSection = ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(
@@ -240,13 +240,10 @@ namespace Riskeer.Integration.IO.Test.Factories
             }
         }
 
-        private static void AssertExportableCombinedFailureMechanismSectionResult(int index,
-                                                                                  ExportableModelRegistry registry,
-                                                                                  AssessmentSection assessmentSection,
-                                                                                  CombinedFailureMechanismSectionAssemblyResult expectedSection,
-                                                                                  ExportableCombinedFailureMechanismSection actualSection,
-                                                                                  ExportableCombinedSectionAssembly actualSectionResult,
-                                                                                  bool hasAssemblyGroupResults)
+        private static void AssertExportableCombinedFailureMechanismSectionResult(
+            int index, ExportableModelRegistry registry, AssessmentSection assessmentSection,
+            CombinedFailureMechanismSectionAssemblyResult expectedSection, ExportableCombinedFailureMechanismSection actualSection,
+            ExportableCombinedSectionAssembly actualSectionResult, bool hasAssemblyGroupResults)
         {
             Assert.AreEqual($"Gf.{index}", actualSectionResult.Id);
 

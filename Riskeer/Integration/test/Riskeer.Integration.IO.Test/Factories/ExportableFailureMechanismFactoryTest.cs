@@ -192,7 +192,8 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             // Call
             void Call() => ExportableFailureMechanismFactory.CreateExportableSpecificFailureMechanism(
-                null, new ExportableModelRegistry(), new SpecificFailureMechanism(), assessmentSection, (fm, section) => null, (sr, fm, section) => null);
+                null, new ExportableModelRegistry(), new SpecificFailureMechanism(), assessmentSection,
+                (fm, section) => null, (sr, fm, section) => null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -210,7 +211,8 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             // Call
             void Call() => ExportableFailureMechanismFactory.CreateExportableSpecificFailureMechanism(
-                new IdentifierGenerator(), null, new SpecificFailureMechanism(), assessmentSection, (fm, section) => null, (sr, fm, section) => null);
+                new IdentifierGenerator(), null, new SpecificFailureMechanism(), assessmentSection,
+                (fm, section) => null, (sr, fm, section) => null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -228,7 +230,8 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             // Call
             void Call() => ExportableFailureMechanismFactory.CreateExportableSpecificFailureMechanism(
-                new IdentifierGenerator(), new ExportableModelRegistry(), null, assessmentSection, (fm, section) => null, (sr, fm, section) => null);
+                new IdentifierGenerator(), new ExportableModelRegistry(), null, assessmentSection,
+                (fm, section) => null, (sr, fm, section) => null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -241,7 +244,8 @@ namespace Riskeer.Integration.IO.Test.Factories
         {
             // Call
             void Call() => ExportableFailureMechanismFactory.CreateExportableSpecificFailureMechanism(
-                new IdentifierGenerator(), new ExportableModelRegistry(), new SpecificFailureMechanism(), null, (fm, section) => null, (sr, fm, section) => null);
+                new IdentifierGenerator(), new ExportableModelRegistry(), new SpecificFailureMechanism(),
+                null, (fm, section) => null, (sr, fm, section) => null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -258,7 +262,8 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             // Call
             void Call() => ExportableFailureMechanismFactory.CreateExportableSpecificFailureMechanism(
-                new IdentifierGenerator(), new ExportableModelRegistry(), new SpecificFailureMechanism(), assessmentSection, null, (sr, fm, section) => null);
+                new IdentifierGenerator(), new ExportableModelRegistry(), new SpecificFailureMechanism(),
+                assessmentSection, null, (sr, fm, section) => null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -276,7 +281,8 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             // Call
             void Call() => ExportableFailureMechanismFactory.CreateExportableSpecificFailureMechanism(
-                new IdentifierGenerator(), new ExportableModelRegistry(), new SpecificFailureMechanism(), assessmentSection, (fm, section) => null, null);
+                new IdentifierGenerator(), new ExportableModelRegistry(), new SpecificFailureMechanism(),
+                assessmentSection, (fm, section) => null, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -304,7 +310,8 @@ namespace Riskeer.Integration.IO.Test.Factories
             // Call
             ExportableSpecificFailureMechanism exportableFailureMechanism =
                 ExportableFailureMechanismFactory.CreateExportableSpecificFailureMechanism(
-                    idGenerator, registry, failureMechanism, assessmentSection, (fm, section) => new FailureMechanismAssemblyResultWrapper(probability, assemblyMethod),
+                    idGenerator, registry, failureMechanism, assessmentSection,
+                    (fm, section) => new FailureMechanismAssemblyResultWrapper(probability, assemblyMethod),
                     (sr, fm, section) => expectedSectionOutput);
 
             // Assert
