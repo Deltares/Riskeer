@@ -24,7 +24,9 @@ using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.IO.Model;
+using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
+using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
@@ -51,12 +53,11 @@ namespace Riskeer.Integration.IO.Test.Factories
         public void CreateExportableAssembly_WithValidAssessmentSection_ReturnsExpectedAssembly()
         {
             // Setup
-            const string id = "assessmentSectionId";
 
             var random = new Random(21);
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>())
             {
-                Id = id,
+                Id = "assessmentSectionId",
                 SpecificFailureMechanisms =
                 {
                     new SpecificFailureMechanism()
@@ -73,8 +74,24 @@ namespace Riskeer.Integration.IO.Test.Factories
 
                 // Assert
                 Assert.AreEqual("assemblage.0", result.Id);
-                AssertExportableAssessmentSection(assessmentSection, result.AssessmentSection);
-                AssertExportableAssessmentProcess(result.AssessmentProcess);
+                
+                Assert.AreEqual(assessmentSection.Name, result.AssessmentSection.Name);
+                Assert.AreEqual($"Wks.{assessmentSection.Id}", result.AssessmentSection.Id);
+                CollectionAssert.AreEqual(assessmentSection.ReferenceLine.Points, result.AssessmentSection.Geometry);
+
+                int nrOfFailureMechanisms = assessmentSection.GetFailureMechanisms()
+                                                             .Concat(assessmentSection.SpecificFailureMechanisms.Select(fm => fm))
+                                                             .Count();
+                Assert.AreEqual(nrOfFailureMechanisms, result.AssessmentSection.FailureMechanisms.Count());
+                
+                var factory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssessmentSectionAssemblyCalculatorStub calculator = factory.LastCreatedAssessmentSectionAssemblyCalculator;
+                Assert.AreEqual(calculator.CombinedFailureMechanismSectionAssemblyOutput.AssemblyResults.Count(),
+                                result.AssessmentSection.CombinedSectionAssemblies.Count());
+
+                Assert.AreEqual("Bp.0", result.AssessmentProcess.Id);
+                Assert.AreEqual(2023, result.AssessmentProcess.StartYear);
+                Assert.AreEqual(2035, result.AssessmentProcess.EndYear);
             }
         }
 
@@ -100,27 +117,6 @@ namespace Riskeer.Integration.IO.Test.Factories
             FailureMechanismTestHelper.AddSections(assessmentSection.WaterPressureAsphaltCover, random.Next(1, 10));
 
             FailureMechanismTestHelper.AddSections(assessmentSection.SpecificFailureMechanisms.First(), random.Next(1, 10));
-        }
-
-        private static void AssertExportableAssessmentSection(
-            IAssessmentSection assessmentSection, ExportableAssessmentSection exportableAssessmentSection)
-        {
-            Assert.AreEqual(assessmentSection.Name, exportableAssessmentSection.Name);
-            Assert.AreEqual($"Wks.{assessmentSection.Id}", exportableAssessmentSection.Id);
-            CollectionAssert.AreEqual(assessmentSection.ReferenceLine.Points, exportableAssessmentSection.Geometry);
-
-            int nrOfFailureMechanisms = assessmentSection.GetFailureMechanisms()
-                                                         .Concat(assessmentSection.SpecificFailureMechanisms.Select(fm => fm))
-                                                         .Count();
-            Assert.AreEqual(nrOfFailureMechanisms, exportableAssessmentSection.FailureMechanisms.Count());
-            Assert.AreEqual(1, exportableAssessmentSection.CombinedSectionAssemblies.Count());
-        }
-
-        private static void AssertExportableAssessmentProcess(ExportableAssessmentProcess exportableAssessmentProcess)
-        {
-            Assert.AreEqual("Bp.0", exportableAssessmentProcess.Id);
-            Assert.AreEqual(2023, exportableAssessmentProcess.StartYear);
-            Assert.AreEqual(2035, exportableAssessmentProcess.EndYear);
         }
     }
 }
