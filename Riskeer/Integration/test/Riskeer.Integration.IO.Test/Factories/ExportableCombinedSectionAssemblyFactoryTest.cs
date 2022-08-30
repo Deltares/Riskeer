@@ -105,9 +105,10 @@ namespace Riskeer.Integration.IO.Test.Factories
             var random = new Random(21);
             CombinedFailureMechanismSectionAssemblyResult[] assemblyResults =
             {
-                new CombinedFailureMechanismSectionAssemblyResult(random.NextDouble(), random.NextDouble(), assemblyGroup,
-                                                                  random.NextEnumValue<AssemblyMethod>(), random.NextEnumValue<AssemblyMethod>(), random.NextEnumValue<AssemblyMethod>(),
-                                                                  new CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties())
+                new CombinedFailureMechanismSectionAssemblyResult(
+                    random.NextDouble(), random.NextDouble(), assemblyGroup,
+                    random.NextEnumValue<AssemblyMethod>(), random.NextEnumValue<AssemblyMethod>(),
+                    random.NextEnumValue<AssemblyMethod>(), new CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties())
             };
 
             // Call
@@ -166,7 +167,7 @@ namespace Riskeer.Integration.IO.Test.Factories
                                                                  exportableCombinedSectionAssemblies, hasAssemblyGroupResults);
         }
 
-        private static void SetFailureMechanismSections(AssessmentSection assessmentSection, int nrOfCombinedAssemblyResults)
+        private static void SetFailureMechanismSections(IAssessmentSection assessmentSection, int nrOfCombinedAssemblyResults)
         {
             IEnumerable<IFailureMechanism> failureMechanisms = assessmentSection.GetFailureMechanisms()
                                                                                 .Concat(assessmentSection.SpecificFailureMechanisms);

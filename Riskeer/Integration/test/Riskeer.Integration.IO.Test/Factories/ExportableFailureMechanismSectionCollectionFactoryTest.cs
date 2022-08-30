@@ -234,7 +234,8 @@ namespace Riskeer.Integration.IO.Test.Factories
             Assert.AreEqual(assemblyResult.SectionStart, exportableCombinedFailureMechanismSection.StartDistance);
             Assert.AreEqual(assemblyResult.SectionEnd, exportableCombinedFailureMechanismSection.EndDistance);
             CollectionAssert.AreEqual(expectedGeometry, exportableCombinedFailureMechanismSection.Geometry);
-            Assert.AreEqual(ExportableAssemblyMethodConverter.ConvertTo(assemblyResult.CommonSectionAssemblyMethod), exportableCombinedFailureMechanismSection.AssemblyMethod);
+            Assert.AreEqual(ExportableAssemblyMethodConverter.ConvertTo(assemblyResult.CommonSectionAssemblyMethod),
+                            exportableCombinedFailureMechanismSection.AssemblyMethod);
         }
     }
 }

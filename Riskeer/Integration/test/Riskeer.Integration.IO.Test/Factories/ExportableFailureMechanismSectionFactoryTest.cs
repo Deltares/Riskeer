@@ -194,9 +194,8 @@ namespace Riskeer.Integration.IO.Test.Factories
             var registry = new ExportableModelRegistry();
 
             // Call
-            ExportableCombinedFailureMechanismSection exportableSection =
-                ExportableFailureMechanismSectionFactory.CreateExportableCombinedFailureMechanismSection(idGenerator, registry,
-                                                                                                         referenceLine, assemblyResult);
+            ExportableCombinedFailureMechanismSection exportableSection = ExportableFailureMechanismSectionFactory.CreateExportableCombinedFailureMechanismSection(
+                    idGenerator, registry, referenceLine, assemblyResult);
 
             // Assert
             Assert.AreEqual("Bv.0", exportableSection.Id);
@@ -221,16 +220,14 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             var idGenerator = new IdentifierGenerator();
             var registry = new ExportableModelRegistry();
-            ExportableCombinedFailureMechanismSection exportableSection1 =
-                ExportableFailureMechanismSectionFactory.CreateExportableCombinedFailureMechanismSection(
+            ExportableCombinedFailureMechanismSection exportableSection1 = ExportableFailureMechanismSectionFactory.CreateExportableCombinedFailureMechanismSection(
                     idGenerator, registry, ReferenceLineTestFactory.CreateReferenceLineWithGeometry(), assemblyResult);
 
             // Precondition
             Assert.True(registry.Contains(assemblyResult));
 
             // Call
-            ExportableCombinedFailureMechanismSection exportableSection2 =
-                ExportableFailureMechanismSectionFactory.CreateExportableCombinedFailureMechanismSection(
+            ExportableCombinedFailureMechanismSection exportableSection2 = ExportableFailureMechanismSectionFactory.CreateExportableCombinedFailureMechanismSection(
                     idGenerator, registry, ReferenceLineTestFactory.CreateReferenceLineWithGeometry(), assemblyResult);
 
             // Assert
