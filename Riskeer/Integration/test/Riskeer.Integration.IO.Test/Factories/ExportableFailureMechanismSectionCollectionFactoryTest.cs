@@ -224,16 +224,12 @@ namespace Riskeer.Integration.IO.Test.Factories
                                                                             CombinedFailureMechanismSectionAssemblyResult assemblyResult,
                                                                             ExportableCombinedFailureMechanismSection exportableCombinedFailureMechanismSection)
         {
-            IEnumerable<Point2D> expectedGeometry = FailureMechanismSectionHelper.GetFailureMechanismSectionGeometry(
-                referenceLine,
-                assemblyResult.SectionStart,
-                assemblyResult.SectionEnd).ToArray();
-            CollectionAssert.IsNotEmpty(expectedGeometry);
-
             Assert.AreEqual($"Bv.{index}", exportableCombinedFailureMechanismSection.Id);
             Assert.AreEqual(assemblyResult.SectionStart, exportableCombinedFailureMechanismSection.StartDistance);
             Assert.AreEqual(assemblyResult.SectionEnd, exportableCombinedFailureMechanismSection.EndDistance);
-            CollectionAssert.AreEqual(expectedGeometry, exportableCombinedFailureMechanismSection.Geometry);
+            CollectionAssert.AreEqual(FailureMechanismSectionHelper.GetFailureMechanismSectionGeometry(
+                                          referenceLine, assemblyResult.SectionStart, assemblyResult.SectionEnd),
+                                      exportableCombinedFailureMechanismSection.Geometry);
             Assert.AreEqual(ExportableAssemblyMethodConverter.ConvertTo(assemblyResult.CommonSectionAssemblyMethod),
                             exportableCombinedFailureMechanismSection.AssemblyMethod);
         }

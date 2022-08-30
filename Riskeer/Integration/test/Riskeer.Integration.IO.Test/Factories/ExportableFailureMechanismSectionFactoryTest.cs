@@ -20,9 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.Common.Data.AssessmentSection;
@@ -204,16 +201,13 @@ namespace Riskeer.Integration.IO.Test.Factories
             // Assert
             Assert.AreEqual("Bv.0", exportableSection.Id);
 
-            IEnumerable<Point2D> expectedGeometry = FailureMechanismSectionHelper.GetFailureMechanismSectionGeometry(
-                referenceLine,
-                exportableSection.StartDistance,
-                exportableSection.EndDistance).ToArray();
-            CollectionAssert.IsNotEmpty(expectedGeometry);
-
             Assert.AreEqual(assemblyResult.SectionStart, exportableSection.StartDistance);
             Assert.AreEqual(assemblyResult.SectionEnd, exportableSection.EndDistance);
-            CollectionAssert.AreEqual(expectedGeometry, exportableSection.Geometry);
-            Assert.AreEqual(ExportableAssemblyMethodConverter.ConvertTo(assemblyResult.CommonSectionAssemblyMethod), exportableSection.AssemblyMethod);
+            CollectionAssert.AreEqual(FailureMechanismSectionHelper.GetFailureMechanismSectionGeometry(
+                                          referenceLine, exportableSection.StartDistance, exportableSection.EndDistance),
+                                      exportableSection.Geometry);
+            Assert.AreEqual(ExportableAssemblyMethodConverter.ConvertTo(assemblyResult.CommonSectionAssemblyMethod),
+                            exportableSection.AssemblyMethod);
         }
 
         [Test]
