@@ -27,6 +27,7 @@ using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Assembly;
+using Riskeer.Integration.IO.Converters;
 using Riskeer.Integration.IO.Exceptions;
 using Riskeer.Integration.IO.Helpers;
 using Riskeer.Integration.IO.Properties;

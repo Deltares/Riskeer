@@ -24,7 +24,7 @@ using System.Linq;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.IO.Model;
-using Riskeer.Integration.IO.Factories;
+using Riskeer.Integration.IO.Converters;
 
 namespace Riskeer.AssemblyTool.IO.TestUtil
 {

@@ -24,7 +24,7 @@ using System.ComponentModel;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.IO.Model.Enums;
 
-namespace Riskeer.Integration.IO.Factories
+namespace Riskeer.Integration.IO.Converters
 {
     /// <summary>
     /// Converter for converting <see cref="AssemblyMethod"/> into <see cref="ExportableAssemblyMethod"/>.

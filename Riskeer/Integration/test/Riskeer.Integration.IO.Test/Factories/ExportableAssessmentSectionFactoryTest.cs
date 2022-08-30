@@ -34,6 +34,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.Data;
+using Riskeer.Integration.IO.Converters;
 using Riskeer.Integration.IO.Factories;
 using Riskeer.Integration.IO.Helpers;
 
