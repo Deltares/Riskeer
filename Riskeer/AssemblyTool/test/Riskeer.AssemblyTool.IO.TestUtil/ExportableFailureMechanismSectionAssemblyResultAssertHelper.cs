@@ -83,7 +83,8 @@ namespace Riskeer.AssemblyTool.IO.TestUtil
             Assert.AreEqual($"Fa.{i}", actualExportableAssemblyResult.Id);
             Assert.AreSame(section, actualExportableAssemblyResult.FailureMechanismSection);
             FailureMechanismSectionAssemblyResult expectedAssemblyResult = expectedAssemblyResultWrapper.AssemblyResult;
-            Assert.AreEqual(ExportableFailureMechanismSectionAssemblyGroupConverter.ConvertTo(expectedAssemblyResult.FailureMechanismSectionAssemblyGroup), actualExportableAssemblyResult.AssemblyGroup);
+            Assert.AreEqual(ExportableFailureMechanismSectionAssemblyGroupConverter.ConvertTo(expectedAssemblyResult.FailureMechanismSectionAssemblyGroup),
+                            actualExportableAssemblyResult.AssemblyGroup);
             Assert.AreEqual(expectedAssemblyResult.SectionProbability, actualExportableAssemblyResult.Probability);
             Assert.AreEqual(ExportableAssemblyMethodConverter.ConvertTo(expectedAssemblyResultWrapper.AssemblyGroupMethod),
                             actualExportableAssemblyResult.AssemblyGroupAssemblyMethod);
