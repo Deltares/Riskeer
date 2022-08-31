@@ -79,7 +79,7 @@ namespace Riskeer.Integration.IO.Test.Helpers
         }
 
         [Test]
-        public void GetUniqueId_NewPrefix_ReturnsExpectedValues()
+        public void GetUniqueId_NewPrefix_ReturnsExpectedValue()
         {
             // Given
             const string prefix = "prefix";
@@ -126,7 +126,7 @@ namespace Riskeer.Integration.IO.Test.Helpers
         }
 
         [Test]
-        public void GenerateId_WithAssessmentSection_GeneratesId()
+        public void GenerateId_WithValidArguments_GeneratesId()
         {
             // Setup
             const string prefix = "prefix";

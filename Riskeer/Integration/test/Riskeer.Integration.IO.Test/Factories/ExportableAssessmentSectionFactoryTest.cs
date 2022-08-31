@@ -99,16 +99,19 @@ namespace Riskeer.Integration.IO.Test.Factories
                 AssessmentSectionAssemblyCalculatorStub assessmentSectionCalculator = factory.LastCreatedAssessmentSectionAssemblyCalculator;
                 FailureMechanismAssemblyCalculatorStub failureMechanismCalculator = factory.LastCreatedFailureMechanismAssemblyCalculator;
 
-                AssertExportableAssessmentSection(assessmentSection, exportableAssessmentSection, assessmentSectionCalculator);
+                AssertExportableAssessmentSection(assessmentSection, assessmentSectionCalculator.AssessmentSectionAssemblyResult, exportableAssessmentSection);
                 AssertExportableFailureMechanisms(assessmentSection.GetFailureMechanisms()
                                                                    .Concat(assessmentSection.SpecificFailureMechanisms)
                                                                    .Cast<IFailureMechanism<FailureMechanismSectionResult>>(),
                                                   failureMechanismCalculator.AssemblyResultOutput,
                                                   exportableAssessmentSection.FailureMechanisms);
-                AssertExportableFailureMechanismSectionCollections(assessmentSection, exportableAssessmentSection.FailureMechanismSectionCollections);
+
+                CombinedFailureMechanismSectionAssemblyResultWrapper combinedFailureMechanismAssemblyResult = assessmentSectionCalculator.CombinedFailureMechanismSectionAssemblyOutput;
+                AssertExportableFailureMechanismSectionCollections(assessmentSection, combinedFailureMechanismAssemblyResult.AssemblyResults.Count(),
+                                                                   exportableAssessmentSection.FailureMechanismSectionCollections);
                 AssertExportableCombinedFailureMechanismSectionAssemblyOutput(
-                    assessmentSectionCalculator.CombinedFailureMechanismSectionAssemblyOutput, exportableAssessmentSection.CombinedSectionAssemblies,
-                    exportableAssessmentSection.FailureMechanisms);
+                    combinedFailureMechanismAssemblyResult, exportableAssessmentSection.FailureMechanisms,
+                    exportableAssessmentSection.CombinedSectionAssemblies);
             }
         }
 
@@ -148,14 +151,14 @@ namespace Riskeer.Integration.IO.Test.Factories
                 ExportableAssessmentSection exportableAssessmentSection = ExportableAssessmentSectionFactory.CreateExportableAssessmentSection(idGenerator, assessmentSection);
 
                 // Assert
-                AssertExportableAssessmentSection(assessmentSection, exportableAssessmentSection, assessmentSectionCalculator);
+                AssertExportableAssessmentSection(assessmentSection, assessmentSectionCalculator.AssessmentSectionAssemblyResult, exportableAssessmentSection);
 
                 CollectionAssert.IsEmpty(exportableAssessmentSection.FailureMechanisms);
                 CollectionAssert.IsEmpty(exportableAssessmentSection.FailureMechanismSectionCollections);
 
                 AssertExportableCombinedFailureMechanismSectionAssemblyOutput(
-                    assessmentSectionCalculator.CombinedFailureMechanismSectionAssemblyOutput, exportableAssessmentSection.CombinedSectionAssemblies,
-                    exportableAssessmentSection.FailureMechanisms);
+                    assessmentSectionCalculator.CombinedFailureMechanismSectionAssemblyOutput,
+                    exportableAssessmentSection.FailureMechanisms, exportableAssessmentSection.CombinedSectionAssemblies);
             }
         }
 
@@ -206,26 +209,26 @@ namespace Riskeer.Integration.IO.Test.Factories
         }
 
         private static void AssertExportableAssessmentSection(
-            IAssessmentSection assessmentSection, ExportableAssessmentSection exportableAssessmentSection,
-            AssessmentSectionAssemblyCalculatorStub calculator)
+            IAssessmentSection assessmentSection, AssessmentSectionAssemblyResultWrapper assessmentSectionAssemblyResult,
+            ExportableAssessmentSection exportableAssessmentSection)
         {
             Assert.AreEqual(assessmentSection.Name, exportableAssessmentSection.Name);
             Assert.AreEqual($"Wks.{assessmentSection.Id}", exportableAssessmentSection.Id);
             CollectionAssert.AreEqual(assessmentSection.ReferenceLine.Points, exportableAssessmentSection.Geometry);
 
-            AssessmentSectionAssemblyResultWrapper calculatorAssessmentSectionAssemblyResult = calculator.AssessmentSectionAssemblyResult;
             ExportableAssessmentSectionAssemblyResult exportableAssessmentSectionAssemblyResult = exportableAssessmentSection.AssessmentSectionAssembly;
-            Assert.AreEqual(ExportableAssemblyMethodConverter.ConvertTo(calculatorAssessmentSectionAssemblyResult.ProbabilityMethod),
+            Assert.AreEqual(ExportableAssemblyMethodConverter.ConvertTo(assessmentSectionAssemblyResult.ProbabilityMethod),
                             exportableAssessmentSectionAssemblyResult.ProbabilityAssemblyMethod);
-            Assert.AreEqual(ExportableAssemblyMethodConverter.ConvertTo(calculatorAssessmentSectionAssemblyResult.AssemblyGroupMethod),
+            Assert.AreEqual(ExportableAssemblyMethodConverter.ConvertTo(assessmentSectionAssemblyResult.AssemblyGroupMethod),
                             exportableAssessmentSectionAssemblyResult.AssemblyGroupAssemblyMethod);
-            Assert.AreEqual(ConvertAssemblyGroup(calculatorAssessmentSectionAssemblyResult.AssemblyResult.AssemblyGroup),
+            Assert.AreEqual(ConvertAssemblyGroup(assessmentSectionAssemblyResult.AssemblyResult.AssemblyGroup),
                             exportableAssessmentSectionAssemblyResult.AssemblyGroup);
-            Assert.AreEqual(calculatorAssessmentSectionAssemblyResult.AssemblyResult.Probability, exportableAssessmentSectionAssemblyResult.Probability);
+            Assert.AreEqual(assessmentSectionAssemblyResult.AssemblyResult.Probability, exportableAssessmentSectionAssemblyResult.Probability);
         }
 
         private static void AssertExportableFailureMechanismSectionCollections(
-            IAssessmentSection assessmentSection, IEnumerable<ExportableFailureMechanismSectionCollection> failureMechanismSectionCollections)
+            IAssessmentSection assessmentSection, int nrOfCombinedSectionAssemblyResults,
+            IEnumerable<ExportableFailureMechanismSectionCollection> failureMechanismSectionCollections)
         {
             IEnumerable<IFailureMechanism> failureMechanismsInAssembly = assessmentSection.GetFailureMechanisms()
                                                                                           .Concat(assessmentSection.SpecificFailureMechanisms)
@@ -244,7 +247,7 @@ namespace Riskeer.Integration.IO.Test.Factories
             ExportableFailureMechanismSectionCollection combinedFailureMechanismSectionCollection = failureMechanismSectionCollections.Last();
             IEnumerable<ExportableFailureMechanismSection> exportableCombinedFailureMechanismSections = combinedFailureMechanismSectionCollection.Sections;
             CollectionAssert.AllItemsAreInstancesOfType(exportableCombinedFailureMechanismSections, typeof(ExportableCombinedFailureMechanismSection));
-            Assert.AreEqual(1, exportableCombinedFailureMechanismSections.Count());
+            Assert.AreEqual(nrOfCombinedSectionAssemblyResults, exportableCombinedFailureMechanismSections.Count());
         }
 
         private static void AssertExportableFailureMechanisms(IEnumerable<IFailureMechanism<FailureMechanismSectionResult>> failureMechanisms,
@@ -302,8 +305,8 @@ namespace Riskeer.Integration.IO.Test.Factories
 
         private static void AssertExportableCombinedFailureMechanismSectionAssemblyOutput(
             CombinedFailureMechanismSectionAssemblyResultWrapper calculatorCombinedFailureMechanismSectionAssemblyOutput,
-            IEnumerable<ExportableCombinedSectionAssembly> exportableCombinedSectionAssemblies,
-            IEnumerable<ExportableFailureMechanism> exportableFailureMechanisms)
+            IEnumerable<ExportableFailureMechanism> exportableFailureMechanisms,
+            IEnumerable<ExportableCombinedSectionAssembly> exportableCombinedSectionAssemblies)
         {
             Assert.AreEqual(calculatorCombinedFailureMechanismSectionAssemblyOutput.AssemblyResults.Count(),
                             exportableCombinedSectionAssemblies.Count());
@@ -339,22 +342,22 @@ namespace Riskeer.Integration.IO.Test.Factories
             IEnumerable<ExportableFailureMechanismCombinedSectionAssemblyResult> exportableFailureMechanismCombinedSectionAssemblyResults,
             IEnumerable<FailureMechanismSectionAssemblyGroup> failureMechanismSectionAssemblyGroupResults)
         {
-            Assert.AreEqual(17, exportableFailureMechanismCombinedSectionAssemblyResults.Count());
+            const int expectedNrOfFailureMechanisms = 17;
+            Assert.AreEqual(expectedNrOfFailureMechanisms, exportableFailureMechanismCombinedSectionAssemblyResults.Count());
 
-            for (var i = 0; i < 17; i++)
+            for (var i = 0; i < expectedNrOfFailureMechanisms; i++)
             {
                 AssertExportableFailureMechanismCombinedSectionAssemblyResult(
                     combinedFailureMechanismSection, exportableFailureMechanisms.ElementAt(i).SectionAssemblyResults,
-                    exportableFailureMechanismCombinedSectionAssemblyResults.ElementAt(i),
-                    failureMechanismSectionAssemblyGroupResults.ElementAt(i));
+                    failureMechanismSectionAssemblyGroupResults.ElementAt(i), exportableFailureMechanismCombinedSectionAssemblyResults.ElementAt(i));
             }
         }
 
         private static void AssertExportableFailureMechanismCombinedSectionAssemblyResult(
             ExportableFailureMechanismSection combinedFailureMechanismSectionAssembly,
             IEnumerable<ExportableFailureMechanismSectionAssemblyResult> failureMechanismSectionAssemblyResults,
-            ExportableFailureMechanismCombinedSectionAssemblyResult actualExportableFailureMechanismCombinedSectionAssemblyResult,
-            FailureMechanismSectionAssemblyGroup failureMechanismSectionAssemblyGroup)
+            FailureMechanismSectionAssemblyGroup failureMechanismSectionAssemblyGroup,
+            ExportableFailureMechanismCombinedSectionAssemblyResult actualExportableFailureMechanismCombinedSectionAssemblyResult)
         {
             ExportableFailureMechanismSectionAssemblyResult associatedAssemblyResult = GetCorrespondingSectionAssemblyResultResult(
                 combinedFailureMechanismSectionAssembly, failureMechanismSectionAssemblyResults);

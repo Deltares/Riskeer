@@ -37,7 +37,7 @@ namespace Riskeer.Integration.IO.Test.Converters
             // Setup
             const FailureMechanismSectionAssemblyGroup failureMechanismSectionAssemblyGroup = (FailureMechanismSectionAssemblyGroup) 999;
 
-            // ExportableAssemblyMethodFactory
+            // Call
             void Call() => ExportableFailureMechanismSectionAssemblyGroupConverter.ConvertTo(failureMechanismSectionAssemblyGroup);
 
             // Assert
