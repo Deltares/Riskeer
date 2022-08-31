@@ -107,7 +107,7 @@ namespace Riskeer.Integration.IO.Test.Factories
                                                   exportableAssessmentSection.FailureMechanisms);
 
                 CombinedFailureMechanismSectionAssemblyResultWrapper combinedFailureMechanismAssemblyResult = assessmentSectionCalculator.CombinedFailureMechanismSectionAssemblyOutput;
-                AssertExportableFailureMechanismSectionCollections(assessmentSection, combinedFailureMechanismAssemblyResult.AssemblyResults.Count(), 
+                AssertExportableFailureMechanismSectionCollections(assessmentSection, combinedFailureMechanismAssemblyResult.AssemblyResults.Count(),
                                                                    exportableAssessmentSection.FailureMechanismSectionCollections);
                 AssertExportableCombinedFailureMechanismSectionAssemblyOutput(
                     combinedFailureMechanismAssemblyResult, exportableAssessmentSection.FailureMechanisms,
@@ -208,9 +208,9 @@ namespace Riskeer.Integration.IO.Test.Factories
             }
         }
 
-        private static void AssertExportableAssessmentSection
-        (IAssessmentSection assessmentSection, AssessmentSectionAssemblyResultWrapper assessmentSectionAssemblyResult,
-         ExportableAssessmentSection exportableAssessmentSection)
+        private static void AssertExportableAssessmentSection(
+            IAssessmentSection assessmentSection, AssessmentSectionAssemblyResultWrapper assessmentSectionAssemblyResult,
+            ExportableAssessmentSection exportableAssessmentSection)
         {
             Assert.AreEqual(assessmentSection.Name, exportableAssessmentSection.Name);
             Assert.AreEqual($"Wks.{assessmentSection.Id}", exportableAssessmentSection.Id);
