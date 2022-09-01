@@ -74,7 +74,7 @@ namespace Core.Components.BruTile.Forms.Test
                 // Assert
                 Assert.AreEqual(1, capabilities.Length);
                 WmtsCapability capability = capabilities[0];
-                Assert.AreEqual("brtachtergrondkaart(EPSG:28992)", capability.Id);
+                Assert.AreEqual("opentopoachtergrondkaart(EPSG:28992)", capability.Id);
                 Assert.AreEqual("Stub schema", capability.Title);
                 Assert.AreEqual("image/png", capability.Format);
                 Assert.AreEqual("EPSG:28992", capability.CoordinateSystem);
