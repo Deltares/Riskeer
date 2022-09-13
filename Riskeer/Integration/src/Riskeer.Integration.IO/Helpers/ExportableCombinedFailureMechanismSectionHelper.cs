@@ -32,6 +32,8 @@ namespace Riskeer.Integration.IO.Helpers
     /// </summary>
     public static class ExportableCombinedFailureMechanismSectionHelper
     {
+        private const double tolerance = 1e-6;
+
         /// <summary>
         /// Gets the matching <see cref="ExportableFailureMechanismAssemblyResult"/> that contains a section corresponding with
         /// the <paramref name="exportableCombinedFailureMechanismSection"/>.
@@ -69,7 +71,7 @@ namespace Riskeer.Integration.IO.Helpers
             {
                 ExportableFailureMechanismSectionAssemblyResult exportableSectionResult = registry.Get(sectionResult);
                 ExportableFailureMechanismSection exportableFailureMechanismSection = exportableSectionResult.FailureMechanismSection;
-                
+
                 if (IsMatchingSection(exportableFailureMechanismSection, exportableCombinedFailureMechanismSection))
                 {
                     return exportableSectionResult;
@@ -82,8 +84,8 @@ namespace Riskeer.Integration.IO.Helpers
         private static bool IsMatchingSection(ExportableFailureMechanismSection exportableFailureMechanismSection,
                                               ExportableFailureMechanismSection exportableCombinedFailureMechanismSection)
         {
-            return exportableCombinedFailureMechanismSection.StartDistance >= exportableFailureMechanismSection.StartDistance
-                   && exportableCombinedFailureMechanismSection.EndDistance <= exportableFailureMechanismSection.EndDistance;
+            return exportableCombinedFailureMechanismSection.StartDistance >= exportableFailureMechanismSection.StartDistance - tolerance
+                   && exportableCombinedFailureMechanismSection.EndDistance <= exportableFailureMechanismSection.EndDistance + tolerance;
         }
     }
 }
