@@ -50,6 +50,16 @@
     </uboi:Faalanalyse>
   </uboi:featureMember>
   <uboi:featureMember>
+    <uboi:Faalanalyse gml:id="resultaat_GABI_2">
+      <uboi:duidingsklasse>NDo</uboi:duidingsklasse>
+      <uboi:assemblagemethodeDuidingsklasse>BOI-0B-1</uboi:assemblagemethodeDuidingsklasse>
+      <uboi:assemblagemethodeFaalkans>BOI-0A-2</uboi:assemblagemethodeFaalkans>
+      <uboi:status>VOLLDG</uboi:status>
+      <uboi:analyseert xlink:href="toetsspoorGABI" />
+      <uboi:geldtVoor xlink:href="vak_GABI_1" />
+    </uboi:Faalanalyse>
+  </uboi:featureMember>
+  <uboi:featureMember>
     <uboi:SpecifiekFaalmechanisme gml:id="specifiekFaalmechanisme">
       <uboi:faalkans>0.002834</uboi:faalkans>
       <uboi:assemblagemethodeFaalkans>BOI-1A-1</uboi:assemblagemethodeFaalkans>
