@@ -201,8 +201,12 @@ namespace Riskeer.AssemblyTool.IO.Test
                 new Point2D(10.23, 10.24)
             }, 0.12, 10.23, ExportableAssemblyMethod.BOI3A1);
 
-            var failureMechanismSectionAssemblyResult = new ExportableFailureMechanismSectionAssemblyResult(
+            var failureMechanismSectionAssemblyResult1 = new ExportableFailureMechanismSectionAssemblyResult(
                 "resultaat_GABI_1", failureMechanismSection, 0.00073, ExportableFailureMechanismSectionAssemblyGroup.III,
+                ExportableAssemblyMethod.BOI0B1, ExportableAssemblyMethod.BOI0A2);
+
+            var failureMechanismSectionAssemblyResult2 = new ExportableFailureMechanismSectionAssemblyResult(
+                "resultaat_GABI_2", failureMechanismSection, double.NaN, ExportableFailureMechanismSectionAssemblyGroup.NotDominant,
                 ExportableAssemblyMethod.BOI0B1, ExportableAssemblyMethod.BOI0A2);
 
             var assessmentSection = new ExportableAssessmentSection(
@@ -231,7 +235,8 @@ namespace Riskeer.AssemblyTool.IO.Test
                     new ExportableGenericFailureMechanism("toetsspoorGABI", new ExportableFailureMechanismAssemblyResult(0.08419, ExportableAssemblyMethod.BOI1A1),
                                                           new[]
                                                           {
-                                                              failureMechanismSectionAssemblyResult
+                                                              failureMechanismSectionAssemblyResult1,
+                                                              failureMechanismSectionAssemblyResult2
                                                           }, "GABI"),
                     new ExportableSpecificFailureMechanism("specifiekFaalmechanisme", new ExportableFailureMechanismAssemblyResult(0.002834, ExportableAssemblyMethod.BOI1A1),
                                                            Enumerable.Empty<ExportableFailureMechanismSectionAssemblyResult>(), "Specifiek faalmechanisme")
@@ -243,7 +248,7 @@ namespace Riskeer.AssemblyTool.IO.Test
                                                           {
                                                               new ExportableFailureMechanismCombinedSectionAssemblyResult(
                                                                   ExportableFailureMechanismSectionAssemblyGroup.I, ExportableAssemblyMethod.BOI3B1,
-                                                                  failureMechanismSectionAssemblyResult)
+                                                                  failureMechanismSectionAssemblyResult1)
                                                           })
                 });
 

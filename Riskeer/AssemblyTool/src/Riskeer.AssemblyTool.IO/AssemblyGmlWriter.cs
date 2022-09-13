@@ -28,6 +28,7 @@ using Core.Common.Util;
 using Core.Common.Util.Enums;
 using Riskeer.AssemblyTool.IO.Helpers;
 using Riskeer.AssemblyTool.IO.Model;
+using Riskeer.AssemblyTool.IO.Model.Enums;
 using Riskeer.AssemblyTool.IO.Properties;
 using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 
@@ -231,8 +232,13 @@ namespace Riskeer.AssemblyTool.IO
 
             writer.WriteElementString(AssemblyXmlIdentifiers.FailureMechanismSectionAssemblyGroup, AssemblyXmlIdentifiers.UboiNamespace,
                                       EnumDisplayNameHelper.GetDisplayName(sectionAssemblyResult.AssemblyGroup));
-            writer.WriteElementString(AssemblyXmlIdentifiers.Probability, AssemblyXmlIdentifiers.UboiNamespace,
-                                      XmlConvert.ToString(sectionAssemblyResult.Probability));
+
+            if (sectionAssemblyResult.AssemblyGroup != ExportableFailureMechanismSectionAssemblyGroup.NotDominant)
+            {
+                writer.WriteElementString(AssemblyXmlIdentifiers.Probability, AssemblyXmlIdentifiers.UboiNamespace,
+                                          XmlConvert.ToString(sectionAssemblyResult.Probability));
+            }
+
             writer.WriteElementString(AssemblyXmlIdentifiers.FailureMechanismSectionAssemblyGroupAssemblyMethod, AssemblyXmlIdentifiers.UboiNamespace,
                                       EnumDisplayNameHelper.GetDisplayName(sectionAssemblyResult.AssemblyGroupAssemblyMethod));
             writer.WriteElementString(AssemblyXmlIdentifiers.ProbabilityAssemblyMethod, AssemblyXmlIdentifiers.UboiNamespace,
