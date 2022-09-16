@@ -32,7 +32,7 @@ namespace Riskeer.Integration.IO.Helpers
     /// </summary>
     public static class ExportableCombinedFailureMechanismSectionHelper
     {
-        private const double tolerance = 1e-6;
+        private const double tolerance = 1e-8;
 
         /// <summary>
         /// Gets the matching <see cref="ExportableFailureMechanismAssemblyResult"/> that contains a section corresponding with
