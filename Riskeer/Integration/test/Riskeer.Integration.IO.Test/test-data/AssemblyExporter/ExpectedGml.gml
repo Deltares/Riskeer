@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<uboi:Assembleren-collectie xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:imwap="http://www.aquo.nl/BOI2023/imwaproxies/v20210113" gml:id="assemblage.0" xmlns:uboi="http://www.aquo.nl/BOI2023/uitwisselmodel/v20210113">
+<uboi:Assembleren-collectie xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:imwap="http://data.aquo.nl/xsd/BOI/imwaproxies/v20220630" gml:id="assemblage.0" xmlns:uboi="http://data.aquo.nl/xsd/BOI/uitwisselmodel/v20220630">
   <uboi:featureMember>
     <imwap:Waterkeringstelsel gml:id="Wks.assessmentSectionId">
       <imwap:geometrie2D>

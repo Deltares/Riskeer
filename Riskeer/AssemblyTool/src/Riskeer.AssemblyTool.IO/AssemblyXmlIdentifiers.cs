@@ -176,7 +176,7 @@ namespace Riskeer.AssemblyTool.IO
         /// <summary>
         /// The XML namespace for IMWAP objects.
         /// </summary>
-        public const string ImwapNamespace = "http://www.aquo.nl/BOI2023/imwaproxies/v20210113";
+        public const string ImwapNamespace = "http://data.aquo.nl/xsd/BOI/imwaproxies/v20220630";
 
         /// <summary>
         /// The XML namespace identifier for UBOI objects.
@@ -186,7 +186,7 @@ namespace Riskeer.AssemblyTool.IO
         /// <summary>
         /// The XML namespace for UBOI objects.
         /// </summary>
-        public const string UboiNamespace = "http://www.aquo.nl/BOI2023/uitwisselmodel/v20210113";
+        public const string UboiNamespace = "http://data.aquo.nl/xsd/BOI/uitwisselmodel/v20220630";
 
         #endregion
 
