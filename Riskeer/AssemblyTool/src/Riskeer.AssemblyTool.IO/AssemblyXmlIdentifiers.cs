@@ -28,6 +28,16 @@ namespace Riskeer.AssemblyTool.IO
     public static class AssemblyXmlIdentifiers
     {
         /// <summary>
+        /// Identifier for a schema location.
+        /// </summary>
+        public const string SchemaLocationIdentifier = "schemaLocation";
+
+        /// <summary>
+        /// The schema location.
+        /// </summary>
+        public const string SchemaLocation = "http://data.aquo.nl/xsd/BOI/uitwisselmodel/v20220630 http://data.aquo.nl/xsd/BOI/uitwisselmodel/v20220630/BOI_Uitwisselmodel_v1_0.xsd";
+        
+        /// <summary>
         /// Identifier for an assembly collection element.
         /// </summary>
         public const string AssemblyCollection = "Assembleren-collectie";
@@ -187,6 +197,16 @@ namespace Riskeer.AssemblyTool.IO
         /// The XML namespace for UBOI objects.
         /// </summary>
         public const string UboiNamespace = "http://data.aquo.nl/xsd/BOI/uitwisselmodel/v20220630";
+
+        /// <summary>
+        /// The XML namespace identifier for XSI objects.
+        /// </summary>
+        public const string XsiNamespaceIdentifier = "xsi";
+
+        /// <summary>
+        /// The XML namespace for XSI objects.
+        /// </summary>
+        public const string XsiNamespace = "http://www.w3.org/2001/XMLSchema-instance";
 
         #endregion
 

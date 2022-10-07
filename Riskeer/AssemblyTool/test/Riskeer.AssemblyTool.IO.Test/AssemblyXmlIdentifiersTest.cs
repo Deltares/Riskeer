@@ -29,6 +29,8 @@ namespace Riskeer.AssemblyTool.IO.Test
         [Test]
         public void AssemblyXmlIdentifiers_ExpectedValues()
         {
+            Assert.AreEqual("schemaLocation", AssemblyXmlIdentifiers.SchemaLocationIdentifier);
+            Assert.AreEqual("http://data.aquo.nl/xsd/BOI/uitwisselmodel/v20220630 http://data.aquo.nl/xsd/BOI/uitwisselmodel/v20220630/BOI_Uitwisselmodel_v1_0.xsd", AssemblyXmlIdentifiers.SchemaLocation);
             Assert.AreEqual("Assembleren-collectie", AssemblyXmlIdentifiers.AssemblyCollection);
             Assert.AreEqual("Waterkeringstelsel", AssemblyXmlIdentifiers.AssessmentSection);
             Assert.AreEqual("typeWaterkeringstelsel", AssemblyXmlIdentifiers.AssessmentSectionType);
@@ -62,6 +64,8 @@ namespace Riskeer.AssemblyTool.IO.Test
             Assert.AreEqual("http://data.aquo.nl/xsd/BOI/imwaproxies/v20220630", AssemblyXmlIdentifiers.ImwapNamespace);
             Assert.AreEqual("uboi", AssemblyXmlIdentifiers.UboiNamespaceIdentifier);
             Assert.AreEqual("http://data.aquo.nl/xsd/BOI/uitwisselmodel/v20220630", AssemblyXmlIdentifiers.UboiNamespace);
+            Assert.AreEqual("xsi", AssemblyXmlIdentifiers.XsiNamespaceIdentifier);
+            Assert.AreEqual("http://www.w3.org/2001/XMLSchema-instance", AssemblyXmlIdentifiers.XsiNamespace);
 
             Assert.AreEqual("id", AssemblyXmlIdentifiers.Id);
             Assert.AreEqual("naam", AssemblyXmlIdentifiers.Name);
