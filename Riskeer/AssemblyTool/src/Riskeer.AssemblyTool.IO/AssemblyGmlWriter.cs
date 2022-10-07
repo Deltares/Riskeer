@@ -88,6 +88,8 @@ namespace Riskeer.AssemblyTool.IO
                 writer.WriteAttributeString(AssemblyXmlIdentifiers.XmlnsIdentifier, AssemblyXmlIdentifiers.XLinkNamespaceIdentifier, null, AssemblyXmlIdentifiers.XLinkNamespace);
                 writer.WriteAttributeString(AssemblyXmlIdentifiers.XmlnsIdentifier, AssemblyXmlIdentifiers.GmlNamespaceIdentifier, null, AssemblyXmlIdentifiers.GmlNamespace);
                 writer.WriteAttributeString(AssemblyXmlIdentifiers.XmlnsIdentifier, AssemblyXmlIdentifiers.ImwapNamespaceIdentifier, null, AssemblyXmlIdentifiers.ImwapNamespace);
+                writer.WriteAttributeString(AssemblyXmlIdentifiers.XmlnsIdentifier, AssemblyXmlIdentifiers.XsiNamespaceIdentifier, null, AssemblyXmlIdentifiers.XsiNamespace);
+                writer.WriteAttributeString(AssemblyXmlIdentifiers.SchemaLocationIdentifier, AssemblyXmlIdentifiers.XsiNamespace, AssemblyXmlIdentifiers.SchemaLocation);
                 writer.WriteAttributeString(AssemblyXmlIdentifiers.Id, AssemblyXmlIdentifiers.GmlNamespace, assembly.Id);
 
                 ExportableAssessmentSection assessmentSection = assembly.AssessmentSection;
