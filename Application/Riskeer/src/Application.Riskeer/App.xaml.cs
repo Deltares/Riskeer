@@ -113,7 +113,7 @@ namespace Application.Riskeer
                 SupportText = ApplicationResources.SupportText,
                 SupportWebsiteAddressUrl = "https://iplo.nl/contact/",
                 SupportPhoneNumber = "088-7970790",
-                ManualFilePath = "Gebruikershandleiding Riskeer 22.1.1.pdf",
+                ManualFilePath = "Gebruikershandleiding Riskeer 22.1.2.pdf",
                 MadeByBitmapImage = new BitmapImage(new Uri($"{PackUriHelper.UriSchemePack}://application:,,,/Resources/MadeBy.png"))
             };
 
