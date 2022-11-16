@@ -38,7 +38,7 @@ namespace Riskeer.Integration.IO.Helpers
 
         private readonly Dictionary<FailureMechanismSection, ExportableFailureMechanismSection> failureMechanismSections =
             CreateDictionary<FailureMechanismSection, ExportableFailureMechanismSection>();
-        
+
         private readonly Dictionary<FailureMechanismSectionResult, ExportableFailureMechanismSectionAssemblyResult> failureMechanismSectionResults =
             CreateDictionary<FailureMechanismSectionResult, ExportableFailureMechanismSectionAssemblyResult>();
 
@@ -81,7 +81,7 @@ namespace Riskeer.Integration.IO.Helpers
             {
                 throw new ArgumentNullException(nameof(model));
             }
-            
+
             if (exportableModel == null)
             {
                 throw new ArgumentNullException(nameof(exportableModel));
@@ -141,7 +141,7 @@ namespace Riskeer.Integration.IO.Helpers
         {
             Register(failureMechanismSections, model, exportableModel);
         }
-        
+
         /// <summary>
         /// Registers the <paramref name="model"/> with the value <paramref name="exportableModel"/>.
         /// </summary>
@@ -178,7 +178,7 @@ namespace Riskeer.Integration.IO.Helpers
         {
             return ContainsValue(failureMechanismSections, model);
         }
-        
+
         /// <summary>
         /// Checks whether a value has been registered for the given <paramref name="model"/>.
         /// </summary>
@@ -225,7 +225,7 @@ namespace Riskeer.Integration.IO.Helpers
         {
             return Get(failureMechanismSections, model);
         }
-        
+
         /// <summary>
         /// Obtains the <see cref="ExportableFailureMechanismSectionAssemblyResult"/> which was registered for the
         /// given <paramref name="model"/>.

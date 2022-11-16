@@ -132,7 +132,7 @@ namespace Riskeer.Integration.IO.Test.Helpers
             registry.Register(sectionResults[1], CreateResult(2, 3));
             registry.Register(sectionResults[2], CreateResult(3, 4));
 
-            ExportableCombinedFailureMechanismSection combinedSection = ExportableFailureMechanismSectionTestFactory.CreateExportableCombinedFailureMechanismSection(2, 3);
+            ExportableCombinedFailureMechanismSection combinedSection = ExportableFailureMechanismSectionTestFactory.CreateExportableCombinedFailureMechanismSection(2);
             yield return new TestCaseData(registry, sectionResults, combinedSection, registry.Get(sectionResults[1]))
                 .SetName("CombinedSection exact overlap with section");
 
@@ -140,7 +140,7 @@ namespace Riskeer.Integration.IO.Test.Helpers
             yield return new TestCaseData(registry, sectionResults, combinedSection, registry.Get(sectionResults[1]))
                 .SetName("CombinedSection partial overlap with section at end");
 
-            combinedSection = ExportableFailureMechanismSectionTestFactory.CreateExportableCombinedFailureMechanismSection(2.5, 3);
+            combinedSection = ExportableFailureMechanismSectionTestFactory.CreateExportableCombinedFailureMechanismSection(2.5);
             yield return new TestCaseData(registry, sectionResults, combinedSection, registry.Get(sectionResults[1]))
                 .SetName("CombinedSection partial overlap with section at start");
         }

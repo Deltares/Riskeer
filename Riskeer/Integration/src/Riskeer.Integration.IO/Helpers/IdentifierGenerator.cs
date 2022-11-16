@@ -75,12 +75,12 @@ namespace Riskeer.Integration.IO.Helpers
             {
                 throw new ArgumentException($@"'{nameof(prefix)}' is null, empty or consists of whitespace.", nameof(prefix));
             }
-            
+
             if (string.IsNullOrWhiteSpace(id))
             {
                 throw new ArgumentException($@"'{nameof(id)}' is null, empty or consists of whitespace.", nameof(id));
             }
-            
+
             return $"{prefix}.{id}";
         }
     }

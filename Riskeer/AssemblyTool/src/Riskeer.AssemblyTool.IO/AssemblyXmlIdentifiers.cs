@@ -36,7 +36,7 @@ namespace Riskeer.AssemblyTool.IO
         /// The schema location.
         /// </summary>
         public const string SchemaLocation = "http://data.aquo.nl/xsd/BOI/uitwisselmodel/v20220630 http://data.aquo.nl/xsd/BOI/uitwisselmodel/v20220630/BOI_Uitwisselmodel_v1_0.xsd";
-        
+
         /// <summary>
         /// Identifier for an assembly collection element.
         /// </summary>

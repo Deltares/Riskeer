@@ -621,22 +621,22 @@ namespace Riskeer.Common.Forms.Test.MapLayers
         private static IEnumerable<TestCaseData> GetTargetProbabilityItemShiftActions()
         {
             yield return new TestCaseData(
-                    new Action<ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>>(col =>
-                    {
-                        HydraulicBoundaryLocationCalculationsForTargetProbability itemToMove = col.First();
-                        col.Remove(itemToMove);
-                        col.Add(itemToMove);
-                    }),
-                    "{0}", "{0} (2)");
+                new Action<ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>>(col =>
+                {
+                    HydraulicBoundaryLocationCalculationsForTargetProbability itemToMove = col.First();
+                    col.Remove(itemToMove);
+                    col.Add(itemToMove);
+                }),
+                "{0}", "{0} (2)");
 
             yield return new TestCaseData(
-                    new Action<ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>>(col =>
-                    {
-                        HydraulicBoundaryLocationCalculationsForTargetProbability itemToMove = col.Last();
-                        col.Remove(itemToMove);
-                        col.Insert(0, itemToMove);
-                    }),
-                    "{0} (2)", "{0}");
+                new Action<ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>>(col =>
+                {
+                    HydraulicBoundaryLocationCalculationsForTargetProbability itemToMove = col.Last();
+                    col.Remove(itemToMove);
+                    col.Insert(0, itemToMove);
+                }),
+                "{0} (2)", "{0}");
         }
     }
 }
