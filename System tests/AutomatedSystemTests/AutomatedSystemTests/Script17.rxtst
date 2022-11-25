@@ -7,6 +7,7 @@
 			name="SelectStateFailurePathsAssembly">
 				<parameters>
 					<param
+					mask="False"
 					name="StateToSelect"
 					value="@RA">
 					</param>
@@ -177,14 +178,17 @@
 			name="ModifyContribution">
 				<parameters>
 					<param
+					mask="False"
 					name="originalValue"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="newValue"
 					value="77">
 					</param>
 					<param
+					mask="False"
 					name="rowIndex"
 					value="0">
 					</param>
@@ -227,6 +231,7 @@
 			name="SelectStateStrengthCalculations">
 				<parameters>
 					<param
+					mask="False"
 					name="StateToSelect"
 					value="@SB">
 					</param>
@@ -343,14 +348,17 @@
 			name="b)ContributionOfCalculationsToAssessmentResultsSection">
 				<parameters>
 					<param
+					mask="False"
 					name="dataScenariosView"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="nameSmartFolderReadDataLoopSections"
 					value="ReadDataLoopSections">
 					</param>
 					<param
+					mask="False"
 					name="nameSmartFolderValidateDataInResultsViewLoopSections"
 					value="ValidateDataInResultsViewLoopSections">
 					</param>
@@ -421,14 +429,17 @@
 			name="FinishConfigurationCalculations">
 				<parameters>
 					<param
+					mask="False"
 					name="nameFolderLoopCalculations"
 					value="LoopCalculationsForEachSection">
 					</param>
 					<param
+					mask="False"
 					name="nameFolderSettingsCalculationsInPropertiesPanel"
 					value="LoopSetParametersSelectedCalculationInPropertiesPanel">
 					</param>
 					<param
+					mask="False"
 					name="nameFolderSettingsCalculationsInCalculationsView"
 					value="SettingsCalculationsInCalculationsView">
 					</param>
@@ -480,30 +491,37 @@
 			reportlevel="Info;20">
 				<parameters>
 					<param
+					mask="False"
 					name="AppProcessID"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="AppPath"
 					value="..\..\..\..\..\bin\Debug\Riskeer.exe">
 					</param>
 					<param
+					mask="False"
 					name="PdfDirectoryPath"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="DeleteRanorexReport"
 					value="false">
 					</param>
 					<param
+					mask="False"
 					name="Details"
 					value="all">
 					</param>
 					<param
+					mask="False"
 					name="Xml"
 					value="Reports\style.xml">
 					</param>
 					<param
+					mask="False"
 					name="PdfName"
 					value="script17_Scenario’s_opstellen.pdf">
 					</param>
@@ -552,6 +570,7 @@
 			name="SelectStateFailurePathsAssembly">
 				<parameters>
 					<param
+					mask="False"
 					name="StateToSelect"
 					value="@RA">
 					</param>
@@ -902,6 +921,7 @@
 			name="ValidateGeneratedCalculations">
 				<parameters>
 					<param
+					mask="False"
 					name="structureCalculations"
 					value="">
 					</param>
@@ -1056,10 +1076,12 @@
 			name="ImportReferenceLine">
 				<parameters>
 					<param
+					mask="False"
 					name="stateTraject"
 					value="@TR">
 					</param>
 					<param
+					mask="False"
 					name="pathReferenceLine"
 					value="@TR>Referentielijn">
 					</param>
@@ -1238,6 +1260,7 @@
 			name="SetStateHBC">
 				<parameters>
 					<param
+					mask="False"
 					name="StateHBC"
 					value="@HyB">
 					</param>
@@ -1354,14 +1377,17 @@
 			name="RunCalculationsRequiredHBCs">
 				<parameters>
 					<param
+					mask="False"
 					name="calcMustBeChecked"
 					value="true">
 					</param>
 					<param
+					mask="False"
 					name="illPointMustBechecked"
 					value="false">
 					</param>
 					<param
+					mask="False"
 					name="pathToHBCItemInPE"
 					value="">
 					</param>
@@ -1533,18 +1559,22 @@
 			name="LoopFMs">
 				<parameters>
 					<param
+					mask="False"
 					name="lowerLimitValue"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="signallingValue"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="normType"
 					value="Signal">
 					</param>
 					<param
+					mask="False"
 					name="indexRowSection12_2_02500"
 					value="2">
 					</param>
@@ -1567,6 +1597,7 @@
 			name="ResetInformationScenariosView">
 				<parameters>
 					<param
+					mask="False"
 					name="scenariosInfoForNextFM"
 					value="">
 					</param>
@@ -1716,6 +1747,7 @@
 			name="TemporarilyChangeDefiningSchematizationItem">
 				<parameters>
 					<param
+					mask="False"
 					name="definingSchematizationItemType"
 					value="DropDown">
 					</param>
@@ -1732,23 +1764,34 @@
 			name="SetNewValue">
 			</smartfoldernode>
 			<testsuite
+			ExportColumnList="None"
 			ReportTime="RelativeToTestSuiteStartTime"
+			SelectedActions="All"
 			TracingScreenshotMode="Foreground"
 			TracingScreenshotQuality="40"
 			VideoBitrate="2000"
 			VideoFps="15"
 			VideoRecordingMode="KeepAllTests"
 			VideoSource="Auto"
+			createindividualreportpdfchecked="False"
+			createsinglereportpdfchecked="True"
+			enableCSVReport="False"
 			enabletracingscreenshots="True"
+			exportAllColummns="True"
 			id="a59e818e-0bec-4264-a741-1252f409412e"
+			includeimageschecked="False"
+			includerecordingschecked="False"
 			junitreport="False"
 			name="Script17"
+			overwritefilechecked="False"
 			reportcompress="False"
+			reportdescription=""
 			reportdirectoryname="Reports"
 			reportenabled="True"
 			reportfilename="%S_%Y%M%D_%T.rxlog"
 			reporttemplatefolder="ReportDeltaresStyle"
-			reportwriteinterval="30000ms">
+			reportwriteinterval="30000ms"
+			singlereportpdfdirectory="SingleReportPDF">
 			</testsuite>
 			<testmodule
 			id="a7794f8f-3262-4329-8493-84edb24e1c9c"
@@ -1825,10 +1868,12 @@
 			name="SaveProject_b)">
 				<parameters>
 					<param
+					mask="False"
 					name="beginningFileNameToSave"
 					value="script17b">
 					</param>
 					<param
+					mask="False"
 					name="fileNameToSave"
 					value="">
 					</param>
@@ -1967,6 +2012,7 @@
 			name="ConfigureCalculations">
 				<parameters>
 					<param
+					mask="False"
 					name="nameFolderConfigurationCalculationsLoopItems"
 					value="ConfigurationCalculationsLoopSections">
 					</param>
@@ -2209,10 +2255,12 @@
 			name="SaveProject_a)">
 				<parameters>
 					<param
+					mask="False"
 					name="beginningFileNameToSave"
 					value="script17a">
 					</param>
 					<param
+					mask="False"
 					name="fileNameToSave"
 					value="">
 					</param>
@@ -2332,34 +2380,42 @@
 			name="script17_Scenario’s_opstellen">
 				<parameters>
 					<param
+					mask="False"
 					name="scriptOutputFolder"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="caseNumber"
 					value="17">
 					</param>
 					<param
+					mask="False"
 					name="trajectAssessmentInformation"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="categoryBoundariesTraject"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="dummyString"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="extensionProjectFiles"
 					value=".risk">
 					</param>
 					<param
+					mask="False"
 					name="underscoreCharacter"
 					value="_">
 					</param>
 					<param
+					mask="False"
 					name="pathSeparatorCharacter"
 					value=">">
 					</param>
@@ -6102,7 +6158,7 @@
 			Ranorex Automation Helpers.dll
 		</reference>
 		<reference>
-			Ranorex.ReportToPDF.exe
+			Ranorex.ReportToPDF, Version=1.0.17.0, Culture=neutral, PublicKeyToken=null
 		</reference>
 	</references>
 </testsuitedoc>

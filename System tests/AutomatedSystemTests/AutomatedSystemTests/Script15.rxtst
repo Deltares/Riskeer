@@ -85,50 +85,62 @@
 			name="script15_CalculationHydraulicBoundaryConditions">
 				<parameters>
 					<param
+					mask="False"
 					name="caseNumber"
 					value="15">
 					</param>
 					<param
+					mask="False"
 					name="scriptOutputFolder"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="migrationSourceFolder"
 					value="X:\script15\previousRelease">
 					</param>
 					<param
+					mask="False"
 					name="migrationTargetFolder"
 					value="X:\script15\currentRelease">
 					</param>
 					<param
+					mask="False"
 					name="filterRiskeerProjects"
 					value="*.risk">
 					</param>
 					<param
+					mask="False"
 					name="dummyString"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="separatorCharInPath"
 					value=">">
 					</param>
 					<param
+					mask="False"
 					name="separatorCharInFileName"
 					value="_">
 					</param>
 					<param
+					mask="False"
 					name="spaceChar"
 					value=" ">
 					</param>
 					<param
+					mask="False"
 					name="extensionCSVFile"
 					value=".csv">
 					</param>
 					<param
+					mask="False"
 					name="separatorCSVFile"
 					value=";">
 					</param>
 					<param
+					mask="False"
 					name="fractionLineChar"
 					value="/">
 					</param>
@@ -139,6 +151,7 @@
 			name="SelectRowGEBU">
 				<parameters>
 					<param
+					mask="False"
 					name="nameOfAlphasGropuToExpand"
 					value="Invloedscoëfficiënten [-]">
 					</param>
@@ -235,6 +248,7 @@
 			name="OpenProject">
 				<parameters>
 					<param
+					mask="False"
 					name="fielNameToOpen"
 					value="Project_15a_15b_15c_zonder_resultaten.risk">
 					</param>
@@ -303,6 +317,7 @@
 			name="SaveProject">
 				<parameters>
 					<param
+					mask="False"
 					name="fileNameToSave"
 					value="script15abc.risk">
 					</param>
@@ -313,6 +328,7 @@
 			name="GenerateCSVPropertiesPanel">
 				<parameters>
 					<param
+					mask="False"
 					name="number OfIterationsExpand"
 					value="2">
 					</param>
@@ -482,6 +498,7 @@
 			name="SelectStateHBC">
 				<parameters>
 					<param
+					mask="False"
 					name="stateWithCalculations"
 					value="@HyB">
 					</param>
@@ -578,6 +595,7 @@
 			name="SetRangeForInputInspection">
 				<parameters>
 					<param
+					mask="False"
 					name="nameOfFolderToSetRange"
 					value="ValidateNoCalculationHasResults">
 					</param>
@@ -719,6 +737,7 @@
 			name="ValidateNoCalculationHasResults">
 				<parameters>
 					<param
+					mask="False"
 					name="nameItemResultsInPropertiesPanel"
 					value="Resultaat">
 					</param>
@@ -848,14 +867,17 @@
 			name="AddFailureProbabilityItems">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToFailureProbabilityInPropPanel"
 					value="Algemeen>Doelkans">
 					</param>
 					<param
+					mask="False"
 					name="typeVauleFailureProbability"
 					value="Text">
 					</param>
 					<param
+					mask="False"
 					name="optionToSelectInContextMenu"
 					value="Doelkans toevoegen">
 					</param>
@@ -866,6 +888,7 @@
 			name="d)CalculationHydraulicBoundaryConditionsForClimateScenario">
 				<parameters>
 					<param
+					mask="False"
 					name="indexFMToCarryOutSeparateCalculation"
 					value="">
 					</param>
@@ -1032,18 +1055,22 @@
 			name="OpenDocumentViewForHydraulicBCItem">
 				<parameters>
 					<param
+					mask="False"
 					name="FullPathToHBCItemInPEWithCurrentCulture"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="StepInPathContainingTargetProbability"
 					value="4">
 					</param>
 					<param
+					mask="False"
 					name="TargetProbabilityInvariantCulture"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="TargetProbabilityCurrentCulture"
 					value="">
 					</param>
@@ -1098,6 +1125,7 @@
 			name="SetRangeForInputInspection">
 				<parameters>
 					<param
+					mask="False"
 					name="nameOfFolderToSetRange"
 					value="InspectInputOfSomeCalculations">
 					</param>
@@ -1289,10 +1317,12 @@
 			name="ValidateResultInDocumentViewHasBeenDeleted">
 				<parameters>
 					<param
+					mask="False"
 					name="rowIndexFirstElement"
 					value="0">
 					</param>
 					<param
+					mask="False"
 					name="expectedValueForDeletedResult"
 					value="-">
 					</param>
@@ -1491,6 +1521,7 @@
 			name="SetRangeForCurrentFP">
 				<parameters>
 					<param
+					mask="False"
 					name="nameOfFolderToSetRange"
 					value="HydraulicBoundaryConditionCases">
 					</param>
@@ -1501,10 +1532,12 @@
 			name="CarryOutCalculations">
 				<parameters>
 					<param
+					mask="False"
 					name="calculationIndexToStopAt"
 					value="2 van">
 					</param>
 					<param
+					mask="False"
 					name="maximumCalculationTime"
 					value="1800000">
 					</param>
@@ -1571,6 +1604,7 @@
 			name="ChangeHBCScenarioInformation">
 				<parameters>
 					<param
+					mask="False"
 					name="nameParameterHBCScenarioInformationInPropertiesPanel"
 					value="HLCD bestandslocatie">
 					</param>
@@ -1632,6 +1666,7 @@
 			name="InspectInputOfSomeCalculations">
 				<parameters>
 					<param
+					mask="False"
 					name="nameDamInPP"
 					value="Dam">
 					</param>
@@ -1642,14 +1677,17 @@
 			name="ValidateProperties">
 				<parameters>
 					<param
+					mask="False"
 					name="FullPathReferenceFile"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="RootPathReferenceFile"
 					value="X:\script15\reference\">
 					</param>
 					<param
+					mask="False"
 					name="fullPathCreatedCSVFile"
 					value="">
 					</param>
@@ -1692,10 +1730,12 @@
 			name="CarryOutCalculations">
 				<parameters>
 					<param
+					mask="False"
 					name="calculationIndexToStopAt"
 					value="2 van">
 					</param>
 					<param
+					mask="False"
 					name="maximumCalculationTime"
 					value="1800000">
 					</param>
@@ -1840,10 +1880,12 @@
 			name="ValidateResultsHaveBeenObtained">
 				<parameters>
 					<param
+					mask="False"
 					name="fullPathToResults"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="nameOfResultsInPropertiesPanel"
 					value="Resultaat">
 					</param>
@@ -1952,23 +1994,34 @@
 			type="Recording">
 			</testmodule>
 			<testsuite
+			ExportColumnList="None"
 			ReportTime="RelativeToTestSuiteStartTime"
+			SelectedActions="All"
 			TracingScreenshotMode="Foreground"
 			TracingScreenshotQuality="40"
 			VideoBitrate="2000"
 			VideoFps="15"
 			VideoRecordingMode="KeepAllTests"
 			VideoSource="Auto"
+			createindividualreportpdfchecked="False"
+			createsinglereportpdfchecked="True"
+			enableCSVReport="False"
 			enabletracingscreenshots="True"
+			exportAllColummns="True"
 			id="7cd036a5-c765-4f18-8c86-76cf86c45caa"
+			includeimageschecked="False"
+			includerecordingschecked="False"
 			junitreport="False"
 			name="Script15"
+			overwritefilechecked="False"
 			reportcompress="False"
+			reportdescription=""
 			reportdirectoryname="Reports"
 			reportenabled="True"
 			reportfilename="%S_%Y%M%D_%T.rxlog"
 			reporttemplatefolder="ReportDeltaresStyle"
-			reportwriteinterval="30000ms">
+			reportwriteinterval="30000ms"
+			singlereportpdfdirectory="SingleReportPDF">
 			</testsuite>
 			<smartfoldernode
 			id="813f9d5e-3122-4eff-9467-87cf8a5491b8"
@@ -2007,18 +2060,22 @@
 			name="OpenDocumentViewForHydraulicBCItem">
 				<parameters>
 					<param
+					mask="False"
 					name="TargetProbabilityCurrentCulture"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="TargetProbabilityInvariantCulture"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="StepInPathContainingTargetProbability"
 					value="4">
 					</param>
 					<param
+					mask="False"
 					name="FullPathToHBCItemInPEWithCurrentCulture"
 					value="">
 					</param>
@@ -2039,6 +2096,7 @@
 			name="LoopSeparateCalculationsAfterChangeClimateScenario">
 				<parameters>
 					<param
+					mask="False"
 					name="fullPathToSeparateCalculation"
 					value="">
 					</param>
@@ -2049,10 +2107,12 @@
 			name="ValidateResultsHaveBeenObtained">
 				<parameters>
 					<param
+					mask="False"
 					name="fullPathToResults"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="nameOfResultsInPropertiesPanel"
 					value="Resultaat">
 					</param>
@@ -2067,26 +2127,32 @@
 			name="LoopFMs">
 				<parameters>
 					<param
+					mask="False"
 					name="progressToStopAt"
 					value="2 van">
 					</param>
 					<param
+					mask="False"
 					name="fullPathToCalculationItem"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediatePath"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediatePath2"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="relativePathToInputItemFromCalculation"
 					value=">Invoer">
 					</param>
 					<param
+					mask="False"
 					name="relativePathToResultsItemFromCalculation"
 					value=">Resultaat">
 					</param>
@@ -2610,6 +2676,7 @@
 			name="LoopSeparateCalculationsBeforeChangeClimateScenario">
 				<parameters>
 					<param
+					mask="False"
 					name="fullPathToSeparateCalculation"
 					value="">
 					</param>
@@ -2632,6 +2699,7 @@
 			name="CalculateFullPathReferenceFile">
 				<parameters>
 					<param
+					mask="False"
 					name="pathNoIllegalChars"
 					value="">
 					</param>
@@ -2665,6 +2733,7 @@
 			name="SelectStateHBC">
 				<parameters>
 					<param
+					mask="False"
 					name="stateWithCalculations"
 					value="@HyB">
 					</param>
@@ -2702,30 +2771,37 @@
 			reportlevel="Info;20">
 				<parameters>
 					<param
+					mask="False"
 					name="AppProcessID"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="AppPath"
 					value="..\..\..\..\..\bin\Debug\Riskeer.exe">
 					</param>
 					<param
+					mask="False"
 					name="PdfDirectoryPath"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="DeleteRanorexReport"
 					value="false">
 					</param>
 					<param
+					mask="False"
 					name="Details"
 					value="all">
 					</param>
 					<param
+					mask="False"
 					name="Xml"
 					value="Reports\style.xml">
 					</param>
 					<param
+					mask="False"
 					name="PdfName"
 					value="script15_CalculationHydraulicBoundaryConditions.pdf">
 					</param>
@@ -2802,14 +2878,17 @@
 			name="SelectLocationForCalculation">
 				<parameters>
 					<param
+					mask="False"
 					name="rowIndex"
 					value="0">
 					</param>
 					<param
+					mask="False"
 					name="checkedCalculate"
 					value="true">
 					</param>
 					<param
+					mask="False"
 					name="checkedReadIllustrationPoints"
 					value="false">
 					</param>
@@ -2891,22 +2970,27 @@
 			name="ValidateDetailedResultsInSingleCalculation">
 				<parameters>
 					<param
+					mask="False"
 					name="pathWaterLevelInPPanel"
 					value="Hydraulische belastingen>[1]>Waterstand">
 					</param>
 					<param
+					mask="False"
 					name="pathWaveHeightInPPanel"
 					value="Hydraulische belastingen>[1]>Golfhoogte">
 					</param>
 					<param
+					mask="False"
 					name="pathWavePeriodInPPanel"
 					value="Hydraulische belastingen>[1]>Golfperiode">
 					</param>
 					<param
+					mask="False"
 					name="pathWaveDirectionWRTNorthInPPanel"
 					value="Hydraulische belastingen>[1]>Noord">
 					</param>
 					<param
+					mask="False"
 					name="pathWaveDirectionWRTNormalInPPanel"
 					value="Hydraulische belastingen>[1]>dijknormaal">
 					</param>
@@ -2959,18 +3043,22 @@
 			name="SelectHBItem">
 				<parameters>
 					<param
+					mask="False"
 					name="StepInPathContainingTargetProbability"
 					value="4">
 					</param>
 					<param
+					mask="False"
 					name="TargetProbabilityInvariantCulture"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="TargetProbabilityCurrentCulture"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="FullPathToHBCItemInPEWithCurrentCulture"
 					value="">
 					</param>
@@ -3227,6 +3315,7 @@
 			name="SetRangeAddFailureProbs">
 				<parameters>
 					<param
+					mask="False"
 					name="nameOfFolderToSetRange"
 					value="AddFailureProbabilityItems">
 					</param>
@@ -3511,14 +3600,17 @@
 			name="ValidateAllResultsUsingCSVExportedFile">
 				<parameters>
 					<param
+					mask="False"
 					name="rootFileNameExportCSV"
 					value="currentResults">
 					</param>
 					<param
+					mask="False"
 					name="rootPathForReferenceCSVFile"
 					value="X:\script15\External">
 					</param>
 					<param
+					mask="False"
 					name="fullPathCSVFileCurrentResults"
 					value="">
 					</param>
@@ -3894,14 +3986,17 @@
 			name="CalculateActualPropertiesCSVFileNameClimateScenario">
 				<parameters>
 					<param
+					mask="False"
 					name="intermediateString"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString2"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="suffixClimateScenario"
 					value="_ClimateScenario">
 					</param>
@@ -4206,6 +4301,7 @@
 			name="OpenProject">
 				<parameters>
 					<param
+					mask="False"
 					name="fielNameToOpen"
 					value="Project_15a_15b_15c_zonder_resultaten.risk">
 					</param>
@@ -4234,18 +4330,22 @@
 			name="SelectHBItem">
 				<parameters>
 					<param
+					mask="False"
 					name="StepInPathContainingTargetProbability"
 					value="4">
 					</param>
 					<param
+					mask="False"
 					name="TargetProbabilityInvariantCulture"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="TargetProbabilityCurrentCulture"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="FullPathToHBCItemInPEWithCurrentCulture"
 					value="">
 					</param>
@@ -4550,6 +4650,7 @@
 			name="SelectStateHBC">
 				<parameters>
 					<param
+					mask="False"
 					name="stateName"
 					value="@HyB">
 					</param>
@@ -4874,22 +4975,27 @@
 			name="HydraulicBoundaryConditionCases">
 				<parameters>
 					<param
+					mask="False"
 					name="trajectSubstring"
 					value="6-6">
 					</param>
 					<param
+					mask="False"
 					name="rowCalculationToValidate"
 					value="0">
 					</param>
 					<param
+					mask="False"
 					name="expectedValueIfNotRun"
 					value="-">
 					</param>
 					<param
+					mask="False"
 					name="stringForValueIsExpectedToBePresent"
 					value="true">
 					</param>
 					<param
+					mask="False"
 					name="stringForValueIsNotExpectedToBePresent"
 					value="false">
 					</param>
@@ -4905,10 +5011,12 @@
 			name="ValidateResultsHaveBeenErased">
 				<parameters>
 					<param
+					mask="False"
 					name="fullPathToResults"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="nameOfResultsInPropertiesPanel"
 					value="Resultaat">
 					</param>
@@ -4982,6 +5090,7 @@
 			name="ValidateDetailedResults">
 				<parameters>
 					<param
+					mask="False"
 					name="nameFolderLoopValidationDoubleValuesInPropertiesPanel"
 					value="ValidateResultsDoubleValuesInPropertiesPanel">
 					</param>
@@ -7741,7 +7850,7 @@
 			Ranorex Automation Helpers.dll
 		</reference>
 		<reference>
-			Ranorex.ReportToPDF.exe
+			Ranorex.ReportToPDF, Version=1.0.17.0, Culture=neutral, PublicKeyToken=null
 		</reference>
 	</references>
 </testsuitedoc>

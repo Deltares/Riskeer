@@ -83,6 +83,7 @@
 			name="OpenCategoriesView">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToCategoriesItemInPE"
 					value="Traject>Duidingsklassen">
 					</param>
@@ -187,34 +188,42 @@
 			name="Validate_FormulaType1_(STPH,STBI)">
 				<parameters>
 					<param
+					mask="False"
 					name="a"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="b"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="Ltraject"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="NCalculated"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="a_param_nameInPropertiespanel"
 					value="Lengte-effect>a [-]">
 					</param>
 					<param
+					mask="False"
 					name="b_param_nameInPropertiespanel"
 					value="Lengte-effect>b [m]">
 					</param>
 					<param
+					mask="False"
 					name="lengte_param_nameInPropertiespanel"
 					value="Lengte-effect>Lengte* [m]">
 					</param>
 					<param
+					mask="False"
 					name="Nformula_param_nameInPropertiespanel"
 					value="Lengte-effect>N* [-]">
 					</param>
@@ -332,10 +341,12 @@
 			name="AddDunesToAssembly">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToDA"
 					value="@TR>@GF>@DA">
 					</param>
 					<param
+					mask="False"
 					name="optionInAssembly"
 					value="In assemblage">
 					</param>
@@ -471,26 +482,32 @@
 			name="ValidationParameter_DeltaL">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToParameterInPP"
 					value="Lengte-effect>ΔL [m]">
 					</param>
 					<param
+					mask="False"
 					name="originalValueParameter"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="typeParameter"
 					value="Double">
 					</param>
 					<param
+					mask="False"
 					name="finalValueParameter"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="finalValueN"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathToNInPP"
 					value="Lengte-effect>N* [-]">
 					</param>
@@ -613,23 +630,34 @@
 			name="SelectFM">
 			</smartfoldernode>
 			<testsuite
+			ExportColumnList="None"
 			ReportTime="RelativeToTestSuiteStartTime"
+			SelectedActions="All"
 			TracingScreenshotMode="Foreground"
 			TracingScreenshotQuality="40"
 			VideoBitrate="2000"
 			VideoFps="15"
 			VideoRecordingMode="KeepAllTests"
 			VideoSource="Auto"
+			createindividualreportpdfchecked="False"
+			createsinglereportpdfchecked="True"
+			enableCSVReport="False"
 			enabletracingscreenshots="True"
+			exportAllColummns="True"
 			id="3c169ef6-7920-4359-9d1c-309e213b5716"
+			includeimageschecked="False"
+			includerecordingschecked="False"
 			junitreport="False"
 			name="Script08"
+			overwritefilechecked="False"
 			reportcompress="False"
+			reportdescription=""
 			reportdirectoryname="Reports"
 			reportenabled="True"
 			reportfilename="%S_%Y%M%D_%T.rxlog"
 			reporttemplatefolder="ReportDeltaresStyle"
-			reportwriteinterval="30000ms">
+			reportwriteinterval="30000ms"
+			singlereportpdfdirectory="SingleReportPDF">
 			</testsuite>
 			<testmodule
 			id="3d021975-d6bc-46bf-995f-f46e43c5f222"
@@ -727,26 +755,32 @@
 			name="ValidationParameter_a">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToParameterInPP"
 					value="Lengte-effect>a [-]">
 					</param>
 					<param
+					mask="False"
 					name="originalValueParameter"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="typeParameter"
 					value="Double">
 					</param>
 					<param
+					mask="False"
 					name="finalValueParameter"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="finalValueN"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathToNInPP"
 					value="Lengte-effect>N* [-]">
 					</param>
@@ -816,30 +850,37 @@
 			name="Validate_FormulaType2_(AGK)">
 				<parameters>
 					<param
+					mask="False"
 					name="lengthValue"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="deltaLValue"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="NAsteriskValue"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="lengthNameInPropertiesPanel"
 					value="Lengte-effect>Lengte* [m]">
 					</param>
 					<param
+					mask="False"
 					name="deltaLNameInPropertiesPanel"
 					value="Lengte-effect>ΔL [m]">
 					</param>
 					<param
+					mask="False"
 					name="NAsteriskNameInPropertiesPanel"
 					value="Lengte-effect>N* [-]">
 					</param>
 					<param
+					mask="False"
 					name="pathToFM"
 					value="@TR>@GF>@AGK">
 					</param>
@@ -878,30 +919,37 @@
 			name="script08_Duidingsklassen_en_lengte-effect_parameters">
 				<parameters>
 					<param
+					mask="False"
 					name="caseNumber"
 					value="08">
 					</param>
 					<param
+					mask="False"
 					name="scriptOutputFolder"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="randomlyChosenTrajectToAdd"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="hardCodedTrajectToAdd"
 					value="12-2">
 					</param>
 					<param
+					mask="False"
 					name="signallingValue"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="lowLimitValue"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="normType"
 					value="Signal">
 					</param>
@@ -974,26 +1022,32 @@
 			name="ValidationParameter_2NA">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToParameterInPP"
 					value="Lengte-effect>2NA [-]">
 					</param>
 					<param
+					mask="False"
 					name="originalValueParameter"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="typeParameter"
 					value="Double">
 					</param>
 					<param
+					mask="False"
 					name="finalValueParameter"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="finalValueN"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathToNInPP"
 					value="Lengte-effect>N* [-]">
 					</param>
@@ -1036,14 +1090,17 @@
 			name="ChangeNormToRandomValues">
 				<parameters>
 					<param
+					mask="False"
 					name="substringNameItemInTraject"
 					value="Normen">
 					</param>
 					<param
+					mask="False"
 					name="nameOfSignallingValueInPropertiesPanel"
 					value="Signaleringsparameter [1/jaar]">
 					</param>
 					<param
+					mask="False"
 					name="nameOfLowerLimitValueInPropertiesPanel"
 					value="Omgevingswaarde [1/jaar]">
 					</param>
@@ -1308,14 +1365,17 @@
 			name="LengthEffects(trajectType=Dijk/Duin)">
 				<parameters>
 					<param
+					mask="False"
 					name="trajectLengthValue"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathToRefLineInPE"
 					value="Traject>Referentielijn">
 					</param>
 					<param
+					mask="False"
 					name="pathToLengthInPropPanel"
 					value="Algemeen>Lengte">
 					</param>
@@ -1326,10 +1386,12 @@
 			name="ReadTrajectLength">
 				<parameters>
 					<param
+					mask="False"
 					name="nameItemReferenceLineInProjectExplorer"
 					value="Referentielijn">
 					</param>
 					<param
+					mask="False"
 					name="nameLengthParameterInPropertiesPanel"
 					value="Lengte* [m]">
 					</param>
@@ -1442,6 +1504,7 @@
 			name="SelectStateTraject">
 				<parameters>
 					<param
+					mask="False"
 					name="stateName"
 					value="@TR">
 					</param>
@@ -1613,6 +1676,7 @@
 			name="SelectStateRegistrationAssembly">
 				<parameters>
 					<param
+					mask="False"
 					name="stateWithCalculations"
 					value="@RA">
 					</param>
@@ -1691,6 +1755,7 @@
 			name="a)Determine_Categories_Failure_Prob_per_Section">
 				<parameters>
 					<param
+					mask="False"
 					name="normOfTraject"
 					value="">
 					</param>
@@ -1752,30 +1817,37 @@
 			name="Validate_FormulaType3_(BSKW)">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToFM"
 					value="@TR>@GF>@BSKW">
 					</param>
 					<param
+					mask="False"
 					name="cParameterValue"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="twoNAParameterValue"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="NAsteriskValue"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathinPP_c"
 					value="Lengte-effect>C [-]">
 					</param>
 					<param
+					mask="False"
 					name="pathinPP_2NA"
 					value="Lengte-effect>2NA [-]">
 					</param>
 					<param
+					mask="False"
 					name="pathinPP_NAsterisk"
 					value="Lengte-effect>N* [-]">
 					</param>
@@ -1800,6 +1872,7 @@
 			name="SelectStateRegistryAssembly">
 				<parameters>
 					<param
+					mask="False"
 					name="stateName"
 					value="@RA">
 					</param>
@@ -1922,6 +1995,7 @@
 			name="SelectStateRegistrationAssembly">
 				<parameters>
 					<param
+					mask="False"
 					name="stateWithCalculations"
 					value="@RA">
 					</param>
@@ -1985,30 +2059,37 @@
 			reportlevel="Info;20">
 				<parameters>
 					<param
+					mask="False"
 					name="AppProcessID"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="AppPath"
 					value="..\..\..\..\..\bin\Debug\Riskeer.exe">
 					</param>
 					<param
+					mask="False"
 					name="PdfDirectoryPath"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="DeleteRanorexReport"
 					value="false">
 					</param>
 					<param
+					mask="False"
 					name="Details"
 					value="all">
 					</param>
 					<param
+					mask="False"
 					name="Xml"
 					value="Reports\style.xml">
 					</param>
 					<param
+					mask="False"
 					name="PdfName"
 					value="script08_Duidingsklassen_en_lengte-effect_parameters.pdf">
 					</param>
@@ -2132,10 +2213,12 @@
 			name="AddSpecificFailureMechanism">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToSpecificFMs"
 					value="@TR>@SF">
 					</param>
 					<param
+					mask="False"
 					name="optionAddNewSpecificFM"
 					value="Faalmechanisme toevoegen">
 					</param>
@@ -2171,10 +2254,12 @@
 			name="ValidateCategoriesBoundaries">
 				<parameters>
 					<param
+					mask="False"
 					name="numberOfPassesExpandingRows"
 					value="3">
 					</param>
 					<param
+					mask="False"
 					name="expectedCategoriesBoundaries"
 					value="">
 					</param>
@@ -2274,6 +2359,7 @@
 			name="SelectStateTraject">
 				<parameters>
 					<param
+					mask="False"
 					name="stateWithCalculations"
 					value="@TR">
 					</param>
@@ -2395,10 +2481,12 @@
 			name="ValidateCategoriesBoundaries">
 				<parameters>
 					<param
+					mask="False"
 					name="numberOfPassesExpandingRows"
 					value="3">
 					</param>
 					<param
+					mask="False"
 					name="expectedCategoriesBoundaries"
 					value="">
 					</param>
@@ -2458,6 +2546,7 @@
 			name="OpenCategoriesView">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToCategoriesItemInPE"
 					value="Traject>Duidingsklassen">
 					</param>
@@ -2517,10 +2606,12 @@
 			name="LoopAlongFMsWithGenericN">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToNInPP"
 					value="Lengte-effect>N [-]">
 					</param>
 					<param
+					mask="False"
 					name="valueTypeN"
 					value="Double">
 					</param>
@@ -2572,10 +2663,12 @@
 			name="CompareTrajectLengthInFMs">
 				<parameters>
 					<param
+					mask="False"
 					name="nameOfLengthParameterToValidate"
 					value="Lengte* [m]">
 					</param>
 					<param
+					mask="False"
 					name="valueLengthInFM"
 					value="">
 					</param>
@@ -3566,7 +3659,7 @@
 			Ranorex Automation Helpers.dll
 		</reference>
 		<reference>
-			Ranorex.ReportToPDF.exe
+			Ranorex.ReportToPDF, Version=1.0.17.0, Culture=neutral, PublicKeyToken=null
 		</reference>
 	</references>
 </testsuitedoc>

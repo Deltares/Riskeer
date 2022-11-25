@@ -31,10 +31,12 @@
 			name="LoopChartsRemovedItems">
 				<parameters>
 					<param
+					mask="False"
 					name="messageToLogForScreenshotChartCalculation"
 					value="Original chart for calculation: ">
 					</param>
 					<param
+					mask="False"
 					name="nameInputFolder"
 					value="Invoer">
 					</param>
@@ -69,6 +71,7 @@
 			name="ValidateCSVEqualToModifiedReference">
 				<parameters>
 					<param
+					mask="False"
 					name="fullPathReferenceCSVFile"
 					value="">
 					</param>
@@ -295,10 +298,12 @@
 			name="AddNewTrajectNotAppropriateForSchematization">
 				<parameters>
 					<param
+					mask="False"
 					name="signalValue"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="lowValue"
 					value="">
 					</param>
@@ -340,6 +345,7 @@
 			name="CopyFilesModifiedElements">
 				<parameters>
 					<param
+					mask="False"
 					name="waitTimeInMiliseconds"
 					value="1000">
 					</param>
@@ -935,6 +941,7 @@
 			name="SetRangeLoopSchematizations">
 				<parameters>
 					<param
+					mask="False"
 					name="nameLoopToSetRange"
 					value="LoopSchematizationsRemovedItems">
 					</param>
@@ -953,38 +960,47 @@
 			name="LoopSchematizations">
 				<parameters>
 					<param
+					mask="False"
 					name="numberOfPassesExpandingRows"
 					value="3">
 					</param>
 					<param
+					mask="False"
 					name="waitTime"
 					value="1">
 					</param>
 					<param
+					mask="False"
 					name="separationCharacterCsvFile"
 					value=";">
 					</param>
 					<param
+					mask="False"
 					name="csvFileName"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="fullPathToOutputCsvFile"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediatePathToschematizationItem"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathToSchematizationItem"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathSeparator"
 					value=">">
 					</param>
 					<param
+					mask="False"
 					name="startPathReferenceCSV"
 					value="X:\script09\reference\original\">
 					</param>
@@ -1111,10 +1127,12 @@
 			name="AssignProfile(ZST,AGK,GEBU)">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToProfileItemInPropertiesPanel"
 					value="Schematisatie>Voorlandprofiel">
 					</param>
 					<param
+					mask="False"
 					name="profileToSelect"
 					value="profiel1">
 					</param>
@@ -1269,10 +1287,12 @@
 			name="GenerateCalculations(GEKB,ZST,AGK,GEBU)">
 				<parameters>
 					<param
+					mask="False"
 					name="index"
 					value="0">
 					</param>
 					<param
+					mask="False"
 					name="messageToLog"
 					value="Screenshot after importing surface lines and subsurface stochastic schematizations, and generating calculations">
 					</param>
@@ -1402,18 +1422,22 @@
 			name="LoopFMs">
 				<parameters>
 					<param
+					mask="False"
 					name="pathInputFiles"
 					value="X:\script09\source\">
 					</param>
 					<param
+					mask="False"
 					name="searchFilterAllFiles"
 					value="*.*">
 					</param>
 					<param
+					mask="False"
 					name="pathSchematizationsToImport"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathToFM"
 					value="">
 					</param>
@@ -1425,6 +1449,7 @@
 			name="ValidateCSVEqualToOriginalReference">
 				<parameters>
 					<param
+					mask="False"
 					name="fullPathReferenceCSVFile"
 					value="">
 					</param>
@@ -1469,6 +1494,7 @@
 			name="SetRangeLoopSchematizations">
 				<parameters>
 					<param
+					mask="False"
 					name="nameLoopToSetRange"
 					value="LoopSchematizationsRemainingItems">
 					</param>
@@ -1485,6 +1511,7 @@
 			name="SetRangeLoopSchematizations">
 				<parameters>
 					<param
+					mask="False"
 					name="nameLoopToSetRange"
 					value="LoopSchematizationsItemsModified">
 					</param>
@@ -1608,14 +1635,17 @@
 			name="ImportReferenceLine">
 				<parameters>
 					<param
+					mask="False"
 					name="stateTraject"
 					value="@TR">
 					</param>
 					<param
+					mask="False"
 					name="pathReferenceLine"
 					value="@TR>Referentielijn">
 					</param>
 					<param
+					mask="False"
 					name="pathToReferenceLineFile"
 					value="X:\script06\referenceLine12-2\referentielijn 12-2.shp">
 					</param>
@@ -1667,6 +1697,7 @@
 			name="ValidateSourceSchematizations">
 				<parameters>
 					<param
+					mask="False"
 					name="parameterNameSourceLocation"
 					value="Bronlocatie">
 					</param>
@@ -1828,6 +1859,7 @@
 			name="CheckIfItemCanBeOpened">
 				<parameters>
 					<param
+					mask="False"
 					name="nameOpenItem"
 					value="Openen">
 					</param>
@@ -1938,6 +1970,7 @@
 			name="ValidateItemNameInProjectExplorer">
 				<parameters>
 					<param
+					mask="False"
 					name="nodeRemainingSchematizationMustBePresent"
 					value="true">
 					</param>
@@ -1962,14 +1995,17 @@
 			name="script09_Voorland_of_voorliggende_dam_importeren">
 				<parameters>
 					<param
+					mask="False"
 					name="caseNumber"
 					value="09">
 					</param>
 					<param
+					mask="False"
 					name="scriptOutputFolder"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="dummyString"
 					value="">
 					</param>
@@ -2240,38 +2276,47 @@
 			name="LoopSchematizationsItemsModified">
 				<parameters>
 					<param
+					mask="False"
 					name="startPathReferenceCSV"
 					value="X:\script09\reference\modified\">
 					</param>
 					<param
+					mask="False"
 					name="pathSeparator"
 					value=">">
 					</param>
 					<param
+					mask="False"
 					name="pathToSchematizationItem"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediatePathToschematizationItem"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="csvFileName"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="fullPathToOutputCsvFile"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="separationCharacterCsvFile"
 					value=";">
 					</param>
 					<param
+					mask="False"
 					name="waitTime"
 					value="1">
 					</param>
 					<param
+					mask="False"
 					name="numberOfPassesExpandingRows"
 					value="3">
 					</param>
@@ -2303,6 +2348,7 @@
 			name="ValidateCSVEqualToModifiedReference">
 				<parameters>
 					<param
+					mask="False"
 					name="fullPathReferenceCSVFile"
 					value="">
 					</param>
@@ -2412,22 +2458,27 @@
 			name="GenerateCSV">
 				<parameters>
 					<param
+					mask="False"
 					name="substituteSubstring"
 					value="_">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString0"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString1"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString2"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="extensionCSV"
 					value=".csv">
 					</param>
@@ -2495,6 +2546,7 @@
 			name="SetRangeLoopSchematizations">
 				<parameters>
 					<param
+					mask="False"
 					name="nameLoopToSetRange"
 					value="LoopSchematizations">
 					</param>
@@ -2525,6 +2577,7 @@
 			name="ScreenshotsToEvaluatePresenceOfSchematizations">
 				<parameters>
 					<param
+					mask="False"
 					name="warningMessage"
 					value="Please, control the screenshots in the sections below.">
 					</param>
@@ -2638,10 +2691,12 @@
 			name="LoopOriginalCharts">
 				<parameters>
 					<param
+					mask="False"
 					name="messageToLogForScreenshotChartCalculation"
 					value="Original chart for calculation: ">
 					</param>
 					<param
+					mask="False"
 					name="nameInputFolder"
 					value="Invoer">
 					</param>
@@ -2784,6 +2839,7 @@
 			name="CopyOriginalFiles">
 				<parameters>
 					<param
+					mask="False"
 					name="milisecondsToWait"
 					value="1000">
 					</param>
@@ -2922,22 +2978,27 @@
 			name="GenerateCSV">
 				<parameters>
 					<param
+					mask="False"
 					name="substituteSubstring"
 					value="_">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString0"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString1"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString2"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="extensionCSV"
 					value=".csv">
 					</param>
@@ -2948,10 +3009,12 @@
 			name="AddNewTrajectAppropriateForSchematization">
 				<parameters>
 					<param
+					mask="False"
 					name="signalValue"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="lowValue"
 					value="">
 					</param>
@@ -2988,30 +3051,37 @@
 			name="ScreenshotsOfChartsInCalculationsRemovedItems(GEKB,ZST,AGK,GEBU)">
 				<parameters>
 					<param
+					mask="False"
 					name="intermediateString1"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString2"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString3"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString4"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="fullPathToSingleCalculationInput"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="charSeparatorPath"
 					value=">">
 					</param>
 					<param
+					mask="False"
 					name="nameSmartFolderLoopChartsRemovedItems"
 					value="LoopChartsRemovedItems">
 					</param>
@@ -3135,6 +3205,7 @@
 			name="CopyFilesModifiedElements">
 				<parameters>
 					<param
+					mask="False"
 					name="waitTimeInMIliseconds"
 					value="1000">
 					</param>
@@ -3145,22 +3216,27 @@
 			name="GenerateCSV">
 				<parameters>
 					<param
+					mask="False"
 					name="substituteSubstring"
 					value="_">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString0"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString1"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString2"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="extensionCSV"
 					value=".csv">
 					</param>
@@ -3412,30 +3488,37 @@
 			name="ScreenshotsOfChartsInCalculations(GEKB,ZST,AGK,GEBU)">
 				<parameters>
 					<param
+					mask="False"
 					name="intermediateString1"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString2"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString3"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString4"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="fullPathToSingleCalculationInput"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="charSeparatorPath"
 					value=">">
 					</param>
 					<param
+					mask="False"
 					name="nameSmartFolderLoopOriginalCharts"
 					value="LoopOriginalCharts">
 					</param>
@@ -4068,10 +4151,12 @@
 			name="LoopChartsModified">
 				<parameters>
 					<param
+					mask="False"
 					name="messageToLogForScreenshotChartCalculation"
 					value="Original chart for calculation: ">
 					</param>
 					<param
+					mask="False"
 					name="nameInputFolder"
 					value="Invoer">
 					</param>
@@ -4104,38 +4189,47 @@
 			name="LoopSchematizationsRemainingItems">
 				<parameters>
 					<param
+					mask="False"
 					name="startPathReferenceCSV"
 					value="X:\script09\reference\removed\">
 					</param>
 					<param
+					mask="False"
 					name="pathSeparator"
 					value=">">
 					</param>
 					<param
+					mask="False"
 					name="pathToSchematizationItem"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediatePathToschematizationItem"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="csvFileName"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="fullPathToOutputCsvFile"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="separationCharacterCsvFile"
 					value=";">
 					</param>
 					<param
+					mask="False"
 					name="waitTime"
 					value="1">
 					</param>
 					<param
+					mask="False"
 					name="numberOfPassesExpandingRows"
 					value="3">
 					</param>
@@ -4261,30 +4355,37 @@
 			reportlevel="Info;20">
 				<parameters>
 					<param
+					mask="False"
 					name="AppProcessID"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="AppPath"
 					value="..\..\..\..\..\bin\Debug\Riskeer.exe">
 					</param>
 					<param
+					mask="False"
 					name="PdfDirectoryPath"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="DeleteRanorexReport"
 					value="false">
 					</param>
 					<param
+					mask="False"
 					name="Details"
 					value="all">
 					</param>
 					<param
+					mask="False"
 					name="Xml"
 					value="Reports\style.xml">
 					</param>
 					<param
+					mask="False"
 					name="PdfName"
 					value="script09_Voorland_of_voorliggende_dam_importeren.pdf">
 					</param>
@@ -4323,6 +4424,7 @@
 			name="ValidateItemNameNotPresentInProjectExplorer">
 				<parameters>
 					<param
+					mask="False"
 					name="nodeRemovedSchematizationMustBePresent"
 					value="false">
 					</param>
@@ -4333,30 +4435,37 @@
 			name="ScreenshotsOfChartsInCalculationsModified(GEKB,ZST,AGK,GEBU)">
 				<parameters>
 					<param
+					mask="False"
 					name="intermediateString1"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString2"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString3"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString4"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="fullPathToSingleCalculationInput"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="charSeparatorPath"
 					value=">">
 					</param>
 					<param
+					mask="False"
 					name="nameSmartFolderLoopChartsModfied"
 					value="LoopChartsModified">
 					</param>
@@ -4473,23 +4582,34 @@
 				</databinding>
 			</testmodule>
 			<testsuite
+			ExportColumnList="None"
 			ReportTime="RelativeToTestSuiteStartTime"
+			SelectedActions="All"
 			TracingScreenshotMode="Foreground"
 			TracingScreenshotQuality="40"
 			VideoBitrate="2000"
 			VideoFps="15"
 			VideoRecordingMode="KeepAllTests"
 			VideoSource="Auto"
+			createindividualreportpdfchecked="False"
+			createsinglereportpdfchecked="True"
+			enableCSVReport="False"
 			enabletracingscreenshots="True"
+			exportAllColummns="True"
 			id="ff796f50-a911-4317-8a3f-6ed6223ce994"
+			includeimageschecked="False"
+			includerecordingschecked="False"
 			junitreport="False"
 			name="Script09"
+			overwritefilechecked="False"
 			reportcompress="False"
+			reportdescription=""
 			reportdirectoryname="Reports"
 			reportenabled="True"
 			reportfilename="%S_%Y%M%D_%T.rxlog"
 			reporttemplatefolder="ReportDeltaresStyle"
-			reportwriteinterval="30000ms">
+			reportwriteinterval="30000ms"
+			singlereportpdfdirectory="SingleReportPDF">
 			</testsuite>
 		</flatlistofchildren>
 		<childhierarchy>
@@ -6531,7 +6651,7 @@
 			Ranorex Automation Helpers.dll
 		</reference>
 		<reference>
-			Ranorex.ReportToPDF.exe
+			Ranorex.ReportToPDF, Version=1.0.17.0, Culture=neutral, PublicKeyToken=null
 		</reference>
 	</references>
 </testsuitedoc>

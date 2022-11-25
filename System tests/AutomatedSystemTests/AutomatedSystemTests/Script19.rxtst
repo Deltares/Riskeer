@@ -12,10 +12,12 @@
 			name="ValidateProperties">
 				<parameters>
 					<param
+					mask="False"
 					name="FullPathReferenceFile"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="RootPathReferenceFile"
 					value="X:\script19\reference\climateScenario\">
 					</param>
@@ -106,14 +108,17 @@
 			name="CoupleNewHLCD">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToHBCItemGEKB"
 					value="Traject>Hydraulische belastingen">
 					</param>
 					<param
+					mask="False"
 					name="pathToClimateScenarioHLCDFile12_2"
 					value="X:\commonData\databases\WBI2017_IJsselmeer_12-2_v02\hlcd_W_2100.sqlite">
 					</param>
 					<param
+					mask="False"
 					name="scenarioNameInPropertiesPanel"
 					value="HLCD bestandslocatie">
 					</param>
@@ -126,6 +131,7 @@
 			name="LoopCalculationsClimateScenario">
 				<parameters>
 					<param
+					mask="False"
 					name="nameSmartFolderModifyRange"
 					value="LoopResultTypesClimateScenario">
 					</param>
@@ -309,6 +315,7 @@
 			name="OpenProject">
 				<parameters>
 					<param
+					mask="False"
 					name="projectToOpen"
 					value="script17b_GEKB.risk">
 					</param>
@@ -329,6 +336,7 @@
 			name="SelectCalculationToUseAsTemplate">
 				<parameters>
 					<param
+					mask="False"
 					name="pathCalculationToDuplicate"
 					value="Traject>@GEKB>Berekeningen>profiel005">
 					</param>
@@ -353,42 +361,52 @@
 			name="script19_HBN_en_overslagdebiet_berekenen_voor_GEKB">
 				<parameters>
 					<param
+					mask="False"
 					name="caseNumber"
 					value="19">
 					</param>
 					<param
+					mask="False"
 					name="scriptOutputFolder"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="projectFileNameA"
 					value="script19a.risk">
 					</param>
 					<param
+					mask="False"
 					name="projectFileNameB"
 					value="script19b.risk">
 					</param>
 					<param
+					mask="False"
 					name="pathToCalculationSubFolder"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="extensionRiskeerProjects"
 					value="*.risk">
 					</param>
 					<param
+					mask="False"
 					name="pathToPreviousVersionFile"
 					value="X:\script19\previousVersion">
 					</param>
 					<param
+					mask="False"
 					name="dummyString"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathToCalculationsFolder"
 					value="Traject>@GEKB>Berekeningen">
 					</param>
 					<param
+					mask="False"
 					name="suffixNewStepPath"
 					value=">">
 					</param>
@@ -479,6 +497,7 @@
 			name="a)CalculateHBNAndOvertoppingRate">
 				<parameters>
 					<param
+					mask="False"
 					name="newNameFolder"
 					value="script19">
 					</param>
@@ -608,10 +627,12 @@
 			name="CalculateActualPropertiesCSVFileNameClimateScenario">
 				<parameters>
 					<param
+					mask="False"
 					name="intermediateString"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="suffixClimateScenario"
 					value="_ClimateScenario">
 					</param>
@@ -630,6 +651,7 @@
 			name="LoopCalculations">
 				<parameters>
 					<param
+					mask="False"
 					name="nameSmartFolderModifyRange"
 					value="LoopResultTypes">
 					</param>
@@ -650,10 +672,12 @@
 			name="MoveFirstDuplicatedCalculationInsideCreatedFolder">
 				<parameters>
 					<param
+					mask="False"
 					name="nameDuplicatedCalculation"
 					value="profiel005_F1_D1_HBN1_OD1_(1_3000)">
 					</param>
 					<param
+					mask="False"
 					name="pathDuplicatedCalculation"
 					value="">
 					</param>
@@ -919,30 +943,37 @@
 			reportlevel="Info;20">
 				<parameters>
 					<param
+					mask="False"
 					name="AppProcessID"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="AppPath"
 					value="..\..\..\..\..\bin\Debug\Riskeer.exe">
 					</param>
 					<param
+					mask="False"
 					name="PdfDirectoryPath"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="DeleteRanorexReport"
 					value="false">
 					</param>
 					<param
+					mask="False"
 					name="Details"
 					value="all">
 					</param>
 					<param
+					mask="False"
 					name="Xml"
 					value="Reports\style.xml">
 					</param>
 					<param
+					mask="False"
 					name="PdfName"
 					value="script19_HBN_en_overslagdebiet_berekenen_voor_GEKB.pdf">
 					</param>
@@ -953,6 +984,7 @@
 			name="SetRangeOfParametersInSmartFolder">
 				<parameters>
 					<param
+					mask="False"
 					name="nameSmartFolder"
 					value="ConfigureRequiredInputParameters">
 					</param>
@@ -963,26 +995,32 @@
 			name="ValidateResults">
 				<parameters>
 					<param
+					mask="False"
 					name="fullPathToResultsItem"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="nameOfExportedPropertiesCSVFile"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="charPathSeparator"
 					value=">">
 					</param>
 					<param
+					mask="False"
 					name="charUnderscore"
 					value="_">
 					</param>
 					<param
+					mask="False"
 					name="charSpace"
 					value=" ">
 					</param>
 					<param
+					mask="False"
 					name="extensionCSVFile"
 					value=".csv">
 					</param>
@@ -1141,6 +1179,7 @@
 			name="Wait5seconds">
 				<parameters>
 					<param
+					mask="False"
 					name="milisecondsToWait"
 					value="5000">
 					</param>
@@ -1193,6 +1232,7 @@
 			name="GenerateCSVPropertiesPanel">
 				<parameters>
 					<param
+					mask="False"
 					name="number OfIterationsExpand"
 					value="2">
 					</param>
@@ -1307,6 +1347,7 @@
 			name="CreateScreenshot">
 				<parameters>
 					<param
+					mask="False"
 					name="warningMessage"
 					value="Please, check the table, bar chart and tree chart for the results.">
 					</param>
@@ -1530,6 +1571,7 @@
 			name="ValidateResultsHaveBeenRemoved">
 				<parameters>
 					<param
+					mask="False"
 					name="fullPathToSummaryResults"
 					value="">
 					</param>
@@ -1540,6 +1582,7 @@
 			name="SelectStateWithCalculations">
 				<parameters>
 					<param
+					mask="False"
 					name="stateName"
 					value="@SB">
 					</param>
@@ -1692,6 +1735,7 @@
 			name="SelectStateHBC">
 				<parameters>
 					<param
+					mask="False"
 					name="stateName"
 					value="@HyB">
 					</param>
@@ -1738,14 +1782,17 @@
 			name="ConfigureCalculations">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToInputItemCalculation"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="charSeparatorPath"
 					value=">">
 					</param>
 					<param
+					mask="False"
 					name="stringInput"
 					value="Invoer">
 					</param>
@@ -1756,10 +1803,12 @@
 			name="GenerateCSVPropertiesPanel">
 				<parameters>
 					<param
+					mask="False"
 					name="csvFileSeparator"
 					value=";">
 					</param>
 					<param
+					mask="False"
 					name="number OfIterationsExpand"
 					value="2">
 					</param>
@@ -1798,14 +1847,17 @@
 			name="CalculatePathToItem">
 				<parameters>
 					<param
+					mask="False"
 					name="intermediateVariable1"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateVariable2"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateVariable3"
 					value="">
 					</param>
@@ -1816,10 +1868,12 @@
 			name="b)CalculateHBNAndOvertoppingRateForClimateScenario">
 				<parameters>
 					<param
+					mask="False"
 					name="pathSeparator"
 					value=">">
 					</param>
 					<param
+					mask="False"
 					name="relativePathSummaryResults"
 					value=">Resultaat">
 					</param>
@@ -1856,14 +1910,17 @@
 			name="ValidateNoResults">
 				<parameters>
 					<param
+					mask="False"
 					name="suffixResults"
 					value=">Resultaat">
 					</param>
 					<param
+					mask="False"
 					name="pathToResultsInCalculation"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="charPathSeparator"
 					value=">">
 					</param>
@@ -2138,6 +2195,7 @@
 			name="CreateScreenshot">
 				<parameters>
 					<param
+					mask="False"
 					name="warningMessage"
 					value="Please, check the table, bar chart and tree chart for the results.">
 					</param>
@@ -2200,30 +2258,37 @@
 			name="ValidateResultsClimateScenario">
 				<parameters>
 					<param
+					mask="False"
 					name="extensionCSVFile"
 					value=".csv">
 					</param>
 					<param
+					mask="False"
 					name="charSpace"
 					value=" ">
 					</param>
 					<param
+					mask="False"
 					name="charUnderscore"
 					value="_">
 					</param>
 					<param
+					mask="False"
 					name="charPathSeparator"
 					value=">">
 					</param>
 					<param
+					mask="False"
 					name="nameOfExportedPropertiesCSVFileClimateScenario"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="fullPathToResultsItem"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="separatorChar"
 					value=";">
 					</param>
@@ -2234,10 +2299,12 @@
 			name="ValidateProperties">
 				<parameters>
 					<param
+					mask="False"
 					name="FullPathReferenceFile"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="RootPathReferenceFile"
 					value="X:\script19\reference\default\">
 					</param>
@@ -2342,6 +2409,7 @@
 			name="CancelCalculations">
 				<parameters>
 					<param
+					mask="False"
 					name="textPresentInDialogToCancel"
 					value="van">
 					</param>
@@ -2386,18 +2454,22 @@
 			name="ValidateMessages">
 				<parameters>
 					<param
+					mask="False"
 					name="indexMessage"
 					value="0">
 					</param>
 					<param
+					mask="False"
 					name="substring1Message"
 					value="Uitvoeren van berekening">
 					</param>
 					<param
+					mask="False"
 					name="substring2Message"
 					value="is geannuleerd.">
 					</param>
 					<param
+					mask="False"
 					name="logMessage"
 					value="Check screenshot of Messages panel.">
 					</param>
@@ -2568,6 +2640,7 @@
 			name="CalculatePathActualPropertiesCSVFile">
 				<parameters>
 					<param
+					mask="False"
 					name="intermediateString"
 					value="">
 					</param>
@@ -2774,29 +2847,41 @@
 			name="SelectStateCalculations">
 				<parameters>
 					<param
+					mask="False"
 					name="stateName"
 					value="@SB">
 					</param>
 				</parameters>
 			</smartfoldernode>
 			<testsuite
+			ExportColumnList="None"
 			ReportTime="RelativeToTestSuiteStartTime"
+			SelectedActions="All"
 			TracingScreenshotMode="Foreground"
 			TracingScreenshotQuality="40"
 			VideoBitrate="2000"
 			VideoFps="15"
 			VideoRecordingMode="KeepAllTests"
 			VideoSource="Auto"
+			createindividualreportpdfchecked="False"
+			createsinglereportpdfchecked="True"
+			enableCSVReport="False"
 			enabletracingscreenshots="True"
+			exportAllColummns="True"
 			id="f6079ad9-4317-469f-a440-77b14fcd1409"
+			includeimageschecked="False"
+			includerecordingschecked="False"
 			junitreport="False"
 			name="Script19"
+			overwritefilechecked="False"
 			reportcompress="False"
+			reportdescription=""
 			reportdirectoryname="Reports"
 			reportenabled="True"
 			reportfilename="%S_%Y%M%D_%T.rxlog"
 			reporttemplatefolder="ReportDeltaresStyle"
-			reportwriteinterval="30000ms">
+			reportwriteinterval="30000ms"
+			singlereportpdfdirectory="SingleReportPDF">
 			</testsuite>
 			<testmodule
 			id="f70c9ea0-c72f-4c28-a2e6-f52c84166750"
@@ -5335,7 +5420,7 @@
 			Ranorex Automation Helpers.dll
 		</reference>
 		<reference>
-			Ranorex.ReportToPDF.exe
+			Ranorex.ReportToPDF, Version=1.0.17.0, Culture=neutral, PublicKeyToken=null
 		</reference>
 	</references>
 </testsuitedoc>

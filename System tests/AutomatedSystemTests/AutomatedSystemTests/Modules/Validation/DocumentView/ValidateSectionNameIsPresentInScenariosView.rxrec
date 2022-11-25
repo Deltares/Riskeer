@@ -60,6 +60,8 @@ mode="Global">
 						<path>
 							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='ScenariosView']/container[@controlname='splitContainer']/container[@controlname='panel1']/?/list/list
 						</path>
+						<robustPath>
+						</robustPath>
 					</info>
 				</argument>
 			</arguments>

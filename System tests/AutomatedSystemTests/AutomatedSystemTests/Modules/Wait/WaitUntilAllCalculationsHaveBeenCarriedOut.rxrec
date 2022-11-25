@@ -62,6 +62,8 @@ mode="Global">
 						<path>
 							/form[@controlname='ActivityProgressDialog']
 						</path>
+						<robustPath>
+						</robustPath>
 					</info>
 				</argument>
 			</arguments>

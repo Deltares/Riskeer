@@ -7,6 +7,7 @@
 			name="SelectResultItem">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToResultItem"
 					value="">
 					</param>
@@ -175,6 +176,7 @@
 			name="CancelCalculations">
 				<parameters>
 					<param
+					mask="False"
 					name="textPresentInDialogToCancel"
 					value="van">
 					</param>
@@ -241,6 +243,7 @@
 			name="LoopResultTypesClimateScenarios">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToResultItem"
 					value="">
 					</param>
@@ -251,10 +254,12 @@
 			name="GenerateCSVPropertiesPanel">
 				<parameters>
 					<param
+					mask="False"
 					name="csvFileSeparator"
 					value=";">
 					</param>
 					<param
+					mask="False"
 					name="numberOfIterationsToExpand"
 					value="2">
 					</param>
@@ -269,26 +274,32 @@
 			name="CalculateActualPropertiesCSVFileName">
 				<parameters>
 					<param
+					mask="False"
 					name="intermediateString1"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString2"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathSeparator"
 					value=">">
 					</param>
 					<param
+					mask="False"
 					name="space"
 					value=" ">
 					</param>
 					<param
+					mask="False"
 					name="underscore"
 					value="_">
 					</param>
 					<param
+					mask="False"
 					name="extensionCSVFile"
 					value=".csv">
 					</param>
@@ -388,6 +399,7 @@
 			name="SelectStateWithHBC">
 				<parameters>
 					<param
+					mask="False"
 					name="stateNameWithHBC"
 					value="@HyB">
 					</param>
@@ -406,70 +418,87 @@
 			name="ValidateCombinedResult">
 				<parameters>
 					<param
+					mask="False"
 					name="pathBetaUpliftInPP"
 					value="Opbarsten>Betrouwbaarheidsindex">
 					</param>
 					<param
+					mask="False"
 					name="betaUplift"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathProbUpliftInPP"
 					value="Opbarsten>Kans van voorkomen">
 					</param>
 					<param
+					mask="False"
 					name="probUplift"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathBetaHeaveInPP"
 					value="Heave>Betrouwbaarheidsindex">
 					</param>
 					<param
+					mask="False"
 					name="betaHeave"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathProbHeaveInPP"
 					value="Heave>Kans van voorkomen">
 					</param>
 					<param
+					mask="False"
 					name="probHeave"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathBetaSellmeijerInPP"
 					value="Terugschrijdende erosie>Betrouwbaarheidsindex">
 					</param>
 					<param
+					mask="False"
 					name="betaSellmeijer"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathProbSellmeijerInPP"
 					value="Terugschrijdende erosie>Kans van voorkomen">
 					</param>
 					<param
+					mask="False"
 					name="probSellmeijer"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathActualBetaCombinedInPP"
 					value="Piping>Betrouwbaarheidsindex faalkans [-]">
 					</param>
 					<param
+					mask="False"
 					name="betaCombined"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathActualApproxProbCombinedInPP"
 					value="Piping>Benaderde faalkans [1/jaar]">
 					</param>
 					<param
+					mask="False"
 					name="approxProbCombined"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathToCalculationsSTPH"
 					value="Traject 12-2>@STPH>Berekeningen">
 					</param>
@@ -484,6 +513,7 @@
 			name="ImportantNote">
 				<parameters>
 					<param
+					mask="False"
 					name="importantNote"
 					value="IMPORTANT: The calculations for STPH and STBI are so fast that it is not possible to cancel them before they are finished. Therefore, they are not part of this script.">
 					</param>
@@ -586,6 +616,7 @@
 			name="CreateScreenshot">
 				<parameters>
 					<param
+					mask="False"
 					name="warningMessage"
 					value="Please, check the table, bar chart and tree chart for the results.">
 					</param>
@@ -729,6 +760,7 @@
 			name="SelectStateWithCalculations">
 				<parameters>
 					<param
+					mask="False"
 					name="stateName"
 					value="@SB">
 					</param>
@@ -887,6 +919,7 @@
 			name="SelectStateWithCalculations">
 				<parameters>
 					<param
+					mask="False"
 					name="stateName"
 					value="@SB">
 					</param>
@@ -970,6 +1003,7 @@
 			name="LoopFMs">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToHBCInPE"
 					value="Traject>Hydraulische belastingen">
 					</param>
@@ -982,23 +1016,34 @@
 			name="ValidateResultsAreEmpty">
 			</smartfoldernode>
 			<testsuite
+			ExportColumnList="None"
 			ReportTime="RelativeToTestSuiteStartTime"
+			SelectedActions="All"
 			TracingScreenshotMode="Foreground"
 			TracingScreenshotQuality="40"
 			VideoBitrate="2000"
 			VideoFps="15"
 			VideoRecordingMode="KeepAllTests"
 			VideoSource="Auto"
+			createindividualreportpdfchecked="False"
+			createsinglereportpdfchecked="True"
+			enableCSVReport="False"
 			enabletracingscreenshots="True"
+			exportAllColummns="True"
 			id="5b4e7d9b-732c-47ba-acfd-f7f668999d26"
+			includeimageschecked="False"
+			includerecordingschecked="False"
 			junitreport="False"
 			name="Script20"
+			overwritefilechecked="False"
 			reportcompress="False"
+			reportdescription=""
 			reportdirectoryname="Reports"
 			reportenabled="True"
 			reportfilename="%S_%Y%M%D_%T.rxlog"
 			reporttemplatefolder="ReportDeltaresStyle"
-			reportwriteinterval="30000ms">
+			reportwriteinterval="30000ms"
+			singlereportpdfdirectory="SingleReportPDF">
 			</testsuite>
 			<testmodule
 			id="5b5c831a-a0e0-4118-a6e1-4c5cd0709b4e"
@@ -1171,6 +1216,7 @@
 			name="ValidateResults">
 				<parameters>
 					<param
+					mask="False"
 					name="nameSmartFolderToSetRange"
 					value="LoopResultTypesClimateScenarios">
 					</param>
@@ -1213,6 +1259,7 @@
 			name="OpenProject">
 				<parameters>
 					<param
+					mask="False"
 					name="fileToOpen"
 					value="inputScript20b_STPH.risk">
 					</param>
@@ -1572,10 +1619,12 @@
 			name="CompareWithReference">
 				<parameters>
 					<param
+					mask="False"
 					name="pathFolderReferenceFiles"
 					value="X:\script20\reference\">
 					</param>
 					<param
+					mask="False"
 					name="fullPathReferenceFile"
 					value="">
 					</param>
@@ -1699,14 +1748,17 @@
 			name="ValidateNoResultsAfterCanceling">
 				<parameters>
 					<param
+					mask="False"
 					name="suffixResults"
 					value=">Resultaat">
 					</param>
 					<param
+					mask="False"
 					name="pathToResultsInCalculation"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="charPathSeparator"
 					value=">">
 					</param>
@@ -1717,18 +1769,22 @@
 			name="SelectHBC">
 				<parameters>
 					<param
+					mask="False"
 					name="StepInPathContainingTargetProbability"
 					value="4">
 					</param>
 					<param
+					mask="False"
 					name="TargetProbabilityInvariantCulture"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="TargetProbabilityCurrentCulture"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="FullPathToHBCItemInPEWithCurrentCulture"
 					value="">
 					</param>
@@ -1916,10 +1972,12 @@
 			name="SelectRequiredLocations">
 				<parameters>
 					<param
+					mask="False"
 					name="calculationsMustBeChecked"
 					value="true">
 					</param>
 					<param
+					mask="False"
 					name="illPointsMustBeChecked"
 					value="false">
 					</param>
@@ -1934,10 +1992,12 @@
 			name="ValidateProperties">
 				<parameters>
 					<param
+					mask="False"
 					name="fullPathToCSVFileActualResult"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="nameCSVFileActualResult"
 					value="">
 					</param>
@@ -1973,30 +2033,37 @@
 			reportlevel="Info;20">
 				<parameters>
 					<param
+					mask="False"
 					name="AppProcessID"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="AppPath"
 					value="..\..\..\..\..\bin\Debug\Riskeer.exe">
 					</param>
 					<param
+					mask="False"
 					name="PdfDirectoryPath"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="DeleteRanorexReport"
 					value="false">
 					</param>
 					<param
+					mask="False"
 					name="Details"
 					value="all">
 					</param>
 					<param
+					mask="False"
 					name="Xml"
 					value="Reports\style.xml">
 					</param>
 					<param
+					mask="False"
 					name="PdfName"
 					value="script20_(Benaderde)_faalkans_berekenen.pdf">
 					</param>
@@ -2045,6 +2112,7 @@
 			name="ValidateCancellation">
 				<parameters>
 					<param
+					mask="False"
 					name="nameSmartFolderToSetRange"
 					value="ValidateNoResultsAfterCanceling">
 					</param>
@@ -2133,18 +2201,22 @@
 			name="ValidateMessages">
 				<parameters>
 					<param
+					mask="False"
 					name="indexMessage"
 					value="0">
 					</param>
 					<param
+					mask="False"
 					name="substring1Message"
 					value="Uitvoeren van berekening">
 					</param>
 					<param
+					mask="False"
 					name="substring2Message"
 					value="is geannuleerd.">
 					</param>
 					<param
+					mask="False"
 					name="logMessage"
 					value="Check screenshot of Messages panel.">
 					</param>
@@ -2189,6 +2261,7 @@
 			name="SelectHLCDClimateScenario">
 				<parameters>
 					<param
+					mask="False"
 					name="paramaterNameHLCDFileLocation"
 					value="HLCD bestandslocatie">
 					</param>
@@ -2213,6 +2286,7 @@
 			name="ImportantNote">
 				<parameters>
 					<param
+					mask="False"
 					name="importantnNote"
 					value="IMPORTANT: The calculations have been fully confiugured and run in script 17. Therefore, this part will be skipped in script 20 as agreed with the Product Owner.">
 					</param>
@@ -2448,6 +2522,7 @@
 			name="SelectStateWithCalculations">
 				<parameters>
 					<param
+					mask="False"
 					name="stateName"
 					value="@SB">
 					</param>
@@ -2458,30 +2533,37 @@
 			name="script20_(Benaderde)_faalkans_berekenen">
 				<parameters>
 					<param
+					mask="False"
 					name="caseNumber"
 					value="20">
 					</param>
 					<param
+					mask="False"
 					name="scriptOutputFolder"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="projectToOpenFileName"
 					value="script19a_STPH.risk">
 					</param>
 					<param
+					mask="False"
 					name="projectFileNameB"
 					value="script20b_STPH.risk">
 					</param>
 					<param
+					mask="False"
 					name="extensionRiskeerProjects"
 					value="*.risk">
 					</param>
 					<param
+					mask="False"
 					name="folderRiskeerProjectsPreviousRelease"
 					value="X:\script20\previousRelease">
 					</param>
 					<param
+					mask="False"
 					name="dummyString"
 					value="">
 					</param>
@@ -5099,7 +5181,7 @@
 			Ranorex Automation Helpers.dll
 		</reference>
 		<reference>
-			Ranorex.ReportToPDF.exe
+			Ranorex.ReportToPDF, Version=1.0.17.0, Culture=neutral, PublicKeyToken=null
 		</reference>
 	</references>
 </testsuitedoc>

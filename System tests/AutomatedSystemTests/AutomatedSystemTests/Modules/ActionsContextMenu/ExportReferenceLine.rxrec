@@ -63,6 +63,8 @@ mode="Global">
 				<path>
 					/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Exporteren...']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</mouseitem>
 		<setvaluerecorditem
@@ -84,6 +86,8 @@ mode="Global">
 				<path>
 					/form[@title='Opslaan als']/element[@class='DUIViewWndClassName']//combobox[@class='ComboBox']/text[@accessiblename='File name:']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<AttributeValue>
 			</AttributeValue>
@@ -110,6 +114,8 @@ mode="Global">
 				<path>
 					/form[@title='Opslaan als']/button[@text='&amp;Save']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</mouseitem>
 		<userrecorditem
@@ -140,6 +146,8 @@ mode="Global">
 						<path>
 							/form[@title='Confirm Save As']//button[@text='&amp;Yes']
 						</path>
+						<robustPath>
+						</robustPath>
 					</info>
 				</argument>
 			</arguments>
@@ -160,6 +168,8 @@ mode="Global">
 				<path>
 					/form[@controlname='ActivityProgressDialog']/button[@controlname='buttonCancel']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</WaitForRecordItem>
 		<explicitdelayitem

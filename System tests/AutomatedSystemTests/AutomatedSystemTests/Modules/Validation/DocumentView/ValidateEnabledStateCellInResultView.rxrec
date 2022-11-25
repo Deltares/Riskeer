@@ -44,6 +44,8 @@ mode="Global">
 				<path>
 					/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[$rowIndex]/cell[$columnIndex]
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<arguments
 			id="c1337d74-ff78-4576-869f-755ec416e76f">
@@ -74,6 +76,8 @@ mode="Global">
 						<path>
 							/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[$rowIndex]/cell[$columnIndex]
 						</path>
+						<robustPath>
+						</robustPath>
 					</info>
 				</imagebasedlocation>
 			</imagebasedlocations>
@@ -93,6 +97,8 @@ mode="Global">
 						<path>
 							/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[$rowIndex]/cell[$columnIndex]
 						</path>
+						<robustPath>
+						</robustPath>
 					</info>
 				</argument>
 				<argument

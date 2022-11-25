@@ -13,126 +13,157 @@
 			name="LoopFMs">
 				<parameters>
 					<param
+					mask="False"
 					name="projectNeedsToBeOpened"
 					value="false">
 					</param>
 					<param
+					mask="False"
 					name="structureCalculationsInProjectExplorer"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="stringifiedInputOriginalSingleCalculation"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="stringifiedInputOriginalFolderCalculation"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="stringifiedInputImportedReferenceSingleCalculation"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="stringifiedInputImportedReferenceFolderCalculation"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="stringifiedInputImportedModifiedSingleCalculation"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="stringifiedInputImportedModifiedFolderCalculation"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="suffixNewStepInPathPE"
 					value=">">
 					</param>
 					<param
+					mask="False"
 					name="nameNewFolder"
 					value="submap">
 					</param>
 					<param
+					mask="False"
 					name="intermediatePathCalculation"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediate2PathCalculation"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathCalculation"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="suffixInput"
 					value="Invoer">
 					</param>
 					<param
+					mask="False"
 					name="structureOriginalCalculations"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="structureImportedReferenceCalculations"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="structureImportedModifiedCalculations"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="structureImportedInvalidCalculations"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="maximumNumberOfRowsToValidateInPropertiesPanel"
 					value="500">
 					</param>
 					<param
+					mask="False"
 					name="fileExtensionCSV"
 					value=".csv">
 					</param>
 					<param
+					mask="False"
 					name="pathCSVFileOriginalSingleCalculation"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathCSVFileOriginalFolderCalculation"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathCSVFileImportedReferenceSingleCalculation"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathCSVFileImportedReferenceFolderCalculation"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathCSVFileImportedModifiedSingleCalculation"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathCSVFileImportedModifiedFolderCalculation"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="separatorInCSVFile"
 					value=";">
 					</param>
 					<param
+					mask="False"
 					name="replacementChar"
 					value="_">
 					</param>
 					<param
+					mask="False"
 					name="suffixOriginal"
 					value="_original">
 					</param>
 					<param
+					mask="False"
 					name="suffixReference"
 					value="_reference">
 					</param>
 					<param
+					mask="False"
 					name="suffixModified"
 					value="_modified">
 					</param>
@@ -174,6 +205,7 @@
 			name="ReadAllParametersItemInOriginalCalculation">
 				<parameters>
 					<param
+					mask="False"
 					name="fullPathToItem"
 					value="">
 					</param>
@@ -306,6 +338,7 @@
 			name="ValidateThatConfigurationFileHasBeenImportedSuccesfully">
 				<parameters>
 					<param
+					mask="False"
 					name="warningMessageValidConfiguration"
 					value="Please, check messages when importing valid calculation configuration.">
 					</param>
@@ -710,18 +743,22 @@
 			name="ValidateThatCalculationsCanBeValidated">
 				<parameters>
 					<param
+					mask="False"
 					name="delayBeforeValidatingTextMessages"
 					value="500">
 					</param>
 					<param
+					mask="False"
 					name="expectedTextLastRowMessages"
 					value="Validatie is beëindigd.">
 					</param>
 					<param
+					mask="False"
 					name="indexLastRowMessages"
 					value="0">
 					</param>
 					<param
+					mask="False"
 					name="warningMessageValidation"
 					value="Please, check messages when validating valid calculations.">
 					</param>
@@ -732,6 +769,7 @@
 			name="CalculatePathToOriginalCalculation">
 				<parameters>
 					<param
+					mask="False"
 					name="intermediatePath"
 					value="">
 					</param>
@@ -1036,10 +1074,12 @@
 			name="CalculatePathToCopyOfCalculationInsideDuplicatedFolder">
 				<parameters>
 					<param
+					mask="False"
 					name="intermediatePath"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediatePath2"
 					value="">
 					</param>
@@ -1720,10 +1760,12 @@
 			name="CreateCalculationFolder">
 				<parameters>
 					<param
+					mask="False"
 					name="suffixNewFolder"
 					value=">Nieuwe map">
 					</param>
 					<param
+					mask="False"
 					name="rotationMouseWheel"
 					value="-200">
 					</param>
@@ -1844,6 +1886,7 @@
 			name="ExportPropertiesPanelToCSVFile">
 				<parameters>
 					<param
+					mask="False"
 					name="intermediatePath"
 					value="">
 					</param>
@@ -1854,22 +1897,27 @@
 			name="script27_Berekeningen_dupliceren,_exporteren_en_importeren">
 				<parameters>
 					<param
+					mask="False"
 					name="caseNumber"
 					value="27">
 					</param>
 					<param
+					mask="False"
 					name="scriptOutputFolder"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="extensionRiskeerProjects"
 					value="*.risk">
 					</param>
 					<param
+					mask="False"
 					name="folderProjectPreviousRelease"
 					value="X:\script27\previousRelease">
 					</param>
 					<param
+					mask="False"
 					name="dummyString"
 					value="">
 					</param>
@@ -1910,6 +1958,7 @@
 			name="ReadAllParametersItemInCopyCalculation">
 				<parameters>
 					<param
+					mask="False"
 					name="fullPathToItem"
 					value="">
 					</param>
@@ -1983,30 +2032,37 @@
 			reportlevel="Info;20">
 				<parameters>
 					<param
+					mask="False"
 					name="AppProcessID"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="AppPath"
 					value="..\..\..\..\..\bin\Debug\Riskeer.exe">
 					</param>
 					<param
+					mask="False"
 					name="PdfDirectoryPath"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="DeleteRanorexReport"
 					value="false">
 					</param>
 					<param
+					mask="False"
 					name="Details"
 					value="all">
 					</param>
 					<param
+					mask="False"
 					name="Xml"
 					value="Reports\style.xml">
 					</param>
 					<param
+					mask="False"
 					name="PdfName"
 					value="script27_Berekeningen_dupliceren,_exporteren_en_importeren.pdf">
 					</param>
@@ -2183,6 +2239,7 @@
 			name="ReadAllParametersItemInCopyCalculationInDuplicatedFolder">
 				<parameters>
 					<param
+					mask="False"
 					name="fullPathToItem"
 					value="">
 					</param>
@@ -2221,6 +2278,7 @@
 			name="ProjectType2NeedsToBeSaved">
 				<parameters>
 					<param
+					mask="False"
 					name="fileNameToSave"
 					value="script27aType2.risk">
 					</param>
@@ -2651,10 +2709,12 @@
 			name="CalculatePathToCopyOfCalculation">
 				<parameters>
 					<param
+					mask="False"
 					name="intermediatePath"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediatePath2"
 					value="">
 					</param>
@@ -2765,6 +2825,7 @@
 			name="ExportPropertiesPanelToCSVFile">
 				<parameters>
 					<param
+					mask="False"
 					name="intermediatePath"
 					value="">
 					</param>
@@ -3132,6 +3193,7 @@
 			name="ValidateThatConfigurationFileHasBeenImportedSuccesfully">
 				<parameters>
 					<param
+					mask="False"
 					name="warningMessageValidConfiguration"
 					value="Please, check messages when importing valid calculation configuration.">
 					</param>
@@ -3142,6 +3204,7 @@
 			name="ExportPropertiesPanelToCSVFile">
 				<parameters>
 					<param
+					mask="False"
 					name="intermediatePath"
 					value="">
 					</param>
@@ -3630,6 +3693,7 @@
 			name="SetRangeOfItemsToValidate">
 				<parameters>
 					<param
+					mask="False"
 					name="smartFolderToSetRange"
 					value="LoopItemsToValidateInCalculation">
 					</param>
@@ -3658,6 +3722,7 @@
 			name="ExportPropertiesPanelToCSVFile">
 				<parameters>
 					<param
+					mask="False"
 					name="intermediatePath"
 					value="">
 					</param>
@@ -3755,23 +3820,34 @@
 				</missingdatabinding>
 			</testmodule>
 			<testsuite
+			ExportColumnList="None"
 			ReportTime="RelativeToTestSuiteStartTime"
+			SelectedActions="All"
 			TracingScreenshotMode="Foreground"
 			TracingScreenshotQuality="40"
 			VideoBitrate="2000"
 			VideoFps="15"
 			VideoRecordingMode="KeepAllTests"
 			VideoSource="Auto"
+			createindividualreportpdfchecked="False"
+			createsinglereportpdfchecked="True"
+			enableCSVReport="False"
 			enabletracingscreenshots="True"
+			exportAllColummns="True"
 			id="b4765c0d-1922-401c-a831-c4c06b444b11"
+			includeimageschecked="False"
+			includerecordingschecked="False"
 			junitreport="False"
 			name="Script27"
+			overwritefilechecked="False"
 			reportcompress="False"
+			reportdescription=""
 			reportdirectoryname="Reports"
 			reportenabled="True"
 			reportfilename="%S_%Y%M%D_%T.rxlog"
 			reporttemplatefolder="ReportDeltaresStyle"
-			reportwriteinterval="30000ms">
+			reportwriteinterval="30000ms"
+			singlereportpdfdirectory="SingleReportPDF">
 			</testsuite>
 			<smartfoldernode
 			id="b52653fe-ef2e-40f0-93d4-b0131df6c708"
@@ -3877,6 +3953,7 @@
 			name="ExportPropertiesPanelToCSVFile">
 				<parameters>
 					<param
+					mask="False"
 					name="intermediatePath"
 					value="">
 					</param>
@@ -4080,18 +4157,22 @@
 			name="ValidateThatCalculationsCanBeValidated">
 				<parameters>
 					<param
+					mask="False"
 					name="indexLastRowMessages"
 					value="0">
 					</param>
 					<param
+					mask="False"
 					name="expectedTextLastRowMessages"
 					value="Validatie is beëindigd.">
 					</param>
 					<param
+					mask="False"
 					name="delayBeforeValidatingTextMessages"
 					value="500">
 					</param>
 					<param
+					mask="False"
 					name="warningMessageValidation"
 					value="Please, check messages when validating valid calculations.">
 					</param>
@@ -4723,6 +4804,7 @@
 			name="ExportPropertiesPanelToCSVFile">
 				<parameters>
 					<param
+					mask="False"
 					name="intermediatePath"
 					value="">
 					</param>
@@ -5003,6 +5085,7 @@
 			name="ValidateThatConfigurationFileHasNotBeenImportedSuccesfully">
 				<parameters>
 					<param
+					mask="False"
 					name="warningMessageInvalidConfiguration"
 					value="Please, check messages when importing invalid calculation configuration.">
 					</param>
@@ -5038,26 +5121,32 @@
 			name="LoopItemsToValidateInCalculation">
 				<parameters>
 					<param
+					mask="False"
 					name="replacementChar"
 					value="_">
 					</param>
 					<param
+					mask="False"
 					name="separatorInCSVFile"
 					value=";">
 					</param>
 					<param
+					mask="False"
 					name="pathCSVFileOriginalCalculation"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathCSVFileCopiedCalculation"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathCSVFileCopiedCalculationInCopiedFolder"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="fileExtensionCSV"
 					value=".csv">
 					</param>
@@ -5068,6 +5157,7 @@
 			name="ProjectType1NeedsToBeSaved">
 				<parameters>
 					<param
+					mask="False"
 					name="fileNameToSave"
 					value="script27aType1.risk">
 					</param>
@@ -5103,6 +5193,7 @@
 			name="SaveProject">
 				<parameters>
 					<param
+					mask="False"
 					name="fileNameToSave"
 					value="script27b.risk">
 					</param>
@@ -5124,58 +5215,72 @@
 			name="LoopFMs">
 				<parameters>
 					<param
+					mask="False"
 					name="stringifiedPropertiesPanelOriginalCalculationInput"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="stringifiedPropertiesPanelOriginalCalculationResult"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="stringifiedPropertiesPanelCopyCalculationInput"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="stringifiedPropertiesPanelCopyCalculationResult"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="stringifiedPropertiesPanelCopyInOtherFolderCalculationInput"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="stringifiedPropertiesPanelCopyInOtherFolderCalculationResult"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathToOriginalCalculation"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathToCopiedCalculation"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathToNewFolder"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathToDuplicatedFolderContainingCopiedCalculation"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathToCopiedCalculationInsideDuplicatedFolder"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="preffixCopy"
 					value="Kopie van ">
 					</param>
 					<param
+					mask="False"
 					name="separatorStepInPath"
 					value=">">
 					</param>
 					<param
+					mask="False"
 					name="projectNeedsToBeOpened"
 					value="false">
 					</param>
@@ -5569,18 +5674,22 @@
 			name="ValidateCalculations">
 				<parameters>
 					<param
+					mask="False"
 					name="delayBeforeValidatingTextMessages"
 					value="500">
 					</param>
 					<param
+					mask="False"
 					name="expectedTextLastRowMessages"
 					value="Validatie is beëindigd.">
 					</param>
 					<param
+					mask="False"
 					name="indexLastRowMessages"
 					value="0">
 					</param>
 					<param
+					mask="False"
 					name="warningMessageValidation"
 					value="Please, check messages when validating valid calculations.">
 					</param>
@@ -8095,7 +8204,7 @@
 			Ranorex Automation Helpers.dll
 		</reference>
 		<reference>
-			Ranorex.ReportToPDF.exe
+			Ranorex.ReportToPDF, Version=1.0.17.0, Culture=neutral, PublicKeyToken=null
 		</reference>
 	</references>
 </testsuitedoc>

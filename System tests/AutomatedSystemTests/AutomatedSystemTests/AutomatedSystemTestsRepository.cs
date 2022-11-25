@@ -749,7 +749,7 @@ namespace AutomatedSystemTests
                 _containermultipleviews = new AutomatedSystemTestsRepositoryFolders.ContainerMultipleViewsFolder(this);
                 _genericcontainermapviewtitle = new AutomatedSystemTestsRepositoryFolders.GenericContainerMapViewTitleFolder(this);
                 _ribbonbuttons = new AutomatedSystemTestsRepositoryFolders.RibbonButtonsFolder(this);
-                _textlabelpanelonleftInfo = new RepoItemInfo(this, "TextLabelPanelOnLeft", "container/container/tabpagelist/container[@automationid='HeaderPanel']/tabpage/text[@text=$nameOfPanel]", 30000, null, "e1c99c99-37e6-45b7-8ef7-3177828972c0");
+                _textlabelpanelonleftInfo = new RepoItemInfo(this, "TextLabelPanelOnLeft", "container/container/tabpagelist/container[@automationid='HeaderPanel']/tabpage/text[@text=$nameOfPanel]", "", 30000, null, "e1c99c99-37e6-45b7-8ef7-3177828972c0");
             }
 
             /// <summary>
@@ -912,8 +912,8 @@ namespace AutomatedSystemTests
             public TrajectNodeFolder(RepoGenBaseFolder parentFolder) :
                     base("TrajectNode", "treeitem[1]", parentFolder, 30000, null, false, "b466899e-e209-4d83-a46c-0533f333cea5", "")
             {
-                _genericitemintrajectInfo = new RepoItemInfo(this, "GenericItemInTraject", "treeitem[@accessiblename=$substringNameItemInTraject]", 30000, null, "c6e3307d-ef2f-4a61-bf7b-443c02d22136");
-                _currentfocusinpeInfo = new RepoItemInfo(this, "CurrentFocusInPE", ".//treeitem[@hasfocus='true']", 30000, null, "fb1c8db8-131a-43d1-b4f3-bc523782f12f");
+                _genericitemintrajectInfo = new RepoItemInfo(this, "GenericItemInTraject", "treeitem[@accessiblename=$substringNameItemInTraject]", "", 30000, null, "c6e3307d-ef2f-4a61-bf7b-443c02d22136");
+                _currentfocusinpeInfo = new RepoItemInfo(this, "CurrentFocusInPE", ".//treeitem[@hasfocus='true']", "", 30000, null, "fb1c8db8-131a-43d1-b4f3-bc523782f12f");
             }
 
             /// <summary>
@@ -1004,8 +1004,8 @@ namespace AutomatedSystemTests
             public RibbonFolder(RepoGenBaseFolder parentFolder) :
                     base("Ribbon", "menubar", parentFolder, 30000, null, true, "c92795a7-9101-49d1-a0da-9036c4491cb2", "")
             {
-                _bestandInfo = new RepoItemInfo(this, "Bestand", "?/?/text[@caption='Bestand']", 30000, null, "8ca7d8de-6c3a-48cd-98e3-444ddf09e011");
-                _buttonmenufilesaveprojectasInfo = new RepoItemInfo(this, "ButtonMenuFileSaveProjectAs", "?/?/button[@automationid='ButtonMenuFileSaveProjectAs']", 30000, null, "85528b1e-84f6-40a9-b2b7-58d99c5ad909");
+                _bestandInfo = new RepoItemInfo(this, "Bestand", "?/?/text[@caption='Bestand']", "", 30000, null, "8ca7d8de-6c3a-48cd-98e3-444ddf09e011");
+                _buttonmenufilesaveprojectasInfo = new RepoItemInfo(this, "ButtonMenuFileSaveProjectAs", "?/?/button[@automationid='ButtonMenuFileSaveProjectAs']", "", 30000, null, "85528b1e-84f6-40a9-b2b7-58d99c5ad909");
             }
 
             /// <summary>
@@ -1191,8 +1191,8 @@ namespace AutomatedSystemTests
             public HeaderOpenViewsFolder(RepoGenBaseFolder parentFolder) :
                     base("HeaderOpenViews", "container[11]/?/?/button[@automationid='MenuDropDownButton']", parentFolder, 30000, null, true, "b2c76482-93c5-4171-9eaf-0f674aebb65b", "")
             {
-                _viewclosebuttonInfo = new RepoItemInfo(this, "ViewCloseButton", "?/tabpage/button[@automationid='DocumentCloseButton']", 30000, null, "79aa5f18-da55-4d5b-9c7c-bc833052d329");
-                _textheaderpanelInfo = new RepoItemInfo(this, "textHeaderPanel", "container[@automationid='HeaderPanel']/tabpage/?/text[@text>$nameMap]", 30000, null, "71969c09-ef02-4547-bddc-6e74e1272049");
+                _viewclosebuttonInfo = new RepoItemInfo(this, "ViewCloseButton", "?/tabpage/button[@automationid='DocumentCloseButton']", "", 30000, null, "79aa5f18-da55-4d5b-9c7c-bc833052d329");
+                _textheaderpanelInfo = new RepoItemInfo(this, "textHeaderPanel", "container[@automationid='HeaderPanel']/tabpage/?/text[@text>$nameMap]", "", 30000, null, "71969c09-ef02-4547-bddc-6e74e1272049");
             }
 
             /// <summary>
@@ -1344,7 +1344,7 @@ namespace AutomatedSystemTests
             public GenericRowMessageFolder(RepoGenBaseFolder parentFolder) :
                     base("GenericRowMessage", "row[@accessiblename<' '+$indexRowMessage]", parentFolder, 30000, null, false, "43bcbd48-5fca-439f-aa46-2e7f8b5fc251", "")
             {
-                _genericcellmessageInfo = new RepoItemInfo(this, "GenericCellMessage", "cell[@accessiblename>'Bericht']", 30000, null, "4f6147c7-b35a-42d1-8fdd-175372b09979");
+                _genericcellmessageInfo = new RepoItemInfo(this, "GenericCellMessage", "cell[@accessiblename>'Bericht']", "", 30000, null, "4f6147c7-b35a-42d1-8fdd-175372b09979");
             }
 
             /// <summary>
@@ -1410,7 +1410,7 @@ namespace AutomatedSystemTests
             public LastRowMessageFolder(RepoGenBaseFolder parentFolder) :
                     base("LastRowMessage", "row[@accessiblename<' 0']", parentFolder, 30000, null, false, "b8b81b1e-3805-45e2-bbbf-bd069416fe50", "")
             {
-                _lastcellmessageInfo = new RepoItemInfo(this, "LastCellMessage", "cell[@accessiblename>'Bericht']", 30000, null, "073038e2-924e-4a9e-b82b-1d992e9dd9ce");
+                _lastcellmessageInfo = new RepoItemInfo(this, "LastCellMessage", "cell[@accessiblename>'Bericht']", "", 30000, null, "073038e2-924e-4a9e-b82b-1d992e9dd9ce");
             }
 
             /// <summary>
@@ -1527,7 +1527,7 @@ namespace AutomatedSystemTests
             public TableFolder(RepoGenBaseFolder parentFolder) :
                     base("Table", ".//table", parentFolder, 30000, null, true, "50f9e3b1-cf09-4ca3-8d3c-7edd64e7251e", "")
             {
-                _genericparametervisibleinpropertiespanelInfo = new RepoItemInfo(this, "GenericParameterVisibleInPropertiesPanel", "row[@accessiblename>$nameOfParameterInPropertiesPanel]", 30000, null, "fa26997c-4865-408a-9bd8-120810ae0e7a");
+                _genericparametervisibleinpropertiespanelInfo = new RepoItemInfo(this, "GenericParameterVisibleInPropertiesPanel", "row[@accessiblename>$nameOfParameterInPropertiesPanel]", "", 30000, null, "fa26997c-4865-408a-9bd8-120810ae0e7a");
             }
 
             /// <summary>
@@ -1612,8 +1612,8 @@ namespace AutomatedSystemTests
                 _securityassemblyview = new AutomatedSystemTestsRepositoryFolders.SecurityAssemblyViewFolder(this);
                 _assemblysectionsview = new AutomatedSystemTestsRepositoryFolders.AssemblySectionsViewFolder(this);
                 _calculationsview = new AutomatedSystemTestsRepositoryFolders.CalculationsViewFolder(this);
-                _fmsectionsviewtableInfo = new RepoItemInfo(this, "FMSectionsViewTable", "container[@controlname~'SectionsView']/?/table", 30000, null, "e1c75820-980f-411c-9ada-a9dcd59572ae");
-                _securitycategoriesviewtableInfo = new RepoItemInfo(this, "SecurityCategoriesViewTable", "container[@controlname='AssessmentSectionAssemblyGroupsView']/?/?/table", 30000, null, "4036b6f4-d12d-47b5-9c7f-3897f5b573bd");
+                _fmsectionsviewtableInfo = new RepoItemInfo(this, "FMSectionsViewTable", "container[@controlname~'SectionsView']/?/table", "", 30000, null, "e1c75820-980f-411c-9ada-a9dcd59572ae");
+                _securitycategoriesviewtableInfo = new RepoItemInfo(this, "SecurityCategoriesViewTable", "container[@controlname='AssessmentSectionAssemblyGroupsView']/?/?/table", "", 30000, null, "4036b6f4-d12d-47b5-9c7f-3897f5b573bd");
             }
 
             /// <summary>
@@ -1787,8 +1787,8 @@ namespace AutomatedSystemTests
                     base("FM_ResultView", "container[@controlname~'FailureMechanismResultView']", parentFolder, 10000, null, true, "9f847d0f-b605-48f5-b38e-9eb9bbefddb9", "")
             {
                 _tablefmresultview = new AutomatedSystemTestsRepositoryFolders.TableFMResultViewFolder(this);
-                _failureprobabilityfmInfo = new RepoItemInfo(this, "FailureProbabilityFM", "container[@controlname='TableLayoutPanel']/text/text", 30000, null, "4bda29c4-58e8-4b08-ac2e-ec866b6f1fb6");
-                _expanddropdownmenuInfo = new RepoItemInfo(this, "ExpandDropDownMenu", "container[@controlname='TableLayoutPanel']/combobox[@controlname='probabilityResultTypeComboBox']/button", 30000, null, "8a65568d-140f-4c4f-b21d-a105a8285816");
+                _failureprobabilityfmInfo = new RepoItemInfo(this, "FailureProbabilityFM", "container[@controlname='TableLayoutPanel']/text/text", "", 30000, null, "4bda29c4-58e8-4b08-ac2e-ec866b6f1fb6");
+                _expanddropdownmenuInfo = new RepoItemInfo(this, "ExpandDropDownMenu", "container[@controlname='TableLayoutPanel']/combobox[@controlname='probabilityResultTypeComboBox']/button", "", 30000, null, "8a65568d-140f-4c4f-b21d-a105a8285816");
             }
 
             /// <summary>
@@ -1939,7 +1939,7 @@ namespace AutomatedSystemTests
             public RowFolder(RepoGenBaseFolder parentFolder) :
                     base("Row", "row[$rowIndex]", parentFolder, 30000, null, false, "bf8da9f6-504d-4a54-b6e0-6fbd5b8d7d1a", "")
             {
-                _isrelevantInfo = new RepoItemInfo(this, "IsRelevant", "cell[@accessiblename>'Is relevant']", 30000, null, "6bff70d7-1d04-4660-85f8-51b7cf611f85");
+                _isrelevantInfo = new RepoItemInfo(this, "IsRelevant", "cell[@accessiblename>'Is relevant']", "", 30000, null, "6bff70d7-1d04-4660-85f8-51b7cf611f85");
                 _genericcellInfo = new genericCellInfoClass(this);
             }
 
@@ -2137,7 +2137,7 @@ namespace AutomatedSystemTests
             public TableDataGridViewFolder(RepoGenBaseFolder parentFolder) :
                     base("TableDataGridView", "container[@controlname='assemblyGroupsTable']/table[@controlname='dataGridView']", parentFolder, 30000, null, false, "a6881d13-2ec6-4bb8-9ef5-8fc9405d5a4c", "")
             {
-                _genericassessmentsectionboundarycellInfo = new RepoItemInfo(this, "GenericAssessmentSectionBoundaryCell", "row[@accessiblevalue>$categoryName+';']/cell[@accessiblename>$boundaryTypeSubstring]", 10000, null, "2a83bf46-5edd-4e88-9563-1ac9454c5af8");
+                _genericassessmentsectionboundarycellInfo = new RepoItemInfo(this, "GenericAssessmentSectionBoundaryCell", "row[@accessiblevalue>$categoryName+';']/cell[@accessiblename>$boundaryTypeSubstring]", "", 10000, null, "2a83bf46-5edd-4e88-9563-1ac9454c5af8");
             }
 
             /// <summary>
@@ -2203,7 +2203,7 @@ namespace AutomatedSystemTests
             public FMSectionAssemblyGroupsViewFolder(RepoGenBaseFolder parentFolder) :
                     base("FMSectionAssemblyGroupsView", "container[@controlname='FailureMechanismSectionAssemblyGroupsView']", parentFolder, 30000, null, false, "538de49e-c846-4fcf-b0d7-8ebfbe0829bd", "")
             {
-                _tableduidingsklassenInfo = new RepoItemInfo(this, "TableDuidingsklassen", ".//table", 30000, null, "171d18ca-9186-4ec9-b2fb-d120854d5a24");
+                _tableduidingsklassenInfo = new RepoItemInfo(this, "TableDuidingsklassen", ".//table", "", 30000, null, "171d18ca-9186-4ec9-b2fb-d120854d5a24");
             }
 
             /// <summary>
@@ -2433,7 +2433,7 @@ namespace AutomatedSystemTests
             public GenericRowInDVFolder(RepoGenBaseFolder parentFolder) :
                     base("GenericRowInDV", "row[@accessiblename<' '+$rowIndex]", parentFolder, 30000, null, false, "096ce337-4db1-4319-ad18-58102ed16cb0", "")
             {
-                _waterlevelorwaveheightnthrowInfo = new RepoItemInfo(this, "WaterLevelOrWaveHeightNthRow", "cell[@accessiblename>'Waterstand' or @accessiblename>'Golfhoogte']", 30000, null, "e735dd8e-d20c-4c5b-ab38-5962b37b89cc");
+                _waterlevelorwaveheightnthrowInfo = new RepoItemInfo(this, "WaterLevelOrWaveHeightNthRow", "cell[@accessiblename>'Waterstand' or @accessiblename>'Golfhoogte']", "", 30000, null, "e735dd8e-d20c-4c5b-ab38-5962b37b89cc");
             }
 
             /// <summary>
@@ -2499,7 +2499,7 @@ namespace AutomatedSystemTests
             public CalculationButtonsFolder(RepoGenBaseFolder parentFolder) :
                     base("CalculationButtons", "container[@controlname>'Button']", parentFolder, 30000, null, false, "e8cdff70-b26f-44b2-916f-95e061da9ed1", "")
             {
-                _calculateselectedbuttonInfo = new RepoItemInfo(this, "CalculateSelectedButton", "button[@controlname='CalculateForSelectedButton']", 30000, null, "705925a9-d286-4eed-8f22-23a9e3afce1c");
+                _calculateselectedbuttonInfo = new RepoItemInfo(this, "CalculateSelectedButton", "button[@controlname='CalculateForSelectedButton']", "", 30000, null, "705925a9-d286-4eed-8f22-23a9e3afce1c");
             }
 
             /// <summary>
@@ -2627,7 +2627,7 @@ namespace AutomatedSystemTests
             public ListSectionsNamesFolder(RepoGenBaseFolder parentFolder) :
                     base("ListSectionsNames", "container/container/?/list/list", parentFolder, 30000, null, false, "f3cd16ba-c2de-4890-b253-71355634e232", "")
             {
-                _genericsectionInfo = new RepoItemInfo(this, "GenericSection", "listitem[@index=$indexSection]", 30000, null, "f3f7de84-f41c-4188-9eff-d19414f68a60");
+                _genericsectionInfo = new RepoItemInfo(this, "GenericSection", "listitem[@index=$indexSection]", "", 30000, null, "f3f7de84-f41c-4188-9eff-d19414f68a60");
             }
 
             /// <summary>
@@ -2693,7 +2693,7 @@ namespace AutomatedSystemTests
             public TableFolder2(RepoGenBaseFolder parentFolder) :
                     base("Table", "container/container/container/container/table", parentFolder, 30000, null, false, "c392e579-2f5f-4a7d-9900-272745c078bf", "")
             {
-                _genericrowcontributionInfo = new RepoItemInfo(this, "GenericRowContribution", "row[@accessiblename='Row 0']/cell[@accessiblename>'Bijdrage aanscenario[%]']", 30000, null, "3476c0a3-36a4-4281-90a3-065844674eb8");
+                _genericrowcontributionInfo = new RepoItemInfo(this, "GenericRowContribution", "row[@accessiblename='Row 0']/cell[@accessiblename>'Bijdrage aanscenario[%]']", "", 30000, null, "3476c0a3-36a4-4281-90a3-065844674eb8");
             }
 
             /// <summary>
@@ -2822,8 +2822,8 @@ namespace AutomatedSystemTests
             public TableFolder3(RepoGenBaseFolder parentFolder) :
                     base("Table", "container/table", parentFolder, 30000, null, false, "b032b126-789d-46aa-b7ab-ab1c08998b17", "")
             {
-                _genericrowhydraulicbcdunesInfo = new RepoItemInfo(this, "GenericRowHydraulicBCDunes", "row[@accessiblename<' '+$indexRow]", 30000, null, "c8521886-54a9-407d-94d4-a646a9c0f68e");
-                _cellcalculatedwaterleveldaInfo = new RepoItemInfo(this, "CellCalculatedWaterLevelDA", "row[@accessiblename<' '+$rowIndex]/cell[@accessiblename>'Rekenwaarde waterstand']", 30000, null, "f7409335-be4e-4a2b-a1e6-498adf52b16a");
+                _genericrowhydraulicbcdunesInfo = new RepoItemInfo(this, "GenericRowHydraulicBCDunes", "row[@accessiblename<' '+$indexRow]", "", 30000, null, "c8521886-54a9-407d-94d4-a646a9c0f68e");
+                _cellcalculatedwaterleveldaInfo = new RepoItemInfo(this, "CellCalculatedWaterLevelDA", "row[@accessiblename<' '+$rowIndex]/cell[@accessiblename>'Rekenwaarde waterstand']", "", 30000, null, "f7409335-be4e-4a2b-a1e6-498adf52b16a");
             }
 
             /// <summary>
@@ -2913,7 +2913,7 @@ namespace AutomatedSystemTests
             public CalculationButtonsDAFolder(RepoGenBaseFolder parentFolder) :
                     base("CalculationButtonsDA", "container[@controlname>'Button']", parentFolder, 30000, null, false, "230b72be-fa67-4526-86b5-ffc995407fe1", "")
             {
-                _calculateforselectedbuttonInfo = new RepoItemInfo(this, "CalculateForSelectedButton", "button[@controlname='CalculateForSelectedButton']", 30000, null, "c5d97332-76d8-4900-be29-cdffe99cbf99");
+                _calculateforselectedbuttonInfo = new RepoItemInfo(this, "CalculateForSelectedButton", "button[@controlname='CalculateForSelectedButton']", "", 30000, null, "c5d97332-76d8-4900-be29-cdffe99cbf99");
             }
 
             /// <summary>
@@ -3041,7 +3041,7 @@ namespace AutomatedSystemTests
             public SummaryFolder(RepoGenBaseFolder parentFolder) :
                     base("Summary", "container/container", parentFolder, 30000, null, false, "b6c16815-7d2e-4c8f-a729-4eb72e26ccdd", "")
             {
-                _grouplabelInfo = new RepoItemInfo(this, "GroupLabel", "text[@controlname='groupLabel']", 30000, null, "65a52be4-1a60-4cd2-bb22-2195e8d80280");
+                _grouplabelInfo = new RepoItemInfo(this, "GroupLabel", "text[@controlname='groupLabel']", "", 30000, null, "65a52be4-1a60-4cd2-bb22-2195e8d80280");
             }
 
             /// <summary>
@@ -3340,7 +3340,7 @@ namespace AutomatedSystemTests
             public GenericRowFolder(RepoGenBaseFolder parentFolder) :
                     base("GenericRow", "row[@accessiblename='Row '+$indexRowCalculation]", parentFolder, 30000, null, false, "00835104-4f74-4cf4-8a4b-930b241005f2", "")
             {
-                _genericcellInfo = new RepoItemInfo(this, "GenericCell", "cell[@accessiblename>$nameColumn]", 30000, null, "84e8db46-22cb-4998-a061-4a0b52815ee7");
+                _genericcellInfo = new RepoItemInfo(this, "GenericCell", "cell[@accessiblename>$nameColumn]", "", 30000, null, "84e8db46-22cb-4998-a061-4a0b52815ee7");
             }
 
             /// <summary>
@@ -3497,7 +3497,7 @@ namespace AutomatedSystemTests
             public GenericContainerMapViewTitleFolder(RepoGenBaseFolder parentFolder) :
                     base("GenericContainerMapViewTitle", "container/container/container/container/tabpagelist[$indexContainerMap]", parentFolder, 30000, null, false, "c3fa3e58-ebae-43e2-88e2-41bd6c9116ad", "")
             {
-                _closebuttongenericcontainermapInfo = new RepoItemInfo(this, "CloseButtonGenericContainerMap", "button/tabpage/button", 30000, null, "ce11034c-12e0-4686-8388-75ac745d1755");
+                _closebuttongenericcontainermapInfo = new RepoItemInfo(this, "CloseButtonGenericContainerMap", "button/tabpage/button", "", 30000, null, "ce11034c-12e0-4686-8388-75ac745d1755");
             }
 
             /// <summary>
@@ -3563,7 +3563,7 @@ namespace AutomatedSystemTests
             public RibbonButtonsFolder(RepoGenBaseFolder parentFolder) :
                     base("RibbonButtons", "?/?/container[@automationid='MainButtonStackPanel']", parentFolder, 30000, null, false, "f790aa62-d4d1-4192-8400-a58b665ae5a6", "")
             {
-                _genericribbonbuttonInfo = new RepoItemInfo(this, "GenericRibbonButton", "button/text[@caption~$stateName]/parent::button", 30000, null, "10758b46-d10f-46af-883e-9629a38c517a");
+                _genericribbonbuttonInfo = new RepoItemInfo(this, "GenericRibbonButton", "button/text[@caption~$stateName]/parent::button", "", 30000, null, "10758b46-d10f-46af-883e-9629a38c517a");
             }
 
             /// <summary>
@@ -3652,30 +3652,30 @@ namespace AutomatedSystemTests
             public ContextMenuAppFolder(RepoGenBaseFolder parentFolder) :
                     base("ContextMenu", "/contextmenu[@processname='Riskeer']", parentFolder, 30000, null, false, "982924af-cebe-4e46-9281-476e566d6398", "")
             {
-                _allesberekenenInfo = new RepoItemInfo(this, "AllesBerekenen", "menuitem[@accessiblename='Alles berekenen']", 30000, null, "e02b3f9a-ba31-43a8-afa9-3e258b8b22a1");
-                _allesuitklappenInfo = new RepoItemInfo(this, "AllesUitklappen", "menuitem[@text='Alles uitklappen']", 30000, null, "909957a0-8645-4c4e-9153-757dbd6962c4");
-                _allesvaliderenInfo = new RepoItemInfo(this, "AllesValideren", "menuitem[@accessiblename='Alles valideren']", 30000, null, "5fb39361-566b-401d-8784-98249ec265aa");
-                _berekenenInfo = new RepoItemInfo(this, "Berekenen", "menuitem[@accessiblename='Berekenen']", 30000, null, "8811db1f-3002-45fb-8742-158ef19d57b8");
-                _berekeningtoevoegenInfo = new RepoItemInfo(this, "BerekeningToevoegen", "menuitem[@accessiblename='Berekening toevoegen']", 30000, null, "a538b968-f904-4d07-a69c-e87f3bb3d12b");
-                _semiprobberekeningtoevoegenInfo = new RepoItemInfo(this, "SemiProbBerekeningToevoegen", "menuitem[@accessiblename='Semi-probabilistische berekening toevoegen']", 30000, null, "10ff5289-4c15-4670-ac30-51057b2dc94a");
-                _probberekeningtoevoegenInfo = new RepoItemInfo(this, "ProbBerekeningToevoegen", "menuitem[@accessiblename='Probabilistische berekening toevoegen']", 30000, null, "ed5b1a57-0234-4bee-b8d5-a91968b5905f");
-                _bijwerkenInfo = new RepoItemInfo(this, "Bijwerken", "menuitem[@accessiblename='Bijwerken...']", 30000, null, "8d25a5c5-e67d-4b4c-93a4-f94323bb7d79");
-                _duplicerenInfo = new RepoItemInfo(this, "Dupliceren", "menuitem[@accessiblename='Dupliceren']", 30000, null, "75209dc1-5b20-4d57-8ce9-8ec71c26bb9e");
-                _exporterenInfo = new RepoItemInfo(this, "Exporteren", "menuitem[@accessiblename='Exporteren...']", 30000, null, "e6ff1b1d-e9cf-4680-b405-2a5432145390");
-                _genereercalculationandscenariosInfo = new RepoItemInfo(this, "GenereerCalculationAndScenarios", "menuitem[@accessiblename>'Genereer']", 30000, null, "17056c41-6629-4a0e-8ab2-93470db9fa27");
-                _genericitemincontextmenuInfo = new RepoItemInfo(this, "GenericItemInContextMenu", "menuitem[@accessiblename>$nameOfItem]", 30000, null, "39eb92d8-2056-4218-88eb-8b21c0ab477e");
-                _importerenInfo = new RepoItemInfo(this, "Importeren", "menuitem[@accessiblename='Importeren...']", 30000, null, "34965857-9328-4216-9d99-86afbd395e38");
-                _inassemblyInfo = new RepoItemInfo(this, "InAssembly", "menuitem[@accessiblename='In assemblage']", 30000, null, "561b2d91-62ad-4174-97e3-b9f7420df49a");
-                _koppelaandatabaseInfo = new RepoItemInfo(this, "KoppelAanDatabase", "menuitem[@accessiblename='Koppel aan database...']", 30000, null, "b67d9db7-c97a-44ee-9cc6-3cac1b3aa092");
-                _maptoevoegenInfo = new RepoItemInfo(this, "MapToevoegen", "menuitem[@accessiblename='Map toevoegen']", 30000, null, "bb08d163-934b-43d2-b55e-ba2f9cd39c14");
-                _mapleegmakenInfo = new RepoItemInfo(this, "MapLeegmaken", "menuitem[@accessiblename='Map leegmaken...']", 30000, null, "ca583eef-300b-420e-8edd-95c3ffd4cb61");
-                _openenInfo = new RepoItemInfo(this, "Openen", "menuitem[@accessiblename='Openen']", 30000, null, "3162063a-bd8d-4e48-b6ab-9725baa70e0e");
-                _selecterenInfo = new RepoItemInfo(this, "Selecteren", "menuitem[@accessiblename>'Selecteren']", 30000, null, "03d52c3a-96d4-4dbb-b708-72ad8a755d65");
-                _verwijderenInfo = new RepoItemInfo(this, "Verwijderen", "menuitem[@accessiblename='Verwijderen...']", 30000, null, "f3c6379c-4119-4897-bc56-dd1655e8f7fb");
-                _voegkaartlaagtoeInfo = new RepoItemInfo(this, "VoegKaartlaagToe", "menuitem[@accessiblename='Voeg kaartlaag toe...']", 30000, null, "9bd893d7-2683-465a-b2e3-d056bce01a0c");
-                _wisalleuitvoerInfo = new RepoItemInfo(this, "WisAlleUitvoer", "menuitem[@accessiblename='Wis alle uitvoer...']", 30000, null, "942ab870-bf62-4d88-8050-58255777c435");
-                _zoomnaarallesInfo = new RepoItemInfo(this, "ZoomNaarAlles", "menuitem[@accessiblename='Zoom naar alles']", 30000, null, "5acc1275-2883-4570-affa-a36a1d5dd4df");
-                _newverticaltabgroupInfo = new RepoItemInfo(this, "NewVerticalTabGroup", "?/?/text[@caption~'ertical']", 30000, null, "3ebcc52e-31c4-467c-b814-ed00988e981f");
+                _allesberekenenInfo = new RepoItemInfo(this, "AllesBerekenen", "menuitem[@accessiblename='Alles berekenen']", "", 30000, null, "e02b3f9a-ba31-43a8-afa9-3e258b8b22a1");
+                _allesuitklappenInfo = new RepoItemInfo(this, "AllesUitklappen", "menuitem[@text='Alles uitklappen']", "", 30000, null, "909957a0-8645-4c4e-9153-757dbd6962c4");
+                _allesvaliderenInfo = new RepoItemInfo(this, "AllesValideren", "menuitem[@accessiblename='Alles valideren']", "", 30000, null, "5fb39361-566b-401d-8784-98249ec265aa");
+                _berekenenInfo = new RepoItemInfo(this, "Berekenen", "menuitem[@accessiblename='Berekenen']", "", 30000, null, "8811db1f-3002-45fb-8742-158ef19d57b8");
+                _berekeningtoevoegenInfo = new RepoItemInfo(this, "BerekeningToevoegen", "menuitem[@accessiblename='Berekening toevoegen']", "", 30000, null, "a538b968-f904-4d07-a69c-e87f3bb3d12b");
+                _semiprobberekeningtoevoegenInfo = new RepoItemInfo(this, "SemiProbBerekeningToevoegen", "menuitem[@accessiblename='Semi-probabilistische berekening toevoegen']", "", 30000, null, "10ff5289-4c15-4670-ac30-51057b2dc94a");
+                _probberekeningtoevoegenInfo = new RepoItemInfo(this, "ProbBerekeningToevoegen", "menuitem[@accessiblename='Probabilistische berekening toevoegen']", "", 30000, null, "ed5b1a57-0234-4bee-b8d5-a91968b5905f");
+                _bijwerkenInfo = new RepoItemInfo(this, "Bijwerken", "menuitem[@accessiblename='Bijwerken...']", "", 30000, null, "8d25a5c5-e67d-4b4c-93a4-f94323bb7d79");
+                _duplicerenInfo = new RepoItemInfo(this, "Dupliceren", "menuitem[@accessiblename='Dupliceren']", "", 30000, null, "75209dc1-5b20-4d57-8ce9-8ec71c26bb9e");
+                _exporterenInfo = new RepoItemInfo(this, "Exporteren", "menuitem[@accessiblename='Exporteren...']", "", 30000, null, "e6ff1b1d-e9cf-4680-b405-2a5432145390");
+                _genereercalculationandscenariosInfo = new RepoItemInfo(this, "GenereerCalculationAndScenarios", "menuitem[@accessiblename>'Genereer']", "", 30000, null, "17056c41-6629-4a0e-8ab2-93470db9fa27");
+                _genericitemincontextmenuInfo = new RepoItemInfo(this, "GenericItemInContextMenu", "menuitem[@accessiblename>$nameOfItem]", "", 30000, null, "39eb92d8-2056-4218-88eb-8b21c0ab477e");
+                _importerenInfo = new RepoItemInfo(this, "Importeren", "menuitem[@accessiblename='Importeren...']", "", 30000, null, "34965857-9328-4216-9d99-86afbd395e38");
+                _inassemblyInfo = new RepoItemInfo(this, "InAssembly", "menuitem[@accessiblename='In assemblage']", "", 30000, null, "561b2d91-62ad-4174-97e3-b9f7420df49a");
+                _koppelaandatabaseInfo = new RepoItemInfo(this, "KoppelAanDatabase", "menuitem[@accessiblename='Koppel aan database...']", "", 30000, null, "b67d9db7-c97a-44ee-9cc6-3cac1b3aa092");
+                _maptoevoegenInfo = new RepoItemInfo(this, "MapToevoegen", "menuitem[@accessiblename='Map toevoegen']", "", 30000, null, "bb08d163-934b-43d2-b55e-ba2f9cd39c14");
+                _mapleegmakenInfo = new RepoItemInfo(this, "MapLeegmaken", "menuitem[@accessiblename='Map leegmaken...']", "", 30000, null, "ca583eef-300b-420e-8edd-95c3ffd4cb61");
+                _openenInfo = new RepoItemInfo(this, "Openen", "menuitem[@accessiblename='Openen']", "", 30000, null, "3162063a-bd8d-4e48-b6ab-9725baa70e0e");
+                _selecterenInfo = new RepoItemInfo(this, "Selecteren", "menuitem[@accessiblename>'Selecteren']", "", 30000, null, "03d52c3a-96d4-4dbb-b708-72ad8a755d65");
+                _verwijderenInfo = new RepoItemInfo(this, "Verwijderen", "menuitem[@accessiblename='Verwijderen...']", "", 30000, null, "f3c6379c-4119-4897-bc56-dd1655e8f7fb");
+                _voegkaartlaagtoeInfo = new RepoItemInfo(this, "VoegKaartlaagToe", "menuitem[@accessiblename='Voeg kaartlaag toe...']", "", 30000, null, "9bd893d7-2683-465a-b2e3-d056bce01a0c");
+                _wisalleuitvoerInfo = new RepoItemInfo(this, "WisAlleUitvoer", "menuitem[@accessiblename='Wis alle uitvoer...']", "", 30000, null, "942ab870-bf62-4d88-8050-58255777c435");
+                _zoomnaarallesInfo = new RepoItemInfo(this, "ZoomNaarAlles", "menuitem[@accessiblename='Zoom naar alles']", "", 30000, null, "5acc1275-2883-4570-affa-a36a1d5dd4df");
+                _newverticaltabgroupInfo = new RepoItemInfo(this, "NewVerticalTabGroup", "?/?/text[@caption~'ertical']", "", 30000, null, "3ebcc52e-31c4-467c-b814-ed00988e981f");
             }
 
             /// <summary>
@@ -4293,7 +4293,7 @@ namespace AutomatedSystemTests
             public ConfirmSaveProjectDialogWhenClosingAppFolder(RepoGenBaseFolder parentFolder) :
                     base("ConfirmSaveProjectDialogWhenClosing", "/form[@title='Project afsluiten']", parentFolder, 30000, null, true, "0c304014-01d3-44c4-9578-fb43d28c00b3", "")
             {
-                _buttonnoInfo = new RepoItemInfo(this, "ButtonNo", "button[@text='&No']", 30000, null, "2229a024-7306-4b0d-a6ab-e43f6a29c1bd");
+                _buttonnoInfo = new RepoItemInfo(this, "ButtonNo", "button[@text='&No']", "", 30000, null, "2229a024-7306-4b0d-a6ab-e43f6a29c1bd");
             }
 
             /// <summary>
@@ -4362,10 +4362,10 @@ namespace AutomatedSystemTests
             public ActivityProgressDialogAppFolder(RepoGenBaseFolder parentFolder) :
                     base("ActivityProgressDialog", "/form[@controlname='ActivityProgressDialog']", parentFolder, 30000, null, true, "6992b395-923d-4913-be11-dc9d7fa075dc", "")
             {
-                _progressbarInfo = new RepoItemInfo(this, "ProgressBar", "progressbar[@controlname='progressBar']", 30000, null, "626cf7e9-229f-443b-8711-8359ac8e9d95");
-                _buttoncancelInfo = new RepoItemInfo(this, "ButtonCancel", "button[@controlname='buttonCancel']", 30000, null, "ce9d9227-f12e-488e-9ca2-80d899fed485");
-                _labelactivitystepcounterInfo = new RepoItemInfo(this, "LabelActivityStepCounter", "text[@controlname='labelActivityProgressText']", 30000, null, "22d15783-171e-4f23-a1f5-3ff2d3676111");
-                _labelactivitytaskcounterInfo = new RepoItemInfo(this, "LabelActivityTaskCounter", "text[@controlname='labelActivityCounter']", 30000, null, "dceeaae8-df9d-4e10-b9b8-7dcf1c822408");
+                _progressbarInfo = new RepoItemInfo(this, "ProgressBar", "progressbar[@controlname='progressBar']", "", 30000, null, "626cf7e9-229f-443b-8711-8359ac8e9d95");
+                _buttoncancelInfo = new RepoItemInfo(this, "ButtonCancel", "button[@controlname='buttonCancel']", "", 30000, null, "ce9d9227-f12e-488e-9ca2-80d899fed485");
+                _labelactivitystepcounterInfo = new RepoItemInfo(this, "LabelActivityStepCounter", "text[@controlname='labelActivityProgressText']", "", 30000, null, "22d15783-171e-4f23-a1f5-3ff2d3676111");
+                _labelactivitytaskcounterInfo = new RepoItemInfo(this, "LabelActivityTaskCounter", "text[@controlname='labelActivityCounter']", "", 30000, null, "dceeaae8-df9d-4e10-b9b8-7dcf1c822408");
             }
 
             /// <summary>
@@ -4504,8 +4504,8 @@ namespace AutomatedSystemTests
             public OpslaanAlsAppFolder(RepoGenBaseFolder parentFolder) :
                     base("OpslaanAls", "/form[@title='Opslaan als']", parentFolder, 30000, null, true, "b4da5f61-a7ae-4a2a-bd84-09bffaec5225", "")
             {
-                _saveasfilenameInfo = new RepoItemInfo(this, "SaveAsFileName", "element[@class='DUIViewWndClassName']//combobox[@class='ComboBox']/text[@accessiblename='File name:']", 30000, null, "29c5aee0-b248-4a91-82b3-a8a9f8f7382e");
-                _savebuttonInfo = new RepoItemInfo(this, "SaveButton", "button[@text='&Save']", 30000, null, "d1a05174-5318-4647-9db3-00a286f95fbc");
+                _saveasfilenameInfo = new RepoItemInfo(this, "SaveAsFileName", "element[@class='DUIViewWndClassName']//combobox[@class='ComboBox']/text[@accessiblename='File name:']", "", 30000, null, "29c5aee0-b248-4a91-82b3-a8a9f8f7382e");
+                _savebuttonInfo = new RepoItemInfo(this, "SaveButton", "button[@text='&Save']", "", 30000, null, "d1a05174-5318-4647-9db3-00a286f95fbc");
             }
 
             /// <summary>
@@ -4596,8 +4596,8 @@ namespace AutomatedSystemTests
             public DropDownMenuItemListAppFolder(RepoGenBaseFolder parentFolder) :
                     base("DropDownMenuItemList", "/list[@controlid='1000']", parentFolder, 30000, null, true, "559e3624-4636-44d9-8c9e-6d20453f95bf", "")
             {
-                _genericdropdownitemInfo = new RepoItemInfo(this, "GenericDropDownItem", "listitem[@text=$textItemDropDownMenu]", 5000, null, "81ebade6-6648-4b3b-a974-22ccbf15c7dc");
-                _webmaptileservicewmtsInfo = new RepoItemInfo(this, "WebMapTileServiceWMTS", "listitem[@text>'Web Map Tile Service (WMT']", 30000, null, "1df21d19-b589-4ae0-9b5e-2ed3f606ff9d");
+                _genericdropdownitemInfo = new RepoItemInfo(this, "GenericDropDownItem", "listitem[@text=$textItemDropDownMenu]", "", 5000, null, "81ebade6-6648-4b3b-a974-22ccbf15c7dc");
+                _webmaptileservicewmtsInfo = new RepoItemInfo(this, "WebMapTileServiceWMTS", "listitem[@text>'Web Map Tile Service (WMT']", "", 30000, null, "1df21d19-b589-4ae0-9b5e-2ed3f606ff9d");
             }
 
             /// <summary>
@@ -4690,8 +4690,8 @@ namespace AutomatedSystemTests
                     base("DialogNewTraject", "/form[@controlname='ReferenceLineMetaSelectionDialog']", parentFolder, 30000, null, true, "a95f8dbe-df2d-4b86-9086-a6751d400a59", "")
             {
                 _trajectstable = new AutomatedSystemTestsRepositoryFolders.TrajectsTableFolder(this);
-                _normradiobuttonInfo = new RepoItemInfo(this, "NormRadioButton", "container/container/radiobutton[@controlname>$normType]", 30000, null, "f1bdec4b-e243-4cfe-8459-731408c338d4");
-                _buttonokInfo = new RepoItemInfo(this, "ButtonOk", "container/container/button[@controlname='Ok']", 30000, null, "ce4cea6f-cbb0-4c97-a077-14d79e60ca7d");
+                _normradiobuttonInfo = new RepoItemInfo(this, "NormRadioButton", "container/container/radiobutton[@controlname>$normType]", "", 30000, null, "f1bdec4b-e243-4cfe-8459-731408c338d4");
+                _buttonokInfo = new RepoItemInfo(this, "ButtonOk", "container/container/button[@controlname='Ok']", "", 30000, null, "ce4cea6f-cbb0-4c97-a077-14d79e60ca7d");
             }
 
             /// <summary>
@@ -4843,9 +4843,9 @@ namespace AutomatedSystemTests
             public GenericTrajectIDRowFolder(RepoGenBaseFolder parentFolder) :
                     base("GenericTrajectIDRow", "row[@accessiblevalue>$trajectID]", parentFolder, 30000, false, false, "44bf3838-090b-46fe-8754-6602b139c5ec", "")
             {
-                _celltrajectidInfo = new RepoItemInfo(this, "CellTrajectId", "cell[2]", 30000, null, "9398ea14-bc10-44f5-b61a-a281f098ba05");
-                _cellsignallingvalueInfo = new RepoItemInfo(this, "CellSignallingValue", "cell[3]", 30000, null, "87a37e52-ec70-43cc-a88a-ca8783019ca2");
-                _celllowlimitvalueInfo = new RepoItemInfo(this, "CellLowLimitValue", "cell[4]", 30000, null, "8e329dc6-f841-4157-b4dd-5c8b2c9d9c7f");
+                _celltrajectidInfo = new RepoItemInfo(this, "CellTrajectId", "cell[2]", "", 30000, null, "9398ea14-bc10-44f5-b61a-a281f098ba05");
+                _cellsignallingvalueInfo = new RepoItemInfo(this, "CellSignallingValue", "cell[3]", "", 30000, null, "87a37e52-ec70-43cc-a88a-ca8783019ca2");
+                _celllowlimitvalueInfo = new RepoItemInfo(this, "CellLowLimitValue", "cell[4]", "", 30000, null, "8e329dc6-f841-4157-b4dd-5c8b2c9d9c7f");
             }
 
             /// <summary>
@@ -4960,8 +4960,8 @@ namespace AutomatedSystemTests
             public OpenenAppFolder(RepoGenBaseFolder parentFolder) :
                     base("Openen", "/form[@title='Openen']", parentFolder, 30000, null, true, "3a716415-5c8c-4180-ba63-04ca2f4f5a22", "")
             {
-                _filenamefieldInfo = new RepoItemInfo(this, "FileNameField", "?/?/text[@controlid='1148']", 30000, null, "6fa717c9-c262-49c5-87e8-2cbf90c3d127");
-                _buttonopenInfo = new RepoItemInfo(this, "ButtonOpen", "button[@text='&Open']", 30000, null, "aad8cdda-9624-426d-9965-7ea59f8db536");
+                _filenamefieldInfo = new RepoItemInfo(this, "FileNameField", "?/?/text[@controlid='1148']", "", 30000, null, "6fa717c9-c262-49c5-87e8-2cbf90c3d127");
+                _buttonopenInfo = new RepoItemInfo(this, "ButtonOpen", "button[@text='&Open']", "", 30000, null, "aad8cdda-9624-426d-9965-7ea59f8db536");
             }
 
             /// <summary>
@@ -5054,8 +5054,8 @@ namespace AutomatedSystemTests
                     base("DialogGenerateCalculations", "/form[@controlname~'SelectionDialog']", parentFolder, 30000, null, true, "42112570-aca4-4418-aa9e-8d74dbb65cc6", "")
             {
                 _table = new AutomatedSystemTestsRepositoryFolders.TableFolder6(this);
-                _generatebuttonInfo = new RepoItemInfo(this, "GenerateButton", "container/button[@controlname='DoForSelectedButton']", 30000, null, "eb4e6139-e00a-44c2-9e0d-344eeed26fd7");
-                _selectallbuttonInfo = new RepoItemInfo(this, "SelectAllButton", "container[@controlname='ButtonGroupBox']/?/?/button[@controlname='SelectAllButton']", 30000, null, "66fd60b5-d7a8-43eb-82cb-e4707b8474de");
+                _generatebuttonInfo = new RepoItemInfo(this, "GenerateButton", "container/button[@controlname='DoForSelectedButton']", "", 30000, null, "eb4e6139-e00a-44c2-9e0d-344eeed26fd7");
+                _selectallbuttonInfo = new RepoItemInfo(this, "SelectAllButton", "container[@controlname='ButtonGroupBox']/?/?/button[@controlname='SelectAllButton']", "", 30000, null, "66fd60b5-d7a8-43eb-82cb-e4707b8474de");
             }
 
             /// <summary>
@@ -5154,7 +5154,7 @@ namespace AutomatedSystemTests
             public TableFolder6(RepoGenBaseFolder parentFolder) :
                     base("Table", "container[@controlname='ButtonGroupBox']/container//table", parentFolder, 30000, null, false, "4cff6d90-7520-4ee7-a00a-538e505578e2", "")
             {
-                _usecellrowindexthInfo = new RepoItemInfo(this, "UseCellRowIndexth", "row[@accessiblename~' '+$indexRow]/cell[@accessiblename>'Gebruik']", 30000, null, "407fae09-698f-4177-8f27-47a238018ac5");
+                _usecellrowindexthInfo = new RepoItemInfo(this, "UseCellRowIndexth", "row[@accessiblename~' '+$indexRow]/cell[@accessiblename>'Gebruik']", "", 30000, null, "407fae09-698f-4177-8f27-47a238018ac5");
             }
 
             /// <summary>
@@ -5271,7 +5271,7 @@ namespace AutomatedSystemTests
             public ListFolder(RepoGenBaseFolder parentFolder) :
                     base("List", "?/?/list[@accessiblerole='List']", parentFolder, 30000, null, false, "9b460c01-d201-4d71-85d1-108e27c4b272", "")
             {
-                _genericitemindropdownlistInfo = new RepoItemInfo(this, "genericItemInDropDownList", "listitem[@accessiblename~$newValueForParameter]", 30000, null, "532ede54-3f03-4afe-896f-36f3614c200b");
+                _genericitemindropdownlistInfo = new RepoItemInfo(this, "genericItemInDropDownList", "listitem[@accessiblename~$newValueForParameter]", "", 30000, null, "532ede54-3f03-4afe-896f-36f3614c200b");
             }
 
             /// <summary>
@@ -5337,7 +5337,7 @@ namespace AutomatedSystemTests
             public BevestigenAppFolder(RepoGenBaseFolder parentFolder) :
                     base("Bevestigen", "/form[@title='Bevestigen']", parentFolder, 30000, null, false, "a1f496aa-79c6-4a38-bf14-a67650685c78", "")
             {
-                _buttonokInfo = new RepoItemInfo(this, "ButtonOK", "button[@text='OK']", 30000, null, "e7ae93d7-2c71-43b5-99bf-1790cbc314c0");
+                _buttonokInfo = new RepoItemInfo(this, "ButtonOK", "button[@text='OK']", "", 30000, null, "e7ae93d7-2c71-43b5-99bf-1790cbc314c0");
             }
 
             /// <summary>
@@ -5405,9 +5405,9 @@ namespace AutomatedSystemTests
             public SelectItemDialogAppFolder(RepoGenBaseFolder parentFolder) :
                     base("SelectItemDialog", "/form[@controlname='SelectItemDialog']", parentFolder, 30000, null, true, "0d9a64ec-2e31-4550-883e-f86cf1e08e29", "")
             {
-                _optioncsvInfo = new RepoItemInfo(this, "OptionCSV", "list/listitem[@text<'*.csv)']", 30000, null, "ab9a410e-84e4-4d83-aeb5-0574bad1c88e");
-                _buttonokInfo = new RepoItemInfo(this, "ButtonOk", "button[@controlname='buttonOk']", 30000, null, "60eebdf2-2a5e-4a38-a8bb-e4c684bad433");
-                _riskeerberekeningenconfiguratieasteriInfo = new RepoItemInfo(this, "RiskeerBerekeningenconfiguratieAsteri", "list/listitem[@text>'Riskeer berekeningenconfiguratie']", 30000, null, "3c5b2b8b-e82e-44ca-b9ed-e85665e0cb24");
+                _optioncsvInfo = new RepoItemInfo(this, "OptionCSV", "list/listitem[@text<'*.csv)']", "", 30000, null, "ab9a410e-84e4-4d83-aeb5-0574bad1c88e");
+                _buttonokInfo = new RepoItemInfo(this, "ButtonOk", "button[@controlname='buttonOk']", "", 30000, null, "60eebdf2-2a5e-4a38-a8bb-e4c684bad433");
+                _riskeerberekeningenconfiguratieasteriInfo = new RepoItemInfo(this, "RiskeerBerekeningenconfiguratieAsteri", "list/listitem[@text>'Riskeer berekeningenconfiguratie']", "", 30000, null, "3c5b2b8b-e82e-44ca-b9ed-e85665e0cb24");
             }
 
             /// <summary>
@@ -5522,8 +5522,8 @@ namespace AutomatedSystemTests
             public OpenDialogAppFolder(RepoGenBaseFolder parentFolder) :
                     base("OpenDialog", "/form[@title='Openen']", parentFolder, 30000, null, true, "c507fecb-03d6-49f4-b5b8-7b6a4349c6de", "")
             {
-                _filenamefieldInfo = new RepoItemInfo(this, "FileNameField", "?/?/text[@controlid='1148']", 30000, null, "6605374b-06f5-4614-99d7-445816f0207d");
-                _buttonopenInfo = new RepoItemInfo(this, "ButtonOpen", "button[@text='&Open']", 30000, null, "cbbe1268-3660-4dd4-a308-278fbe50bc01");
+                _filenamefieldInfo = new RepoItemInfo(this, "FileNameField", "?/?/text[@controlid='1148']", "", 30000, null, "6605374b-06f5-4614-99d7-445816f0207d");
+                _buttonopenInfo = new RepoItemInfo(this, "ButtonOpen", "button[@text='&Open']", "", 30000, null, "cbbe1268-3660-4dd4-a308-278fbe50bc01");
             }
 
             /// <summary>
@@ -5614,8 +5614,8 @@ namespace AutomatedSystemTests
             public OpenFileDialogAppFolder(RepoGenBaseFolder parentFolder) :
                     base("OpenFileDialog", "/form[@title='Bestand openen' or @title='Bestand Openen' or @title='Open File' or @title='Open file']", parentFolder, 30000, null, true, "b4994c0d-5167-43e4-8cf7-09a41072ae61", "")
             {
-                _buttonopenInfo = new RepoItemInfo(this, "ButtonOpen", "button[@text='&Open']", 30000, null, "1003af8e-9e10-4fa3-9036-19f31d7713b9");
-                _filenamefieldInfo = new RepoItemInfo(this, "FileNameField", "?/combobox/text", 30000, null, "88a4a7e6-e1ab-4778-871a-63b4fc5f59ae");
+                _buttonopenInfo = new RepoItemInfo(this, "ButtonOpen", "button[@text='&Open']", "", 30000, null, "1003af8e-9e10-4fa3-9036-19f31d7713b9");
+                _filenamefieldInfo = new RepoItemInfo(this, "FileNameField", "?/combobox/text", "", 30000, null, "88a4a7e6-e1ab-4778-871a-63b4fc5f59ae");
             }
 
             /// <summary>
@@ -5707,7 +5707,7 @@ namespace AutomatedSystemTests
                     base("BackgroundMapDataSelectionDialog", "/form[@controlname='BackgroundMapDataSelectionDialog']", parentFolder, 30000, null, true, "4ed2421b-175c-4b4d-8733-b94793ed4133", "")
             {
                 _dialogselectionbackground = new AutomatedSystemTestsRepositoryFolders.DialogSelectionBackgroundFolder(this);
-                _row0Info = new RepoItemInfo(this, "Row0", "?/?/container[@controlname='propertiesGroupBox']//table[@controlname='dataGridView']/row[2]/cell[1]", 30000, null, "d0b3af51-09f6-49fb-89b1-52aafe114381");
+                _row0Info = new RepoItemInfo(this, "Row0", "?/?/container[@controlname='propertiesGroupBox']//table[@controlname='dataGridView']/row[2]/cell[1]", "", 30000, null, "d0b3af51-09f6-49fb-89b1-52aafe114381");
             }
 
             /// <summary>
@@ -5785,10 +5785,10 @@ namespace AutomatedSystemTests
             public DialogSelectionBackgroundFolder(RepoGenBaseFolder parentFolder) :
                     base("DialogSelectionBackground", "container[@controlname='tableLayoutPanel1']", parentFolder, 30000, null, false, "5ff51598-720e-48f4-9f45-0cd9533de867", "")
             {
-                _cancelbuttonInfo = new RepoItemInfo(this, "CancelButton", "?/?/button[@controlname='cancelButton']", 30000, null, "c4d98bb1-8d9c-417d-b4f5-77c5c898556e");
-                _connecttobuttonInfo = new RepoItemInfo(this, "ConnectToButton", "container[@controlname='propertiesGroupBox']//button[@controlname='connectToButton']", 30000, null, "557fa973-5317-4d40-a856-2fd2b14140a4");
-                _maplayercomboboxInfo = new RepoItemInfo(this, "MapLayerComboBox", "?/?/combobox[@controlname='mapLayerComboBox']", 30000, null, "f74cd95e-8133-4695-8dc4-bf54ce2e9dc8");
-                _selectbuttonInfo = new RepoItemInfo(this, "SelectButton", "?/?/button[@controlname='selectButton']", 30000, null, "2df0475f-87b0-4c9a-957d-fe645d198f9b");
+                _cancelbuttonInfo = new RepoItemInfo(this, "CancelButton", "?/?/button[@controlname='cancelButton']", "", 30000, null, "c4d98bb1-8d9c-417d-b4f5-77c5c898556e");
+                _connecttobuttonInfo = new RepoItemInfo(this, "ConnectToButton", "container[@controlname='propertiesGroupBox']//button[@controlname='connectToButton']", "", 30000, null, "557fa973-5317-4d40-a856-2fd2b14140a4");
+                _maplayercomboboxInfo = new RepoItemInfo(this, "MapLayerComboBox", "?/?/combobox[@controlname='mapLayerComboBox']", "", 30000, null, "f74cd95e-8133-4695-8dc4-bf54ce2e9dc8");
+                _selectbuttonInfo = new RepoItemInfo(this, "SelectButton", "?/?/button[@controlname='selectButton']", "", 30000, null, "2df0475f-87b0-4c9a-957d-fe645d198f9b");
             }
 
             /// <summary>
@@ -5926,7 +5926,7 @@ namespace AutomatedSystemTests
             public FoutAppFolder(RepoGenBaseFolder parentFolder) :
                     base("Fout", "/form[@title='Fout']", parentFolder, 30000, null, true, "52ebd3be-7b30-4e13-885c-76c38357604f", "")
             {
-                _buttonokInfo = new RepoItemInfo(this, "ButtonOK", "button[@text='OK']", 30000, null, "b8fd9641-981d-469c-bcad-d5e852798a7d");
+                _buttonokInfo = new RepoItemInfo(this, "ButtonOK", "button[@text='OK']", "", 30000, null, "b8fd9641-981d-469c-bcad-d5e852798a7d");
             }
 
             /// <summary>
@@ -5995,8 +5995,8 @@ namespace AutomatedSystemTests
                     base("DialogSelectionInformationImportMergeProject", "/form[@controlname='AssessmentSectionMergeDataProviderDialog']", parentFolder, 30000, null, true, "a38813aa-c0d2-4abf-809e-aca709f1371e", "")
             {
                 _tablefms = new AutomatedSystemTestsRepositoryFolders.TableFMsFolder(this);
-                _cancelbuttonInfo = new RepoItemInfo(this, "CancelButton", "?/?/container[@controlname='flowLayoutPanelButtons']/button[@controlname='cancelButton']", 30000, null, "89a71866-d976-497c-a752-3afb1a05083b");
-                _importbuttonInfo = new RepoItemInfo(this, "ImportButton", "?/?/container[@controlname='flowLayoutPanelButtons']/button[@controlname='importButton']", 30000, null, "2ef0a15d-b6c2-4ef1-b76f-b49f984cc52a");
+                _cancelbuttonInfo = new RepoItemInfo(this, "CancelButton", "?/?/container[@controlname='flowLayoutPanelButtons']/button[@controlname='cancelButton']", "", 30000, null, "89a71866-d976-497c-a752-3afb1a05083b");
+                _importbuttonInfo = new RepoItemInfo(this, "ImportButton", "?/?/container[@controlname='flowLayoutPanelButtons']/button[@controlname='importButton']", "", 30000, null, "2ef0a15d-b6c2-4ef1-b76f-b49f984cc52a");
             }
 
             /// <summary>
@@ -6095,7 +6095,7 @@ namespace AutomatedSystemTests
             public TableFMsFolder(RepoGenBaseFolder parentFolder) :
                     base("TableFMs", ".//table[@controlname='dataGridView']", parentFolder, 30000, null, false, "15fe51ee-f2a2-4404-a313-53b35aded5fd", "")
             {
-                _selectcellgenericrowInfo = new RepoItemInfo(this, "SelectCellGenericRow", "row[@accessiblename~' '+$indexRow]/cell[@accessiblename>'Selecteer']", 30000, null, "67bc4452-c4a1-459b-8ab9-a476e489359f");
+                _selectcellgenericrowInfo = new RepoItemInfo(this, "SelectCellGenericRow", "row[@accessiblename~' '+$indexRow]/cell[@accessiblename>'Selecteer']", "", 30000, null, "67bc4452-c4a1-459b-8ab9-a476e489359f");
             }
 
             /// <summary>

@@ -7,6 +7,7 @@
 			name="SelectStateTraject">
 				<parameters>
 					<param
+					mask="False"
 					name="stateName"
 					value="@TR">
 					</param>
@@ -83,6 +84,7 @@
 			name="a)MergeCancelledByRiskeer">
 				<parameters>
 					<param
+					mask="False"
 					name="pathRootTraject"
 					value="@TR">
 					</param>
@@ -153,6 +155,7 @@
 			name="SetRowValidationCSV">
 				<parameters>
 					<param
+					mask="False"
 					name="nameSmartFolder"
 					value="ValidateCSVEqualToReference">
 					</param>
@@ -213,38 +216,47 @@
 			name="CalculateFileName">
 				<parameters>
 					<param
+					mask="False"
 					name="intermediateString1"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString2"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString3"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="spaceChar"
 					value=" ">
 					</param>
 					<param
+					mask="False"
 					name="pathSeparatorChar"
 					value=">">
 					</param>
 					<param
+					mask="False"
 					name="underscoreChar"
 					value="_">
 					</param>
 					<param
+					mask="False"
 					name="suffixProject"
 					value="AB">
 					</param>
 					<param
+					mask="False"
 					name="extensionCsv"
 					value=".csv">
 					</param>
 					<param
+					mask="False"
 					name="backslashCharacter"
 					value="/">
 					</param>
@@ -432,6 +444,7 @@
 			name="SetRowValidationCSVAgain">
 				<parameters>
 					<param
+					mask="False"
 					name="nameSmartFolder"
 					value="ValidateAgainCSVEqualToReference">
 					</param>
@@ -442,6 +455,7 @@
 			name="ValidateErrorMessagesMergeOldProject">
 				<parameters>
 					<param
+					mask="False"
 					name="warningMessageToLog"
 					value="See error messages in screenshot of Messages Panel">
 					</param>
@@ -561,6 +575,7 @@
 			name="SetRangeAgain">
 				<parameters>
 					<param
+					mask="False"
 					name="nameSmartFolderAgain"
 					value="LoopValidationPropertiesAgain">
 					</param>
@@ -693,42 +708,52 @@
 			name="SetRangeLoopValidationProperties">
 				<parameters>
 					<param
+					mask="False"
 					name="indexZST"
 					value="3">
 					</param>
 					<param
+					mask="False"
 					name="hasZSTBeenMergedFromB"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="indexBSKW"
 					value="4">
 					</param>
 					<param
+					mask="False"
 					name="hasBSKWBeenMergedFromB"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="nameFolderLoopValidationProperties"
 					value="LoopValidationProperties">
 					</param>
 					<param
+					mask="False"
 					name="minimumRangeLoopValidations"
 					value="1-44">
 					</param>
 					<param
+					mask="False"
 					name="substringZSTPropertiesPanelMustBeValidated"
 					value=",45-46">
 					</param>
 					<param
+					mask="False"
 					name="substringBSKWPropertiesPanelMustBeValidated"
 					value=",47-48">
 					</param>
 					<param
+					mask="False"
 					name="substringChangeNothing"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateRange"
 					value="">
 					</param>
@@ -741,6 +766,7 @@
 			name="ValidateMessagesMergeProject">
 				<parameters>
 					<param
+					mask="False"
 					name="expectedMessage"
 					value="">
 					</param>
@@ -791,6 +817,7 @@
 			name="2)ImportedMergeCompleted">
 				<parameters>
 					<param
+					mask="False"
 					name="pathExportedCsvFile"
 					value="">
 					</param>
@@ -859,10 +886,12 @@
 			name="BuildExpectedMessage">
 				<parameters>
 					<param
+					mask="False"
 					name="fmMessageToReplace"
 					value="&lt;FM>">
 					</param>
 					<param
+					mask="False"
 					name="fmSubstring"
 					value="">
 					</param>
@@ -1056,42 +1085,52 @@
 			name="script28_Projecten_samenvoegen">
 				<parameters>
 					<param
+					mask="False"
 					name="folderProjectsCurrentRelease"
 					value="X:\script28\currentRelease">
 					</param>
 					<param
+					mask="False"
 					name="folderProjectPreviousRelease"
 					value="X:\script28\previousRelease">
 					</param>
 					<param
+					mask="False"
 					name="scriptOutputFolder"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="caseNumber"
 					value="28">
 					</param>
 					<param
+					mask="False"
 					name="pathProjectA"
 					value="Project_samenvoegen_A.risk">
 					</param>
 					<param
+					mask="False"
 					name="pathProjectB"
 					value="Project_samenvoegen_B.risk">
 					</param>
 					<param
+					mask="False"
 					name="pathProjectOld"
 					value="X:\script28\previousRelease\Project_samenvoegen_oud.risk">
 					</param>
 					<param
+					mask="False"
 					name="indecesAddedFMs"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="filterRiskProjects"
 					value="*.risk">
 					</param>
 					<param
+					mask="False"
 					name="dummyEmptyString"
 					value="">
 					</param>
@@ -1164,14 +1203,17 @@
 			name="LoopValidationProperties">
 				<parameters>
 					<param
+					mask="False"
 					name="separatorCharInCsvFile"
 					value=";">
 					</param>
 					<param
+					mask="False"
 					name="rowIndexForReferenceCSVFile"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="waitTimeAfterExpanding"
 					value="500">
 					</param>
@@ -1182,6 +1224,7 @@
 			name="BSKWHasBeenReplacedByProjectB">
 				<parameters>
 					<param
+					mask="False"
 					name="rangeLoopValidationPropertiesZSTFromProjectB"
 					value="1-44,47-48">
 					</param>
@@ -1367,6 +1410,7 @@
 			name="ZSTIsOriginalFromProjectA">
 				<parameters>
 					<param
+					mask="False"
 					name="rangePropertiesForZSTFromProjectA"
 					value="1-46">
 					</param>
@@ -1437,18 +1481,22 @@
 			name="HBCs">
 				<parameters>
 					<param
+					mask="False"
 					name="FullPathToHBCItemInPEWithCurrentCulture"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="StepInPathContainingTargetProbability"
 					value="4">
 					</param>
 					<param
+					mask="False"
 					name="TargetProbabilityInvariantCulture"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="TargetProbabilityCurrentCulture"
 					value="">
 					</param>
@@ -1480,6 +1528,7 @@
 			name="ZSTHasBeenReplacedByProjectB">
 				<parameters>
 					<param
+					mask="False"
 					name="rangeLoopValidationPropertiesZSTFromProjectB"
 					value="1-44,47-48">
 					</param>
@@ -1647,30 +1696,37 @@
 			reportlevel="Info;20">
 				<parameters>
 					<param
+					mask="False"
 					name="AppProcessID"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="AppPath"
 					value="..\..\..\..\..\bin\Debug\Riskeer.exe">
 					</param>
 					<param
+					mask="False"
 					name="PdfDirectoryPath"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="DeleteRanorexReport"
 					value="false">
 					</param>
 					<param
+					mask="False"
 					name="Details"
 					value="all">
 					</param>
 					<param
+					mask="False"
 					name="Xml"
 					value="Reports\style.xml">
 					</param>
 					<param
+					mask="False"
 					name="PdfName"
 					value="script28_Projecten_samenvoegen.pdf">
 					</param>
@@ -1681,42 +1737,52 @@
 			name="SetRangeLoopValidationPropertiesAgain">
 				<parameters>
 					<param
+					mask="False"
 					name="indexZST"
 					value="3">
 					</param>
 					<param
+					mask="False"
 					name="hasZSTBeenMergedFromB"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="indexBSKW"
 					value="4">
 					</param>
 					<param
+					mask="False"
 					name="hasBSKWBeenMergedFromB"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="nameFolderLoopValidationProperties"
 					value="LoopValidationProperties">
 					</param>
 					<param
+					mask="False"
 					name="minimumRangeLoopValidations"
 					value="1-44">
 					</param>
 					<param
+					mask="False"
 					name="substringZSTPropertiesPanelMustBeValidated"
 					value=",45-46">
 					</param>
 					<param
+					mask="False"
 					name="substringBSKWPropertiesPanelMustBeValidated"
 					value=",47-48">
 					</param>
 					<param
+					mask="False"
 					name="substringChangeNothing"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateRange"
 					value="">
 					</param>
@@ -1863,18 +1929,22 @@
 			name="ValidateErrorMessagesMergeOldProject">
 				<parameters>
 					<param
+					mask="False"
 					name="warningMessageToLog"
 					value="See error messages in screenshot of Messages Panel">
 					</param>
 					<param
+					mask="False"
 					name="indexMessage"
 					value="0">
 					</param>
 					<param
+					mask="False"
 					name="errorMessage"
 					value="Er is geen traject gevonden dat samengevoegd kan worden.">
 					</param>
 					<param
+					mask="False"
 					name="waitPeriodUntilErrorMessageHasBeenProduced"
 					value="3000">
 					</param>
@@ -1889,6 +1959,7 @@
 			name="BSKWIsOriginalFromProjectA">
 				<parameters>
 					<param
+					mask="False"
 					name="rangePropertiesForZSTFromProjectA"
 					value="1-46">
 					</param>
@@ -2124,10 +2195,12 @@
 			name="LoopValidationPropertiesAgain">
 				<parameters>
 					<param
+					mask="False"
 					name="separatorCharInCsvFile"
 					value=";">
 					</param>
 					<param
+					mask="False"
 					name="rowIndexForReferenceCSVFile"
 					value="">
 					</param>
@@ -2180,23 +2253,34 @@
 				</databinding>
 			</testmodule>
 			<testsuite
+			ExportColumnList="None"
 			ReportTime="RelativeToTestSuiteStartTime"
+			SelectedActions="All"
 			TracingScreenshotMode="Foreground"
 			TracingScreenshotQuality="40"
 			VideoBitrate="2000"
 			VideoFps="15"
 			VideoRecordingMode="KeepAllTests"
 			VideoSource="Auto"
+			createindividualreportpdfchecked="False"
+			createsinglereportpdfchecked="True"
+			enableCSVReport="False"
 			enabletracingscreenshots="True"
+			exportAllColummns="True"
 			id="a000d6fa-0eb3-453d-8a12-2cd5c294bee2"
+			includeimageschecked="False"
+			includerecordingschecked="False"
 			junitreport="False"
 			name="Script28"
+			overwritefilechecked="False"
 			reportcompress="False"
+			reportdescription=""
 			reportdirectoryname="Reports"
 			reportenabled="True"
 			reportfilename="%S_%Y%M%D_%T.rxlog"
 			reporttemplatefolder="ReportDeltaresStyle"
-			reportwriteinterval="30000ms">
+			reportwriteinterval="30000ms"
+			singlereportpdfdirectory="SingleReportPDF">
 			</testsuite>
 			<smartfoldernode
 			id="a0a87348-5ca1-4ab9-9de5-84e45177f8fa"
@@ -2207,10 +2291,12 @@
 			name="ValidateWarningMessage">
 				<parameters>
 					<param
+					mask="False"
 					name="indexRowMessage"
 					value="0">
 					</param>
 					<param
+					mask="False"
 					name="expectedMessage"
 					value="Importeren van gegevens is geannuleerd.">
 					</param>
@@ -2544,14 +2630,17 @@
 			name="ModifyTraject">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToHBC"
 					value="@TR>@HB">
 					</param>
 					<param
+					mask="False"
 					name="pathNewHLCD"
 					value="X:\commonData\databases\WBI2017_Bovenrijn_50-1_v04\hlcd_klimaat.sqlite">
 					</param>
 					<param
+					mask="False"
 					name="parameterNameHLCDLocation"
 					value="HLCD bestandslocatie">
 					</param>
@@ -2845,6 +2934,7 @@
 			name="SelectStateHB">
 				<parameters>
 					<param
+					mask="False"
 					name="stateName"
 					value="@HyB">
 					</param>
@@ -3122,18 +3212,22 @@
 			name="HBCs">
 				<parameters>
 					<param
+					mask="False"
 					name="FullPathToHBCItemInPEWithCurrentCulture"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="StepInPathContainingTargetProbability"
 					value="4">
 					</param>
 					<param
+					mask="False"
 					name="TargetProbabilityInvariantCulture"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="TargetProbabilityCurrentCulture"
 					value="">
 					</param>
@@ -3169,18 +3263,22 @@
 			name="RandomChoiceFMsToImport">
 				<parameters>
 					<param
+					mask="False"
 					name="min"
 					value="1">
 					</param>
 					<param
+					mask="False"
 					name="max"
 					value="4">
 					</param>
 					<param
+					mask="False"
 					name="numerOfIntegers"
 					value="2">
 					</param>
 					<param
+					mask="False"
 					name="nameSmartFolderToSetRange"
 					value="SelectFMsToImportInDialog">
 					</param>
@@ -3259,14 +3357,17 @@
 			name="b)MergeFMsInSameSection">
 				<parameters>
 					<param
+					mask="False"
 					name="pathRootTraject"
 					value="@TR">
 					</param>
 					<param
+					mask="False"
 					name="mergedFileNameToSave"
 					value="Project_samenvoegen_AandB.risk">
 					</param>
 					<param
+					mask="False"
 					name="finalRangeLoopValidations"
 					value="">
 					</param>
@@ -3281,38 +3382,47 @@
 			name="CalculateFileNameAgain">
 				<parameters>
 					<param
+					mask="False"
 					name="intermediateString1"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString2"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString3"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="spaceChar"
 					value=" ">
 					</param>
 					<param
+					mask="False"
 					name="pathSeparatorChar"
 					value=">">
 					</param>
 					<param
+					mask="False"
 					name="underscoreChar"
 					value="_">
 					</param>
 					<param
+					mask="False"
 					name="suffixProject"
 					value="AB_After_Save_And_Open">
 					</param>
 					<param
+					mask="False"
 					name="extensionCsv"
 					value=".csv">
 					</param>
 					<param
+					mask="False"
 					name="backslashCharacter"
 					value="/">
 					</param>
@@ -6101,7 +6211,7 @@
 			Ranorex Automation Helpers.dll
 		</reference>
 		<reference>
-			Ranorex.ReportToPDF.exe
+			Ranorex.ReportToPDF, Version=1.0.17.0, Culture=neutral, PublicKeyToken=null
 		</reference>
 	</references>
 </testsuitedoc>

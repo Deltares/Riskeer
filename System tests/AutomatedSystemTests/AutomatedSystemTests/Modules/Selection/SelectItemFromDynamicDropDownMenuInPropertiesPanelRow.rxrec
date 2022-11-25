@@ -76,6 +76,8 @@ mode="Global">
 						<path>
 							/form[@title='']/?/?/list[@accessiblerole='List']/listitem[@accessiblename&gt;$newValueForParameter]
 						</path>
+						<robustPath>
+						</robustPath>
 					</info>
 				</argument>
 				<argument

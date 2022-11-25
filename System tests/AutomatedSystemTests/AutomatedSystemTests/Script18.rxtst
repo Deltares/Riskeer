@@ -11,6 +11,7 @@
 			name="LoopCalculationsToModify">
 				<parameters>
 					<param
+					mask="False"
 					name="fullPathToCalculationInput"
 					value="">
 					</param>
@@ -41,6 +42,7 @@
 			name="SaveProject">
 				<parameters>
 					<param
+					mask="False"
 					name="fileNameToSave"
 					value="script18.risk">
 					</param>
@@ -293,30 +295,37 @@
 			reportlevel="Info;20">
 				<parameters>
 					<param
+					mask="False"
 					name="AppProcessID"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="AppPath"
 					value="..\..\..\..\..\bin\Debug\Riskeer.exe">
 					</param>
 					<param
+					mask="False"
 					name="PdfDirectoryPath"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="DeleteRanorexReport"
 					value="false">
 					</param>
 					<param
+					mask="False"
 					name="Details"
 					value="all">
 					</param>
 					<param
+					mask="False"
 					name="Xml"
 					value="Reports\style.xml">
 					</param>
 					<param
+					mask="False"
 					name="PdfName"
 					value="script18_Overige_(sterkte)parameters_specificeren.pdf">
 					</param>
@@ -327,29 +336,41 @@
 			name="SetRangeOfLoopModificationParametersInCalculation">
 				<parameters>
 					<param
+					mask="False"
 					name="nameOfSmartFolderToSpecifyRange"
 					value="ModifyParametersInSelectedCalculationInput">
 					</param>
 				</parameters>
 			</smartfoldernode>
 			<testsuite
+			ExportColumnList="None"
 			ReportTime="RelativeToTestSuiteStartTime"
+			SelectedActions="All"
 			TracingScreenshotMode="Foreground"
 			TracingScreenshotQuality="40"
 			VideoBitrate="2000"
 			VideoFps="15"
 			VideoRecordingMode="KeepAllTests"
 			VideoSource="Auto"
+			createindividualreportpdfchecked="False"
+			createsinglereportpdfchecked="True"
+			enableCSVReport="False"
 			enabletracingscreenshots="True"
+			exportAllColummns="True"
 			id="8c4d5317-8560-4199-bbb1-19393558225d"
+			includeimageschecked="False"
+			includerecordingschecked="False"
 			junitreport="False"
 			name="Script18"
+			overwritefilechecked="False"
 			reportcompress="False"
+			reportdescription=""
 			reportdirectoryname="Reports"
 			reportenabled="True"
 			reportfilename="%S_%Y%M%D_%T.rxlog"
 			reporttemplatefolder="ReportDeltaresStyle"
-			reportwriteinterval="30000ms">
+			reportwriteinterval="30000ms"
+			singlereportpdfdirectory="SingleReportPDF">
 			</testsuite>
 			<teardown
 			id="8ebc68af-d271-4f9c-804e-cf0b0c67775a"
@@ -573,26 +594,32 @@
 			name="script18_Overige_(sterkte)parameters_specificeren">
 				<parameters>
 					<param
+					mask="False"
 					name="caseNumber"
 					value="18">
 					</param>
 					<param
+					mask="False"
 					name="scriptOutputFolder"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="filterRiskeerProjects"
 					value="*.risk">
 					</param>
 					<param
+					mask="False"
 					name="migrationTargetFolder"
 					value="X:\script18\currentRelease">
 					</param>
 					<param
+					mask="False"
 					name="migrationSourceFolder"
 					value="X:\script18\previousRelease">
 					</param>
 					<param
+					mask="False"
 					name="dummyString"
 					value="">
 					</param>
@@ -603,6 +630,7 @@
 			name="SelectStateWithCalculations">
 				<parameters>
 					<param
+					mask="False"
 					name="nameState"
 					value="@SB">
 					</param>
@@ -657,6 +685,7 @@
 			name="CreateFullPathToInput">
 				<parameters>
 					<param
+					mask="False"
 					name="substringInput"
 					value=">Invoer">
 					</param>
@@ -4391,7 +4420,7 @@
 			Ranorex Automation Helpers.dll
 		</reference>
 		<reference>
-			Ranorex.ReportToPDF.exe
+			Ranorex.ReportToPDF, Version=1.0.17.0, Culture=neutral, PublicKeyToken=null
 		</reference>
 	</references>
 </testsuitedoc>

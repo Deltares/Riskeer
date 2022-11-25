@@ -116,6 +116,8 @@ mode="Global">
 				<path>
 					/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Exporteren...']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<helperscreenshot
 			guid="a726ee30-f202-4ad9-b987-ed0dcbdb1ee4">
@@ -492,6 +494,8 @@ KKKACiiigD//2Q==
 						<path>
 							/form[@controlname='SelectItemDialog']/list/listitem[@text&gt;'Riskeer berekeningenconfiguratie']
 						</path>
+						<robustPath>
+						</robustPath>
 					</info>
 				</argument>
 				<argument
@@ -508,6 +512,8 @@ KKKACiiigD//2Q==
 						<path>
 							/form[@controlname='SelectItemDialog']/button[@controlname='buttonOk']
 						</path>
+						<robustPath>
+						</robustPath>
 					</info>
 				</argument>
 			</arguments>
@@ -667,6 +673,8 @@ KKKACiiigD//2Q==
 				<path>
 					/form/element[@class='DUIViewWndClassName']//combobox[@class='ComboBox']/text[@controlid='1001']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<AttributeValue>
 				yourValue
@@ -839,6 +847,8 @@ KKKACiiigD//2Q==
 				<path>
 					/form/button
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<helperscreenshot
 			guid="4c86d5cb-0181-4498-9e10-256c43bfe81c">
@@ -989,6 +999,8 @@ rr/oISf9+0/wq9RQB//Z
 						<path>
 							/form[@title='Confirm Save As']//button[@text='&amp;Yes']
 						</path>
+						<robustPath>
+						</robustPath>
 					</info>
 				</argument>
 			</arguments>
@@ -1018,6 +1030,8 @@ rr/oISf9+0/wq9RQB//Z
 				<path>
 					/form[@controlname='ActivityProgressDialog']/button[@controlname='buttonCancel']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</WaitForRecordItem>
 	</recorditems>
