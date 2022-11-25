@@ -1,0 +1,1184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" 
+xmlns:gml="http://www.opengis.net/gml/3.2" 
+xmlns:imgeo="http://www.geostandaarden.nl/imgeo/2.1" 
+xmlns:immetingen="http://www.sikb.nl/immetingen" 
+xmlns:imwa="https://data.aquo.nl/xsd/IMWA/1.0/imwakern" elementFormDefault="qualified" 
+targetNamespace="https://data.aquo.nl/xsd/IMWA/1.0/imwakern" version="1.0">
+  <annotation>
+    <documentation>IMWA Kern versie 1.0, 2018 Niet volledig MIM-conform</documentation>
+  </annotation>
+  <import namespace="http://www.geostandaarden.nl/imgeo/2.1"/>
+  <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="https://data.aquo.nl/profile/gml-profile.xsd"/>
+  <import namespace="http://www.sikb.nl/immetingen"/>
+  <element name="AdministratiefGebied" substitutionGroup="gml:AbstractObject" type="imwa:AdministratiefGebiedType">
+    <annotation>
+      <documentation>&lt;u&gt;Definitie:&lt;/u&gt;
+Een niet tastbaar begrensd grondoppervlak dat als eenheid geldt voor bestuurlijke verantwoordelijkheid, voor bedrijfsvoering, waarbinnen een specifieke rechtsverhouding te onderscheiden is of waarvoor een specifieke functie of bestemming geldt.
+
+&lt;u&gt;Herkomst defnitie:&lt;/u&gt; Aquo-lex</documentation>
+    </annotation>
+  </element>
+  <complexType name="AdministratiefGebiedType">
+    <complexContent>
+      <extension base="gml:AbstractGMLType">
+        <sequence>
+          <element name="geometrie2D">
+            <annotation>
+              <documentation>Geometrische representatie door vlakvormige geometrie</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="waterbeheerder" type="gml:CodeType">
+            <annotation>
+              <documentation>Waterbeheerder: Verwijzing naar waterschap via landelijke waterschapscodering</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="AdministratiefGebiedPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwa:AdministratiefGebied"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Artikel" substitutionGroup="gml:AbstractObject" type="imwa:ArtikelType">
+    <annotation>
+      <documentation>Met dit samengesteld attribuut kan worden aangegeven welk artikelnummer en lid er van toepassing zijn.</documentation>
+    </annotation>
+  </element>
+  <complexType name="ArtikelType">
+    <sequence>
+      <element name="artikelnummer" type="integer"/>
+      <element name="lid" type="string"/>
+    </sequence>
+  </complexType>
+  <complexType name="ArtikelPropertyType">
+    <sequence>
+      <element ref="imwa:Artikel"/>
+    </sequence>
+  </complexType>
+  <element name="BeschermdGebied" substitutionGroup="imwa:IMWA_GeoObject" type="imwa:BeschermdGebiedType">
+    <annotation>
+      <documentation>Gebied, in het kader van wetgeving, aangemerkt als gebied met 
+bijzondere doelstelling waarvoor beschermende maatregelen genomen 
+moeten worden.</documentation>
+    </annotation>
+  </element>
+  <complexType name="BeschermdGebiedType">
+    <complexContent>
+      <extension base="imwa:IMWA_GeoObjectType">
+        <sequence>
+          <element minOccurs="0" name="geometrieVlak2D">
+            <annotation>
+              <documentation>Geometrische representatie door vlakvormige geometrie</documentation>
+            </annotation>
+          </element>
+          <element name="typeBeschermdGebied" type="gml:CodeType">
+            <annotation>
+              <documentation>Typering van het soort beschermd gebied</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="BeschermdGebiedPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwa:BeschermdGebied"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Beschermingszone" substitutionGroup="imwa:WaterstaatkundigeZonering" type="imwa:BeschermingszoneType">
+    <annotation>
+      <documentation>Aan een waterstaatswerk grenzende zone, waarin ter bescherming van dat werk voorschriften en beperkingen kunnen gelden.</documentation>
+    </annotation>
+  </element>
+  <complexType name="BeschermingszoneType">
+    <complexContent>
+      <extension base="imwa:WaterstaatkundigeZoneringType">
+        <sequence/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="BeschermingszonePropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwa:Beschermingszone"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="FormeleHistorie" substitutionGroup="gml:AbstractObject" type="imwa:FormeleHistorieType">
+    <annotation>
+      <documentation>-- Definition --
+Klasse opgenomen om attributen uit te kopiëren.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="FormeleHistorieType">
+    <sequence>
+      <element name="tijdstipRegistratie">
+        <annotation>
+          <documentation>tijdstipregistratie: -- Definition --
+tijdstip waarop deze instantie van het object is opgenomen in de registratie
+-- Description --
+Er zijn verschillende datatypes voor de representatie van een tijdstip: Afhankelijk van de gebruikerswensen m.b.t. granulariteit kan o.a. worden gekozen uit types TM_Instant, Date of DateTime. Voor formele historie zal DateTime in vrijwel alle gevallen de beste keuze zijn.
+-- Source --
+NEN 3610:2011 en StUF 03.01</documentation>
+        </annotation>
+      </element>
+      <element minOccurs="0" name="eindRegistratie">
+        <annotation>
+          <documentation>eindregistratie: -- Definition --
+eind van de periode waarop deze instantie van het object geldig is in de registratie. Wanneer deze waarde niet is ingevuld is de instantie nog geldig
+-- Description --
+Er zijn verschillende datatypes voor de representatie van een tijdstip: Afhankelijk van de gebruikerswensen m.b.t. granulariteit kan o,a, gekozen worden uit types TM_Instant, Date of DateTime. Voor formele historie zal DateTime in vrijwel alle gevallen de beste keuze zijn.
+-- Source --
+NEN 3610:2011 and StUF 03.01</documentation>
+        </annotation>
+      </element>
+    </sequence>
+  </complexType>
+  <complexType name="FormeleHistoriePropertyType">
+    <sequence>
+      <element ref="imwa:FormeleHistorie"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="FormeleLevensduur" substitutionGroup="gml:AbstractObject" type="imwa:FormeleLevensduurType">
+    <annotation>
+      <documentation>-- Definition --
+Klasse opgenomen om attributen uit te kopiëren.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="FormeleLevensduurType">
+    <sequence>
+      <element name="objectBeginTijd">
+        <annotation>
+          <documentation>objectbegintijd: -- Definition --
+tijdstip waarop het object in de registratie is ontstaan
+-- Description --
+Dit tijdstip moet altijd gelijk zijn aan het tijdstipregistratie van het eerste voorkomen van het object.
+Er zijn verschillende datatypes voor de representatie van een tijdstip: Afhankelijk van de gebruikerswensen m.b.t. granulariteit kan o.a. worden gekozen uit types TM_Instant, Date of DateTime.
+-- Source --
+NEN 3610:2011</documentation>
+        </annotation>
+      </element>
+      <element minOccurs="0" name="objectEindTijd">
+        <annotation>
+          <documentation>objecteindtijd: -- Definition --
+tijdstip waarop het object in de registratie niet meer geldig is
+-- Description --
+Er zijn verschillende datatypes voor de representatie van een tijdstip: Afhankelijk van de gebruikerswensen m.b.t. granulariteit kan o.a. worden gekozen uit types TM_Instant, Date of DateTime.
+-- Source --
+NEN 3610:2011</documentation>
+        </annotation>
+      </element>
+    </sequence>
+  </complexType>
+  <complexType name="FormeleLevensduurPropertyType">
+    <sequence>
+      <element ref="imwa:FormeleLevensduur"/>
+    </sequence>
+  </complexType>
+  <element name="FysiekeEigenschap" substitutionGroup="gml:AbstractObject" type="imwa:FysiekeEigenschapType">
+    <annotation>
+      <documentation>Een samengesteld attribuut (DataType) voor het vastleggen van parameters bestaande uit:
+- Waardetype: aanduiding van een parameter waar een waarde voor opgenomen wordt. 
+Deze aanduiding bestaat uit een combinatie van een grootheid, hoedanigheid en parameter.
+- een waarde die bij een waardetype hoort. 
+Deze bestaat uit een waarde + eenheid.</documentation>
+    </annotation>
+  </element>
+  <complexType name="FysiekeEigenschapType">
+    <sequence>
+      <element name="grootheid" type="gml:CodeType">
+        <annotation>
+          <documentation>Definitie:
+een begrip, dat zich leent voor getalsmatige vastlegging en verwerking.
+Domeintabel: Parameter (Groep Grootheid)</documentation>
+        </annotation>
+      </element>
+      <element maxOccurs="unbounded" minOccurs="0" name="hoedanigheid" type="gml:CodeType">
+        <annotation>
+          <documentation>Definitie:
+de vorm waarin de eenheid behorend bij een meetwaarde wordt uitgedrukt of de fractie van de parameter waarop de meetwaarde betrekking heeft.
+Domeintabel:  Hoedanigheid</documentation>
+        </annotation>
+      </element>
+      <element minOccurs="0" name="parameter" type="gml:CodeType">
+        <annotation>
+          <documentation>Definitie:
+een eigenschap van een systeem, medium, organisme of object die kan worden gemeten of bepaald.
+Domeintabel: Parameter (Groep ChemischeStof, Object)</documentation>
+        </annotation>
+      </element>
+      <element name="waarde" type="gml:MeasureType">
+        <annotation>
+          <documentation>waarde + eenheid</documentation>
+        </annotation>
+      </element>
+    </sequence>
+  </complexType>
+  <complexType name="FysiekeEigenschapPropertyType">
+    <sequence>
+      <element ref="imwa:FysiekeEigenschap"/>
+    </sequence>
+  </complexType>
+  <element name="GrondwaterOnttrekking" substitutionGroup="imwa:Waterwinning" type="imwa:GrondwaterOnttrekkingType">
+    <annotation>
+      <documentation>Locatie waar grondwater onttrokken wordt</documentation>
+    </annotation>
+  </element>
+  <complexType name="GrondwaterOnttrekkingType">
+    <complexContent>
+      <extension base="imwa:WaterwinningType">
+        <sequence>
+          <element minOccurs="0" name="codeNOSE" type="gml:CodeType">
+            <annotation>
+              <documentation>Typering van het soort onttrekking</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="waterbeheerder" type="gml:CodeType">
+            <annotation>
+              <documentation>Verantwoordelijke waterbeheerder</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="GrondwaterOnttrekkingPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwa:GrondwaterOnttrekking"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="IMWA_GeoObject" substitutionGroup="gml:AbstractObject" type="imwa:IMWA_GeoObjectType">
+    <annotation>
+      <documentation>Abstractie van een fenomeen in de werkelijkheid, dat direct of indirect is
+geassocieerd met een locatie relatief ten opzichte van de aarde. [NEN 3610:2011]</documentation>
+    </annotation>
+  </element>
+  <complexType name="IMWA_GeoObjectType">
+    <complexContent>
+      <extension base="gml:AbstractGMLType">
+        <sequence>
+          <element name="beginGeldigheid" type="dateTime">
+            <annotation>
+              <documentation>-- Definition --
+start van de periode waarop deze instantie van het object geldig is in de werkelijkheid.
+-- Description --
+Er zijn verschillende datatypes voor de representatie van een tijdstip: Afhankelijk van de gebruikerswensen m.b.t. granulariteit kan o.a. worden gekozen uit types TM_Instant, Date of DateTime.
+-- Source --
+NEN 3610:2011 en StUF 03.01</documentation>
+            </annotation>
+          </element>
+          <element name="beginTijd" type="dateTime">
+            <annotation>
+              <documentation>-- Definition --
+tijdstip waarop het object in de werkelijkheid is ontstaan
+-- Source --
+NEN 3611:2011</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="eindGeldigheid" type="dateTime">
+            <annotation>
+              <documentation>-- Definition --
+eind van de periode waarop deze instantie van het object geldig is in de werkelijkheid. Wanneer deze waarde niet is ingevuld is de instantie nog geldig
+-- Description --
+Er zijn verschillende datatypes voor de representatie van een tijdstip: Afhankelijk van de gebruikerswensen m.b.t. granulariteit kan o.a. worden gekozen uit types TM_Instant, Date of DateTime.
+-- Source --
+NEN 3610:2011 en StUF 03.01</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="eindRegistratie" type="dateTime">
+            <annotation>
+              <documentation>-- Definition --
+eind van de periode waarop deze instantie van het object geldig is in de registratie. Wanneer deze waarde niet is ingevuld is de instantie nog geldig
+-- Description --
+Er zijn verschillende datatypes voor de representatie van een tijdstip: Afhankelijk van de gebruikerswensen m.b.t. granulariteit kan o,a, gekozen worden uit types TM_Instant, Date of DateTime. Voor formele historie zal DateTime in vrijwel alle gevallen de beste keuze zijn.
+-- Source --
+NEN 3610:2011 and StUF 03.01</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="eindTijd" type="dateTime">
+            <annotation>
+              <documentation>-- Definition --
+tijdstip waarop het object in de werkelijk niet meer geldig is
+-- Source --
+NEN 3610:2011</documentation>
+            </annotation>
+          </element>
+          <!--
+          <element minOccurs="0" name="externeIdentificatie" type="gml:CodeWithAuthorityType">
+            <annotation>
+              <documentation>Verwijzing naar een object in een andere bron/registratie. Kan bijvoorbeeld voor kunstwerken worden toegepast voor verwijzing naar VNK ('Scope' is dan VNK).</documentation>
+            </annotation>
+          </element>
+          <element name="identificatie" type="imgeo:NEN3610IDType">
+            <annotation>
+              <documentation>Definition
+Unieke identificatie van het object binnen het domein van NEN 3610.
+Source
+NEN 3610:2011</documentation>
+            </annotation>
+          </element>
+-->
+          <element name="objectBeginTijd" type="dateTime">
+            <annotation>
+              <documentation>-- Definition --
+tijdstip waarop het object in de registratie is ontstaan
+-- Description --
+Dit tijdstip moet altijd gelijk zijn aan het tijdstipregistratie van het eerste voorkomen van het object.
+Er zijn verschillende datatypes voor de representatie van een tijdstip: Afhankelijk van de gebruikerswensen m.b.t. granulariteit kan o.a. worden gekozen uit types TM_Instant, Date of DateTime.
+-- Source --
+NEN 3610:2011</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="objectEindTijd" type="dateTime">
+            <annotation>
+              <documentation>-- Definition --
+tijdstip waarop het object in de registratie niet meer geldig is
+-- Description --
+Er zijn verschillende datatypes voor de representatie van een tijdstip: Afhankelijk van de gebruikerswensen m.b.t. granulariteit kan o.a. worden gekozen uit types TM_Instant, Date of DateTime.
+-- Source --
+NEN 3610:2011</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="opmerking" type="string">
+            <annotation>
+              <documentation>Opmerking met betrekking tot het object.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="statusObject" type="gml:CodeType">
+            <annotation>
+              <documentation>TypeStatusObject: Definitie:
+Een aanduiding voor de status waarin een object zich bevindt
+Toelichting:
+Hiermee wordt de (actuele) status/toestand bedoeld van een object, zoals bijv.: planvorming, gerealiseerd, niet meer aanwezig.</documentation>
+            </annotation>
+          </element>
+          <element name="tijdstipRegistratie" type="dateTime">
+            <annotation>
+              <documentation>-- Definition --
+tijdstip waarop deze instantie van het object is opgenomen in de registratie
+-- Description --
+Er zijn verschillende datatypes voor de representatie van een tijdstip: Afhankelijk van de gebruikerswensen m.b.t. granulariteit kan o.a. worden gekozen uit types TM_Instant, Date of DateTime. Voor formele historie zal DateTime in vrijwel alle gevallen de beste keuze zijn.
+-- Source --
+NEN 3610:2011 en StUF 03.01</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="url" type="string">
+            <annotation>
+              <documentation>Gestructureerde naam die verwijst naar een stuk data.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="heeft" type="imwa:ObjectMetadataPropertyType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="IMWA_GeoObjectPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwa:IMWA_GeoObject"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="IdentificeerbaarObject" substitutionGroup="gml:AbstractObject" type="imwa:IdentificeerbaarObjectType">
+    <annotation>
+      <documentation>-- Definition --
+Klasse opgenomen om attributen uit te kopiëren.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="IdentificeerbaarObjectType">
+    <sequence>
+    <!--
+      <element name="identificatie" type="imgeo:NEN3610IDPropertyType">
+      </element>
+-->
+    </sequence>
+  </complexType>
+  <complexType name="IdentificeerbaarObjectPropertyType">
+    <sequence>
+      <element ref="imwa:IdentificeerbaarObject"/>
+    </sequence>
+  </complexType>
+  <element name="Kunstwerk" type="imwa:KunstwerkType">
+    <annotation>
+      <documentation>Civieltechnisch werk voor de infrastructuur van wegen, water, spoorbanen, waterkeringen en/of leidingen niet bedoeld voor permanent menselijk verblijf.</documentation>
+    </annotation>
+  </element>
+  <complexType name="KunstwerkType">
+    <complexContent>
+      <extension base="gml:AbstractFeatureType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="geometrie2D">
+            <annotation>
+              <documentation>Geometrische representatie van het object als punt-, lijn-, of (multi)vlak.</documentation>
+            </annotation>
+            <complexType>
+              <choice minOccurs="0"/>
+              <attributeGroup ref="gml:AssociationAttributeGroup"/>
+            </complexType>
+          </element>
+          <element minOccurs="0" name="indicatieWaterkerend" type="gml:CodeType">
+            <annotation>
+              <documentation>Indicatie voor het onderscheid tussen waterkerende en niet-waterkerende kunstwerken.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="typeKunstwerk" type="gml:CodeType">
+            <annotation>
+              <documentation>Nadere aanduiding van het type kunstwerk. Dit is een 'Conditioneel' attribuut, omdat het kunstwerkdeel in afzonderlijke klassen is gespecialiseerd.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="typeWaterkerendeConstructie" type="gml:CodeType">
+            <annotation>
+              <documentation>WaterkerendeConstructieType: Typering van een constructie in relatie tot de waterkerende functie (volgens de leidraad waterkerende kunstwerken).</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="isOnderdeelVan"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="KunstwerkPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwa:Kunstwerk"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="MaterieleHistorie" substitutionGroup="gml:AbstractObject" type="imwa:MaterieleHistorieType">
+    <annotation>
+      <documentation>-- Definition --
+Klasse opgenomen om attributen uit te kopiëren.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="MaterieleHistorieType">
+    <sequence>
+      <element name="beginGeldigheid">
+        <annotation>
+          <documentation>begingeldigheid: -- Definition --
+start van de periode waarop deze instantie van het object geldig is in de werkelijkheid.
+-- Description --
+Er zijn verschillende datatypes voor de representatie van een tijdstip: Afhankelijk van de gebruikerswensen m.b.t. granulariteit kan o.a. worden gekozen uit types TM_Instant, Date of DateTime.
+-- Source --
+NEN 3610:2011 en StUF 03.01</documentation>
+        </annotation>
+      </element>
+      <element minOccurs="0" name="eindGeldigheid">
+        <annotation>
+          <documentation>eindgeldigheid: -- Definition --
+eind van de periode waarop deze instantie van het object geldig is in de werkelijkheid. Wanneer deze waarde niet is ingevuld is de instantie nog geldig
+-- Description --
+Er zijn verschillende datatypes voor de representatie van een tijdstip: Afhankelijk van de gebruikerswensen m.b.t. granulariteit kan o.a. worden gekozen uit types TM_Instant, Date of DateTime.
+-- Source --
+NEN 3610:2011 en StUF 03.01</documentation>
+        </annotation>
+      </element>
+    </sequence>
+  </complexType>
+  <complexType name="MaterieleHistoriePropertyType">
+    <sequence>
+      <element ref="imwa:MaterieleHistorie"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="MaterieleLevensduur" substitutionGroup="gml:AbstractObject" type="imwa:MaterieleLevensduurType">
+    <annotation>
+      <documentation>-- Definition --
+Klasse opgenomen om attributen uit te kopiëren.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="MaterieleLevensduurType">
+    <sequence>
+      <element name="beginTijd">
+        <annotation>
+          <documentation>begintijd: -- Definition --
+tijdstip waarop het object in de werkelijkheid is ontstaan
+-- Source --
+NEN 3611:2011</documentation>
+        </annotation>
+      </element>
+      <element minOccurs="0" name="eindTijd">
+        <annotation>
+          <documentation>eindtijd: -- Definition --
+tijdstip waarop het object in de werkelijk niet meer geldig is
+-- Source --
+NEN 3610:2011</documentation>
+        </annotation>
+      </element>
+    </sequence>
+  </complexType>
+  <complexType name="MaterieleLevensduurPropertyType">
+    <sequence>
+      <element ref="imwa:MaterieleLevensduur"/>
+    </sequence>
+  </complexType>
+  <element name="NatteEcologischeZone" substitutionGroup="imwa:IMWA_GeoObject" type="imwa:NatteEcologischeZoneType">
+    <annotation>
+      <documentation>Niet tastbaar begrensd gebied gelegen met een juridische status die voortvloeit uit een wet/verordening en beperkingen op legt aan het gebruik van dat gebied in waterstaatkundige zin.</documentation>
+    </annotation>
+  </element>
+  <complexType name="NatteEcologischeZoneType">
+    <complexContent>
+      <extension base="imwa:IMWA_GeoObjectType">
+        <sequence>
+          <element name="geometrieVlak2D">
+            <annotation>
+              <documentation>Representatie van het object als 2 dimensionaal vlak</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="waterbeheerder" type="gml:CodeType">
+            <annotation>
+              <documentation>Verwijzing naar waterschap via landelijke waterschapscodering</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="wetVerordening" type="gml:CodeType">
+            <annotation>
+              <documentation>Samengesteld attribuut bestaande uit:
+ - indicatie soort wet/verordening
+ - naam/titulatuur waaronder de wet/verordening bekend is</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="artikel" type="imwa:ArtikelPropertyType">
+            <annotation>
+              <documentation>Samengesteld attribuut bestaande uit:
+ - artikelnummer
+ - lid</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="verwijzingNaarTekst" type="string">
+            <annotation>
+              <documentation>Verwijzing naar de tekst uit een wet/verordening die van toepassing is op het geo-object via een (hyper)link</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="planstatusEnDatum">
+            <annotation>
+              <documentation>Samengesteld attribuut bestaande uit:
+ - statusaanduiding
+ - datum (waarop de status is ingegaan)</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="NatteEcologischeZonePropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwa:NatteEcologischeZone"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="ObjectMetadata" substitutionGroup="gml:AbstractObject" type="imwa:ObjectMetadataType">
+    <annotation>
+      <documentation>Gegevens over klassen</documentation>
+    </annotation>
+  </element>
+  <complexType name="ObjectMetadataType">
+    <complexContent>
+      <extension base="gml:AbstractGMLType">
+        <sequence>
+          <element minOccurs="0" name="opmerking" type="string">
+            <annotation>
+              <documentation>Nadere toelichting op het object die niet bij de andere attributen kan worden vastgelegd.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="uri" type="string">
+            <annotation>
+              <documentation>Koppeling (hyperlink) naar een locatie waar aanvullende informatie gevonden / verkregen kan worden.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="datumOpname" type="dateTime">
+            <annotation>
+              <documentation>Datum van bepaling van het object.
+Samengesteld attribuut bestaande uit:
+ - datum (v)
+ - tijd (o)</documentation>
+            </annotation>
+          </element>
+          <element name="vanToepassingOp" type="imwa:IMWA_GeoObjectPropertyType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="ObjectMetadataPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwa:ObjectMetadata"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="OndersteunendWaterdeel" substitutionGroup="imwa:IMWA_GeoObject" type="imwa:OndersteunendWaterdeelType">
+    <annotation>
+      <documentation>Object dat in het kader van de waterhuishouding periodiek gedeeltelijk of geheel met water is bedekt.</documentation>
+    </annotation>
+  </element>
+  <complexType name="OndersteunendWaterdeelType">
+    <complexContent>
+      <extension base="imwa:IMWA_GeoObjectType">
+        <sequence/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="OndersteunendWaterdeelPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwa:OndersteunendWaterdeel"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="OndersteunendWegdeel" substitutionGroup="imwa:IMWA_GeoObject" type="imwa:OndersteunendWegdeelType">
+    <annotation>
+      <documentation>Een deel van de weg dat niet primair bedoeld is voor gebruik door het verkeer.</documentation>
+    </annotation>
+  </element>
+  <complexType name="OndersteunendWegdeelType">
+    <complexContent>
+      <extension base="imwa:IMWA_GeoObjectType">
+        <sequence/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="OndersteunendWegdeelPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwa:OndersteunendWegdeel"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="OppervlakteWaterLozing" substitutionGroup="imwa:IMWA_GeoObject" type="imwa:OppervlakteWaterLozingType">
+    <annotation>
+      <documentation>Locatie waar een kunstmatige of natuurlijke afvoer van overtollig water plaats vindt op het oppervlaktewater.</documentation>
+    </annotation>
+  </element>
+  <complexType name="OppervlakteWaterLozingType">
+    <complexContent>
+      <extension base="imwa:IMWA_GeoObjectType">
+        <sequence>
+          <element minOccurs="0" name="geometriePunt">
+            <annotation>
+              <documentation>Geometrische representatie door puntvormige geometrie</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="capaciteit" type="double">
+            <annotation>
+              <documentation>Hoeveelheid water die geloosd kan worden in m3</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="waterBeheerder" type="gml:CodeType">
+            <annotation>
+              <documentation>Verantwoordelijke waterbeheerder</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="OppervlakteWaterLozingPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwa:OppervlakteWaterLozing"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="OppervlakteWaterOnttrekking" substitutionGroup="imwa:Waterwinning" type="imwa:OppervlakteWaterOnttrekkingType">
+    <annotation>
+      <documentation>Locatie waar water gewonnen wordt uit het oppervlaktewater ten behoeve van industrie of drinkwaterwinning</documentation>
+    </annotation>
+  </element>
+  <complexType name="OppervlakteWaterOnttrekkingType">
+    <complexContent>
+      <extension base="imwa:WaterwinningType">
+        <sequence>
+          <element minOccurs="0" name="codeNOSE" type="gml:CodeType">
+            <annotation>
+              <documentation>Typering van het soort onttrekking</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="waterbeheerder" type="gml:CodeType">
+            <annotation>
+              <documentation>Verantwoordelijke waterbeheerder</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="OppervlakteWaterOnttrekkingPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwa:OppervlakteWaterOnttrekking"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="Overbruggingsdeel" substitutionGroup="imwa:IMWA_GeoObject" type="imwa:OverbruggingsdeelType"/>
+  <complexType abstract="true" name="OverbruggingsdeelType">
+    <complexContent>
+      <extension base="imwa:IMWA_GeoObjectType">
+        <sequence>
+          <element maxOccurs="unbounded" name="geometrie2D">
+            <annotation>
+              <documentation>Geometrische representatie van het object in 2D (punt, lijn en/of vlak).</documentation>
+            </annotation>
+            <complexType>
+              <choice minOccurs="0"/>
+              <attributeGroup ref="gml:AssociationAttributeGroup"/>
+            </complexType>
+          </element>
+          <element minOccurs="0" name="naam" type="string">
+            <annotation>
+              <documentation>Naam van het overbruggingsdeel.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="statusLegger" type="gml:CodeType">
+            <annotation>
+              <documentation>LeggerStatus: Een aanduiding voor de status van het object voor opname in de legger.</documentation>
+            </annotation>
+          </element>
+          <element name="typeOverbruggingsdeel" type="gml:CodeType">
+            <annotation>
+              <documentation>KunstwerkType (groep: Overbrugging): Nadere aanduiding van het type overbruggingsdeel.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="OverbruggingsdeelPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwa:Overbruggingsdeel"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Profielverdediging" substitutionGroup="imwa:IMWA_GeoObject" type="imwa:ProfielverdedigingType">
+    <annotation>
+      <documentation>&lt;u&gt;Definitie:	&lt;/u&gt;
+Een kunstmatige verdediging van talud en/of bodem van een water
+
+&lt;u&gt;Herkomst definitie:&lt;/u&gt; Aquo-lex</documentation>
+    </annotation>
+  </element>
+  <complexType name="ProfielverdedigingType">
+    <complexContent>
+      <extension base="imwa:IMWA_GeoObjectType">
+        <sequence>
+          <element minOccurs="0" name="geometrieLijn2D">
+            <annotation>
+              <documentation>Geometrische representatie van het object als 2D lijn</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="geometrieVlak2D">
+            <annotation>
+              <documentation>Geometrische representatie van het object als 2D vlak</documentation>
+            </annotation>
+          </element>
+          <element name="typeProfielverdediging" type="gml:CodeType">
+            <annotation>
+              <documentation>VerdedigingType: Nadere aanduiding van het type profielverdediging.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="ProfielverdedigingPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwa:Profielverdediging"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Put" substitutionGroup="imwa:IMWA_GeoObject" type="imwa:PutType">
+    <annotation>
+      <documentation>Een constructie die geboord of gegraven is onder het maaiveld met als doel het verkrijgen van water uit een aquifer systeem.</documentation>
+    </annotation>
+  </element>
+  <complexType name="PutType">
+    <complexContent>
+      <extension base="imwa:IMWA_GeoObjectType">
+        <sequence/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="PutPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwa:Put"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Tunneldeel" substitutionGroup="imwa:IMWA_GeoObject" type="imwa:TunneldeelType">
+    <annotation>
+      <documentation>Ondergrondse of onder water gelegen verbinding tussen twee punten, aan beide einden voorzien van een open bakconstructie.</documentation>
+    </annotation>
+  </element>
+  <complexType name="TunneldeelType">
+    <complexContent>
+      <extension base="imwa:IMWA_GeoObjectType">
+        <sequence/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="TunneldeelPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwa:Tunneldeel"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="WaterbeheerGebied" substitutionGroup="imwa:IMWA_GeoObject" type="imwa:WaterbeheerGebiedType">
+    <annotation>
+      <documentation>Niet tastbaar begrensd gebied of punt dat als eenheid geldt binnen het waterbeheer.
+
+Gebruik/voorbeelden
+Waterbeheergebieden zijn een organisatorische (beheersmatige) indeling van ‘watergebieden’.</documentation>
+    </annotation>
+  </element>
+  <complexType name="WaterbeheerGebiedType">
+    <complexContent>
+      <extension base="imwa:IMWA_GeoObjectType">
+        <sequence>
+          <element name="geometrie2D">
+            <annotation>
+              <documentation>Geometrische respresentatie van het object als 2D vlak.</documentation>
+            </annotation>
+          </element>
+          <element name="typeWaterbeheergebied" type="gml:CodeType">
+            <annotation>
+              <documentation>Waterbeheergebiedtype: Nadere aanduiding van het type waterbeheergebied.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="naam" type="string">
+            <annotation>
+              <documentation>Naam van het waterbeheergebied.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="WaterbeheerGebiedPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwa:WaterbeheerGebied"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Waterdeel" substitutionGroup="imwa:IMWA_GeoObject" type="imwa:WaterdeelType">
+    <annotation>
+      <documentation>Kleinste functioneel stukje water met gelijkblijvende, homogene eigenschappen en relaties dat er binnen een water wordt onderscheiden.</documentation>
+    </annotation>
+  </element>
+  <complexType name="WaterdeelType">
+    <complexContent>
+      <extension base="imwa:IMWA_GeoObjectType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="fysiekeEigenschap" type="imwa:FysiekeEigenschapPropertyType">
+            <annotation>
+              <documentation>Een samengesteld attribuut (datatype) voor het vastleggen van eigenschappen van het object, bestaande uit:
+- parameter
+- grootheid
+- waarde + eenheid (measure)
+- hoedanigheid</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="geometrieLijn">
+            <annotation>
+              <documentation>Geometrische representatie van het object als lijnvormig element</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="geometrieVlak2D">
+            <annotation>
+              <documentation>Geometrische representatie van het object als vlakvormig element</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="0" minOccurs="0" name="typeWater" type="gml:CodeType"/>
+          <element minOccurs="0" name="typeWaterKwalitatief" type="gml:CodeType">
+            <annotation>
+              <documentation>WatertypeKwalitatief: Een aanduiding voor de waterkwalitatieve danwel ecologische typevariant van het oppervlaktewater</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="typeWaterKwantitatief" type="gml:CodeType">
+            <annotation>
+              <documentation>WaterTypeKwantitatief: Een aanduiding voor de waterkwantitatieve typevariant van het oppervlaktewater</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="wetVerordening" type="gml:CodeType">
+            <annotation>
+              <documentation>WetVerordeningtype: Wetten en Verordeningen die van toepassing zijn op het geo-object.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="WaterdeelPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwa:Waterdeel"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Waterinrichtingselement" substitutionGroup="imwa:IMWA_GeoObject" type="imwa:WaterinrichtingselementType">
+    <annotation>
+      <documentation>Ruimtelijk object al dan niet ter detaillering dan wel ter inrichting van de overige benoemde ruimtelijke objecten of een ander inrichtingselement.</documentation>
+    </annotation>
+  </element>
+  <complexType name="WaterinrichtingselementType">
+    <complexContent>
+      <extension base="imwa:IMWA_GeoObjectType">
+        <sequence>
+          <element minOccurs="0" name="geometriePunt">
+            <annotation>
+              <documentation>Representatie van het object als punt.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="geometrieVlak2D">
+            <annotation>
+              <documentation>Representatie van het object als 2 dimensionaal vlak</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="WaterinrichtingselementPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwa:Waterinrichtingselement"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Waterschap" substitutionGroup="imwa:IMWA_GeoObject" type="imwa:WaterschapType">
+    <annotation>
+      <documentation>Grondgebied onder het bestuur van een waterschap. 
+(Waterschap = doelcorporatie op territoriale grondslag, publiekrechtelijk lichaam tot uitoefening van een taak op waterstaatsgebied (waterkering, waterlozing, verkeer), door de hiertoe bevoegde wetgever (de Kroon, Provinciale Staten) als zodanig opgericht of erkend, en gereglementeerd).</documentation>
+    </annotation>
+  </element>
+  <complexType name="WaterschapType">
+    <complexContent>
+      <extension base="imwa:IMWA_GeoObjectType">
+        <sequence>
+          <element name="geometrieVlak2D">
+            <annotation>
+              <documentation>Geometrische representatie door vlakvormige geometrie</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="waterbeheerderCode" type="gml:CodeType">
+            <annotation>
+              <documentation>Waterbeheerder: Verwijzing naar waterschap via landelijke waterschapscodering</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="WaterschapPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwa:Waterschap"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="WaterstaatkundigeZonering" substitutionGroup="imwa:IMWA_GeoObject" type="imwa:WaterstaatkundigeZoneringType">
+    <annotation>
+      <documentation>Niet tastbaar begrensd gebied gelegen op/rond een waterstaatswerk met een juridische status die voortvloeit uit een wet/verordening.</documentation>
+    </annotation>
+  </element>
+  <complexType name="WaterstaatkundigeZoneringType">
+    <complexContent>
+      <extension base="imwa:IMWA_GeoObjectType">
+        <sequence>
+          <element name="geometrieVlak2D">
+            <annotation>
+              <documentation>Representatie van het object als 2 dimensionaal vlak</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="zoneringType" type="gml:CodeType">
+            <annotation>
+              <documentation>Waterstaatkundigezonering: Aanduiding van het soort/type waterstaatkundige zonering</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="waterbeheerder" type="gml:CodeType">
+            <annotation>
+              <documentation>Waterbeheerder: Verwijzing naar waterschap via landelijke waterschapscodering</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="wetVerordening" type="gml:CodeType">
+            <annotation>
+              <documentation>WetVerordeningtype: Samengesteld attribuut bestaande uit:
+ - indicatie soort wet/verordening
+ - naam/titulatuur waaronder de wet/verordening bekend is</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="artikel" type="imwa:ArtikelPropertyType">
+            <annotation>
+              <documentation>Samengesteld attribuut bestaande uit:
+ - artikelnummer
+ - lid</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="verwijzingNaarTekst" type="string">
+            <annotation>
+              <documentation>Verwijzing naar de tekst uit een wet/verordening die van toepassing is op het geo-object via een (hyper)link</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="planstatusEnDatum">
+            <annotation>
+              <documentation>Samengesteld attribuut bestaande uit:
+- statusaanduiding
+- datum (waarop de status is ingegaan)</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" name="ligtOpOfRond" type="imwa:WaterstaatswerkPropertyType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="WaterstaatkundigeZoneringPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwa:WaterstaatkundigeZonering"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Waterstaatswerk" substitutionGroup="imwa:IMWA_GeoObject" type="imwa:WaterstaatswerkType">
+    <annotation>
+      <documentation>oppervlaktewaterlichaam, bergingsgebied, waterkering of ondersteunend kunstwerk</documentation>
+    </annotation>
+  </element>
+  <complexType name="WaterstaatswerkType">
+    <complexContent>
+      <extension base="imwa:IMWA_GeoObjectType">
+        <sequence>
+          <element name="geometrieVlak2D">
+            <annotation>
+              <documentation>Geometrische representatie van het object weergegeven als 2D vlak.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="statusLegger" type="gml:CodeType">
+            <annotation>
+              <documentation>LeggerStatus: Definitie:
+Een aanduiding voor de status van de legger waarin het object is opgenomen.
+Toelichting:
+Op basis van de status van het object kan worden afgeleid of deze is/wordt opgenomen op de legger of uit de legger is/wordt verwijderd.
+Herkomst definitie:
+Aquo
+Aquo</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="naam" type="string">
+            <annotation>
+              <documentation>Naam van het kunstwerk.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="WaterstaatswerkPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwa:Waterstaatswerk"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Waterwinning" substitutionGroup="imwa:IMWA_GeoObject" type="imwa:WaterwinningType">
+    <annotation>
+      <documentation>Locatie waar water gewonnen wordt ten behoeve van industrie of drinkwaterwinning</documentation>
+    </annotation>
+  </element>
+  <complexType name="WaterwinningType">
+    <complexContent>
+      <extension base="imwa:IMWA_GeoObjectType">
+        <sequence>
+          <element minOccurs="0" name="geometriePunt">
+            <annotation>
+              <documentation>Geometrische representatie door puntvormige geometrie</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="onttrekking" type="double">
+            <annotation>
+              <documentation>Hoeveelheid water die onttrokken wordt in m3</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="WaterwinningPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwa:Waterwinning"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Wegdeel" substitutionGroup="imwa:IMWA_GeoObject" type="imwa:WegdeelType">
+    <annotation>
+      <documentation>Kleinste functioneel onafhankelijk stukje weg met gelijkblijvende, homogene eigenschappen en relaties voor wegverkeer en vliegverkeer te land.</documentation>
+    </annotation>
+  </element>
+  <complexType name="WegdeelType">
+    <complexContent>
+      <extension base="imwa:IMWA_GeoObjectType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="fysiekeEigenschap" type="imwa:FysiekeEigenschapPropertyType">
+            <annotation>
+              <documentation>Een samengesteld attribuut (datatype) voor het vastleggen van eigenschappen van het object, bestaande uit:
+- parameter
+- grootheid
+- waarde + eenheid (measure)
+- hoedanigheid</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="geometrieLijn">
+            <annotation>
+              <documentation>Geometrische representatie van het object als lijnvormig element</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="geometrieVlak2D">
+            <annotation>
+              <documentation>Geometrische representatie van het object als vlakvormig element</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="wegAard" type="gml:CodeType">
+            <annotation>
+              <documentation>Aard van het wegdeel</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="WegdeelPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwa:Wegdeel"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="WetVerordening" substitutionGroup="gml:AbstractObject" type="imwa:WetVerordeningType">
+    <annotation>
+      <documentation>&lt;u&gt;Definitie:&lt;/u&gt;
+&lt;u&gt;
+&lt;/u&gt;
+&lt;u&gt;Herkomst definitie:&lt;/u&gt;</documentation>
+    </annotation>
+  </element>
+  <complexType name="WetVerordeningType">
+    <complexContent>
+      <extension base="gml:AbstractGMLType">
+        <sequence>
+          <element name="typeWetVerordening" type="gml:CodeType">
+            <annotation>
+              <documentation>WetVerordeningtype: Nadere aanduiding van het type wet/verordening</documentation>
+            </annotation>
+          </element>
+          <element name="naam" type="string">
+            <annotation>
+              <documentation>Naam/titelatuur waaronder de wet wordt aangehaald.</documentation>
+            </annotation>
+          </element>
+          <element name="artikel" type="string">
+            <annotation>
+              <documentation>Artikelnummer</documentation>
+            </annotation>
+          </element>
+          <element name="lid" type="string">
+            <annotation>
+              <documentation>Lid</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="WetVerordeningPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwa:WetVerordening"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+</schema>

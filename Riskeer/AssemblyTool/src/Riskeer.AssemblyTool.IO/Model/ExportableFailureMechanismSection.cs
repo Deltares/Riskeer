@@ -45,7 +45,7 @@ namespace Riskeer.AssemblyTool.IO.Model
         public ExportableFailureMechanismSection(string id, IEnumerable<Point2D> geometry, double startDistance, double endDistance)
         {
             IdValidationHelper.ThrowIfInvalid(id);
-            
+
             if (geometry == null)
             {
                 throw new ArgumentNullException(nameof(geometry));

@@ -35,8 +35,8 @@ namespace Riskeer.AssemblyTool.IO
         /// <summary>
         /// The schema location.
         /// </summary>
-        public const string SchemaLocation = "http://data.aquo.nl/xsd/BOI/uitwisselmodel/v20220630 http://data.aquo.nl/xsd/BOI/uitwisselmodel/v20220630/BOI_Uitwisselmodel_v1_0.xsd";
-        
+        public const string SchemaLocation = "https://data.aquo.nl/xsd/BOI/uitwisselmodel/v20220630 https://data.aquo.nl/xsd/BOI/uitwisselmodel/v20220630/BOI_Uitwisselmodel_v1_0.xsd";
+
         /// <summary>
         /// Identifier for an assembly collection element.
         /// </summary>
@@ -186,7 +186,7 @@ namespace Riskeer.AssemblyTool.IO
         /// <summary>
         /// The XML namespace for IMWAP objects.
         /// </summary>
-        public const string ImwapNamespace = "http://data.aquo.nl/xsd/BOI/imwaproxies/v20220630";
+        public const string ImwapNamespace = "https://data.aquo.nl/xsd/BOI/imwaproxies/v20220630";
 
         /// <summary>
         /// The XML namespace identifier for UBOI objects.
@@ -196,7 +196,7 @@ namespace Riskeer.AssemblyTool.IO
         /// <summary>
         /// The XML namespace for UBOI objects.
         /// </summary>
-        public const string UboiNamespace = "http://data.aquo.nl/xsd/BOI/uitwisselmodel/v20220630";
+        public const string UboiNamespace = "https://data.aquo.nl/xsd/BOI/uitwisselmodel/v20220630";
 
         /// <summary>
         /// The XML namespace identifier for XSI objects.

@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml" xmlns:imwa="http://dlg2.idsw.nl/imwa2007" xmlns:imwaprofielen="http://www.geostandaarden.nl/imwa/imwaprofielen/0.1" elementFormDefault="qualified" targetNamespace="http://www.geostandaarden.nl/imwa/imwaprofielen/0.1" version="0.1">
+  <annotation>
+    <documentation>Wijzigingen
+
+[20-12-2017]
+- Datatype voor attribuut fysiekeEigenschap van objecttype Profiel gewijzigd in PhysicalProperty (was FysiekeEigenschap)
+- Attribuut geometire2D bij objecttype Profielpunt gewijzigd in geometriePunt
+- Attribuut geometriePunt opgenomen bij objecttype GemetenProfielpunt
+- AttribuutfysiekeEigenschap opgenomen bij GemeenProfielpunt
+- Profieltype opgenomen bij objecttype Profiel (met domeintabel voor 'Geotechnisch profiel')</documentation>
+  </annotation>
+  <import namespace="http://dlg2.idsw.nl/imwa2007"/>
+  <import namespace="http://www.opengis.net/gml" schemaLocation="http://schemas.opengis.net/gml/3.1.1/base/gml.xsd"/>
+  <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
+  <element name="GemetenProfielpunt" substitutionGroup="gml:_Feature" type="imwaprofielen:GemetenProfielpuntType">
+    <annotation>
+      <documentation>Profielpunt die is bepaald via een meting (voorstel project).</documentation>
+    </annotation>
+  </element>
+  <complexType name="GemetenProfielpuntType">
+    <complexContent>
+      <extension base="gml:AbstractFeatureType">
+        <sequence>
+          <element name="geometriePunt" type="gml:PointPropertyType">
+            <annotation>
+              <documentation>Geometrische representatie van het object als punt.</documentation>
+            </annotation>
+          </element>
+          <element name="fysiekeEigenschap">
+            <annotation>
+              <documentation>Een samengesteld attribuut (datatype) voor het vastleggen van eigenschappen van het object, bestaande uit:
+- parameter
+- grootheid
+- waarde + eenheid (measure)
+- hoedanigheid</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="GemetenProfielpuntPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaprofielen:GemetenProfielpunt"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="GeotechnischProfiel" substitutionGroup="imwaprofielen:Profiel" type="imwaprofielen:GeotechnischProfielType">
+    <annotation>
+      <documentation>GeotechnischProfiel: De verticale opbouw in grondmechanische zin van een waterkering.</documentation>
+    </annotation>
+  </element>
+  <complexType name="GeotechnischProfielType">
+    <complexContent>
+      <extension base="imwaprofielen:ProfielType">
+        <sequence/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="GeotechnischProfielPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaprofielen:GeotechnischProfiel"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="KenmerkendeProfiellijn" substitutionGroup="imwaprofielen:Profiel" type="imwaprofielen:KenmerkendeProfiellijnType">
+    <annotation>
+      <documentation>KenmerkendeProfiellijn: Lijnvormige elementen waarmee bepaalde kniklijnen of referentielijnen van het dijklichaam worden vastgelegd (voorstel project).</documentation>
+    </annotation>
+  </element>
+  <complexType name="KenmerkendeProfiellijnType">
+    <complexContent>
+      <extension base="imwaprofielen:ProfielType">
+        <sequence>
+          <element name="geometrieLijn3D" type="gml:CurvePropertyType">
+            <annotation>
+              <documentation>Geometrische weergave van het object als 3D lijn.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="typeProfielKenmerk" type="gml:CodeType">
+            <annotation>
+              <documentation>Nadere aanduiding van het type profielkenmerk (kenmerkende profiellijn).</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="KenmerkendeProfiellijnPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaprofielen:KenmerkendeProfiellijn"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Profiel" substitutionGroup="gml:_Feature" type="imwaprofielen:ProfielType">
+    <annotation>
+      <documentation>&lt;u&gt;Definitie:&lt;/u&gt;
+Doorsnede van een object in lengterichting, in dwarsrichting of langs een verticaal, waarbij kenmerken van het object langs de doorsnede worden vastgelegd.
+
+&lt;u&gt;Herkomst defintie:&lt;/u&gt; Aquo-lex</documentation>
+    </annotation>
+  </element>
+  <complexType name="ProfielType">
+    <complexContent>
+      <extension base="gml:AbstractFeatureType">
+        <sequence>
+          <element name="geometrie2DLijn" type="gml:CurvePropertyType">
+            <annotation>
+              <documentation>Geometrische representatie van het object als 2D lijn.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="geometrie2DPunt" type="gml:PointPropertyType">
+            <annotation>
+              <documentation>Geometrische representatie van het object als 2D punt.</documentation>
+            </annotation>
+          </element>
+          <element name="profieltype">
+            <annotation>
+              <documentation>Nsdere aanduiding van het type profiel.
+
+Vooralsnog om het 'Geotechnisch profiel' te kunnen uitwisselen. Domein kan later worden uitgebreid met aanvullende typen.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="orientatieLijn" type="gml:CodeType">
+            <annotation>
+              <documentation>ProfielOrientatie: Oriëntatie van het profiel ten opzichte van de referentieilijn.</documentation>
+            </annotation>
+          </element>
+          <element name="leggerStatus" type="gml:CodeType">
+            <annotation>
+              <documentation>LeggerStatus: Een aanduiding voor de status van het object voor opname in de legger.</documentation>
+            </annotation>
+          </element>
+          <element name="profielBepalingMethode" type="string">
+            <annotation>
+              <documentation>Nadere aanduiding voor de wijze waarop het profielpunt is bepaald.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="hoortBij"/>
+          <element minOccurs="0" name="hoortBij"/>
+          <element minOccurs="0" name="hoortBij"/>
+          <element name="maatgevendVoor"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="ProfielPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaprofielen:Profiel"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="ProfielParameter" substitutionGroup="gml:_Feature" type="imwaprofielen:ProfielParameterType">
+    <annotation>
+      <documentation>Weergave van een profiel door middel van een aantal geometrische parameters (Aquo, 'Geparametriseerde weergave').</documentation>
+    </annotation>
+  </element>
+  <complexType name="ProfielParameterType">
+    <complexContent>
+      <extension base="gml:AbstractFeatureType">
+        <sequence>
+          <element name="fysiekeEigenschap">
+            <annotation>
+              <documentation>Een samengesteld attribuut (datatype) voor het vastleggen van eigenschappen van het object, bestaande uit:
+- parameter
+- grootheid
+- waarde + eenheid (measure)
+- hoedanigheid</documentation>
+            </annotation>
+          </element>
+          <element name="isOnderdeelVan" type="imwaprofielen:ProfielPropertyType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="ProfielParameterPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaprofielen:ProfielParameter"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Profielpunt" substitutionGroup="gml:_Feature" type="imwaprofielen:ProfielpuntType">
+    <annotation>
+      <documentation>Punt die onderdeel is van een profiel (voorstel project).</documentation>
+    </annotation>
+  </element>
+  <complexType name="ProfielpuntType">
+    <complexContent>
+      <extension base="gml:AbstractFeatureType">
+        <sequence>
+          <element name="geometriePunt" type="gml:PointPropertyType">
+            <annotation>
+              <documentation>Geometrische representatie van het object als punt.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="volgnummer" type="integer">
+            <annotation>
+              <documentation>Volgnummer van het profielpunt in het profiel.</documentation>
+            </annotation>
+          </element>
+          <element name="fysiekeEigenschap">
+            <annotation>
+              <documentation>Een samengesteld attribuut (datatype) voor het vastleggen van eigenschappen van het object, bestaande uit:
+- parameter
+- grootheid
+- waarde + eenheid (measure)
+- hoedanigheid</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="typeProfielKenmerk" type="gml:CodeType">
+            <annotation>
+              <documentation>TypeProfielKenmerk: Nadere aanduiding van het type profielkenmerk (kenmerkend profielpunt).</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" name="isOnderdeelVan" type="imwaprofielen:ProfielPropertyType"/>
+          <element minOccurs="0" name="gemetenAls" type="imwaprofielen:GemetenProfielpuntPropertyType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="ProfielpuntPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaprofielen:Profielpunt"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+</schema>

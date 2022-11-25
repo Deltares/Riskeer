@@ -1,0 +1,672 @@
+<?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema" 
+xmlns:gml="http://www.opengis.net/gml/3.2" 
+xmlns:imgeo="http://www.geostandaarden.nl/imgeo/2.1" 
+xmlns:imwa="https://data.aquo.nl/xsd/IMWA/1.0/imwakern" 
+xmlns:imwasysteem="http://data.aquo.nl/xsd/IMWA/1.0/imwasysteem" elementFormDefault="qualified" targetNamespace="https://data.aquo.nl/xsd/IMWA/1.0" version="1.0">
+  <annotation>
+    <documentation>IMWA Watersysteem versie 1.0</documentation>
+  </annotation>
+  <import namespace="https://data.aquo.nl/xsd/IMWA/1.0/imwakern" schemaLocation="https://data.aquo.nl/xsd/IMWA/1.0/imwakern.xsd"/>
+  <import namespace="http://www.geostandaarden.nl/imgeo/2.1" schemaLocation="https://raw.githubusercontent.com/Geonovum/IMGeo/master/gmlapplicatieschema/2.1.1/imgeo.xsd"/>
+  <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="https://data.aquo.nl/profile/gml-profile.xsd"/>
+  <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
+  <element name="AfvoergebiedAanvoergebied" substitutionGroup="gml:AbstractFeature" type="imwasysteem:AfvoergebiedAanvoergebiedType">
+    <annotation>
+      <documentation>AfvoergebiedAanvoergebied: &lt;u&gt;Definitie:&lt;/u&gt;
+Een gebied begrenst door (stroom)scheidingen, waaruit beschouwd vanuit het aan-/afvoerpunt het water van dat gebied in-/afstroomt of via bemaling getransporteerd wordt naar het desbetreffende aan-/afvoerpunt.
+
+&lt;u&gt;Herkomst definitie:&lt;/u&gt; Aquo-lex</documentation>
+    </annotation>
+  </element>
+  <complexType name="AfvoergebiedAanvoergebiedType">
+    <complexContent>
+      <extension base="gml:AbstractGMLType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="fysiekeEigenschap" type="imwa:FysiekeEigenschapType">
+            <annotation>
+              <documentation>Een samengesteld attribuut (datatype) voor het vastleggen van eigenschappen van het object, bestaande uit:
+- parameter
+- grootheid
+- waarde + eenheid (measure)
+- hoedanigheid</documentation>
+            </annotation>
+          </element>
+          <element name="geometrie2D">
+            <annotation>
+              <documentation>Geometrische representatie van het object weergegeven als 2D vlak.</documentation>
+            </annotation>
+          </element>
+          <element name="ordeCode" type="string"/>
+          <element name="ordeScope" type="string"/>
+          <element name="ordeSystematiek" type="string"/>
+          <element name="typeAfvoerAanvoergebied" type="gml:CodeType">
+            <annotation>
+              <documentation>Waterbeheergebiedtype: Nadere aanduiding van het type af-/aanvoergebied.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" name="VoertAfOp" type="imwasysteem:OppervlaktewaterlichaamType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="wordtBegrensdDoor" type="imwa:KunstwerkType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="bevat" type="imwasysteem:AfvoergebiedAanvoergebiedType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="AfvoergebiedAanvoergebiedPropertyType">
+    <sequence minOccurs="0">
+      <element ref="AfvoergebiedAanvoergebied"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="KRWOppervlaktewaterlichaam" substitutionGroup="gml:_GML" type="KRWOppervlaktewaterlichaamType">
+    <annotation>
+      <documentation>KRWOppervlaktewaterlichaam: Definitie:
+Een onderscheiden oppervlaktewater van aanzienlijke omvang, zoals een meer, een waterbekken, een stroom, een rivier, een kanaal, een deel van een stroom, rivier of kanaal, een overgangswater of een strook kustwater.
+
+Herkomst definitie: Aquo-lex (begrip: oppervlaktewaterkichaam)</documentation>
+    </annotation>
+  </element>
+  <complexType name="KRWOppervlaktewaterlichaamType">
+    <complexContent>
+      <extension base="gml:AbstractGMLType">
+        <sequence>
+          <element minOccurs="0" name="geometrieLijn2D">
+            <annotation>
+              <documentation>Geometrische representatie van het object weergegeven als 2D lijn.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="geometrieVlak2D">
+            <annotation>
+              <documentation>Geometrische representatie van het object weergegeven als 2D vlak.</documentation>
+            </annotation>
+          </element>
+          <element name="naam" type="string">
+            <annotation>
+              <documentation>Naam van het KRW oppervlaktewaterlichaam.</documentation>
+            </annotation>
+          </element>
+          <element name="waterbeheerder" type="gml:CodeType">
+            <annotation>
+              <documentation>Waterbeheerder: Naam waterbeheerder</documentation>
+            </annotation>
+          </element>
+          <element name="onttrekkingVoorMenselijkeConsumptie" type="boolean">
+            <annotation>
+              <documentation>Indicatie of er water voor menselijke consumptie aan het object wordt onttrokken.</documentation>
+            </annotation>
+          </element>
+          <element name="krwStatus" type="gml:CodeType">
+            <annotation>
+              <documentation>KRWStatus: Typering van de KRW status van het object.</documentation>
+            </annotation>
+          </element>
+          <element name="schaal" type="integer">
+            <annotation>
+              <documentation>Schaal.</documentation>
+            </annotation>
+          </element>
+          <element name="krwWaterTypeHuidig" type="gml:CodeType">
+            <annotation>
+              <documentation>KRWWatertype: Typering van het huidig KRW watertype van het obejct.</documentation>
+            </annotation>
+          </element>
+          <element name="krwWaterTypeDoel" type="gml:CodeType">
+            <annotation>
+              <documentation>KRWWatertype: Typering van het doel KRW watertype van het obejct.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="lengte" type="gml:MeasureType">
+            <annotation>
+              <documentation>Lengte van het waterlichaam (in kilometer)</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="oppervlakte" type="gml:MeasureType">
+            <annotation>
+              <documentation>Oppervlakte van het waterlichaam (in vierkante kilometer)</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="bestaatUitLichaam" type="OppervlaktewaterlichaamPropertyType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="bestaatUitSegement" type="OppervlaktewaterSegmentPropertyType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="KRWOppervlaktewaterlichaamPropertyType">
+    <sequence minOccurs="0">
+      <element ref="KRWOppervlaktewaterlichaam"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="NatuurlijkPersoon" substitutionGroup="Subject" type="NatuurlijkPersoonType">
+    <annotation>
+      <documentation>&lt;u&gt;Definitie:&lt;/u&gt;
+Een natuurlijk persoon is ieder wezen dat bevoegd is om rechten en verplichtingen te hebben.
+
+&lt;u&gt;Herkomst definitie:&lt;/u&gt; Aquo-lex</documentation>
+    </annotation>
+  </element>
+  <complexType name="NatuurlijkPersoonType">
+    <complexContent>
+      <extension base="SubjectType">
+        <sequence/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="NatuurlijkPersoonPropertyType">
+    <sequence minOccurs="0">
+      <element ref="NatuurlijkPersoon"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="NietNatuurlijkPersoon" substitutionGroup="Subject" type="NietNatuurlijkPersoonType">
+    <annotation>
+      <documentation>&lt;u&gt;Definitie:&lt;/u&gt;
+Een niet-natuurlijk persoon is een organisatievorm die niet aan het bestaan en de belangen van een individueel persoon is gebonden en een afgescheiden vermogen met eigen aansprakelijkheid bezit en een eigen bestaan leidt.
+
+
+&lt;u&gt;Herkomst definitie:&lt;/u&gt; Aquo-lex</documentation>
+    </annotation>
+  </element>
+  <complexType name="NietNatuurlijkPersoonType">
+    <complexContent>
+      <extension base="SubjectType">
+        <sequence/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="NietNatuurlijkPersoonPropertyType">
+    <sequence minOccurs="0">
+      <element ref="NietNatuurlijkPersoon"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Oever" substitutionGroup="gml:_GML" type="OeverType">
+    <annotation>
+      <documentation>&lt;u&gt;Definitie:&lt;/u&gt;
+Het gebied op de grens van water en land waar het dynamisch samenspel van land en water plaatsvindt.
+
+&lt;u&gt;Herkomst definitie:&lt;/u&gt;
+Aquo-lex</documentation>
+    </annotation>
+  </element>
+  <complexType name="OeverType">
+    <complexContent>
+      <extension base="gml:AbstractGMLType">
+        <sequence>
+          <element name="geometrieLijn2D">
+            <annotation>
+              <documentation>Geometrische representatie van het object als 2D lijn.</documentation>
+            </annotation>
+          </element>
+          <element name="geometrieVlak2D">
+            <annotation>
+              <documentation>Geometrische representatie van het object als 2D vlak.</documentation>
+            </annotation>
+          </element>
+          <element name="typeOever" type="gml:CodeType">
+            <annotation>
+              <documentation>OeverType: Nadere aanduiding van het type oever.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" name="isOnderdeelVan" type="OppervlaktewaterlichaamPropertyType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="OeverPropertyType">
+    <sequence minOccurs="0">
+      <element ref="Oever"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="OppervlaktewaterKnooppunt" substitutionGroup="gml:_GML" type="OppervlaktewaterKnooppuntType"/>
+  <complexType name="OppervlaktewaterKnooppuntType">
+    <complexContent>
+      <extension base="gml:AbstractGMLType">
+        <sequence>
+          <element name="geometrie2D">
+            <annotation>
+              <documentation>Geometrische representatie van het object als 2D punt.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="OppervlaktewaterKnooppuntPropertyType">
+    <sequence minOccurs="0">
+      <element ref="OppervlaktewaterKnooppunt"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="OppervlaktewaterSegment" substitutionGroup="gml:_GML" type="OppervlaktewaterSegmentType">
+    <annotation>
+      <documentation>&lt;u&gt;Definitie:&lt;/u&gt;
+Rekeneenheid van het waterkwantiteitsmodel.
+
+&lt;u&gt;Herkomst definitie:&lt;/u&gt; Aquo-lex (term: 1D-vak)</documentation>
+    </annotation>
+  </element>
+  <complexType name="OppervlaktewaterSegmentType">
+    <complexContent>
+      <extension base="gml:AbstractGMLType">
+        <sequence>
+          <element name="geometrie2D">
+            <annotation>
+              <documentation>Geometrische representatie van het object als 2D lijn.</documentation>
+            </annotation>
+          </element>
+          <element name="indicatieFictief" type="boolean">
+            <annotation>
+              <documentation>Indicatie of het segment fictief is of niet.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="lengte" type="imwa:FysiekeEigenschapPropertyType">
+            <annotation>
+              <documentation>Lengte van het oppervlaktewater segment (in meters).</documentation>
+            </annotation>
+          </element>
+          <element name="stroomrichting" type="gml:CodeType">
+            <annotation>
+              <documentation>Stroomrichting: Stroomrichting ten opzichte van de (gedigitaliseerde) richting van het oppervlaktewater segment.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="eindPunt" type="OppervlaktewaterKnooppuntPropertyType"/>
+          <element minOccurs="0" name="beginPunt" type="OppervlaktewaterKnooppuntPropertyType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="OppervlaktewaterSegmentPropertyType">
+    <sequence minOccurs="0">
+      <element ref="OppervlaktewaterSegment"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Oppervlaktewaterlichaam" substitutionGroup="imwa:Waterstaatswerk" type="OppervlaktewaterlichaamType">
+    <annotation>
+      <documentation>&lt;u&gt;Definitie:&lt;/u&gt;
+Samenhangend geheel van vrij aan het aardoppervlak voorkomend water, met de daarin aanwezige stoffen, alsmede de bijbehorende bodem, oevers en, voor zover uitdrukkelijk aangewezen krachtens deze wet, drogere oevergebieden, alsmede flora en fauna.
+
+&lt;u&gt;Herkomst definitie:&lt;/u&gt; Waterwet
+
+&lt;u&gt;Toelichting:&lt;/u&gt;
+Het betreft de zonering 'waterstaatswerk' zoals die volgt uit de Waterwet. In de termen van IMGEO betreft het een functioneel gebied.</documentation>
+    </annotation>
+  </element>
+  <complexType name="OppervlaktewaterlichaamType">
+    <complexContent>
+      <extension base="imwa:WaterstaatswerkType">
+        <sequence>
+          <element name="categorieWater" type="gml:CodeType">
+            <annotation>
+              <documentation>WaterCategorie: Een indeling naar de grootte van de afvoer en/of oppervlakte zoals bepaald bij wet/verordening.
+
+Toelichting:
+Hiermee wordt de indeling van oppervlaktewaterlichamen bedoeld naar primair, secundair tertiair en overig:
+• ‘Primair’ voor wateren met een belangrijk functie in de wateraan- en afvoer en waterberging
+• ‘Secundair’ voor wateren die een functie hebben in de wateraan- en afvoer en waterberging van percelen van meerdere gerechtigden - met uitzondering van primaire wateren.
+• ‘Tertiair’ voor wateren die alleen een functie hebben in de wateraan- en afvoer van en naar terreinen waarvan de onderhoudsplichtige zelf gerechtigde is en die in directe of indirecte verbinding staan met secundaire of primaire wateren.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="fysiekeEigenschap" type="imwa:FysiekeEigenschapPropertyType">
+            <annotation>
+              <documentation>Een samengesteld attribuut (datatype) voor het vastleggen van eigenschappen van het object, bestaande uit:
+- parameter
+- grootheid
+- waarde + eenheid (measure)
+- hoedanigheid</documentation>
+            </annotation>
+          </element>
+          <element name="geometrieLijn2D">
+            <annotation>
+              <documentation>Geometrische representatie van het object weergegeven als 2D lijn.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="typeWaterKwalitatief" type="gml:CodeType">
+            <annotation>
+              <documentation>WaterTypeKwalitatief: Een aanduiding voor het soort oppervlaktewater beschouwd vanuit het oogpunt van waterkwaliteit.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="typeWaterKwantitatief" type="gml:CodeType">
+            <annotation>
+              <documentation>WaterTypeKwantitatief: Een aanduiding voor het soort oppervlaktewater beschouwd vanuit het oogpunt van waterkwantiteit.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" name="bevatWaterdeel" type="imgeo:WaterdeelPropertyType"/>
+          <element maxOccurs="unbounded" name="bevatOndersteunendWaterdeel" type="imgeo:OndersteunendWaterdeelPropertyType"/>
+          <element maxOccurs="unbounded" name="geschematiseerdDoor" type="OppervlaktewaterSegmentPropertyType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="OppervlaktewaterlichaamPropertyType">
+    <sequence minOccurs="0">
+      <element ref="Oppervlaktewaterlichaam"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="PeilafwijkingGebied" substitutionGroup="AfvoergebiedAanvoergebied" type="PeilafwijkingGebiedType">
+    <annotation>
+      <documentation>&lt;u&gt;Definitie:&lt;/u&gt;
+Een ontheffing die van toepassing is voor een afgebakend gedeelte van een oppervlaktewater waarvoor een van het vigerende peilbesluit afwijkende waterstand wordt nagestreefd.
+
+Herkomst definitie: Aquo-lex (term: peilafwijking)</documentation>
+    </annotation>
+  </element>
+  <complexType name="PeilafwijkingGebiedType">
+    <complexContent>
+      <extension base="AfvoergebiedAanvoergebiedType">
+        <sequence>
+          <element name="peilafwijkingGebiedStatus" type="gml:CodeType">
+            <annotation>
+              <documentation>PeilgebiedStatus: Status van het peilafwijking gebied.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="PeilafwijkingGebiedPropertyType">
+    <sequence minOccurs="0">
+      <element ref="PeilafwijkingGebied"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="PeilbesluitGebied" substitutionGroup="imwa:WaterbeheerGebied" type="PeilbesluitGebiedType">
+    <annotation>
+      <documentation>Definitie:
+Bestuurlijk besluit met betrekking tot de te handhaven waterhoogte in waterlopen.
+
+Herkomst defintie: Aquo-lex (begrip: peilbesluit)</documentation>
+    </annotation>
+  </element>
+  <complexType name="PeilbesluitGebiedType">
+    <complexContent>
+      <extension base="imwa:WaterbeheerGebiedType">
+        <sequence/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="PeilbesluitGebiedPropertyType">
+    <sequence minOccurs="0">
+      <element ref="PeilbesluitGebied"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Peilgebied" substitutionGroup="AfvoergebiedAanvoergebied" type="PeilgebiedType">
+    <annotation>
+      <documentation>Peilgebied: &lt;u&gt;Definitie:&lt;/u&gt;
+Een cluster van afwateringsgebieden waarin één en hetzelfde peil wordt nagestreefd.
+
+&lt;u&gt;Herkomst Definitie:&lt;/u&gt; Aquo-lex</documentation>
+    </annotation>
+  </element>
+  <complexType name="PeilgebiedType">
+    <complexContent>
+      <extension base="AfvoergebiedAanvoergebiedType">
+        <sequence>
+          <element name="statusPeilgebied" type="gml:CodeType">
+            <annotation>
+              <documentation>PeilgebiedStatus: Indicatie van de status van het peilgebied.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="valtOnder" type="PeilbesluitGebiedPropertyType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="PeilgebiedPropertyType">
+    <sequence minOccurs="0">
+      <element ref="Peilgebied"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="RolSubject" substitutionGroup="gml:_GML" type="RolSubjectType">
+    <annotation>
+      <documentation>&lt;u&gt;Definitie:&lt;/u&gt;
+Een specificatie van een relatie die een subject met een object/rechtsverhouding heeft.
+
+&lt;u&gt;Herkomst definitie:&lt;/u&gt; Aquo-lex</documentation>
+    </annotation>
+  </element>
+  <complexType name="RolSubjectType">
+    <complexContent>
+      <extension base="gml:AbstractGMLType">
+        <sequence>
+          <element name="typeRolSubject" type="gml:CodeType">
+            <annotation>
+              <documentation>Subject_rollen: Nadere aanduiding van het type rol subject.</documentation>
+            </annotation>
+          </element>
+          <element name="beschrijftRol" type="SubjectPropertyType"/>
+          <element maxOccurs="unbounded" name="beschrijftRolObject" type="imwa:IMWA_GeoObjectPropertyType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="RolSubjectPropertyType">
+    <sequence minOccurs="0">
+      <element ref="RolSubject"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Streefpeil" substitutionGroup="WaterkwantitatieveNorm" type="StreefpeilType">
+    <annotation>
+      <documentation>Streefpeil: &lt;u&gt;Definitie:&lt;/u&gt;
+In een gebied of water nagestreefd peil (veelal voor een bepaalde periode).
+
+&lt;u&gt;Herkomst Definitie:&lt;/u&gt; Project IMWA Watersysteem</documentation>
+    </annotation>
+  </element>
+  <complexType name="StreefpeilType">
+    <complexContent>
+      <extension base="WaterkwantitatieveNormType">
+        <sequence>
+          <element maxOccurs="unbounded" name="peil" type="imwa:FysiekeEigenschapPropertyType">
+            <annotation>
+              <documentation>Een samengesteld attribuut (datatype) voor het vastleggen van eigenschappen van het object, bestaande uit:
+- parameter
+- grootheid
+- waarde (numeriek)
+- eenheid
+- hoedanigheid</documentation>
+            </annotation>
+          </element>
+          <element name="periodeBegin" type="date"/>
+          <element minOccurs="0" name="periodeEinde" type="date"/>
+          <element minOccurs="0" name="periodeTekst" type="string">
+            <annotation>
+              <documentation>Definitie:
+Aanduiding van de periode waarover het streefpeil van toepassing is.
+Toelichting:
+Voorbeelden van periodes zijn: jaarrond, winterperiode, van april tot oktober.</documentation>
+            </annotation>
+          </element>
+          <element name="typeStreefpeil" type="gml:CodeType">
+            <annotation>
+              <documentation>StreefpeilType: Definitie:
+Een aanduiding van het soort streefpeil gebaseerd op de in het peilbesluit opgenomen peilen.
+Toelichting:
+Typische soorten streefpeilen zijn: zomerpeil, winterpeil, vast peil, flexibel peil, afwijkend peil.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="StreefpeilPropertyType">
+    <sequence minOccurs="0">
+      <element ref="Streefpeil"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Subject" substitutionGroup="gml:_GML" type="SubjectType">
+    <annotation>
+      <documentation>&lt;u&gt;Definitie:&lt;/u&gt;
+een natuurlijk dan wel niet-natuurlijk persoon waarvan de waterbeheerder gegevens bewaart
+
+&lt;u&gt;Herkomst definitie:&lt;/u&gt; project IMWA Watersysteem</documentation>
+    </annotation>
+  </element>
+  <complexType name="SubjectType">
+    <complexContent>
+      <extension base="gml:AbstractGMLType">
+        <sequence>
+          <element name="typeSubject" type="gml:CodeType">
+            <annotation>
+              <documentation>Subject_soorten: Nadere aanduiding van het type subject.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="naam" type="string">
+            <annotation>
+              <documentation>Naam van het subject.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="SubjectPropertyType">
+    <sequence minOccurs="0">
+      <element ref="Subject"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Vaarweg" substitutionGroup="gml:_GML" type="VaarwegType">
+    <annotation>
+      <documentation>Vaarweg: &lt;u&gt;Definitie:&lt;/u&gt;
+Elk voor het openbaar scheepvaartverkeer openstaand water.
+	
+&lt;u&gt;Herkomst definitie:&lt;/u&gt; Aquo-lex</documentation>
+    </annotation>
+  </element>
+  <complexType name="VaarwegType">
+    <complexContent>
+      <extension base="gml:AbstractGMLType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="fysiekeEigenschap" type="imwa:FysiekeEigenschapPropertyType">
+            <annotation>
+              <documentation>Een samengesteld attribuut (datatype) voor het vastleggen van eigenschappen van het object, bestaande uit:
+- parameter
+- grootheid
+- waarde + eenheid (measure)
+- hoedanigheid</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="geometrieLijn2D">
+            <annotation>
+              <documentation>Geometrische representatie van het object als 2D lijn.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="geometrieVlak2D">
+            <annotation>
+              <documentation>Geometrische representatie van het object als 2D vlak</documentation>
+            </annotation>
+          </element>
+          <element name="naam" type="string">
+            <annotation>
+              <documentation>Naam van de vaarweg.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="statusLegger" type="gml:CodeType">
+            <annotation>
+              <documentation>LeggerStatus: Een aanduiding voor de status van de legger waarin het object is opgenomen.</documentation>
+            </annotation>
+          </element>
+          <element name="vaarwegKlasse" type="gml:CodeType">
+            <annotation>
+              <documentation>VaarwegklasseType: De indeling van vaarwegen naar bevaarbaarheid zoals vastgesteld door de Conférence Européenne des Ministres de Transport (CEMT).</documentation>
+            </annotation>
+          </element>
+          <element name="kanZijn" type="OppervlaktewaterlichaamPropertyType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="VaarwegPropertyType">
+    <sequence minOccurs="0">
+      <element ref="Vaarweg"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Waterbergingsgebied" substitutionGroup="imwa:Waterstaatswerk" type="WaterbergingsgebiedType">
+    <annotation>
+      <documentation>&lt;u&gt;Definitie:&lt;/u&gt;
+Een krachtens de Wet ruimtelijke ordening voor waterstaatkundige doeleinden bestemd gebied, niet zijnde een oppervlaktewaterlichaam of onderdeel daarvan, dat dient ter verruiming van de bergingscapaciteit van een of meer watersystemen en ook als bergingsgebied op de legger is opgenomen.
+
+&lt;u&gt;Herkomst definitie:&lt;/u&gt; Aquo-lex.</documentation>
+    </annotation>
+  </element>
+  <complexType name="WaterbergingsgebiedType">
+    <complexContent>
+      <extension base="imwa:WaterstaatswerkType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="fysiekeEigenschap" type="imwa:FysiekeEigenschapPropertyType">
+            <annotation>
+              <documentation>Een samengesteld attribuut (datatype) voor het vastleggen van eigenschappen van het object, bestaande uit:
+- parameter
+- grootheid
+- waarde + eenheid (measure)
+- hoedanigheid</documentation>
+            </annotation>
+          </element>
+          <element name="indicatieWettelijkVastgesteld" type="boolean">
+            <annotation>
+              <documentation>Indicatie of het waterbergingsgebied wettelijk is vastgesteld of niet.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="WaterbergingsgebiedPropertyType">
+    <sequence minOccurs="0">
+      <element ref="Waterbergingsgebied"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Waterbodem" substitutionGroup="gml:_GML" type="WaterbodemType">
+    <annotation>
+      <documentation>&lt;u&gt;Definitie:&lt;/u&gt;
+Bodem van een oppervlaktewaterlichaam.
+
+Herkomst definitie: project IMWA Watersysteem</documentation>
+    </annotation>
+  </element>
+  <complexType name="WaterbodemType">
+    <complexContent>
+      <extension base="gml:AbstractGMLType">
+        <sequence>
+          <element maxOccurs="unbounded" name="isOnderdeelVan" type="OppervlaktewaterlichaamPropertyType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="WaterbodemPropertyType">
+    <sequence minOccurs="0">
+      <element ref="Waterbodem"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="WaterkwantitatieveNorm" substitutionGroup="gml:_GML" type="WaterkwantitatieveNormType">
+    <annotation>
+      <documentation>&lt;u&gt;Definitie:&lt;/u&gt;
+Een gehanteerde norm voor de waterkwantitatieve toestand van een oppervlaktwaterlichaam of een waterbergingsgebied.
+
+&lt;u&gt;Herkomst definitie:&lt;/u&gt; project IMWA Watersysteem</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="WaterkwantitatieveNormType">
+    <complexContent>
+      <extension base="gml:AbstractGMLType">
+        <sequence/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="WaterkwantitatieveNormPropertyType">
+    <sequence minOccurs="0">
+      <element ref="WaterkwantitatieveNorm"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+</schema>

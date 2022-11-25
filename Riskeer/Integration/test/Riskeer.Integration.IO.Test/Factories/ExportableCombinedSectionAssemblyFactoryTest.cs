@@ -164,7 +164,7 @@ namespace Riskeer.Integration.IO.Test.Factories
                     idGenerator, registry, assemblyResults, assessmentSection);
 
             // Assert
-            AssertCombinedFailureMechanismSectionAssemblyResults(registry, assessmentSection, assemblyResults, 
+            AssertCombinedFailureMechanismSectionAssemblyResults(registry, assessmentSection, assemblyResults,
                                                                  exportableCombinedSectionAssemblies, hasAssemblyGroupResults);
         }
 

@@ -77,7 +77,7 @@ namespace Riskeer.Integration.IO.Factories
             var exportableSection = new ExportableFailureMechanismSection(
                 idGenerator.GetUniqueId(Resources.ExportableFailureMechanismSection_IdPrefix),
                 section.Points, startDistance, endDistance);
-            
+
             registry.Register(section, exportableSection);
             return exportableSection;
         }

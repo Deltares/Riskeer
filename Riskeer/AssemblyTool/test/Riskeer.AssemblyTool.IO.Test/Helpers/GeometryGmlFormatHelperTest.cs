@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Core.Common.Base.Geometry;
@@ -37,7 +36,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Helpers
         public void Format_GeometryNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => GeometryGmlFormatHelper.Format((IEnumerable<Point2D>) null);
+            void Call() => GeometryGmlFormatHelper.Format(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);

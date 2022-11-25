@@ -45,7 +45,7 @@ namespace Riskeer.AssemblyTool.IO.Model
             ExportableAssemblyMethod assemblyGroupAssemblyMethod, ExportableAssemblyMethod probabilityAssemblyMethod)
         {
             IdValidationHelper.ThrowIfInvalid(id);
-            
+
             Id = id;
             AssemblyGroup = assemblyGroup;
             Probability = probability;

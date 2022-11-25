@@ -74,7 +74,7 @@ namespace Riskeer.Integration.IO.Test.Factories
 
                 // Assert
                 Assert.AreEqual("assemblage.0", result.Id);
-                
+
                 Assert.AreEqual(assessmentSection.Name, result.AssessmentSection.Name);
                 Assert.AreEqual($"Wks.{assessmentSection.Id}", result.AssessmentSection.Id);
                 CollectionAssert.AreEqual(assessmentSection.ReferenceLine.Points, result.AssessmentSection.Geometry);
@@ -83,7 +83,7 @@ namespace Riskeer.Integration.IO.Test.Factories
                                                              .Concat(assessmentSection.SpecificFailureMechanisms.Select(fm => fm))
                                                              .Count();
                 Assert.AreEqual(nrOfFailureMechanisms, result.AssessmentSection.FailureMechanisms.Count());
-                
+
                 var factory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 AssessmentSectionAssemblyCalculatorStub calculator = factory.LastCreatedAssessmentSectionAssemblyCalculator;
                 Assert.AreEqual(calculator.CombinedFailureMechanismSectionAssemblyOutput.AssemblyResults.Count(),

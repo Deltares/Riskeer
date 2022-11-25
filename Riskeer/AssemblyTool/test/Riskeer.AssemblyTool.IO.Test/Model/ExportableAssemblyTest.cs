@@ -79,7 +79,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
         {
             // Setup
             const string id = "id";
-            
+
             ExportableAssessmentSection assessmentSection = ExportableAssessmentSectionTestFactory.Create();
             var assessmentProcess = new ExportableAssessmentProcess("id2", 0, 0);
 

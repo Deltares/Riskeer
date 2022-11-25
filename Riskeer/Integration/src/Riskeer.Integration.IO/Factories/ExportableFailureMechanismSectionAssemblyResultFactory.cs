@@ -112,7 +112,7 @@ namespace Riskeer.Integration.IO.Factories
                 ExportableFailureMechanismSectionAssemblyGroupConverter.ConvertTo(assemblyResult.FailureMechanismSectionAssemblyGroup),
                 ExportableAssemblyMethodConverter.ConvertTo(assemblyResultWrapper.AssemblyGroupMethod),
                 ExportableAssemblyMethodConverter.ConvertTo(assemblyResultWrapper.ProbabilityMethod));
-            
+
             registry.Register(sectionResult, exportableFailureMechanismSectionAssemblyResult);
             return exportableFailureMechanismSectionAssemblyResult;
         }

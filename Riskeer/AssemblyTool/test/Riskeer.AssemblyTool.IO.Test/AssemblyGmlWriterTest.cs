@@ -162,9 +162,9 @@ namespace Riskeer.AssemblyTool.IO.Test
                 Console.WriteLine(fileContent);
 
                 var schema = new XmlSchemaSet();
-                schema.Add("http://www.aquo.nl/BOI2023/uitwisselmodel/v20210113",
-                           Path.Combine(testDataPath, "xsd", "BOI2023", "uitwisselmodel", "v20210113",
-                                        "BOI2023_Uitwisselmodel_v1_0.xsd"));
+                schema.Add("https://data.aquo.nl/xsd/BOI/uitwisselmodel/v20220630",
+                           Path.Combine(testDataPath, "xsd", "BOI", "uitwisselmodel", "v20220630",
+                                        "BOI_Uitwisselmodel_v1_0.xsd"));
 
                 XDocument doc = XDocument.Parse(fileContent);
 

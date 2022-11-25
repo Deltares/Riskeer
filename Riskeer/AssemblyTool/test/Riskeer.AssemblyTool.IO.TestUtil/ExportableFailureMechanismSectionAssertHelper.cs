@@ -57,7 +57,7 @@ namespace Riskeer.AssemblyTool.IO.TestUtil
             {
                 FailureMechanismSection expectedSection = expectedSections.ElementAt(i);
                 ExportableFailureMechanismSection actualSection = actualSections.ElementAt(i);
-                
+
                 Assert.AreEqual($"Bv.{i}", actualSection.Id);
 
                 double expectedEndDistance = expectedStartDistance + Math2D.Length(expectedSection.Points);

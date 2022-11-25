@@ -40,7 +40,7 @@ namespace Riskeer.AssemblyTool.IO.Model
         public ExportableAssembly(string id, ExportableAssessmentSection assessmentSection, ExportableAssessmentProcess assessmentProcess)
         {
             IdValidationHelper.ThrowIfInvalid(id);
-            
+
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
@@ -55,7 +55,7 @@ namespace Riskeer.AssemblyTool.IO.Model
             AssessmentSection = assessmentSection;
             AssessmentProcess = assessmentProcess;
         }
-        
+
         /// <summary>
         /// Gets the id of the assembly.
         /// </summary>
