@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:IMWAProxies="http://www.aquo.nl/BOI2023/imwaproxies/v20210113"
-           xmlns:Uitwisselmodel="http://www.aquo.nl/BOI2023/uitwisselmodel/v20210113"
+<xs:schema xmlns:IMWAProxies="https://data.aquo.nl/xsd/BOI/imwaproxies/v20220630"
+           xmlns:Uitwisselmodel="https://data.aquo.nl/xsd/BOI/uitwisselmodel/v20220630"
            xmlns:gml="http://www.opengis.net/gml/3.2"
            xmlns:gmlsf="http://www.opengis.net/gmlsf/2.0"
            xmlns:imf="http://www.imvertor.org/xsl/functions"
            xmlns:imvert="http://www.imvertor.org/schema/system"
            xmlns:math="http://www.w3.org/2005/xpath-functions/math"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           targetNamespace="http://www.aquo.nl/BOI2023/uitwisselmodel/v20210113"
+           targetNamespace="https://data.aquo.nl/xsd/BOI/uitwisselmodel/v20220630"
            elementFormDefault="qualified"
            attributeFormDefault="unqualified"
            version="1.0-1">
    <xs:annotation>
       <xs:appinfo source="http://www.imvertor.org/model-info/project">SIM</xs:appinfo>
-      <xs:appinfo source="http://www.imvertor.org/model-info/application">BOI2023</xs:appinfo>
-      <xs:appinfo source="http://www.imvertor.org/model-info/release">20210113</xs:appinfo>
+      <xs:appinfo source="http://www.imvertor.org/model-info/application">BOI</xs:appinfo>
+      <xs:appinfo source="http://www.imvertor.org/model-info/release">20220630</xs:appinfo>
       <xs:appinfo source="http://www.imvertor.org/model-info/version">1.0</xs:appinfo>
       <xs:appinfo source="http://www.imvertor.org/model-info/phase">1</xs:appinfo>
-      <xs:appinfo source="http://www.imvertor.org/model-info/uri">http://www.aquo.nl/BOI2023/uitwisselmodel</xs:appinfo>
-      <xs:appinfo source="http://www.imvertor.org/model-info/generated">2022-07-12T10:06:07Z</xs:appinfo>
-      <xs:appinfo source="http://www.imvertor.org/xml-schema-info/file-location">BOI2023/uitwisselmodel/v20210113/BOI2023_Uitwisselmodel_v1_0.xsd</xs:appinfo>
-      <xs:appinfo source="http://www.imvertor.org/xml-schema-info/generated">July 12, 2022 at 10:06:07</xs:appinfo>
+      <xs:appinfo source="http://www.imvertor.org/model-info/uri">https://data.aquo.nl/xsd/BOI/uitwisselmodel</xs:appinfo>
+      <xs:appinfo source="http://www.imvertor.org/model-info/generated">2022-11-25T10:30:52Z</xs:appinfo>
+      <xs:appinfo source="http://www.imvertor.org/xml-schema-info/file-location">BOI/uitwisselmodel/v20220630/BOI_Uitwisselmodel_v1_0.xsd</xs:appinfo>
+      <xs:appinfo source="http://www.imvertor.org/xml-schema-info/generated">November 25, 2022 at 10:30:52</xs:appinfo>
       <xs:appinfo source="http://www.imvertor.org/xml-schema-info/generator">1.67.1</xs:appinfo>
-      <xs:documentation source="http://www.imvertor.org/schema-info/file-location">BOI2023/uitwisselmodel/v20210113/BOI2023_Uitwisselmodel_v1_0.xsd</xs:documentation>
+      <xs:documentation source="http://www.imvertor.org/schema-info/file-location">BOI/uitwisselmodel/v20220630/BOI_Uitwisselmodel_v1_0.xsd</xs:documentation>
       <xs:documentation source="http://www.imvertor.org/schema-info/conversion">
         This schema is based on an UML specification, which is transformed by the Imvertor software. Imvertor modules are in the public domain, see http://www.imvertor.org.
     </xs:documentation>
@@ -32,8 +32,8 @@
          <gmlsf:ComplianceLevel>0</gmlsf:ComplianceLevel>
       </xs:appinfo>
    </xs:annotation>
-   <xs:import namespace="http://www.aquo.nl/BOI2023/imwaproxies/v20210113"
-              schemaLocation="../../../BOI2023/imwaproxies/v20210113/BOI2023_IMWA%20Proxies_v1_0.xsd"/>
+   <xs:import namespace="https://data.aquo.nl/xsd/BOI/imwaproxies/v20220630"
+              schemaLocation="../../../BOI/imwaproxies/v20220630/BOI_IMWAProxies_v1_0.xsd"/>
    <xs:import namespace="http://www.opengis.net/gml/3.2"
               schemaLocation="../../../gml/3.2/ihw-gml.xsd"/>
    <xs:element name="Assembleren-collectie"
