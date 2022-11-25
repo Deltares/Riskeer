@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<uboi:Assembleren-collectie xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:imwap="http://data.aquo.nl/xsd/BOI/imwaproxies/v20220630" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://data.aquo.nl/xsd/BOI/uitwisselmodel/v20220630 http://data.aquo.nl/xsd/BOI/uitwisselmodel/v20220630/BOI_Uitwisselmodel_v1_0.xsd" gml:id="assemblage1" xmlns:uboi="http://data.aquo.nl/xsd/BOI/uitwisselmodel/v20220630">
+<uboi:Assembleren-collectie xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:imwap="https://data.aquo.nl/xsd/BOI/imwaproxies/v20220630" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://data.aquo.nl/xsd/BOI/uitwisselmodel/v20220630 https://data.aquo.nl/xsd/BOI/uitwisselmodel/v20220630/BOI_Uitwisselmodel_v1_0.xsd" gml:id="assemblage1" xmlns:uboi="https://data.aquo.nl/xsd/BOI/uitwisselmodel/v20220630">
   <uboi:featureMember>
     <imwap:Waterkeringstelsel gml:id="section1">
       <imwap:geometrie2D>
