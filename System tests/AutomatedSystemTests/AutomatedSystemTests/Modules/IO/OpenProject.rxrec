@@ -80,6 +80,8 @@ mode="Global">
 				<path>
 					/form[@automationid='RiskeerMainWindow']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</mouseitem>
 		<keyitem
@@ -103,6 +105,8 @@ mode="Global">
 				<path>
 					/form[@automationid='RiskeerMainWindow']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</keyitem>
 		<userrecorditem
@@ -168,6 +172,8 @@ mode="Global">
 				<path>
 					/form[@title='Openen']/?/?/text[@controlid='1148']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<AttributeValue>
 				D:\testing\Riskeer\automatisering\4.Trajectinformatie_basis\Project_assemblage_A_B_20-1.risk
@@ -325,6 +331,8 @@ mode="Global">
 				<path>
 					/form[@title='Openen']/button[@text='&amp;Open']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<helperscreenshot
 			guid="b2d3617f-ae9f-45f5-bc75-9d7963389fdf">
@@ -452,6 +460,8 @@ ACiiigAooooAKKKKACiiigAooooA/9k=
 						<path>
 							/form[@title='Project afsluiten']/button[@text='&amp;No']
 						</path>
+						<robustPath>
+						</robustPath>
 					</info>
 				</argument>
 			</arguments>
@@ -483,6 +493,8 @@ ACiiigAooooAKKKKACiiigAooooA/9k=
 				<path>
 					/form[@controlname='ActivityProgressDialog']/progressbar[@controlname='progressBar']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</WaitForRecordItem>
 		<WaitForRecordItem
@@ -501,6 +513,8 @@ ACiiigAooooAKKKKACiiigAooooA/9k=
 				<path>
 					/form[@controlname='ActivityProgressDialog']/button[@controlname='buttonCancel']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</WaitForRecordItem>
 		<explicitdelayitem
@@ -528,6 +542,8 @@ ACiiigAooooAKKKKACiiigAooooA/9k=
 				<path>
 					/form[@automationid='RiskeerMainWindow']/?/container/?/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename='Row 0']/cell[@accessiblename&gt;'Bericht']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<matchname>
 				Text

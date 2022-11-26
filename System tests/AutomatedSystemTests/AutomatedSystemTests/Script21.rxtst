@@ -68,6 +68,7 @@
 			name="NoFailureProbabilityLEFalse">
 				<parameters>
 					<param
+					mask="False"
 					name="nameOfFolderNoFailureProbabilityLEFalse"
 					value="LoopNoFailureProbabilityLEFalse">
 					</param>
@@ -173,14 +174,17 @@
 			name="ValidateCalculationValueFailureProbability">
 				<parameters>
 					<param
+					mask="False"
 					name="isReferenceValueExpected"
 					value="false">
 					</param>
 					<param
+					mask="False"
 					name="indexColumnCalculationValueFailureProbabilityPerSection"
 					value="-2">
 					</param>
 					<param
+					mask="False"
 					name="expectedCalculationValueFailureProbability"
 					value="1/Oneindig">
 					</param>
@@ -257,6 +261,7 @@
 			name="CarriedOutValidateRefinedProbsAreEnabled">
 				<parameters>
 					<param
+					mask="False"
 					name="isCellExpectedToBeEnabled"
 					value="true">
 					</param>
@@ -321,14 +326,17 @@
 			name="ValidateAssemblyGroup">
 				<parameters>
 					<param
+					mask="False"
 					name="indexLastColumn(AssemblyGroup)"
 					value="-1">
 					</param>
 					<param
+					mask="False"
 					name="expectedAssemblyGroup"
 					value="NR">
 					</param>
 					<param
+					mask="False"
 					name="isReferenceValueExpected"
 					value="false">
 					</param>
@@ -393,6 +401,7 @@
 			name="SetFMsinAssembly">
 				<parameters>
 					<param
+					mask="False"
 					name="substringInTrajectName"
 					value="44-2">
 					</param>
@@ -412,6 +421,7 @@
 			name="TakeOverResultInSectionLEFalse">
 				<parameters>
 					<param
+					mask="False"
 					name="nameFolderValidateTakenOverResultValuesLEFalse"
 					value="ValidateTakenOverResultValuesLEFalse">
 					</param>
@@ -494,14 +504,17 @@
 			name="ValidateAssemblyGroup">
 				<parameters>
 					<param
+					mask="False"
 					name="indexLastColumn(AssemblyGroup)"
 					value="-1">
 					</param>
 					<param
+					mask="False"
 					name="expectedAssemblyGroup"
 					value="NR">
 					</param>
 					<param
+					mask="False"
 					name="isReferenceValueExpected"
 					value="true">
 					</param>
@@ -641,6 +654,7 @@
 			name="RequiredLETrue">
 				<parameters>
 					<param
+					mask="False"
 					name="optionToSelectInMenu"
 					value="Nodig">
 					</param>
@@ -671,6 +685,7 @@
 			name="OpenProject">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToFileToOpen"
 					value="X:\script21\currentRelease\21_b_input.risk">
 					</param>
@@ -719,6 +734,7 @@
 			name="ValidateTakenOverResultValuesLETrue">
 				<parameters>
 					<param
+					mask="False"
 					name="isReferenceValueExpected"
 					value="true">
 					</param>
@@ -731,10 +747,12 @@
 			name="LoopNoFailureProbabilityLETrue">
 				<parameters>
 					<param
+					mask="False"
 					name="optionNoFailureProbability"
 					value="Geen faalkans">
 					</param>
 					<param
+					mask="False"
 					name="indexColumnResultInitialMechanism"
 					value="4">
 					</param>
@@ -799,6 +817,7 @@
 			name="SetStateRegistrationAssembly">
 				<parameters>
 					<param
+					mask="False"
 					name="stateToSelect"
 					value="@RA">
 					</param>
@@ -809,6 +828,7 @@
 			name="SaveProject">
 				<parameters>
 					<param
+					mask="False"
 					name="fileNameToSave"
 					value="21_b_output">
 					</param>
@@ -973,18 +993,22 @@
 			name="ValidateCalculationValueFailureProbability">
 				<parameters>
 					<param
+					mask="False"
 					name="isReferenceValueExpected"
 					value="true">
 					</param>
 					<param
+					mask="False"
 					name="indexColumnCalculationValueFailureProbabilityPerProfile"
 					value="-4">
 					</param>
 					<param
+					mask="False"
 					name="indexColumnCalculationValueFailureProbabilityPerSection"
 					value="-3">
 					</param>
 					<param
+					mask="False"
 					name="expectedCalculationValueFailureProbability"
 					value="1/Oneindig">
 					</param>
@@ -1067,14 +1091,17 @@
 			name="ValidateAssemblyGroup">
 				<parameters>
 					<param
+					mask="False"
 					name="indexLastColumn(AssemblyGroup)"
 					value="-1">
 					</param>
 					<param
+					mask="False"
 					name="expectedAssemblyGroup"
 					value="NDo">
 					</param>
 					<param
+					mask="False"
 					name="isReferenceValueExpected"
 					value="true">
 					</param>
@@ -1206,18 +1233,22 @@
 			name="ValidateCalculationValueFailureProbability">
 				<parameters>
 					<param
+					mask="False"
 					name="isReferenceValueExpected"
 					value="true">
 					</param>
 					<param
+					mask="False"
 					name="indexColumnCalculationValueFailureProbabilityPerProfile"
 					value="-4">
 					</param>
 					<param
+					mask="False"
 					name="indexColumnCalculationValueFailureProbabilityPerSection"
 					value="-3">
 					</param>
 					<param
+					mask="False"
 					name="expectedCalculationValueFailureProbability"
 					value="1/Oneindig">
 					</param>
@@ -1279,10 +1310,12 @@
 			name="ValidateDisabledCell">
 				<parameters>
 					<param
+					mask="False"
 					name="isEnabledExpected"
 					value="false">
 					</param>
 					<param
+					mask="False"
 					name="columnIndexResultInitialSection"
 					value="5">
 					</param>
@@ -1323,10 +1356,12 @@
 			name="LoopNoFailureProbabilityLEFalse">
 				<parameters>
 					<param
+					mask="False"
 					name="optionNoFailureProbability"
 					value="Geen faalkans">
 					</param>
 					<param
+					mask="False"
 					name="indexColumnResultInitialMechanism"
 					value="4">
 					</param>
@@ -1341,18 +1376,22 @@
 			name="ValidateNVak">
 				<parameters>
 					<param
+					mask="False"
 					name="indexLastColumn(AssemblyGroup)"
 					value="-1">
 					</param>
 					<param
+					mask="False"
 					name="expectedValueNVak"
 					value="1.00">
 					</param>
 					<param
+					mask="False"
 					name="isReferenceValueExpected"
 					value="true">
 					</param>
 					<param
+					mask="False"
 					name="indexColumnNVak"
 					value="-2">
 					</param>
@@ -1444,6 +1483,7 @@
 			name="SetStateRegistrationAssembly">
 				<parameters>
 					<param
+					mask="False"
 					name="stateRA"
 					value="@RA">
 					</param>
@@ -1544,6 +1584,7 @@
 			name="TakeOverResultInSectionLETrue">
 				<parameters>
 					<param
+					mask="False"
 					name="nameFolderValidateTakenOverResultValuesLETrue"
 					value="ValidateTakenOverResultValuesLETrue">
 					</param>
@@ -1558,6 +1599,7 @@
 			name="RequiredValidateRefinedProbsAreDisabled">
 				<parameters>
 					<param
+					mask="False"
 					name="isCellExpectedToBeEnabled"
 					value="false">
 					</param>
@@ -1717,6 +1759,7 @@
 			name="SetManualResultValuesLEFalse">
 				<parameters>
 					<param
+					mask="False"
 					name="isReferenceValueExpected"
 					value="true">
 					</param>
@@ -1727,22 +1770,27 @@
 			name="FollowUpAnalysis">
 				<parameters>
 					<param
+					mask="False"
 					name="nameFolderNotRequiredLEFalse"
 					value="NotRequiredLEFalse">
 					</param>
 					<param
+					mask="False"
 					name="nameFolderRequiredLEFalse"
 					value="RequiredLEFalse">
 					</param>
 					<param
+					mask="False"
 					name="nameFolderCarriedOutLEFalse"
 					value="CarriedOutLEFalse">
 					</param>
 					<param
+					mask="False"
 					name="columnIndexFollowUpAnalysis"
 					value="6">
 					</param>
 					<param
+					mask="False"
 					name="columnIndexRefinedFailureProbPerSection"
 					value="7">
 					</param>
@@ -1753,6 +1801,7 @@
 			name="RequiredValidateRefinedProbsAreDisabled">
 				<parameters>
 					<param
+					mask="False"
 					name="isCellExpectedToBeEnabled"
 					value="false">
 					</param>
@@ -2255,18 +2304,22 @@
 			name="script21_Resultaten_registreren">
 				<parameters>
 					<param
+					mask="False"
 					name="caseNumber"
 					value="21">
 					</param>
 					<param
+					mask="False"
 					name="scriptOutputFolder"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="extensionRiskeerProjects"
 					value="*.risk">
 					</param>
 					<param
+					mask="False"
 					name="folderPreviousReleaseProjects"
 					value="X:\script21\previousRelease">
 					</param>
@@ -2277,6 +2330,7 @@
 			name="Validation">
 				<parameters>
 					<param
+					mask="False"
 					name="nameOfFolder"
 					value="RelevanceLEFalse">
 					</param>
@@ -2309,14 +2363,17 @@
 			name="ManualResultInSectionLEFalse">
 				<parameters>
 					<param
+					mask="False"
 					name="nameFolderValidateManualInitialResultValuesLEFalse"
 					value="ValidateManualInitialResultValuesLEFalse">
 					</param>
 					<param
+					mask="False"
 					name="nameFolderSetManualInitialResultValuesLEFalse"
 					value="SetManualResultValuesLEFalse">
 					</param>
 					<param
+					mask="False"
 					name="nameFolderValidateManualFinalResultValuesLEFalse"
 					value="ValidateManualFinalResultValuesLEFalse">
 					</param>
@@ -2642,26 +2699,32 @@
 			name="FollowUpAnalysis">
 				<parameters>
 					<param
+					mask="False"
 					name="nameFolderNotRequiredLETrue"
 					value="NotRequiredLETrue">
 					</param>
 					<param
+					mask="False"
 					name="nameFolderRequiredLETrue"
 					value="RequiredLETrue">
 					</param>
 					<param
+					mask="False"
 					name="nameFolderCarriedOutLETrue"
 					value="CarriedOutLETrue">
 					</param>
 					<param
+					mask="False"
 					name="columnIndexFollowUpAnalysis"
 					value="7">
 					</param>
 					<param
+					mask="False"
 					name="columnIndexRefinedFailureProbPerProfile"
 					value="8">
 					</param>
 					<param
+					mask="False"
 					name="columnIndexRefinedFailureProbPerSection"
 					value="9">
 					</param>
@@ -2808,14 +2871,17 @@
 			name="a)Relevance_Failure_mechanisms">
 				<parameters>
 					<param
+					mask="False"
 					name="numberOfFMs"
 					value="18">
 					</param>
 					<param
+					mask="False"
 					name="randomDistributionFMsInAssembly"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="nameProjectFmsInAssembly"
 					value="script21a_FMsInAssembly.risk">
 					</param>
@@ -2937,6 +3003,7 @@
 			name="ValidateDisabledCells">
 				<parameters>
 					<param
+					mask="False"
 					name="isEnabledExpected"
 					value="false">
 					</param>
@@ -3140,6 +3207,7 @@
 			name="OpenProject">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToFileToOpen"
 					value="X:\script21\currentRelease\21_c_input.risk">
 					</param>
@@ -3182,46 +3250,57 @@
 			name="CarriedOutLETrue">
 				<parameters>
 					<param
+					mask="False"
 					name="optionToSelectInMenu"
 					value="Uitgevoerd">
 					</param>
 					<param
+					mask="False"
 					name="optionPerProfile"
 					value="Per doorsnede">
 					</param>
 					<param
+					mask="False"
 					name="optionPerSection"
 					value="Per vak">
 					</param>
 					<param
+					mask="False"
 					name="optionBoth"
 					value="Beide">
 					</param>
 					<param
+					mask="False"
 					name="textDerived"
 					value="&lt;afgeleid>">
 					</param>
 					<param
+					mask="False"
 					name="textNoValuePresent"
 					value="-">
 					</param>
 					<param
+					mask="False"
 					name="isReferenceValueExpected"
 					value="true">
 					</param>
 					<param
+					mask="False"
 					name="isReferenceValueNotExpected"
 					value="false">
 					</param>
 					<param
+					mask="False"
 					name="columnIndexRefinedFailureProbPerProfile"
 					value="-6">
 					</param>
 					<param
+					mask="False"
 					name="columnIndexRefinedFailureProbPerSection"
 					value="-5">
 					</param>
 					<param
+					mask="False"
 					name="columnIndexNVak"
 					value="-2">
 					</param>
@@ -3238,6 +3317,7 @@
 			name="ValidateManualInitialResultValuesLEFalse">
 				<parameters>
 					<param
+					mask="False"
 					name="isReferenceValueExpected"
 					value="true">
 					</param>
@@ -3435,6 +3515,7 @@
 			name="NotRequiredValidateRefinedProbsAreDisabled">
 				<parameters>
 					<param
+					mask="False"
 					name="isCellExpectedToBeEnabled"
 					value="false">
 					</param>
@@ -3481,6 +3562,7 @@
 			name="SetManualResultValuesLETrue">
 				<parameters>
 					<param
+					mask="False"
 					name="isReferenceValueExpected"
 					value="true">
 					</param>
@@ -3639,6 +3721,7 @@
 			name="ValidateManualFinalResultValuesLETrue">
 				<parameters>
 					<param
+					mask="False"
 					name="isReferenceValueExpected"
 					value="true">
 					</param>
@@ -3764,23 +3847,34 @@
 			name="ValidateEffectOfNonRelevance">
 			</smartfoldernode>
 			<testsuite
+			ExportColumnList="None"
 			ReportTime="RelativeToTestSuiteStartTime"
+			SelectedActions="All"
 			TracingScreenshotMode="Foreground"
 			TracingScreenshotQuality="40"
 			VideoBitrate="2000"
 			VideoFps="15"
 			VideoRecordingMode="KeepAllTests"
 			VideoSource="Auto"
+			createindividualreportpdfchecked="False"
+			createsinglereportpdfchecked="True"
+			enableCSVReport="False"
 			enabletracingscreenshots="True"
+			exportAllColummns="True"
 			id="95b5eb52-af74-458e-83fd-d3ee2fd0486c"
+			includeimageschecked="False"
+			includerecordingschecked="False"
 			junitreport="False"
 			name="Script21"
+			overwritefilechecked="False"
 			reportcompress="False"
+			reportdescription=""
 			reportdirectoryname="Reports"
 			reportenabled="True"
 			reportfilename="%S_%Y%M%D_%T.rxlog"
 			reporttemplatefolder="ReportDeltaresStyle"
-			reportwriteinterval="30000ms">
+			reportwriteinterval="30000ms"
+			singlereportpdfdirectory="SingleReportPDF">
 			</testsuite>
 			<testmodule
 			id="97b3f332-2f25-4528-9780-9699fc941611"
@@ -3827,18 +3921,22 @@
 			name="ValidateCalculationValueFailureProbability">
 				<parameters>
 					<param
+					mask="False"
 					name="isReferenceValueExpected"
 					value="false">
 					</param>
 					<param
+					mask="False"
 					name="indexColumnCalculationValueFailureProbabilityPerProfile"
 					value="-4">
 					</param>
 					<param
+					mask="False"
 					name="indexColumnCalculationValueFailureProbabilityPerSection"
 					value="-3">
 					</param>
 					<param
+					mask="False"
 					name="expectedCalculationValueFailureProbability"
 					value="1/Oneindig">
 					</param>
@@ -3892,14 +3990,17 @@
 			name="SetLengthEffectTrue">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToLEItemInPP"
 					value="Lengte-effect>Toepassen">
 					</param>
 					<param
+					mask="False"
 					name="typeParameter"
 					value="Text">
 					</param>
 					<param
+					mask="False"
 					name="valueLEEffect"
 					value="True">
 					</param>
@@ -3931,14 +4032,17 @@
 			name="ValidateAssemblyGroup">
 				<parameters>
 					<param
+					mask="False"
 					name="indexLastColumn(AssemblyGroup)"
 					value="-1">
 					</param>
 					<param
+					mask="False"
 					name="expectedAssemblyGroup"
 					value="NR">
 					</param>
 					<param
+					mask="False"
 					name="isReferenceValueExpected"
 					value="true">
 					</param>
@@ -3951,10 +4055,12 @@
 			name="LoopFMs">
 				<parameters>
 					<param
+					mask="False"
 					name="currentFMShouldBeInAssembly"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathToFMInAssemblyInPropertiesPanel"
 					value="Algemeen>In assemblage">
 					</param>
@@ -4128,14 +4234,17 @@
 			name="ManualResultInSectionLETrue">
 				<parameters>
 					<param
+					mask="False"
 					name="nameFolderValidateManualInitialResultValuesLETrue"
 					value="ValidateManualInitialResultValuesLETrue">
 					</param>
 					<param
+					mask="False"
 					name="nameFolderSetManualInitialResultValuesLETrue"
 					value="SetManualResultValuesLETrue">
 					</param>
 					<param
+					mask="False"
 					name="nameFolderValidateManualFinalResultValuesLETrue"
 					value="ValidateManualFinalResultValuesLETrue">
 					</param>
@@ -4152,6 +4261,7 @@
 			name="CarriedOutValidateRefinedProbIsEnabled">
 				<parameters>
 					<param
+					mask="False"
 					name="isCellExpectedToBeEnabled"
 					value="true">
 					</param>
@@ -4208,14 +4318,17 @@
 			name="FillInManually">
 				<parameters>
 					<param
+					mask="False"
 					name="nameOfFolderToAdjust"
 					value="ManualResultInSectionLETrue">
 					</param>
 					<param
+					mask="False"
 					name="optionTakeOver"
 					value="Handmatig invullen">
 					</param>
 					<param
+					mask="False"
 					name="columnIndexResultInitialMechanism"
 					value="4">
 					</param>
@@ -4302,6 +4415,7 @@
 			name="LoopFMs">
 				<parameters>
 					<param
+					mask="False"
 					name="currentFMShouldBeInAssembly"
 					value="">
 					</param>
@@ -4932,6 +5046,7 @@
 			name="validateCelssAreEnabled">
 				<parameters>
 					<param
+					mask="False"
 					name="isEnabledExpected"
 					value="true">
 					</param>
@@ -4942,14 +5057,17 @@
 			name="TakeOver">
 				<parameters>
 					<param
+					mask="False"
 					name="columnIndexResultInitialMechanism"
 					value="4">
 					</param>
 					<param
+					mask="False"
 					name="optionTakeOver"
 					value="Overnemen">
 					</param>
 					<param
+					mask="False"
 					name="nameOfFolderToAdjust"
 					value="TakeOverResultInSectionLEFalse">
 					</param>
@@ -4993,14 +5111,17 @@
 			name="TakeOver">
 				<parameters>
 					<param
+					mask="False"
 					name="columnIndexResultInitialMechanism"
 					value="4">
 					</param>
 					<param
+					mask="False"
 					name="optionTakeOver"
 					value="Overnemen">
 					</param>
 					<param
+					mask="False"
 					name="nameOfFolderToAdjust"
 					value="TakeOverResultInSectionLETrue">
 					</param>
@@ -5032,6 +5153,7 @@
 			name="Validation">
 				<parameters>
 					<param
+					mask="False"
 					name="nameOfFolder"
 					value="RelevanceLETrue">
 					</param>
@@ -5048,6 +5170,7 @@
 			name="validateCellsAreDisabled">
 				<parameters>
 					<param
+					mask="False"
 					name="isEnabledExpected"
 					value="false">
 					</param>
@@ -5171,6 +5294,7 @@
 			name="OpenFaalkansProject">
 				<parameters>
 					<param
+					mask="False"
 					name="fileToOpen"
 					value="X:\script21\currentRelease\Faalkans-project Detailed_44_2_STKWp_22-1.risk">
 					</param>
@@ -5197,38 +5321,47 @@
 			name="CarriedOutLEFalse">
 				<parameters>
 					<param
+					mask="False"
 					name="optionToSelectInMenu"
 					value="Uitgevoerd">
 					</param>
 					<param
+					mask="False"
 					name="optionPerProfile"
 					value="Per doorsnede">
 					</param>
 					<param
+					mask="False"
 					name="optionPerSection"
 					value="Per vak">
 					</param>
 					<param
+					mask="False"
 					name="optionBoth"
 					value="Beide">
 					</param>
 					<param
+					mask="False"
 					name="textDerived"
 					value="&lt;afgeleid>">
 					</param>
 					<param
+					mask="False"
 					name="textNoValuePresent"
 					value="-">
 					</param>
 					<param
+					mask="False"
 					name="isReferenceValueExpected"
 					value="true">
 					</param>
 					<param
+					mask="False"
 					name="isReferenceValueNotExpected"
 					value="false">
 					</param>
 					<param
+					mask="False"
 					name="columnIndexRefinedFailureProbPerSection"
 					value="-3">
 					</param>
@@ -5240,6 +5373,7 @@
 			name="NotRequiredLEFalse">
 				<parameters>
 					<param
+					mask="False"
 					name="optionToSelectInMenu"
 					value="Niet nodig">
 					</param>
@@ -5375,14 +5509,17 @@
 			name="ValidateCalculationValueFailureProbability">
 				<parameters>
 					<param
+					mask="False"
 					name="isReferenceValueExpected"
 					value="true">
 					</param>
 					<param
+					mask="False"
 					name="indexColumnCalculationValueFailureProbabilityPerSection"
 					value="-2">
 					</param>
 					<param
+					mask="False"
 					name="expectedCalculationValueFailureProbability"
 					value="1/Oneindig">
 					</param>
@@ -5454,6 +5591,7 @@
 			name="SaveProject">
 				<parameters>
 					<param
+					mask="False"
 					name="fileNameToSave"
 					value="21_c_output">
 					</param>
@@ -5619,6 +5757,7 @@
 			name="validateCelssAreEnabled">
 				<parameters>
 					<param
+					mask="False"
 					name="isEnabledExpected"
 					value="true">
 					</param>
@@ -5727,6 +5866,7 @@
 			name="RequiredLEFalse">
 				<parameters>
 					<param
+					mask="False"
 					name="optionToSelectInMenu"
 					value="Nodig">
 					</param>
@@ -5737,6 +5877,7 @@
 			name="NoFailureProbabilityLETrue">
 				<parameters>
 					<param
+					mask="False"
 					name="nameOfFolderNoFailureProbabilityLETrue"
 					value="LoopNoFailureProbabilityLETrue">
 					</param>
@@ -5777,6 +5918,7 @@
 			name="ValidateTakenOverResultValuesLEFalse">
 				<parameters>
 					<param
+					mask="False"
 					name="isReferenceValueExpected"
 					value="true">
 					</param>
@@ -5791,14 +5933,17 @@
 			name="ValidateAssemblyGroup">
 				<parameters>
 					<param
+					mask="False"
 					name="indexLastColumn(AssemblyGroup)"
 					value="-1">
 					</param>
 					<param
+					mask="False"
 					name="expectedAssemblyGroup"
 					value="NR">
 					</param>
 					<param
+					mask="False"
 					name="isReferenceValueExpected"
 					value="false">
 					</param>
@@ -5996,6 +6141,7 @@
 			name="ValidateManualInitialResultValuesLETrue">
 				<parameters>
 					<param
+					mask="False"
 					name="isReferenceValueExpected"
 					value="true">
 					</param>
@@ -6006,6 +6152,7 @@
 			name="SetStateRegistrationAssembly">
 				<parameters>
 					<param
+					mask="False"
 					name="stateRA"
 					value="@RA">
 					</param>
@@ -6072,6 +6219,7 @@
 			name="validateCellsAreDisabled">
 				<parameters>
 					<param
+					mask="False"
 					name="isEnabledExpected"
 					value="false">
 					</param>
@@ -6092,6 +6240,7 @@
 			name="NotRequiredValidateRefinedProbsAreDisabled">
 				<parameters>
 					<param
+					mask="False"
 					name="isCellExpectedToBeEnabled"
 					value="false">
 					</param>
@@ -6103,30 +6252,37 @@
 			reportlevel="Info;20">
 				<parameters>
 					<param
+					mask="False"
 					name="AppProcessID"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="AppPath"
 					value="..\..\..\..\..\bin\Debug\Riskeer.exe">
 					</param>
 					<param
+					mask="False"
 					name="PdfDirectoryPath"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="DeleteRanorexReport"
 					value="false">
 					</param>
 					<param
+					mask="False"
 					name="Details"
 					value="all">
 					</param>
 					<param
+					mask="False"
 					name="Xml"
 					value="Reports\style.xml">
 					</param>
 					<param
+					mask="False"
 					name="PdfName"
 					value="script21_Resultaten_registreren.pdf">
 					</param>
@@ -6282,14 +6438,17 @@
 			name="FillInManually">
 				<parameters>
 					<param
+					mask="False"
 					name="nameOfFolderToAdjust"
 					value="ManualResultInSectionLEFalse">
 					</param>
 					<param
+					mask="False"
 					name="optionTakeOver"
 					value="Handmatig invullen">
 					</param>
 					<param
+					mask="False"
 					name="columnIndexResultInitialMechanism"
 					value="4">
 					</param>
@@ -6573,6 +6732,7 @@
 			name="ValidateManualFinalResultValuesLEFalse">
 				<parameters>
 					<param
+					mask="False"
 					name="isReferenceValueExpected"
 					value="true">
 					</param>
@@ -6583,6 +6743,7 @@
 			name="SetStateRegistrationAssembly">
 				<parameters>
 					<param
+					mask="False"
 					name="stateToSelect"
 					value="@RA">
 					</param>
@@ -6593,14 +6754,17 @@
 			name="ValidateCalculationValueFailureProbability">
 				<parameters>
 					<param
+					mask="False"
 					name="isReferenceValueExpected"
 					value="true">
 					</param>
 					<param
+					mask="False"
 					name="indexColumnCalculationValueFailureProbabilityPerSection"
 					value="-2">
 					</param>
 					<param
+					mask="False"
 					name="expectedCalculationValueFailureProbability"
 					value="1/Oneindig">
 					</param>
@@ -6850,6 +7014,7 @@
 			name="NotRequiredLETrue">
 				<parameters>
 					<param
+					mask="False"
 					name="optionToSelectInMenu"
 					value="Niet nodig">
 					</param>
@@ -6912,14 +7077,17 @@
 			name="ValidateAssemblyGroup">
 				<parameters>
 					<param
+					mask="False"
 					name="indexLastColumn(AssemblyGroup)"
 					value="-1">
 					</param>
 					<param
+					mask="False"
 					name="expectedAssemblyGroup"
 					value="NDo">
 					</param>
 					<param
+					mask="False"
 					name="isReferenceValueExpected"
 					value="true">
 					</param>
@@ -13422,7 +13590,7 @@
 			Ranorex Automation Helpers.dll
 		</reference>
 		<reference>
-			Ranorex.ReportToPDF.exe
+			Ranorex.ReportToPDF, Version=1.0.17.0, Culture=neutral, PublicKeyToken=null
 		</reference>
 	</references>
 </testsuitedoc>

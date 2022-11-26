@@ -143,6 +143,7 @@
 			name="AddExtraLayerBackground">
 				<parameters>
 					<param
+					mask="False"
 					name="namePanelMap"
 					value="Kaart">
 					</param>
@@ -311,14 +312,17 @@
 			name="MakeCurrentLayerVisible">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToVisibilityParameter"
 					value="Kaartlaag>Weergeven">
 					</param>
 					<param
+					mask="False"
 					name="visibility"
 					value="True">
 					</param>
 					<param
+					mask="False"
 					name="typeParameter"
 					value="Text">
 					</param>
@@ -362,6 +366,7 @@
 			name="SelectWMTSBackgroundMap">
 				<parameters>
 					<param
+					mask="False"
 					name="pathBackgroundItem"
 					value="Traject>Achtergrondkaart">
 					</param>
@@ -372,6 +377,7 @@
 			name="SetStateResultsAssembly">
 				<parameters>
 					<param
+					mask="False"
 					name="nameState"
 					value="@RA">
 					</param>
@@ -396,10 +402,12 @@
 			name="HideAllLayers">
 				<parameters>
 					<param
+					mask="False"
 					name="visibilityStatusAllLayers"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="nameParameterVisibility"
 					value="Weergeven">
 					</param>
@@ -416,14 +424,17 @@
 			name="LoopValidateThatEachDataLayerInFMViewMapExists">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToRootFolder"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="isLayerExpected"
 					value="true">
 					</param>
 					<param
+					mask="False"
 					name="fullPathToItem"
 					value="">
 					</param>
@@ -456,42 +467,52 @@
 			name="script29_Gegevens_tonen_op_kaart">
 				<parameters>
 					<param
+					mask="False"
 					name="caseNumber"
 					value="29">
 					</param>
 					<param
+					mask="False"
 					name="scriptOutputFolder"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="dummyString"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="folderProjectPreviousRelease"
 					value="X:\script29\previousRelease">
 					</param>
 					<param
+					mask="False"
 					name="folderProjectsCurrentRelease"
 					value="X:\script29\currentRelease">
 					</param>
 					<param
+					mask="False"
 					name="extensionRiskeerProjects"
 					value="*.risk">
 					</param>
 					<param
+					mask="False"
 					name="substringTraject"
 					value="Traject">
 					</param>
 					<param
+					mask="False"
 					name="pathSeparatorCharacter"
 					value=">">
 					</param>
 					<param
+					mask="False"
 					name="SubstringGenericFailurePaths"
 					value="@GF">
 					</param>
 					<param
+					mask="False"
 					name="wildcardCharacter"
 					value="*">
 					</param>
@@ -574,10 +595,12 @@
 			name="HideAllLayers">
 				<parameters>
 					<param
+					mask="False"
 					name="visibilityStatusAllLayers"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="nameParameterVisibility"
 					value="Weergeven">
 					</param>
@@ -658,6 +681,7 @@
 			name="ShowMapLayersPanel">
 				<parameters>
 					<param
+					mask="False"
 					name="namePanelToBeShown"
 					value="Kaart">
 					</param>
@@ -770,6 +794,7 @@
 			name="SetStateResultsAssembly">
 				<parameters>
 					<param
+					mask="False"
 					name="nameState"
 					value="@RA">
 					</param>
@@ -834,6 +859,7 @@
 			name="OpenProject">
 				<parameters>
 					<param
+					mask="False"
 					name="projectToOpen"
 					value="Project_andere.risk">
 					</param>
@@ -987,10 +1013,12 @@
 			name="ShowMapsSideBySide">
 				<parameters>
 					<param
+					mask="False"
 					name="nameFMView"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="indexLast"
 					value="-1">
 					</param>
@@ -1021,14 +1049,17 @@
 			name="MakeCurrentLayerInvisible">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToVisibilityParameter"
 					value="Kaartlaag>Weergeven">
 					</param>
 					<param
+					mask="False"
 					name="visibility"
 					value="False">
 					</param>
 					<param
+					mask="False"
 					name="typeParameter"
 					value="Text">
 					</param>
@@ -1039,6 +1070,7 @@
 			name="SetStateTraject">
 				<parameters>
 					<param
+					mask="False"
 					name="nameState"
 					value="@TR">
 					</param>
@@ -1080,6 +1112,7 @@
 			name="ShowProjectExplorerPanel">
 				<parameters>
 					<param
+					mask="False"
 					name="namePanelToBeShown"
 					value="Projectverkenner">
 					</param>
@@ -1090,14 +1123,17 @@
 			name="MakeCurrentLayerVisible">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToVisibilityParameter"
 					value="Kaartlaag>Weergeven">
 					</param>
 					<param
+					mask="False"
 					name="visibility"
 					value="True">
 					</param>
 					<param
+					mask="False"
 					name="typeParameter"
 					value="Text">
 					</param>
@@ -1178,6 +1214,7 @@
 			name="MakeAllItemsInPropertiesPanelVisible">
 				<parameters>
 					<param
+					mask="False"
 					name="numberOfPassesToExpandRows"
 					value="3">
 					</param>
@@ -1188,6 +1225,7 @@
 			name="OpenMapTraject">
 				<parameters>
 					<param
+					mask="False"
 					name="pathTraject"
 					value="Traject">
 					</param>
@@ -1218,6 +1256,7 @@
 			name="OpenProject">
 				<parameters>
 					<param
+					mask="False"
 					name="projectToOpen"
 					value="Project_andere.risk">
 					</param>
@@ -1234,6 +1273,7 @@
 			name="OpenViewForFP">
 				<parameters>
 					<param
+					mask="False"
 					name="fullPathToFPItem"
 					value="">
 					</param>
@@ -1244,6 +1284,7 @@
 			name="ShowProjectExplorerPanel">
 				<parameters>
 					<param
+					mask="False"
 					name="namePanelToBeShown"
 					value="Projectverkenner">
 					</param>
@@ -1321,6 +1362,7 @@
 			name="SelectRandomFM">
 				<parameters>
 					<param
+					mask="False"
 					name="nameSmartFolderIterations"
 					value="LoopItemWithMap">
 					</param>
@@ -1345,6 +1387,7 @@
 			name="SetStateResultsAssembly">
 				<parameters>
 					<param
+					mask="False"
 					name="nameState"
 					value="@RA">
 					</param>
@@ -1457,6 +1500,7 @@
 			name="ShowProjectExplorerPanel">
 				<parameters>
 					<param
+					mask="False"
 					name="namePanelToBeShown"
 					value="Projectverkenner">
 					</param>
@@ -1470,6 +1514,7 @@
 			name="LoopValidateLayersTraject">
 				<parameters>
 					<param
+					mask="False"
 					name="nameSmartFolderStylingLayer"
 					value="CustomizeLayerStyleParameter">
 					</param>
@@ -1680,14 +1725,17 @@
 			name="MakeCurrentLayerInvisible">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToVisibilityParameter"
 					value="Kaartlaag>Weergeven">
 					</param>
 					<param
+					mask="False"
 					name="visibility"
 					value="False">
 					</param>
 					<param
+					mask="False"
 					name="typeParameter"
 					value="Text">
 					</param>
@@ -1770,23 +1818,34 @@
 			name="BuildPathFailurePath">
 			</smartfoldernode>
 			<testsuite
+			ExportColumnList="None"
 			ReportTime="RelativeToTestSuiteStartTime"
+			SelectedActions="All"
 			TracingScreenshotMode="Foreground"
 			TracingScreenshotQuality="40"
 			VideoBitrate="2000"
 			VideoFps="15"
 			VideoRecordingMode="KeepAllTests"
 			VideoSource="Auto"
+			createindividualreportpdfchecked="False"
+			createsinglereportpdfchecked="True"
+			enableCSVReport="False"
 			enabletracingscreenshots="True"
+			exportAllColummns="True"
 			id="8aa23268-e000-43b4-b1f2-e1733ad5bf4c"
+			includeimageschecked="False"
+			includerecordingschecked="False"
 			junitreport="False"
 			name="Script29"
+			overwritefilechecked="False"
 			reportcompress="False"
+			reportdescription=""
 			reportdirectoryname="Reports"
 			reportenabled="True"
 			reportfilename="%S_%Y%M%D_%T.rxlog"
 			reporttemplatefolder="ReportDeltaresStyle"
-			reportwriteinterval="30000ms">
+			reportwriteinterval="30000ms"
+			singlereportpdfdirectory="SingleReportPDF">
 			</testsuite>
 			<testmodule
 			id="8ab343fa-45cb-4a68-b86e-d0f05bd63941"
@@ -1802,6 +1861,7 @@
 			name="SetRangeOfLayersToValidate">
 				<parameters>
 					<param
+					mask="False"
 					name="nameSmartFolder"
 					value="LoopValidateThatEachDataLayerInFMViewMapExists">
 					</param>
@@ -1826,14 +1886,17 @@
 			name="AdjustTransparencyBackgroundMap">
 				<parameters>
 					<param
+					mask="False"
 					name="newTransparency"
 					value="0.4">
 					</param>
 					<param
+					mask="False"
 					name="pathTransparency"
 					value="Algemeen>Transparantie">
 					</param>
 					<param
+					mask="False"
 					name="typeValueTransparency"
 					value="Double">
 					</param>
@@ -1844,6 +1907,7 @@
 			name="SetStateResultsAssembly">
 				<parameters>
 					<param
+					mask="False"
 					name="nameState"
 					value="@RA">
 					</param>
@@ -2012,10 +2076,12 @@
 			name="LoopFMs">
 				<parameters>
 					<param
+					mask="False"
 					name="newProjectMustOpened"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathToBackgroundItemInProjectExplorerStateTraject"
 					value="Traject>Achtergrondkaart">
 					</param>
@@ -2026,6 +2092,7 @@
 			name="AddBackgroundLayer(TypePolygon)">
 				<parameters>
 					<param
+					mask="False"
 					name="pathShapeLayerToImport"
 					value="X:\script29\background\gem_2011_gn1.shp">
 					</param>
@@ -2174,6 +2241,7 @@
 			name="OpenProject">
 				<parameters>
 					<param
+					mask="False"
 					name="projectToOpen"
 					value="ProjectAllFMsRelevant.risk">
 					</param>
@@ -2227,6 +2295,7 @@
 			name="SetStateTraject">
 				<parameters>
 					<param
+					mask="False"
 					name="nameState"
 					value="@TR">
 					</param>
@@ -2305,14 +2374,17 @@
 			name="MakeCurrentLayerInvisible">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToVisibilityParameter"
 					value="Kaartlaag>Weergeven">
 					</param>
 					<param
+					mask="False"
 					name="visibility"
 					value="False">
 					</param>
 					<param
+					mask="False"
 					name="typeParameter"
 					value="Text">
 					</param>
@@ -2325,10 +2397,12 @@
 			name="LoopValidateThatEachLayerExists">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToRootFolder"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="isLayerExpected"
 					value="true">
 					</param>
@@ -2536,6 +2610,7 @@
 			name="MakeMapLayersPanelVisible">
 				<parameters>
 					<param
+					mask="False"
 					name="nameProjectExplorerPanel"
 					value="Kaart">
 					</param>
@@ -2546,6 +2621,7 @@
 			name="OpenViewForAssemblyCombinedAssessmentSection">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToAssemblyCombinedAssessmentSection"
 					value="Traject>Assemblage>Assemblagekaart">
 					</param>
@@ -2603,10 +2679,12 @@
 			name="HideAllLayers">
 				<parameters>
 					<param
+					mask="False"
 					name="visibilityStatusAllLayers"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="nameParameterVisibility"
 					value="Weergeven">
 					</param>
@@ -2680,6 +2758,7 @@
 			name="ShowMapLayersPanel">
 				<parameters>
 					<param
+					mask="False"
 					name="namePanelToBeShown"
 					value="Kaart">
 					</param>
@@ -2690,6 +2769,7 @@
 			name="MakeProjectExplorerPanelVisible">
 				<parameters>
 					<param
+					mask="False"
 					name="nameProjectExplorerPanel"
 					value="Projectverkenner">
 					</param>
@@ -2808,14 +2888,17 @@
 			name="EnableBackgroundMap">
 				<parameters>
 					<param
+					mask="False"
 					name="typeValueShowBackground"
 					value="Text">
 					</param>
 					<param
+					mask="False"
 					name="pathShowBackground"
 					value="Algemeen>Weergeven">
 					</param>
 					<param
+					mask="False"
 					name="newValueShowBackground"
 					value="True">
 					</param>
@@ -2826,6 +2909,7 @@
 			name="CloseOpenTabView">
 				<parameters>
 					<param
+					mask="False"
 					name="dataViewIndexToClose"
 					value="2">
 					</param>
@@ -2846,6 +2930,7 @@
 			name="OpenMapFM">
 				<parameters>
 					<param
+					mask="False"
 					name="fullPath"
 					value="">
 					</param>
@@ -2875,6 +2960,7 @@
 			name="TryToExportMapLayer">
 				<parameters>
 					<param
+					mask="False"
 					name="optionToExportItem"
 					value="Exporteren">
 					</param>
@@ -2885,14 +2971,17 @@
 			name="AdjustTransparencyBackgroundMap">
 				<parameters>
 					<param
+					mask="False"
 					name="newTransparency"
 					value="0.92">
 					</param>
 					<param
+					mask="False"
 					name="pathTransparency"
 					value="Algemeen>Transparantie">
 					</param>
 					<param
+					mask="False"
 					name="typeValueTransparency"
 					value="Double">
 					</param>
@@ -2904,30 +2993,37 @@
 			reportlevel="Info;20">
 				<parameters>
 					<param
+					mask="False"
 					name="AppProcessID"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="AppPath"
 					value="..\..\..\..\..\bin\Debug\Riskeer.exe">
 					</param>
 					<param
+					mask="False"
 					name="PdfDirectoryPath"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="DeleteRanorexReport"
 					value="false">
 					</param>
 					<param
+					mask="False"
 					name="Details"
 					value="all">
 					</param>
 					<param
+					mask="False"
 					name="Xml"
 					value="Reports\style29.xml">
 					</param>
 					<param
+					mask="False"
 					name="PdfName"
 					value="script29_Gegevens_tonen_op_kaart.pdf">
 					</param>
@@ -2987,6 +3083,7 @@
 			name="MakeProjectExplorerPanelVisible">
 				<parameters>
 					<param
+					mask="False"
 					name="nameProjectExplorerPanel"
 					value="Projectverkenner">
 					</param>
@@ -3007,14 +3104,17 @@
 			name="MakeCurrentLayerVisible">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToVisibilityParameter"
 					value="Kaartlaag>Weergeven">
 					</param>
 					<param
+					mask="False"
 					name="visibility"
 					value="True">
 					</param>
 					<param
+					mask="False"
 					name="typeParameter"
 					value="Text">
 					</param>
@@ -3091,6 +3191,7 @@
 			name="MakeAllItemsInPropertiesPanelVisible">
 				<parameters>
 					<param
+					mask="False"
 					name="numberOfPassesToExpandRows"
 					value="2">
 					</param>
@@ -3146,14 +3247,17 @@
 			name="DisableBackgroundMap">
 				<parameters>
 					<param
+					mask="False"
 					name="typeValueShowBackground"
 					value="Text">
 					</param>
 					<param
+					mask="False"
 					name="pathShowBackground"
 					value="Algemeen>Weergeven">
 					</param>
 					<param
+					mask="False"
 					name="newValueShowBackground"
 					value="False">
 					</param>
@@ -5770,7 +5874,7 @@
 			Ranorex Automation Helpers.dll
 		</reference>
 		<reference>
-			Ranorex.ReportToPDF.exe
+			Ranorex.ReportToPDF, Version=1.0.17.0, Culture=neutral, PublicKeyToken=null
 		</reference>
 	</references>
 </testsuitedoc>

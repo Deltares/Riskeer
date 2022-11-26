@@ -64,6 +64,8 @@ mode="Global">
 						<path>
 							/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/table
 						</path>
+						<robustPath>
+						</robustPath>
 					</info>
 				</argument>
 			</arguments>

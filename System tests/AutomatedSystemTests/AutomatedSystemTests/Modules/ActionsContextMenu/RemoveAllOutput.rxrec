@@ -112,6 +112,8 @@ mode="Global">
 				<path>
 					/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Wis alle uitvoer...']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<helperscreenshot
 			guid="4e0e36d7-1331-4a13-a998-f309a7e654b0">
@@ -666,6 +668,8 @@ LWVljwQhI+Y+lVzIXKzAorR0i1hufN85N23GOSPX0rR/syz/AOeP/jx/xrOxpcwoLiSAnYRg9Qau
 				<path>
 					/form[@title='Bevestigen']/button[@text='OK']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<helperscreenshot
 			guid="b93893ef-1a6c-46ba-922b-ac16c80d4949">
@@ -792,6 +796,8 @@ ftpQKAACnUmKWgD/2Q==
 						<path>
 							/form[@title='Bevestigen']/button[@text='OK']
 						</path>
+						<robustPath>
+						</robustPath>
 					</info>
 				</argument>
 			</arguments>

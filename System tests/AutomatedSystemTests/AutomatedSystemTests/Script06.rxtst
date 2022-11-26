@@ -11,18 +11,22 @@
 			name="b)ImportModifiedReferenceLineAsFMSections">
 				<parameters>
 					<param
+					mask="False"
 					name="fileNameReferenceLineToExport"
 					value="referenceLineExported">
 					</param>
 					<param
+					mask="False"
 					name="pathToFolderReferenceFileForReferenceLine"
 					value="X:\script06\reference\">
 					</param>
 					<param
+					mask="False"
 					name="shapeFileExtension"
 					value=".shp">
 					</param>
 					<param
+					mask="False"
 					name="fullPathReferenceFileToExport"
 					value="">
 					</param>
@@ -124,6 +128,7 @@
 			name="ExportPropertiesPanelToCsv">
 				<parameters>
 					<param
+					mask="False"
 					name="separatorChar"
 					value=";">
 					</param>
@@ -163,10 +168,12 @@
 			name="LoopFMs5Sections">
 				<parameters>
 					<param
+					mask="False"
 					name="logMessageScreenshotBeforeImportingSections"
 					value="Plese, take a look at the map of the FM before importing the file with 5 sections (vakindeling).">
 					</param>
 					<param
+					mask="False"
 					name="logMessageScreenshotAfterImportingSections"
 					value="Plese, take a look at the map of the FM after importing the file with 5 sections (vakindeling).">
 					</param>
@@ -204,10 +211,12 @@
 			name="LoopFMs3Sections">
 				<parameters>
 					<param
+					mask="False"
 					name="logMessageScreenshotBeforeImportingSections"
 					value="Please, take a look at the map of the FM before importing the file with 3 sections (vakindeling).">
 					</param>
 					<param
+					mask="False"
 					name="logMessageScreenshotAfterImportingSections"
 					value="Please, take a look at the map of the FM after importing the file with 3 sections (vakindeling).">
 					</param>
@@ -236,6 +245,7 @@
 			name="SelectFailurePathsState">
 				<parameters>
 					<param
+					mask="False"
 					name="StateToSelect"
 					value="@RA">
 					</param>
@@ -260,6 +270,7 @@
 			name="ExportPropertiesPanelToCsv">
 				<parameters>
 					<param
+					mask="False"
 					name="separatorChar"
 					value=";">
 					</param>
@@ -454,14 +465,17 @@
 			name="SetupNewTraject">
 				<parameters>
 					<param
+					mask="False"
 					name="normType"
 					value="Signal">
 					</param>
 					<param
+					mask="False"
 					name="signallingValue"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="lowLimitValue"
 					value="">
 					</param>
@@ -919,6 +933,7 @@
 			name="1)ImportIncompatibleFMSections">
 				<parameters>
 					<param
+					mask="False"
 					name="FullPathToSections"
 					value="">
 					</param>
@@ -1073,6 +1088,7 @@
 			name="MakeScreenshot">
 				<parameters>
 					<param
+					mask="False"
 					name="logMessage"
 					value="Check screenshot of map before exported reference line has been added as an extra layer.">
 					</param>
@@ -1146,34 +1162,42 @@
 			name="script06_Vakindeling_maken_of_aanpassen">
 				<parameters>
 					<param
+					mask="False"
 					name="scriptOutputFolder"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="caseNumber"
 					value="06">
 					</param>
 					<param
+					mask="False"
 					name="emptyString"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="PrefixFMInStateFA"
 					value="Traject>@GF>">
 					</param>
 					<param
+					mask="False"
 					name="SuffixSections"
 					value=">Invoer>Vakindeling">
 					</param>
 					<param
+					mask="False"
 					name="SuffixResults"
 					value=">Oordeel>Resultaat">
 					</param>
 					<param
+					mask="False"
 					name="SuffixScenarios"
 					value=">Oordeel>Scenario's">
 					</param>
 					<param
+					mask="False"
 					name="dummyVariable"
 					value="">
 					</param>
@@ -1290,6 +1314,7 @@
 			name="ValidateSectionsInPropertiesPanel">
 				<parameters>
 					<param
+					mask="False"
 					name="pathCSVFileSections"
 					value="">
 					</param>
@@ -1387,10 +1412,12 @@
 			name="SelectRandomFMToAddSections">
 				<parameters>
 					<param
+					mask="False"
 					name="nameSmartFolder"
 					value="AddSectionsIncompatibleWithTraject">
 					</param>
 					<param
+					mask="False"
 					name="rangeToSetInSmartFolder"
 					value="">
 					</param>
@@ -1421,10 +1448,12 @@
 			name="MakeAllParametersInPropertiesPanelVisible">
 				<parameters>
 					<param
+					mask="False"
 					name="numberOfPassesExpandingRows"
 					value="3">
 					</param>
 					<param
+					mask="False"
 					name="waitDurationAfterExpanding"
 					value="500">
 					</param>
@@ -1549,18 +1578,22 @@
 			name="ValidateNoSectionsHaveBeenImported">
 				<parameters>
 					<param
+					mask="False"
 					name="nameParameterSourceLocation"
 					value="Bronlocatie">
 					</param>
 					<param
+					mask="False"
 					name="expectedValueParameterSourceLocation"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="nameParameterSections"
 					value="Vakindeling">
 					</param>
 					<param
+					mask="False"
 					name="expectedValueParameterSections"
 					value="Aantal (0)">
 					</param>
@@ -1575,34 +1608,42 @@
 			name="CalculateFileName3Sections">
 				<parameters>
 					<param
+					mask="False"
 					name="intermediateString1"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString2"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString3"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="spaceChar"
 					value=" ">
 					</param>
 					<param
+					mask="False"
 					name="pathSeparatorChar"
 					value=">">
 					</param>
 					<param
+					mask="False"
 					name="underscoreChar"
 					value="_">
 					</param>
 					<param
+					mask="False"
 					name="suffixNumberOfSections"
 					value="_3Sections">
 					</param>
 					<param
+					mask="False"
 					name="extensionCsv"
 					value=".csv">
 					</param>
@@ -1613,10 +1654,12 @@
 			name="MakeAllParametersInPropertiesPanelVisible">
 				<parameters>
 					<param
+					mask="False"
 					name="numberOfPassesExpandingRows"
 					value="3">
 					</param>
 					<param
+					mask="False"
 					name="waitDurationAfterExpanding"
 					value="500">
 					</param>
@@ -1775,6 +1818,7 @@
 			name="CalculateFileName">
 				<parameters>
 					<param
+					mask="False"
 					name="intermediateFilename"
 					value="">
 					</param>
@@ -2163,14 +2207,17 @@
 			name="ImportReferenceLine">
 				<parameters>
 					<param
+					mask="False"
 					name="stateTraject"
 					value="@TR">
 					</param>
 					<param
+					mask="False"
 					name="pathReferenceLine"
 					value="@TR>Referentielijn">
 					</param>
 					<param
+					mask="False"
 					name="pathToReferenceLineFile"
 					value="X:\script06\referenceLine12-2\referentielijn 12-2.shp">
 					</param>
@@ -2351,10 +2398,12 @@
 			name="MakeScreenshot">
 				<parameters>
 					<param
+					mask="False"
 					name="logMessage1"
 					value="Check screenshot of map after exported reference line has been added as an extra layer.">
 					</param>
 					<param
+					mask="False"
 					name="logMessage2"
 					value="Check screenshot of messages panel after exported reference line has been added as an extra layer.">
 					</param>
@@ -2434,6 +2483,7 @@
 			name="ValidateSectionsInPropertiesPanel">
 				<parameters>
 					<param
+					mask="False"
 					name="pathCSVFileSections"
 					value="">
 					</param>
@@ -2468,6 +2518,7 @@
 			name="Export">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToReferenceLineItemInProjectExplorer"
 					value="Traject>Referentielijn">
 					</param>
@@ -2478,6 +2529,7 @@
 			name="SelectTrajectState">
 				<parameters>
 					<param
+					mask="False"
 					name="StateToSelect"
 					value="@TR">
 					</param>
@@ -2597,23 +2649,34 @@
 				</databinding>
 			</testmodule>
 			<testsuite
+			ExportColumnList="None"
 			ReportTime="RelativeToTestSuiteStartTime"
+			SelectedActions="All"
 			TracingScreenshotMode="Foreground"
 			TracingScreenshotQuality="40"
 			VideoBitrate="2000"
 			VideoFps="15"
 			VideoRecordingMode="KeepAllTests"
 			VideoSource="Auto"
+			createindividualreportpdfchecked="False"
+			createsinglereportpdfchecked="True"
+			enableCSVReport="False"
 			enabletracingscreenshots="True"
+			exportAllColummns="True"
 			id="aeadcf4c-d1da-4486-9f6c-a36722b66876"
+			includeimageschecked="False"
+			includerecordingschecked="False"
 			junitreport="False"
 			name="Script06"
+			overwritefilechecked="False"
 			reportcompress="False"
+			reportdescription=""
 			reportdirectoryname="Reports"
 			reportenabled="True"
 			reportfilename="%S_%Y%M%D_%T.rxlog"
 			reporttemplatefolder="ReportDeltaresStyle"
-			reportwriteinterval="30000ms">
+			reportwriteinterval="30000ms"
+			singlereportpdfdirectory="SingleReportPDF">
 			</testsuite>
 			<testmodule
 			id="aee11c27-5415-4ec8-95b8-9bd8ce325c97"
@@ -2818,14 +2881,17 @@
 			name="SetupNewTraject">
 				<parameters>
 					<param
+					mask="False"
 					name="normType"
 					value="Signal">
 					</param>
 					<param
+					mask="False"
 					name="signallingValue"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="lowerLimit"
 					value="">
 					</param>
@@ -2894,10 +2960,12 @@
 			name="AddExtraLayerBackground">
 				<parameters>
 					<param
+					mask="False"
 					name="namePanelMap"
 					value="Kaart">
 					</param>
 					<param
+					mask="False"
 					name="pathToTrajectItem"
 					value="Traject">
 					</param>
@@ -2908,34 +2976,42 @@
 			name="a)ImportAndAdaptFMSections">
 				<parameters>
 					<param
+					mask="False"
 					name="trajectCompatibleWithFMSections"
 					value="12-2">
 					</param>
 					<param
+					mask="False"
 					name="trajectIncompatibleWithFMSections"
 					value="12-1">
 					</param>
 					<param
+					mask="False"
 					name="pathFolderReferenceLine"
 					value="X:\script06\referenceLine12-2">
 					</param>
 					<param
+					mask="False"
 					name="pathFolderReferenceLine3Sections"
 					value="X:\script06\referenceLine12-2DividedIn3Sections">
 					</param>
 					<param
+					mask="False"
 					name="pathFolderReferenceLine5Sections"
 					value="X:\script06\referenceLine12-2DividedIn5Sections">
 					</param>
 					<param
+					mask="False"
 					name="pathFolderInput"
 					value="X:\script06\input">
 					</param>
 					<param
+					mask="False"
 					name="filterAllFiles"
 					value="*.*">
 					</param>
 					<param
+					mask="False"
 					name="pathToSectionsFileToImport"
 					value="X:\script06\input\referentielijn 12-2.shp">
 					</param>
@@ -2970,6 +3046,7 @@
 			name="AddSectionsIncompatibleWithTraject">
 				<parameters>
 					<param
+					mask="False"
 					name="StateToSelect"
 					value="@RA">
 					</param>
@@ -3090,14 +3167,17 @@
 			name="MakeDunesFMRelevant">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToDunesFM"
 					value="@TR>@GF>@DA">
 					</param>
 					<param
+					mask="False"
 					name="fmShouldBeInAssembly"
 					value="True">
 					</param>
 					<param
+					mask="False"
 					name="stateToSelect"
 					value="@RA">
 					</param>
@@ -3434,30 +3514,37 @@
 				</description>
 				<parameters>
 					<param
+					mask="False"
 					name="AppProcessID"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="AppPath"
 					value="..\..\..\..\..\bin\Debug\Riskeer.exe">
 					</param>
 					<param
+					mask="False"
 					name="PdfName"
 					value="script06_Vakindeling_maken_of_aanpassen.pdf">
 					</param>
 					<param
+					mask="False"
 					name="Xml"
 					value="Reports\style.xml">
 					</param>
 					<param
+					mask="False"
 					name="Details"
 					value="all">
 					</param>
 					<param
+					mask="False"
 					name="DeleteRanorexReport"
 					value="false">
 					</param>
 					<param
+					mask="False"
 					name="PdfDirectoryPath"
 					value="">
 					</param>
@@ -3553,14 +3640,17 @@
 			name="MakeDunesFMRelevant">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToFMDunes"
 					value="@TR>@GF>@DA">
 					</param>
 					<param
+					mask="False"
 					name="fmShouldBeInAssembly"
 					value="True">
 					</param>
 					<param
+					mask="False"
 					name="stateToSelect"
 					value="@RA">
 					</param>
@@ -3679,18 +3769,22 @@
 			name="2)ImportAndAdaptCompatibleFMSections">
 				<parameters>
 					<param
+					mask="False"
 					name="FullPathToFM"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="FullPathToSections"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="FullPathToResults"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="FullPathToScenarios"
 					value="">
 					</param>
@@ -3727,34 +3821,42 @@
 			name="CalculateFileName">
 				<parameters>
 					<param
+					mask="False"
 					name="intermediateString1"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString2"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString3"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="spaceChar"
 					value=" ">
 					</param>
 					<param
+					mask="False"
 					name="pathSeparatorChar"
 					value=">">
 					</param>
 					<param
+					mask="False"
 					name="underscoreChar"
 					value="_">
 					</param>
 					<param
+					mask="False"
 					name="suffixNumberOfSections"
 					value="_5Sections">
 					</param>
 					<param
+					mask="False"
 					name="extensionCsv"
 					value=".csv">
 					</param>
@@ -5892,7 +5994,7 @@
 			Ranorex Automation Helpers.dll
 		</reference>
 		<reference>
-			Ranorex.ReportToPDF.exe
+			Ranorex.ReportToPDF, Version=1.0.17.0, Culture=neutral, PublicKeyToken=null
 		</reference>
 	</references>
 </testsuitedoc>

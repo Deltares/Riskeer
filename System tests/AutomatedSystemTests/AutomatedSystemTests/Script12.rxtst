@@ -47,22 +47,27 @@
 			name="GenerateCSV">
 				<parameters>
 					<param
+					mask="False"
 					name="substituteSubstring"
 					value="_">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString0"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString1"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString2"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="extensionCSV"
 					value=".csv">
 					</param>
@@ -151,6 +156,7 @@
 			name="ValidateCSVEqualToModifiedReference">
 				<parameters>
 					<param
+					mask="False"
 					name="fullPathReferenceCSVFile"
 					value="">
 					</param>
@@ -771,22 +777,27 @@
 			name="GenerateCSV">
 				<parameters>
 					<param
+					mask="False"
 					name="substituteSubstring"
 					value="_">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString0"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString1"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString2"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="extensionCSV"
 					value=".csv">
 					</param>
@@ -797,6 +808,7 @@
 			name="SetRangeLoopStructures">
 				<parameters>
 					<param
+					mask="False"
 					name="nameLoopToSetRange"
 					value="LoopStructuresRemovedItems">
 					</param>
@@ -1256,38 +1268,47 @@
 			name="LoopStructuresRemainingItems">
 				<parameters>
 					<param
+					mask="False"
 					name="startPathReferenceCSV"
 					value="X:\script12\reference\removed\">
 					</param>
 					<param
+					mask="False"
 					name="pathSeparator"
 					value=">">
 					</param>
 					<param
+					mask="False"
 					name="pathToSchematizationItem"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediatePathToschematizationItem"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="csvFileName"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="fullPathToOutputCsvFile"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="separationCharacterCsvFile"
 					value=";">
 					</param>
 					<param
+					mask="False"
 					name="waitTime"
 					value="300">
 					</param>
 					<param
+					mask="False"
 					name="numberOfPassesExpandingRows"
 					value="3">
 					</param>
@@ -1350,23 +1371,34 @@
 				</missingdatabinding>
 			</testmodule>
 			<testsuite
+			ExportColumnList="None"
 			ReportTime="RelativeToTestSuiteStartTime"
+			SelectedActions="All"
 			TracingScreenshotMode="Foreground"
 			TracingScreenshotQuality="40"
 			VideoBitrate="2000"
 			VideoFps="15"
 			VideoRecordingMode="KeepAllTests"
 			VideoSource="Auto"
+			createindividualreportpdfchecked="False"
+			createsinglereportpdfchecked="True"
+			enableCSVReport="False"
 			enabletracingscreenshots="True"
+			exportAllColummns="True"
 			id="5f47fc57-1dac-4117-90af-3822e3fabc1a"
+			includeimageschecked="False"
+			includerecordingschecked="False"
 			junitreport="False"
 			name="Script12"
+			overwritefilechecked="False"
 			reportcompress="False"
+			reportdescription=""
 			reportdirectoryname="Reports"
 			reportenabled="True"
 			reportfilename="%S_%Y%M%D_%T.rxlog"
 			reporttemplatefolder="ReportDeltaresStyle"
-			reportwriteinterval="30000ms">
+			reportwriteinterval="30000ms"
+			singlereportpdfdirectory="SingleReportPDF">
 			</testsuite>
 			<testmodule
 			id="60ddfd70-aded-4eac-8b28-bca465e93873"
@@ -1383,18 +1415,22 @@
 			name="LoopFMs">
 				<parameters>
 					<param
+					mask="False"
 					name="pathInputFiles"
 					value="X:\script12\input\">
 					</param>
 					<param
+					mask="False"
 					name="searchFilterAllFiles"
 					value="*.*">
 					</param>
 					<param
+					mask="False"
 					name="pathSchematizationsToImport"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathToFM"
 					value="">
 					</param>
@@ -1409,6 +1445,7 @@
 			name="CopyFilesModifiedElements">
 				<parameters>
 					<param
+					mask="False"
 					name="waitTimeInMiliseconds"
 					value="1000">
 					</param>
@@ -1419,10 +1456,12 @@
 			name="AddNewTrajectAppropriateForStructures">
 				<parameters>
 					<param
+					mask="False"
 					name="signalValue"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="lowValue"
 					value="">
 					</param>
@@ -1439,38 +1478,47 @@
 			name="LoopStructures">
 				<parameters>
 					<param
+					mask="False"
 					name="numberOfPassesExpandingRows"
 					value="3">
 					</param>
 					<param
+					mask="False"
 					name="waitTime"
 					value="300">
 					</param>
 					<param
+					mask="False"
 					name="separationCharacterCsvFile"
 					value=";">
 					</param>
 					<param
+					mask="False"
 					name="csvFileName"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="fullPathToOutputCsvFile"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediatePathToschematizationItem"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathToSchematizationItem"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathSeparator"
 					value=">">
 					</param>
 					<param
+					mask="False"
 					name="startPathReferenceCSV"
 					value="X:\script12\reference\original\">
 					</param>
@@ -1636,6 +1684,7 @@
 			name="SetState">
 				<parameters>
 					<param
+					mask="False"
 					name="stateName"
 					value="@SB">
 					</param>
@@ -1741,6 +1790,7 @@
 			name="ValidateItemNameNotPresentInProjectExplorer">
 				<parameters>
 					<param
+					mask="False"
 					name="nodeRemovedSchematizationMustBePresent"
 					value="false">
 					</param>
@@ -1766,6 +1816,7 @@
 			name="ValidateItemNameInProjectExplorer">
 				<parameters>
 					<param
+					mask="False"
 					name="nodeRemainingStructureMustBePresent"
 					value="true">
 					</param>
@@ -1923,6 +1974,7 @@
 			name="SetRangeLoopStructures">
 				<parameters>
 					<param
+					mask="False"
 					name="nameLoopToSetRange"
 					value="LoopStructures">
 					</param>
@@ -1947,6 +1999,7 @@
 			name="CopyFilesElementsRemoved">
 				<parameters>
 					<param
+					mask="False"
 					name="waitTimeInMiliseconds"
 					value="1000">
 					</param>
@@ -2324,6 +2377,7 @@
 			name="SetRangeLoopStructures">
 				<parameters>
 					<param
+					mask="False"
 					name="nameLoopToSetRange"
 					value="LoopStructuresItemsModified">
 					</param>
@@ -2334,6 +2388,7 @@
 			name="SetState">
 				<parameters>
 					<param
+					mask="False"
 					name="stateName"
 					value="@SB">
 					</param>
@@ -2425,6 +2480,7 @@
 			name="CheckIfItemCanBeOpened">
 				<parameters>
 					<param
+					mask="False"
 					name="nameOpenItem"
 					value="Openen">
 					</param>
@@ -2435,14 +2491,17 @@
 			name="script12_Kunstwerkgegevens_importeren">
 				<parameters>
 					<param
+					mask="False"
 					name="caseNumber"
 					value="12">
 					</param>
 					<param
+					mask="False"
 					name="scriptOutputFolder"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="dummyString"
 					value="">
 					</param>
@@ -2493,6 +2552,7 @@
 			name="ScreenshotsToEvaluatePresenceOfStructure">
 				<parameters>
 					<param
+					mask="False"
 					name="warningMessage"
 					value="Please, control the screenshots in the sections below.">
 					</param>
@@ -2554,10 +2614,12 @@
 			name="AddNewTrajectNotAppropriateForStructures">
 				<parameters>
 					<param
+					mask="False"
 					name="signalValue"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="lowValue"
 					value="">
 					</param>
@@ -2780,6 +2842,7 @@
 			name="ValidateCSVEqualToOriginalReference">
 				<parameters>
 					<param
+					mask="False"
 					name="fullPathReferenceCSVFile"
 					value="">
 					</param>
@@ -2790,6 +2853,7 @@
 			name="SetRangeLoopStructures">
 				<parameters>
 					<param
+					mask="False"
 					name="nameLoopToSetRange"
 					value="LoopStructuresRemainingItems">
 					</param>
@@ -2871,30 +2935,37 @@
 			reportlevel="Info;20">
 				<parameters>
 					<param
+					mask="False"
 					name="AppProcessID"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="AppPath"
 					value="..\..\..\..\..\bin\Debug\Riskeer.exe">
 					</param>
 					<param
+					mask="False"
 					name="PdfDirectoryPath"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="DeleteRanorexReport"
 					value="false">
 					</param>
 					<param
+					mask="False"
 					name="Details"
 					value="all">
 					</param>
 					<param
+					mask="False"
 					name="Xml"
 					value="Reports\style.xml">
 					</param>
 					<param
+					mask="False"
 					name="PdfName"
 					value="script12_Kunstwerkgegevens_importeren.pdf">
 					</param>
@@ -3076,38 +3147,47 @@
 			name="LoopStructuresItemsModified">
 				<parameters>
 					<param
+					mask="False"
 					name="startPathReferenceCSV"
 					value="X:\script12\reference\modified\">
 					</param>
 					<param
+					mask="False"
 					name="pathSeparator"
 					value=">">
 					</param>
 					<param
+					mask="False"
 					name="pathToSchematizationItem"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediatePathToschematizationItem"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="csvFileName"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="fullPathToOutputCsvFile"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="separationCharacterCsvFile"
 					value=";">
 					</param>
 					<param
+					mask="False"
 					name="waitTime"
 					value="300">
 					</param>
 					<param
+					mask="False"
 					name="numberOfPassesExpandingRows"
 					value="3">
 					</param>
@@ -3220,6 +3300,7 @@
 			name="ValidateCSVEqualToModifiedReference">
 				<parameters>
 					<param
+					mask="False"
 					name="fullPathReferenceCSVFile"
 					value="">
 					</param>
@@ -3264,6 +3345,7 @@
 			name="ValidateSourceStructures">
 				<parameters>
 					<param
+					mask="False"
 					name="parameterNameSourceLocation"
 					value="Bronlocatie">
 					</param>
@@ -3368,22 +3450,27 @@
 			name="GenerateCSV">
 				<parameters>
 					<param
+					mask="False"
 					name="substituteSubstring"
 					value="_">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString0"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString1"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString2"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="extensionCSV"
 					value=".csv">
 					</param>
@@ -3394,6 +3481,7 @@
 			name="CopyOriginalFiles">
 				<parameters>
 					<param
+					mask="False"
 					name="waitTimeInMiliseconds"
 					value="1000">
 					</param>
@@ -4672,7 +4760,7 @@
 			Ranorex Automation Helpers.dll
 		</reference>
 		<reference>
-			Ranorex.ReportToPDF.exe
+			Ranorex.ReportToPDF, Version=1.0.17.0, Culture=neutral, PublicKeyToken=null
 		</reference>
 	</references>
 </testsuitedoc>

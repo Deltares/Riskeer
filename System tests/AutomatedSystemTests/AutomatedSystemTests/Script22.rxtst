@@ -27,6 +27,7 @@
 			name="ChangeFMFailureProbabilitiesToManual">
 				<parameters>
 					<param
+					mask="False"
 					name="typeOfFMFailureProbToSelect"
 					value="Handmatig invullen">
 					</param>
@@ -96,29 +97,41 @@
 				</databinding>
 			</testmodule>
 			<testsuite
+			ExportColumnList="None"
 			ReportTime="RelativeToTestSuiteStartTime"
+			SelectedActions="All"
 			TracingScreenshotMode="Foreground"
 			TracingScreenshotQuality="40"
 			VideoBitrate="2000"
 			VideoFps="15"
 			VideoRecordingMode="KeepAllTests"
 			VideoSource="Auto"
+			createindividualreportpdfchecked="False"
+			createsinglereportpdfchecked="True"
+			enableCSVReport="False"
 			enabletracingscreenshots="True"
+			exportAllColummns="True"
 			id="15dbd49b-1667-4f41-a2ad-d893f9494aab"
+			includeimageschecked="False"
+			includerecordingschecked="False"
 			junitreport="False"
 			name="Script22"
+			overwritefilechecked="False"
 			reportcompress="False"
+			reportdescription=""
 			reportdirectoryname="Reports"
 			reportenabled="True"
 			reportfilename="%S_%Y%M%D_%T.rxlog"
 			reporttemplatefolder="ReportDeltaresStyle"
-			reportwriteinterval="30000ms">
+			reportwriteinterval="30000ms"
+			singlereportpdfdirectory="SingleReportPDF">
 			</testsuite>
 			<smartfoldernode
 			id="1a4bdd4f-4f87-465e-8d48-768d2657a89c"
 			name="DumpContentsViewToCSVFile">
 				<parameters>
 					<param
+					mask="False"
 					name="separator"
 					value=";">
 					</param>
@@ -213,18 +226,22 @@
 			name="ValidateValuesTableResultsView">
 				<parameters>
 					<param
+					mask="False"
 					name="intermediateName1"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateName2"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateName3"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="fullPathToCSVFile"
 					value="">
 					</param>
@@ -277,6 +294,7 @@
 			name="ReadDivisionInSections">
 				<parameters>
 					<param
+					mask="False"
 					name="intermediateVariable"
 					value="">
 					</param>
@@ -363,18 +381,22 @@
 			name="CalculateCSVFileName">
 				<parameters>
 					<param
+					mask="False"
 					name="pathSeparator"
 					value=">">
 					</param>
 					<param
+					mask="False"
 					name="space"
 					value=" ">
 					</param>
 					<param
+					mask="False"
 					name="extension"
 					value=".csv">
 					</param>
 					<param
+					mask="False"
 					name="underscoreChar"
 					value="_">
 					</param>
@@ -678,30 +700,37 @@
 			reportlevel="Info;20">
 				<parameters>
 					<param
+					mask="False"
 					name="AppProcessID"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="AppPath"
 					value="..\..\..\..\..\bin\Debug\Riskeer.exe">
 					</param>
 					<param
+					mask="False"
 					name="PdfDirectoryPath"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="DeleteRanorexReport"
 					value="false">
 					</param>
 					<param
+					mask="False"
 					name="Details"
 					value="all">
 					</param>
 					<param
+					mask="False"
 					name="Xml"
 					value="Reports\style.xml">
 					</param>
 					<param
+					mask="False"
 					name="PdfName"
 					value="script22_Toetsoordelen_en_veiligheidsoordeel_bepalen.pdf">
 					</param>
@@ -772,30 +801,37 @@
 			name="script22_Toetsoordelen_en_veiligheidsoordeel_bepalen">
 				<parameters>
 					<param
+					mask="False"
 					name="scriptOutputFolder"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="caseNumber"
 					value="22">
 					</param>
 					<param
+					mask="False"
 					name="dummyString"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="trajectAssessmentInformation"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="categoryBoundariesTraject"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="extensionRiskProjects"
 					value="*.risk">
 					</param>
 					<param
+					mask="False"
 					name="previousReleaseFolder"
 					value="X:\script22\previousRelease">
 					</param>
@@ -812,10 +848,12 @@
 			name="LoopFms">
 				<parameters>
 					<param
+					mask="False"
 					name="N_FM"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="ApplyLengthEffect"
 					value="">
 					</param>
@@ -826,6 +864,7 @@
 			name="SaveProject">
 				<parameters>
 					<param
+					mask="False"
 					name="fileNameToSave"
 					value="script22_a_output.risk">
 					</param>
@@ -842,6 +881,7 @@
 			name="OpenSectionsCombinationView">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToOverviewSectionsCombinationCategories"
 					value="@TR>Assemblage>Overzicht duiding">
 					</param>
@@ -856,6 +896,7 @@
 			name="OpenSecurityAssessmentView">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToSecurityAssessmentItemInPE"
 					value="@TR>Assemblage>Veiligheidsoordeel">
 					</param>
@@ -884,6 +925,7 @@
 			name="SaveProject">
 				<parameters>
 					<param
+					mask="False"
 					name="fileNameToSave"
 					value="script22_output.risk">
 					</param>
@@ -894,6 +936,7 @@
 			name="ReadSecurityCategories">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToSecurityCategoriesInPE"
 					value="@TR>Assemblage>Veiligheidscategorieën">
 					</param>
@@ -904,6 +947,7 @@
 			name="OpenSectionsCombinationView">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToAssemblyMap"
 					value="@TR>Assemblage>Assemblagekaart">
 					</param>
@@ -946,6 +990,7 @@
 			name="SetStateRegistrationAssembly">
 				<parameters>
 					<param
+					mask="False"
 					name="stateRA"
 					value="@RA">
 					</param>
@@ -1076,10 +1121,12 @@
 			name="ReadFMInformationRelevantForFMFailureProbability">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToNParameterInPP"
 					value="Lengte-effect>N">
 					</param>
 					<param
+					mask="False"
 					name="pathToApplyLengthEffectInPP"
 					value="Lengte-effect>Toepassen lengte-effect binnen vak">
 					</param>
@@ -1182,6 +1229,7 @@
 			name="OpenProject">
 				<parameters>
 					<param
+					mask="False"
 					name="fileToOpen"
 					value="X:\script22\currentRelease\Project_assemblage_22.risk">
 					</param>
@@ -2151,7 +2199,7 @@
 			Ranorex Automation Helpers.dll
 		</reference>
 		<reference>
-			Ranorex.ReportToPDF.exe
+			Ranorex.ReportToPDF, Version=1.0.17.0, Culture=neutral, PublicKeyToken=null
 		</reference>
 	</references>
 </testsuitedoc>

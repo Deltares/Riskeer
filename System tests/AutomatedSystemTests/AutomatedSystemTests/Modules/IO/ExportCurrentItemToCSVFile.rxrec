@@ -116,6 +116,8 @@ mode="Global">
 				<path>
 					/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Exporteren...']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<helperscreenshot
 			guid="a726ee30-f202-4ad9-b987-ed0dcbdb1ee4">
@@ -546,6 +548,8 @@ LJbHA5K00IuI0XBR14xG4w2DwXDzKqJZzlxvoYz9A8p5dkWeAGpXAAAAAElFTkSuQmCC
 				<path>
 					/form[@controlname='SelectItemDialog']/list/listitem[@text&gt;'Berekende belastingen bij']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<helperscreenshot
 			guid="a1e966e2-5704-43b1-920b-a5b2c73b52c8">
@@ -737,6 +741,11 @@ igAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA/9k=
 					name="class"
 					type="System.String">
 						WindowsForms10.BUTTON.app.0.90fd76_r9_ad1
+					</attribute>
+					<attribute
+					name="controlname"
+					type="System.String">
+						buttonOk
 					</attribute>
 					<attribute
 					name="handle"
@@ -1477,6 +1486,8 @@ igAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA/9k=
 				<path>
 					/form[@controlname='SelectItemDialog']/button[@controlname='buttonOk']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<helperscreenshot
 			guid="c2fe5689-3dc9-4b19-9da1-4d7b521ff159">
@@ -1709,6 +1720,8 @@ FFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFAH/9k=
 				<path>
 					/form/element[@class='DUIViewWndClassName']//combobox[@class='ComboBox']/text[@controlid='1001']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<AttributeValue>
 				yourValue
@@ -1865,6 +1878,8 @@ FFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFAH/9k=
 				<path>
 					/form/button
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<helperscreenshot
 			guid="4c86d5cb-0181-4498-9e10-256c43bfe81c">
@@ -2015,6 +2030,8 @@ rr/oISf9+0/wq9RQB//Z
 						<path>
 							/form[@title='Confirm Save As']//button[@text='&amp;Yes']
 						</path>
+						<robustPath>
+						</robustPath>
 					</info>
 				</argument>
 			</arguments>
@@ -2044,6 +2061,8 @@ rr/oISf9+0/wq9RQB//Z
 				<path>
 					/form[@controlname='ActivityProgressDialog']/button[@controlname='buttonCancel']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</WaitForRecordItem>
 	</recorditems>

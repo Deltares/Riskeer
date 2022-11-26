@@ -61,6 +61,8 @@ mode="Global">
 						<path>
 							/form[@title='Bevestigen']/button[@text='OK']
 						</path>
+						<robustPath>
+						</robustPath>
 					</info>
 				</argument>
 			</arguments>

@@ -52,6 +52,8 @@ mode="Global">
 						<path>
 							/form[@automationid='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']/row[@accessiblename&gt;$nameOfParameterInPropertiesPanel]
 						</path>
+						<robustPath>
+						</robustPath>
 					</info>
 				</argument>
 			</arguments>

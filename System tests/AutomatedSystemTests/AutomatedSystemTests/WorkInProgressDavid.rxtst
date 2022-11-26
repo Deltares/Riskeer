@@ -13,6 +13,7 @@
 			name="TestCase">
 				<parameters>
 					<param
+					mask="False"
 					name="caseNumver"
 					value="00">
 					</param>
@@ -69,23 +70,34 @@
 			name="SmartFolder">
 			</smartfoldernode>
 			<testsuite
+			ExportColumnList="None"
 			ReportTime="RelativeToTestSuiteStartTime"
+			SelectedActions="All"
 			TracingScreenshotMode="Foreground"
 			TracingScreenshotQuality="40"
 			VideoBitrate="2000"
 			VideoFps="15"
 			VideoRecordingMode="KeepAllTests"
 			VideoSource="Auto"
+			createindividualreportpdfchecked="False"
+			createsinglereportpdfchecked="True"
+			enableCSVReport="False"
 			enabletracingscreenshots="True"
+			exportAllColummns="True"
 			id="b6ec5115-70d1-4088-a555-08556609361b"
+			includeimageschecked="False"
+			includerecordingschecked="False"
 			junitreport="True"
 			name="WorkInProgressDavid"
+			overwritefilechecked="False"
 			reportcompress="True"
+			reportdescription=""
 			reportdirectoryname="Reports"
 			reportenabled="True"
 			reportfilename="%S_%Y%M%D_%T.rxlog"
 			reporttemplatefolder="ReportDeltaresStyle"
-			reportwriteinterval="30000ms">
+			reportwriteinterval="30000ms"
+			singlereportpdfdirectory="SingleReportPDF">
 			</testsuite>
 			<testmodule
 			id="bc54924a-13f0-4c4c-a712-d2f4134e9fd4"
@@ -107,30 +119,37 @@
 			reportlevel="Info;20">
 				<parameters>
 					<param
+					mask="False"
 					name="AppProcessID"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="AppPath"
 					value="..\..\..\..\..\bin\Debug\Riskeer.exe">
 					</param>
 					<param
+					mask="False"
 					name="PdfName"
 					value="workInProgress.pdf">
 					</param>
 					<param
+					mask="False"
 					name="Xml"
 					value="Reports\style.xml">
 					</param>
 					<param
+					mask="False"
 					name="Details"
 					value="all">
 					</param>
 					<param
+					mask="False"
 					name="DeleteRanorexReport"
 					value="false">
 					</param>
 					<param
+					mask="False"
 					name="PdfDirectoryPath"
 					value="">
 					</param>
@@ -233,7 +252,7 @@
 			Ranorex Automation Helpers.dll
 		</reference>
 		<reference>
-			Ranorex.ReportToPDF.exe
+			Ranorex.ReportToPDF, Version=1.0.17.0, Culture=neutral, PublicKeyToken=null
 		</reference>
 	</references>
 </testsuitedoc>

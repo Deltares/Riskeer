@@ -7,22 +7,27 @@
 			name="ChangeBoundaries">
 				<parameters>
 					<param
+					mask="False"
 					name="PathToNormsInPE"
 					value="Normen">
 					</param>
 					<param
+					mask="False"
 					name="PathSignallingValueInPropertiesPanel"
 					value="Signaleringsparameter [1/jaar]">
 					</param>
 					<param
+					mask="False"
 					name="PathLowerLimitValueInPropertiesPanel"
 					value="Omgevingswaarde [1/jaar]">
 					</param>
 					<param
+					mask="False"
 					name="stateName"
 					value="@TR">
 					</param>
 					<param
+					mask="False"
 					name="TypeParameter"
 					value="Text">
 					</param>
@@ -57,6 +62,7 @@
 			name="LoopBoundaryType(LowerUpper)">
 				<parameters>
 					<param
+					mask="False"
 					name="calculatedCategoryBoundary"
 					value="">
 					</param>
@@ -67,10 +73,12 @@
 			name="OpenNormClassesView">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToNormTreeItem"
 					value="Traject>Assemblage>Veiligheidscategor">
 					</param>
 					<param
+					mask="False"
 					name="stateName"
 					value="@RA">
 					</param>
@@ -81,30 +89,37 @@
 			name="script07_Toetseis_op_trajectniveau_bepalen">
 				<parameters>
 					<param
+					mask="False"
 					name="caseNumber"
 					value="07">
 					</param>
 					<param
+					mask="False"
 					name="scriptOutputFolder"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="TrajectName"
 					value="12-2">
 					</param>
 					<param
+					mask="False"
 					name="NormType"
 					value="Signal">
 					</param>
 					<param
+					mask="False"
 					name="SignallingValue"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="LowLimitValue"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="dummyString"
 					value="">
 					</param>
@@ -228,23 +243,34 @@
 			name="setup">
 			</setup>
 			<testsuite
+			ExportColumnList="None"
 			ReportTime="RelativeToTestSuiteStartTime"
+			SelectedActions="All"
 			TracingScreenshotMode="Foreground"
 			TracingScreenshotQuality="40"
 			VideoBitrate="2000"
 			VideoFps="15"
 			VideoRecordingMode="KeepAllTests"
 			VideoSource="Auto"
+			createindividualreportpdfchecked="False"
+			createsinglereportpdfchecked="True"
+			enableCSVReport="False"
 			enabletracingscreenshots="True"
+			exportAllColummns="True"
 			id="5dac8af9-acc5-4886-8963-0803ac7b541e"
+			includeimageschecked="False"
+			includerecordingschecked="False"
 			junitreport="False"
 			name="Script07"
+			overwritefilechecked="False"
 			reportcompress="False"
+			reportdescription=""
 			reportdirectoryname="Reports"
 			reportenabled="True"
 			reportfilename="%S_%Y%M%D_%T.rxlog"
 			reporttemplatefolder="ReportDeltaresStyle"
-			reportwriteinterval="30000ms">
+			reportwriteinterval="30000ms"
+			singlereportpdfdirectory="SingleReportPDF">
 			</testsuite>
 			<testmodule
 			id="62ec44c8-b03f-46ba-8e51-308425e02675"
@@ -448,6 +474,7 @@
 			name="LoopBoundaryType(LowerUpper)">
 				<parameters>
 					<param
+					mask="False"
 					name="calculatedCategoryBoundary"
 					value="">
 					</param>
@@ -459,30 +486,37 @@
 			reportlevel="Info;20">
 				<parameters>
 					<param
+					mask="False"
 					name="AppProcessID"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="AppPath"
 					value="..\..\..\..\..\bin\Debug\Riskeer.exe">
 					</param>
 					<param
+					mask="False"
 					name="PdfDirectoryPath"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="DeleteRanorexReport"
 					value="false">
 					</param>
 					<param
+					mask="False"
 					name="Details"
 					value="all">
 					</param>
 					<param
+					mask="False"
 					name="Xml"
 					value="Reports\style.xml">
 					</param>
 					<param
+					mask="False"
 					name="PdfName"
 					value="script07_Toetseis_op_trajectniveau_bepalen.pdf">
 					</param>
@@ -894,7 +928,7 @@
 			Ranorex Automation Helpers.dll
 		</reference>
 		<reference>
-			Ranorex.ReportToPDF.exe
+			Ranorex.ReportToPDF, Version=1.0.17.0, Culture=neutral, PublicKeyToken=null
 		</reference>
 	</references>
 </testsuitedoc>

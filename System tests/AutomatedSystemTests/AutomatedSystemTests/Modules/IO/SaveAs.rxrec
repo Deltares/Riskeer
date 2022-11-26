@@ -55,6 +55,8 @@ mode="Global">
 				<path>
 					/form[@automationid='RiskeerMainWindow']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</mouseitem>
 		<keyitem
@@ -180,6 +182,8 @@ igAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/Z
 				<path>
 					/form[@automationid='Window']/menubar[@automationid='Ribbon']/?/?/text[@caption='Bestand']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</mouseitem>
 		<mouseitem
@@ -759,6 +763,8 @@ naLgXumYbgcL
 				<path>
 					/form[@automationid='Window']/menubar[@automationid='Ribbon']/?/?/button[@automationid='ButtonMenuFileSaveProjectAs']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</mouseitem>
 		<userrecorditem
@@ -932,6 +938,8 @@ naLgXumYbgcL
 				<path>
 					/form/element[@class='DUIViewWndClassName']//combobox[@class='ComboBox']/text[@controlid='1001']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<AttributeValue>
 				yourValue
@@ -1088,6 +1096,8 @@ naLgXumYbgcL
 				<path>
 					/form/button
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<helperscreenshot
 			guid="4c86d5cb-0181-4498-9e10-256c43bfe81c">
@@ -1238,6 +1248,8 @@ rr/oISf9+0/wq9RQB//Z
 						<path>
 							/form[@title='Confirm Save As']//button[@text='&amp;Yes']
 						</path>
+						<robustPath>
+						</robustPath>
 					</info>
 				</argument>
 			</arguments>
@@ -1267,6 +1279,8 @@ rr/oISf9+0/wq9RQB//Z
 				<path>
 					/form[@controlname='ActivityProgressDialog']/button[@controlname='buttonCancel']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</WaitForRecordItem>
 		<explicitdelayitem
