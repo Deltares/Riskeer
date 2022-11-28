@@ -50,8 +50,43 @@ mode="Desktop">
 				<path>
 					/form[@automationid='RiskeerMainWindow']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</closeapprecorditem>
+		<userrecorditem
+		classname="CloseAUT"
+		enabled="True"
+		isexternaltestmethod="False"
+		methodname="ClickButtonNoIfDialogShown"
+		namespace="AutomatedSystemTests.Modules.ActionsAUT"
+		optional="False">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<arguments
+			id="a4ae4c10-226a-4684-8911-8f0b34babacd">
+				<argument
+				argname="buttonInfo"
+				id="6595b8b9-3336-483b-b02c-91524f331e9b">
+					<argvaluetype>
+						Ranorex.Core.Repository.RepoItemInfo, Ranorex.Core, Culture=neutral
+					</argvaluetype>
+					<argvalue>
+					</argvalue>
+					<info
+					id="2229a024-7306-4b0d-a6ab-e43f6a29c1bd"
+					sourcename="ItemRecorderEditor">
+						<path>
+							/form[@title='Project afsluiten']/button[@text='&amp;No']
+						</path>
+						<robustPath>
+						</robustPath>
+					</info>
+				</argument>
+			</arguments>
+		</userrecorditem>
 	</recorditems>
 	<repository
 	id="137723a5-e147-4b62-8c15-5c31a3d68f96"
