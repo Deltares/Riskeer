@@ -5874,7 +5874,7 @@
 			Ranorex Automation Helpers.dll
 		</reference>
 		<reference>
-			Ranorex.ReportToPDF, Version=1.0.17.0, Culture=neutral, PublicKeyToken=null
+			Ranorex.ReportToPDF.exe
 		</reference>
 	</references>
 </testsuitedoc>

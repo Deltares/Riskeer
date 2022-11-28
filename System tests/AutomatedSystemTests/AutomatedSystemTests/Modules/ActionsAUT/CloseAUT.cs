@@ -95,6 +95,8 @@ namespace AutomatedSystemTests.Modules.ActionsAUT
             Report.Log(ReportLevel.Info, "Application", "Killing application containing item 'RiskeerMainWindow'.", repo.RiskeerMainWindow.SelfInfo, new RecordItemIndex(0));
             Host.Current.KillApplication(repo.RiskeerMainWindow.Self);
             
+            ClickButtonNoIfDialogShown(repo.ConfirmSaveProjectDialogWhenClosing.ButtonNoInfo);
+            
         }
 
 #region Image Feature Data

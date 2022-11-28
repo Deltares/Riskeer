@@ -1,5 +1,5 @@
 ﻿<configuration
-rxversion="9.3">
+rxversion="10.2">
 	<adapter.defaultsearchtimeout>
 		10000ms
 	</adapter.defaultsearchtimeout>
@@ -607,6 +607,10 @@ rxversion="9.3">
 	<plugins.qt.quickfiltered>
 		True
 	</plugins.qt.quickfiltered>
+	<plugin.mobile.android.instrumentation>
+	</plugin.mobile.android.instrumentation>
+	<plugin.mobile.ios.instrumentation>
+	</plugin.mobile.ios.instrumentation>
 	<plugin.mobile.android.ConnectTimout>
 		10000ms
 	</plugin.mobile.android.ConnectTimout>
@@ -634,6 +638,9 @@ rxversion="9.3">
 	<plugin.mobile.android.UseAndroidOS>
 		False
 	</plugin.mobile.android.UseAndroidOS>
+	<plugin.mobile.android.ForceAndroidOS>
+		False
+	</plugin.mobile.android.ForceAndroidOS>
 	<plugin.mobile.android.FetchAndroidOSScreenshots>
 		True
 	</plugin.mobile.android.FetchAndroidOSScreenshots>
