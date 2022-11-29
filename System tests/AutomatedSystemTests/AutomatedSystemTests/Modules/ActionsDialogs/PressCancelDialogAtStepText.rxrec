@@ -47,8 +47,6 @@ mode="Global">
 				<path>
 					/form[@controlname='ActivityProgressDialog']
 				</path>
-				<robustPath>
-				</robustPath>
 			</info>
 		</loggingrecorditem>
 		<WaitForRecordItem
@@ -68,13 +66,11 @@ mode="Global">
 				</binding>
 			</bindings>
 			<info
-			id="dceeaae8-df9d-4e10-b9b8-7dcf1c822408"
+			id="22d15783-171e-4f23-a1f5-3ff2d3676111"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@controlname='ActivityProgressDialog']/text[@controlname='labelActivityCounter']
+					/form[@controlname='ActivityProgressDialog']/text[@controlname='labelActivityProgressText']
 				</path>
-				<robustPath>
-				</robustPath>
 			</info>
 		</WaitForRecordItem>
 		<loggingrecorditem
@@ -95,8 +91,6 @@ mode="Global">
 				<path>
 					/form[@controlname='ActivityProgressDialog']
 				</path>
-				<robustPath>
-				</robustPath>
 			</info>
 		</loggingrecorditem>
 		<mouseitem
@@ -165,11 +159,6 @@ mode="Global">
 					name="class"
 					type="System.String">
 						WindowsForms10.BUTTON.app.0.90fd76_r9_ad1
-					</attribute>
-					<attribute
-					name="controlname"
-					type="System.String">
-						buttonCancel
 					</attribute>
 					<attribute
 					name="handle"
@@ -910,8 +899,6 @@ mode="Global">
 				<path>
 					/form[@controlname='ActivityProgressDialog']/button[@controlname='buttonCancel']
 				</path>
-				<robustPath>
-				</robustPath>
 			</info>
 			<helperscreenshot
 			guid="21376ec5-a767-45e0-8369-0b8098f7c84c">
@@ -994,8 +981,6 @@ KKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD//Z
 				<path>
 					/form[@controlname='ActivityProgressDialog']
 				</path>
-				<robustPath>
-				</robustPath>
 			</info>
 		</WaitForRecordItem>
 		<explicitdelayitem
