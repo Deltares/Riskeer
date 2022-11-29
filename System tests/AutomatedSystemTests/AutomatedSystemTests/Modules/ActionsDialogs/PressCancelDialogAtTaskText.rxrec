@@ -47,6 +47,8 @@ mode="Global">
 				<path>
 					/form[@controlname='ActivityProgressDialog']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</loggingrecorditem>
 		<WaitForRecordItem
@@ -71,6 +73,8 @@ mode="Global">
 				<path>
 					/form[@controlname='ActivityProgressDialog']/text[@controlname='labelActivityCounter']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</WaitForRecordItem>
 		<loggingrecorditem
@@ -91,6 +95,8 @@ mode="Global">
 				<path>
 					/form[@controlname='ActivityProgressDialog']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</loggingrecorditem>
 		<mouseitem
@@ -159,6 +165,11 @@ mode="Global">
 					name="class"
 					type="System.String">
 						WindowsForms10.BUTTON.app.0.90fd76_r9_ad1
+					</attribute>
+					<attribute
+					name="controlname"
+					type="System.String">
+						buttonCancel
 					</attribute>
 					<attribute
 					name="handle"
@@ -899,6 +910,8 @@ mode="Global">
 				<path>
 					/form[@controlname='ActivityProgressDialog']/button[@controlname='buttonCancel']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<helperscreenshot
 			guid="21376ec5-a767-45e0-8369-0b8098f7c84c">
@@ -970,7 +983,7 @@ KKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD//Z
 		optional="False"
 		searchpropertyid="3703acb5-4eb3-45bd-993f-73c3bcc39a79"
 		waitaction="NotExists"
-		waittimeout="30000ms">
+		waittimeout="180000ms">
 			<comment>
 			</comment>
 			<bindings>
@@ -981,6 +994,8 @@ KKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD//Z
 				<path>
 					/form[@controlname='ActivityProgressDialog']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</WaitForRecordItem>
 		<explicitdelayitem

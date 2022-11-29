@@ -993,6 +993,20 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="564297e0-d060-4ed4-a1d1-61413df45fc8"
+			name="PressCancelDialogAtTaskText"
+			ref="de80be27-ca55-476e-b824-e08916e3e0a3"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="textPresentInDialogToCancel"
+					datasourceid="13575c9d-672a-4b3b-a60a-6214cb3fd394"
+					variableid="91698fd8-ac20-44a1-8d0d-eba65cb9570e"
+					variablename="substringProgressMessageToStopAt">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			datarangeset="1,3-6"
 			datasource="script20cd_LoopFMs"
@@ -2237,20 +2251,6 @@
 			name="StartCalculations">
 			</smartfoldernode>
 			<testmodule
-			id="e603f848-aece-4af9-8d90-67b764e9e051"
-			name="PressCancelDialogAtStepText"
-			ref="ad8d58e7-525d-408e-9785-b0c4ab6dd07b"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="textPresentInDialogToCancel"
-					datasourceid="13575c9d-672a-4b3b-a60a-6214cb3fd394"
-					variableid="70ae10b6-af9c-48bd-ab45-2033098501e7"
-					variablename="substringProgressMessageToStopAt">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
 			id="e8717a89-552d-4de8-9043-da0cc50c62d6"
 			name="CreateScreenShotPropertiesPanel"
 			ref="bbe1b453-6dad-446c-8f21-3104847f3bd8"
@@ -2681,8 +2681,8 @@
 									id="13575c9d-672a-4b3b-a60a-6214cb3fd394"
 									name="CancelCalculations">
 										<testmodule
-										id="e603f848-aece-4af9-8d90-67b764e9e051"
-										name="PressCancelDialogAtStepText">
+										id="564297e0-d060-4ed4-a1d1-61413df45fc8"
+										name="PressCancelDialogAtTaskText">
 										</testmodule>
 									</smartfoldernode>
 									<smartfoldernode
