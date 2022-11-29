@@ -94,8 +94,8 @@ namespace AutomatedSystemTests.Modules.ActionsDialogs
 
             Report.Screenshot(ReportLevel.Info, "User", "", repo.ActivityProgressDialog.Self, false, new RecordItemIndex(0));
             
-            Report.Log(ReportLevel.Info, "Wait", "Waiting 30m for the attribute 'Text' to contain the specified value $substringProgressMessageToStopAt. Associated repository item: 'ActivityProgressDialog.LabelActivityStepCounter'", repo.ActivityProgressDialog.LabelActivityStepCounterInfo, new RecordItemIndex(1));
-            repo.ActivityProgressDialog.LabelActivityStepCounterInfo.WaitForAttributeContains(1800000, "Text", substringProgressMessageToStopAt);
+            Report.Log(ReportLevel.Info, "Wait", "Waiting 30m for the attribute 'Text' to contain the specified value $substringProgressMessageToStopAt. Associated repository item: 'ActivityProgressDialog.LabelActivityTaskCounter'", repo.ActivityProgressDialog.LabelActivityTaskCounterInfo, new RecordItemIndex(1));
+            repo.ActivityProgressDialog.LabelActivityTaskCounterInfo.WaitForAttributeContains(1800000, "Text", substringProgressMessageToStopAt);
             
             Report.Screenshot(ReportLevel.Info, "User", "", repo.ActivityProgressDialog.Self, false, new RecordItemIndex(2));
             
