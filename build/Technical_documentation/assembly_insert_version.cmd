@@ -21,7 +21,7 @@ ECHO "%argcount% arguments received"
 
 IF %argcount%==1 (
     ECHO "setting default in and out files."
-	SET VERSIONPATH=..\..\Core\Common\src\Core.Common.Version
+	SET VERSIONPATH=..\..\Core\Common\src\Core.Common.Version\Properties
 	SET VERSIONFILE=GlobalAssembly.cs
     SET INTEXTFILE=Riskeer.doxyfile
     SET OUTTEXTFILE=Riskeer.doxygen
