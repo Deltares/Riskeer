@@ -66,9 +66,6 @@
     <Compile Update="Views\AssemblyResultsOverviewView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Views\AssemblyResultsOverviewCanvasView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Properties\Resources.resx">
