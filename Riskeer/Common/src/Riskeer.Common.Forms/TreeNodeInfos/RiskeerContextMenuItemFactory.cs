@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -31,7 +31,6 @@ using Core.Gui.Helpers;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -73,7 +72,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             TCalculationContext calculationGroupContext,
             Action<TCalculationContext> addCalculationAction,
             CalculationType calculationType)
-            where TCalculationContext : ICalculationContext<CalculationGroup, IFailureMechanism>
+            where TCalculationContext : ICalculationContext<CalculationGroup, ICalculatableFailureMechanism>
         {
             return new StrictContextMenuItem(
                 Resources.CalculationGroup_Add_Calculation,
@@ -118,7 +117,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             TCalculationGroupContext calculationGroupContext,
             Action<TCalculationGroupContext> calculateAllAction,
             Func<TCalculationGroupContext, string> enableMenuItemFunction)
-            where TCalculationGroupContext : ICalculationContext<CalculationGroup, IFailureMechanism>
+            where TCalculationGroupContext : ICalculationContext<CalculationGroup, ICalculatableFailureMechanism>
         {
             var menuItem = new StrictContextMenuItem(
                 Resources.Calculate_All,
@@ -129,7 +128,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             if (!calculationGroupContext.WrappedData.GetCalculations().Any())
             {
                 menuItem.Enabled = false;
-                menuItem.ToolTipText = Resources.CalculationGroup_Calculate_All_No_calculations_to_run;
+                menuItem.ToolTipText = Resources.Calculate_All_No_calculations_to_run;
             }
             else
             {
@@ -154,7 +153,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             TCalculationGroupContext calculationGroupContext,
             Action<TCalculationGroupContext> validateAllAction,
             Func<TCalculationGroupContext, string> enableMenuItemFunction)
-            where TCalculationGroupContext : ICalculationContext<CalculationGroup, IFailureMechanism>
+            where TCalculationGroupContext : ICalculationContext<CalculationGroup, ICalculatableFailureMechanism>
         {
             CalculationGroup calculationGroup = calculationGroupContext.WrappedData;
             var menuItem = new StrictContextMenuItem(
@@ -189,7 +188,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         public static StrictContextMenuItem CreateDuplicateCalculationItem<TCalculationItem, TCalculationItemContext>(
             TCalculationItem calculationItem,
             TCalculationItemContext calculationItemContext)
-            where TCalculationItemContext : ICalculationContext<TCalculationItem, IFailureMechanism>
+            where TCalculationItemContext : ICalculationContext<TCalculationItem, ICalculatableFailureMechanism>
             where TCalculationItem : ICalculationBase
         {
             if (calculationItemContext.Parent == null)
@@ -232,7 +231,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             TCalculationContext calculationContext,
             Action<TCalculationContext> calculateAction,
             Func<TCalculationContext, string> enableMenuItemFunction)
-            where TCalculationContext : ICalculationContext<TCalculation, IFailureMechanism>
+            where TCalculationContext : ICalculationContext<TCalculation, ICalculatableFailureMechanism>
             where TCalculation : ICalculation
         {
             var menuItem = new StrictContextMenuItem(
@@ -259,7 +258,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             TCalculationContext calculation,
             Action<TCalculationContext> validateAction,
             Func<TCalculationContext, string> enableMenuItemFunction)
-            where TCalculationContext : ICalculationContext<ICalculation, IFailureMechanism>
+            where TCalculationContext : ICalculationContext<ICalculation, ICalculatableFailureMechanism>
         {
             var menuItem = new StrictContextMenuItem(
                 Resources.Validate,
@@ -298,7 +297,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to clear the output for.</param>
         /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
-        public static StrictContextMenuItem CreateClearAllCalculationOutputInFailureMechanismItem(IFailureMechanism failureMechanism)
+        public static StrictContextMenuItem CreateClearAllCalculationOutputInFailureMechanismItem(ICalculatableFailureMechanism failureMechanism)
         {
             var clearAllItem = new StrictContextMenuItem(
                 Resources.Clear_all_output,
@@ -330,7 +329,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             TFailureMechanismContext failureMechanismContext,
             Action<TFailureMechanismContext> calculateAllAction,
             Func<TFailureMechanismContext, string> enableMenuItemFunction)
-            where TFailureMechanismContext : IFailurePathContext<IFailureMechanism>
+            where TFailureMechanismContext : IFailureMechanismContext<ICalculatableFailureMechanism>
         {
             var menuItem = new StrictContextMenuItem(
                 Resources.Calculate_All,
@@ -341,7 +340,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             if (!failureMechanismContext.WrappedData.Calculations.Any())
             {
                 menuItem.Enabled = false;
-                menuItem.ToolTipText = Resources.FailureMechanism_CreateCalculateAllItem_No_calculations_to_run;
+                menuItem.ToolTipText = Resources.Calculate_All_No_calculations_to_run;
             }
             else
             {
@@ -365,7 +364,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             TFailureMechanismContext failureMechanism,
             Action<TFailureMechanismContext> validateAllAction,
             Func<TFailureMechanismContext, string> enableMenuItemFunction)
-            where TFailureMechanismContext : IFailurePathContext<IFailureMechanism>
+            where TFailureMechanismContext : IFailureMechanismContext<ICalculatableFailureMechanism>
         {
             var menuItem = new StrictContextMenuItem(
                 Resources.Validate_All,
@@ -387,30 +386,30 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         }
 
         /// <summary>
-        /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of changing whether the failure path is part of
+        /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of changing whether the failure mechanism is part of
         /// the assembly or not.
         /// </summary>
-        /// <typeparam name="TFailurePathContext">The type of the failure path context.</typeparam>
-        /// <param name="failurePathContext">The failure path context belonging to the failure path.</param>
+        /// <typeparam name="TFailureMechanismContext">The type of the failure mechanism context.</typeparam>
+        /// <param name="failureMechanismContext">The failure mechanism context belonging to the failure mechanism.</param>
         /// <param name="onChangeAction">The action to perform when relevance changes.</param>
         /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
-        public static StrictContextMenuItem CreateToggleInAssemblyOfFailurePathItem<TFailurePathContext>(
-            TFailurePathContext failurePathContext,
-            Action<TFailurePathContext> onChangeAction)
-            where TFailurePathContext : IFailurePathContext<IFailurePath>
+        public static StrictContextMenuItem CreateToggleInAssemblyOfFailureMechanismItem<TFailureMechanismContext>(
+            TFailureMechanismContext failureMechanismContext,
+            Action<TFailureMechanismContext> onChangeAction)
+            where TFailureMechanismContext : IFailureMechanismContext<IFailureMechanism>
         {
-            bool inAssembly = failurePathContext.WrappedData.InAssembly;
+            bool inAssembly = failureMechanismContext.WrappedData.InAssembly;
             Bitmap checkboxImage = inAssembly ? Resources.Checkbox_ticked : Resources.Checkbox_empty;
             return new StrictContextMenuItem(
-                Resources.FailurePathContextMenuStrip_In_assembly,
-                Resources.FailurePath_InAssembly_Description,
+                Resources.FailureMechanismContextMenuStrip_In_assembly,
+                Resources.FailureMechanism_InAssembly_Description,
                 checkboxImage,
                 (sender, args) =>
                 {
-                    onChangeAction?.Invoke(failurePathContext);
+                    onChangeAction?.Invoke(failureMechanismContext);
 
-                    failurePathContext.WrappedData.InAssembly = !inAssembly;
-                    failurePathContext.WrappedData.NotifyObservers();
+                    failureMechanismContext.WrappedData.InAssembly = !inAssembly;
+                    failureMechanismContext.WrappedData.NotifyObservers();
                 });
         }
 
@@ -643,7 +642,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             }
         }
 
-        private static void ClearAllCalculationOutputInFailureMechanism(IFailureMechanism failureMechanism)
+        private static void ClearAllCalculationOutputInFailureMechanism(ICalculatableFailureMechanism failureMechanism)
         {
             if (MessageBox.Show(Resources.FailureMechanism_ContextMenuStrip_Are_you_sure_clear_all_output, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
             {

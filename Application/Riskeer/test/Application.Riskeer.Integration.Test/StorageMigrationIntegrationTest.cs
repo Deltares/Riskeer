@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -177,6 +177,7 @@ namespace Application.Riskeer.Integration.Test
             yield return new TestCaseData(Path.Combine(fileDirectory, "MigrationTestProjectSingleAssessmentSection181.rtd"));
             yield return new TestCaseData(Path.Combine(fileDirectory, "MigrationTestProjectSingleAssessmentSection191.risk"));
             yield return new TestCaseData(Path.Combine(fileDirectory, "MigrationTestProjectSingleAssessmentSection211.risk"));
+            yield return new TestCaseData(Path.Combine(fileDirectory, "MigrationTestProjectSingleAssessmentSection221.risk"));
         }
 
         private static void MigrateFile(string sourceFilePath, string targetFilePath)

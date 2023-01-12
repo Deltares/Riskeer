@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -20,90 +20,182 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Integration.IO.Assembly;
+using Riskeer.Common.Data.Exceptions;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Integration.IO.Converters;
+using Riskeer.Integration.IO.Exceptions;
+using Riskeer.Integration.IO.Helpers;
+using Riskeer.Integration.IO.Properties;
 
 namespace Riskeer.Integration.IO.Factories
 {
     /// <summary>
-    /// Factory to create instances of <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/>.
+    /// Factory to create instances of <see cref="ExportableFailureMechanism"/>
+    /// with assembly results.
     /// </summary>
     public static class ExportableFailureMechanismFactory
     {
         /// <summary>
-        /// Creates a default instance of an <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/>
-        /// with a probability based on its input parameters.
+        /// Creates an <see cref="ExportableGenericFailureMechanism"/>
+        /// with assembly results based on the input parameters.
         /// </summary>
+        /// <param name="idGenerator">The generator to generate ids for the exportable components.</param>
+        /// <param name="registry">The <see cref="ExportableModelRegistry"/> to keep track of the created items.</param>
+        /// <param name="failureMechanism">The failure mechanism to create an <see cref="ExportableFailureMechanism"/> for.</param>
         /// <param name="assessmentSection">The assessment section the failure mechanism belongs to.</param>
-        /// <param name="failureMechanismCode">The <see cref="ExportableFailureMechanismType"/> of the failure mechanism.</param>
-        /// <param name="failureMechanismGroup">The <see cref="ExportableFailureMechanismGroup"/> of the failure mechanism.</param>
-        /// <param name="assemblyMethod">The assembly method which is used to obtain the general assembly result of the failure mechanism.</param>
-        /// <returns>An <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> with default values.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
-        public static ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> CreateDefaultExportableFailureMechanismWithProbability(
-            IAssessmentSection assessmentSection,
-            ExportableFailureMechanismType failureMechanismCode,
-            ExportableFailureMechanismGroup failureMechanismGroup,
-            ExportableAssemblyMethod assemblyMethod)
+        /// <param name="assembleFailureMechanismFunc">The <see cref="Func{T1,T2,TResult}"/> to perform
+        /// the failure mechanism assembly.</param>
+        /// <param name="assembleFailureMechanismSectionFunc">The <see cref="Func{T1,T2,T3,TResult}"/>
+        /// to perform the failure mechanism section assembly.</param>
+        /// <typeparam name="TFailureMechanism">The type of the failure mechanism.</typeparam>
+        /// <typeparam name="TSectionResult">The type of the section result.</typeparam>
+        /// <returns>An <see cref="ExportableFailureMechanism"/> with assembly results.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="AssemblyException">Thrown when assembly results cannot be created.</exception>
+        /// <exception cref="AssemblyFactoryException">Thrown when <paramref name="assembleFailureMechanismSectionFunc"/>
+        /// returns an invalid result that cannot be exported.</exception>
+        public static ExportableGenericFailureMechanism CreateExportableGenericFailureMechanism<TFailureMechanism, TSectionResult>(
+            IdentifierGenerator idGenerator, ExportableModelRegistry registry, TFailureMechanism failureMechanism, IAssessmentSection assessmentSection,
+            Func<TFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> assembleFailureMechanismFunc,
+            Func<TSectionResult, TFailureMechanism, IAssessmentSection, FailureMechanismSectionAssemblyResultWrapper> assembleFailureMechanismSectionFunc)
+            where TFailureMechanism : IFailureMechanism<TSectionResult>
+            where TSectionResult : FailureMechanismSectionResult
         {
+            if (idGenerator == null)
+            {
+                throw new ArgumentNullException(nameof(idGenerator));
+            }
+
+            if (registry == null)
+            {
+                throw new ArgumentNullException(nameof(registry));
+            }
+
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>(
-                new ExportableFailureMechanismAssemblyResultWithProbability(assemblyMethod,
-                                                                            FailureMechanismAssemblyCategoryGroup.NotApplicable,
-                                                                            0),
-                new[]
-                {
-                    new ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedProbabilityResult(CreateExportableFailureMechanismSection(assessmentSection.ReferenceLine),
-                                                                                                         new ExportableSectionAssemblyResultWithProbability(ExportableAssemblyMethod.WBI0A1,
-                                                                                                                                                            FailureMechanismSectionAssemblyCategoryGroup.NotApplicable,
-                                                                                                                                                            0))
-                },
-                failureMechanismCode,
-                failureMechanismGroup);
+            if (assembleFailureMechanismFunc == null)
+            {
+                throw new ArgumentNullException(nameof(assembleFailureMechanismFunc));
+            }
+
+            if (assembleFailureMechanismSectionFunc == null)
+            {
+                throw new ArgumentNullException(nameof(assembleFailureMechanismSectionFunc));
+            }
+
+            FailureMechanismAssemblyResultWrapper assemblyResultWrapper = assembleFailureMechanismFunc(failureMechanism, assessmentSection);
+            return new ExportableGenericFailureMechanism(idGenerator.GetUniqueId(Resources.ExportableFailureMechanism_IdPrefix),
+                                                         new ExportableFailureMechanismAssemblyResult(
+                                                             assemblyResultWrapper.AssemblyResult,
+                                                             ExportableAssemblyMethodConverter.ConvertTo(assemblyResultWrapper.AssemblyMethod)),
+                                                         CreateExportableFailureMechanismSectionResults(
+                                                             idGenerator, registry, failureMechanism, assessmentSection, assembleFailureMechanismSectionFunc),
+                                                         failureMechanism.Code);
         }
 
         /// <summary>
-        /// Creates a default instance of an <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/>
-        /// without a probability based on its input parameters.
+        /// Creates an <see cref="ExportableSpecificFailureMechanism"/>
+        /// with assembly results based on the input parameters.
         /// </summary>
+        /// <param name="idGenerator">The generator to generate ids for the exportable components.</param>
+        /// <param name="registry">The <see cref="ExportableModelRegistry"/> to keep track of the created items.</param>
+        /// <param name="failureMechanism">The failure mechanism to create an <see cref="ExportableSpecificFailureMechanism"/> for.</param>
         /// <param name="assessmentSection">The assessment section the failure mechanism belongs to.</param>
-        /// <param name="failureMechanismCode">The <see cref="ExportableFailureMechanismType"/> of the failure mechanism.</param>
-        /// <param name="failureMechanismGroup">The <see cref="ExportableFailureMechanismGroup"/> of the failure mechanism.</param>
-        /// <param name="assemblyMethod">The assembly method which is used to obtain the general assembly result of the failure mechanism.</param>
-        /// <returns>An <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> with default values.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
-        public static ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> CreateDefaultExportableFailureMechanismWithoutProbability(
-            IAssessmentSection assessmentSection,
-            ExportableFailureMechanismType failureMechanismCode,
-            ExportableFailureMechanismGroup failureMechanismGroup,
-            ExportableAssemblyMethod assemblyMethod)
+        /// <param name="assembleFailureMechanismFunc">The <see cref="Func{T1,T2,TResult}"/> to perform
+        /// the failure mechanism assembly.</param>
+        /// <param name="assembleFailureMechanismSectionFunc">The <see cref="Func{T1,T2,T3,TResult}"/>
+        /// to perform the failure mechanism section assembly.</param>
+        /// <returns>An <see cref="ExportableSpecificFailureMechanism"/> with assembly results.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="AssemblyException">Thrown when assembly results cannot be created.</exception>
+        /// <exception cref="AssemblyFactoryException">Thrown when <paramref name="assembleFailureMechanismSectionFunc"/>
+        /// returns an invalid result that cannot be exported.</exception>
+        public static ExportableSpecificFailureMechanism CreateExportableSpecificFailureMechanism(
+            IdentifierGenerator idGenerator, ExportableModelRegistry registry, SpecificFailureMechanism failureMechanism, IAssessmentSection assessmentSection,
+            Func<SpecificFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> assembleFailureMechanismFunc,
+            Func<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult, SpecificFailureMechanism, IAssessmentSection, FailureMechanismSectionAssemblyResultWrapper> assembleFailureMechanismSectionFunc)
         {
+            if (idGenerator == null)
+            {
+                throw new ArgumentNullException(nameof(idGenerator));
+            }
+
+            if (registry == null)
+            {
+                throw new ArgumentNullException(nameof(registry));
+            }
+
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
-                new ExportableFailureMechanismAssemblyResult(assemblyMethod,
-                                                             FailureMechanismAssemblyCategoryGroup.NotApplicable),
-                new[]
-                {
-                    new ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedResult(CreateExportableFailureMechanismSection(assessmentSection.ReferenceLine),
-                                                                                              new ExportableSectionAssemblyResult(ExportableAssemblyMethod.WBI0A1,
-                                                                                                                                  FailureMechanismSectionAssemblyCategoryGroup.NotApplicable))
-                },
-                failureMechanismCode,
-                failureMechanismGroup);
+            if (assembleFailureMechanismFunc == null)
+            {
+                throw new ArgumentNullException(nameof(assembleFailureMechanismFunc));
+            }
+
+            if (assembleFailureMechanismSectionFunc == null)
+            {
+                throw new ArgumentNullException(nameof(assembleFailureMechanismSectionFunc));
+            }
+
+            FailureMechanismAssemblyResultWrapper assemblyResultWrapper = assembleFailureMechanismFunc(failureMechanism, assessmentSection);
+            return new ExportableSpecificFailureMechanism(idGenerator.GetUniqueId(Resources.ExportableFailureMechanism_IdPrefix),
+                                                          new ExportableFailureMechanismAssemblyResult(
+                                                              assemblyResultWrapper.AssemblyResult,
+                                                              ExportableAssemblyMethodConverter.ConvertTo(assemblyResultWrapper.AssemblyMethod)),
+                                                          CreateExportableFailureMechanismSectionResults(
+                                                              idGenerator, registry, failureMechanism, assessmentSection, assembleFailureMechanismSectionFunc),
+                                                          failureMechanism.Name);
         }
 
-        private static ExportableFailureMechanismSection CreateExportableFailureMechanismSection(ReferenceLine referenceLine)
+        /// <summary>
+        /// Creates a collection of <see cref="ExportableFailureMechanismSectionAssemblyResult"/>
+        /// with assembly results based on <paramref name="failureMechanism"/>.
+        /// </summary>
+        /// <param name="idGenerator">The generator to generate ids for the exportable components.</param>
+        /// <param name="registry">The <see cref="ExportableModelRegistry"/> to keep track of the created items.</param>
+        /// <param name="failureMechanism">The failure mechanism to create a collection of
+        /// <see cref="ExportableFailureMechanismSectionAssemblyResult"/> for.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to use in the assembly.</param>
+        /// <param name="assembleFailureMechanismSectionFunc">The <see cref="Func{T1,T2,T3,TResult}"/>
+        /// to perform the failure mechanism section assembly.</param>
+        /// <typeparam name="TFailureMechanism">The type of the failure mechanism.</typeparam>
+        /// <typeparam name="TSectionResult">The type of the section result.</typeparam>
+        /// <returns>A collection of <see cref="ExportableFailureMechanismSectionAssemblyResult"/>.</returns>
+        /// <exception cref="AssemblyException">Thrown when assembly results cannot be created.</exception>
+        /// <exception cref="AssemblyFactoryException">Thrown when <paramref name="assembleFailureMechanismSectionFunc"/>
+        /// returns an invalid result that cannot be exported.</exception>
+        private static IEnumerable<ExportableFailureMechanismSectionAssemblyResult> CreateExportableFailureMechanismSectionResults<TFailureMechanism, TSectionResult>(
+            IdentifierGenerator idGenerator, ExportableModelRegistry registry, TFailureMechanism failureMechanism, IAssessmentSection assessmentSection,
+            Func<TSectionResult, TFailureMechanism, IAssessmentSection, FailureMechanismSectionAssemblyResultWrapper> assembleFailureMechanismSectionFunc)
+            where TFailureMechanism : IFailureMechanism<TSectionResult>
+            where TSectionResult : FailureMechanismSectionResult
         {
-            return new ExportableFailureMechanismSection(referenceLine.Points, 0, referenceLine.Length);
+            return failureMechanism.SectionResults.Select(
+                                       sr => ExportableFailureMechanismSectionAssemblyResultFactory.Create(
+                                           idGenerator, registry, sr, failureMechanism, assessmentSection,
+                                           assembleFailureMechanismSectionFunc))
+                                   .ToList();
         }
     }
 }

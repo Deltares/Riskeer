@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -133,7 +133,7 @@ namespace Riskeer.Storage.Core.Test.Read
             };
 
             var collector = new ReadConversionCollector();
-            
+
             // Call
             HydraulicBoundaryLocationCalculationsForTargetProbability calculationsOne = collectionEntity.Read(collector);
             HydraulicBoundaryLocationCalculationsForTargetProbability calculationsTwo = collectionEntity.Read(collector);

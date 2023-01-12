@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -21,7 +21,7 @@
 
 using System;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
-using Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories;
+using Riskeer.AssemblyTool.KernelWrapper.Calculators.Groups;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Calculators
@@ -32,12 +32,20 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators
     public interface IAssemblyToolCalculatorFactory
     {
         /// <summary>
-        /// Creates an assembly group boundaries calculator.
+        /// Creates an assessment section assembly group boundaries calculator.
         /// </summary>
         /// <param name="factory">The factory responsible for creating the kernel.</param>
-        /// <returns>The assembly group boundaries calculator.</returns>
+        /// <returns>The assessment section assembly group boundaries calculator.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="factory"/> is <c>null</c>.</exception>
-        IAssemblyGroupBoundariesCalculator CreateAssemblyGroupBoundariesCalculator(IAssemblyToolKernelFactory factory);
+        IAssessmentSectionAssemblyGroupBoundariesCalculator CreateAssessmentSectionAssemblyGroupBoundariesCalculator(IAssemblyToolKernelFactory factory);
+
+        /// <summary>
+        /// Creates an failure mechanism section assembly group boundaries calculator.
+        /// </summary>
+        /// <param name="factory">The factory responsible for creating the kernel.</param>
+        /// <returns>The failure mechanism section assembly group boundaries calculator.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="factory"/> is <c>null</c>.</exception>
+        IFailureMechanismSectionAssemblyGroupBoundariesCalculator CreateFailureMechanismSectionAssemblyGroupBoundariesCalculator(IAssemblyToolKernelFactory factory);
 
         /// <summary>
         /// Creates a failure mechanism section assembly calculator.
@@ -54,7 +62,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators
         /// <returns>The failure mechanism assembly calculator.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="factory"/> is <c>null</c>.</exception>
         IFailureMechanismAssemblyCalculator CreateFailureMechanismAssemblyCalculator(IAssemblyToolKernelFactory factory);
-        
+
         /// <summary>
         /// Creates an assessment section assembly calculator.
         /// </summary>

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -19,12 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
-using Core.Common.Base;
-using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Integration.Data.Properties;
-using Riskeer.Integration.Data.StandAlone.SectionResults;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.Integration.Data.StandAlone
@@ -33,21 +29,14 @@ namespace Riskeer.Integration.Data.StandAlone
     /// Model containing input and output needed to perform different levels of the
     /// Piping Structure failure mechanism.
     /// </summary>
-    public class PipingStructureFailureMechanism : FailureMechanismBase,
-                                                   IHasSectionResults<PipingStructureFailureMechanismSectionResultOld, NonAdoptableFailureMechanismSectionResult>,
-                                                   IHasGeneralInput
+    public class PipingStructureFailureMechanism : FailureMechanismBase<NonAdoptableFailureMechanismSectionResult>, IHasGeneralInput
     {
-        private readonly ObservableList<PipingStructureFailureMechanismSectionResultOld> sectionResultsOld;
-        private readonly ObservableList<NonAdoptableFailureMechanismSectionResult> sectionResults;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingStructureFailureMechanism"/> class.
         /// </summary>
         public PipingStructureFailureMechanism()
             : base(Resources.PipingStructureFailureMechanism_DisplayName, Resources.PipingStructureFailureMechanism_Code)
         {
-            sectionResults = new ObservableList<NonAdoptableFailureMechanismSectionResult>();
-            sectionResultsOld = new ObservableList<PipingStructureFailureMechanismSectionResultOld>();
             GeneralInput = new GeneralInput
             {
                 ApplyLengthEffectInSection = false
@@ -55,30 +44,5 @@ namespace Riskeer.Integration.Data.StandAlone
         }
 
         public GeneralInput GeneralInput { get; }
-
-        public override IEnumerable<ICalculation> Calculations
-        {
-            get
-            {
-                yield break;
-            }
-        }
-
-        public IObservableEnumerable<PipingStructureFailureMechanismSectionResultOld> SectionResultsOld => sectionResultsOld;
-
-        public IObservableEnumerable<NonAdoptableFailureMechanismSectionResult> SectionResults => sectionResults;
-
-        protected override void AddSectionDependentData(FailureMechanismSection section)
-        {
-            base.AddSectionDependentData(section);
-            sectionResultsOld.Add(new PipingStructureFailureMechanismSectionResultOld(section));
-            sectionResults.Add(new NonAdoptableFailureMechanismSectionResult(section));
-        }
-
-        protected override void ClearSectionDependentData()
-        {
-            sectionResultsOld.Clear();
-            sectionResults.Clear();
-        }
     }
 }

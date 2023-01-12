@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:IMWAProxies="https://data.aquo.nl/xsd/BOI/imwaproxies/v20220630"
+           xmlns:gml="http://www.opengis.net/gml/3.2"
+           xmlns:gmlsf="http://www.opengis.net/gmlsf/2.0"
+           xmlns:imf="http://www.imvertor.org/xsl/functions"
+           xmlns:imvert="http://www.imvertor.org/schema/system"
+           xmlns:math="http://www.w3.org/2005/xpath-functions/math"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="https://data.aquo.nl/xsd/BOI/imwaproxies/v20220630"
+           elementFormDefault="qualified"
+           attributeFormDefault="unqualified"
+           version="1.0-1">
+   <xs:annotation>
+      <xs:appinfo source="http://www.imvertor.org/model-info/project">SIM</xs:appinfo>
+      <xs:appinfo source="http://www.imvertor.org/model-info/application">BOI</xs:appinfo>
+      <xs:appinfo source="http://www.imvertor.org/model-info/release">20220630</xs:appinfo>
+      <xs:appinfo source="http://www.imvertor.org/model-info/version">1.0</xs:appinfo>
+      <xs:appinfo source="http://www.imvertor.org/model-info/phase">1</xs:appinfo>
+      <xs:appinfo source="http://www.imvertor.org/model-info/uri">https://data.aquo.nl/xsd/BOI/imwaproxies</xs:appinfo>
+      <xs:appinfo source="http://www.imvertor.org/model-info/generated">2022-11-25T10:30:52Z</xs:appinfo>
+      <xs:appinfo source="http://www.imvertor.org/xml-schema-info/file-location">BOI/imwaproxies/v20220630/BOI_IMWAProxies_v1_0.xsd</xs:appinfo>
+      <xs:appinfo source="http://www.imvertor.org/xml-schema-info/generated">November 25, 2022 at 10:30:52</xs:appinfo>
+      <xs:appinfo source="http://www.imvertor.org/xml-schema-info/generator">1.67.1</xs:appinfo>
+      <xs:documentation source="http://www.imvertor.org/schema-info/file-location">BOI/imwaproxies/v20220630/BOI_IMWAProxies_v1_0.xsd</xs:documentation>
+      <xs:documentation source="http://www.imvertor.org/schema-info/conversion">
+        This schema is based on an UML specification, which is transformed by the Imvertor software. Imvertor modules are in the public domain, see http://www.imvertor.org.
+    </xs:documentation>
+   </xs:annotation>
+   <xs:annotation>
+      <xs:appinfo source="http://schemas.opengis.net/gmlsfProfile/2.0/gmlsfLevels.xsd">
+         <gmlsf:ComplianceLevel>0</gmlsf:ComplianceLevel>
+      </xs:appinfo>
+   </xs:annotation>
+   <xs:import namespace="http://www.opengis.net/gml/3.2"
+              schemaLocation="../../../gml/3.2/ihw-gml.xsd"/>
+   <xs:element name="Vakindeling"
+               type="IMWAProxies:VakindelingType"
+               substitutionGroup="gml:AbstractFeature"/>
+   <xs:complexType name="VakindelingType">
+      <xs:complexContent>
+         <xs:extension base="gml:AbstractFeatureType"/>
+      </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="VakindelingPropertyType">
+      <xs:sequence minOccurs="0">
+         <xs:element ref="IMWAProxies:Vakindeling"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+      <xs:attributeGroup ref="gml:OwnershipAttributeGroup"/>
+   </xs:complexType>
+   <xs:element name="Waterkeringsectie"
+               type="IMWAProxies:WaterkeringsectieType"
+               substitutionGroup="gml:AbstractFeature"/>
+   <xs:complexType name="WaterkeringsectieType">
+      <xs:complexContent>
+         <xs:extension base="gml:AbstractFeatureType">
+            <xs:sequence>
+               <xs:element name="geometrieLijn2D"
+                           type="gml:CurvePropertyType"
+                           minOccurs="0"
+                           maxOccurs="1">
+                  <xs:annotation>
+                     <xs:documentation source="http://www.imvertor.org/model-info/technical-documentation">Definition: Geometrische representatie van het object als lijn.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="typeWaterkeringsectie"
+                           minOccurs="1"
+                           maxOccurs="1"
+                           type="gml:CodeType">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <CodeListName>WaterkeringsectieType</CodeListName>
+                        <CodeListURI>www.aquo.nl</CodeListURI>
+                     </xs:appinfo>
+                     <xs:documentation source="http://www.imvertor.org/model-info/technical-documentation">Definition: Nadere aanduiding van het type waterkeringsectie.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="afstandBegin" type="xs:float" minOccurs="1" maxOccurs="1">
+                  <xs:annotation>
+                     <xs:documentation source="http://www.imvertor.org/model-info/technical-documentation">Definition: Afstand (in meters) van het begin van de sectie t.o.v. het nulpunt van het referentiestelsel van de waterkering.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="afstandEinde" type="xs:float" minOccurs="1" maxOccurs="1">
+                  <xs:annotation>
+                     <xs:documentation source="http://www.imvertor.org/model-info/technical-documentation">Definition: Afstand (in meters) van het einde van de sectie t.o.v. het nulpunt van het referentiestelsel van de waterkering.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="lengte" type="xs:float" minOccurs="0" maxOccurs="1">
+                  <xs:annotation>
+                     <xs:documentation source="http://www.imvertor.org/model-info/technical-documentation">Definition: Lengte van een waterkeringsectie.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="1"
+                           maxOccurs="1"
+                           name="onderdeelVan"
+                           nillable="false"
+                           type="IMWAProxies:VakindelingPropertyType"/>
+            </xs:sequence>
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="WaterkeringsectiePropertyType">
+      <xs:sequence minOccurs="0">
+         <xs:element ref="IMWAProxies:Waterkeringsectie"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+      <xs:attributeGroup ref="gml:OwnershipAttributeGroup"/>
+   </xs:complexType>
+   <xs:element name="Waterkeringstelsel"
+               type="IMWAProxies:WaterkeringstelselType"
+               substitutionGroup="gml:AbstractFeature"/>
+   <xs:complexType name="WaterkeringstelselType">
+      <xs:complexContent>
+         <xs:extension base="gml:AbstractFeatureType">
+            <xs:sequence>
+               <xs:element name="geometrie2D"
+                           type="gml:GeometryPropertyType"
+                           minOccurs="1"
+                           maxOccurs="1">
+                  <xs:annotation>
+                     <xs:documentation source="http://www.imvertor.org/model-info/technical-documentation">Definition: Geometrische representatie van het object als lijn of vlak.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="typeWaterkeringstelsel"
+                           minOccurs="1"
+                           maxOccurs="1"
+                           type="gml:CodeType">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <CodeListName>WaterkeringstelselType</CodeListName>
+                        <CodeListURI>www.aquo.nl</CodeListURI>
+                     </xs:appinfo>
+                     <xs:documentation source="http://www.imvertor.org/model-info/technical-documentation">Definition: Nadere aanduiding van het type waterkeringstelsel.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="naam" minOccurs="0" maxOccurs="1" type="xs:string">
+                  <xs:annotation>
+                     <xs:documentation source="http://www.imvertor.org/model-info/technical-documentation">Definition: Naam van het waterkeringstelsel.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="lengte" type="xs:float" minOccurs="0" maxOccurs="1">
+                  <xs:annotation>
+                     <xs:documentation source="http://www.imvertor.org/model-info/technical-documentation">Definition: Lengte van het waterkeringstelsel. 09042018 multiplicity aangepast naar 0..1</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+            </xs:sequence>
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="WaterkeringstelselPropertyType">
+      <xs:sequence minOccurs="0">
+         <xs:element ref="IMWAProxies:Waterkeringstelsel"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+      <xs:attributeGroup ref="gml:OwnershipAttributeGroup"/>
+   </xs:complexType>
+</xs:schema>

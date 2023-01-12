@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -38,10 +38,10 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void Constructor_SectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new FailureMechanismSectionProperties(null, double.NaN, double.NaN);
+            void Call() => new FailureMechanismSectionProperties(null, double.NaN, double.NaN);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("section", exception.ParamName);
         }
 
@@ -133,7 +133,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             var properties = new FailureMechanismSectionProperties(section, double.NaN, double.NaN);
 
             // Call
-            string toString = properties.ToString();
+            var toString = properties.ToString();
 
             // Assert
             Assert.AreEqual(section.Name, toString);

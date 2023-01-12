@@ -24,12 +24,6 @@
 			id="009f3139-f594-4cb3-9a3e-215c3a7f1bf1"
 			name="ScreenShotOfTraject">
 			</smartfoldernode>
-			<testmodule
-			id="011b466d-a919-4174-9b92-256d750afc8f"
-			name="CreateScreenshotEntireDesktop"
-			ref="0f7ebadb-0285-4449-9422-0cd6fde5bf4d"
-			type="Recording">
-			</testmodule>
 			<smartfoldernode
 			datasource="script09_LoopOriginalCharts"
 			errorbehavior="ContinueNextIteration"
@@ -37,10 +31,12 @@
 			name="LoopChartsRemovedItems">
 				<parameters>
 					<param
+					mask="False"
 					name="messageToLogForScreenshotChartCalculation"
 					value="Original chart for calculation: ">
 					</param>
 					<param
+					mask="False"
 					name="nameInputFolder"
 					value="Invoer">
 					</param>
@@ -75,6 +71,7 @@
 			name="ValidateCSVEqualToModifiedReference">
 				<parameters>
 					<param
+					mask="False"
 					name="fullPathReferenceCSVFile"
 					value="">
 					</param>
@@ -301,10 +298,12 @@
 			name="AddNewTrajectNotAppropriateForSchematization">
 				<parameters>
 					<param
+					mask="False"
 					name="signalValue"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="lowValue"
 					value="">
 					</param>
@@ -346,6 +345,7 @@
 			name="CopyFilesModifiedElements">
 				<parameters>
 					<param
+					mask="False"
 					name="waitTimeInMiliseconds"
 					value="1000">
 					</param>
@@ -524,6 +524,10 @@
 			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
 			type="Recording">
 			</testmodule>
+			<teardown
+			id="21f73261-6e2e-4608-a587-f1a65a9ab805"
+			name="teardown">
+			</teardown>
 			<testmodule
 			id="22b4e1db-9cfd-4306-bcd3-b9bd0b39555c"
 			name="CloseViewCentralPanelWithFocus"
@@ -837,10 +841,10 @@
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="originalFiles"
-					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
-					variableid="0f3787cd-d429-4f28-b05b-8a6794693066"
-					variablename="sourcePath">
+					dataname="searchFilterAllFiles"
+					datasourceid="4f65efe8-6ec0-4ee4-b3b7-6f5a4375189d"
+					variableid="1bae0856-551f-4c69-ba7a-84e8f3160f52"
+					variablename="searchPattern">
 					</var>
 					<var
 					dataname="pathInputFiles"
@@ -849,10 +853,10 @@
 					variablename="targetPath">
 					</var>
 					<var
-					dataname="searchFilterAllFiles"
-					datasourceid="4f65efe8-6ec0-4ee4-b3b7-6f5a4375189d"
-					variableid="1bae0856-551f-4c69-ba7a-84e8f3160f52"
-					variablename="searchPattern">
+					dataname="originalFiles"
+					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
+					variableid="0f3787cd-d429-4f28-b05b-8a6794693066"
+					variablename="sourcePath">
 					</var>
 				</databinding>
 			</testmodule>
@@ -937,6 +941,7 @@
 			name="SetRangeLoopSchematizations">
 				<parameters>
 					<param
+					mask="False"
 					name="nameLoopToSetRange"
 					value="LoopSchematizationsRemovedItems">
 					</param>
@@ -955,38 +960,47 @@
 			name="LoopSchematizations">
 				<parameters>
 					<param
+					mask="False"
 					name="numberOfPassesExpandingRows"
 					value="3">
 					</param>
 					<param
+					mask="False"
 					name="waitTime"
 					value="1">
 					</param>
 					<param
+					mask="False"
 					name="separationCharacterCsvFile"
 					value=";">
 					</param>
 					<param
+					mask="False"
 					name="csvFileName"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="fullPathToOutputCsvFile"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediatePathToschematizationItem"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathToSchematizationItem"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathSeparator"
 					value=">">
 					</param>
 					<param
+					mask="False"
 					name="startPathReferenceCSV"
 					value="X:\script09\reference\original\">
 					</param>
@@ -1113,10 +1127,12 @@
 			name="AssignProfile(ZST,AGK,GEBU)">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToProfileItemInPropertiesPanel"
 					value="Schematisatie>Voorlandprofiel">
 					</param>
 					<param
+					mask="False"
 					name="profileToSelect"
 					value="profiel1">
 					</param>
@@ -1271,10 +1287,12 @@
 			name="GenerateCalculations(GEKB,ZST,AGK,GEBU)">
 				<parameters>
 					<param
+					mask="False"
 					name="index"
 					value="0">
 					</param>
 					<param
+					mask="False"
 					name="messageToLog"
 					value="Screenshot after importing surface lines and subsurface stochastic schematizations, and generating calculations">
 					</param>
@@ -1404,18 +1422,22 @@
 			name="LoopFMs">
 				<parameters>
 					<param
+					mask="False"
 					name="pathInputFiles"
-					value="X:\script09\input\">
+					value="X:\script09\source\">
 					</param>
 					<param
+					mask="False"
 					name="searchFilterAllFiles"
 					value="*.*">
 					</param>
 					<param
+					mask="False"
 					name="pathSchematizationsToImport"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathToFM"
 					value="">
 					</param>
@@ -1427,6 +1449,7 @@
 			name="ValidateCSVEqualToOriginalReference">
 				<parameters>
 					<param
+					mask="False"
 					name="fullPathReferenceCSVFile"
 					value="">
 					</param>
@@ -1471,6 +1494,7 @@
 			name="SetRangeLoopSchematizations">
 				<parameters>
 					<param
+					mask="False"
 					name="nameLoopToSetRange"
 					value="LoopSchematizationsRemainingItems">
 					</param>
@@ -1487,6 +1511,7 @@
 			name="SetRangeLoopSchematizations">
 				<parameters>
 					<param
+					mask="False"
 					name="nameLoopToSetRange"
 					value="LoopSchematizationsItemsModified">
 					</param>
@@ -1497,6 +1522,20 @@
 			name="UpdateCurrentlySelectedItem"
 			ref="be610d83-0566-4237-980c-570b403e4ee8"
 			type="Recording">
+			</testmodule>
+			<testmodule
+			id="59ecaa5b-e14d-4c23-bea2-3a4b112a42fe"
+			name="SelectState"
+			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="stateTraject"
+					datasourceid="615cc369-b582-4ba4-b10c-37517cf06b6f"
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
+					</var>
+				</databinding>
 			</testmodule>
 			<testmodule
 			id="59fefdda-28a2-496c-8014-26b999e57e56"
@@ -1591,6 +1630,48 @@
 			id="5fc6520e-58e9-4a54-b552-dae60779bf9f"
 			name="GenerateCalculations">
 			</smartfoldernode>
+			<smartfoldernode
+			id="615cc369-b582-4ba4-b10c-37517cf06b6f"
+			name="ImportReferenceLine">
+				<parameters>
+					<param
+					mask="False"
+					name="stateTraject"
+					value="@TR">
+					</param>
+					<param
+					mask="False"
+					name="pathReferenceLine"
+					value="@TR>Referentielijn">
+					</param>
+					<param
+					mask="False"
+					name="pathToReferenceLineFile"
+					value="X:\script06\referenceLine12-2\referentielijn 12-2.shp">
+					</param>
+				</parameters>
+				<conditiongroup
+				comparison="AND"
+				enabled="True">
+					<condition
+					comparison="IsNotEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="pathToRequiredReferenceLine"
+								id="7e99b103-d280-478b-83ce-35c833678662">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
 			<testmodule
 			id="61633184-cc5b-435f-9f78-a3c42369fd08"
 			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
@@ -1604,10 +1685,10 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="StateCalculations"
+					dataname="stateWithSchematizations"
 					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
 					</var>
 				</databinding>
 			</testmodule>
@@ -1616,6 +1697,7 @@
 			name="ValidateSourceSchematizations">
 				<parameters>
 					<param
+					mask="False"
 					name="parameterNameSourceLocation"
 					value="Bronlocatie">
 					</param>
@@ -1777,6 +1859,7 @@
 			name="CheckIfItemCanBeOpened">
 				<parameters>
 					<param
+					mask="False"
 					name="nameOpenItem"
 					value="Openen">
 					</param>
@@ -1887,6 +1970,7 @@
 			name="ValidateItemNameInProjectExplorer">
 				<parameters>
 					<param
+					mask="False"
 					name="nodeRemainingSchematizationMustBePresent"
 					value="true">
 					</param>
@@ -1911,14 +1995,17 @@
 			name="script09_Voorland_of_voorliggende_dam_importeren">
 				<parameters>
 					<param
+					mask="False"
 					name="caseNumber"
 					value="09">
 					</param>
 					<param
+					mask="False"
 					name="scriptOutputFolder"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="dummyString"
 					value="">
 					</param>
@@ -2189,38 +2276,47 @@
 			name="LoopSchematizationsItemsModified">
 				<parameters>
 					<param
+					mask="False"
 					name="startPathReferenceCSV"
 					value="X:\script09\reference\modified\">
 					</param>
 					<param
+					mask="False"
 					name="pathSeparator"
 					value=">">
 					</param>
 					<param
+					mask="False"
 					name="pathToSchematizationItem"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediatePathToschematizationItem"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="csvFileName"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="fullPathToOutputCsvFile"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="separationCharacterCsvFile"
 					value=";">
 					</param>
 					<param
+					mask="False"
 					name="waitTime"
 					value="1">
 					</param>
 					<param
+					mask="False"
 					name="numberOfPassesExpandingRows"
 					value="3">
 					</param>
@@ -2252,6 +2348,7 @@
 			name="ValidateCSVEqualToModifiedReference">
 				<parameters>
 					<param
+					mask="False"
 					name="fullPathReferenceCSVFile"
 					value="">
 					</param>
@@ -2361,22 +2458,27 @@
 			name="GenerateCSV">
 				<parameters>
 					<param
+					mask="False"
 					name="substituteSubstring"
 					value="_">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString0"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString1"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString2"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="extensionCSV"
 					value=".csv">
 					</param>
@@ -2444,6 +2546,7 @@
 			name="SetRangeLoopSchematizations">
 				<parameters>
 					<param
+					mask="False"
 					name="nameLoopToSetRange"
 					value="LoopSchematizations">
 					</param>
@@ -2474,6 +2577,7 @@
 			name="ScreenshotsToEvaluatePresenceOfSchematizations">
 				<parameters>
 					<param
+					mask="False"
 					name="warningMessage"
 					value="Please, control the screenshots in the sections below.">
 					</param>
@@ -2587,10 +2691,12 @@
 			name="LoopOriginalCharts">
 				<parameters>
 					<param
+					mask="False"
 					name="messageToLogForScreenshotChartCalculation"
 					value="Original chart for calculation: ">
 					</param>
 					<param
+					mask="False"
 					name="nameInputFolder"
 					value="Invoer">
 					</param>
@@ -2638,10 +2744,10 @@
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="originalFiles"
-					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
-					variableid="0f3787cd-d429-4f28-b05b-8a6794693066"
-					variablename="sourcePath">
+					dataname="searchFilterAllFiles"
+					datasourceid="4f65efe8-6ec0-4ee4-b3b7-6f5a4375189d"
+					variableid="1bae0856-551f-4c69-ba7a-84e8f3160f52"
+					variablename="searchPattern">
 					</var>
 					<var
 					dataname="pathInputFiles"
@@ -2650,10 +2756,10 @@
 					variablename="targetPath">
 					</var>
 					<var
-					dataname="searchFilterAllFiles"
-					datasourceid="4f65efe8-6ec0-4ee4-b3b7-6f5a4375189d"
-					variableid="1bae0856-551f-4c69-ba7a-84e8f3160f52"
-					variablename="searchPattern">
+					dataname="originalFiles"
+					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
+					variableid="0f3787cd-d429-4f28-b05b-8a6794693066"
+					variablename="sourcePath">
 					</var>
 				</databinding>
 			</testmodule>
@@ -2733,6 +2839,7 @@
 			name="CopyOriginalFiles">
 				<parameters>
 					<param
+					mask="False"
 					name="milisecondsToWait"
 					value="1000">
 					</param>
@@ -2871,22 +2978,27 @@
 			name="GenerateCSV">
 				<parameters>
 					<param
+					mask="False"
 					name="substituteSubstring"
 					value="_">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString0"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString1"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString2"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="extensionCSV"
 					value=".csv">
 					</param>
@@ -2897,10 +3009,12 @@
 			name="AddNewTrajectAppropriateForSchematization">
 				<parameters>
 					<param
+					mask="False"
 					name="signalValue"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="lowValue"
 					value="">
 					</param>
@@ -2910,10 +3024,6 @@
 			id="b6000a76-7640-4c94-ad79-f542e1cfa75a"
 			name="CopyOriginalFiles">
 			</smartfoldernode>
-			<testcase
-			id="bb8eb1de-3f99-4181-94c5-b34e3ffe0ced"
-			name="TakeScreenshotOfDesktop">
-			</testcase>
 			<testmodule
 			id="bbf1a3be-4032-4ba4-a346-b6257b05eea7"
 			name="ExpandRowItemsInPropertiesPanel"
@@ -2941,30 +3051,37 @@
 			name="ScreenshotsOfChartsInCalculationsRemovedItems(GEKB,ZST,AGK,GEBU)">
 				<parameters>
 					<param
+					mask="False"
 					name="intermediateString1"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString2"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString3"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString4"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="fullPathToSingleCalculationInput"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="charSeparatorPath"
 					value=">">
 					</param>
 					<param
+					mask="False"
 					name="nameSmartFolderLoopChartsRemovedItems"
 					value="LoopChartsRemovedItems">
 					</param>
@@ -3088,6 +3205,7 @@
 			name="CopyFilesModifiedElements">
 				<parameters>
 					<param
+					mask="False"
 					name="waitTimeInMIliseconds"
 					value="1000">
 					</param>
@@ -3098,22 +3216,27 @@
 			name="GenerateCSV">
 				<parameters>
 					<param
+					mask="False"
 					name="substituteSubstring"
 					value="_">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString0"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString1"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString2"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="extensionCSV"
 					value=".csv">
 					</param>
@@ -3143,6 +3266,28 @@
 			id="c8f0c1dc-7915-400d-88da-aa098d828336"
 			name="SetState">
 			</smartfoldernode>
+			<testmodule
+			id="cca06f55-51fc-4a95-9968-694605aca382"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathReferenceLine"
+					datasourceid="615cc369-b582-4ba4-b10c-37517cf06b6f"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathToSectionsInStateFA"
+					datasourceid="9bfb73df-276d-4d0f-b99d-55d1e58e5552"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			errorbehavior="ContinueNextIteration"
 			id="cd7cd4d6-8fce-46f7-8b3b-64ac8ba1fca3"
@@ -3223,10 +3368,10 @@
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="filesModifiedElements"
-					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
-					variableid="0f3787cd-d429-4f28-b05b-8a6794693066"
-					variablename="sourcePath">
+					dataname="searchFilterAllFiles"
+					datasourceid="4f65efe8-6ec0-4ee4-b3b7-6f5a4375189d"
+					variableid="1bae0856-551f-4c69-ba7a-84e8f3160f52"
+					variablename="searchPattern">
 					</var>
 					<var
 					dataname="pathInputFiles"
@@ -3235,10 +3380,24 @@
 					variablename="targetPath">
 					</var>
 					<var
-					dataname="searchFilterAllFiles"
-					datasourceid="4f65efe8-6ec0-4ee4-b3b7-6f5a4375189d"
-					variableid="1bae0856-551f-4c69-ba7a-84e8f3160f52"
-					variablename="searchPattern">
+					dataname="filesModifiedElements"
+					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
+					variableid="0f3787cd-d429-4f28-b05b-8a6794693066"
+					variablename="sourcePath">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="d24919a5-8424-47af-8114-6281ca3b9487"
+			name="ImportReferenceLine"
+			ref="c5c8249d-a582-4230-ba22-0b7657e78ecd"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToReferenceLineFile"
+					datasourceid="615cc369-b582-4ba4-b10c-37517cf06b6f"
+					variableid="d2f452f1-239b-4d2c-a492-f7f177add580"
+					variablename="pathReferenceLineFile">
 					</var>
 				</databinding>
 			</testmodule>
@@ -3329,30 +3488,37 @@
 			name="ScreenshotsOfChartsInCalculations(GEKB,ZST,AGK,GEBU)">
 				<parameters>
 					<param
+					mask="False"
 					name="intermediateString1"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString2"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString3"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString4"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="fullPathToSingleCalculationInput"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="charSeparatorPath"
 					value=">">
 					</param>
 					<param
+					mask="False"
 					name="nameSmartFolderLoopOriginalCharts"
 					value="LoopOriginalCharts">
 					</param>
@@ -3781,10 +3947,10 @@
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="filesRemovedElements"
-					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
-					variableid="0f3787cd-d429-4f28-b05b-8a6794693066"
-					variablename="sourcePath">
+					dataname="searchFilterAllFiles"
+					datasourceid="4f65efe8-6ec0-4ee4-b3b7-6f5a4375189d"
+					variableid="1bae0856-551f-4c69-ba7a-84e8f3160f52"
+					variablename="searchPattern">
 					</var>
 					<var
 					dataname="pathInputFiles"
@@ -3793,10 +3959,10 @@
 					variablename="targetPath">
 					</var>
 					<var
-					dataname="searchFilterAllFiles"
-					datasourceid="4f65efe8-6ec0-4ee4-b3b7-6f5a4375189d"
-					variableid="1bae0856-551f-4c69-ba7a-84e8f3160f52"
-					variablename="searchPattern">
+					dataname="filesRemovedElements"
+					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
+					variableid="0f3787cd-d429-4f28-b05b-8a6794693066"
+					variablename="sourcePath">
 					</var>
 				</databinding>
 			</testmodule>
@@ -3807,10 +3973,10 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="StateCalculations"
+					dataname="stateWithSchematizations"
 					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
 					</var>
 				</databinding>
 			</testmodule>
@@ -3985,10 +4151,12 @@
 			name="LoopChartsModified">
 				<parameters>
 					<param
+					mask="False"
 					name="messageToLogForScreenshotChartCalculation"
 					value="Original chart for calculation: ">
 					</param>
 					<param
+					mask="False"
 					name="nameInputFolder"
 					value="Invoer">
 					</param>
@@ -4021,38 +4189,47 @@
 			name="LoopSchematizationsRemainingItems">
 				<parameters>
 					<param
+					mask="False"
 					name="startPathReferenceCSV"
 					value="X:\script09\reference\removed\">
 					</param>
 					<param
+					mask="False"
 					name="pathSeparator"
 					value=">">
 					</param>
 					<param
+					mask="False"
 					name="pathToSchematizationItem"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediatePathToschematizationItem"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="csvFileName"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="fullPathToOutputCsvFile"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="separationCharacterCsvFile"
 					value=";">
 					</param>
 					<param
+					mask="False"
 					name="waitTime"
 					value="1">
 					</param>
 					<param
+					mask="False"
 					name="numberOfPassesExpandingRows"
 					value="3">
 					</param>
@@ -4178,12 +4355,39 @@
 			reportlevel="Info;20">
 				<parameters>
 					<param
+					mask="False"
 					name="AppProcessID"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="AppPath"
 					value="..\..\..\..\..\bin\Debug\Riskeer.exe">
+					</param>
+					<param
+					mask="False"
+					name="PdfDirectoryPath"
+					value="">
+					</param>
+					<param
+					mask="False"
+					name="DeleteRanorexReport"
+					value="false">
+					</param>
+					<param
+					mask="False"
+					name="Details"
+					value="all">
+					</param>
+					<param
+					mask="False"
+					name="Xml"
+					value="Reports\style.xml">
+					</param>
+					<param
+					mask="False"
+					name="PdfName"
+					value="script09_Voorland_of_voorliggende_dam_importeren.pdf">
 					</param>
 				</parameters>
 			</testcase>
@@ -4220,6 +4424,7 @@
 			name="ValidateItemNameNotPresentInProjectExplorer">
 				<parameters>
 					<param
+					mask="False"
 					name="nodeRemovedSchematizationMustBePresent"
 					value="false">
 					</param>
@@ -4230,30 +4435,37 @@
 			name="ScreenshotsOfChartsInCalculationsModified(GEKB,ZST,AGK,GEBU)">
 				<parameters>
 					<param
+					mask="False"
 					name="intermediateString1"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString2"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString3"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString4"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="fullPathToSingleCalculationInput"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="charSeparatorPath"
 					value=">">
 					</param>
 					<param
+					mask="False"
 					name="nameSmartFolderLoopChartsModfied"
 					value="LoopChartsModified">
 					</param>
@@ -4331,24 +4543,73 @@
 					</condition>
 				</conditiongroup>
 			</smartfoldernode>
+			<testmodule
+			id="ff276131-4ff4-4e54-a626-bdd06a114c7f"
+			name="ReportToPDFModule"
+			ref="ffa0759d-37d2-4abb-89a7-411f0fcf2dfe"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="PdfDirectoryPath"
+					datasourceid="f606085b-17f4-49ab-8d8f-66fb813bb5f3"
+					variableid="536f8a69-f246-4f2b-ae9e-1f62babb2ba9"
+					variablename="PdfDirectoryPath">
+					</var>
+					<var
+					dataname="DeleteRanorexReport"
+					datasourceid="f606085b-17f4-49ab-8d8f-66fb813bb5f3"
+					variableid="7f788c18-962c-41ab-b591-9c3122512c5e"
+					variablename="DeleteRanorexReport">
+					</var>
+					<var
+					dataname="Details"
+					datasourceid="f606085b-17f4-49ab-8d8f-66fb813bb5f3"
+					variableid="b9993b89-d8cb-45fe-829b-42b0f8dd8a00"
+					variablename="Details">
+					</var>
+					<var
+					dataname="Xml"
+					datasourceid="f606085b-17f4-49ab-8d8f-66fb813bb5f3"
+					variableid="c15f25ea-9409-4e1a-b76e-cd208bae6c56"
+					variablename="Xml">
+					</var>
+					<var
+					dataname="PdfName"
+					datasourceid="f606085b-17f4-49ab-8d8f-66fb813bb5f3"
+					variableid="1d09c6b5-db7a-4ed0-a13c-ee2add5d3d37"
+					variablename="PdfName">
+					</var>
+				</databinding>
+			</testmodule>
 			<testsuite
+			ExportColumnList="None"
 			ReportTime="RelativeToTestSuiteStartTime"
+			SelectedActions="All"
 			TracingScreenshotMode="Foreground"
 			TracingScreenshotQuality="40"
 			VideoBitrate="2000"
 			VideoFps="15"
 			VideoRecordingMode="KeepAllTests"
 			VideoSource="Auto"
+			createindividualreportpdfchecked="False"
+			createsinglereportpdfchecked="True"
+			enableCSVReport="False"
 			enabletracingscreenshots="True"
+			exportAllColummns="True"
 			id="ff796f50-a911-4317-8a3f-6ed6223ce994"
+			includeimageschecked="False"
+			includerecordingschecked="False"
 			junitreport="False"
 			name="Script09"
+			overwritefilechecked="False"
 			reportcompress="False"
+			reportdescription=""
 			reportdirectoryname="Reports"
 			reportenabled="True"
 			reportfilename="%S_%Y%M%D_%T.rxlog"
 			reporttemplatefolder="ReportDeltaresStyle"
-			reportwriteinterval="30000ms">
+			reportwriteinterval="30000ms"
+			singlereportpdfdirectory="SingleReportPDF">
 			</testsuite>
 		</flatlistofchildren>
 		<childhierarchy>
@@ -4358,14 +4619,6 @@
 				<testcase
 				id="f606085b-17f4-49ab-8d8f-66fb813bb5f3"
 				name="Script09">
-					<testcase
-					id="bb8eb1de-3f99-4181-94c5-b34e3ffe0ced"
-					name="TakeScreenshotOfDesktop">
-						<testmodule
-						id="011b466d-a919-4174-9b92-256d750afc8f"
-						name="CreateScreenshotEntireDesktop">
-						</testmodule>
-					</testcase>
 					<testcase
 					id="732a327d-8aa2-44fc-acf7-d93408aeaf7a"
 					name="script09_Voorland_of_voorliggende_dam_importeren">
@@ -4394,6 +4647,22 @@
 									id="6c6db401-0802-4b78-ae06-4969f6447bd3"
 									name="NewProjectUsingKeyboard">
 									</testmodule>
+									<smartfoldernode
+									id="615cc369-b582-4ba4-b10c-37517cf06b6f"
+									name="ImportReferenceLine">
+										<testmodule
+										id="59ecaa5b-e14d-4c23-bea2-3a4b112a42fe"
+										name="SelectState">
+										</testmodule>
+										<testmodule
+										id="cca06f55-51fc-4a95-9968-694605aca382"
+										name="SelectGenericItemInProjectExplorer">
+										</testmodule>
+										<testmodule
+										id="d24919a5-8424-47af-8114-6281ca3b9487"
+										name="ImportReferenceLine">
+										</testmodule>
+									</smartfoldernode>
 								</smartfoldernode>
 								<smartfoldernode
 								id="32a28582-a3c2-4193-a910-3dcaed59b8c7"
@@ -5074,6 +5343,14 @@
 							</testmodule>
 						</teardown>
 					</testcase>
+					<teardown
+					id="21f73261-6e2e-4608-a587-f1a65a9ab805"
+					name="teardown">
+						<testmodule
+						id="ff276131-4ff4-4e54-a626-bdd06a114c7f"
+						name="ReportToPDFModule">
+						</testmodule>
+					</teardown>
 				</testcase>
 			</testsuite>
 		</childhierarchy>
@@ -5089,7 +5366,13 @@
 					labelFM
 				</column>
 				<column>
+					stateWithSchematizations
+				</column>
+				<column>
 					trajectID
+				</column>
+				<column>
+					pathToRequiredReferenceLine
 				</column>
 				<column>
 					norm
@@ -5102,9 +5385,6 @@
 				</column>
 				<column>
 					filesRemovedElements
-				</column>
-				<column>
-					StateCalculations
 				</column>
 				<column>
 					pathToSchematizationsFolderItemInProjectExplorer
@@ -5148,7 +5428,13 @@
 						labelFM
 					</th>
 					<th>
+						stateWithSchematizations
+					</th>
+					<th>
 						trajectID
+					</th>
+					<th>
+						pathToRequiredReferenceLine
 					</th>
 					<th>
 						norm
@@ -5161,9 +5447,6 @@
 					</th>
 					<th>
 						filesRemovedElements
-					</th>
-					<th>
-						StateCalculations
 					</th>
 					<th>
 						pathToSchematizationsFolderItemInProjectExplorer
@@ -5204,7 +5487,13 @@
 						GEKB
 					</td>
 					<td>
+						@SB
+					</td>
+					<td>
 						12-2
+					</td>
+					<td>
+						X:\script09\01_GEKB_12-2\referenceLine12-2\referentielijn 12-2.shp
 					</td>
 					<td>
 						Signal
@@ -5217,9 +5506,6 @@
 					</td>
 					<td>
 						X:\script09\01_GEKB_12-2\removed
-					</td>
-					<td>
-						Sterkte
 					</td>
 					<td>
 						12-2&gt;@GEKB&gt;Invoer&gt;Dijkprofielen
@@ -5257,7 +5543,12 @@
 						ZST
 					</td>
 					<td>
+						@HyB
+					</td>
+					<td>
 						28-1
+					</td>
+					<td>
 					</td>
 					<td>
 						Signal
@@ -5270,9 +5561,6 @@
 					</td>
 					<td>
 						X:\script09\02_ZST_28-1\removed
-					</td>
-					<td>
-						Hydraulische
 					</td>
 					<td>
 						28-1&gt;@ZST&gt;Invoer&gt;Voorlandprofielen
@@ -5312,7 +5600,12 @@
 						AGK
 					</td>
 					<td>
+						@HyB
+					</td>
+					<td>
 						8-3
+					</td>
+					<td>
 					</td>
 					<td>
 						Signal
@@ -5325,9 +5618,6 @@
 					</td>
 					<td>
 						X:\script09\03_AGK_8-3\removed
-					</td>
-					<td>
-						Hydraulische
 					</td>
 					<td>
 						8-3&gt;@AGK&gt;Invoer&gt;Voorlandprofielen
@@ -5367,7 +5657,12 @@
 						GEBU
 					</td>
 					<td>
+						@HyB
+					</td>
+					<td>
 						6-6
+					</td>
+					<td>
 					</td>
 					<td>
 						Signal
@@ -5380,9 +5675,6 @@
 					</td>
 					<td>
 						X:\script09\04_GEBU_6-6\removed
-					</td>
-					<td>
-						Hydraulische
 					</td>
 					<td>
 						6-6&gt;@GEBU&gt;Invoer&gt;Voorlandprofielen
@@ -5422,7 +5714,12 @@
 						HTKW
 					</td>
 					<td>
+						@SB
+					</td>
+					<td>
 						36-2
+					</td>
+					<td>
 					</td>
 					<td>
 						Signal
@@ -5435,9 +5732,6 @@
 					</td>
 					<td>
 						X:\script09\05_HTKW_36-2\removed
-					</td>
-					<td>
-						Sterkte
 					</td>
 					<td>
 						36-2&gt;@HTKW&gt;Invoer&gt;Voorlandprofielen
@@ -5475,7 +5769,12 @@
 						BSKW
 					</td>
 					<td>
+						@SB
+					</td>
+					<td>
 						34-1
+					</td>
+					<td>
 					</td>
 					<td>
 						Signal
@@ -5488,9 +5787,6 @@
 					</td>
 					<td>
 						X:\script09\06_BSKW_34-1\removed
-					</td>
-					<td>
-						Sterkte
 					</td>
 					<td>
 						34-1&gt;@BSKW&gt;Invoer&gt;Voorlandprofielen
@@ -5528,7 +5824,12 @@
 						STKWp
 					</td>
 					<td>
+						@SB
+					</td>
+					<td>
 						44-2
+					</td>
+					<td>
 					</td>
 					<td>
 						Signal
@@ -5541,9 +5842,6 @@
 					</td>
 					<td>
 						X:\script09\07_STKWp_44-2\removed
-					</td>
-					<td>
-						Sterkte
 					</td>
 					<td>
 						44-2&gt;@STKWp&gt;Invoer&gt;Voorlandprofielen
@@ -6209,6 +6507,9 @@
 			id="5fc6520e-58e9-4a54-b552-dae60779bf9f">
 			</testcontainer>
 			<testcontainer
+			id="615cc369-b582-4ba4-b10c-37517cf06b6f">
+			</testcontainer>
+			<testcontainer
 			id="64ca51b6-cf5c-41a0-9059-aac5f27cbc83">
 			</testcontainer>
 			<testcontainer
@@ -6290,9 +6591,6 @@
 			id="b6000a76-7640-4c94-ad79-f542e1cfa75a">
 			</testcontainer>
 			<testcontainer
-			id="bb8eb1de-3f99-4181-94c5-b34e3ffe0ced">
-			</testcontainer>
-			<testcontainer
 			id="bfeb7267-86e5-456a-8082-4f6282adf1e3">
 			</testcontainer>
 			<testcontainer
@@ -6351,6 +6649,9 @@
 		</reference>
 		<reference>
 			Ranorex Automation Helpers.dll
+		</reference>
+		<reference>
+			Ranorex.ReportToPDF.exe
 		</reference>
 	</references>
 </testsuitedoc>

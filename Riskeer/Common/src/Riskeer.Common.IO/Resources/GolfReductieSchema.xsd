@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><!--
-Copyright (C) Stichting Deltares 2021. All rights reserved.
+Copyright (C) Stichting Deltares 2022. All rights reserved.
 
 This file is part of Riskeer.
 
@@ -24,7 +24,7 @@ All rights reserved.
 
   <!--Generieke definitie voor golfreducerende parameters in een berekening. 
   Dit element kan alleen gebruikt worden indien ook een dijkprofel (GEKB) of 
-  voorland (overige toetssporen) is gespecificeerd in de berekening die 
+  voorland (overige faalmechanismen) is gespecificeerd in de berekening die 
   gebruik maakt van dit element.-->
   <xs:element name="golfreductie">
     <xs:complexType>
@@ -64,7 +64,7 @@ All rights reserved.
 
   <!--Specificeert of een eventueel aanwezig voorland moet worden gebruikt. Deze vlag kan 
   alleen worden gebruikt indien in het geselecteerde dijkprofiel (GEKB) of 
-  voorland (overige toetssporen) ook een voorlandgeometrie gedefinieerd is.-->
+  voorland (overige faalmechanismen) ook een voorlandgeometrie gedefinieerd is.-->
   <xs:element name="voorlandgebruiken">
     <xs:simpleType>
       <xs:restriction base="xs:boolean"/>

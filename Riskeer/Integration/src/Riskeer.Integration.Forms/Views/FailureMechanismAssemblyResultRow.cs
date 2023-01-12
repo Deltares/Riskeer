@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Controls.DataGrid;
-using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.TypeConverters;
 
@@ -37,34 +36,55 @@ namespace Riskeer.Integration.Forms.Views
     {
         private const int probabilityIndex = 2;
         private readonly IFailureMechanism failureMechanism;
-        private readonly Func<double> performAssemblyFunc;
 
         /// <summary>
-        /// Creates a new instance of <see cref="FailureMechanismAssemblyResultRow"/>.
+        /// Creates a new instance of <see cref="FailureMechanismAssemblyResultRow"/> with a default probability and an error message.
         /// </summary>
         /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> to wrap so that it can be displayed as a row.</param>
-        /// <param name="performAssemblyFunc"></param>
+        /// <param name="errorMessage">The error message to display.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameters is <c>null</c>.</exception>
         public FailureMechanismAssemblyResultRow(IFailureMechanism failureMechanism,
-                                                 Func<double> performAssemblyFunc)
+                                                 string errorMessage)
+            : this(failureMechanism, double.NaN, errorMessage) {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="FailureMechanismAssemblyResultRow"/> with a specified probability.
+        /// </summary>
+        /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> to wrap so that it can be displayed as a row.</param>
+        /// <param name="failureMechanismAssemblyResult">The assembly result of the failure mechanism.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <see cref="failureMechanism"/> is <c>null</c>.</exception>
+        public FailureMechanismAssemblyResultRow(IFailureMechanism failureMechanism,
+                                                 double failureMechanismAssemblyResult)
+            : this(failureMechanism, failureMechanismAssemblyResult, string.Empty) {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="FailureMechanismAssemblyResultRow"/> with a specified probability.
+        /// </summary>
+        /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> to wrap so that it can be displayed as a row.</param>
+        /// <param name="failureMechanismAssemblyResult">The assembly result of the failure mechanism.</param>
+        /// <param name="errorMessage">The error message to display.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <see cref="failureMechanism"/> or <paramref name="errorMessage"/>
+        /// is <c>null</c>.</exception>
+        private FailureMechanismAssemblyResultRow(IFailureMechanism failureMechanism,
+                                                  double failureMechanismAssemblyResult,
+                                                  string errorMessage)
         {
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            if (performAssemblyFunc == null)
+            if (errorMessage == null)
             {
-                throw new ArgumentNullException(nameof(performAssemblyFunc));
+                throw new ArgumentNullException(nameof(errorMessage));
             }
 
             this.failureMechanism = failureMechanism;
-            this.performAssemblyFunc = performAssemblyFunc;
+            Probability = failureMechanismAssemblyResult;
 
             ColumnStateDefinitions = new Dictionary<int, DataGridViewColumnStateDefinition>();
             CreateColumnStateDefinitions();
-
-            Update();
+            ColumnStateDefinitions[probabilityIndex].ErrorText = errorMessage;
         }
 
         /// <summary>
@@ -81,40 +101,13 @@ namespace Riskeer.Integration.Forms.Views
         /// Gets the probability of the failure mechanism assembly.
         /// </summary>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double Probability { get; private set; }
+        public double Probability { get; }
 
         public IDictionary<int, DataGridViewColumnStateDefinition> ColumnStateDefinitions { get; }
-
-        /// <summary>
-        /// Updates all data and states in the row.
-        /// </summary>
-        public void Update()
-        {
-            ResetErrorTexts();
-            TryGetAssemblyData();
-        }
-
-        private void TryGetAssemblyData()
-        {
-            try
-            {
-                Probability = performAssemblyFunc();
-            }
-            catch (AssemblyException e)
-            {
-                Probability = double.NaN;
-                ColumnStateDefinitions[probabilityIndex].ErrorText = e.Message;
-            }
-        }
 
         private void CreateColumnStateDefinitions()
         {
             ColumnStateDefinitions.Add(probabilityIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
-        }
-
-        private void ResetErrorTexts()
-        {
-            ColumnStateDefinitions[probabilityIndex].ErrorText = string.Empty;
         }
     }
 }

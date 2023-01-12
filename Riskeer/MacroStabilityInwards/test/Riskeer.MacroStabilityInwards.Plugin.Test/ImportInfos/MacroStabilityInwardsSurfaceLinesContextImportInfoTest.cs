@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -207,7 +207,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ImportInfos
 
             // Assert
             string expectedInquiryMessage = "Als u profielschematisaties importeert, " +
-                                            "dan worden alle rekenresultaten van dit toetsspoor verwijderd." +
+                                            "dan worden alle rekenresultaten van dit faalmechanisme verwijderd." +
                                             $"{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
             Assert.AreEqual(expectedInquiryMessage, textBoxMessage);
             Assert.AreEqual(isActionConfirmed, updatesVerified);

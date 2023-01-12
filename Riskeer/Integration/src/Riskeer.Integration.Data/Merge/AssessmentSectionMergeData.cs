@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -21,7 +21,7 @@
 
 using System;
 using System.Collections.Generic;
-using Riskeer.Common.Data.FailurePath;
+using Riskeer.Common.Data.FailureMechanism;
 
 namespace Riskeer.Integration.Data.Merge
 {
@@ -67,7 +67,7 @@ namespace Riskeer.Integration.Data.Merge
             MergePipingStructure = properties.MergePipingStructure;
             MergeStabilityPointStructures = properties.MergeStabilityPointStructures;
             MergeDuneErosion = properties.MergeDuneErosion;
-            MergeSpecificFailurePaths = properties.MergeSpecificFailurePaths;
+            MergeSpecificFailureMechanisms = properties.MergeSpecificFailureMechanisms;
         }
 
         /// <summary>
@@ -151,9 +151,9 @@ namespace Riskeer.Integration.Data.Merge
         public bool MergeDuneErosion { get; }
 
         /// <summary>
-        /// Gets the collection of specific failure paths that should be merged.
+        /// Gets the collection of specific failure mechanisms that should be merged.
         /// </summary>
-        public IEnumerable<IFailurePath> MergeSpecificFailurePaths { get; }
+        public IEnumerable<SpecificFailureMechanism> MergeSpecificFailureMechanisms { get; }
 
         /// <summary>
         /// Container for properties for constructing an <see cref="AssessmentSectionMergeData"/>.
@@ -236,9 +236,9 @@ namespace Riskeer.Integration.Data.Merge
             public bool MergeDuneErosion { internal get; set; }
 
             /// <summary>
-            /// Gets the list of specific failure paths that should be merged.
+            /// Gets the list of specific failure mechanisms that should be merged.
             /// </summary>
-            public List<IFailurePath> MergeSpecificFailurePaths { get; } = new List<IFailurePath>();
+            public List<SpecificFailureMechanism> MergeSpecificFailureMechanisms { get; } = new List<SpecificFailureMechanism>();
         }
     }
 }

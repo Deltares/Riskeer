@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -76,9 +76,15 @@ namespace Riskeer.Common.IO.HydraRing
             string settingsDatabaseFileName = GetHydraulicBoundarySettingsDatabase(filePath);
             try
             {
-                using (new HydraulicBoundaryDatabaseReader(filePath)) {}
+                using (new HydraulicBoundaryDatabaseReader(filePath))
+                {
+                    // Used on purpose to check the filePath
+                }
 
-                using (new HydraulicLocationConfigurationDatabaseReader(hlcdFilePath)) {}
+                using (new HydraulicLocationConfigurationDatabaseReader(hlcdFilePath))
+                {
+                    // Used on purpose to check the hlcdFilePath
+                }
 
                 using (var validator = new HydraRingSettingsDatabaseValidator(settingsDatabaseFileName, preprocessorDirectory))
                 {

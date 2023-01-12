@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -23,12 +23,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.TestUtil;
-using Core.Common.Util;
+using Core.Common.Util.Enums;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.Forms;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
@@ -126,10 +125,10 @@ namespace Riskeer.Common.Forms.Test.Factories
 
             Assert.AreEqual(1, mapGeometries.Count());
             CollectionAssert.AreEqual(section.Points, mapGeometries.Single().PointCollections.First());
-            Assert.AreEqual(1, mapFeature.MetaData.Keys.Count);
-            Assert.AreEqual(new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyGroup>(
-                                DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(expectedAssemblyResult.AssemblyGroup)).DisplayName,
+            Assert.AreEqual(2, mapFeature.MetaData.Keys.Count);
+            Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(expectedAssemblyResult.FailureMechanismSectionAssemblyGroup),
                             mapFeature.MetaData["Duidingsklasse"]);
+            Assert.AreEqual(expectedAssemblyResult.SectionProbability, mapFeature.MetaData["Rekenwaarde faalkans per vak"]);
         }
     }
 }

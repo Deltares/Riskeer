@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -43,10 +43,10 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call 
-            TestDelegate call = () => new ForeshoreProfileReplaceDataStrategy(null, new ForeshoreProfileCollection());
+            void Call() => new ForeshoreProfileReplaceDataStrategy(null, new ForeshoreProfileCollection());
 
             // Assert 
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
@@ -54,10 +54,10 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
         public void Constructor_ForeshoreProfileCollectionNull_ThrowsArgumentNullException()
         {
             // Call 
-            TestDelegate call = () => new ForeshoreProfileReplaceDataStrategy(new TestFailureMechanism(), null);
+            void Call() => new ForeshoreProfileReplaceDataStrategy(new TestCalculatableFailureMechanism(), null);
 
             // Assert 
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("targetCollection", exception.ParamName);
         }
 
@@ -65,10 +65,10 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
         public void Constructor_SupportedFailureMechanism_CreatesNewInstance()
         {
             // Call 
-            var strategy = new ForeshoreProfileReplaceDataStrategy(new TestFailureMechanism(), new ForeshoreProfileCollection());
+            var strategy = new ForeshoreProfileReplaceDataStrategy(new TestCalculatableFailureMechanism(), new ForeshoreProfileCollection());
 
             // Assert
-            Assert.IsInstanceOf<ReplaceDataStrategyBase<ForeshoreProfile, IFailureMechanism>>(strategy);
+            Assert.IsInstanceOf<ReplaceDataStrategyBase<ForeshoreProfile, ICalculatableFailureMechanism>>(strategy);
             Assert.IsInstanceOf<IForeshoreProfileUpdateDataStrategy>(strategy);
         }
 
@@ -77,14 +77,13 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
         {
             // Setup
             var foreshoreProfileCollection = new ForeshoreProfileCollection();
-            var strategy = new ForeshoreProfileReplaceDataStrategy(new TestFailureMechanism(), foreshoreProfileCollection);
+            var strategy = new ForeshoreProfileReplaceDataStrategy(new TestCalculatableFailureMechanism(), foreshoreProfileCollection);
 
             // Call 
-            TestDelegate call = () => strategy.UpdateForeshoreProfilesWithImportedData(null,
-                                                                                       "path");
+            void Call() => strategy.UpdateForeshoreProfilesWithImportedData(null, "path");
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("importedDataCollection", exception.ParamName);
         }
 
@@ -93,14 +92,13 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
         {
             // Setup
             var foreshoreProfileCollection = new ForeshoreProfileCollection();
-            var strategy = new ForeshoreProfileReplaceDataStrategy(new TestFailureMechanism(), foreshoreProfileCollection);
+            var strategy = new ForeshoreProfileReplaceDataStrategy(new TestCalculatableFailureMechanism(), foreshoreProfileCollection);
 
             // Call 
-            TestDelegate call = () => strategy.UpdateForeshoreProfilesWithImportedData(Enumerable.Empty<ForeshoreProfile>(),
-                                                                                       null);
+            void Call() => strategy.UpdateForeshoreProfilesWithImportedData(Enumerable.Empty<ForeshoreProfile>(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("sourceFilePath", exception.ParamName);
         }
 
@@ -109,7 +107,7 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
         {
             // Setup
             var foreshoreProfiles = new ForeshoreProfileCollection();
-            var strategy = new ForeshoreProfileReplaceDataStrategy(new TestFailureMechanism(), foreshoreProfiles);
+            var strategy = new ForeshoreProfileReplaceDataStrategy(new TestCalculatableFailureMechanism(), foreshoreProfiles);
 
             const string duplicateId = "Just a duplicate ID";
             var importedForeshoreProfiles = new[]
@@ -119,11 +117,10 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
             };
 
             // Call 
-            TestDelegate call = () => strategy.UpdateForeshoreProfilesWithImportedData(importedForeshoreProfiles,
-                                                                                       sourceFilePath);
+            void Call() => strategy.UpdateForeshoreProfilesWithImportedData(importedForeshoreProfiles, sourceFilePath);
 
             // Assert
-            var exception = Assert.Throws<UpdateDataException>(call);
+            var exception = Assert.Throws<UpdateDataException>(Call);
             string expectedMessage = $"Voorlandprofielen moeten een unieke id hebben. Gevonden dubbele elementen: {duplicateId}.";
             Assert.AreEqual(expectedMessage, exception.Message);
         }
@@ -133,7 +130,7 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
         {
             // Setup
             var foreshoreProfiles = new ForeshoreProfileCollection();
-            var strategy = new ForeshoreProfileReplaceDataStrategy(new TestFailureMechanism(), foreshoreProfiles);
+            var strategy = new ForeshoreProfileReplaceDataStrategy(new TestCalculatableFailureMechanism(), foreshoreProfiles);
 
             const string newForeshoreProfilesPath = "new/path";
 
@@ -154,7 +151,7 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
         {
             // Setup
             var foreshoreProfiles = new ForeshoreProfileCollection();
-            var strategy = new ForeshoreProfileReplaceDataStrategy(new TestFailureMechanism(), foreshoreProfiles);
+            var strategy = new ForeshoreProfileReplaceDataStrategy(new TestCalculatableFailureMechanism(), foreshoreProfiles);
 
             var importedForeshoreProfiles = new[]
             {
@@ -183,7 +180,7 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
                 new TestForeshoreProfile("Profile 1", "ID 1")
             }, sourceFilePath);
 
-            var strategy = new ForeshoreProfileReplaceDataStrategy(new TestFailureMechanism(), foreshoreProfiles);
+            var strategy = new ForeshoreProfileReplaceDataStrategy(new TestCalculatableFailureMechanism(), foreshoreProfiles);
 
             var importedForeshoreProfiles = new[]
             {
@@ -214,7 +211,7 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
             TestCalculationWithForeshoreProfile calculationWithoutForeshoreProfile =
                 TestCalculationWithForeshoreProfile.CreateDefaultCalculation();
 
-            var failureMechanism = new TestFailureMechanism(new[]
+            var failureMechanism = new TestCalculatableFailureMechanism(new[]
             {
                 calculationWithForeshoreProfileAndOutput,
                 calculationWithForeshoreProfile,

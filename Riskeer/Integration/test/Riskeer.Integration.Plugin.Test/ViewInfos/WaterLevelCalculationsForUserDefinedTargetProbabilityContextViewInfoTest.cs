@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -113,7 +113,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                 string viewName = info.GetViewName(null, context);
 
                 // Assert
-                Assert.AreEqual($"Waterstanden bij doelkans - {expectedProbabilityText}", viewName);
+                Assert.AreEqual($"Waterstanden bij vrije doelkans - {expectedProbabilityText}", viewName);
             }
         }
 
@@ -218,7 +218,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             var assessmentSection = new AssessmentSectionStub();
             assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Add(calculationsForTargetProbability);
-            
+
             var context = new WaterLevelCalculationsForUserDefinedTargetProbabilityContext(calculationsForTargetProbability, assessmentSection);
 
             var mockRepository = new MockRepository();

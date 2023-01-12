@@ -124,9 +124,6 @@
     <value>Nieuw</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="exclamation" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\exclamation.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="SaveProject_DisplayName" xml:space="preserve">
     <value>Opslaan</value>
   </data>
@@ -523,9 +520,6 @@
   <data name="GuiExportHandler_ExportItemUsingDialog_Data_exported_to_File_0" xml:space="preserve">
     <value>Gegevens zijn geëxporteerd naar bestand '{0}'.</value>
   </data>
-  <data name="GuiExportHandler_ExportItemUsingDialog_Data_from_0_exported_to_file_1" xml:space="preserve">
-    <value>Gegevens van '{0}' zijn geëxporteerd naar bestand '{1}'.</value>
-  </data>
   <data name="warning" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\warning.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -886,6 +880,9 @@
   <data name="SystemInformation_DisplayName" xml:space="preserve">
     <value>Systeeminformatie</value>
   </data>
+  <data name="MadeBy_DisplayName" xml:space="preserve">
+    <value>Deze applicatie is gemaakt door</value>
+  </data>
   <data name="WindowsEdition_DisplayName" xml:space="preserve">
     <value>Windows editie</value>
   </data>
@@ -905,7 +902,7 @@
     <value>We kunnen helpen!</value>
   </data>
   <data name="SupportBackstagePage_WeCanHelp_Description" xml:space="preserve">
-    <value>Ervaart u problemen bij het gebruik van de software? Neem dan contact op.</value>
+    <value>Ervaart u problemen bij het gebruik van de software? Neem dan gerust contact op.</value>
   </data>
   <data name="Website_DisplayName" xml:space="preserve">
     <value>Website</value>

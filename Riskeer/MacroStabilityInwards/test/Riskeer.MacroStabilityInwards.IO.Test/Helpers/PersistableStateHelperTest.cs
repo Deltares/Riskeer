@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -242,7 +242,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Helpers
             {
                 MacroStabilityInwardsPreconsolidationStressTestFactory.CreateMacroStabilityInwardsPreconsolidationStress(new Point2D(2, 1))
             });
-            
+
             MacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfileUnderSurfaceLine = MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(stochasticSoilProfile.SoilProfile,
                                                                                                                                                           CreateSurfaceLine());
 
@@ -261,7 +261,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Helpers
             {
                 MacroStabilityInwardsPreconsolidationStressTestFactory.CreateMacroStabilityInwardsPreconsolidationStress(new Point2D(2, -50))
             });
-            
+
             MacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfileUnderSurfaceLine = MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(stochasticSoilProfile.SoilProfile,
                                                                                                                                                           CreateSurfaceLine());
 

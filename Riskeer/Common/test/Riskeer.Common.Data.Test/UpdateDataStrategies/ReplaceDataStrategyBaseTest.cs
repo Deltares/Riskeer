@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -37,10 +37,10 @@ namespace Riskeer.Common.Data.Test.UpdateDataStrategies
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ConcreteStrategyClass(null, new TestUniqueItemCollection());
+            void Call() => new ConcreteStrategyClass(null, new TestUniqueItemCollection());
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("failureMechanism", paramName);
         }
 
@@ -48,10 +48,10 @@ namespace Riskeer.Common.Data.Test.UpdateDataStrategies
         public void Constructor_TargetCollectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ConcreteStrategyClass(new TestFailureMechanism(), null);
+            void Call() => new ConcreteStrategyClass(new TestFailureMechanism(), null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("targetCollection", paramName);
         }
 
@@ -63,10 +63,10 @@ namespace Riskeer.Common.Data.Test.UpdateDataStrategies
             var strategy = new ConcreteStrategyClass(new TestFailureMechanism(), collection);
 
             // Call
-            TestDelegate call = () => strategy.ConcreteReplaceData(null, string.Empty);
+            void Call() => strategy.ConcreteReplaceData(null, string.Empty);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("importedDataCollection", paramName);
         }
 
@@ -78,10 +78,10 @@ namespace Riskeer.Common.Data.Test.UpdateDataStrategies
             var strategy = new ConcreteStrategyClass(new TestFailureMechanism(), collection);
 
             // Call
-            TestDelegate call = () => strategy.ConcreteReplaceData(Enumerable.Empty<TestItem>(), null);
+            void Call() => strategy.ConcreteReplaceData(Enumerable.Empty<TestItem>(), null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("sourceFilePath", paramName);
         }
 
@@ -139,12 +139,12 @@ namespace Riskeer.Common.Data.Test.UpdateDataStrategies
             };
 
             // Call
-            TestDelegate call = () => strategy.ConcreteReplaceData(itemsToAdd, "some/source");
+            void Call() => strategy.ConcreteReplaceData(itemsToAdd, "some/source");
 
             // Assert
             CollectionAssert.IsEmpty(collection);
 
-            var exception = Assert.Throws<UpdateDataException>(call);
+            var exception = Assert.Throws<UpdateDataException>(Call);
             Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
         }
 
@@ -165,12 +165,12 @@ namespace Riskeer.Common.Data.Test.UpdateDataStrategies
             };
 
             // Call
-            TestDelegate call = () => strategy.ConcreteReplaceData(itemsToAdd, invalidPath);
+            void Call() => strategy.ConcreteReplaceData(itemsToAdd, invalidPath);
 
             // Assert
             CollectionAssert.IsEmpty(collection);
 
-            var exception = Assert.Throws<UpdateDataException>(call);
+            var exception = Assert.Throws<UpdateDataException>(Call);
             Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
         }
 

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -20,15 +20,13 @@
 // All rights reserved.
 
 using System;
-using System.ComponentModel;
-using Assembly.Kernel.Model.Categories;
+using Assembly.Kernel.Model.FailureMechanismSections;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Creators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil;
-using KernelFailureMechanismSectionAssemblyResult = Assembly.Kernel.Model.FailureMechanismSections.FailureMechanismSectionAssemblyResult;
-using RiskeerFailureMechanismSectionAssemblyResult = Riskeer.AssemblyTool.Data.FailureMechanismSectionAssemblyResult;
+using FailureMechanismSectionAssemblyResult = Riskeer.AssemblyTool.Data.FailureMechanismSectionAssemblyResult;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
 {
@@ -36,65 +34,31 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
     public class FailureMechanismAssemblyCalculatorInputCreatorTest
     {
         [Test]
-        public void CreateFailureMechanismSectionAssemblyResult_ResultNull_ThrowsArgumentNullException()
+        public void CreateResultWithProfileAndSectionProbabilities_ResultNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => FailureMechanismAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyResult(null);
+            void Call() => FailureMechanismAssemblyCalculatorInputCreator.CreateResultWithProfileAndSectionProbabilities(null);
 
             // Assert
-            Assert.That(Call, Throws.TypeOf<ArgumentNullException>()
-                                    .With.Property(nameof(ArgumentNullException.ParamName))
-                                    .EqualTo("result"));
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("result", exception.ParamName);
         }
 
         [Test]
-        public void CreateFailureMechanismSectionAssemblyResult_InvalidAssemblyGroup_ThrowsInvalidEnumArgumentException()
+        public void CreateResultWithProfileAndSectionProbabilities_WithValidResult_ReturnsExpectedFailureMechanismSectionAssemblyResult()
         {
             // Setup
             var random = new Random(21);
-            double probability = random.NextDouble();
-            const FailureMechanismSectionAssemblyGroup failureMechanismSectionAssemblyGroup = (FailureMechanismSectionAssemblyGroup) 99;
-
-            var result = new RiskeerFailureMechanismSectionAssemblyResult(
-                probability, probability, random.NextDouble(), failureMechanismSectionAssemblyGroup);
+            var result = new FailureMechanismSectionAssemblyResult(
+                random.NextDouble(0.001, 0.01), random.NextDouble(0.01, 0.1), random.NextDouble(),
+                random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
 
             // Call
-            void Call() => FailureMechanismAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyResult(result);
+            ResultWithProfileAndSectionProbabilities createdResult = FailureMechanismAssemblyCalculatorInputCreator.CreateResultWithProfileAndSectionProbabilities(result);
 
             // Assert
-            var expectedMessage = $"The value of argument 'assemblyGroup' ({failureMechanismSectionAssemblyGroup}) is invalid for Enum type '{nameof(FailureMechanismSectionAssemblyGroup)}'.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
-        }
-
-        [Test]
-        [TestCase(FailureMechanismSectionAssemblyGroup.NotDominant, EInterpretationCategory.NotDominant)]
-        [TestCase(FailureMechanismSectionAssemblyGroup.III, EInterpretationCategory.III)]
-        [TestCase(FailureMechanismSectionAssemblyGroup.II, EInterpretationCategory.II)]
-        [TestCase(FailureMechanismSectionAssemblyGroup.I, EInterpretationCategory.I)]
-        [TestCase(FailureMechanismSectionAssemblyGroup.Zero, EInterpretationCategory.Zero)]
-        [TestCase(FailureMechanismSectionAssemblyGroup.IMin, EInterpretationCategory.IMin)]
-        [TestCase(FailureMechanismSectionAssemblyGroup.IIMin, EInterpretationCategory.IIMin)]
-        [TestCase(FailureMechanismSectionAssemblyGroup.IIIMin, EInterpretationCategory.IIIMin)]
-        [TestCase(FailureMechanismSectionAssemblyGroup.Dominant, EInterpretationCategory.Dominant)]
-        [TestCase(FailureMechanismSectionAssemblyGroup.Gr, EInterpretationCategory.Gr)]
-        public void CreateFailureMechanismSectionAssemblyResult_WithValidResult_ReturnsExpectedFailureMechanismSectionAssemblyResult(
-            FailureMechanismSectionAssemblyGroup assemblyGroup, EInterpretationCategory expectedCategory)
-        {
-            // Setup
-            var random = new Random(21);
-            double profileProbability = random.NextDouble();
-            double sectionProbability = profileProbability + 0.001;
-
-            var result = new RiskeerFailureMechanismSectionAssemblyResult(profileProbability, sectionProbability,
-                                                                          random.NextDouble(),
-                                                                          assemblyGroup);
-            // Call
-            KernelFailureMechanismSectionAssemblyResult createdResult = FailureMechanismAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyResult(result);
-
-            // Assert
-            ProbabilityAssert.AreEqual(profileProbability, createdResult.ProbabilityProfile);
-            ProbabilityAssert.AreEqual(sectionProbability, createdResult.ProbabilitySection);
-            Assert.AreEqual(expectedCategory, createdResult.InterpretationCategory);
+            ProbabilityAssert.AreEqual(result.ProfileProbability, createdResult.ProbabilityProfile);
+            ProbabilityAssert.AreEqual(result.SectionProbability, createdResult.ProbabilitySection);
         }
     }
 }

@@ -116,7 +116,7 @@ namespace AutomatedSystemTests.Modules.Selection
 
             Init();
 
-            SetCheckBoxesNthRow(repo.RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.SelfInfo);
+            SetCheckBoxesNthRow(repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.DesignWaterLevelWaveHeightCalculationsView.LeftSide.Table.SelfInfo);
             
         }
 

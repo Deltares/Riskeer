@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -26,7 +26,7 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
-using Core.Common.Util;
+using Core.Common.Util.Enums;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
@@ -34,7 +34,6 @@ using Core.Components.Gis.Geometries;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.Forms;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
@@ -45,6 +44,7 @@ using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Assembly;
+using Riskeer.Integration.Data.TestUtil;
 using Riskeer.Integration.Forms.Views;
 using Riskeer.Integration.Util;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
@@ -108,7 +108,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 CollectionAssert.IsEmpty(hydraulicBoundaryLocationsMapData.Features);
                 CollectionAssert.IsEmpty(referenceLineMapData.Features);
 
-                Assert.AreEqual("Gecombineerd vakoordeel", assemblyResultsLineMapData.Name);
+                Assert.AreEqual("Slechtste duidingsklasse per deelvak", assemblyResultsLineMapData.Name);
                 Assert.AreEqual("Hydraulische belastingen", hydraulicBoundaryLocationsMapData.Name);
                 Assert.AreEqual("Referentielijn", referenceLineMapData.Name);
             }
@@ -132,8 +132,6 @@ namespace Riskeer.Integration.Forms.Test.Views
         public void Constructor_WithAllData_DataUpdatedToCollectionOfFilledMapData()
         {
             // Setup
-            var random = new Random(21);
-
             AssessmentSection assessmentSection = CreateAssessmentSectionWithReferenceLine();
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
@@ -147,10 +145,10 @@ namespace Riskeer.Integration.Forms.Test.Views
                 AssessmentSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
                 CombinedFailureMechanismSectionAssembly[] failureMechanismSectionAssembly =
                 {
-                    CreateCombinedFailureMechanismSectionAssembly(assessmentSection,
-                                                                  random.NextEnumValue<FailureMechanismSectionAssemblyGroup>())
+                    CombinedFailureMechanismSectionAssemblyTestFactory.Create(assessmentSection, 21)
                 };
-                calculator.CombinedFailureMechanismSectionAssemblyOutput = failureMechanismSectionAssembly;
+                calculator.CombinedFailureMechanismSectionAssemblyOutput = new CombinedFailureMechanismSectionAssemblyResultWrapper(
+                    failureMechanismSectionAssembly, AssemblyMethod.BOI3A1, AssemblyMethod.BOI3B1, AssemblyMethod.BOI3C1);
 
                 using (var view = new AssemblyResultPerSectionMapView(assessmentSection))
                 {
@@ -256,10 +254,11 @@ namespace Riskeer.Integration.Forms.Test.Views
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 AssessmentSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
-                calculator.CombinedFailureMechanismSectionAssemblyOutput = new[]
-                {
-                    CreateCombinedFailureMechanismSectionAssembly(assessmentSection, FailureMechanismSectionAssemblyGroup.Gr)
-                };
+                calculator.CombinedFailureMechanismSectionAssemblyOutput = new CombinedFailureMechanismSectionAssemblyResultWrapper(
+                    new[]
+                    {
+                        CombinedFailureMechanismSectionAssemblyTestFactory.Create(assessmentSection, 10)
+                    }, AssemblyMethod.BOI3A1, AssemblyMethod.BOI3B1, AssemblyMethod.BOI3C1);
 
                 using (var view = new AssemblyResultPerSectionMapView(assessmentSection))
                 {
@@ -280,10 +279,11 @@ namespace Riskeer.Integration.Forms.Test.Views
                                                                                mapData.Collection.ElementAt(assemblyResultsIndex));
 
                     // When 
-                    calculator.CombinedFailureMechanismSectionAssemblyOutput = new[]
-                    {
-                        CreateCombinedFailureMechanismSectionAssembly(assessmentSection, FailureMechanismSectionAssemblyGroup.I)
-                    };
+                    calculator.CombinedFailureMechanismSectionAssemblyOutput = new CombinedFailureMechanismSectionAssemblyResultWrapper(
+                        new[]
+                        {
+                            CombinedFailureMechanismSectionAssemblyTestFactory.Create(assessmentSection, 20)
+                        }, AssemblyMethod.BOI3A1, AssemblyMethod.BOI3B1, AssemblyMethod.BOI3C1);
                     IEnumerable<IFailureMechanism> failureMechanisms = assessmentSection.GetFailureMechanisms();
                     failureMechanisms.ElementAt(random.Next(failureMechanisms.Count())).NotifyObservers();
 
@@ -307,10 +307,11 @@ namespace Riskeer.Integration.Forms.Test.Views
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 AssessmentSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
-                calculator.CombinedFailureMechanismSectionAssemblyOutput = new[]
-                {
-                    CreateCombinedFailureMechanismSectionAssembly(assessmentSection, FailureMechanismSectionAssemblyGroup.III)
-                };
+                calculator.CombinedFailureMechanismSectionAssemblyOutput = new CombinedFailureMechanismSectionAssemblyResultWrapper(
+                    new[]
+                    {
+                        CombinedFailureMechanismSectionAssemblyTestFactory.Create(assessmentSection, 10)
+                    }, AssemblyMethod.BOI3A1, AssemblyMethod.BOI3B1, AssemblyMethod.BOI3C1);
 
                 using (var view = new AssemblyResultPerSectionMapView(assessmentSection))
                 {
@@ -331,10 +332,11 @@ namespace Riskeer.Integration.Forms.Test.Views
                                                                                mapData.Collection.ElementAt(assemblyResultsIndex));
 
                     // When 
-                    calculator.CombinedFailureMechanismSectionAssemblyOutput = new[]
-                    {
-                        CreateCombinedFailureMechanismSectionAssembly(assessmentSection, FailureMechanismSectionAssemblyGroup.I)
-                    };
+                    calculator.CombinedFailureMechanismSectionAssemblyOutput = new CombinedFailureMechanismSectionAssemblyResultWrapper(
+                        new[]
+                        {
+                            CombinedFailureMechanismSectionAssemblyTestFactory.Create(assessmentSection, 20)
+                        }, AssemblyMethod.BOI3A1, AssemblyMethod.BOI3B1, AssemblyMethod.BOI3C1);
                     assessmentSection.NotifyObservers();
 
                     // Then
@@ -365,17 +367,6 @@ namespace Riskeer.Integration.Forms.Test.Views
             return assessmentSection;
         }
 
-        private static CombinedFailureMechanismSectionAssembly CreateCombinedFailureMechanismSectionAssembly(
-            IAssessmentSection assessmentSection, FailureMechanismSectionAssemblyGroup totalResult)
-        {
-            var random = new Random(37);
-            return new CombinedFailureMechanismSectionAssembly(
-                new CombinedAssemblyFailureMechanismSection(random.NextDouble(), random.NextDouble(), totalResult),
-                assessmentSection.GetFailureMechanisms()
-                                 .Where(fm => fm.InAssembly)
-                                 .Select(fm => random.NextEnumValue<FailureMechanismSectionAssemblyGroup>()).ToArray());
-        }
-
         private static void AssertReferenceLineMapData(ReferenceLine referenceLine, MapData referenceLineMapData)
         {
             MapDataTestHelper.AssertReferenceLineMapData(referenceLine, referenceLineMapData);
@@ -403,10 +394,8 @@ namespace Riskeer.Integration.Forms.Test.Views
                                             expectedAssemblyResult,
                                             mapGeometry);
 
-                Assert.AreEqual(2, actualFeature.MetaData.Keys.Count);
-                Assert.AreEqual(expectedAssemblyResult.SectionNumber, actualFeature.MetaData["Vaknummer"]);
-                Assert.AreEqual(new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyGroup>(
-                                    DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(expectedAssemblyResult.TotalResult)).DisplayName,
+                Assert.AreEqual(1, actualFeature.MetaData.Keys.Count);
+                Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(expectedAssemblyResult.TotalResult),
                                 mapFeatures.ElementAt(i).MetaData["Duidingsklasse"]);
             }
         }

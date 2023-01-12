@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -32,21 +32,21 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects
     /// Presentation object for all data required to configure an instance of <see cref="CalculationGroup"/>
     /// in order be able to create configurable wave impact asphalt calculations.
     /// </summary>
-    public class WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext
+    public class WaveImpactAsphaltCoverCalculationGroupContext
         : WaveImpactAsphaltCoverContext<CalculationGroup>, ICalculationContext<CalculationGroup, WaveImpactAsphaltCoverFailureMechanism>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext"/>.
+        /// Creates a new instance of <see cref="WaveImpactAsphaltCoverCalculationGroupContext"/>.
         /// </summary>
         /// <param name="calculationsGroup">The <see cref="CalculationGroup"/> instance wrapped by this context object.</param>
         /// <param name="parent">The <see cref="CalculationGroup"/> that owns the wrapped calculation group.</param>
         /// <param name="failureMechanism">The failure mechanism which the context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the context belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>, except for <paramref name="parent"/>.</exception>
-        public WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(CalculationGroup calculationsGroup,
-                                                                           CalculationGroup parent,
-                                                                           WaveImpactAsphaltCoverFailureMechanism failureMechanism,
-                                                                           IAssessmentSection assessmentSection)
+        public WaveImpactAsphaltCoverCalculationGroupContext(CalculationGroup calculationsGroup,
+                                                             CalculationGroup parent,
+                                                             WaveImpactAsphaltCoverFailureMechanism failureMechanism,
+                                                             IAssessmentSection assessmentSection)
             : base(calculationsGroup, failureMechanism, assessmentSection)
         {
             Parent = parent;
@@ -57,13 +57,13 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects
         public override bool Equals(WrappedObjectContextBase<CalculationGroup> other)
         {
             return base.Equals(other)
-                   && other is WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext
-                   && ReferenceEquals(Parent, ((WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext) other).Parent);
+                   && other is WaveImpactAsphaltCoverCalculationGroupContext
+                   && ReferenceEquals(Parent, ((WaveImpactAsphaltCoverCalculationGroupContext) other).Parent);
         }
 
         public override bool Equals(object obj)
         {
-            return Equals(obj as WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext);
+            return Equals(obj as WaveImpactAsphaltCoverCalculationGroupContext);
         }
 
         public override int GetHashCode()

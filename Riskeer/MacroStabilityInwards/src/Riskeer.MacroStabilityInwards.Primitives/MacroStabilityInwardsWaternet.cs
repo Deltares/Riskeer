@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -29,7 +29,7 @@ namespace Riskeer.MacroStabilityInwards.Primitives
     /// The Waternet created by the Waternet calculator in the derived
     /// macro stability inwards calculation input.
     /// </summary>
-    public class MacroStabilityInwardsWaternet
+    public sealed class MacroStabilityInwardsWaternet
     {
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsWaternet"/>.

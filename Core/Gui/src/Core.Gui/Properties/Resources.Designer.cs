@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -947,16 +947,6 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap exclamation {
-            get {
-                object obj = ResourceManager.GetObject("exclamation", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Afsluiten.
         /// </summary>
         public static string ExitApplication_DisplayName {
@@ -1234,15 +1224,6 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gegevens van &apos;{0}&apos; zijn geëxporteerd naar bestand &apos;{1}&apos;..
-        /// </summary>
-        public static string GuiExportHandler_ExportItemUsingDialog_Data_from_0_exported_to_file_1 {
-            get {
-                return ResourceManager.GetString("GuiExportHandler_ExportItemUsingDialog_Data_from_0_exported_to_file_1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Exporteren van &apos;{0}&apos; is mislukt..
         /// </summary>
         public static string GuiExportHandler_ExportItemUsingDialog_Export_of_DataType_0_failed {
@@ -1516,6 +1497,15 @@ namespace Core.Gui.Properties {
             get {
                 object obj = ResourceManager.GetObject("LineIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deze applicatie is gemaakt door.
+        /// </summary>
+        public static string MadeBy_DisplayName {
+            get {
+                return ResourceManager.GetString("MadeBy_DisplayName", resourceCulture);
             }
         }
         
@@ -2385,7 +2375,7 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ervaart u problemen bij het gebruik van de software? Neem dan contact op..
+        ///   Looks up a localized string similar to Ervaart u problemen bij het gebruik van de software? Neem dan gerust contact op..
         /// </summary>
         public static string SupportBackstagePage_WeCanHelp_Description {
             get {

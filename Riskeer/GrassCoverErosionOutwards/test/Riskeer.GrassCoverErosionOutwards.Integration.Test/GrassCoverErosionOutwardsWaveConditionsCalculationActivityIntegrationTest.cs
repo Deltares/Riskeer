@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -228,7 +228,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
                 Assert.AreEqual(nrOfCalculators, waveConditionsInputs.Length);
 
                 WaveConditionsInput input = calculation.InputParameters;
-                double targetProbability = assessmentSection.FailureMechanismContribution.LowerLimitNorm;
+                double targetProbability = assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability;
 
                 var waterLevelIndex = 0;
                 GeneralGrassCoverErosionOutwardsInput generalInput = failureMechanism.GeneralInput;
@@ -678,7 +678,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
 
         private static void ConfigureAssessmentSectionWithHydraulicBoundaryOutput(IAssessmentSection assessmentSection)
         {
-            assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(9.3);
+            assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(9.3);
         }
 
         private static GrassCoverErosionOutwardsWaveConditionsCalculation CreateValidCalculation(HydraulicBoundaryLocation location)
@@ -688,7 +688,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = location,
-                    WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit,
+                    WaterLevelType = WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability,
                     ForeshoreProfile = new TestForeshoreProfile(true),
                     UseForeshore = true,
                     UseBreakWater = true,

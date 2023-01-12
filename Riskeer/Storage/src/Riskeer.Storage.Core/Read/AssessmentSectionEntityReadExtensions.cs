@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -53,8 +53,8 @@ namespace Riskeer.Storage.Core.Read
             }
 
             var assessmentSection = new AssessmentSection((AssessmentSectionComposition) entity.Composition,
-                                                          entity.LowerLimitNorm,
-                                                          entity.SignalingNorm)
+                                                          entity.MaximumAllowableFloodingProbability,
+                                                          entity.SignalFloodingProbability)
             {
                 Id = entity.Id,
                 Name = entity.Name,
@@ -64,7 +64,7 @@ namespace Riskeer.Storage.Core.Read
                 },
                 FailureMechanismContribution =
                 {
-                    NormativeNorm = (NormType) entity.NormativeNormType
+                    NormativeProbabilityType = (NormativeProbabilityType) entity.NormativeProbabilityType
                 }
             };
 
@@ -90,7 +90,7 @@ namespace Riskeer.Storage.Core.Read
             entity.ReadStabilityStoneCoverFailureMechanism(assessmentSection, collector);
             entity.ReadStabilityPointStructuresFailureMechanism(assessmentSection, collector);
 
-            entity.ReadSpecificFailurePaths(assessmentSection, collector);
+            entity.ReadSpecificFailureMechanisms(assessmentSection, collector);
 
             return assessmentSection;
         }
@@ -158,8 +158,8 @@ namespace Riskeer.Storage.Core.Read
                                                                       IAssessmentSection assessmentSection,
                                                                       ReadConversionCollector collector)
         {
-            entity.HydraulicLocationCalculationCollectionEntity1.Read(assessmentSection.WaterLevelCalculationsForSignalingNorm, collector);
-            entity.HydraulicLocationCalculationCollectionEntity.Read(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, collector);
+            entity.HydraulicLocationCalculationCollectionEntity1.Read(assessmentSection.WaterLevelCalculationsForSignalFloodingProbability, collector);
+            entity.HydraulicLocationCalculationCollectionEntity.Read(assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability, collector);
         }
 
         private static void ReadPipingFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
@@ -257,15 +257,15 @@ namespace Riskeer.Storage.Core.Read
             return entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int) type);
         }
 
-        private static void ReadSpecificFailurePaths(this AssessmentSectionEntity entity,
-                                                     IAssessmentSection assessmentSection,
-                                                     ReadConversionCollector collector)
+        private static void ReadSpecificFailureMechanisms(this AssessmentSectionEntity entity,
+                                                          IAssessmentSection assessmentSection,
+                                                          ReadConversionCollector collector)
         {
-            IEnumerable<SpecificFailurePathEntity> specificFailurePathEntities =
-                entity.SpecificFailurePathEntities
+            IEnumerable<SpecificFailureMechanismEntity> specificFailureMechanismEntities =
+                entity.SpecificFailureMechanismEntities
                       .OrderBy(e => e.Order);
 
-            assessmentSection.SpecificFailurePaths.AddRange(specificFailurePathEntities.Select(e => e.ReadSpecificFailurePath(collector)).ToArray());
+            assessmentSection.SpecificFailureMechanisms.AddRange(specificFailureMechanismEntities.Select(e => e.Read(collector)).ToArray());
         }
     }
 }

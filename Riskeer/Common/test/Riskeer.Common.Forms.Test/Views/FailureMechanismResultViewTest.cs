@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -28,17 +28,15 @@ using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Core.Common.TestUtil;
-using Core.Common.Util;
+using Core.Common.Util.Enums;
 using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.KernelWrapper.Calculators;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Views;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
@@ -75,23 +73,63 @@ namespace Riskeer.Common.Forms.Test.Views
         [Test]
         public void Constructor_FailureMechanismSectionResultsNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             // Call
-            void Call() => new TestFailureMechanismResultView(null, new TestFailureMechanism());
+            void Call() => new TestFailureMechanismResultView(null, new TestFailureMechanism(), assessmentSection, (mechanism, section) => null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanismSectionResults", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             // Call
-            void Call() => new TestFailureMechanismResultView(new ObservableList<FailureMechanismSectionResult>(), null);
+            void Call() => new TestFailureMechanismResultView(new ObservableList<FailureMechanismSectionResult>(), null, assessmentSection, (mechanism, section) => null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new TestFailureMechanismResultView(new ObservableList<FailureMechanismSectionResult>(), new TestFailureMechanism(), null, (mechanism, section) => null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_PerformFailureMechanismAssemblyFuncNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            void Call() => new TestFailureMechanismResultView(new ObservableList<FailureMechanismSectionResult>(), new TestFailureMechanism(), assessmentSection, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("performFailureMechanismAssemblyFunc", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -101,8 +139,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var failureMechanism = new TestFailureMechanism();
 
             // Call
-            using (new AssemblyToolCalculatorFactoryConfig())
-            using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(failureMechanism, failureMechanism.SectionResults))
+            using (TestFailureMechanismResultView view = ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Assert
                 Assert.AreEqual(2, view.Controls.Count);
@@ -115,7 +152,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.IsTrue(assemblyResultLabel.AutoSize);
                 Assert.AreEqual(DockStyle.Fill, assemblyResultLabel.Dock);
                 Assert.AreEqual(ContentAlignment.MiddleLeft, assemblyResultLabel.TextAlign);
-                Assert.AreEqual("Gecombineerde faalkans [1/jaar]", assemblyResultLabel.Text);
+                Assert.AreEqual("Faalkans van dit faalmechanisme voor het traject [1/jaar]", assemblyResultLabel.Text);
 
                 var comboBox = (ComboBox) tableLayoutPanel.GetControlFromPosition(1, 0);
                 Assert.AreEqual(DockStyle.Fill, comboBox.Dock);
@@ -144,8 +181,7 @@ namespace Riskeer.Common.Forms.Test.Views
             const int stringColumnIndex = 1;
 
             // Call
-            using (new AssemblyToolCalculatorFactoryConfig())
-            using (ShowFailureMechanismResultsView(new ObservableList<FailureMechanismSectionResult>()))
+            using (ShowFailureMechanismResultView(new ObservableList<FailureMechanismSectionResult>()))
             {
                 // Assert
                 DataGridView dataGridView = GetDataGridView();
@@ -168,21 +204,20 @@ namespace Riskeer.Common.Forms.Test.Views
             var failureMechanism = new TestFailureMechanism();
 
             // Call
-            using (new AssemblyToolCalculatorFactoryConfig())
-            using (ShowFailureMechanismResultsView(failureMechanism, failureMechanism.SectionResults))
+            using (ShowFailureMechanismResultView(failureMechanism.SectionResults))
             {
                 // Assert
                 ComboBox comboBox = GetProbabilityResultTypeComboBox();
-                Assert.AreEqual(nameof(EnumDisplayWrapper<FailurePathAssemblyProbabilityResultType>.DisplayName), comboBox.DisplayMember);
-                Assert.AreEqual(nameof(EnumDisplayWrapper<FailurePathAssemblyProbabilityResultType>.Value), comboBox.ValueMember);
-                Assert.IsInstanceOf<EnumDisplayWrapper<FailurePathAssemblyProbabilityResultType>>(comboBox.SelectedItem);
+                Assert.AreEqual(nameof(EnumDisplayWrapper<FailureMechanismAssemblyProbabilityResultType>.DisplayName), comboBox.DisplayMember);
+                Assert.AreEqual(nameof(EnumDisplayWrapper<FailureMechanismAssemblyProbabilityResultType>.Value), comboBox.ValueMember);
+                Assert.IsInstanceOf<EnumDisplayWrapper<FailureMechanismAssemblyProbabilityResultType>>(comboBox.SelectedItem);
 
-                var configurationTypes = (EnumDisplayWrapper<FailurePathAssemblyProbabilityResultType>[]) comboBox.DataSource;
+                var configurationTypes = (EnumDisplayWrapper<FailureMechanismAssemblyProbabilityResultType>[]) comboBox.DataSource;
                 Assert.AreEqual(2, configurationTypes.Length);
-                Assert.AreEqual(FailurePathAssemblyProbabilityResultType.Automatic, configurationTypes[0].Value);
-                Assert.AreEqual(FailurePathAssemblyProbabilityResultType.Manual, configurationTypes[1].Value);
+                Assert.AreEqual(FailureMechanismAssemblyProbabilityResultType.Automatic, configurationTypes[0].Value);
+                Assert.AreEqual(FailureMechanismAssemblyProbabilityResultType.Manual, configurationTypes[1].Value);
                 Assert.AreEqual(failureMechanism.AssemblyResult.ProbabilityResultType,
-                                ((EnumDisplayWrapper<FailurePathAssemblyProbabilityResultType>) comboBox.SelectedItem).Value);
+                                ((EnumDisplayWrapper<FailureMechanismAssemblyProbabilityResultType>) comboBox.SelectedItem).Value);
             }
         }
 
@@ -196,28 +231,28 @@ namespace Riskeer.Common.Forms.Test.Views
                 sectionResult
             };
 
-            using (new AssemblyToolCalculatorFactoryConfig())
-            using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(sectionResults))
+            int nrOfCalls = 0;
+            Func<TestFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc = (fm, ass) =>
             {
-                var testFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub calculator = testFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                IEnumerable<FailureMechanismSectionAssemblyResult> initialCalculatorInput = calculator.SectionAssemblyResultsInput
-                                                                                                      .ToArray();
+                nrOfCalls++;
+                return new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.BOI1A1);
+            };
 
+            using (TestFailureMechanismResultView view = ShowFailureMechanismResultView(sectionResults, performFailureMechanismAssemblyFunc))
+            {
                 var rowsChanged = false;
                 DataGridView dataGridView = GetDataGridView();
                 dataGridView.Rows.CollectionChanged += (sender, args) => rowsChanged = true;
 
                 // Precondition
+                Assert.AreEqual(1, nrOfCalls);
                 Assert.IsFalse(rowsChanged);
 
                 // When
                 view.FailureMechanism.NotifyObservers();
 
                 // Then
-                IEnumerable<FailureMechanismSectionAssemblyResult> updatedCalculatorInput = calculator.SectionAssemblyResultsInput
-                                                                                                      .ToArray();
-                CollectionAssert.AreNotEqual(initialCalculatorInput, updatedCalculatorInput);
+                Assert.AreEqual(2, nrOfCalls);
                 Assert.IsTrue(rowsChanged);
             }
         }
@@ -228,17 +263,19 @@ namespace Riskeer.Common.Forms.Test.Views
             // Given
             var sectionResults = new ObservableList<FailureMechanismSectionResult>();
 
-            using (new AssemblyToolCalculatorFactoryConfig())
-            using (ShowFailureMechanismResultsView(sectionResults))
+            int nrOfCalls = 0;
+            Func<TestFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc = (fm, ass) =>
             {
-                var testFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub calculator = testFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                IEnumerable<FailureMechanismSectionAssemblyResult> initialCalculatorInput = calculator.SectionAssemblyResultsInput
-                                                                                                      .ToArray();
+                nrOfCalls++;
+                return new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.BOI1A1);
+            };
 
+            using (ShowFailureMechanismResultView(sectionResults, performFailureMechanismAssemblyFunc))
+            {
                 DataGridView dataGridView = GetDataGridView();
 
                 // Precondition
+                Assert.AreEqual(1, nrOfCalls);
                 Assert.AreEqual(0, dataGridView.RowCount);
 
                 // When
@@ -246,10 +283,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 sectionResults.NotifyObservers();
 
                 // Then
-                IEnumerable<FailureMechanismSectionAssemblyResult> updatedCalculatorInput = calculator.SectionAssemblyResultsInput
-                                                                                                      .ToArray();
-                CollectionAssert.AreNotEqual(initialCalculatorInput, updatedCalculatorInput);
-
+                Assert.AreEqual(2, nrOfCalls);
                 Assert.AreEqual(1, dataGridView.RowCount);
             }
         }
@@ -258,38 +292,34 @@ namespace Riskeer.Common.Forms.Test.Views
         public void GivenFailureMechanismResultView_WhenSingleFailureMechanismSectionResultObserversNotified_ThenDataGridViewInvalidatedAndAssemblyCalculationPerformed()
         {
             // Given
-            var random = new Random(21);
-
             FailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
-
             var sectionResults = new ObservableList<FailureMechanismSectionResult>
             {
                 sectionResult
             };
 
-            using (new AssemblyToolCalculatorFactoryConfig())
-            using (ShowFailureMechanismResultsView(sectionResults))
+            int nrOfCalls = 0;
+            Func<TestFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc = (fm, ass) =>
             {
-                var testFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub calculator = testFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                IEnumerable<FailureMechanismSectionAssemblyResult> initialCalculatorInput = calculator.SectionAssemblyResultsInput
-                                                                                                      .ToArray();
+                nrOfCalls++;
+                return new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.BOI1A1);
+            };
 
+            using (ShowFailureMechanismResultView(sectionResults, performFailureMechanismAssemblyFunc))
+            {
                 var invalidated = false;
                 DataGridView dataGridView = GetDataGridView();
                 dataGridView.Invalidated += (sender, args) => invalidated = true;
 
                 // Precondition
+                Assert.AreEqual(1, nrOfCalls);
                 Assert.IsFalse(invalidated);
 
                 // When
                 sectionResult.NotifyObservers();
 
                 // Then
-                IEnumerable<FailureMechanismSectionAssemblyResult> updatedCalculatorInput = calculator.SectionAssemblyResultsInput
-                                                                                                      .ToArray();
-                CollectionAssert.AreNotEqual(initialCalculatorInput, updatedCalculatorInput);
-
+                Assert.AreEqual(2, nrOfCalls);
                 Assert.IsTrue(invalidated);
             }
         }
@@ -307,8 +337,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 sectionResult
             };
 
-            using (new AssemblyToolCalculatorFactoryConfig())
-            using (ShowFailureMechanismResultsView(sectionResults))
+            using (ShowFailureMechanismResultView(sectionResults))
             {
                 DataGridView dataGridView = GetDataGridView();
                 var row = (TestRow) dataGridView.Rows[0].DataBoundItem;
@@ -334,14 +363,12 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Given
             FailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
-
             var sectionResults = new ObservableList<FailureMechanismSectionResult>
             {
                 sectionResult
             };
 
-            using (new AssemblyToolCalculatorFactoryConfig())
-            using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(sectionResults))
+            using (TestFailureMechanismResultView view = ShowFailureMechanismResultView(sectionResults))
             {
                 DataGridView dataGridView = GetDataGridView();
                 var row = (TestRow) dataGridView.Rows[0].DataBoundItem;
@@ -368,15 +395,13 @@ namespace Riskeer.Common.Forms.Test.Views
             // Given
             FailureMechanismSectionResult sectionResult1 = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
             FailureMechanismSectionResult sectionResult2 = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
-
             var sectionResults = new ObservableList<FailureMechanismSectionResult>
             {
                 sectionResult1,
                 sectionResult2
             };
 
-            using (new AssemblyToolCalculatorFactoryConfig())
-            using (ShowFailureMechanismResultsView(sectionResults))
+            using (ShowFailureMechanismResultView(sectionResults))
             {
                 DataGridView dataGridView = GetDataGridView();
                 var row1 = (TestRow) dataGridView.Rows[0].DataBoundItem;
@@ -408,8 +433,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult()
             };
 
-            using (new AssemblyToolCalculatorFactoryConfig())
-            using (ShowFailureMechanismResultsView(sectionResults))
+            using (ShowFailureMechanismResultView(sectionResults))
             {
                 DataGridView dataGridView = GetDataGridView();
                 var row = (TestRow) dataGridView.Rows[0].DataBoundItem;
@@ -437,8 +461,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 sectionResult
             };
 
-            using (new AssemblyToolCalculatorFactoryConfig())
-            using (ShowFailureMechanismResultsView(sectionResults))
+            using (ShowFailureMechanismResultView(sectionResults))
             {
                 DataGridView dataGridView = GetDataGridView();
                 var row = (TestRow) dataGridView.Rows[0].DataBoundItem;
@@ -462,14 +485,12 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Given
             FailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
-
             var sectionResults = new ObservableList<FailureMechanismSectionResult>
             {
                 sectionResult
             };
 
-            using (new AssemblyToolCalculatorFactoryConfig())
-            using (ShowFailureMechanismResultsView(sectionResults))
+            using (ShowFailureMechanismResultView(sectionResults))
             {
                 DataGridView dataGridView = GetDataGridView();
                 var row = (TestRow) dataGridView.Rows[0].DataBoundItem;
@@ -499,9 +520,9 @@ namespace Riskeer.Common.Forms.Test.Views
             return (ComboBox) new ComboBoxTester("probabilityResultTypeComboBox").TheObject;
         }
 
-        private static TextBox GetFailurePathAssemblyProbabilityTextBox()
+        private static TextBox GetFailureMechanismAssemblyProbabilityTextBox()
         {
-            return (TextBox) new ControlTester("failurePathAssemblyProbabilityTextBox").TheObject;
+            return (TextBox) new ControlTester("failureMechanismAssemblyProbabilityTextBox").TheObject;
         }
 
         private static ErrorProvider GetErrorProvider(TestFailureMechanismResultView view)
@@ -509,15 +530,30 @@ namespace Riskeer.Common.Forms.Test.Views
             return TypeUtils.GetField<ErrorProvider>(view, "errorProvider");
         }
 
-        private TestFailureMechanismResultView ShowFailureMechanismResultsView(IObservableEnumerable<FailureMechanismSectionResult> sectionResults)
+        private TestFailureMechanismResultView ShowFailureMechanismResultView(IObservableEnumerable<FailureMechanismSectionResult> sectionResults)
         {
-            return ShowFailureMechanismResultsView(new TestFailureMechanism(), sectionResults);
+            return ShowFailureMechanismResultView(sectionResults, new TestFailureMechanism());
         }
 
-        private TestFailureMechanismResultView ShowFailureMechanismResultsView(TestFailureMechanism failureMechanism,
-                                                                               IObservableEnumerable<FailureMechanismSectionResult> sectionResults)
+        private TestFailureMechanismResultView ShowFailureMechanismResultView(IObservableEnumerable<FailureMechanismSectionResult> sectionResults,
+                                                                              Func<TestFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc)
         {
-            var failureMechanismResultView = new TestFailureMechanismResultView(sectionResults, failureMechanism);
+            return ShowFailureMechanismResultView(sectionResults, new TestFailureMechanism(), new AssessmentSectionStub(), performFailureMechanismAssemblyFunc);
+        }
+
+        private TestFailureMechanismResultView ShowFailureMechanismResultView(IObservableEnumerable<FailureMechanismSectionResult> sectionResults,
+                                                                              TestFailureMechanism failureMechanism)
+        {
+            return ShowFailureMechanismResultView(sectionResults, failureMechanism, new AssessmentSectionStub(),
+                                                  (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual));
+        }
+
+        private TestFailureMechanismResultView ShowFailureMechanismResultView(IObservableEnumerable<FailureMechanismSectionResult> sectionResults,
+                                                                              TestFailureMechanism failureMechanism,
+                                                                              IAssessmentSection assessmentSection,
+                                                                              Func<TestFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc)
+        {
+            var failureMechanismResultView = new TestFailureMechanismResultView(sectionResults, failureMechanism, assessmentSection, performFailureMechanismAssemblyFunc);
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();
 
@@ -527,25 +563,15 @@ namespace Riskeer.Common.Forms.Test.Views
         private class TestFailureMechanismResultView : FailureMechanismResultView<FailureMechanismSectionResult, TestRow, TestFailureMechanism>
         {
             public TestFailureMechanismResultView(IObservableEnumerable<FailureMechanismSectionResult> failureMechanismSectionResults,
-                                                  TestFailureMechanism failureMechanism)
-                : base(failureMechanismSectionResults, failureMechanism) {}
-
-            public double N { get; private set; }
-
-            public bool GetNCalled { get; private set; }
+                                                  TestFailureMechanism failureMechanism,
+                                                  IAssessmentSection assessmentSection,
+                                                  Func<TestFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc)
+                : base(failureMechanismSectionResults, failureMechanism, assessmentSection, performFailureMechanismAssemblyFunc) {}
 
             protected override TestRow CreateFailureMechanismSectionResultRow(
                 FailureMechanismSectionResult sectionResult)
             {
                 return new TestRow(sectionResult);
-            }
-
-            protected override double GetN()
-            {
-                GetNCalled = true;
-
-                N = 13.37;
-                return N;
             }
 
             protected override void AddDataGridColumns()
@@ -562,7 +588,7 @@ namespace Riskeer.Common.Forms.Test.Views
             public TestRow(FailureMechanismSectionResult sectionResult) : base(sectionResult)
             {
                 ColumnStateDefinitions.Add(0, new DataGridViewColumnStateDefinition());
-                AssemblyResult = new FailureMechanismSectionAssemblyResult(0, 0, 0, FailureMechanismSectionAssemblyGroup.Gr);
+                AssemblyResult = new FailureMechanismSectionAssemblyResult(0, 0, 0, FailureMechanismSectionAssemblyGroup.NoResult);
             }
 
             public string TestString
@@ -587,46 +613,33 @@ namespace Riskeer.Common.Forms.Test.Views
         # region Assembly
 
         [Test]
-        public void FailureMechanismResultView_Always_SetsCorrectInputOnCalculator()
+        public void FailureMechanismResultView_AllDataSet_PassesInputToPerformAssemblyFunc()
         {
             // Setup
-            var failureMechanism = new TestFailureMechanism
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new TestFailureMechanism();
+
+            TestFailureMechanism failureMechanismInput = null;
+            IAssessmentSection assessmentSectionInput = null;
+            Func<TestFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc = (fm, ass) =>
             {
-                AssemblyResult =
-                {
-                    ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Automatic
-                }
+                failureMechanismInput = fm;
+                assessmentSectionInput = ass;
+                return new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual);
             };
 
             // Call
-            var sectionResults = new ObservableList<FailureMechanismSectionResult>
+            using (ShowFailureMechanismResultView(new ObservableList<FailureMechanismSectionResult>(), failureMechanism, assessmentSection, performFailureMechanismAssemblyFunc))
             {
-                FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult(),
-                FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult()
-            };
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(failureMechanism, sectionResults))
-            {
-                // Precondition
-                ComboBox comboBox = GetProbabilityResultTypeComboBox();
-                Assert.AreEqual(FailurePathAssemblyProbabilityResultType.Automatic, comboBox.SelectedValue);
-
                 // Assert
-                DataGridView dataGrid = GetDataGridView();
-                var rowAssemblyResults = new List<FailureMechanismSectionAssemblyResult>();
-                foreach (DataGridViewRow row in dataGrid.Rows)
-                {
-                    rowAssemblyResults.Add(((TestRow) row.DataBoundItem).AssemblyResult);
-                }
-
-                var testFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub calculator = testFactory.LastCreatedFailureMechanismAssemblyCalculator;
-
-                CollectionAssert.AreEqual(rowAssemblyResults, calculator.SectionAssemblyResultsInput);
-                Assert.IsTrue(view.GetNCalled);
-                Assert.AreEqual(view.N, calculator.FailureMechanismN);
+                Assert.AreSame(failureMechanism, failureMechanismInput);
+                Assert.AreSame(assessmentSection, assessmentSectionInput);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -635,161 +648,177 @@ namespace Riskeer.Common.Forms.Test.Views
         [TestCase(double.PositiveInfinity, "Oneindig")]
         [TestCase(0.0001, "1/10.000")]
         [TestCase(0.000000123456789, "1/8.100.000")]
-        public void GivenFailureMechanismResultView_WhenCalculatorRanSuccessfully_ThenCalculatorOutputSetOnFailurePathAssemblyProbability(
+        public void GivenFailureMechanismResultView_WhenPerformFailureMechanismAssemblySuccessfullyCalled_ThenResultSetOnFailureMechanismAssemblyProbability(
             double assemblyResult, string expectedString)
         {
             // Given
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var failureMechanism = new TestFailureMechanism
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Automatic
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Automatic
                 }
             };
 
-            var sectionResults = new ObservableList<FailureMechanismSectionResult>
+            // When
+            using (ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => new FailureMechanismAssemblyResultWrapper(
+                                                      assemblyResult, AssemblyMethod.BOI1A1)))
             {
-                FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult(),
-                FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult()
-            };
+                // Precondition
+                ComboBox comboBox = GetProbabilityResultTypeComboBox();
+                Assert.AreEqual(FailureMechanismAssemblyProbabilityResultType.Automatic, comboBox.SelectedValue);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var testFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub calculator = testFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                calculator.AssemblyResult = assemblyResult;
-
-                // When
-                using (ShowFailureMechanismResultsView(failureMechanism, sectionResults))
-                {
-                    // Precondition
-                    ComboBox comboBox = GetProbabilityResultTypeComboBox();
-                    Assert.AreEqual(FailurePathAssemblyProbabilityResultType.Automatic, comboBox.SelectedValue);
-
-                    // Then
-                    TextBox failurePathAssemblyProbabilityTextBox = GetFailurePathAssemblyProbabilityTextBox();
-                    Assert.AreEqual(expectedString, failurePathAssemblyProbabilityTextBox.Text);
-                }
+                // Then
+                TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();
+                Assert.AreEqual(expectedString, failureMechanismAssemblyProbabilityTextBox.Text);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void GivenFailureMechanismResultView_WhenCalculatorFails_ThenDefaultFailurePathAssemblyProbabilitySetWithError()
+        public void GivenFailureMechanismResultView_WhenPerformFailureMechanismAssemblyThrowsAssemblyException_ThenDefaultFailureMechanismAssemblyProbabilitySetWithError()
         {
             // Given
+            const string exceptionMessage = "Message";
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var failureMechanism = new TestFailureMechanism
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Automatic
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Automatic
                 }
             };
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            // When
+            using (TestFailureMechanismResultView view =
+                   ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => throw new AssemblyException(exceptionMessage)))
             {
-                var testFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub calculator = testFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                calculator.ThrowExceptionOnCalculate = true;
+                // Precondition
+                ComboBox comboBox = GetProbabilityResultTypeComboBox();
+                Assert.AreEqual(FailureMechanismAssemblyProbabilityResultType.Automatic, comboBox.SelectedValue);
 
-                // When
-                using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(failureMechanism, failureMechanism.SectionResults))
-                {
-                    // Precondition
-                    ComboBox comboBox = GetProbabilityResultTypeComboBox();
-                    Assert.AreEqual(FailurePathAssemblyProbabilityResultType.Automatic, comboBox.SelectedValue);
+                // Then
+                TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();
+                Assert.AreEqual("-", failureMechanismAssemblyProbabilityTextBox.Text);
 
-                    // Then
-                    TextBox failurePathAssemblyProbabilityTextBox = GetFailurePathAssemblyProbabilityTextBox();
-                    Assert.AreEqual("-", failurePathAssemblyProbabilityTextBox.Text);
-
-                    ErrorProvider errorProvider = GetErrorProvider(view);
-                    string errorMessage = errorProvider.GetError(failurePathAssemblyProbabilityTextBox);
-                    Assert.AreEqual("Message", errorMessage);
-                    Assert.AreEqual(errorIconPadding, errorProvider.GetIconPadding(failurePathAssemblyProbabilityTextBox));
-                }
+                ErrorProvider errorProvider = GetErrorProvider(view);
+                string errorMessage = errorProvider.GetError(failureMechanismAssemblyProbabilityTextBox);
+                Assert.AreEqual(exceptionMessage, errorMessage);
+                Assert.AreEqual(errorIconPadding, errorProvider.GetIconPadding(failureMechanismAssemblyProbabilityTextBox));
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void GivenFailureMechanismResultViewWithAssemblyError_WhenCalculatorRunsSuccessfully_ThenErrorCleared()
+        public void GivenFailureMechanismResultViewWithAssemblyError_WhenPerformFailureMechanismAssemblySuccessfullyCalled_ThenErrorCleared()
         {
+            // Setup
+            const string exceptionMessage = "Message";
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var failureMechanism = new TestFailureMechanism
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Automatic
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Automatic
                 }
             };
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            int i = 0;
+            Func<TestFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc = (fm, ass) =>
             {
-                var testFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub calculator = testFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                calculator.ThrowExceptionOnCalculate = true;
-
-                using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(failureMechanism, failureMechanism.SectionResults))
+                if (i == 0)
                 {
-                    // Precondition
-                    ComboBox comboBox = GetProbabilityResultTypeComboBox();
-                    Assert.AreEqual(FailurePathAssemblyProbabilityResultType.Automatic, comboBox.SelectedValue);
-
-                    ErrorProvider errorProvider = GetErrorProvider(view);
-                    TextBox failurePathAssemblyProbabilityTextBox = GetFailurePathAssemblyProbabilityTextBox();
-                    string errorMessage = errorProvider.GetError(failurePathAssemblyProbabilityTextBox);
-                    Assert.AreEqual("Message", errorMessage);
-
-                    // When
-                    calculator.ThrowExceptionOnCalculate = false;
-                    failureMechanism.NotifyObservers();
-
-                    // Then
-                    errorMessage = errorProvider.GetError(failurePathAssemblyProbabilityTextBox);
-                    Assert.AreEqual("", errorMessage);
+                    i++;
+                    throw new AssemblyException(exceptionMessage);
                 }
+
+                return new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.BOI1A1);
+            };
+
+            using (TestFailureMechanismResultView view = ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection, performFailureMechanismAssemblyFunc))
+            {
+                // Precondition
+                ComboBox comboBox = GetProbabilityResultTypeComboBox();
+                Assert.AreEqual(FailureMechanismAssemblyProbabilityResultType.Automatic, comboBox.SelectedValue);
+
+                ErrorProvider errorProvider = GetErrorProvider(view);
+                TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();
+                string errorMessage = errorProvider.GetError(failureMechanismAssemblyProbabilityTextBox);
+                Assert.AreEqual(exceptionMessage, errorMessage);
+
+                // When
+                failureMechanism.NotifyObservers();
+
+                // Then
+                errorMessage = errorProvider.GetError(failureMechanismAssemblyProbabilityTextBox);
+                Assert.AreEqual("", errorMessage);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenFailureMechanismResultViewWithAssemblyErrorAndProbabilityTypeAutomatic_WhenProbabilityTypeSetToManual_ThenErrorCleared()
         {
+            // Setup
+            const string exceptionMessage = "Message";
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var failureMechanism = new TestFailureMechanism
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Automatic,
-                    ManualFailurePathAssemblyProbability = 0.1
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Automatic,
+                    ManualFailureMechanismAssemblyProbability = 0.1
                 }
             };
-
-            using (new AssemblyToolCalculatorFactoryConfig())
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1");
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
-                var testFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub calculator = testFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                calculator.ThrowExceptionOnCalculate = true;
+                section
+            });
 
-                using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(failureMechanism, failureMechanism.SectionResults))
-                {
-                    // Precondition
-                    ComboBox comboBox = GetProbabilityResultTypeComboBox();
-                    Assert.AreEqual(FailurePathAssemblyProbabilityResultType.Automatic, comboBox.SelectedValue);
+            using (TestFailureMechanismResultView view = ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => throw new AssemblyException(exceptionMessage)))
+            {
+                // Precondition
+                ComboBox comboBox = GetProbabilityResultTypeComboBox();
+                Assert.AreEqual(FailureMechanismAssemblyProbabilityResultType.Automatic, comboBox.SelectedValue);
 
-                    ErrorProvider errorProvider = GetErrorProvider(view);
-                    TextBox failurePathAssemblyProbabilityTextBox = GetFailurePathAssemblyProbabilityTextBox();
-                    string errorMessage = errorProvider.GetError(failurePathAssemblyProbabilityTextBox);
-                    Assert.AreEqual("Message", errorMessage);
+                ErrorProvider errorProvider = GetErrorProvider(view);
+                TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();
+                string errorMessage = errorProvider.GetError(failureMechanismAssemblyProbabilityTextBox);
+                Assert.AreEqual(exceptionMessage, errorMessage);
 
-                    // When
-                    comboBox.SelectedValue = FailurePathAssemblyProbabilityResultType.Manual;
+                // When
+                comboBox.SelectedValue = FailureMechanismAssemblyProbabilityResultType.Manual;
 
-                    // Then
-                    errorMessage = errorProvider.GetError(failurePathAssemblyProbabilityTextBox);
-                    Assert.AreEqual("", errorMessage);
-                }
+                // Then
+                errorMessage = errorProvider.GetError(failureMechanismAssemblyProbabilityTextBox);
+                Assert.AreEqual("", errorMessage);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void GivenFailureMechanismResultViewAndProbabilityResultTypeAutomatic_WhenProbabilityResultTypeSetToManual_ThenFailurePathAssemblyProbabilityTextBoxSetWithCorrectStateAndObserversNotified()
+        public void GivenFailureMechanismResultViewAndProbabilityResultTypeAutomatic_WhenProbabilityResultTypeSetToManual_ThenFailureMechanismAssemblyProbabilityTextBoxSetWithCorrectStateAndObserversNotified()
         {
             // Given
             var mocks = new MockRepository();
@@ -801,29 +830,35 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Automatic
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Automatic
                 }
             };
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1");
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                section
+            });
+
             failureMechanism.AssemblyResult.Attach(observer);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
-            using (ShowFailureMechanismResultsView(failureMechanism, failureMechanism.SectionResults))
+            using (ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
             {
-                TextBox failurePathAssemblyProbabilityTextBox = GetFailurePathAssemblyProbabilityTextBox();
+                TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();
 
                 // Precondition
-                Assert.IsFalse(failurePathAssemblyProbabilityTextBox.Enabled);
-                Assert.IsTrue(failurePathAssemblyProbabilityTextBox.ReadOnly);
+                Assert.IsFalse(failureMechanismAssemblyProbabilityTextBox.Enabled);
+                Assert.IsTrue(failureMechanismAssemblyProbabilityTextBox.ReadOnly);
 
                 // When
-                const FailurePathAssemblyProbabilityResultType newResultType = FailurePathAssemblyProbabilityResultType.Manual;
+                const FailureMechanismAssemblyProbabilityResultType newResultType = FailureMechanismAssemblyProbabilityResultType.Manual;
                 ComboBox comboBox = GetProbabilityResultTypeComboBox();
                 comboBox.SelectedValue = newResultType;
 
                 // Then
                 Assert.AreEqual(newResultType, failureMechanism.AssemblyResult.ProbabilityResultType);
-                Assert.IsTrue(failurePathAssemblyProbabilityTextBox.Enabled);
-                Assert.IsFalse(failurePathAssemblyProbabilityTextBox.ReadOnly);
+                Assert.IsTrue(failureMechanismAssemblyProbabilityTextBox.Enabled);
+                Assert.IsFalse(failureMechanismAssemblyProbabilityTextBox.ReadOnly);
             }
 
             mocks.VerifyAll();
@@ -831,54 +866,54 @@ namespace Riskeer.Common.Forms.Test.Views
 
         [Test]
         [SetCulture("nl-NL")]
-        [TestCase(FailurePathAssemblyProbabilityResultType.Automatic, FailurePathAssemblyProbabilityResultType.Manual)]
-        [TestCase(FailurePathAssemblyProbabilityResultType.Manual, FailurePathAssemblyProbabilityResultType.Automatic)]
-        public void GivenFailureMechanismResultView_WhenChangingProbabilityResultType_ThenFailurePathAssemblyProbabilityUpdated(
-            FailurePathAssemblyProbabilityResultType initialResultType,
-            FailurePathAssemblyProbabilityResultType newResultType)
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.Automatic, FailureMechanismAssemblyProbabilityResultType.Manual)]
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.Manual, FailureMechanismAssemblyProbabilityResultType.Automatic)]
+        public void GivenFailureMechanismResultView_WhenChangingProbabilityResultType_ThenFailureMechanismAssemblyProbabilityUpdated(
+            FailureMechanismAssemblyProbabilityResultType initialResultType,
+            FailureMechanismAssemblyProbabilityResultType newResultType)
         {
             // Given
-            const double calculatorOutput = 0.1;
-            const string calculatorOutputText = "1/10";
+            const double assemblyResult = 0.1;
+            const string assemblyResultText = "1/10";
 
             const double manualProbability = 0.2;
             const string manualProbabilityText = "1/5";
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
 
             var failureMechanism = new TestFailureMechanism
             {
                 AssemblyResult =
                 {
                     ProbabilityResultType = initialResultType,
-                    ManualFailurePathAssemblyProbability = manualProbability
+                    ManualFailureMechanismAssemblyProbability = manualProbability
                 }
             };
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => new FailureMechanismAssemblyResultWrapper(
+                                                      assemblyResult, AssemblyMethod.BOI1A1)))
             {
-                var testFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub calculator = testFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                calculator.AssemblyResult = calculatorOutput;
+                // Precondition
+                TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();
+                string expectedProbabilityText = initialResultType == FailureMechanismAssemblyProbabilityResultType.Automatic
+                                                     ? assemblyResultText
+                                                     : manualProbabilityText;
+                Assert.AreEqual(expectedProbabilityText, failureMechanismAssemblyProbabilityTextBox.Text);
 
-                using (ShowFailureMechanismResultsView(failureMechanism, failureMechanism.SectionResults))
-                {
-                    // Precondition
-                    TextBox failurePathAssemblyProbabilityTextBox = GetFailurePathAssemblyProbabilityTextBox();
-                    string expectedProbabilityText = initialResultType == FailurePathAssemblyProbabilityResultType.Automatic
-                                                         ? calculatorOutputText
-                                                         : manualProbabilityText;
-                    Assert.AreEqual(expectedProbabilityText, failurePathAssemblyProbabilityTextBox.Text);
+                // When
+                ComboBox comboBox = GetProbabilityResultTypeComboBox();
+                comboBox.SelectedValue = newResultType;
 
-                    // When
-                    ComboBox comboBox = GetProbabilityResultTypeComboBox();
-                    comboBox.SelectedValue = newResultType;
-
-                    // Then
-                    expectedProbabilityText = newResultType == FailurePathAssemblyProbabilityResultType.Automatic
-                                                  ? calculatorOutputText
-                                                  : manualProbabilityText;
-                    Assert.AreEqual(expectedProbabilityText, failurePathAssemblyProbabilityTextBox.Text);
-                }
+                // Then
+                expectedProbabilityText = newResultType == FailureMechanismAssemblyProbabilityResultType.Automatic
+                                              ? assemblyResultText
+                                              : manualProbabilityText;
+                Assert.AreEqual(expectedProbabilityText, failureMechanismAssemblyProbabilityTextBox.Text);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -886,7 +921,7 @@ namespace Riskeer.Common.Forms.Test.Views
         [TestCase("NotAProbability", "De waarde kon niet geïnterpreteerd worden als een kans.")]
         [TestCase("30", "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.")]
         [TestCase("-1", "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.")]
-        public void GivenFailureMechanismResultTypeManualAndWithoutError_WhenSettingInvalidValue_ThenInitialFailurePathAssemblyProbabilitySetWithError(
+        public void GivenFailureMechanismResultTypeManualAndWithoutError_WhenSettingInvalidValue_ThenInitialFailureMechanismAssemblyProbabilitySetWithError(
             string invalidValue,
             string expectedErrorMessage)
         {
@@ -902,30 +937,35 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Manual,
-                    ManualFailurePathAssemblyProbability = manualProbability
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Manual,
+                    ManualFailureMechanismAssemblyProbability = manualProbability
                 }
             };
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1");
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                section
+            });
             failureMechanism.AssemblyResult.Attach(observer);
 
-            using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(failureMechanism, failureMechanism.SectionResults))
+            using (TestFailureMechanismResultView view = ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Precondition
-                TextBox failurePathAssemblyProbabilityTextBox = GetFailurePathAssemblyProbabilityTextBox();
-                Assert.AreEqual(manualProbabilityText, failurePathAssemblyProbabilityTextBox.Text);
+                TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();
+                Assert.AreEqual(manualProbabilityText, failureMechanismAssemblyProbabilityTextBox.Text);
 
                 ErrorProvider errorProvider = GetErrorProvider(view);
-                string errorMessage = errorProvider.GetError(failurePathAssemblyProbabilityTextBox);
+                string errorMessage = errorProvider.GetError(failureMechanismAssemblyProbabilityTextBox);
                 Assert.AreEqual("", errorMessage);
 
                 // When
-                var textBoxTester = new TextBoxTester("failurePathAssemblyProbabilityTextBox");
+                var textBoxTester = new TextBoxTester("failureMechanismAssemblyProbabilityTextBox");
                 textBoxTester.Enter(invalidValue);
 
                 // Then
-                Assert.AreEqual(manualProbability, failureMechanism.AssemblyResult.ManualFailurePathAssemblyProbability);
+                Assert.AreEqual(manualProbability, failureMechanism.AssemblyResult.ManualFailureMechanismAssemblyProbability);
 
-                errorMessage = errorProvider.GetError(failurePathAssemblyProbabilityTextBox);
+                errorMessage = errorProvider.GetError(failureMechanismAssemblyProbabilityTextBox);
                 Assert.AreEqual(expectedErrorMessage, errorMessage);
             }
 
@@ -933,7 +973,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFailureMechanismResultTypeManualAndWithoutError_WhenSettingNaNValue_ThenSetFailurePathAssemblyProbabilityWithErrorAndObserversNotified()
+        public void GivenFailureMechanismResultTypeManualAndWithoutError_WhenSettingNaNValue_ThenSetFailureMechanismAssemblyProbabilityWithErrorAndObserversNotified()
         {
             // Given
             const double manualProbability = 0.2;
@@ -948,30 +988,35 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Manual,
-                    ManualFailurePathAssemblyProbability = manualProbability
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Manual,
+                    ManualFailureMechanismAssemblyProbability = manualProbability
                 }
             };
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1");
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                section
+            });
             failureMechanism.AssemblyResult.Attach(observer);
 
-            using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(failureMechanism, failureMechanism.SectionResults))
+            using (TestFailureMechanismResultView view = ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Precondition
-                TextBox failurePathAssemblyProbabilityTextBox = GetFailurePathAssemblyProbabilityTextBox();
-                Assert.AreEqual(manualProbabilityText, failurePathAssemblyProbabilityTextBox.Text);
+                TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();
+                Assert.AreEqual(manualProbabilityText, failureMechanismAssemblyProbabilityTextBox.Text);
 
                 ErrorProvider errorProvider = GetErrorProvider(view);
-                string errorMessage = errorProvider.GetError(failurePathAssemblyProbabilityTextBox);
+                string errorMessage = errorProvider.GetError(failureMechanismAssemblyProbabilityTextBox);
                 Assert.AreEqual("", errorMessage);
 
                 // When
-                var textBoxTester = new TextBoxTester("failurePathAssemblyProbabilityTextBox");
+                var textBoxTester = new TextBoxTester("failureMechanismAssemblyProbabilityTextBox");
                 textBoxTester.Enter("-");
 
                 // Then
-                Assert.IsNaN(failureMechanism.AssemblyResult.ManualFailurePathAssemblyProbability);
+                Assert.IsNaN(failureMechanism.AssemblyResult.ManualFailureMechanismAssemblyProbability);
 
-                errorMessage = errorProvider.GetError(failurePathAssemblyProbabilityTextBox);
+                errorMessage = errorProvider.GetError(failureMechanismAssemblyProbabilityTextBox);
                 Assert.AreEqual("Er moet een waarde worden ingevuld voor de faalkans.", errorMessage);
             }
 
@@ -982,7 +1027,7 @@ namespace Riskeer.Common.Forms.Test.Views
         [SetCulture("nl-NL")]
         [TestCase("0,1", "1/10", 0.1)]
         [TestCase("1/10", "1/10", 0.1)]
-        public void GivenFailureMechanismResultTypeManualAndWithError_WhenSettingValidValue_ThenFailurePathAssemblyProbabilitySetAndObserversNotified(
+        public void GivenFailureMechanismResultTypeManualAndWithError_WhenSettingValidValue_ThenFailureMechanismAssemblyProbabilitySetAndObserversNotified(
             string validValue,
             string formattedValidValue,
             double expectedProbability)
@@ -998,19 +1043,24 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Manual
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Manual
                 }
             };
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1");
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                section
+            });
 
-            using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(failureMechanism, failureMechanism.SectionResults))
+            using (TestFailureMechanismResultView view = ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Precondition
-                var textBoxTester = new TextBoxTester("failurePathAssemblyProbabilityTextBox");
+                var textBoxTester = new TextBoxTester("failureMechanismAssemblyProbabilityTextBox");
                 textBoxTester.Enter("NotAProbability");
 
                 ErrorProvider errorProvider = GetErrorProvider(view);
-                TextBox failurePathAssemblyProbabilityTextBox = GetFailurePathAssemblyProbabilityTextBox();
-                string errorMessage = errorProvider.GetError(failurePathAssemblyProbabilityTextBox);
+                TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();
+                string errorMessage = errorProvider.GetError(failureMechanismAssemblyProbabilityTextBox);
                 Assert.IsNotEmpty(errorMessage);
 
                 failureMechanism.AssemblyResult.Attach(observer);
@@ -1019,11 +1069,11 @@ namespace Riskeer.Common.Forms.Test.Views
                 textBoxTester.Enter(validValue);
 
                 // Then
-                errorMessage = errorProvider.GetError(failurePathAssemblyProbabilityTextBox);
+                errorMessage = errorProvider.GetError(failureMechanismAssemblyProbabilityTextBox);
                 Assert.IsEmpty(errorMessage);
 
-                Assert.AreEqual(formattedValidValue, failurePathAssemblyProbabilityTextBox.Text);
-                Assert.AreEqual(expectedProbability, failureMechanism.AssemblyResult.ManualFailurePathAssemblyProbability);
+                Assert.AreEqual(formattedValidValue, failureMechanismAssemblyProbabilityTextBox.Text);
+                Assert.AreEqual(expectedProbability, failureMechanism.AssemblyResult.ManualFailureMechanismAssemblyProbability);
             }
 
             mocks.VerifyAll();
@@ -1036,34 +1086,33 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Manual
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Manual
                 }
             };
 
-            using (new AssemblyToolCalculatorFactoryConfig())
-            using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(failureMechanism, failureMechanism.SectionResults))
+            using (TestFailureMechanismResultView view = ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Precondition
-                var textBoxTester = new TextBoxTester("failurePathAssemblyProbabilityTextBox");
+                var textBoxTester = new TextBoxTester("failureMechanismAssemblyProbabilityTextBox");
                 textBoxTester.Enter("NotAProbability");
 
                 ErrorProvider errorProvider = GetErrorProvider(view);
-                TextBox failurePathAssemblyProbabilityTextBox = GetFailurePathAssemblyProbabilityTextBox();
-                string errorMessage = errorProvider.GetError(failurePathAssemblyProbabilityTextBox);
+                TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();
+                string errorMessage = errorProvider.GetError(failureMechanismAssemblyProbabilityTextBox);
                 Assert.IsNotEmpty(errorMessage);
 
                 // When
                 ComboBox comboBox = GetProbabilityResultTypeComboBox();
-                comboBox.SelectedValue = FailurePathAssemblyProbabilityResultType.Automatic;
+                comboBox.SelectedValue = FailureMechanismAssemblyProbabilityResultType.Automatic;
 
                 // Then
-                errorMessage = errorProvider.GetError(failurePathAssemblyProbabilityTextBox);
+                errorMessage = errorProvider.GetError(failureMechanismAssemblyProbabilityTextBox);
                 Assert.AreEqual("", errorMessage);
             }
         }
 
         [Test]
-        public void GivenFailureMechanismResultTypeManual_WhenInvalidValueEnteredAndEscPressed_ThenFailurePathAssemblyProbabilitySetToInitialValue()
+        public void GivenFailureMechanismResultTypeManual_WhenInvalidValueEnteredAndEscPressed_ThenFailureMechanismAssemblyProbabilitySetToInitialValue()
         {
             // Given
             var mocks = new MockRepository();
@@ -1076,36 +1125,297 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Manual,
-                    ManualFailurePathAssemblyProbability = initialValue
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Manual,
+                    ManualFailureMechanismAssemblyProbability = initialValue
                 }
             };
 
-            using (ShowFailureMechanismResultsView(failureMechanism, failureMechanism.SectionResults))
+            using (ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
             {
-                var textBoxTester = new ControlTester("failurePathAssemblyProbabilityTextBox");
+                var textBoxTester = new ControlTester("failureMechanismAssemblyProbabilityTextBox");
                 const Keys keyData = Keys.Escape;
 
-                TextBox failurePathAssemblyProbabilityTextBox = GetFailurePathAssemblyProbabilityTextBox();
-                failurePathAssemblyProbabilityTextBox.TextChanged += (sender, args) =>
+                TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();
+                failureMechanismAssemblyProbabilityTextBox.TextChanged += (sender, args) =>
                 {
                     textBoxTester.FireEvent("KeyDown", new KeyEventArgs(keyData));
                 };
 
                 // Precondition
-                Assert.AreEqual(initialValueText, failurePathAssemblyProbabilityTextBox.Text);
+                Assert.AreEqual(initialValueText, failureMechanismAssemblyProbabilityTextBox.Text);
 
                 failureMechanism.AssemblyResult.Attach(observer);
 
                 // When
-                failurePathAssemblyProbabilityTextBox.Text = "NotAProbability";
+                failureMechanismAssemblyProbabilityTextBox.Text = "NotAProbability";
 
                 // Then
-                Assert.AreEqual(initialValueText, failurePathAssemblyProbabilityTextBox.Text);
-                Assert.AreEqual(initialValue, failureMechanism.AssemblyResult.ManualFailurePathAssemblyProbability);
+                Assert.AreEqual(initialValueText, failureMechanismAssemblyProbabilityTextBox.Text);
+                Assert.AreEqual(initialValue, failureMechanism.AssemblyResult.ManualFailureMechanismAssemblyProbability);
             }
 
             mocks.VerifyAll();
+        }
+
+        #endregion
+
+        #region FailureMechanismAssemblyResultControls
+
+        [Test]
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.Automatic)]
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.Manual)]
+        public void FailureMechanismResultView_WithoutSections_FailureMechanismAssemblyResultsCorrectState(
+            FailureMechanismAssemblyProbabilityResultType resultType)
+        {
+            // Setup 
+            var failureMechanism = new TestFailureMechanism
+            {
+                AssemblyResult =
+                {
+                    ProbabilityResultType = resultType
+                }
+            };
+
+            // Call
+            using (ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
+            {
+                // Precondition
+                CollectionAssert.IsEmpty(failureMechanism.Sections);
+
+                // Assert
+                ComboBox comboBox = GetProbabilityResultTypeComboBox();
+                Assert.IsFalse(comboBox.Enabled);
+
+                TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();
+                Assert.IsFalse(failureMechanismAssemblyProbabilityTextBox.Enabled);
+                Assert.IsTrue(failureMechanismAssemblyProbabilityTextBox.ReadOnly);
+            }
+        }
+
+        [Test]
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.Automatic)]
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.Manual)]
+        public void FailureMechanismResultView_WithSections_FailureMechanismAssemblyResultsCorrectState(
+            FailureMechanismAssemblyProbabilityResultType resultType)
+        {
+            // Setup 
+            var failureMechanism = new TestFailureMechanism
+            {
+                AssemblyResult =
+                {
+                    ProbabilityResultType = resultType
+                }
+            };
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1");
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                section
+            });
+
+            // Call
+            using (ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
+            {
+                // Assert
+                ComboBox comboBox = GetProbabilityResultTypeComboBox();
+                Assert.IsTrue(comboBox.Enabled);
+
+                FailureMechanismAssemblyResult assemblyResult = failureMechanism.AssemblyResult;
+                bool isManualAssemblyProbability = assemblyResult.IsManualProbability();
+                TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();
+                Assert.AreEqual(isManualAssemblyProbability, failureMechanismAssemblyProbabilityTextBox.Enabled);
+                Assert.AreEqual(!isManualAssemblyProbability, failureMechanismAssemblyProbabilityTextBox.ReadOnly);
+            }
+        }
+
+        [Test]
+        public void FailureMechanismResultView_WithoutSectionsAndProbabilityTypeManual_ReturnsCorrectError()
+        {
+            // Setup
+            const string expectedErrorMessage = "Om een oordeel te kunnen invoeren moet voor het faalmechanisme een vakindeling zijn geïmporteerd.";
+            var failureMechanism = new TestFailureMechanism
+            {
+                AssemblyResult =
+                {
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Manual
+                }
+            };
+
+            // Call
+            using (TestFailureMechanismResultView view = ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
+            {
+                ErrorProvider errorProvider = GetErrorProvider(view);
+                TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();
+                string errorMessage = errorProvider.GetError(failureMechanismAssemblyProbabilityTextBox);
+
+                // Assert
+                Assert.AreEqual(expectedErrorMessage, errorMessage);
+            }
+        }
+
+        [Test]
+        public void GivenFailureMechanismResultViewWithoutSectionsAndProbabilityTypeManual_WhenSectionsAddedAndObserversNotified_ThenErrorUpdatedAndSetsFailureMechanismAssemblyResultsCorrectState()
+        {
+            // Given
+            const string initialErrorMessage = "Om een oordeel te kunnen invoeren moet voor het faalmechanisme een vakindeling zijn geïmporteerd.";
+            var failureMechanism = new TestFailureMechanism
+            {
+                AssemblyResult =
+                {
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Manual
+                }
+            };
+
+            using (TestFailureMechanismResultView view = ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
+            {
+                // Precondition
+                TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();
+                Assert.IsFalse(failureMechanismAssemblyProbabilityTextBox.Enabled);
+                Assert.IsTrue(failureMechanismAssemblyProbabilityTextBox.ReadOnly);
+
+                ErrorProvider errorProvider = GetErrorProvider(view);
+                string errorMessage = errorProvider.GetError(failureMechanismAssemblyProbabilityTextBox);
+                Assert.AreEqual(initialErrorMessage, errorMessage);
+
+                ComboBox comboBox = GetProbabilityResultTypeComboBox();
+                Assert.IsFalse(comboBox.Enabled);
+
+                // When
+                FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1");
+                FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+                {
+                    section
+                });
+                failureMechanism.NotifyObservers();
+
+                // Assert
+                errorMessage = errorProvider.GetError(failureMechanismAssemblyProbabilityTextBox);
+                Assert.AreNotEqual(initialErrorMessage, errorMessage);
+
+                Assert.IsTrue(comboBox.Enabled);
+                Assert.IsTrue(failureMechanismAssemblyProbabilityTextBox.Enabled);
+                Assert.IsFalse(failureMechanismAssemblyProbabilityTextBox.ReadOnly);
+            }
+        }
+
+        [Test]
+        public void GivenFailureMechanismResultViewWithSectionsAndProbabilityTypeManual_WhenSectionsClearedAndObserversNotified_ThenErrorUpdatedAndSetsFailureMechanismAssemblyResultsCorrectState()
+        {
+            // Given
+            const string expectedErrorMessage = "Om een oordeel te kunnen invoeren moet voor het faalmechanisme een vakindeling zijn geïmporteerd.";
+            var failureMechanism = new TestFailureMechanism
+            {
+                AssemblyResult =
+                {
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Manual
+                }
+            };
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1");
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                section
+            });
+
+            using (TestFailureMechanismResultView view = ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
+            {
+                // Precondition
+                TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();
+                Assert.IsTrue(failureMechanismAssemblyProbabilityTextBox.Enabled);
+                Assert.IsFalse(failureMechanismAssemblyProbabilityTextBox.ReadOnly);
+
+                ErrorProvider errorProvider = GetErrorProvider(view);
+                string errorMessage = errorProvider.GetError(failureMechanismAssemblyProbabilityTextBox);
+                Assert.AreNotEqual(expectedErrorMessage, errorMessage);
+
+                ComboBox comboBox = GetProbabilityResultTypeComboBox();
+                Assert.IsTrue(comboBox.Enabled);
+
+                // When
+                FailureMechanismTestHelper.SetSections(failureMechanism, Enumerable.Empty<FailureMechanismSection>());
+                failureMechanism.NotifyObservers();
+
+                // Assert
+                errorMessage = errorProvider.GetError(failureMechanismAssemblyProbabilityTextBox);
+                Assert.AreEqual(expectedErrorMessage, errorMessage);
+
+                Assert.IsFalse(comboBox.Enabled);
+                Assert.IsFalse(failureMechanismAssemblyProbabilityTextBox.Enabled);
+                Assert.IsTrue(failureMechanismAssemblyProbabilityTextBox.ReadOnly);
+            }
+        }
+
+        [Test]
+        public void GivenFailureMechanismResultViewWithoutSectionsAndProbabilityTypeAutomatic_WhenSectionsAddedAndObserversNotified_ThenFailureMechanismAssemblyResultsCorrectStateSet()
+        {
+            // Given
+            var failureMechanism = new TestFailureMechanism
+            {
+                AssemblyResult =
+                {
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Automatic
+                }
+            };
+
+            using (ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
+            {
+                // Precondition
+                TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();
+                Assert.IsFalse(failureMechanismAssemblyProbabilityTextBox.Enabled);
+                Assert.IsTrue(failureMechanismAssemblyProbabilityTextBox.ReadOnly);
+
+                ComboBox comboBox = GetProbabilityResultTypeComboBox();
+                Assert.IsFalse(comboBox.Enabled);
+
+                // When
+                FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1");
+                FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+                {
+                    section
+                });
+                failureMechanism.NotifyObservers();
+
+                // Assert
+                Assert.IsTrue(comboBox.Enabled);
+                Assert.IsFalse(failureMechanismAssemblyProbabilityTextBox.Enabled);
+                Assert.IsTrue(failureMechanismAssemblyProbabilityTextBox.ReadOnly);
+            }
+        }
+
+        [Test]
+        public void GivenFailureMechanismResultViewWithSectionsAndProbabilityTypeAutomatic_WhenSectionsClearedAndObserversNotified_ThenFailureMechanismAssemblyResultsCorrectStateSet()
+        {
+            // Given
+            var failureMechanism = new TestFailureMechanism
+            {
+                AssemblyResult =
+                {
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Automatic
+                }
+            };
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1");
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                section
+            });
+
+            using (ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
+            {
+                // Precondition
+                TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();
+                Assert.IsFalse(failureMechanismAssemblyProbabilityTextBox.Enabled);
+                Assert.IsTrue(failureMechanismAssemblyProbabilityTextBox.ReadOnly);
+
+                ComboBox comboBox = GetProbabilityResultTypeComboBox();
+                Assert.IsTrue(comboBox.Enabled);
+
+                // When
+                FailureMechanismTestHelper.SetSections(failureMechanism, Enumerable.Empty<FailureMechanismSection>());
+                failureMechanism.NotifyObservers();
+
+                // Assert
+                Assert.IsFalse(comboBox.Enabled);
+                Assert.IsFalse(failureMechanismAssemblyProbabilityTextBox.Enabled);
+                Assert.IsTrue(failureMechanismAssemblyProbabilityTextBox.ReadOnly);
+            }
         }
 
         #endregion

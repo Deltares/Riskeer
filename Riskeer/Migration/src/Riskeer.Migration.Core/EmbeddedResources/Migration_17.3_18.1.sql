@@ -2006,7 +2006,7 @@ SELECT
 	"18.1",
 	CASE
 		WHEN [NrRemaining] > 0
-			THEN "* Alle berekende resultaten zijn verwijderd, behalve die van het toetsspoor 'Piping' en 'Macrostabiliteit binnenwaarts' waarbij de waterstand handmatig is ingevuld."
+			THEN "* Alle berekende resultaten zijn verwijderd, behalve die van het faalmechanisme 'Piping' en 'Macrostabiliteit binnenwaarts' waarbij de waterstand handmatig is ingevuld."
 			ELSE "* Alle berekende resultaten zijn verwijderd."
 	END
 	FROM TempLogOutputDeleted
@@ -2184,7 +2184,7 @@ SELECT
 	asfm.[AssessmentSectionName],
 	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
-	"Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets van dit toetsspoor zijn omgezet naar 'NVT'."
+	"Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets van dit faalmechanisme zijn omgezet naar 'NVT'."
 	FROM ClosingStructuresSectionResultEntity as sre
 	JOIN [SOURCEPROJECT].ClosingStructuresSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
@@ -2197,7 +2197,7 @@ SELECT
 	asfm.[AssessmentSectionName],
 	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
-	"Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets van dit toetsspoor zijn omgezet naar 'NVT'."
+	"Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets van dit faalmechanisme zijn omgezet naar 'NVT'."
 	FROM GrassCoverErosionOutwardsSectionResultEntity as sre
 	JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
@@ -2210,7 +2210,7 @@ SELECT
 	asfm.[AssessmentSectionName],
 	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
-	"Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets van dit toetsspoor zijn omgezet naar 'NVT'."
+	"Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets van dit faalmechanisme zijn omgezet naar 'NVT'."
 	FROM GrassCoverSlipOffInwardsSectionResultEntity as sre
 	JOIN [SOURCEPROJECT].GrassCoverSlipOffInwardsSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
@@ -2223,7 +2223,7 @@ SELECT
 	asfm.[AssessmentSectionName],
 	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
-	"Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets van dit toetsspoor zijn omgezet naar 'NVT'."
+	"Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets van dit faalmechanisme zijn omgezet naar 'NVT'."
 	FROM GrassCoverSlipOffOutwardsSectionResultEntity as sre
 	JOIN [SOURCEPROJECT].GrassCoverSlipOffOutwardsSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
@@ -2236,7 +2236,7 @@ SELECT
 	asfm.[AssessmentSectionName],
 	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
-	"Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets van dit toetsspoor zijn omgezet naar 'NVT'."
+	"Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets van dit faalmechanisme zijn omgezet naar 'NVT'."
 	FROM HeightStructuresSectionResultEntity as sre
 	JOIN [SOURCEPROJECT].HeightStructuresSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
@@ -2249,7 +2249,7 @@ SELECT
 	asfm.[AssessmentSectionName],
 	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
-	"Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets van dit toetsspoor zijn omgezet naar 'NVT'."
+	"Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets van dit faalmechanisme zijn omgezet naar 'NVT'."
 	FROM MacroStabilityInwardsSectionResultEntity as sre
 	JOIN [SOURCEPROJECT].MacroStabilityInwardsSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
@@ -2262,7 +2262,7 @@ SELECT
 	asfm.[AssessmentSectionName],
 	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
-	"Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets van dit toetsspoor zijn omgezet naar 'NVT'."
+	"Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets van dit faalmechanisme zijn omgezet naar 'NVT'."
 	FROM MacroStabilityOutwardsSectionResultEntity as sre
 	JOIN [SOURCEPROJECT].MacroStabilityOutwardsSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
@@ -2275,7 +2275,7 @@ SELECT
 	asfm.[AssessmentSectionName],
 	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
-	"Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets van dit toetsspoor zijn omgezet naar 'NVT'."
+	"Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets van dit faalmechanisme zijn omgezet naar 'NVT'."
 	FROM MicrostabilitySectionResultEntity as sre
 	JOIN [SOURCEPROJECT].MicrostabilitySectionResultEntity AS source ON sre.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
@@ -2288,7 +2288,7 @@ SELECT
 	asfm.[AssessmentSectionName],
 	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
-	"Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets van dit toetsspoor zijn omgezet naar 'NVT'."
+	"Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets van dit faalmechanisme zijn omgezet naar 'NVT'."
 	FROM PipingSectionResultEntity as sre
 	JOIN [SOURCEPROJECT].PipingSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
@@ -2301,7 +2301,7 @@ SELECT
 	asfm.[AssessmentSectionName],
 	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
-	"Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets van dit toetsspoor zijn omgezet naar 'NVT'."
+	"Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets van dit faalmechanisme zijn omgezet naar 'NVT'."
 	FROM PipingStructureSectionResultEntity as sre
 	JOIN [SOURCEPROJECT].PipingStructureSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
@@ -2314,7 +2314,7 @@ SELECT
 	asfm.[AssessmentSectionName],
 	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
-	"Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets van dit toetsspoor zijn omgezet naar 'NVT'."
+	"Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets van dit faalmechanisme zijn omgezet naar 'NVT'."
 	FROM StrengthStabilityLengthwiseConstructionSectionResultEntity as sre
 	JOIN [SOURCEPROJECT].StrengthStabilityLengthwiseConstructionSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
@@ -2327,7 +2327,7 @@ SELECT
 	asfm.[AssessmentSectionName],
 	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
-	"Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets van dit toetsspoor zijn omgezet naar 'NVT'."
+	"Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets van dit faalmechanisme zijn omgezet naar 'NVT'."
 	FROM TechnicalInnovationSectionResultEntity as sre
 	JOIN [SOURCEPROJECT].TechnicalInnovationSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
@@ -2340,7 +2340,7 @@ SELECT
 	asfm.[AssessmentSectionName],
 	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
-	"Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets van dit toetsspoor zijn omgezet naar 'NVT'."
+	"Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets van dit faalmechanisme zijn omgezet naar 'NVT'."
 	FROM WaterPressureAsphaltCoverSectionResultEntity as sre
 	JOIN [SOURCEPROJECT].WaterPressureAsphaltCoverSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
@@ -2353,7 +2353,7 @@ SELECT
 	asfm.[AssessmentSectionName],
 	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
-	"Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets van dit toetsspoor zijn omgezet naar 'NVT'."
+	"Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets van dit faalmechanisme zijn omgezet naar 'NVT'."
 	FROM WaveImpactAsphaltCoverSectionResultEntity as sre
 	JOIN [SOURCEPROJECT].WaveImpactAsphaltCoverSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
@@ -2369,7 +2369,7 @@ SELECT
 	asfm.[AssessmentSectionName],
 	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
-	"Alle resultaten voor de gedetailleerde toets van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	"Alle resultaten voor de gedetailleerde toets van dit faalmechanisme konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
 	FROM StabilityStoneCoverSectionResultEntity as sre
 	JOIN [SOURCEPROJECT].StabilityStoneCoverSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
@@ -2382,7 +2382,7 @@ SELECT
 	asfm.[AssessmentSectionName],
 	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
-	"Alle resultaten voor de gedetailleerde toets van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	"Alle resultaten voor de gedetailleerde toets van dit faalmechanisme konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
 	FROM WaveImpactAsphaltCoverSectionResultEntity as sre
 	JOIN [SOURCEPROJECT].WaveImpactAsphaltCoverSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
@@ -2395,7 +2395,7 @@ SELECT
 	asfm.[AssessmentSectionName],
 	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
-	"Alle resultaten voor de gedetailleerde toets van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	"Alle resultaten voor de gedetailleerde toets van dit faalmechanisme konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
 	FROM GrassCoverErosionOutwardsSectionResultEntity as sre
 	JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
@@ -2408,7 +2408,7 @@ SELECT
 	asfm.[AssessmentSectionName],
 	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
-	"Alle resultaten voor de gedetailleerde toets van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	"Alle resultaten voor de gedetailleerde toets van dit faalmechanisme konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
 	FROM DuneErosionSectionResultEntity as sre
 	JOIN [SOURCEPROJECT].DuneErosionSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
@@ -2421,7 +2421,7 @@ SELECT
 	asfm.[AssessmentSectionName],
 	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
-	"Alle resultaten voor de gedetailleerde toets van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	"Alle resultaten voor de gedetailleerde toets van dit faalmechanisme konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
 	FROM MicrostabilitySectionResultEntity as sre
 	JOIN [SOURCEPROJECT].MicrostabilitySectionResultEntity AS source ON sre.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
@@ -2434,7 +2434,7 @@ SELECT
 	asfm.[AssessmentSectionName],
 	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
-	"Alle resultaten voor de gedetailleerde toets van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	"Alle resultaten voor de gedetailleerde toets van dit faalmechanisme konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
 	FROM GrassCoverSlipOffOutwardsSectionResultEntity as sre
 	JOIN [SOURCEPROJECT].GrassCoverSlipOffOutwardsSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
@@ -2447,7 +2447,7 @@ SELECT
 	asfm.[AssessmentSectionName],
 	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
-	"Alle resultaten voor de gedetailleerde toets van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	"Alle resultaten voor de gedetailleerde toets van dit faalmechanisme konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
 	FROM GrassCoverSlipOffInwardsSectionResultEntity as sre
 	JOIN [SOURCEPROJECT].GrassCoverSlipOffInwardsSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
@@ -2460,7 +2460,7 @@ SELECT
 	asfm.[AssessmentSectionName],
 	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
-	"Alle resultaten voor de gedetailleerde toets van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	"Alle resultaten voor de gedetailleerde toets van dit faalmechanisme konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
 	FROM PipingStructureSectionResultEntity as sre
 	JOIN [SOURCEPROJECT].PipingStructureSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
@@ -2476,7 +2476,7 @@ SELECT
 	asfm.[AssessmentSectionName],
 	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
-	"Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	"Alle resultaten voor de toets op maat van dit faalmechanisme konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
 	FROM StabilityStoneCoverSectionResultEntity as sre
 	JOIN [SOURCEPROJECT].StabilityStoneCoverSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
@@ -2489,7 +2489,7 @@ SELECT
 	asfm.[AssessmentSectionName],
 	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
-	"Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	"Alle resultaten voor de toets op maat van dit faalmechanisme konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
 	FROM WaveImpactAsphaltCoverSectionResultEntity as sre
 	JOIN [SOURCEPROJECT].WaveImpactAsphaltCoverSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
@@ -2502,7 +2502,7 @@ SELECT
 	asfm.[AssessmentSectionName],
 	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
-	"Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	"Alle resultaten voor de toets op maat van dit faalmechanisme konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
 	FROM GrassCoverErosionOutwardsSectionResultEntity as sre
 	JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
@@ -2515,7 +2515,7 @@ SELECT
 	asfm.[AssessmentSectionName],
 	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
-	"Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	"Alle resultaten voor de toets op maat van dit faalmechanisme konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
 	FROM DuneErosionSectionResultEntity as sre
 	JOIN [SOURCEPROJECT].DuneErosionSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
@@ -2528,7 +2528,7 @@ SELECT
 	asfm.[AssessmentSectionName],
 	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
-	"Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	"Alle resultaten voor de toets op maat van dit faalmechanisme konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
 	FROM MacroStabilityOutwardsSectionResultEntity as sre
 	JOIN [SOURCEPROJECT].MacroStabilityOutwardsSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
@@ -2541,7 +2541,7 @@ SELECT
 	asfm.[AssessmentSectionName],
 	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
-	"Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	"Alle resultaten voor de toets op maat van dit faalmechanisme konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
 	FROM MicrostabilitySectionResultEntity as sre
 	JOIN [SOURCEPROJECT].MicrostabilitySectionResultEntity AS source ON sre.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
@@ -2554,7 +2554,7 @@ SELECT
 	asfm.[AssessmentSectionName],
 	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
-	"Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	"Alle resultaten voor de toets op maat van dit faalmechanisme konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
 	FROM WaterPressureAsphaltCoverSectionResultEntity as sre
 	JOIN [SOURCEPROJECT].WaterPressureAsphaltCoverSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
@@ -2567,7 +2567,7 @@ SELECT
 	asfm.[AssessmentSectionName],
 	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
-	"Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	"Alle resultaten voor de toets op maat van dit faalmechanisme konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
 	FROM GrassCoverSlipOffOutwardsSectionResultEntity as sre
 	JOIN [SOURCEPROJECT].GrassCoverSlipOffOutwardsSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
@@ -2580,7 +2580,7 @@ SELECT
 	asfm.[AssessmentSectionName],
 	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
-	"Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	"Alle resultaten voor de toets op maat van dit faalmechanisme konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
 	FROM GrassCoverSlipOffInwardsSectionResultEntity as sre
 	JOIN [SOURCEPROJECT].GrassCoverSlipOffInwardsSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
@@ -2593,7 +2593,7 @@ SELECT
 	asfm.[AssessmentSectionName],
 	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
-	"Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	"Alle resultaten voor de toets op maat van dit faalmechanisme konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
 	FROM PipingStructureSectionResultEntity as sre
 	JOIN [SOURCEPROJECT].PipingStructureSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
@@ -2606,7 +2606,7 @@ SELECT
 	asfm.[AssessmentSectionName],
 	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
-	"Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	"Alle resultaten voor de toets op maat van dit faalmechanisme konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
 	FROM StrengthStabilityLengthwiseConstructionSectionResultEntity as sre
 	JOIN [SOURCEPROJECT].StrengthStabilityLengthwiseConstructionSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
@@ -2619,7 +2619,7 @@ SELECT
 	asfm.[AssessmentSectionName],
 	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
-	"Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	"Alle resultaten voor de toets op maat van dit faalmechanisme konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
 	FROM TechnicalInnovationSectionResultEntity as sre
 	JOIN [SOURCEPROJECT].TechnicalInnovationSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
@@ -2804,7 +2804,7 @@ SELECT
 		THEN "* Traject: '" || [AssessmentSectionName] || "'" 
 	ELSE 
 		CASE WHEN [FailureMechanismName] IS NOT NULL 
-			THEN "  + Toetsspoor: '" || [FailureMechanismName] || "'" 
+			THEN "  + Faalmechanisme: '" || [FailureMechanismName] || "'" 
 		ELSE
 			"    - " || [msg] 
 		END 

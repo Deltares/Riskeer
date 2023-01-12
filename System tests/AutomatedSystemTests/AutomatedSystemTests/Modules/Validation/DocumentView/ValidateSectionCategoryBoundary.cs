@@ -70,28 +70,19 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
         private string GetCategoriesBoundariesFromDocumentView()
         {
             var repo =global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
-            var viewCategoryBoundaries = repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.ViewCategoryBoundaries;
-
-            Ranorex.Table tableTraject = viewCategoryBoundaries.CategoryBoundariesTraject.Self;
-            Ranorex.Table tableVak = viewCategoryBoundaries.CategoryBoundariesSection.Self;
-            
-            Dictionary<int, Ranorex.Table> dictCategoryTypeTable = new Dictionary<int, Ranorex.Table>{
-                {1, tableTraject},
-                {2, tableVak}
-            };
-            
-            Dictionary<int, string> dictCategoryType = new Dictionary<int, string>{
-                {1, "t"},
-                {2, "v"}
-            };
+            var categoryBoundariesTable = repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.FMSectionAssemblyGroupsView.TableDuidingsklassen;
 
             Dictionary<int, string> dictCategoryName = new Dictionary<int, string>{
-                {1, "I"},
-                {2, "II"},
-                {3, "III"},
-                {4, "IV"},
-                {5, "V"},
-                {6, "VI"}
+                {1,  "+III"},
+                {2,  "+II"},
+                {3,  "+I"},
+                {4,  "0"},
+                {5,  "-I"},
+                {6,  "-II"},
+                {7,  "-III"},
+                {8,  "Do"},
+                {9,  "NDo"},
+                {10, "NR"}
             };
             
             Dictionary<int, string> dictBoundaryType = new Dictionary<int, string>{
@@ -101,18 +92,17 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
             
             
             string allResults = "";
-            // CategoryType: {1, "t"}, {2, "v"}
-            for (int idxCategoryType = 1; idxCategoryType < 3; idxCategoryType++) {
-                // CategoryName: {1, "I"}, {2, "II"}, {3, "III"},
-                //               {4, "IV"}, {5, "V"}, {6, "VI"}
-                for (int idxCategoryName = 1; idxCategoryName < 7; idxCategoryName++) {
-                    // BoundaryType: {3, "Onder"}, {4, "Boven"}
-                    for (int idxBoundaryType = 3; idxBoundaryType < 5; idxBoundaryType++) {
-                        var currentCell = dictCategoryTypeTable[idxCategoryType].Rows[idxCategoryName].Cells[idxBoundaryType];
-                        currentCell.Select();
-                        string valueCell = currentCell.Element.GetAttributeValueText("AccessibleValue");
-                        allResults += valueCell + ";";
-                    }
+            // dictCategoryName: {1, "+III"}, {2, "+II"}, {3, "+I"},
+            //                   {4, "0"},    {5, "-I"},  {6, "-II"},
+            //                   {7, "-III"}, {8, "Do"},  {9, "Do"},
+            //                   {10, "NR"}
+            foreach(KeyValuePair<int, string> entryCategoryName in dictCategoryName) {
+                // BoundaryType: {3, "Onder"}, {4, "Boven"}
+                foreach(KeyValuePair<int, string> entryBoundaryType in dictBoundaryType) {
+                    var currentCell = categoryBoundariesTable.Rows[entryCategoryName.Key].Cells[entryBoundaryType.Key];
+                    currentCell.Select();
+                    string valueCell = currentCell.Element.GetAttributeValueText("AccessibleValue");
+                    allResults += valueCell + ";";
                 }
             }
             allResults = allResults.TrimEnd(';');
@@ -144,31 +134,28 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
             };
             
             List<string> categoryNameCollection= new List<string> {
-                "I",
-                "II",
-                "III",
-                "IV",
-                "V",
-                "VI"
-            };
-            
-            List<string> categoryTypeCollection= new List<string> {
-                "t",
-                "v"
+                "+III",
+                "+II",
+                "+I",
+                "0",
+                "-I",
+                "-II",
+                "-III",
+                "Do",
+                "NDo",
+                "NR"
             };
             
             List<string> expectedValues = expectedString.Split(';').ToList();
             List<string> actualValues = actualString.Split(';').ToList();
 
             int idx = 0;
-            foreach (string categoryType in categoryTypeCollection) {
-                foreach (string categoryName in categoryNameCollection) {
-                    foreach (string boundaryType in boundaryTypeCollection) {
-                        string messageCase = "Validating boundary " + categoryName + categoryType + " " + boundaryType + " : expected = " + expectedValues[idx] + "; actual = " + actualValues[idx]+ "  ";
-                        Report.Log(ReportLevel.Info, messageCase);
-                        ValidateSingleCategoryBoundary(expectedValues[idx], actualValues[idx]);
-                        idx++;
-                    }
+            foreach (string categoryName in categoryNameCollection) {
+                foreach (string boundaryType in boundaryTypeCollection) {
+                    string messageCase = "Validating boundary " + categoryName + boundaryType + " : expected = " + expectedValues[idx] + "; actual = " + actualValues[idx]+ "  ";
+                    Report.Log(ReportLevel.Info, messageCase);
+                    ValidateSingleCategoryBoundary(expectedValues[idx], actualValues[idx]);
+                    idx++;
                 }
             }
             expectedCategoriesBoundaries = expectedCategoriesBoundaries.TrimEnd(';');
@@ -177,16 +164,16 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
         private void ValidateSingleCategoryBoundary(string expectedValue, string actualValue)
         {
             if (actualValue==expectedValue) {
-            	Validate.AreEqual(actualValue, expectedValue);
+                Validate.AreEqual(actualValue, expectedValue);
             }
             else {
-            	System.Globalization.CultureInfo currentCulture = CultureInfo.CurrentCulture;
-            	Report.Log(ReportLevel.Info, "Validation", "Value found: " + actualValue + " is not equal to expected value: " + expectedValue + "\r\nEvaluating whether they are almost (within 0.01%) equal...");
-            	var expectedDouble = 1.0/(Double.Parse(expectedValue.Substring(2,expectedValue.Length-2), currentCulture));
-            	var actualDouble = 1.0/(Double.Parse(actualValue.Substring(2,actualValue.Length-2), currentCulture));
-            	var deviation = Math.Abs(100.0*(expectedDouble - actualDouble) / expectedDouble);
-            	Report.Log(ReportLevel.Info, "Validation", "Deviation = " + deviation + " %");
-            	Validate.IsTrue(deviation<0.01);
+                System.Globalization.CultureInfo currentCulture = CultureInfo.CurrentCulture;
+                Report.Log(ReportLevel.Info, "Validation", "Value found: " + actualValue + " is not equal to expected value: " + expectedValue + "\\nEvaluating whether they are almost (within 0.01%) equal...");
+                var expectedDouble = 1.0/(Double.Parse(expectedValue.Substring(2,expectedValue.Length-2), currentCulture));
+                var actualDouble = 1.0/(Double.Parse(actualValue.Substring(2,actualValue.Length-2), currentCulture));
+                var deviation = Math.Abs(100.0*(expectedDouble - actualDouble) / expectedDouble);
+                Report.Log(ReportLevel.Info, "Validation", "Deviation = " + deviation + " %");
+                Validate.IsTrue(deviation<0.01);
             }
 
         }

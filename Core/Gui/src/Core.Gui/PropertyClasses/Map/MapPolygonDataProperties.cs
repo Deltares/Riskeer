@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -147,7 +147,7 @@ namespace Core.Gui.PropertyClasses.Map
             if (propertyName == nameof(FillColor)
                 || propertyName == nameof(StrokeColor)
                 || propertyName == nameof(StrokeThickness)
-            )
+               )
             {
                 return data.Theme == null;
             }

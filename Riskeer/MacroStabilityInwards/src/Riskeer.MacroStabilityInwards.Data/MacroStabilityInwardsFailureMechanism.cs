@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Core.Common.Base;
+using Riskeer.Common.Data;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.MacroStabilityInwards.Data.Properties;
@@ -32,13 +32,9 @@ namespace Riskeer.MacroStabilityInwards.Data
     /// <summary>
     /// Model for performing macro stability inwards calculations.
     /// </summary>
-    public class MacroStabilityInwardsFailureMechanism : FailureMechanismBase,
-                                                         ICalculatableFailureMechanism,
-                                                         IHasSectionResults<MacroStabilityInwardsFailureMechanismSectionResultOld, AdoptableWithProfileProbabilityFailureMechanismSectionResult>
+    public class MacroStabilityInwardsFailureMechanism : FailureMechanismBase<AdoptableWithProfileProbabilityFailureMechanismSectionResult>,
+                                                         ICalculatableFailureMechanism
     {
-        private readonly ObservableList<MacroStabilityInwardsFailureMechanismSectionResultOld> sectionResultsOld;
-        private readonly ObservableList<AdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults;
-
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsFailureMechanism"/>.
         /// </summary>
@@ -53,9 +49,7 @@ namespace Riskeer.MacroStabilityInwards.Data
             {
                 Name = RiskeerCommonDataResources.FailureMechanism_Calculations_DisplayName
             };
-
-            sectionResultsOld = new ObservableList<MacroStabilityInwardsFailureMechanismSectionResultOld>();
-            sectionResults = new ObservableList<AdoptableWithProfileProbabilityFailureMechanismSectionResult>();
+            CalculationsInputComments = new Comment();
         }
 
         /// <summary>
@@ -79,25 +73,10 @@ namespace Riskeer.MacroStabilityInwards.Data
         /// </summary>
         public MacroStabilityInwardsProbabilityAssessmentInput MacroStabilityInwardsProbabilityAssessmentInput { get; }
 
+        public IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations();
+
         public CalculationGroup CalculationsGroup { get; }
 
-        public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations();
-
-        public IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionResultOld> SectionResultsOld => sectionResultsOld;
-
-        public IObservableEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult> SectionResults => sectionResults;
-
-        protected override void AddSectionDependentData(FailureMechanismSection section)
-        {
-            base.AddSectionDependentData(section);
-            sectionResultsOld.Add(new MacroStabilityInwardsFailureMechanismSectionResultOld(section));
-            sectionResults.Add(new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section));
-        }
-
-        protected override void ClearSectionDependentData()
-        {
-            sectionResultsOld.Clear();
-            sectionResults.Clear();
-        }
+        public Comment CalculationsInputComments { get; }
     }
 }

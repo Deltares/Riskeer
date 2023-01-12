@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -408,7 +408,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
 
                 WaveConditionsInput input = calculation.InputParameters;
 
-                double expectedTargetProbability = assessmentSection.FailureMechanismContribution.LowerLimitNorm;
+                double expectedTargetProbability = assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability;
 
                 var waterLevelIndex = 0;
                 for (var i = 0; i < waveConditionsInputs.Length / 2; i++)
@@ -569,10 +569,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
                                                                                                    string detailedReport)
         {
             // Setup
-            var failureMechanism = new StabilityStoneCoverFailureMechanism
-            {
-                Contribution = 20
-            };
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var calculatorThatFails = new TestWaveConditionsCosineCalculator
             {
                 EndInFailure = endInFailure,
@@ -658,10 +655,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
                                                                                              string detailedReport)
         {
             // Setup
-            var failureMechanism = new StabilityStoneCoverFailureMechanism
-            {
-                Contribution = 20
-            };
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var calculatorThatFails = new TestWaveConditionsCosineCalculator
             {
                 EndInFailure = endInFailure,
@@ -736,7 +730,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
                 Assert.AreEqual(3, blocksWaveConditionsOutputs.Length);
 
                 WaveConditionsOutputTestHelper.AssertFailedOutput(waterLevelUpperBoundaryRevetment,
-                                                                  assessmentSection.FailureMechanismContribution.LowerLimitNorm,
+                                                                  assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability,
                                                                   blocksWaveConditionsOutputs[0]);
 
                 WaveConditionsOutput[] columnsWaveConditionsOutputs = calculation.Output.ColumnsOutput.ToArray();
@@ -756,10 +750,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
                                                                                               string detailedReport)
         {
             // Setup
-            var failureMechanism = new StabilityStoneCoverFailureMechanism
-            {
-                Contribution = 20
-            };
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var calculatorThatFails = new TestWaveConditionsCosineCalculator
             {
                 EndInFailure = endInFailure,
@@ -842,7 +833,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
                 Assert.AreEqual(3, columnsWaveConditionsOutputs.Length);
 
                 WaveConditionsOutputTestHelper.AssertFailedOutput(waterLevelUpperBoundaryRevetment,
-                                                                  assessmentSection.FailureMechanismContribution.LowerLimitNorm,
+                                                                  assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability,
                                                                   columnsWaveConditionsOutputs[0]);
             }
 
@@ -1004,7 +995,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
                 hydraulicBoundaryLocation
             });
 
-            assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(9.3);
+            assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(9.3);
 
             return assessmentSection;
         }
@@ -1016,7 +1007,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit,
+                    WaterLevelType = WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability,
                     ForeshoreProfile = new TestForeshoreProfile(true),
                     UseForeshore = true,
                     UseBreakWater = true,

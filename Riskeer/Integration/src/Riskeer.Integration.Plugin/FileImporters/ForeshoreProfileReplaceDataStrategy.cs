@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -36,7 +36,7 @@ namespace Riskeer.Integration.Plugin.FileImporters
     /// A <see cref="ReplaceDataStrategyBase{TTargetData,TFailureMechanism}"/>
     /// to replace foreshore profiles with imported foreshore profiles.
     /// </summary>
-    public class ForeshoreProfileReplaceDataStrategy : ReplaceDataStrategyBase<ForeshoreProfile, IFailureMechanism>,
+    public class ForeshoreProfileReplaceDataStrategy : ReplaceDataStrategyBase<ForeshoreProfile, ICalculatableFailureMechanism>,
                                                        IForeshoreProfileUpdateDataStrategy
     {
         private readonly ForeshoreProfileCollection foreshoreProfileCollection;
@@ -49,7 +49,7 @@ namespace Riskeer.Integration.Plugin.FileImporters
         /// <param name="foreshoreProfiles">The collection containing the foreshore profiles.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter
         /// is <c>null</c>.</exception>
-        public ForeshoreProfileReplaceDataStrategy(IFailureMechanism failureMechanism, ForeshoreProfileCollection foreshoreProfiles)
+        public ForeshoreProfileReplaceDataStrategy(ICalculatableFailureMechanism failureMechanism, ForeshoreProfileCollection foreshoreProfiles)
             : base(failureMechanism, foreshoreProfiles)
         {
             foreshoreProfileCollection = foreshoreProfiles;

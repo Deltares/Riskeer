@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -28,7 +28,7 @@ namespace Riskeer.Common.Data.DikeProfiles
     /// <summary>
     /// This class represents a geometry point with a roughness.
     /// </summary>
-    public class RoughnessPoint
+    public sealed class RoughnessPoint
     {
         /// <summary>
         /// Creates a new instance of the <see cref="RoughnessPoint"/> class.

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -36,7 +36,8 @@ namespace Riskeer.Common.Forms.ChangeHandlers
     /// Class which properly handles data model changes due to a change of a
     /// failure mechanism property.
     /// </summary>
-    public class FailureMechanismPropertyChangeHandler<T> : IFailureMechanismPropertyChangeHandler<T> where T : IFailureMechanism
+    public class FailureMechanismPropertyChangeHandler<T> : IFailureMechanismPropertyChangeHandler<T>
+        where T : ICalculatableFailureMechanism
     {
         public IEnumerable<IObservable> SetPropertyValueAfterConfirmation<TValue>(
             T failureMechanism,

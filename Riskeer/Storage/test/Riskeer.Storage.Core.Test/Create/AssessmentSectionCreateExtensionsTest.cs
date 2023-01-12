@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -28,9 +28,9 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Integration.Data;
-using Riskeer.Integration.Data.FailurePath;
 using Riskeer.Storage.Core.Create;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Serializers;
@@ -50,10 +50,10 @@ namespace Riskeer.Storage.Core.Test.Create
             var assessmentSection = new AssessmentSection(assessmentSectionComposition);
 
             // Call
-            TestDelegate test = () => assessmentSection.Create(null);
+            void Call() => assessmentSection.Create(null);
 
             // Assert
-            string parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string parameterName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("registry", parameterName);
         }
 
@@ -67,17 +67,17 @@ namespace Riskeer.Storage.Core.Test.Create
             const string testId = "testId";
             const string testName = "testName";
             const string comments = "Some text";
-            const double lowerLimitNorm = 0.05;
-            const double signalingNorm = 0.02;
+            const double maximumAllowableFloodingProbability = 0.05;
+            const double signalFloodingProbability = 0.02;
 
             var random = new Random(65);
             const string mapDataName = "map data name";
             const double transparency = 0.3;
             const bool isVisible = true;
             const BackgroundDataType backgroundType = BackgroundDataType.Wmts;
-            var normativeNorm = random.NextEnumValue<NormType>();
-            IEnumerable<SpecificFailurePath> specificFailurePaths = Enumerable.Repeat(new SpecificFailurePath(), random.Next(1, 10))
-                                                                              .ToArray();
+            var normativeProbabilityType = random.NextEnumValue<NormativeProbabilityType>();
+            IEnumerable<SpecificFailureMechanism> specificFailureMechanisms = Enumerable.Repeat(new SpecificFailureMechanism(), random.Next(1, 10))
+                                                                                        .ToArray();
 
             var assessmentSection = new AssessmentSection(assessmentSectionComposition)
             {
@@ -89,9 +89,9 @@ namespace Riskeer.Storage.Core.Test.Create
                 },
                 FailureMechanismContribution =
                 {
-                    LowerLimitNorm = lowerLimitNorm,
-                    SignalingNorm = signalingNorm,
-                    NormativeNorm = normativeNorm
+                    MaximumAllowableFloodingProbability = maximumAllowableFloodingProbability,
+                    SignalFloodingProbability = signalFloodingProbability,
+                    NormativeProbabilityType = normativeProbabilityType
                 },
                 BackgroundData =
                 {
@@ -102,7 +102,7 @@ namespace Riskeer.Storage.Core.Test.Create
                 }
             };
 
-            assessmentSection.SpecificFailurePaths.AddRange(specificFailurePaths);
+            assessmentSection.SpecificFailureMechanisms.AddRange(specificFailureMechanisms);
             var registry = new PersistenceRegistry();
 
             // Call
@@ -114,9 +114,9 @@ namespace Riskeer.Storage.Core.Test.Create
             Assert.AreEqual(testId, entity.Id);
             Assert.AreEqual(testName, entity.Name);
             Assert.AreEqual(comments, entity.Comments);
-            Assert.AreEqual(lowerLimitNorm, entity.LowerLimitNorm);
-            Assert.AreEqual(signalingNorm, entity.SignalingNorm);
-            Assert.AreEqual(Convert.ToByte(normativeNorm), entity.NormativeNormType);
+            Assert.AreEqual(maximumAllowableFloodingProbability, entity.MaximumAllowableFloodingProbability);
+            Assert.AreEqual(signalFloodingProbability, entity.SignalFloodingProbability);
+            Assert.AreEqual(Convert.ToByte(normativeProbabilityType), entity.NormativeProbabilityType);
             Assert.AreEqual(15, entity.FailureMechanismEntities.Count);
             Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.Piping));
             Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.GrassRevetmentTopErosionAndInwards));
@@ -133,7 +133,7 @@ namespace Riskeer.Storage.Core.Test.Create
             Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.PipingAtStructure));
             Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.StabilityPointStructures));
             Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.DuneErosion));
-            Assert.AreEqual(assessmentSection.SpecificFailurePaths.Count, entity.SpecificFailurePathEntities.Count);
+            Assert.AreEqual(assessmentSection.SpecificFailureMechanisms.Count, entity.SpecificFailureMechanismEntities.Count);
 
             Assert.IsNull(entity.ReferenceLinePointXml);
 
@@ -291,9 +291,9 @@ namespace Riskeer.Storage.Core.Test.Create
 
         private static void AssertHydraulicLocationCalculationCollectionEntities(AssessmentSection assessmentSection, AssessmentSectionEntity entity)
         {
-            AssertHydraulicLocationCalculationCollectionEntity(assessmentSection.WaterLevelCalculationsForSignalingNorm,
+            AssertHydraulicLocationCalculationCollectionEntity(assessmentSection.WaterLevelCalculationsForSignalFloodingProbability,
                                                                entity.HydraulicLocationCalculationCollectionEntity1.HydraulicLocationCalculationEntities);
-            AssertHydraulicLocationCalculationCollectionEntity(assessmentSection.WaterLevelCalculationsForLowerLimitNorm,
+            AssertHydraulicLocationCalculationCollectionEntity(assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability,
                                                                entity.HydraulicLocationCalculationCollectionEntity.HydraulicLocationCalculationEntities);
 
             AssertHydraulicLocationCalculationForTargetProbabilityCollectionEntity(assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities,
@@ -308,8 +308,8 @@ namespace Riskeer.Storage.Core.Test.Create
         private static void SetHydraulicBoundaryLocationCalculationInputsOfAssessmentSection(AssessmentSection assessmentSection)
         {
             var random = new Random(21);
-            SetHydraulicBoundaryLocationCalculationInputs(assessmentSection.WaterLevelCalculationsForSignalingNorm, random.Next());
-            SetHydraulicBoundaryLocationCalculationInputs(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, random.Next());
+            SetHydraulicBoundaryLocationCalculationInputs(assessmentSection.WaterLevelCalculationsForSignalFloodingProbability, random.Next());
+            SetHydraulicBoundaryLocationCalculationInputs(assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability, random.Next());
 
             SetHydraulicBoundaryLocationCalculationInputs(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities
                                                                            .SelectMany(calc => calc.HydraulicBoundaryLocationCalculations), random.Next());

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -24,7 +24,9 @@ using System.Globalization;
 using System.Linq;
 using System.Management;
 using System.Windows;
+using System.Windows.Media.Imaging;
 using Core.Gui.Properties;
+using Core.Gui.Settings;
 
 namespace Core.Gui.Forms.Backstage
 {
@@ -33,14 +35,23 @@ namespace Core.Gui.Forms.Backstage
     /// </summary>
     public class AboutViewModel : IBackstagePageViewModel
     {
+        private readonly GuiCoreSettings settings;
+
         /// <summary>
         /// Creates a new instance of <see cref="AboutViewModel"/>.
         /// </summary>
-        /// <param name="applicationName">The application name.</param>
+        /// <param name="settings">The application settings.</param>
         /// <param name="version">The application version.</param>
-        public AboutViewModel(string applicationName, string version)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="settings"/> is <c>null</c>.</exception>
+        public AboutViewModel(GuiCoreSettings settings, string version)
         {
-            ApplicationName = applicationName;
+            if (settings == null)
+            {
+                throw new ArgumentNullException(nameof(settings));
+            }
+
+            this.settings = settings;
+
             Version = version;
 
             WindowsEdition = (string) GetManagementObjectProperty("Win32_OperatingSystem", "Caption")
@@ -54,7 +65,7 @@ namespace Core.Gui.Forms.Backstage
         /// <summary>
         /// Gets the application name.
         /// </summary>
-        public string ApplicationName { get; }
+        public string ApplicationName => settings.ApplicationName;
 
         /// <summary>
         /// Gets the application version.
@@ -101,6 +112,11 @@ namespace Core.Gui.Forms.Backstage
         public static string Resolution =>
             $"{SystemParameters.PrimaryScreenWidth.ToString(CultureInfo.InvariantCulture)} " +
             $"x {SystemParameters.PrimaryScreenHeight.ToString(CultureInfo.InvariantCulture)}";
+
+        /// <summary>
+        /// Gets the bitmap image representing the creators of the application.
+        /// </summary>
+        public BitmapImage MadeByBitmapImage => settings.MadeByBitmapImage;
 
         private static object GetManagementObjectProperty(string managementObjectName, string propertyName)
         {

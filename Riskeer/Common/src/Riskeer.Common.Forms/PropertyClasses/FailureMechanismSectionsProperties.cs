@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -27,7 +27,6 @@ using Core.Gui.Attributes;
 using Core.Gui.Converters;
 using Core.Gui.PropertyBag;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.Properties;
 
@@ -37,28 +36,28 @@ namespace Riskeer.Common.Forms.PropertyClasses
     /// ViewModel of <see cref="IFailureMechanism"/> for the properties panel
     /// to show a collection of <see cref="FailureMechanismSection"/>.
     /// </summary>
-    public class FailureMechanismSectionsProperties : ObjectProperties<IFailurePath>, IDisposable
+    public class FailureMechanismSectionsProperties : ObjectProperties<IFailureMechanism>, IDisposable
     {
-        private readonly Observer failurePathObserver;
+        private readonly Observer failureMechanismObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismSectionsProperties"/>.
         /// </summary>
-        /// <param name="failurePath">The failure mechanism to show the section properties for.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failurePath"/> is <c>null</c>.</exception>
-        public FailureMechanismSectionsProperties(IFailurePath failurePath)
+        /// <param name="failureMechanism">The failure mechanism to show the section properties for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
+        public FailureMechanismSectionsProperties(IFailureMechanism failureMechanism)
         {
-            if (failurePath == null)
+            if (failureMechanism == null)
             {
-                throw new ArgumentNullException(nameof(failurePath));
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            failurePathObserver = new Observer(OnRefreshRequired)
+            failureMechanismObserver = new Observer(OnRefreshRequired)
             {
-                Observable = failurePath
+                Observable = failureMechanism
             };
 
-            data = failurePath;
+            data = failureMechanism;
         }
 
         [PropertyOrder(1)]
@@ -98,7 +97,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         {
             if (disposing)
             {
-                failurePathObserver.Dispose();
+                failureMechanismObserver.Dispose();
             }
         }
 

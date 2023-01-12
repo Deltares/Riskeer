@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -24,6 +24,7 @@ using System.ComponentModel;
 using Core.Common.Base.Data;
 using Core.Common.Util;
 using Core.Common.Util.Attributes;
+using Core.Common.Util.Enums;
 using Core.Gui.Attributes;
 using Core.Gui.PropertyBag;
 using Riskeer.Common.Data.Hydraulics;
@@ -201,8 +202,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return new EnumDisplayWrapper<CalculationConvergence>(data.DikeHeightOutput?.CalculationConvergence
-                                                                      ?? CalculationConvergence.NotCalculated).DisplayName;
+                return EnumDisplayNameHelper.GetDisplayName(data.DikeHeightOutput?.CalculationConvergence
+                                                            ?? CalculationConvergence.NotCalculated);
             }
         }
 
@@ -294,8 +295,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return new EnumDisplayWrapper<CalculationConvergence>(data.OvertoppingRateOutput?.CalculationConvergence
-                                                                      ?? CalculationConvergence.NotCalculated).DisplayName;
+                return EnumDisplayNameHelper.GetDisplayName(data.OvertoppingRateOutput?.CalculationConvergence
+                                                            ?? CalculationConvergence.NotCalculated);
             }
         }
 

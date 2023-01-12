@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -43,7 +43,7 @@ namespace Riskeer.Storage.Core.DbContext
             HydraulicBoundaryDatabaseEntities = new HashSet<HydraulicBoundaryDatabaseEntity>();
             HydraulicLocationCalculationForTargetProbabilityCollectionEntities = new HashSet<HydraulicLocationCalculationForTargetProbabilityCollectionEntity>();
             HydraulicLocationEntities = new HashSet<HydraulicLocationEntity>();
-            SpecificFailurePathEntities = new HashSet<SpecificFailurePathEntity>();
+            SpecificFailureMechanismEntities = new HashSet<SpecificFailureMechanismEntity>();
         }
 
         public long AssessmentSectionEntityId { get; set; }
@@ -53,9 +53,9 @@ namespace Riskeer.Storage.Core.DbContext
         public string Id { get; set; }
         public string Name { get; set; }
         public string Comments { get; set; }
-        public double LowerLimitNorm { get; set; }
-        public double SignalingNorm { get; set; }
-        public byte NormativeNormType { get; set; }
+        public double MaximumAllowableFloodingProbability { get; set; }
+        public double SignalFloodingProbability { get; set; }
+        public byte NormativeProbabilityType { get; set; }
         public byte Composition { get; set; }
         public string ReferenceLinePointXml { get; set; }
 
@@ -79,6 +79,6 @@ namespace Riskeer.Storage.Core.DbContext
         public virtual ICollection<HydraulicLocationEntity> HydraulicLocationEntities { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SpecificFailurePathEntity> SpecificFailurePathEntities { get; set; }
+        public virtual ICollection<SpecificFailureMechanismEntity> SpecificFailureMechanismEntities { get; set; }
     }
 }

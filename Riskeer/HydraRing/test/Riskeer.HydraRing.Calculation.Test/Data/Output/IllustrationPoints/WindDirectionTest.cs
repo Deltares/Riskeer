@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -38,10 +38,10 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
             double windDirectionAngle = random.NextDouble();
 
             // Call
-            TestDelegate call = () => new WindDirection(null, windDirectionAngle);
+            void Call() => new WindDirection(null, windDirectionAngle);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("name", exception.ParamName);
         }
 
@@ -63,16 +63,11 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
         }
 
         [TestFixture]
-        private class WindDirectionEqualsTest : EqualsTestFixture<WindDirection, DerivedWindDirection>
+        private class WindDirectionEqualsTest : EqualsTestFixture<WindDirection>
         {
             protected override WindDirection CreateObject()
             {
                 return CreateWindDirection();
-            }
-
-            protected override DerivedWindDirection CreateDerivedObject()
-            {
-                return new DerivedWindDirection(CreateWindDirection());
             }
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
@@ -93,11 +88,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
                 var random = new Random(21);
                 return new WindDirection("Name", random.NextDouble());
             }
-        }
-
-        private class DerivedWindDirection : WindDirection
-        {
-            public DerivedWindDirection(WindDirection windDirection) : base(windDirection.Name, windDirection.Angle) {}
         }
     }
 }

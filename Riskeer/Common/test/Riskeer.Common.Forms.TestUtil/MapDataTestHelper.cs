@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -23,18 +23,16 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Geometry;
-using Core.Common.Util;
+using Core.Common.Util.Enums;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.Forms;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 
 namespace Riskeer.Common.Forms.TestUtil
 {
@@ -294,10 +292,10 @@ namespace Riskeer.Common.Forms.TestUtil
         /// <list type="bullet">
         /// <item>the name of the <see cref="MapData"/> is not <c>Duidingsklasse per vak</c>;</item>
         /// <item>the amount of features in <paramref name="mapData"/> is not equal to the 
-        /// amount of the <see cref="IFailurePath.Sections"/>;</item>
+        /// amount of the <see cref="IFailureMechanism.Sections"/>;</item>
         /// <item>the geometries of the features in <paramref name="mapData"/> are not equal to 
-        /// the expected geometry of the <see cref="IFailurePath.Sections"/>;</item>
-        /// <item>the meta data does not contain the <see cref="DisplayFailureMechanismSectionAssemblyGroup"/>.</item>
+        /// the expected geometry of the <see cref="IFailureMechanism.Sections"/>;</item>
+        /// <item>the meta data does not contain the <see cref="FailureMechanismSectionAssemblyGroup"/>.</item>
         /// </list>
         /// </exception>
         public static void AssertAssemblyMapData(IFailureMechanism failureMechanism,
@@ -318,10 +316,10 @@ namespace Riskeer.Common.Forms.TestUtil
                 FailureMechanismSection failureMechanismSection = sections[index];
                 CollectionAssert.AreEqual(failureMechanismSection.Points, feature.MapGeometries.Single().PointCollections.Single());
 
-                Assert.AreEqual(1, feature.MetaData.Count);
-                Assert.AreEqual(new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyGroup>(
-                                    DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(expectedAssemblyResult.AssemblyGroup)).DisplayName,
+                Assert.AreEqual(2, feature.MetaData.Count);
+                Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(expectedAssemblyResult.FailureMechanismSectionAssemblyGroup),
                                 feature.MetaData["Duidingsklasse"]);
+                Assert.AreEqual(expectedAssemblyResult.SectionProbability, feature.MetaData["Rekenwaarde faalkans per vak"]);
             }
         }
 

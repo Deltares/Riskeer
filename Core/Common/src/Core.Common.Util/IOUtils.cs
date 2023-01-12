@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -176,7 +176,7 @@ namespace Core.Common.Util
             try
             {
                 foreach (string logFile in Directory.GetFiles(path, searchPattern).Where(
-                    l => (DateTime.Now - File.GetCreationTime(l)).TotalDays > numberOfDaysToKeepFiles))
+                             l => (DateTime.Now - File.GetCreationTime(l)).TotalDays > numberOfDaysToKeepFiles))
                 {
                     File.Delete(logFile);
                 }

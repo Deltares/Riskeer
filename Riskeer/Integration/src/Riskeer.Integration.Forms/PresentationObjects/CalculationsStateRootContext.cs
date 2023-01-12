@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -36,7 +36,7 @@ namespace Riskeer.Integration.Forms.PresentationObjects
         /// <see cref="CalculationsStateRootContext"/> belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when
         /// <paramref name="wrappedData"/> is <c>null</c>.</exception>
-        public CalculationsStateRootContext(AssessmentSection wrappedData) 
+        public CalculationsStateRootContext(AssessmentSection wrappedData)
             : base(wrappedData) {}
     }
 }

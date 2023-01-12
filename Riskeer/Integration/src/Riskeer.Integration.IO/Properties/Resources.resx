@@ -117,38 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="SerializableAssessmentSection_IdPrefix" xml:space="preserve">
-    <value>Wks</value>
-  </data>
-  <data name="SerializableTotalAssemblyResult_IdPrefix" xml:space="preserve">
+  <data name="ExportableTotalAssemblyResult_IdPrefix" xml:space="preserve">
     <value>Vo</value>
   </data>
-  <data name="SerializableAssembly_IdPrefix" xml:space="preserve">
-    <value>Assemblage</value>
+  <data name="ExportableAssembly_IdPrefix" xml:space="preserve">
+    <value>assemblage</value>
   </data>
-  <data name="SerializableAssessmentProcess_IdPrefix" xml:space="preserve">
+  <data name="ExportableAssessmentProcess_IdPrefix" xml:space="preserve">
     <value>Bp</value>
   </data>
-  <data name="SerializableFailureMechanismCreator_IdPrefix" xml:space="preserve">
-    <value>Ts</value>
-  </data>
-  <data name="SerializableFailureMechanismSection_IdPrefix" xml:space="preserve">
-    <value>Tv</value>
-  </data>
-  <data name="SerializableFailureMechanismSectionAssembly_IdPrefix" xml:space="preserve">
-    <value>T</value>
-  </data>
-  <data name="SerializableFailureMechanismSectionCollection_IdPrefix" xml:space="preserve">
-    <value>Vi</value>
-  </data>
-  <data name="SerializableCombinedFailureMechanismSectionAssembly_IdPrefix" xml:space="preserve">
-    <value>Gto</value>
+  <data name="ExportableFailureMechanism_IdPrefix" xml:space="preserve">
+    <value>Fm</value>
   </data>
   <data name="AssemblyExporter_Error_Exception_0_no_AssemblyResult_exported" xml:space="preserve">
-    <value>{0} Er is geen toetsoordeel geëxporteerd.</value>
+    <value>{0} Er zijn geen assemblageresultaten geëxporteerd.</value>
   </data>
-  <data name="AssemblyExporter_LogErrorMessage_Only_possible_to_export_a_complete_AssemblyResult" xml:space="preserve">
-    <value>Om een toetsoordeel te kunnen exporteren moet voor alle vakken een resultaat zijn gespecificeerd.</value>
+  <data name="AssemblyExporter_No_AssemblyResult_exported_Check_results_for_details" xml:space="preserve">
+    <value>De assemblage kan niet succesvol worden afgerond. Inspecteer de resultaten van de faalmechanismen die onderdeel zijn van de assemblage of het veiligheidsoordeel voor meer details.</value>
+  </data>
+  <data name="AssemblyExporter_Specific_failure_mechanisms_must_have_a_unique_name" xml:space="preserve">
+    <value>Om assemblageresultaten te kunnen exporteren moeten alle specifieke faalmechanismen die onderdeel zijn van de assemblage een unieke naam hebben.</value>
   </data>
   <data name="HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HRD_file" xml:space="preserve">
     <value>Inlezen van het hydraulische belastingen bestand.</value>
@@ -205,5 +193,20 @@ Er is geen HLCD geïmporteerd.</value>
   </data>
   <data name="WaveHeights_DisplayName" xml:space="preserve">
     <value>Golfhoogten</value>
+  </data>
+  <data name="ExportableAssessmentSection_IdPrefix" xml:space="preserve">
+    <value>Wks</value>
+  </data>
+  <data name="ExportableFailureMechanismSectionCollection_IdPrefix" xml:space="preserve">
+    <value>Vi</value>
+  </data>
+  <data name="ExportableFailureMechanismSection_IdPrefix" xml:space="preserve">
+    <value>Bv</value>
+  </data>
+  <data name="ExportableFailureMechanismSectionAssemblyResult_IdPrefix" xml:space="preserve">
+    <value>Fa</value>
+  </data>
+  <data name="ExportableCombinedSectionAssembly_IdPrefix" xml:space="preserve">
+    <value>Gf</value>
   </data>
 </root>

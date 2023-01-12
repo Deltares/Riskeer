@@ -47,22 +47,27 @@
 			name="GenerateCSV">
 				<parameters>
 					<param
+					mask="False"
 					name="substituteSubstring"
 					value="_">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString0"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString1"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString2"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="extensionCSV"
 					value=".csv">
 					</param>
@@ -151,6 +156,7 @@
 			name="ValidateCSVEqualToModifiedReference">
 				<parameters>
 					<param
+					mask="False"
 					name="fullPathReferenceCSVFile"
 					value="">
 					</param>
@@ -166,6 +172,10 @@
 			id="1035dde8-2f1a-4137-a531-475d65ba1c8d"
 			name="ImportStructures">
 			</smartfoldernode>
+			<teardown
+			id="13698e7e-cd0e-41ea-826c-bdf1fb3ed65d"
+			name="teardown">
+			</teardown>
 			<testmodule
 			id="1740e200-0539-4878-902a-632ca68f2d34"
 			name="UpdateCurrentlySelectedItem"
@@ -391,10 +401,6 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
-			<testcase
-			id="2beb87ae-bf92-41c9-accd-2db47b0702e2"
-			name="TakeScreenshotOfDesktop">
-			</testcase>
 			<testmodule
 			id="2dc7cd41-ffd9-4362-af4c-3f6c6c8a9a2b"
 			name="ConcatenateStrings"
@@ -771,22 +777,27 @@
 			name="GenerateCSV">
 				<parameters>
 					<param
+					mask="False"
 					name="substituteSubstring"
 					value="_">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString0"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString1"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString2"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="extensionCSV"
 					value=".csv">
 					</param>
@@ -797,6 +808,7 @@
 			name="SetRangeLoopStructures">
 				<parameters>
 					<param
+					mask="False"
 					name="nameLoopToSetRange"
 					value="LoopStructuresRemovedItems">
 					</param>
@@ -1256,38 +1268,47 @@
 			name="LoopStructuresRemainingItems">
 				<parameters>
 					<param
+					mask="False"
 					name="startPathReferenceCSV"
 					value="X:\script12\reference\removed\">
 					</param>
 					<param
+					mask="False"
 					name="pathSeparator"
 					value=">">
 					</param>
 					<param
+					mask="False"
 					name="pathToSchematizationItem"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediatePathToschematizationItem"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="csvFileName"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="fullPathToOutputCsvFile"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="separationCharacterCsvFile"
 					value=";">
 					</param>
 					<param
+					mask="False"
 					name="waitTime"
 					value="300">
 					</param>
 					<param
+					mask="False"
 					name="numberOfPassesExpandingRows"
 					value="3">
 					</param>
@@ -1350,23 +1371,34 @@
 				</missingdatabinding>
 			</testmodule>
 			<testsuite
+			ExportColumnList="None"
 			ReportTime="RelativeToTestSuiteStartTime"
+			SelectedActions="All"
 			TracingScreenshotMode="Foreground"
 			TracingScreenshotQuality="40"
 			VideoBitrate="2000"
 			VideoFps="15"
 			VideoRecordingMode="KeepAllTests"
 			VideoSource="Auto"
+			createindividualreportpdfchecked="False"
+			createsinglereportpdfchecked="True"
+			enableCSVReport="False"
 			enabletracingscreenshots="True"
+			exportAllColummns="True"
 			id="5f47fc57-1dac-4117-90af-3822e3fabc1a"
+			includeimageschecked="False"
+			includerecordingschecked="False"
 			junitreport="False"
 			name="Script12"
+			overwritefilechecked="False"
 			reportcompress="False"
+			reportdescription=""
 			reportdirectoryname="Reports"
 			reportenabled="True"
 			reportfilename="%S_%Y%M%D_%T.rxlog"
 			reporttemplatefolder="ReportDeltaresStyle"
-			reportwriteinterval="30000ms">
+			reportwriteinterval="30000ms"
+			singlereportpdfdirectory="SingleReportPDF">
 			</testsuite>
 			<testmodule
 			id="60ddfd70-aded-4eac-8b28-bca465e93873"
@@ -1383,18 +1415,22 @@
 			name="LoopFMs">
 				<parameters>
 					<param
+					mask="False"
 					name="pathInputFiles"
 					value="X:\script12\input\">
 					</param>
 					<param
+					mask="False"
 					name="searchFilterAllFiles"
 					value="*.*">
 					</param>
 					<param
+					mask="False"
 					name="pathSchematizationsToImport"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathToFM"
 					value="">
 					</param>
@@ -1409,6 +1445,7 @@
 			name="CopyFilesModifiedElements">
 				<parameters>
 					<param
+					mask="False"
 					name="waitTimeInMiliseconds"
 					value="1000">
 					</param>
@@ -1419,10 +1456,12 @@
 			name="AddNewTrajectAppropriateForStructures">
 				<parameters>
 					<param
+					mask="False"
 					name="signalValue"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="lowValue"
 					value="">
 					</param>
@@ -1439,38 +1478,47 @@
 			name="LoopStructures">
 				<parameters>
 					<param
+					mask="False"
 					name="numberOfPassesExpandingRows"
 					value="3">
 					</param>
 					<param
+					mask="False"
 					name="waitTime"
 					value="300">
 					</param>
 					<param
+					mask="False"
 					name="separationCharacterCsvFile"
 					value=";">
 					</param>
 					<param
+					mask="False"
 					name="csvFileName"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="fullPathToOutputCsvFile"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediatePathToschematizationItem"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathToSchematizationItem"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathSeparator"
 					value=">">
 					</param>
 					<param
+					mask="False"
 					name="startPathReferenceCSV"
 					value="X:\script12\reference\original\">
 					</param>
@@ -1582,10 +1630,10 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="stateCalculations"
-					datasourceid="5a6ec20d-3177-4636-b682-724e13a26235"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
+					dataname="stateName"
+					datasourceid="7d3ea903-a12a-421a-a602-b73b49a91613"
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -1634,6 +1682,13 @@
 			<smartfoldernode
 			id="7d3ea903-a12a-421a-a602-b73b49a91613"
 			name="SetState">
+				<parameters>
+					<param
+					mask="False"
+					name="stateName"
+					value="@SB">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="7fb379e2-722a-42ab-a6ed-d117c7703252"
@@ -1735,6 +1790,7 @@
 			name="ValidateItemNameNotPresentInProjectExplorer">
 				<parameters>
 					<param
+					mask="False"
 					name="nodeRemovedSchematizationMustBePresent"
 					value="false">
 					</param>
@@ -1760,6 +1816,7 @@
 			name="ValidateItemNameInProjectExplorer">
 				<parameters>
 					<param
+					mask="False"
 					name="nodeRemainingStructureMustBePresent"
 					value="true">
 					</param>
@@ -1917,6 +1974,7 @@
 			name="SetRangeLoopStructures">
 				<parameters>
 					<param
+					mask="False"
 					name="nameLoopToSetRange"
 					value="LoopStructures">
 					</param>
@@ -1941,6 +1999,7 @@
 			name="CopyFilesElementsRemoved">
 				<parameters>
 					<param
+					mask="False"
 					name="waitTimeInMiliseconds"
 					value="1000">
 					</param>
@@ -2318,6 +2377,7 @@
 			name="SetRangeLoopStructures">
 				<parameters>
 					<param
+					mask="False"
 					name="nameLoopToSetRange"
 					value="LoopStructuresItemsModified">
 					</param>
@@ -2326,6 +2386,13 @@
 			<smartfoldernode
 			id="ac8d0587-1b15-4124-8e28-dfff2aecad08"
 			name="SetState">
+				<parameters>
+					<param
+					mask="False"
+					name="stateName"
+					value="@SB">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="aceaa14f-86ed-49b9-9167-e8bc308f5c5a"
@@ -2413,6 +2480,7 @@
 			name="CheckIfItemCanBeOpened">
 				<parameters>
 					<param
+					mask="False"
 					name="nameOpenItem"
 					value="Openen">
 					</param>
@@ -2423,14 +2491,17 @@
 			name="script12_Kunstwerkgegevens_importeren">
 				<parameters>
 					<param
+					mask="False"
 					name="caseNumber"
 					value="12">
 					</param>
 					<param
+					mask="False"
 					name="scriptOutputFolder"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="dummyString"
 					value="">
 					</param>
@@ -2481,6 +2552,7 @@
 			name="ScreenshotsToEvaluatePresenceOfStructure">
 				<parameters>
 					<param
+					mask="False"
 					name="warningMessage"
 					value="Please, control the screenshots in the sections below.">
 					</param>
@@ -2542,10 +2614,12 @@
 			name="AddNewTrajectNotAppropriateForStructures">
 				<parameters>
 					<param
+					mask="False"
 					name="signalValue"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="lowValue"
 					value="">
 					</param>
@@ -2768,6 +2842,7 @@
 			name="ValidateCSVEqualToOriginalReference">
 				<parameters>
 					<param
+					mask="False"
 					name="fullPathReferenceCSVFile"
 					value="">
 					</param>
@@ -2778,17 +2853,12 @@
 			name="SetRangeLoopStructures">
 				<parameters>
 					<param
+					mask="False"
 					name="nameLoopToSetRange"
 					value="LoopStructuresRemainingItems">
 					</param>
 				</parameters>
 			</smartfoldernode>
-			<testmodule
-			id="c6e51862-ab26-43cf-921b-b34e394f9b36"
-			name="CreateScreenshotEntireDesktop"
-			ref="0f7ebadb-0285-4449-9422-0cd6fde5bf4d"
-			type="Recording">
-			</testmodule>
 			<testmodule
 			id="ca206463-423f-4fb2-943b-8dcb0e8f4639"
 			name="CopyAllSearchFilteredFilesFromSourceToTarget"
@@ -2830,10 +2900,10 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="stateCalculations"
-					datasourceid="5a6ec20d-3177-4636-b682-724e13a26235"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
+					dataname="stateName"
+					datasourceid="ac8d0587-1b15-4124-8e28-dfff2aecad08"
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -2865,12 +2935,39 @@
 			reportlevel="Info;20">
 				<parameters>
 					<param
+					mask="False"
 					name="AppProcessID"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="AppPath"
 					value="..\..\..\..\..\bin\Debug\Riskeer.exe">
+					</param>
+					<param
+					mask="False"
+					name="PdfDirectoryPath"
+					value="">
+					</param>
+					<param
+					mask="False"
+					name="DeleteRanorexReport"
+					value="false">
+					</param>
+					<param
+					mask="False"
+					name="Details"
+					value="all">
+					</param>
+					<param
+					mask="False"
+					name="Xml"
+					value="Reports\style.xml">
+					</param>
+					<param
+					mask="False"
+					name="PdfName"
+					value="script12_Kunstwerkgegevens_importeren.pdf">
 					</param>
 				</parameters>
 			</testcase>
@@ -2970,6 +3067,44 @@
 			name="ImportOriginalStructures">
 			</smartfoldernode>
 			<testmodule
+			id="d89802d7-3094-4a8c-b9d2-4550ad841b91"
+			name="ReportToPDFModule"
+			ref="ffa0759d-37d2-4abb-89a7-411f0fcf2dfe"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="PdfDirectoryPath"
+					datasourceid="ce5009df-5c78-4a39-8abc-3f2f561797c6"
+					variableid="536f8a69-f246-4f2b-ae9e-1f62babb2ba9"
+					variablename="PdfDirectoryPath">
+					</var>
+					<var
+					dataname="DeleteRanorexReport"
+					datasourceid="ce5009df-5c78-4a39-8abc-3f2f561797c6"
+					variableid="7f788c18-962c-41ab-b591-9c3122512c5e"
+					variablename="DeleteRanorexReport">
+					</var>
+					<var
+					dataname="Details"
+					datasourceid="ce5009df-5c78-4a39-8abc-3f2f561797c6"
+					variableid="b9993b89-d8cb-45fe-829b-42b0f8dd8a00"
+					variablename="Details">
+					</var>
+					<var
+					dataname="Xml"
+					datasourceid="ce5009df-5c78-4a39-8abc-3f2f561797c6"
+					variableid="c15f25ea-9409-4e1a-b76e-cd208bae6c56"
+					variablename="Xml">
+					</var>
+					<var
+					dataname="PdfName"
+					datasourceid="ce5009df-5c78-4a39-8abc-3f2f561797c6"
+					variableid="1d09c6b5-db7a-4ed0-a13c-ee2add5d3d37"
+					variablename="PdfName">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="d9c3b50c-dd2e-47ef-8ba4-65d4d4b7492e"
 			name="NewProjectUsingKeyboard"
 			ref="f0658d7f-65e3-4f38-afe8-97fd942c1478"
@@ -3012,38 +3147,47 @@
 			name="LoopStructuresItemsModified">
 				<parameters>
 					<param
+					mask="False"
 					name="startPathReferenceCSV"
 					value="X:\script12\reference\modified\">
 					</param>
 					<param
+					mask="False"
 					name="pathSeparator"
 					value=">">
 					</param>
 					<param
+					mask="False"
 					name="pathToSchematizationItem"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediatePathToschematizationItem"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="csvFileName"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="fullPathToOutputCsvFile"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="separationCharacterCsvFile"
 					value=";">
 					</param>
 					<param
+					mask="False"
 					name="waitTime"
 					value="300">
 					</param>
 					<param
+					mask="False"
 					name="numberOfPassesExpandingRows"
 					value="3">
 					</param>
@@ -3156,6 +3300,7 @@
 			name="ValidateCSVEqualToModifiedReference">
 				<parameters>
 					<param
+					mask="False"
 					name="fullPathReferenceCSVFile"
 					value="">
 					</param>
@@ -3200,6 +3345,7 @@
 			name="ValidateSourceStructures">
 				<parameters>
 					<param
+					mask="False"
 					name="parameterNameSourceLocation"
 					value="Bronlocatie">
 					</param>
@@ -3304,22 +3450,27 @@
 			name="GenerateCSV">
 				<parameters>
 					<param
+					mask="False"
 					name="substituteSubstring"
 					value="_">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString0"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString1"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString2"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="extensionCSV"
 					value=".csv">
 					</param>
@@ -3330,6 +3481,7 @@
 			name="CopyOriginalFiles">
 				<parameters>
 					<param
+					mask="False"
 					name="waitTimeInMiliseconds"
 					value="1000">
 					</param>
@@ -3343,14 +3495,6 @@
 				<testcase
 				id="ce5009df-5c78-4a39-8abc-3f2f561797c6"
 				name="Script12">
-					<testcase
-					id="2beb87ae-bf92-41c9-accd-2db47b0702e2"
-					name="TakeScreenshotOfDesktop">
-						<testmodule
-						id="c6e51862-ab26-43cf-921b-b34e394f9b36"
-						name="CreateScreenshotEntireDesktop">
-						</testmodule>
-					</testcase>
 					<testcase
 					id="aff63240-5ef8-40dd-921e-4b9e7a92d94b"
 					name="script12_Kunstwerkgegevens_importeren">
@@ -3891,6 +4035,14 @@
 							</testmodule>
 						</teardown>
 					</testcase>
+					<teardown
+					id="13698e7e-cd0e-41ea-826c-bdf1fb3ed65d"
+					name="teardown">
+						<testmodule
+						id="d89802d7-3094-4a8c-b9d2-4550ad841b91"
+						name="ReportToPDFModule">
+						</testmodule>
+					</teardown>
 				</testcase>
 			</testsuite>
 		</childhierarchy>
@@ -4452,9 +4604,6 @@
 			id="27e1ee28-73c5-43ba-a0b3-dd131f17dcaa">
 			</testcontainer>
 			<testcontainer
-			id="2beb87ae-bf92-41c9-accd-2db47b0702e2">
-			</testcontainer>
-			<testcontainer
 			id="3040d16e-1e31-40ef-adef-e63ff976614f">
 			</testcontainer>
 			<testcontainer
@@ -4609,6 +4758,9 @@
 		</reference>
 		<reference>
 			Ranorex Automation Helpers.dll
+		</reference>
+		<reference>
+			Ranorex.ReportToPDF.exe
 		</reference>
 	</references>
 </testsuitedoc>

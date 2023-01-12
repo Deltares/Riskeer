@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -42,7 +42,7 @@ namespace Riskeer.AssemblyTool.Data.Test
         }
 
         [Test]
-        public void Constructor_FailureMechanismAssemblyGroupResultsNull_ThrowsArgumentNullException()
+        public void Constructor_FailureMechanismSectionAssemblyGroupResultsNull_ThrowsArgumentNullException()
         {
             // Setup
             var random = new Random(21);
@@ -54,7 +54,7 @@ namespace Riskeer.AssemblyTool.Data.Test
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("failureMechanismAssemblyGroupResults", exception.ParamName);
+            Assert.AreEqual("failureMechanismSectionAssemblyGroupResults", exception.ParamName);
         }
 
         [Test]
@@ -71,7 +71,7 @@ namespace Riskeer.AssemblyTool.Data.Test
 
             // Assert
             Assert.AreSame(section, assembly.Section);
-            Assert.AreSame(failureMechanismSectionAssemblyGroups, assembly.FailureMechanismAssemblyGroupResults);
+            Assert.AreSame(failureMechanismSectionAssemblyGroups, assembly.FailureMechanismSectionAssemblyGroupResults);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -25,6 +25,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Forms.PresentationObjects;
+using Riskeer.ClosingStructures.Forms.PresentationObjects.CalculationsState;
 using Riskeer.ClosingStructures.Forms.Views;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
@@ -198,7 +199,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
 
             using (var view = new ClosingStructuresCalculationsView(new CalculationGroup(), failureMechanism, assessmentSection))
             {
-                var context = new ClosingStructuresCalculationsContext(failureMechanism, assessmentSection);
+                var context = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
                 // Call
                 bool closeForData = info.CloseForData(view, context);
@@ -217,7 +218,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
 
             using (var view = new ClosingStructuresCalculationsView(failureMechanism.CalculationsGroup, new ClosingStructuresFailureMechanism(), assessmentSection))
             {
-                var context = new ClosingStructuresCalculationsContext(failureMechanism, assessmentSection);
+                var context = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
                 // Call
                 bool closeForData = info.CloseForData(view, context);

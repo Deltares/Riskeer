@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -21,9 +21,9 @@
 
 using System;
 using Core.Common.Base.IO;
-using Core.Gui.Plugin;
 using Core.Common.TestUtil;
 using Core.Common.Util;
+using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.Calculation;
@@ -45,10 +45,10 @@ namespace Riskeer.Common.Forms.Test.ImportInfos
             var fileImporter = mocks.Stub<IFileImporter>();
             mocks.ReplayAll();
 
-            Func<ICalculationContext<CalculationGroup, IFailureMechanism>, string, IFileImporter> createFileImporter = (context, s) => fileImporter;
+            Func<ICalculationContext<CalculationGroup, ICalculatableFailureMechanism>, string, IFileImporter> createFileImporter = (context, s) => fileImporter;
 
             // Call
-            ImportInfo<ICalculationContext<CalculationGroup, IFailureMechanism>> importInfo = RiskeerImportInfoFactory.CreateCalculationConfigurationImportInfo(createFileImporter);
+            ImportInfo<ICalculationContext<CalculationGroup, ICalculatableFailureMechanism>> importInfo = RiskeerImportInfoFactory.CreateCalculationConfigurationImportInfo(createFileImporter);
 
             // Assert
             Assert.AreSame(createFileImporter, importInfo.CreateFileImporter);

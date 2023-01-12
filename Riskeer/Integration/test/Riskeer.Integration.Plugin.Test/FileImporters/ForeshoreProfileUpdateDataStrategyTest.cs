@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -97,10 +97,10 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ForeshoreProfileUpdateDataStrategy(null, new ForeshoreProfileCollection());
+            void Call() => new ForeshoreProfileUpdateDataStrategy(null, new ForeshoreProfileCollection());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
@@ -108,10 +108,10 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
         public void Constructor_ForeshoreProfilesNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ForeshoreProfileUpdateDataStrategy(new TestFailureMechanism(), null);
+            void Call() => new ForeshoreProfileUpdateDataStrategy(new TestCalculatableFailureMechanism(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("targetCollection", exception.ParamName);
         }
 
@@ -119,25 +119,24 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
         public void Constructor_CreatesNewInstance()
         {
             // Call
-            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestFailureMechanism(), new ForeshoreProfileCollection());
+            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestCalculatableFailureMechanism(), new ForeshoreProfileCollection());
 
             // Assert
             Assert.IsInstanceOf<IForeshoreProfileUpdateDataStrategy>(strategy);
-            Assert.IsInstanceOf<UpdateDataStrategyBase<ForeshoreProfile, IFailureMechanism>>(strategy);
+            Assert.IsInstanceOf<UpdateDataStrategyBase<ForeshoreProfile, ICalculatableFailureMechanism>>(strategy);
         }
 
         [Test]
         public void UpdateForeshoreProfilesWithImportedData_ImportedDataCollectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestFailureMechanism(), new ForeshoreProfileCollection());
+            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestCalculatableFailureMechanism(), new ForeshoreProfileCollection());
 
             // Call
-            TestDelegate call = () => strategy.UpdateForeshoreProfilesWithImportedData(null,
-                                                                                       sourceFilePath);
+            void Call() => strategy.UpdateForeshoreProfilesWithImportedData(null, sourceFilePath);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("importedDataCollection", exception.ParamName);
         }
 
@@ -145,14 +144,13 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
         public void UpdateForeshoreProfilesWithImportedData_SourceFilePathNull_ThrowsArgumentNullException()
         {
             // Setup
-            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestFailureMechanism(), new ForeshoreProfileCollection());
+            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestCalculatableFailureMechanism(), new ForeshoreProfileCollection());
 
             // Call
-            TestDelegate call = () => strategy.UpdateForeshoreProfilesWithImportedData(Enumerable.Empty<ForeshoreProfile>(),
-                                                                                       null);
+            void Call() => strategy.UpdateForeshoreProfilesWithImportedData(Enumerable.Empty<ForeshoreProfile>(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("sourceFilePath", exception.ParamName);
         }
 
@@ -170,7 +168,7 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
                 profileToBeUpdated
             }, sourceFilePath);
 
-            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestFailureMechanism(), targetCollection);
+            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestCalculatableFailureMechanism(), targetCollection);
 
             // Call
             strategy.UpdateForeshoreProfilesWithImportedData(new[]
@@ -197,14 +195,13 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
                 new TestForeshoreProfile("Name B", duplicateId)
             };
 
-            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestFailureMechanism(), foreshoreProfiles);
+            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestCalculatableFailureMechanism(), foreshoreProfiles);
 
             // Call
-            TestDelegate call = () => strategy.UpdateForeshoreProfilesWithImportedData(importedForeshoreProfiles,
-                                                                                       sourceFilePath);
+            void Call() => strategy.UpdateForeshoreProfilesWithImportedData(importedForeshoreProfiles, sourceFilePath);
 
             // Assert
-            var exception = Assert.Throws<UpdateDataException>(call);
+            var exception = Assert.Throws<UpdateDataException>(Call);
             const string expectedMessage = "Geïmporteerde data moet unieke elementen bevatten.";
             Assert.AreEqual(expectedMessage, exception.Message);
 
@@ -230,14 +227,13 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
                 new TestForeshoreProfile("Name B", duplicateId)
             };
 
-            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestFailureMechanism(), foreshoreProfiles);
+            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestCalculatableFailureMechanism(), foreshoreProfiles);
 
             // Call
-            TestDelegate call = () => strategy.UpdateForeshoreProfilesWithImportedData(importedForeshoreProfiles,
-                                                                                       sourceFilePath);
+            void Call() => strategy.UpdateForeshoreProfilesWithImportedData(importedForeshoreProfiles, sourceFilePath);
 
             // Assert
-            var exception = Assert.Throws<UpdateDataException>(call);
+            var exception = Assert.Throws<UpdateDataException>(Call);
             const string expectedMessage = "Geïmporteerde data moet unieke elementen bevatten.";
             Assert.AreEqual(expectedMessage, exception.Message);
 
@@ -264,7 +260,7 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
                 targetForeshoreProfile
             }, sourceFilePath);
 
-            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestFailureMechanism(), foreshoreProfiles);
+            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestCalculatableFailureMechanism(), foreshoreProfiles);
 
             // Call
             IEnumerable<IObservable> affectedObjects =
@@ -299,7 +295,7 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
                 readForeshoreProfile
             };
 
-            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestFailureMechanism(), foreshoreProfiles);
+            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestCalculatableFailureMechanism(), foreshoreProfiles);
 
             // Call
             IEnumerable<IObservable> affectedObjects = strategy.UpdateForeshoreProfilesWithImportedData(importedForeshoreProfiles,
@@ -340,7 +336,7 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
                 foreshoreProfileToBeAdded
             };
 
-            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestFailureMechanism(), foreshoreProfiles);
+            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestCalculatableFailureMechanism(), foreshoreProfiles);
 
             // Call
             IEnumerable<IObservable> affectedObjects = strategy.UpdateForeshoreProfilesWithImportedData(importedForeshoreProfiles,
@@ -382,7 +378,7 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
                 profileToBeRemoved
             }, sourceFilePath);
 
-            var failureMechanism = new TestFailureMechanism(new[]
+            var failureMechanism = new TestCalculatableFailureMechanism(new[]
             {
                 calculation
             });
@@ -430,7 +426,7 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
             };
             foreshoreProfiles.AddRange(originalForeshoreProfiles, sourceFilePath);
 
-            var failureMechanism = new TestFailureMechanism(new[]
+            var failureMechanism = new TestCalculatableFailureMechanism(new[]
             {
                 affectedCalculation,
                 unaffectedCalculation
@@ -485,7 +481,7 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
             };
             foreshoreProfiles.AddRange(originalForeshoreProfiles, sourceFilePath);
 
-            var failureMechanism = new TestFailureMechanism(new[]
+            var failureMechanism = new TestCalculatableFailureMechanism(new[]
             {
                 affectedCalculation,
                 calculationSameReference
@@ -536,7 +532,7 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
             };
             foreshoreProfiles.AddRange(originalForeshoreProfiles, sourceFilePath);
 
-            var failureMechanism = new TestFailureMechanism(new[]
+            var failureMechanism = new TestCalculatableFailureMechanism(new[]
             {
                 affectedCalculation
             });

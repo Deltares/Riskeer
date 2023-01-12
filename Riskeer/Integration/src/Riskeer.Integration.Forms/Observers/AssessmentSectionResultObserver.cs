@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data.Calculation;
@@ -47,6 +49,8 @@ namespace Riskeer.Integration.Forms.Observers
     /// </summary>
     public class AssessmentSectionResultObserver : Observable, IDisposable
     {
+        private readonly AssessmentSection assessmentSection;
+
         private readonly Observer assessmentSectionObserver;
         private readonly Observer referenceLineObserver;
         private readonly Observer closingStructuresObserver;
@@ -65,6 +69,12 @@ namespace Riskeer.Integration.Forms.Observers
         private readonly Observer pipingStructureObserver;
         private readonly Observer waterPressureAsphaltCoverObserver;
 
+        private readonly Observer specificFailureMechanismsObserver;
+        private readonly List<Observer> specificFailureMechanismObservers;
+
+        private readonly RecursiveObserver<IObservableEnumerable<PipingScenarioConfigurationPerFailureMechanismSection>,
+            PipingScenarioConfigurationPerFailureMechanismSection> pipingScenarioConfigurationsPerSectionObserver;
+
         /// <summary>
         /// Creates a new instance of <see cref="AssessmentSectionResultObserver"/>.
         /// </summary>
@@ -76,6 +86,8 @@ namespace Riskeer.Integration.Forms.Observers
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
+
+            this.assessmentSection = assessmentSection;
 
             assessmentSectionObserver = new Observer(() =>
             {
@@ -134,6 +146,20 @@ namespace Riskeer.Integration.Forms.Observers
 
             waterPressureAsphaltCoverObserver = CreateFailureMechanismObserver<WaterPressureAsphaltCoverFailureMechanism,
                 NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(assessmentSection.WaterPressureAsphaltCover);
+
+            specificFailureMechanismsObserver = new Observer(() =>
+            {
+                ClearSpecificFailureMechanismObservers();
+                CreateSpecificFailureMechanismObservers();
+                NotifyObservers();
+            })
+            {
+                Observable = assessmentSection.SpecificFailureMechanisms
+            };
+            specificFailureMechanismObservers = new List<Observer>();
+            CreateSpecificFailureMechanismObservers();
+
+            pipingScenarioConfigurationsPerSectionObserver = CreatePipingScenarioConfigurationsPerSectionObserver(assessmentSection.Piping);
         }
 
         public void Dispose()
@@ -166,6 +192,11 @@ namespace Riskeer.Integration.Forms.Observers
             microstabilityObserver.Dispose();
             pipingStructureObserver.Dispose();
             waterPressureAsphaltCoverObserver.Dispose();
+            specificFailureMechanismsObserver.Dispose();
+
+            ClearSpecificFailureMechanismObservers();
+
+            pipingScenarioConfigurationsPerSectionObserver.Dispose();
         }
 
         private void ResubscribeFailureMechanismObservers(AssessmentSection assessmentSection)
@@ -185,10 +216,11 @@ namespace Riskeer.Integration.Forms.Observers
             microstabilityObserver.Observable = assessmentSection.Microstability;
             pipingStructureObserver.Observable = assessmentSection.PipingStructure;
             waterPressureAsphaltCoverObserver.Observable = assessmentSection.WaterPressureAsphaltCover;
+            pipingScenarioConfigurationsPerSectionObserver.Observable = assessmentSection.Piping.ScenarioConfigurationsPerFailureMechanismSection;
         }
 
         private Observer CreateCalculatableFailureMechanismObserver<TFailureMechanism, TSectionResult, TCalculation>(TFailureMechanism failureMechanism)
-            where TFailureMechanism : IFailureMechanism, IHasSectionResults<TSectionResult>, ICalculatableFailureMechanism
+            where TFailureMechanism : IFailureMechanism, IFailureMechanism<TSectionResult>, ICalculatableFailureMechanism
             where TSectionResult : FailureMechanismSectionResult
             where TCalculation : ICalculation<ICalculationInput>
         {
@@ -200,12 +232,39 @@ namespace Riskeer.Integration.Forms.Observers
         }
 
         private Observer CreateFailureMechanismObserver<TFailureMechanism, TSectionResult>(TFailureMechanism failureMechanism)
-            where TFailureMechanism : IFailureMechanism, IHasSectionResults<TSectionResult>
+            where TFailureMechanism : IFailureMechanism<TSectionResult>
             where TSectionResult : FailureMechanismSectionResult
         {
             return new Observer(NotifyObservers)
             {
                 Observable = new FailureMechanismResultObserver<TFailureMechanism, TSectionResult>(failureMechanism)
+            };
+        }
+
+        private void CreateSpecificFailureMechanismObservers()
+        {
+            IEnumerable<Observer> observers = assessmentSection.SpecificFailureMechanisms.Select(CreateFailureMechanismObserver<SpecificFailureMechanism,
+                                                                                                     NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>);
+            specificFailureMechanismObservers.AddRange(observers);
+        }
+
+        private void ClearSpecificFailureMechanismObservers()
+        {
+            foreach (Observer specificFailureMechanismObserver in specificFailureMechanismObservers)
+            {
+                specificFailureMechanismObserver.Dispose();
+            }
+
+            specificFailureMechanismObservers.Clear();
+        }
+
+        private RecursiveObserver<IObservableEnumerable<PipingScenarioConfigurationPerFailureMechanismSection>, PipingScenarioConfigurationPerFailureMechanismSection> CreatePipingScenarioConfigurationsPerSectionObserver(PipingFailureMechanism pipingFailureMechanism)
+        {
+            return new RecursiveObserver<IObservableEnumerable<PipingScenarioConfigurationPerFailureMechanismSection>, PipingScenarioConfigurationPerFailureMechanismSection>(
+                NotifyObservers,
+                sc => sc)
+            {
+                Observable = pipingFailureMechanism.ScenarioConfigurationsPerFailureMechanismSection
             };
         }
     }

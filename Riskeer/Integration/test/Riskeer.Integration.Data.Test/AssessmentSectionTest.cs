@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -26,22 +26,11 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.DuneErosion.Data;
-using Riskeer.GrassCoverErosionInwards.Data;
-using Riskeer.GrassCoverErosionOutwards.Data;
-using Riskeer.HeightStructures.Data;
-using Riskeer.Integration.Data.StandAlone;
-using Riskeer.MacroStabilityInwards.Data;
-using Riskeer.Piping.Data;
-using Riskeer.StabilityPointStructures.Data;
-using Riskeer.StabilityStoneCover.Data;
-using Riskeer.WaveImpactAsphaltCover.Data;
 
 namespace Riskeer.Integration.Data.Test
 {
@@ -77,10 +66,12 @@ namespace Riskeer.Integration.Data.Test
             Assert.IsNull(hydraulicBoundaryDatabase.Version);
             Assert.IsFalse(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.CanUsePreprocessor);
 
-            Assert.IsEmpty(assessmentSection.SpecificFailurePaths);
-            
-            Assert.IsEmpty(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities);
-            Assert.IsEmpty(assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities);
+            CollectionAssert.IsEmpty(assessmentSection.SpecificFailureMechanisms);
+
+            CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForSignalFloodingProbability);
+            CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability);
+            CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities);
+            CollectionAssert.IsEmpty(assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities);
 
             CollectionAssert.IsEmpty(assessmentSection.Piping.StochasticSoilModels);
             CollectionAssert.IsEmpty(assessmentSection.Piping.SurfaceLines);
@@ -101,19 +92,12 @@ namespace Riskeer.Integration.Data.Test
             Assert.NotNull(assessmentSection.StabilityPointStructures);
             Assert.NotNull(assessmentSection.DuneErosion);
 
-            AssertExpectedContributions(composition, assessmentSection);
-
             BackgroundData backgroundData = assessmentSection.BackgroundData;
             Assert.IsTrue(backgroundData.IsVisible);
             Assert.AreEqual(0.60, backgroundData.Transparency, backgroundData.Transparency.GetAccuracy());
             Assert.AreEqual("Bing Maps - Satelliet", backgroundData.Name);
             var configuration = (WellKnownBackgroundDataConfiguration) backgroundData.Configuration;
             Assert.AreEqual(RiskeerWellKnownTileSource.BingAerial, configuration.WellKnownTileSource);
-
-            CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForSignalingNorm);
-            CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForLowerLimitNorm);
-
-            AssertFailureProbabilityMarginFactor(composition, assessmentSection);
         }
 
         [Test]
@@ -132,20 +116,20 @@ namespace Riskeer.Integration.Data.Test
         }
 
         [Test]
-        [TestCaseSource(nameof(GetInvalidNormValues),
+        [TestCaseSource(nameof(GetInvalidProbabilities),
                         new object[]
                         {
-                            "Constructor_InvalidLowerLimitNorm_ThrowsArgumentOutOfRangeException"
+                            "Constructor_InvalidMaximumAllowableFloodingProbability_ThrowsArgumentOutOfRangeException"
                         })]
         [SetCulture("nl-NL")]
-        public void Constructor_InvalidLowerLimitNorm_ThrowsArgumentOutOfRangeException(double invalidNorm)
+        public void Constructor_InvalidMaximumAllowableFloodingProbability_ThrowsArgumentOutOfRangeException(double invalidProbability)
         {
             // Setup
             var random = new Random(21);
             var composition = random.NextEnumValue<AssessmentSectionComposition>();
 
             // Call
-            void Call() => new AssessmentSection(composition, invalidNorm, 0.000001);
+            void Call() => new AssessmentSection(composition, invalidProbability, 0.000001);
 
             // Assert
             const string expectedMessage = "De waarde van de norm moet in het bereik [0,000001, 0,1] liggen.";
@@ -154,20 +138,20 @@ namespace Riskeer.Integration.Data.Test
         }
 
         [Test]
-        [TestCaseSource(nameof(GetInvalidNormValues),
+        [TestCaseSource(nameof(GetInvalidProbabilities),
                         new object[]
                         {
-                            "Constructor_InvalidSignalingNorm_ThrowsArgumentOutOfRangeException"
+                            "Constructor_InvalidSignalFloodingProbability_ThrowsArgumentOutOfRangeException"
                         })]
         [SetCulture("nl-NL")]
-        public void Constructor_InvalidSignalingNorm_ThrowsArgumentOutOfRangeException(double invalidNorm)
+        public void Constructor_InvalidSignalFloodingProbability_ThrowsArgumentOutOfRangeException(double invalidProbability)
         {
             // Setup
             var random = new Random(21);
             var composition = random.NextEnumValue<AssessmentSectionComposition>();
 
             // Call
-            void Call() => new AssessmentSection(composition, 0.1, invalidNorm);
+            void Call() => new AssessmentSection(composition, 0.1, invalidProbability);
 
             // Assert
             const string expectedMessage = "De waarde van de norm moet in het bereik [0,000001, 0,1] liggen.";
@@ -176,7 +160,7 @@ namespace Riskeer.Integration.Data.Test
         }
 
         [Test]
-        public void Constructor_SignalingNormLargerThanLowerLimitNorm_ThrowsArgumentOutOfRangeException()
+        public void Constructor_SignalFloodingProbabilityLargerThanMaximumAllowableFloodingProbability_ThrowsArgumentOutOfRangeException()
         {
             // Setup
             var random = new Random(21);
@@ -186,39 +170,9 @@ namespace Riskeer.Integration.Data.Test
             void Call() => new AssessmentSection(composition, 0.01, 0.1);
 
             // Assert
-            const string expectedMessage = "De signaleringswaarde moet gelijk zijn aan of kleiner zijn dan de ondergrens.";
+            const string expectedMessage = "De signaleringsparameter moet gelijk zijn aan of kleiner zijn dan de omgevingswaarde.";
             var exception = Assert.Throws<ArgumentOutOfRangeException>(Call);
             StringAssert.StartsWith(expectedMessage, exception.Message);
-        }
-
-        [Test]
-        public void Name_SetingNewValue_GetNewValue()
-        {
-            // Setup
-            var random = new Random(21);
-            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
-            const string newValue = "new value";
-
-            // Call
-            assessmentSection.Name = newValue;
-
-            // Assert
-            Assert.AreEqual(newValue, assessmentSection.Name);
-        }
-
-        [Test]
-        public void Comments_SettingNewValue_GetNewValue()
-        {
-            // Setup
-            var random = new Random(21);
-            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
-            const string newValue = "new comment value";
-
-            // Call
-            assessmentSection.Comments.Body = newValue;
-
-            // Assert
-            Assert.AreEqual(newValue, assessmentSection.Comments.Body);
         }
 
         [Test]
@@ -256,38 +210,6 @@ namespace Riskeer.Integration.Data.Test
         }
 
         [Test]
-        [TestCase(AssessmentSectionComposition.Dike)]
-        [TestCase(AssessmentSectionComposition.Dune)]
-        [TestCase(AssessmentSectionComposition.DikeAndDune)]
-        public void GetContributingFailureMechanisms_Always_ReturnContributingFailureMechanisms(AssessmentSectionComposition composition)
-        {
-            // Setup
-            var assessmentSection = new AssessmentSection(composition);
-
-            // Call
-            IFailureMechanism[] failureMechanisms = assessmentSection.GetContributingFailureMechanisms()
-                                                                     .ToArray();
-
-            // Assert
-            Assert.AreEqual(12, failureMechanisms.Length);
-            CollectionAssert.AreEqual(new IFailureMechanism[]
-            {
-                assessmentSection.Piping,
-                assessmentSection.GrassCoverErosionInwards,
-                assessmentSection.MacroStabilityInwards,
-                assessmentSection.StabilityStoneCover,
-                assessmentSection.WaveImpactAsphaltCover,
-                assessmentSection.GrassCoverErosionOutwards,
-                assessmentSection.HeightStructures,
-                assessmentSection.ClosingStructures,
-                assessmentSection.PipingStructure,
-                assessmentSection.StabilityPointStructures,
-                assessmentSection.DuneErosion,
-                assessmentSection.OtherFailureMechanism
-            }, failureMechanisms);
-        }
-
-        [Test]
         public void ChangeComposition_InvalidAssessmentSectionComposition_ThrowsInvalidEnumArgumentException()
         {
             // Setup
@@ -306,8 +228,8 @@ namespace Riskeer.Integration.Data.Test
 
         [Test]
         [TestCaseSource(nameof(GetFailureMechanismInAssemblyStates))]
-        public void ChangeComposition_ToTargetValue_UpdateContributionsAndFailureMechanismRelevancies(AssessmentSectionComposition composition,
-                                                                                                      bool[] inAssemblyStates)
+        public void ChangeComposition_ToTargetValue_UpdateFailureMechanismInAssemblyStates(AssessmentSectionComposition composition,
+                                                                                           bool[] inAssemblyStates)
         {
             // Setup
             AssessmentSectionComposition initialComposition = composition == AssessmentSectionComposition.Dike
@@ -322,7 +244,6 @@ namespace Riskeer.Integration.Data.Test
             assessmentSection.ChangeComposition(composition);
 
             // Assert
-            AssertExpectedContributions(composition, assessmentSection);
             Assert.AreEqual(inAssemblyStates[0], assessmentSection.Piping.InAssembly);
             Assert.AreEqual(inAssemblyStates[1], assessmentSection.GrassCoverErosionInwards.InAssembly);
             Assert.AreEqual(inAssemblyStates[2], assessmentSection.MacroStabilityInwards.InAssembly);
@@ -334,7 +255,6 @@ namespace Riskeer.Integration.Data.Test
             Assert.AreEqual(inAssemblyStates[8], assessmentSection.StabilityPointStructures.InAssembly);
             Assert.AreEqual(inAssemblyStates[9], assessmentSection.PipingStructure.InAssembly);
             Assert.AreEqual(inAssemblyStates[10], assessmentSection.DuneErosion.InAssembly);
-            AssertFailureProbabilityMarginFactor(composition, assessmentSection);
         }
 
         [Test]
@@ -371,8 +291,8 @@ namespace Riskeer.Integration.Data.Test
             });
 
             // Precondition
-            CollectionAssert.IsNotEmpty(assessmentSection.WaterLevelCalculationsForSignalingNorm);
-            CollectionAssert.IsNotEmpty(assessmentSection.WaterLevelCalculationsForLowerLimitNorm);
+            CollectionAssert.IsNotEmpty(assessmentSection.WaterLevelCalculationsForSignalFloodingProbability);
+            CollectionAssert.IsNotEmpty(assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability);
             CollectionAssert.IsNotEmpty(waterLevelCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations);
             CollectionAssert.IsNotEmpty(waveHeightCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations);
 
@@ -380,8 +300,8 @@ namespace Riskeer.Integration.Data.Test
             assessmentSection.SetHydraulicBoundaryLocationCalculations(Enumerable.Empty<HydraulicBoundaryLocation>());
 
             // Assert
-            CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForSignalingNorm);
-            CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForLowerLimitNorm);
+            CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForSignalFloodingProbability);
+            CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability);
             CollectionAssert.IsEmpty(waterLevelCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations);
             CollectionAssert.IsEmpty(waveHeightCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations);
         }
@@ -411,137 +331,6 @@ namespace Riskeer.Integration.Data.Test
             AssertNumberOfHydraulicBoundaryLocationCalculations(assessmentSection, 2);
             AssertDefaultHydraulicBoundaryLocationCalculations(assessmentSection, 0, hydraulicBoundaryLocation1);
             AssertDefaultHydraulicBoundaryLocationCalculations(assessmentSection, 1, hydraulicBoundaryLocation2);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(GetNewFailureMechanismsWithGetPropertyFunc))]
-        public void GivenAssessmentSection_WhenSettingFailureMechanismWithSameContribution_ThenNewFailureMechanismSet(
-            Action<AssessmentSection, IFailureMechanism> setNewFailureMechanismAction, IFailureMechanism newFailureMechanism,
-            Func<AssessmentSection, IFailureMechanism> getFailureMechanismFunc)
-        {
-            // Given
-            var random = new Random(21);
-            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
-            newFailureMechanism.Contribution = getFailureMechanismFunc(assessmentSection).Contribution;
-
-            // When
-            setNewFailureMechanismAction(assessmentSection, newFailureMechanism);
-
-            // Then
-            Assert.AreSame(getFailureMechanismFunc(assessmentSection), newFailureMechanism);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(GetNewFailureMechanisms))]
-        public void GivenAssessmentSection_WhenSettingFailureMechanismWithOtherContribution_ThenThrowsArgumentException(
-            Action<AssessmentSection, IFailureMechanism> setNewFailureMechanismAction, IFailureMechanism newFailureMechanism)
-        {
-            // Given
-            var random = new Random(21);
-            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
-            newFailureMechanism.Contribution = random.Next(0, 100);
-
-            // When
-            void Call() => setNewFailureMechanismAction(assessmentSection, newFailureMechanism);
-
-            // Then
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, "De contributie van het nieuwe toetsspoor moet gelijk zijn aan het oude toetsspoor.");
-        }
-
-        private static void AssertFailureProbabilityMarginFactor(AssessmentSectionComposition composition, AssessmentSection assessmentSection)
-        {
-            Assert.AreEqual(2, assessmentSection.FailureProbabilityMarginFactor.NumberOfDecimalPlaces);
-
-            if (composition == AssessmentSectionComposition.Dune)
-            {
-                Assert.AreEqual(0, assessmentSection.FailureProbabilityMarginFactor.Value);
-            }
-            else
-            {
-                Assert.AreEqual(0.58, assessmentSection.FailureProbabilityMarginFactor.Value);
-            }
-        }
-
-        private static void AssertExpectedContributions(AssessmentSectionComposition composition, AssessmentSection assessmentSection)
-        {
-            double[] contributions = GetContributions(composition).ToArray();
-
-            Assert.AreEqual(contributions[0], assessmentSection.Piping.Contribution);
-            Assert.AreEqual(contributions[1], assessmentSection.GrassCoverErosionInwards.Contribution);
-            Assert.AreEqual(contributions[2], assessmentSection.MacroStabilityInwards.Contribution);
-            Assert.AreEqual(contributions[3], assessmentSection.StabilityStoneCover.Contribution);
-            Assert.AreEqual(contributions[4], assessmentSection.WaveImpactAsphaltCover.Contribution);
-            Assert.AreEqual(contributions[5], assessmentSection.GrassCoverErosionOutwards.Contribution);
-            Assert.AreEqual(contributions[6], assessmentSection.HeightStructures.Contribution);
-            Assert.AreEqual(contributions[7], assessmentSection.ClosingStructures.Contribution);
-            Assert.AreEqual(contributions[8], assessmentSection.PipingStructure.Contribution);
-            Assert.AreEqual(contributions[9], assessmentSection.StabilityPointStructures.Contribution);
-            Assert.AreEqual(contributions[10], assessmentSection.DuneErosion.Contribution);
-            Assert.AreEqual(contributions[11], assessmentSection.OtherFailureMechanism.Contribution);
-        }
-
-        private static IEnumerable<double> GetContributions(AssessmentSectionComposition composition)
-        {
-            double[] contributions = null;
-            switch (composition)
-            {
-                case AssessmentSectionComposition.Dike:
-                    contributions = new double[]
-                    {
-                        24,
-                        24,
-                        4,
-                        5,
-                        5,
-                        5,
-                        24,
-                        4,
-                        2,
-                        2,
-                        0,
-                        30
-                    };
-                    break;
-                case AssessmentSectionComposition.Dune:
-                    contributions = new double[]
-                    {
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        70,
-                        30
-                    };
-                    break;
-                case AssessmentSectionComposition.DikeAndDune:
-                    contributions = new double[]
-                    {
-                        24,
-                        24,
-                        4,
-                        5,
-                        5,
-                        5,
-                        24,
-                        4,
-                        2,
-                        2,
-                        10,
-                        20
-                    };
-                    break;
-                default:
-                    Assert.Fail("{0} does not have expectancy implemented!", composition);
-                    break;
-            }
-
-            return contributions;
         }
 
         private static IEnumerable<TestCaseData> GetFailureMechanismInAssemblyStates()
@@ -592,7 +381,7 @@ namespace Riskeer.Integration.Data.Test
             });
         }
 
-        private static IEnumerable<TestCaseData> GetInvalidNormValues(string name)
+        private static IEnumerable<TestCaseData> GetInvalidProbabilities(string name)
         {
             yield return new TestCaseData(double.PositiveInfinity)
                 .SetName($"{name} positive infinity");
@@ -612,16 +401,16 @@ namespace Riskeer.Integration.Data.Test
 
         private static void AssertNumberOfHydraulicBoundaryLocationCalculations(AssessmentSection assessmentSection, int expectedNumberOfCalculations)
         {
-            Assert.AreEqual(expectedNumberOfCalculations, assessmentSection.WaterLevelCalculationsForSignalingNorm.Count());
-            Assert.AreEqual(expectedNumberOfCalculations, assessmentSection.WaterLevelCalculationsForLowerLimitNorm.Count());
+            Assert.AreEqual(expectedNumberOfCalculations, assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.Count());
+            Assert.AreEqual(expectedNumberOfCalculations, assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability.Count());
             Assert.AreEqual(expectedNumberOfCalculations, assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.First().HydraulicBoundaryLocationCalculations.Count());
             Assert.AreEqual(expectedNumberOfCalculations, assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.First().HydraulicBoundaryLocationCalculations.Count());
         }
 
         private static void AssertDefaultHydraulicBoundaryLocationCalculations(AssessmentSection assessmentSection, int index, HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.WaterLevelCalculationsForSignalingNorm.ElementAt(index), hydraulicBoundaryLocation);
-            AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ElementAt(index), hydraulicBoundaryLocation);
+            AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.ElementAt(index), hydraulicBoundaryLocation);
+            AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability.ElementAt(index), hydraulicBoundaryLocation);
             AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.First().HydraulicBoundaryLocationCalculations.ElementAt(index), hydraulicBoundaryLocation);
             AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.First().HydraulicBoundaryLocationCalculations.ElementAt(index), hydraulicBoundaryLocation);
         }
@@ -632,96 +421,6 @@ namespace Riskeer.Integration.Data.Test
             Assert.AreSame(hydraulicBoundaryLocation, hydraulicBoundaryLocationCalculation.HydraulicBoundaryLocation);
             Assert.IsNull(hydraulicBoundaryLocationCalculation.Output);
             Assert.IsFalse(hydraulicBoundaryLocationCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
-        }
-
-        private static IEnumerable<TestCaseData> GetNewFailureMechanismsWithGetPropertyFunc()
-        {
-            IEnumerable<FailureMechanismTestData> testData = GetFailureMechanismTestData();
-
-            foreach (FailureMechanismTestData failureMechanismTestData in testData)
-            {
-                yield return new TestCaseData(failureMechanismTestData.SetNewFailureMechanismAction,
-                                              failureMechanismTestData.NewFailureMechanism,
-                                              failureMechanismTestData.GetFailureMechanismFunc);
-            }
-        }
-
-        private static IEnumerable<TestCaseData> GetNewFailureMechanisms()
-        {
-            IEnumerable<FailureMechanismTestData> testData = GetFailureMechanismTestData();
-
-            foreach (FailureMechanismTestData failureMechanismTestData in testData)
-            {
-                yield return new TestCaseData(failureMechanismTestData.SetNewFailureMechanismAction,
-                                              failureMechanismTestData.NewFailureMechanism);
-            }
-        }
-
-        private static IEnumerable<FailureMechanismTestData> GetFailureMechanismTestData()
-        {
-            yield return new FailureMechanismTestData((section, failureMechanism) => section.Piping = (PipingFailureMechanism) failureMechanism,
-                                                      new PipingFailureMechanism(),
-                                                      section => section.Piping);
-            yield return new FailureMechanismTestData((section, failureMechanism) => section.GrassCoverErosionInwards = (GrassCoverErosionInwardsFailureMechanism) failureMechanism,
-                                                      new GrassCoverErosionInwardsFailureMechanism(),
-                                                      section => section.GrassCoverErosionInwards);
-            yield return new FailureMechanismTestData((section, failureMechanism) => section.MacroStabilityInwards = (MacroStabilityInwardsFailureMechanism) failureMechanism,
-                                                      new MacroStabilityInwardsFailureMechanism(),
-                                                      section => section.MacroStabilityInwards);
-            yield return new FailureMechanismTestData((section, failureMechanism) => section.Microstability = (MicrostabilityFailureMechanism) failureMechanism,
-                                                      new MicrostabilityFailureMechanism(),
-                                                      section => section.Microstability);
-            yield return new FailureMechanismTestData((section, failureMechanism) => section.StabilityStoneCover = (StabilityStoneCoverFailureMechanism) failureMechanism,
-                                                      new StabilityStoneCoverFailureMechanism(),
-                                                      section => section.StabilityStoneCover);
-            yield return new FailureMechanismTestData((section, failureMechanism) => section.WaveImpactAsphaltCover = (WaveImpactAsphaltCoverFailureMechanism) failureMechanism,
-                                                      new WaveImpactAsphaltCoverFailureMechanism(),
-                                                      section => section.WaveImpactAsphaltCover);
-            yield return new FailureMechanismTestData((section, failureMechanism) => section.WaterPressureAsphaltCover = (WaterPressureAsphaltCoverFailureMechanism) failureMechanism,
-                                                      new WaterPressureAsphaltCoverFailureMechanism(),
-                                                      section => section.WaterPressureAsphaltCover);
-            yield return new FailureMechanismTestData((section, failureMechanism) => section.GrassCoverErosionOutwards = (GrassCoverErosionOutwardsFailureMechanism) failureMechanism,
-                                                      new GrassCoverErosionOutwardsFailureMechanism(),
-                                                      section => section.GrassCoverErosionOutwards);
-            yield return new FailureMechanismTestData((section, failureMechanism) => section.GrassCoverSlipOffOutwards = (GrassCoverSlipOffOutwardsFailureMechanism) failureMechanism,
-                                                      new GrassCoverSlipOffOutwardsFailureMechanism(),
-                                                      section => section.GrassCoverSlipOffOutwards);
-            yield return new FailureMechanismTestData((section, failureMechanism) => section.GrassCoverSlipOffInwards = (GrassCoverSlipOffInwardsFailureMechanism) failureMechanism,
-                                                      new GrassCoverSlipOffInwardsFailureMechanism(),
-                                                      section => section.GrassCoverSlipOffInwards);
-            yield return new FailureMechanismTestData((section, failureMechanism) => section.HeightStructures = (HeightStructuresFailureMechanism) failureMechanism,
-                                                      new HeightStructuresFailureMechanism(),
-                                                      section => section.HeightStructures);
-            yield return new FailureMechanismTestData((section, failureMechanism) => section.ClosingStructures = (ClosingStructuresFailureMechanism) failureMechanism,
-                                                      new ClosingStructuresFailureMechanism(),
-                                                      section => section.ClosingStructures);
-            yield return new FailureMechanismTestData((section, failureMechanism) => section.PipingStructure = (PipingStructureFailureMechanism) failureMechanism,
-                                                      new PipingStructureFailureMechanism(),
-                                                      section => section.PipingStructure);
-            yield return new FailureMechanismTestData((section, failureMechanism) => section.StabilityPointStructures = (StabilityPointStructuresFailureMechanism) failureMechanism,
-                                                      new StabilityPointStructuresFailureMechanism(),
-                                                      section => section.StabilityPointStructures);
-            yield return new FailureMechanismTestData((section, failureMechanism) => section.DuneErosion = (DuneErosionFailureMechanism) failureMechanism,
-                                                      new DuneErosionFailureMechanism(),
-                                                      section => section.DuneErosion);
-        }
-
-        private class FailureMechanismTestData
-        {
-            public FailureMechanismTestData(Action<AssessmentSection, IFailureMechanism> setNewFailureMechanismAction,
-                                            IFailureMechanism newFailureMechanism,
-                                            Func<AssessmentSection, IFailureMechanism> getFailureMechanismFunc)
-            {
-                SetNewFailureMechanismAction = setNewFailureMechanismAction;
-                NewFailureMechanism = newFailureMechanism;
-                GetFailureMechanismFunc = getFailureMechanismFunc;
-            }
-
-            public Action<AssessmentSection, IFailureMechanism> SetNewFailureMechanismAction { get; }
-
-            public IFailureMechanism NewFailureMechanism { get; }
-
-            public Func<AssessmentSection, IFailureMechanism> GetFailureMechanismFunc { get; }
         }
     }
 }

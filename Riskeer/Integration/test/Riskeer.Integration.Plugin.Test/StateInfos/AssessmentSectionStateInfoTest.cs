@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -69,7 +69,7 @@ namespace Riskeer.Integration.Plugin.Test.StateInfos
             // Assert
             Assert.IsNotNull(rootData);
             Assert.IsInstanceOf<AssessmentSectionStateRootContext>(rootData);
-            
+
             var assessmentSectionStateRootContext = (AssessmentSectionStateRootContext) rootData;
             Assert.AreSame(assessmentSection, assessmentSectionStateRootContext.WrappedData);
         }

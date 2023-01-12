@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -39,7 +39,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failureMechanism = mocks.Stub<ICalculatableFailureMechanism>();
             mocks.ReplayAll();
 
             var foreshoresList = new ForeshoreProfileCollection();
@@ -56,24 +56,6 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         }
 
         [Test]
-        public void Constructor_ObservableListIsNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate call = () => new ForeshoreProfilesContext(null, failureMechanism, assessmentSection);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("wrappedData", paramName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void Constructor_FailureMechanismIsNull_ThrowArgumentNullException()
         {
             // Setup
@@ -82,10 +64,10 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new ForeshoreProfilesContext(new ForeshoreProfileCollection(), null, assessmentSection);
+            void Call() => new ForeshoreProfilesContext(new ForeshoreProfileCollection(), null, assessmentSection);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("parentFailureMechanism", paramName);
             mocks.VerifyAll();
         }
@@ -95,14 +77,14 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failureMechanism = mocks.Stub<ICalculatableFailureMechanism>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new ForeshoreProfilesContext(new ForeshoreProfileCollection(), failureMechanism, null);
+            void Call() => new ForeshoreProfilesContext(new ForeshoreProfileCollection(), failureMechanism, null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("parentAssessmentSection", paramName);
             mocks.VerifyAll();
         }

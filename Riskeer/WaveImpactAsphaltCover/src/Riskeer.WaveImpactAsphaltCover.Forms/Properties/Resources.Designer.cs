@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -82,7 +82,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lengte van onafhankelijke dijkstrekkingen voor dit toetsspoor..
+        ///   Looks up a localized string similar to Lengte van onafhankelijke dijkstrekkingen voor dit faalmechanisme..
         /// </summary>
         public static string WaveImpactAsphaltCoverFailureMechanismProperties_DeltaL_Description {
             get {

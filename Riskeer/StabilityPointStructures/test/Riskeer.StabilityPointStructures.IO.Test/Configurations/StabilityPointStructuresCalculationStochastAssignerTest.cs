@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -271,172 +271,172 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
         private static IEnumerable<TestCaseData> GetSetStochastParametersActions(string testNameFormat)
         {
             foreach (TestCaseData caseData in StochastConfigurationCases(
-                (c, s) => c.AllowedLevelIncreaseStorage = s,
-                nameof(StabilityPointStructuresCalculationConfiguration.AllowedLevelIncreaseStorage),
-                testNameFormat,
-                true))
+                         (c, s) => c.AllowedLevelIncreaseStorage = s,
+                         nameof(StabilityPointStructuresCalculationConfiguration.AllowedLevelIncreaseStorage),
+                         testNameFormat,
+                         true))
             {
                 yield return caseData;
             }
 
             foreach (TestCaseData caseData in StochastConfigurationCases(
-                (c, s) => c.AreaFlowApertures = s,
-                nameof(StabilityPointStructuresCalculationConfiguration.AreaFlowApertures),
-                testNameFormat,
-                true))
+                         (c, s) => c.AreaFlowApertures = s,
+                         nameof(StabilityPointStructuresCalculationConfiguration.AreaFlowApertures),
+                         testNameFormat,
+                         true))
             {
                 yield return caseData;
             }
 
             foreach (TestCaseData caseData in StochastConfigurationCases(
-                (c, s) => c.BankWidth = s,
-                nameof(StabilityPointStructuresCalculationConfiguration.BankWidth),
-                testNameFormat,
-                true))
+                         (c, s) => c.BankWidth = s,
+                         nameof(StabilityPointStructuresCalculationConfiguration.BankWidth),
+                         testNameFormat,
+                         true))
             {
                 yield return caseData;
             }
 
             foreach (TestCaseData caseData in StochastConfigurationCases(
-                (c, s) => c.FlowWidthAtBottomProtection = s,
-                nameof(StabilityPointStructuresCalculationConfiguration.FlowWidthAtBottomProtection),
-                testNameFormat,
-                true))
+                         (c, s) => c.FlowWidthAtBottomProtection = s,
+                         nameof(StabilityPointStructuresCalculationConfiguration.FlowWidthAtBottomProtection),
+                         testNameFormat,
+                         true))
             {
                 yield return caseData;
             }
 
             foreach (TestCaseData caseData in StochastConfigurationCases(
-                (c, s) => c.InsideWaterLevel = s,
-                nameof(StabilityPointStructuresCalculationConfiguration.InsideWaterLevel),
-                testNameFormat,
-                true))
+                         (c, s) => c.InsideWaterLevel = s,
+                         nameof(StabilityPointStructuresCalculationConfiguration.InsideWaterLevel),
+                         testNameFormat,
+                         true))
             {
                 yield return caseData;
             }
 
             foreach (TestCaseData caseData in StochastConfigurationCases(
-                (c, s) => c.InsideWaterLevelFailureConstruction = s,
-                nameof(StabilityPointStructuresCalculationConfiguration.InsideWaterLevelFailureConstruction),
-                testNameFormat,
-                true))
+                         (c, s) => c.InsideWaterLevelFailureConstruction = s,
+                         nameof(StabilityPointStructuresCalculationConfiguration.InsideWaterLevelFailureConstruction),
+                         testNameFormat,
+                         true))
             {
                 yield return caseData;
             }
 
             foreach (TestCaseData caseData in StochastConfigurationCases(
-                (c, s) => c.LevelCrestStructure = s,
-                nameof(StabilityPointStructuresCalculationConfiguration.LevelCrestStructure),
-                testNameFormat,
-                true))
+                         (c, s) => c.LevelCrestStructure = s,
+                         nameof(StabilityPointStructuresCalculationConfiguration.LevelCrestStructure),
+                         testNameFormat,
+                         true))
             {
                 yield return caseData;
             }
 
             foreach (TestCaseData caseData in StochastConfigurationCases(
-                (c, s) => c.WidthFlowApertures = s,
-                nameof(StabilityPointStructuresCalculationConfiguration.WidthFlowApertures),
-                testNameFormat,
-                true))
+                         (c, s) => c.WidthFlowApertures = s,
+                         nameof(StabilityPointStructuresCalculationConfiguration.WidthFlowApertures),
+                         testNameFormat,
+                         true))
             {
                 yield return caseData;
             }
 
             foreach (TestCaseData caseData in StochastConfigurationCases(
-                (c, s) => c.ThresholdHeightOpenWeir = s,
-                nameof(StabilityPointStructuresCalculationConfiguration.ThresholdHeightOpenWeir),
-                testNameFormat,
-                true))
+                         (c, s) => c.ThresholdHeightOpenWeir = s,
+                         nameof(StabilityPointStructuresCalculationConfiguration.ThresholdHeightOpenWeir),
+                         testNameFormat,
+                         true))
             {
                 yield return caseData;
             }
 
             foreach (TestCaseData caseData in StochastConfigurationCases(
-                (c, s) => c.CriticalOvertoppingDischarge = s,
-                nameof(StabilityPointStructuresCalculationConfiguration.CriticalOvertoppingDischarge),
-                testNameFormat,
-                false))
+                         (c, s) => c.CriticalOvertoppingDischarge = s,
+                         nameof(StabilityPointStructuresCalculationConfiguration.CriticalOvertoppingDischarge),
+                         testNameFormat,
+                         false))
             {
                 yield return caseData;
             }
 
             foreach (TestCaseData caseData in StochastConfigurationCases(
-                (c, s) => c.ConstructiveStrengthLinearLoadModel = s,
-                nameof(StabilityPointStructuresCalculationConfiguration.ConstructiveStrengthLinearLoadModel),
-                testNameFormat,
-                false))
+                         (c, s) => c.ConstructiveStrengthLinearLoadModel = s,
+                         nameof(StabilityPointStructuresCalculationConfiguration.ConstructiveStrengthLinearLoadModel),
+                         testNameFormat,
+                         false))
             {
                 yield return caseData;
             }
 
             foreach (TestCaseData caseData in StochastConfigurationCases(
-                (c, s) => c.ConstructiveStrengthQuadraticLoadModel = s,
-                nameof(StabilityPointStructuresCalculationConfiguration.ConstructiveStrengthQuadraticLoadModel),
-                testNameFormat,
-                false))
+                         (c, s) => c.ConstructiveStrengthQuadraticLoadModel = s,
+                         nameof(StabilityPointStructuresCalculationConfiguration.ConstructiveStrengthQuadraticLoadModel),
+                         testNameFormat,
+                         false))
             {
                 yield return caseData;
             }
 
             foreach (TestCaseData caseData in StochastConfigurationCases(
-                (c, s) => c.FailureCollisionEnergy = s,
-                nameof(StabilityPointStructuresCalculationConfiguration.FailureCollisionEnergy),
-                testNameFormat,
-                false))
+                         (c, s) => c.FailureCollisionEnergy = s,
+                         nameof(StabilityPointStructuresCalculationConfiguration.FailureCollisionEnergy),
+                         testNameFormat,
+                         false))
             {
                 yield return caseData;
             }
 
             foreach (TestCaseData caseData in StochastConfigurationCases(
-                (c, s) => c.FlowVelocityStructureClosable = s,
-                nameof(StabilityPointStructuresCalculationConfiguration.FlowVelocityStructureClosable),
-                testNameFormat,
-                null))
+                         (c, s) => c.FlowVelocityStructureClosable = s,
+                         nameof(StabilityPointStructuresCalculationConfiguration.FlowVelocityStructureClosable),
+                         testNameFormat,
+                         null))
             {
                 yield return caseData;
             }
 
             foreach (TestCaseData caseData in StochastConfigurationCases(
-                (c, s) => c.ShipMass = s,
-                nameof(StabilityPointStructuresCalculationConfiguration.ShipMass),
-                testNameFormat,
-                false))
+                         (c, s) => c.ShipMass = s,
+                         nameof(StabilityPointStructuresCalculationConfiguration.ShipMass),
+                         testNameFormat,
+                         false))
             {
                 yield return caseData;
             }
 
             foreach (TestCaseData caseData in StochastConfigurationCases(
-                (c, s) => c.ShipVelocity = s,
-                nameof(StabilityPointStructuresCalculationConfiguration.ShipVelocity),
-                testNameFormat,
-                false))
+                         (c, s) => c.ShipVelocity = s,
+                         nameof(StabilityPointStructuresCalculationConfiguration.ShipVelocity),
+                         testNameFormat,
+                         false))
             {
                 yield return caseData;
             }
 
             foreach (TestCaseData caseData in StochastConfigurationCases(
-                (c, s) => c.StabilityLinearLoadModel = s,
-                nameof(StabilityPointStructuresCalculationConfiguration.StabilityLinearLoadModel),
-                testNameFormat,
-                false))
+                         (c, s) => c.StabilityLinearLoadModel = s,
+                         nameof(StabilityPointStructuresCalculationConfiguration.StabilityLinearLoadModel),
+                         testNameFormat,
+                         false))
             {
                 yield return caseData;
             }
 
             foreach (TestCaseData caseData in StochastConfigurationCases(
-                (c, s) => c.StabilityQuadraticLoadModel = s,
-                nameof(StabilityPointStructuresCalculationConfiguration.StabilityQuadraticLoadModel),
-                testNameFormat,
-                false))
+                         (c, s) => c.StabilityQuadraticLoadModel = s,
+                         nameof(StabilityPointStructuresCalculationConfiguration.StabilityQuadraticLoadModel),
+                         testNameFormat,
+                         false))
             {
                 yield return caseData;
             }
 
             foreach (TestCaseData caseData in StochastConfigurationCases(
-                (c, s) => c.StorageStructureArea = s,
-                nameof(StabilityPointStructuresCalculationConfiguration.StorageStructureArea),
-                testNameFormat,
-                false))
+                         (c, s) => c.StorageStructureArea = s,
+                         nameof(StabilityPointStructuresCalculationConfiguration.StorageStructureArea),
+                         testNameFormat,
+                         false))
             {
                 yield return caseData;
             }

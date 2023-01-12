@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -40,10 +40,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_DataNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsWaternetProperties(null);
+            void Call() => new MacroStabilityInwardsWaternetProperties(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("data", exception.ParamName);
         }
 
@@ -53,10 +53,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Setup
             var waternet = new MacroStabilityInwardsWaternet(new[]
             {
-                new TestMacroStabilityInwardsPhreaticLine()
+                MacroStabilityInwardsTestDataFactory.CreateMacroStabilityInwardsPhreaticLine()
             }, new[]
             {
-                new TestMacroStabilityInwardsWaternetLine()
+                MacroStabilityInwardsTestDataFactory.CreateMacroStabilityInwardsWaternetLine()
             });
 
             // Call
@@ -75,10 +75,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Setup
             var waternet = new MacroStabilityInwardsWaternet(new[]
             {
-                new TestMacroStabilityInwardsPhreaticLine()
+                MacroStabilityInwardsTestDataFactory.CreateMacroStabilityInwardsPhreaticLine()
             }, new[]
             {
-                new TestMacroStabilityInwardsWaternetLine()
+                MacroStabilityInwardsTestDataFactory.CreateMacroStabilityInwardsWaternetLine()
             });
 
             // Call
@@ -98,7 +98,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             var properties = new MacroStabilityInwardsWaternetProperties(waternet);
 
             // Call
-            string name = properties.ToString();
+            var name = properties.ToString();
 
             // Assert
             Assert.IsEmpty(name);

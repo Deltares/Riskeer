@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -29,7 +29,7 @@ namespace Riskeer.Common.IO.SoilProfile
     /// <summary>
     /// Class containing the (outer) geometry of a 2D soil layer.
     /// </summary>
-    public class SoilLayer2DLoop
+    public sealed class SoilLayer2DLoop
     {
         /// <summary>
         /// Creates a new instance of <see cref="SoilLayer2DLoop"/>.

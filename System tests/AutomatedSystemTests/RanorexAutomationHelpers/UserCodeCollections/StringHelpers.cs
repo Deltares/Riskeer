@@ -118,22 +118,34 @@ namespace Ranorex_Automation_Helpers.UserCodeCollections
         public static string ReplacePathAliases(this string path)
         {
             var replacementsPath = new Dictionary<string, string> {
+                // Aliases in Project Explorer for FM's
                 {"@STPH",  "Piping"},
                 {"@GEKB",  "Grasbekleding erosie kruin en binnentalud"},
                 {"@STBI",  "Macrostabiliteit binnenwaarts"},
-                {"@HTKW",  "Hoogte kunstwerk"},
-                {"@BSKW",  "Betrouwbaarheid sluiting kunstwerk"},
-                {"@STKWp", "Sterkte en stabiliteit puntconstructies"},
+                {"@STMI",  "Microstabiliteit"},
                 {"@ZST",   "Stabiliteit steenzetting"},
                 {"@AGK",   "Golfklappen op asfaltbekleding"},
+                {"@AWO",   "Wateroverdruk bij asfaltbekleding"},
                 {"@GEBU",  "Grasbekleding erosie buitentalud"},
+                {"@GABU",  "Grasbekleding afschuiven buitentalud"},
+                {"@GABI",  "Grasbekleding afschuiven binnentalud"},
+                {"@HTKW",  "Hoogte kunstwerk"},
+                {"@BSKW",  "Betrouwbaarheid sluiting kunstwerk"},
+                {"@PKW",   "Piping bij kunstwerk"},
+                {"@STKWp", "Sterkte en stabiliteit puntconstructies"},
                 {"@DA",    "Duinafslag"},
-                {"@STMI",  "Dijken en dammen - Microstabiliteit"},
-                {"@AWO",   "Dijken en dammen - Wateroverdruk bij asfaltbekleding"},
-                {"@GABU",  "Dijken en dammen - Grasbekleding afschuiven buitentalud"},
-                {"@GABI",  "Dijken en dammen - Grasbekleding afschuiven binnentalud"},
-                {"@PKW",   "Kunstwerken - Piping bij kunstwerk"},
-                {"@HB",    "Hydraulische belastingen"}
+                {"@STBU",  "Macrostabiliteit buitenwaarts"},
+                {"@STKWl", "Sterkte en stabiliteit langsconstructies"},
+                {"@INN",   "Technische innovaties"},
+                // Aliases in Project Explorer for other items
+                {"@HB",    "Hydraulische belastingen"},
+                {"@GF",    "Generieke faalmechanismen"},
+                {"@SF",    "Specifieke faalmechanismen"},
+                // Aliases in Buttons of Ribbon
+                {"@TR",    "Traject"},
+                {"@HyB",   "Hydraulische"},
+                {"@SB",    "Sterkte"},
+                {"@RA",    "Registratie"}
             };
             foreach (var item in replacementsPath) {
                 path = path.Replace(item.Key, item.Value);

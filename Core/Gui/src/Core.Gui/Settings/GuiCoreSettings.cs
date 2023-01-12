@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Drawing;
+using System.Windows.Media.Imaging;
 
 namespace Core.Gui.Settings
 {
@@ -62,5 +63,10 @@ namespace Core.Gui.Settings
         /// Gets or sets the path of the manual file.
         /// </summary>
         public string ManualFilePath { get; set; }
+
+        /// <summary>
+        /// Gets or sets the bitmap image representing the creators of the application.
+        /// </summary>
+        public BitmapImage MadeByBitmapImage { get; set; }
     }
 }

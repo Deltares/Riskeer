@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -34,13 +34,13 @@ namespace Riskeer.Common.Primitives
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionResultFurtherAnalysisType_NotNecessary_DisplayName))]
         NotNecessary = 1,
-        
+
         /// <summary>
         /// Further analysis is needed.
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionResultFurtherAnalysisType_Necessary_DisplayName))]
         Necessary = 2,
-        
+
         /// <summary>
         /// Further analysis is executed.
         /// </summary>

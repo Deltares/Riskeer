@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -49,7 +49,7 @@ namespace Riskeer.Common.Data.Test.Structures
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new TestFailureMechanism();
+            var failureMechanism = new TestCalculatableFailureMechanism();
 
             // Call
             void Call() => StructuresFailureMechanismAssemblyFactory.AssembleSection<TestStructuresInput>(null, failureMechanism, assessmentSection);
@@ -89,7 +89,7 @@ namespace Riskeer.Common.Data.Test.Structures
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new AdoptableFailureMechanismSectionResult(section);
 
-            var failureMechanism = new TestFailureMechanism();
+            var failureMechanism = new TestCalculatableFailureMechanism();
 
             // Call
             void Call() => StructuresFailureMechanismAssemblyFactory.AssembleSection<TestStructuresInput>(sectionResult, failureMechanism, null);
@@ -114,7 +114,7 @@ namespace Riskeer.Common.Data.Test.Structures
                 RefinedSectionProbability = random.NextDouble()
             };
 
-            var failureMechanism = new TestFailureMechanism();
+            var failureMechanism = new TestCalculatableFailureMechanism();
             var assessmentSection = new AssessmentSectionStub();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -128,8 +128,8 @@ namespace Riskeer.Common.Data.Test.Structures
                 // Assert
                 FailureMechanismSectionAssemblyInput calculatorInput = calculator.FailureMechanismSectionAssemblyInput;
                 FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
-                Assert.AreEqual(failureMechanismContribution.SignalingNorm, calculatorInput.SignalingNorm);
-                Assert.AreEqual(failureMechanismContribution.LowerLimitNorm, calculatorInput.LowerLimitNorm);
+                Assert.AreEqual(failureMechanismContribution.SignalFloodingProbability, calculatorInput.SignalFloodingProbability);
+                Assert.AreEqual(failureMechanismContribution.MaximumAllowableFloodingProbability, calculatorInput.MaximumAllowableFloodingProbability);
 
                 Assert.AreEqual(sectionResult.IsRelevant, calculatorInput.IsRelevant);
                 Assert.IsTrue(calculatorInput.HasProbabilitySpecified);
@@ -144,7 +144,7 @@ namespace Riskeer.Common.Data.Test.Structures
         public void AssembleSection_CalculatorRan_ReturnsExpectedOutput()
         {
             // Setup
-            var failureMechanism = new TestFailureMechanism();
+            var failureMechanism = new TestCalculatableFailureMechanism();
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new AdoptableFailureMechanismSectionResult(section);
 
@@ -156,7 +156,7 @@ namespace Riskeer.Common.Data.Test.Structures
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssemblyResult result = StructuresFailureMechanismAssemblyFactory.AssembleSection<TestStructuresInput>(
+                FailureMechanismSectionAssemblyResultWrapper result = StructuresFailureMechanismAssemblyFactory.AssembleSection<TestStructuresInput>(
                     sectionResult, failureMechanism, assessmentSection);
 
                 // Assert
@@ -168,7 +168,7 @@ namespace Riskeer.Common.Data.Test.Structures
         public void AssembleSection_CalculatorThrowsException_ThrowsAssemblyException()
         {
             // Setup
-            var failureMechanism = new TestFailureMechanism();
+            var failureMechanism = new TestCalculatableFailureMechanism();
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new AdoptableFailureMechanismSectionResult(section);
 

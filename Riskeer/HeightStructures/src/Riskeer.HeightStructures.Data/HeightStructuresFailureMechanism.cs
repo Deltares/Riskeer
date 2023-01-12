@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -21,7 +21,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
@@ -35,13 +34,9 @@ namespace Riskeer.HeightStructures.Data
     /// <summary>
     /// Failure mechanism for Height structures.
     /// </summary>
-    public class HeightStructuresFailureMechanism : FailureMechanismBase,
-                                                    ICalculatableFailureMechanism,
-                                                    IHasSectionResults<HeightStructuresFailureMechanismSectionResultOld, AdoptableFailureMechanismSectionResult>
+    public class HeightStructuresFailureMechanism : FailureMechanismBase<AdoptableFailureMechanismSectionResult>,
+                                                    ICalculatableFailureMechanism
     {
-        private readonly ObservableList<HeightStructuresFailureMechanismSectionResultOld> sectionResultsOld;
-        private readonly ObservableList<AdoptableFailureMechanismSectionResult> sectionResults;
-
         /// <summary>
         /// Creates a new instance of the <see cref="HeightStructuresFailureMechanism"/> class.
         /// </summary>
@@ -55,9 +50,7 @@ namespace Riskeer.HeightStructures.Data
             GeneralInput = new GeneralHeightStructuresInput();
             HeightStructures = new StructureCollection<HeightStructure>();
             ForeshoreProfiles = new ForeshoreProfileCollection();
-
-            sectionResultsOld = new ObservableList<HeightStructuresFailureMechanismSectionResultOld>();
-            sectionResults = new ObservableList<AdoptableFailureMechanismSectionResult>();
+            CalculationsInputComments = new Comment();
         }
 
         /// <summary>
@@ -75,28 +68,13 @@ namespace Riskeer.HeightStructures.Data
         /// </summary>
         public ForeshoreProfileCollection ForeshoreProfiles { get; }
 
+        public IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations().Cast<StructuresCalculation<HeightStructuresInput>>();
+
         /// <summary>
         /// Gets the container of all calculations.
         /// </summary>
         public CalculationGroup CalculationsGroup { get; }
 
-        public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations().Cast<StructuresCalculation<HeightStructuresInput>>();
-
-        public IObservableEnumerable<HeightStructuresFailureMechanismSectionResultOld> SectionResultsOld => sectionResultsOld;
-
-        public IObservableEnumerable<AdoptableFailureMechanismSectionResult> SectionResults => sectionResults;
-
-        protected override void AddSectionDependentData(FailureMechanismSection section)
-        {
-            base.AddSectionDependentData(section);
-            sectionResultsOld.Add(new HeightStructuresFailureMechanismSectionResultOld(section));
-            sectionResults.Add(new AdoptableFailureMechanismSectionResult(section));
-        }
-
-        protected override void ClearSectionDependentData()
-        {
-            sectionResultsOld.Clear();
-            sectionResults.Clear();
-        }
+        public Comment CalculationsInputComments { get; }
     }
 }

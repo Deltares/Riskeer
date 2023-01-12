@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -22,7 +22,7 @@
 using System;
 using System.ComponentModel;
 using Core.Common.TestUtil;
-using Core.Common.Util;
+using Core.Common.Util.Enums;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
@@ -109,7 +109,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             TestHelper.AssertTypeConverter<WaveConditionsOutputProperties, NoValueRoundedDoubleConverter>(
                 nameof(WaveConditionsOutputProperties.CalculatedReliability));
 
-            string convergenceValue = new EnumDisplayWrapper<CalculationConvergence>(convergence).DisplayName;
+            string convergenceValue = EnumDisplayNameHelper.GetDisplayName(convergence);
             Assert.AreEqual(convergenceValue, properties.Convergence);
         }
 
@@ -146,7 +146,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             Assert.AreEqual(calculatedProbability, properties.CalculatedProbability);
             Assert.AreEqual(calculatedReliability, properties.CalculatedReliability, properties.CalculatedReliability.GetAccuracy());
 
-            string convergenceValue = new EnumDisplayWrapper<CalculationConvergence>(convergence).DisplayName;
+            string convergenceValue = EnumDisplayNameHelper.GetDisplayName(convergence);
             Assert.AreEqual(convergenceValue, properties.Convergence);
         }
 

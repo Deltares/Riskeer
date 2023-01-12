@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Controls;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
@@ -85,10 +86,10 @@ namespace Riskeer.Integration.Forms.Test.Views
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new AssemblyResultTotalView(null);
+            void Call() => new AssemblyResultTotalView(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -106,7 +107,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 testForm.Show();
 
                 // Assert
-                Assert.AreEqual(3, view.Controls.Count);
+                Assert.AreEqual(4, view.Controls.Count);
 
                 Button button = GetRefreshAssemblyResultButtonTester().Properties;
                 Assert.AreEqual("Resultaten verversen", button.Text);
@@ -114,6 +115,9 @@ namespace Riskeer.Integration.Forms.Test.Views
 
                 var assemblyResultControl = (AssessmentSectionAssemblyResultControl) new ControlTester("assessmentSectionAssemblyControl").TheObject;
                 Assert.AreEqual(DockStyle.Top, assemblyResultControl.Dock);
+
+                var label = (Label) new ControlTester("label").TheObject;
+                Assert.AreEqual("Samenvatting resultaten per faalmechanisme:", label.Text);
 
                 var dataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl").TheObject;
                 Assert.AreEqual(DockStyle.Fill, dataGridViewControl.Dock);
@@ -148,9 +152,9 @@ namespace Riskeer.Integration.Forms.Test.Views
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridViewColumns[failureMechanismCodeColumnIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridViewColumns[failureMechanismProbabilityColumnIndex]);
 
-                Assert.AreEqual("Toetsspoor", dataGridViewColumns[failureMechanismNameColumnIndex].HeaderText);
+                Assert.AreEqual("Faalmechanisme", dataGridViewColumns[failureMechanismNameColumnIndex].HeaderText);
                 Assert.AreEqual("Label", dataGridViewColumns[failureMechanismCodeColumnIndex].HeaderText);
-                Assert.AreEqual("Benaderde faalkans [1/jaar]", dataGridViewColumns[failureMechanismProbabilityColumnIndex].HeaderText);
+                Assert.AreEqual("Faalkans [1/jaar]", dataGridViewColumns[failureMechanismProbabilityColumnIndex].HeaderText);
 
                 Assert.IsTrue(dataGridViewColumns[failureMechanismNameColumnIndex].ReadOnly);
                 Assert.IsTrue(dataGridViewColumns[failureMechanismCodeColumnIndex].ReadOnly);
@@ -173,7 +177,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                     // Then
                     DataGridView dataGridView = GetDataGridView();
                     AssertFailureMechanismRows(view.AssessmentSection,
-                                               calculator.AssemblyResult,
+                                               calculator.AssemblyResultOutput.AssemblyResult,
                                                dataGridView.Rows);
                 }
             }
@@ -187,7 +191,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             using (ShowAssemblyResultTotalView())
             {
                 // Then
-                AssertAssessmentSectionAssemblyResultControl("-", "1/7");
+                AssertAssessmentSectionAssemblyResultControl("A+", "1/7");
             }
         }
 
@@ -202,12 +206,14 @@ namespace Riskeer.Integration.Forms.Test.Views
                 buttonTester.Properties.Enabled = true;
 
                 // Precondition
-                AssertAssessmentSectionAssemblyResultControl("-", "1/7");
+                AssertAssessmentSectionAssemblyResultControl("A+", "1/7");
 
                 // When
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 AssessmentSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
-                calculator.AssessmentSectionAssemblyResult = new AssessmentSectionAssemblyResult(0.5, AssessmentSectionAssemblyCategoryGroup.A);
+                calculator.AssessmentSectionAssemblyResult = new AssessmentSectionAssemblyResultWrapper(
+                    new AssessmentSectionAssemblyResult(0.5, AssessmentSectionAssemblyGroup.A),
+                    AssemblyMethod.BOI2A1, AssemblyMethod.BOI2B1);
 
                 buttonTester.Click();
 
@@ -227,7 +233,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 buttonTester.Properties.Enabled = true;
 
                 // Precondition
-                AssertAssessmentSectionAssemblyResultControl("-", "1/7");
+                AssertAssessmentSectionAssemblyResultControl("A+", "1/7");
 
                 // When
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
@@ -264,7 +270,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                     buttonTester.Click();
 
                     // Then
-                    AssertAssessmentSectionAssemblyResultControl("-", "1/7");
+                    AssertAssessmentSectionAssemblyResultControl("A+", "1/7");
                     Assert.IsEmpty(GetProbabilityError(GetAssessmentSectionAssemblyResultControl()));
                     Assert.IsEmpty(GetGroupError(GetAssessmentSectionAssemblyResultControl()));
                 }
@@ -272,51 +278,10 @@ namespace Riskeer.Integration.Forms.Test.Views
         }
 
         [Test]
-        [SetCulture("nl-NL")]
-        public void GivenFormWithAssemblyResultTotalView_WhenRefreshingAssemblyResults_ThenDataGridViewInvalidatedAndCellsUpdatedToNewValues()
-        {
-            // Given
-            var random = new Random(21);
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            using (AssemblyResultTotalView view = ShowAssemblyResultTotalView())
-            {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-
-                ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
-                buttonTester.Properties.Enabled = true;
-
-                var invalidated = false;
-                DataGridView dataGridView = GetDataGridView();
-                dataGridView.Invalidated += (sender, args) => invalidated = true;
-                object dataSource = dataGridView.DataSource;
-
-                // Precondition
-                Assert.IsFalse(invalidated);
-                DataGridViewRowCollection rows = dataGridView.Rows;
-                AssertFailureMechanismRows(view.AssessmentSection,
-                                           calculator.AssemblyResult,
-                                           rows);
-
-                // When
-                double newAssemblyResult = random.NextDouble();
-                calculator.AssemblyResult = newAssemblyResult;
-
-                buttonTester.Click();
-
-                // Then
-                Assert.AreSame(dataSource, dataGridView.DataSource);
-                Assert.IsTrue(invalidated);
-                AssertFailureMechanismRows(view.AssessmentSection, newAssemblyResult, rows);
-            }
-        }
-
-        [Test]
         public void GivenFormWithAssemblyResultTotalViewWithOutdatedContent_WhenRefreshingAssemblyResults_ThenRefreshButtonDisabledAndWarningCleared()
         {
             // Given
-            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
+            AssessmentSection assessmentSection = CreateAssessmentSection();
 
             using (AssemblyResultTotalView view = ShowAssemblyResultTotalView(assessmentSection))
             {
@@ -339,10 +304,60 @@ namespace Riskeer.Integration.Forms.Test.Views
         }
 
         [Test]
+        public void GivenFormWithAssemblyResultTotalView_WhenSpecificFailureMechanismCollectionNotifiesObservers_ThenRefreshButtonEnabledAndWarningSet()
+        {
+            // Given
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+
+            using (AssemblyResultTotalView view = ShowAssemblyResultTotalView(assessmentSection))
+            {
+                // Precondition
+                ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
+                Button button = buttonTester.Properties;
+                Assert.IsFalse(button.Enabled);
+                ErrorProvider warningProvider = GetWarningProvider(view);
+                Assert.IsEmpty(warningProvider.GetError(button));
+
+                // When
+                assessmentSection.SpecificFailureMechanisms.NotifyObservers();
+
+                // Then 
+                Assert.IsTrue(buttonTester.Properties.Enabled);
+                Assert.AreEqual(assemblyResultOutdatedWarning, warningProvider.GetError(button));
+            }
+        }
+
+        [Test]
+        public void GivenFormWithAssemblyResultTotalView_WhenSpecificFailureMechanismNotifiesObservers_ThenRefreshButtonEnabledAndWarningSet()
+        {
+            // Given
+            var failureMechanism = new SpecificFailureMechanism();
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+            assessmentSection.SpecificFailureMechanisms.Add(failureMechanism);
+
+            using (AssemblyResultTotalView view = ShowAssemblyResultTotalView(assessmentSection))
+            {
+                // Precondition
+                ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
+                Button button = buttonTester.Properties;
+                Assert.IsFalse(button.Enabled);
+                ErrorProvider warningProvider = GetWarningProvider(view);
+                Assert.IsEmpty(warningProvider.GetError(button));
+
+                // When
+                failureMechanism.NotifyObservers();
+
+                // Then 
+                Assert.IsTrue(buttonTester.Properties.Enabled);
+                Assert.AreEqual(assemblyResultOutdatedWarning, warningProvider.GetError(button));
+            }
+        }
+
+        [Test]
         public void GivenFormWithAssemblyResultTotalView_WhenAssessmentSectionNotifiesObservers_ThenRefreshButtonEnabledAndWarningSet()
         {
             // Given
-            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
+            AssessmentSection assessmentSection = CreateAssessmentSection();
 
             using (AssemblyResultTotalView view = ShowAssemblyResultTotalView(assessmentSection))
             {
@@ -367,7 +382,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         {
             // Given
             var random = new Random(21);
-            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
+            AssessmentSection assessmentSection = CreateAssessmentSection();
 
             using (AssemblyResultTotalView view = ShowAssemblyResultTotalView(assessmentSection))
             {
@@ -392,7 +407,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         public void GivenFormWithAssemblyResultTotalView_WhenCalculationNotifiesObservers_ThenRefreshButtonEnabledAndWarningSet()
         {
             // Given
-            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
+            AssessmentSection assessmentSection = CreateAssessmentSection();
             var calculation = new TestHeightStructuresCalculationScenario();
             assessmentSection.HeightStructures.CalculationsGroup.Children.Add(calculation);
 
@@ -431,7 +446,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 // Precondition
                 DataGridViewRowCollection rows = dataGridView.Rows;
                 Assert.AreEqual(view.AssessmentSection.GetFailureMechanisms().Count(), rows.Count);
-                AssertAssemblyCells(view.AssessmentSection.Piping, 0, rows[0].Cells);
+                AssertAssemblyCells(view.AssessmentSection.Piping, 0.1, rows[0].Cells);
 
                 // When
                 view.AssessmentSection.Piping = new TestPipingFailureMechanism
@@ -446,6 +461,86 @@ namespace Riskeer.Integration.Forms.Test.Views
                 Assert.AreEqual(view.AssessmentSection.GetFailureMechanisms().Count(), rows.Count);
                 AssertAssemblyCells(view.AssessmentSection.Piping, double.NaN, rows[0].Cells);
             }
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        public void GivenFormWithAssemblyResultTotalView_WhenSpecificFailureMechanismAddedAndRefreshingAssemblyResults_ThenDataGridViewDataSourceAndRowsUpdated()
+        {
+            // Given
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (AssemblyResultTotalView view = ShowAssemblyResultTotalView(assessmentSection))
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
+
+                DataGridView dataGridView = GetDataGridView();
+                object dataSource = dataGridView.DataSource;
+
+                // Precondition
+                DataGridViewRowCollection rows = dataGridView.Rows;
+                AssertFailureMechanismRows(view.AssessmentSection, calculator.AssemblyResultOutput.AssemblyResult, rows);
+
+                // When
+                ObservableList<SpecificFailureMechanism> specificFailureMechanisms = assessmentSection.SpecificFailureMechanisms;
+                specificFailureMechanisms.Add(new SpecificFailureMechanism());
+                specificFailureMechanisms.NotifyObservers();
+
+                ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
+                buttonTester.Click();
+
+                // Then
+                Assert.AreNotSame(dataSource, dataGridView.DataSource);
+                AssertFailureMechanismRows(view.AssessmentSection, calculator.AssemblyResultOutput.AssemblyResult, rows);
+            }
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        public void GivenFormWithAssemblyResultTotalView_WhenSpecificFailureMechanismRemovedAndRefreshingAssemblyResults_ThenDataGridViewDataSourceAndRowsUpdated()
+        {
+            // Given
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (AssemblyResultTotalView view = ShowAssemblyResultTotalView(assessmentSection))
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
+
+                DataGridView dataGridView = GetDataGridView();
+                object dataSource = dataGridView.DataSource;
+
+                // Precondition
+                DataGridViewRowCollection rows = dataGridView.Rows;
+                AssertFailureMechanismRows(view.AssessmentSection, calculator.AssemblyResultOutput.AssemblyResult, rows);
+
+                // When
+                ObservableList<SpecificFailureMechanism> specificFailureMechanisms = assessmentSection.SpecificFailureMechanisms;
+                SpecificFailureMechanism failureMechanismToRemove = specificFailureMechanisms.Last();
+                specificFailureMechanisms.Remove(failureMechanismToRemove);
+                specificFailureMechanisms.NotifyObservers();
+
+                ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
+                buttonTester.Click();
+
+                // Then
+                Assert.AreNotSame(dataSource, dataGridView.DataSource);
+                AssertFailureMechanismRows(view.AssessmentSection, calculator.AssemblyResultOutput.AssemblyResult, rows);
+            }
+        }
+
+        private static AssessmentSection CreateAssessmentSection()
+        {
+            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
+            assessmentSection.SpecificFailureMechanisms.AddRange(new[]
+            {
+                new SpecificFailureMechanism(),
+                new SpecificFailureMechanism()
+            });
+            return assessmentSection;
         }
 
         #region View test helpers
@@ -519,7 +614,9 @@ namespace Riskeer.Integration.Forms.Test.Views
                                                        double assemblyOutput,
                                                        DataGridViewRowCollection rows)
         {
-            Assert.AreEqual(assessmentSection.GetFailureMechanisms().Count(), rows.Count);
+            int nrOfExpectedRows = assessmentSection.GetFailureMechanisms().Count() +
+                                   assessmentSection.SpecificFailureMechanisms.Count;
+            Assert.AreEqual(nrOfExpectedRows, rows.Count);
 
             PipingFailureMechanism piping = assessmentSection.Piping;
             AssertAssemblyCells(piping, assemblyOutput, rows[0].Cells);
@@ -565,6 +662,13 @@ namespace Riskeer.Integration.Forms.Test.Views
 
             DuneErosionFailureMechanism duneErosion = assessmentSection.DuneErosion;
             AssertAssemblyCells(duneErosion, assemblyOutput, rows[14].Cells);
+
+            int startIndexFailureMechanismRow = 15;
+            for (int i = startIndexFailureMechanismRow; i < nrOfExpectedRows; i++)
+            {
+                SpecificFailureMechanism specificFailureMechanism = assessmentSection.SpecificFailureMechanisms[i - startIndexFailureMechanismRow];
+                AssertAssemblyCells(specificFailureMechanism, assemblyOutput, rows[i].Cells);
+            }
         }
 
         private static void AssertAssemblyCells(IFailureMechanism failureMechanism, double assemblyResult, DataGridViewCellCollection cells)
@@ -585,7 +689,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         {
             Assert.AreEqual("Message", GetProbabilityError(GetAssessmentSectionAssemblyResultControl()));
             Assert.AreEqual("Message", GetGroupError(GetAssessmentSectionAssemblyResultControl()));
-            AssertAssessmentSectionAssemblyResultControl(string.Empty, "-");
+            AssertAssessmentSectionAssemblyResultControl("-", "-");
         }
 
         private static void AssertAssessmentSectionAssemblyResultControl(string expectedGroup, string expectedProbability)

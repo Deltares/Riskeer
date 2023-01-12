@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -74,7 +74,7 @@ namespace Riskeer.MacroStabilityInwards.Data
 
         public double CalculateSectionProbability()
         {
-            return CalculateProfileProbability() * failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(sectionResult.Section.Length);
+            return Math.Min(1.0, CalculateProfileProbability() * failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(sectionResult.Section.Length));
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -44,10 +44,10 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => new FailureMechanismCalculationChangeHandler(null, string.Empty, inquiryHandler);
+            void Call() => new FailureMechanismCalculationChangeHandler(null, string.Empty, inquiryHandler);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("failureMechanism", paramName);
             mockRepository.VerifyAll();
         }
@@ -58,14 +58,14 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             // Setup
             var mockRepository = new MockRepository();
             var inquiryHandler = mockRepository.Stub<IInquiryHelper>();
-            var failureMechanism = mockRepository.Stub<IFailureMechanism>();
+            var failureMechanism = mockRepository.Stub<ICalculatableFailureMechanism>();
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => new FailureMechanismCalculationChangeHandler(failureMechanism, null, inquiryHandler);
+            void Call() => new FailureMechanismCalculationChangeHandler(failureMechanism, null, inquiryHandler);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("query", paramName);
             mockRepository.VerifyAll();
         }
@@ -75,14 +75,14 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         {
             // Setup
             var mockRepository = new MockRepository();
-            var failureMechanism = mockRepository.Stub<IFailureMechanism>();
+            var failureMechanism = mockRepository.Stub<ICalculatableFailureMechanism>();
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => new FailureMechanismCalculationChangeHandler(failureMechanism, string.Empty, null);
+            void Call() => new FailureMechanismCalculationChangeHandler(failureMechanism, string.Empty, null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("inquiryHandler", paramName);
             mockRepository.VerifyAll();
         }
@@ -93,7 +93,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             // Setup
             var mockRepository = new MockRepository();
             var inquiryHandler = mockRepository.Stub<IInquiryHelper>();
-            var failureMechanism = mockRepository.Stub<IFailureMechanism>();
+            var failureMechanism = mockRepository.Stub<ICalculatableFailureMechanism>();
             mockRepository.ReplayAll();
 
             // Call
@@ -112,7 +112,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             var inquiryHandler = mockRepository.StrictMock<IInquiryHelper>();
             mockRepository.ReplayAll();
 
-            var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
+            var failureMechanism = new TestCalculatableFailureMechanism(Enumerable.Empty<ICalculation>());
 
             var handler = new FailureMechanismCalculationChangeHandler(failureMechanism, string.Empty, inquiryHandler);
 
@@ -135,7 +135,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             calculation.Expect(calc => calc.HasOutput).Return(false);
             mockRepository.ReplayAll();
 
-            var failureMechanism = new TestFailureMechanism(new[]
+            var failureMechanism = new TestCalculatableFailureMechanism(new[]
             {
                 calculation
             });
@@ -161,7 +161,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             calculation.Expect(calc => calc.HasOutput).Return(true);
             mockRepository.ReplayAll();
 
-            var failureMechanism = new TestFailureMechanism(new[]
+            var failureMechanism = new TestCalculatableFailureMechanism(new[]
             {
                 calculation
             });
@@ -189,7 +189,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             var mockRepository = new MockRepository();
             var inquiryHandler = mockRepository.StrictMock<IInquiryHelper>();
             inquiryHandler.Expect(ih => ih.InquireContinuation(message)).Return(expectedResult);
-            var failureMechanism = mockRepository.Stub<IFailureMechanism>();
+            var failureMechanism = mockRepository.Stub<ICalculatableFailureMechanism>();
             mockRepository.ReplayAll();
 
             var handler = new FailureMechanismCalculationChangeHandler(failureMechanism, message, inquiryHandler);

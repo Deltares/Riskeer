@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -30,7 +30,7 @@ namespace Riskeer.MacroStabilityInwards.Primitives
     /// <summary>
     /// A collection of points which together form a closed line.
     /// </summary>
-    public class Ring
+    public sealed class Ring
     {
         /// <summary>
         /// Creates a new instance of <see cref="Ring"/>.

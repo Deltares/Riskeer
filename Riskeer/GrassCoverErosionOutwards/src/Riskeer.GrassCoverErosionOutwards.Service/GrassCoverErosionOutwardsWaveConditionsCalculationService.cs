@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -256,10 +256,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
         }
 
         private IEnumerable<WaveConditionsOutput> CalculateWaveImpactWithWaveDirection(GrassCoverErosionOutwardsWaveConditionsCalculation calculation,
-                                                                                GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                                                                                HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
-                                                                                RoundedDouble assessmentLevel,
-                                                                                double targetProbability)
+                                                                                       GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+                                                                                       HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
+                                                                                       RoundedDouble assessmentLevel,
+                                                                                       double targetProbability)
         {
             return Calculate(calculation, hydraulicBoundaryDatabase, targetProbability, assessmentLevel,
                              failureMechanism.GeneralInput.GeneralWaveImpactWithWaveDirectionWaveConditionsInput,

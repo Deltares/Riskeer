@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -621,7 +621,10 @@ namespace Riskeer.Common.IO.Test.FileImporters
                                                                 messageProvider,
                                                                 typeDescriptor)
             {
-                CreateProfileAction = () => { throw new UpdateDataException("Exception message"); }
+                CreateProfileAction = () =>
+                {
+                    throw new UpdateDataException("Exception message");
+                }
             };
 
             var importResult = true;

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -65,7 +65,7 @@ namespace Core.Common.Controls.Test.DataGrid
             var dataGridViewComboBoxItemWrapper = new DataGridViewComboBoxItemWrapper<TestClass>(testClass);
 
             // Call
-            string text = dataGridViewComboBoxItemWrapper.ToString();
+            var text = dataGridViewComboBoxItemWrapper.ToString();
 
             // Assert
             Assert.AreEqual(dataGridViewComboBoxItemWrapper.DisplayName, text);
@@ -78,7 +78,7 @@ namespace Core.Common.Controls.Test.DataGrid
             var dataGridViewComboBoxItemWrapper = new DataGridViewComboBoxItemWrapper<TestClass>(null);
 
             // Call
-            string text = dataGridViewComboBoxItemWrapper.ToString();
+            var text = dataGridViewComboBoxItemWrapper.ToString();
 
             // Assert
             Assert.AreEqual(dataGridViewComboBoxItemWrapper.DisplayName, text);
@@ -86,18 +86,13 @@ namespace Core.Common.Controls.Test.DataGrid
 
         [TestFixture]
         private class DataGridViewComboBoxItemWrapperEqualsTest
-            : EqualsTestFixture<DataGridViewComboBoxItemWrapper<TestClass>, DerivedDataGridViewComboBoxItemWrapper<TestClass>>
+            : EqualsTestFixture<DataGridViewComboBoxItemWrapper<TestClass>>
         {
             private readonly TestClass wrappedObject = new TestClass();
 
             protected override DataGridViewComboBoxItemWrapper<TestClass> CreateObject()
             {
                 return new DataGridViewComboBoxItemWrapper<TestClass>(wrappedObject);
-            }
-
-            protected override DerivedDataGridViewComboBoxItemWrapper<TestClass> CreateDerivedObject()
-            {
-                return new DerivedDataGridViewComboBoxItemWrapper<TestClass>(wrappedObject);
             }
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
@@ -113,11 +108,6 @@ namespace Core.Common.Controls.Test.DataGrid
             {
                 return "Test class";
             }
-        }
-
-        private class DerivedDataGridViewComboBoxItemWrapper<T> : DataGridViewComboBoxItemWrapper<T>
-        {
-            public DerivedDataGridViewComboBoxItemWrapper(T wrappedObject) : base(wrappedObject) {}
         }
     }
 }

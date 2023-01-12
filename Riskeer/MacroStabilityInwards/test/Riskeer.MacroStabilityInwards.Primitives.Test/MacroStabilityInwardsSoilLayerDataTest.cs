@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -100,10 +100,10 @@ namespace Riskeer.MacroStabilityInwards.Primitives.Test
             var data = new MacroStabilityInwardsSoilLayerData();
 
             // Call
-            TestDelegate test = () => data.MaterialName = null;
+            void Call() => data.MaterialName = null;
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("value", paramName);
         }
 
@@ -313,16 +313,11 @@ namespace Riskeer.MacroStabilityInwards.Primitives.Test
 
         [TestFixture]
         private class MacroStabilityInwardsSoilLayerDataEqualsTest
-            : EqualsTestFixture<MacroStabilityInwardsSoilLayerData, DerivedMacroStabilityInwardsSoilLayerData>
+            : EqualsTestFixture<MacroStabilityInwardsSoilLayerData>
         {
             protected override MacroStabilityInwardsSoilLayerData CreateObject()
             {
                 return CreateRandomData(21);
-            }
-
-            protected override DerivedMacroStabilityInwardsSoilLayerData CreateDerivedObject()
-            {
-                return new DerivedMacroStabilityInwardsSoilLayerData(CreateRandomData(21));
             }
 
             private static MacroStabilityInwardsSoilLayerData CreateRandomData(int randomSeed)
@@ -429,25 +424,6 @@ namespace Riskeer.MacroStabilityInwards.Primitives.Test
                                                                                         "PopMean");
                 yield return new ChangePropertyData<MacroStabilityInwardsSoilLayerData>(lp => lp.Pop.CoefficientOfVariation = (RoundedDouble) (1.0 - lp.Pop.CoefficientOfVariation),
                                                                                         "PopCoefficientOfVariation");
-            }
-        }
-
-        private class DerivedMacroStabilityInwardsSoilLayerData : MacroStabilityInwardsSoilLayerData
-        {
-            public DerivedMacroStabilityInwardsSoilLayerData(MacroStabilityInwardsSoilLayerData data)
-            {
-                MaterialName = data.MaterialName;
-                Color = data.Color;
-                IsAquifer = data.IsAquifer;
-                UsePop = data.UsePop;
-                ShearStrengthModel = data.ShearStrengthModel;
-                AbovePhreaticLevel = data.AbovePhreaticLevel;
-                BelowPhreaticLevel = data.BelowPhreaticLevel;
-                Cohesion = data.Cohesion;
-                FrictionAngle = data.FrictionAngle;
-                ShearStrengthRatio = data.ShearStrengthRatio;
-                StrengthIncreaseExponent = data.StrengthIncreaseExponent;
-                Pop = data.Pop;
             }
         }
     }

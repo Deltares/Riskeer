@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -22,11 +22,14 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Controls.DataGrid;
+using Core.Common.Util.Enums;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Integration.Data.Assembly;
+using Riskeer.Integration.Forms.Properties;
 
 namespace Riskeer.Integration.Forms.Views
 {
@@ -35,22 +38,23 @@ namespace Riskeer.Integration.Forms.Views
     /// </summary>
     public class CombinedFailureMechanismSectionAssemblyResultRow : IHasColumnStateDefinitions
     {
-        private const int totalResultIndex = 3;
-        private const int pipingIndex = 4;
-        private const int grassCoverErosionInwardsIndex = 5;
-        private const int macroStabilityInwardsIndex = 6;
-        private const int microstabililityIndex = 7;
-        private const int stabilityStoneCoverIndex = 8;
-        private const int waveImpactAsphaltCoverIndex = 9;
-        private const int waterPressureAsphaltCoverIndex = 10;
-        private const int grassCoverErosionOutwardsIndex = 11;
-        private const int grassCoverSlipOffOutwardsIndex = 12;
-        private const int grassCoverSlipOffInwardsIndex = 13;
-        private const int heightStructuresIndex = 14;
-        private const int closingStructuresIndex = 15;
-        private const int pipingStructureIndex = 16;
-        private const int stabilityPointStructuresIndex = 17;
-        private const int duneErosionIndex = 18;
+        private const int pipingIndex = 2;
+        private const int grassCoverErosionInwardsIndex = 3;
+        private const int macroStabilityInwardsIndex = 4;
+        private const int microstabililityIndex = 5;
+        private const int stabilityStoneCoverIndex = 6;
+        private const int waveImpactAsphaltCoverIndex = 7;
+        private const int waterPressureAsphaltCoverIndex = 8;
+        private const int grassCoverErosionOutwardsIndex = 9;
+        private const int grassCoverSlipOffOutwardsIndex = 10;
+        private const int grassCoverSlipOffInwardsIndex = 11;
+        private const int heightStructuresIndex = 12;
+        private const int closingStructuresIndex = 13;
+        private const int pipingStructureIndex = 14;
+        private const int stabilityPointStructuresIndex = 15;
+        private const int duneErosionIndex = 16;
+        private const int specificFailureMechanismStartIndex = 17;
+        private readonly int totalResultIndex;
 
         private readonly CombinedFailureMechanismSectionAssemblyResult combinedFailureMechanismSectionAssemblyResult;
 
@@ -71,227 +75,116 @@ namespace Riskeer.Integration.Forms.Views
 
             this.combinedFailureMechanismSectionAssemblyResult = combinedFailureMechanismSectionAssemblyResult;
 
+            totalResultIndex = specificFailureMechanismStartIndex + SpecificFailureMechanisms.Length;
+
             ColumnStateDefinitions = new Dictionary<int, DataGridViewColumnStateDefinition>();
             CreateColumnStateDefinitions();
             SetColumnStateDefinitionColors();
         }
 
         /// <summary>
-        /// Gets the number of the section.
-        /// </summary>
-        public int SectionNumber
-        {
-            get
-            {
-                return combinedFailureMechanismSectionAssemblyResult.SectionNumber;
-            }
-        }
-
-        /// <summary>
         /// Gets the start of the section from the beginning of the reference line.
         /// [m]
         /// </summary>
-        public RoundedDouble SectionStart
-        {
-            get
-            {
-                return new RoundedDouble(2, combinedFailureMechanismSectionAssemblyResult.SectionStart);
-            }
-        }
+        public RoundedDouble SectionStart => new RoundedDouble(2, combinedFailureMechanismSectionAssemblyResult.SectionStart);
 
         /// <summary>
         /// Gets the end of the section from the beginning of the reference line.
         /// [m]
         /// </summary>
-        public RoundedDouble SectionEnd
-        {
-            get
-            {
-                return new RoundedDouble(2, combinedFailureMechanismSectionAssemblyResult.SectionEnd);
-            }
-        }
+        public RoundedDouble SectionEnd => new RoundedDouble(2, combinedFailureMechanismSectionAssemblyResult.SectionEnd);
 
         /// <summary>
         /// Gets the total assembly result.
         /// </summary>
-        public string TotalResult
-        {
-            get
-            {
-                return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.TotalResult);
-            }
-        }
+        public string TotalResult => EnumDisplayNameHelper.GetDisplayName(combinedFailureMechanismSectionAssemblyResult.TotalResult);
 
         /// <summary>
         /// Gets the assembly result for piping.
         /// </summary>
-        public string Piping
-        {
-            get
-            {
-                return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.Piping);
-            }
-        }
+        public string Piping => GetDisplayNameForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.Piping);
 
         /// <summary>
         /// Gets the assembly result for grass cover erosion inwards.
         /// </summary>
-        public string GrassCoverErosionInwards
-        {
-            get
-            {
-                return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.GrassCoverErosionInwards);
-            }
-        }
+        public string GrassCoverErosionInwards => GetDisplayNameForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.GrassCoverErosionInwards);
 
         /// <summary>
         /// Gets the assembly result for macro stability inwards.
         /// </summary>
-        public string MacroStabilityInwards
-        {
-            get
-            {
-                return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.MacroStabilityInwards);
-            }
-        }
+        public string MacroStabilityInwards => GetDisplayNameForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.MacroStabilityInwards);
 
         /// <summary>
         /// Gets the assembly result for microstability.
         /// </summary>
-        public string Microstability
-        {
-            get
-            {
-                return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.Microstability);
-            }
-        }
+        public string Microstability => GetDisplayNameForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.Microstability);
 
         /// <summary>
         /// Gets the assembly result for stability stone cover.
         /// </summary>
-        public string StabilityStoneCover
-        {
-            get
-            {
-                return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.StabilityStoneCover);
-            }
-        }
+        public string StabilityStoneCover => GetDisplayNameForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.StabilityStoneCover);
 
         /// <summary>
         /// Gets the assembly result for wave impact asphalt cover.
         /// </summary>
-        public string WaveImpactAsphaltCover
-        {
-            get
-            {
-                return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.WaveImpactAsphaltCover);
-            }
-        }
+        public string WaveImpactAsphaltCover => GetDisplayNameForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.WaveImpactAsphaltCover);
 
         /// <summary>
         /// Gets the assembly result for water pressure asphalt cover.
         /// </summary>
-        public string WaterPressureAsphaltCover
-        {
-            get
-            {
-                return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.WaterPressureAsphaltCover);
-            }
-        }
+        public string WaterPressureAsphaltCover => GetDisplayNameForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.WaterPressureAsphaltCover);
 
         /// <summary>
         /// Gets the assembly result for grass cover erosion outwards.
         /// </summary>
-        public string GrassCoverErosionOutwards
-        {
-            get
-            {
-                return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.GrassCoverErosionOutwards);
-            }
-        }
+        public string GrassCoverErosionOutwards => GetDisplayNameForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.GrassCoverErosionOutwards);
 
         /// <summary>
         /// Gets the assembly result for grass cover slip off outwards.
         /// </summary>
-        public string GrassCoverSlipOffOutwards
-        {
-            get
-            {
-                return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.GrassCoverSlipOffOutwards);
-            }
-        }
+        public string GrassCoverSlipOffOutwards => GetDisplayNameForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.GrassCoverSlipOffOutwards);
 
         /// <summary>
         /// Gets the assembly result for grass cover slip off inwards.
         /// </summary>
-        public string GrassCoverSlipOffInwards
-        {
-            get
-            {
-                return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.GrassCoverSlipOffInwards);
-            }
-        }
+        public string GrassCoverSlipOffInwards => GetDisplayNameForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.GrassCoverSlipOffInwards);
 
         /// <summary>
         /// Gets the assembly result for height structures.
         /// </summary>
-        public string HeightStructures
-        {
-            get
-            {
-                return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.HeightStructures);
-            }
-        }
+        public string HeightStructures => GetDisplayNameForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.HeightStructures);
 
         /// <summary>
         /// Gets the assembly result for closing structures.
         /// </summary>
-        public string ClosingStructures
-        {
-            get
-            {
-                return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.ClosingStructures);
-            }
-        }
+        public string ClosingStructures => GetDisplayNameForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.ClosingStructures);
 
         /// <summary>
         /// Gets the assembly result for piping structure.
         /// </summary>
-        public string PipingStructure
-        {
-            get
-            {
-                return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.PipingStructure);
-            }
-        }
+        public string PipingStructure => GetDisplayNameForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.PipingStructure);
 
         /// <summary>
         /// Gets the assembly result for stability point structures.
         /// </summary>
-        public string StabilityPointStructures
-        {
-            get
-            {
-                return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.StabilityPointStructures);
-            }
-        }
+        public string StabilityPointStructures => GetDisplayNameForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.StabilityPointStructures);
 
         /// <summary>
         /// Gets the assembly result for dune erosion.
         /// </summary>
-        public string DuneErosion
-        {
-            get
-            {
-                return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.DuneErosion);
-            }
-        }
+        public string DuneErosion => GetDisplayNameForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.DuneErosion);
+
+        /// <summary>
+        /// Gets the assembly result for specific failure mechanisms.
+        /// </summary>
+        public string[] SpecificFailureMechanisms =>
+            combinedFailureMechanismSectionAssemblyResult.SpecificFailureMechanisms
+                                                         .Select(GetDisplayNameForFailureMechanism).ToArray();
 
         public IDictionary<int, DataGridViewColumnStateDefinition> ColumnStateDefinitions { get; }
 
         private void CreateColumnStateDefinitions()
         {
-            ColumnStateDefinitions.Add(totalResultIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
             ColumnStateDefinitions.Add(pipingIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
             ColumnStateDefinitions.Add(grassCoverErosionInwardsIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
             ColumnStateDefinitions.Add(macroStabilityInwardsIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
@@ -307,32 +200,61 @@ namespace Riskeer.Integration.Forms.Views
             ColumnStateDefinitions.Add(pipingStructureIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
             ColumnStateDefinitions.Add(stabilityPointStructuresIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
             ColumnStateDefinitions.Add(duneErosionIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
+
+            for (var i = 0; i < SpecificFailureMechanisms.Length; i++)
+            {
+                ColumnStateDefinitions.Add(specificFailureMechanismStartIndex + i, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
+            }
+
+            ColumnStateDefinitions.Add(totalResultIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
         }
 
         private void SetColumnStateDefinitionColors()
         {
+            ColumnStateDefinitions[pipingIndex].Style = CreateCellStyleForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.Piping);
+            ColumnStateDefinitions[grassCoverErosionInwardsIndex].Style = CreateCellStyleForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.GrassCoverErosionInwards);
+            ColumnStateDefinitions[macroStabilityInwardsIndex].Style = CreateCellStyleForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.MacroStabilityInwards);
+            ColumnStateDefinitions[microstabililityIndex].Style = CreateCellStyleForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.Microstability);
+            ColumnStateDefinitions[stabilityStoneCoverIndex].Style = CreateCellStyleForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.StabilityStoneCover);
+            ColumnStateDefinitions[waveImpactAsphaltCoverIndex].Style = CreateCellStyleForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.WaveImpactAsphaltCover);
+            ColumnStateDefinitions[waterPressureAsphaltCoverIndex].Style = CreateCellStyleForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.WaterPressureAsphaltCover);
+            ColumnStateDefinitions[grassCoverErosionOutwardsIndex].Style = CreateCellStyleForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.GrassCoverErosionOutwards);
+            ColumnStateDefinitions[grassCoverSlipOffOutwardsIndex].Style = CreateCellStyleForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.GrassCoverSlipOffOutwards);
+            ColumnStateDefinitions[grassCoverSlipOffInwardsIndex].Style = CreateCellStyleForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.GrassCoverSlipOffInwards);
+            ColumnStateDefinitions[heightStructuresIndex].Style = CreateCellStyleForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.HeightStructures);
+            ColumnStateDefinitions[closingStructuresIndex].Style = CreateCellStyleForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.ClosingStructures);
+            ColumnStateDefinitions[pipingStructureIndex].Style = CreateCellStyleForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.PipingStructure);
+            ColumnStateDefinitions[stabilityPointStructuresIndex].Style = CreateCellStyleForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.StabilityPointStructures);
+            ColumnStateDefinitions[duneErosionIndex].Style = CreateCellStyleForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.DuneErosion);
+
+            FailureMechanismSectionAssemblyGroup?[] specificFailureMechanismAssemblyResults = combinedFailureMechanismSectionAssemblyResult.SpecificFailureMechanisms;
+            int nrOfSpecificFailureMechanisms = specificFailureMechanismAssemblyResults.Length;
+            for (var i = 0; i < nrOfSpecificFailureMechanisms; i++)
+            {
+                ColumnStateDefinitions[specificFailureMechanismStartIndex + i].Style = CreateCellStyleForFailureMechanism(specificFailureMechanismAssemblyResults[i]);
+            }
+
             ColumnStateDefinitions[totalResultIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.TotalResult);
-            ColumnStateDefinitions[pipingIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.Piping);
-            ColumnStateDefinitions[grassCoverErosionInwardsIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.GrassCoverErosionInwards);
-            ColumnStateDefinitions[macroStabilityInwardsIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.MacroStabilityInwards);
-            ColumnStateDefinitions[microstabililityIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.Microstability);
-            ColumnStateDefinitions[stabilityStoneCoverIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.StabilityStoneCover);
-            ColumnStateDefinitions[waveImpactAsphaltCoverIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.WaveImpactAsphaltCover);
-            ColumnStateDefinitions[waterPressureAsphaltCoverIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.WaterPressureAsphaltCover);
-            ColumnStateDefinitions[grassCoverErosionOutwardsIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.GrassCoverErosionOutwards);
-            ColumnStateDefinitions[grassCoverSlipOffOutwardsIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.GrassCoverSlipOffOutwards);
-            ColumnStateDefinitions[grassCoverSlipOffInwardsIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.GrassCoverSlipOffInwards);
-            ColumnStateDefinitions[heightStructuresIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.HeightStructures);
-            ColumnStateDefinitions[closingStructuresIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.ClosingStructures);
-            ColumnStateDefinitions[pipingStructureIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.PipingStructure);
-            ColumnStateDefinitions[stabilityPointStructuresIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.StabilityPointStructures);
-            ColumnStateDefinitions[duneErosionIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.DuneErosion);
         }
 
-        private static CellStyle CreateCellStyle(FailureMechanismSectionAssemblyGroup assemblyCategoryGroup)
+        private static string GetDisplayNameForFailureMechanism(FailureMechanismSectionAssemblyGroup? failureMechanismSectionAssemblyGroup)
+        {
+            return failureMechanismSectionAssemblyGroup.HasValue
+                       ? EnumDisplayNameHelper.GetDisplayName(failureMechanismSectionAssemblyGroup.Value)
+                       : Resources.CombinedFailureMechanismSectionAssemblyResultRow_Not_in_assembly_dash;
+        }
+
+        private static CellStyle CreateCellStyle(FailureMechanismSectionAssemblyGroup failureMechanismSectionAssemblyGroup)
         {
             return new CellStyle(Color.FromKnownColor(KnownColor.ControlText),
-                                 AssemblyGroupColorHelper.GetFailureMechanismSectionAssemblyCategoryGroupColor(assemblyCategoryGroup));
+                                 FailureMechanismSectionAssemblyGroupColorHelper.GetFailureMechanismSectionAssemblyGroupColor(failureMechanismSectionAssemblyGroup));
+        }
+
+        private static CellStyle CreateCellStyleForFailureMechanism(FailureMechanismSectionAssemblyGroup? failureMechanismSectionAssemblyGroup)
+        {
+            return failureMechanismSectionAssemblyGroup.HasValue
+                       ? CreateCellStyle(failureMechanismSectionAssemblyGroup.Value)
+                       : new CellStyle(Color.FromKnownColor(KnownColor.ControlText), Color.FromArgb(255, 255, 255));
         }
     }
 }

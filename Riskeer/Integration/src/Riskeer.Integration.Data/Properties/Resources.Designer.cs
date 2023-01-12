@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -100,21 +100,11 @@ namespace Riskeer.Integration.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De contributie van het nieuwe toetsspoor moet gelijk zijn aan het oude toetsspoor..
+        ///   Looks up a localized string similar to Voor een of meerdere faalmechanismen kan geen assemblageresultaat worden bepaald..
         /// </summary>
-        public static string AssessmentSection_ValidateContribution_Contribution_new_FailureMechanism_must_be_equal_to_old_FailureMechanism {
+        public static string AssessmentSectionAssemblyFactory_Error_while_assembling_failureMechanisms {
             get {
-                return ResourceManager.GetString("AssessmentSection_ValidateContribution_Contribution_new_FailureMechanism_must_be_" +
-                        "equal_to_old_FailureMechanism", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Voor een of meerdere toetssporen kan geen oordeel worden bepaald..
-        /// </summary>
-        public static string AssessmentSectionAssemblyFactory_Error_while_assembling_failureMechanims {
-            get {
-                return ResourceManager.GetString("AssessmentSectionAssemblyFactory_Error_while_assembling_failureMechanims", resourceCulture);
+                return ResourceManager.GetString("AssessmentSectionAssemblyFactory_Error_while_assembling_failureMechanisms", resourceCulture);
             }
         }
         
@@ -128,7 +118,7 @@ namespace Riskeer.Integration.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dijken en dammen - Grasbekleding afschuiven binnentalud.
+        ///   Looks up a localized string similar to Grasbekleding afschuiven binnentalud.
         /// </summary>
         public static string GrassCoverSlipOffInwardsFailureMechanism_DisplayName {
             get {
@@ -146,7 +136,7 @@ namespace Riskeer.Integration.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dijken en dammen - Grasbekleding afschuiven buitentalud.
+        ///   Looks up a localized string similar to Grasbekleding afschuiven buitentalud.
         /// </summary>
         public static string GrassCoverSlipOffOutwardsFailureMechanism_DisplayName {
             get {
@@ -164,7 +154,7 @@ namespace Riskeer.Integration.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dijken en dammen - Microstabiliteit.
+        ///   Looks up a localized string similar to Microstabiliteit.
         /// </summary>
         public static string MicrostabilityFailureMechanism_DisplayName {
             get {
@@ -182,29 +172,11 @@ namespace Riskeer.Integration.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kunstwerken - Piping bij kunstwerk.
+        ///   Looks up a localized string similar to Piping bij kunstwerk.
         /// </summary>
         public static string PipingStructureFailureMechanism_DisplayName {
             get {
                 return ResourceManager.GetString("PipingStructureFailureMechanism_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to NIEUW.
-        /// </summary>
-        public static string SpecificFailurePath_Code_DefaultName {
-            get {
-                return ResourceManager.GetString("SpecificFailurePath_Code_DefaultName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Nieuw faalpad.
-        /// </summary>
-        public static string SpecificFailurePath_Name_DefaultName {
-            get {
-                return ResourceManager.GetString("SpecificFailurePath_Name_DefaultName", resourceCulture);
             }
         }
         
@@ -218,7 +190,7 @@ namespace Riskeer.Integration.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dijken en dammen - Wateroverdruk bij asfaltbekleding.
+        ///   Looks up a localized string similar to Wateroverdruk bij asfaltbekleding.
         /// </summary>
         public static string WaterPressureAsphaltCoverFailureMechanism_DisplayName {
             get {

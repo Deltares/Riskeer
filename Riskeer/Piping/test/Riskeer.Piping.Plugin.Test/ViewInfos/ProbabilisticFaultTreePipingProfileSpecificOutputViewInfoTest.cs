@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -182,7 +182,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
                 return new ProbabilisticPipingCalculationScenario();
             }
 
-            protected override ICalculationContext<ICalculation, IFailureMechanism> GetCalculationContextWithCalculation()
+            protected override ICalculationContext<ICalculation, ICalculatableFailureMechanism> GetCalculationContextWithCalculation()
             {
                 return new ProbabilisticPipingCalculationScenarioContext(
                     new ProbabilisticPipingCalculationScenario(),
@@ -193,7 +193,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
                     new AssessmentSectionStub());
             }
 
-            protected override ICalculationContext<CalculationGroup, IFailureMechanism> GetCalculationGroupContextWithCalculation()
+            protected override ICalculationContext<CalculationGroup, ICalculatableFailureMechanism> GetCalculationGroupContextWithCalculation()
             {
                 return new PipingCalculationGroupContext(
                     new CalculationGroup
@@ -210,7 +210,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
                     new AssessmentSectionStub());
             }
 
-            protected override IFailureMechanism GetFailureMechanismWithCalculation()
+            protected override ICalculatableFailureMechanism GetFailureMechanismWithCalculation()
             {
                 return new PipingFailureMechanism
                 {

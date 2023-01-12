@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -48,7 +48,7 @@ namespace Riskeer.Storage.Core.Create.WaveImpactAsphaltCover
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
             AddEntitiesForFailureMechanismMeta(mechanism, entity);
             AddEntitiesForForeshoreProfiles(mechanism.ForeshoreProfiles, entity, registry);
-            entity.CalculationGroupEntity = mechanism.WaveConditionsCalculationGroup.Create(registry, 0);
+            entity.CalculationGroupEntity = mechanism.CalculationsGroup.Create(registry, 0);
 
             return entity;
         }
@@ -59,9 +59,9 @@ namespace Riskeer.Storage.Core.Create.WaveImpactAsphaltCover
         {
             foreach (NonAdoptableWithProfileProbabilityFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
             {
-                var sectionResultEntity = failureMechanismSectionResult.Create<WaveImpactAsphaltCoverSectionResultEntity>();
+                NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
-                section.WaveImpactAsphaltCoverSectionResultEntities.Add(sectionResultEntity);
+                section.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities.Add(sectionResultEntity);
             }
         }
 

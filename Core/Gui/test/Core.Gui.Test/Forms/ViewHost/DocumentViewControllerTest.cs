@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -142,7 +142,10 @@ namespace Core.Gui.Test.Forms.ViewHost
                                                      Arg<string>.Is.Equal(title),
                                                      Arg<string>.Is.Equal(symbol),
                                                      Arg<FontFamily>.Is.Same(fontFamily)))
-                    .WhenCalled(invocation => { view = invocation.Arguments[0] as TestView; });
+                    .WhenCalled(invocation =>
+                    {
+                        view = invocation.Arguments[0] as TestView;
+                    });
 
             mocks.ReplayAll();
 
@@ -210,7 +213,10 @@ namespace Core.Gui.Test.Forms.ViewHost
                                                      Arg<string>.Is.Equal(viewName),
                                                      Arg<string>.Is.Null,
                                                      Arg<FontFamily>.Is.Null))
-                    .WhenCalled(invocation => { view = invocation.Arguments[0] as TestView; });
+                    .WhenCalled(invocation =>
+                    {
+                        view = invocation.Arguments[0] as TestView;
+                    });
 
             mocks.ReplayAll();
 
@@ -268,7 +274,10 @@ namespace Core.Gui.Test.Forms.ViewHost
                                                      Arg<string>.Is.Anything,
                                                      Arg<string>.Is.Null,
                                                      Arg<FontFamily>.Is.Null))
-                    .WhenCalled(invocation => { view = invocation.Arguments[0] as TestViewDerivative; });
+                    .WhenCalled(invocation =>
+                    {
+                        view = invocation.Arguments[0] as TestViewDerivative;
+                    });
 
             mocks.ReplayAll();
 
@@ -310,7 +319,10 @@ namespace Core.Gui.Test.Forms.ViewHost
                                                      Arg<string>.Is.Anything,
                                                      Arg<string>.Is.Null,
                                                      Arg<FontFamily>.Is.Null))
-                    .WhenCalled(invocation => { view = invocation.Arguments[0] as TestView; });
+                    .WhenCalled(invocation =>
+                    {
+                        view = invocation.Arguments[0] as TestView;
+                    });
 
             mocks.ReplayAll();
 
@@ -352,7 +364,10 @@ namespace Core.Gui.Test.Forms.ViewHost
                                                      Arg<string>.Is.Anything,
                                                      Arg<string>.Is.Null,
                                                      Arg<FontFamily>.Is.Null))
-                    .WhenCalled(invocation => { view = invocation.Arguments[0] as TestViewDerivative; });
+                    .WhenCalled(invocation =>
+                    {
+                        view = invocation.Arguments[0] as TestViewDerivative;
+                    });
 
             mocks.ReplayAll();
 
@@ -440,7 +455,10 @@ namespace Core.Gui.Test.Forms.ViewHost
                                                      Arg<string>.Is.Anything,
                                                      Arg<string>.Is.Null,
                                                      Arg<FontFamily>.Is.Null))
-                    .WhenCalled(invocation => { view = invocation.Arguments[0] as TestView; });
+                    .WhenCalled(invocation =>
+                    {
+                        view = invocation.Arguments[0] as TestView;
+                    });
 
             mocks.ReplayAll();
 
@@ -489,7 +507,10 @@ namespace Core.Gui.Test.Forms.ViewHost
                                                      Arg<string>.Is.Anything,
                                                      Arg<string>.Is.Null,
                                                      Arg<FontFamily>.Is.Null))
-                    .WhenCalled(invocation => { view = invocation.Arguments[0] as TestView; });
+                    .WhenCalled(invocation =>
+                    {
+                        view = invocation.Arguments[0] as TestView;
+                    });
 
             mocks.ReplayAll();
 
@@ -545,7 +566,10 @@ namespace Core.Gui.Test.Forms.ViewHost
                                                      Arg<string>.Is.Anything,
                                                      Arg<string>.Is.Null,
                                                      Arg<FontFamily>.Is.Null))
-                    .WhenCalled(invocation => { view = invocation.Arguments[0] as TestView; });
+                    .WhenCalled(invocation =>
+                    {
+                        view = invocation.Arguments[0] as TestView;
+                    });
 
             mocks.ReplayAll();
 
@@ -602,7 +626,10 @@ namespace Core.Gui.Test.Forms.ViewHost
                                                      Arg<string>.Is.Anything,
                                                      Arg<string>.Is.Null,
                                                      Arg<FontFamily>.Is.Null))
-                    .WhenCalled(invocation => { view = invocation.Arguments[0] as TestViewDerivative; });
+                    .WhenCalled(invocation =>
+                    {
+                        view = invocation.Arguments[0] as TestViewDerivative;
+                    });
 
             mocks.ReplayAll();
 
@@ -877,10 +904,16 @@ namespace Core.Gui.Test.Forms.ViewHost
                                                      Arg<string>.Is.Anything,
                                                      Arg<string>.Is.Null,
                                                      Arg<FontFamily>.Is.Null))
-                    .WhenCalled(invocation => { documentViews.Add(invocation.Arguments[0] as TestView); })
+                    .WhenCalled(invocation =>
+                    {
+                        documentViews.Add(invocation.Arguments[0] as TestView);
+                    })
                     .Repeat.Twice();
             viewHost.Expect(vh => vh.Remove(Arg<TestView>.Is.NotNull))
-                    .WhenCalled(invocation => { documentViews.Remove(invocation.Arguments[0] as TestView); })
+                    .WhenCalled(invocation =>
+                    {
+                        documentViews.Remove(invocation.Arguments[0] as TestView);
+                    })
                     .Repeat.Twice();
 
             mocks.ReplayAll();
@@ -968,7 +1001,10 @@ namespace Core.Gui.Test.Forms.ViewHost
                                                      Arg<string>.Is.Anything,
                                                      Arg<string>.Is.Null,
                                                      Arg<FontFamily>.Is.Null))
-                    .WhenCalled(invocation => { documentViews.Add(invocation.Arguments[0] as TestView); })
+                    .WhenCalled(invocation =>
+                    {
+                        documentViews.Add(invocation.Arguments[0] as TestView);
+                    })
                     .Repeat.Twice();
             mocks.ReplayAll();
 
@@ -1010,9 +1046,15 @@ namespace Core.Gui.Test.Forms.ViewHost
                                                      Arg<string>.Is.Anything,
                                                      Arg<string>.Is.Null,
                                                      Arg<FontFamily>.Is.Null))
-                    .WhenCalled(invocation => { documentViews.Add(invocation.Arguments[0] as TestView); })
+                    .WhenCalled(invocation =>
+                    {
+                        documentViews.Add(invocation.Arguments[0] as TestView);
+                    })
                     .Repeat.Twice();
-            viewHost.Expect(vh => vh.Remove(Arg<TestView>.Is.NotNull)).WhenCalled(invocation => { documentViews.Remove(invocation.Arguments[0] as TestView); });
+            viewHost.Expect(vh => vh.Remove(Arg<TestView>.Is.NotNull)).WhenCalled(invocation =>
+            {
+                documentViews.Remove(invocation.Arguments[0] as TestView);
+            });
 
             mocks.ReplayAll();
 
@@ -1055,10 +1097,16 @@ namespace Core.Gui.Test.Forms.ViewHost
                                                      Arg<string>.Is.Anything,
                                                      Arg<string>.Is.Null,
                                                      Arg<FontFamily>.Is.Null))
-                    .WhenCalled(invocation => { documentViews.Add(invocation.Arguments[0] as TestView); })
+                    .WhenCalled(invocation =>
+                    {
+                        documentViews.Add(invocation.Arguments[0] as TestView);
+                    })
                     .Repeat.Twice();
             viewHost.Expect(vh => vh.Remove(Arg<TestView>.Is.NotNull))
-                    .WhenCalled(invocation => { documentViews.Remove(invocation.Arguments[0] as TestView); })
+                    .WhenCalled(invocation =>
+                    {
+                        documentViews.Remove(invocation.Arguments[0] as TestView);
+                    })
                     .Repeat.Twice();
             mocks.ReplayAll();
 
@@ -1118,9 +1166,15 @@ namespace Core.Gui.Test.Forms.ViewHost
                                                      Arg<string>.Is.Anything,
                                                      Arg<string>.Is.Null,
                                                      Arg<FontFamily>.Is.Null))
-                    .WhenCalled(invocation => { documentViews.Add(invocation.Arguments[0] as TestView); });
+                    .WhenCalled(invocation =>
+                    {
+                        documentViews.Add(invocation.Arguments[0] as TestView);
+                    });
             viewHost.Expect(vh => vh.Remove(Arg<TestView>.Is.NotNull))
-                    .WhenCalled(invocation => { documentViews.Remove(invocation.Arguments[0] as TestView); });
+                    .WhenCalled(invocation =>
+                    {
+                        documentViews.Remove(invocation.Arguments[0] as TestView);
+                    });
 
             mocks.ReplayAll();
 

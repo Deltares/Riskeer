@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -56,7 +56,10 @@ namespace Core.Common.Base.Test
             object clone = original.Clone();
 
             // Assert
-            CoreCloneAssert.AreObjectClones(original, clone, (o, c) => { CollectionAssert.IsEmpty(c.Observers); });
+            CoreCloneAssert.AreObjectClones(original, clone, (o, c) =>
+            {
+                CollectionAssert.IsEmpty(c.Observers);
+            });
 
             mocks.VerifyAll();
         }

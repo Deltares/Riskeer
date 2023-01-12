@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -429,9 +429,9 @@ namespace Riskeer.Integration.Service.Test
                 hydraulicBoundaryLocation2
             });
 
-            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation1 = assessmentSection.WaterLevelCalculationsForSignalingNorm
+            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation1 = assessmentSection.WaterLevelCalculationsForSignalFloodingProbability
                                                                                                           .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
-            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation2 = assessmentSection.WaterLevelCalculationsForLowerLimitNorm
+            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation2 = assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability
                                                                                                           .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
             HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation3 = waterLevelCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations
                                                                                                                                    .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
@@ -526,10 +526,10 @@ namespace Riskeer.Integration.Service.Test
         }
 
         [Test]
-        public void ClearAllWaveConditionsCalculationOutputWithNormType_AssessmentSectionNull_ThrowsArgumentNullException()
+        public void ClearAllWaveConditionsCalculationOutputWithNormativeProbabilityType_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => RiskeerDataSynchronizationService.ClearAllWaveConditionsCalculationOutput(null, NormType.LowerLimit);
+            void Call() => RiskeerDataSynchronizationService.ClearAllWaveConditionsCalculationOutput(null, NormativeProbabilityType.MaximumAllowableFloodingProbability);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -537,25 +537,25 @@ namespace Riskeer.Integration.Service.Test
         }
 
         [Test]
-        public void ClearAllWaveConditionsCalculationOutputWithNormType_InvalidNormType_ThrowsInvalidEnumArgumentException()
+        public void ClearAllWaveConditionsCalculationOutputWithNormativeProbabilityType_InvalidNormativeProbabilityType_ThrowsInvalidEnumArgumentException()
         {
             // Setup
-            const NormType normType = (NormType) 99;
+            const NormativeProbabilityType normativeProbabilityType = (NormativeProbabilityType) 99;
 
             // Call
-            void Call() => RiskeerDataSynchronizationService.ClearAllWaveConditionsCalculationOutput(new AssessmentSectionStub(), normType);
+            void Call() => RiskeerDataSynchronizationService.ClearAllWaveConditionsCalculationOutput(new AssessmentSectionStub(), normativeProbabilityType);
 
             // Assert
-            var expectedMessage = $"The value of argument 'normType' ({normType}) is invalid for Enum type '{nameof(NormType)}'.";
+            var expectedMessage = $"The value of argument 'normativeProbabilityType' ({normativeProbabilityType}) is invalid for Enum type '{nameof(NormativeProbabilityType)}'.";
             var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
-            Assert.AreEqual("normType", exception.ParamName);
+            Assert.AreEqual("normativeProbabilityType", exception.ParamName);
         }
 
         [Test]
-        public void ClearAllWaveConditionsCalculationOutputWithNormType_WithData_ClearsOutputAndReturnsAffectedObjects()
+        public void ClearAllWaveConditionsCalculationOutputWithNormativeProbabilityType_WithData_ClearsOutputAndReturnsAffectedObjects()
         {
             // Setup
-            const NormType normType = NormType.LowerLimit;
+            const NormativeProbabilityType normativeProbabilityType = NormativeProbabilityType.MaximumAllowableFloodingProbability;
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
 
             var waveConditionsCalculations = new List<ICalculation<WaveConditionsInput>>();
@@ -566,13 +566,13 @@ namespace Riskeer.Integration.Service.Test
             waveConditionsCalculations.AddRange(assessmentSection.WaveImpactAsphaltCover.Calculations
                                                                  .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>());
 
-            waveConditionsCalculations.ForEachElementDo(c => c.InputParameters.WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit);
+            waveConditionsCalculations.ForEachElementDo(c => c.InputParameters.WaterLevelType = WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability);
 
             IEnumerable<ICalculation<WaveConditionsInput>> expectedAffectedItems = waveConditionsCalculations.Where(c => c.HasOutput)
                                                                                                              .ToArray();
 
             // Call
-            IEnumerable<IObservable> affectedItems = RiskeerDataSynchronizationService.ClearAllWaveConditionsCalculationOutput(assessmentSection, normType);
+            IEnumerable<IObservable> affectedItems = RiskeerDataSynchronizationService.ClearAllWaveConditionsCalculationOutput(assessmentSection, normativeProbabilityType);
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
@@ -967,19 +967,19 @@ namespace Riskeer.Integration.Service.Test
             GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GrassCoverErosionOutwards;
             CollectionAssert.IsEmpty(grassCoverErosionOutwardsFailureMechanism.Sections);
             CollectionAssert.IsEmpty(grassCoverErosionOutwardsFailureMechanism.SectionResults);
-            CollectionAssert.IsEmpty(grassCoverErosionOutwardsFailureMechanism.WaveConditionsCalculationGroup.Children);
+            CollectionAssert.IsEmpty(grassCoverErosionOutwardsFailureMechanism.CalculationsGroup.Children);
             CollectionAssert.IsEmpty(grassCoverErosionOutwardsFailureMechanism.ForeshoreProfiles);
 
             WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCoverFailureMechanism = assessmentSection.WaveImpactAsphaltCover;
             CollectionAssert.IsEmpty(waveImpactAsphaltCoverFailureMechanism.Sections);
             CollectionAssert.IsEmpty(waveImpactAsphaltCoverFailureMechanism.SectionResults);
-            CollectionAssert.IsEmpty(waveImpactAsphaltCoverFailureMechanism.WaveConditionsCalculationGroup.Children);
+            CollectionAssert.IsEmpty(waveImpactAsphaltCoverFailureMechanism.CalculationsGroup.Children);
             CollectionAssert.IsEmpty(waveImpactAsphaltCoverFailureMechanism.ForeshoreProfiles);
 
             StabilityStoneCoverFailureMechanism stabilityStoneCoverFailureMechanism = assessmentSection.StabilityStoneCover;
             CollectionAssert.IsEmpty(stabilityStoneCoverFailureMechanism.Sections);
             CollectionAssert.IsEmpty(stabilityStoneCoverFailureMechanism.SectionResults);
-            CollectionAssert.IsEmpty(stabilityStoneCoverFailureMechanism.WaveConditionsCalculationGroup.Children);
+            CollectionAssert.IsEmpty(stabilityStoneCoverFailureMechanism.CalculationsGroup.Children);
             CollectionAssert.IsEmpty(stabilityStoneCoverFailureMechanism.ForeshoreProfiles);
 
             ClosingStructuresFailureMechanism closingStructuresFailureMechanism = assessmentSection.ClosingStructures;
@@ -1033,6 +1033,10 @@ namespace Riskeer.Integration.Service.Test
             PipingStructureFailureMechanism pipingStructureFailureMechanism = assessmentSection.PipingStructure;
             CollectionAssert.IsEmpty(pipingStructureFailureMechanism.Sections);
             CollectionAssert.IsEmpty(pipingStructureFailureMechanism.SectionResults);
+
+            SpecificFailureMechanism specificFailureMechanism = assessmentSection.SpecificFailureMechanisms.First();
+            CollectionAssert.IsEmpty(specificFailureMechanism.Sections);
+            CollectionAssert.IsEmpty(specificFailureMechanism.SectionResults);
         }
 
         [Test]
@@ -1635,8 +1639,8 @@ namespace Riskeer.Integration.Service.Test
 
         private static IEnumerable<HydraulicBoundaryLocationCalculation> GetWaterLevelCalculationsForNormTargetProbabilitiesWithOutput(IAssessmentSection assessmentSection)
         {
-            return assessmentSection.WaterLevelCalculationsForSignalingNorm
-                                    .Concat(assessmentSection.WaterLevelCalculationsForLowerLimitNorm)
+            return assessmentSection.WaterLevelCalculationsForSignalFloodingProbability
+                                    .Concat(assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability)
                                     .Where(calc => calc.HasOutput);
         }
 
@@ -1657,7 +1661,7 @@ namespace Riskeer.Integration.Service.Test
         private static void AssertChangedObjects(ClearResults results, AssessmentSection assessmentSection)
         {
             IObservable[] changedObjects = results.ChangedObjects.ToArray();
-            Assert.AreEqual(54, changedObjects.Length);
+            Assert.AreEqual(56, changedObjects.Length);
 
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
             CollectionAssert.Contains(changedObjects, pipingFailureMechanism);
@@ -1676,19 +1680,19 @@ namespace Riskeer.Integration.Service.Test
             GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GrassCoverErosionOutwards;
             CollectionAssert.Contains(changedObjects, grassCoverErosionOutwardsFailureMechanism);
             CollectionAssert.Contains(changedObjects, grassCoverErosionOutwardsFailureMechanism.SectionResults);
-            CollectionAssert.Contains(changedObjects, grassCoverErosionOutwardsFailureMechanism.WaveConditionsCalculationGroup);
+            CollectionAssert.Contains(changedObjects, grassCoverErosionOutwardsFailureMechanism.CalculationsGroup);
             CollectionAssert.Contains(changedObjects, grassCoverErosionOutwardsFailureMechanism.ForeshoreProfiles);
 
             WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCoverFailureMechanism = assessmentSection.WaveImpactAsphaltCover;
             CollectionAssert.Contains(changedObjects, waveImpactAsphaltCoverFailureMechanism);
             CollectionAssert.Contains(changedObjects, waveImpactAsphaltCoverFailureMechanism.SectionResults);
-            CollectionAssert.Contains(changedObjects, waveImpactAsphaltCoverFailureMechanism.WaveConditionsCalculationGroup);
+            CollectionAssert.Contains(changedObjects, waveImpactAsphaltCoverFailureMechanism.CalculationsGroup);
             CollectionAssert.Contains(changedObjects, waveImpactAsphaltCoverFailureMechanism.ForeshoreProfiles);
 
             StabilityStoneCoverFailureMechanism stabilityStoneCoverFailureMechanism = assessmentSection.StabilityStoneCover;
             CollectionAssert.Contains(changedObjects, stabilityStoneCoverFailureMechanism);
             CollectionAssert.Contains(changedObjects, stabilityStoneCoverFailureMechanism.SectionResults);
-            CollectionAssert.Contains(changedObjects, stabilityStoneCoverFailureMechanism.WaveConditionsCalculationGroup);
+            CollectionAssert.Contains(changedObjects, stabilityStoneCoverFailureMechanism.CalculationsGroup);
             CollectionAssert.Contains(changedObjects, stabilityStoneCoverFailureMechanism.ForeshoreProfiles);
 
             ClosingStructuresFailureMechanism closingStructuresFailureMechanism = assessmentSection.ClosingStructures;
@@ -1742,6 +1746,10 @@ namespace Riskeer.Integration.Service.Test
             PipingStructureFailureMechanism pipingStructureFailureMechanism = assessmentSection.PipingStructure;
             CollectionAssert.Contains(changedObjects, pipingStructureFailureMechanism);
             CollectionAssert.Contains(changedObjects, pipingStructureFailureMechanism.SectionResults);
+
+            SpecificFailureMechanism failureMechanism = assessmentSection.SpecificFailureMechanisms.First();
+            CollectionAssert.Contains(changedObjects, failureMechanism);
+            CollectionAssert.Contains(changedObjects, failureMechanism.SectionResults);
         }
 
         private static IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(AssessmentSection assessmentSection)
@@ -1762,6 +1770,7 @@ namespace Riskeer.Integration.Service.Test
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.PipingStructure));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.StabilityPointStructures));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.DuneErosion));
+            expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.SpecificFailureMechanisms.First()));
             return expectedRemovedObjects;
         }
 
@@ -1841,7 +1850,7 @@ namespace Riskeer.Integration.Service.Test
                 yield return failureMechanismObject;
             }
 
-            foreach (ICalculationBase calculationBase in failureMechanism.WaveConditionsCalculationGroup.GetAllChildrenRecursive())
+            foreach (ICalculationBase calculationBase in failureMechanism.CalculationsGroup.GetAllChildrenRecursive())
             {
                 yield return calculationBase;
             }
@@ -1859,7 +1868,7 @@ namespace Riskeer.Integration.Service.Test
                 yield return failureMechanismObject;
             }
 
-            foreach (ICalculationBase calculationBase in failureMechanism.WaveConditionsCalculationGroup.GetAllChildrenRecursive())
+            foreach (ICalculationBase calculationBase in failureMechanism.CalculationsGroup.GetAllChildrenRecursive())
             {
                 yield return calculationBase;
             }
@@ -1877,7 +1886,7 @@ namespace Riskeer.Integration.Service.Test
                 yield return failureMechanismObject;
             }
 
-            foreach (ICalculationBase calculationBase in failureMechanism.WaveConditionsCalculationGroup.GetAllChildrenRecursive())
+            foreach (ICalculationBase calculationBase in failureMechanism.CalculationsGroup.GetAllChildrenRecursive())
             {
                 yield return calculationBase;
             }
@@ -1958,7 +1967,7 @@ namespace Riskeer.Integration.Service.Test
         }
 
         private static IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine<T>(T failureMechanism)
-            where T : IFailureMechanism, IHasSectionResults<FailureMechanismSectionResult>
+            where T : IFailureMechanism<FailureMechanismSectionResult>
         {
             foreach (FailureMechanismSection section in failureMechanism.Sections)
             {
@@ -1984,8 +1993,8 @@ namespace Riskeer.Integration.Service.Test
 
             assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations, true);
 
-            SetHydraulicBoundaryLocationCalculationOutputConfigurations(assessmentSection.WaterLevelCalculationsForSignalingNorm);
-            SetHydraulicBoundaryLocationCalculationOutputConfigurations(assessmentSection.WaterLevelCalculationsForLowerLimitNorm);
+            SetHydraulicBoundaryLocationCalculationOutputConfigurations(assessmentSection.WaterLevelCalculationsForSignalFloodingProbability);
+            SetHydraulicBoundaryLocationCalculationOutputConfigurations(assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability);
 
             SetHydraulicBoundaryLocationCalculationOutputConfigurations(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities[0].HydraulicBoundaryLocationCalculations);
             SetHydraulicBoundaryLocationCalculationOutputConfigurations(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities[1].HydraulicBoundaryLocationCalculations);

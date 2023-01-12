@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -28,7 +28,7 @@ using Riskeer.Common.Data.FailureMechanism;
 namespace Riskeer.Common.Forms.PresentationObjects
 {
     /// <summary>
-    /// This class is a presentation object for a collection of <see cref="IFailureMechanismSectionResult"/>.
+    /// This class is a presentation object for a collection of <see cref="FailureMechanismSectionResult"/>.
     /// </summary>
     /// <typeparam name="T">The type of <see cref="FailureMechanismSectionResult"/>.</typeparam>
     public class FailureMechanismSectionResultContext<T> : WrappedObjectContextBase<IObservableEnumerable<T>>

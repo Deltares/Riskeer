@@ -513,7 +513,7 @@ SELECT
 		THEN "* Traject: '" || [AssessmentSectionName] || "'" 
 	ELSE 
 		CASE WHEN [FailureMechanismName] IS NOT NULL 
-			THEN "  + Toetsspoor: '" || [FailureMechanismName] || "'" 
+			THEN "  + Faalmechanisme: '" || [FailureMechanismName] || "'" 
 		ELSE
 			"    - " || [msg] 
 		END 

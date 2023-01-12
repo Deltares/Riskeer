@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -118,7 +118,7 @@ namespace Riskeer.Common.Util.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Waterstanden bij norm.
+        ///   Looks up a localized string similar to Waterstanden bij vaste doelkans.
         /// </summary>
         public static string WaterLevelCalculationsForNormTargetProbabilities_DisplayName {
             get {
@@ -127,7 +127,7 @@ namespace Riskeer.Common.Util.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Waterstanden bij doelkans.
+        ///   Looks up a localized string similar to Waterstanden bij vrije doelkans.
         /// </summary>
         public static string WaterLevelCalculationsForUserDefinedTargetProbabilities_DisplayName {
             get {
@@ -136,7 +136,7 @@ namespace Riskeer.Common.Util.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Golfhoogten bij doelkans.
+        ///   Looks up a localized string similar to Golfhoogten bij vrije doelkans.
         /// </summary>
         public static string WaveHeightCalculationsForUserDefinedTargetProbabilities_DisplayName {
             get {

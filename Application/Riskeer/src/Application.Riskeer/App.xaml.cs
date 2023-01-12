@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -26,12 +26,14 @@ using System.Diagnostics;
 using System.DirectoryServices.AccountManagement;
 using System.Globalization;
 using System.IO;
+using System.IO.Packaging;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
+using System.Windows.Media.Imaging;
 using Core.Common.Util;
 using Core.Common.Util.Settings;
 using Core.Gui;
@@ -107,11 +109,12 @@ namespace Application.Riskeer
             {
                 ApplicationName = "Riskeer",
                 ApplicationIcon = ApplicationResources.Riskeer,
-                SupportHeader = ApplicationResources.HelpdeskWater_DisplayName,
-                SupportText = ApplicationResources.HelpdeskWater_Description,
-                SupportWebsiteAddressUrl = "https://www.helpdeskwater.nl/",
-                SupportPhoneNumber = "088-7977102",
-                ManualFilePath = "Gebruikershandleiding Riskeer 21.1.1.pdf"
+                SupportHeader = ApplicationResources.SupportHeader,
+                SupportText = ApplicationResources.SupportText,
+                SupportWebsiteAddressUrl = "https://iplo.nl/contact/",
+                SupportPhoneNumber = "088-7970790",
+                ManualFilePath = "Gebruikershandleiding Riskeer 22.1.2.pdf",
+                MadeByBitmapImage = new BitmapImage(new Uri($"{PackUriHelper.UriSchemePack}://application:,,,/Resources/MadeBy.png"))
             };
 
             var mainWindow = new MainWindow();

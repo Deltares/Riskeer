@@ -64,7 +64,6 @@
     <Resource Include="Resources\Copy.png" />
     <Resource Include="Resources\DeleteHS.png" />
     <Resource Include="Resources\error.png" />
-    <Resource Include="Resources\exclamation.png" />
     <Resource Include="Resources\folder.png" />
     <Resource Include="Resources\information.png" />
     <Resource Include="Resources\Paste.png" />

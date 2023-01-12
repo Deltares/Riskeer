@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -22,15 +22,15 @@
 namespace Riskeer.AssemblyTool.Data
 {
     /// <summary>
-    /// Base class for holding data of the assembly group boundaries.
+    /// Base class for holding data of assembly group boundaries.
     /// </summary>
     public abstract class AssemblyGroupBoundaries
     {
         /// <summary>
         /// Creates a new instance of <see cref="AssemblyGroupBoundaries"/>.
         /// </summary>
-        /// <param name="lowerBoundary">The lower boundary of the category.</param>
-        /// <param name="upperBoundary">The upper boundary of the category.</param>
+        /// <param name="lowerBoundary">The lower boundary of the assembly group.</param>
+        /// <param name="upperBoundary">The upper boundary of the assembly group.</param>
         protected AssemblyGroupBoundaries(double lowerBoundary, double upperBoundary)
         {
             LowerBoundary = lowerBoundary;

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.Properties;
 
@@ -33,7 +32,7 @@ namespace Riskeer.Common.Forms.Views
     /// <summary>
     /// View for a collection of <see cref="FailureMechanismSection"/>.
     /// </summary>
-    public partial class FailureMechanismSectionsView : CloseForFailurePathView
+    public partial class FailureMechanismSectionsView : CloseForFailureMechanismView
     {
         protected readonly IEnumerable<FailureMechanismSection> Sections;
 
@@ -45,10 +44,10 @@ namespace Riskeer.Common.Forms.Views
         /// Creates a new instance of <see cref="FailureMechanismSectionsView"/>.
         /// </summary>
         /// <param name="sections">The sections to be displayed in the view.</param>
-        /// <param name="failurePath">The failure path the view belongs to.</param>
+        /// <param name="failureMechanism">The failure mechanism the view belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public FailureMechanismSectionsView(IEnumerable<FailureMechanismSection> sections, IFailurePath failurePath)
-            : base(failurePath)
+        public FailureMechanismSectionsView(IEnumerable<FailureMechanismSection> sections, IFailureMechanism failureMechanism)
+            : base(failureMechanism)
         {
             if (sections == null)
             {
@@ -72,7 +71,7 @@ namespace Riskeer.Common.Forms.Views
 
             failureMechanismObserver = new Observer(HandleFailureMechanismSectionsChange)
             {
-                Observable = failurePath
+                Observable = failureMechanism
             };
 
             Sections = sections;

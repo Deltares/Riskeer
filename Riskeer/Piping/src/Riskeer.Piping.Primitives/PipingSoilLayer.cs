@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -30,7 +30,7 @@ namespace Riskeer.Piping.Primitives
     /// This class represents profiles that were imported from D-Soil Model and will later on be used to create the
     /// necessary input for executing a piping calculation.
     /// </summary>
-    public class PipingSoilLayer
+    public sealed class PipingSoilLayer
     {
         private readonly LogNormalDistribution belowPhreaticLevel;
         private readonly VariationCoefficientLogNormalDistribution diameterD70;

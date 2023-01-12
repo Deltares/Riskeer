@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -30,6 +30,7 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityPointStructures.Forms.PresentationObjects;
+using Riskeer.StabilityPointStructures.Forms.PresentationObjects.CalculationsState;
 using Riskeer.StabilityPointStructures.Forms.Views;
 
 namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
@@ -198,7 +199,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
 
             using (var view = new StabilityPointStructuresCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection))
             {
-                var context = new StabilityPointStructuresCalculationsContext(new StabilityPointStructuresFailureMechanism(), assessmentSection);
+                var context = new StabilityPointStructuresFailureMechanismContext(new StabilityPointStructuresFailureMechanism(), assessmentSection);
 
                 // Call
                 bool closeForData = info.CloseForData(view, context);
@@ -217,7 +218,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
 
             using (var view = new StabilityPointStructuresCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection))
             {
-                var context = new StabilityPointStructuresCalculationsContext(failureMechanism, assessmentSection);
+                var context = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
                 // Call
                 bool closeForData = info.CloseForData(view, context);

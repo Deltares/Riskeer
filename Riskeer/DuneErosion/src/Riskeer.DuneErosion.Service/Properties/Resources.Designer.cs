@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -82,7 +82,7 @@ namespace Riskeer.DuneErosion.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Locatie &apos;{0}&apos; moet voldoen aan het formaat &apos;Naam_Vaknummer_Metrering&apos;. Deze locatie is niet toegevoegd aan de hydraulische belastingen voor het toetsspoor duinen..
+        ///   Looks up a localized string similar to Locatie &apos;{0}&apos; moet voldoen aan het formaat &apos;Naam_Vaknummer_Metrering&apos;. Deze locatie is niet toegevoegd aan de hydraulische belastingen voor het faalmechanisme duinen..
         /// </summary>
         internal static string DuneErosionDataSynchronizationService_SetDuneLocations_Location_0_is_dune_location_but_name_is_not_according_format {
             get {

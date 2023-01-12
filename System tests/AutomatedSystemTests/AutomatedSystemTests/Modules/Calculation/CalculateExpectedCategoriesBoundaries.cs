@@ -52,23 +52,6 @@ namespace AutomatedSystemTests.Modules.Calculation
             set { _lowerLimitText = value; }
         }
         
-        string _contributionText = "";
-        [TestVariable("6a695e78-69fe-4c10-94a2-e36d73f3974a")]
-        public string contributionText
-        {
-            get { return _contributionText; }
-            set { _contributionText = value; }
-        }
-        
-        string _parameterNText = "";
-        [TestVariable("dcab1944-8539-41ad-b5f4-a46596d4879a")]
-        public string parameterNText
-        {
-            get { return _parameterNText; }
-            set { _parameterNText = value; }
-        }
-        
-        
         
         /// <summary>
         /// Constructs a new instance.
@@ -96,109 +79,93 @@ namespace AutomatedSystemTests.Modules.Calculation
             };
             
             List<string> categoryNameCollection= new List<string> {
-                "I",
-                "II",
-                "III",
-                "IV",
-                "V",
-                "VI"
-            };
-            
-            List<string> categoryTypeCollection= new List<string> {
-                "t",
-                "v"
+                "IIIp",
+                "IIp",
+                "Ip",
+                "0",
+                "Im",
+                "IIm",
+                "IIIm",
+                "Do",
+                "NDo",
+                "NR"
             };
             
             expectedCategoriesBoundaries ="";
             
-            foreach (string categoryType in categoryTypeCollection) {
-                foreach (string categoryName in categoryNameCollection) {
-                    foreach (string boundaryType in boundaryTypeCollection) {
-                        expectedCategoriesBoundaries += CalculateSingleCategoryBoundary(signalingValueText, lowerLimitText, contributionText, parameterNText, boundaryType, categoryName, categoryType) + ";";
-                    }
+            foreach (string categoryName in categoryNameCollection) {
+                foreach (string boundaryType in boundaryTypeCollection) {
+                    expectedCategoriesBoundaries += CalculateSingleCategoryBoundary(signalingValueText, lowerLimitText, boundaryType, categoryName) + ";";
                 }
             }
             expectedCategoriesBoundaries = expectedCategoriesBoundaries.TrimEnd(';');
         }
         
-        private string CalculateSingleCategoryBoundary(string signalingValueText, string lowerLimitText, string contributionText, string parameterNText, string boundaryType, string categoryName, string categorySuffix)
+        private string CalculateSingleCategoryBoundary(string signalingValueText, string lowerLimitText, string boundaryType, string categoryName)
         {
-        	System.Globalization.CultureInfo currentCulture = CultureInfo.CurrentCulture;
-        	string lowerLimitDenominator = lowerLimitText.Substring(2, lowerLimitText.Length-2);
-        	double lowerLimitD = 1/Double.Parse(lowerLimitDenominator, currentCulture);
-        	string signalingValueDenominator = signalingValueText.Substring(2, signalingValueText.Length-2);
-        	double signalingValueD = 1/Double.Parse(signalingValueDenominator, currentCulture);
-        	double contributionD = Double.Parse(contributionText, currentCulture);
-        	double parameterND = Double.Parse(parameterNText, currentCulture);
-        	double boundaryValue;
-        	var boundaryToEvaluate = categoryName + boundaryType;
-        	
-        	string calculatedCategoryBoundary = "";
-        	switch (boundaryToEvaluate) {
-        		case "IOnder":
-        			calculatedCategoryBoundary = "1/Oneindig";
-        			Report.Log(ReportLevel.Info, "", categoryName+categorySuffix+boundaryType+ " : " + calculatedCategoryBoundary);
-        			return calculatedCategoryBoundary;
-        		case "VIBoven":
-        			calculatedCategoryBoundary = "1/1";
-        			Report.Log(ReportLevel.Info, "", categoryName+categorySuffix+boundaryType+ " : " + calculatedCategoryBoundary);
-        			return calculatedCategoryBoundary;
-        		case "IIOnder":
-        			boundaryValue = (1.0/30.0)*signalingValueD*contributionD/100.0;
-        			if (categorySuffix=="v") {
-        				boundaryValue = boundaryValue /parameterND;
-        			}
-        			break;
-        		case "IBoven":
-        			boundaryValue = (1/30.0)*signalingValueD*contributionD/100.0;
-        			if (categorySuffix=="v") {
-        				boundaryValue = boundaryValue /parameterND;
-        			}
-        			break;
-        		case "IIIOnder":
-        			boundaryValue = signalingValueD*contributionD/100.0;
-        			if (categorySuffix=="v") {
-        				boundaryValue = boundaryValue /parameterND;
-        			}
-        			break;
-        		case "IIBoven":
-        			boundaryValue = signalingValueD*contributionD/100.0;
-        			if (categorySuffix=="v") {
-        				boundaryValue = boundaryValue /parameterND;
-        			}
-        			break;
-        		case "IVOnder":
-        			boundaryValue = lowerLimitD*contributionD/100.0;
-        			if (categorySuffix=="v") {
-        				boundaryValue = boundaryValue /parameterND;
-        			}
-        			break;
-        		case "IIIBoven":
-        			boundaryValue = lowerLimitD*contributionD/100.0;
-        			if (categorySuffix=="v") {
-        				boundaryValue = boundaryValue /parameterND;
-        			}
-        			break;
-        		case "VOnder":
-        			boundaryValue = lowerLimitD;
-        			break;
-        		case "IVBoven":
-        			boundaryValue = lowerLimitD;
-        			break;
-        		case "VIOnder":
-        			boundaryValue = 30.0*lowerLimitD;
-        			break;
-        		case "VBoven":
-        			boundaryValue = 30.0*lowerLimitD;
-        			break;
-        		default:
-        			Report.Log(ReportLevel.Info,"", "case : " + boundaryToEvaluate + "error!");
-        			throw new Exception();
-        	}
-        	var denominatorBoundary = Math.Round(1/boundaryValue);
-        	calculatedCategoryBoundary = "1/" + denominatorBoundary.ToString("N0", currentCulture.NumberFormat);
-        	Report.Log(ReportLevel.Info, "", categoryName+categorySuffix+boundaryType+ " : " + calculatedCategoryBoundary);
-        	return calculatedCategoryBoundary;
+            System.Globalization.CultureInfo currentCulture = CultureInfo.CurrentCulture;
+            string lowerLimitDenominator = lowerLimitText.Substring(2, lowerLimitText.Length-2);
+            double lowerLimitD = 1/Double.Parse(lowerLimitDenominator, currentCulture);
+            string signalingValueDenominator = signalingValueText.Substring(2, signalingValueText.Length-2);
+            double signalingValueD = 1/Double.Parse(signalingValueDenominator, currentCulture);
+            double boundaryValue;
+            var boundaryToEvaluate = categoryName + boundaryType;
+            
+            string calculatedCategoryBoundary = "";
+            switch (boundaryToEvaluate) {
+                case "IIIpOnder":
+                    calculatedCategoryBoundary = "1/Oneindig";
+                    Report.Log(ReportLevel.Info, "", categoryName+boundaryType+ " : " + calculatedCategoryBoundary);
+                    return calculatedCategoryBoundary;
+                case "IIIpBoven":
+                    boundaryValue = (1.0/1000.0)*signalingValueD;
+                    break;
+                case "IIpOnder":
+                    boundaryValue = (1.0/1000.0)*signalingValueD;
+                    break;
+                case "IIpBoven":
+                    boundaryValue = (1.0/100.0)*signalingValueD;
+                    break;
+                case "IpOnder":
+                    boundaryValue = (1.0/100.0)*signalingValueD;
+                    break;
+                case "IpBoven":
+                    boundaryValue = (1.0/10.0)*signalingValueD;
+                    break;
+                case "0Onder":
+                    boundaryValue = (1.0/10.0)*signalingValueD;
+                    break;
+                case "0Boven":
+                    boundaryValue = signalingValueD;
+                    break;
+                case "ImOnder":
+                    boundaryValue = signalingValueD;
+                    break;
+                case "ImBoven":
+                    boundaryValue = lowerLimitD;
+                    break;
+                case "IImOnder":
+                    boundaryValue = lowerLimitD;
+                    break;
+                case "IImBoven":
+                    boundaryValue = 10.0 * lowerLimitD;
+                    break;
+                case "IIImOnder":
+                    boundaryValue = 10.0 * lowerLimitD;
+                    break;
+                case "IIImBoven":
+                    calculatedCategoryBoundary = "1/1";
+                    Report.Log(ReportLevel.Info, "", categoryName+boundaryType+ " : " + calculatedCategoryBoundary);
+                    return calculatedCategoryBoundary;
+                default:
+                    calculatedCategoryBoundary = "-";
+                    Report.Log(ReportLevel.Info,"", "case : " + boundaryToEvaluate + "error!");
+                    return calculatedCategoryBoundary;
+            }
+            var denominatorBoundary = Math.Round(1/boundaryValue);
+            calculatedCategoryBoundary = "1/" + denominatorBoundary.ToString("N0", currentCulture.NumberFormat);
+            Report.Log(ReportLevel.Info, "", categoryName+boundaryType+ " : " + calculatedCategoryBoundary);
+            return calculatedCategoryBoundary;
         }
     }
 }

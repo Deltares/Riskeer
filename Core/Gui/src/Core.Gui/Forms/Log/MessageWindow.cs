@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -110,7 +110,10 @@ namespace Core.Gui.Forms.Log
         public object Data
         {
             get => Messages;
-            set {}
+            set
+            {
+                // Not applicable
+            }
         }
 
         #endregion
@@ -379,7 +382,7 @@ namespace Core.Gui.Forms.Log
             {
                 return;
             }
-            
+
             copying = true;
 
             var currencyManager = (CurrencyManager) BindingContext[messagesDataGridView.DataSource];

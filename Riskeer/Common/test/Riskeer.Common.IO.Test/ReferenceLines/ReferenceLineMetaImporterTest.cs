@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -207,8 +207,8 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             var expectedReferenceLineMeta1 = new ReferenceLineMeta
             {
                 AssessmentSectionId = "1-2",
-                LowerLimitValue = 1000,
-                SignalingValue = 3000
+                MaximumAllowableFloodingProbability = 1000,
+                SignalFloodingProbability = 3000
             };
             expectedReferenceLineMeta1.ReferenceLine.SetGeometry(new[]
             {
@@ -220,8 +220,8 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             var expectedReferenceLineMeta2 = new ReferenceLineMeta
             {
                 AssessmentSectionId = "2-1",
-                LowerLimitValue = 100,
-                SignalingValue = 300
+                MaximumAllowableFloodingProbability = 100,
+                SignalFloodingProbability = 300
             };
             expectedReferenceLineMeta2.ReferenceLine.SetGeometry(new[]
             {
@@ -233,8 +233,8 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             var expectedReferenceLineMeta3 = new ReferenceLineMeta
             {
                 AssessmentSectionId = "3-3",
-                LowerLimitValue = 100,
-                SignalingValue = 300
+                MaximumAllowableFloodingProbability = 100,
+                SignalFloodingProbability = 300
             };
             expectedReferenceLineMeta3.ReferenceLine.SetGeometry(new[]
             {
@@ -261,8 +261,8 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
         private static void AssertReferenceLineMetas(ReferenceLineMeta expectedReferenceLineMeta, ReferenceLineMeta actualReferenceLineMeta)
         {
             Assert.AreEqual(expectedReferenceLineMeta.AssessmentSectionId, actualReferenceLineMeta.AssessmentSectionId);
-            Assert.AreEqual(expectedReferenceLineMeta.SignalingValue, actualReferenceLineMeta.SignalingValue);
-            Assert.AreEqual(expectedReferenceLineMeta.LowerLimitValue, actualReferenceLineMeta.LowerLimitValue);
+            Assert.AreEqual(expectedReferenceLineMeta.SignalFloodingProbability, actualReferenceLineMeta.SignalFloodingProbability);
+            Assert.AreEqual(expectedReferenceLineMeta.MaximumAllowableFloodingProbability, actualReferenceLineMeta.MaximumAllowableFloodingProbability);
 
             Point2D[] expectedPoints = expectedReferenceLineMeta.ReferenceLine.Points.ToArray();
             Point2D[] actualPoints = actualReferenceLineMeta.ReferenceLine.Points.ToArray();

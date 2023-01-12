@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -55,11 +55,10 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
             }
 
             return failureMechanismSectionsCollection.Select(sectionCollection => new FailureMechanismSectionList(
-                                                                 string.Empty,
                                                                  sectionCollection.Select(
                                                                      s => new FailureMechanismSectionWithCategory(
                                                                          s.SectionStart, s.SectionEnd,
-                                                                         FailureMechanismSectionAssemblyGroupConverter.ConvertFrom(s.AssemblyGroup)))))
+                                                                         FailureMechanismSectionAssemblyGroupConverter.ConvertFrom(s.FailureMechanismSectionAssemblyGroup)))))
                                                      .ToArray();
         }
     }

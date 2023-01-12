@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -84,8 +84,8 @@ namespace Riskeer.Piping.Forms.Views
             {
                 if (derivedOutput != null)
                 {
-                    return derivedOutput.PipingProbability * failureMechanism.PipingProbabilityAssessmentInput.GetN(
-                               failureMechanismSection.Length);
+                    return Math.Min(1.0, derivedOutput.PipingProbability * failureMechanism.PipingProbabilityAssessmentInput.GetN(
+                                             failureMechanismSection.Length));
                 }
 
                 return double.NaN;
@@ -118,7 +118,7 @@ namespace Riskeer.Piping.Forms.Views
         private void CreateDerivedOutput()
         {
             derivedOutput = CalculationScenario.HasOutput
-                                ? DerivedSemiProbabilisticPipingOutputFactory.Create(CalculationScenario.Output, assessmentSection.FailureMechanismContribution.Norm)
+                                ? DerivedSemiProbabilisticPipingOutputFactory.Create(CalculationScenario.Output, assessmentSection.FailureMechanismContribution.NormativeProbability)
                                 : null;
         }
     }

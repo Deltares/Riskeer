@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -165,8 +165,8 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 // Assert
                 FailureMechanismSectionAssemblyInput calculatorInput = calculator.FailureMechanismSectionAssemblyInput;
                 FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
-                Assert.AreEqual(failureMechanismContribution.SignalingNorm, calculatorInput.SignalingNorm);
-                Assert.AreEqual(failureMechanismContribution.LowerLimitNorm, calculatorInput.LowerLimitNorm);
+                Assert.AreEqual(failureMechanismContribution.SignalFloodingProbability, calculatorInput.SignalFloodingProbability);
+                Assert.AreEqual(failureMechanismContribution.MaximumAllowableFloodingProbability, calculatorInput.MaximumAllowableFloodingProbability);
 
                 Assert.AreEqual(isRelevant, calculatorInput.IsRelevant);
                 Assert.AreEqual(expectedHasProbabilitySpecified, calculatorInput.HasProbabilitySpecified);
@@ -237,8 +237,8 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 // Assert
                 FailureMechanismSectionWithProfileProbabilityAssemblyInput calculatorInput = calculator.FailureMechanismSectionWithProfileProbabilityAssemblyInput;
                 FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
-                Assert.AreEqual(failureMechanismContribution.SignalingNorm, calculatorInput.SignalingNorm);
-                Assert.AreEqual(failureMechanismContribution.LowerLimitNorm, calculatorInput.LowerLimitNorm);
+                Assert.AreEqual(failureMechanismContribution.SignalFloodingProbability, calculatorInput.SignalFloodingProbability);
+                Assert.AreEqual(failureMechanismContribution.MaximumAllowableFloodingProbability, calculatorInput.MaximumAllowableFloodingProbability);
 
                 Assert.AreEqual(isRelevant, calculatorInput.IsRelevant);
                 Assert.AreEqual(expectedHasProbabilitySpecified, calculatorInput.HasProbabilitySpecified);
@@ -258,17 +258,20 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         }
 
         [Test]
-        [TestCase(ProbabilityRefinementType.Profile)]
-        [TestCase(ProbabilityRefinementType.Section)]
-        [TestCase(ProbabilityRefinementType.Both)]
+        [TestCase(ProbabilityRefinementType.Profile, 1)]
+        [TestCase(ProbabilityRefinementType.Profile, 10)]
+        [TestCase(ProbabilityRefinementType.Section, 1)]
+        [TestCase(ProbabilityRefinementType.Section, 10)]
+        [TestCase(ProbabilityRefinementType.Both, 1)]
+        [TestCase(ProbabilityRefinementType.Both, 10)]
         public void AssembleSectionAdoptableWithProfileProbability_WithInputAndUseLengthEffectTrueAndVariousProbabilityRefinementType_SetsInputOnCalculator(
-            ProbabilityRefinementType probabilityRefinementType)
+            ProbabilityRefinementType probabilityRefinementType,
+            double sectionN)
         {
             // Setup
             var random = new Random(21);
             double refinedSectionProbability = random.NextDouble();
             double refinedProfileProbability = random.NextDouble();
-            double sectionN = random.NextDouble();
 
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
@@ -298,7 +301,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 {
                     case ProbabilityRefinementType.Profile:
                         Assert.AreEqual(refinedProfileProbability, calculatorInput.RefinedProfileProbability);
-                        Assert.AreEqual(refinedProfileProbability * sectionN, calculatorInput.RefinedSectionProbability);
+                        Assert.AreEqual(Math.Min(1.0, refinedProfileProbability * sectionN), calculatorInput.RefinedSectionProbability);
                         break;
                     case ProbabilityRefinementType.Section:
                         Assert.AreEqual(refinedSectionProbability / sectionN, calculatorInput.RefinedProfileProbability);
@@ -331,7 +334,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssemblyResult result = FailureMechanismSectionAssemblyResultFactory.AssembleSection(
+                FailureMechanismSectionAssemblyResultWrapper result = FailureMechanismSectionAssemblyResultFactory.AssembleSection(
                     sectionResult, assessmentSection, calculateStrategy, random.NextBoolean(), random.NextDouble());
 
                 // Assert
@@ -463,8 +466,8 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 // Assert
                 FailureMechanismSectionAssemblyInput calculatorInput = calculator.FailureMechanismSectionAssemblyInput;
                 FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
-                Assert.AreEqual(failureMechanismContribution.SignalingNorm, calculatorInput.SignalingNorm);
-                Assert.AreEqual(failureMechanismContribution.LowerLimitNorm, calculatorInput.LowerLimitNorm);
+                Assert.AreEqual(failureMechanismContribution.SignalFloodingProbability, calculatorInput.SignalFloodingProbability);
+                Assert.AreEqual(failureMechanismContribution.MaximumAllowableFloodingProbability, calculatorInput.MaximumAllowableFloodingProbability);
 
                 Assert.AreEqual(isRelevant, calculatorInput.IsRelevant);
                 Assert.AreEqual(expectedHasProbabilitySpecified, calculatorInput.HasProbabilitySpecified);
@@ -491,7 +494,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssemblyResult result = FailureMechanismSectionAssemblyResultFactory.AssembleSection(sectionResult, assessmentSection, () => double.NaN);
+                FailureMechanismSectionAssemblyResultWrapper result = FailureMechanismSectionAssemblyResultFactory.AssembleSection(sectionResult, assessmentSection, () => double.NaN);
 
                 // Assert
                 Assert.AreSame(calculator.FailureMechanismSectionAssemblyResultOutput, result);
@@ -596,8 +599,8 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 // Assert
                 FailureMechanismSectionAssemblyInput calculatorInput = calculator.FailureMechanismSectionAssemblyInput;
                 FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
-                Assert.AreEqual(failureMechanismContribution.SignalingNorm, calculatorInput.SignalingNorm);
-                Assert.AreEqual(failureMechanismContribution.LowerLimitNorm, calculatorInput.LowerLimitNorm);
+                Assert.AreEqual(failureMechanismContribution.SignalFloodingProbability, calculatorInput.SignalFloodingProbability);
+                Assert.AreEqual(failureMechanismContribution.MaximumAllowableFloodingProbability, calculatorInput.MaximumAllowableFloodingProbability);
 
                 Assert.AreEqual(isRelevant, calculatorInput.IsRelevant);
                 Assert.AreEqual(expectedHasProbabilitySpecified, calculatorInput.HasProbabilitySpecified);
@@ -647,8 +650,8 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 // Assert
                 FailureMechanismSectionWithProfileProbabilityAssemblyInput calculatorInput = calculator.FailureMechanismSectionWithProfileProbabilityAssemblyInput;
                 FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
-                Assert.AreEqual(failureMechanismContribution.SignalingNorm, calculatorInput.SignalingNorm);
-                Assert.AreEqual(failureMechanismContribution.LowerLimitNorm, calculatorInput.LowerLimitNorm);
+                Assert.AreEqual(failureMechanismContribution.SignalFloodingProbability, calculatorInput.SignalFloodingProbability);
+                Assert.AreEqual(failureMechanismContribution.MaximumAllowableFloodingProbability, calculatorInput.MaximumAllowableFloodingProbability);
 
                 Assert.AreEqual(isRelevant, calculatorInput.IsRelevant);
                 Assert.AreEqual(expectedHasProbabilitySpecified, calculatorInput.HasProbabilitySpecified);
@@ -674,7 +677,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssemblyResult result = FailureMechanismSectionAssemblyResultFactory.AssembleSection(
+                FailureMechanismSectionAssemblyResultWrapper result = FailureMechanismSectionAssemblyResultFactory.AssembleSection(
                     sectionResult, assessmentSection, random.NextBoolean());
 
                 // Assert
@@ -743,7 +746,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
-        
+
         [Test]
         [TestCase(NonAdoptableInitialFailureMechanismResultType.Manual, true)]
         [TestCase(NonAdoptableInitialFailureMechanismResultType.NoFailureProbability, false)]
@@ -779,8 +782,8 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 // Assert
                 FailureMechanismSectionAssemblyInput calculatorInput = calculator.FailureMechanismSectionAssemblyInput;
                 FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
-                Assert.AreEqual(failureMechanismContribution.SignalingNorm, calculatorInput.SignalingNorm);
-                Assert.AreEqual(failureMechanismContribution.LowerLimitNorm, calculatorInput.LowerLimitNorm);
+                Assert.AreEqual(failureMechanismContribution.SignalFloodingProbability, calculatorInput.SignalFloodingProbability);
+                Assert.AreEqual(failureMechanismContribution.MaximumAllowableFloodingProbability, calculatorInput.MaximumAllowableFloodingProbability);
 
                 Assert.AreEqual(isRelevant, calculatorInput.IsRelevant);
                 Assert.AreEqual(expectedHasProbabilitySpecified, calculatorInput.HasProbabilitySpecified);
@@ -804,7 +807,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssemblyResult result = FailureMechanismSectionAssemblyResultFactory.AssembleSection(
+                FailureMechanismSectionAssemblyResultWrapper result = FailureMechanismSectionAssemblyResultFactory.AssembleSection(
                     sectionResult, assessmentSection);
 
                 // Assert

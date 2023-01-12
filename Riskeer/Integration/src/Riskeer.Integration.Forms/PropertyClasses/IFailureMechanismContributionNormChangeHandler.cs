@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -26,33 +26,33 @@ using Riskeer.Common.Data.Contribution;
 namespace Riskeer.Integration.Forms.PropertyClasses
 {
     /// <summary>
-    /// Interface for an object that can properly change the <see cref="FailureMechanismContribution.Norm"/>
+    /// Interface for an object that can properly change the <see cref="FailureMechanismContribution.NormativeProbability"/>
     /// of an <see cref="IAssessmentSection"/>.
     /// </summary>
     public interface IFailureMechanismContributionNormChangeHandler
     {
         /// <summary>
-        /// Change the normative norm type.
+        /// Change the normative probability type.
         /// </summary>
         /// <param name="action">The action to perform.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="action"/>
         /// is <c>null</c>.</exception>
-        void ChangeNormativeNormType(Action action);
+        void ChangeNormativeProbabilityType(Action action);
 
         /// <summary>
-        /// Change the normative norm.
+        /// Change the normative probability.
         /// </summary>
         /// <param name="action">The action to perform.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="action"/>
         /// is <c>null</c>.</exception>
-        void ChangeNormativeNorm(Action action);
+        void ChangeNormativeProbability(Action action);
 
         /// <summary>
-        /// Change the norm.
+        /// Change the probability.
         /// </summary>
         /// <param name="action">The action to perform.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="action"/>
         /// is <c>null</c>.</exception>
-        void ChangeNorm(Action action);
+        void ChangeProbability(Action action);
     }
 }

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -25,8 +25,8 @@ using NUnit.Framework;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Service.IllustrationPoints;
+using Riskeer.HydraRing.Calculation.TestUtil.IllustrationPoints;
 using HydraRingIllustrationPointTreeNode = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.IllustrationPointTreeNode;
-using HydraRingTestWindDirection = Riskeer.HydraRing.Calculation.TestUtil.IllustrationPoints.TestWindDirection;
 using HydraRingCombinationType = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.CombinationType;
 using HydraRingWindDirection = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.WindDirection;
 using HydraRingWindDirectionClosingSituation = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.WindDirectionClosingSituation;
@@ -64,7 +64,7 @@ namespace Riskeer.Common.Service.Test.IllustrationPoints
         public void Convert_HydraRingIllustrationPointTreeNodeNull_ThrowsArgumentNullException()
         {
             // Setup
-            var hydraRingWindDirectionClosingSituation = new HydraRingWindDirectionClosingSituation(new HydraRingTestWindDirection(),
+            var hydraRingWindDirectionClosingSituation = new HydraRingWindDirectionClosingSituation(WindDirectionTestFactory.CreateWindDirection(),
                                                                                                     "random closing situation");
 
             // Call

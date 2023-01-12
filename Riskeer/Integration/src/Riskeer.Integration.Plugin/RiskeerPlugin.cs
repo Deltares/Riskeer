@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -42,14 +42,13 @@ using Core.Gui.Helpers;
 using Core.Gui.Plugin;
 using log4net;
 using Riskeer.AssemblyTool.Data;
-using Riskeer.ClosingStructures.Forms.PresentationObjects;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.Structures;
@@ -71,13 +70,8 @@ using Riskeer.Common.Service;
 using Riskeer.Common.Util;
 using Riskeer.Common.Util.Helpers;
 using Riskeer.Common.Util.TypeConverters;
-using Riskeer.DuneErosion.Forms.PresentationObjects;
 using Riskeer.DuneErosion.Plugin.Handlers;
-using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
-using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
-using Riskeer.HeightStructures.Forms.PresentationObjects;
 using Riskeer.Integration.Data;
-using Riskeer.Integration.Data.FailurePath;
 using Riskeer.Integration.Data.StandAlone;
 using Riskeer.Integration.Data.StandAlone.AssemblyFactories;
 using Riskeer.Integration.Forms.Dialogs;
@@ -95,13 +89,22 @@ using Riskeer.Integration.Plugin.Merge;
 using Riskeer.Integration.Plugin.Properties;
 using Riskeer.Integration.Service;
 using Riskeer.Integration.Service.Comparers;
-using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
-using Riskeer.Piping.Forms.PresentationObjects;
-using Riskeer.StabilityPointStructures.Forms.PresentationObjects;
-using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
-using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
+using ClosingStructuresCalculationsStateFailureMechanismContext = Riskeer.ClosingStructures.Forms.PresentationObjects.CalculationsState.ClosingStructuresFailureMechanismContext;
+using ClosingStructuresRegistrationStateFailureMechanismContext = Riskeer.ClosingStructures.Forms.PresentationObjects.RegistrationState.ClosingStructuresFailureMechanismContext;
 using CoreGuiResources = Core.Gui.Properties.Resources;
+using DuneErosionHydraulicLoadsStateFailureMechanismContext = Riskeer.DuneErosion.Forms.PresentationObjects.HydraulicLoadsState.DuneErosionFailureMechanismContext;
+using DuneErosionRegistrationStateFailureMechanismContext = Riskeer.DuneErosion.Forms.PresentationObjects.RegistrationState.DuneErosionFailureMechanismContext;
 using FontFamily = System.Windows.Media.FontFamily;
+using GrassCoverErosionInwardsCalculationsStateFailureMechanismContext = Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects.CalculationsState.GrassCoverErosionInwardsFailureMechanismContext;
+using GrassCoverErosionInwardsRegistrationStateFailureMechanismContext = Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects.RegistrationState.GrassCoverErosionInwardsFailureMechanismContext;
+using GrassCoverErosionOutwardsHydraulicLoadsStateFailureMechanismContext = Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects.HydraulicLoadsState.GrassCoverErosionOutwardsFailureMechanismContext;
+using GrassCoverErosionOutwardsRegistrationStateFailureMechanismContext = Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects.RegistrationState.GrassCoverErosionOutwardsFailureMechanismContext;
+using HeightStructuresCalculationsStateFailureMechanismContext = Riskeer.HeightStructures.Forms.PresentationObjects.CalculationsState.HeightStructuresFailureMechanismContext;
+using HeightStructuresRegistrationStateFailureMechanismContext = Riskeer.HeightStructures.Forms.PresentationObjects.RegistrationState.HeightStructuresFailureMechanismContext;
+using MacroStabilityInwardsCalculationsStateFailureMechanismContext = Riskeer.MacroStabilityInwards.Forms.PresentationObjects.CalculationsState.MacroStabilityInwardsFailureMechanismContext;
+using MacroStabilityInwardsRegistrationStateFailureMechanismContext = Riskeer.MacroStabilityInwards.Forms.PresentationObjects.RegistrationState.MacroStabilityInwardsFailureMechanismContext;
+using PipingCalculationsStateFailureMechanismContext = Riskeer.Piping.Forms.PresentationObjects.CalculationsState.PipingFailureMechanismContext;
+using PipingRegistrationStateFailureMechanismContext = Riskeer.Piping.Forms.PresentationObjects.RegistrationState.PipingFailureMechanismContext;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 using RiskeerCommonUtilResources = Riskeer.Common.Util.Properties.Resources;
@@ -111,6 +114,12 @@ using RiskeerCommonServiceResources = Riskeer.Common.Service.Properties.Resource
 using RiskeerDataResources = Riskeer.Integration.Data.Properties.Resources;
 using RiskeerFormsResources = Riskeer.Integration.Forms.Properties.Resources;
 using RiskeerIOResources = Riskeer.Integration.IO.Properties.Resources;
+using StabilityPointStructuresCalculationsStateFailureMechanismContext = Riskeer.StabilityPointStructures.Forms.PresentationObjects.CalculationsState.StabilityPointStructuresFailureMechanismContext;
+using StabilityPointStructuresRegistrationStateFailureMechanismContext = Riskeer.StabilityPointStructures.Forms.PresentationObjects.RegistrationState.StabilityPointStructuresFailureMechanismContext;
+using StabilityStoneCoverHydraulicLoadsStateFailureMechanismContext = Riskeer.StabilityStoneCover.Forms.PresentationObjects.HydraulicLoadsState.StabilityStoneCoverFailureMechanismContext;
+using StabilityStoneCoverRegistrationStateFailureMechanismContext = Riskeer.StabilityStoneCover.Forms.PresentationObjects.RegistrationState.StabilityStoneCoverFailureMechanismContext;
+using WaveImpactAsphaltCoverHydraulicLoadsStateFailureMechanismContext = Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects.HydraulicLoadsState.WaveImpactAsphaltCoverFailureMechanismContext;
+using WaveImpactAsphaltCoverRegistrationStateFailureMechanismContext = Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects.RegistrationState.WaveImpactAsphaltCoverFailureMechanismContext;
 
 namespace Riskeer.Integration.Plugin
 {
@@ -167,7 +176,7 @@ namespace Riskeer.Integration.Plugin
                                                                   new AssessmentSectionProvider(Gui.MainWindow, Gui.ProjectStore),
                                                                   new AssessmentSectionMergeComparer(),
                                                                   new AssessmentSectionMergeDataProviderDialog(Gui.MainWindow),
-                                                                  new AssessmentSectionMergeHandler());
+                                                                  new AssessmentSectionMergeHandler(Gui.DocumentViewController));
         }
 
         public override IEnumerable<StateInfo> GetStateInfos()
@@ -202,11 +211,11 @@ namespace Riskeer.Integration.Plugin
                 return null;
             });
 
-            yield return new StateInfo(Resources.RiskeerPlugin_GetStateInfos_FailurePaths, "\uE903", fontFamily, project =>
+            yield return new StateInfo(Resources.RiskeerPlugin_GetStateInfos_Registration, "\uE903", fontFamily, project =>
             {
                 if (project is RiskeerProject riskeerProject)
                 {
-                    return new FailurePathsStateRootContext(riskeerProject.AssessmentSection);
+                    return new RegistrationStateRootContext(riskeerProject.AssessmentSection);
                 }
 
                 return null;
@@ -217,7 +226,12 @@ namespace Riskeer.Integration.Plugin
         {
             yield return new PropertyInfo<StateRootContext, AssessmentSectionProperties>
             {
-                CreateInstance = context => new AssessmentSectionProperties(context.WrappedData, new AssessmentSectionCompositionChangeHandler(Gui.ViewCommands))
+                CreateInstance = context => new AssessmentSectionProperties(context.WrappedData)
+            };
+            yield return new PropertyInfo<RegistrationStateRootContext, RegistrationStateAssessmentSectionProperties>
+            {
+                CreateInstance = context => new RegistrationStateAssessmentSectionProperties(context.WrappedData,
+                                                                                             new AssessmentSectionCompositionChangeHandler(Gui.ViewCommands))
             };
             yield return new PropertyInfo<BackgroundData, BackgroundDataProperties>
             {
@@ -237,23 +251,23 @@ namespace Riskeer.Integration.Plugin
                     context.WrappedData,
                     new FailureMechanismContributionNormChangeHandler(context.AssessmentSection))
             };
-            yield return new PropertyInfo<IFailurePathContext<IHasGeneralInput>, StandAloneFailurePathProperties>
+            yield return new PropertyInfo<IFailureMechanismContext<IHasGeneralInput>, StandAloneFailureMechanismProperties>
             {
-                CreateInstance = context => new StandAloneFailurePathProperties(context.WrappedData)
+                CreateInstance = context => new StandAloneFailureMechanismProperties(context.WrappedData)
             };
-            yield return new PropertyInfo<SpecificFailurePathContext, SpecificFailurePathProperties>
+            yield return new PropertyInfo<SpecificFailureMechanismContext, SpecificFailureMechanismProperties>
             {
-                CreateInstance = context => new SpecificFailurePathProperties(context.WrappedData)
+                CreateInstance = context => new SpecificFailureMechanismProperties(context.WrappedData)
             };
-            yield return new PropertyInfo<PipingStructureFailurePathContext, PipingStructureFailurePathProperties>
+            yield return new PropertyInfo<PipingStructureFailureMechanismContext, PipingStructureFailureMechanismProperties>
             {
-                CreateInstance = context => new PipingStructureFailurePathProperties(context.WrappedData)
+                CreateInstance = context => new PipingStructureFailureMechanismProperties(context.WrappedData)
             };
-            yield return new PropertyInfo<ICalculationContext<CalculationGroup, IFailureMechanism>, CalculationGroupContextProperties>
+            yield return new PropertyInfo<ICalculationContext<CalculationGroup, ICalculatableFailureMechanism>, CalculationGroupContextProperties>
             {
                 CreateInstance = context => new CalculationGroupContextProperties(context)
             };
-            yield return new PropertyInfo<ICalculationContext<ICalculation, IFailureMechanism>, CalculationContextProperties>();
+            yield return new PropertyInfo<ICalculationContext<ICalculation, ICalculatableFailureMechanism>, CalculationContextProperties>();
             yield return new PropertyInfo<WaterLevelCalculationsForNormTargetProbabilityContext, WaterLevelCalculationsForNormTargetProbabilityProperties>
             {
                 CreateInstance = context => new WaterLevelCalculationsForNormTargetProbabilityProperties(context.WrappedData, context.GetNormFunc())
@@ -316,6 +330,14 @@ namespace Riskeer.Integration.Plugin
             yield return new PropertyInfo<StructuresOutputContext, StructuresOutputProperties>
             {
                 CreateInstance = context => new StructuresOutputProperties(context.WrappedData.Output)
+            };
+            yield return new PropertyInfo<FailureMechanismSectionAssemblyGroupsContext, FailureMechanismSectionAssemblyGroupsProperties>
+            {
+                CreateInstance = context => new FailureMechanismSectionAssemblyGroupsProperties(context.WrappedData)
+            };
+            yield return new PropertyInfo<AssessmentSectionAssemblyGroupsContext, AssessmentSectionAssemblyGroupsProperties>
+            {
+                CreateInstance = context => new AssessmentSectionAssemblyGroupsProperties(context.WrappedData)
             };
         }
 
@@ -390,49 +412,47 @@ namespace Riskeer.Integration.Plugin
                 CloseForData = CloseAssessmentSectionViewForData
             };
 
-            yield return new RiskeerViewInfo<FailurePathsStateRootContext, AssessmentSectionExtendedView>(() => Gui)
+            yield return new RiskeerViewInfo<RegistrationStateRootContext, AssessmentSectionExtendedView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerFormsResources.AssessmentSectionMap_DisplayName,
                 CreateInstance = context => new AssessmentSectionExtendedView(context.WrappedData),
                 CloseForData = CloseAssessmentSectionViewForData
             };
 
-            yield return CreateFailureMechanismWithDetailedAssessmentViewInfo<MicrostabilityFailurePathContext, MicrostabilityFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
-                (context, sr) => StandAloneFailureMechanismAssemblyFactory.AssembleSection(sr, context.WrappedData, context.Parent));
+            yield return CreateFailureMechanismViewInfo<MicrostabilityFailureMechanismContext, MicrostabilityFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
+                (context, sr) => FailureMechanismAssemblyFactory.AssembleSection(sr, context.WrappedData, context.Parent));
 
-            yield return CreateFailureMechanismWithDetailedAssessmentViewInfo<GrassCoverSlipOffOutwardsFailurePathContext, GrassCoverSlipOffOutwardsFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
-                (context, sr) => StandAloneFailureMechanismAssemblyFactory.AssembleSection(sr, context.WrappedData, context.Parent));
+            yield return CreateFailureMechanismViewInfo<GrassCoverSlipOffOutwardsFailureMechanismContext, GrassCoverSlipOffOutwardsFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
+                (context, sr) => FailureMechanismAssemblyFactory.AssembleSection(sr, context.WrappedData, context.Parent));
 
-            yield return CreateFailureMechanismWithDetailedAssessmentViewInfo<GrassCoverSlipOffInwardsFailurePathContext, GrassCoverSlipOffInwardsFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
-                (context, sr) => StandAloneFailureMechanismAssemblyFactory.AssembleSection(sr, context.WrappedData, context.Parent));
+            yield return CreateFailureMechanismViewInfo<GrassCoverSlipOffInwardsFailureMechanismContext, GrassCoverSlipOffInwardsFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
+                (context, sr) => FailureMechanismAssemblyFactory.AssembleSection(sr, context.WrappedData, context.Parent));
 
-            yield return CreateFailureMechanismWithDetailedAssessmentViewInfo<PipingStructureFailurePathContext, PipingStructureFailureMechanism, NonAdoptableFailureMechanismSectionResult>(
+            yield return CreateFailureMechanismViewInfo<PipingStructureFailureMechanismContext, PipingStructureFailureMechanism, NonAdoptableFailureMechanismSectionResult>(
                 (context, sr) => FailureMechanismSectionAssemblyResultFactory.AssembleSection(sr, context.Parent));
 
-            yield return CreateFailureMechanismWithDetailedAssessmentViewInfo<WaterPressureAsphaltCoverFailurePathContext, WaterPressureAsphaltCoverFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
-                (context, sr) => StandAloneFailureMechanismAssemblyFactory.AssembleSection(sr, context.WrappedData, context.Parent));
+            yield return CreateFailureMechanismViewInfo<WaterPressureAsphaltCoverFailureMechanismContext, WaterPressureAsphaltCoverFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
+                (context, sr) => FailureMechanismAssemblyFactory.AssembleSection(sr, context.WrappedData, context.Parent));
 
-            yield return CreateFailureMechanismResultViewInfo<GrassCoverSlipOffInwardsFailureMechanismSectionResultContext, GrassCoverSlipOffInwardsFailureMechanism>(
-                fm => fm.GeneralInput.N, fm => fm.GeneralInput.ApplyLengthEffectInSection);
+            yield return CreateFailureMechanismResultViewInfo<GrassCoverSlipOffInwardsFailureMechanismSectionResultContext, GrassCoverSlipOffInwardsFailureMechanism>(fm => fm.GeneralInput.ApplyLengthEffectInSection, FailureMechanismAssemblyFactory.AssembleFailureMechanism);
 
-            yield return CreateFailureMechanismResultViewInfo<GrassCoverSlipOffOutwardsFailureMechanismSectionResultContext, GrassCoverSlipOffOutwardsFailureMechanism>(
-                fm => fm.GeneralInput.N, fm => fm.GeneralInput.ApplyLengthEffectInSection);
+            yield return CreateFailureMechanismResultViewInfo<GrassCoverSlipOffOutwardsFailureMechanismSectionResultContext, GrassCoverSlipOffOutwardsFailureMechanism>(fm => fm.GeneralInput.ApplyLengthEffectInSection, FailureMechanismAssemblyFactory.AssembleFailureMechanism);
 
-            yield return CreateFailureMechanismResultViewInfo<MicrostabilityFailureMechanismSectionResultContext, MicrostabilityFailureMechanism>(
-                fm => fm.GeneralInput.N, fm => fm.GeneralInput.ApplyLengthEffectInSection);
+            yield return CreateFailureMechanismResultViewInfo<MicrostabilityFailureMechanismSectionResultContext, MicrostabilityFailureMechanism>(fm => fm.GeneralInput.ApplyLengthEffectInSection, FailureMechanismAssemblyFactory.AssembleFailureMechanism);
 
             yield return CreateFailureMechanismResultViewInfo<PipingStructureFailureMechanismSectionResultContext, PipingStructureFailureMechanism>(
-                fm => fm.GeneralInput.N);
+                PipingStructureFailureMechanismAssemblyFactory.AssembleFailureMechanism);
 
-            yield return CreateFailureMechanismResultViewInfo<WaterPressureAsphaltCoverFailureMechanismSectionResultContext, WaterPressureAsphaltCoverFailureMechanism>(
-                fm => fm.GeneralInput.N, fm => fm.GeneralInput.ApplyLengthEffectInSection);
+            yield return CreateFailureMechanismResultViewInfo<WaterPressureAsphaltCoverFailureMechanismSectionResultContext, WaterPressureAsphaltCoverFailureMechanism>(fm => fm.GeneralInput.ApplyLengthEffectInSection, FailureMechanismAssemblyFactory.AssembleFailureMechanism);
 
-            yield return new RiskeerViewInfo<SpecificFailurePathContext, SpecificFailurePathView>(() => Gui)
+            yield return CreateFailureMechanismResultViewInfo<SpecificFailureMechanismSectionResultContext, SpecificFailureMechanism>(fp => fp.GeneralInput.ApplyLengthEffectInSection, FailureMechanismAssemblyFactory.AssembleFailureMechanism);
+
+            yield return new RiskeerViewInfo<SpecificFailureMechanismContext, SpecificFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                CreateInstance = context => new SpecificFailurePathView(context.WrappedData, context.Parent),
+                CreateInstance = context => new SpecificFailureMechanismView(context.WrappedData, context.Parent),
                 AdditionalDataCheck = context => context.WrappedData.InAssembly,
-                CloseForData = RiskeerPluginHelper.ShouldCloseForFailurePathView
+                CloseForData = RiskeerPluginHelper.ShouldCloseForFailureMechanismView
             };
 
             yield return new RiskeerViewInfo<Comment, CommentView>(() => Gui)
@@ -445,7 +465,7 @@ namespace Riskeer.Integration.Plugin
             yield return new RiskeerViewInfo<FailureMechanismSectionsContext, IEnumerable<FailureMechanismSection>, FailureMechanismSectionsView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanismSections_DisplayName,
-                CloseForData = RiskeerPluginHelper.ShouldCloseForFailurePathView,
+                CloseForData = RiskeerPluginHelper.ShouldCloseForFailureMechanismView,
                 CreateInstance = context => new FailureMechanismSectionsView(context.WrappedData.Sections, context.WrappedData),
                 GetViewData = context => context.WrappedData.Sections
             };
@@ -459,9 +479,17 @@ namespace Riskeer.Integration.Plugin
                     context.WrappedData, () => context.WrappedData.Output?.GeneralResult)
             };
 
+            yield return new RiskeerViewInfo<AssessmentSectionAssemblyGroupsContext, FailureMechanismContribution, AssessmentSectionAssemblyGroupsView>(() => Gui)
+            {
+                GetViewName = (view, context) => RiskeerCommonFormsResources.AssessmentSectionAssemblyGroups_DisplayName,
+                CloseForData = (view, dataToCloseFor) => dataToCloseFor is IAssessmentSection assessmentSection
+                                                         && assessmentSection.FailureMechanismContribution == view.FailureMechanismContribution,
+                CreateInstance = context => new AssessmentSectionAssemblyGroupsView(context.WrappedData.FailureMechanismContribution)
+            };
+
             yield return new RiskeerViewInfo<AssemblyResultTotalContext, AssessmentSection, AssemblyResultTotalView>(() => Gui)
             {
-                GetViewName = (view, context) => RiskeerCommonFormsResources.CombinedAssembly_DisplayName,
+                GetViewName = (view, context) => RiskeerCommonFormsResources.AssemblyResultTotal_DisplayName,
                 CloseForData = (view, dataToCloseFor) => ReferenceEquals(view.AssessmentSection, dataToCloseFor),
                 CreateInstance = context => new AssemblyResultTotalView(context.WrappedData)
             };
@@ -487,11 +515,11 @@ namespace Riskeer.Integration.Plugin
                 CreateInstance = context => new AssemblyResultsOverviewView(context.WrappedData)
             };
 
-            yield return new RiskeerViewInfo<AssemblyGroupsContext, AssessmentSection, AssemblyGroupsView>(() => Gui)
+            yield return new RiskeerViewInfo<FailureMechanismSectionAssemblyGroupsContext, AssessmentSection, FailureMechanismSectionAssemblyGroupsView>(() => Gui)
             {
-                GetViewName = (view, context) => RiskeerCommonFormsResources.AssemblyGroups_DisplayName,
+                GetViewName = (view, context) => RiskeerFormsResources.FailureMechanismSectionAssemblyGroups_DisplayName,
                 CloseForData = (view, dataToCloseFor) => ReferenceEquals(view.AssessmentSection, dataToCloseFor),
-                CreateInstance = context => new AssemblyGroupsView(context.WrappedData)
+                CreateInstance = context => new FailureMechanismSectionAssemblyGroupsView(context.WrappedData)
             };
         }
 
@@ -517,11 +545,9 @@ namespace Riskeer.Integration.Plugin
                 FileFilterGenerator = new FileFilterGenerator(RiskeerCommonIOResources.Shape_file_filter_Extension,
                                                               RiskeerCommonIOResources.Shape_file_filter_Description),
                 IsEnabled = context => HasGeometry(context.AssessmentSection.ReferenceLine),
-                CreateFileImporter = (context, filePath) => new FailureMechanismSectionsImporter(context.WrappedData,
-                                                                                                 context.AssessmentSection.ReferenceLine,
-                                                                                                 filePath,
-                                                                                                 new FailureMechanismSectionReplaceStrategy(context.WrappedData),
-                                                                                                 new ImportMessageProvider())
+                CreateFileImporter = (context, filePath) => new FailureMechanismSectionsImporter(
+                    context.WrappedData, context.AssessmentSection.ReferenceLine, filePath,
+                    new FailureMechanismSectionReplaceStrategy(context.WrappedData), new ImportMessageProvider())
             };
 
             yield return new ImportInfo<ForeshoreProfilesContext>
@@ -580,12 +606,12 @@ namespace Riskeer.Integration.Plugin
 
             yield return new ExportInfo<AssemblyResultsContext>
             {
-                Name = context => RiskeerCommonFormsResources.AssemblyResult_DisplayName,
-                Extension = Resources.AssemblyResult_file_filter_Extension,
+                Name = context => Resources.AssemblyResults_DisplayName,
+                Extension = Resources.AssemblyResults_file_filter_Extension,
                 CreateFileExporter = (context, filePath) => new AssemblyExporter(context.WrappedData, filePath),
-                IsEnabled = context => false,
-                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(Resources.AssemblyResult_file_filter_Extension,
-                                                                                                           RiskeerCommonFormsResources.AssemblyResult_DisplayName))
+                IsEnabled = context => HasGeometry(context.WrappedData.ReferenceLine),
+                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(Resources.AssemblyResults_file_filter_Extension,
+                                                                                                           Resources.AssemblyResults_DisplayName))
             };
 
             yield return CreateHydraulicBoundaryLocationCalculationsForTargetProbabilityExportInfo<
@@ -614,11 +640,11 @@ namespace Riskeer.Integration.Plugin
                     new[]
                     {
                         new Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>(
-                            context.AssessmentSection.WaterLevelCalculationsForLowerLimitNorm,
-                            context.AssessmentSection.FailureMechanismContribution.LowerLimitNorm),
+                            context.AssessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability,
+                            context.AssessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability),
                         new Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>(
-                            context.AssessmentSection.WaterLevelCalculationsForSignalingNorm,
-                            context.AssessmentSection.FailureMechanismContribution.SignalingNorm)
+                            context.AssessmentSection.WaterLevelCalculationsForSignalFloodingProbability,
+                            context.AssessmentSection.FailureMechanismContribution.SignalFloodingProbability)
                     }, HydraulicBoundaryLocationCalculationsType.WaterLevel, filePath),
                 IsEnabled = context => true,
                 GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonIOResources.Zip_file_filter_Extension,
@@ -683,22 +709,9 @@ namespace Riskeer.Integration.Plugin
                 WaterPressureAsphaltCoverFailureMechanismSectionsContext, WaterPressureAsphaltCoverFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
                 new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultUpdateStrategy());
 
-            yield return new UpdateInfo<SpecificFailurePathSectionsContext>
-            {
-                CreateFileImporter = (context, filePath) =>
-                    new FailureMechanismSectionsImporter(context.WrappedData,
-                                                         context.AssessmentSection.ReferenceLine,
-                                                         filePath,
-                                                         new FailureMechanismSectionReplaceStrategy(context.WrappedData),
-                                                         new UpdateMessageProvider()),
-                Name = RiskeerCommonFormsResources.FailureMechanismSections_DisplayName,
-                Category = RiskeerCommonFormsResources.Riskeer_Category,
-                Image = RiskeerCommonFormsResources.SectionsIcon,
-                FileFilterGenerator = new FileFilterGenerator(RiskeerCommonIOResources.Shape_file_filter_Extension,
-                                                              RiskeerCommonIOResources.Shape_file_filter_Description),
-                CurrentPath = context => context.WrappedData.FailureMechanismSectionSourcePath,
-                IsEnabled = context => context.WrappedData.FailureMechanismSectionSourcePath != null
-            };
+            yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
+                SpecificFailureMechanismSectionsContext, SpecificFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
+                new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultUpdateStrategy());
         }
 
         public override IEnumerable<object> GetChildDataWithViewDefinitions(object viewData)
@@ -728,9 +741,9 @@ namespace Riskeer.Integration.Plugin
                 CalculationsStateRootContextChildNodeObjects,
                 CalculationsStateRootContextMenuStrip);
 
-            yield return CreateStateRootTreeNodeInfo<FailurePathsStateRootContext>(
-                FailurePathsStateRootContextChildNodeObjects,
-                FailurePathsStateRootContextMenuStrip);
+            yield return CreateStateRootTreeNodeInfo<RegistrationStateRootContext>(
+                RegistrationStateRootContextChildNodeObjects,
+                RegistrationStateRootContextMenuStrip);
 
             yield return new TreeNodeInfo<BackgroundData>
             {
@@ -769,65 +782,67 @@ namespace Riskeer.Integration.Plugin
                 ContextMenuStrip = NormContextMenuStrip
             };
 
-            yield return RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<GrassCoverSlipOffInwardsFailurePathContext>(
-                GrassCoverSlipOffInwardsFailurePathEnabledChildNodeObjects,
-                StandAloneFailurePathDisabledChildNodeObjects,
-                StandAloneFailurePathEnabledContextMenuStrip,
-                StandAloneFailurePathDisabledContextMenuStrip);
+            yield return RiskeerTreeNodeInfoFactory.CreateRegistrationStateContextTreeNodeInfo<GrassCoverSlipOffInwardsFailureMechanismContext>(
+                GrassCoverSlipOffInwardsFailureMechanismEnabledChildNodeObjects,
+                StandAloneFailureMechanismDisabledChildNodeObjects,
+                StandAloneFailureMechanismEnabledContextMenuStrip,
+                StandAloneFailureMechanismDisabledContextMenuStrip);
 
-            yield return RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<GrassCoverSlipOffOutwardsFailurePathContext>(
-                GrassCoverSlipOffOutwardsFailurePathEnabledChildNodeObjects,
-                StandAloneFailurePathDisabledChildNodeObjects,
-                StandAloneFailurePathEnabledContextMenuStrip,
-                StandAloneFailurePathDisabledContextMenuStrip);
+            yield return RiskeerTreeNodeInfoFactory.CreateRegistrationStateContextTreeNodeInfo<GrassCoverSlipOffOutwardsFailureMechanismContext>(
+                GrassCoverSlipOffOutwardsFailureMechanismEnabledChildNodeObjects,
+                StandAloneFailureMechanismDisabledChildNodeObjects,
+                StandAloneFailureMechanismEnabledContextMenuStrip,
+                StandAloneFailureMechanismDisabledContextMenuStrip);
 
-            yield return RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<MicrostabilityFailurePathContext>(
-                MicrostabilityFailurePathEnabledChildNodeObjects,
-                StandAloneFailurePathDisabledChildNodeObjects,
-                StandAloneFailurePathEnabledContextMenuStrip,
-                StandAloneFailurePathDisabledContextMenuStrip);
+            yield return RiskeerTreeNodeInfoFactory.CreateRegistrationStateContextTreeNodeInfo<MicrostabilityFailureMechanismContext>(
+                MicrostabilityFailureMechanismEnabledChildNodeObjects,
+                StandAloneFailureMechanismDisabledChildNodeObjects,
+                StandAloneFailureMechanismEnabledContextMenuStrip,
+                StandAloneFailureMechanismDisabledContextMenuStrip);
 
-            yield return RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<PipingStructureFailurePathContext>(
-                PipingStructureFailurePathEnabledChildNodeObjects,
-                StandAloneFailurePathDisabledChildNodeObjects,
-                StandAloneFailurePathEnabledContextMenuStrip,
-                StandAloneFailurePathDisabledContextMenuStrip);
+            yield return RiskeerTreeNodeInfoFactory.CreateRegistrationStateContextTreeNodeInfo<PipingStructureFailureMechanismContext>(
+                PipingStructureFailureMechanismEnabledChildNodeObjects,
+                StandAloneFailureMechanismDisabledChildNodeObjects,
+                StandAloneFailureMechanismEnabledContextMenuStrip,
+                StandAloneFailureMechanismDisabledContextMenuStrip);
 
-            yield return RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<WaterPressureAsphaltCoverFailurePathContext>(
-                WaterPressureAsphaltCoverFailurePathEnabledChildNodeObjects,
-                StandAloneFailurePathDisabledChildNodeObjects,
-                StandAloneFailurePathEnabledContextMenuStrip,
-                StandAloneFailurePathDisabledContextMenuStrip);
+            yield return RiskeerTreeNodeInfoFactory.CreateRegistrationStateContextTreeNodeInfo<WaterPressureAsphaltCoverFailureMechanismContext>(
+                WaterPressureAsphaltCoverFailureMechanismEnabledChildNodeObjects,
+                StandAloneFailureMechanismDisabledChildNodeObjects,
+                StandAloneFailureMechanismEnabledContextMenuStrip,
+                StandAloneFailureMechanismDisabledContextMenuStrip);
 
-            yield return CreateSpecificFailurePathTreeNodeInfo();
+            yield return CreateSpecificFailureMechanismTreeNodeInfo();
 
-            yield return new TreeNodeInfo<AssemblyGroupsContext>
+            yield return new TreeNodeInfo<FailureMechanismSectionAssemblyGroupsContext>
             {
-                Text = context => RiskeerCommonFormsResources.AssemblyGroups_DisplayName,
+                Text = context => RiskeerFormsResources.FailureMechanismSectionAssemblyGroups_DisplayName,
                 Image = context => RiskeerCommonFormsResources.NormsIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
+                                                                                 .AddSeparator()
+                                                                                 .AddPropertiesItem()
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<GenericFailurePathsContext>
+            yield return new TreeNodeInfo<GenericFailureMechanismsContext>
             {
-                Text = context => Resources.GenericFailurePaths_DisplayName,
+                Text = context => Resources.GenericFailureMechanisms_DisplayName,
                 Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
-                ChildNodeObjects = GenericFailurePathChildNodeObjects,
-                ContextMenuStrip = GenericFailurePathsContextMenuStrip,
+                ChildNodeObjects = GenericFailureMechanismsChildNodeObjects,
+                ContextMenuStrip = GenericFailureMechanismsContextMenuStrip,
                 ExpandOnCreate = context => true
             };
 
-            yield return new TreeNodeInfo<SpecificFailurePathsContext>
+            yield return new TreeNodeInfo<SpecificFailureMechanismsContext>
             {
-                Text = context => Resources.SpecificFailurePaths_DisplayName,
+                Text = context => Resources.SpecificFailureMechanisms_DisplayName,
                 Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
-                ChildNodeObjects = SpecificFailurePathsChildNodeObjects,
-                ContextMenuStrip = SpecificFailurePathsContextMenuStrip,
-                CanInsert = SpecificFailurePathsContext_CanDropOrInsert,
-                CanDrop = SpecificFailurePathsContext_CanDropOrInsert,
-                OnDrop = SpecificFailurePathsContext_OnDrop,
+                ChildNodeObjects = SpecificFailureMechanismsChildNodeObjects,
+                ContextMenuStrip = SpecificFailureMechanismsContextMenuStrip,
+                CanInsert = SpecificFailureMechanismsContext_CanDropOrInsert,
+                CanDrop = SpecificFailureMechanismsContext_CanDropOrInsert,
+                OnDrop = SpecificFailureMechanismsContext_OnDrop,
                 ExpandOnCreate = context => true
             };
 
@@ -971,6 +986,7 @@ namespace Riskeer.Integration.Plugin
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<MicrostabilityFailureMechanismSectionResultContext, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<PipingStructureFailureMechanismSectionResultContext, NonAdoptableFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<WaterPressureAsphaltCoverFailureMechanismSectionResultContext, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();
+            yield return CreateFailureMechanismSectionResultTreeNodeInfo<SpecificFailureMechanismSectionResultContext, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();
 
             yield return new TreeNodeInfo<Comment>
             {
@@ -995,9 +1011,9 @@ namespace Riskeer.Integration.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<NormClassesContext>
+            yield return new TreeNodeInfo<AssessmentSectionAssemblyGroupsContext>
             {
-                Text = context => RiskeerCommonFormsResources.NormClasses_DisplayName,
+                Text = context => RiskeerCommonFormsResources.AssessmentSectionAssemblyGroups_DisplayName,
                 Image = context => RiskeerCommonFormsResources.NormsIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
@@ -1008,7 +1024,7 @@ namespace Riskeer.Integration.Plugin
 
             yield return new TreeNodeInfo<AssemblyResultTotalContext>
             {
-                Text = context => RiskeerCommonFormsResources.CombinedAssembly_DisplayName,
+                Text = context => RiskeerCommonFormsResources.AssemblyResultTotal_DisplayName,
                 Image = context => Resources.AssemblyResultTotal,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
@@ -1035,7 +1051,7 @@ namespace Riskeer.Integration.Plugin
 
             yield return new TreeNodeInfo<AssemblyResultsContext>
             {
-                Text = context => Resources.AssemblyResultsCategoryTreeFolder_DisplayName,
+                Text = context => Resources.AssemblyResults_DisplayName,
                 Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
                 ChildNodeObjects = AssemblyResultsContextChildNodeObjects,
                 ExpandOnCreate = context => true,
@@ -1091,9 +1107,9 @@ namespace Riskeer.Integration.Plugin
         }
 
         private ViewInfo<TContext, IObservableEnumerable<NonAdoptableFailureMechanismSectionResult>, NonAdoptableFailureMechanismResultView<TFailureMechanism>> CreateFailureMechanismResultViewInfo<TContext, TFailureMechanism>(
-            Func<TFailureMechanism, double> getNFunc)
+            Func<TFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> getFailureMechanismAssemblyResultFunc)
             where TContext : FailureMechanismSectionResultContext<NonAdoptableFailureMechanismSectionResult>
-            where TFailureMechanism : class, IHasSectionResults<NonAdoptableFailureMechanismSectionResult>
+            where TFailureMechanism : class, IFailureMechanism<NonAdoptableFailureMechanismSectionResult>
         {
             return new RiskeerViewInfo<
                 TContext,
@@ -1105,14 +1121,15 @@ namespace Riskeer.Integration.Plugin
                 CloseForData = CloseFailureMechanismResultViewForData<TFailureMechanism, NonAdoptableFailureMechanismSectionResult,
                     NonAdoptableFailureMechanismResultView<TFailureMechanism>, NonAdoptableFailureMechanismSectionResultRow>,
                 CreateInstance = context => new NonAdoptableFailureMechanismResultView<TFailureMechanism>(
-                    context.WrappedData, (TFailureMechanism) context.FailureMechanism, context.AssessmentSection, getNFunc)
+                    context.WrappedData, (TFailureMechanism) context.FailureMechanism, context.AssessmentSection, getFailureMechanismAssemblyResultFunc)
             };
         }
 
         private ViewInfo<TContext, IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>, NonAdoptableWithProfileProbabilityFailureMechanismResultView<TFailureMechanism>> CreateFailureMechanismResultViewInfo<TContext, TFailureMechanism>(
-            Func<TFailureMechanism, double> getNFunc, Func<TFailureMechanism, bool> getUseLengthEffectFunc)
+            Func<TFailureMechanism, bool> getUseLengthEffectFunc,
+            Func<TFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc)
             where TContext : FailureMechanismSectionResultContext<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
-            where TFailureMechanism : class, IHasSectionResults<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>, IHasGeneralInput
+            where TFailureMechanism : class, IFailureMechanism<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>, IHasGeneralInput
         {
             return new RiskeerViewInfo<
                 TContext,
@@ -1128,8 +1145,8 @@ namespace Riskeer.Integration.Plugin
                     var failureMechanism = (TFailureMechanism) context.FailureMechanism;
                     IAssessmentSection assessmentSection = context.AssessmentSection;
                     return new NonAdoptableWithProfileProbabilityFailureMechanismResultView<TFailureMechanism>(
-                        context.WrappedData, failureMechanism, getNFunc, getUseLengthEffectFunc,
-                        sr => StandAloneFailureMechanismAssemblyFactory.AssembleSection(sr, failureMechanism, assessmentSection));
+                        context.WrappedData, failureMechanism, assessmentSection, performFailureMechanismAssemblyFunc,
+                        getUseLengthEffectFunc, sr => FailureMechanismAssemblyFactory.AssembleSection(sr, failureMechanism, assessmentSection));
                 }
             };
         }
@@ -1185,9 +1202,9 @@ namespace Riskeer.Integration.Plugin
             {
                 observers = CreateObservers(waveHeightCalculationsView);
             }
-            else if (e.View is SpecificFailurePathView specificFailurePathView)
+            else if (e.View is SpecificFailureMechanismView specificFailureMechanismView)
             {
-                observers = CreateObservers(specificFailurePathView);
+                observers = CreateObservers(specificFailureMechanismView);
             }
 
             if (!observers.Any())
@@ -1203,13 +1220,13 @@ namespace Riskeer.Integration.Plugin
             IAssessmentSection assessmentSection = designWaterLevelCalculationsView.AssessmentSection;
 
             object viewData = designWaterLevelCalculationsView.Data;
-            if (ReferenceEquals(viewData, assessmentSection.WaterLevelCalculationsForSignalingNorm)
-                || ReferenceEquals(viewData, assessmentSection.WaterLevelCalculationsForLowerLimitNorm))
+            if (ReferenceEquals(viewData, assessmentSection.WaterLevelCalculationsForSignalFloodingProbability)
+                || ReferenceEquals(viewData, assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability))
             {
                 IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculationsForUserDefinedTargetProbability =
-                    ReferenceEquals(viewData, assessmentSection.WaterLevelCalculationsForSignalingNorm)
-                        ? assessmentSection.WaterLevelCalculationsForSignalingNorm
-                        : assessmentSection.WaterLevelCalculationsForLowerLimitNorm;
+                    ReferenceEquals(viewData, assessmentSection.WaterLevelCalculationsForSignalFloodingProbability)
+                        ? assessmentSection.WaterLevelCalculationsForSignalFloodingProbability
+                        : assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability;
 
                 Func<string> getTitleFunc = () => GetWaterLevelCalculationsForNormTargetProbabilitiesViewName(calculationsForUserDefinedTargetProbability, assessmentSection);
 
@@ -1264,12 +1281,12 @@ namespace Riskeer.Integration.Plugin
             return Enumerable.Empty<IObserver>();
         }
 
-        private IEnumerable<IObserver> CreateObservers(SpecificFailurePathView specificFailurePathView)
+        private IEnumerable<IObserver> CreateObservers(SpecificFailureMechanismView specificFailureMechanismView)
         {
-            IFailurePath failurePath = specificFailurePathView.FailurePath;
+            IFailureMechanism failureMechanism = specificFailureMechanismView.FailureMechanism;
             return new[]
             {
-                CreateViewTitleObserver(specificFailurePathView, failurePath, () => failurePath.Name)
+                CreateViewTitleObserver(specificFailureMechanismView, failureMechanism, () => failureMechanism.Name)
             };
         }
 
@@ -1417,13 +1434,13 @@ namespace Riskeer.Integration.Plugin
 
         #region ViewInfos
 
-        #region FailureMechanismWithDetailedAssessmentView ViewInfo
+        #region CreateFailureMechanismViewInfo ViewInfo
 
-        private ViewInfo<TFailureMechanismContext, TFailureMechanism, StandAloneFailureMechanismView<TFailureMechanism, TSectionResult>> CreateFailureMechanismWithDetailedAssessmentViewInfo<
-            TFailureMechanismContext, TFailureMechanism, TSectionResult>(Func<TFailureMechanismContext, TSectionResult, FailureMechanismSectionAssemblyResult> performAssemblyFunc)
+        private ViewInfo<TFailureMechanismContext, TFailureMechanism, StandAloneFailureMechanismView<TFailureMechanism, TSectionResult>> CreateFailureMechanismViewInfo<
+            TFailureMechanismContext, TFailureMechanism, TSectionResult>(Func<TFailureMechanismContext, TSectionResult, FailureMechanismSectionAssemblyResultWrapper> performAssemblyFunc)
             where TSectionResult : FailureMechanismSectionResult
-            where TFailureMechanism : FailureMechanismBase, IHasSectionResults<TSectionResult>
-            where TFailureMechanismContext : IFailurePathContext<TFailureMechanism>
+            where TFailureMechanism : FailureMechanismBase<TSectionResult>
+            where TFailureMechanismContext : IFailureMechanismContext<TFailureMechanism>
         {
             return new RiskeerViewInfo<TFailureMechanismContext, TFailureMechanism,
                 StandAloneFailureMechanismView<TFailureMechanism, TSectionResult>>(() => Gui)
@@ -1432,7 +1449,7 @@ namespace Riskeer.Integration.Plugin
                 CloseForData = (view, dataToCloseFor) => ReferenceEquals(view.AssessmentSection, dataToCloseFor),
                 AdditionalDataCheck = context => context.WrappedData.InAssembly,
                 CreateInstance = context => new StandAloneFailureMechanismView<TFailureMechanism, TSectionResult>(
-                    context.WrappedData, context.Parent, sr => performAssemblyFunc(context, sr))
+                    context.WrappedData, context.Parent, sr => performAssemblyFunc(context, sr).AssemblyResult)
             };
         }
 
@@ -1440,8 +1457,9 @@ namespace Riskeer.Integration.Plugin
 
         #region FailureMechanismResults ViewInfo
 
-        private static bool CloseFailureMechanismResultViewForData<TFailureMechanism, TSectionResult, TView, TSectionResultRow>(TView view, object dataToCloseFor)
-            where TFailureMechanism : class, IHasSectionResults<TSectionResult>
+        private static bool CloseFailureMechanismResultViewForData<TFailureMechanism, TSectionResult, TView, TSectionResultRow>(
+            TView view, object dataToCloseFor)
+            where TFailureMechanism : class, IFailureMechanism<TSectionResult>
             where TSectionResult : FailureMechanismSectionResult
             where TSectionResultRow : FailureMechanismSectionResultRow<TSectionResult>
             where TView : FailureMechanismResultView<TSectionResult, TSectionResultRow, TFailureMechanism>
@@ -1451,10 +1469,13 @@ namespace Riskeer.Integration.Plugin
             {
                 failureMechanism = assessmentSection.GetFailureMechanisms()
                                                     .OfType<TFailureMechanism>()
-                                                    .FirstOrDefault();
+                                                    .FirstOrDefault()
+                                   ?? assessmentSection.SpecificFailureMechanisms
+                                                       .Cast<TFailureMechanism>()
+                                                       .FirstOrDefault(fp => fp == view.FailureMechanism);
             }
 
-            if (dataToCloseFor is IFailurePathContext<IFailureMechanism> failureMechanismContext)
+            if (dataToCloseFor is IFailureMechanismContext<IFailureMechanism> failureMechanismContext)
             {
                 failureMechanism = failureMechanismContext.WrappedData as TFailureMechanism;
             }
@@ -1508,21 +1529,21 @@ namespace Riskeer.Integration.Plugin
 
         private static bool CloseCommentViewForData(CommentView commentView, object dataToCloseFor)
         {
-            if (dataToCloseFor is ICalculationContext<CalculationGroup, IFailureMechanism> calculationGroupContext)
+            if (dataToCloseFor is ICalculationContext<CalculationGroup, ICalculatableFailureMechanism> calculationGroupContext)
             {
                 return GetCommentElements(calculationGroupContext.WrappedData)
                     .Any(commentElement => ReferenceEquals(commentView.Data, commentElement));
             }
 
-            var calculationContext = dataToCloseFor as ICalculationContext<ICalculationBase, IFailureMechanism>;
+            var calculationContext = dataToCloseFor as ICalculationContext<ICalculationBase, ICalculatableFailureMechanism>;
             if (calculationContext?.WrappedData is ICalculation calculation)
             {
                 return ReferenceEquals(commentView.Data, calculation.Comments);
             }
 
-            if (dataToCloseFor is IFailurePathContext<IFailurePath> failurePathContext)
+            if (dataToCloseFor is IFailureMechanismContext<IFailureMechanism> failureMechanismContext)
             {
-                return GetCommentElements(failurePathContext.WrappedData)
+                return GetCommentElements(failureMechanismContext.WrappedData)
                     .Any(commentElement => ReferenceEquals(commentView.Data, commentElement));
             }
 
@@ -1548,32 +1569,27 @@ namespace Riskeer.Integration.Plugin
                 yield return comment;
             }
 
-            foreach (Comment comment in assessmentSection.SpecificFailurePaths.SelectMany(GetCommentElements))
+            foreach (Comment comment in assessmentSection.SpecificFailureMechanisms.SelectMany(GetCommentElements))
             {
                 yield return comment;
             }
-        }
-
-        private static IEnumerable<Comment> GetCommentElements(IFailurePath failurePath)
-        {
-            yield return failurePath.InAssemblyInputComments;
-            yield return failurePath.InAssemblyOutputComments;
-            yield return failurePath.NotInAssemblyComments;
         }
 
         private static IEnumerable<Comment> GetCommentElements(IFailureMechanism failureMechanism)
         {
-            foreach (Comment comment in GetCommentElements((IFailurePath) failureMechanism))
-            {
-                yield return comment;
-            }
+            yield return failureMechanism.InAssemblyInputComments;
+            yield return failureMechanism.InAssemblyOutputComments;
+            yield return failureMechanism.NotInAssemblyComments;
 
-            foreach (ICalculation calculation in failureMechanism.Calculations)
+            if (failureMechanism is ICalculatableFailureMechanism calculatableFailureMechanism)
             {
-                yield return calculation.Comments;
-            }
+                foreach (ICalculation calculation in calculatableFailureMechanism.Calculations)
+                {
+                    yield return calculation.Comments;
+                }
 
-            yield return failureMechanism.CalculationsInputComments;
+                yield return calculatableFailureMechanism.CalculationsInputComments;
+            }
         }
 
         #endregion
@@ -1743,10 +1759,10 @@ namespace Riskeer.Integration.Plugin
             return new object[]
             {
                 new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase, assessmentSection),
-                new StabilityStoneCoverHydraulicLoadsContext(assessmentSection.StabilityStoneCover, assessmentSection),
-                new WaveImpactAsphaltCoverHydraulicLoadsContext(assessmentSection.WaveImpactAsphaltCover, assessmentSection),
-                new GrassCoverErosionOutwardsHydraulicLoadsContext(assessmentSection.GrassCoverErosionOutwards, assessmentSection),
-                new DuneErosionHydraulicLoadsContext(assessmentSection.DuneErosion, assessmentSection)
+                new StabilityStoneCoverHydraulicLoadsStateFailureMechanismContext(assessmentSection.StabilityStoneCover, assessmentSection),
+                new WaveImpactAsphaltCoverHydraulicLoadsStateFailureMechanismContext(assessmentSection.WaveImpactAsphaltCover, assessmentSection),
+                new GrassCoverErosionOutwardsHydraulicLoadsStateFailureMechanismContext(assessmentSection.GrassCoverErosionOutwards, assessmentSection),
+                new DuneErosionHydraulicLoadsStateFailureMechanismContext(assessmentSection.DuneErosion, assessmentSection)
             };
         }
 
@@ -1790,12 +1806,12 @@ namespace Riskeer.Integration.Plugin
 
             return new object[]
             {
-                new PipingCalculationsContext(assessmentSection.Piping, assessmentSection),
-                new GrassCoverErosionInwardsCalculationsContext(assessmentSection.GrassCoverErosionInwards, assessmentSection),
-                new MacroStabilityInwardsCalculationsContext(assessmentSection.MacroStabilityInwards, assessmentSection),
-                new HeightStructuresCalculationsContext(assessmentSection.HeightStructures, assessmentSection),
-                new ClosingStructuresCalculationsContext(assessmentSection.ClosingStructures, assessmentSection),
-                new StabilityPointStructuresCalculationsContext(assessmentSection.StabilityPointStructures, assessmentSection)
+                new PipingCalculationsStateFailureMechanismContext(assessmentSection.Piping, assessmentSection),
+                new GrassCoverErosionInwardsCalculationsStateFailureMechanismContext(assessmentSection.GrassCoverErosionInwards, assessmentSection),
+                new MacroStabilityInwardsCalculationsStateFailureMechanismContext(assessmentSection.MacroStabilityInwards, assessmentSection),
+                new HeightStructuresCalculationsStateFailureMechanismContext(assessmentSection.HeightStructures, assessmentSection),
+                new ClosingStructuresCalculationsStateFailureMechanismContext(assessmentSection.ClosingStructures, assessmentSection),
+                new StabilityPointStructuresCalculationsStateFailureMechanismContext(assessmentSection.StabilityPointStructures, assessmentSection)
             };
         }
 
@@ -1812,6 +1828,8 @@ namespace Riskeer.Integration.Plugin
                         Gui.MainWindow, AssessmentSectionCalculationActivityFactory.CreateCalculationActivities(nodeData.WrappedData));
                 });
 
+            SetCalculateAllMenuItemEnabledStateAndTooltip(nodeData.WrappedData, calculateAllItem);
+
             return Gui.Get(nodeData, treeViewControl)
                       .AddOpenItem()
                       .AddSeparator()
@@ -1826,24 +1844,40 @@ namespace Riskeer.Integration.Plugin
                       .Build();
         }
 
+        private static void SetCalculateAllMenuItemEnabledStateAndTooltip(AssessmentSection assessmentSection, StrictContextMenuItem menuItem)
+        {
+            bool hasCalculations = assessmentSection.Piping.Calculations.Any() ||
+                                   assessmentSection.GrassCoverErosionInwards.Calculations.Any() ||
+                                   assessmentSection.MacroStabilityInwards.Calculations.Any() ||
+                                   assessmentSection.HeightStructures.Calculations.Any() ||
+                                   assessmentSection.ClosingStructures.Calculations.Any() ||
+                                   assessmentSection.StabilityPointStructures.Calculations.Any();
+
+            if (!hasCalculations)
+            {
+                menuItem.Enabled = false;
+                menuItem.ToolTipText = RiskeerCommonFormsResources.Calculate_All_No_calculations_to_run;
+            }
+        }
+
         #endregion
 
-        #region FailurePathsStateRootContext TreeNodeInfo
+        #region RegistrationStateRootContext TreeNodeInfo
 
-        private static object[] FailurePathsStateRootContextChildNodeObjects(FailurePathsStateRootContext nodeData)
+        private static object[] RegistrationStateRootContextChildNodeObjects(RegistrationStateRootContext nodeData)
         {
             AssessmentSection assessmentSection = nodeData.WrappedData;
 
             return new object[]
             {
-                new AssemblyGroupsContext(assessmentSection),
-                new GenericFailurePathsContext(assessmentSection),
-                new SpecificFailurePathsContext(assessmentSection.SpecificFailurePaths, assessmentSection),
+                new FailureMechanismSectionAssemblyGroupsContext(assessmentSection),
+                new GenericFailureMechanismsContext(assessmentSection),
+                new SpecificFailureMechanismsContext(assessmentSection.SpecificFailureMechanisms, assessmentSection),
                 new AssemblyResultsContext(assessmentSection)
             };
         }
 
-        private ContextMenuStrip FailurePathsStateRootContextMenuStrip(FailurePathsStateRootContext nodeData,
+        private ContextMenuStrip RegistrationStateRootContextMenuStrip(RegistrationStateRootContext nodeData,
                                                                        object parentData, TreeViewControl treeViewControl)
         {
             return Gui.Get(nodeData, treeViewControl)
@@ -1860,33 +1894,33 @@ namespace Riskeer.Integration.Plugin
 
         #endregion
 
-        #region GenericFailurePaths TreeNodeInfo
+        #region GenericFailureMechanisms TreeNodeInfo
 
-        private static object[] GenericFailurePathChildNodeObjects(GenericFailurePathsContext nodeData)
+        private static object[] GenericFailureMechanismsChildNodeObjects(GenericFailureMechanismsContext nodeData)
         {
             AssessmentSection assessmentSection = nodeData.WrappedData;
             return new object[]
             {
-                new PipingFailurePathContext(assessmentSection.Piping, assessmentSection),
-                new GrassCoverErosionInwardsFailurePathContext(assessmentSection.GrassCoverErosionInwards, assessmentSection),
-                new MacroStabilityInwardsFailurePathContext(assessmentSection.MacroStabilityInwards, assessmentSection),
-                new MicrostabilityFailurePathContext(assessmentSection.Microstability, assessmentSection),
-                new StabilityStoneCoverFailurePathContext(assessmentSection.StabilityStoneCover, assessmentSection),
-                new WaveImpactAsphaltCoverFailurePathContext(assessmentSection.WaveImpactAsphaltCover, assessmentSection),
-                new WaterPressureAsphaltCoverFailurePathContext(assessmentSection.WaterPressureAsphaltCover, assessmentSection),
-                new GrassCoverErosionOutwardsFailurePathContext(assessmentSection.GrassCoverErosionOutwards, assessmentSection),
-                new GrassCoverSlipOffOutwardsFailurePathContext(assessmentSection.GrassCoverSlipOffOutwards, assessmentSection),
-                new GrassCoverSlipOffInwardsFailurePathContext(assessmentSection.GrassCoverSlipOffInwards, assessmentSection),
-                new HeightStructuresFailurePathContext(assessmentSection.HeightStructures, assessmentSection),
-                new ClosingStructuresFailurePathContext(assessmentSection.ClosingStructures, assessmentSection),
-                new PipingStructureFailurePathContext(assessmentSection.PipingStructure, assessmentSection),
-                new StabilityPointStructuresFailurePathContext(assessmentSection.StabilityPointStructures, assessmentSection),
-                new DuneErosionFailurePathContext(assessmentSection.DuneErosion, assessmentSection)
+                new PipingRegistrationStateFailureMechanismContext(assessmentSection.Piping, assessmentSection),
+                new GrassCoverErosionInwardsRegistrationStateFailureMechanismContext(assessmentSection.GrassCoverErosionInwards, assessmentSection),
+                new MacroStabilityInwardsRegistrationStateFailureMechanismContext(assessmentSection.MacroStabilityInwards, assessmentSection),
+                new MicrostabilityFailureMechanismContext(assessmentSection.Microstability, assessmentSection),
+                new StabilityStoneCoverRegistrationStateFailureMechanismContext(assessmentSection.StabilityStoneCover, assessmentSection),
+                new WaveImpactAsphaltCoverRegistrationStateFailureMechanismContext(assessmentSection.WaveImpactAsphaltCover, assessmentSection),
+                new WaterPressureAsphaltCoverFailureMechanismContext(assessmentSection.WaterPressureAsphaltCover, assessmentSection),
+                new GrassCoverErosionOutwardsRegistrationStateFailureMechanismContext(assessmentSection.GrassCoverErosionOutwards, assessmentSection),
+                new GrassCoverSlipOffOutwardsFailureMechanismContext(assessmentSection.GrassCoverSlipOffOutwards, assessmentSection),
+                new GrassCoverSlipOffInwardsFailureMechanismContext(assessmentSection.GrassCoverSlipOffInwards, assessmentSection),
+                new HeightStructuresRegistrationStateFailureMechanismContext(assessmentSection.HeightStructures, assessmentSection),
+                new ClosingStructuresRegistrationStateFailureMechanismContext(assessmentSection.ClosingStructures, assessmentSection),
+                new PipingStructureFailureMechanismContext(assessmentSection.PipingStructure, assessmentSection),
+                new StabilityPointStructuresRegistrationStateFailureMechanismContext(assessmentSection.StabilityPointStructures, assessmentSection),
+                new DuneErosionRegistrationStateFailureMechanismContext(assessmentSection.DuneErosion, assessmentSection)
             };
         }
 
-        private ContextMenuStrip GenericFailurePathsContextMenuStrip(GenericFailurePathsContext nodeData,
-                                                                     object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip GenericFailureMechanismsContextMenuStrip(GenericFailureMechanismsContext nodeData,
+                                                                          object parentData, TreeViewControl treeViewControl)
         {
             return Gui.Get(nodeData, treeViewControl)
                       .AddCollapseAllItem()
@@ -1896,24 +1930,23 @@ namespace Riskeer.Integration.Plugin
 
         #endregion
 
-        #region SpecificFailurePaths TreeNodeInfo
+        #region SpecificFailureMechanisms TreeNodeInfo
 
-        private static object[] SpecificFailurePathsChildNodeObjects(SpecificFailurePathsContext nodeData)
+        private static object[] SpecificFailureMechanismsChildNodeObjects(SpecificFailureMechanismsContext nodeData)
         {
             return nodeData.WrappedData
-                           .Cast<SpecificFailurePath>()
-                           .Select(sfp => new SpecificFailurePathContext(sfp, nodeData.AssessmentSection))
+                           .Select(sfp => new SpecificFailureMechanismContext(sfp, nodeData.AssessmentSection))
                            .Cast<object>()
                            .ToArray();
         }
 
-        private ContextMenuStrip SpecificFailurePathsContextMenuStrip(SpecificFailurePathsContext nodeData,
-                                                                      object parentData,
-                                                                      TreeViewControl treeViewControl)
+        private ContextMenuStrip SpecificFailureMechanismsContextMenuStrip(SpecificFailureMechanismsContext nodeData,
+                                                                           object parentData,
+                                                                           TreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
-            return builder.AddCustomItem(CreateAddSpecificFailurePathItem(nodeData))
+            return builder.AddCustomItem(CreateAddSpecificFailureMechanismItem(nodeData))
                           .AddSeparator()
                           .AddRemoveAllChildrenItem()
                           .AddSeparator()
@@ -1922,83 +1955,83 @@ namespace Riskeer.Integration.Plugin
                           .Build();
         }
 
-        private static StrictContextMenuItem CreateAddSpecificFailurePathItem(SpecificFailurePathsContext nodeData)
+        private static StrictContextMenuItem CreateAddSpecificFailureMechanismItem(SpecificFailureMechanismsContext nodeData)
         {
-            return new StrictContextMenuItem(Resources.RiskeerPlugin_ContextMenuStrip_Add_SpecificFailurePath,
-                                             Resources.RiskeerPlugin_ContextMenuStrip_Add_SpecificFailurePath_Tooltip,
+            return new StrictContextMenuItem(Resources.RiskeerPlugin_ContextMenuStrip_Add_SpecificFailureMechanism,
+                                             Resources.RiskeerPlugin_ContextMenuStrip_Add_SpecificFailureMechanism_Tooltip,
                                              RiskeerCommonFormsResources.FailureMechanismIcon,
-                                             (sender, args) => AddSpecificFailurePath(nodeData));
+                                             (sender, args) => AddSpecificFailureMechanism(nodeData));
         }
 
-        private static void AddSpecificFailurePath(SpecificFailurePathsContext nodeData)
+        private static void AddSpecificFailureMechanism(SpecificFailureMechanismsContext nodeData)
         {
-            ObservableList<IFailurePath> failurePaths = nodeData.WrappedData;
-            var newFailurePath = new SpecificFailurePath
+            ObservableList<SpecificFailureMechanism> failureMechanisms = nodeData.WrappedData;
+            var newFailureMechanism = new SpecificFailureMechanism
             {
-                Name = NamingHelper.GetUniqueName(failurePaths,
-                                                  RiskeerDataResources.SpecificFailurePath_Name_DefaultName,
+                Name = NamingHelper.GetUniqueName(failureMechanisms,
+                                                  RiskeerCommonDataResources.SpecificFailureMechanism_DefaultName,
                                                   fp => fp.Name)
             };
-            failurePaths.Add(newFailurePath);
-            failurePaths.NotifyObservers();
+            failureMechanisms.Add(newFailureMechanism);
+            failureMechanisms.NotifyObservers();
         }
 
-        private static bool SpecificFailurePathsContext_CanDropOrInsert(object draggedData, object targetData)
+        private static bool SpecificFailureMechanismsContext_CanDropOrInsert(object draggedData, object targetData)
         {
-            var failurePathsContext = (SpecificFailurePathsContext) targetData;
+            var failureMechanismsContext = (SpecificFailureMechanismsContext) targetData;
 
-            return draggedData is SpecificFailurePathContext failurePathContext
-                   && failurePathsContext.WrappedData.Contains(failurePathContext.WrappedData);
+            return draggedData is SpecificFailureMechanismContext failureMechanismContext
+                   && failureMechanismsContext.WrappedData.Contains(failureMechanismContext.WrappedData);
         }
 
-        private static void SpecificFailurePathsContext_OnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl treeViewControl)
+        private static void SpecificFailureMechanismsContext_OnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl treeViewControl)
         {
-            var failurePathsContext = (SpecificFailurePathsContext) newParentData;
-            var failurePathContext = (SpecificFailurePathContext) droppedData;
+            var failureMechanismsContext = (SpecificFailureMechanismsContext) newParentData;
+            var failureMechanismContext = (SpecificFailureMechanismContext) droppedData;
 
-            failurePathsContext.WrappedData.Remove(failurePathContext.WrappedData);
-            failurePathsContext.WrappedData.Insert(position, failurePathContext.WrappedData);
+            failureMechanismsContext.WrappedData.Remove(failureMechanismContext.WrappedData);
+            failureMechanismsContext.WrappedData.Insert(position, failureMechanismContext.WrappedData);
 
-            failurePathsContext.WrappedData.NotifyObservers();
+            failureMechanismsContext.WrappedData.NotifyObservers();
         }
 
         #endregion
 
-        #region SpecificFailurePath TreeNodeInfo
+        #region SpecificFailureMechanism TreeNodeInfo
 
-        private TreeNodeInfo CreateSpecificFailurePathTreeNodeInfo()
+        private TreeNodeInfo CreateSpecificFailureMechanismTreeNodeInfo()
         {
-            TreeNodeInfo<SpecificFailurePathContext> treeNodeInfo =
-                RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<SpecificFailurePathContext>(
-                    SpecificFailurePathEnabledChildNodeObjects,
-                    SpecificFailurePathDisabledChildNodeObjects,
-                    SpecificFailurePathEnabledContextMenuStrip,
-                    SpecificFailurePathDisabledContextMenuStrip);
+            TreeNodeInfo<SpecificFailureMechanismContext> treeNodeInfo =
+                RiskeerTreeNodeInfoFactory.CreateRegistrationStateContextTreeNodeInfo<SpecificFailureMechanismContext>(
+                    SpecificFailureMechanismEnabledChildNodeObjects,
+                    SpecificFailureMechanismDisabledChildNodeObjects,
+                    SpecificFailureMechanismEnabledContextMenuStrip,
+                    SpecificFailureMechanismDisabledContextMenuStrip);
             treeNodeInfo.CanRename = (context, o) => true;
-            treeNodeInfo.OnNodeRenamed = SpecificFailurePathContextOnNodeRenamed;
+            treeNodeInfo.OnNodeRenamed = SpecificFailureMechanismContextOnNodeRenamed;
             treeNodeInfo.CanRemove = (context, o) => true;
-            treeNodeInfo.OnNodeRemoved = SpecificFailurePathContextOnNodeRemoved;
+            treeNodeInfo.OnNodeRemoved = SpecificFailureMechanismContextOnNodeRemoved;
             treeNodeInfo.CanDrag = (context, o) => true;
 
             return treeNodeInfo;
         }
 
-        private static void SpecificFailurePathContextOnNodeRenamed(SpecificFailurePathContext nodeData, string newName)
+        private static void SpecificFailureMechanismContextOnNodeRenamed(SpecificFailureMechanismContext nodeData, string newName)
         {
             nodeData.WrappedData.Name = newName;
             nodeData.WrappedData.NotifyObservers();
         }
 
-        private static void SpecificFailurePathContextOnNodeRemoved(SpecificFailurePathContext nodeData, object parentNodeData)
+        private static void SpecificFailureMechanismContextOnNodeRemoved(SpecificFailureMechanismContext nodeData, object parentNodeData)
         {
-            var specificFailurePathsContext = (SpecificFailurePathsContext) parentNodeData;
-            ObservableList<IFailurePath> failurePaths = specificFailurePathsContext.WrappedData;
+            var specificFailureMechanismsContext = (SpecificFailureMechanismsContext) parentNodeData;
+            ObservableList<SpecificFailureMechanism> failureMechanisms = specificFailureMechanismsContext.WrappedData;
 
-            failurePaths.Remove(nodeData.WrappedData);
-            failurePaths.NotifyObservers();
+            failureMechanisms.Remove(nodeData.WrappedData);
+            failureMechanisms.NotifyObservers();
         }
 
-        private static object[] SpecificFailurePathDisabledChildNodeObjects(SpecificFailurePathContext nodeData)
+        private static object[] SpecificFailureMechanismDisabledChildNodeObjects(SpecificFailureMechanismContext nodeData)
         {
             return new object[]
             {
@@ -2006,45 +2039,47 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private static object[] SpecificFailurePathEnabledChildNodeObjects(SpecificFailurePathContext nodeData)
+        private static object[] SpecificFailureMechanismEnabledChildNodeObjects(SpecificFailureMechanismContext nodeData)
         {
             return new object[]
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
-                                       GetSpecificFailurePathInputs(nodeData),
+                                       GetSpecificFailureMechanismInputs(nodeData),
                                        TreeFolderCategory.Input),
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
-                                       GetSpecificFailureMechanismPathOutputs(nodeData),
+                                       GetSpecificFailureMechanismOutputs(nodeData),
                                        TreeFolderCategory.Output)
             };
         }
 
-        private static IEnumerable<object> GetSpecificFailurePathInputs(SpecificFailurePathContext nodeData)
+        private static IEnumerable<object> GetSpecificFailureMechanismInputs(SpecificFailureMechanismContext nodeData)
         {
             return new object[]
             {
-                new SpecificFailurePathSectionsContext(nodeData.WrappedData, nodeData.Parent),
+                new SpecificFailureMechanismSectionsContext(nodeData.WrappedData, nodeData.Parent),
                 nodeData.WrappedData.InAssemblyInputComments
             };
         }
 
-        private static IEnumerable<object> GetSpecificFailureMechanismPathOutputs(SpecificFailurePathContext nodeData)
+        private static IEnumerable<object> GetSpecificFailureMechanismOutputs(SpecificFailureMechanismContext nodeData)
         {
             return new object[]
             {
+                new SpecificFailureMechanismSectionResultContext(nodeData.WrappedData.SectionResults,
+                                                                 nodeData.WrappedData, nodeData.Parent),
                 nodeData.WrappedData.InAssemblyOutputComments
             };
         }
 
-        private ContextMenuStrip SpecificFailurePathEnabledContextMenuStrip(SpecificFailurePathContext nodeData,
-                                                                            object parentData,
-                                                                            TreeViewControl treeViewControl)
+        private ContextMenuStrip SpecificFailureMechanismEnabledContextMenuStrip(SpecificFailureMechanismContext nodeData,
+                                                                                 object parentData,
+                                                                                 TreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
             return builder.AddOpenItem()
                           .AddSeparator()
-                          .AddToggleInAssemblyOfFailurePathItem(nodeData, RemoveAllViewsForFailurePathContext)
+                          .AddToggleInAssemblyOfFailureMechanismItem(nodeData, RemoveAllViewsForSpecificFailureMechanismContext)
                           .AddSeparator()
                           .AddRenameItem()
                           .AddSeparator()
@@ -2057,18 +2092,13 @@ namespace Riskeer.Integration.Plugin
                           .Build();
         }
 
-        private void RemoveAllViewsForFailurePathContext(SpecificFailurePathContext failurePathContext)
-        {
-            Gui.ViewCommands.RemoveAllViewsForItem(failurePathContext);
-        }
-
-        private ContextMenuStrip SpecificFailurePathDisabledContextMenuStrip(SpecificFailurePathContext nodeData,
-                                                                             object parentData,
-                                                                             TreeViewControl treeViewControl)
+        private ContextMenuStrip SpecificFailureMechanismDisabledContextMenuStrip(SpecificFailureMechanismContext nodeData,
+                                                                                  object parentData,
+                                                                                  TreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
-            return builder.AddToggleInAssemblyOfFailurePathItem(nodeData, RemoveAllViewsForFailurePathContext)
+            return builder.AddToggleInAssemblyOfFailureMechanismItem(nodeData, RemoveAllViewsForSpecificFailureMechanismContext)
                           .AddSeparator()
                           .AddRenameItem()
                           .AddSeparator()
@@ -2079,13 +2109,18 @@ namespace Riskeer.Integration.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+
+        private void RemoveAllViewsForSpecificFailureMechanismContext(SpecificFailureMechanismContext failureMechanismContext)
+        {
+            Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
         }
 
         #endregion
 
-        #region StandAloneFailurePath TreeNodeInfo
+        #region StandAloneFailureMechanism TreeNodeInfo
 
-        private static object[] StandAloneFailurePathDisabledChildNodeObjects(IFailurePathContext<IFailureMechanism> nodeData)
+        private static object[] StandAloneFailureMechanismDisabledChildNodeObjects(IFailureMechanismContext<IFailureMechanism> nodeData)
         {
             return new object[]
             {
@@ -2093,13 +2128,13 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private ContextMenuStrip StandAloneFailurePathEnabledContextMenuStrip(IFailurePathContext<IFailureMechanism> nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip StandAloneFailureMechanismEnabledContextMenuStrip(IFailureMechanismContext<IFailureMechanism> nodeData, object parentData, TreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
             return builder.AddOpenItem()
                           .AddSeparator()
-                          .AddToggleInAssemblyOfFailurePathItem(nodeData, RemoveAllViewsForFailureMechanismContext)
+                          .AddToggleInAssemblyOfFailureMechanismItem(nodeData, RemoveAllViewsForFailureMechanismContext)
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
@@ -2108,18 +2143,18 @@ namespace Riskeer.Integration.Plugin
                           .Build();
         }
 
-        private void RemoveAllViewsForFailureMechanismContext(IFailurePathContext<IFailureMechanism> failureMechanismContext)
+        private void RemoveAllViewsForFailureMechanismContext(IFailureMechanismContext<IFailureMechanism> failureMechanismContext)
         {
             Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
         }
 
-        private ContextMenuStrip StandAloneFailurePathDisabledContextMenuStrip(IFailurePathContext<IFailureMechanism> nodeData,
-                                                                               object parentData,
-                                                                               TreeViewControl treeViewControl)
+        private ContextMenuStrip StandAloneFailureMechanismDisabledContextMenuStrip(IFailureMechanismContext<IFailureMechanism> nodeData,
+                                                                                    object parentData,
+                                                                                    TreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
-            return builder.AddToggleInAssemblyOfFailurePathItem(nodeData, RemoveAllViewsForFailureMechanismContext)
+            return builder.AddToggleInAssemblyOfFailureMechanismItem(nodeData, RemoveAllViewsForFailureMechanismContext)
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
@@ -2130,22 +2165,22 @@ namespace Riskeer.Integration.Plugin
 
         #endregion
 
-        #region GrassCoverSlipOffInwardsFailurePathContext TreeNodeInfo
+        #region GrassCoverSlipOffInwardsFailureMechanismContext TreeNodeInfo
 
-        private static object[] GrassCoverSlipOffInwardsFailurePathEnabledChildNodeObjects(GrassCoverSlipOffInwardsFailurePathContext nodeData)
+        private static object[] GrassCoverSlipOffInwardsFailureMechanismEnabledChildNodeObjects(GrassCoverSlipOffInwardsFailureMechanismContext nodeData)
         {
             return new object[]
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
-                                       GetGrassCoverSlipOffInwardsFailurePathInputs(nodeData.WrappedData, nodeData.Parent),
+                                       GetGrassCoverSlipOffInwardsFailureMechanismInputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Input),
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
-                                       GetGrassCoverSlipOffInwardsFailurePathOutputs(nodeData.WrappedData, nodeData.Parent),
+                                       GetGrassCoverSlipOffInwardsFailureMechanismOutputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Output)
             };
         }
 
-        private static IEnumerable<object> GetGrassCoverSlipOffInwardsFailurePathInputs(GrassCoverSlipOffInwardsFailureMechanism nodeData, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetGrassCoverSlipOffInwardsFailureMechanismInputs(GrassCoverSlipOffInwardsFailureMechanism nodeData, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
@@ -2154,7 +2189,7 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private static IEnumerable<object> GetGrassCoverSlipOffInwardsFailurePathOutputs(GrassCoverSlipOffInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetGrassCoverSlipOffInwardsFailureMechanismOutputs(GrassCoverSlipOffInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
@@ -2166,22 +2201,22 @@ namespace Riskeer.Integration.Plugin
 
         #endregion
 
-        #region GrassCoverSlipOffOutwardsFailurePathContext TreeNodeInfo
+        #region GrassCoverSlipOffOutwardsFailureMechanismContext TreeNodeInfo
 
-        private static object[] GrassCoverSlipOffOutwardsFailurePathEnabledChildNodeObjects(GrassCoverSlipOffOutwardsFailurePathContext nodeData)
+        private static object[] GrassCoverSlipOffOutwardsFailureMechanismEnabledChildNodeObjects(GrassCoverSlipOffOutwardsFailureMechanismContext nodeData)
         {
             return new object[]
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
-                                       GetGrassCoverSlipOffOutwardsFailurePathInputs(nodeData.WrappedData, nodeData.Parent),
+                                       GetGrassCoverSlipOffOutwardsFailureMechanismInputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Input),
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
-                                       GetGrassCoverSlipOffOutwardsFailurePathOutputs(nodeData.WrappedData, nodeData.Parent),
+                                       GetGrassCoverSlipOffOutwardsFailureMechanismOutputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Output)
             };
         }
 
-        private static IEnumerable<object> GetGrassCoverSlipOffOutwardsFailurePathInputs(GrassCoverSlipOffOutwardsFailureMechanism nodeData, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetGrassCoverSlipOffOutwardsFailureMechanismInputs(GrassCoverSlipOffOutwardsFailureMechanism nodeData, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
@@ -2190,7 +2225,7 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private static IEnumerable<object> GetGrassCoverSlipOffOutwardsFailurePathOutputs(GrassCoverSlipOffOutwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetGrassCoverSlipOffOutwardsFailureMechanismOutputs(GrassCoverSlipOffOutwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
@@ -2202,22 +2237,22 @@ namespace Riskeer.Integration.Plugin
 
         #endregion
 
-        #region MicrostabilityFailurePathContext TreeNodeInfo
+        #region MicrostabilityFailureMechanismContext TreeNodeInfo
 
-        private static object[] MicrostabilityFailurePathEnabledChildNodeObjects(MicrostabilityFailurePathContext nodeData)
+        private static object[] MicrostabilityFailureMechanismEnabledChildNodeObjects(MicrostabilityFailureMechanismContext nodeData)
         {
             return new object[]
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
-                                       GetMicrostabilityFailurePathInputs(nodeData.WrappedData, nodeData.Parent),
+                                       GetMicrostabilityFailureMechanismInputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Input),
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
-                                       GetMicrostabilityFailurePathOutputs(nodeData.WrappedData, nodeData.Parent),
+                                       GetMicrostabilityFailureMechanismOutputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Output)
             };
         }
 
-        private static IEnumerable<object> GetMicrostabilityFailurePathInputs(MicrostabilityFailureMechanism nodeData, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetMicrostabilityFailureMechanismInputs(MicrostabilityFailureMechanism nodeData, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
@@ -2226,7 +2261,7 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private static IEnumerable<object> GetMicrostabilityFailurePathOutputs(MicrostabilityFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetMicrostabilityFailureMechanismOutputs(MicrostabilityFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
@@ -2237,22 +2272,22 @@ namespace Riskeer.Integration.Plugin
 
         #endregion
 
-        #region PipingStructureFailurePathContext TreeNodeInfo
+        #region PipingStructureFailureMechanismContext TreeNodeInfo
 
-        private static object[] PipingStructureFailurePathEnabledChildNodeObjects(PipingStructureFailurePathContext nodeData)
+        private static object[] PipingStructureFailureMechanismEnabledChildNodeObjects(PipingStructureFailureMechanismContext nodeData)
         {
             return new object[]
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
-                                       GetPipingStructureFailurePathInputs(nodeData.WrappedData, nodeData.Parent),
+                                       GetPipingStructureFailureMechanismInputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Input),
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
-                                       GetPipingStructureFailurePathOutputs(nodeData.WrappedData, nodeData.Parent),
+                                       GetPipingStructureFailureMechanismOutputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Output)
             };
         }
 
-        private static IEnumerable<object> GetPipingStructureFailurePathInputs(PipingStructureFailureMechanism nodeData, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetPipingStructureFailureMechanismInputs(PipingStructureFailureMechanism nodeData, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
@@ -2261,8 +2296,8 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private static IEnumerable<object> GetPipingStructureFailurePathOutputs(PipingStructureFailureMechanism failureMechanism,
-                                                                                IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetPipingStructureFailureMechanismOutputs(PipingStructureFailureMechanism failureMechanism,
+                                                                                     IAssessmentSection assessmentSection)
         {
             return new object[]
             {
@@ -2274,9 +2309,9 @@ namespace Riskeer.Integration.Plugin
 
         #endregion
 
-        #region WaterPressureAsphaltCoverFailurePathContext TreeNodeInfo
+        #region WaterPressureAsphaltCoverFailureMechanismContext TreeNodeInfo
 
-        private static object[] WaterPressureAsphaltCoverFailurePathEnabledChildNodeObjects(WaterPressureAsphaltCoverFailurePathContext nodeData)
+        private static object[] WaterPressureAsphaltCoverFailureMechanismEnabledChildNodeObjects(WaterPressureAsphaltCoverFailureMechanismContext nodeData)
         {
             IAssessmentSection assessmentSection = nodeData.Parent;
             WaterPressureAsphaltCoverFailureMechanism failureMechanism = nodeData.WrappedData;
@@ -2284,15 +2319,15 @@ namespace Riskeer.Integration.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
-                                       GetWaterPressureAsphaltCoverFailurePathInputs(failureMechanism, assessmentSection),
+                                       GetWaterPressureAsphaltCoverFailureMechanismInputs(failureMechanism, assessmentSection),
                                        TreeFolderCategory.Input),
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
-                                       GetWaterPressureAsphaltCoverFailurePathOutputs(failureMechanism, assessmentSection),
+                                       GetWaterPressureAsphaltCoverFailureMechanismOutputs(failureMechanism, assessmentSection),
                                        TreeFolderCategory.Output)
             };
         }
 
-        private static IEnumerable<object> GetWaterPressureAsphaltCoverFailurePathInputs(WaterPressureAsphaltCoverFailureMechanism nodeData, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetWaterPressureAsphaltCoverFailureMechanismInputs(WaterPressureAsphaltCoverFailureMechanism nodeData, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
@@ -2301,7 +2336,7 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private static IEnumerable<object> GetWaterPressureAsphaltCoverFailurePathOutputs(WaterPressureAsphaltCoverFailureMechanism nodeData, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetWaterPressureAsphaltCoverFailureMechanismOutputs(WaterPressureAsphaltCoverFailureMechanism nodeData, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
@@ -2463,12 +2498,12 @@ namespace Riskeer.Integration.Plugin
         {
             return new object[]
             {
-                new WaterLevelCalculationsForNormTargetProbabilityContext(context.AssessmentSection.WaterLevelCalculationsForLowerLimitNorm,
+                new WaterLevelCalculationsForNormTargetProbabilityContext(context.AssessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability,
                                                                           context.AssessmentSection,
-                                                                          () => context.AssessmentSection.FailureMechanismContribution.LowerLimitNorm),
-                new WaterLevelCalculationsForNormTargetProbabilityContext(context.AssessmentSection.WaterLevelCalculationsForSignalingNorm,
+                                                                          () => context.AssessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability),
+                new WaterLevelCalculationsForNormTargetProbabilityContext(context.AssessmentSection.WaterLevelCalculationsForSignalFloodingProbability,
                                                                           context.AssessmentSection,
-                                                                          () => context.AssessmentSection.FailureMechanismContribution.SignalingNorm)
+                                                                          () => context.AssessmentSection.FailureMechanismContribution.SignalFloodingProbability)
             };
         }
 
@@ -2722,8 +2757,8 @@ namespace Riskeer.Integration.Plugin
 
         private static bool WaterLevelCalculationsForNormTargetProbabilitiesHaveIllustrationPoints(IAssessmentSection assessmentSection)
         {
-            return IllustrationPointsHelper.HasIllustrationPoints(assessmentSection.WaterLevelCalculationsForSignalingNorm)
-                   || IllustrationPointsHelper.HasIllustrationPoints(assessmentSection.WaterLevelCalculationsForLowerLimitNorm);
+            return IllustrationPointsHelper.HasIllustrationPoints(assessmentSection.WaterLevelCalculationsForSignalFloodingProbability)
+                   || IllustrationPointsHelper.HasIllustrationPoints(assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability);
         }
 
         private static bool WaterLevelCalculationsForUserDefinedTargetProbabilitiesHaveIllustrationPoints(IAssessmentSection assessmentSection)
@@ -2758,7 +2793,7 @@ namespace Riskeer.Integration.Plugin
             return new object[]
             {
                 new AssemblyOverviewContext(assessmentSection),
-                new NormClassesContext(assessmentSection),
+                new AssessmentSectionAssemblyGroupsContext(assessmentSection),
                 new AssemblyResultTotalContext(assessmentSection),
                 new AssemblyResultPerSectionContext(assessmentSection),
                 new AssemblyResultPerSectionMapContext(assessmentSection)

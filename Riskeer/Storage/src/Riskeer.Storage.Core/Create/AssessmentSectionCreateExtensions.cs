@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -24,9 +24,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Util.Extensions;
 using Riskeer.Common.Data.Contribution;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Integration.Data;
-using Riskeer.Integration.Data.FailurePath;
 using Riskeer.Storage.Core.Create.ClosingStructures;
 using Riskeer.Storage.Core.Create.DuneErosion;
 using Riskeer.Storage.Core.Create.GrassCoverErosionInwards;
@@ -73,9 +73,9 @@ namespace Riskeer.Storage.Core.Create
                 Name = section.Name.DeepClone(),
                 Composition = Convert.ToByte(section.Composition),
                 Comments = section.Comments.Body.DeepClone(),
-                LowerLimitNorm = contribution.LowerLimitNorm,
-                SignalingNorm = contribution.SignalingNorm,
-                NormativeNormType = Convert.ToByte(contribution.NormativeNorm)
+                MaximumAllowableFloodingProbability = contribution.MaximumAllowableFloodingProbability,
+                SignalFloodingProbability = contribution.SignalFloodingProbability,
+                NormativeProbabilityType = Convert.ToByte(contribution.NormativeProbabilityType)
             };
 
             AddEntityForHydraulicDatabase(section.HydraulicBoundaryDatabase, entity, registry);
@@ -101,18 +101,17 @@ namespace Riskeer.Storage.Core.Create
             entity.FailureMechanismEntities.Add(section.DuneErosion.Create(registry));
             entity.FailureMechanismEntities.Add(section.StabilityPointStructures.Create(registry));
 
-            AddSpecificFailurePathEntities(section, entity, registry);
+            AddSpecificFailureMechanismEntities(section, entity, registry);
 
             return entity;
         }
 
-        private static void AddSpecificFailurePathEntities(AssessmentSection section, AssessmentSectionEntity entity, PersistenceRegistry registry)
+        private static void AddSpecificFailureMechanismEntities(AssessmentSection section, AssessmentSectionEntity entity, PersistenceRegistry registry)
         {
-            IEnumerable<SpecificFailurePath> specificFailurePaths = section.SpecificFailurePaths.Cast<SpecificFailurePath>();
             var i = 0;
-            foreach (SpecificFailurePath failurePath in specificFailurePaths)
+            foreach (SpecificFailureMechanism specificFailureMechanism in section.SpecificFailureMechanisms)
             {
-                entity.SpecificFailurePathEntities.Add(failurePath.Create(registry, i++));
+                entity.SpecificFailureMechanismEntities.Add(specificFailureMechanism.Create(registry, i++));
             }
         }
 
@@ -142,8 +141,8 @@ namespace Riskeer.Storage.Core.Create
                                                                     AssessmentSectionEntity entity,
                                                                     PersistenceRegistry registry)
         {
-            entity.HydraulicLocationCalculationCollectionEntity1 = assessmentSection.WaterLevelCalculationsForSignalingNorm.Create(registry);
-            entity.HydraulicLocationCalculationCollectionEntity = assessmentSection.WaterLevelCalculationsForLowerLimitNorm.Create(registry);
+            entity.HydraulicLocationCalculationCollectionEntity1 = assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.Create(registry);
+            entity.HydraulicLocationCalculationCollectionEntity = assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability.Create(registry);
         }
 
         private static void AddHydraulicLocationCalculationForTargetProbabilityCollectionEntities(AssessmentSection assessmentSection,

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -270,7 +270,7 @@ namespace Riskeer.Migration.Integration.Test
                     new MigrationLogMessage("5", newVersion, "* Traject: 'assessmentSection'"),
                     messages[2]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("5", newVersion, "  + Toetsspoor: 'Grasbekleding erosie kruin en binnentalud'"),
+                    new MigrationLogMessage("5", newVersion, "  + Faalmechanisme: 'Grasbekleding erosie kruin en binnentalud'"),
                     messages[3]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("5", newVersion, "    - De naam van dijkprofiel '1' is veranderd naar '102' en wordt ook gebruikt als ID."),

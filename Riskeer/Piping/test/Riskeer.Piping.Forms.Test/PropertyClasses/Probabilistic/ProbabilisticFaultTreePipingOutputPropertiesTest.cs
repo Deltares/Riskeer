@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -92,7 +92,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(probabilityProperty,
                                                                             resultCategoryName,
                                                                             "Faalkans [1/jaar]",
-                                                                            "De kans dat het toetsspoor optreedt voor deze berekening.",
+                                                                            "De kans dat het faalmechanisme optreedt voor deze berekening.",
                                                                             true);
 
             PropertyDescriptor reliabilityProperty = dynamicProperties[reliabilityPropertyIndex];
@@ -154,7 +154,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(probabilityProperty,
                                                                             resultCategoryName,
                                                                             "Faalkans [1/jaar]",
-                                                                            "De kans dat het toetsspoor optreedt voor deze berekening.",
+                                                                            "De kans dat het faalmechanisme optreedt voor deze berekening.",
                                                                             true);
 
             PropertyDescriptor reliabilityProperty = dynamicProperties[reliabilityPropertyIndex];

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -25,7 +25,6 @@ using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.TypeConverters;
@@ -39,10 +38,10 @@ namespace Riskeer.Integration.Forms.Test.Views
         private const int probabilityIndex = 2;
 
         [Test]
-        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
+        public void ConstructorWithErrorMessage_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new FailureMechanismAssemblyResultRow(null, () => double.NaN);
+            void Call() => new FailureMechanismAssemblyResultRow(null, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -50,7 +49,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_PerformAssemblyFuncNull_ThrowsArgumentNullException()
+        public void ConstructorWithErrorMessage_ErrorMessageNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -62,19 +61,17 @@ namespace Riskeer.Integration.Forms.Test.Views
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("performAssemblyFunc", exception.ParamName);
+            Assert.AreEqual("errorMessage", exception.ParamName);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void Constructor_WithArguments_ExpectedValues()
+        public void ConstructorWithErrorMessage_WithArguments_ExpectedProperties()
         {
             // Setup
             const string failureMechanismName = "Failure Mechanism Name";
             const string failureMechanismCode = "Code";
-
-            var random = new Random(21);
-            double assemblyResult = random.NextDouble();
+            const string errorMessage = "Error";
 
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
@@ -83,7 +80,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             mocks.ReplayAll();
 
             // Call
-            var row = new FailureMechanismAssemblyResultRow(failureMechanism, () => assemblyResult);
+            var row = new FailureMechanismAssemblyResultRow(failureMechanism, errorMessage);
 
             // Assert
             Assert.IsInstanceOf<IHasColumnStateDefinitions>(row);
@@ -95,126 +92,59 @@ namespace Riskeer.Integration.Forms.Test.Views
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
             Assert.AreEqual(1, columnStateDefinitions.Count);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, probabilityIndex);
+            Assert.AreEqual(errorMessage, row.ColumnStateDefinitions[probabilityIndex].ErrorText);
+
+            Assert.AreEqual(failureMechanismName, row.Name);
+            Assert.AreEqual(failureMechanismCode, row.Code);
+            Assert.IsNaN(row.Probability);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ConstructorWithFailureMechanismAssemblyResult_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var random = new Random(21);
+
+            // Call
+            void Call() => new FailureMechanismAssemblyResultRow(null, random.NextDouble());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void ConstructorWithFailureMechanismAssemblyResult_WithArguments_ExpectedProperties()
+        {
+            // Setup
+            const string failureMechanismName = "Failure Mechanism Name";
+            const string failureMechanismCode = "Code";
+
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            failureMechanism.Stub(fm => fm.Name).Return(failureMechanismName);
+            failureMechanism.Stub(fm => fm.Code).Return(failureMechanismCode);
+            mocks.ReplayAll();
+
+            var random = new Random(21);
+            double assemblyResult = random.NextDouble();
+
+            // Call
+            var row = new FailureMechanismAssemblyResultRow(failureMechanism, assemblyResult);
+
+            // Assert
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            Assert.AreEqual(1, columnStateDefinitions.Count);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, probabilityIndex);
+            Assert.IsEmpty(row.ColumnStateDefinitions[probabilityIndex].ErrorText);
 
             Assert.AreEqual(failureMechanismName, row.Name);
             Assert.AreEqual(failureMechanismCode, row.Code);
             Assert.AreEqual(assemblyResult, row.Probability);
 
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GivenRow_WhenUpdating_ThenAssemblyFuncExecuted()
-        {
-            // Given
-            var random = new Random(21);
-            double initialProbability = random.NextDouble();
-            double afterUpdateProbability = random.NextDouble();
-
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            mocks.ReplayAll();
-
-            int i = 0;
-            Func<double> performAssemblyFunc = () =>
-            {
-                if (i == 0)
-                {
-                    i++;
-                    return initialProbability;
-                }
-
-                return afterUpdateProbability;
-            };
-
-            var row = new FailureMechanismAssemblyResultRow(failureMechanism, performAssemblyFunc);
-
-            // Precondition 
-            Assert.AreEqual(initialProbability, row.Probability);
-
-            // When
-            row.Update();
-
-            // Then
-            Assert.AreEqual(afterUpdateProbability, row.Probability);
-        }
-
-        [Test]
-        public void GivenRowWithoutError_WhenUpdatingAndAssemblyThrowsAssemblyException_ThenDefaultValueAndErrorSet()
-        {
-            // Given
-            const string exceptionMessage = "Something went wrong";
-
-            var random = new Random(21);
-            double initialProbability = random.NextDouble();
-
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            mocks.ReplayAll();
-
-            int i = 0;
-            Func<double> performAssemblyFunc = () =>
-            {
-                if (i == 0)
-                {
-                    i++;
-                    return initialProbability;
-                }
-
-                throw new AssemblyException(exceptionMessage);
-            };
-
-            var row = new FailureMechanismAssemblyResultRow(failureMechanism, performAssemblyFunc);
-
-            // Precondition 
-            Assert.IsEmpty(row.ColumnStateDefinitions[probabilityIndex].ErrorText);
-            Assert.AreEqual(initialProbability, row.Probability);
-
-            // When
-            row.Update();
-
-            // Then
-            Assert.IsNaN(row.Probability);
-            Assert.AreEqual(exceptionMessage, row.ColumnStateDefinitions[probabilityIndex].ErrorText);
-        }
-
-        [Test]
-        public void GivenRowWithError_WhenUpdatingAndAssemblyRuns_ThenValueSetAndErrorCleared()
-        {
-            // Given
-            const string exceptionMessage = "Something went wrong";
-
-            var random = new Random(21);
-            double probability = random.NextDouble();
-
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            mocks.ReplayAll();
-
-            int i = 0;
-            Func<double> performAssemblyFunc = () =>
-            {
-                if (i == 0)
-                {
-                    i++;
-                    throw new AssemblyException(exceptionMessage);
-                }
-
-                return probability;
-            };
-
-            var row = new FailureMechanismAssemblyResultRow(failureMechanism, performAssemblyFunc);
-
-            // Precondition 
-            Assert.IsNaN(row.Probability);
-            Assert.AreEqual(exceptionMessage, row.ColumnStateDefinitions[probabilityIndex].ErrorText);
-
-            // When
-            row.Update();
-
-            // Then
-            Assert.IsEmpty(row.ColumnStateDefinitions[probabilityIndex].ErrorText);
-            Assert.AreEqual(probability, row.Probability);
         }
     }
 }

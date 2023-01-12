@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -25,9 +25,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using Core.Common.TestUtil;
-using Core.Common.Util.Attributes;
 using Core.Common.Util.Reflection;
-using Core.Common.Util.Test.Properties;
 using NUnit.Framework;
 
 namespace Core.Common.Util.Test.Reflection
@@ -52,13 +50,13 @@ namespace Core.Common.Util.Test.Reflection
         public void GetDisplayName_EnumWithResourcesAttribute_ResourceText()
         {
             // Setup
-            const TestEnum value = TestEnum.HasDisplayName;
+            const TestEnum value = TestEnum.DisplayName;
 
             // Call
             string result = TypeUtils.GetDisplayName(value);
 
             // Assert
-            Assert.AreEqual(Resources.EnumStringResource, result);
+            Assert.AreEqual("Display name", result);
         }
 
         [Test]
@@ -68,11 +66,11 @@ namespace Core.Common.Util.Test.Reflection
             const TestEnum value = (TestEnum) 999;
 
             // Call
-            TestDelegate call = () => TypeUtils.GetDisplayName(value);
+            void Call() => TypeUtils.GetDisplayName(value);
 
             // Assert
             const string message = "The value of argument 'enumValue' (999) is invalid for Enum type 'TestEnum'.";
-            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, message);
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, message);
             Assert.AreEqual("enumValue", exception.ParamName);
         }
 
@@ -80,10 +78,10 @@ namespace Core.Common.Util.Test.Reflection
         public void Implements_TypeNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => GetType().Implements(null);
+            void Call() => GetType().Implements(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("type", paramName);
         }
 
@@ -154,10 +152,10 @@ namespace Core.Common.Util.Test.Reflection
         public void GetField_InstanceNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => TypeUtils.GetField<int>(null, "A");
+            void Call() => TypeUtils.GetField<int>(null, "A");
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("instance", paramName);
         }
 
@@ -168,10 +166,10 @@ namespace Core.Common.Util.Test.Reflection
             var testClass = new TestClass(22);
 
             // Call
-            TestDelegate call = () => TypeUtils.GetField<int>(testClass, null);
+            void Call() => TypeUtils.GetField<int>(testClass, null);
 
             // Assert
-            Assert.Throws<ArgumentNullException>(call);
+            Assert.Throws<ArgumentNullException>(Call);
         }
 
         [Test]
@@ -239,20 +237,20 @@ namespace Core.Common.Util.Test.Reflection
             var testClass = new TestClass(0);
 
             // Call
-            TestDelegate call = () => TypeUtils.GetField<int>(testClass, "nonExistingField");
+            void Call() => TypeUtils.GetField<int>(testClass, "nonExistingField");
 
             // Assert
-            Assert.Throws<ArgumentOutOfRangeException>(call);
+            Assert.Throws<ArgumentOutOfRangeException>(Call);
         }
 
         [Test]
         public void GetProperty_InstanceNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => TypeUtils.GetProperty<int>(null, "A");
+            void Call() => TypeUtils.GetProperty<int>(null, "A");
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("instance", paramName);
         }
 
@@ -263,10 +261,10 @@ namespace Core.Common.Util.Test.Reflection
             var testClass = new TestClass(22);
 
             // Call
-            TestDelegate call = () => TypeUtils.GetProperty<int>(testClass, null);
+            void Call() => TypeUtils.GetProperty<int>(testClass, null);
 
             // Assert
-            Assert.Throws<ArgumentNullException>(call);
+            Assert.Throws<ArgumentNullException>(Call);
         }
 
         [Test]
@@ -334,20 +332,20 @@ namespace Core.Common.Util.Test.Reflection
             var testClass = new TestClass(0);
 
             // Call
-            TestDelegate call = () => TypeUtils.GetProperty<int>(testClass, "nonExistingProperty");
+            void Call() => TypeUtils.GetProperty<int>(testClass, "nonExistingProperty");
 
             // Assert
-            Assert.Throws<ArgumentOutOfRangeException>(call);
+            Assert.Throws<ArgumentOutOfRangeException>(Call);
         }
 
         [Test]
         public void SetField_InstanceNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => TypeUtils.SetField(null, "A", "B");
+            void Call() => TypeUtils.SetField(null, "A", "B");
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("obj", paramName);
         }
 
@@ -358,10 +356,10 @@ namespace Core.Common.Util.Test.Reflection
             var testClass = new TestClass(22);
 
             // Call
-            TestDelegate call = () => TypeUtils.SetField(testClass, null, "B");
+            void Call() => TypeUtils.SetField(testClass, null, "B");
 
             // Assert
-            Assert.Throws<ArgumentNullException>(call);
+            Assert.Throws<ArgumentNullException>(Call);
         }
 
         [Test]
@@ -384,10 +382,10 @@ namespace Core.Common.Util.Test.Reflection
             var testClass = new TestClass(22);
 
             // Call
-            TestDelegate call = () => TypeUtils.SetField(testClass, "privateInt", new object());
+            void Call() => TypeUtils.SetField(testClass, "privateInt", new object());
 
             // Assert
-            Assert.Throws<ArgumentException>(call);
+            Assert.Throws<ArgumentException>(Call);
         }
 
         [Test]
@@ -410,10 +408,10 @@ namespace Core.Common.Util.Test.Reflection
             var testClass = new TestClass(0);
 
             // Call
-            TestDelegate call = () => TypeUtils.SetField(testClass, "nonExistingField", 0);
+            void Call() => TypeUtils.SetField(testClass, "nonExistingField", 0);
 
             // Assert
-            Assert.Throws<ArgumentOutOfRangeException>(call);
+            Assert.Throws<ArgumentOutOfRangeException>(Call);
         }
 
         [Test]
@@ -433,10 +431,10 @@ namespace Core.Common.Util.Test.Reflection
         public void TypedCallPrivateMethod_InstanceNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => TypeUtils.CallPrivateMethod<object>(null, "A");
+            void Call() => TypeUtils.CallPrivateMethod<object>(null, "A");
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("instance", paramName);
         }
 
@@ -444,10 +442,10 @@ namespace Core.Common.Util.Test.Reflection
         public void CallPrivateMethod_InstanceNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => TypeUtils.CallPrivateMethod(null, "A");
+            void Call() => TypeUtils.CallPrivateMethod(null, "A");
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("instance", paramName);
         }
 
@@ -471,10 +469,10 @@ namespace Core.Common.Util.Test.Reflection
             var instance = new TestClass();
 
             // Call
-            TestDelegate call = () => TypeUtils.CallPrivateMethod<int>(instance, "IDontExist", 1);
+            void Call() => TypeUtils.CallPrivateMethod<int>(instance, "IDontExist", 1);
 
             // Assert
-            Assert.Throws<ArgumentOutOfRangeException>(call);
+            Assert.Throws<ArgumentOutOfRangeException>(Call);
         }
 
         [Test]
@@ -484,10 +482,10 @@ namespace Core.Common.Util.Test.Reflection
             var instance = new TestClass();
 
             // Call
-            TestDelegate call = () => TypeUtils.CallPrivateMethod<int>(instance, "PrivateMethod");
+            void Call() => TypeUtils.CallPrivateMethod<int>(instance, "PrivateMethod");
 
             // Assert
-            Assert.Throws<TargetParameterCountException>(call);
+            Assert.Throws<TargetParameterCountException>(Call);
         }
 
         [Test]
@@ -497,10 +495,10 @@ namespace Core.Common.Util.Test.Reflection
             var instance = new TestClass();
 
             // Call
-            TestDelegate call = () => TypeUtils.CallPrivateMethod<int>(instance, null, 1);
+            void Call() => TypeUtils.CallPrivateMethod<int>(instance, null, 1);
 
             // Assert
-            Assert.Throws<ArgumentNullException>(call);
+            Assert.Throws<ArgumentNullException>(Call);
         }
 
         [Test]
@@ -510,10 +508,10 @@ namespace Core.Common.Util.Test.Reflection
             var instance = new TestClass();
 
             // Call
-            TestDelegate call = () => TypeUtils.CallPrivateMethod(instance, "PrivateMethod", 1);
+            void Call() => TypeUtils.CallPrivateMethod(instance, "PrivateMethod", 1);
 
             // Assert
-            Assert.DoesNotThrow(call);
+            Assert.DoesNotThrow(Call);
         }
 
         [Test]
@@ -523,10 +521,10 @@ namespace Core.Common.Util.Test.Reflection
             var instance = new TestClass();
 
             // Call
-            TestDelegate call = () => TypeUtils.CallPrivateMethod(instance, "IDontExist", 1);
+            void Call() => TypeUtils.CallPrivateMethod(instance, "IDontExist", 1);
 
             // Assert
-            Assert.Throws<ArgumentOutOfRangeException>(call);
+            Assert.Throws<ArgumentOutOfRangeException>(Call);
         }
 
         [Test]
@@ -536,10 +534,10 @@ namespace Core.Common.Util.Test.Reflection
             var instance = new TestClass();
 
             // Call
-            TestDelegate call = () => TypeUtils.CallPrivateMethod(instance, "PrivateMethod");
+            void Call() => TypeUtils.CallPrivateMethod(instance, "PrivateMethod");
 
             // Assert
-            Assert.Throws<TargetParameterCountException>(call);
+            Assert.Throws<TargetParameterCountException>(Call);
         }
 
         [Test]
@@ -549,20 +547,20 @@ namespace Core.Common.Util.Test.Reflection
             var instance = new TestClass();
 
             // Call
-            TestDelegate call = () => TypeUtils.CallPrivateMethod(instance, null, 1);
+            void Call() => TypeUtils.CallPrivateMethod(instance, null, 1);
 
             // Assert
-            Assert.Throws<ArgumentNullException>(call);
+            Assert.Throws<ArgumentNullException>(Call);
         }
 
         [Test]
         public void SetPrivatePropertyValue_InstanceNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => TypeUtils.SetPrivatePropertyValue(null, "A", "B");
+            void Call() => TypeUtils.SetPrivatePropertyValue(null, "A", "B");
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("instance", paramName);
         }
 
@@ -573,10 +571,10 @@ namespace Core.Common.Util.Test.Reflection
             var instance = new TestClass();
 
             // Call
-            TestDelegate call = () => TypeUtils.SetPrivatePropertyValue(instance, null, "B");
+            void Call() => TypeUtils.SetPrivatePropertyValue(instance, null, "B");
 
             // Assert
-            Assert.Throws<ArgumentNullException>(call);
+            Assert.Throws<ArgumentNullException>(Call);
         }
 
         [Test]
@@ -589,10 +587,10 @@ namespace Core.Common.Util.Test.Reflection
             Assert.AreEqual(0.0, testClass.PublicPropertyPrivateSetter);
 
             // Call
-            TestDelegate call = () => TypeUtils.SetPrivatePropertyValue(testClass, "IDonNotExist", 1.2);
+            void Call() => TypeUtils.SetPrivatePropertyValue(testClass, "IDonNotExist", 1.2);
 
             // Assert
-            Assert.Throws<ArgumentOutOfRangeException>(call);
+            Assert.Throws<ArgumentOutOfRangeException>(Call);
         }
 
         [Test]
@@ -615,10 +613,10 @@ namespace Core.Common.Util.Test.Reflection
         public void GetPropertyAttributes_PropertyNameNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => TypeUtils.GetPropertyAttributes<AttributeClass, TestingAttribute>(null);
+            void Call() => TypeUtils.GetPropertyAttributes<AttributeClass, TestingAttribute>(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("propertyName", paramName);
         }
 
@@ -633,14 +631,6 @@ namespace Core.Common.Util.Test.Reflection
             CollectionAssert.AllItemsAreInstancesOfType(attributes, typeof(TestingAttribute));
             Assert.AreEqual("attribute 1", attributes.First().Name);
             Assert.AreEqual("attribute 2", attributes.ElementAt(1).Name);
-        }
-
-        private enum TestEnum
-        {
-            NoDisplayName,
-
-            [ResourcesDisplayName(typeof(Resources), nameof(Resources.EnumStringResource))]
-            HasDisplayName
         }
 
         private class TestClass

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -27,6 +27,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.Calculation;
@@ -34,7 +35,6 @@ using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Common.Primitives;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Data.TestUtil;
 using Riskeer.GrassCoverErosionInwards.Data;
@@ -59,6 +59,134 @@ namespace Riskeer.Storage.Core.Test.Read
     [TestFixture]
     public class FailureMechanismEntityReadExtensionsTest
     {
+        [Test]
+        public void ReadCommonFailureMechanismProperties_EntityNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            mocks.ReplayAll();
+
+            // Call
+            void Call() => ((FailureMechanismEntity) null).ReadCommonFailureMechanismProperties(failureMechanism, new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("entity", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ReadCommonFailureMechanismProperties_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+
+            // Call
+            void Call() => entity.ReadCommonFailureMechanismProperties(null, new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void ReadCommonFailureMechanismProperties_CollectorNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            mocks.ReplayAll();
+
+            var entity = new FailureMechanismEntity();
+
+            // Call
+            void Call() => entity.ReadCommonFailureMechanismProperties(failureMechanism, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ReadCommonFailureMechanismProperties_WithoutSectionsSet_SetsFailureMechanism(bool inAssembly)
+        {
+            // Setup
+            var random = new Random(21);
+            var assemblyResultType = random.NextEnumValue<FailureMechanismAssemblyProbabilityResultType>();
+
+            var entity = new FailureMechanismEntity
+            {
+                InAssembly = Convert.ToByte(inAssembly),
+                InAssemblyInputComments = "Some input text",
+                InAssemblyOutputComments = "Some output text",
+                CalculationsInputComments = "Some calculation text",
+                NotInAssemblyComments = "Really not in assembly",
+                FailureMechanismAssemblyResultProbabilityResultType = Convert.ToByte(assemblyResultType),
+                FailureMechanismAssemblyResultManualFailureMechanismAssemblyProbability = random.NextDouble()
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new TestCalculatableFailureMechanism();
+
+            // Call
+            entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
+
+            // Assert
+            FailureMechanismEntityTestHelper.AssertIFailureMechanismEntityProperties(entity, failureMechanism);
+            Assert.IsNull(failureMechanism.CalculationsInputComments.Body);
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
+            Assert.IsNull(failureMechanism.FailureMechanismSectionSourcePath);
+        }
+
+        [Test]
+        public void ReadCommonFailureMechanismProperties_WithNullValues_SetsFailureMechanism()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new TestCalculatableFailureMechanism();
+
+            // Call
+            entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
+
+            // Assert
+            Assert.IsNull(failureMechanism.InAssemblyInputComments.Body);
+            Assert.IsNull(failureMechanism.InAssemblyOutputComments.Body);
+            Assert.IsNull(failureMechanism.NotInAssemblyComments.Body);
+            Assert.IsNull(failureMechanism.CalculationsInputComments.Body);
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
+            Assert.IsNull(failureMechanism.FailureMechanismSectionSourcePath);
+
+            Assert.IsNaN(failureMechanism.AssemblyResult.ManualFailureMechanismAssemblyProbability);
+        }
+
+        [Test]
+        public void ReadCommonFailureMechanismProperties_WithSectionsSet_SetsFailureMechanismWithFailureMechanismSections()
+        {
+            // Setup
+            const string filePath = "failureMechanismSections/File/Path";
+            var entity = new FailureMechanismEntity
+            {
+                FailureMechanismSectionCollectionSourcePath = filePath,
+                FailureMechanismSectionEntities =
+                {
+                    CreateSimpleFailureMechanismSectionEntity()
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new TestFailureMechanism();
+
+            // Call
+            entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
+
+            // Assert
+            Assert.AreEqual(entity.FailureMechanismSectionEntities.Count, failureMechanism.Sections.Count());
+            Assert.AreEqual(filePath, failureMechanism.FailureMechanismSectionSourcePath);
+        }
+
         private static FailureMechanismSectionEntity CreateSimpleFailureMechanismSectionEntity()
         {
             var dummyPoints = new[]
@@ -74,83 +202,47 @@ namespace Riskeer.Storage.Core.Test.Read
             return failureMechanismSectionEntity;
         }
 
-        private static void SetSectionResult(IAdoptableFailureMechanismSectionResultEntity sectionResult)
-        {
-            var random = new Random(21);
-
-            sectionResult.IsRelevant = Convert.ToByte(random.NextBoolean());
-            sectionResult.InitialFailureMechanismResultType = Convert.ToByte(random.NextEnumValue<AdoptableInitialFailureMechanismResultType>());
-            sectionResult.ManualInitialFailureMechanismResultSectionProbability = random.NextDouble();
-            sectionResult.FurtherAnalysisType = Convert.ToByte(random.NextEnumValue<FailureMechanismSectionResultFurtherAnalysisType>());
-            sectionResult.RefinedSectionProbability = random.NextDouble();
-        }
-
-        private static void AssertSectionResults(IAdoptableFailureMechanismSectionResultEntity sectionResultEntity, AdoptableFailureMechanismSectionResult sectionResult)
-        {
-            Assert.AreEqual(Convert.ToBoolean(sectionResultEntity.IsRelevant), sectionResult.IsRelevant);
-            Assert.AreEqual((AdoptableInitialFailureMechanismResultType) sectionResultEntity.InitialFailureMechanismResultType, sectionResult.InitialFailureMechanismResultType);
-            Assert.AreEqual(sectionResultEntity.ManualInitialFailureMechanismResultSectionProbability.ToNullAsNaN(), sectionResult.ManualInitialFailureMechanismResultSectionProbability);
-            Assert.AreEqual((FailureMechanismSectionResultFurtherAnalysisType) sectionResultEntity.FurtherAnalysisType, sectionResult.FurtherAnalysisType);
-            Assert.AreEqual(sectionResultEntity.RefinedSectionProbability.ToNullAsNaN(), sectionResult.RefinedSectionProbability);
-        }
-
-        private static void SetSectionResult(IAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResult)
-        {
-            var random = new Random(21);
-
-            SetSectionResult((IAdoptableFailureMechanismSectionResultEntity) sectionResult);
-            sectionResult.ManualInitialFailureMechanismResultProfileProbability = random.NextDouble();
-            sectionResult.ProbabilityRefinementType = Convert.ToByte(random.NextEnumValue<ProbabilityRefinementType>());
-            sectionResult.RefinedProfileProbability = random.NextDouble();
-        }
-
-        private static void AssertSectionResults(IAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResultEntity, AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult)
-        {
-            AssertSectionResults((IAdoptableFailureMechanismSectionResultEntity) sectionResultEntity, sectionResult);
-
-            Assert.AreEqual(sectionResultEntity.ManualInitialFailureMechanismResultProfileProbability.ToNullAsNaN(), sectionResult.ManualInitialFailureMechanismResultProfileProbability);
-            Assert.AreEqual((ProbabilityRefinementType) sectionResultEntity.ProbabilityRefinementType, sectionResult.ProbabilityRefinementType);
-            Assert.AreEqual(sectionResultEntity.RefinedProfileProbability.ToNullAsNaN(), sectionResult.RefinedProfileProbability);
-        }
-
-        private static void SetSectionResult(INonAdoptableFailureMechanismSectionResultEntity sectionResult)
-        {
-            var random = new Random(21);
-
-            sectionResult.IsRelevant = Convert.ToByte(random.NextBoolean());
-            sectionResult.InitialFailureMechanismResultType = Convert.ToByte(random.NextEnumValue<NonAdoptableInitialFailureMechanismResultType>());
-            sectionResult.ManualInitialFailureMechanismResultSectionProbability = random.NextDouble();
-            sectionResult.FurtherAnalysisType = Convert.ToByte(random.NextEnumValue<FailureMechanismSectionResultFurtherAnalysisType>());
-            sectionResult.RefinedSectionProbability = random.NextDouble();
-        }
-
-        private static void AssertSectionResults(INonAdoptableFailureMechanismSectionResultEntity sectionResultEntity, NonAdoptableFailureMechanismSectionResult sectionResult)
-        {
-            Assert.AreEqual(Convert.ToBoolean(sectionResultEntity.IsRelevant), sectionResult.IsRelevant);
-            Assert.AreEqual((NonAdoptableInitialFailureMechanismResultType) sectionResultEntity.InitialFailureMechanismResultType, sectionResult.InitialFailureMechanismResultType);
-            Assert.AreEqual(sectionResultEntity.ManualInitialFailureMechanismResultSectionProbability.ToNullAsNaN(), sectionResult.ManualInitialFailureMechanismResultSectionProbability);
-            Assert.AreEqual((FailureMechanismSectionResultFurtherAnalysisType) sectionResultEntity.FurtherAnalysisType, sectionResult.FurtherAnalysisType);
-            Assert.AreEqual(sectionResultEntity.RefinedSectionProbability.ToNullAsNaN(), sectionResult.RefinedSectionProbability);
-        }
-
-        private static void SetSectionResult(INonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResult)
-        {
-            var random = new Random(21);
-            
-            SetSectionResult((INonAdoptableFailureMechanismSectionResultEntity) sectionResult);
-            sectionResult.ManualInitialFailureMechanismResultProfileProbability = random.NextDouble();
-            sectionResult.RefinedProfileProbability = random.NextDouble();
-        }
-
-        private static void AssertSectionResults(INonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResultEntity, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult)
-        {
-            AssertSectionResults((INonAdoptableFailureMechanismSectionResultEntity) sectionResultEntity, sectionResult);
-
-            Assert.AreEqual(sectionResultEntity.ManualInitialFailureMechanismResultProfileProbability.ToNullAsNaN(), sectionResult.ManualInitialFailureMechanismResultProfileProbability);
-            Assert.AreEqual(sectionResultEntity.RefinedProfileProbability.ToNullAsNaN(), sectionResult.RefinedProfileProbability);
-        }
-
         #region GrassCoverSlipOffInwards
+
+        [Test]
+        public void ReadAsGrassCoverSlipOffInwardsFailureMechanism_EntityNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => ((FailureMechanismEntity) null).ReadAsGrassCoverSlipOffInwardsFailureMechanism(new GrassCoverSlipOffInwardsFailureMechanism(),
+                                                                                                          new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("entity", exception.ParamName);
+        }
+
+        [Test]
+        public void ReadAsGrassCoverSlipOffInwardsFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+
+            // Call
+            void Call() => entity.ReadAsGrassCoverSlipOffInwardsFailureMechanism(null, new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void ReadAsGrassCoverSlipOffInwardsFailureMechanism_CollectorNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+
+            // Call
+            void Call() => entity.ReadAsGrassCoverSlipOffInwardsFailureMechanism(new GrassCoverSlipOffInwardsFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
+        }
 
         [Test]
         public void ReadAsGrassCoverSlipOffInwardsFailureMechanism_WithPropertiesSet_SetsGrassCoverSlipOffInwardsFailureMechanismProperties()
@@ -164,7 +256,6 @@ namespace Riskeer.Storage.Core.Test.Read
                 InAssemblyInputComments = "Some input text",
                 InAssemblyOutputComments = "Some output text",
                 NotInAssemblyComments = "Really not in assembly",
-                CalculationsInputComments = "Some calculation text",
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 GrassCoverSlipOffInwardsFailureMechanismMetaEntities = new[]
                 {
@@ -186,7 +277,6 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.InAssemblyInputComments, failureMechanism.InAssemblyInputComments.Body);
             Assert.AreEqual(entity.InAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
-            Assert.AreEqual(entity.CalculationsInputComments, failureMechanism.CalculationsInputComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
 
             GrassCoverSlipOffInwardsFailureMechanismMetaEntity metaEntity = entity.GrassCoverSlipOffInwardsFailureMechanismMetaEntities.Single();
@@ -200,13 +290,13 @@ namespace Riskeer.Storage.Core.Test.Read
             const string filePath = "failureMechanismSections/File/Path";
 
             FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
-            var grassCoverSlipOffInwardsSectionResultEntity = new GrassCoverSlipOffInwardsSectionResultEntity
+            var sectionResultEntity = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
-            SetSectionResult(grassCoverSlipOffInwardsSectionResultEntity);
+            SectionResultTestHelper.SetSectionResult(sectionResultEntity);
 
-            failureMechanismSectionEntity.GrassCoverSlipOffInwardsSectionResultEntities.Add(grassCoverSlipOffInwardsSectionResultEntity);
+            failureMechanismSectionEntity.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities.Add(sectionResultEntity);
             var entity = new FailureMechanismEntity
             {
                 FailureMechanismSectionCollectionSourcePath = filePath,
@@ -234,12 +324,52 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.FailureMechanismSectionCollectionSourcePath,
                             failureMechanism.FailureMechanismSectionSourcePath);
 
-            AssertSectionResults(entity.FailureMechanismSectionEntities.SelectMany(fms => fms.GrassCoverSlipOffInwardsSectionResultEntities).Single(), failureMechanism.SectionResults.Single());
+            SectionResultTestHelper.AssertSectionResult(sectionResultEntity, failureMechanism.SectionResults.Single());
         }
 
         #endregion
 
         #region WaterPressureAsphaltCover
+
+        [Test]
+        public void ReadAsWaterPressureAsphaltCoverFailureMechanism_EntityNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => ((FailureMechanismEntity) null).ReadAsWaterPressureAsphaltCoverFailureMechanism(new WaterPressureAsphaltCoverFailureMechanism(),
+                                                                                                           new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("entity", exception.ParamName);
+        }
+
+        [Test]
+        public void ReadAsWaterPressureAsphaltCoverFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+
+            // Call
+            void Call() => entity.ReadAsWaterPressureAsphaltCoverFailureMechanism(null, new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void ReadAsWaterPressureAsphaltCoverFailureMechanism_CollectorNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+
+            // Call
+            void Call() => entity.ReadAsWaterPressureAsphaltCoverFailureMechanism(new WaterPressureAsphaltCoverFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
+        }
 
         [Test]
         public void ReadAsWaterPressureAsphaltCoverFailureMechanism_WithPropertiesSet_SetsWaterPressureAsphaltCoverFailureMechanismProperties()
@@ -253,7 +383,6 @@ namespace Riskeer.Storage.Core.Test.Read
                 InAssemblyInputComments = "Some input text",
                 InAssemblyOutputComments = "Some output text",
                 NotInAssemblyComments = "Really not in assembly",
-                CalculationsInputComments = "Some calculation text",
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 WaterPressureAsphaltCoverFailureMechanismMetaEntities = new[]
                 {
@@ -275,7 +404,6 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.InAssemblyInputComments, failureMechanism.InAssemblyInputComments.Body);
             Assert.AreEqual(entity.InAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
-            Assert.AreEqual(entity.CalculationsInputComments, failureMechanism.CalculationsInputComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
 
             WaterPressureAsphaltCoverFailureMechanismMetaEntity metaEntity = entity.WaterPressureAsphaltCoverFailureMechanismMetaEntities.Single();
@@ -289,13 +417,13 @@ namespace Riskeer.Storage.Core.Test.Read
             const string filePath = "failureMechanismSections/File/Path";
 
             FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
-            var waterPressureAsphaltCoverSectionResultEntity = new WaterPressureAsphaltCoverSectionResultEntity
+            var sectionResultEntity = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
-            SetSectionResult(waterPressureAsphaltCoverSectionResultEntity);
+            SectionResultTestHelper.SetSectionResult(sectionResultEntity);
 
-            failureMechanismSectionEntity.WaterPressureAsphaltCoverSectionResultEntities.Add(waterPressureAsphaltCoverSectionResultEntity);
+            failureMechanismSectionEntity.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities.Add(sectionResultEntity);
             var entity = new FailureMechanismEntity
             {
                 FailureMechanismSectionCollectionSourcePath = filePath,
@@ -323,12 +451,55 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.FailureMechanismSectionCollectionSourcePath,
                             failureMechanism.FailureMechanismSectionSourcePath);
 
-            AssertSectionResults(entity.FailureMechanismSectionEntities.SelectMany(fms => fms.WaterPressureAsphaltCoverSectionResultEntities).Single(), failureMechanism.SectionResults.Single());
+            SectionResultTestHelper.AssertSectionResult(entity.FailureMechanismSectionEntities
+                                                              .SelectMany(fms => fms.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities)
+                                                              .Single(),
+                                                        failureMechanism.SectionResults.Single());
         }
 
         #endregion
 
         #region GrassCoverSlipOffOutwards
+
+        [Test]
+        public void ReadAsGrassCoverSlipOffOutwardsFailureMechanism_EntityNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => ((FailureMechanismEntity) null).ReadAsGrassCoverSlipOffOutwardsFailureMechanism(new GrassCoverSlipOffOutwardsFailureMechanism(),
+                                                                                                           new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("entity", exception.ParamName);
+        }
+
+        [Test]
+        public void ReadAsGrassCoverSlipOffOutwardsFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+
+            // Call
+            void Call() => entity.ReadAsGrassCoverSlipOffOutwardsFailureMechanism(null, new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void ReadAsGrassCoverSlipOffOutwardsFailureMechanism_CollectorNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+
+            // Call
+            void Call() => entity.ReadAsGrassCoverSlipOffOutwardsFailureMechanism(new GrassCoverSlipOffOutwardsFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
+        }
 
         [Test]
         public void ReadAsGrassCoverSlipOffOutwardsFailureMechanism_WithPropertiesSet_SetsGrassCoverSlipOffOutwardsFailureMechanismProperties()
@@ -342,7 +513,6 @@ namespace Riskeer.Storage.Core.Test.Read
                 InAssemblyInputComments = "Some input text",
                 InAssemblyOutputComments = "Some output text",
                 NotInAssemblyComments = "Really not in assembly",
-                CalculationsInputComments = "Some calculation text",
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 GrassCoverSlipOffOutwardsFailureMechanismMetaEntities = new[]
                 {
@@ -364,7 +534,6 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.InAssemblyInputComments, failureMechanism.InAssemblyInputComments.Body);
             Assert.AreEqual(entity.InAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
-            Assert.AreEqual(entity.CalculationsInputComments, failureMechanism.CalculationsInputComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
 
             GrassCoverSlipOffOutwardsFailureMechanismMetaEntity metaEntity = entity.GrassCoverSlipOffOutwardsFailureMechanismMetaEntities.Single();
@@ -378,13 +547,13 @@ namespace Riskeer.Storage.Core.Test.Read
             const string filePath = "failureMechanismSections/File/Path";
 
             FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
-            var grassCoverSlipOffOutwardsSectionResultEntity = new GrassCoverSlipOffOutwardsSectionResultEntity
+            var sectionResultEntity = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
-            SetSectionResult(grassCoverSlipOffOutwardsSectionResultEntity);
+            SectionResultTestHelper.SetSectionResult(sectionResultEntity);
 
-            failureMechanismSectionEntity.GrassCoverSlipOffOutwardsSectionResultEntities.Add(grassCoverSlipOffOutwardsSectionResultEntity);
+            failureMechanismSectionEntity.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities.Add(sectionResultEntity);
             var entity = new FailureMechanismEntity
             {
                 FailureMechanismSectionCollectionSourcePath = filePath,
@@ -412,12 +581,52 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.FailureMechanismSectionCollectionSourcePath,
                             failureMechanism.FailureMechanismSectionSourcePath);
 
-            AssertSectionResults(entity.FailureMechanismSectionEntities.SelectMany(fms => fms.GrassCoverSlipOffOutwardsSectionResultEntities).Single(), failureMechanism.SectionResults.Single());
+            SectionResultTestHelper.AssertSectionResult(sectionResultEntity, failureMechanism.SectionResults.Single());
         }
 
         #endregion
 
         #region Microstability
+
+        [Test]
+        public void ReadAsMicrostabilityFailureMechanism_EntityNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => ((FailureMechanismEntity) null).ReadAsMicrostabilityFailureMechanism(new MicrostabilityFailureMechanism(),
+                                                                                                new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("entity", exception.ParamName);
+        }
+
+        [Test]
+        public void ReadAsMicrostabilityFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+
+            // Call
+            void Call() => entity.ReadAsMicrostabilityFailureMechanism(null, new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void ReadAsMicrostabilityFailureMechanism_CollectorNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+
+            // Call
+            void Call() => entity.ReadAsMicrostabilityFailureMechanism(new MicrostabilityFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
+        }
 
         [Test]
         public void ReadAsMicrostabilityFailureMechanism_WithPropertiesSet_SetsMicrostabilityFailureMechanismProperties()
@@ -431,7 +640,6 @@ namespace Riskeer.Storage.Core.Test.Read
                 InAssemblyInputComments = "Some input text",
                 InAssemblyOutputComments = "Some output text",
                 NotInAssemblyComments = "Really not in assembly",
-                CalculationsInputComments = "Some calculation text",
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 MicrostabilityFailureMechanismMetaEntities = new[]
                 {
@@ -453,7 +661,6 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.InAssemblyInputComments, failureMechanism.InAssemblyInputComments.Body);
             Assert.AreEqual(entity.InAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
-            Assert.AreEqual(entity.CalculationsInputComments, failureMechanism.CalculationsInputComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
 
             MicrostabilityFailureMechanismMetaEntity metaEntity = entity.MicrostabilityFailureMechanismMetaEntities.Single();
@@ -467,13 +674,13 @@ namespace Riskeer.Storage.Core.Test.Read
             const string filePath = "failureMechanismSections/File/Path";
 
             FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
-            var microStabilitySectionResultEntity = new MicrostabilitySectionResultEntity
+            var sectionResultEntity = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
-            SetSectionResult(microStabilitySectionResultEntity);
+            SectionResultTestHelper.SetSectionResult(sectionResultEntity);
 
-            failureMechanismSectionEntity.MicrostabilitySectionResultEntities.Add(microStabilitySectionResultEntity);
+            failureMechanismSectionEntity.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities.Add(sectionResultEntity);
             var entity = new FailureMechanismEntity
             {
                 FailureMechanismSectionCollectionSourcePath = filePath,
@@ -501,7 +708,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.FailureMechanismSectionCollectionSourcePath,
                             failureMechanism.FailureMechanismSectionSourcePath);
 
-            AssertSectionResults(entity.FailureMechanismSectionEntities.SelectMany(fms => fms.MicrostabilitySectionResultEntities).Single(), failureMechanism.SectionResults.Single());
+            SectionResultTestHelper.AssertSectionResult(sectionResultEntity, failureMechanism.SectionResults.Single());
         }
 
         #endregion
@@ -509,14 +716,60 @@ namespace Riskeer.Storage.Core.Test.Read
         #region Dune Erosion
 
         [Test]
-        public void ReadAsDuneErosionFailureMechanism_WithMeta_ReturnFailureMechanismWithGeneralInputSet()
+        public void ReadAsDuneErosionFailureMechanism_EntityNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => ((FailureMechanismEntity) null).ReadAsDuneErosionFailureMechanism(new DuneErosionFailureMechanism(),
+                                                                                             new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("entity", exception.ParamName);
+        }
+
+        [Test]
+        public void ReadAsDuneErosionFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+
+            // Call
+            void Call() => entity.ReadAsDuneErosionFailureMechanism(null, new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void ReadAsDuneErosionFailureMechanism_CollectorNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+
+            // Call
+            void Call() => entity.ReadAsDuneErosionFailureMechanism(new DuneErosionFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
+        }
+
+        [Test]
+        public void ReadAsDuneErosionFailureMechanism_WithProperties_SetsFailureMechanismWithProperties()
         {
             // Setup
             const int generalInputN = 3;
 
+            var random = new Random(31);
+            bool inAssembly = random.NextBoolean();
             var entity = new FailureMechanismEntity
             {
-                CalculationGroupEntity = new CalculationGroupEntity(),
+                InAssembly = Convert.ToByte(inAssembly),
+                InAssemblyInputComments = "Some input text",
+                InAssemblyOutputComments = "Some output text",
+                NotInAssemblyComments = "Really not in assembly",
+                CalculationsInputComments = "Some calculation text",
                 DuneErosionFailureMechanismMetaEntities =
                 {
                     new DuneErosionFailureMechanismMetaEntity
@@ -532,6 +785,13 @@ namespace Riskeer.Storage.Core.Test.Read
             entity.ReadAsDuneErosionFailureMechanism(failureMechanism, collector);
 
             // Assert
+            Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
+            Assert.AreEqual(entity.InAssemblyInputComments, failureMechanism.InAssemblyInputComments.Body);
+            Assert.AreEqual(entity.InAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
+            Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
+            Assert.AreEqual(entity.CalculationsInputComments, failureMechanism.CalculationsInputComments.Body);
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
+
             Assert.AreEqual(generalInputN, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
         }
 
@@ -542,13 +802,13 @@ namespace Riskeer.Storage.Core.Test.Read
             const string filePath = "failureMechanismSections/File/Path";
 
             FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
-            var duneErosionSectionResultEntity = new DuneErosionSectionResultEntity
+            var sectionResultEntity = new NonAdoptableFailureMechanismSectionResultEntity
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
-            SetSectionResult(duneErosionSectionResultEntity);
+            SectionResultTestHelper.SetSectionResult(sectionResultEntity);
 
-            failureMechanismSectionEntity.DuneErosionSectionResultEntities.Add(duneErosionSectionResultEntity);
+            failureMechanismSectionEntity.NonAdoptableFailureMechanismSectionResultEntities.Add(sectionResultEntity);
             var entity = new FailureMechanismEntity
             {
                 FailureMechanismSectionCollectionSourcePath = filePath,
@@ -576,7 +836,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.FailureMechanismSectionCollectionSourcePath,
                             failureMechanism.FailureMechanismSectionSourcePath);
 
-            AssertSectionResults(entity.FailureMechanismSectionEntities.SelectMany(fms => fms.DuneErosionSectionResultEntities).Single(), failureMechanism.SectionResults.Single());
+            SectionResultTestHelper.AssertSectionResult(sectionResultEntity, failureMechanism.SectionResults.Single());
         }
 
         [Test]
@@ -1026,17 +1286,17 @@ namespace Riskeer.Storage.Core.Test.Read
             const string filePath = "failureMechanismSections/File/Path";
 
             FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
-            var pipingSectionResultEntity = new PipingSectionResultEntity
+            var sectionResultEntity = new AdoptableWithProfileProbabilityFailureMechanismSectionResultEntity
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
-            SetSectionResult(pipingSectionResultEntity);
+            SectionResultTestHelper.SetSectionResult(sectionResultEntity);
 
             var pipingScenarioConfigurationPerFailureMechanismSectionEntity = new PipingScenarioConfigurationPerFailureMechanismSectionEntity
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
-            failureMechanismSectionEntity.PipingSectionResultEntities.Add(pipingSectionResultEntity);
+            failureMechanismSectionEntity.AdoptableWithProfileProbabilityFailureMechanismSectionResultEntities.Add(sectionResultEntity);
             failureMechanismSectionEntity.PipingScenarioConfigurationPerFailureMechanismSectionEntities.Add(pipingScenarioConfigurationPerFailureMechanismSectionEntity);
             var entity = new FailureMechanismEntity
             {
@@ -1063,7 +1323,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.FailureMechanismSectionCollectionSourcePath,
                             failureMechanism.FailureMechanismSectionSourcePath);
 
-            AssertSectionResults(entity.FailureMechanismSectionEntities.SelectMany(fms => fms.PipingSectionResultEntities).Single(), failureMechanism.SectionResults.Single());
+            SectionResultTestHelper.AssertSectionResult(sectionResultEntity, failureMechanism.SectionResults.Single());
         }
 
         [Test]
@@ -1402,12 +1662,12 @@ namespace Riskeer.Storage.Core.Test.Read
             const string filePath = "failureMechanismSections/File/Path";
 
             FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
-            var macroStabilityInwardsSectionResultEntity = new MacroStabilityInwardsSectionResultEntity
+            var sectionResultEntity = new AdoptableWithProfileProbabilityFailureMechanismSectionResultEntity
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
-            SetSectionResult(macroStabilityInwardsSectionResultEntity);
-            failureMechanismSectionEntity.MacroStabilityInwardsSectionResultEntities.Add(macroStabilityInwardsSectionResultEntity);
+            SectionResultTestHelper.SetSectionResult(sectionResultEntity);
+            failureMechanismSectionEntity.AdoptableWithProfileProbabilityFailureMechanismSectionResultEntities.Add(sectionResultEntity);
 
             var entity = new FailureMechanismEntity
             {
@@ -1434,7 +1694,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.FailureMechanismSectionCollectionSourcePath,
                             failureMechanism.FailureMechanismSectionSourcePath);
 
-            AssertSectionResults(entity.FailureMechanismSectionEntities.SelectMany(fms => fms.MacroStabilityInwardsSectionResultEntities).Single(), failureMechanism.SectionResults.Single());
+            SectionResultTestHelper.AssertSectionResult(sectionResultEntity, failureMechanism.SectionResults.Single());
         }
 
         [Test]
@@ -1493,6 +1753,46 @@ namespace Riskeer.Storage.Core.Test.Read
         #endregion
 
         #region Grass Cover Erosion Inwards
+
+        [Test]
+        public void ReadAsGrassCoverErosionInwardsFailureMechanism_EntityNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => ((FailureMechanismEntity) null).ReadAsGrassCoverErosionInwardsFailureMechanism(new GrassCoverErosionInwardsFailureMechanism(),
+                                                                                                          new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("entity", exception.ParamName);
+        }
+
+        [Test]
+        public void ReadAsGrassCoverErosionInwardsFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+
+            // Call
+            void Call() => entity.ReadAsGrassCoverErosionInwardsFailureMechanism(null, new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void ReadAsGrassCoverErosionInwardsFailureMechanism_CollectorNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+
+            // Call
+            void Call() => entity.ReadAsGrassCoverErosionInwardsFailureMechanism(new GrassCoverErosionInwardsFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
+        }
 
         [Test]
         [TestCase(true)]
@@ -1589,12 +1889,12 @@ namespace Riskeer.Storage.Core.Test.Read
             const string filePath = "failureMechanismSections/File/Path";
 
             FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
-            var grassCoverErosionInwardsSectionResultEntity = new GrassCoverErosionInwardsSectionResultEntity
+            var sectionResultEntity = new AdoptableWithProfileProbabilityFailureMechanismSectionResultEntity
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
-            SetSectionResult(grassCoverErosionInwardsSectionResultEntity);
-            failureMechanismSectionEntity.GrassCoverErosionInwardsSectionResultEntities.Add(grassCoverErosionInwardsSectionResultEntity);
+            SectionResultTestHelper.SetSectionResult(sectionResultEntity);
+            failureMechanismSectionEntity.AdoptableWithProfileProbabilityFailureMechanismSectionResultEntities.Add(sectionResultEntity);
 
             var entity = new FailureMechanismEntity
             {
@@ -1622,7 +1922,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.FailureMechanismSectionEntities.Count, failureMechanism.Sections.Count());
             Assert.AreEqual(entity.FailureMechanismSectionCollectionSourcePath, failureMechanism.FailureMechanismSectionSourcePath);
 
-            AssertSectionResults(entity.FailureMechanismSectionEntities.SelectMany(fms => fms.GrassCoverErosionInwardsSectionResultEntities).Single(), failureMechanism.SectionResults.Single());
+            SectionResultTestHelper.AssertSectionResult(sectionResultEntity, failureMechanism.SectionResults.Single());
         }
 
         [Test]
@@ -1676,6 +1976,46 @@ namespace Riskeer.Storage.Core.Test.Read
         #endregion
 
         #region Grass Cover Erosion Outwards
+
+        [Test]
+        public void ReadAsGrassCoverErosionOutwardsFailureMechanism_EntityNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => ((FailureMechanismEntity) null).ReadAsGrassCoverErosionOutwardsFailureMechanism(new GrassCoverErosionOutwardsFailureMechanism(),
+                                                                                                           new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("entity", exception.ParamName);
+        }
+
+        [Test]
+        public void ReadAsGrassCoverErosionOutwardsFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+
+            // Call
+            void Call() => entity.ReadAsGrassCoverErosionOutwardsFailureMechanism(null, new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void ReadAsGrassCoverErosionOutwardsFailureMechanism_CollectorNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+
+            // Call
+            void Call() => entity.ReadAsGrassCoverErosionOutwardsFailureMechanism(new GrassCoverErosionOutwardsFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
+        }
 
         [Test]
         [TestCase(true)]
@@ -1807,13 +2147,13 @@ namespace Riskeer.Storage.Core.Test.Read
             const string filePath = "failureMechanismSections/File/Path";
 
             FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
-            var grassCoverErosionOutwardsSectionResultEntity = new GrassCoverErosionOutwardsSectionResultEntity
+            var sectionResultEntity = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
-            SetSectionResult(grassCoverErosionOutwardsSectionResultEntity);
+            SectionResultTestHelper.SetSectionResult(sectionResultEntity);
 
-            failureMechanismSectionEntity.GrassCoverErosionOutwardsSectionResultEntities.Add(grassCoverErosionOutwardsSectionResultEntity);
+            failureMechanismSectionEntity.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities.Add(sectionResultEntity);
             var entity = new FailureMechanismEntity
             {
                 FailureMechanismSectionCollectionSourcePath = filePath,
@@ -1840,11 +2180,11 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.FailureMechanismSectionEntities.Count, failureMechanism.Sections.Count());
             Assert.AreEqual(entity.FailureMechanismSectionCollectionSourcePath, failureMechanism.FailureMechanismSectionSourcePath);
 
-            AssertSectionResults(entity.FailureMechanismSectionEntities.SelectMany(fms => fms.GrassCoverErosionOutwardsSectionResultEntities).Single(), failureMechanism.SectionResults.Single());
+            SectionResultTestHelper.AssertSectionResult(sectionResultEntity, failureMechanism.SectionResults.Single());
         }
 
         [Test]
-        public void ReadAsGrassCoverErosionOutwardsFailureMechanism_WithWaveConditionsCalculationGroup_ReturnsNewGrassCoverErosionOutwardsFailureMechanismWithCalculationGroupSet()
+        public void ReadAsGrassCoverErosionOutwardsFailureMechanism_WithCalculationsGroup_ReturnsNewGrassCoverErosionOutwardsFailureMechanismWithCalculationGroupSet()
         {
             // Setup
             var entity = new FailureMechanismEntity
@@ -1882,18 +2222,58 @@ namespace Riskeer.Storage.Core.Test.Read
             entity.ReadAsGrassCoverErosionOutwardsFailureMechanism(failureMechanism, collector);
 
             // Assert
-            Assert.AreEqual(2, failureMechanism.WaveConditionsCalculationGroup.Children.Count);
+            Assert.AreEqual(2, failureMechanism.CalculationsGroup.Children.Count);
 
-            ICalculationBase child1 = failureMechanism.WaveConditionsCalculationGroup.Children[0];
+            ICalculationBase child1 = failureMechanism.CalculationsGroup.Children[0];
             Assert.AreEqual("Child1", child1.Name);
 
-            ICalculationBase child2 = failureMechanism.WaveConditionsCalculationGroup.Children[1];
+            ICalculationBase child2 = failureMechanism.CalculationsGroup.Children[1];
             Assert.AreEqual("Child2", child2.Name);
         }
 
         #endregion
 
         #region Stability Stone Cover
+
+        [Test]
+        public void ReadAsStabilityStoneCoverFailureMechanism_EntityNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => ((FailureMechanismEntity) null).ReadAsStabilityStoneCoverFailureMechanism(new StabilityStoneCoverFailureMechanism(),
+                                                                                                     new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("entity", exception.ParamName);
+        }
+
+        [Test]
+        public void ReadAsStabilityStoneCoverFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+
+            // Call
+            void Call() => entity.ReadAsStabilityStoneCoverFailureMechanism(null, new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void ReadAsStabilityStoneCoverFailureMechanism_CollectorNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+
+            // Call
+            void Call() => entity.ReadAsStabilityStoneCoverFailureMechanism(new StabilityStoneCoverFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
+        }
 
         [Test]
         [TestCase(true)]
@@ -1939,7 +2319,7 @@ namespace Riskeer.Storage.Core.Test.Read
         }
 
         [Test]
-        public void ReadAsStabilityStoneCoverFailureMechanism_WithWaveConditionsCalculationGroup_ReturnsNewStabilityStoneCoverFailureMechanismWithCalculationGroupSet()
+        public void ReadAsStabilityStoneCoverFailureMechanism_WithCalculationsGroup_ReturnsNewStabilityStoneCoverFailureMechanismWithCalculationGroupSet()
         {
             // Setup
             var entity = new FailureMechanismEntity
@@ -1977,12 +2357,12 @@ namespace Riskeer.Storage.Core.Test.Read
             entity.ReadAsStabilityStoneCoverFailureMechanism(failureMechanism, collector);
 
             // Assert
-            Assert.AreEqual(2, failureMechanism.WaveConditionsCalculationGroup.Children.Count);
+            Assert.AreEqual(2, failureMechanism.CalculationsGroup.Children.Count);
 
-            ICalculationBase child1 = failureMechanism.WaveConditionsCalculationGroup.Children[0];
+            ICalculationBase child1 = failureMechanism.CalculationsGroup.Children[0];
             Assert.AreEqual("Child2", child1.Name);
 
-            ICalculationBase child2 = failureMechanism.WaveConditionsCalculationGroup.Children[1];
+            ICalculationBase child2 = failureMechanism.CalculationsGroup.Children[1];
             Assert.AreEqual("Child1", child2.Name);
         }
 
@@ -2073,12 +2453,12 @@ namespace Riskeer.Storage.Core.Test.Read
             const string filePath = "failureMechanismSections/FilePath";
 
             FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
-            var stabilityStoneCoverSectionResultEntity = new StabilityStoneCoverSectionResultEntity
+            var sectionResultEntity = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
-            SetSectionResult(stabilityStoneCoverSectionResultEntity);
-            failureMechanismSectionEntity.StabilityStoneCoverSectionResultEntities.Add(stabilityStoneCoverSectionResultEntity);
+            SectionResultTestHelper.SetSectionResult(sectionResultEntity);
+            failureMechanismSectionEntity.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities.Add(sectionResultEntity);
 
             var entity = new FailureMechanismEntity
             {
@@ -2108,12 +2488,52 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.FailureMechanismSectionCollectionSourcePath,
                             failureMechanism.FailureMechanismSectionSourcePath);
 
-            AssertSectionResults(entity.FailureMechanismSectionEntities.SelectMany(fms => fms.StabilityStoneCoverSectionResultEntities).Single(), failureMechanism.SectionResults.Single());
+            SectionResultTestHelper.AssertSectionResult(sectionResultEntity, failureMechanism.SectionResults.Single());
         }
 
         #endregion
 
         #region Wave Impact Asphalt Cover
+
+        [Test]
+        public void ReadAsWaveImpactAsphaltCoverFailureMechanism_EntityNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => ((FailureMechanismEntity) null).ReadAsWaveImpactAsphaltCoverFailureMechanism(new WaveImpactAsphaltCoverFailureMechanism(),
+                                                                                                        new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("entity", exception.ParamName);
+        }
+
+        [Test]
+        public void ReadAsWaveImpactAsphaltCoverFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+
+            // Call
+            void Call() => entity.ReadAsWaveImpactAsphaltCoverFailureMechanism(null, new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void ReadAsWaveImpactAsphaltCoverFailureMechanism_CollectorNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+
+            // Call
+            void Call() => entity.ReadAsWaveImpactAsphaltCoverFailureMechanism(new WaveImpactAsphaltCoverFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
+        }
 
         [Test]
         [TestCase(true)]
@@ -2159,7 +2579,7 @@ namespace Riskeer.Storage.Core.Test.Read
         }
 
         [Test]
-        public void ReadAsWaveImpactAsphaltCoverFailureMechanism_WithWaveConditionsCalculationGroup_ReturnsNewWaveImpactAsphaltCoverFailureMechanismWithCalculationGroupSet()
+        public void ReadAsWaveImpactAsphaltCoverFailureMechanism_WithCalculationsGroup_ReturnsNewWaveImpactAsphaltCoverFailureMechanismWithCalculationGroupSet()
         {
             // Setup
             var entity = new FailureMechanismEntity
@@ -2197,12 +2617,12 @@ namespace Riskeer.Storage.Core.Test.Read
             entity.ReadAsWaveImpactAsphaltCoverFailureMechanism(failureMechanism, collector);
 
             // Assert
-            Assert.AreEqual(2, failureMechanism.WaveConditionsCalculationGroup.Children.Count);
+            Assert.AreEqual(2, failureMechanism.CalculationsGroup.Children.Count);
 
-            ICalculationBase child1 = failureMechanism.WaveConditionsCalculationGroup.Children[0];
+            ICalculationBase child1 = failureMechanism.CalculationsGroup.Children[0];
             Assert.AreEqual("Child2", child1.Name);
 
-            ICalculationBase child2 = failureMechanism.WaveConditionsCalculationGroup.Children[1];
+            ICalculationBase child2 = failureMechanism.CalculationsGroup.Children[1];
             Assert.AreEqual("Child1", child2.Name);
         }
 
@@ -2294,12 +2714,12 @@ namespace Riskeer.Storage.Core.Test.Read
             const string filePath = "failureMechanismSections/FilePath";
 
             FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
-            var waveImpactAsphaltCoverSectionResultEntity = new WaveImpactAsphaltCoverSectionResultEntity
+            var sectionResultEntity = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
-            SetSectionResult(waveImpactAsphaltCoverSectionResultEntity);
-            failureMechanismSectionEntity.WaveImpactAsphaltCoverSectionResultEntities.Add(waveImpactAsphaltCoverSectionResultEntity);
+            SectionResultTestHelper.SetSectionResult(sectionResultEntity);
+            failureMechanismSectionEntity.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities.Add(sectionResultEntity);
 
             var entity = new FailureMechanismEntity
             {
@@ -2329,12 +2749,52 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.FailureMechanismSectionCollectionSourcePath,
                             failureMechanism.FailureMechanismSectionSourcePath);
 
-            AssertSectionResults(entity.FailureMechanismSectionEntities.SelectMany(fms => fms.WaveImpactAsphaltCoverSectionResultEntities).Single(), failureMechanism.SectionResults.Single());
+            SectionResultTestHelper.AssertSectionResult(sectionResultEntity, failureMechanism.SectionResults.Single());
         }
 
         #endregion
 
         #region Height Structures
+
+        [Test]
+        public void ReadAsHeightStructuresFailureMechanism_EntityNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => ((FailureMechanismEntity) null).ReadAsHeightStructuresFailureMechanism(new HeightStructuresFailureMechanism(),
+                                                                                                  new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("entity", exception.ParamName);
+        }
+
+        [Test]
+        public void ReadAsHeightStructuresFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+
+            // Call
+            void Call() => entity.ReadAsHeightStructuresFailureMechanism(null, new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void ReadAsHeightStructuresFailureMechanism_CollectorNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+
+            // Call
+            void Call() => entity.ReadAsHeightStructuresFailureMechanism(new HeightStructuresFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
+        }
 
         [Test]
         [TestCase(true)]
@@ -2579,12 +3039,12 @@ namespace Riskeer.Storage.Core.Test.Read
             const string filePath = "failureMechanismSections/FilePath";
 
             FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
-            var heightStructuresSectionResultEntity = new HeightStructuresSectionResultEntity
+            var sectionResultEntity = new AdoptableFailureMechanismSectionResultEntity
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
-            SetSectionResult(heightStructuresSectionResultEntity);
-            failureMechanismSectionEntity.HeightStructuresSectionResultEntities.Add(heightStructuresSectionResultEntity);
+            SectionResultTestHelper.SetSectionResult(sectionResultEntity);
+            failureMechanismSectionEntity.AdoptableFailureMechanismSectionResultEntities.Add(sectionResultEntity);
 
             var entity = new FailureMechanismEntity
             {
@@ -2614,12 +3074,52 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.FailureMechanismSectionCollectionSourcePath,
                             failureMechanism.FailureMechanismSectionSourcePath);
 
-            AssertSectionResults(entity.FailureMechanismSectionEntities.SelectMany(fms => fms.HeightStructuresSectionResultEntities).Single(), failureMechanism.SectionResults.Single());
+            SectionResultTestHelper.AssertSectionResult(sectionResultEntity, failureMechanism.SectionResults.Single());
         }
 
         #endregion
 
         #region Closing Structures
+
+        [Test]
+        public void ReadAsClosingStructuresFailureMechanism_EntityNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => ((FailureMechanismEntity) null).ReadAsClosingStructuresFailureMechanism(new ClosingStructuresFailureMechanism(),
+                                                                                                   new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("entity", exception.ParamName);
+        }
+
+        [Test]
+        public void ReadAsClosingStructuresFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+
+            // Call
+            void Call() => entity.ReadAsClosingStructuresFailureMechanism(null, new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void ReadAsClosingStructuresFailureMechanism_CollectorNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+
+            // Call
+            void Call() => entity.ReadAsClosingStructuresFailureMechanism(new ClosingStructuresFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
+        }
 
         [Test]
         [TestCase(true)]
@@ -2877,12 +3377,12 @@ namespace Riskeer.Storage.Core.Test.Read
             const string filePath = "failureMechanismSections/FilePath";
 
             FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
-            var closingStructuresSectionResultEntity = new ClosingStructuresSectionResultEntity
+            var sectionResultEntity = new AdoptableFailureMechanismSectionResultEntity
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
-            SetSectionResult(closingStructuresSectionResultEntity);
-            failureMechanismSectionEntity.ClosingStructuresSectionResultEntities.Add(closingStructuresSectionResultEntity);
+            SectionResultTestHelper.SetSectionResult(sectionResultEntity);
+            failureMechanismSectionEntity.AdoptableFailureMechanismSectionResultEntities.Add(sectionResultEntity);
 
             var entity = new FailureMechanismEntity
             {
@@ -2909,12 +3409,52 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.FailureMechanismSectionCollectionSourcePath,
                             failureMechanism.FailureMechanismSectionSourcePath);
 
-            AssertSectionResults(entity.FailureMechanismSectionEntities.SelectMany(fms => fms.ClosingStructuresSectionResultEntities).Single(), failureMechanism.SectionResults.Single());
+            SectionResultTestHelper.AssertSectionResult(sectionResultEntity, failureMechanism.SectionResults.Single());
         }
 
         #endregion
 
         #region Stability Point Structures
+
+        [Test]
+        public void ReadAsStabilityPointStructuresFailureMechanism_EntityNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => ((FailureMechanismEntity) null).ReadAsStabilityPointStructuresFailureMechanism(new StabilityPointStructuresFailureMechanism(),
+                                                                                                          new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("entity", exception.ParamName);
+        }
+
+        [Test]
+        public void ReadAsStabilityPointStructuresFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+
+            // Call
+            void Call() => entity.ReadAsStabilityPointStructuresFailureMechanism(null, new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void ReadAsStabilityPointStructuresFailureMechanism_CollectorNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+
+            // Call
+            void Call() => entity.ReadAsStabilityPointStructuresFailureMechanism(new StabilityPointStructuresFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
+        }
 
         [Test]
         [TestCase(true)]
@@ -3182,12 +3722,12 @@ namespace Riskeer.Storage.Core.Test.Read
             const string filePath = "failureMechanismSections/FilePath";
 
             FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
-            var stabilityPointStructuresSectionResultEntity = new StabilityPointStructuresSectionResultEntity
+            var sectionResultEntity = new AdoptableFailureMechanismSectionResultEntity
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
-            SetSectionResult(stabilityPointStructuresSectionResultEntity);
-            failureMechanismSectionEntity.StabilityPointStructuresSectionResultEntities.Add(stabilityPointStructuresSectionResultEntity);
+            SectionResultTestHelper.SetSectionResult(sectionResultEntity);
+            failureMechanismSectionEntity.AdoptableFailureMechanismSectionResultEntities.Add(sectionResultEntity);
 
             var entity = new FailureMechanismEntity
             {
@@ -3217,7 +3757,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.FailureMechanismSectionCollectionSourcePath,
                             failureMechanism.FailureMechanismSectionSourcePath);
 
-            AssertSectionResults(entity.FailureMechanismSectionEntities.SelectMany(fms => fms.StabilityPointStructuresSectionResultEntities).Single(), failureMechanism.SectionResults.Single());
+            SectionResultTestHelper.AssertSectionResult(sectionResultEntity, failureMechanism.SectionResults.Single());
         }
 
         #endregion
@@ -3279,7 +3819,6 @@ namespace Riskeer.Storage.Core.Test.Read
                 InAssemblyInputComments = "Some input text",
                 InAssemblyOutputComments = "Some output text",
                 NotInAssemblyComments = "Really not in assembly",
-                CalculationsInputComments = "Some calculation text",
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 PipingStructureFailureMechanismMetaEntities = new[]
                 {
@@ -3301,7 +3840,6 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.InAssemblyInputComments, failureMechanism.InAssemblyInputComments.Body);
             Assert.AreEqual(entity.InAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
-            Assert.AreEqual(entity.CalculationsInputComments, failureMechanism.CalculationsInputComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
 
             PipingStructureFailureMechanismMetaEntity metaEntity = entity.PipingStructureFailureMechanismMetaEntities.Single();
@@ -3315,12 +3853,12 @@ namespace Riskeer.Storage.Core.Test.Read
             const string filePath = "failureMechanismSections/FilePath";
 
             FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
-            var pipingStructureSectionResultEntity = new PipingStructureSectionResultEntity
+            var sectionResultEntity = new NonAdoptableFailureMechanismSectionResultEntity
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
-            SetSectionResult(pipingStructureSectionResultEntity);
-            failureMechanismSectionEntity.PipingStructureSectionResultEntities.Add(pipingStructureSectionResultEntity);
+            SectionResultTestHelper.SetSectionResult(sectionResultEntity);
+            failureMechanismSectionEntity.NonAdoptableFailureMechanismSectionResultEntities.Add(sectionResultEntity);
 
             var entity = new FailureMechanismEntity
             {
@@ -3350,7 +3888,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.FailureMechanismSectionCollectionSourcePath,
                             failureMechanism.FailureMechanismSectionSourcePath);
 
-            AssertSectionResults(entity.FailureMechanismSectionEntities.SelectMany(fms => fms.PipingStructureSectionResultEntities).Single(), failureMechanism.SectionResults.Single());
+            SectionResultTestHelper.AssertSectionResult(sectionResultEntity, failureMechanism.SectionResults.Single());
         }
 
         #endregion

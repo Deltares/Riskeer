@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -325,15 +325,6 @@ namespace Riskeer.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waarde voor de toegestane bijdrage aan de faalkans moet in het bereik {0} liggen..
-        /// </summary>
-        public static string Contribution_Value_should_be_in_Range_0_ {
-            get {
-                return ResourceManager.GetString("Contribution_Value_should_be_in_Range_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Een kansverdeling moet opgegeven zijn om op basis van die data een rekenwaarde te bepalen..
         /// </summary>
         public static string DesignVariable_Distribution_must_be_set {
@@ -397,22 +388,40 @@ namespace Riskeer.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De ondergrens moet gelijk zijn aan of groter zijn dan de signaleringswaarde..
+        ///   Looks up a localized string similar to Automatisch berekenen.
         /// </summary>
-        public static string FailureMechanismContribution_LowerLimitNorm_should_be_same_or_greater_than_SignalingNorm {
+        public static string FailureMechanismAssemblyProbabilityResultTypeAutomatic_DisplayName {
             get {
-                return ResourceManager.GetString("FailureMechanismContribution_LowerLimitNorm_should_be_same_or_greater_than_Signal" +
-                        "ingNorm", resourceCulture);
+                return ResourceManager.GetString("FailureMechanismAssemblyProbabilityResultTypeAutomatic_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De signaleringswaarde moet gelijk zijn aan of kleiner zijn dan de ondergrens..
+        ///   Looks up a localized string similar to Handmatig invullen.
         /// </summary>
-        public static string FailureMechanismContribution_SignalingNorm_should_be_same_or_smaller_than_LowerLimitNorm {
+        public static string FailureMechanismAssemblyProbabilityResultTypeManual_DisplayName {
             get {
-                return ResourceManager.GetString("FailureMechanismContribution_SignalingNorm_should_be_same_or_smaller_than_LowerLi" +
-                        "mitNorm", resourceCulture);
+                return ResourceManager.GetString("FailureMechanismAssemblyProbabilityResultTypeManual_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De omgevingswaarde moet gelijk zijn aan of groter zijn dan de signaleringsparameter..
+        /// </summary>
+        public static string FailureMechanismContribution_MaximumAllowableFloodingProbability_should_be_same_or_greater_than_SignalFloodingProbability {
+            get {
+                return ResourceManager.GetString("FailureMechanismContribution_MaximumAllowableFloodingProbability_should_be_same_o" +
+                        "r_greater_than_SignalFloodingProbability", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De signaleringsparameter moet gelijk zijn aan of kleiner zijn dan de omgevingswaarde..
+        /// </summary>
+        public static string FailureMechanismContribution_SignalFloodingProbability_should_be_same_or_smaller_than_MaximumAllowableFloodingProbability {
+            get {
+                return ResourceManager.GetString("FailureMechanismContribution_SignalFloodingProbability_should_be_same_or_smaller_" +
+                        "than_MaximumAllowableFloodingProbability", resourceCulture);
             }
         }
         
@@ -426,30 +435,12 @@ namespace Riskeer.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vak &apos;{0}&apos; sluit niet aan op de al gedefinieerde vakken van het toetsspoor..
+        ///   Looks up a localized string similar to Vak &apos;{0}&apos; sluit niet aan op de al gedefinieerde vakken van het faalmechanisme..
         /// </summary>
         public static string FailureMechanismSectionCollection_ValidateSection_Section_0_must_connect_to_existing_sections {
             get {
                 return ResourceManager.GetString("FailureMechanismSectionCollection_ValidateSection_Section_0_must_connect_to_exist" +
                         "ing_sections", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Automatisch berekenen.
-        /// </summary>
-        public static string FailurePathAssemblyProbabilityResultTypeAutomatic_DisplayName {
-            get {
-                return ResourceManager.GetString("FailurePathAssemblyProbabilityResultTypeAutomatic_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Handmatig invullen.
-        /// </summary>
-        public static string FailurePathAssemblyProbabilityResultTypeManual_DisplayName {
-            get {
-                return ResourceManager.GetString("FailurePathAssemblyProbabilityResultTypeManual_DisplayName", resourceCulture);
             }
         }
         
@@ -664,20 +655,20 @@ namespace Riskeer.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ondergrens.
+        ///   Looks up a localized string similar to Omgevingswaarde.
         /// </summary>
-        public static string NormType_LowerLimit_DisplayName {
+        public static string NormativeProbabilityType_MaximumAllowableFloodingProbability_DisplayName {
             get {
-                return ResourceManager.GetString("NormType_LowerLimit_DisplayName", resourceCulture);
+                return ResourceManager.GetString("NormativeProbabilityType_MaximumAllowableFloodingProbability_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Signaleringswaarde.
+        ///   Looks up a localized string similar to Signaleringsparameter.
         /// </summary>
-        public static string NormType_Signaling_DisplayName {
+        public static string NormativeProbabilityType_SignalFloodingProbability_DisplayName {
             get {
-                return ResourceManager.GetString("NormType_Signaling_DisplayName", resourceCulture);
+                return ResourceManager.GetString("NormativeProbabilityType_SignalFloodingProbability_DisplayName", resourceCulture);
             }
         }
         
@@ -687,24 +678,6 @@ namespace Riskeer.Common.Data.Properties {
         public static string Orientation_Value_needs_to_be_in_Range_0_ {
             get {
                 return ResourceManager.GetString("Orientation_Value_needs_to_be_in_Range_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to -.
-        /// </summary>
-        public static string OtherFailureMechanism_Code {
-            get {
-                return ResourceManager.GetString("OtherFailureMechanism_Code", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Overig.
-        /// </summary>
-        public static string OtherFailureMechanism_DisplayName {
-            get {
-                return ResourceManager.GetString("OtherFailureMechanism_DisplayName", resourceCulture);
             }
         }
         
@@ -849,6 +822,24 @@ namespace Riskeer.Common.Data.Properties {
         public static string SoilLayerDataHelper_GetValidName_Unknown {
             get {
                 return ResourceManager.GetString("SoilLayerDataHelper_GetValidName_Unknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NIEUW.
+        /// </summary>
+        public static string SpecificFailureMechanism_DefaultCode {
+            get {
+                return ResourceManager.GetString("SpecificFailureMechanism_DefaultCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nieuw faalmechanisme.
+        /// </summary>
+        public static string SpecificFailureMechanism_DefaultName {
+            get {
+                return ResourceManager.GetString("SpecificFailureMechanism_DefaultName", resourceCulture);
             }
         }
         

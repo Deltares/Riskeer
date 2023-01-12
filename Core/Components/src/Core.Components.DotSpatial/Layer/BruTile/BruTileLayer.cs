@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -102,11 +102,11 @@ namespace Core.Components.DotSpatial.Layer.BruTile
         /// The projection information of to which the data has been projected to. This value
         /// is <c>null</c> if the layer hasn't been reprojected.
         /// </summary>
-        private ProjectionInfo targetProjection;
+        private ProjectionInfo projectionInfo;
 
         private float transparency;
 
-        private string level;
+        private int level;
 
         /// <summary>
         /// Creates an instance of this class using some tile source configuration.
@@ -164,10 +164,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile
         /// the [0.0, 1.0] range.</exception>
         public float Transparency
         {
-            get
-            {
-                return transparency;
-            }
+            get => transparency;
             set
             {
                 if (!transparencyValidityRange.InRange(value))
@@ -193,15 +190,10 @@ namespace Core.Components.DotSpatial.Layer.BruTile
             }
         }
 
-        public override DotSpatialExtent Extent
-        {
-            get
-            {
-                return targetProjection != null
-                           ? MyExtent.Reproject(sourceProjection, targetProjection)
-                           : MyExtent;
-            }
-        }
+        public override DotSpatialExtent Extent =>
+            projectionInfo != null
+                ? MyExtent.Reproject(sourceProjection, projectionInfo)
+                : MyExtent;
 
         public object Clone()
         {
@@ -211,20 +203,20 @@ namespace Core.Components.DotSpatial.Layer.BruTile
             };
         }
 
-        public override void Reproject(ProjectionInfo targetProjectionInfo)
+        public override void Reproject(ProjectionInfo targetProjection)
         {
-            if (targetProjectionInfo != null)
+            if (targetProjection != null)
             {
-                targetProjection = targetProjectionInfo.Equals(sourceProjection)
-                                       ? null
-                                       : targetProjectionInfo;
+                projectionInfo = targetProjection.Equals(sourceProjection)
+                                     ? null
+                                     : targetProjection;
             }
             else
             {
-                targetProjection = null;
+                projectionInfo = null;
             }
 
-            Projection = targetProjection ?? sourceProjection;
+            Projection = projectionInfo ?? sourceProjection;
         }
 
         public void DrawRegions(MapArgs args, List<DotSpatialExtent> regions)
@@ -283,10 +275,10 @@ namespace Core.Components.DotSpatial.Layer.BruTile
 
         private DotSpatialExtent GetExtentInTargetCoordinateSystem(DotSpatialExtent region)
         {
-            return targetProjection == null
+            return projectionInfo == null
                        ? region
                        : region.Intersection(Extent)
-                               .Reproject(targetProjection, sourceProjection);
+                               .Reproject(projectionInfo, sourceProjection);
         }
 
         private static bool GetBruTileExtentToRender(DotSpatialExtent geoExtent, out BruTileExtent extent)
@@ -305,7 +297,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile
         {
             var tilesNotImmediatelyDrawn = new List<TileInfo>();
 
-            var reprojector = new TileReprojector(args, sourceProjection, targetProjection);
+            var reprojector = new TileReprojector(args, sourceProjection, projectionInfo);
             Resolution resolution = schema.Resolutions[level];
             foreach (TileInfo info in tiles)
             {
@@ -329,29 +321,28 @@ namespace Core.Components.DotSpatial.Layer.BruTile
 
         private static ProjectionInfo GetTileSourceProjectionInfo(string spatialReferenceSystemString)
         {
-            ProjectionInfo projectionInfo;
-            if (!TryParseProjectionEsri(spatialReferenceSystemString, out projectionInfo)
-                && !TryParseProjectionProj4(spatialReferenceSystemString, out projectionInfo))
+            if (!TryParseProjectionEsri(spatialReferenceSystemString, out ProjectionInfo tileSourceProjectionInfo)
+                && !TryParseProjectionProj4(spatialReferenceSystemString, out tileSourceProjectionInfo))
             {
                 // For WMTS, 'spatialReferenceSystemString' might be some crude value (urn-string):
                 string authorityCode = ToAuthorityCode(spatialReferenceSystemString);
-                projectionInfo = !string.IsNullOrWhiteSpace(authorityCode)
-                                     ? AuthorityCodeHandler.Instance[authorityCode]
-                                     : null;
+                tileSourceProjectionInfo = !string.IsNullOrWhiteSpace(authorityCode)
+                                               ? AuthorityCodeHandler.Instance[authorityCode]
+                                               : null;
             }
 
-            if (projectionInfo == null)
+            if (tileSourceProjectionInfo == null)
             {
-                projectionInfo = AuthorityCodeHandler.Instance[webMercatorEpsgIdentifier];
+                tileSourceProjectionInfo = AuthorityCodeHandler.Instance[webMercatorEpsgIdentifier];
             }
 
             // WebMercator: set datum to WGS1984 for better accuracy 
-            if (projectionInfo.Name == webMercatorEpsgIdentifier)
+            if (tileSourceProjectionInfo.Name == webMercatorEpsgIdentifier)
             {
-                projectionInfo.GeographicInfo.Datum = KnownCoordinateSystems.Geographic.World.WGS1984.GeographicInfo.Datum;
+                tileSourceProjectionInfo.GeographicInfo.Datum = KnownCoordinateSystems.Geographic.World.WGS1984.GeographicInfo.Datum;
             }
 
-            return projectionInfo;
+            return tileSourceProjectionInfo;
         }
 
         private static bool TryParseProjectionProj4(string proj4, out ProjectionInfo projectionInfo)
@@ -397,8 +388,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile
                 const char srsSeparatorChar = ':';
                 if (!srs.Contains(srsSeparatorChar))
                 {
-                    int value;
-                    if (!int.TryParse(srs, NumberStyles.Integer, NumberFormatInfo.InvariantInfo, out value))
+                    if (!int.TryParse(srs, NumberStyles.Integer, NumberFormatInfo.InvariantInfo, out int value))
                     {
                         return "";
                     }
@@ -507,10 +497,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile
                                                     0, -resolution.UnitsPerPixel,
                                                     info.Extent.MinX, info.Extent.MaxY);
 
-                    WorldFile outWorldFile;
-                    Bitmap outBitmap;
-
-                    reprojector.Reproject(inWorldFile, bitmap, out outWorldFile, out outBitmap);
+                    reprojector.Reproject(inWorldFile, bitmap, out WorldFile outWorldFile, out Bitmap outBitmap);
                     if (outWorldFile == null)
                     {
                         return;

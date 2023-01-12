@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -26,7 +26,7 @@ using NUnit.Framework;
 namespace Riskeer.AssemblyTool.Data.Test
 {
     [TestFixture]
-    public class FailureMechanismSectionAssemblyGroupTest : EnumValuesTestFixture<FailureMechanismSectionAssemblyGroup, int>
+    public class FailureMechanismSectionAssemblyGroupTest : EnumWithResourcesDisplayNameTestFixture<FailureMechanismSectionAssemblyGroup>
     {
         protected override IDictionary<FailureMechanismSectionAssemblyGroup, int> ExpectedValueForEnumValues =>
             new Dictionary<FailureMechanismSectionAssemblyGroup, int>
@@ -59,7 +59,48 @@ namespace Riskeer.AssemblyTool.Data.Test
                     FailureMechanismSectionAssemblyGroup.Dominant, 9
                 },
                 {
-                    FailureMechanismSectionAssemblyGroup.Gr, 10
+                    FailureMechanismSectionAssemblyGroup.NoResult, 10
+                },
+                {
+                    FailureMechanismSectionAssemblyGroup.NotRelevant, 11
+                }
+            };
+
+        protected override IDictionary<FailureMechanismSectionAssemblyGroup, string> ExpectedDisplayNameForEnumValues =>
+            new Dictionary<FailureMechanismSectionAssemblyGroup, string>
+            {
+                {
+                    FailureMechanismSectionAssemblyGroup.NotDominant, "NDo"
+                },
+                {
+                    FailureMechanismSectionAssemblyGroup.III, "+III"
+                },
+                {
+                    FailureMechanismSectionAssemblyGroup.II, "+II"
+                },
+                {
+                    FailureMechanismSectionAssemblyGroup.I, "+I"
+                },
+                {
+                    FailureMechanismSectionAssemblyGroup.Zero, "0"
+                },
+                {
+                    FailureMechanismSectionAssemblyGroup.IMin, "-I"
+                },
+                {
+                    FailureMechanismSectionAssemblyGroup.IIMin, "-II"
+                },
+                {
+                    FailureMechanismSectionAssemblyGroup.IIIMin, "-III"
+                },
+                {
+                    FailureMechanismSectionAssemblyGroup.Dominant, "Do"
+                },
+                {
+                    FailureMechanismSectionAssemblyGroup.NoResult, ""
+                },
+                {
+                    FailureMechanismSectionAssemblyGroup.NotRelevant, "NR"
                 }
             };
     }

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -28,6 +28,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.IO.ReferenceLines;
 using Riskeer.DuneErosion.Data;
@@ -49,7 +50,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
     [TestFixture]
     public class ReferenceLineUpdateHandlerTest : NUnitFormTest
     {
-        private const int expectedNumberOfRemovedInstances = 185;
+        private const int expectedNumberOfRemovedInstances = 189;
 
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
@@ -60,10 +61,10 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new ReferenceLineUpdateHandler(null, viewCommands);
+            void Call() => new ReferenceLineUpdateHandler(null, viewCommands);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -77,11 +78,11 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new ReferenceLineUpdateHandler(assessmentSection, null);
+            void Call() => new ReferenceLineUpdateHandler(assessmentSection, null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("viewCommands", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("viewCommands", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -138,7 +139,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             Assert.AreEqual(clickOk, result);
 
             Assert.AreEqual("Bevestigen", dialogTitle);
-            Assert.AreEqual("Na het importeren van een aangepaste ligging van de referentielijn zullen alle geïmporteerde en berekende gegevens van alle toetssporen worden gewist." + Environment.NewLine +
+            Assert.AreEqual("Na het importeren van een aangepaste ligging van de referentielijn zullen alle geïmporteerde en berekende gegevens van alle faalmechanismen worden gewist." + Environment.NewLine +
                             Environment.NewLine +
                             "Wilt u doorgaan?",
                             dialogMessage);
@@ -159,11 +160,11 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var referenceLine = new ReferenceLine();
 
             // Call
-            TestDelegate call = () => handler.Update(null, referenceLine);
+            void Call() => handler.Update(null, referenceLine);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("originalReferenceLine", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("originalReferenceLine", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -181,11 +182,11 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var referenceLine = new ReferenceLine();
 
             // Call
-            TestDelegate call = () => handler.Update(referenceLine, null);
+            void Call() => handler.Update(referenceLine, null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("newReferenceLine", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("newReferenceLine", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -206,7 +207,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             IObservable[] observables = handler.Update(assessmentSection.ReferenceLine, referenceLine).ToArray();
 
             // Assert
-            Assert.AreEqual(54, observables.Length);
+            Assert.AreEqual(56, observables.Length);
 
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
             CollectionAssert.IsEmpty(pipingFailureMechanism.Sections);
@@ -237,8 +238,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             CollectionAssert.IsEmpty(grassCoverErosionOutwardsFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, grassCoverErosionOutwardsFailureMechanism);
             CollectionAssert.Contains(observables, grassCoverErosionOutwardsFailureMechanism.SectionResults);
-            CollectionAssert.IsEmpty(grassCoverErosionOutwardsFailureMechanism.WaveConditionsCalculationGroup.Children);
-            CollectionAssert.Contains(observables, grassCoverErosionOutwardsFailureMechanism.WaveConditionsCalculationGroup);
+            CollectionAssert.IsEmpty(grassCoverErosionOutwardsFailureMechanism.CalculationsGroup.Children);
+            CollectionAssert.Contains(observables, grassCoverErosionOutwardsFailureMechanism.CalculationsGroup);
             CollectionAssert.IsEmpty(grassCoverErosionOutwardsFailureMechanism.ForeshoreProfiles);
             CollectionAssert.Contains(observables, grassCoverErosionOutwardsFailureMechanism.ForeshoreProfiles);
 
@@ -247,8 +248,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             CollectionAssert.IsEmpty(waveImpactAsphaltCoverFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, waveImpactAsphaltCoverFailureMechanism);
             CollectionAssert.Contains(observables, waveImpactAsphaltCoverFailureMechanism.SectionResults);
-            CollectionAssert.IsEmpty(waveImpactAsphaltCoverFailureMechanism.WaveConditionsCalculationGroup.Children);
-            CollectionAssert.Contains(observables, waveImpactAsphaltCoverFailureMechanism.WaveConditionsCalculationGroup);
+            CollectionAssert.IsEmpty(waveImpactAsphaltCoverFailureMechanism.CalculationsGroup.Children);
+            CollectionAssert.Contains(observables, waveImpactAsphaltCoverFailureMechanism.CalculationsGroup);
             CollectionAssert.IsEmpty(waveImpactAsphaltCoverFailureMechanism.ForeshoreProfiles);
             CollectionAssert.Contains(observables, waveImpactAsphaltCoverFailureMechanism.ForeshoreProfiles);
 
@@ -257,8 +258,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             CollectionAssert.IsEmpty(stabilityStoneCoverFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, stabilityStoneCoverFailureMechanism);
             CollectionAssert.Contains(observables, stabilityStoneCoverFailureMechanism.SectionResults);
-            CollectionAssert.IsEmpty(stabilityStoneCoverFailureMechanism.WaveConditionsCalculationGroup.Children);
-            CollectionAssert.Contains(observables, stabilityStoneCoverFailureMechanism.WaveConditionsCalculationGroup);
+            CollectionAssert.IsEmpty(stabilityStoneCoverFailureMechanism.CalculationsGroup.Children);
+            CollectionAssert.Contains(observables, stabilityStoneCoverFailureMechanism.CalculationsGroup);
             CollectionAssert.IsEmpty(stabilityStoneCoverFailureMechanism.ForeshoreProfiles);
             CollectionAssert.Contains(observables, stabilityStoneCoverFailureMechanism.ForeshoreProfiles);
 
@@ -347,6 +348,12 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             CollectionAssert.Contains(observables, pipingStructureFailureMechanism.SectionResults);
 
             CollectionAssert.AreEqual(referenceLine.Points, assessmentSection.ReferenceLine.Points);
+
+            SpecificFailureMechanism failureMechanism = assessmentSection.SpecificFailureMechanisms.First();
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
+            CollectionAssert.IsEmpty(failureMechanism.SectionResults);
+            CollectionAssert.Contains(observables, failureMechanism);
+            CollectionAssert.Contains(observables, failureMechanism.SectionResults);
 
             mocks.VerifyAll();
         }

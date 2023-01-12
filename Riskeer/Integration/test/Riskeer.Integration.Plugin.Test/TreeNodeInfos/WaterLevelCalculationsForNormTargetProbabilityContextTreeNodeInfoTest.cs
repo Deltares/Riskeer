@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -34,6 +34,7 @@ using Core.Common.Util;
 using Core.Gui;
 using Core.Gui.ContextMenu;
 using Core.Gui.Forms.Main;
+using Core.Gui.Forms.ViewHost;
 using Core.Gui.TestUtil;
 using Core.Gui.TestUtil.ContextMenu;
 using NUnit.Extensions.Forms;
@@ -100,21 +101,22 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         [Test]
         [TestCase(0.1, 0.01, "1/10")]
         [TestCase(0.1, 0.1, "1/10")]
-        public void Text_WithContext_ReturnsUniquelyFormattedTargetProbabilityForLowerLimitNorm(double lowerLimitNorm, double signalingNorm, string expectedText)
+        public void Text_WithContext_ReturnsUniquelyFormattedTargetProbabilityForMaximumAllowableFloodingProbability(
+            double maximumAllowableFloodingProbability, double signalFloodingProbability, string expectedText)
         {
             // Setup
-            var lowerLimitNormCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
+            var maximumAllowableFloodingProbabilityCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mockRepository);
 
-            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(lowerLimitNorm, signalingNorm));
-            assessmentSection.Stub(a => a.WaterLevelCalculationsForLowerLimitNorm).Return(lowerLimitNormCalculations);
-            assessmentSection.Stub(a => a.WaterLevelCalculationsForSignalingNorm).Return(new ObservableList<HydraulicBoundaryLocationCalculation>());
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(maximumAllowableFloodingProbability, signalFloodingProbability));
+            assessmentSection.Stub(a => a.WaterLevelCalculationsForMaximumAllowableFloodingProbability).Return(maximumAllowableFloodingProbabilityCalculations);
+            assessmentSection.Stub(a => a.WaterLevelCalculationsForSignalFloodingProbability).Return(new ObservableList<HydraulicBoundaryLocationCalculation>());
             assessmentSection.Stub(a => a.WaterLevelCalculationsForUserDefinedTargetProbabilities).Return(new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>());
 
             mockRepository.ReplayAll();
 
-            var context = new WaterLevelCalculationsForNormTargetProbabilityContext(lowerLimitNormCalculations, assessmentSection, () => lowerLimitNorm);
+            var context = new WaterLevelCalculationsForNormTargetProbabilityContext(maximumAllowableFloodingProbabilityCalculations, assessmentSection, () => maximumAllowableFloodingProbability);
 
             using (var plugin = new RiskeerPlugin())
             {
@@ -133,21 +135,22 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         [Test]
         [TestCase(0.1, 0.01, "1/100")]
         [TestCase(0.1, 0.1, "1/10 (1)")]
-        public void Text_WithContext_ReturnsUniquelyFormattedTargetProbabilityForSignalingNorm(double lowerLimitNorm, double signalingNorm, string expectedText)
+        public void Text_WithContext_ReturnsUniquelyFormattedTargetProbabilityForSignalFloodingProbability(
+            double maximumAllowableFloodingProbability, double signalFloodingProbability, string expectedText)
         {
             // Setup
-            var signalingNormCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
+            var signalFloodingProbabilityCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mockRepository);
 
-            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(lowerLimitNorm, signalingNorm));
-            assessmentSection.Stub(a => a.WaterLevelCalculationsForLowerLimitNorm).Return(new ObservableList<HydraulicBoundaryLocationCalculation>());
-            assessmentSection.Stub(a => a.WaterLevelCalculationsForSignalingNorm).Return(signalingNormCalculations);
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(maximumAllowableFloodingProbability, signalFloodingProbability));
+            assessmentSection.Stub(a => a.WaterLevelCalculationsForMaximumAllowableFloodingProbability).Return(new ObservableList<HydraulicBoundaryLocationCalculation>());
+            assessmentSection.Stub(a => a.WaterLevelCalculationsForSignalFloodingProbability).Return(signalFloodingProbabilityCalculations);
             assessmentSection.Stub(a => a.WaterLevelCalculationsForUserDefinedTargetProbabilities).Return(new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>());
 
             mockRepository.ReplayAll();
 
-            var context = new WaterLevelCalculationsForNormTargetProbabilityContext(signalingNormCalculations, assessmentSection, () => lowerLimitNorm);
+            var context = new WaterLevelCalculationsForNormTargetProbabilityContext(signalFloodingProbabilityCalculations, assessmentSection, () => maximumAllowableFloodingProbability);
 
             using (var plugin = new RiskeerPlugin())
             {
@@ -180,7 +183,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [TestCaseSource(nameof(GetWaterLevelForNormTargetProbabilityCalculations))]
+        [TestCaseSource(typeof(WaterLevelCalculationsForNormTargetProbabilityContextTreeNodeInfoTest), nameof(GetWaterLevelForNormTargetProbabilityCalculations), new object[]
+        {
+            "ContextMenuStrip_Always_CallsContextMenuBuilderMethods_{0}"
+        })]
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods(
             Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
         {
@@ -229,7 +235,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [TestCaseSource(nameof(GetWaterLevelForNormTargetProbabilityCalculations))]
+        [TestCaseSource(typeof(WaterLevelCalculationsForNormTargetProbabilityContextTreeNodeInfoTest), nameof(GetWaterLevelForNormTargetProbabilityCalculations), new object[]
+        {
+            "ContextMenuStrip_Always_AddCustomItems_{0}"
+        })]
         public void ContextMenuStrip_Always_AddCustomItems(
             Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
         {
@@ -279,7 +288,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [TestCaseSource(nameof(GetWaterLevelForNormTargetProbabilityCalculations))]
+        [TestCaseSource(typeof(WaterLevelCalculationsForNormTargetProbabilityContextTreeNodeInfoTest), nameof(GetWaterLevelForNormTargetProbabilityCalculations), new object[]
+        {
+            "ContextMenuStrip_HydraulicBoundaryDatabaseNotLinked_ContextMenuItemCalculateAllDisabledAndTooltipSet_{0}"
+        })]
         public void ContextMenuStrip_HydraulicBoundaryDatabaseNotLinked_ContextMenuItemCalculateAllDisabledAndTooltipSet(
             Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
         {
@@ -320,7 +332,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [TestCaseSource(nameof(GetWaterLevelForNormTargetProbabilityCalculations))]
+        [TestCaseSource(typeof(WaterLevelCalculationsForNormTargetProbabilityContextTreeNodeInfoTest), nameof(GetWaterLevelForNormTargetProbabilityCalculations), new object[]
+        {
+            "ContextMenuStrip_HydraulicBoundaryDatabaseLinkedToInvalidFile_ContextMenuItemCalculateAllDisabledAndTooltipSet_{0}"
+        })]
         public void ContextMenuStrip_HydraulicBoundaryDatabaseLinkedToInvalidFile_ContextMenuItemCalculateAllDisabledAndTooltipSet(
             Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
         {
@@ -369,7 +384,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [TestCaseSource(nameof(GetWaterLevelForNormTargetProbabilityCalculations))]
+        [TestCaseSource(typeof(WaterLevelCalculationsForNormTargetProbabilityContextTreeNodeInfoTest), nameof(GetWaterLevelForNormTargetProbabilityCalculations), new object[]
+        {
+            "ContextMenuStrip_AllRequiredInputSet_ContextMenuItemCalculateAllEnabled_{0}"
+        })]
         public void ContextMenuStrip_AllRequiredInputSet_ContextMenuItemCalculateAllEnabled(
             Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
         {
@@ -417,7 +435,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [TestCaseSource(nameof(GetWaterLevelForNormTargetProbabilityCalculations))]
+        [TestCaseSource(typeof(WaterLevelCalculationsForNormTargetProbabilityContextTreeNodeInfoTest), nameof(GetWaterLevelForNormTargetProbabilityCalculations), new object[]
+        {
+            "ContextMenuStrip_HydraulicBoundaryLocationCalculationsWithIllustrationPoints_ContextMenuItemClearAllIllustrationPointsEnabledAndTooltipSet_{0}"
+        })]
         public void ContextMenuStrip_HydraulicBoundaryLocationCalculationsWithIllustrationPoints_ContextMenuItemClearAllIllustrationPointsEnabledAndTooltipSet(
             Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
         {
@@ -473,7 +494,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [TestCaseSource(nameof(GetWaterLevelForNormTargetProbabilityCalculations))]
+        [TestCaseSource(typeof(WaterLevelCalculationsForNormTargetProbabilityContextTreeNodeInfoTest), nameof(GetWaterLevelForNormTargetProbabilityCalculations), new object[]
+        {
+            "ContextMenuStrip_HydraulicBoundaryLocationCalculationsWithoutIllustrationPoints_ContextMenuItemClearAllIllustrationPointsDisabled_{0}"
+        })]
         public void ContextMenuStrip_HydraulicBoundaryLocationCalculationsWithoutIllustrationPoints_ContextMenuItemClearAllIllustrationPointsDisabled(
             Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
         {
@@ -486,7 +510,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 new TestHydraulicBoundaryLocation()
             });
 
-            IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations = assessmentSection.WaterLevelCalculationsForLowerLimitNorm;
+            IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations = assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability;
             HydraulicBoundaryLocationCalculation calculation = calculations.First();
             calculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
 
@@ -521,7 +545,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [TestCaseSource(nameof(GetWaterLevelForNormTargetProbabilityCalculations))]
+        [TestCaseSource(typeof(WaterLevelCalculationsForNormTargetProbabilityContextTreeNodeInfoTest), nameof(GetWaterLevelForNormTargetProbabilityCalculations), new object[]
+        {
+            "CalculateWaterLevelsFromContextMenu_HydraulicBoundaryDatabaseWithCanUsePreprocessorFalse_SendsRightInputToCalculationService_{0}"
+        })]
         [Apartment(ApartmentState.STA)]
         public void CalculateWaterLevelsFromContextMenu_HydraulicBoundaryDatabaseWithCanUsePreprocessorFalse_SendsRightInputToCalculationService(
             Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
@@ -554,6 +581,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 gui.Stub(g => g.ProjectStore).Return(mockRepository.Stub<IStoreProject>());
+                gui.Stub(g => g.DocumentViewController).Return(mockRepository.Stub<IDocumentViewController>());
 
                 var designWaterLevelCalculator = new TestDesignWaterLevelCalculator();
                 var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
@@ -597,7 +625,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [TestCaseSource(nameof(GetWaterLevelForNormTargetProbabilityCalculations))]
+        [TestCaseSource(typeof(WaterLevelCalculationsForNormTargetProbabilityContextTreeNodeInfoTest), nameof(GetWaterLevelForNormTargetProbabilityCalculations), new object[]
+        {
+            "CalculateWaterLevelsFromContextMenu_HydraulicBoundaryDatabaseWithUsePreprocessorTrue_SendsRightInputToCalculationService_{0}"
+        })]
         [Apartment(ApartmentState.STA)]
         public void CalculateWaterLevelsFromContextMenu_HydraulicBoundaryDatabaseWithUsePreprocessorTrue_SendsRightInputToCalculationService(
             Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
@@ -638,6 +669,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 gui.Stub(g => g.ProjectStore).Return(mockRepository.Stub<IStoreProject>());
+                gui.Stub(g => g.DocumentViewController).Return(mockRepository.Stub<IDocumentViewController>());
 
                 var designWaterLevelCalculator = new TestDesignWaterLevelCalculator();
                 var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
@@ -681,7 +713,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [TestCaseSource(nameof(GetWaterLevelForNormTargetProbabilityCalculations))]
+        [TestCaseSource(typeof(WaterLevelCalculationsForNormTargetProbabilityContextTreeNodeInfoTest), nameof(GetWaterLevelForNormTargetProbabilityCalculations), new object[]
+        {
+            "CalculateWaterLevelsFromContextMenu_HydraulicBoundaryDatabaseWithUsePreprocessorFalse_SendsRightInputToCalculationService_{0}"
+        })]
         [Apartment(ApartmentState.STA)]
         public void CalculateWaterLevelsFromContextMenu_HydraulicBoundaryDatabaseWithUsePreprocessorFalse_SendsRightInputToCalculationService(
             Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
@@ -721,6 +756,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 gui.Stub(g => g.ProjectStore).Return(mockRepository.Stub<IStoreProject>());
+                gui.Stub(g => g.DocumentViewController).Return(mockRepository.Stub<IDocumentViewController>());
 
                 var designWaterLevelCalculator = new TestDesignWaterLevelCalculator();
                 var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
@@ -767,7 +803,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         [TestCaseSource(nameof(GetWaterLevelForNormTargetProbabilityCalculationConfigurations))]
         [Apartment(ApartmentState.STA)]
         public void GivenValidCalculations_WhenCalculatingAllFromContextMenu_ThenLogMessagesAddedOutputSet(
-            double lowerLimitNorm, double signallingNorm,
+            double maximumAllowableFloodingProbability, double signalingFloodingProbability,
             Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
         {
             // Given
@@ -776,8 +812,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             {
                 FailureMechanismContribution =
                 {
-                    LowerLimitNorm = lowerLimitNorm,
-                    SignalingNorm = signallingNorm
+                    MaximumAllowableFloodingProbability = maximumAllowableFloodingProbability,
+                    SignalFloodingProbability = signalingFloodingProbability
                 },
                 HydraulicBoundaryDatabase =
                 {
@@ -804,6 +840,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 gui.Stub(g => g.ProjectStore).Return(mockRepository.Stub<IStoreProject>());
+                gui.Stub(g => g.DocumentViewController).Return(mockRepository.Stub<IDocumentViewController>());
 
                 var calculator = new TestDesignWaterLevelCalculator
                 {
@@ -933,7 +970,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         [Apartment(ApartmentState.STA)]
         public void GivenNormCalculationWithIllustrationPoints_WhenClearIllustrationPointsClicked_ThenExpectedInquiryGiven(
             Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc,
-            double lowerLimitNorm, double signalingNorm, string expectedText)
+            double maximumAllowableFloodingProbability, double signalFloodingProbability, string expectedText)
         {
             // Given
             var random = new Random(21);
@@ -941,8 +978,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             {
                 FailureMechanismContribution =
                 {
-                    LowerLimitNorm = lowerLimitNorm,
-                    SignalingNorm = signalingNorm
+                    MaximumAllowableFloodingProbability = maximumAllowableFloodingProbability,
+                    SignalFloodingProbability = signalFloodingProbability
                 }
             };
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new HydraulicBoundaryLocation[]
@@ -992,51 +1029,51 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             mockRepository.VerifyAll();
         }
 
-        private static IEnumerable<TestCaseData> GetWaterLevelForNormTargetProbabilityCalculations()
+        private static IEnumerable<TestCaseData> GetWaterLevelForNormTargetProbabilityCalculations(string testNameFormat)
         {
-            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForSignalingNorm))
-                .SetName("SignalingNormCalculations");
-            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForLowerLimitNorm))
-                .SetName("LowerLimitNormCalculations");
+            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForSignalFloodingProbability))
+                .SetName(string.Format(testNameFormat, "SignalFloodingProbabilityCalculations"));
+            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForMaximumAllowableFloodingProbability))
+                .SetName(string.Format(testNameFormat, "MaximumAllowableFloodingProbabilityCalculations"));
         }
 
         private static IEnumerable<TestCaseData> GetWaterLevelForNormTargetProbabilityCalculationConfigurations()
         {
-            yield return new TestCaseData(1 / 10.0, 1 / 100.0, new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForSignalingNorm))
-                .SetName("SignalingNormCalculations");
-            yield return new TestCaseData(1 / 100.0, 1 / 200.0, new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForLowerLimitNorm))
-                .SetName("LowerLimitNormCalculations");
+            yield return new TestCaseData(1 / 10.0, 1 / 100.0, new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForSignalFloodingProbability))
+                .SetName("SignalFloodingProbabilityCalculations");
+            yield return new TestCaseData(1 / 100.0, 1 / 200.0, new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForMaximumAllowableFloodingProbability))
+                .SetName("MaximumAllowableFloodingProbabilityCalculations");
         }
 
         private static IEnumerable<TestCaseData> GetWaterLevelForNormTargetProbabilityCalculationContinuationCases()
         {
-            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForSignalingNorm), true)
-                .SetName("SignalingNormCalculationsContinued");
-            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForSignalingNorm), false)
-                .SetName("SignalingNormCalculationsCancelled");
-            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForLowerLimitNorm), true)
-                .SetName("LowerLimitNormCalculationsContinued");
-            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForLowerLimitNorm), false)
-                .SetName("LowerLimitNormCalculationsCancelled");
+            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForSignalFloodingProbability), true)
+                .SetName("SignalFloodingProbabilityCalculationsContinued");
+            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForSignalFloodingProbability), false)
+                .SetName("SignalFloodingProbabilityCalculationsCancelled");
+            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForMaximumAllowableFloodingProbability), true)
+                .SetName("MaximumAllowableFloodingProbabilityCalculationsContinued");
+            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForMaximumAllowableFloodingProbability), false)
+                .SetName("MaximumAllowableFloodingProbabilityCalculationsCancelled");
         }
 
         private static IEnumerable<TestCaseData> GetWaterLevelForNormTargetProbabilityCalculationDisplayTextCases()
         {
-            const double lowerLimitNorm = 0.1;
-            const double signalingNorm = 0.01;
+            const double maximumAllowableFloodingProbability = 0.1;
+            const double signalFloodingProbability = 0.01;
 
-            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForSignalingNorm),
-                                          signalingNorm, signalingNorm, "1/100 (1)")
-                .SetName("SignalingNormCalculationsNormsSame");
-            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForSignalingNorm),
-                                          lowerLimitNorm, signalingNorm, "1/100")
-                .SetName("SignalingNormCalculationsNormsDifferent");
-            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForLowerLimitNorm),
-                                          lowerLimitNorm, lowerLimitNorm, "1/10")
-                .SetName("LowerLimitNormCalculationsNormsSame");
-            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForLowerLimitNorm),
-                                          lowerLimitNorm, signalingNorm, "1/10")
-                .SetName("LowerLimitNormCalculationsNormsDifferent");
+            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForSignalFloodingProbability),
+                                          signalFloodingProbability, signalFloodingProbability, "1/100 (1)")
+                .SetName("SignalFloodingProbabilityCalculationsProbabilitiesSame");
+            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForSignalFloodingProbability),
+                                          maximumAllowableFloodingProbability, signalFloodingProbability, "1/100")
+                .SetName("SignalFloodingProbabilityCalculationsProbabilitiesDifferent");
+            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForMaximumAllowableFloodingProbability),
+                                          maximumAllowableFloodingProbability, maximumAllowableFloodingProbability, "1/10")
+                .SetName("MaximumAllowableFloodingProbabilityCalculationsProbabilitiesSame");
+            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForMaximumAllowableFloodingProbability),
+                                          maximumAllowableFloodingProbability, signalFloodingProbability, "1/10")
+                .SetName("MaximumAllowableFloodingProbabilityCalculationsProbabilitiesDifferent");
         }
 
         public override void Setup()

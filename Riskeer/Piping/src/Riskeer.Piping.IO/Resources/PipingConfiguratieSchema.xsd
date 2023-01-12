@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!--
-Copyright (C) Stichting Deltares 2021. All rights reserved.
+Copyright (C) Stichting Deltares 2022. All rights reserved.
 
 This file is part of Riskeer.
 
@@ -59,7 +59,7 @@ All rights reserved.
     </xs:complexType>
   </xs:redefine>
 
-  <!--Generieke definitie van stochasten voor alle toetssporen.-->
+  <!--Generieke definitie van stochasten voor alle faalmechanismen.-->
   <xs:redefine schemaLocation="StochastSchema.xsd">
     <xs:simpleType name="nameType">
       <xs:restriction base="nameType">
@@ -72,7 +72,7 @@ All rights reserved.
   <!--Generieke definitie voor de standaardafwijking van een stochast.-->
   <xs:include schemaLocation="StochastStandaardafwijkingSchema.xsd"/>
 
-  <!--Elementen die specifiek voor dit toetsspoor nodig zijn.-->
+  <!--Elementen die specifiek voor dit faalmechanisme nodig zijn.-->
 
   <!--Specificeert de keuze van een semi-probabilistische of een probabilistische berekening.-->
   <xs:element name="toetsType" abstract="true" />

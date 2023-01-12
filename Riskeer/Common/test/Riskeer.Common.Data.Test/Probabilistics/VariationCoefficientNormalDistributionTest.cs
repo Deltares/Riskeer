@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -74,10 +74,10 @@ namespace Riskeer.Common.Data.Test.Probabilistics
         public void Constructor_InvalidNumberOfDecimalPlaces_ThrowsArgumentOutOfRangeException(int numberOfDecimalPlaces)
         {
             // Call
-            TestDelegate call = () => new VariationCoefficientNormalDistribution(numberOfDecimalPlaces);
+            void Call() => new VariationCoefficientNormalDistribution(numberOfDecimalPlaces);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "Value must be in range [0, 15].");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, "Value must be in range [0, 15].");
         }
 
         [Test]
@@ -119,11 +119,11 @@ namespace Riskeer.Common.Data.Test.Probabilistics
             var distribution = new VariationCoefficientNormalDistribution(2);
 
             // Call
-            TestDelegate call = () => distribution.CoefficientOfVariation = (RoundedDouble) invalidCoefficient;
+            void Call() => distribution.CoefficientOfVariation = (RoundedDouble) invalidCoefficient;
 
             // Assert
             const string expectedMessage = "Variatiecoëfficiënt (CV) moet groter zijn dan of gelijk zijn aan 0.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
         }
 
         [Test]
@@ -145,18 +145,11 @@ namespace Riskeer.Common.Data.Test.Probabilistics
         }
 
         [TestFixture]
-        private class VariationCoefficientNormalDistributionEqualsTest : EqualsTestFixture<VariationCoefficientNormalDistribution,
-            DerivedVariationCoefficientNormalDistribution>
+        private class VariationCoefficientNormalDistributionEqualsTest : EqualsTestFixture<VariationCoefficientNormalDistribution>
         {
             protected override VariationCoefficientNormalDistribution CreateObject()
             {
                 return CreateFullyDefinedDistribution();
-            }
-
-            protected override DerivedVariationCoefficientNormalDistribution CreateDerivedObject()
-            {
-                VariationCoefficientNormalDistribution baseDistribution = CreateFullyDefinedDistribution();
-                return new DerivedVariationCoefficientNormalDistribution(baseDistribution);
             }
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
@@ -179,15 +172,6 @@ namespace Riskeer.Common.Data.Test.Probabilistics
                     Mean = (RoundedDouble) 1,
                     CoefficientOfVariation = (RoundedDouble) 0.1
                 };
-            }
-        }
-
-        private class DerivedVariationCoefficientNormalDistribution : VariationCoefficientNormalDistribution
-        {
-            public DerivedVariationCoefficientNormalDistribution(VariationCoefficientNormalDistribution distribution)
-            {
-                Mean = distribution.Mean;
-                CoefficientOfVariation = distribution.CoefficientOfVariation;
             }
         }
     }

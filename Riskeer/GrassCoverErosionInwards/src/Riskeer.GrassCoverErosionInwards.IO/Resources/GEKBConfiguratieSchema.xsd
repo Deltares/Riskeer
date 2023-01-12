@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!--
-Copyright (C) Stichting Deltares 2021. All rights reserved.
+Copyright (C) Stichting Deltares 2022. All rights reserved.
 
 This file is part of Riskeer.
 
@@ -62,16 +62,16 @@ All rights reserved.
     </xs:complexType>
   </xs:redefine>
 
-  <!--Generieke definitie voor de geselecteerde HB locatie voor alle toetssporen.-->
+  <!--Generieke definitie voor de geselecteerde HB locatie voor alle faalmechanismen.-->
   <xs:include schemaLocation="HbLocatieSchema.xsd"/>
 
-  <!--Generieke definitie voor de orientatie voor alle toetssporen.-->
+  <!--Generieke definitie voor de orientatie voor alle faalmechanismen.-->
   <xs:include schemaLocation="OrientatieSchema.xsd"/>
 
-  <!--Generieke definitie voor golfreducerende parameters voor alle toetssporen.-->
+  <!--Generieke definitie voor golfreducerende parameters voor alle faalmechanismen.-->
   <xs:include schemaLocation="GolfReductieSchema.xsd"/>
 
-  <!--Herdefinieer stochastnamen. Voor dit toetsspoor zijn alleen de onderstaande
+  <!--Herdefinieer stochastnamen. Voor dit faalmechanisme zijn alleen de onderstaande
   namen voor stochasten toegestaan (en ze mogen ook maar maximaal 1 keer voorkomen).-->
   <xs:redefine schemaLocation="StochastSchema.xsd">
     <xs:simpleType name="nameType">
@@ -84,7 +84,7 @@ All rights reserved.
   <!--Generieke definitie voor de standaardafwijking van een stochast.-->
   <xs:include schemaLocation="StochastStandaardafwijkingSchema.xsd"/>
 
-  <!--Volgende elementen zijn specifiek voor dit toetsspoor.-->
+  <!--Volgende elementen zijn specifiek voor dit faalmechanisme.-->
   
   <!--Specificeert het geselecteerde dijkprofiel. In dit element moet de naam van
   het dijkprofiel zoals ook zichtbaar in Riskeer worden opgenomen.-->

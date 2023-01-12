@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -28,7 +28,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.Views;
 using Core.Common.TestUtil;
-using Core.Common.Util;
+using Core.Common.Util.Enums;
 using Core.Common.Util.Extensions;
 using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
@@ -226,10 +226,10 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.AreEqual(radioButtonsShouldBeVisible, radioButtonsPanel.Visible);
 
             var radioButtonSemiProbabilistic = (RadioButton) new RadioButtonTester("radioButtonSemiProbabilistic").TheObject;
-            Assert.AreEqual("Semi-probabilistische toets", radioButtonSemiProbabilistic.Text);
+            Assert.AreEqual("Semi-probabilistisch", radioButtonSemiProbabilistic.Text);
             Assert.IsTrue(radioButtonSemiProbabilistic.Checked);
             var radioButtonProbabilistic = (RadioButton) new RadioButtonTester("radioButtonProbabilistic").TheObject;
-            Assert.AreEqual("Probabilistische toets", radioButtonProbabilistic.Text);
+            Assert.AreEqual("Probabilistisch", radioButtonProbabilistic.Text);
             Assert.IsFalse(radioButtonProbabilistic.Checked);
         }
 

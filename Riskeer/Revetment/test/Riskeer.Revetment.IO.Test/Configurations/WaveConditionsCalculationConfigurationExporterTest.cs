@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -64,7 +64,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
                 Name = "Calculation 1 (lower limit)",
                 InputParameters =
                 {
-                    WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit
+                    WaterLevelType = WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability
                 }
             };
 
@@ -73,7 +73,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
                 Name = "Calculation 2 (signaling)",
                 InputParameters =
                 {
-                    WaterLevelType = WaveConditionsInputWaterLevelType.Signaling
+                    WaterLevelType = WaveConditionsInputWaterLevelType.SignalFloodingProbability
                 }
             };
 
@@ -140,8 +140,8 @@ namespace Riskeer.Revetment.IO.Test.Configurations
             {
                 FailureMechanismContribution =
                 {
-                    LowerLimitNorm = 0.1,
-                    SignalingNorm = 0.05
+                    MaximumAllowableFloodingProbability = 0.1,
+                    SignalFloodingProbability = 0.05
                 }
             });
         }

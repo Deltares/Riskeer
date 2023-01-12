@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -36,19 +36,17 @@ namespace Riskeer.AssemblyTool.Data.Test
             double profileProbability = random.NextDouble();
             double sectionProbability = random.NextDouble();
             double n = random.NextDouble();
-            var interpretationCategory = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>();
+            var assemblyGroup = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>();
 
             // Call
-            var assembly = new FailureMechanismSectionAssemblyResult(profileProbability,
-                                                                     sectionProbability,
-                                                                     n,
-                                                                     interpretationCategory);
+            var assembly = new FailureMechanismSectionAssemblyResult(
+                profileProbability, sectionProbability, n, assemblyGroup);
 
             // Assert
             Assert.AreEqual(profileProbability, assembly.ProfileProbability);
             Assert.AreEqual(sectionProbability, assembly.SectionProbability);
             Assert.AreEqual(n, assembly.N);
-            Assert.AreEqual(interpretationCategory, assembly.AssemblyGroup);
+            Assert.AreEqual(assemblyGroup, assembly.FailureMechanismSectionAssemblyGroup);
         }
     }
 }

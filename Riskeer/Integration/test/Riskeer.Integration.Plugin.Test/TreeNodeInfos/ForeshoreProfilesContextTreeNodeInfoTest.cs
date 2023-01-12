@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -107,7 +107,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failureMechanism = mocks.Stub<ICalculatableFailureMechanism>();
             mocks.ReplayAll();
 
             var emptyCollection = new ForeshoreProfileCollection();
@@ -127,7 +127,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failureMechanism = mocks.Stub<ICalculatableFailureMechanism>();
             mocks.ReplayAll();
 
             var collection = new ForeshoreProfileCollection();
@@ -152,7 +152,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failureMechanism = mocks.Stub<ICalculatableFailureMechanism>();
             mocks.ReplayAll();
 
             ForeshoreProfile profile1 = new TestForeshoreProfile("A", "ID A");
@@ -190,7 +190,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanism = mocks.Stub<IFailureMechanism>();
+                var failureMechanism = mocks.Stub<ICalculatableFailureMechanism>();
 
                 var emptyCollection = new ForeshoreProfileCollection();
                 var context = new ForeshoreProfilesContext(emptyCollection, failureMechanism, assessmentSection);

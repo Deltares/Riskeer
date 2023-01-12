@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -56,7 +56,7 @@ namespace Riskeer.Integration.Test.FileImporters
         [Test]
         [TestCaseSource(nameof(GetSupportedFailureMechanisms))]
         public void UpdateForeshoreProfilesWithImportedData_SupportedFailureMechanisms_UpdatesAffectedCalculationAndReturnsAffectedData(
-            IFailureMechanism failureMechanism,
+            ICalculatableFailureMechanism failureMechanism,
             ForeshoreProfileCollection foreshoreProfiles,
             ForeshoreProfile unaffectedForeshoreProfile)
         {
@@ -257,7 +257,7 @@ namespace Riskeer.Integration.Test.FileImporters
                     new TestWaveConditionsOutput()
                 })
             };
-            waveImpactAsphaltCoverFailureMechanism.WaveConditionsCalculationGroup.Children.Add(unaffectedCalculation);
+            waveImpactAsphaltCoverFailureMechanism.CalculationsGroup.Children.Add(unaffectedCalculation);
             return waveImpactAsphaltCoverFailureMechanism;
         }
 
@@ -278,7 +278,7 @@ namespace Riskeer.Integration.Test.FileImporters
                 },
                 Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create()
             };
-            grassCoverErosionOutwardsFailureMechanism.WaveConditionsCalculationGroup.Children.Add(unaffectedCalculation);
+            grassCoverErosionOutwardsFailureMechanism.CalculationsGroup.Children.Add(unaffectedCalculation);
             return grassCoverErosionOutwardsFailureMechanism;
         }
 
@@ -299,7 +299,7 @@ namespace Riskeer.Integration.Test.FileImporters
                 },
                 Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create()
             };
-            stabilityStoneCoverFailureMechanism.WaveConditionsCalculationGroup.Children.Add(unaffectedCalculation);
+            stabilityStoneCoverFailureMechanism.CalculationsGroup.Children.Add(unaffectedCalculation);
             return stabilityStoneCoverFailureMechanism;
         }
 

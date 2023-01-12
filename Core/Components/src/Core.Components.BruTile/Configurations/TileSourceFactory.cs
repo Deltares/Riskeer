@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -78,7 +78,7 @@ namespace Core.Components.BruTile.Configurations
 
         public ITileSource GetKnownTileSource(KnownTileSource knownTileSource)
         {
-            return KnownTileSources.Create(knownTileSource);
+            return KnownTileSources.Create(knownTileSource, userAgent: "Riskeer");
         }
 
         /// <summary>
@@ -111,7 +111,7 @@ namespace Core.Components.BruTile.Configurations
 
         private static void AddSupportForAllSecurityProtocols()
         {
-            ServicePointManager.SecurityProtocol |= 
+            ServicePointManager.SecurityProtocol |=
                 SecurityProtocolType.Tls12;
         }
     }

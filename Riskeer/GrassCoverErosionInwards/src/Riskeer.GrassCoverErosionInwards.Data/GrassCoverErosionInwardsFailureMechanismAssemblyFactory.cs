@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -40,12 +40,12 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         /// <param name="sectionResult">The section result to assemble.</param>
         /// <param name="failureMechanism">The <see cref="GrassCoverErosionInwardsFailureMechanism"/> the section result belongs to.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the section belongs to.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssemblyResult"/>.</returns>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyResultWrapper"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the section could not be assembled.</exception>
-        public static FailureMechanismSectionAssemblyResult AssembleSection(AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult,
-                                                                            GrassCoverErosionInwardsFailureMechanism failureMechanism,
-                                                                            IAssessmentSection assessmentSection)
+        public static FailureMechanismSectionAssemblyResultWrapper AssembleSection(AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult,
+                                                                                   GrassCoverErosionInwardsFailureMechanism failureMechanism,
+                                                                                   IAssessmentSection assessmentSection)
         {
             if (sectionResult == null)
             {
@@ -78,11 +78,11 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         /// <param name="failureMechanism">The <see cref="GrassCoverErosionInwardsFailureMechanism"/> to assemble.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the <paramref name="failureMechanism"/>
         /// belongs to.</param>
-        /// <returns>A <see cref="double"/> representing the assembly result.</returns>
+        /// <returns>A <see cref="FailureMechanismAssemblyResultWrapper"/> with the assembly result.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the failure mechanism could not be assembled.</exception>
-        public static double AssembleFailureMechanism(GrassCoverErosionInwardsFailureMechanism failureMechanism,
-                                                      IAssessmentSection assessmentSection)
+        public static FailureMechanismAssemblyResultWrapper AssembleFailureMechanism(GrassCoverErosionInwardsFailureMechanism failureMechanism,
+                                                                                     IAssessmentSection assessmentSection)
         {
             if (failureMechanism == null)
             {
@@ -94,9 +94,15 @@ namespace Riskeer.GrassCoverErosionInwards.Data
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return AssemblyToolHelper.AssemblyFailureMechanism(
-                failureMechanism, sr => AssembleSection(sr, failureMechanism, assessmentSection),
-                failureMechanism.GeneralInput.N);
+            Func<AdoptableWithProfileProbabilityFailureMechanismSectionResult, FailureMechanismSectionAssemblyResultWrapper> performSectionAssemblyFunc = sr =>
+                AssembleSection(sr, failureMechanism, assessmentSection);
+
+            return FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(
+                failureMechanism.GeneralInput.N,
+                failureMechanism.SectionResults.Select(sr => AssemblyToolHelper.AssembleFailureMechanismSection(sr, performSectionAssemblyFunc))
+                                .ToArray(),
+                failureMechanism.GeneralInput.ApplyLengthEffectInSection,
+                failureMechanism.AssemblyResult);
         }
     }
 }

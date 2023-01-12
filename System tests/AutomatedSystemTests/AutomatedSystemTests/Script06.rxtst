@@ -11,18 +11,22 @@
 			name="b)ImportModifiedReferenceLineAsFMSections">
 				<parameters>
 					<param
+					mask="False"
 					name="fileNameReferenceLineToExport"
 					value="referenceLineExported">
 					</param>
 					<param
+					mask="False"
 					name="pathToFolderReferenceFileForReferenceLine"
 					value="X:\script06\reference\">
 					</param>
 					<param
+					mask="False"
 					name="shapeFileExtension"
 					value=".shp">
 					</param>
 					<param
+					mask="False"
 					name="fullPathReferenceFileToExport"
 					value="">
 					</param>
@@ -82,37 +86,37 @@
 					variablename="concatenatedString">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
 					variablename="string5">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
 					variablename="string7">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
 					variablename="string6">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
 					variablename="string8">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
 					variablename="string9">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
 					variablename="string10">
@@ -124,6 +128,7 @@
 			name="ExportPropertiesPanelToCsv">
 				<parameters>
 					<param
+					mask="False"
 					name="separatorChar"
 					value=";">
 					</param>
@@ -163,15 +168,39 @@
 			name="LoopFMs5Sections">
 				<parameters>
 					<param
+					mask="False"
 					name="logMessageScreenshotBeforeImportingSections"
 					value="Plese, take a look at the map of the FM before importing the file with 5 sections (vakindeling).">
 					</param>
 					<param
+					mask="False"
 					name="logMessageScreenshotAfterImportingSections"
 					value="Plese, take a look at the map of the FM after importing the file with 5 sections (vakindeling).">
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="090557a3-b97c-45ce-810c-5230bc8259b6"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathReferenceLine"
+					datasourceid="86645d51-10c8-45c3-b6cd-8d9dc7078a56"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathToSectionsInStateFA"
+					datasourceid="9bfb73df-276d-4d0f-b99d-55d1e58e5552"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			datarangeset="1-3,6,7,9,12,13,15"
 			datasource="script06_DataForSectionsInAllFMs"
@@ -182,10 +211,12 @@
 			name="LoopFMs3Sections">
 				<parameters>
 					<param
+					mask="False"
 					name="logMessageScreenshotBeforeImportingSections"
 					value="Please, take a look at the map of the FM before importing the file with 3 sections (vakindeling).">
 					</param>
 					<param
+					mask="False"
 					name="logMessageScreenshotAfterImportingSections"
 					value="Please, take a look at the map of the FM after importing the file with 3 sections (vakindeling).">
 					</param>
@@ -214,8 +245,9 @@
 			name="SelectFailurePathsState">
 				<parameters>
 					<param
+					mask="False"
 					name="StateToSelect"
-					value="Faalpaden">
+					value="@RA">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -238,6 +270,7 @@
 			name="ExportPropertiesPanelToCsv">
 				<parameters>
 					<param
+					mask="False"
 					name="separatorChar"
 					value=";">
 					</param>
@@ -278,43 +311,43 @@
 					variablename="concatenatedString">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
 					variablename="string4">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
 					variablename="string5">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
 					variablename="string6">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
 					variablename="string7">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
 					variablename="string8">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
 					variablename="string9">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
 					variablename="string10">
@@ -352,43 +385,43 @@
 					variablename="string3">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
 					variablename="string4">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
 					variablename="string5">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
 					variablename="string6">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
 					variablename="string7">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
 					variablename="string8">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
 					variablename="string9">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
 					variablename="string10">
@@ -407,21 +440,15 @@
 			</smartfoldernode>
 			<testmodule
 			id="15f7824c-89bb-462a-9b13-e7903dfbbb21"
-			name="SetRelevanceFMInProjectExplorer"
+			name="SetFMInsideOutsideAssembly"
 			ref="37154a5a-bed5-4655-91a2-0c5ebc672e77"
 			type="Recording">
 				<databinding>
 					<var
-					dataname="fmShouldBeRelevant"
+					dataname="fmShouldBeInAssembly"
 					datasourceid="d6e2bc96-d867-4535-a18f-c1bdde9770b4"
-					variableid="6f91cdce-7f0c-42ee-93e0-4a3735497a16"
-					variablename="fmShouldBeRelevant">
-					</var>
-					<var
-					dataname="substringInFmName"
-					datasourceid="d6e2bc96-d867-4535-a18f-c1bdde9770b4"
-					variableid="c8f26984-6161-4190-9006-d6b627a1bf14"
-					variablename="substringName">
+					variableid="47e7d98d-4769-4554-b1bb-fafa502b0d24"
+					variablename="fmShouldBeInAssembly">
 					</var>
 				</databinding>
 			</testmodule>
@@ -438,14 +465,17 @@
 			name="SetupNewTraject">
 				<parameters>
 					<param
+					mask="False"
 					name="normType"
 					value="Signal">
 					</param>
 					<param
+					mask="False"
 					name="signallingValue"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="lowLimitValue"
 					value="">
 					</param>
@@ -470,49 +500,49 @@
 					variablename="string2">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
 					variablename="string3">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
 					variablename="string4">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
 					variablename="string5">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
 					variablename="string6">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
 					variablename="string7">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
 					variablename="string8">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
 					variablename="string9">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
 					variablename="string10">
@@ -903,6 +933,7 @@
 			name="1)ImportIncompatibleFMSections">
 				<parameters>
 					<param
+					mask="False"
 					name="FullPathToSections"
 					value="">
 					</param>
@@ -991,43 +1022,43 @@
 					variablename="string3">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
 					variablename="string4">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
 					variablename="string5">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
 					variablename="string6">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
 					variablename="string7">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
 					variablename="string8">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
 					variablename="string9">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
 					variablename="string10">
@@ -1057,6 +1088,7 @@
 			name="MakeScreenshot">
 				<parameters>
 					<param
+					mask="False"
 					name="logMessage"
 					value="Check screenshot of map before exported reference line has been added as an extra layer.">
 					</param>
@@ -1130,32 +1162,44 @@
 			name="script06_Vakindeling_maken_of_aanpassen">
 				<parameters>
 					<param
+					mask="False"
 					name="scriptOutputFolder"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="caseNumber"
 					value="06">
 					</param>
 					<param
-					name="dummyString"
+					mask="False"
+					name="emptyString"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="PrefixFMInStateFA"
-					value="Traject>Generieke faalpaden>">
+					value="Traject>@GF>">
 					</param>
 					<param
+					mask="False"
 					name="SuffixSections"
 					value=">Invoer>Vakindeling">
 					</param>
 					<param
+					mask="False"
 					name="SuffixResults"
 					value=">Oordeel>Resultaat">
 					</param>
 					<param
+					mask="False"
 					name="SuffixScenarios"
 					value=">Oordeel>Scenario's">
+					</param>
+					<param
+					mask="False"
+					name="dummyVariable"
+					value="">
 					</param>
 				</parameters>
 			</testcase>
@@ -1216,43 +1260,43 @@
 					variablename="string3">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
 					variablename="string4">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
 					variablename="string5">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
 					variablename="string6">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
 					variablename="string7">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
 					variablename="string8">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
 					variablename="string9">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
 					variablename="string10">
@@ -1270,6 +1314,7 @@
 			name="ValidateSectionsInPropertiesPanel">
 				<parameters>
 					<param
+					mask="False"
 					name="pathCSVFileSections"
 					value="">
 					</param>
@@ -1367,10 +1412,12 @@
 			name="SelectRandomFMToAddSections">
 				<parameters>
 					<param
+					mask="False"
 					name="nameSmartFolder"
 					value="AddSectionsIncompatibleWithTraject">
 					</param>
 					<param
+					mask="False"
 					name="rangeToSetInSmartFolder"
 					value="">
 					</param>
@@ -1401,10 +1448,12 @@
 			name="MakeAllParametersInPropertiesPanelVisible">
 				<parameters>
 					<param
+					mask="False"
 					name="numberOfPassesExpandingRows"
 					value="3">
 					</param>
 					<param
+					mask="False"
 					name="waitDurationAfterExpanding"
 					value="500">
 					</param>
@@ -1461,37 +1510,37 @@
 					variablename="string4">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
 					variablename="string5">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
 					variablename="string6">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
 					variablename="string7">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
 					variablename="string8">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
 					variablename="string9">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
 					variablename="string10">
@@ -1529,18 +1578,22 @@
 			name="ValidateNoSectionsHaveBeenImported">
 				<parameters>
 					<param
+					mask="False"
 					name="nameParameterSourceLocation"
 					value="Bronlocatie">
 					</param>
 					<param
+					mask="False"
 					name="expectedValueParameterSourceLocation"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="nameParameterSections"
 					value="Vakindeling">
 					</param>
 					<param
+					mask="False"
 					name="expectedValueParameterSections"
 					value="Aantal (0)">
 					</param>
@@ -1555,34 +1608,42 @@
 			name="CalculateFileName3Sections">
 				<parameters>
 					<param
+					mask="False"
 					name="intermediateString1"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString2"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString3"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="spaceChar"
 					value=" ">
 					</param>
 					<param
+					mask="False"
 					name="pathSeparatorChar"
 					value=">">
 					</param>
 					<param
+					mask="False"
 					name="underscoreChar"
 					value="_">
 					</param>
 					<param
+					mask="False"
 					name="suffixNumberOfSections"
 					value="_3Sections">
 					</param>
 					<param
+					mask="False"
 					name="extensionCsv"
 					value=".csv">
 					</param>
@@ -1593,10 +1654,12 @@
 			name="MakeAllParametersInPropertiesPanelVisible">
 				<parameters>
 					<param
+					mask="False"
 					name="numberOfPassesExpandingRows"
 					value="3">
 					</param>
 					<param
+					mask="False"
 					name="waitDurationAfterExpanding"
 					value="500">
 					</param>
@@ -1675,43 +1738,43 @@
 					variablename="string3">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
 					variablename="string4">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
 					variablename="string5">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
 					variablename="string6">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
 					variablename="string7">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
 					variablename="string8">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
 					variablename="string9">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
 					variablename="string10">
@@ -1755,6 +1818,7 @@
 			name="CalculateFileName">
 				<parameters>
 					<param
+					mask="False"
 					name="intermediateFilename"
 					value="">
 					</param>
@@ -1825,8 +1889,8 @@
 					<var
 					dataname="stateToSelect"
 					datasourceid="f31ff3a7-414d-4b51-8475-a3f9057175f6"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -1895,8 +1959,8 @@
 					<var
 					dataname="StateToSelect"
 					datasourceid="0c65adee-1bc9-442c-bf71-46e0dbbb73a4"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -1912,10 +1976,6 @@
 			id="7db15ab3-c87d-43b7-ba6c-5ad95dc78d3e"
 			name="AddBackgroundLayerExportedShapeFile">
 			</smartfoldernode>
-			<testcase
-			id="7ec7fa27-1f51-45db-ae12-c33cd7f27254"
-			name="TakeScreenshotOfDesktop">
-			</testcase>
 			<testmodule
 			id="7f34797f-c389-4d6b-b5e0-452c234a5215"
 			name="SelectState"
@@ -1925,8 +1985,8 @@
 					<var
 					dataname="StateToSelect"
 					datasourceid="a3c4d35e-14be-4fc8-8022-aed9e087b9c1"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -2009,6 +2069,44 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="8592b68a-8db4-4fd5-8561-febeeb44fb2e"
+			name="ReportToPDFModule"
+			ref="ffa0759d-37d2-4abb-89a7-411f0fcf2dfe"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="PdfName"
+					datasourceid="ee30e871-8c8b-4bfb-88c7-e87ad28524aa"
+					variableid="1d09c6b5-db7a-4ed0-a13c-ee2add5d3d37"
+					variablename="PdfName">
+					</var>
+					<var
+					dataname="Xml"
+					datasourceid="ee30e871-8c8b-4bfb-88c7-e87ad28524aa"
+					variableid="c15f25ea-9409-4e1a-b76e-cd208bae6c56"
+					variablename="Xml">
+					</var>
+					<var
+					dataname="Details"
+					datasourceid="ee30e871-8c8b-4bfb-88c7-e87ad28524aa"
+					variableid="b9993b89-d8cb-45fe-829b-42b0f8dd8a00"
+					variablename="Details">
+					</var>
+					<var
+					dataname="DeleteRanorexReport"
+					datasourceid="ee30e871-8c8b-4bfb-88c7-e87ad28524aa"
+					variableid="7f788c18-962c-41ab-b591-9c3122512c5e"
+					variablename="DeleteRanorexReport">
+					</var>
+					<var
+					dataname="PdfDirectoryPath"
+					datasourceid="ee30e871-8c8b-4bfb-88c7-e87ad28524aa"
+					variableid="536f8a69-f246-4f2b-ae9e-1f62babb2ba9"
+					variablename="PdfDirectoryPath">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="85e49409-1b6e-48dc-beca-5c1e65eddd57"
 			name="ConcatenateStrings"
 			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
@@ -2027,43 +2125,43 @@
 					variablename="string3">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
 					variablename="string4">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
 					variablename="string5">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
 					variablename="string6">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
 					variablename="string7">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
 					variablename="string8">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
 					variablename="string9">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
 					variablename="string10">
@@ -2104,6 +2202,27 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="86645d51-10c8-45c3-b6cd-8d9dc7078a56"
+			name="ImportReferenceLine">
+				<parameters>
+					<param
+					mask="False"
+					name="stateTraject"
+					value="@TR">
+					</param>
+					<param
+					mask="False"
+					name="pathReferenceLine"
+					value="@TR>Referentielijn">
+					</param>
+					<param
+					mask="False"
+					name="pathToReferenceLineFile"
+					value="X:\script06\referenceLine12-2\referentielijn 12-2.shp">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="868ce1fd-a1aa-4142-a65d-c5c45df42f49"
 			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
@@ -2234,12 +2353,6 @@
 			id="8c3b9c0d-d973-451c-a475-51fee2ca109a"
 			name="Sections(Vakindeling)">
 			</smartfoldernode>
-			<testmodule
-			id="8d69101c-e66c-420c-9f61-9e9854ea028a"
-			name="CreateScreenshotEntireDesktop"
-			ref="0f7ebadb-0285-4449-9422-0cd6fde5bf4d"
-			type="Recording">
-			</testmodule>
 			<smartfoldernode
 			id="8f7180bd-2e81-4f44-bd9a-456384929862"
 			name="CloseSectionsView">
@@ -2285,10 +2398,12 @@
 			name="MakeScreenshot">
 				<parameters>
 					<param
+					mask="False"
 					name="logMessage1"
 					value="Check screenshot of map after exported reference line has been added as an extra layer.">
 					</param>
 					<param
+					mask="False"
 					name="logMessage2"
 					value="Check screenshot of messages panel after exported reference line has been added as an extra layer.">
 					</param>
@@ -2368,6 +2483,7 @@
 			name="ValidateSectionsInPropertiesPanel">
 				<parameters>
 					<param
+					mask="False"
 					name="pathCSVFileSections"
 					value="">
 					</param>
@@ -2402,6 +2518,7 @@
 			name="Export">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToReferenceLineItemInProjectExplorer"
 					value="Traject>Referentielijn">
 					</param>
@@ -2412,8 +2529,9 @@
 			name="SelectTrajectState">
 				<parameters>
 					<param
+					mask="False"
 					name="StateToSelect"
-					value="Traject">
+					value="@TR">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -2476,6 +2594,20 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="aa43f1ff-82b6-4b58-9831-5fe257a005f2"
+			name="SelectState"
+			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="stateTraject"
+					datasourceid="86645d51-10c8-45c3-b6cd-8d9dc7078a56"
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="ad95320f-32d8-4623-97b1-ccf476b1a3b4"
 			name="OpenResultsView">
@@ -2517,23 +2649,34 @@
 				</databinding>
 			</testmodule>
 			<testsuite
+			ExportColumnList="None"
 			ReportTime="RelativeToTestSuiteStartTime"
+			SelectedActions="All"
 			TracingScreenshotMode="Foreground"
 			TracingScreenshotQuality="40"
 			VideoBitrate="2000"
 			VideoFps="15"
 			VideoRecordingMode="KeepAllTests"
 			VideoSource="Auto"
+			createindividualreportpdfchecked="False"
+			createsinglereportpdfchecked="True"
+			enableCSVReport="False"
 			enabletracingscreenshots="True"
+			exportAllColummns="True"
 			id="aeadcf4c-d1da-4486-9f6c-a36722b66876"
+			includeimageschecked="False"
+			includerecordingschecked="False"
 			junitreport="False"
 			name="Script06"
+			overwritefilechecked="False"
 			reportcompress="False"
+			reportdescription=""
 			reportdirectoryname="Reports"
 			reportenabled="True"
 			reportfilename="%S_%Y%M%D_%T.rxlog"
 			reporttemplatefolder="ReportDeltaresStyle"
-			reportwriteinterval="30000ms">
+			reportwriteinterval="30000ms"
+			singlereportpdfdirectory="SingleReportPDF">
 			</testsuite>
 			<testmodule
 			id="aee11c27-5415-4ec8-95b8-9bd8ce325c97"
@@ -2738,14 +2881,17 @@
 			name="SetupNewTraject">
 				<parameters>
 					<param
+					mask="False"
 					name="normType"
 					value="Signal">
 					</param>
 					<param
+					mask="False"
 					name="signallingValue"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="lowerLimit"
 					value="">
 					</param>
@@ -2762,6 +2908,20 @@
 			type="Recording">
 			</testmodule>
 			<testmodule
+			id="b54df9b4-c650-4fdd-8abf-a1811d109711"
+			name="ImportReferenceLine"
+			ref="c5c8249d-a582-4230-ba22-0b7657e78ecd"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToReferenceLineFile"
+					datasourceid="86645d51-10c8-45c3-b6cd-8d9dc7078a56"
+					variableid="d2f452f1-239b-4d2c-a492-f7f177add580"
+					variablename="pathReferenceLineFile">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="b6e603c9-d5a5-4afd-9e23-648fbfac6829"
 			name="SelectState"
 			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
@@ -2770,8 +2930,8 @@
 					<var
 					dataname="StateToSelect"
 					datasourceid="c800e352-a06c-42bc-8ff8-f17338fcbc2e"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
 					</var>
 				</databinding>
 			</testmodule>
@@ -2800,10 +2960,12 @@
 			name="AddExtraLayerBackground">
 				<parameters>
 					<param
+					mask="False"
 					name="namePanelMap"
 					value="Kaart">
 					</param>
 					<param
+					mask="False"
 					name="pathToTrajectItem"
 					value="Traject">
 					</param>
@@ -2814,34 +2976,42 @@
 			name="a)ImportAndAdaptFMSections">
 				<parameters>
 					<param
+					mask="False"
 					name="trajectCompatibleWithFMSections"
 					value="12-2">
 					</param>
 					<param
+					mask="False"
 					name="trajectIncompatibleWithFMSections"
 					value="12-1">
 					</param>
 					<param
+					mask="False"
 					name="pathFolderReferenceLine"
 					value="X:\script06\referenceLine12-2">
 					</param>
 					<param
+					mask="False"
 					name="pathFolderReferenceLine3Sections"
 					value="X:\script06\referenceLine12-2DividedIn3Sections">
 					</param>
 					<param
+					mask="False"
 					name="pathFolderReferenceLine5Sections"
 					value="X:\script06\referenceLine12-2DividedIn5Sections">
 					</param>
 					<param
+					mask="False"
 					name="pathFolderInput"
 					value="X:\script06\input">
 					</param>
 					<param
+					mask="False"
 					name="filterAllFiles"
 					value="*.*">
 					</param>
 					<param
+					mask="False"
 					name="pathToSectionsFileToImport"
 					value="X:\script06\input\referentielijn 12-2.shp">
 					</param>
@@ -2876,8 +3046,9 @@
 			name="AddSectionsIncompatibleWithTraject">
 				<parameters>
 					<param
+					mask="False"
 					name="StateToSelect"
-					value="Faalpaden">
+					value="@RA">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -2964,8 +3135,8 @@
 					<var
 					dataname="stateToSelect"
 					datasourceid="d6e2bc96-d867-4535-a18f-c1bdde9770b4"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -2977,21 +3148,38 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="d4dcfd8b-617a-424e-a00a-6baf62cb8097"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToDunesFM"
+					datasourceid="d6e2bc96-d867-4535-a18f-c1bdde9770b4"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="d6e2bc96-d867-4535-a18f-c1bdde9770b4"
 			name="MakeDunesFMRelevant">
 				<parameters>
 					<param
-					name="substringInFmName"
-					value="Duinafslag">
+					mask="False"
+					name="pathToDunesFM"
+					value="@TR>@GF>@DA">
 					</param>
 					<param
-					name="fmShouldBeRelevant"
+					mask="False"
+					name="fmShouldBeInAssembly"
 					value="True">
 					</param>
 					<param
+					mask="False"
 					name="stateToSelect"
-					value="Faalpaden">
+					value="@RA">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -3101,43 +3289,43 @@
 					variablename="string3">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
 					variablename="string4">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
 					variablename="string5">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
 					variablename="string6">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
 					variablename="string7">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
 					variablename="string8">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
 					variablename="string9">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
 					variablename="string10">
@@ -3168,6 +3356,10 @@
 			id="e472b303-5913-4764-a419-0a0ee3b80d35"
 			name="DeleteAllFilesInputFolder">
 			</smartfoldernode>
+			<teardown
+			id="e4e2cd47-6a4f-4fe9-8c92-86baf5f72f57"
+			name="teardown">
+			</teardown>
 			<testmodule
 			id="e4eeb0b1-0a52-4636-8469-f7526f6a885b"
 			name="UpdateCurrentlySelectedItem"
@@ -3193,49 +3385,49 @@
 					variablename="string2">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
 					variablename="string3">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
 					variablename="string4">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
 					variablename="string5">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
 					variablename="string6">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
 					variablename="string7">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
 					variablename="string8">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
 					variablename="string9">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
 					variablename="string10">
@@ -3285,6 +3477,20 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="ebdff53d-1a47-443f-801a-f767c3804229"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToFMDunes"
+					datasourceid="f31ff3a7-414d-4b51-8475-a3f9057175f6"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="ed695cb4-034f-46c3-8fa3-8f441c637487"
 			name="CloseSectionsView">
@@ -3308,12 +3514,39 @@
 				</description>
 				<parameters>
 					<param
+					mask="False"
 					name="AppProcessID"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="AppPath"
 					value="..\..\..\..\..\bin\Debug\Riskeer.exe">
+					</param>
+					<param
+					mask="False"
+					name="PdfName"
+					value="script06_Vakindeling_maken_of_aanpassen.pdf">
+					</param>
+					<param
+					mask="False"
+					name="Xml"
+					value="Reports\style.xml">
+					</param>
+					<param
+					mask="False"
+					name="Details"
+					value="all">
+					</param>
+					<param
+					mask="False"
+					name="DeleteRanorexReport"
+					value="false">
+					</param>
+					<param
+					mask="False"
+					name="PdfDirectoryPath"
+					value="">
 					</param>
 				</parameters>
 			</testcase>
@@ -3407,36 +3640,33 @@
 			name="MakeDunesFMRelevant">
 				<parameters>
 					<param
-					name="substringInFmName"
-					value="Duinafslag">
+					mask="False"
+					name="pathToFMDunes"
+					value="@TR>@GF>@DA">
 					</param>
 					<param
-					name="fmShouldBeRelevant"
+					mask="False"
+					name="fmShouldBeInAssembly"
 					value="True">
 					</param>
 					<param
+					mask="False"
 					name="stateToSelect"
-					value="Faalpaden">
+					value="@RA">
 					</param>
 				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="f3514efc-4276-437a-8662-d7f14ca656cb"
-			name="SetRelevanceFMInProjectExplorer"
+			name="SetFMInsideOutsideAssembly"
 			ref="37154a5a-bed5-4655-91a2-0c5ebc672e77"
 			type="Recording">
 				<databinding>
 					<var
-					dataname="fmShouldBeRelevant"
+					dataname="fmShouldBeInAssembly"
 					datasourceid="f31ff3a7-414d-4b51-8475-a3f9057175f6"
-					variableid="6f91cdce-7f0c-42ee-93e0-4a3735497a16"
-					variablename="fmShouldBeRelevant">
-					</var>
-					<var
-					dataname="substringInFmName"
-					datasourceid="f31ff3a7-414d-4b51-8475-a3f9057175f6"
-					variableid="c8f26984-6161-4190-9006-d6b627a1bf14"
-					variablename="substringName">
+					variableid="47e7d98d-4769-4554-b1bb-fafa502b0d24"
+					variablename="fmShouldBeInAssembly">
 					</var>
 				</databinding>
 			</testmodule>
@@ -3479,43 +3709,43 @@
 					variablename="string3">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
 					variablename="string4">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
 					variablename="string5">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
 					variablename="string6">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
 					variablename="string7">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
 					variablename="string8">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
 					variablename="string9">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
 					variablename="string10">
@@ -3539,18 +3769,22 @@
 			name="2)ImportAndAdaptCompatibleFMSections">
 				<parameters>
 					<param
+					mask="False"
 					name="FullPathToFM"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="FullPathToSections"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="FullPathToResults"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="FullPathToScenarios"
 					value="">
 					</param>
@@ -3587,34 +3821,42 @@
 			name="CalculateFileName">
 				<parameters>
 					<param
+					mask="False"
 					name="intermediateString1"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString2"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString3"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="spaceChar"
 					value=" ">
 					</param>
 					<param
+					mask="False"
 					name="pathSeparatorChar"
 					value=">">
 					</param>
 					<param
+					mask="False"
 					name="underscoreChar"
 					value="_">
 					</param>
 					<param
+					mask="False"
 					name="suffixNumberOfSections"
 					value="_5Sections">
 					</param>
 					<param
+					mask="False"
 					name="extensionCsv"
 					value=".csv">
 					</param>
@@ -3677,14 +3919,6 @@
 				id="ee30e871-8c8b-4bfb-88c7-e87ad28524aa"
 				name="Script06">
 					<testcase
-					id="7ec7fa27-1f51-45db-ae12-c33cd7f27254"
-					name="TakeScreenshotOfDesktop">
-						<testmodule
-						id="8d69101c-e66c-420c-9f61-9e9854ea028a"
-						name="CreateScreenshotEntireDesktop">
-						</testmodule>
-					</testcase>
-					<testcase
 					id="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					name="script06_Vakindeling_maken_of_aanpassen">
 						<setup
@@ -3724,8 +3958,12 @@
 										name="SelectState">
 										</testmodule>
 										<testmodule
+										id="d4dcfd8b-617a-424e-a00a-6baf62cb8097"
+										name="SelectGenericItemInProjectExplorer">
+										</testmodule>
+										<testmodule
 										id="15f7824c-89bb-462a-9b13-e7903dfbbb21"
-										name="SetRelevanceFMInProjectExplorer">
+										name="SetFMInsideOutsideAssembly">
 										</testmodule>
 									</smartfoldernode>
 								</smartfoldernode>
@@ -3836,6 +4074,22 @@
 									id="22ccb48f-3038-4715-bd41-7349c2e2eab1"
 									name="CloseViewCentralPanelWithFocus">
 									</testmodule>
+									<smartfoldernode
+									id="86645d51-10c8-45c3-b6cd-8d9dc7078a56"
+									name="ImportReferenceLine">
+										<testmodule
+										id="aa43f1ff-82b6-4b58-9831-5fe257a005f2"
+										name="SelectState">
+										</testmodule>
+										<testmodule
+										id="090557a3-b97c-45ce-810c-5230bc8259b6"
+										name="SelectGenericItemInProjectExplorer">
+										</testmodule>
+										<testmodule
+										id="b54df9b4-c650-4fdd-8abf-a1811d109711"
+										name="ImportReferenceLine">
+										</testmodule>
+									</smartfoldernode>
 								</smartfoldernode>
 								<smartfoldernode
 								id="f31ff3a7-414d-4b51-8475-a3f9057175f6"
@@ -3845,8 +4099,12 @@
 									name="SelectState">
 									</testmodule>
 									<testmodule
+									id="ebdff53d-1a47-443f-801a-f767c3804229"
+									name="SelectGenericItemInProjectExplorer">
+									</testmodule>
+									<testmodule
 									id="f3514efc-4276-437a-8662-d7f14ca656cb"
-									name="SetRelevanceFMInProjectExplorer">
+									name="SetFMInsideOutsideAssembly">
 									</testmodule>
 								</smartfoldernode>
 								<smartfoldernode
@@ -4512,6 +4770,14 @@
 							</testmodule>
 						</teardown>
 					</testcase>
+					<teardown
+					id="e4e2cd47-6a4f-4fe9-8c92-86baf5f72f57"
+					name="teardown">
+						<testmodule
+						id="8592b68a-8db4-4fd5-8561-febeeb44fb2e"
+						name="ReportToPDFModule">
+						</testmodule>
+					</teardown>
 				</testcase>
 			</testsuite>
 		</childhierarchy>
@@ -5581,13 +5847,13 @@
 			id="7db15ab3-c87d-43b7-ba6c-5ad95dc78d3e">
 			</testcontainer>
 			<testcontainer
-			id="7ec7fa27-1f51-45db-ae12-c33cd7f27254">
-			</testcontainer>
-			<testcontainer
 			id="830552eb-aecf-4e03-b88d-f3caadce0247">
 			</testcontainer>
 			<testcontainer
 			id="84d55f63-e2fc-4f32-9a4a-9539af1f86a1">
+			</testcontainer>
+			<testcontainer
+			id="86645d51-10c8-45c3-b6cd-8d9dc7078a56">
 			</testcontainer>
 			<testcontainer
 			id="8788fbb6-9be3-48ea-be41-219f254eabec">
@@ -5726,6 +5992,9 @@
 		</reference>
 		<reference>
 			Ranorex Automation Helpers.dll
+		</reference>
+		<reference>
+			Ranorex.ReportToPDF.exe
 		</reference>
 	</references>
 </testsuitedoc>

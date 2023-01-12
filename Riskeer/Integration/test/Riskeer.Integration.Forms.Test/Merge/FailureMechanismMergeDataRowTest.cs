@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.FailureMechanism;
@@ -34,26 +35,64 @@ namespace Riskeer.Integration.Forms.Test.Merge
     public class FailureMechanismMergeDataRowTest
     {
         [Test]
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new FailureMechanismMergeDataRow(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
+            const string failureMechanismName = "Just a name";
+
             var random = new Random(21);
-            IEnumerable<TestCalculation> calculations = Enumerable.Repeat(new TestCalculation(), random.Next(0, 10));
+            bool inAssembly = random.NextBoolean();
 
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
-            failureMechanism.Stub(fm => fm.Calculations).Return(calculations);
+            failureMechanism.Stub(fm => fm.Name).Return(failureMechanismName);
+            failureMechanism.Stub(fm => fm.Sections).Return(Enumerable.Empty<FailureMechanismSection>());
+            mocks.ReplayAll();
+
+            failureMechanism.InAssembly = inAssembly;
+
+            // Call
+            var row = new FailureMechanismMergeDataRow(failureMechanism);
+
+            // Assert
+            Assert.IsInstanceOf<FailureMechanismMergeDataRow>(row);
+            Assert.AreSame(failureMechanism, row.FailureMechanism);
+            Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
+            Assert.IsFalse(row.HasSections);
+            Assert.AreEqual(0, row.NumberOfCalculations);
+
+            mocks.ReplayAll();
+        }
+
+        [Test]
+        public void HasSections_FailureMechanismWithSections_ReturnsTrue()
+        {
+            // Setup
+            var random = new Random(21);
+            IEnumerable<FailureMechanismSection> sections = Enumerable.Repeat(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(),
+                                                                              random.Next(1, 10));
+
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            failureMechanism.Stub(fm => fm.Sections).Return(sections);
             mocks.ReplayAll();
 
             // Call
             var row = new FailureMechanismMergeDataRow(failureMechanism);
 
             // Assert
-            Assert.IsInstanceOf<FailurePathMergeDataRow>(row);
-            Assert.AreSame(failureMechanism, row.FailurePath);
-            Assert.AreEqual(calculations.Count(), row.NumberOfCalculations);
-
-            mocks.ReplayAll();
+            Assert.IsTrue(row.HasSections);
         }
     }
 }

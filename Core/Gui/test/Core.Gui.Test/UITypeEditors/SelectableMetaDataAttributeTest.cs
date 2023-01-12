@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -34,10 +34,10 @@ namespace Core.Gui.Test.UITypeEditors
         public void Constructor_MetaDataAttributeNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new SelectableMetaDataAttribute(null);
+            void Call() => new SelectableMetaDataAttribute(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("metaDataAttribute", exception.ParamName);
         }
 
@@ -62,14 +62,14 @@ namespace Core.Gui.Test.UITypeEditors
             var selectableAttribute = new SelectableMetaDataAttribute(metaDataAttribute);
 
             // Call
-            string toString = selectableAttribute.ToString();
+            var toString = selectableAttribute.ToString();
 
             // Assert
             Assert.AreEqual(metaDataAttribute, toString);
         }
 
         [TestFixture]
-        private class SelectableMetaDataAttributeEqualsTest : EqualsTestFixture<SelectableMetaDataAttribute, DerivedSelectableMetaDataAttribute>
+        private class SelectableMetaDataAttributeEqualsTest : EqualsTestFixture<SelectableMetaDataAttribute>
         {
             private const string attribute = "attribute";
 
@@ -78,20 +78,10 @@ namespace Core.Gui.Test.UITypeEditors
                 return new SelectableMetaDataAttribute(attribute);
             }
 
-            protected override DerivedSelectableMetaDataAttribute CreateDerivedObject()
-            {
-                return new DerivedSelectableMetaDataAttribute(attribute);
-            }
-
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
             {
                 yield return new TestCaseData(new SelectableMetaDataAttribute("Different attribute name")).SetName("Attribute");
             }
-        }
-
-        private class DerivedSelectableMetaDataAttribute : SelectableMetaDataAttribute
-        {
-            public DerivedSelectableMetaDataAttribute(string metaDataAttribute) : base(metaDataAttribute) {}
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -29,7 +29,7 @@ namespace Riskeer.Integration.Data
     /// <summary>
     /// Class which defines a project for the application.
     /// </summary>
-    public class RiskeerProject : Observable, IProject
+    public sealed class RiskeerProject : Observable, IProject
     {
         /// <summary>
         /// Constructs a new <see cref="RiskeerProject"/>. 

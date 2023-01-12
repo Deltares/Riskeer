@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -21,12 +21,10 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Structures;
-using Riskeer.Common.Data.TestUtil;
 
 namespace Riskeer.ClosingStructures.Data.Test
 {
@@ -34,15 +32,14 @@ namespace Riskeer.ClosingStructures.Data.Test
     public class ClosingStructuresFailureMechanismTest
     {
         [Test]
-        public void DefaultConstructor_Always_PropertiesSet()
+        public void Constructor_ExpectedValues()
         {
             // Call
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
+            Assert.IsInstanceOf<FailureMechanismBase<AdoptableFailureMechanismSectionResult>>(failureMechanism);
             Assert.IsInstanceOf<ICalculatableFailureMechanism>(failureMechanism);
-            Assert.IsInstanceOf<IHasSectionResults<ClosingStructuresFailureMechanismSectionResultOld, AdoptableFailureMechanismSectionResult>>(failureMechanism);
             Assert.AreEqual("Betrouwbaarheid sluiting kunstwerk", failureMechanism.Name);
             Assert.AreEqual("BSKW", failureMechanism.Code);
 
@@ -57,58 +54,8 @@ namespace Riskeer.ClosingStructures.Data.Test
 
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
-            CollectionAssert.IsEmpty(failureMechanism.SectionResultsOld);
-        }
 
-        [Test]
-        public void SetSections_WithSection_SetsSectionResults()
-        {
-            // Setup
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-
-            // Call
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                section
-            });
-
-            // Assert
-            Assert.AreEqual(1, failureMechanism.Sections.Count());
-            Assert.AreEqual(1, failureMechanism.SectionResults.Count());
-            Assert.AreEqual(1, failureMechanism.SectionResultsOld.Count());
-            Assert.AreSame(section, failureMechanism.SectionResultsOld.First().Section);
-            Assert.AreSame(section, failureMechanism.SectionResults.First().Section);
-        }
-
-        [Test]
-        public void ClearAllSections_WithSectionResults_SectionResultsCleared()
-        {
-            // Setup
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
-                {
-                    new Point2D(2, 1)
-                }),
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
-                {
-                    new Point2D(2, 1)
-                })
-            });
-
-            // Precondition
-            Assert.AreEqual(2, failureMechanism.SectionResults.Count());
-            Assert.AreEqual(2, failureMechanism.SectionResultsOld.Count());
-
-            // Call
-            failureMechanism.ClearAllSections();
-
-            // Assert
-            CollectionAssert.IsEmpty(failureMechanism.SectionResults);
-            CollectionAssert.IsEmpty(failureMechanism.SectionResultsOld);
+            Assert.IsNotNull(failureMechanism.CalculationsInputComments);
         }
 
         [Test]

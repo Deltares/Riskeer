@@ -2,19 +2,14 @@
 <testsuitedoc>
 	<testsuiteentryhierarchy>
 		<flatlistofchildren>
-			<testmodule
-			id="007d6dd7-8d36-4f01-9e73-9aa9a9db103c"
-			name="CreateScreenshotEntireDesktop"
-			ref="0f7ebadb-0285-4449-9422-0cd6fde5bf4d"
-			type="Recording">
-			</testmodule>
 			<smartfoldernode
 			id="01914755-74e5-4730-b5ee-3e28a289ffe6"
 			name="SelectStateFailurePathsAssembly">
 				<parameters>
 					<param
+					mask="False"
 					name="StateToSelect"
-					value="Faalpaden">
+					value="@RA">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -173,8 +168,8 @@
 					<var
 					dataname="StateToSelect"
 					datasourceid="1ff34405-1dab-414f-8332-d7c8cfaac1e0"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
 					</var>
 				</databinding>
 			</testmodule>
@@ -183,14 +178,17 @@
 			name="ModifyContribution">
 				<parameters>
 					<param
+					mask="False"
 					name="originalValue"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="newValue"
 					value="77">
 					</param>
 					<param
+					mask="False"
 					name="rowIndex"
 					value="0">
 					</param>
@@ -233,8 +231,9 @@
 			name="SelectStateStrengthCalculations">
 				<parameters>
 					<param
+					mask="False"
 					name="StateToSelect"
-					value="Sterkte">
+					value="@SB">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -251,8 +250,8 @@
 					<var
 					dataname="StateToSelect"
 					datasourceid="40f0e7da-8e25-416a-bb72-2172bbbe94d2"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
 					</var>
 				</databinding>
 			</testmodule>
@@ -349,14 +348,17 @@
 			name="b)ContributionOfCalculationsToAssessmentResultsSection">
 				<parameters>
 					<param
+					mask="False"
 					name="dataScenariosView"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="nameSmartFolderReadDataLoopSections"
 					value="ReadDataLoopSections">
 					</param>
 					<param
+					mask="False"
 					name="nameSmartFolderValidateDataInResultsViewLoopSections"
 					value="ValidateDataInResultsViewLoopSections">
 					</param>
@@ -404,6 +406,20 @@
 					</condition>
 				</conditiongroup>
 			</smartfoldernode>
+			<testmodule
+			id="30b257aa-080a-4225-816d-02a6e13d314d"
+			name="ImportReferenceLine"
+			ref="c5c8249d-a582-4230-ba22-0b7657e78ecd"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToReferenceLineFile"
+					datasourceid="6e262def-ea48-4168-bbec-fd066c51ec61"
+					variableid="d2f452f1-239b-4d2c-a492-f7f177add580"
+					variablename="pathReferenceLineFile">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="321b774a-6ab2-46b1-a018-32c5a07b3851"
 			name="ValidateOriginalValue">
@@ -413,14 +429,17 @@
 			name="FinishConfigurationCalculations">
 				<parameters>
 					<param
+					mask="False"
 					name="nameFolderLoopCalculations"
 					value="LoopCalculationsForEachSection">
 					</param>
 					<param
+					mask="False"
 					name="nameFolderSettingsCalculationsInPropertiesPanel"
 					value="LoopSetParametersSelectedCalculationInPropertiesPanel">
 					</param>
 					<param
+					mask="False"
 					name="nameFolderSettingsCalculationsInCalculationsView"
 					value="SettingsCalculationsInCalculationsView">
 					</param>
@@ -472,12 +491,39 @@
 			reportlevel="Info;20">
 				<parameters>
 					<param
+					mask="False"
 					name="AppProcessID"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="AppPath"
 					value="..\..\..\..\..\bin\Debug\Riskeer.exe">
+					</param>
+					<param
+					mask="False"
+					name="PdfDirectoryPath"
+					value="">
+					</param>
+					<param
+					mask="False"
+					name="DeleteRanorexReport"
+					value="false">
+					</param>
+					<param
+					mask="False"
+					name="Details"
+					value="all">
+					</param>
+					<param
+					mask="False"
+					name="Xml"
+					value="Reports\style.xml">
+					</param>
+					<param
+					mask="False"
+					name="PdfName"
+					value="script17_Scenario’s_opstellen.pdf">
 					</param>
 				</parameters>
 			</testcase>
@@ -524,8 +570,9 @@
 			name="SelectStateFailurePathsAssembly">
 				<parameters>
 					<param
+					mask="False"
 					name="StateToSelect"
-					value="Faalpaden">
+					value="@RA">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -726,6 +773,20 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="4a1760d8-1494-4108-9f99-28d8c3bf9555"
+			name="SelectState"
+			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="stateTraject"
+					datasourceid="65d7b51c-fec2-4cb7-91e1-b387d02d8cb3"
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="4a791cfa-e2ff-49d7-b0b3-35026275e270"
 			name="SelectGenericItemInProjectExplorer"
 			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
@@ -860,6 +921,7 @@
 			name="ValidateGeneratedCalculations">
 				<parameters>
 					<param
+					mask="False"
 					name="structureCalculations"
 					value="">
 					</param>
@@ -1010,6 +1072,22 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
+			id="65d7b51c-fec2-4cb7-91e1-b387d02d8cb3"
+			name="ImportReferenceLine">
+				<parameters>
+					<param
+					mask="False"
+					name="stateTraject"
+					value="@TR">
+					</param>
+					<param
+					mask="False"
+					name="pathReferenceLine"
+					value="@TR>Referentielijn">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
 			id="6a6e0a8e-b132-42c2-b615-fb08e641137b"
 			name="HydraulicBoundaryConditions">
 			</smartfoldernode>
@@ -1147,6 +1225,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<teardown
+			id="76315552-f4e7-49f5-b163-1e7de8f06971"
+			name="teardown">
+			</teardown>
 			<testmodule
 			id="763fbdd2-ed87-47ba-88c5-bbfdc34ecd8a"
 			name="CreateScreenshotOfDropDownMenuInCalculationsView"
@@ -1178,8 +1260,9 @@
 			name="SetStateHBC">
 				<parameters>
 					<param
+					mask="False"
 					name="StateHBC"
-					value="Hydraulische">
+					value="@HyB">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -1294,14 +1377,17 @@
 			name="RunCalculationsRequiredHBCs">
 				<parameters>
 					<param
+					mask="False"
 					name="calcMustBeChecked"
 					value="true">
 					</param>
 					<param
+					mask="False"
 					name="illPointMustBechecked"
 					value="false">
 					</param>
 					<param
+					mask="False"
 					name="pathToHBCItemInPE"
 					value="">
 					</param>
@@ -1473,18 +1559,22 @@
 			name="LoopFMs">
 				<parameters>
 					<param
+					mask="False"
 					name="lowerLimitValue"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="signallingValue"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="normType"
 					value="Signal">
 					</param>
 					<param
+					mask="False"
 					name="indexRowSection12_2_02500"
 					value="2">
 					</param>
@@ -1507,6 +1597,7 @@
 			name="ResetInformationScenariosView">
 				<parameters>
 					<param
+					mask="False"
 					name="scenariosInfoForNextFM"
 					value="">
 					</param>
@@ -1647,10 +1738,6 @@
 			id="9b312e6a-119e-4785-afd9-f99fb449b3aa"
 			name="ValidateStructureOfCalculationsFolder">
 			</smartfoldernode>
-			<testcase
-			id="9b7d059e-5f61-4598-8d88-9409bf8cf932"
-			name="TakeScreenshotOfDesktop">
-			</testcase>
 			<smartfoldernode
 			id="9fd7570f-bade-4ac5-8477-91abca7dfe49"
 			name="AddTraject">
@@ -1660,6 +1747,7 @@
 			name="TemporarilyChangeDefiningSchematizationItem">
 				<parameters>
 					<param
+					mask="False"
 					name="definingSchematizationItemType"
 					value="DropDown">
 					</param>
@@ -1676,23 +1764,34 @@
 			name="SetNewValue">
 			</smartfoldernode>
 			<testsuite
+			ExportColumnList="None"
 			ReportTime="RelativeToTestSuiteStartTime"
+			SelectedActions="All"
 			TracingScreenshotMode="Foreground"
 			TracingScreenshotQuality="40"
 			VideoBitrate="2000"
 			VideoFps="15"
 			VideoRecordingMode="KeepAllTests"
 			VideoSource="Auto"
+			createindividualreportpdfchecked="False"
+			createsinglereportpdfchecked="True"
+			enableCSVReport="False"
 			enabletracingscreenshots="True"
+			exportAllColummns="True"
 			id="a59e818e-0bec-4264-a741-1252f409412e"
+			includeimageschecked="False"
+			includerecordingschecked="False"
 			junitreport="False"
 			name="Script17"
+			overwritefilechecked="False"
 			reportcompress="False"
+			reportdescription=""
 			reportdirectoryname="Reports"
 			reportenabled="True"
 			reportfilename="%S_%Y%M%D_%T.rxlog"
 			reporttemplatefolder="ReportDeltaresStyle"
-			reportwriteinterval="30000ms">
+			reportwriteinterval="30000ms"
+			singlereportpdfdirectory="SingleReportPDF">
 			</testsuite>
 			<testmodule
 			id="a7794f8f-3262-4329-8493-84edb24e1c9c"
@@ -1769,10 +1868,12 @@
 			name="SaveProject_b)">
 				<parameters>
 					<param
+					mask="False"
 					name="beginningFileNameToSave"
 					value="script17b">
 					</param>
 					<param
+					mask="False"
 					name="fileNameToSave"
 					value="">
 					</param>
@@ -1801,8 +1902,8 @@
 					<var
 					dataname="StateHBC"
 					datasourceid="76ade4c8-14ce-4983-9111-1e8d5ba15a9f"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
 					</var>
 				</databinding>
 			</testmodule>
@@ -1911,6 +2012,7 @@
 			name="ConfigureCalculations">
 				<parameters>
 					<param
+					mask="False"
 					name="nameFolderConfigurationCalculationsLoopItems"
 					value="ConfigurationCalculationsLoopSections">
 					</param>
@@ -2004,8 +2106,8 @@
 					<var
 					dataname="StateToSelect"
 					datasourceid="01914755-74e5-4730-b5ee-3e28a289ffe6"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
 					</var>
 				</databinding>
 			</testmodule>
@@ -2110,6 +2212,28 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="dbf527b2-fd4a-42f5-948a-50251d168976"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathReferenceLine"
+					datasourceid="65d7b51c-fec2-4cb7-91e1-b387d02d8cb3"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathToSectionsInStateFA"
+					datasourceid="9bfb73df-276d-4d0f-b99d-55d1e58e5552"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="e4124c09-01bd-4d6a-af80-0d3ef37748c5"
 			name="ValidateNewValue">
@@ -2131,15 +2255,55 @@
 			name="SaveProject_a)">
 				<parameters>
 					<param
+					mask="False"
 					name="beginningFileNameToSave"
 					value="script17a">
 					</param>
 					<param
+					mask="False"
 					name="fileNameToSave"
 					value="">
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="eaa6503d-f984-4c38-be21-ee4c922439c6"
+			name="ReportToPDFModule"
+			ref="ffa0759d-37d2-4abb-89a7-411f0fcf2dfe"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="PdfDirectoryPath"
+					datasourceid="37adadfe-740c-4d17-b1f0-8610ec657a81"
+					variableid="536f8a69-f246-4f2b-ae9e-1f62babb2ba9"
+					variablename="PdfDirectoryPath">
+					</var>
+					<var
+					dataname="DeleteRanorexReport"
+					datasourceid="37adadfe-740c-4d17-b1f0-8610ec657a81"
+					variableid="7f788c18-962c-41ab-b591-9c3122512c5e"
+					variablename="DeleteRanorexReport">
+					</var>
+					<var
+					dataname="Details"
+					datasourceid="37adadfe-740c-4d17-b1f0-8610ec657a81"
+					variableid="b9993b89-d8cb-45fe-829b-42b0f8dd8a00"
+					variablename="Details">
+					</var>
+					<var
+					dataname="Xml"
+					datasourceid="37adadfe-740c-4d17-b1f0-8610ec657a81"
+					variableid="c15f25ea-9409-4e1a-b76e-cd208bae6c56"
+					variablename="Xml">
+					</var>
+					<var
+					dataname="PdfName"
+					datasourceid="37adadfe-740c-4d17-b1f0-8610ec657a81"
+					variableid="1d09c6b5-db7a-4ed0-a13c-ee2add5d3d37"
+					variablename="PdfName">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="eca25586-227e-4875-a084-9f3fda2fc85d"
 			name="ImportDikeProfiles">
@@ -2216,34 +2380,42 @@
 			name="script17_Scenario’s_opstellen">
 				<parameters>
 					<param
+					mask="False"
 					name="scriptOutputFolder"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="caseNumber"
 					value="17">
 					</param>
 					<param
+					mask="False"
 					name="trajectAssessmentInformation"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="categoryBoundariesTraject"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="dummyString"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="extensionProjectFiles"
 					value=".risk">
 					</param>
 					<param
+					mask="False"
 					name="underscoreCharacter"
 					value="_">
 					</param>
 					<param
+					mask="False"
 					name="pathSeparatorCharacter"
 					value=">">
 					</param>
@@ -2424,14 +2596,6 @@
 				id="37adadfe-740c-4d17-b1f0-8610ec657a81"
 				name="Script17">
 					<testcase
-					id="9b7d059e-5f61-4598-8d88-9409bf8cf932"
-					name="TakeScreenshotOfDesktop">
-						<testmodule
-						id="007d6dd7-8d36-4f01-9e73-9aa9a9db103c"
-						name="CreateScreenshotEntireDesktop">
-						</testmodule>
-					</testcase>
-					<testcase
 					id="f0863890-96dc-43bc-b908-6af2669f44ba"
 					name="script17_Scenario’s_opstellen">
 						<setup
@@ -2463,6 +2627,22 @@
 									id="ee07d08d-7263-461a-80dc-37bcafcf792b"
 									name="CloseViewCentralPanelWithFocus">
 									</testmodule>
+									<smartfoldernode
+									id="65d7b51c-fec2-4cb7-91e1-b387d02d8cb3"
+									name="ImportReferenceLine">
+										<testmodule
+										id="4a1760d8-1494-4108-9f99-28d8c3bf9555"
+										name="SelectState">
+										</testmodule>
+										<testmodule
+										id="dbf527b2-fd4a-42f5-948a-50251d168976"
+										name="SelectGenericItemInProjectExplorer">
+										</testmodule>
+										<testmodule
+										id="30b257aa-080a-4225-816d-02a6e13d314d"
+										name="ImportReferenceLine">
+										</testmodule>
+									</smartfoldernode>
 								</smartfoldernode>
 								<smartfoldernode
 								id="76ade4c8-14ce-4983-9111-1e8d5ba15a9f"
@@ -3075,6 +3255,14 @@
 							</testmodule>
 						</teardown>
 					</testcase>
+					<teardown
+					id="76315552-f4e7-49f5-b163-1e7de8f06971"
+					name="teardown">
+						<testmodule
+						id="eaa6503d-f984-4c38-be21-ee4c922439c6"
+						name="ReportToPDFModule">
+						</testmodule>
+					</teardown>
 				</testcase>
 			</testsuite>
 		</childhierarchy>
@@ -3091,6 +3279,9 @@
 				</column>
 				<column>
 					trajectID
+				</column>
+				<column>
+					pathToReferenceLineFile
 				</column>
 				<column>
 					fullNameFM
@@ -3179,6 +3370,9 @@
 						trajectID
 					</th>
 					<th>
+						pathToReferenceLineFile
+					</th>
+					<th>
 						fullNameFM
 					</th>
 					<th>
@@ -3262,19 +3456,22 @@
 						12-2
 					</td>
 					<td>
+						X:\script17\STPH\traject_12-2.shp
+					</td>
+					<td>
 						@STPH
 					</td>
 					<td>
 						12-2&gt;@HB
 					</td>
 					<td>
-						12-2&gt;@HB&gt;Waterstanden bij norm&gt;
+						12-2&gt;@HB&gt;Waterstanden bij vaste doelkans&gt;
 					</td>
 					<td>
 						12-2&gt;@STPH
 					</td>
 					<td>
-						12-2&gt;Generieke faalpaden&gt;@STPH&gt;Invoer&gt;Vakindeling
+						12-2&gt;@GF&gt;@STPH&gt;Invoer&gt;Vakindeling
 					</td>
 					<td>
 						12-2&gt;@STPH&gt;Invoer&gt;Profielschematisaties
@@ -3292,10 +3489,10 @@
 						12-2&gt;@STPH&gt;Berekeningen
 					</td>
 					<td>
-						12-2&gt;Generieke faalpaden&gt;@STPH&gt;Oordeel&gt;Scenario's
+						12-2&gt;@GF&gt;@STPH&gt;Oordeel&gt;Scenario's
 					</td>
 					<td>
-						12-2&gt;Generieke faalpaden&gt;@STPH&gt;Oordeel&gt;Resultaat
+						12-2&gt;@GF&gt;@STPH&gt;Oordeel&gt;Resultaat
 					</td>
 					<td>
 						12-2&gt;@GEKB
@@ -3339,19 +3536,22 @@
 						12-2
 					</td>
 					<td>
+						X:\script17\GEKB\traject_12-2.shp
+					</td>
+					<td>
 						@GEKB
 					</td>
 					<td>
 						12-2&gt;@HB
 					</td>
 					<td>
-						12-2&gt;@HB&gt;Waterstanden bij norm&gt;
+						12-2&gt;@HB&gt;Waterstanden bij vaste doelkans&gt;
 					</td>
 					<td>
 						12-2&gt;@GEKB
 					</td>
 					<td>
-						12-2&gt;Generieke faalpaden&gt;@GEKB&gt;Invoer&gt;Vakindeling
+						12-2&gt;@GF&gt;@GEKB&gt;Invoer&gt;Vakindeling
 					</td>
 					<td>
 					</td>
@@ -3368,10 +3568,10 @@
 						12-2&gt;@GEKB&gt;Berekeningen
 					</td>
 					<td>
-						12-2&gt;Generieke faalpaden&gt;@GEKB&gt;Oordeel&gt;Scenario's
+						12-2&gt;@GF&gt;@GEKB&gt;Oordeel&gt;Scenario's
 					</td>
 					<td>
-						12-2&gt;Generieke faalpaden&gt;@GEKB&gt;Oordeel&gt;Resultaat
+						12-2&gt;@GF&gt;@GEKB&gt;Oordeel&gt;Resultaat
 					</td>
 					<td>
 						12-2&gt;@STBI
@@ -3414,19 +3614,22 @@
 						41-1
 					</td>
 					<td>
+						X:\script17\STBI\traject_41-1.shp
+					</td>
+					<td>
 						@STBI
 					</td>
 					<td>
 						41-1&gt;@HB
 					</td>
 					<td>
-						41-1&gt;@HB&gt;Waterstanden bij norm&gt;
+						41-1&gt;@HB&gt;Waterstanden bij vaste doelkans&gt;
 					</td>
 					<td>
 						41-1&gt;@STBI
 					</td>
 					<td>
-						41-1&gt;Generieke faalpaden&gt;@STBI&gt;Invoer&gt;Vakindeling
+						41-1&gt;@GF&gt;@STBI&gt;Invoer&gt;Vakindeling
 					</td>
 					<td>
 						41-1&gt;@STBI&gt;Invoer&gt;Profielschematisaties
@@ -3444,10 +3647,10 @@
 						41-1&gt;@STBI&gt;Berekeningen
 					</td>
 					<td>
-						41-1&gt;Generieke faalpaden&gt;@STBI&gt;Oordeel&gt;Scenario's
+						41-1&gt;@GF&gt;@STBI&gt;Oordeel&gt;Scenario's
 					</td>
 					<td>
-						41-1&gt;Generieke faalpaden&gt;@STBI&gt;Oordeel&gt;Resultaat
+						41-1&gt;@GF&gt;@STBI&gt;Oordeel&gt;Resultaat
 					</td>
 					<td>
 						41-1&gt;@HTKW
@@ -3491,19 +3694,22 @@
 						36-2
 					</td>
 					<td>
+						X:\script17\HTKW\traject_36-2.shp
+					</td>
+					<td>
 						@HTKW
 					</td>
 					<td>
 						36-2&gt;@HB
 					</td>
 					<td>
-						36-2&gt;@HB&gt;Waterstanden bij norm&gt;
+						36-2&gt;@HB&gt;Waterstanden bij vaste doelkans&gt;
 					</td>
 					<td>
 						36-2&gt;@HTKW
 					</td>
 					<td>
-						36-2&gt;Generieke faalpaden&gt;@HTKW&gt;Invoer&gt;Vakindeling
+						36-2&gt;@GF&gt;@HTKW&gt;Invoer&gt;Vakindeling
 					</td>
 					<td>
 					</td>
@@ -3521,10 +3727,10 @@
 						36-2&gt;@HTKW&gt;Berekeningen
 					</td>
 					<td>
-						36-2&gt;Generieke faalpaden&gt;@HTKW&gt;Oordeel&gt;Scenario's
+						36-2&gt;@GF&gt;@HTKW&gt;Oordeel&gt;Scenario's
 					</td>
 					<td>
-						36-2&gt;Generieke faalpaden&gt;@HTKW&gt;Oordeel&gt;Resultaat
+						36-2&gt;@GF&gt;@HTKW&gt;Oordeel&gt;Resultaat
 					</td>
 					<td>
 						36-2&gt;@BSKW
@@ -3568,19 +3774,22 @@
 						34-1
 					</td>
 					<td>
+						X:\script17\BSKW\traject_34-1.shp
+					</td>
+					<td>
 						@BSKW
 					</td>
 					<td>
 						34-1&gt;@HB
 					</td>
 					<td>
-						34-1&gt;@HB&gt;Waterstanden bij norm&gt;
+						34-1&gt;@HB&gt;Waterstanden bij vaste doelkans&gt;
 					</td>
 					<td>
 						34-1&gt;@BSKW
 					</td>
 					<td>
-						34-1&gt;Generieke faalpaden&gt;@BSKW&gt;Invoer&gt;Vakindeling
+						34-1&gt;@GF&gt;@BSKW&gt;Invoer&gt;Vakindeling
 					</td>
 					<td>
 					</td>
@@ -3598,10 +3807,10 @@
 						34-1&gt;@BSKW&gt;Berekeningen
 					</td>
 					<td>
-						34-1&gt;Generieke faalpaden&gt;@BSKW&gt;Oordeel&gt;Scenario's
+						34-1&gt;@GF&gt;@BSKW&gt;Oordeel&gt;Scenario's
 					</td>
 					<td>
-						34-1&gt;Generieke faalpaden&gt;@BSKW&gt;Oordeel&gt;Resultaat
+						34-1&gt;@GF&gt;@BSKW&gt;Oordeel&gt;Resultaat
 					</td>
 					<td>
 						34-1&gt;@STKWp
@@ -3645,19 +3854,22 @@
 						44-2
 					</td>
 					<td>
+						X:\script17\STKWp\traject_44-2.shp
+					</td>
+					<td>
 						@STKWp
 					</td>
 					<td>
 						44-2&gt;@HB
 					</td>
 					<td>
-						44-2&gt;@HB&gt;Waterstanden bij norm&gt;
+						44-2&gt;@HB&gt;Waterstanden bij vaste doelkans&gt;
 					</td>
 					<td>
 						44-2&gt;@STKWp
 					</td>
 					<td>
-						44-2&gt;Generieke faalpaden&gt;@STKWp&gt;Invoer&gt;Vakindeling
+						44-2&gt;@GF&gt;@STKWp&gt;Invoer&gt;Vakindeling
 					</td>
 					<td>
 					</td>
@@ -3675,10 +3887,10 @@
 						44-2&gt;@STKWp&gt;Berekeningen
 					</td>
 					<td>
-						44-2&gt;Generieke faalpaden&gt;@STKWp&gt;Oordeel&gt;Scenario's
+						44-2&gt;@GF&gt;@STKWp&gt;Oordeel&gt;Scenario's
 					</td>
 					<td>
-						44-2&gt;Generieke faalpaden&gt;@STKWp&gt;Oordeel&gt;Resultaat
+						44-2&gt;@GF&gt;@STKWp&gt;Oordeel&gt;Resultaat
 					</td>
 					<td>
 						44-2&gt;@STKWp&gt;Berekeningen
@@ -5796,6 +6008,9 @@
 			id="59c462c1-f8f2-4741-bcff-fbffa40758e1">
 			</testcontainer>
 			<testcontainer
+			id="65d7b51c-fec2-4cb7-91e1-b387d02d8cb3">
+			</testcontainer>
+			<testcontainer
 			id="6a6e0a8e-b132-42c2-b615-fb08e641137b">
 			</testcontainer>
 			<testcontainer
@@ -5860,9 +6075,6 @@
 			</testcontainer>
 			<testcontainer
 			id="9b312e6a-119e-4785-afd9-f99fb449b3aa">
-			</testcontainer>
-			<testcontainer
-			id="9b7d059e-5f61-4598-8d88-9409bf8cf932">
 			</testcontainer>
 			<testcontainer
 			id="9fd7570f-bade-4ac5-8477-91abca7dfe49">
@@ -5944,6 +6156,9 @@
 		</reference>
 		<reference>
 			Ranorex Automation Helpers.dll
+		</reference>
+		<reference>
+			Ranorex.ReportToPDF.exe
 		</reference>
 	</references>
 </testsuitedoc>

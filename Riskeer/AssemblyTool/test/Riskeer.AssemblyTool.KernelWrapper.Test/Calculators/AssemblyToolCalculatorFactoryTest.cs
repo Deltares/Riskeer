@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -23,7 +23,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
-using Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories;
+using Riskeer.AssemblyTool.KernelWrapper.Calculators.Groups;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels;
 
@@ -75,7 +75,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators
         }
 
         [Test]
-        public void CreateAssemblyGroupBoundariesCalculator_WithKernelFactory_ReturnsAssemblyCategoriesCalculator()
+        public void CreateAssessmentSectionAssemblyGroupBoundariesCalculator_WithKernelFactory_ReturnsCalculator()
         {
             // Setup
             IAssemblyToolCalculatorFactory factory = AssemblyToolCalculatorFactory.Instance;
@@ -83,16 +83,33 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators
             using (new AssemblyToolKernelFactoryConfig())
             {
                 // Call
-                IAssemblyGroupBoundariesCalculator calculator = factory.CreateAssemblyGroupBoundariesCalculator(
+                IAssessmentSectionAssemblyGroupBoundariesCalculator calculator = factory.CreateAssessmentSectionAssemblyGroupBoundariesCalculator(
                     AssemblyToolKernelFactory.Instance);
 
                 // Assert
-                Assert.IsInstanceOf<AssemblyGroupBoundariesCalculator>(calculator);
+                Assert.IsInstanceOf<IAssessmentSectionAssemblyGroupBoundariesCalculator>(calculator);
             }
         }
 
         [Test]
-        public void CreateFailureMechanismSectionAssemblyCalculator_WithKernelFactory_ReturnsFailureMechanismSectionAssemblyCalculator()
+        public void CreateFailureMechanismSectionAssemblyGroupBoundariesCalculator_WithKernelFactory_ReturnsCalculator()
+        {
+            // Setup
+            IAssemblyToolCalculatorFactory factory = AssemblyToolCalculatorFactory.Instance;
+
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                // Call
+                IFailureMechanismSectionAssemblyGroupBoundariesCalculator calculator = factory.CreateFailureMechanismSectionAssemblyGroupBoundariesCalculator(
+                    AssemblyToolKernelFactory.Instance);
+
+                // Assert
+                Assert.IsInstanceOf<FailureMechanismSectionAssemblyGroupBoundariesCalculator>(calculator);
+            }
+        }
+
+        [Test]
+        public void CreateFailureMechanismSectionAssemblyCalculator_WithKernelFactory_ReturnsCalculator()
         {
             // Setup
             IAssemblyToolCalculatorFactory factory = AssemblyToolCalculatorFactory.Instance;
@@ -109,7 +126,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators
         }
 
         [Test]
-        public void CreateFailureMechanismAssemblyCalculator_WithKernelFactory_ReturnsFailureMechanismAssemblyCalculator()
+        public void CreateFailureMechanismAssemblyCalculator_WithKernelFactory_ReturnsCalculator()
         {
             // Setup
             IAssemblyToolCalculatorFactory factory = AssemblyToolCalculatorFactory.Instance;
@@ -126,7 +143,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators
         }
 
         [Test]
-        public void CreateAssessmentSectionAssemblyCalculator_WithKernelFactory_Returns()
+        public void CreateAssessmentSectionAssemblyCalculator_WithKernelFactory_ReturnsCalculator()
         {
             // Setup
             IAssemblyToolCalculatorFactory factory = AssemblyToolCalculatorFactory.Instance;

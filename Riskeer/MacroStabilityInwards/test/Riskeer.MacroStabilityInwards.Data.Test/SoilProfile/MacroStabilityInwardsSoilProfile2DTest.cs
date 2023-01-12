@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -73,28 +73,28 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
         public void Constructor_LayersEmpty_ThrowsArgumentException()
         {
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsSoilProfile2D(string.Empty,
-                                                                             Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>(),
-                                                                             Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>());
+            void Call() => new MacroStabilityInwardsSoilProfile2D(string.Empty,
+                                                                  Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>(),
+                                                                  Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>());
 
             // Assert
             const string expectedMessage = "Geen lagen gevonden voor de ondergrondschematisatie.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
         }
 
         [Test]
         public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsSoilProfile2D(null,
-                                                                             new[]
-                                                                             {
-                                                                                 MacroStabilityInwardsSoilLayer2DTestFactory.CreateMacroStabilityInwardsSoilLayer2D()
-                                                                             },
-                                                                             Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>());
+            void Call() => new MacroStabilityInwardsSoilProfile2D(null,
+                                                                  new[]
+                                                                  {
+                                                                      MacroStabilityInwardsSoilLayer2DTestFactory.CreateMacroStabilityInwardsSoilLayer2D()
+                                                                  },
+                                                                  Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("value", exception.ParamName);
         }
 
@@ -102,24 +102,28 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
         public void Constructor_LayersNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsSoilProfile2D(string.Empty, null, Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>());
+            void Call() => new MacroStabilityInwardsSoilProfile2D(string.Empty,
+                                                                  null,
+                                                                  Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>());
 
             // Assert
             const string expectedMessage = "Geen lagen gevonden voor de ondergrondschematisatie.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(Call, expectedMessage);
         }
 
         [Test]
         public void Constructor_PreconsolidationStressesNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsSoilProfile2D(string.Empty, new Collection<MacroStabilityInwardsSoilLayer2D>
-            {
-                CreateRandomLayer(21)
-            }, null);
+            void Call() => new MacroStabilityInwardsSoilProfile2D(string.Empty,
+                                                                  new Collection<MacroStabilityInwardsSoilLayer2D>
+                                                                  {
+                                                                      CreateRandomLayer(21)
+                                                                  },
+                                                                  null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("preconsolidationStresses", exception.ParamName);
         }
 
@@ -135,24 +139,18 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
             }, Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>());
 
             // Call
-            string text = profile.ToString();
+            var text = profile.ToString();
 
             // Assert
             Assert.AreEqual(name, text);
         }
 
         [TestFixture]
-        private class MacroStabilityInwardsSoilProfile2DEqualsTest
-            : EqualsTestFixture<MacroStabilityInwardsSoilProfile2D, DerivedMacroStabilityInwardsSoilProfile2D>
+        private class MacroStabilityInwardsSoilProfile2DEqualsTest : EqualsTestFixture<MacroStabilityInwardsSoilProfile2D>
         {
             protected override MacroStabilityInwardsSoilProfile2D CreateObject()
             {
                 return CreateRandomProfile();
-            }
-
-            protected override DerivedMacroStabilityInwardsSoilProfile2D CreateDerivedObject()
-            {
-                return new DerivedMacroStabilityInwardsSoilProfile2D(CreateRandomProfile());
             }
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
@@ -213,12 +211,6 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
                     CreateRandomPreconsolidationStress(seed)
                 });
             }
-        }
-
-        private class DerivedMacroStabilityInwardsSoilProfile2D : MacroStabilityInwardsSoilProfile2D
-        {
-            public DerivedMacroStabilityInwardsSoilProfile2D(MacroStabilityInwardsSoilProfile2D profile)
-                : base(profile.Name, profile.Layers, profile.PreconsolidationStresses) {}
         }
 
         private static MacroStabilityInwardsSoilLayer2D CreateRandomLayer(int seed)

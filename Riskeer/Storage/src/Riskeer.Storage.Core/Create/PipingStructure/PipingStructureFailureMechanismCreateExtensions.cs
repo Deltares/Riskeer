@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -54,9 +54,9 @@ namespace Riskeer.Storage.Core.Create.PipingStructure
         {
             foreach (NonAdoptableFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
             {
-                PipingStructureSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create<PipingStructureSectionResultEntity>();
+                NonAdoptableFailureMechanismSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
-                section.PipingStructureSectionResultEntities.Add(sectionResultEntity);
+                section.NonAdoptableFailureMechanismSectionResultEntities.Add(sectionResultEntity);
             }
         }
 

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -29,7 +29,7 @@ namespace Core.Common.Controls.DataGrid
     /// Wrapper for presenting <typeparamref name="T"/> items in a <see cref="DataGridViewComboBoxColumn"/>.
     /// </summary>
     /// <typeparam name="T">The type of the object to present in the <see cref="DataGridViewComboBoxColumn"/>.</typeparam>
-    public class DataGridViewComboBoxItemWrapper<T>
+    public sealed class DataGridViewComboBoxItemWrapper<T>
     {
         /// <summary>
         /// Creates a new instance of the <see cref="DataGridViewComboBoxItemWrapper{T}"/>.

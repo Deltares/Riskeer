@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -21,8 +21,8 @@
 
 using System;
 using System.ComponentModel;
-using Core.Common.Util;
 using Core.Common.Util.Attributes;
+using Core.Common.Util.Enums;
 using Core.Gui.Attributes;
 using Core.Gui.PropertyBag;
 using Riskeer.Common.Data.Contribution;
@@ -65,54 +65,54 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         [PropertyOrder(1)]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.LowerLimitNorm_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.LowerLimitNorm_Description))]
-        public double LowerLimitNorm
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MaximumAllowableFloodingProbability_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.MaximumAllowableFloodingProbability_Description))]
+        public double MaximumAllowableFloodingProbability
         {
-            get => data.LowerLimitNorm;
+            get => data.MaximumAllowableFloodingProbability;
             set
             {
-                ChangeNorm(() => data.LowerLimitNorm = value, NormType.LowerLimit);
+                ChangeNorm(() => data.MaximumAllowableFloodingProbability = value, NormativeProbabilityType.MaximumAllowableFloodingProbability);
             }
         }
 
         [PropertyOrder(2)]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SignalingNorm_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.SignalingNorm_Description))]
-        public double SignalingNorm
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SignalFloodingProbability_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.SignalFloodingProbability_Description))]
+        public double SignalFloodingProbability
         {
-            get => data.SignalingNorm;
+            get => data.SignalFloodingProbability;
             set
             {
-                ChangeNorm(() => data.SignalingNorm = value, NormType.Signaling);
+                ChangeNorm(() => data.SignalFloodingProbability = value, NormativeProbabilityType.SignalFloodingProbability);
             }
         }
 
         [PropertyOrder(3)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.NormType_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.NormType_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.NormativeProbabilityType_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.NormativeProbabilityType_Description))]
         [TypeConverter(typeof(EnumTypeConverter))]
-        public NormType NormativeNorm
+        public NormativeProbabilityType NormativeProbabilityType
         {
-            get => data.NormativeNorm;
+            get => data.NormativeProbabilityType;
             set
             {
-                normChangeHandler.ChangeNormativeNormType(() => data.NormativeNorm = value);
+                normChangeHandler.ChangeNormativeProbabilityType(() => data.NormativeProbabilityType = value);
             }
         }
 
-        private void ChangeNorm(Action action, NormType normType)
+        private void ChangeNorm(Action action, NormativeProbabilityType normativeProbabilityType)
         {
-            if (data.NormativeNorm == normType)
+            if (data.NormativeProbabilityType == normativeProbabilityType)
             {
-                normChangeHandler.ChangeNormativeNorm(action);
+                normChangeHandler.ChangeNormativeProbability(action);
             }
             else
             {
-                normChangeHandler.ChangeNorm(action);
+                normChangeHandler.ChangeProbability(action);
             }
         }
     }

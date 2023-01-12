@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -437,7 +437,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 }
             };
 
-            var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation());
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
@@ -448,7 +448,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
             var importHandler = mocks.Stub<IImportCommandHandler>();
-            importHandler.Stub(ih => ih.GetSupportedImportInfos(nodeData)).Return(new ImportInfo[0]);
+            importHandler.Stub(ih => ih.GetSupportedImportInfos(nodeData)).Return(Array.Empty<ImportInfo>());
             var exportHandler = mocks.Stub<IExportCommandHandler>();
             var updateHandler = mocks.Stub<IUpdateCommandHandler>();
             var viewCommandsHandler = mocks.Stub<IViewCommands>();
@@ -946,7 +946,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 }
             };
 
-            var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation());
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
@@ -958,7 +958,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
             var importHandler = mocks.Stub<IImportCommandHandler>();
-            importHandler.Stub(ih => ih.GetSupportedImportInfos(nodeData)).Return(new ImportInfo[0]);
+            importHandler.Stub(ih => ih.GetSupportedImportInfos(nodeData)).Return(Array.Empty<ImportInfo>());
             var exportHandler = mocks.Stub<IExportCommandHandler>();
             var updateHandler = mocks.Stub<IUpdateCommandHandler>();
             var viewCommandsHandler = mocks.Stub<IViewCommands>();
@@ -1004,7 +1004,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
-            var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation());
 
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
@@ -1054,7 +1054,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 }
             };
 
-            var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation());
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
@@ -1065,7 +1065,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
             var importHandler = mocks.Stub<IImportCommandHandler>();
-            importHandler.Stub(ih => ih.GetSupportedImportInfos(nodeData)).Return(new ImportInfo[0]);
+            importHandler.Stub(ih => ih.GetSupportedImportInfos(nodeData)).Return(Array.Empty<ImportInfo>());
             var exportHandler = mocks.Stub<IExportCommandHandler>();
             var updateHandler = mocks.Stub<IUpdateCommandHandler>();
             var viewCommandsHandler = mocks.Stub<IViewCommands>();
@@ -1109,7 +1109,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 }
             };
 
-            var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation());
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
@@ -1121,7 +1121,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
             var importHandler = mocks.Stub<IImportCommandHandler>();
-            importHandler.Stub(ih => ih.GetSupportedImportInfos(nodeData)).Return(new ImportInfo[0]);
+            importHandler.Stub(ih => ih.GetSupportedImportInfos(nodeData)).Return(Array.Empty<ImportInfo>());
             var exportHandler = mocks.Stub<IExportCommandHandler>();
             var updateHandler = mocks.Stub<IUpdateCommandHandler>();
             var viewCommandsHandler = mocks.Stub<IViewCommands>();
@@ -1168,7 +1168,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
-            var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation());
 
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
@@ -1504,7 +1504,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             // Setup
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation
             {
                 Name = "A",
@@ -1574,7 +1574,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub(mocks);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation
             {
                 Name = "A",
@@ -1764,8 +1764,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                                     "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
 
                     var calculation = (GrassCoverErosionInwardsCalculation) newlyAddedItem;
-                    Assert.AreEqual(failureMechanismContribution.Norm, calculation.InputParameters.DikeHeightTargetProbability);
-                    Assert.AreEqual(failureMechanismContribution.Norm, calculation.InputParameters.OvertoppingRateTargetProbability);
+                    Assert.AreEqual(failureMechanismContribution.NormativeProbability, calculation.InputParameters.DikeHeightTargetProbability);
+                    Assert.AreEqual(failureMechanismContribution.NormativeProbability, calculation.InputParameters.OvertoppingRateTargetProbability);
                 }
             }
         }
@@ -1840,8 +1840,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                     var generatedCalculation = failureMechanism.CalculationsGroup.Children[2] as GrassCoverErosionInwardsCalculationScenario;
                     Assert.IsNotNull(generatedCalculation);
                     Assert.AreSame(dikeProfile1, generatedCalculation.InputParameters.DikeProfile);
-                    Assert.AreEqual(failureMechanismContribution.Norm, generatedCalculation.InputParameters.DikeHeightTargetProbability);
-                    Assert.AreEqual(failureMechanismContribution.Norm, generatedCalculation.InputParameters.OvertoppingRateTargetProbability);
+                    Assert.AreEqual(failureMechanismContribution.NormativeProbability, generatedCalculation.InputParameters.DikeHeightTargetProbability);
+                    Assert.AreEqual(failureMechanismContribution.NormativeProbability, generatedCalculation.InputParameters.OvertoppingRateTargetProbability);
                 }
             }
         }

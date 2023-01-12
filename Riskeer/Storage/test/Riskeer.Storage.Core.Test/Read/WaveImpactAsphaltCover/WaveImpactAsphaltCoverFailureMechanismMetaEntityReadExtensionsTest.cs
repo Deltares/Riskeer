@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -43,7 +43,7 @@ namespace Riskeer.Storage.Core.Test.Read.WaveImpactAsphaltCover
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("entity", exception.ParamName);
         }
-        
+
         [Test]
         public void Read_GeneralInputNull_ThrowsArgumentNullException()
         {

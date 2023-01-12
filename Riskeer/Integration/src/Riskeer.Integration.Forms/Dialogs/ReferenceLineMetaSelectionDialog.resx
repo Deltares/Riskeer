@@ -259,7 +259,7 @@
     <value>ReferenceLineMetaDataGridViewControl</value>
   </data>
   <data name="&gt;&gt;ReferenceLineMetaDataGridViewControl.Type" xml:space="preserve">
-    <value>Core.Common.Controls.DataGrid.DataGridViewControl, Core.Common.Controls, Version=21.2.1.1, Culture=neutral, PublicKeyToken=null</value>
+    <value>Core.Common.Controls.DataGrid.DataGridViewControl, Core.Common.Controls, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;ReferenceLineMetaDataGridViewControl.Parent" xml:space="preserve">
     <value>tableLayoutPanel1</value>
@@ -270,64 +270,64 @@
   <data name="groupBox1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
-  <data name="SignallingValueRadioButton.AutoSize" type="System.Boolean, mscorlib">
+  <data name="SignalFloodingProbabilityRadioButton.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="SignallingValueRadioButton.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="SignalFloodingProbabilityRadioButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 29</value>
   </data>
-  <data name="SignallingValueRadioButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="SignalFloodingProbabilityRadioButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 5, 4, 5</value>
   </data>
-  <data name="SignallingValueRadioButton.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="SignalFloodingProbabilityRadioButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>173, 24</value>
   </data>
-  <data name="SignallingValueRadioButton.TabIndex" type="System.Int32, mscorlib">
+  <data name="SignalFloodingProbabilityRadioButton.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="SignallingValueRadioButton.Text" xml:space="preserve">
-    <value>Signaleringswaarde</value>
+  <data name="SignalFloodingProbabilityRadioButton.Text" xml:space="preserve">
+    <value>Signaleringsparameter</value>
   </data>
-  <data name="&gt;&gt;SignallingValueRadioButton.Name" xml:space="preserve">
-    <value>SignallingValueRadioButton</value>
+  <data name="&gt;&gt;SignalFloodingProbabilityRadioButton.Name" xml:space="preserve">
+    <value>SignalFloodingProbabilityRadioButton</value>
   </data>
-  <data name="&gt;&gt;SignallingValueRadioButton.Type" xml:space="preserve">
+  <data name="&gt;&gt;SignalFloodingProbabilityRadioButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;SignallingValueRadioButton.Parent" xml:space="preserve">
+  <data name="&gt;&gt;SignalFloodingProbabilityRadioButton.Parent" xml:space="preserve">
     <value>groupBox1</value>
   </data>
-  <data name="&gt;&gt;SignallingValueRadioButton.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;SignalFloodingProbabilityRadioButton.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="LowLimitValueRadioButton.AutoSize" type="System.Boolean, mscorlib">
+  <data name="MaximumAllowableFloodingProbabilityRadioButton.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="LowLimitValueRadioButton.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="MaximumAllowableFloodingProbabilityRadioButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 65</value>
   </data>
-  <data name="LowLimitValueRadioButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="MaximumAllowableFloodingProbabilityRadioButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 5, 4, 5</value>
   </data>
-  <data name="LowLimitValueRadioButton.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="MaximumAllowableFloodingProbabilityRadioButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>118, 24</value>
   </data>
-  <data name="LowLimitValueRadioButton.TabIndex" type="System.Int32, mscorlib">
+  <data name="MaximumAllowableFloodingProbabilityRadioButton.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
-  <data name="LowLimitValueRadioButton.Text" xml:space="preserve">
-    <value>Ondergrens</value>
+  <data name="MaximumAllowableFloodingProbabilityRadioButton.Text" xml:space="preserve">
+    <value>Omgevingswaarde</value>
   </data>
-  <data name="&gt;&gt;LowLimitValueRadioButton.Name" xml:space="preserve">
-    <value>LowLimitValueRadioButton</value>
+  <data name="&gt;&gt;MaximumAllowableFloodingProbabilityRadioButton.Name" xml:space="preserve">
+    <value>MaximumAllowableFloodingProbabilityRadioButton</value>
   </data>
-  <data name="&gt;&gt;LowLimitValueRadioButton.Type" xml:space="preserve">
+  <data name="&gt;&gt;MaximumAllowableFloodingProbabilityRadioButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;LowLimitValueRadioButton.Parent" xml:space="preserve">
+  <data name="&gt;&gt;MaximumAllowableFloodingProbabilityRadioButton.Parent" xml:space="preserve">
     <value>groupBox1</value>
   </data>
-  <data name="&gt;&gt;LowLimitValueRadioButton.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;MaximumAllowableFloodingProbabilityRadioButton.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
@@ -346,7 +346,7 @@
     <value>4</value>
   </data>
   <data name="groupBox1.Text" xml:space="preserve">
-    <value>Kies de norm van het dijktraject:</value>
+    <value>Kies de doelkans voor de semi-probabilistische toets (dijken):</value>
   </data>
   <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
     <value>groupBox1</value>

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -145,8 +145,6 @@ namespace Core.Components.BruTile.Configurations
         /// <param name="newTileSource">The tile source to initialize for.</param>
         /// <exception cref="CannotCreateTileCacheException">Thrown when a critical error
         /// occurs when creating the tile cache.</exception>
-        /// <exception cref="CannotReceiveTilesException">Thrown when <paramref name="newTileSource"/>
-        /// does not allow for tiles to be retrieved.</exception>
         /// <exception cref="ObjectDisposedException">Thrown when calling this method while
         /// this instance is disposed.</exception>
         protected void InitializeFromTileSource(ITileSource newTileSource)
@@ -155,18 +153,11 @@ namespace Core.Components.BruTile.Configurations
 
             tileSource = newTileSource;
             IPersistentCache<byte[]> tileCache = CreateTileCache();
-            try
-            {
-                ITileProvider provider = BruTileReflectionHelper.GetProviderFromTileSource(newTileSource);
-                TileFetcher = new AsyncTileFetcher(provider,
-                                                   BruTileSettings.MemoryCacheMinimum,
-                                                   BruTileSettings.MemoryCacheMaximum,
-                                                   tileCache);
-            }
-            catch (NotSupportedException e)
-            {
-                throw new CannotReceiveTilesException(Resources.Configuration_InitializeFromTileSource_TileSource_does_not_allow_access_to_provider, e);
-            }
+
+            TileFetcher = new AsyncTileFetcher(tileSource,
+                                               BruTileSettings.MemoryCacheMinimum,
+                                               BruTileSettings.MemoryCacheMaximum,
+                                               tileCache);
 
             Initialized = true;
         }

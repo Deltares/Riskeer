@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -43,7 +43,7 @@ namespace Riskeer.AssemblyTool.Data.Test
             // Assert
             Assert.AreEqual(sectionStart, assembly.SectionStart);
             Assert.AreEqual(sectionEnd, assembly.SectionEnd);
-            Assert.AreEqual(assemblyGroup, assembly.AssemblyGroup);
+            Assert.AreEqual(assemblyGroup, assembly.FailureMechanismSectionAssemblyGroup);
         }
     }
 }

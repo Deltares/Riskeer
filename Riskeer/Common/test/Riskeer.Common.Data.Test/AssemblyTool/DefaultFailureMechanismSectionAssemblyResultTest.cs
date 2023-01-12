@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -40,7 +40,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             Assert.IsNaN(result.ProfileProbability);
             Assert.IsNaN(result.SectionProbability);
             Assert.IsNaN(result.N);
-            Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, result.AssemblyGroup);
+            Assert.AreEqual(FailureMechanismSectionAssemblyGroup.NoResult, result.FailureMechanismSectionAssemblyGroup);
         }
     }
 }

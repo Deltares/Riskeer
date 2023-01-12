@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -28,7 +28,6 @@ using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.Probabilistics;
-using Riskeer.Common.Forms.Properties;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.TestUtil;
 
@@ -176,7 +175,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(distribution.Mean, properties.Mean);
             Assert.AreEqual(distribution.StandardDeviation, properties.StandardDeviation);
-            string expectedToString = $"{distribution.Mean} ({Resources.NormalDistribution_StandardDeviation_DisplayName} = {distribution.StandardDeviation})";
+            var expectedToString = $"{distribution.Mean} (Standaardafwijking = {distribution.StandardDeviation})";
             Assert.AreEqual(expectedToString, properties.ToString());
             mocks.VerifyAll();
         }

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -50,7 +50,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("generalInput", exception.ParamName);
         }
-        
+
         [Test]
         public void Constructor_ExpectedValues()
         {

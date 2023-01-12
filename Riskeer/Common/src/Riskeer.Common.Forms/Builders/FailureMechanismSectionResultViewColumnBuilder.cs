@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -21,9 +21,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Controls.DataGrid;
-using Core.Common.Util;
+using Core.Common.Util.Enums;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Properties;
 using Riskeer.Common.Primitives;
@@ -83,14 +82,6 @@ namespace Riskeer.Common.Forms.Builders
                 Resources.FailureMechanismResultView_IsRelevant_DisplayName);
         }
 
-        private static IEnumerable<EnumDisplayWrapper<T>> CreateEnumDisplayWrappers<T>()
-        {
-            return Enum.GetValues(typeof(T))
-                       .OfType<T>()
-                       .Select(e => new EnumDisplayWrapper<T>(e))
-                       .ToArray();
-        }
-
         #region Initial Failure Mechanism Result
 
         /// <summary>
@@ -113,7 +104,7 @@ namespace Riskeer.Common.Forms.Builders
                 throw new ArgumentNullException(nameof(dataPropertyName));
             }
 
-            IEnumerable<EnumDisplayWrapper<T>> dataSource = CreateEnumDisplayWrappers<T>();
+            IEnumerable<EnumDisplayWrapper<T>> dataSource = EnumDisplayWrapperHelper.GetEnumTypes<T>();
 
             dataGridViewControl.AddComboBoxColumn(
                 dataPropertyName,
@@ -192,7 +183,7 @@ namespace Riskeer.Common.Forms.Builders
                 throw new ArgumentNullException(nameof(dataPropertyName));
             }
 
-            IEnumerable<EnumDisplayWrapper<FailureMechanismSectionResultFurtherAnalysisType>> dataSource = CreateEnumDisplayWrappers<FailureMechanismSectionResultFurtherAnalysisType>();
+            IEnumerable<EnumDisplayWrapper<FailureMechanismSectionResultFurtherAnalysisType>> dataSource = EnumDisplayWrapperHelper.GetEnumTypes<FailureMechanismSectionResultFurtherAnalysisType>();
 
             dataGridViewControl.AddComboBoxColumn(
                 dataPropertyName,
@@ -221,7 +212,7 @@ namespace Riskeer.Common.Forms.Builders
                 throw new ArgumentNullException(nameof(dataPropertyName));
             }
 
-            IEnumerable<EnumDisplayWrapper<ProbabilityRefinementType>> dataSource = CreateEnumDisplayWrappers<ProbabilityRefinementType>();
+            IEnumerable<EnumDisplayWrapper<ProbabilityRefinementType>> dataSource = EnumDisplayWrapperHelper.GetEnumTypes<ProbabilityRefinementType>();
 
             dataGridViewControl.AddComboBoxColumn(
                 dataPropertyName,

@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -109,7 +109,7 @@ namespace Riskeer.DuneErosion.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rekenwaarde voor de d50 voor het uitvoeren van een sterkteberekening voor het toetsspoor duinen..
+        ///   Looks up a localized string similar to Rekenwaarde voor de d50 voor het uitvoeren van een sterkteberekening voor het faalmechanisme duinen..
         /// </summary>
         internal static string DuneLocation_D50_Description {
             get {
@@ -145,7 +145,7 @@ namespace Riskeer.DuneErosion.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekende rekenwaarde voor de waterstand voor het uitvoeren van een sterkteberekening voor het toetsspoor duinen..
+        ///   Looks up a localized string similar to Berekende rekenwaarde voor de waterstand voor het uitvoeren van een sterkteberekening voor het faalmechanisme duinen..
         /// </summary>
         internal static string DuneLocationCalculationOutput_WaterLevel_Description {
             get {
@@ -163,7 +163,7 @@ namespace Riskeer.DuneErosion.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekende rekenwaarde voor de significante golfhoogte voor het uitvoeren van een sterkteberekening voor het toetsspoor duinen..
+        ///   Looks up a localized string similar to Berekende rekenwaarde voor de significante golfhoogte voor het uitvoeren van een sterkteberekening voor het faalmechanisme duinen..
         /// </summary>
         internal static string DuneLocationCalculationOutput_WaveHeight_Description {
             get {
@@ -181,7 +181,7 @@ namespace Riskeer.DuneErosion.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekende rekenwaarde voor de piekperiode van de golven voor het uitvoeren van een sterkteberekening voor het toetsspoor duinen..
+        ///   Looks up a localized string similar to Berekende rekenwaarde voor de piekperiode van de golven voor het uitvoeren van een sterkteberekening voor het faalmechanisme duinen..
         /// </summary>
         internal static string DuneLocationCalculationOutput_WavePeriod_Description {
             get {

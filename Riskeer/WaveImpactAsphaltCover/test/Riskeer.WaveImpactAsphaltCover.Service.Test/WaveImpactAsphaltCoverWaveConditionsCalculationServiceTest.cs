@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -286,7 +286,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
                     var expectedInput = new WaveConditionsCosineCalculationInput(1,
                                                                                  input.Orientation,
                                                                                  input.HydraulicBoundaryLocation.Id,
-                                                                                 assessmentSection.FailureMechanismContribution.LowerLimitNorm,
+                                                                                 assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability,
                                                                                  input.ForeshoreProfile.Geometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)),
                                                                                  new HydraRingBreakWater(BreakWaterTypeHelper.GetHydraRingBreakWaterType(breakWaterType), input.BreakWater.Height),
                                                                                  GetWaterLevels(calculation, assessmentSection).ElementAt(waterLevelIndex++),
@@ -413,10 +413,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
                                                                                                    string detailedReport)
         {
             // Setup
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
-            {
-                Contribution = 20
-            };
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var calculatorThatFails = new TestWaveConditionsCosineCalculator
             {
                 EndInFailure = endInFailure,
@@ -501,10 +498,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
                                                                                        string detailedReport)
         {
             // Setup
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
-            {
-                Contribution = 20
-            };
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var calculatorThatFails = new TestWaveConditionsCosineCalculator
             {
                 EndInFailure = endInFailure,
@@ -566,7 +560,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
                 Assert.AreEqual(3, waveConditionsOutputs.Length);
 
                 WaveConditionsOutputTestHelper.AssertFailedOutput(waterLevelUpperBoundaryRevetment,
-                                                                  assessmentSection.FailureMechanismContribution.LowerLimitNorm,
+                                                                  assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability,
                                                                   waveConditionsOutputs[0]);
             }
 
@@ -758,7 +752,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
                 hydraulicBoundaryLocation
             });
 
-            assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(9.3);
+            assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(9.3);
 
             return assessmentSection;
         }
@@ -770,7 +764,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit,
+                    WaterLevelType = WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability,
                     ForeshoreProfile = new TestForeshoreProfile(true),
                     UseForeshore = true,
                     UseBreakWater = true,

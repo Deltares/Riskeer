@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -848,7 +848,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                                                 new TileReceivedEventArgs(new TileInfo
                                                 {
                                                     Extent = new Extent(tileExtent.MinX, tileExtent.MinY, tileExtent.MaxX, tileExtent.MaxY),
-                                                    Index = new TileIndex(0, 0, $"EPSG:28992:{zoomLevel}")
+                                                    Index = new TileIndex(0, 0, zoomLevel)
                                                 }, new byte[0]));
             }
 
@@ -902,7 +902,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                                                 new TileReceivedEventArgs(new TileInfo
                                                 {
                                                     Extent = new Extent(mapExtent.MinX, mapExtent.MinY, mapExtent.MaxX, mapExtent.MaxY),
-                                                    Index = new TileIndex(0, 0, $"EPSG:28992:{otherZoomLevel}")
+                                                    Index = new TileIndex(0, 0, otherZoomLevel)
                                                 }, new byte[0]));
             }
 
@@ -936,10 +936,10 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             mocks.VerifyAll(); // mapFrame.Invalidate should be called
         }
 
-        private static Resolution CreateResolutionForLevel(int level, string epsgCode)
+        private static Resolution CreateResolutionForLevel(int level)
         {
             int numberOfImagesAtLevel = GetNumberOfImages(level);
-            return new Resolution($"{epsgCode}:{level}", GetUnitsPerPixel(level),
+            return new Resolution(level, GetUnitsPerPixel(level),
                                   256, 256,
                                   -285401.92, 903402,
                                   numberOfImagesAtLevel, numberOfImagesAtLevel,
@@ -961,7 +961,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             return 12288000 / GetNumberOfImages(level);
         }
 
-        private static IDictionary<string, Resolution> CreateResolutionDictionary(string epsgCode, int level)
+        private static IDictionary<int, Resolution> CreateResolutionDictionary(int level)
         {
             int[] levelToCreateResolutionsFor =
             {
@@ -970,8 +970,8 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                 level + 1
             };
 
-            return levelToCreateResolutionsFor.ToDictionary(resolutionLevel => $"{epsgCode}:{resolutionLevel}",
-                                                            resolutionLevel => CreateResolutionForLevel(resolutionLevel, epsgCode));
+            return levelToCreateResolutionsFor.ToDictionary(resolutionLevel => resolutionLevel,
+                                                            resolutionLevel => CreateResolutionForLevel(resolutionLevel));
         }
 
         public class TileInfosTestConfig
@@ -1011,13 +1011,12 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
         {
             const string epsgCode = "EPSG:28992";
             int level = config.Level;
-            string levelId = $"{epsgCode}:{level}";
 
             Dictionary<TileInfo, Bitmap> tileInfoImageLookup = config.TileInfoConfigurations.ToDictionary(
                 c => new TileInfo
                 {
                     Extent = c.Extent,
-                    Index = new TileIndex(c.ColumnIndex, c.RowIndex, levelId)
+                    Index = new TileIndex(c.ColumnIndex, c.RowIndex, level)
                 },
                 c => c.Image);
 
@@ -1032,9 +1031,9 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             var tileSchema = mocks.Stub<ITileSchema>();
             tileSchema.Stub(s => s.Srs).Return(epsgCode);
             tileSchema.Stub(s => s.Extent).Return(new Extent(-285401.92, 22598.16, 595401.92, 903402));
-            tileSchema.Stub(s => s.Resolutions).Return(CreateResolutionDictionary(epsgCode, level));
+            tileSchema.Stub(s => s.Resolutions).Return(CreateResolutionDictionary(level));
             tileSchema.Stub(s => s.GetTileInfos(Arg<Extent>.Is.NotNull,
-                                                Arg<string>.Is.Equal(levelId)))
+                                                Arg<int>.Is.Equal(level)))
                       .Return(tileInfoImageLookup.Keys);
 
             var configuration = mocks.Stub<IConfiguration>();

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -62,7 +62,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
             return calculations.Select(pc => new MacroStabilityInwardsScenarioRow(pc, FailureMechanism, failureMechanismSection)).ToList();
         }
-        
+
         protected override void InitializeDataGridView()
         {
             DataGridViewControl.AddCheckBoxColumn(

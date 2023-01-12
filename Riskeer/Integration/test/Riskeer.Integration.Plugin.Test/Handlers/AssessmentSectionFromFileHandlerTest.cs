@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -188,7 +188,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             DialogBoxHandler = (name, wnd) =>
             {
                 var selectionDialog = (ReferenceLineMetaSelectionDialog) new FormTester(name).TheObject;
-                var lowLimitValueRadioButton = (RadioButton) new RadioButtonTester("LowLimitValueRadioButton", selectionDialog).TheObject;
+                var lowLimitValueRadioButton = (RadioButton) new RadioButtonTester("MaximumAllowableFloodingProbabilityRadioButton", selectionDialog).TheObject;
                 lowLimitValueRadioButton.Checked = true;
                 new ButtonTester("Ok", selectionDialog).Click();
             };
@@ -339,9 +339,9 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             void Call() => assessmentSectionFromFileHandler.GetAssessmentSectionFromFile();
 
             // Assert
-            const string expectedMessage = "Het traject kan niet aangemaakt worden met een ondergrens van 1/9.999.999 en een signaleringswaarde van 1/8.888.888. " +
-                                           "De waarde van de ondergrens en signaleringswaarde moet in het bereik [0,000001, 0,1] liggen en " +
-                                           "de ondergrens moet gelijk zijn aan of groter zijn dan de signaleringswaarde.";
+            const string expectedMessage = "Het traject kan niet aangemaakt worden met een omgevingswaarde van 1/9.999.999 en een signaleringsparameter van 1/8.888.888. " +
+                                           "De waarde van de omgevingswaarde en signaleringsparameter moet in het bereik [0,000001, 0,1] liggen en " +
+                                           "de omgevingswaarde moet gelijk zijn aan of groter zijn dan de signaleringsparameter.";
             var exception = Assert.Throws<CriticalFileValidationException>(Call);
             Assert.AreEqual(expectedMessage, exception.Message);
             Assert.IsInstanceOf<ArgumentOutOfRangeException>(exception.InnerException);
@@ -365,7 +365,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
         #region Test Assessment Sections
 
-        private static AssessmentSection TestAssessmentSection1_2(bool useSignalingValue)
+        private static AssessmentSection TestAssessmentSection1_2(bool useSignalFloodingProbability)
         {
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike,
                                                           1.0 / 1000,
@@ -375,7 +375,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 Name = "Traject 1-2",
                 FailureMechanismContribution =
                 {
-                    NormativeNorm = useSignalingValue ? NormType.Signaling : NormType.LowerLimit
+                    NormativeProbabilityType = useSignalFloodingProbability ? NormativeProbabilityType.SignalFloodingProbability : NormativeProbabilityType.MaximumAllowableFloodingProbability
                 }
             };
             assessmentSection.GrassCoverErosionInwards.GeneralInput.N = (RoundedDouble) 2.0;
@@ -400,7 +400,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 Name = "Traject 2-1",
                 FailureMechanismContribution =
                 {
-                    NormativeNorm = NormType.Signaling
+                    NormativeProbabilityType = NormativeProbabilityType.SignalFloodingProbability
                 },
                 GrassCoverErosionInwards =
                 {
@@ -444,7 +444,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 Name = "Traject 3-3",
                 FailureMechanismContribution =
                 {
-                    NormativeNorm = NormType.Signaling
+                    NormativeProbabilityType = NormativeProbabilityType.SignalFloodingProbability
                 }
             };
             assessmentSection.ReferenceLine.SetGeometry(new[]
@@ -464,9 +464,9 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         {
             Assert.AreEqual(expected.Id, actual.Id);
             Assert.AreEqual(expected.Name, actual.Name);
-            Assert.AreEqual(expected.FailureMechanismContribution.LowerLimitNorm, actual.FailureMechanismContribution.LowerLimitNorm);
-            Assert.AreEqual(expected.FailureMechanismContribution.SignalingNorm, actual.FailureMechanismContribution.SignalingNorm);
-            Assert.AreEqual(expected.FailureMechanismContribution.NormativeNorm, actual.FailureMechanismContribution.NormativeNorm);
+            Assert.AreEqual(expected.FailureMechanismContribution.MaximumAllowableFloodingProbability, actual.FailureMechanismContribution.MaximumAllowableFloodingProbability);
+            Assert.AreEqual(expected.FailureMechanismContribution.SignalFloodingProbability, actual.FailureMechanismContribution.SignalFloodingProbability);
+            Assert.AreEqual(expected.FailureMechanismContribution.NormativeProbabilityType, actual.FailureMechanismContribution.NormativeProbabilityType);
             Assert.AreEqual(expected.Composition, actual.Composition);
 
             Assert.AreEqual(expected.GrassCoverErosionInwards.GeneralInput.N, actual.GrassCoverErosionInwards.GeneralInput.N);

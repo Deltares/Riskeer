@@ -117,6 +117,8 @@ mode="Global">
 				<path>
 					/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Genereer scenario''s...']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<helperscreenshot
 			guid="c2cf1b1a-25fa-4c4e-a1f5-2a80ef969bc4">
@@ -491,6 +493,8 @@ QFCoWyoHToKmoooAKKKKACiiigAooooAKKKKAKWl/wCpNXapaX/qTV2gAooooAKKKKACo5f9ZD/v
 						<path>
 							/form[@controlname='SelectionDialogBase']/container[@controlname='ButtonGroupBox']/container/table
 						</path>
+						<robustPath>
+						</robustPath>
 					</info>
 				</argument>
 				<argument
@@ -572,6 +576,11 @@ QFCoWyoHToKmoooAKKKKACiiigAooooAKKKKAKWl/wCpNXapaX/qTV2gAooooAKKKKACo5f9ZD/v
 					name="class"
 					type="System.String">
 						WindowsForms10.BUTTON.app.0.21a1964_r9_ad1
+					</attribute>
+					<attribute
+					name="controlname"
+					type="System.String">
+						DoForSelectedButton
 					</attribute>
 					<attribute
 					name="handle"
@@ -1312,6 +1321,8 @@ QFCoWyoHToKmoooAKKKKACiiigAooooAKKKKAKWl/wCpNXapaX/qTV2gAooooAKKKKACo5f9ZD/v
 				<path>
 					/form[@controlname='SelectionDialogBase']/?/?/button[@controlname='DoForSelectedButton']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<helperscreenshot
 			guid="b66e8d38-b478-4164-b4ae-45ffefbd2765">

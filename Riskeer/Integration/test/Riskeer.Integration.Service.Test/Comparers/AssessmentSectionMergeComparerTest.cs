@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -53,10 +53,10 @@ namespace Riskeer.Integration.Service.Test.Comparers
             var comparer = new AssessmentSectionMergeComparer();
 
             // Call
-            TestDelegate call = () => comparer.Compare(null, CreateAssessmentSection());
+            void Call() => comparer.Compare(null, CreateAssessmentSection());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -67,10 +67,10 @@ namespace Riskeer.Integration.Service.Test.Comparers
             var comparer = new AssessmentSectionMergeComparer();
 
             // Call
-            TestDelegate call = () => comparer.Compare(CreateAssessmentSection(), null);
+            void Call() => comparer.Compare(CreateAssessmentSection(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("otherAssessmentSection", exception.ParamName);
         }
 
@@ -210,14 +210,14 @@ namespace Riskeer.Integration.Service.Test.Comparers
                                                                    "Id");
             yield return new ChangePropertyData<AssessmentSection>(sec => sec.HydraulicBoundaryDatabase.Version = "DifferentVersion",
                                                                    "HydraulicBoundaryDataBase");
-            yield return new ChangePropertyData<AssessmentSection>(sec => sec.FailureMechanismContribution.LowerLimitNorm = sec.FailureMechanismContribution.LowerLimitNorm - 1e-15,
-                                                                   "LowerLimitNorm");
-            yield return new ChangePropertyData<AssessmentSection>(sec => sec.FailureMechanismContribution.SignalingNorm = sec.FailureMechanismContribution.SignalingNorm - 1e-15,
-                                                                   "SignalingNorm");
-            yield return new ChangePropertyData<AssessmentSection>(sec => sec.FailureMechanismContribution.NormativeNorm = sec.FailureMechanismContribution.NormativeNorm == NormType.LowerLimit
-                                                                                                                               ? NormType.Signaling
-                                                                                                                               : NormType.LowerLimit,
-                                                                   "NormType");
+            yield return new ChangePropertyData<AssessmentSection>(sec => sec.FailureMechanismContribution.MaximumAllowableFloodingProbability -= 1e-15,
+                                                                   "MaximumAllowableFloodingProbability");
+            yield return new ChangePropertyData<AssessmentSection>(sec => sec.FailureMechanismContribution.SignalFloodingProbability -= 1e-15,
+                                                                   "SignalFloodingProbability");
+            yield return new ChangePropertyData<AssessmentSection>(sec => sec.FailureMechanismContribution.NormativeProbabilityType = sec.FailureMechanismContribution.NormativeProbabilityType == NormativeProbabilityType.MaximumAllowableFloodingProbability
+                                                                                                                                          ? NormativeProbabilityType.SignalFloodingProbability
+                                                                                                                                          : NormativeProbabilityType.MaximumAllowableFloodingProbability,
+                                                                   "NormativeProbabilityType");
             yield return new ChangePropertyData<AssessmentSection>(sec => sec.ChangeComposition(AssessmentSectionComposition.DikeAndDune),
                                                                    "Composition");
         }

@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -378,7 +378,7 @@ namespace Riskeer.Common.IO.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;!--
-        ///Copyright (C) Stichting Deltares 2021. All rights reserved.
+        ///Copyright (C) Stichting Deltares 2022. All rights reserved.
         ///
         ///This file is part of Riskeer.
         ///
@@ -786,7 +786,7 @@ namespace Riskeer.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Voor één of meerdere vakken is geen naam opgegeven..
+        ///   Looks up a localized string similar to Voor een of meerdere vakken is geen naam opgegeven..
         /// </summary>
         public static string FailureMechanismSectionReader_File_has_section_without_sectionName {
             get {
@@ -795,7 +795,7 @@ namespace Riskeer.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bestand bevat één of meerdere multi-polylijnen. Multi-polylijnen worden niet ondersteund..
+        ///   Looks up a localized string similar to Het bestand bevat een of meerdere multi-polylijnen. Multi-polylijnen worden niet ondersteund..
         /// </summary>
         public static string FailureMechanismSectionReader_File_has_unsupported_multiPolyline {
             get {
@@ -898,7 +898,7 @@ namespace Riskeer.Common.IO.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;!--
-        ///Copyright (C) Stichting Deltares 2021. All rights reserved.
+        ///Copyright (C) Stichting Deltares 2022. All rights reserved.
         ///
         ///This file is part of Riskeer.
         ///
@@ -919,7 +919,7 @@ namespace Riskeer.Common.IO.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;!--
-        ///Copyright (C) Stichting Deltares 2021. All rights reserved.
+        ///Copyright (C) Stichting Deltares 2022. All rights reserved.
         ///
         ///This file is part of Riskeer.
         ///
@@ -940,7 +940,7 @@ namespace Riskeer.Common.IO.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;!--
-        ///Copyright (C) Stichting Deltares 2021. All rights reserved.
+        ///Copyright (C) Stichting Deltares 2022. All rights reserved.
         ///
         ///This file is part of Riskeer.
         ///
@@ -1146,7 +1146,7 @@ namespace Riskeer.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geïmporteerde data toevoegen aan het toetsspoor..
+        ///   Looks up a localized string similar to Geïmporteerde data toevoegen aan het faalmechanisme..
         /// </summary>
         public static string Importer_ProgressText_Adding_imported_data_to_FailureMechanism {
             get {
@@ -1155,7 +1155,7 @@ namespace Riskeer.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bijwerken data in het toetsspoor..
+        ///   Looks up a localized string similar to Bijwerken data in het faalmechanisme..
         /// </summary>
         public static string Importer_ProgressText_Updating_data_in_data_model {
             get {
@@ -1204,7 +1204,7 @@ namespace Riskeer.Common.IO.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;!--
-        ///Copyright (C) Stichting Deltares 2021. All rights reserved.
+        ///Copyright (C) Stichting Deltares 2022. All rights reserved.
         ///
         ///This file is part of Riskeer.
         ///
@@ -1225,7 +1225,7 @@ namespace Riskeer.Common.IO.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;!--
-        ///Copyright (C) Stichting Deltares 2021. All rights reserved.
+        ///Copyright (C) Stichting Deltares 2022. All rights reserved.
         ///
         ///This file is part of Riskeer.
         ///
@@ -1255,7 +1255,7 @@ namespace Riskeer.Common.IO.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;!--
-        ///Copyright (C) Stichting Deltares 2021. All rights reserved.
+        ///Copyright (C) Stichting Deltares 2022. All rights reserved.
         ///
         ///This file is part of Riskeer.
         ///
@@ -1487,7 +1487,7 @@ namespace Riskeer.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wissen rekenresultaten en vakindelingen van toetsspoor..
+        ///   Looks up a localized string similar to Wissen rekenresultaten en vakindelingen van faalmechanisme..
         /// </summary>
         public static string ReferenceLineImporter_ProgressText_Removing_calculation_output_and_failure_mechanism_sections {
             get {
@@ -1591,7 +1591,7 @@ namespace Riskeer.Common.IO.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;!--
-        ///Copyright (C) Stichting Deltares 2021. All rights reserved.
+        ///Copyright (C) Stichting Deltares 2022. All rights reserved.
         ///
         ///This file is part of Riskeer.
         ///
@@ -1612,7 +1612,7 @@ namespace Riskeer.Common.IO.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;!--
-        ///Copyright (C) Stichting Deltares 2021. All rights reserved.
+        ///Copyright (C) Stichting Deltares 2022. All rights reserved.
         ///
         ///This file is part of Riskeer.
         ///
@@ -1958,7 +1958,7 @@ namespace Riskeer.Common.IO.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;!--
-        ///Copyright (C) Stichting Deltares 2021. All rights reserved.
+        ///Copyright (C) Stichting Deltares 2022. All rights reserved.
         ///
         ///This file is part of Riskeer.
         ///
@@ -1979,7 +1979,7 @@ namespace Riskeer.Common.IO.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;!--
-        ///Copyright (C) Stichting Deltares 2021. All rights reserved.
+        ///Copyright (C) Stichting Deltares 2022. All rights reserved.
         ///
         ///This file is part of Riskeer.
         ///
@@ -2000,7 +2000,7 @@ namespace Riskeer.Common.IO.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;!--
-        ///Copyright (C) Stichting Deltares 2021. All rights reserved.
+        ///Copyright (C) Stichting Deltares 2022. All rights reserved.
         ///
         ///This file is part of Riskeer.
         ///
@@ -2179,7 +2179,7 @@ namespace Riskeer.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er zijn één of meerdere fouten gevonden waardoor dit kunstwerk niet ingelezen kan worden:
+        ///   Looks up a localized string similar to Er zijn een of meerdere fouten gevonden waardoor dit kunstwerk niet ingelezen kan worden:
         ///{0}.
         /// </summary>
         public static string StructuresImporter_LogValidationErrorForStructure_One_or_more_erors_skip_structure_ErrorMessageList_0_ {
@@ -2648,7 +2648,7 @@ namespace Riskeer.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Als u kunstwerken importeert, dan worden alle rekenresultaten van dit toetsspoor verwijderd.
+        ///   Looks up a localized string similar to Als u kunstwerken importeert, dan worden alle rekenresultaten van dit faalmechanisme verwijderd.
         ///
         ///Weet u zeker dat u wilt doorgaan?.
         /// </summary>
@@ -2673,7 +2673,7 @@ namespace Riskeer.Common.IO.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;!--
-        ///Copyright (C) Stichting Deltares 2021. All rights reserved.
+        ///Copyright (C) Stichting Deltares 2022. All rights reserved.
         ///
         ///This file is part of Riskeer.
         ///
@@ -2694,7 +2694,7 @@ namespace Riskeer.Common.IO.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;!--
-        ///Copyright (C) Stichting Deltares 2021. All rights reserved.
+        ///Copyright (C) Stichting Deltares 2022. All rights reserved.
         ///
         ///This file is part of Riskeer.
         ///
@@ -2715,7 +2715,7 @@ namespace Riskeer.Common.IO.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot;?&gt;&lt;!--
-        ///Copyright (C) Stichting Deltares 2021. All rights reserved.
+        ///Copyright (C) Stichting Deltares 2022. All rights reserved.
         ///
         ///This file is part of Riskeer.
         ///

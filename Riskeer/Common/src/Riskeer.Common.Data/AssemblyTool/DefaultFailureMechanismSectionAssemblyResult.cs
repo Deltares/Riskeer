@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -31,6 +31,6 @@ namespace Riskeer.Common.Data.AssemblyTool
         /// <summary>
         /// Creates a new instance of <see cref="DefaultFailureMechanismSectionAssemblyResult"/>.
         /// </summary>
-        public DefaultFailureMechanismSectionAssemblyResult() : base(double.NaN, double.NaN, double.NaN, FailureMechanismSectionAssemblyGroup.Gr) {}
+        public DefaultFailureMechanismSectionAssemblyResult() : base(double.NaN, double.NaN, double.NaN, FailureMechanismSectionAssemblyGroup.NoResult) {}
     }
 }

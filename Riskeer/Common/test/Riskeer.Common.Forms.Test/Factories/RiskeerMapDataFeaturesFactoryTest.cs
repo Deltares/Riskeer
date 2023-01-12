@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -168,8 +168,8 @@ namespace Riskeer.Common.Forms.Test.Factories
                     tp => (IObservableEnumerable<HydraulicBoundaryLocationCalculation>) tp.HydraulicBoundaryLocationCalculations,
                     tp => $"h - {ProbabilityFormattingHelper.Format(tp.TargetProbability)}");
 
-            waterLevels.Add(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, "h - 1/30.000");
-            waterLevels.Add(assessmentSection.WaterLevelCalculationsForSignalingNorm, "h - 1/30.000 (1)");
+            waterLevels.Add(assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability, "h - 1/30.000");
+            waterLevels.Add(assessmentSection.WaterLevelCalculationsForSignalFloodingProbability, "h - 1/30.000 (1)");
 
             IEnumerable<AggregatedHydraulicBoundaryLocation> locations = AggregatedHydraulicBoundaryLocationFactory.CreateAggregatedHydraulicBoundaryLocations(
                 assessmentSection.HydraulicBoundaryDatabase.Locations,

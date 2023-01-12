@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -27,6 +27,7 @@ using Assembly.Kernel.Interfaces;
 using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.AssessmentSection;
 using Assembly.Kernel.Model.Categories;
+using Assembly.Kernel.Model.FailureMechanismSections;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Creators;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
@@ -55,9 +56,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             this.factory = factory;
         }
 
-        public AssessmentSectionAssemblyResult AssembleAssessmentSection(IEnumerable<double> failureMechanismProbabilities,
-                                                                         double lowerLimitNorm,
-                                                                         double signalingNorm)
+        public AssessmentSectionAssemblyResultWrapper AssembleAssessmentSection(IEnumerable<double> failureMechanismProbabilities,
+                                                                                double maximumAllowableFloodingProbability,
+                                                                                double signalFloodingProbability)
         {
             if (failureMechanismProbabilities == null)
             {
@@ -66,17 +67,22 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
 
             try
             {
-                ICategoryLimitsCalculator categoryLimitsKernel = factory.CreateAssemblyCategoriesKernel();
-                CategoriesList<AssessmentSectionCategory> categoryLimits = categoryLimitsKernel.CalculateAssessmentSectionCategoryLimitsWbi21(
-                    new AssessmentSection(AssemblyCalculatorInputCreator.CreateProbability(signalingNorm),
-                                          AssemblyCalculatorInputCreator.CreateProbability(lowerLimitNorm)));
+                ICategoryLimitsCalculator categoryLimitsKernel = factory.CreateAssemblyGroupsKernel();
+                CategoriesList<AssessmentSectionCategory> assessmentSectionCategories = categoryLimitsKernel.CalculateAssessmentSectionCategoryLimitsBoi21(
+                    new AssessmentSection(AssemblyCalculatorInputCreator.CreateProbability(signalFloodingProbability),
+                                          AssemblyCalculatorInputCreator.CreateProbability(maximumAllowableFloodingProbability)));
 
                 IAssessmentGradeAssembler assessmentSectionAssemblyKernel = factory.CreateAssessmentSectionAssemblyKernel();
                 IEnumerable<Probability> probabilities = failureMechanismProbabilities.Select(AssemblyCalculatorInputCreator.CreateProbability)
                                                                                       .ToArray();
 
-                AssessmentSectionResult assemblyResult = assessmentSectionAssemblyKernel.AssembleAssessmentSectionWbi2B1(probabilities, categoryLimits, false);
-                return AssessmentSectionAssemblyResultCreator.CreateAssessmentSectionAssemblyResult(assemblyResult);
+                Probability assemblyProbability = assessmentSectionAssemblyKernel.CalculateAssessmentSectionFailureProbabilityBoi2A1(probabilities, false);
+                EAssessmentGrade assemblyCategory = assessmentSectionAssemblyKernel.DetermineAssessmentGradeBoi2B1(assemblyProbability, assessmentSectionCategories);
+
+                return new AssessmentSectionAssemblyResultWrapper(
+                    new AssessmentSectionAssemblyResult(assemblyProbability,
+                                                        AssessmentSectionAssemblyGroupCreator.CreateAssessmentSectionAssemblyGroup(assemblyCategory)),
+                    AssemblyMethod.BOI2A1, AssemblyMethod.BOI2B1);
             }
             catch (AssemblyException e)
             {
@@ -88,15 +94,32 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             }
         }
 
-        public IEnumerable<CombinedFailureMechanismSectionAssembly> AssembleCombinedFailureMechanismSections(
+        public CombinedFailureMechanismSectionAssemblyResultWrapper AssembleCombinedFailureMechanismSections(
             IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> input, double assessmentSectionLength)
         {
+            if (input == null)
+            {
+                throw new ArgumentNullException(nameof(input));
+            }
+
             try
             {
                 ICommonFailureMechanismSectionAssembler kernel = factory.CreateCombinedFailureMechanismSectionAssemblyKernel();
-                AssemblyResult output = kernel.AssembleCommonFailureMechanismSections(FailureMechanismSectionListCreator.Create(input), assessmentSectionLength, false);
 
-                return CombinedFailureMechanismSectionAssemblyCreator.Create(output);
+                IEnumerable<FailureMechanismSectionList> failureMechanismSections = FailureMechanismSectionListCreator.Create(input);
+                FailureMechanismSectionList commonSections = kernel.FindGreatestCommonDenominatorSectionsBoi3A1(
+                    failureMechanismSections, assessmentSectionLength);
+
+                FailureMechanismSectionList[] failureMechanismResults = failureMechanismSections.Select(fmsl => kernel.TranslateFailureMechanismResultsToCommonSectionsBoi3B1(
+                                                                                                            fmsl, commonSections))
+                                                                                                .ToArray();
+
+                IEnumerable<FailureMechanismSectionWithCategory> combinedSectionResults =
+                    kernel.DetermineCombinedResultPerCommonSectionBoi3C1(failureMechanismResults, false);
+
+                return new CombinedFailureMechanismSectionAssemblyResultWrapper(
+                    CombinedFailureMechanismSectionAssemblyCreator.Create(failureMechanismResults, combinedSectionResults),
+                    AssemblyMethod.BOI3A1, AssemblyMethod.BOI3B1, AssemblyMethod.BOI3C1);
             }
             catch (AssemblyException e)
             {

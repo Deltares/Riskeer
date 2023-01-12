@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -100,7 +100,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Service
             var changedObjects = new List<IObservable>();
             object[] removedObjects = failureMechanism.Sections.OfType<object>()
                                                       .Concat(failureMechanism.SectionResults)
-                                                      .Concat(failureMechanism.WaveConditionsCalculationGroup.GetAllChildrenRecursive())
+                                                      .Concat(failureMechanism.CalculationsGroup.GetAllChildrenRecursive())
                                                       .Concat(failureMechanism.ForeshoreProfiles)
                                                       .ToArray();
 
@@ -108,8 +108,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Service
             changedObjects.Add(failureMechanism);
             changedObjects.Add(failureMechanism.SectionResults);
 
-            failureMechanism.WaveConditionsCalculationGroup.Children.Clear();
-            changedObjects.Add(failureMechanism.WaveConditionsCalculationGroup);
+            failureMechanism.CalculationsGroup.Children.Clear();
+            changedObjects.Add(failureMechanism.CalculationsGroup);
 
             failureMechanism.ForeshoreProfiles.Clear();
             changedObjects.Add(failureMechanism.ForeshoreProfiles);

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -22,8 +22,8 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Design;
-using Core.Common.Util;
 using Core.Common.Util.Attributes;
+using Core.Common.Util.Enums;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Styles;
 using Core.Gui.Attributes;

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -47,12 +47,12 @@ namespace Core.Common.Util.Test
         public void Constructor_WithoutExtension_ThrowArgumentNullException(string extension)
         {
             // Call
-            TestDelegate test = () => new FileFilterGenerator(extension);
+            void Call() => new FileFilterGenerator(extension);
 
             // Assert
             const string expectedMessage = "Value required for the 'typeExtension'.";
             var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
-                test,
+                Call,
                 expectedMessage);
             Assert.AreEqual("typeExtension", exception.ParamName);
         }
@@ -63,12 +63,12 @@ namespace Core.Common.Util.Test
         public void Constructor_WithoutExtensionWithDescription_ThrowArgumentException(string extension)
         {
             // Call
-            TestDelegate test = () => new FileFilterGenerator(extension, "description");
+            void Call() => new FileFilterGenerator(extension, "description");
 
             // Assert
             const string expectedMessage = "Value required for the 'typeExtension'.";
             var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
-                test,
+                Call,
                 expectedMessage);
             Assert.AreEqual("typeExtension", exception.ParamName);
         }
@@ -79,12 +79,12 @@ namespace Core.Common.Util.Test
         public void Constructor_WithExtensionWithoutDescription_ThrowArgumentException(string description)
         {
             // Call
-            TestDelegate test = () => new FileFilterGenerator("txt", description);
+            void Call() => new FileFilterGenerator("txt", description);
 
             // Assert
             const string expectedMessage = "Value required for the 'typeDescription'.";
             var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
-                test,
+                Call,
                 expectedMessage);
             Assert.AreEqual("typeDescription", exception.ParamName);
         }
@@ -99,7 +99,7 @@ namespace Core.Common.Util.Test
 
             // Assert
             Assert.AreEqual(extension, generator.Extension);
-            string description = $"{extension.ToUpperInvariant()}-bestanden";
+            var description = $"{extension.ToUpperInvariant()}-bestanden";
             Assert.AreEqual(description, generator.Description);
             Assert.AreEqual($"{description} (*.{extension})|*.{extension}", generator.Filter);
         }
@@ -119,16 +119,11 @@ namespace Core.Common.Util.Test
         }
 
         [TestFixture]
-        private class FileFilterGeneratorEqualsTest : EqualsTestFixture<FileFilterGenerator, DerivedFileFilterGenerator>
+        private class FileFilterGeneratorEqualsTest : EqualsTestFixture<FileFilterGenerator>
         {
             protected override FileFilterGenerator CreateObject()
             {
                 return CreateFileFilterGenerator();
-            }
-
-            protected override DerivedFileFilterGenerator CreateDerivedObject()
-            {
-                return new DerivedFileFilterGenerator(CreateFileFilterGenerator());
             }
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
@@ -145,12 +140,6 @@ namespace Core.Common.Util.Test
             {
                 return new FileFilterGenerator("txt", "description");
             }
-        }
-
-        private class DerivedFileFilterGenerator : FileFilterGenerator
-        {
-            public DerivedFileFilterGenerator(FileFilterGenerator generator)
-                : base(generator.Extension, generator.Description) {}
         }
     }
 }

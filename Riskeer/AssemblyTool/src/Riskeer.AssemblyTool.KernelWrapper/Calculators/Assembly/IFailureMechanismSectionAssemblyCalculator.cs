@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -33,20 +33,22 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// Assembles the failure mechanism section based on the input.
         /// </summary>
         /// <param name="input">The <see cref="FailureMechanismSectionAssemblyInput"/> to assemble with.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssemblyResult"/>.</returns>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyResultWrapper"/> containing the assembly result
+        /// of the failure mechanism section.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
         /// an error occurs while assembling.</exception>
-        FailureMechanismSectionAssemblyResult AssembleFailureMechanismSection(FailureMechanismSectionAssemblyInput input);
+        FailureMechanismSectionAssemblyResultWrapper AssembleFailureMechanismSection(FailureMechanismSectionAssemblyInput input);
 
         /// <summary>
         /// Assembles the failure mechanism section based on the input.
         /// </summary>
         /// <param name="input">The <see cref="FailureMechanismSectionWithProfileProbabilityAssemblyInput"/> to assemble with.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssemblyResult"/>.</returns>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyResultWrapper"/> containing the assembly result
+        /// of the failure mechanism section.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
         /// an error occurs while assembling.</exception>
-        FailureMechanismSectionAssemblyResult AssembleFailureMechanismSection(FailureMechanismSectionWithProfileProbabilityAssemblyInput input);
+        FailureMechanismSectionAssemblyResultWrapper AssembleFailureMechanismSection(FailureMechanismSectionWithProfileProbabilityAssemblyInput input);
     }
 }

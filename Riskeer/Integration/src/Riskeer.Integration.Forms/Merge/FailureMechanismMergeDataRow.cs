@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -29,27 +29,52 @@ namespace Riskeer.Integration.Forms.Merge
     /// Row representing the information of a <see cref="IFailureMechanism"/> to be
     /// used for merging.
     /// </summary>
-    internal class FailureMechanismMergeDataRow : FailurePathMergeDataRow
+    internal class FailureMechanismMergeDataRow
     {
-        private readonly IFailureMechanism failureMechanism;
-
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismMergeDataRow"/>.
         /// </summary>
         /// <param name="failureMechanism">The wrapped <see cref="IFailureMechanism"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// is <c>null</c>.</exception>
-        public FailureMechanismMergeDataRow(IFailureMechanism failureMechanism) : base(failureMechanism)
+        public FailureMechanismMergeDataRow(IFailureMechanism failureMechanism)
         {
-            this.failureMechanism = failureMechanism;
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            FailureMechanism = failureMechanism;
         }
 
-        public override int NumberOfCalculations
-        {
-            get
-            {
-                return failureMechanism.Calculations.Count();
-            }
-        }
+        /// <summary>
+        /// Gets the wrapped <see cref="IFailureMechanism"/> of the row.
+        /// </summary>
+        public IFailureMechanism FailureMechanism { get; }
+
+        /// <summary>
+        /// Gets and sets whether the failure mechanism is selected to be merged.
+        /// </summary>
+        public bool IsSelected { get; set; }
+
+        /// <summary>
+        /// Gets the name of the failure mechanism.
+        /// </summary>
+        public string Name => FailureMechanism.Name;
+
+        /// <summary>
+        /// Gets indicator whether the failure mechanism is marked as part of the assembly.
+        /// </summary>
+        public bool InAssembly => FailureMechanism.InAssembly;
+
+        /// <summary>
+        /// Gets indicator whether the failure mechanism has sections.
+        /// </summary>
+        public bool HasSections => FailureMechanism.Sections.Any();
+
+        /// <summary>
+        /// Gets the amount of calculations that are contained by the failure mechanism.
+        /// </summary>
+        public virtual int NumberOfCalculations => 0;
     }
 }

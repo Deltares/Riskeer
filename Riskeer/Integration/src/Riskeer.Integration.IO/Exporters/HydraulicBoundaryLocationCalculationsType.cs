@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -30,7 +30,7 @@ namespace Riskeer.Integration.IO.Exporters
         /// Water level hydraulic boundary location calculations.
         /// </summary>
         WaterLevel = 1,
-        
+
         /// <summary>
         /// Water level hydraulic boundary location calculations.
         /// </summary>

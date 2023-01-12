@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -87,16 +87,15 @@ namespace Riskeer.Integration.TestUtil
         }
 
         /// <summary>
-        /// Imports the <see cref="FailureMechanismSection"/> data for a given <see cref="IFailureMechanism"/>.
+        /// Imports <see cref="FailureMechanismSection"/> data for a given <see cref="IFailureMechanism{T}"/>.
         /// </summary>
-        /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to import on.</param>
-        /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> to import on.</param>
+        /// <param name="assessmentSection">The <see cref="AssessmentSection"/> that contains the <see cref="IFailureMechanism{T}"/> instance.</param>
+        /// <param name="failureMechanism">The <see cref="IFailureMechanism{T}"/> instance to import on.</param>
         /// <remarks>
         /// <para>This will import 283 failure mechanism sections.</para>
         /// <para>Imports using <see cref="FileImportActivity"/>.</para>
         /// </remarks>
-        /// <seealso cref="ImportFailureMechanismSections(AssessmentSection, System.Collections.Generic.IEnumerable{Riskeer.Common.Data.FailureMechanism.IFailureMechanism})"/>
-        public static void ImportFailureMechanismSections(AssessmentSection assessmentSection, IFailureMechanism failureMechanism)
+        public static void ImportFailureMechanismSections(AssessmentSection assessmentSection, IFailureMechanism<FailureMechanismSectionResult> failureMechanism)
         {
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(typeof(DataImportHelper).Assembly,
                                                                                    true,
@@ -106,11 +105,10 @@ namespace Riskeer.Integration.TestUtil
                                                                                    "traject_6-3_vakken.shx"))
             {
                 string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "traject_6-3_vakken.shp");
-                var activity = new FileImportActivity(new FailureMechanismSectionsImporter(failureMechanism,
-                                                                                           assessmentSection.ReferenceLine,
-                                                                                           filePath,
-                                                                                           new FailureMechanismSectionReplaceStrategy(failureMechanism),
-                                                                                           new ImportMessageProvider()),
+                var activity = new FileImportActivity(new FailureMechanismSectionsImporter(
+                                                          failureMechanism, assessmentSection.ReferenceLine, filePath,
+                                                          new FailureMechanismSectionReplaceStrategy(failureMechanism),
+                                                          new ImportMessageProvider()),
                                                       "FailureMechanismSectionsImporter");
                 activity.Run();
                 activity.Finish();
@@ -118,16 +116,15 @@ namespace Riskeer.Integration.TestUtil
         }
 
         /// <summary>
-        /// Imports the <see cref="FailureMechanismSection"/> data for a given <see cref="IFailureMechanism"/>.
+        /// Imports <see cref="FailureMechanismSection"/> data for a given enumeration of <see cref="IFailureMechanism{T}"/>.
         /// </summary>
-        /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to import on.</param>
-        /// <param name="targetFailureMechanisms">The <see cref="IFailureMechanism"/> to import on.</param>
+        /// <param name="assessmentSection">The <see cref="AssessmentSection"/> that contains the <see cref="IFailureMechanism{T}"/> instances.</param>
+        /// <param name="targetFailureMechanisms">The <see cref="IFailureMechanism{T}"/> instances to import on.</param>
         /// <remarks>
         /// <para>This will import the same 283 failure mechanism sections on all failure mechanisms.</para>
         /// <para>Does not import using <see cref="FileImportActivity"/>.</para>
         /// </remarks>
-        /// <seealso cref="ImportFailureMechanismSections(AssessmentSection, IFailureMechanism)"/>
-        public static void ImportFailureMechanismSections(AssessmentSection assessmentSection, IEnumerable<IFailureMechanism> targetFailureMechanisms)
+        public static void ImportFailureMechanismSections(AssessmentSection assessmentSection, IEnumerable<IFailureMechanism<FailureMechanismSectionResult>> targetFailureMechanisms)
         {
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(typeof(DataImportHelper).Assembly,
                                                                                    true,
@@ -136,19 +133,18 @@ namespace Riskeer.Integration.TestUtil
                                                                                    "traject_6-3_vakken.prj",
                                                                                    "traject_6-3_vakken.shx"))
             {
-                IFailureMechanism[] failureMechanisms = targetFailureMechanisms.ToArray();
+                IFailureMechanism<FailureMechanismSectionResult>[] failureMechanisms = targetFailureMechanisms.ToArray();
                 for (var i = 0; i < failureMechanisms.Length; i++)
                 {
-                    IFailureMechanism failureMechanism = failureMechanisms[i];
+                    IFailureMechanism<FailureMechanismSectionResult> failureMechanism = failureMechanisms[i];
                     if (i == 0)
                     {
                         string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath,
                                                        "traject_6-3_vakken.shp");
-                        var importer = new FailureMechanismSectionsImporter(failureMechanism,
-                                                                            assessmentSection.ReferenceLine,
-                                                                            filePath,
-                                                                            new FailureMechanismSectionReplaceStrategy(failureMechanism),
-                                                                            new ImportMessageProvider());
+                        var importer = new FailureMechanismSectionsImporter(
+                            failureMechanism, assessmentSection.ReferenceLine, filePath,
+                            new FailureMechanismSectionReplaceStrategy(failureMechanism),
+                            new ImportMessageProvider());
                         importer.Import();
                     }
                     else

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -41,7 +41,7 @@ namespace Riskeer.Storage.Core.Test.Create
             var calculationType = random.NextEnumValue<HydraulicBoundaryLocationCalculationType>();
 
             // Call
-            void Call() => ((HydraulicBoundaryLocationCalculationsForTargetProbability) null).Create(calculationType, 
+            void Call() => ((HydraulicBoundaryLocationCalculationsForTargetProbability) null).Create(calculationType,
                                                                                                      random.Next(),
                                                                                                      new PersistenceRegistry());
 
@@ -119,11 +119,11 @@ namespace Riskeer.Storage.Core.Test.Create
             var calculations = new HydraulicBoundaryLocationCalculationsForTargetProbability(random.NextDouble(0, 0.1));
 
             var registry = new PersistenceRegistry();
-            
+
             // Call
-            HydraulicLocationCalculationForTargetProbabilityCollectionEntity entityOne = 
+            HydraulicLocationCalculationForTargetProbabilityCollectionEntity entityOne =
                 calculations.Create(random.NextEnumValue<HydraulicBoundaryLocationCalculationType>(), random.Next(), registry);
-            HydraulicLocationCalculationForTargetProbabilityCollectionEntity entityTwo = 
+            HydraulicLocationCalculationForTargetProbabilityCollectionEntity entityTwo =
                 calculations.Create(random.NextEnumValue<HydraulicBoundaryLocationCalculationType>(), random.Next(), registry);
 
             // Assert

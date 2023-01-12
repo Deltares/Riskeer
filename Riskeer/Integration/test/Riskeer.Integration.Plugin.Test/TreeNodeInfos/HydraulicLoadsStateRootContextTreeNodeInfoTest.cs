@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -34,12 +34,12 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Plugin.TestUtil;
-using Riskeer.DuneErosion.Forms.PresentationObjects;
-using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
+using Riskeer.DuneErosion.Forms.PresentationObjects.HydraulicLoadsState;
+using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects.HydraulicLoadsState;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PresentationObjects;
-using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
-using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
+using Riskeer.StabilityStoneCover.Forms.PresentationObjects.HydraulicLoadsState;
+using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects.HydraulicLoadsState;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerIntegrationFormsResources = Riskeer.Integration.Forms.Properties.Resources;
 
@@ -171,21 +171,21 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase, hydraulicBoundaryDatabaseContext.WrappedData);
                 Assert.AreSame(assessmentSection, hydraulicBoundaryDatabaseContext.AssessmentSection);
 
-                var stabilityStoneCoverHydraulicLoadsContext = (StabilityStoneCoverHydraulicLoadsContext) objects[1];
-                Assert.AreSame(assessmentSection.StabilityStoneCover, stabilityStoneCoverHydraulicLoadsContext.WrappedData);
-                Assert.AreSame(assessmentSection, stabilityStoneCoverHydraulicLoadsContext.Parent);
+                var stabilityStoneCoverFailureMechanismContext = (StabilityStoneCoverFailureMechanismContext) objects[1];
+                Assert.AreSame(assessmentSection.StabilityStoneCover, stabilityStoneCoverFailureMechanismContext.WrappedData);
+                Assert.AreSame(assessmentSection, stabilityStoneCoverFailureMechanismContext.Parent);
 
-                var waveImpactAsphaltCoverHydraulicLoadsContext = (WaveImpactAsphaltCoverHydraulicLoadsContext) objects[2];
-                Assert.AreSame(assessmentSection.WaveImpactAsphaltCover, waveImpactAsphaltCoverHydraulicLoadsContext.WrappedData);
-                Assert.AreSame(assessmentSection, waveImpactAsphaltCoverHydraulicLoadsContext.Parent);
+                var waveImpactAsphaltCoverFailureMechanismContext = (WaveImpactAsphaltCoverFailureMechanismContext) objects[2];
+                Assert.AreSame(assessmentSection.WaveImpactAsphaltCover, waveImpactAsphaltCoverFailureMechanismContext.WrappedData);
+                Assert.AreSame(assessmentSection, waveImpactAsphaltCoverFailureMechanismContext.Parent);
 
-                var grassCoverErosionOutwardsHydraulicLoadsContext = (GrassCoverErosionOutwardsHydraulicLoadsContext) objects[3];
-                Assert.AreSame(assessmentSection.GrassCoverErosionOutwards, grassCoverErosionOutwardsHydraulicLoadsContext.WrappedData);
-                Assert.AreSame(assessmentSection, grassCoverErosionOutwardsHydraulicLoadsContext.Parent);
+                var grassCoverErosionOutwardsFailureMechanismContext = (GrassCoverErosionOutwardsFailureMechanismContext) objects[3];
+                Assert.AreSame(assessmentSection.GrassCoverErosionOutwards, grassCoverErosionOutwardsFailureMechanismContext.WrappedData);
+                Assert.AreSame(assessmentSection, grassCoverErosionOutwardsFailureMechanismContext.Parent);
 
-                var duneErosionHydraulicLoadsContext = (DuneErosionHydraulicLoadsContext) objects[4];
-                Assert.AreSame(assessmentSection.DuneErosion, duneErosionHydraulicLoadsContext.WrappedData);
-                Assert.AreSame(assessmentSection, duneErosionHydraulicLoadsContext.Parent);
+                var duneErosionFailureMechanismContext = (DuneErosionFailureMechanismContext) objects[4];
+                Assert.AreSame(assessmentSection.DuneErosion, duneErosionFailureMechanismContext.WrappedData);
+                Assert.AreSame(assessmentSection, duneErosionFailureMechanismContext.Parent);
             }
         }
 

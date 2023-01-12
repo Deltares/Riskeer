@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -94,45 +94,9 @@ namespace Riskeer.Common.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Kleur.
         /// </summary>
-        public static string AssemblyCategory_Color_DisplayName {
+        public static string AssemblyGroup_Color_DisplayName {
             get {
-                return ResourceManager.GetString("AssemblyCategory_Color_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Categorie.
-        /// </summary>
-        public static string AssemblyCategory_Group_DisplayName {
-            get {
-                return ResourceManager.GetString("AssemblyCategory_Group_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ondergrens [1/jaar].
-        /// </summary>
-        public static string AssemblyCategory_LowerBoundary_DisplayName {
-            get {
-                return ResourceManager.GetString("AssemblyCategory_LowerBoundary_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bovengrens [1/jaar].
-        /// </summary>
-        public static string AssemblyCategory_UpperBoundary_DisplayName {
-            get {
-                return ResourceManager.GetString("AssemblyCategory_UpperBoundary_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Duidingsklasse per vak.
-        /// </summary>
-        public static string AssemblyCategoryPerSection_DisplayName {
-            get {
-                return ResourceManager.GetString("AssemblyCategoryPerSection_DisplayName", resourceCulture);
+                return ResourceManager.GetString("AssemblyGroup_Color_DisplayName", resourceCulture);
             }
         }
         
@@ -146,20 +110,29 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Duidingsklassen.
+        ///   Looks up a localized string similar to Duidingsklasse per vak.
         /// </summary>
-        public static string AssemblyGroups_DisplayName {
+        public static string AssemblyGroupPerSection_DisplayName {
             get {
-                return ResourceManager.GetString("AssemblyGroups_DisplayName", resourceCulture);
+                return ResourceManager.GetString("AssemblyGroupPerSection_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toetsoordeel.
+        ///   Looks up a localized string similar to Rekenwaarde faalkans per vak.
         /// </summary>
-        public static string AssemblyResult_DisplayName {
+        public static string AssemblyMapDataFeaturesFactory_ProbabilityPerSection_DisplayName {
             get {
-                return ResourceManager.GetString("AssemblyResult_DisplayName", resourceCulture);
+                return ResourceManager.GetString("AssemblyMapDataFeaturesFactory_ProbabilityPerSection_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Veiligheidsoordeel.
+        /// </summary>
+        public static string AssemblyResultTotal_DisplayName {
+            get {
+                return ResourceManager.GetString("AssemblyResultTotal_DisplayName", resourceCulture);
             }
         }
         
@@ -169,6 +142,15 @@ namespace Riskeer.Common.Forms.Properties {
         public static string AssessmentLevel_Description {
             get {
                 return ResourceManager.GetString("AssessmentLevel_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Veiligheidscategorieën.
+        /// </summary>
+        public static string AssessmentSectionAssemblyGroups_DisplayName {
+            get {
+                return ResourceManager.GetString("AssessmentSectionAssemblyGroups_DisplayName", resourceCulture);
             }
         }
         
@@ -335,7 +317,16 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Voer alle berekeningen binnen dit toetsspoor uit..
+        ///   Looks up a localized string similar to Er zijn geen berekeningen om uit te voeren..
+        /// </summary>
+        public static string Calculate_All_No_calculations_to_run {
+            get {
+                return ResourceManager.GetString("Calculate_All_No_calculations_to_run", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Voer alle berekeningen binnen dit faalmechanisme uit..
         /// </summary>
         public static string Calculate_All_ToolTip {
             get {
@@ -441,15 +432,6 @@ namespace Riskeer.Common.Forms.Properties {
         public static string CalculationGroup_Add_CalculationGroup_Tooltip {
             get {
                 return ResourceManager.GetString("CalculationGroup_Add_CalculationGroup_Tooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Er zijn geen berekeningen om uit te voeren..
-        /// </summary>
-        public static string CalculationGroup_Calculate_All_No_calculations_to_run {
-            get {
-                return ResourceManager.GetString("CalculationGroup_Calculate_All_No_calculations_to_run", resourceCulture);
             }
         }
         
@@ -952,7 +934,7 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wis de uitvoer van alle berekeningen binnen dit toetsspoor..
+        ///   Looks up a localized string similar to Wis de uitvoer van alle berekeningen binnen dit faalmechanisme..
         /// </summary>
         public static string Clear_all_output_ToolTip {
             get {
@@ -1036,15 +1018,6 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gecombineerd toetsoordeel.
-        /// </summary>
-        public static string CombinedAssembly_DisplayName {
-            get {
-                return ResourceManager.GetString("CombinedAssembly_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap CopyHS {
@@ -1092,7 +1065,7 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wis alle berekende illustratiepunten binnen dit toetsspoor..
+        ///   Looks up a localized string similar to Wis alle berekende illustratiepunten binnen dit faalmechanisme..
         /// </summary>
         public static string CreateClearIllustrationPointsOfCalculationsItem_Clear_IllustrationPoints_In_FailureMechanism {
             get {
@@ -1407,6 +1380,24 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Geeft aan of het lengte-effect binnen een vak toegepast wordt..
+        /// </summary>
+        public static string FailureMechanism_ApplyLengthEffectInSection_Description {
+            get {
+                return ResourceManager.GetString("FailureMechanism_ApplyLengthEffectInSection_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toepassen lengte-effect binnen vak.
+        /// </summary>
+        public static string FailureMechanism_ApplyLengthEffectInSection_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanism_ApplyLengthEffectInSection_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Resultaat.
         /// </summary>
         public static string FailureMechanism_AssessmentResult_DisplayName {
@@ -1416,7 +1407,7 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het label van het toetsspoor..
+        ///   Looks up a localized string similar to Het label van het faalmechanisme..
         /// </summary>
         public static string FailureMechanism_Code_Description {
             get {
@@ -1443,20 +1434,20 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er zijn geen berekeningen om uit te voeren..
+        ///   Looks up a localized string similar to Geeft aan of dit faalmechanisme wordt meegenomen in de assemblage..
         /// </summary>
-        public static string FailureMechanism_CreateCalculateAllItem_No_calculations_to_run {
+        public static string FailureMechanism_InAssembly_Description {
             get {
-                return ResourceManager.GetString("FailureMechanism_CreateCalculateAllItem_No_calculations_to_run", resourceCulture);
+                return ResourceManager.GetString("FailureMechanism_InAssembly_Description", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er zijn geen berekeningen om te valideren..
+        ///   Looks up a localized string similar to In assemblage.
         /// </summary>
-        public static string FailureMechanism_CreateValidateAllItem_No_calculations_to_validate {
+        public static string FailureMechanism_InAssembly_DisplayName {
             get {
-                return ResourceManager.GetString("FailureMechanism_CreateValidateAllItem_No_calculations_to_validate", resourceCulture);
+                return ResourceManager.GetString("FailureMechanism_InAssembly_DisplayName", resourceCulture);
             }
         }
         
@@ -1506,7 +1497,7 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De naam van het toetsspoor..
+        ///   Looks up a localized string similar to De naam van het faalmechanisme..
         /// </summary>
         public static string FailureMechanism_Name_Description {
             get {
@@ -1569,11 +1560,20 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Valideer alle berekeningen binnen dit toetsspoor..
+        ///   Looks up a localized string similar to Valideer alle berekeningen binnen dit faalmechanisme..
         /// </summary>
         public static string FailureMechanism_Validate_All_ToolTip {
             get {
                 return ResourceManager.GetString("FailureMechanism_Validate_All_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I&amp;n assemblage.
+        /// </summary>
+        public static string FailureMechanismContextMenuStrip_In_assembly {
+            get {
+                return ResourceManager.GetString("FailureMechanismContextMenuStrip_In_assembly", resourceCulture);
             }
         }
         
@@ -1588,7 +1588,7 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Als u deze parameter wijzigt, zal de uitvoer van alle berekeningen in dit toetsspoor verwijderd worden.
+        ///   Looks up a localized string similar to Als u deze parameter wijzigt, zal de uitvoer van alle berekeningen in dit faalmechanisme verwijderd worden.
         ///
         ///Weet u zeker dat u wilt doorgaan?.
         /// </summary>
@@ -1632,7 +1632,7 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gecombineerde faalkans [1/jaar].
+        ///   Looks up a localized string similar to Faalkans van dit faalmechanisme voor het traject [1/jaar].
         /// </summary>
         public static string FailureMechanismResultView_FailureMechanismAssemblyLabel {
             get {
@@ -1719,6 +1719,16 @@ namespace Riskeer.Common.Forms.Properties {
         public static string FailureMechanismResultView_RefinedSectionProbability_DisplayName {
             get {
                 return ResourceManager.GetString("FailureMechanismResultView_RefinedSectionProbability_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Om een oordeel te kunnen invoeren moet voor het faalmechanisme een vakindeling zijn geïmporteerd..
+        /// </summary>
+        public static string FailureMechanismResultView_To_Enter_An_AssemblyProbability_Failure_Mechanism_Sections_Must_Be_Imported {
+            get {
+                return ResourceManager.GetString("FailureMechanismResultView_To_Enter_An_AssemblyProbability_Failure_Mechanism_Sect" +
+                        "ions_Must_Be_Imported", resourceCulture);
             }
         }
         
@@ -1872,7 +1882,7 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vakindeling waarmee de waterkering voor dit toetsspoor is geschematiseerd ten behoeve van de beoordeling..
+        ///   Looks up a localized string similar to Vakindeling waarmee de waterkering voor dit faalmechanisme is geschematiseerd ten behoeve van de beoordeling..
         /// </summary>
         public static string FailureMechanismSections_Description {
             get {
@@ -1913,51 +1923,6 @@ namespace Riskeer.Common.Forms.Properties {
         public static string FailureMechanismSections_StartPoints_DisplayName {
             get {
                 return ResourceManager.GetString("FailureMechanismSections_StartPoints_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Geeft aan of het lengte-effect binnen een vak toegepast wordt..
-        /// </summary>
-        public static string FailurePath_ApplyLengthEffectInSection_Description {
-            get {
-                return ResourceManager.GetString("FailurePath_ApplyLengthEffectInSection_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toepassen lengte-effect binnen vak.
-        /// </summary>
-        public static string FailurePath_ApplyLengthEffectInSection_DisplayName {
-            get {
-                return ResourceManager.GetString("FailurePath_ApplyLengthEffectInSection_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Geeft aan of dit faalpad wordt meegenomen in de assemblage..
-        /// </summary>
-        public static string FailurePath_InAssembly_Description {
-            get {
-                return ResourceManager.GetString("FailurePath_InAssembly_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to In assemblage.
-        /// </summary>
-        public static string FailurePath_InAssembly_DisplayName {
-            get {
-                return ResourceManager.GetString("FailurePath_InAssembly_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to I&amp;n assemblage.
-        /// </summary>
-        public static string FailurePathContextMenuStrip_In_assembly {
-            get {
-                return ResourceManager.GetString("FailurePathContextMenuStrip_In_assembly", resourceCulture);
             }
         }
         
@@ -2658,15 +2623,6 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Normklassen.
-        /// </summary>
-        public static string NormClasses_DisplayName {
-            get {
-                return ResourceManager.GetString("NormClasses_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Normen.
         /// </summary>
         public static string Norms_DisplayName {
@@ -2735,16 +2691,6 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-        /// </summary>
-        public static System.Drawing.Icon PencilWarning {
-            get {
-                object obj = ResourceManager.GetObject("PencilWarning", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap ProbabilisticCalculationIcon {
@@ -2791,7 +2737,7 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De kans dat het toetsspoor optreedt voor deze berekening..
+        ///   Looks up a localized string similar to De kans dat het faalmechanisme optreedt voor deze berekening..
         /// </summary>
         public static string ProbabilityAssessmentOutput_Probability_Description {
             get {

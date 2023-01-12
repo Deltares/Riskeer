@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -51,7 +51,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
         {
             // Call
             TestDelegate call = () => new GeneralResult(0,
-                                                        new TestWindDirection(),
+                                                        WindDirectionTestFactory.CreateWindDirection(),
                                                         null,
                                                         new Dictionary<
                                                             WindDirectionClosingSituation,
@@ -67,7 +67,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
         {
             // Call
             TestDelegate call = () => new GeneralResult(0,
-                                                        new TestWindDirection(),
+                                                        WindDirectionTestFactory.CreateWindDirection(),
                                                         Enumerable.Empty<Stochast>(),
                                                         null);
 
@@ -82,7 +82,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
             // Setup
             var random = new Random(123);
             double beta = random.NextDouble();
-            var governingWind = new TestWindDirection();
+            WindDirection governingWind = WindDirectionTestFactory.CreateWindDirection();
             IEnumerable<Stochast> stochasts = Enumerable.Empty<Stochast>();
             var illustrationPoints = new Dictionary<WindDirectionClosingSituation, IllustrationPointTreeNode>();
 

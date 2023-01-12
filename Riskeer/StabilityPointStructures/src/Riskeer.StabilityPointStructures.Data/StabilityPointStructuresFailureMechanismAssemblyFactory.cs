@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -20,9 +20,12 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Structures;
 
 namespace Riskeer.StabilityPointStructures.Data
@@ -38,11 +41,11 @@ namespace Riskeer.StabilityPointStructures.Data
         /// <param name="failureMechanism">The <see cref="StabilityPointStructuresFailureMechanism"/> to assemble.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the <paramref name="failureMechanism"/>
         /// belongs to.</param>
-        /// <returns>A <see cref="double"/> representing the assembly result.</returns>
+        /// <returns>A <see cref="FailureMechanismAssemblyResultWrapper"/> with the assembly result.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the failure mechanism could not be assembled.</exception>
-        public static double AssembleFailureMechanism(StabilityPointStructuresFailureMechanism failureMechanism,
-                                                      IAssessmentSection assessmentSection)
+        public static FailureMechanismAssemblyResultWrapper AssembleFailureMechanism(StabilityPointStructuresFailureMechanism failureMechanism,
+                                                                                     IAssessmentSection assessmentSection)
         {
             if (failureMechanism == null)
             {
@@ -54,9 +57,15 @@ namespace Riskeer.StabilityPointStructures.Data
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return AssemblyToolHelper.AssemblyFailureMechanism(
-                failureMechanism, sr => StructuresFailureMechanismAssemblyFactory.AssembleSection<StabilityPointStructuresInput>(sr, failureMechanism, assessmentSection),
-                failureMechanism.GeneralInput.N);
+            Func<AdoptableFailureMechanismSectionResult, FailureMechanismSectionAssemblyResultWrapper> performSectionAssemblyFunc = sr =>
+                StructuresFailureMechanismAssemblyFactory.AssembleSection<StabilityPointStructuresInput>(sr, failureMechanism, assessmentSection);
+
+            return FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(
+                failureMechanism.GeneralInput.N,
+                failureMechanism.SectionResults.Select(sr => AssemblyToolHelper.AssembleFailureMechanismSection(sr, performSectionAssemblyFunc))
+                                .ToArray(),
+                failureMechanism.GeneralInput.ApplyLengthEffectInSection,
+                failureMechanism.AssemblyResult);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -24,8 +24,8 @@ using System.ComponentModel;
 using System.Globalization;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-using Core.Common.Util;
 using Core.Common.Util.Attributes;
+using Core.Common.Util.Enums;
 using Core.Gui.PropertyBag;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.TypeConverters;
@@ -218,8 +218,7 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
             get
             {
                 CalculationConvergence convergence = data.Output?.CalculationConvergence ?? CalculationConvergence.NotCalculated;
-
-                return new EnumDisplayWrapper<CalculationConvergence>(convergence).DisplayName;
+                return EnumDisplayNameHelper.GetDisplayName(convergence);
             }
         }
 

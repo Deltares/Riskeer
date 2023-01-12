@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -62,14 +62,14 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos.SemiProbabilistic
         }
 
         [Test]
-        public void CreateInstance_WithContextAndNormTypeSignaling_ExpectedProperties()
+        public void CreateInstance_WithContextAndNormativeProbabilityTypeSignalFloodingProbability_ExpectedProperties()
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub
             {
                 FailureMechanismContribution =
                 {
-                    NormativeNorm = NormType.Signaling
+                    NormativeProbabilityType = NormativeProbabilityType.SignalFloodingProbability
                 }
             };
 
@@ -103,19 +103,19 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos.SemiProbabilistic
             Assert.IsInstanceOf<SemiProbabilisticPipingInputContextProperties>(objectProperties);
             Assert.AreSame(context, objectProperties.Data);
 
-            double expectedAssessmentLevel = assessmentSection.WaterLevelCalculationsForSignalingNorm.ElementAt(0).Output.Result;
+            double expectedAssessmentLevel = assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.ElementAt(0).Output.Result;
             Assert.AreEqual(expectedAssessmentLevel, ((SemiProbabilisticPipingInputContextProperties) objectProperties).AssessmentLevel);
         }
 
         [Test]
-        public void CreateInstance_WithContextAndNormTypeLowerLimit_ExpectedProperties()
+        public void CreateInstance_WithContextAndNormativeProbabilityTypeMaximumAllowableFloodingProbability_ExpectedProperties()
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub
             {
                 FailureMechanismContribution =
                 {
-                    NormativeNorm = NormType.LowerLimit
+                    NormativeProbabilityType = NormativeProbabilityType.MaximumAllowableFloodingProbability
                 }
             };
 
@@ -149,7 +149,7 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos.SemiProbabilistic
             Assert.IsInstanceOf<SemiProbabilisticPipingInputContextProperties>(objectProperties);
             Assert.AreSame(context, objectProperties.Data);
 
-            double expectedAssessmentLevel = assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ElementAt(0).Output.Result;
+            double expectedAssessmentLevel = assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability.ElementAt(0).Output.Result;
             Assert.AreEqual(expectedAssessmentLevel, ((SemiProbabilisticPipingInputContextProperties) objectProperties).AssessmentLevel);
         }
     }

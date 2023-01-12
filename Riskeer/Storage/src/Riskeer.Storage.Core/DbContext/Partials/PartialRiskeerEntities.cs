@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -44,6 +44,8 @@ namespace Riskeer.Storage.Core.DbContext
         public void LoadTablesIntoContext()
         {
             AssessmentSectionEntities.Load();
+            AdoptableFailureMechanismSectionResultEntities.Load();
+            AdoptableWithProfileProbabilityFailureMechanismSectionResultEntities.Load();
             BackgroundDataEntities.Load();
             BackgroundDataMetaEntities.Load();
             CalculationGroupEntities.Load();
@@ -51,10 +53,8 @@ namespace Riskeer.Storage.Core.DbContext
             ClosingStructuresCalculationEntities.Load();
             ClosingStructuresFailureMechanismMetaEntities.Load();
             ClosingStructuresOutputEntities.Load();
-            ClosingStructuresSectionResultEntities.Load();
             DikeProfileEntities.Load();
             DuneErosionFailureMechanismMetaEntities.Load();
-            DuneErosionSectionResultEntities.Load();
             DuneLocationEntities.Load();
             DuneLocationCalculationForTargetProbabilityCollectionEntities.Include(e => e.DuneLocationCalculationEntities)
                                                                          .Load();
@@ -69,20 +69,15 @@ namespace Riskeer.Storage.Core.DbContext
             GrassCoverErosionInwardsFailureMechanismMetaEntities.Load();
             GrassCoverErosionInwardsOutputEntities.Load();
             GrassCoverErosionInwardsOvertoppingRateOutputEntities.Load();
-            GrassCoverErosionInwardsSectionResultEntities.Load();
             GrassCoverErosionOutwardsFailureMechanismMetaEntities.Load();
-            GrassCoverErosionOutwardsSectionResultEntities.Load();
             GrassCoverErosionOutwardsWaveConditionsCalculationEntities.Load();
             GrassCoverErosionOutwardsWaveConditionsOutputEntities.Load();
-            GrassCoverSlipOffInwardsSectionResultEntities.Load();
             GrassCoverSlipOffInwardsFailureMechanismMetaEntities.Load();
-            GrassCoverSlipOffOutwardsSectionResultEntities.Load();
             GrassCoverSlipOffOutwardsFailureMechanismMetaEntities.Load();
             HeightStructureEntities.Load();
             HeightStructuresCalculationEntities.Load();
             HeightStructuresFailureMechanismMetaEntities.Load();
             HeightStructuresOutputEntities.Load();
-            HeightStructuresSectionResultEntities.Load();
             HydraulicBoundaryDatabaseEntities.Load();
             HydraulicLocationEntities.Load();
             HydraulicLocationCalculationCollectionEntities.Include(e => e.HydraulicLocationCalculationEntities)
@@ -92,7 +87,6 @@ namespace Riskeer.Storage.Core.DbContext
             HydraulicLocationCalculationEntities.Load();
             HydraulicLocationOutputEntities.Load();
             MacroStabilityInwardsCharacteristicPointEntities.Load();
-            MacroStabilityInwardsSectionResultEntities.Load();
             MacroStabilityInwardsFailureMechanismMetaEntities.Load();
             MacroStabilityInwardsSoilProfileOneDEntities.Load();
             MacroStabilityInwardsSoilLayerOneDEntities.Load();
@@ -103,8 +97,9 @@ namespace Riskeer.Storage.Core.DbContext
             MacroStabilityInwardsPreconsolidationStressEntities.Load();
             MacroStabilityInwardsCalculationEntities.Load();
             MacroStabilityInwardsCalculationOutputEntities.Load();
-            MicrostabilitySectionResultEntities.Load();
             MicrostabilityFailureMechanismMetaEntities.Load();
+            NonAdoptableFailureMechanismSectionResultEntities.Load();
+            NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities.Load();
             ProjectEntities.Load();
             SemiProbabilisticPipingCalculationEntities.Load();
             SemiProbabilisticPipingCalculationOutputEntities.Load();
@@ -112,33 +107,28 @@ namespace Riskeer.Storage.Core.DbContext
             ProbabilisticPipingCalculationOutputEntities.Load();
             PipingCharacteristicPointEntities.Load();
             PipingFailureMechanismMetaEntities.Load();
-            PipingSectionResultEntities.Load();
             PipingScenarioConfigurationPerFailureMechanismSectionEntities.Load();
             PipingSoilLayerEntities.Load();
             PipingSoilProfileEntities.Load();
             PipingStructureFailureMechanismMetaEntities.Load();
-            PipingStructureSectionResultEntities.Load();
             PipingStochasticSoilProfileEntities.Load();
             StabilityPointStructureEntities.Load();
             StabilityPointStructuresCalculationEntities.Load();
             StabilityPointStructuresFailureMechanismMetaEntities.Load();
             StabilityPointStructuresOutputEntities.Load();
-            StabilityPointStructuresSectionResultEntities.Load();
             StabilityStoneCoverFailureMechanismMetaEntities.Load();
-            StabilityStoneCoverSectionResultEntities.Load();
             StabilityStoneCoverWaveConditionsCalculationEntities.Load();
             StabilityStoneCoverWaveConditionsOutputEntities.Load();
             StochasticSoilModelEntities.Load();
             SurfaceLineEntities.Load();
-            WaterPressureAsphaltCoverSectionResultEntities.Load();
             WaterPressureAsphaltCoverFailureMechanismMetaEntities.Load();
             WaveImpactAsphaltCoverFailureMechanismMetaEntities.Load();
-            WaveImpactAsphaltCoverSectionResultEntities.Load();
             WaveImpactAsphaltCoverWaveConditionsCalculationEntities.Load();
             WaveImpactAsphaltCoverWaveConditionsOutputEntities.Load();
 
-            SpecificFailurePathEntities.Include(e => e.FailureMechanismSectionEntities)
-                                       .Load();
+            SpecificFailureMechanismEntities.Include(e => e.FailureMechanismSectionEntities)
+                                            .Load();
+            NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities.Load();
 
             LoadIllustrationPointsIntoContext();
         }

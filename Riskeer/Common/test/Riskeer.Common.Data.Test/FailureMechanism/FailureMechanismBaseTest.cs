@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -20,13 +20,11 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 
 namespace Riskeer.Common.Data.Test.FailureMechanism
@@ -40,11 +38,11 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
         public void Constructor_NullOrEmptyName_ThrowsArgumentException(string name)
         {
             // Call
-            TestDelegate test = () => new SimpleFailureMechanismBase(name, "testCode");
+            void Call() => new SimpleFailureMechanismBase(name, "testCode");
 
             // Assert
-            string paramName = Assert.Throws<ArgumentException>(test).ParamName;
-            Assert.AreEqual("failureMechanismName", paramName);
+            var exception = Assert.Throws<ArgumentException>(Call);
+            Assert.AreEqual("failureMechanismName", exception.ParamName);
         }
 
         [Test]
@@ -53,11 +51,11 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
         public void Constructor_NullOrEmptyCode_ThrowsArgumentException(string code)
         {
             // Call
-            TestDelegate test = () => new SimpleFailureMechanismBase("testName", code);
+            void Call() => new SimpleFailureMechanismBase("testName", code);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentException>(test).ParamName;
-            Assert.AreEqual("failureMechanismCode", paramName);
+            var exception = Assert.Throws<ArgumentException>(Call);
+            Assert.AreEqual("failureMechanismCode", exception.ParamName);
         }
 
         [Test]
@@ -73,52 +71,15 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             // Assert
             Assert.IsInstanceOf<Observable>(failureMechanism);
             Assert.IsInstanceOf<IFailureMechanism>(failureMechanism);
-            Assert.AreEqual(0, failureMechanism.Contribution);
             Assert.AreEqual(name, failureMechanism.Name);
             Assert.AreEqual(code, failureMechanism.Code);
             Assert.IsNotNull(failureMechanism.InAssemblyInputComments);
             Assert.IsNotNull(failureMechanism.InAssemblyOutputComments);
             Assert.IsNotNull(failureMechanism.NotInAssemblyComments);
-            Assert.IsNotNull(failureMechanism.CalculationsInputComments);
             Assert.IsNotNull(failureMechanism.AssemblyResult);
             Assert.IsTrue(failureMechanism.InAssembly);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
-        }
-        
-        [Test]
-        [SetCulture("nl-NL")]
-        [TestCase(double.NaN)]
-        [TestCase(101)]
-        [TestCase(-1e-6)]
-        [TestCase(-1)]
-        [TestCase(100 + 1e-6)]
-        public void Contribution_ValueOutsideValidRegionOrNaN_ThrowsArgumentException(double value)
-        {
-            // Setup
-            var failureMechanism = new SimpleFailureMechanismBase();
-
-            // Call
-            TestDelegate test = () => failureMechanism.Contribution = value;
-
-            // Assert
-            const string expectedMessage = "De waarde voor de toegestane bijdrage aan de faalkans moet in het bereik [0,0, 100,0] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
-        }
-
-        [Test]
-        [TestCase(100)]
-        [TestCase(50)]
-        [TestCase(0)]
-        public void Contribution_ValueInsideValidRegion_DoesNotThrow(double value)
-        {
-            // Setup
-            var failureMechanism = new SimpleFailureMechanismBase();
-
-            // Call
-            TestDelegate test = () => failureMechanism.Contribution = value;
-
-            // Assert
-            Assert.DoesNotThrow(test);
+            CollectionAssert.IsEmpty(failureMechanism.SectionResults);
         }
 
         [Test]
@@ -128,10 +89,10 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             var failureMechanism = new SimpleFailureMechanismBase();
 
             // Call 
-            TestDelegate call = () => failureMechanism.SetSections(null, string.Empty);
+            void Call() => failureMechanism.SetSections(null, string.Empty);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("sections", exception.ParamName);
         }
 
@@ -142,18 +103,18 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             var failureMechanism = new SimpleFailureMechanismBase();
 
             // Call 
-            TestDelegate call = () => failureMechanism.SetSections(Enumerable.Empty<FailureMechanismSection>(), null);
+            void Call() => failureMechanism.SetSections(Enumerable.Empty<FailureMechanismSection>(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("sourcePath", exception.ParamName);
         }
 
         [Test]
-        public void SetSections_ValidSections_SectionsAndSourcePathSet()
+        public void GivenFailureMechanismWithoutSections_WhenSettingValidSections_ThenExpectedSectionsAndSourcePathAndSectionResultsSet()
         {
-            // Setup
-            string sourcePath = TestHelper.GetScratchPadPath();
+            // Given
+            const string sourcePath = "some/Path";
             var failureMechanism = new SimpleFailureMechanismBase();
 
             const int matchingX = 1;
@@ -170,21 +131,66 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
                 new Point2D(-2, -1)
             });
 
-            // Call
+            FailureMechanismSection[] sections =
+            {
+                section1,
+                section2
+            };
+
+            // When
+            failureMechanism.SetSections(sections, sourcePath);
+
+            // Then
+            Assert.AreEqual(sourcePath, failureMechanism.FailureMechanismSectionSourcePath);
+            CollectionAssert.AreEqual(sections, failureMechanism.Sections);
+            Assert.AreEqual(sections.Length, failureMechanism.SectionResults.Count());
+            CollectionAssert.AreEqual(sections, failureMechanism.SectionResults.Select(sr => sr.Section));
+        }
+
+        [Test]
+        public void GivenFailureMechanismWithSections_WhenSettingValidSections_ThenExpectedSectionsAndSourcePathAndSectionResultsSet()
+        {
+            // Given
+            const string sourcePath = "some/Path";
+            var failureMechanism = new SimpleFailureMechanismBase();
+
+            const int matchingX = 1;
+            const int matchingY = 2;
+
+            var section1 = new FailureMechanismSection("A", new[]
+            {
+                new Point2D(3, 4),
+                new Point2D(matchingX, matchingY)
+            });
+            var section2 = new FailureMechanismSection("B", new[]
+            {
+                new Point2D(matchingX, matchingY),
+                new Point2D(-2, -1)
+            });
+
+            FailureMechanismSection[] sections =
+            {
+                section1,
+                section2
+            };
+
             failureMechanism.SetSections(new[]
             {
-                section1,
-                section2
-            }, sourcePath);
+                new FailureMechanismSection("X", new[]
+                {
+                    new Point2D(matchingX, matchingY),
+                    new Point2D(0, 0)
+                })
+            }, "");
 
-            // Assert
-            CollectionAssert.AreEqual(new[]
-            {
-                section1,
-                section2
-            }, failureMechanism.Sections);
+            // When
+            failureMechanism.SetSections(sections, sourcePath);
+
+            // Then
             Assert.AreEqual(sourcePath, failureMechanism.FailureMechanismSectionSourcePath);
-            Assert.IsTrue(failureMechanism.SectionDependentDataAdded);
+            CollectionAssert.AreEqual(sections, failureMechanism.Sections);
+            Assert.AreEqual(sections.Length, failureMechanism.SectionResults.Count());
+            CollectionAssert.AreEqual(sections, failureMechanism.SectionResults.Select(sr => sr.Section));
         }
 
         [Test]
@@ -208,15 +214,15 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             });
 
             // Call
-            TestDelegate call = () => failureMechanism.SetSections(new[]
+            void Call() => failureMechanism.SetSections(new[]
             {
                 section1,
                 section2
             }, string.Empty);
 
             // Assert
-            const string expectedMessage = "Vak 'B' sluit niet aan op de al gedefinieerde vakken van het toetsspoor.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+            const string expectedMessage = "Vak 'B' sluit niet aan op de al gedefinieerde vakken van het faalmechanisme.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
         }
 
         [Test]
@@ -237,15 +243,15 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             });
 
             // Call
-            TestDelegate call = () => failureMechanism.SetSections(new[]
+            void Call() => failureMechanism.SetSections(new[]
             {
                 section1,
                 section2
             }, string.Empty);
 
             // Assert
-            const string expectedMessage = "Vak 'B' sluit niet aan op de al gedefinieerde vakken van het toetsspoor.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+            const string expectedMessage = "Vak 'B' sluit niet aan op de al gedefinieerde vakken van het faalmechanisme.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
         }
 
         [Test]
@@ -259,7 +265,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             });
 
             var failureMechanism = new SimpleFailureMechanismBase();
-            string sourcePath = TestHelper.GetScratchPadPath();
+            const string sourcePath = "some/Path";
             failureMechanism.SetSections(new[]
             {
                 section
@@ -273,33 +279,16 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             failureMechanism.ClearAllSections();
 
             // Assert
-            CollectionAssert.IsEmpty(failureMechanism.Sections);
             Assert.IsNull(failureMechanism.FailureMechanismSectionSourcePath);
-            Assert.IsTrue(failureMechanism.SectionDependentDataCleared);
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
+            CollectionAssert.IsEmpty(failureMechanism.SectionResults);
         }
 
-        private class SimpleFailureMechanismBase : FailureMechanismBase
+        private class SimpleFailureMechanismBase : FailureMechanismBase<NonAdoptableFailureMechanismSectionResult>
         {
             public SimpleFailureMechanismBase(string name = "SomeName",
-                                              string failureMechanismCode = "SomeCode") : base(name, failureMechanismCode) {}
-
-            public override IEnumerable<ICalculation> Calculations => throw new NotImplementedException();
-
-            public bool SectionDependentDataCleared { get; private set; }
-
-            public bool SectionDependentDataAdded { get; private set; }
-
-            protected override void AddSectionDependentData(FailureMechanismSection section)
-            {
-                base.AddSectionDependentData(section);
-                SectionDependentDataAdded = true;
-            }
-
-            protected override void ClearSectionDependentData()
-            {
-                base.ClearSectionDependentData();
-                SectionDependentDataCleared = true;
-            }
+                                              string failureMechanismCode = "SomeCode")
+                : base(name, failureMechanismCode) {}
         }
     }
 }

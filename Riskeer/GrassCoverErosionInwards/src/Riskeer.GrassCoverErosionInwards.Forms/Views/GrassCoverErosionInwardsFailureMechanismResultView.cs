@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -54,7 +54,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputsObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
-        private readonly IAssessmentSection assessmentSection;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailureMechanismResultView"/>.
@@ -67,15 +66,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         public GrassCoverErosionInwardsFailureMechanismResultView(IObservableEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult> failureMechanismSectionResults,
                                                                   GrassCoverErosionInwardsFailureMechanism failureMechanism,
                                                                   IAssessmentSection assessmentSection)
-            : base(failureMechanismSectionResults, failureMechanism)
+            : base(failureMechanismSectionResults, failureMechanism, assessmentSection, GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism)
         {
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
-            this.assessmentSection = assessmentSection;
-
             // The concat is needed to observe the input of calculations in child groups.
             calculationInputsObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
                 UpdateInternalViewData,
@@ -110,7 +102,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
                 sectionResult,
                 CreateCalculateStrategy(sectionResult, calculationScenarios),
                 CreateErrorProvider(sectionResult, calculationScenarios),
-                () => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleSection(sectionResult, FailureMechanism, assessmentSection),
+                () => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleSection(sectionResult, FailureMechanism, AssessmentSection),
+                () => FailureMechanism.GeneralInput.ApplyLengthEffectInSection,
                 new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.ConstructionProperties
                 {
                     InitialFailureMechanismResultTypeIndex = initialFailureMechanismResultTypeIndex,
@@ -133,11 +126,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             calculationGroupObserver.Dispose();
 
             base.Dispose(disposing);
-        }
-
-        protected override double GetN()
-        {
-            return FailureMechanism.GeneralInput.N;
         }
 
         protected override void AddDataGridColumns()

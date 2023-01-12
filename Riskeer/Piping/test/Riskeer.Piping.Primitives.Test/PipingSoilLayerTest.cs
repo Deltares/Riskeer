@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -183,19 +183,13 @@ namespace Riskeer.Piping.Primitives.Test
         }
 
         [TestFixture]
-        private class PipingSoilLayerEqualsTest : EqualsTestFixture<PipingSoilLayer, TestLayer>
+        private class PipingSoilLayerEqualsTest : EqualsTestFixture<PipingSoilLayer>
         {
             private const int seed = 21;
 
             protected override PipingSoilLayer CreateObject()
             {
                 return CreateRandomLayer(seed);
-            }
-
-            protected override TestLayer CreateDerivedObject()
-            {
-                PipingSoilLayer baseLayer = CreateRandomLayer(seed);
-                return new TestLayer(baseLayer);
             }
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
@@ -360,20 +354,6 @@ namespace Riskeer.Piping.Primitives.Test
                         CoefficientOfVariation = random.NextRoundedDouble()
                     }
                 };
-            }
-        }
-
-        private class TestLayer : PipingSoilLayer
-        {
-            public TestLayer(PipingSoilLayer layer)
-                : base(layer.Top)
-            {
-                IsAquifer = layer.IsAquifer;
-                MaterialName = layer.MaterialName;
-                Color = layer.Color;
-                BelowPhreaticLevel = layer.BelowPhreaticLevel;
-                DiameterD70 = layer.DiameterD70;
-                Permeability = layer.Permeability;
             }
         }
     }

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -59,7 +59,10 @@ namespace Core.Gui.Test.Forms.Backstage
             viewModel.SetProject(project);
 
             var propertyNames = new List<string>();
-            viewModel.PropertyChanged += (sender, args) => { propertyNames.Add(args.PropertyName); };
+            viewModel.PropertyChanged += (sender, args) =>
+            {
+                propertyNames.Add(args.PropertyName);
+            };
 
             // When
             viewModel.ProjectDescription = description;
@@ -85,7 +88,10 @@ namespace Core.Gui.Test.Forms.Backstage
             var viewModel = new InfoViewModel();
 
             var propertyNames = new List<string>();
-            viewModel.PropertyChanged += (sender, args) => { propertyNames.Add(args.PropertyName); };
+            viewModel.PropertyChanged += (sender, args) =>
+            {
+                propertyNames.Add(args.PropertyName);
+            };
 
             // When
             viewModel.ProjectDescription = description;
@@ -103,7 +109,10 @@ namespace Core.Gui.Test.Forms.Backstage
             var viewModel = new InfoViewModel();
 
             var propertyNames = new List<string>();
-            viewModel.PropertyChanged += (sender, args) => { propertyNames.Add(args.PropertyName); };
+            viewModel.PropertyChanged += (sender, args) =>
+            {
+                propertyNames.Add(args.PropertyName);
+            };
 
             // Call
             viewModel.SetProject(null);
@@ -134,7 +143,10 @@ namespace Core.Gui.Test.Forms.Backstage
             var viewModel = new InfoViewModel();
 
             var propertyNames = new List<string>();
-            viewModel.PropertyChanged += (sender, args) => { propertyNames.Add(args.PropertyName); };
+            viewModel.PropertyChanged += (sender, args) =>
+            {
+                propertyNames.Add(args.PropertyName);
+            };
 
             // Call
             viewModel.SetProject(project);

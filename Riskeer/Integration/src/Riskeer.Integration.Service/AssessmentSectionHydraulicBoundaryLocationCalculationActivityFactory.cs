@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -72,20 +72,20 @@ namespace Riskeer.Integration.Service
 
             var activities = new List<CalculatableActivity>();
 
-            double lowerLimitNorm = assessmentSection.FailureMechanismContribution.LowerLimitNorm;
+            double maximumAllowableFloodingProbability = assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability;
             activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
-                                    assessmentSection.WaterLevelCalculationsForLowerLimitNorm,
+                                    assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability,
                                     assessmentSection,
-                                    lowerLimitNorm,
-                                    TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(assessmentSection.WaterLevelCalculationsForLowerLimitNorm,
+                                    maximumAllowableFloodingProbability,
+                                    TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability,
                                                                                                                                  assessmentSection)));
 
-            double signalingNorm = assessmentSection.FailureMechanismContribution.SignalingNorm;
+            double signalFloodingProbability = assessmentSection.FailureMechanismContribution.SignalFloodingProbability;
             activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
-                                    assessmentSection.WaterLevelCalculationsForSignalingNorm,
+                                    assessmentSection.WaterLevelCalculationsForSignalFloodingProbability,
                                     assessmentSection,
-                                    signalingNorm,
-                                    TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(assessmentSection.WaterLevelCalculationsForSignalingNorm,
+                                    signalFloodingProbability,
+                                    TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(assessmentSection.WaterLevelCalculationsForSignalFloodingProbability,
                                                                                                                                  assessmentSection)));
 
             return activities;

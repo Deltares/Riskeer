@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -30,17 +30,17 @@ namespace Riskeer.Revetment.Data
         /// No water level.
         /// </summary>
         None = 1,
-        
+
         /// <summary>
-        /// The water level corresponding to the lower limit norm.
+        /// The water level corresponding to the maximum allowable flooding probability.
         /// </summary>
-        LowerLimit = 2,
-        
+        MaximumAllowableFloodingProbability = 2,
+
         /// <summary>
-        /// The water level corresponding to the signaling norm.
+        /// The water level corresponding to the signal flooding probability.
         /// </summary>
-        Signaling = 3,
-        
+        SignalFloodingProbability = 3,
+
         /// <summary>
         /// The water level corresponding to a user defined target probability.
         /// </summary>

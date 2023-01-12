@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -445,6 +445,14 @@ namespace Core.Common.Controls.DataGrid
         public DataGridViewColumn GetColumnFromIndex(int columnIndex)
         {
             return dataGridView.Columns[columnIndex];
+        }
+
+        /// <summary>
+        /// Clears the column collection.
+        /// </summary>
+        public void ClearColumns()
+        {
+            dataGridView.Columns.Clear();
         }
 
         protected override void OnLoad(EventArgs e)

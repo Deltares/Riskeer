@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -35,8 +35,8 @@ namespace Riskeer.Piping.Forms.Test.Views
         {
             // Call
             using (var view = new ProbabilisticSubMechanismPipingOutputView(
-                new ProbabilisticPipingCalculationScenario(),
-                () => new TestGeneralResultSubMechanismIllustrationPoint()))
+                       new ProbabilisticPipingCalculationScenario(),
+                       () => new TestGeneralResultSubMechanismIllustrationPoint()))
             {
                 // Assert
                 Assert.IsInstanceOf<GeneralResultSubMechanismIllustrationPointView>(view);

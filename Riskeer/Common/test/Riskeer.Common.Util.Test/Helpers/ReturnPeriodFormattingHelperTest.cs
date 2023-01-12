@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -36,7 +36,7 @@ namespace Riskeer.Common.Util.Test.Helpers
         {
             // Call
             void Call() => ReturnPeriodFormattingHelper.FormatFromProbability(probability);
-            
+
             // Assert
             const string message = "Probability must be larger than 0.0.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, message);
@@ -52,7 +52,7 @@ namespace Riskeer.Common.Util.Test.Helpers
         {
             // Call
             string returnPeriod = ReturnPeriodFormattingHelper.FormatFromProbability(probability);
-            
+
             // Assert
             Assert.AreEqual(expectedText, returnPeriod);
         }

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -23,6 +23,7 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Style;
 using Riskeer.Common.Forms.Factories;
 using Riskeer.Integration.Forms.Properties;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.Factories
 {
@@ -37,16 +38,16 @@ namespace Riskeer.Integration.Forms.Factories
         /// <returns>The created <see cref="MapLineData"/>.</returns>
         public static MapLineData CreateCombinedSectionAssemblyResultMapData()
         {
-            return new MapLineData(Resources.AssemblyResultPerSection_DisplayName,
+            return new MapLineData(Resources.Worst_AssemblyResult_per_section_DisplayName,
                                    new LineStyle
                                    {
                                        Width = 6,
                                        DashStyle = LineDashStyle.Solid
                                    },
-                                   MapThemeFactory.CreateDisplayFailureMechanismAssemblyCategoryGroupMapTheme())
+                                   MapThemeFactory.CreateFailureMechanismSectionAssemblyGroupMapTheme())
             {
                 ShowLabels = true,
-                SelectedMetaDataAttribute = Resources.SectionNumber_DisplayName
+                SelectedMetaDataAttribute = RiskeerCommonFormsResources.AssemblyGroup_DisplayName
             };
         }
     }

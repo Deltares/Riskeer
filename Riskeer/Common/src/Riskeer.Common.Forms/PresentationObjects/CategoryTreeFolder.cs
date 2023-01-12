@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -29,7 +29,7 @@ namespace Riskeer.Common.Forms.PresentationObjects
     /// <summary>
     /// Object that allows for grouping child nodes of <see cref="TreeNode"/> instances.
     /// </summary>
-    public class CategoryTreeFolder
+    public sealed class CategoryTreeFolder
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CategoryTreeFolder"/> class.

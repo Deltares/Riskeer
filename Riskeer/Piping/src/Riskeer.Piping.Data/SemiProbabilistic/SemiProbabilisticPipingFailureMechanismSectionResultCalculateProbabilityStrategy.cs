@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -78,13 +78,12 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
 
         public double CalculateProfileProbability()
         {
-            return sectionResult.GetInitialFailureMechanismResultProbability(calculationScenarios, assessmentSection.FailureMechanismContribution.Norm);
+            return sectionResult.GetInitialFailureMechanismResultProbability(calculationScenarios, assessmentSection.FailureMechanismContribution.NormativeProbability);
         }
 
         public double CalculateSectionProbability()
         {
-            return CalculateProfileProbability() * failureMechanism.PipingProbabilityAssessmentInput.GetN(
-                       sectionResult.Section.Length);
+            return Math.Min(1.0, CalculateProfileProbability() * failureMechanism.PipingProbabilityAssessmentInput.GetN(sectionResult.Section.Length));
         }
     }
 }

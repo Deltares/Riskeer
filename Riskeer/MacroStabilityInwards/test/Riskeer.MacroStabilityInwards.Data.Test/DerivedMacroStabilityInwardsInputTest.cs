@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -46,7 +46,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("input", exception.ParamName);
         }
-        
+
         [Test]
         public void GetWaternetExtreme_GeneralInputNull_ThrowsArgumentNullException()
         {
@@ -130,7 +130,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("input", exception.ParamName);
         }
-        
+
         [Test]
         public void GetWaternetDaily_GeneralInputNull_ThrowsArgumentNullException()
         {

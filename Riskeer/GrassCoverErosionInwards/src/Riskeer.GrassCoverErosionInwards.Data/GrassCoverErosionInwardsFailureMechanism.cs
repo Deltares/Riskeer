@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -21,7 +21,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base;
+using Riskeer.Common.Data;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
@@ -33,13 +33,9 @@ namespace Riskeer.GrassCoverErosionInwards.Data
     /// <summary>
     /// Model for performing grass cover erosion inwards calculations.
     /// </summary>
-    public class GrassCoverErosionInwardsFailureMechanism : FailureMechanismBase,
-                                                            ICalculatableFailureMechanism,
-                                                            IHasSectionResults<GrassCoverErosionInwardsFailureMechanismSectionResultOld, AdoptableWithProfileProbabilityFailureMechanismSectionResult>
+    public class GrassCoverErosionInwardsFailureMechanism : FailureMechanismBase<AdoptableWithProfileProbabilityFailureMechanismSectionResult>,
+                                                            ICalculatableFailureMechanism
     {
-        private readonly ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResultOld> sectionResultsOld;
-        private readonly ObservableList<AdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="GrassCoverErosionInwardsFailureMechanism"/> class.
         /// </summary>
@@ -51,9 +47,8 @@ namespace Riskeer.GrassCoverErosionInwards.Data
                 Name = RiskeerCommonDataResources.FailureMechanism_Calculations_DisplayName
             };
             GeneralInput = new GeneralGrassCoverErosionInwardsInput();
-            sectionResultsOld = new ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResultOld>();
-            sectionResults = new ObservableList<AdoptableWithProfileProbabilityFailureMechanismSectionResult>();
             DikeProfiles = new DikeProfileCollection();
+            CalculationsInputComments = new Comment();
         }
 
         /// <summary>
@@ -66,26 +61,10 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         /// </summary>
         public DikeProfileCollection DikeProfiles { get; }
 
+        public IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations().OfType<GrassCoverErosionInwardsCalculation>();
+
         public CalculationGroup CalculationsGroup { get; }
 
-        public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations().OfType<GrassCoverErosionInwardsCalculation>();
-
-        public IObservableEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResultOld> SectionResultsOld => sectionResultsOld;
-
-        public IObservableEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult> SectionResults => sectionResults;
-
-        protected override void AddSectionDependentData(FailureMechanismSection section)
-        {
-            base.AddSectionDependentData(section);
-
-            sectionResultsOld.Add(new GrassCoverErosionInwardsFailureMechanismSectionResultOld(section));
-            sectionResults.Add(new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section));
-        }
-
-        protected override void ClearSectionDependentData()
-        {
-            sectionResultsOld.Clear();
-            sectionResults.Clear();
-        }
+        public Comment CalculationsInputComments { get; }
     }
 }

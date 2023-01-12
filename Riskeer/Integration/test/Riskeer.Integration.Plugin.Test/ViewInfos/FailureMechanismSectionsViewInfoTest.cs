@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -27,7 +27,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.Views;
@@ -36,7 +35,7 @@ using Riskeer.Common.Plugin.TestUtil;
 namespace Riskeer.Integration.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class FailureMechanismSectionsViewInfoTest
+    public class FailureMechanismSectionsViewInfoTest : ShouldCloseViewWithFailureMechanismTester
     {
         private static ViewInfo info;
 
@@ -75,34 +74,25 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failurePath = new TestFailurePath();
-            var failureMechanismSectionsContext = new FailureMechanismSectionsContext(failurePath, assessmentSection);
+            var failureMechanism = new TestFailureMechanism();
+            var failureMechanismSectionsContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
             // Call
             object viewData = info.GetViewData(failureMechanismSectionsContext);
 
             // Assert
-            Assert.AreSame(failurePath.Sections, viewData);
+            Assert.AreSame(failureMechanism.Sections, viewData);
             mocks.VerifyAll();
         }
 
-        [TestFixture]
-        public class ShouldCloseFailureMechanismSectionsViewForDataTester : ShouldCloseViewWithFailurePathTester
+        protected override bool ShouldCloseMethod(IView view, object o)
         {
-            protected override bool ShouldCloseMethod(IView view, object o)
-            {
-                return info.CloseForData(view, o);
-            }
+            return info.CloseForData(view, o);
+        }
 
-            protected override IView GetView(IFailurePath failurePath)
-            {
-                return new FailureMechanismSectionsView(failurePath.Sections, failurePath);
-            }
-
-            protected override IFailurePath GetFailurePath()
-            {
-                return new TestFailurePath();
-            }
+        protected override IView GetView(IFailureMechanism failureMechanism)
+        {
+            return new FailureMechanismSectionsView(failureMechanism.Sections, failureMechanism);
         }
     }
 }

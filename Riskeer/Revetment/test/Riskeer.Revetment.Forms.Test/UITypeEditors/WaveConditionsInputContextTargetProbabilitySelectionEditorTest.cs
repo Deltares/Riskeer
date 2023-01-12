@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -87,15 +87,15 @@ namespace Riskeer.Revetment.Forms.Test.UITypeEditors
             // Setup
             IAssessmentSection assessmentSection = new AssessmentSectionStub();
 
-            const WaveConditionsInputWaterLevelType waterLevelType = WaveConditionsInputWaterLevelType.LowerLimit;
+            const WaveConditionsInputWaterLevelType waterLevelType = WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability;
             const double targetProbability = 0.1;
 
-            var selectableTargetProbability = new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForLowerLimitNorm, waterLevelType, targetProbability);
+            var selectableTargetProbability = new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability, waterLevelType, targetProbability);
             var properties = new ObjectPropertiesWithSelectableTargetProbability(
                 selectableTargetProbability,
                 new[]
                 {
-                    new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForLowerLimitNorm, waterLevelType, targetProbability)
+                    new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability, waterLevelType, targetProbability)
                 });
 
             var propertyBag = new DynamicPropertyBag(properties);

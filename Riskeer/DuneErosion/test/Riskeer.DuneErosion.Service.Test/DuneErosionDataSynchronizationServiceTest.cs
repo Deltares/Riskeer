@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -187,7 +187,7 @@ namespace Riskeer.DuneErosion.Service.Test
 
             // Assert
             string expectedMessage = $"Locatie '{locationName}' moet voldoen aan het formaat 'Naam_Vaknummer_Metrering'. " +
-                                     "Deze locatie is niet toegevoegd aan de hydraulische belastingen voor het toetsspoor duinen.";
+                                     "Deze locatie is niet toegevoegd aan de hydraulische belastingen voor het faalmechanisme duinen.";
             TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage, 1);
             CollectionAssert.IsEmpty(failureMechanism.DuneLocations);
         }

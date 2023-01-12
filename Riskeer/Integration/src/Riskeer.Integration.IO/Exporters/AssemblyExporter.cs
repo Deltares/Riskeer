@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -20,16 +20,15 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.Util;
 using log4net;
-using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.IO;
+using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Integration.Data;
-using Riskeer.Integration.IO.Assembly;
-using Riskeer.Integration.IO.Creators;
 using Riskeer.Integration.IO.Exceptions;
 using Riskeer.Integration.IO.Factories;
 using Riskeer.Integration.IO.Properties;
@@ -67,21 +66,23 @@ namespace Riskeer.Integration.IO.Exporters
 
         public bool Export()
         {
-            ExportableAssessmentSection exportableAssessmentSection = CreateExportableAssessmentSection();
-            if (!ValidateExportableAssessmentSection(exportableAssessmentSection))
+            if (!AreSpecificFailureMechanismsUniquelyNamed())
             {
-                LogErrorMessage();
+                log.Error(Resources.AssemblyExporter_Specific_failure_mechanisms_must_have_a_unique_name);
                 return false;
             }
 
             try
             {
-                SerializableAssemblyWriter.WriteAssembly(SerializableAssemblyCreator.Create(exportableAssessmentSection),
-                                                         filePath);
+                ExportableAssembly exportableAssembly = ExportableAssemblyFactory.CreateExportableAssembly(assessmentSection);
+                using (var writer = new AssemblyGmlWriter(filePath))
+                {
+                    writer.Write(exportableAssembly);
+                }
             }
-            catch (AssemblyCreatorException)
+            catch (Exception e) when (e is AssemblyException || e is AssemblyFactoryException)
             {
-                LogErrorMessage();
+                log.Error(Resources.AssemblyExporter_No_AssemblyResult_exported_Check_results_for_details);
                 return false;
             }
             catch (CriticalFileWriteException e)
@@ -93,28 +94,13 @@ namespace Riskeer.Integration.IO.Exporters
             return true;
         }
 
-        private ExportableAssessmentSection CreateExportableAssessmentSection()
+        private bool AreSpecificFailureMechanismsUniquelyNamed()
         {
-            try
-            {
-                return ExportableAssessmentSectionFactory.CreateExportableAssessmentSection(assessmentSection);
-            }
-            catch (AssemblyException)
-            {
-                return null;
-            }
-        }
-
-        private static bool ValidateExportableAssessmentSection(ExportableAssessmentSection exportableAssessmentSection)
-        {
-            return exportableAssessmentSection != null
-                   && exportableAssessmentSection.AssessmentSectionAssembly.AssemblyCategory != AssessmentSectionAssemblyCategoryGroup.None
-                   && exportableAssessmentSection.AssessmentSectionAssembly.AssemblyCategory != AssessmentSectionAssemblyCategoryGroup.NotApplicable;
-        }
-
-        private static void LogErrorMessage()
-        {
-            log.Error(Resources.AssemblyExporter_LogErrorMessage_Only_possible_to_export_a_complete_AssemblyResult);
+            return assessmentSection.SpecificFailureMechanisms
+                                    .Where(sf => sf.InAssembly)
+                                    .Select(fp => fp.Name)
+                                    .GroupBy(name => name)
+                                    .All(group => group.Count() == 1);
         }
     }
 }

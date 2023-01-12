@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -19,12 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.Data.TestUtil;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
@@ -97,16 +99,17 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(Array.Empty<IFailureMechanism>());
+            assessmentSection.Stub(asm => asm.SpecificFailureMechanisms).Return(new ObservableList<SpecificFailureMechanism>());
             mocks.ReplayAll();
 
             var failureMechanism = new MicrostabilityFailureMechanism();
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<MicrostabilityFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism,
-                fm => fm.GeneralInput.N,
-                fm => fm.GeneralInput.ApplyLengthEffectInSection,
-                sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual),
+                       fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                       sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -128,15 +131,16 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             {
                 otherFailureMechanism
             });
+            assessmentSection.Stub(asm => asm.SpecificFailureMechanisms).Return(new ObservableList<SpecificFailureMechanism>());
             mocks.ReplayAll();
 
             var failureMechanism = new MicrostabilityFailureMechanism();
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<MicrostabilityFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism,
-                fm => fm.GeneralInput.N,
-                fm => fm.GeneralInput.ApplyLengthEffectInSection,
-                sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual),
+                       fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                       sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -162,10 +166,10 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<MicrostabilityFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism,
-                fm => fm.GeneralInput.N,
-                fm => fm.GeneralInput.ApplyLengthEffectInSection,
-                sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual),
+                       fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                       sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -183,18 +187,19 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new MicrostabilityFailureMechanism();
 
-            var failurePathContext = mocks.StrictMock<IFailurePathContext<IFailureMechanism>>();
-            failurePathContext.Expect(fm => fm.WrappedData).Return(failureMechanism);
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var failureMechanismContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
+            failureMechanismContext.Expect(fm => fm.WrappedData).Return(failureMechanism);
             mocks.ReplayAll();
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<MicrostabilityFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism,
-                fm => fm.GeneralInput.N,
-                fm => fm.GeneralInput.ApplyLengthEffectInSection,
-                sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual),
+                       fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                       sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
             {
                 // Call
-                bool closeForData = info.CloseForData(view, failurePathContext);
+                bool closeForData = info.CloseForData(view, failureMechanismContext);
 
                 // Assert
                 Assert.IsTrue(closeForData);
@@ -207,20 +212,21 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
         {
             // Setup
-            var failurePathContext = mocks.StrictMock<IFailurePathContext<IFailureMechanism>>();
-            failurePathContext.Expect(fm => fm.WrappedData).Return(new MicrostabilityFailureMechanism());
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var failureMechanismContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
+            failureMechanismContext.Expect(fm => fm.WrappedData).Return(new MicrostabilityFailureMechanism());
             mocks.ReplayAll();
 
             var failureMechanism = new MicrostabilityFailureMechanism();
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<MicrostabilityFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism,
-                fm => fm.GeneralInput.N,
-                fm => fm.GeneralInput.ApplyLengthEffectInSection,
-                sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual),
+                       fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                       sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
             {
                 // Call
-                bool closeForData = info.CloseForData(view, failurePathContext);
+                bool closeForData = info.CloseForData(view, failureMechanismContext);
 
                 // Assert
                 Assert.IsFalse(closeForData);

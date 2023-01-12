@@ -208,7 +208,7 @@ foreach (var enumType in typeMapper.GetEnumItemsToGenerate(itemCollection))
 
     if (foundOne)
     {
-        GenerationEnvironment.Remove(GenerationEnvironment.Length - 3, 1);
+        this.GenerationEnvironment.Remove(this.GenerationEnvironment.Length - 3, 1);
     }
 #>
 }
@@ -225,7 +225,7 @@ public void WriteHeader(CodeStringGenerator codeStringGenerator, EntityFramework
 {
     fileManager.StartHeader();
 #>
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //

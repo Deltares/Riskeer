@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -21,13 +21,11 @@
 
 using System;
 using System.Collections.Generic;
-using Riskeer.Integration.IO.Assembly;
-using Riskeer.Integration.IO.Properties;
 
 namespace Riskeer.Integration.IO.Helpers
 {
     /// <summary>
-    /// Class to generate unique ids.
+    /// Class to generate ids.
     /// </summary>
     public class IdentifierGenerator
     {
@@ -42,46 +40,48 @@ namespace Riskeer.Integration.IO.Helpers
         }
 
         /// <summary>
-        /// Gets a new unique id prefixed by <paramref name="prefix"/>.
+        /// Gets an unique id prefixed by <paramref name="prefix"/>.
         /// </summary>
         /// <param name="prefix">The prefix to be used for the generated id.</param>
         /// <returns>An unique id.</returns>
         /// <exception cref="ArgumentException">Thrown when <paramref name="prefix"/> is
         /// <c>null</c>, empty or consists of only whitespaces.</exception>
-        public string GetNewId(string prefix)
+        public string GetUniqueId(string prefix)
         {
             if (string.IsNullOrWhiteSpace(prefix))
             {
                 throw new ArgumentException($@"'{nameof(prefix)}' is null, empty or consists of whitespace.", nameof(prefix));
             }
 
-            if (idLookup.ContainsKey(prefix))
-            {
-                idLookup[prefix]++;
-            }
-            else
+            if (!idLookup.ContainsKey(prefix))
             {
                 idLookup[prefix] = 0;
             }
 
-            return $"{prefix}.{idLookup[prefix]}";
+            return $"{prefix}.{idLookup[prefix]++}";
         }
 
         /// <summary>
-        /// Gets an id based on <paramref name="assessmentSection"/>.
+        /// Gets an id based on <paramref name="prefix"/> and <paramref name="id"/>.
         /// </summary>
-        /// <param name="assessmentSection">The <see cref="ExportableAssessmentSection"/>
-        /// to generate an id for.</param>
+        /// <param name="prefix">The prefix to be used for the generated id.</param>
+        /// <param name="id">The id to be used for the generated id.</param>
         /// <returns>An id.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
-        public static string GeneratedId(ExportableAssessmentSection assessmentSection)
+        /// <exception cref="ArgumentException">Thrown when any parameter is
+        /// <c>null</c>, empty or consists of only whitespaces.</exception>
+        public static string GenerateId(string prefix, string id)
         {
-            if (assessmentSection == null)
+            if (string.IsNullOrWhiteSpace(prefix))
             {
-                throw new ArgumentNullException(nameof(assessmentSection));
+                throw new ArgumentException($@"'{nameof(prefix)}' is null, empty or consists of whitespace.", nameof(prefix));
             }
 
-            return $"{Resources.SerializableAssessmentSection_IdPrefix}.{assessmentSection.Id}";
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                throw new ArgumentException($@"'{nameof(id)}' is null, empty or consists of whitespace.", nameof(id));
+            }
+
+            return $"{prefix}.{id}";
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -34,25 +34,20 @@ namespace Riskeer.Common.Forms.Factories
         private const LineDashStyle lineDashStyle = LineDashStyle.Solid;
 
         /// <summary>
-        /// Creates a <see cref="MapLineData"/> with default styling for assembly results.
+        /// Creates a <see cref="MapLineData"/> with default styling for failure mechanism section assembly results.
         /// </summary>
         /// <returns>The created <see cref="MapLineData"/>.</returns>
-        public static MapLineData CreateAssemblyMapData()
+        public static MapLineData CreateFailureMechanismSectionAssemblyMapData()
         {
-            return CreateAssemblyMapLineData(Resources.AssemblyCategoryPerSection_DisplayName, true);
-        }
-
-        private static MapLineData CreateAssemblyMapLineData(string name, bool isVisible)
-        {
-            return new MapLineData(name, new LineStyle
+            return new MapLineData(Resources.AssemblyGroupPerSection_DisplayName, new LineStyle
                                    {
                                        Width = lineWidth,
                                        DashStyle = lineDashStyle
                                    },
-                                   MapThemeFactory.CreateDisplayFailureMechanismAssemblyCategoryGroupMapTheme())
+                                   MapThemeFactory.CreateFailureMechanismSectionAssemblyGroupMapTheme())
             {
                 SelectedMetaDataAttribute = Resources.AssemblyGroup_DisplayName,
-                IsVisible = isVisible
+                IsVisible = true
             };
         }
     }

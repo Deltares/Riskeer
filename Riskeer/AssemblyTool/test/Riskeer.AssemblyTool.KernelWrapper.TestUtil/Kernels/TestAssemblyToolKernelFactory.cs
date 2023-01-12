@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -22,7 +22,7 @@
 using Assembly.Kernel.Interfaces;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories;
+using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Groups;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels
 {
@@ -57,7 +57,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels
         /// Gets the last created failure mechanism assembly kernel.
         /// </summary>
         public FailureMechanismAssemblyKernelStub LastCreatedFailureMechanismAssemblyKernel { get; }
-        
+
         /// <summary>
         /// Gets the last created combined failure mechanism section assembly kernel.
         /// </summary>
@@ -65,7 +65,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels
 
         public AssessmentSectionAssemblyKernelStub LastCreatedAssessmentSectionAssemblyKernel { get; }
 
-        public ICategoryLimitsCalculator CreateAssemblyCategoriesKernel()
+        public ICategoryLimitsCalculator CreateAssemblyGroupsKernel()
         {
             return LastCreatedAssemblyCategoryLimitsKernel;
         }

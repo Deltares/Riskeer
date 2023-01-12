@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Builders;
@@ -33,7 +34,7 @@ namespace Riskeer.Common.Forms.Views
     /// </summary>
     /// <typeparam name="TFailureMechanism">The type of failure mechanism.</typeparam>
     public class NonAdoptableFailureMechanismResultView<TFailureMechanism> : FailureMechanismResultView<NonAdoptableFailureMechanismSectionResult, NonAdoptableFailureMechanismSectionResultRow, TFailureMechanism>
-        where TFailureMechanism : IHasSectionResults<NonAdoptableFailureMechanismSectionResult>
+        where TFailureMechanism : IFailureMechanism<NonAdoptableFailureMechanismSectionResult>
     {
         private const int initialFailureMechanismResultTypeIndex = 2;
         private const int initialFailureMechanismResultSectionProbabilityIndex = 3;
@@ -42,9 +43,6 @@ namespace Riskeer.Common.Forms.Views
         private const int sectionProbabilityIndex = 6;
         private const int assemblyGroupIndex = 7;
 
-        private readonly IAssessmentSection assessmentSection;
-        private readonly Func<TFailureMechanism, double> getNFunc;
-
         /// <summary>
         /// Creates a new instance of <see cref="NonAdoptableFailureMechanismResultView{TFailureMechanism}"/>.
         /// </summary>
@@ -52,34 +50,20 @@ namespace Riskeer.Common.Forms.Views
         /// show in the view.</param>
         /// <param name="failureMechanism">The failure mechanism the results belong to.</param>
         /// <param name="assessmentSection">The assessment section the failure mechanism results belong to.</param>
-        /// <param name="getNFunc">The <see cref="Func{T1,TResult}"/> to get the N.</param>
+        /// <param name="performFailureMechanismAssemblyFunc">The function to perform an assembly on the failure mechanism.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public NonAdoptableFailureMechanismResultView(IObservableEnumerable<NonAdoptableFailureMechanismSectionResult> failureMechanismSectionResults,
                                                       TFailureMechanism failureMechanism,
                                                       IAssessmentSection assessmentSection,
-                                                      Func<TFailureMechanism, double> getNFunc)
-            : base(failureMechanismSectionResults, failureMechanism)
-        {
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
-            if (getNFunc == null)
-            {
-                throw new ArgumentNullException(nameof(getNFunc));
-            }
-
-            this.assessmentSection = assessmentSection;
-            this.getNFunc = getNFunc;
-        }
+                                                      Func<TFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc)
+            : base(failureMechanismSectionResults, failureMechanism, assessmentSection, performFailureMechanismAssemblyFunc) {}
 
         protected override NonAdoptableFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(NonAdoptableFailureMechanismSectionResult sectionResult)
         {
             return new NonAdoptableFailureMechanismSectionResultRow(
                 sectionResult,
                 CreateErrorProvider(),
-                assessmentSection,
+                AssessmentSection,
                 new NonAdoptableFailureMechanismSectionResultRow.ConstructionProperties
                 {
                     InitialFailureMechanismResultTypeIndex = initialFailureMechanismResultTypeIndex,
@@ -89,11 +73,6 @@ namespace Riskeer.Common.Forms.Views
                     SectionProbabilityIndex = sectionProbabilityIndex,
                     AssemblyGroupIndex = assemblyGroupIndex
                 });
-        }
-
-        protected override double GetN()
-        {
-            return getNFunc(FailureMechanism);
         }
 
         protected override void AddDataGridColumns()

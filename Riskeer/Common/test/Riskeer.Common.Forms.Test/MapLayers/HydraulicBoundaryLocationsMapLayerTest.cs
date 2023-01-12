@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -133,8 +133,8 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 // When
                 var random = new Random(21);
                 FailureMechanismContribution contribution = assessmentSection.FailureMechanismContribution;
-                contribution.LowerLimitNorm = random.NextDouble(0.000001, 0.1);
-                contribution.SignalingNorm = contribution.LowerLimitNorm - 0.000001;
+                contribution.MaximumAllowableFloodingProbability = random.NextDouble(0.000001, 0.1);
+                contribution.SignalFloodingProbability = contribution.MaximumAllowableFloodingProbability - 0.000001;
                 contribution.NotifyObservers();
 
                 // Then
@@ -589,9 +589,9 @@ namespace Riskeer.Common.Forms.Test.MapLayers
         private static IEnumerable<TestCaseData> GetCalculationFuncs()
         {
             yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(
-                                              assessmentSection => assessmentSection.WaterLevelCalculationsForSignalingNorm.First()));
+                                              assessmentSection => assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.First()));
             yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(
-                                              assessmentSection => assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First()));
+                                              assessmentSection => assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability.First()));
             yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(
                                               assessmentSection => assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.First()
                                                                                     .HydraulicBoundaryLocationCalculations.First()));
@@ -621,24 +621,22 @@ namespace Riskeer.Common.Forms.Test.MapLayers
         private static IEnumerable<TestCaseData> GetTargetProbabilityItemShiftActions()
         {
             yield return new TestCaseData(
-                    new Action<ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>>(col =>
-                    {
-                        HydraulicBoundaryLocationCalculationsForTargetProbability itemToMove = col.First();
-                        col.Remove(itemToMove);
-                        col.Add(itemToMove);
-                    }),
-                    "{0}", "{0} (2)")
-                .SetName("MoveItemDown");
+                new Action<ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>>(col =>
+                {
+                    HydraulicBoundaryLocationCalculationsForTargetProbability itemToMove = col.First();
+                    col.Remove(itemToMove);
+                    col.Add(itemToMove);
+                }),
+                "{0}", "{0} (2)");
 
             yield return new TestCaseData(
-                    new Action<ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>>(col =>
-                    {
-                        HydraulicBoundaryLocationCalculationsForTargetProbability itemToMove = col.Last();
-                        col.Remove(itemToMove);
-                        col.Insert(0, itemToMove);
-                    }),
-                    "{0} (2)", "{0}")
-                .SetName("MoveItemUp");
+                new Action<ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>>(col =>
+                {
+                    HydraulicBoundaryLocationCalculationsForTargetProbability itemToMove = col.Last();
+                    col.Remove(itemToMove);
+                    col.Insert(0, itemToMove);
+                }),
+                "{0} (2)", "{0}");
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -21,7 +21,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Assembly.Kernel.Model.AssessmentSection;
 using Assembly.Kernel.Model.FailureMechanismSections;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
@@ -35,34 +34,36 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil
     public static class CombinedFailureMechanismSectionAssemblyAssert
     {
         /// <summary>
-        /// Asserts whether <paramref name="actual"/> is equal to <paramref name="original"/>.
+        /// Asserts whether <paramref name="actual"/> is equal to
+        /// <paramref name="failureMechanismResults"/> and <paramref name="combinedResults"/>.
         /// </summary>
-        /// <param name="original">The original <see cref="AssemblyResult"/>.</param>
+        /// <param name="failureMechanismResults">The original <see cref="IEnumerable{T}"/> of <see cref="FailureMechanismSectionList"/>.</param>
+        /// <param name="combinedResults">The original <see cref="IEnumerable{T}"/> of <see cref="FailureMechanismSectionWithCategory"/>.</param>
         /// <param name="actual">The actual collection of <see cref="CombinedFailureMechanismSectionAssembly"/>.</param>
-        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
-        /// is not equal to <paramref name="original"/>.</exception>
-        public static void AssertAssembly(AssemblyResult original, IEnumerable<CombinedFailureMechanismSectionAssembly> actual)
+        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/> is not equal to
+        /// <paramref name="failureMechanismResults"/> and <paramref name="combinedResults"/>.</exception>
+        public static void AssertAssembly(IEnumerable<FailureMechanismSectionList> failureMechanismResults,
+                                          IEnumerable<FailureMechanismSectionWithCategory> combinedResults,
+                                          IEnumerable<CombinedFailureMechanismSectionAssembly> actual)
         {
-            FailureMechanismSectionWithCategory[] combinedResults = original.CombinedSectionResult.ToArray();
-            Assert.AreEqual(combinedResults.Length, actual.Count());
-            for (var i = 0; i < combinedResults.Length; i++)
+            Assert.AreEqual(combinedResults.Count(), actual.Count());
+            for (var i = 0; i < combinedResults.Count(); i++)
             {
-                FailureMechanismSectionWithCategory combinedResult = combinedResults[i];
+                FailureMechanismSectionWithCategory combinedResult = combinedResults.ElementAt(i);
                 CombinedFailureMechanismSectionAssembly actualCombinedFailureMechanismSectionAssembly = actual.ElementAt(i);
-                
-                Assert.AreEqual(combinedResult.SectionStart, actualCombinedFailureMechanismSectionAssembly.Section.SectionStart);
-                Assert.AreEqual(combinedResult.SectionEnd, actualCombinedFailureMechanismSectionAssembly.Section.SectionEnd);
+
+                Assert.AreEqual(combinedResult.Start, actualCombinedFailureMechanismSectionAssembly.Section.SectionStart);
+                Assert.AreEqual(combinedResult.End, actualCombinedFailureMechanismSectionAssembly.Section.SectionEnd);
                 Assert.AreEqual(FailureMechanismSectionAssemblyGroupConverter.ConvertTo(combinedResult.Category),
-                                actualCombinedFailureMechanismSectionAssembly.Section.AssemblyGroup);
+                                actualCombinedFailureMechanismSectionAssembly.Section.FailureMechanismSectionAssemblyGroup);
 
-                FailureMechanismSectionList[] failureMechanismResults = original.ResultPerFailureMechanism.ToArray();
-                Assert.AreEqual(failureMechanismResults.Length, actualCombinedFailureMechanismSectionAssembly.FailureMechanismAssemblyGroupResults.Count());
+                Assert.AreEqual(failureMechanismResults.Count(), actualCombinedFailureMechanismSectionAssembly.FailureMechanismSectionAssemblyGroupResults.Count());
 
-                for (var j = 0; j < failureMechanismResults.Length; j++)
+                for (var j = 0; j < failureMechanismResults.Count(); j++)
                 {
                     FailureMechanismSectionAssemblyGroup expectedGroup = FailureMechanismSectionAssemblyGroupConverter.ConvertTo(
-                        ((FailureMechanismSectionWithCategory) failureMechanismResults[j].Sections.ElementAt(i)).Category);
-                    Assert.AreEqual(expectedGroup, actualCombinedFailureMechanismSectionAssembly.FailureMechanismAssemblyGroupResults.ElementAt(j));
+                        ((FailureMechanismSectionWithCategory) failureMechanismResults.ElementAt(j).Sections.ElementAt(i)).Category);
+                    Assert.AreEqual(expectedGroup, actualCombinedFailureMechanismSectionAssembly.FailureMechanismSectionAssemblyGroupResults.ElementAt(j));
                 }
             }
         }

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -20,11 +20,10 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Assembly.Kernel.Exceptions;
 using Assembly.Kernel.Model;
-using Assembly.Kernel.Model.Categories;
+using Assembly.Kernel.Model.FailureMechanismSections;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -83,17 +82,16 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             var calculator = new FailureMechanismAssemblyCalculator(kernelFactory);
 
             // Call
-            void Call() => calculator.Assemble(random.NextDouble(), null);
+            void Call() => calculator.Assemble(random.NextDouble(), null, random.NextBoolean());
 
             // Assert
-            Assert.That(Call, Throws.TypeOf<ArgumentNullException>()
-                                    .With.Property(nameof(ArgumentNullException.ParamName))
-                                    .EqualTo("sectionAssemblyResults"));
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("sectionAssemblyResults", exception.ParamName);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void Assemble_WithValidInput_SendsCorrectInputToKernel()
+        public void Assemble_WithValidInputAndApplyLengthEffectTrue_SendsCorrectInputToKernel()
         {
             // Setup
             var random = new Random(21);
@@ -113,17 +111,57 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var calculator = new FailureMechanismAssemblyCalculator(factory);
 
                 // Call
-                calculator.Assemble(failureMechanismN, sectionAssemblyResults);
+                calculator.Assemble(failureMechanismN, sectionAssemblyResults, true);
 
                 // Assert
                 Assert.AreEqual(failureMechanismN, kernel.LenghtEffectFactor);
                 Assert.IsFalse(kernel.PartialAssembly);
-                AssertFailureMechanismSectionAssemblyResults(sectionAssemblyResults, kernel.FailureMechanismSectionAssemblyResults);
+                Assert.AreEqual(sectionAssemblyResults.Length, kernel.FailureMechanismSectionAssemblyResults.Count());
+                for (var i = 0; i < sectionAssemblyResults.Length; i++)
+                {
+                    RiskeerFailureMechanismSectionAssemblyResult expected = sectionAssemblyResults.ElementAt(i);
+                    ResultWithProfileAndSectionProbabilities actual = kernel.FailureMechanismSectionAssemblyResults.ElementAt(i);
+                    ProbabilityAssert.AreEqual(expected.ProfileProbability, actual.ProbabilityProfile);
+                    ProbabilityAssert.AreEqual(expected.SectionProbability, actual.ProbabilitySection);
+                }
             }
         }
 
         [Test]
-        public void Assemble_WithValidOutput_ReturnsExpectedOutput()
+        public void Assemble_WithValidInputAndApplyLengthEffectFalse_SendsCorrectInputToKernel()
+        {
+            // Setup
+            var random = new Random(21);
+            double failureMechanismN = random.NextDouble();
+            RiskeerFailureMechanismSectionAssemblyResult[] sectionAssemblyResults =
+            {
+                CreateSectionAssemblyResult(random.Next()),
+                CreateSectionAssemblyResult(random.Next())
+            };
+
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+                FailureMechanismAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismAssemblyKernel;
+                kernel.ProbabilityResult = new FailureMechanismAssemblyResult(new Probability(random.NextDouble()), EFailureMechanismAssemblyMethod.Correlated);
+
+                var calculator = new FailureMechanismAssemblyCalculator(factory);
+
+                // Call
+                calculator.Assemble(failureMechanismN, sectionAssemblyResults, false);
+
+                // Assert
+                Assert.AreEqual(failureMechanismN, kernel.LenghtEffectFactor);
+                Assert.IsFalse(kernel.PartialAssembly);
+
+                CollectionAssert.AreEqual(sectionAssemblyResults.Select(r => new Probability(r.SectionProbability)), kernel.FailureMechanismSectionProbabilities);
+            }
+        }
+
+        [Test]
+        [TestCase(true, AssemblyMethod.BOI1A2)]
+        [TestCase(false, AssemblyMethod.BOI1A1)]
+        public void Assemble_WithValidOutput_ReturnsExpectedOutput(bool applyLengthEffect, AssemblyMethod expectedAssemblyMethod)
         {
             // Setup
             var random = new Random(21);
@@ -138,11 +176,13 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var calculator = new FailureMechanismAssemblyCalculator(factory);
 
                 // Call
-                double assemblyResult = calculator.Assemble(random.NextDouble(), Enumerable.Empty<RiskeerFailureMechanismSectionAssemblyResult>());
+                FailureMechanismAssemblyResultWrapper assemblyResultWrapper = calculator.Assemble(random.NextDouble(), Enumerable.Empty<RiskeerFailureMechanismSectionAssemblyResult>(),
+                                                                                                  applyLengthEffect);
 
                 // Assert
                 Assert.IsTrue(kernel.Calculated);
-                ProbabilityAssert.AreEqual(assemblyResult, output.Probability);
+                ProbabilityAssert.AreEqual(assemblyResultWrapper.AssemblyResult, output.Probability);
+                Assert.AreEqual(assemblyResultWrapper.AssemblyMethod, expectedAssemblyMethod);
             }
         }
 
@@ -166,7 +206,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 void Call() => calculator.Assemble(random.NextDouble(), new[]
                 {
                     invalidInput
-                });
+                }, random.NextBoolean());
 
                 // Assert
                 Assert.IsFalse(kernel.Calculated);
@@ -192,7 +232,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var calculator = new FailureMechanismAssemblyCalculator(factory);
 
                 // Call
-                void Call() => calculator.Assemble(random.NextDouble(), Enumerable.Empty<RiskeerFailureMechanismSectionAssemblyResult>());
+                void Call() => calculator.Assemble(random.NextDouble(), Enumerable.Empty<RiskeerFailureMechanismSectionAssemblyResult>(),
+                                                   random.NextBoolean());
 
                 // Assert
                 Assert.IsFalse(kernel.Calculated);
@@ -218,7 +259,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var calculator = new FailureMechanismAssemblyCalculator(factory);
 
                 // Call
-                void Call() => calculator.Assemble(random.NextDouble(), Enumerable.Empty<RiskeerFailureMechanismSectionAssemblyResult>());
+                void Call() => calculator.Assemble(random.NextDouble(), Enumerable.Empty<RiskeerFailureMechanismSectionAssemblyResult>(),
+                                                   random.NextBoolean());
 
                 // Assert
                 Assert.IsFalse(kernel.Calculated);
@@ -236,55 +278,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             double probability = random.NextDouble();
             return new RiskeerFailureMechanismSectionAssemblyResult(probability, probability + 0.001, random.NextDouble(),
                                                                     random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
-        }
-
-        private static void AssertFailureMechanismSectionAssemblyResults(IEnumerable<RiskeerFailureMechanismSectionAssemblyResult> expected,
-                                                                         IEnumerable<KernelFailureMechanismSectionAssemblyResult> actual)
-        {
-            int nrOfExpectedResults = expected.Count();
-            Assert.AreEqual(nrOfExpectedResults, actual.Count());
-
-            for (int i = 0; i < nrOfExpectedResults; i++)
-            {
-                AssertFailureMechanismSectionAssemblyResult(expected.ElementAt(i), actual.ElementAt(i));
-            }
-        }
-
-        private static void AssertFailureMechanismSectionAssemblyResult(RiskeerFailureMechanismSectionAssemblyResult expected,
-                                                                        KernelFailureMechanismSectionAssemblyResult actual)
-        {
-            ProbabilityAssert.AreEqual(expected.ProfileProbability, actual.ProbabilityProfile);
-            ProbabilityAssert.AreEqual(expected.SectionProbability, actual.ProbabilitySection);
-            Assert.AreEqual(GetInterpretationCategory(expected.AssemblyGroup), actual.InterpretationCategory);
-        }
-
-        private static EInterpretationCategory GetInterpretationCategory(FailureMechanismSectionAssemblyGroup assemblyGroup)
-        {
-            switch (assemblyGroup)
-            {
-                case FailureMechanismSectionAssemblyGroup.NotDominant:
-                    return EInterpretationCategory.NotDominant;
-                case FailureMechanismSectionAssemblyGroup.III:
-                    return EInterpretationCategory.III;
-                case FailureMechanismSectionAssemblyGroup.II:
-                    return EInterpretationCategory.II;
-                case FailureMechanismSectionAssemblyGroup.I:
-                    return EInterpretationCategory.I;
-                case FailureMechanismSectionAssemblyGroup.Zero:
-                    return EInterpretationCategory.Zero;
-                case FailureMechanismSectionAssemblyGroup.IMin:
-                    return EInterpretationCategory.IMin;
-                case FailureMechanismSectionAssemblyGroup.IIMin:
-                    return EInterpretationCategory.IIMin;
-                case FailureMechanismSectionAssemblyGroup.IIIMin:
-                    return EInterpretationCategory.IIIMin;
-                case FailureMechanismSectionAssemblyGroup.Dominant:
-                    return EInterpretationCategory.Dominant;
-                case FailureMechanismSectionAssemblyGroup.Gr:
-                    return EInterpretationCategory.Gr;
-                default:
-                    throw new NotSupportedException();
-            }
         }
     }
 }

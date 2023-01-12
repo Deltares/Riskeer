@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -45,7 +45,7 @@ namespace Riskeer.Common.Forms.ImportInfos
         /// <returns>An <see cref="ImportInfo"/> object.</returns>
         public static ImportInfo<TCalculationGroupContext> CreateCalculationConfigurationImportInfo<TCalculationGroupContext>(
             Func<TCalculationGroupContext, string, IFileImporter> createFileImporter)
-            where TCalculationGroupContext : ICalculationContext<CalculationGroup, IFailureMechanism>
+            where TCalculationGroupContext : ICalculationContext<CalculationGroup, ICalculatableFailureMechanism>
         {
             return new ImportInfo<TCalculationGroupContext>
             {

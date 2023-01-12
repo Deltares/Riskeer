@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -40,9 +40,8 @@ namespace Riskeer.Integration.Data.Test
             void Call() => new RiskeerProject(null);
 
             // Assert
-            Assert.That(Call, Throws.TypeOf<ArgumentNullException>()
-                                    .With.Property(nameof(ArgumentNullException.ParamName))
-                                    .EqualTo("assessmentSection"));
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
@@ -68,9 +67,8 @@ namespace Riskeer.Integration.Data.Test
             void Call() => new RiskeerProject(string.Empty, null);
 
             // Assert
-            Assert.That(Call, Throws.TypeOf<ArgumentNullException>()
-                                    .With.Property(nameof(ArgumentNullException.ParamName))
-                                    .EqualTo("assessmentSection"));
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
@@ -156,18 +154,13 @@ namespace Riskeer.Integration.Data.Test
         }
 
         [TestFixture]
-        private class RiskeerProjectEqualsTest : EqualsTestFixture<RiskeerProject, DerivedRiskeerProject>
+        private class RiskeerProjectEqualsTest : EqualsTestFixture<RiskeerProject>
         {
             private static readonly AssessmentSection assessmentSection = CreateAssessmentSection();
 
             protected override RiskeerProject CreateObject()
             {
                 return CreateProject();
-            }
-
-            protected override DerivedRiskeerProject CreateDerivedObject()
-            {
-                return new DerivedRiskeerProject(CreateProject());
             }
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
@@ -196,15 +189,6 @@ namespace Riskeer.Integration.Data.Test
                 {
                     Description = "Some description"
                 };
-            }
-        }
-
-        private class DerivedRiskeerProject : RiskeerProject
-        {
-            public DerivedRiskeerProject(RiskeerProject project) : base(project.AssessmentSection)
-            {
-                Name = project.Name;
-                Description = project.Description;
             }
         }
     }

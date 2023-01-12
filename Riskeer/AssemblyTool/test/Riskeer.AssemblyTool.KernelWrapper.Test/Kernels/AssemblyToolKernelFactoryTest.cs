@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -73,16 +73,16 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Kernels
         }
 
         [Test]
-        public void CreateAssemblyCategoriesKernel_Always_ReturnsKernelCategoryLimitsCalculator()
+        public void CreateAssemblyGroupsKernel_Always_ReturnsKernelCategoryLimitsCalculator()
         {
             // Setup
             IAssemblyToolKernelFactory factory = AssemblyToolKernelFactory.Instance;
 
             // Call
-            ICategoryLimitsCalculator assemblyCategoriesKernel = factory.CreateAssemblyCategoriesKernel();
+            ICategoryLimitsCalculator assemblyGroupsKernel = factory.CreateAssemblyGroupsKernel();
 
             // Assert
-            Assert.IsInstanceOf<CategoryLimitsCalculator>(assemblyCategoriesKernel);
+            Assert.IsInstanceOf<CategoryLimitsCalculator>(assemblyGroupsKernel);
         }
 
         [Test]

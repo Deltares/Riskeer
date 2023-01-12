@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -30,13 +30,13 @@ namespace Riskeer.Common.Forms.Test.Factories
     public class MapThemeFactoryTest
     {
         [Test]
-        public void CreateDisplayFailureMechanismAssemblyCategoryGroupMapTheme_ReturnsMapTheme()
+        public void CreateFailureMechanismSectionAssemblyGroupMapTheme_ReturnsMapTheme()
         {
             // Call
-            MapTheme<LineCategoryTheme> mapTheme = MapThemeFactory.CreateDisplayFailureMechanismAssemblyCategoryGroupMapTheme();
+            MapTheme<LineCategoryTheme> mapTheme = MapThemeFactory.CreateFailureMechanismSectionAssemblyGroupMapTheme();
 
             // Assert
-            MapThemeTestHelper.AssertDisplayFailureMechanismSectionAssemblyGroupMapTheme(mapTheme);
+            MapThemeTestHelper.AssertFailureMechanismSectionAssemblyGroupMapTheme(mapTheme);
         }
     }
 }

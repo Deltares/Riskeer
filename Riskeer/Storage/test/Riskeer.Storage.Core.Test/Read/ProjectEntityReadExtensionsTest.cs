@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -62,7 +62,7 @@ namespace Riskeer.Storage.Core.Test.Read
             };
 
             var collector = new ReadConversionCollector();
-            
+
             // Call
             void Call() => entity.Read(collector);
 
@@ -78,7 +78,7 @@ namespace Riskeer.Storage.Core.Test.Read
             // Setup
             var entity = new ProjectEntity();
             var collector = new ReadConversionCollector();
-            
+
             // Call
             void Call() => entity.Read(collector);
 
@@ -87,7 +87,7 @@ namespace Riskeer.Storage.Core.Test.Read
             const string message = "Het project bevat geen traject. Dit bestand is mogelijk een gemigreerd project met geen trajecten.";
             Assert.AreEqual(message, exception.Message);
         }
-        
+
         [Test]
         public void Read_WithAssessmentSection_ReturnsNewProjectWithAssessmentSection()
         {
@@ -116,9 +116,9 @@ namespace Riskeer.Storage.Core.Test.Read
 
             return new AssessmentSectionEntity
             {
-                SignalingNorm = 0.00001,
-                LowerLimitNorm = 0.0001,
-                NormativeNormType = Convert.ToByte(random.NextEnumValue<NormType>()),
+                SignalFloodingProbability = 0.00001,
+                MaximumAllowableFloodingProbability = 0.0001,
+                NormativeProbabilityType = Convert.ToByte(random.NextEnumValue<NormativeProbabilityType>()),
                 Name = "Just a name",
                 Composition = Convert.ToByte(random.NextEnumValue<AssessmentSectionComposition>()),
                 BackgroundDataEntities = new[]

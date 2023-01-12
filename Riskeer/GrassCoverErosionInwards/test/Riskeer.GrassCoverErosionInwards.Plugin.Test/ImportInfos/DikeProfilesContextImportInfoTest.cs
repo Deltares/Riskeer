@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -246,7 +246,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ImportInfos
 
                 // Assert
                 string expectedInquiryMessage = "Als u dijkprofielen importeert, " +
-                                                "dan worden alle rekenresultaten van dit toetsspoor " +
+                                                "dan worden alle rekenresultaten van dit faalmechanisme " +
                                                 $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                 Assert.AreEqual(expectedInquiryMessage, textBoxMessage);
                 Assert.AreEqual(isActionConfirmed, updatesVerified);

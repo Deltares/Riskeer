@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -24,7 +24,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
-using Core.Common.Base.Properties;
 using Core.Common.Base.TestUtil.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -104,8 +103,8 @@ namespace Core.Common.Base.Test.Geometry
             // Assert
             var exceptionA = Assert.Throws<ArgumentException>(testA);
             var exceptionB = Assert.Throws<ArgumentException>(testB);
-            Assert.AreEqual(Resources.Math2D_LineIntersectionWithLine_Line_points_are_equal, exceptionA.Message);
-            Assert.AreEqual(Resources.Math2D_LineIntersectionWithLine_Line_points_are_equal, exceptionB.Message);
+            Assert.AreEqual("Punten voor een lijn moeten uit elkaar liggen om een lijn te kunnen vormen.", exceptionA.Message);
+            Assert.AreEqual("Punten voor een lijn moeten uit elkaar liggen om een lijn te kunnen vormen.", exceptionB.Message);
         }
 
         [Test]

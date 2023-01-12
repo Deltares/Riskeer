@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -26,12 +26,12 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
-using Core.Common.Util;
+using Core.Common.Util.Enums;
 using Core.Common.Util.Extensions;
-using Riskeer.Common.Data.AssemblyTool;
+using Riskeer.AssemblyTool.Data;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Forms.Exceptions;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.Properties;
@@ -48,9 +48,10 @@ namespace Riskeer.Common.Forms.Views
     public abstract partial class FailureMechanismResultView<TSectionResult, TSectionResultRow, TFailureMechanism> : UserControl, IView
         where TSectionResult : FailureMechanismSectionResult
         where TSectionResultRow : FailureMechanismSectionResultRow<TSectionResult>
-        where TFailureMechanism : IHasSectionResults<TSectionResult>
+        where TFailureMechanism : IFailureMechanism<TSectionResult>
     {
         private readonly IObservableEnumerable<TSectionResult> failureMechanismSectionResults;
+        private readonly Func<TFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc;
         private readonly Observer failureMechanismObserver;
         private readonly Observer failureMechanismSectionResultObserver;
         private readonly RecursiveObserver<IObservableEnumerable<TSectionResult>, TSectionResult> failureMechanismSectionResultsObserver;
@@ -65,24 +66,41 @@ namespace Riskeer.Common.Forms.Views
         /// </summary>
         /// <param name="failureMechanismSectionResults">The collection of <typeparamref name="TSectionResult"/> to
         /// show in the view.</param>
-        /// <param name="failureMechanism">The failure mechanism the results belongs to.</param>
+        /// <param name="failureMechanism">The failure mechanism the results belong to.</param>
+        /// <param name="assessmentSection">The assessment section the results belong to.</param>
+        /// <param name="performFailureMechanismAssemblyFunc">The function to perform an assembly on the failure mechanism.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        protected FailureMechanismResultView(IObservableEnumerable<TSectionResult> failureMechanismSectionResults, TFailureMechanism failureMechanism)
+        protected FailureMechanismResultView(IObservableEnumerable<TSectionResult> failureMechanismSectionResults,
+                                             TFailureMechanism failureMechanism,
+                                             IAssessmentSection assessmentSection,
+                                             Func<TFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc)
         {
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
             if (failureMechanismSectionResults == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanismSectionResults));
             }
 
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            if (performFailureMechanismAssemblyFunc == null)
+            {
+                throw new ArgumentNullException(nameof(performFailureMechanismAssemblyFunc));
+            }
+
             InitializeComponent();
 
             FailureMechanism = failureMechanism;
+            AssessmentSection = assessmentSection;
             this.failureMechanismSectionResults = failureMechanismSectionResults;
+            this.performFailureMechanismAssemblyFunc = performFailureMechanismAssemblyFunc;
 
             failureMechanismObserver = new Observer(UpdateInternalViewData)
             {
@@ -111,6 +129,11 @@ namespace Riskeer.Common.Forms.Views
 
         public object Data { get; set; }
 
+        /// <summary>
+        /// Gets the assessment section.
+        /// </summary>
+        protected IAssessmentSection AssessmentSection { get; }
+
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
@@ -119,7 +142,6 @@ namespace Riskeer.Common.Forms.Views
             DataGridViewControl.CellFormatting += HandleCellStyling;
 
             UpdateInternalViewData();
-            UpdateFailurePathAssemblyControls();
         }
 
         /// <summary>
@@ -130,12 +152,6 @@ namespace Riskeer.Common.Forms.Views
         /// display object.</param>
         /// <returns>A display object which can be added as a row to the <see cref="DataGridView"/>.</returns>
         protected abstract TSectionResultRow CreateFailureMechanismSectionResultRow(TSectionResult sectionResult);
-
-        /// <summary>
-        /// Gets the length effect factor 'N'.
-        /// </summary>
-        /// <returns>A <see cref="double"/> representing the length effect factor 'N'.</returns>
-        protected abstract double GetN();
 
         protected override void Dispose(bool disposing)
         {
@@ -167,6 +183,7 @@ namespace Riskeer.Common.Forms.Views
         {
             UpdateDataGridViewDataSource();
             UpdateAssemblyData();
+            UpdateFailureMechanismAssemblyResultControls();
         }
 
         private void RefreshDataGrid()
@@ -176,39 +193,48 @@ namespace Riskeer.Common.Forms.Views
 
         private void InitializeComboBox()
         {
-            IEnumerable<EnumDisplayWrapper<FailurePathAssemblyProbabilityResultType>> dataSource =
-                Enum.GetValues(typeof(FailurePathAssemblyProbabilityResultType))
-                    .Cast<FailurePathAssemblyProbabilityResultType>()
-                    .Select(e => new EnumDisplayWrapper<FailurePathAssemblyProbabilityResultType>(e))
+            IEnumerable<EnumDisplayWrapper<FailureMechanismAssemblyProbabilityResultType>> dataSource =
+                Enum.GetValues(typeof(FailureMechanismAssemblyProbabilityResultType))
+                    .Cast<FailureMechanismAssemblyProbabilityResultType>()
+                    .Select(e => new EnumDisplayWrapper<FailureMechanismAssemblyProbabilityResultType>(e))
                     .ToArray();
 
             probabilityResultTypeComboBox.BeginUpdate();
 
             probabilityResultTypeComboBoxUpdating = true;
             probabilityResultTypeComboBox.DataSource = dataSource;
-            probabilityResultTypeComboBox.ValueMember = nameof(EnumDisplayWrapper<FailurePathAssemblyProbabilityResultType>.Value);
-            probabilityResultTypeComboBox.DisplayMember = nameof(EnumDisplayWrapper<FailurePathAssemblyProbabilityResultType>.DisplayName);
+            probabilityResultTypeComboBox.ValueMember = nameof(EnumDisplayWrapper<FailureMechanismAssemblyProbabilityResultType>.Value);
+            probabilityResultTypeComboBox.DisplayMember = nameof(EnumDisplayWrapper<FailureMechanismAssemblyProbabilityResultType>.DisplayName);
             probabilityResultTypeComboBox.SelectedValue = FailureMechanism.AssemblyResult.ProbabilityResultType;
             probabilityResultTypeComboBoxUpdating = false;
 
             probabilityResultTypeComboBox.EndUpdate();
         }
 
-        private void UpdateFailurePathAssemblyControls()
+        private void UpdateFailureMechanismAssemblyResultControls()
         {
-            failurePathAssemblyProbabilityTextBox.Enabled = IsManualAssembly();
-            failurePathAssemblyProbabilityTextBox.ReadOnly = !IsManualAssembly();
-            failurePathAssemblyProbabilityTextBox.Refresh();
+            probabilityResultTypeComboBox.Enabled = HasSections();
+
+            bool isManualAssembly = FailureMechanism.AssemblyResult.IsManualProbability();
+            failureMechanismAssemblyProbabilityTextBox.Enabled = isManualAssembly && HasSections();
+            failureMechanismAssemblyProbabilityTextBox.ReadOnly = !isManualAssembly || !HasSections();
+            failureMechanismAssemblyProbabilityTextBox.Refresh();
+        }
+
+        private bool HasSections()
+        {
+            return FailureMechanism.Sections.Any();
         }
 
         private void UpdateAssemblyData()
         {
             ClearErrorMessage();
 
-            double failurePathAssemblyProbability = IsManualAssembly()
-                                                        ? FailureMechanism.AssemblyResult.ManualFailurePathAssemblyProbability
-                                                        : TryGetFailurePathAssemblyProbability();
-            SetTextBoxValue(failurePathAssemblyProbability);
+            FailureMechanismAssemblyResult assemblyResult = FailureMechanism.AssemblyResult;
+            double failureMechanismAssemblyProbability = assemblyResult.IsManualProbability()
+                                                             ? assemblyResult.ManualFailureMechanismAssemblyProbability
+                                                             : TryGetFailureMechanismAssemblyProbability();
+            SetTextBoxValue(failureMechanismAssemblyProbability);
         }
 
         /// <summary>
@@ -272,11 +298,11 @@ namespace Riskeer.Common.Forms.Views
             UpdateAssemblyData();
         }
 
-        private double TryGetFailurePathAssemblyProbability()
+        private double TryGetFailureMechanismAssemblyProbability()
         {
             try
             {
-                return FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(GetN(), sectionResultRows.Select(r => r.AssemblyResult));
+                return performFailureMechanismAssemblyFunc(FailureMechanism, AssessmentSection).AssemblyResult;
             }
             catch (AssemblyException e)
             {
@@ -292,15 +318,15 @@ namespace Riskeer.Common.Forms.Views
                 return;
             }
 
-            FailurePathAssemblyResult assemblyResult = FailureMechanism.AssemblyResult;
-            assemblyResult.ProbabilityResultType = (FailurePathAssemblyProbabilityResultType) probabilityResultTypeComboBox.SelectedValue;
+            FailureMechanismAssemblyResult assemblyResult = FailureMechanism.AssemblyResult;
+            assemblyResult.ProbabilityResultType = (FailureMechanismAssemblyProbabilityResultType) probabilityResultTypeComboBox.SelectedValue;
             assemblyResult.NotifyObservers();
 
             UpdateAssemblyData();
-            UpdateFailurePathAssemblyControls();
+            UpdateFailureMechanismAssemblyResultControls();
         }
 
-        private void FailurePathAssemblyProbabilityTextBoxKeyDown(object sender, KeyEventArgs e)
+        private void FailureMechanismAssemblyProbabilityTextBoxKeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
@@ -311,31 +337,30 @@ namespace Riskeer.Common.Forms.Views
             if (e.KeyCode == Keys.Escape)
             {
                 ClearErrorMessage();
-                SetTextBoxValue(FailureMechanism.AssemblyResult.ManualFailurePathAssemblyProbability);
+                SetTextBoxValue(FailureMechanism.AssemblyResult.ManualFailureMechanismAssemblyProbability);
                 e.Handled = true;
             }
         }
 
-        private void FailurePathAssemblyProbabilityTextBoxLeave(object sender, EventArgs e)
+        private void FailureMechanismAssemblyProbabilityTextBoxLeave(object sender, EventArgs e)
         {
             ClearErrorMessage();
-            ProcessFailurePathAssemblyProbabilityTextBox();
+            ProcessFailureMechanismAssemblyProbabilityTextBox();
         }
 
-        private void ProcessFailurePathAssemblyProbabilityTextBox()
+        private void ProcessFailureMechanismAssemblyProbabilityTextBox()
         {
-            if (!IsManualAssembly())
+            FailureMechanismAssemblyResult assemblyResult = FailureMechanism.AssemblyResult;
+            if (!assemblyResult.IsManualProbability())
             {
                 return;
             }
 
             try
             {
-                double probability = ProbabilityParsingHelper.Parse(failurePathAssemblyProbabilityTextBox.Text);
-
-                FailurePathAssemblyResult failureMechanismAssemblyResult = FailureMechanism.AssemblyResult;
-                failureMechanismAssemblyResult.ManualFailurePathAssemblyProbability = probability;
-                failureMechanismAssemblyResult.NotifyObservers();
+                double probability = ProbabilityParsingHelper.Parse(failureMechanismAssemblyProbabilityTextBox.Text);
+                assemblyResult.ManualFailureMechanismAssemblyProbability = probability;
+                assemblyResult.NotifyObservers();
 
                 SetTextBoxValue(probability);
             }
@@ -343,33 +368,35 @@ namespace Riskeer.Common.Forms.Views
                                               || exception is ProbabilityParsingException)
             {
                 SetErrorMessage(exception.Message);
-                failurePathAssemblyProbabilityTextBox.Focus();
+                failureMechanismAssemblyProbabilityTextBox.Focus();
             }
         }
 
         private void SetTextBoxValue(double probability)
         {
-            failurePathAssemblyProbabilityTextBox.Text = ProbabilityFormattingHelper.FormatWithDiscreteNumbers(probability);
-            if (IsManualAssembly() && double.IsNaN(probability))
-            {
-                SetErrorMessage(Resources.FailureProbability_must_not_be_NaN);
-            }
-        }
+            failureMechanismAssemblyProbabilityTextBox.Text = ProbabilityFormattingHelper.FormatWithDiscreteNumbers(probability);
 
-        private bool IsManualAssembly()
-        {
-            return FailureMechanism.AssemblyResult.ProbabilityResultType == FailurePathAssemblyProbabilityResultType.Manual;
+            FailureMechanismAssemblyResult assemblyResult = FailureMechanism.AssemblyResult;
+            bool hasManualProbability = assemblyResult.IsManualProbability();
+            if (hasManualProbability && !HasSections())
+            {
+                SetErrorMessage(Resources.FailureMechanismResultView_To_Enter_An_AssemblyProbability_Failure_Mechanism_Sections_Must_Be_Imported);
+            }
+            else if (hasManualProbability)
+            {
+                SetErrorMessage(FailureMechanismAssemblyResultValidationHelper.GetValidationError(assemblyResult));
+            }
         }
 
         private void SetErrorMessage(string errorMessage)
         {
-            errorProvider.SetIconPadding(failurePathAssemblyProbabilityTextBox, 5);
-            errorProvider.SetError(failurePathAssemblyProbabilityTextBox, errorMessage);
+            errorProvider.SetIconPadding(failureMechanismAssemblyProbabilityTextBox, 5);
+            errorProvider.SetError(failureMechanismAssemblyProbabilityTextBox, errorMessage);
         }
 
         private void ClearErrorMessage()
         {
-            errorProvider.SetError(failurePathAssemblyProbabilityTextBox, string.Empty);
+            errorProvider.SetError(failureMechanismAssemblyProbabilityTextBox, string.Empty);
         }
     }
 }

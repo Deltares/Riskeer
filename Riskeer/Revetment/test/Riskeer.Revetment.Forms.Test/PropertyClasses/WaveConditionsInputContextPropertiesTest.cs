@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -27,7 +27,7 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
-using Core.Common.Util;
+using Core.Common.Util.Enums;
 using Core.Gui.Converters;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
@@ -267,7 +267,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             PropertyDescriptor selectedTargetProbabilityProperty = dynamicProperties[selectedTargetProbabilityPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(selectedTargetProbabilityProperty,
                                                                             hydraulicParametersCategory,
-                                                                            "Doelkans (1/jaar)",
+                                                                            "Doelkans [1/jaar]",
                                                                             "Overschrijdingskans waarvoor de berekening moet worden uitgevoerd.");
 
             PropertyDescriptor assessmentLevelProperty = dynamicProperties[assessmentLevelPropertyIndex];
@@ -415,8 +415,8 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
 
         [Test]
         [TestCase(WaveConditionsInputWaterLevelType.None)]
-        [TestCase(WaveConditionsInputWaterLevelType.LowerLimit)]
-        [TestCase(WaveConditionsInputWaterLevelType.Signaling)]
+        [TestCase(WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability)]
+        [TestCase(WaveConditionsInputWaterLevelType.SignalFloodingProbability)]
         public void SelectedTargetProbability_WaterLevelTypeNotUserDefinedTargetProbability_InputChangedAndObservablesNotified(WaveConditionsInputWaterLevelType waterLevelType)
         {
             // Setup
@@ -971,10 +971,10 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
                 new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.First().HydraulicBoundaryLocationCalculations,
                                                 WaveConditionsInputWaterLevelType.UserDefinedTargetProbability,
                                                 assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.First().TargetProbability),
-                new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForLowerLimitNorm, WaveConditionsInputWaterLevelType.LowerLimit,
-                                                assessmentSection.FailureMechanismContribution.LowerLimitNorm),
-                new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForSignalingNorm, WaveConditionsInputWaterLevelType.Signaling,
-                                                assessmentSection.FailureMechanismContribution.SignalingNorm),
+                new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability, WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability,
+                                                assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability),
+                new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForSignalFloodingProbability, WaveConditionsInputWaterLevelType.SignalFloodingProbability,
+                                                assessmentSection.FailureMechanismContribution.SignalFloodingProbability),
                 new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Last().HydraulicBoundaryLocationCalculations,
                                                 WaveConditionsInputWaterLevelType.UserDefinedTargetProbability,
                                                 assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Last().TargetProbability)
@@ -1024,17 +1024,17 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
         private static IEnumerable<TestCaseData> GetSelectableTargetProbabilities()
         {
             yield return new TestCaseData(
-                WaveConditionsInputWaterLevelType.Signaling,
+                WaveConditionsInputWaterLevelType.SignalFloodingProbability,
                 new Func<IAssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
-                    section => section.WaterLevelCalculationsForSignalingNorm),
+                    section => section.WaterLevelCalculationsForSignalFloodingProbability),
                 new Func<IAssessmentSection, double>(
-                    section => section.FailureMechanismContribution.SignalingNorm));
+                    section => section.FailureMechanismContribution.SignalFloodingProbability));
             yield return new TestCaseData(
-                WaveConditionsInputWaterLevelType.LowerLimit,
+                WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability,
                 new Func<IAssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
-                    section => section.WaterLevelCalculationsForLowerLimitNorm),
+                    section => section.WaterLevelCalculationsForMaximumAllowableFloodingProbability),
                 new Func<IAssessmentSection, double>(
-                    section => section.FailureMechanismContribution.LowerLimitNorm));
+                    section => section.FailureMechanismContribution.MaximumAllowableFloodingProbability));
             yield return new TestCaseData(
                 WaveConditionsInputWaterLevelType.UserDefinedTargetProbability,
                 new Func<IAssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(

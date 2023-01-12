@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -43,8 +43,8 @@ namespace Riskeer.Common.IO.ReferenceLines
     public static class ReferenceLinesMetaReader
     {
         private const string assessmentsectionIdAttributeKey = "TRAJECT_ID";
-        private const string signalingValueAttributeKey = "NORM_SW";
-        private const string lowerLimitValueAttributeKey = "NORM_OG";
+        private const string signalFloodingProbabilityValueAttributeKey = "NORM_SW";
+        private const string maximumAllowableFloodingProbabilityValueAttributeKey = "NORM_OG";
 
         /// <summary>
         /// Reads the current features in the shape file into a collection of <see cref="ReferenceLineMeta"/> objects.
@@ -134,14 +134,14 @@ namespace Riskeer.Common.IO.ReferenceLines
                 yield return assessmentsectionIdAttributeKey;
             }
 
-            if (!polylineShapeFileReader.HasAttribute(signalingValueAttributeKey))
+            if (!polylineShapeFileReader.HasAttribute(signalFloodingProbabilityValueAttributeKey))
             {
-                yield return signalingValueAttributeKey;
+                yield return signalFloodingProbabilityValueAttributeKey;
             }
 
-            if (!polylineShapeFileReader.HasAttribute(lowerLimitValueAttributeKey))
+            if (!polylineShapeFileReader.HasAttribute(maximumAllowableFloodingProbabilityValueAttributeKey))
             {
-                yield return lowerLimitValueAttributeKey;
+                yield return maximumAllowableFloodingProbabilityValueAttributeKey;
             }
         }
 
@@ -177,22 +177,22 @@ namespace Riskeer.Common.IO.ReferenceLines
             MapFeature feature = lineData.Features.First();
 
             string assessmentSectionId = GetAssessmentSectionId(feature);
-            int? signalingValue = ParseNormValue(feature.MetaData[signalingValueAttributeKey]);
-            int? lowerLimitValue = ParseNormValue(feature.MetaData[lowerLimitValueAttributeKey]);
+            int? signalFloodingProbability = ParseNormValue(feature.MetaData[signalFloodingProbabilityValueAttributeKey]);
+            int? maximumAllowableFloodingProbability = ParseNormValue(feature.MetaData[maximumAllowableFloodingProbabilityValueAttributeKey]);
             IEnumerable<Point2D> geometryPoints = GetSectionGeometry(feature);
 
             var referenceLineMeta = new ReferenceLineMeta
             {
                 AssessmentSectionId = assessmentSectionId
             };
-            if (lowerLimitValue != null)
+            if (maximumAllowableFloodingProbability != null)
             {
-                referenceLineMeta.LowerLimitValue = lowerLimitValue.Value;
+                referenceLineMeta.MaximumAllowableFloodingProbability = maximumAllowableFloodingProbability.Value;
             }
 
-            if (signalingValue != null)
+            if (signalFloodingProbability != null)
             {
-                referenceLineMeta.SignalingValue = signalingValue.Value;
+                referenceLineMeta.SignalFloodingProbability = signalFloodingProbability.Value;
             }
 
             referenceLineMeta.ReferenceLine.SetGeometry(geometryPoints);

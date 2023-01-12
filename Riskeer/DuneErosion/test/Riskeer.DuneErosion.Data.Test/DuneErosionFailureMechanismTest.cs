@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -21,10 +21,8 @@
 
 using System;
 using System.Linq;
-using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.TestUtil;
 using Riskeer.DuneErosion.Data.TestUtil;
 
 namespace Riskeer.DuneErosion.Data.Test
@@ -33,14 +31,13 @@ namespace Riskeer.DuneErosion.Data.Test
     public class DuneErosionFailureMechanismTest
     {
         [Test]
-        public void DefaultConstructor_Always_PropertiesSet()
+        public void Constructor_ExpectedValues()
         {
             // Call
             var failureMechanism = new DuneErosionFailureMechanism();
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
-            Assert.IsInstanceOf<IHasSectionResults<DuneErosionFailureMechanismSectionResultOld, NonAdoptableFailureMechanismSectionResult>>(failureMechanism);
+            Assert.IsInstanceOf<FailureMechanismBase<NonAdoptableFailureMechanismSectionResult>>(failureMechanism);
             Assert.AreEqual("Duinafslag", failureMechanism.Name);
             Assert.AreEqual("DA", failureMechanism.Code);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
@@ -48,60 +45,9 @@ namespace Riskeer.DuneErosion.Data.Test
             CollectionAssert.IsEmpty(failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities);
             Assert.IsNotNull(failureMechanism.GeneralInput);
 
-            CollectionAssert.IsEmpty(failureMechanism.SectionResultsOld);
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
-        }
 
-        [Test]
-        public void SetSections_WithSection_SetsSectionResults()
-        {
-            // Setup
-            var failureMechanism = new DuneErosionFailureMechanism();
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-
-            // Call
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                section
-            });
-
-            // Assert
-            Assert.AreEqual(1, failureMechanism.Sections.Count());
-            Assert.AreEqual(1, failureMechanism.SectionResultsOld.Count());
-            Assert.AreSame(section, failureMechanism.SectionResultsOld.First().Section);
-
-            Assert.AreEqual(1, failureMechanism.SectionResults.Count());
-            Assert.AreSame(section, failureMechanism.SectionResults.First().Section);
-        }
-
-        [Test]
-        public void ClearAllSections_WithSectionResults_SectionResultsCleared()
-        {
-            // Setup
-            var failureMechanism = new DuneErosionFailureMechanism();
-
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
-                {
-                    new Point2D(2, 1)
-                }),
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
-                {
-                    new Point2D(2, 1)
-                })
-            });
-
-            // Precondition
-            Assert.AreEqual(2, failureMechanism.SectionResultsOld.Count());
-            Assert.AreEqual(2, failureMechanism.SectionResults.Count());
-
-            // Call
-            failureMechanism.ClearAllSections();
-
-            // Assert
-            CollectionAssert.IsEmpty(failureMechanism.SectionResultsOld);
-            CollectionAssert.IsEmpty(failureMechanism.SectionResults);
+            Assert.IsNotNull(failureMechanism.CalculationsInputComments);
         }
 
         [Test]

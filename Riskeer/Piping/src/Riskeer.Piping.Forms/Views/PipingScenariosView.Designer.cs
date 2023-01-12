@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -90,7 +90,7 @@ namespace Riskeer.Piping.Forms.Views
             this.selectScenarioConfigurationTypeLabel.TabIndex = 2;
             this.selectScenarioConfigurationTypeLabel.Text = global::Riskeer.Piping.Forms.Properties.Resources.PipingScenariosView_ScenarioConfigurationType_DisplayName;
             this.selectScenarioConfigurationTypeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.selectScenarioConfigurationTypeLabel.Margin = new System.Windows.Forms.Padding(3);
+            this.selectScenarioConfigurationTypeLabel.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             // 
             // selectConfigurationTypeComboBox
             // 
@@ -160,7 +160,7 @@ namespace Riskeer.Piping.Forms.Views
             this.label.Name = "label";
             this.label.Size = new System.Drawing.Size(26, 13);
             this.label.TabIndex = 0;
-            this.label.Text = "Vak";
+            this.label.Text = global::Riskeer.Common.Forms.Properties.Resources.Section_DisplayName;
             // 
             // listBox
             // 
@@ -197,6 +197,7 @@ namespace Riskeer.Piping.Forms.Views
             this.radioButtonsPanel.Name = "radioButtonsPanel";
             this.radioButtonsPanel.Size = new System.Drawing.Size(200, 30);
             this.radioButtonsPanel.TabIndex = 0;
+            this.radioButtonsPanel.Margin = new System.Windows.Forms.Padding(3, 19, 0, 0);
             // 
             // radioButtonProbabilistic
             // 
@@ -231,7 +232,7 @@ namespace Riskeer.Piping.Forms.Views
             this.labelCalculations.Name = "labelCalculations";
             this.labelCalculations.Size = new System.Drawing.Size(182, 13);
             this.labelCalculations.TabIndex = 0;
-            this.labelCalculations.Text = global::Riskeer.Piping.Forms.Properties.Resources.Calculations_per_FailureMechanismSection_And_ScenarioConfigurationType_DisplayName;
+            this.labelCalculations.Text = global::Riskeer.Piping.Forms.Properties.Resources.Calculations_for_current_Selection_DisplayName;
             // 
             // dataGridViewControl
             // 

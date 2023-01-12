@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -36,7 +36,7 @@ namespace Riskeer.Common.Forms.PresentationObjects
     public class StructuresCalculationScenarioContext<TInput, TFailureMechanism> : FailureMechanismItemContextBase<StructuresCalculationScenario<TInput>, TFailureMechanism>,
                                                                                    ICalculationContext<StructuresCalculationScenario<TInput>, TFailureMechanism>
         where TInput : IStructuresCalculationInput, new()
-        where TFailureMechanism : IFailureMechanism
+        where TFailureMechanism : ICalculatableFailureMechanism
     {
         /// <summary>
         /// Creates a new instance of <see cref="StructuresCalculationScenarioContext{TInput, TFailureMechanism}"/>.

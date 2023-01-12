@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -78,8 +78,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             {
                 if (derivedOutput != null)
                 {
-                    return derivedOutput.MacroStabilityInwardsProbability * failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(
-                               failureMechanismSection.Length);
+                    return Math.Min(1.0, derivedOutput.MacroStabilityInwardsProbability * failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(
+                                             failureMechanismSection.Length));
                 }
 
                 return double.NaN;

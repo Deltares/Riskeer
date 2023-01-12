@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -710,7 +710,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Factories
             var outerRing = new Ring(new[]
             {
                 new Point2D(0.0, 10.0),
-                new Point2D(10.0, 10.0),    
+                new Point2D(10.0, 10.0),
                 new Point2D(10.0, 0.0),
                 new Point2D(0.0, 0.0)
             });
@@ -772,7 +772,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Factories
         public void CreateWaternetZonePoints_SurfaceLineNull_ReturnsEmptyPointsCollection()
         {
             // Setup
-            var waternetLine = new TestMacroStabilityInwardsWaternetLine();
+            MacroStabilityInwardsWaternetLine waternetLine = MacroStabilityInwardsTestDataFactory.CreateMacroStabilityInwardsWaternetLine();
 
             // Call
             IEnumerable<IEnumerable<Point2D>> zone = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(waternetLine, null);

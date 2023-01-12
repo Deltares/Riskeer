@@ -124,7 +124,7 @@
     <value>soil</value>
   </data>
   <data name="MacroStabilityInwardsPlugin_VerifyStochasticSoilModelImport_When_importing_StochasticSoilModels_calculation_output_will_be_cleared_confirm" xml:space="preserve">
-    <value>Als u stochastische ondergrondmodellen importeert, dan worden alle rekenresultaten van dit toetsspoor verwijderd.
+    <value>Als u stochastische ondergrondmodellen importeert, dan worden alle rekenresultaten van dit faalmechanisme verwijderd.
 
 Weet u zeker dat u wilt doorgaan?</value>
   </data>
@@ -134,7 +134,7 @@ Weet u zeker dat u wilt doorgaan?</value>
 Weet u zeker dat u wilt doorgaan?</value>
   </data>
   <data name="MacroStabilityInwardsPlugin_VerifySurfaceLineImports_When_importing_surface_lines_calculation_output_will_be_cleared_confirm" xml:space="preserve">
-    <value>Als u profielschematisaties importeert, dan worden alle rekenresultaten van dit toetsspoor verwijderd.
+    <value>Als u profielschematisaties importeert, dan worden alle rekenresultaten van dit faalmechanisme verwijderd.
 
 Weet u zeker dat u wilt doorgaan?</value>
   </data>

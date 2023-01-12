@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -35,10 +35,10 @@ namespace Riskeer.MacroStabilityInwards.Primitives.Test
         public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsWaternetLine(null, new List<Point2D>(), new TestMacroStabilityInwardsPhreaticLine());
+            void Call() => new MacroStabilityInwardsWaternetLine(null, new List<Point2D>(), MacroStabilityInwardsTestDataFactory.CreateMacroStabilityInwardsPhreaticLine());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("name", exception.ParamName);
         }
 
@@ -46,10 +46,10 @@ namespace Riskeer.MacroStabilityInwards.Primitives.Test
         public void Constructor_GeometryNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsWaternetLine("name", null, new TestMacroStabilityInwardsPhreaticLine());
+            void Call() => new MacroStabilityInwardsWaternetLine("name", null, MacroStabilityInwardsTestDataFactory.CreateMacroStabilityInwardsPhreaticLine());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("geometry", exception.ParamName);
         }
 
@@ -57,10 +57,10 @@ namespace Riskeer.MacroStabilityInwards.Primitives.Test
         public void Constructor_PhreaticLineNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsWaternetLine("name", new List<Point2D>(), null);
+            void Call() => new MacroStabilityInwardsWaternetLine("name", new List<Point2D>(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("phreaticLine", exception.ParamName);
         }
 
@@ -92,24 +92,12 @@ namespace Riskeer.MacroStabilityInwards.Primitives.Test
             CollectionAssert.IsEmpty(waternetLine.PhreaticLine.Geometry);
         }
 
-        private class DerivedMacroStabilityInwardsWaternetLine : MacroStabilityInwardsWaternetLine
-        {
-            public DerivedMacroStabilityInwardsWaternetLine(MacroStabilityInwardsWaternetLine waternetLine)
-                : base(waternetLine.Name, waternetLine.Geometry, waternetLine.PhreaticLine) {}
-        }
-
         [TestFixture]
-        private class MacroStabilityInwardsWaternetLineEqualsTest
-            : EqualsTestFixture<MacroStabilityInwardsWaternetLine, DerivedMacroStabilityInwardsWaternetLine>
+        private class MacroStabilityInwardsWaternetLineEqualsTest : EqualsTestFixture<MacroStabilityInwardsWaternetLine>
         {
             protected override MacroStabilityInwardsWaternetLine CreateObject()
             {
                 return CreateWaternetLine();
-            }
-
-            protected override DerivedMacroStabilityInwardsWaternetLine CreateDerivedObject()
-            {
-                return new DerivedMacroStabilityInwardsWaternetLine(CreateWaternetLine());
             }
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
@@ -118,7 +106,7 @@ namespace Riskeer.MacroStabilityInwards.Primitives.Test
                     {
                         new Point2D(0, 0),
                         new Point2D(1, 1)
-                    }, new TestMacroStabilityInwardsPhreaticLine()))
+                    }, MacroStabilityInwardsTestDataFactory.CreateMacroStabilityInwardsPhreaticLine()))
                     .SetName("Other name");
 
                 yield return new TestCaseData(new MacroStabilityInwardsWaternetLine("Test", new[]
@@ -126,14 +114,14 @@ namespace Riskeer.MacroStabilityInwards.Primitives.Test
                         new Point2D(0, 0),
                         new Point2D(1, 1),
                         new Point2D(1, 1)
-                    }, new TestMacroStabilityInwardsPhreaticLine()))
+                    }, MacroStabilityInwardsTestDataFactory.CreateMacroStabilityInwardsPhreaticLine()))
                     .SetName("Geometry Count");
 
                 yield return new TestCaseData(new MacroStabilityInwardsWaternetLine("Test", new[]
                     {
                         new Point2D(0, 0),
                         new Point2D(2, 2)
-                    }, new TestMacroStabilityInwardsPhreaticLine()))
+                    }, MacroStabilityInwardsTestDataFactory.CreateMacroStabilityInwardsPhreaticLine()))
                     .SetName("Geometry content");
 
                 yield return new TestCaseData(new MacroStabilityInwardsWaternetLine("Test", new[]
@@ -158,7 +146,7 @@ namespace Riskeer.MacroStabilityInwards.Primitives.Test
                         new Point2D(0, 0),
                         new Point2D(1, 1)
                     },
-                    new TestMacroStabilityInwardsPhreaticLine());
+                    MacroStabilityInwardsTestDataFactory.CreateMacroStabilityInwardsPhreaticLine());
             }
         }
     }

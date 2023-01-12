@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -46,11 +46,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         public bool ThrowExceptionOnCalculate { private get; set; }
 
         /// <summary>
-        /// Gets or sets the <see cref="FailureMechanismSectionAssemblyResult"/> of the calculation.
+        /// Gets or sets the <see cref="FailureMechanismSectionAssemblyResultWrapper"/> of the calculation.
         /// </summary>
-        public FailureMechanismSectionAssemblyResult FailureMechanismSectionAssemblyResultOutput { get; set; }
+        public FailureMechanismSectionAssemblyResultWrapper FailureMechanismSectionAssemblyResultOutput { get; set; }
 
-        public FailureMechanismSectionAssemblyResult AssembleFailureMechanismSection(FailureMechanismSectionAssemblyInput input)
+        public FailureMechanismSectionAssemblyResultWrapper AssembleFailureMechanismSection(FailureMechanismSectionAssemblyInput input)
         {
             if (ThrowExceptionOnCalculate)
             {
@@ -61,10 +61,12 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
 
             return FailureMechanismSectionAssemblyResultOutput ??
                    (FailureMechanismSectionAssemblyResultOutput =
-                        new FailureMechanismSectionAssemblyResult(0.01, 0.1, 10, FailureMechanismSectionAssemblyGroup.I));
+                        new FailureMechanismSectionAssemblyResultWrapper(
+                            new FailureMechanismSectionAssemblyResult(0.01, 0.1, 10, FailureMechanismSectionAssemblyGroup.I),
+                            AssemblyMethod.BOI0A1, AssemblyMethod.BOI0B1));
         }
 
-        public FailureMechanismSectionAssemblyResult AssembleFailureMechanismSection(FailureMechanismSectionWithProfileProbabilityAssemblyInput input)
+        public FailureMechanismSectionAssemblyResultWrapper AssembleFailureMechanismSection(FailureMechanismSectionWithProfileProbabilityAssemblyInput input)
         {
             if (ThrowExceptionOnCalculate)
             {
@@ -75,7 +77,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
 
             return FailureMechanismSectionAssemblyResultOutput ??
                    (FailureMechanismSectionAssemblyResultOutput =
-                        new FailureMechanismSectionAssemblyResult(0.01, 0.1, 10, FailureMechanismSectionAssemblyGroup.I));
+                        new FailureMechanismSectionAssemblyResultWrapper(
+                            new FailureMechanismSectionAssemblyResult(0.01, 0.1, 10, FailureMechanismSectionAssemblyGroup.I),
+                            AssemblyMethod.BOI0A1, AssemblyMethod.BOI0B1));
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -82,10 +82,10 @@ namespace Riskeer.Common.Forms.Views
         protected T SectionResult { get; }
 
         /// <summary>
-        /// Gets the assembly result of the failure mechanism section.
+        /// Gets or sets the assembly result of the failure mechanism section.
         /// </summary>
-        public FailureMechanismSectionAssemblyResult AssemblyResult { get; protected set; }
-        
+        protected FailureMechanismSectionAssemblyResult AssemblyResult { get; set; }
+
         /// <summary>
         /// Updates all data and notifies the wrapped section result.
         /// </summary>

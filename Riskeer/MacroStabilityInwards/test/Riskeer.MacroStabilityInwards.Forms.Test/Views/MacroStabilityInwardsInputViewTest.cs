@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -106,7 +106,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             mocks.VerifyAll();
         }
-        
+
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
@@ -500,9 +500,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetDailyCalculator;
                 calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
                 using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 new GeneralMacroStabilityInwardsInput(),
-                                                                 assessmentSection,
-                                                                 GetHydraulicBoundaryLocationCalculation))
+                                                                     new GeneralMacroStabilityInwardsInput(),
+                                                                     assessmentSection,
+                                                                     GetHydraulicBoundaryLocationCalculation))
                 {
                     List<ChartData> chartDataList = view.Chart.Data.Collection.ToList();
                     var surfaceLineChartData = (ChartDataCollection) chartDataList[soilProfileIndex];
@@ -792,9 +792,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetDailyCalculator;
                 calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
                 using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 new GeneralMacroStabilityInwardsInput(),
-                                                                 assessmentSection,
-                                                                 GetHydraulicBoundaryLocationCalculation))
+                                                                     new GeneralMacroStabilityInwardsInput(),
+                                                                     assessmentSection,
+                                                                     GetHydraulicBoundaryLocationCalculation))
                 {
                     MacroStabilityInwardsSoilLayerDataTable soilLayerDataTable = GetSoilLayerTable(view);
 
@@ -841,9 +841,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetDailyCalculator;
                 calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
                 using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 new GeneralMacroStabilityInwardsInput(),
-                                                                 assessmentSection,
-                                                                 GetHydraulicBoundaryLocationCalculation))
+                                                                     new GeneralMacroStabilityInwardsInput(),
+                                                                     assessmentSection,
+                                                                     GetHydraulicBoundaryLocationCalculation))
                 {
                     // Precondition
                     ChartDataCollection chartData = view.Chart.Data;
@@ -903,9 +903,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetDailyCalculator;
                 calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
                 using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 new GeneralMacroStabilityInwardsInput(),
-                                                                 assessmentSection,
-                                                                 GetHydraulicBoundaryLocationCalculation))
+                                                                     new GeneralMacroStabilityInwardsInput(),
+                                                                     assessmentSection,
+                                                                     GetHydraulicBoundaryLocationCalculation))
                 {
                     // Precondition
                     ChartDataCollection chartData = view.Chart.Data;
@@ -964,9 +964,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetDailyCalculator;
                 calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
                 using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 new GeneralMacroStabilityInwardsInput(),
-                                                                 assessmentSection,
-                                                                 GetHydraulicBoundaryLocationCalculation))
+                                                                     new GeneralMacroStabilityInwardsInput(),
+                                                                     assessmentSection,
+                                                                     GetHydraulicBoundaryLocationCalculation))
                 {
                     ChartDataCollection chartData = view.Chart.Data;
 
@@ -1023,9 +1023,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 extremeCalculator.Output = WaternetCalculatorResultTestFactory.Create();
 
                 using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 new GeneralMacroStabilityInwardsInput(),
-                                                                 assessmentSection,
-                                                                 GetHydraulicBoundaryLocationCalculation))
+                                                                     new GeneralMacroStabilityInwardsInput(),
+                                                                     assessmentSection,
+                                                                     GetHydraulicBoundaryLocationCalculation))
                 {
                     // Precondition
                     ChartData[] chartData = view.Chart.Data.Collection.ToArray();
@@ -1075,9 +1075,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 calculatorFactory.LastCreatedWaternetExtremeCalculator.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
 
                 using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 new GeneralMacroStabilityInwardsInput(),
-                                                                 assessmentSection,
-                                                                 GetHydraulicBoundaryLocationCalculation))
+                                                                     new GeneralMacroStabilityInwardsInput(),
+                                                                     assessmentSection,
+                                                                     GetHydraulicBoundaryLocationCalculation))
                 {
                     // Precondition
                     MacroStabilityInwardsInputViewChartDataAssert.AssertEmptyWaternetChartData(view.Chart.Data);
@@ -1128,7 +1128,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 calculatorFactory.LastCreatedWaternetDailyCalculator.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
                 calculatorFactory.LastCreatedWaternetExtremeCalculator.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
 
-                using (var view = new MacroStabilityInwardsInputView(calculation, 
+                using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                      new GeneralMacroStabilityInwardsInput(),
                                                                      assessmentSection,
                                                                      () => hydraulicBoundaryLocationCalculation))
@@ -1145,7 +1145,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                         ChartData[] chartData = view.Chart.Data.Collection.ToArray();
                         MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetDaily(calculation.InputParameters, new GeneralMacroStabilityInwardsInput()),
                                                                                               (ChartDataCollection) chartData[waternetZonesDailyIndex]);
-                        MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetExtreme(calculation.InputParameters, new GeneralMacroStabilityInwardsInput(),RoundedDouble.NaN),
+                        MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetExtreme(calculation.InputParameters, new GeneralMacroStabilityInwardsInput(), RoundedDouble.NaN),
                                                                                               (ChartDataCollection) chartData[waternetZonesExtremeIndex]);
                     }
                 }

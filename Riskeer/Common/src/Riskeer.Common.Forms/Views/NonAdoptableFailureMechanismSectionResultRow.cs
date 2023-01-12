@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -22,6 +22,7 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Controls.DataGrid;
+using Core.Common.Util.Enums;
 using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
@@ -173,7 +174,7 @@ namespace Riskeer.Common.Forms.Views
         /// <summary>
         /// Gets the assembly group.
         /// </summary>
-        public string AssemblyGroup => FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(AssemblyResult.AssemblyGroup);
+        public string AssemblyGroup => EnumDisplayNameHelper.GetDisplayName(AssemblyResult.FailureMechanismSectionAssemblyGroup);
 
         public override void Update()
         {
@@ -220,7 +221,7 @@ namespace Riskeer.Common.Forms.Views
         {
             try
             {
-                AssemblyResult = FailureMechanismSectionAssemblyResultFactory.AssembleSection(SectionResult, assessmentSection);
+                AssemblyResult = FailureMechanismSectionAssemblyResultFactory.AssembleSection(SectionResult, assessmentSection).AssemblyResult;
             }
             catch (AssemblyException e)
             {
@@ -264,7 +265,7 @@ namespace Riskeer.Common.Forms.Views
                 ColumnStateHelper.EnableColumn(ColumnStateDefinitions[refinedSectionProbabilityIndex]);
             }
 
-            FailureMechanismSectionResultRowHelper.SetAssemblyGroupStyle(ColumnStateDefinitions[assemblyGroupIndex], AssemblyResult.AssemblyGroup);
+            FailureMechanismSectionResultRowHelper.SetAssemblyGroupStyle(ColumnStateDefinitions[assemblyGroupIndex], AssemblyResult.FailureMechanismSectionAssemblyGroup);
         }
 
         public class ConstructionProperties

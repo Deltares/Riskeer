@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections;
 using System.Collections.Generic;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -72,19 +71,11 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         }
 
         [TestFixture]
-        private class CategoryTreeFolderEqualsTest : EqualsTestFixture<CategoryTreeFolder, TestCategoryTreeFolder>
+        private class CategoryTreeFolderEqualsTest : EqualsTestFixture<CategoryTreeFolder>
         {
             protected override CategoryTreeFolder CreateObject()
             {
                 return CreateConfiguredCategoryTreeFolder();
-            }
-
-            protected override TestCategoryTreeFolder CreateDerivedObject()
-            {
-                CategoryTreeFolder baseFolder = CreateConfiguredCategoryTreeFolder();
-                return new TestCategoryTreeFolder(baseFolder.Name,
-                                                  baseFolder.Contents,
-                                                  baseFolder.Category);
             }
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
@@ -112,11 +103,6 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
                     2
                 });
             }
-        }
-
-        private class TestCategoryTreeFolder : CategoryTreeFolder
-        {
-            public TestCategoryTreeFolder(string name, IEnumerable contents, TreeFolderCategory category = TreeFolderCategory.General) : base(name, contents, category) {}
         }
     }
 }

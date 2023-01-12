@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -29,14 +29,14 @@ namespace Core.Components.Gis.TestUtil
     public static class WmtsMapDataTestHelper
     {
         /// <summary>
-        /// Creates a new instance of <see cref="WmtsMapData"/> configured to the 'brtachtergrondkaart'
+        /// Creates a new instance of <see cref="WmtsMapData"/> configured to the 'opentopoachtergrondkaart'
         /// of PDOK in RD-new coordinate system.
         /// </summary>
         public static WmtsMapData CreateDefaultPdokMapData()
         {
-            return new WmtsMapData("PDOK achtergrondkaart",
-                                   "https://geodata.nationaalgeoregister.nl/wmts/top10nlv2?VERSION=1.0.0&request=GetCapabilities",
-                                   "brtachtergrondkaart(EPSG:28992)",
+            return new WmtsMapData("PDOK opentopoachtergrondkaart",
+                                   "https://geodata.nationaalgeoregister.nl/tiles/service/wmts/ahn2?request=GetCapabilities",
+                                   "opentopoachtergrondkaart(EPSG:28992)",
                                    "image/png");
         }
 

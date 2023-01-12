@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -27,6 +27,7 @@ using System.Linq;
 using System.Security.AccessControl;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
+using Core.Common.Util;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
@@ -113,7 +114,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
             }
             finally
             {
-                Directory.Delete(directoryPath, true);
+                DirectoryHelper.TryDelete(directoryPath);
             }
         }
 
@@ -142,7 +143,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
                     void Call() => isExported = exporter.Export();
 
                     // Assert
-                    string expectedFilePath = Path.Combine(directoryPath, "~temp", "Waterstanden bij norm", "Waterstanden_30000.shp");
+                    string expectedFilePath = Path.Combine(directoryPath, "~temp", "Waterstanden bij vaste doelkans", "Waterstanden_30000.shp");
                     string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{expectedFilePath}'. " +
                                              "Er zijn geen hydraulische belastingenlocaties geëxporteerd.";
                     TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage);
@@ -151,7 +152,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
             }
             finally
             {
-                Directory.Delete(directoryPath, true);
+                DirectoryHelper.TryDelete(directoryPath);
             }
         }
 
@@ -190,7 +191,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
             }
             finally
             {
-                Directory.Delete(directoryPath, true);
+                DirectoryHelper.TryDelete(directoryPath);
             }
         }
 
@@ -203,12 +204,12 @@ namespace Riskeer.Integration.IO.Test.Exporters
             });
             yield return new TestCaseData(assessmentSectionWithTargetProbabilities, new[]
             {
-                "Waterstanden bij norm/Waterstanden_30000.shp",
-                "Waterstanden bij norm/Waterstanden_30000 (1).shp",
-                "Waterstanden bij doelkans/Waterstanden_10000.shp",
-                "Waterstanden bij doelkans/Waterstanden_100000.shp",
-                "Golfhoogten bij doelkans/Golfhoogten_4000.shp",
-                "Golfhoogten bij doelkans/Golfhoogten_40000.shp"
+                "Waterstanden bij vaste doelkans/Waterstanden_30000.shp",
+                "Waterstanden bij vaste doelkans/Waterstanden_30000 (1).shp",
+                "Waterstanden bij vrije doelkans/Waterstanden_10000.shp",
+                "Waterstanden bij vrije doelkans/Waterstanden_100000.shp",
+                "Golfhoogten bij vrije doelkans/Golfhoogten_4000.shp",
+                "Golfhoogten bij vrije doelkans/Golfhoogten_40000.shp"
             }).SetName("With UserDefinedTargetProbabilities");
 
             var assessmentSectionWithoutTargetProbabilities = new AssessmentSectionStub();
@@ -220,8 +221,8 @@ namespace Riskeer.Integration.IO.Test.Exporters
             assessmentSectionWithoutTargetProbabilities.WaveHeightCalculationsForUserDefinedTargetProbabilities.Clear();
             yield return new TestCaseData(assessmentSectionWithoutTargetProbabilities, new[]
             {
-                "Waterstanden bij norm/Waterstanden_30000.shp",
-                "Waterstanden bij norm/Waterstanden_30000 (1).shp"
+                "Waterstanden bij vaste doelkans/Waterstanden_30000.shp",
+                "Waterstanden bij vaste doelkans/Waterstanden_30000 (1).shp"
             }).SetName("Without UserDefinedTargetProbabilities");
         }
     }

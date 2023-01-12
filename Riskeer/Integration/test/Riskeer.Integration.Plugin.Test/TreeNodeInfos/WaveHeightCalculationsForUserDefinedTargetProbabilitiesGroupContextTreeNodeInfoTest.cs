@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -33,6 +33,7 @@ using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
 using Core.Gui.Forms.Main;
+using Core.Gui.Forms.ViewHost;
 using Core.Gui.TestUtil;
 using Core.Gui.TestUtil.ContextMenu;
 using NUnit.Extensions.Forms;
@@ -105,7 +106,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 string text = info.Text(null);
 
                 // Assert
-                Assert.AreEqual("Golfhoogten bij doelkans", text);
+                Assert.AreEqual("Golfhoogten bij vrije doelkans", text);
             }
         }
 
@@ -314,6 +315,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 gui.Stub(g => g.ProjectStore).Return(mockRepository.Stub<IStoreProject>());
+                gui.Stub(g => g.DocumentViewController).Return(mockRepository.Stub<IDocumentViewController>());
 
                 mockRepository.ReplayAll();
 
@@ -595,6 +597,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 gui.Stub(g => g.ProjectStore).Return(mockRepository.Stub<IStoreProject>());
+                gui.Stub(g => g.DocumentViewController).Return(mockRepository.Stub<IDocumentViewController>());
 
                 var waveHeightCalculator = new TestWaveHeightCalculator
                 {
@@ -704,7 +707,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                         contextMenuAdapter.Items[contextMenuClearIllustrationPointsIndex].PerformClick();
 
                         // Then
-                        const string expectedMessage = "Weet u zeker dat u alle berekende illustratiepunten bij 'Golfhoogten bij doelkans' wilt wissen?";
+                        const string expectedMessage = "Weet u zeker dat u alle berekende illustratiepunten bij 'Golfhoogten bij vrije doelkans' wilt wissen?";
                         Assert.AreEqual(expectedMessage, messageBoxText);
 
                         Assert.IsTrue(calculationsWithOutput.All(calc => calc.HasOutput));
@@ -767,7 +770,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                         contextMenuAdapter.Items[contextMenuClearIllustrationPointsIndex].PerformClick();
 
                         // Then
-                        const string expectedMessage = "Weet u zeker dat u alle berekende illustratiepunten bij 'Golfhoogten bij doelkans' wilt wissen?";
+                        const string expectedMessage = "Weet u zeker dat u alle berekende illustratiepunten bij 'Golfhoogten bij vrije doelkans' wilt wissen?";
                         Assert.AreEqual(expectedMessage, messageBoxText);
 
                         Assert.IsTrue(calculationsWithOutput.All(calc => calc.HasOutput));

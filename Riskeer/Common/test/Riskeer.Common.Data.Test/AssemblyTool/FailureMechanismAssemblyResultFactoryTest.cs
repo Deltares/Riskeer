@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
@@ -30,6 +31,7 @@ using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.Exceptions;
+using Riskeer.Common.Data.FailureMechanism;
 
 namespace Riskeer.Common.Data.Test.AssemblyTool
 {
@@ -40,7 +42,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         public void AssembleFailureMechanism_FailureMechanismSectionAssemblyResultsNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(0, null);
+            void Call() => FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(0, null, false, new FailureMechanismAssemblyResult());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -48,17 +50,29 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         }
 
         [Test]
-        public void AssembleFailureMechanism_WithInput_SetsInputOnCalculator()
+        public void AssembleFailureMechanism_FailureMechanismAssemblyResultNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(0, Array.Empty<FailureMechanismSectionAssemblyResult>(), false, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanismAssemblyResult", exception.ParamName);
+        }
+
+        [Test]
+        public void AssembleFailureMechanism_WithInputWithProbabilityResultTypeAutomatic_SetsInputOnCalculator()
         {
             // Setup
             var random = new Random(21);
             double n = random.NextDouble();
+            bool applyLengthEffect = random.NextBoolean();
             IEnumerable<FailureMechanismSectionAssemblyResult> sectionResults = Enumerable.Empty<FailureMechanismSectionAssemblyResult>();
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(n, sectionResults);
+                FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(n, sectionResults, applyLengthEffect, new FailureMechanismAssemblyResult());
 
                 // Assert
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
@@ -66,6 +80,38 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
 
                 Assert.AreEqual(n, calculator.FailureMechanismN);
                 Assert.AreSame(sectionResults, calculator.SectionAssemblyResultsInput);
+                Assert.AreEqual(applyLengthEffect, calculator.ApplyLengthEffect);
+            }
+        }
+
+        [Test]
+        public void AssembleFailureMechanism_WithInputWithProbabilityResultTypeManual_NoInputOnCalculatorAndReturnsOutput()
+        {
+            // Setup
+            var random = new Random(21);
+            var failureMechanismResult = new FailureMechanismAssemblyResult
+            {
+                ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Manual,
+                ManualFailureMechanismAssemblyProbability = random.NextDouble()
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                FailureMechanismAssemblyResultWrapper assemblyResult = FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(
+                    random.NextDouble(), Enumerable.Empty<FailureMechanismSectionAssemblyResult>(),
+                    random.NextBoolean(), failureMechanismResult);
+
+                // Assert
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
+
+                Assert.AreEqual(0, calculator.FailureMechanismN);
+                Assert.IsNull(calculator.SectionAssemblyResultsInput);
+                Assert.IsFalse(calculator.ApplyLengthEffect);
+
+                Assert.AreEqual(failureMechanismResult.ManualFailureMechanismAssemblyProbability, assemblyResult.AssemblyResult);
+                Assert.AreEqual(AssemblyMethod.Manual, assemblyResult.AssemblyMethod);
             }
         }
 
@@ -73,21 +119,17 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         public void AssembleFailureMechanism_CalculatorRan_ReturnsOutput()
         {
             // Setup
-            var random = new Random(21);
-            double expectedAssemblyResult = random.NextDouble();
-
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                calculator.AssemblyResult = expectedAssemblyResult;
 
                 // Call
-                double assemblyResult = FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(
-                    0, Enumerable.Empty<FailureMechanismSectionAssemblyResult>());
+                FailureMechanismAssemblyResultWrapper assemblyResult = FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(
+                    0, Enumerable.Empty<FailureMechanismSectionAssemblyResult>(), false, new FailureMechanismAssemblyResult());
 
                 // Assert
-                Assert.AreEqual(expectedAssemblyResult, assemblyResult);
+                Assert.AreSame(calculator.AssemblyResultOutput, assemblyResult);
             }
         }
 
@@ -103,7 +145,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
 
                 // Call
                 void Call() => FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(
-                    0, Enumerable.Empty<FailureMechanismSectionAssemblyResult>());
+                    0, Enumerable.Empty<FailureMechanismSectionAssemblyResult>(), false, new FailureMechanismAssemblyResult());
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(Call);

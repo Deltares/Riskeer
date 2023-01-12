@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -172,7 +172,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
             return new StabilityStoneCoverWaveConditionsCalculation();
         }
 
-        protected override ICalculationContext<ICalculation, IFailureMechanism> GetCalculationContextWithCalculation()
+        protected override ICalculationContext<ICalculation, ICalculatableFailureMechanism> GetCalculationContextWithCalculation()
         {
             return new StabilityStoneCoverWaveConditionsCalculationContext(
                 new StabilityStoneCoverWaveConditionsCalculation(),
@@ -181,9 +181,9 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
                 new AssessmentSectionStub());
         }
 
-        protected override ICalculationContext<CalculationGroup, IFailureMechanism> GetCalculationGroupContextWithCalculation()
+        protected override ICalculationContext<CalculationGroup, ICalculatableFailureMechanism> GetCalculationGroupContextWithCalculation()
         {
-            return new StabilityStoneCoverWaveConditionsCalculationGroupContext(
+            return new StabilityStoneCoverCalculationGroupContext(
                 new CalculationGroup
                 {
                     Children =
@@ -196,11 +196,11 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
                 new AssessmentSectionStub());
         }
 
-        protected override IFailureMechanism GetFailureMechanismWithCalculation()
+        protected override ICalculatableFailureMechanism GetFailureMechanismWithCalculation()
         {
             return new StabilityStoneCoverFailureMechanism
             {
-                WaveConditionsCalculationGroup =
+                CalculationsGroup =
                 {
                     Children =
                     {

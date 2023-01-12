@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -23,10 +23,11 @@ using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
-using Core.Common.Util;
+using Core.Common.Util.Enums;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Forms.Helpers;
-using Riskeer.Common.Forms.Properties;
+using Riskeer.Integration.Forms.Properties;
+using CommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.Controls
 {
@@ -61,9 +62,9 @@ namespace Riskeer.Integration.Forms.Controls
         }
 
         /// <summary>
-        /// Clears the messages of the control.
+        /// Clears the errors of the control.
         /// </summary>
-        public void ClearMessages()
+        public void ClearErrors()
         {
             errorProvider.SetError(groupLabel, string.Empty);
             errorProvider.SetError(probabilityLabel, string.Empty);
@@ -75,7 +76,7 @@ namespace Riskeer.Integration.Forms.Controls
         /// <param name="result">The <see cref="AssessmentSectionAssemblyResult"/> to set on the control.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="result"/>
-        /// has an invalid value for <see cref="AssessmentSectionAssemblyCategoryGroup"/>.</exception>
+        /// has an invalid value for <see cref="AssessmentSectionAssemblyGroup"/>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="result"/>
         /// is not supported.</exception>
         public void SetAssemblyResult(AssessmentSectionAssemblyResult result)
@@ -85,8 +86,8 @@ namespace Riskeer.Integration.Forms.Controls
                 throw new ArgumentNullException(nameof(result));
             }
 
-            groupLabel.Text = new EnumDisplayWrapper<AssessmentSectionAssemblyCategoryGroup>(result.AssemblyCategoryGroup).DisplayName;
-            groupLabel.BackColor = AssemblyCategoryGroupColorHelper.GetAssessmentSectionAssemblyCategoryGroupColor(result.AssemblyCategoryGroup);
+            groupLabel.Text = EnumDisplayNameHelper.GetDisplayName(result.AssemblyGroup);
+            groupLabel.BackColor = AssessmentSectionAssemblyGroupColorHelper.GetAssessmentSectionAssemblyGroupColor(result.AssemblyGroup);
 
             probabilityLabel.Text = ProbabilityFormattingHelper.FormatWithDiscreteNumbers(result.Probability);
         }
@@ -96,9 +97,9 @@ namespace Riskeer.Integration.Forms.Controls
         /// </summary>
         public void ClearAssemblyResult()
         {
-            groupLabel.Text = string.Empty;
+            groupLabel.Text = Resources.AssessmentSectionAssemblyResultControl_AssemblyGroup_No_result_dash;
             groupLabel.BackColor = Color.White;
-            probabilityLabel.Text = Resources.RoundedDouble_No_result_dash;
+            probabilityLabel.Text = CommonFormsResources.RoundedDouble_No_result_dash;
         }
 
         private void SetErrorProviderMessage(string errorMessage)

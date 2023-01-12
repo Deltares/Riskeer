@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -31,7 +31,7 @@ namespace Riskeer.MacroStabilityInwards.Data.SoilProfile
     /// This class couples a <see cref="IMacroStabilityInwardsSoilProfile{T}"/> 
     /// to a probability of occurrence.
     /// </summary>
-    public class MacroStabilityInwardsStochasticSoilProfile : Observable
+    public sealed class MacroStabilityInwardsStochasticSoilProfile : Observable
     {
         private double probability;
 

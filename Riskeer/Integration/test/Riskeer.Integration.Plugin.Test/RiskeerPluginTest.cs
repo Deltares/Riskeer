@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -55,7 +55,6 @@ using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Integration.Data;
-using Riskeer.Integration.Data.FailurePath;
 using Riskeer.Integration.Data.StandAlone;
 using Riskeer.Integration.Forms.PresentationObjects;
 using Riskeer.Integration.Forms.PresentationObjects.StandAlone;
@@ -202,7 +201,7 @@ namespace Riskeer.Integration.Plugin.Test
                 Assert.IsTrue(stateInfos.Any(si => si.Name == "Traject"));
                 Assert.IsTrue(stateInfos.Any(si => si.Name == "Hydraulische\r\nbelastingen"));
                 Assert.IsTrue(stateInfos.Any(si => si.Name == "Sterkte-\r\nberekeningen"));
-                Assert.IsTrue(stateInfos.Any(si => si.Name == "Faalpaden /\r\nassemblage"));
+                Assert.IsTrue(stateInfos.Any(si => si.Name == "Registratie\r\nen assemblage"));
             }
         }
 
@@ -216,12 +215,17 @@ namespace Riskeer.Integration.Plugin.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(23, propertyInfos.Length);
+                Assert.AreEqual(26, propertyInfos.Length);
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(StateRootContext),
                     typeof(AssessmentSectionProperties));
+
+                PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(RegistrationStateRootContext),
+                    typeof(RegistrationStateAssessmentSectionProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
@@ -240,27 +244,27 @@ namespace Riskeer.Integration.Plugin.Test
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(IFailurePathContext<IHasGeneralInput>),
-                    typeof(StandAloneFailurePathProperties));
+                    typeof(IFailureMechanismContext<IHasGeneralInput>),
+                    typeof(StandAloneFailureMechanismProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(SpecificFailurePathContext),
-                    typeof(SpecificFailurePathProperties));
+                    typeof(SpecificFailureMechanismContext),
+                    typeof(SpecificFailureMechanismProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(PipingStructureFailurePathContext),
-                    typeof(PipingStructureFailurePathProperties));
+                    typeof(PipingStructureFailureMechanismContext),
+                    typeof(PipingStructureFailureMechanismProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(ICalculationContext<CalculationGroup, IFailureMechanism>),
+                    typeof(ICalculationContext<CalculationGroup, ICalculatableFailureMechanism>),
                     typeof(CalculationGroupContextProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(ICalculationContext<ICalculation, IFailureMechanism>),
+                    typeof(ICalculationContext<ICalculation, ICalculatableFailureMechanism>),
                     typeof(CalculationContextProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
@@ -332,6 +336,16 @@ namespace Riskeer.Integration.Plugin.Test
                     propertyInfos,
                     typeof(StructuresOutputContext),
                     typeof(StructuresOutputProperties));
+
+                PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(FailureMechanismSectionAssemblyGroupsContext),
+                    typeof(FailureMechanismSectionAssemblyGroupsProperties));
+
+                PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(AssessmentSectionAssemblyGroupsContext),
+                    typeof(AssessmentSectionAssemblyGroupsProperties));
             }
         }
 
@@ -374,15 +388,15 @@ namespace Riskeer.Integration.Plugin.Test
             mockRepository.ReplayAll();
 
             using (var plugin = new RiskeerPlugin
-                   {
-                       Gui = gui
-                   })
+            {
+                Gui = gui
+            })
             {
                 // Call
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(25, viewInfos.Length);
+                Assert.AreEqual(27, viewInfos.Length);
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
@@ -419,7 +433,7 @@ namespace Riskeer.Integration.Plugin.Test
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(FailurePathsStateRootContext),
+                    typeof(RegistrationStateRootContext),
                     typeof(AssessmentSectionExtendedView));
 
                 PluginTestHelper.AssertViewInfoDefined(
@@ -454,6 +468,12 @@ namespace Riskeer.Integration.Plugin.Test
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
+                    typeof(SpecificFailureMechanismSectionResultContext),
+                    typeof(IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>),
+                    typeof(NonAdoptableWithProfileProbabilityFailureMechanismResultView<SpecificFailureMechanism>));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
                     typeof(Comment),
                     typeof(CommentView));
 
@@ -468,6 +488,12 @@ namespace Riskeer.Integration.Plugin.Test
                     typeof(FailureMechanismSectionsContext),
                     typeof(IEnumerable<FailureMechanismSection>),
                     typeof(FailureMechanismSectionsView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(AssessmentSectionAssemblyGroupsContext),
+                    typeof(FailureMechanismContribution),
+                    typeof(AssessmentSectionAssemblyGroupsView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
@@ -489,45 +515,45 @@ namespace Riskeer.Integration.Plugin.Test
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(MicrostabilityFailurePathContext),
+                    typeof(MicrostabilityFailureMechanismContext),
                     typeof(MicrostabilityFailureMechanism),
                     typeof(StandAloneFailureMechanismView<MicrostabilityFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(GrassCoverSlipOffOutwardsFailurePathContext),
+                    typeof(GrassCoverSlipOffOutwardsFailureMechanismContext),
                     typeof(GrassCoverSlipOffOutwardsFailureMechanism),
                     typeof(StandAloneFailureMechanismView<GrassCoverSlipOffOutwardsFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(GrassCoverSlipOffInwardsFailurePathContext),
+                    typeof(GrassCoverSlipOffInwardsFailureMechanismContext),
                     typeof(GrassCoverSlipOffInwardsFailureMechanism),
                     typeof(StandAloneFailureMechanismView<GrassCoverSlipOffInwardsFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(PipingStructureFailurePathContext),
+                    typeof(PipingStructureFailureMechanismContext),
                     typeof(PipingStructureFailureMechanism),
                     typeof(StandAloneFailureMechanismView<PipingStructureFailureMechanism, NonAdoptableFailureMechanismSectionResult>));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(WaterPressureAsphaltCoverFailurePathContext),
+                    typeof(WaterPressureAsphaltCoverFailureMechanismContext),
                     typeof(WaterPressureAsphaltCoverFailureMechanism),
                     typeof(StandAloneFailureMechanismView<WaterPressureAsphaltCoverFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(SpecificFailurePathContext),
-                    typeof(SpecificFailurePathView));
+                    typeof(SpecificFailureMechanismContext),
+                    typeof(SpecificFailureMechanismView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(AssemblyGroupsContext),
+                    typeof(FailureMechanismSectionAssemblyGroupsContext),
                     typeof(AssessmentSection),
-                    typeof(AssemblyGroupsView));
-                
+                    typeof(FailureMechanismSectionAssemblyGroupsView));
+
                 viewInfos.ForEachElementDo(vi =>
                 {
                     Assert.AreEqual(symbol, vi.GetSymbol());
@@ -548,19 +574,19 @@ namespace Riskeer.Integration.Plugin.Test
                 TreeNodeInfo[] treeNodeInfos = plugin.GetTreeNodeInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(40, treeNodeInfos.Length);
+                Assert.AreEqual(41, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(AssessmentSectionStateRootContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(HydraulicLoadsStateRootContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(CalculationsStateRootContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailurePathsStateRootContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(RegistrationStateRootContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(BackgroundData)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(NormContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ReferenceLineContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverSlipOffInwardsFailurePathContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverSlipOffOutwardsFailurePathContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(MicrostabilityFailurePathContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingStructureFailurePathContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaterPressureAsphaltCoverFailurePathContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverSlipOffInwardsFailureMechanismContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverSlipOffOutwardsFailureMechanismContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(MicrostabilityFailureMechanismContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingStructureFailureMechanismContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaterPressureAsphaltCoverFailureMechanismContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(CategoryTreeFolder)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionsContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(HydraulicBoundaryDatabaseContext)));
@@ -580,15 +606,16 @@ namespace Riskeer.Integration.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaterPressureAsphaltCoverFailureMechanismSectionResultContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(Comment)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StructuresOutputContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(NormClassesContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(AssessmentSectionAssemblyGroupsContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(AssemblyResultTotalContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(AssemblyResultPerSectionContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(AssemblyResultsContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(AssemblyResultPerSectionMapContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(AssemblyGroupsContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GenericFailurePathsContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(SpecificFailurePathsContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(SpecificFailurePathContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionAssemblyGroupsContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GenericFailureMechanismsContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(SpecificFailureMechanismsContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(SpecificFailureMechanismContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(SpecificFailureMechanismSectionResultContext)));
             }
         }
 
@@ -684,7 +711,7 @@ namespace Riskeer.Integration.Plugin.Test
                 Assert.IsTrue(updateInfos.Any(i => i.DataType == typeof(MicrostabilityFailureMechanismSectionsContext)));
                 Assert.IsTrue(updateInfos.Any(i => i.DataType == typeof(PipingStructureFailureMechanismSectionsContext)));
                 Assert.IsTrue(updateInfos.Any(i => i.DataType == typeof(WaterPressureAsphaltCoverFailureMechanismSectionsContext)));
-                Assert.IsTrue(updateInfos.Any(i => i.DataType == typeof(SpecificFailurePathSectionsContext)));
+                Assert.IsTrue(updateInfos.Any(i => i.DataType == typeof(SpecificFailureMechanismSectionsContext)));
             }
         }
 
@@ -704,7 +731,7 @@ namespace Riskeer.Integration.Plugin.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenPluginWithGuiSetAndOpenedSpecificFailurePathView_WhenChangingCorrespondingSpecificFailurePathAndObserversNotified_ThenViewTitleUpdated()
+        public void GivenPluginWithGuiSetAndOpenedSpecificFailureMechanismView_WhenChangingCorrespondingSpecificFailureMechanismAndObserversNotified_ThenViewTitleUpdated()
         {
             // Given
             var mocks = new MockRepository();
@@ -717,12 +744,12 @@ namespace Riskeer.Integration.Plugin.Test
                 SetPlugins(gui);
                 gui.Run();
 
-                var failurePath = new SpecificFailurePath();
+                var failureMechanism = new SpecificFailureMechanism();
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
                 {
-                    SpecificFailurePaths =
+                    SpecificFailureMechanisms =
                     {
-                        failurePath
+                        failureMechanism
                     }
                 };
                 var project = new RiskeerProject(assessmentSection);
@@ -730,18 +757,18 @@ namespace Riskeer.Integration.Plugin.Test
                 gui.SetProject(project, null);
 
                 gui.DocumentViewController.CloseAllViews();
-                gui.DocumentViewController.OpenViewForData(new SpecificFailurePathContext(failurePath, assessmentSection));
+                gui.DocumentViewController.OpenViewForData(new SpecificFailureMechanismContext(failureMechanism, assessmentSection));
 
                 IView view = gui.ViewHost.DocumentViews.First();
 
                 // Precondition
-                Assert.IsInstanceOf<SpecificFailurePathView>(view);
-                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, failurePath.Name));
+                Assert.IsInstanceOf<SpecificFailureMechanismView>(view);
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, failureMechanism.Name));
 
                 // When
-                const string newName = "Awesome faalpad";
-                failurePath.Name = newName;
-                failurePath.NotifyObservers();
+                const string newName = "Awesome faalmechanisme";
+                failureMechanism.Name = newName;
+                failureMechanism.NotifyObservers();
 
                 // Then
                 Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, newName));
@@ -763,9 +790,9 @@ namespace Riskeer.Integration.Plugin.Test
         [TestCase(0.01, 0.01, "1/100", 0.1, 0.01, "1/10")]
         [TestCase(0.1, 0.01, "1/10", 0.01, 0.01, "1/100")]
         [Apartment(ApartmentState.STA)]
-        public void GivenPluginWithGuiSetAndOpenedDesignWaterLevelCalculationsViewForLowerLimitNorm_WhenChangingNormAndObserversNotified_ThenViewTitleUpdated(
-            double lowerLimitNorm, double signallingNorm, string originalProbabilityText,
-            double newLowerLimitNorm, double newSignallingNorm, string expectedProbabilityText)
+        public void GivenPluginWithGuiSetAndOpenedDesignWaterLevelCalculationsViewForMaximumAllowableFloodingProbability_WhenChangingFloodingProbabilitiesAndObserversNotified_ThenViewTitleUpdated(
+            double maximumAllowableFloodingProbability, double signalFloodingProbability, string originalProbabilityText,
+            double newMaximumAllowableFloodingProbability, double newSignalFloodingProbability, string expectedProbabilityText)
         {
             // Given
             var mocks = new MockRepository();
@@ -782,8 +809,8 @@ namespace Riskeer.Integration.Plugin.Test
                 {
                     FailureMechanismContribution =
                     {
-                        LowerLimitNorm = lowerLimitNorm,
-                        SignalingNorm = signallingNorm
+                        MaximumAllowableFloodingProbability = maximumAllowableFloodingProbability,
+                        SignalFloodingProbability = signalFloodingProbability
                     }
                 };
                 var project = new RiskeerProject(assessmentSection);
@@ -792,22 +819,22 @@ namespace Riskeer.Integration.Plugin.Test
 
                 gui.DocumentViewController.CloseAllViews();
                 gui.DocumentViewController.OpenViewForData(new WaterLevelCalculationsForNormTargetProbabilityContext(
-                                                               assessmentSection.WaterLevelCalculationsForLowerLimitNorm, assessmentSection, () => 0.1));
+                                                               assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability, assessmentSection, () => 0.1));
 
                 IView view = gui.ViewHost.DocumentViews.First();
 
                 // Precondition
                 Assert.IsInstanceOf<DesignWaterLevelCalculationsView>(view);
-                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, $"Waterstanden bij norm - {originalProbabilityText}"));
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, $"Waterstanden bij vaste doelkans - {originalProbabilityText}"));
 
                 // When
                 FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
-                failureMechanismContribution.LowerLimitNorm = newLowerLimitNorm;
-                failureMechanismContribution.SignalingNorm = newSignallingNorm;
+                failureMechanismContribution.MaximumAllowableFloodingProbability = newMaximumAllowableFloodingProbability;
+                failureMechanismContribution.SignalFloodingProbability = newSignalFloodingProbability;
                 failureMechanismContribution.NotifyObservers();
 
                 // Then
-                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, $"Waterstanden bij norm - {expectedProbabilityText}"));
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, $"Waterstanden bij vaste doelkans - {expectedProbabilityText}"));
                 mocks.VerifyAll();
             }
         }
@@ -816,9 +843,9 @@ namespace Riskeer.Integration.Plugin.Test
         [TestCase(0.01, 0.01, "1/100 (1)", 0.1, 0.01, "1/100")]
         [TestCase(0.1, 0.01, "1/100", 0.01, 0.01, "1/100 (1)")]
         [Apartment(ApartmentState.STA)]
-        public void GivenPluginWithGuiSetAndOpenedDesignWaterLevelCalculationsViewForSignallingNorm_WhenChangingNormAndObserversNotified_ThenViewTitleUpdated(
-            double lowerLimitNorm, double signallingNorm, string originalProbabilityText,
-            double newLowerLimitNorm, double newSignallingNorm, string expectedProbabilityText)
+        public void GivenPluginWithGuiSetAndOpenedDesignWaterLevelCalculationsViewForSignalFloodingProbability_WhenChangingFloodingProbabilitiesAndObserversNotified_ThenViewTitleUpdated(
+            double maximumAllowableFloodingProbability, double signalFloodingProbability, string originalProbabilityText,
+            double newMaximumAllowableFloodingProbability, double newSignalFloodingProbability, string expectedProbabilityText)
         {
             // Given
             var mocks = new MockRepository();
@@ -835,8 +862,8 @@ namespace Riskeer.Integration.Plugin.Test
                 {
                     FailureMechanismContribution =
                     {
-                        LowerLimitNorm = lowerLimitNorm,
-                        SignalingNorm = signallingNorm
+                        MaximumAllowableFloodingProbability = maximumAllowableFloodingProbability,
+                        SignalFloodingProbability = signalFloodingProbability
                     }
                 };
                 var project = new RiskeerProject(assessmentSection);
@@ -845,22 +872,22 @@ namespace Riskeer.Integration.Plugin.Test
 
                 gui.DocumentViewController.CloseAllViews();
                 gui.DocumentViewController.OpenViewForData(new WaterLevelCalculationsForNormTargetProbabilityContext(
-                                                               assessmentSection.WaterLevelCalculationsForSignalingNorm, assessmentSection, () => 0.1));
+                                                               assessmentSection.WaterLevelCalculationsForSignalFloodingProbability, assessmentSection, () => 0.1));
 
                 IView view = gui.ViewHost.DocumentViews.First();
 
                 // Precondition
                 Assert.IsInstanceOf<DesignWaterLevelCalculationsView>(view);
-                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, $"Waterstanden bij norm - {originalProbabilityText}"));
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, $"Waterstanden bij vaste doelkans - {originalProbabilityText}"));
 
                 // When
                 FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
-                failureMechanismContribution.LowerLimitNorm = newLowerLimitNorm;
-                failureMechanismContribution.SignalingNorm = newSignallingNorm;
+                failureMechanismContribution.MaximumAllowableFloodingProbability = newMaximumAllowableFloodingProbability;
+                failureMechanismContribution.SignalFloodingProbability = newSignalFloodingProbability;
                 failureMechanismContribution.NotifyObservers();
 
                 // Then
-                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, $"Waterstanden bij norm - {expectedProbabilityText}"));
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, $"Waterstanden bij vaste doelkans - {expectedProbabilityText}"));
                 mocks.VerifyAll();
             }
         }
@@ -904,14 +931,14 @@ namespace Riskeer.Integration.Plugin.Test
 
                 // Precondition
                 Assert.IsInstanceOf<DesignWaterLevelCalculationsView>(view);
-                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Waterstanden bij doelkans - 1/10"));
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Waterstanden bij vrije doelkans - 1/10"));
 
                 // When
                 calculationsForTargetProbability.TargetProbability = 0.01;
                 calculationsForTargetProbability.NotifyObservers();
 
                 // Then
-                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Waterstanden bij doelkans - 1/100"));
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Waterstanden bij vrije doelkans - 1/100"));
                 mocks.VerifyAll();
             }
         }
@@ -953,14 +980,14 @@ namespace Riskeer.Integration.Plugin.Test
 
                 // Precondition
                 Assert.IsInstanceOf<DesignWaterLevelCalculationsView>(view);
-                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Waterstanden bij doelkans - 1/10"));
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Waterstanden bij vrije doelkans - 1/10"));
 
                 // When
-                assessmentSection.FailureMechanismContribution.LowerLimitNorm = 0.1;
+                assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability = 0.1;
                 assessmentSection.FailureMechanismContribution.NotifyObservers();
 
                 // Then
-                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Waterstanden bij doelkans - 1/10 (1)"));
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Waterstanden bij vrije doelkans - 1/10 (1)"));
                 mocks.VerifyAll();
             }
         }
@@ -1003,14 +1030,14 @@ namespace Riskeer.Integration.Plugin.Test
 
                 // Precondition
                 Assert.IsInstanceOf<DesignWaterLevelCalculationsView>(view);
-                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Waterstanden bij doelkans - 1/10 (1)"));
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Waterstanden bij vrije doelkans - 1/10 (1)"));
 
                 // When
                 updatedCalculations.TargetProbability = 0.01;
                 updatedCalculations.NotifyObservers();
 
                 // Then
-                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Waterstanden bij doelkans - 1/10"));
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Waterstanden bij vrije doelkans - 1/10"));
                 mocks.VerifyAll();
             }
         }
@@ -1053,14 +1080,14 @@ namespace Riskeer.Integration.Plugin.Test
 
                 // Precondition
                 Assert.IsInstanceOf<DesignWaterLevelCalculationsView>(view);
-                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Waterstanden bij doelkans - 1/10 (1)"));
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Waterstanden bij vrije doelkans - 1/10 (1)"));
 
                 // When
                 assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Remove(removedCalculations);
                 assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.NotifyObservers();
 
                 // Then
-                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Waterstanden bij doelkans - 1/10"));
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Waterstanden bij vrije doelkans - 1/10"));
                 mocks.VerifyAll();
             }
         }
@@ -1150,14 +1177,14 @@ namespace Riskeer.Integration.Plugin.Test
 
                 // Precondition
                 Assert.IsInstanceOf<WaveHeightCalculationsView>(view);
-                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Golfhoogten bij doelkans - 1/10"));
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Golfhoogten bij vrije doelkans - 1/10"));
 
                 // When
                 calculationsForTargetProbability.TargetProbability = 0.01;
                 calculationsForTargetProbability.NotifyObservers();
 
                 // Then
-                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Golfhoogten bij doelkans - 1/100"));
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Golfhoogten bij vrije doelkans - 1/100"));
                 mocks.VerifyAll();
             }
         }
@@ -1200,14 +1227,14 @@ namespace Riskeer.Integration.Plugin.Test
 
                 // Precondition
                 Assert.IsInstanceOf<WaveHeightCalculationsView>(view);
-                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Golfhoogten bij doelkans - 1/10 (1)"));
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Golfhoogten bij vrije doelkans - 1/10 (1)"));
 
                 // When
                 updatedCalculations.TargetProbability = 0.01;
                 updatedCalculations.NotifyObservers();
 
                 // Then
-                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Golfhoogten bij doelkans - 1/10"));
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Golfhoogten bij vrije doelkans - 1/10"));
                 mocks.VerifyAll();
             }
         }
@@ -1250,14 +1277,14 @@ namespace Riskeer.Integration.Plugin.Test
 
                 // Precondition
                 Assert.IsInstanceOf<WaveHeightCalculationsView>(view);
-                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Golfhoogten bij doelkans - 1/10 (1)"));
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Golfhoogten bij vrije doelkans - 1/10 (1)"));
 
                 // When
                 assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Remove(removedCalculations);
                 assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.NotifyObservers();
 
                 // Then
-                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Golfhoogten bij doelkans - 1/10"));
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Golfhoogten bij vrije doelkans - 1/10"));
                 mocks.VerifyAll();
             }
         }

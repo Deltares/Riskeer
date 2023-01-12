@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -22,7 +22,6 @@
 using System.Linq;
 using System.Windows.Forms;
 using Core.Components.OxyPlot.CustomSeries;
-using Core.Components.OxyPlot.Forms.Properties;
 using NUnit.Framework;
 using OxyPlot;
 using OxyPlot.Axes;
@@ -49,8 +48,8 @@ namespace Core.Components.OxyPlot.Forms.Test
             CollectionAssert.AllItemsAreInstancesOfType(axes, typeof(LinearAxis));
             CollectionAssert.AreEqual(new[]
             {
-                Resources.ChartControl_XAxisTitle,
-                Resources.ChartControl_YAxisTitle
+                "L",
+                "Hoogte"
             }, axes.Select(a => a.Title));
             CollectionAssert.AreEqual(new[]
             {

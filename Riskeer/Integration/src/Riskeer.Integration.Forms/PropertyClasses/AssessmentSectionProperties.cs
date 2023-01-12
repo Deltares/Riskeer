@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -20,10 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using Core.Common.Base;
-using Core.Common.Util;
 using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
 using Core.Gui.PropertyBag;
@@ -39,29 +35,18 @@ namespace Riskeer.Integration.Forms.PropertyClasses
     /// </summary>
     public class AssessmentSectionProperties : ObjectProperties<IAssessmentSection>
     {
-        private readonly IAssessmentSectionCompositionChangeHandler compositionChangeHandler;
-
         /// <summary>
         /// Creates a new instance of <see cref="AssessmentSectionProperties"/>.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/>
         /// to show the properties of.</param>
-        /// <param name="compositionChangeHandler">The <see cref="IAssessmentSectionCompositionChangeHandler"/>
-        /// for when the composition changes.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public AssessmentSectionProperties(IAssessmentSection assessmentSection, IAssessmentSectionCompositionChangeHandler compositionChangeHandler)
+        /// <exception cref="ArgumentNullException">Thrown when <see cref="assessmentSection"/> is <c>null</c>.</exception>
+        public AssessmentSectionProperties(IAssessmentSection assessmentSection)
         {
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
-
-            if (compositionChangeHandler == null)
-            {
-                throw new ArgumentNullException(nameof(compositionChangeHandler));
-            }
-
-            this.compositionChangeHandler = compositionChangeHandler;
 
             Data = assessmentSection;
         }
@@ -83,24 +68,6 @@ namespace Riskeer.Integration.Forms.PropertyClasses
             {
                 data.Name = value;
                 data.NotifyObservers();
-            }
-        }
-
-        [PropertyOrder(3)]
-        [TypeConverter(typeof(EnumTypeConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionComposition_Composition_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.AssessmentSectionComposition_Composition_Description))]
-        public AssessmentSectionComposition Composition
-        {
-            get => data.Composition;
-            set
-            {
-                IEnumerable<IObservable> changedObjects = compositionChangeHandler.ChangeComposition(data, value);
-                foreach (IObservable changedObject in changedObjects)
-                {
-                    changedObject.NotifyObservers();
-                }
             }
         }
     }

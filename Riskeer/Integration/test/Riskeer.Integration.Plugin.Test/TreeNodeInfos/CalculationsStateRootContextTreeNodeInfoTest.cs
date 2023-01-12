@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -30,16 +31,24 @@ using Core.Gui.ContextMenu;
 using Core.Gui.TestUtil.ContextMenu;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.ClosingStructures.Forms.PresentationObjects;
+using Riskeer.ClosingStructures.Data.TestUtil;
+using Riskeer.ClosingStructures.Forms.PresentationObjects.CalculationsState;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Plugin.TestUtil;
-using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
-using Riskeer.HeightStructures.Forms.PresentationObjects;
+using Riskeer.GrassCoverErosionInwards.Data;
+using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects.CalculationsState;
+using Riskeer.GrassCoverErosionOutwards.Data;
+using Riskeer.HeightStructures.Data.TestUtil;
+using Riskeer.HeightStructures.Forms.PresentationObjects.CalculationsState;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PresentationObjects;
-using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
-using Riskeer.Piping.Forms.PresentationObjects;
-using Riskeer.StabilityPointStructures.Forms.PresentationObjects;
+using Riskeer.MacroStabilityInwards.Forms.PresentationObjects.CalculationsState;
+using Riskeer.Piping.Forms.PresentationObjects.CalculationsState;
+using Riskeer.StabilityPointStructures.Data.TestUtil;
+using Riskeer.StabilityPointStructures.Forms.PresentationObjects.CalculationsState;
+using Riskeer.StabilityStoneCover.Data;
+using Riskeer.WaveImpactAsphaltCover.Data;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerIntegrationFormsResources = Riskeer.Integration.Forms.Properties.Resources;
 
@@ -167,29 +176,29 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual(6, objects.Length);
 
-                var pipingCalculationsContext = (PipingCalculationsContext) objects[0];
-                Assert.AreSame(assessmentSection.Piping, pipingCalculationsContext.WrappedData);
-                Assert.AreSame(assessmentSection, pipingCalculationsContext.Parent);
+                var pipingFailureMechanismContext = (PipingFailureMechanismContext) objects[0];
+                Assert.AreSame(assessmentSection.Piping, pipingFailureMechanismContext.WrappedData);
+                Assert.AreSame(assessmentSection, pipingFailureMechanismContext.Parent);
 
-                var grassCoverErosionInwardsCalculationsContext = (GrassCoverErosionInwardsCalculationsContext) objects[1];
-                Assert.AreSame(assessmentSection.GrassCoverErosionInwards, grassCoverErosionInwardsCalculationsContext.WrappedData);
-                Assert.AreSame(assessmentSection, grassCoverErosionInwardsCalculationsContext.Parent);
+                var grassCoverErosionInwardsFailureMechanismContext = (GrassCoverErosionInwardsFailureMechanismContext) objects[1];
+                Assert.AreSame(assessmentSection.GrassCoverErosionInwards, grassCoverErosionInwardsFailureMechanismContext.WrappedData);
+                Assert.AreSame(assessmentSection, grassCoverErosionInwardsFailureMechanismContext.Parent);
 
-                var macroStabilityInwardsCalculationsContext = (MacroStabilityInwardsCalculationsContext) objects[2];
-                Assert.AreSame(assessmentSection.MacroStabilityInwards, macroStabilityInwardsCalculationsContext.WrappedData);
-                Assert.AreSame(assessmentSection, macroStabilityInwardsCalculationsContext.Parent);
+                var macroStabilityInwardsFailureMechanismContext = (MacroStabilityInwardsFailureMechanismContext) objects[2];
+                Assert.AreSame(assessmentSection.MacroStabilityInwards, macroStabilityInwardsFailureMechanismContext.WrappedData);
+                Assert.AreSame(assessmentSection, macroStabilityInwardsFailureMechanismContext.Parent);
 
-                var heightStructuresCalculationsContext = (HeightStructuresCalculationsContext) objects[3];
-                Assert.AreSame(assessmentSection.HeightStructures, heightStructuresCalculationsContext.WrappedData);
-                Assert.AreSame(assessmentSection, heightStructuresCalculationsContext.Parent);
+                var heightStructuresFailureMechanismContext = (HeightStructuresFailureMechanismContext) objects[3];
+                Assert.AreSame(assessmentSection.HeightStructures, heightStructuresFailureMechanismContext.WrappedData);
+                Assert.AreSame(assessmentSection, heightStructuresFailureMechanismContext.Parent);
 
-                var closingStructuresCalculationsContext = (ClosingStructuresCalculationsContext) objects[4];
-                Assert.AreSame(assessmentSection.ClosingStructures, closingStructuresCalculationsContext.WrappedData);
-                Assert.AreSame(assessmentSection, closingStructuresCalculationsContext.Parent);
+                var closingStructuresFailureMechanismContext = (ClosingStructuresFailureMechanismContext) objects[4];
+                Assert.AreSame(assessmentSection.ClosingStructures, closingStructuresFailureMechanismContext.WrappedData);
+                Assert.AreSame(assessmentSection, closingStructuresFailureMechanismContext.Parent);
 
-                var stabilityPointStructuresCalculationsContext = (StabilityPointStructuresCalculationsContext) objects[5];
-                Assert.AreSame(assessmentSection.StabilityPointStructures, stabilityPointStructuresCalculationsContext.WrappedData);
-                Assert.AreSame(assessmentSection, stabilityPointStructuresCalculationsContext.Parent);
+                var stabilityPointStructuresFailureMechanismsContext = (StabilityPointStructuresFailureMechanismContext) objects[5];
+                Assert.AreSame(assessmentSection.StabilityPointStructures, stabilityPointStructuresFailureMechanismsContext.WrappedData);
+                Assert.AreSame(assessmentSection, stabilityPointStructuresFailureMechanismsContext.Parent);
             }
         }
 
@@ -197,6 +206,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsBuilder()
         {
             // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var context = new CalculationsStateRootContext(assessmentSection);
             var mocks = new MockRepository();
             var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
             using (mocks.Ordered())
@@ -217,7 +228,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 IGui gui = StubFactory.CreateGuiStub(mocks);
-                gui.Stub(g => g.Get(null, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 
                 using (var plugin = new RiskeerPlugin())
@@ -226,7 +237,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     plugin.Gui = gui;
 
                     // Call
-                    info.ContextMenuStrip(null, null, treeViewControl);
+                    info.ContextMenuStrip(context, null, treeViewControl);
                 }
             }
 
@@ -235,12 +246,12 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_Always_AddCustomItems()
+        [TestCaseSource(nameof(GetAssessmentSectionConfigurations))]
+        public void ContextMenuStrip_WithSpecificAssessmentSectionConfiguration_CalculateAllMenuItemStateAsExpected(AssessmentSection assessmentSection, bool expectedEnabledState)
         {
             // Setup
             using (var treeView = new TreeViewControl())
             {
-                var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
                 var context = new CalculationsStateRootContext(assessmentSection);
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -261,8 +272,11 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
                         TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
                                                                       "Alles be&rekenen",
-                                                                      "Voer alle berekeningen binnen dit traject uit.",
-                                                                      RiskeerCommonFormsResources.CalculateAllIcon);
+                                                                      expectedEnabledState
+                                                                          ? "Voer alle berekeningen binnen dit traject uit."
+                                                                          : "Er zijn geen berekeningen om uit te voeren.",
+                                                                      RiskeerCommonFormsResources.CalculateAllIcon,
+                                                                      expectedEnabledState);
                     }
                 }
             }
@@ -300,7 +314,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
-                
+
                 // Call
                 const string newName = "New Name";
                 info.OnNodeRenamed(context, newName);
@@ -319,13 +333,136 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
-                
+
                 // Call
                 bool canRemove = info.CanRemove(null, null);
 
                 // Assert
                 Assert.IsFalse(canRemove);
             }
+        }
+
+        private static IEnumerable<TestCaseData> GetAssessmentSectionConfigurations()
+        {
+            yield return new TestCaseData(new AssessmentSection(AssessmentSectionComposition.Dike),
+                                          false).SetName("WithoutCalculations");
+            yield return new TestCaseData(new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                Piping =
+                {
+                    CalculationsGroup =
+                    {
+                        Children =
+                        {
+                            new TestCalculationScenario()
+                        }
+                    }
+                }
+            }, true).SetName("WithPipingCalculation");
+            yield return new TestCaseData(new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                GrassCoverErosionInwards =
+                {
+                    CalculationsGroup =
+                    {
+                        Children =
+                        {
+                            new GrassCoverErosionInwardsCalculation()
+                        }
+                    }
+                }
+            }, true).SetName("WithGrassCoverErosionInwardsCalculation");
+            yield return new TestCaseData(new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                MacroStabilityInwards =
+                {
+                    CalculationsGroup =
+                    {
+                        Children =
+                        {
+                            new TestCalculationScenario()
+                        }
+                    }
+                }
+            }, true).SetName("WithMacroStabilityInwardsCalculation");
+            yield return new TestCaseData(new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                HeightStructures =
+                {
+                    CalculationsGroup =
+                    {
+                        Children =
+                        {
+                            new TestHeightStructuresCalculationScenario()
+                        }
+                    }
+                }
+            }, true).SetName("WithHeightStructuresCalculation");
+            yield return new TestCaseData(new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                ClosingStructures =
+                {
+                    CalculationsGroup =
+                    {
+                        Children =
+                        {
+                            new TestClosingStructuresCalculationScenario()
+                        }
+                    }
+                }
+            }, true).SetName("WithClosingStructuresCalculation");
+            yield return new TestCaseData(new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                StabilityPointStructures =
+                {
+                    CalculationsGroup =
+                    {
+                        Children =
+                        {
+                            new TestStabilityPointStructuresCalculationScenario()
+                        }
+                    }
+                }
+            }, true).SetName("WithStabilityPointStructuresCalculation");
+            yield return new TestCaseData(new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                GrassCoverErosionOutwards =
+                {
+                    CalculationsGroup =
+                    {
+                        Children =
+                        {
+                            new GrassCoverErosionOutwardsWaveConditionsCalculation()
+                        }
+                    }
+                }
+            }, false).SetName("WithGrassCoverErosionOutwardsCalculation");
+            yield return new TestCaseData(new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                StabilityStoneCover =
+                {
+                    CalculationsGroup =
+                    {
+                        Children =
+                        {
+                            new StabilityStoneCoverWaveConditionsCalculation()
+                        }
+                    }
+                }
+            }, false).SetName("WithStabilityStoneCoverCalculation");
+            yield return new TestCaseData(new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                WaveImpactAsphaltCover =
+                {
+                    CalculationsGroup =
+                    {
+                        Children =
+                        {
+                            new WaveImpactAsphaltCoverWaveConditionsCalculation()
+                        }
+                    }
+                }
+            }, false).SetName("WithWaveImpactAsphaltCoverCalculation");
         }
 
         private static TreeNodeInfo GetInfo(RiskeerPlugin plugin)

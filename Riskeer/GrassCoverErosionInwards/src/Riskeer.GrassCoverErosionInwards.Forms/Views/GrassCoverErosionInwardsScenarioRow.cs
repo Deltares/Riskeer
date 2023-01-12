@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -27,7 +27,7 @@ using Riskeer.GrassCoverErosionInwards.Data;
 namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 {
     /// <summary>
-    /// Container of a <see cref="GrassCoverErosionInwardsFailureMechanismSectionResultOld"/>,
+    /// Container of a <see cref="GrassCoverErosionInwardsCalculationScenario"/>,
     /// which takes care of the representation of properties in a grid.
     /// </summary>
     public class GrassCoverErosionInwardsScenarioRow : ScenarioRow<GrassCoverErosionInwardsCalculationScenario>

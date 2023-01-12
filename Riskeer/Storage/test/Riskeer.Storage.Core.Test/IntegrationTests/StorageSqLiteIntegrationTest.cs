@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -40,7 +40,6 @@ using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.Structures;
@@ -50,7 +49,6 @@ using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.HeightStructures.Data;
 using Riskeer.Integration.Data;
-using Riskeer.Integration.Data.FailurePath;
 using Riskeer.Integration.Data.StandAlone;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
@@ -229,9 +227,9 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
 
             FailureMechanismContribution expectedContribution = expectedAssessmentSection.FailureMechanismContribution;
             FailureMechanismContribution actualContribution = actualAssessmentSection.FailureMechanismContribution;
-            Assert.AreEqual(expectedContribution.LowerLimitNorm, actualContribution.LowerLimitNorm);
-            Assert.AreEqual(expectedContribution.SignalingNorm, actualContribution.SignalingNorm);
-            Assert.AreEqual(expectedContribution.NormativeNorm, actualContribution.NormativeNorm);
+            Assert.AreEqual(expectedContribution.MaximumAllowableFloodingProbability, actualContribution.MaximumAllowableFloodingProbability);
+            Assert.AreEqual(expectedContribution.SignalFloodingProbability, actualContribution.SignalFloodingProbability);
+            Assert.AreEqual(expectedContribution.NormativeProbabilityType, actualContribution.NormativeProbabilityType);
 
             BackgroundDataTestHelper.AssertBackgroundData(expectedAssessmentSection.BackgroundData, actualAssessmentSection.BackgroundData);
             AssertHydraulicBoundaryDatabase(expectedAssessmentSection.HydraulicBoundaryDatabase, actualAssessmentSection.HydraulicBoundaryDatabase);
@@ -303,9 +301,9 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                 expectedAssessmentSection.StabilityPointStructures.SectionResults,
                 actualAssessmentSection.StabilityPointStructures.SectionResults);
 
-            AssertCollectionAndItems(expectedAssessmentSection.SpecificFailurePaths.Cast<SpecificFailurePath>(),
-                                     actualAssessmentSection.SpecificFailurePaths.Cast<SpecificFailurePath>(),
-                                     AssertSpecificFailurePath);
+            AssertCollectionAndItems(expectedAssessmentSection.SpecificFailureMechanisms,
+                                     actualAssessmentSection.SpecificFailureMechanisms,
+                                     AssertSpecificFailureMechanism);
         }
 
         private static void AssertFailureMechanismSectionResults(
@@ -384,18 +382,23 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             AssertComments(expectedFailureMechanism.InAssemblyInputComments, actualFailureMechanism.InAssemblyInputComments);
             AssertComments(expectedFailureMechanism.InAssemblyOutputComments, actualFailureMechanism.InAssemblyOutputComments);
             AssertComments(expectedFailureMechanism.NotInAssemblyComments, actualFailureMechanism.NotInAssemblyComments);
-            AssertComments(expectedFailureMechanism.CalculationsInputComments, actualFailureMechanism.CalculationsInputComments);
+
+            if (expectedFailureMechanism is ICalculatableFailureMechanism expectedCalculatableFailureMechanism)
+            {
+                AssertComments(expectedCalculatableFailureMechanism.CalculationsInputComments, ((ICalculatableFailureMechanism) actualFailureMechanism).CalculationsInputComments);
+            }
+
             AssertFailureMechanismSections(expectedFailureMechanism.Sections, actualFailureMechanism.Sections);
             Assert.AreEqual(expectedFailureMechanism.FailureMechanismSectionSourcePath, actualFailureMechanism.FailureMechanismSectionSourcePath);
 
-            AssertFailurePathAssemblyResult(expectedFailureMechanism.AssemblyResult, actualFailureMechanism.AssemblyResult);
+            AssertFailureMechanismAssemblyResult(expectedFailureMechanism.AssemblyResult, actualFailureMechanism.AssemblyResult);
         }
 
-        private static void AssertFailurePathAssemblyResult(FailurePathAssemblyResult expectedResult,
-                                                            FailurePathAssemblyResult actualResult)
+        private static void AssertFailureMechanismAssemblyResult(FailureMechanismAssemblyResult expectedResult,
+                                                                 FailureMechanismAssemblyResult actualResult)
         {
             Assert.AreEqual(expectedResult.ProbabilityResultType, actualResult.ProbabilityResultType);
-            Assert.AreEqual(expectedResult.ManualFailurePathAssemblyProbability, actualResult.ManualFailurePathAssemblyProbability);
+            Assert.AreEqual(expectedResult.ManualFailureMechanismAssemblyProbability, actualResult.ManualFailureMechanismAssemblyProbability);
         }
 
         private static void AssertFailureMechanismSections(IEnumerable<FailureMechanismSection> expectedSections,
@@ -687,9 +690,9 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             }
         }
 
-        #region SpecificFailurePaths
+        #region SpecificFailureMechanisms
 
-        private static void AssertSpecificFailurePath(SpecificFailurePath expected, SpecificFailurePath actual)
+        private static void AssertSpecificFailureMechanism(SpecificFailureMechanism expected, SpecificFailureMechanism actual)
         {
             Assert.AreEqual(expected.Name, actual.Name);
             Assert.AreEqual(expected.InAssembly, actual.InAssembly);
@@ -700,10 +703,12 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
 
             Assert.AreEqual(expected.FailureMechanismSectionSourcePath, actual.FailureMechanismSectionSourcePath);
             AssertFailureMechanismSections(expected.Sections, actual.Sections);
+            AssertFailureMechanismSectionResults(expected.SectionResults, actual.SectionResults);
 
-            Assert.AreEqual(expected.Input.N, actual.Input.N);
+            Assert.AreEqual(expected.GeneralInput.N, actual.GeneralInput.N);
+            Assert.AreEqual(expected.GeneralInput.ApplyLengthEffectInSection, actual.GeneralInput.ApplyLengthEffectInSection);
 
-            AssertFailurePathAssemblyResult(expected.AssemblyResult, actual.AssemblyResult);
+            AssertFailureMechanismAssemblyResult(expected.AssemblyResult, actual.AssemblyResult);
         }
 
         #endregion
@@ -939,6 +944,8 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                                                               DuneErosionFailureMechanism actualFailureMechanism)
         {
             Assert.AreEqual(expectedFailureMechanism.GeneralInput.N, actualFailureMechanism.GeneralInput.N);
+
+            AssertComments(expectedFailureMechanism.CalculationsInputComments, actualFailureMechanism.CalculationsInputComments);
 
             AssertDuneLocations(expectedFailureMechanism.DuneLocations, actualFailureMechanism.DuneLocations);
             AssertDuneLocationCalculations(expectedFailureMechanism, actualFailureMechanism);
@@ -1741,7 +1748,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
         {
             Assert.AreEqual(expectedFailureMechanism.GeneralInput.N, actualFailureMechanism.GeneralInput.N);
             AssertForeshoreProfiles(expectedFailureMechanism.ForeshoreProfiles, actualFailureMechanism.ForeshoreProfiles);
-            AssertCalculationGroup(expectedFailureMechanism.WaveConditionsCalculationGroup, actualFailureMechanism.WaveConditionsCalculationGroup);
+            AssertCalculationGroup(expectedFailureMechanism.CalculationsGroup, actualFailureMechanism.CalculationsGroup);
         }
 
         private static void AssertGrassCoverErosionOutwardsWaveConditionsCalculation(GrassCoverErosionOutwardsWaveConditionsCalculation expectedCalculation,
@@ -1780,7 +1787,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             Assert.AreEqual(expectedFailureMechanism.GeneralInput.N, actualFailureMechanism.GeneralInput.N);
 
             AssertForeshoreProfiles(expectedFailureMechanism.ForeshoreProfiles, actualFailureMechanism.ForeshoreProfiles);
-            AssertCalculationGroup(expectedFailureMechanism.WaveConditionsCalculationGroup, actualFailureMechanism.WaveConditionsCalculationGroup);
+            AssertCalculationGroup(expectedFailureMechanism.CalculationsGroup, actualFailureMechanism.CalculationsGroup);
         }
 
         private static void AssertStabilityStoneCoverWaveConditionsCalculation(StabilityStoneCoverWaveConditionsCalculation expectedCalculation,
@@ -1819,7 +1826,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             Assert.AreEqual(expectedFailureMechanism.GeneralWaveImpactAsphaltCoverInput.DeltaL, actualFailureMechanism.GeneralWaveImpactAsphaltCoverInput.DeltaL);
 
             AssertForeshoreProfiles(expectedFailureMechanism.ForeshoreProfiles, actualFailureMechanism.ForeshoreProfiles);
-            AssertCalculationGroup(expectedFailureMechanism.WaveConditionsCalculationGroup, actualFailureMechanism.WaveConditionsCalculationGroup);
+            AssertCalculationGroup(expectedFailureMechanism.CalculationsGroup, actualFailureMechanism.CalculationsGroup);
         }
 
         private static void AssertWaveImpactAsphaltCoverWaveConditionsCalculation(WaveImpactAsphaltCoverWaveConditionsCalculation expectedCalculation,
@@ -1897,10 +1904,10 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
         private static void AssertHydraulicBoundaryLocationCalculations(AssessmentSection expected,
                                                                         AssessmentSection actual)
         {
-            AssertHydraulicBoundaryLocationCalculations(expected.WaterLevelCalculationsForSignalingNorm,
-                                                        actual.WaterLevelCalculationsForSignalingNorm);
-            AssertHydraulicBoundaryLocationCalculations(expected.WaterLevelCalculationsForLowerLimitNorm,
-                                                        actual.WaterLevelCalculationsForLowerLimitNorm);
+            AssertHydraulicBoundaryLocationCalculations(expected.WaterLevelCalculationsForSignalFloodingProbability,
+                                                        actual.WaterLevelCalculationsForSignalFloodingProbability);
+            AssertHydraulicBoundaryLocationCalculations(expected.WaterLevelCalculationsForMaximumAllowableFloodingProbability,
+                                                        actual.WaterLevelCalculationsForMaximumAllowableFloodingProbability);
 
             AssertHydraulicBoundaryLocationCalculationsForTargetProbabilities(expected.WaterLevelCalculationsForUserDefinedTargetProbabilities,
                                                                               actual.WaterLevelCalculationsForUserDefinedTargetProbabilities);

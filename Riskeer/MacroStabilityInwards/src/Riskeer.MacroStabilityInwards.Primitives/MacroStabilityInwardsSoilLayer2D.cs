@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -28,7 +28,7 @@ namespace Riskeer.MacroStabilityInwards.Primitives
     /// <summary>
     /// This class represents a 2D layer that was imported from D-Soil Model.
     /// </summary>
-    public class MacroStabilityInwardsSoilLayer2D : IMacroStabilityInwardsSoilLayer
+    public sealed class MacroStabilityInwardsSoilLayer2D : IMacroStabilityInwardsSoilLayer
     {
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsSoilLayer2D"/>.

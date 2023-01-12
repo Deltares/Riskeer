@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -43,19 +43,19 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         public IEnumerable<double> FailureMechanismProbabilitiesInput { get; private set; }
 
         /// <summary>
-        /// Gets the lower limit norm input.
+        /// Gets the maximum allowable flooding probability input.
         /// </summary>
-        public double LowerLimitNormInput { get; private set; }
+        public double MaximumAllowableFloodingProbabilityInput { get; private set; }
 
         /// <summary>
-        /// Gets the signaling norm input.
+        /// Gets the signal flooding probability input.
         /// </summary>
-        public double SignalingNormInput { get; private set; }
+        public double SignalFloodingProbability { get; private set; }
 
         /// <summary>
         /// Gets or sets the output of an assessment section assembly.
         /// </summary>
-        public AssessmentSectionAssemblyResult AssessmentSectionAssemblyResult { get; set; } 
+        public AssessmentSectionAssemblyResultWrapper AssessmentSectionAssemblyResult { get; set; }
 
         /// <summary>
         /// Gets the combined failure mechanism sections input.
@@ -70,9 +70,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         /// <summary>
         /// Gets or sets the output of the combined failure mechanism section assembly.
         /// </summary>
-        public IEnumerable<CombinedFailureMechanismSectionAssembly> CombinedFailureMechanismSectionAssemblyOutput { get; set; }
+        public CombinedFailureMechanismSectionAssemblyResultWrapper CombinedFailureMechanismSectionAssemblyOutput { get; set; }
 
-        public AssessmentSectionAssemblyResult AssembleAssessmentSection(IEnumerable<double> failureMechanismProbabilities, double lowerLimitNorm, double signalingNorm)
+        public AssessmentSectionAssemblyResultWrapper AssembleAssessmentSection(IEnumerable<double> failureMechanismProbabilities, double maximumAllowableFloodingProbability, double signalFloodingProbability)
         {
             if (ThrowExceptionOnCalculate)
             {
@@ -80,13 +80,16 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             }
 
             FailureMechanismProbabilitiesInput = failureMechanismProbabilities;
-            LowerLimitNormInput = lowerLimitNorm;
-            SignalingNormInput = signalingNorm;
+            MaximumAllowableFloodingProbabilityInput = maximumAllowableFloodingProbability;
+            SignalFloodingProbability = signalFloodingProbability;
 
-            return AssessmentSectionAssemblyResult ?? (AssessmentSectionAssemblyResult = new AssessmentSectionAssemblyResult(0.14, AssessmentSectionAssemblyCategoryGroup.NotApplicable));
+            return AssessmentSectionAssemblyResult ?? (AssessmentSectionAssemblyResult =
+                                                           new AssessmentSectionAssemblyResultWrapper(
+                                                               new AssessmentSectionAssemblyResult(0.14, AssessmentSectionAssemblyGroup.APlus),
+                                                               AssemblyMethod.BOI2A1, AssemblyMethod.BOI2B1));
         }
 
-        public IEnumerable<CombinedFailureMechanismSectionAssembly> AssembleCombinedFailureMechanismSections(
+        public CombinedFailureMechanismSectionAssemblyResultWrapper AssembleCombinedFailureMechanismSections(
             IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> input, double assessmentSectionLength)
         {
             if (ThrowExceptionOnCalculate)
@@ -97,13 +100,14 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             CombinedFailureMechanismSectionsInput = input;
             AssessmentSectionLength = assessmentSectionLength;
 
-            return CombinedFailureMechanismSectionAssemblyOutput ?? (CombinedFailureMechanismSectionAssemblyOutput = new[]
-                                                                        {
-                                                                            new CombinedFailureMechanismSectionAssembly(
-                                                                                new CombinedAssemblyFailureMechanismSection(
-                                                                                    0, 1, FailureMechanismSectionAssemblyGroup.Zero),
-                                                                                input.Select(failureMechanism => FailureMechanismSectionAssemblyGroup.Dominant).ToArray())
-                                                                        });
+            return CombinedFailureMechanismSectionAssemblyOutput ?? (CombinedFailureMechanismSectionAssemblyOutput = new CombinedFailureMechanismSectionAssemblyResultWrapper(
+                                                                         new[]
+                                                                         {
+                                                                             new CombinedFailureMechanismSectionAssembly(
+                                                                                 new CombinedAssemblyFailureMechanismSection(
+                                                                                     0, 1, FailureMechanismSectionAssemblyGroup.Zero),
+                                                                                 input.Select(failureMechanism => FailureMechanismSectionAssemblyGroup.Dominant).ToArray())
+                                                                         }, AssemblyMethod.BOI3A1, AssemblyMethod.BOI3B1, AssemblyMethod.BOI3C1));
         }
     }
 }

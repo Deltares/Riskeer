@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
@@ -40,10 +41,10 @@ namespace Riskeer.Piping.Data
         /// <param name="sectionResult">The section result to assemble.</param>
         /// <param name="failureMechanism">The <see cref="PipingFailureMechanism"/> the section result belongs to.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the section belongs to.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssemblyResult"/>.</returns>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyResultWrapper"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the section could not be assembled.</exception>
-        public static FailureMechanismSectionAssemblyResult AssembleSection(
+        public static FailureMechanismSectionAssemblyResultWrapper AssembleSection(
             AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult,
             PipingFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
@@ -78,11 +79,11 @@ namespace Riskeer.Piping.Data
         /// <param name="failureMechanism">The <see cref="PipingFailureMechanism"/> to assemble.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the <paramref name="failureMechanism"/>
         /// belongs to.</param>
-        /// <returns>A <see cref="double"/> representing the assembly result.</returns>
+        /// <returns>A <see cref="FailureMechanismAssemblyResultWrapper"/> with the assembly result.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the failure mechanism could not be assembled.</exception>
-        public static double AssembleFailureMechanism(PipingFailureMechanism failureMechanism,
-                                                      IAssessmentSection assessmentSection)
+        public static FailureMechanismAssemblyResultWrapper AssembleFailureMechanism(PipingFailureMechanism failureMechanism,
+                                                                                     IAssessmentSection assessmentSection)
         {
             if (failureMechanism == null)
             {
@@ -94,9 +95,15 @@ namespace Riskeer.Piping.Data
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return AssemblyToolHelper.AssemblyFailureMechanism(
-                failureMechanism, sr => AssembleSection(sr, failureMechanism, assessmentSection),
-                failureMechanism.PipingProbabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length));
+            Func<AdoptableWithProfileProbabilityFailureMechanismSectionResult, FailureMechanismSectionAssemblyResultWrapper> performSectionAssemblyFunc = sr =>
+                AssembleSection(sr, failureMechanism, assessmentSection);
+
+            return FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(
+                failureMechanism.PipingProbabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length),
+                failureMechanism.SectionResults.Select(sr => AssemblyToolHelper.AssembleFailureMechanismSection(sr, performSectionAssemblyFunc))
+                                .ToArray(),
+                failureMechanism.GeneralInput.ApplyLengthEffectInSection,
+                failureMechanism.AssemblyResult);
         }
     }
 }

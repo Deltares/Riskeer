@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -28,7 +28,6 @@ using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.IO.FileImporters.MessageProviders;
 using Riskeer.Common.IO.Properties;
 
@@ -36,9 +35,9 @@ namespace Riskeer.Common.IO.FileImporters
 {
     /// <summary>
     /// Imports <see cref="FailureMechanismSection"/> instances from a shapefile that contains
-    /// one or more polylines and stores them in a <see cref="IFailurePath"/>.
+    /// one or more polylines and stores them in a <see cref="IFailureMechanism"/>.
     /// </summary>
-    public class FailureMechanismSectionsImporter : FileImporterBase<IFailurePath>
+    public class FailureMechanismSectionsImporter : FileImporterBase<IFailureMechanism>
     {
         /// <summary>
         /// The snapping tolerance in meters.
@@ -58,7 +57,7 @@ namespace Riskeer.Common.IO.FileImporters
         /// <summary>
         /// Initializes a new instance of the <see cref="FailureMechanismSectionsImporter"/> class.
         /// </summary>
-        /// <param name="importTarget">The failure path to update.</param>
+        /// <param name="importTarget">The failure mechanism to update.</param>
         /// <param name="referenceLine">The reference line used to check correspondence with.</param>
         /// <param name="filePath">The path to the file to import from.</param>
         /// <param name="failureMechanismSectionUpdateStrategy">The strategy to update the failure mechanism sections
@@ -66,7 +65,7 @@ namespace Riskeer.Common.IO.FileImporters
         /// <param name="messageProvider">The message provider to provide the messages during the importer action.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.
         /// </exception>
-        public FailureMechanismSectionsImporter(IFailurePath importTarget,
+        public FailureMechanismSectionsImporter(IFailureMechanism importTarget,
                                                 ReferenceLine referenceLine,
                                                 string filePath,
                                                 IFailureMechanismSectionUpdateStrategy failureMechanismSectionUpdateStrategy,

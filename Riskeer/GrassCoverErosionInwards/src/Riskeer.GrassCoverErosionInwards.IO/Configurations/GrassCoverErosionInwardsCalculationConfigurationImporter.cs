@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -224,7 +224,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
                 calculation.InputParameters.ShouldDikeHeightBeCalculated = calculationConfiguration.ShouldDikeHeightBeCalculated.Value;
             }
 
-            double dikeHeightTargetProbability = calculationConfiguration.DikeHeightTargetProbability ?? failureMechanismContribution.Norm;
+            double dikeHeightTargetProbability = calculationConfiguration.DikeHeightTargetProbability ?? failureMechanismContribution.NormativeProbability;
 
             try
             {
@@ -260,7 +260,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
                 calculation.InputParameters.ShouldOvertoppingRateBeCalculated = calculationConfiguration.ShouldOvertoppingRateBeCalculated.Value;
             }
 
-            double overtoppingRateTargetProbability = calculationConfiguration.OvertoppingRateTargetProbability ?? failureMechanismContribution.Norm;
+            double overtoppingRateTargetProbability = calculationConfiguration.OvertoppingRateTargetProbability ?? failureMechanismContribution.NormativeProbability;
 
             try
             {

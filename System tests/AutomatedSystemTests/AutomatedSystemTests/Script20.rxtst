@@ -7,6 +7,7 @@
 			name="SelectResultItem">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToResultItem"
 					value="">
 					</param>
@@ -63,6 +64,44 @@
 					datasourceid="33c7c4a3-839d-4ff8-9147-8d79066f182b"
 					variableid="b8b2d988-b9c5-4a36-b47d-a548cdc8bb5e"
 					variablename="valueOfElement">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="05853609-706d-4950-b6bc-2426102bcd59"
+			name="ReportToPDFModule"
+			ref="ffa0759d-37d2-4abb-89a7-411f0fcf2dfe"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="PdfDirectoryPath"
+					datasourceid="cf827ffe-1dbe-42c7-9efc-b26b4ce18e62"
+					variableid="536f8a69-f246-4f2b-ae9e-1f62babb2ba9"
+					variablename="PdfDirectoryPath">
+					</var>
+					<var
+					dataname="DeleteRanorexReport"
+					datasourceid="cf827ffe-1dbe-42c7-9efc-b26b4ce18e62"
+					variableid="7f788c18-962c-41ab-b591-9c3122512c5e"
+					variablename="DeleteRanorexReport">
+					</var>
+					<var
+					dataname="Details"
+					datasourceid="cf827ffe-1dbe-42c7-9efc-b26b4ce18e62"
+					variableid="b9993b89-d8cb-45fe-829b-42b0f8dd8a00"
+					variablename="Details">
+					</var>
+					<var
+					dataname="Xml"
+					datasourceid="cf827ffe-1dbe-42c7-9efc-b26b4ce18e62"
+					variableid="c15f25ea-9409-4e1a-b76e-cd208bae6c56"
+					variablename="Xml">
+					</var>
+					<var
+					dataname="PdfName"
+					datasourceid="cf827ffe-1dbe-42c7-9efc-b26b4ce18e62"
+					variableid="1d09c6b5-db7a-4ed0-a13c-ee2add5d3d37"
+					variablename="PdfName">
 					</var>
 				</databinding>
 			</testmodule>
@@ -137,6 +176,7 @@
 			name="CancelCalculations">
 				<parameters>
 					<param
+					mask="False"
 					name="textPresentInDialogToCancel"
 					value="van">
 					</param>
@@ -183,8 +223,8 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="projectToOpenFileName"
-					datasourceid="ffd7722e-fb6a-4059-a901-6b57196a5a93"
+					dataname="fileToOpen"
+					datasourceid="85d947f1-d6dc-4113-b652-d87ae9744e56"
 					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
 					variablename="fileName">
 					</var>
@@ -203,6 +243,7 @@
 			name="LoopResultTypesClimateScenarios">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToResultItem"
 					value="">
 					</param>
@@ -213,10 +254,12 @@
 			name="GenerateCSVPropertiesPanel">
 				<parameters>
 					<param
+					mask="False"
 					name="csvFileSeparator"
 					value=";">
 					</param>
 					<param
+					mask="False"
 					name="numberOfIterationsToExpand"
 					value="2">
 					</param>
@@ -231,26 +274,32 @@
 			name="CalculateActualPropertiesCSVFileName">
 				<parameters>
 					<param
+					mask="False"
 					name="intermediateString1"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString2"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathSeparator"
 					value=">">
 					</param>
 					<param
+					mask="False"
 					name="space"
 					value=" ">
 					</param>
 					<param
+					mask="False"
 					name="underscore"
 					value="_">
 					</param>
 					<param
+					mask="False"
 					name="extensionCSVFile"
 					value=".csv">
 					</param>
@@ -350,8 +399,9 @@
 			name="SelectStateWithHBC">
 				<parameters>
 					<param
-					name="stateWithHBC"
-					value="Hydraulische">
+					mask="False"
+					name="stateNameWithHBC"
+					value="@HyB">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -368,70 +418,87 @@
 			name="ValidateCombinedResult">
 				<parameters>
 					<param
+					mask="False"
 					name="pathBetaUpliftInPP"
 					value="Opbarsten>Betrouwbaarheidsindex">
 					</param>
 					<param
+					mask="False"
 					name="betaUplift"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathProbUpliftInPP"
 					value="Opbarsten>Kans van voorkomen">
 					</param>
 					<param
+					mask="False"
 					name="probUplift"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathBetaHeaveInPP"
 					value="Heave>Betrouwbaarheidsindex">
 					</param>
 					<param
+					mask="False"
 					name="betaHeave"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathProbHeaveInPP"
 					value="Heave>Kans van voorkomen">
 					</param>
 					<param
+					mask="False"
 					name="probHeave"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathBetaSellmeijerInPP"
 					value="Terugschrijdende erosie>Betrouwbaarheidsindex">
 					</param>
 					<param
+					mask="False"
 					name="betaSellmeijer"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathProbSellmeijerInPP"
 					value="Terugschrijdende erosie>Kans van voorkomen">
 					</param>
 					<param
+					mask="False"
 					name="probSellmeijer"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathActualBetaCombinedInPP"
 					value="Piping>Betrouwbaarheidsindex faalkans [-]">
 					</param>
 					<param
+					mask="False"
 					name="betaCombined"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathActualApproxProbCombinedInPP"
 					value="Piping>Benaderde faalkans [1/jaar]">
 					</param>
 					<param
+					mask="False"
 					name="approxProbCombined"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathToCalculationsSTPH"
 					value="Traject 12-2>@STPH>Berekeningen">
 					</param>
@@ -446,6 +513,7 @@
 			name="ImportantNote">
 				<parameters>
 					<param
+					mask="False"
 					name="importantNote"
 					value="IMPORTANT: The calculations for STPH and STBI are so fast that it is not possible to cancel them before they are finished. Therefore, they are not part of this script.">
 					</param>
@@ -468,10 +536,10 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="stateWithCalculations"
+					dataname="stateName"
 					datasourceid="554a176c-4fac-4683-a23a-7bc9d17c822f"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -490,10 +558,10 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="stateWithCalculations"
+					dataname="stateName"
 					datasourceid="4c6c6a01-b1b1-4e90-af7d-f7b026dcc54d"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -548,6 +616,7 @@
 			name="CreateScreenshot">
 				<parameters>
 					<param
+					mask="False"
 					name="warningMessage"
 					value="Please, check the table, bar chart and tree chart for the results.">
 					</param>
@@ -585,6 +654,10 @@
 			id="4b7e5ce5-86d8-4e0a-aa7a-5b79b45317c7"
 			name="CalculatePathToResultItem">
 			</smartfoldernode>
+			<teardown
+			id="4be4a1f5-1ed0-46c4-962a-7083d9598442"
+			name="teardown">
+			</teardown>
 			<testmodule
 			id="4bf8bb2e-0289-4047-a263-188df7f2848a"
 			name="ConcatenateStrings"
@@ -687,8 +760,9 @@
 			name="SelectStateWithCalculations">
 				<parameters>
 					<param
-					name="stateWithCalculations"
-					value="Sterkte">
+					mask="False"
+					name="stateName"
+					value="@SB">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -845,8 +919,9 @@
 			name="SelectStateWithCalculations">
 				<parameters>
 					<param
-					name="stateWithCalculations"
-					value="Sterkte">
+					mask="False"
+					name="stateName"
+					value="@SB">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -918,6 +993,20 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="564297e0-d060-4ed4-a1d1-61413df45fc8"
+			name="PressCancelDialogAtTaskText"
+			ref="de80be27-ca55-476e-b824-e08916e3e0a3"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="textPresentInDialogToCancel"
+					datasourceid="13575c9d-672a-4b3b-a60a-6214cb3fd394"
+					variableid="91698fd8-ac20-44a1-8d0d-eba65cb9570e"
+					variablename="substringProgressMessageToStopAt">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			datarangeset="1,3-6"
 			datasource="script20cd_LoopFMs"
@@ -928,6 +1017,7 @@
 			name="LoopFMs">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToHBCInPE"
 					value="Traject>Hydraulische belastingen">
 					</param>
@@ -940,23 +1030,34 @@
 			name="ValidateResultsAreEmpty">
 			</smartfoldernode>
 			<testsuite
+			ExportColumnList="None"
 			ReportTime="RelativeToTestSuiteStartTime"
+			SelectedActions="All"
 			TracingScreenshotMode="Foreground"
 			TracingScreenshotQuality="40"
 			VideoBitrate="2000"
 			VideoFps="15"
 			VideoRecordingMode="KeepAllTests"
 			VideoSource="Auto"
+			createindividualreportpdfchecked="False"
+			createsinglereportpdfchecked="True"
+			enableCSVReport="False"
 			enabletracingscreenshots="True"
+			exportAllColummns="True"
 			id="5b4e7d9b-732c-47ba-acfd-f7f668999d26"
+			includeimageschecked="False"
+			includerecordingschecked="False"
 			junitreport="False"
 			name="Script20"
+			overwritefilechecked="False"
 			reportcompress="False"
+			reportdescription=""
 			reportdirectoryname="Reports"
 			reportenabled="True"
 			reportfilename="%S_%Y%M%D_%T.rxlog"
 			reporttemplatefolder="ReportDeltaresStyle"
-			reportwriteinterval="30000ms">
+			reportwriteinterval="30000ms"
+			singlereportpdfdirectory="SingleReportPDF">
 			</testsuite>
 			<testmodule
 			id="5b5c831a-a0e0-4118-a6e1-4c5cd0709b4e"
@@ -1045,10 +1146,10 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="stateWithCalculations"
+					dataname="stateName"
 					datasourceid="ff975747-306b-4cfe-8fd4-eb3fb0de1826"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -1059,12 +1160,6 @@
 					variablename="StateToSelect">
 					</var>
 				</missingdatabinding>
-			</testmodule>
-			<testmodule
-			id="6d553bd3-8128-4897-b71b-d3967ebc9f1c"
-			name="CreateScreenshotEntireDesktop"
-			ref="0f7ebadb-0285-4449-9422-0cd6fde5bf4d"
-			type="Recording">
 			</testmodule>
 			<testmodule
 			id="6d5f9b21-e8ad-450b-90b3-c61967f3358b"
@@ -1135,6 +1230,7 @@
 			name="ValidateResults">
 				<parameters>
 					<param
+					mask="False"
 					name="nameSmartFolderToSetRange"
 					value="LoopResultTypesClimateScenarios">
 					</param>
@@ -1175,6 +1271,13 @@
 			<smartfoldernode
 			id="85d947f1-d6dc-4113-b652-d87ae9744e56"
 			name="OpenProject">
+				<parameters>
+					<param
+					mask="False"
+					name="fileToOpen"
+					value="inputScript20b_STPH.risk">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
 			id="8904eaf4-9433-4ebc-8995-c15033ef792f"
@@ -1201,10 +1304,10 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="stateWithHBC"
+					dataname="stateNameWithHBC"
 					datasourceid="2fc008ea-b0a3-4264-b074-d3051786566c"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -1530,10 +1633,12 @@
 			name="CompareWithReference">
 				<parameters>
 					<param
+					mask="False"
 					name="pathFolderReferenceFiles"
 					value="X:\script20\reference\">
 					</param>
 					<param
+					mask="False"
 					name="fullPathReferenceFile"
 					value="">
 					</param>
@@ -1657,14 +1762,17 @@
 			name="ValidateNoResultsAfterCanceling">
 				<parameters>
 					<param
+					mask="False"
 					name="suffixResults"
 					value=">Resultaat">
 					</param>
 					<param
+					mask="False"
 					name="pathToResultsInCalculation"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="charPathSeparator"
 					value=">">
 					</param>
@@ -1675,18 +1783,22 @@
 			name="SelectHBC">
 				<parameters>
 					<param
+					mask="False"
 					name="StepInPathContainingTargetProbability"
 					value="4">
 					</param>
 					<param
+					mask="False"
 					name="TargetProbabilityInvariantCulture"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="TargetProbabilityCurrentCulture"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="FullPathToHBCItemInPEWithCurrentCulture"
 					value="">
 					</param>
@@ -1874,10 +1986,12 @@
 			name="SelectRequiredLocations">
 				<parameters>
 					<param
+					mask="False"
 					name="calculationsMustBeChecked"
 					value="true">
 					</param>
 					<param
+					mask="False"
 					name="illPointsMustBeChecked"
 					value="false">
 					</param>
@@ -1892,10 +2006,12 @@
 			name="ValidateProperties">
 				<parameters>
 					<param
+					mask="False"
 					name="fullPathToCSVFileActualResult"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="nameCSVFileActualResult"
 					value="">
 					</param>
@@ -1931,12 +2047,39 @@
 			reportlevel="Info;20">
 				<parameters>
 					<param
+					mask="False"
 					name="AppProcessID"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="AppPath"
 					value="..\..\..\..\..\bin\Debug\Riskeer.exe">
+					</param>
+					<param
+					mask="False"
+					name="PdfDirectoryPath"
+					value="">
+					</param>
+					<param
+					mask="False"
+					name="DeleteRanorexReport"
+					value="false">
+					</param>
+					<param
+					mask="False"
+					name="Details"
+					value="all">
+					</param>
+					<param
+					mask="False"
+					name="Xml"
+					value="Reports\style.xml">
+					</param>
+					<param
+					mask="False"
+					name="PdfName"
+					value="script20_(Benaderde)_faalkans_berekenen.pdf">
 					</param>
 				</parameters>
 			</testcase>
@@ -1983,6 +2126,7 @@
 			name="ValidateCancellation">
 				<parameters>
 					<param
+					mask="False"
 					name="nameSmartFolderToSetRange"
 					value="ValidateNoResultsAfterCanceling">
 					</param>
@@ -2071,27 +2215,27 @@
 			name="ValidateMessages">
 				<parameters>
 					<param
+					mask="False"
 					name="indexMessage"
 					value="0">
 					</param>
 					<param
+					mask="False"
 					name="substring1Message"
 					value="Uitvoeren van berekening">
 					</param>
 					<param
+					mask="False"
 					name="substring2Message"
 					value="is geannuleerd.">
 					</param>
 					<param
+					mask="False"
 					name="logMessage"
 					value="Check screenshot of Messages panel.">
 					</param>
 				</parameters>
 			</smartfoldernode>
-			<testcase
-			id="e2fe72de-a007-44fe-a359-2714431537de"
-			name="TakeScreenshotOfDesktop">
-			</testcase>
 			<smartfoldernode
 			id="e3bbf36b-3bbd-47c3-b4f3-a3ce7e01e65d"
 			name="SelectCalculationsItem">
@@ -2107,20 +2251,6 @@
 			name="StartCalculations">
 			</smartfoldernode>
 			<testmodule
-			id="e603f848-aece-4af9-8d90-67b764e9e051"
-			name="PressCancelDialogAtStepText"
-			ref="ad8d58e7-525d-408e-9785-b0c4ab6dd07b"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="textPresentInDialogToCancel"
-					datasourceid="13575c9d-672a-4b3b-a60a-6214cb3fd394"
-					variableid="70ae10b6-af9c-48bd-ab45-2033098501e7"
-					variablename="substringProgressMessageToStopAt">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
 			id="e8717a89-552d-4de8-9043-da0cc50c62d6"
 			name="CreateScreenShotPropertiesPanel"
 			ref="bbe1b453-6dad-446c-8f21-3104847f3bd8"
@@ -2131,6 +2261,7 @@
 			name="SelectHLCDClimateScenario">
 				<parameters>
 					<param
+					mask="False"
 					name="paramaterNameHLCDFileLocation"
 					value="HLCD bestandslocatie">
 					</param>
@@ -2155,6 +2286,7 @@
 			name="ImportantNote">
 				<parameters>
 					<param
+					mask="False"
 					name="importantnNote"
 					value="IMPORTANT: The calculations have been fully confiugured and run in script 17. Therefore, this part will be skipped in script 20 as agreed with the Product Owner.">
 					</param>
@@ -2390,40 +2522,48 @@
 			name="SelectStateWithCalculations">
 				<parameters>
 					<param
-					name="stateWithCalculations"
-					value="Sterkte">
+					mask="False"
+					name="stateName"
+					value="@SB">
 					</param>
 				</parameters>
 			</smartfoldernode>
 			<testcase
 			id="ffd7722e-fb6a-4059-a901-6b57196a5a93"
-			name="script20_(Benaderde)_faalkans_berekenen_per_toetsvak">
+			name="script20_(Benaderde)_faalkans_berekenen">
 				<parameters>
 					<param
+					mask="False"
 					name="caseNumber"
 					value="20">
 					</param>
 					<param
+					mask="False"
 					name="scriptOutputFolder"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="projectToOpenFileName"
 					value="script19a_STPH.risk">
 					</param>
 					<param
+					mask="False"
 					name="projectFileNameB"
 					value="script20b_STPH.risk">
 					</param>
 					<param
+					mask="False"
 					name="extensionRiskeerProjects"
 					value="*.risk">
 					</param>
 					<param
+					mask="False"
 					name="folderRiskeerProjectsPreviousRelease"
 					value="X:\script20\previousRelease">
 					</param>
 					<param
+					mask="False"
 					name="dummyString"
 					value="">
 					</param>
@@ -2438,16 +2578,8 @@
 				id="cf827ffe-1dbe-42c7-9efc-b26b4ce18e62"
 				name="Script20">
 					<testcase
-					id="e2fe72de-a007-44fe-a359-2714431537de"
-					name="TakeScreenshotOfDesktop">
-						<testmodule
-						id="6d553bd3-8128-4897-b71b-d3967ebc9f1c"
-						name="CreateScreenshotEntireDesktop">
-						</testmodule>
-					</testcase>
-					<testcase
 					id="ffd7722e-fb6a-4059-a901-6b57196a5a93"
-					name="script20_(Benaderde)_faalkans_berekenen_per_toetsvak">
+					name="script20_(Benaderde)_faalkans_berekenen">
 						<setup
 						id="cd352d94-c228-404c-8c51-4b71049d34bf"
 						name="setup">
@@ -2549,8 +2681,8 @@
 									id="13575c9d-672a-4b3b-a60a-6214cb3fd394"
 									name="CancelCalculations">
 										<testmodule
-										id="e603f848-aece-4af9-8d90-67b764e9e051"
-										name="PressCancelDialogAtStepText">
+										id="564297e0-d060-4ed4-a1d1-61413df45fc8"
+										name="PressCancelDialogAtTaskText">
 										</testmodule>
 									</smartfoldernode>
 									<smartfoldernode
@@ -2993,6 +3125,14 @@
 							</testmodule>
 						</teardown>
 					</testcase>
+					<teardown
+					id="4be4a1f5-1ed0-46c4-962a-7083d9598442"
+					name="teardown">
+						<testmodule
+						id="05853609-706d-4950-b6bc-2426102bcd59"
+						name="ReportToPDFModule">
+						</testmodule>
+					</teardown>
 				</testcase>
 			</testsuite>
 		</childhierarchy>
@@ -4697,7 +4837,7 @@
 						script20cd_STPH.risk
 					</td>
 					<td>
-						Traject&gt;@HB&gt;Waterstanden bij norm&gt;1/3000
+						Traject&gt;@HB&gt;Waterstanden bij vaste doelkans&gt;1/3000
 					</td>
 					<td>
 						Traject&gt;@STPH&gt;Berekeningen
@@ -4748,7 +4888,7 @@
 						script20cd_STBI.risk
 					</td>
 					<td>
-						Traject&gt;@HB&gt;Waterstanden bij norm&gt;1/30000
+						Traject&gt;@HB&gt;Waterstanden bij vaste doelkans&gt;1/30000
 					</td>
 					<td>
 						Traject&gt;@STBI&gt;Berekeningen
@@ -4999,9 +5139,6 @@
 			id="e190283e-f20d-4bf2-b26a-119e0ac4e922">
 			</testcontainer>
 			<testcontainer
-			id="e2fe72de-a007-44fe-a359-2714431537de">
-			</testcontainer>
-			<testcontainer
 			id="e3bbf36b-3bbd-47c3-b4f3-a3ce7e01e65d">
 			</testcontainer>
 			<testcontainer
@@ -5042,6 +5179,9 @@
 		</reference>
 		<reference>
 			Ranorex Automation Helpers.dll
+		</reference>
+		<reference>
+			Ranorex.ReportToPDF.exe
 		</reference>
 	</references>
 </testsuitedoc>

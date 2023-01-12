@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -68,7 +68,7 @@ namespace Riskeer.Common.Data.FailureMechanism
                 n = newValue;
             }
         }
-        
+
         /// <summary>
         /// Gets or sets whether the length effect should be applied in the section.
         /// </summary>

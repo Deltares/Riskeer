@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -21,11 +21,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base.Geometry;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 
 namespace Riskeer.Common.Data.TestUtil
 {
@@ -35,17 +32,17 @@ namespace Riskeer.Common.Data.TestUtil
     public static class FailureMechanismTestHelper
     {
         /// <summary>
-        /// Sets a collection of <see cref="FailureMechanismSection"/> to <see cref="IFailurePath.Sections"/>
+        /// Sets a collection of <see cref="FailureMechanismSection"/> to <see cref="IFailureMechanism.Sections"/>
         /// with an empty source path.
         /// </summary>
-        /// <param name="failurePath">The failure path to set the sections to.</param>
+        /// <param name="failureMechanism">The failure mechanism to set the sections to.</param>
         /// <param name="sections">The sections to set.</param>
         /// <exception cref="ArgumentNullException">Thrown when <see cref="sections"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="sections"/> contains elements that
         /// are not properly connected.</exception>
-        public static void SetSections(IFailurePath failurePath, IEnumerable<FailureMechanismSection> sections)
+        public static void SetSections(IFailureMechanism failureMechanism, IEnumerable<FailureMechanismSection> sections)
         {
-            failurePath.SetSections(sections, string.Empty);
+            failureMechanism.SetSections(sections, string.Empty);
         }
 
         /// <summary>
@@ -57,18 +54,6 @@ namespace Riskeer.Common.Data.TestUtil
         public static void AddSections(IFailureMechanism failureMechanism, int numberOfSections)
         {
             AddSections(failureMechanism, numberOfSections, new Point2D(-1, -1), new Point2D(15, 15));
-        }
-
-        /// <summary>
-        /// Adds a number of failure mechanism sections to <paramref name="failureMechanism"/>
-        /// based on the <paramref name="referenceLine"/> geometry and <paramref name="numberOfSections"/>.
-        /// </summary>
-        /// <param name="referenceLine">The reference line to get the geometry from.</param>
-        /// <param name="failureMechanism">The failure mechanism to add sections to.</param>
-        /// <param name="numberOfSections">The number of sections to add to the <paramref name="failureMechanism"/>.</param>
-        public static void AddSectionsBasedOnReferenceLine(ReferenceLine referenceLine, IFailureMechanism failureMechanism, int numberOfSections)
-        {
-            AddSections(failureMechanism, numberOfSections, referenceLine.Points.First(), referenceLine.Points.Last());
         }
 
         private static void AddSections(IFailureMechanism failureMechanism, int numberOfSections, Point2D startPoint, Point2D endPoint)

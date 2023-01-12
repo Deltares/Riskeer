@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -76,7 +76,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void ChangeNormativeNormType_ActionNull_ThrowsArgumentNullException()
+        public void ChangeNormativeProbabilityType_ActionNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -86,7 +86,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var handler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
 
             // Call
-            void Call() => handler.ChangeNormativeNormType(null);
+            void Call() => handler.ChangeNormativeProbabilityType(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -95,7 +95,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void ChangeNormativeNormType_WithAction_ConfirmationRequired()
+        public void ChangeNormativeProbabilityType_WithAction_ConfirmationRequired()
         {
             // Setup
             var title = "";
@@ -116,11 +116,11 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var handler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
 
             // Call
-            handler.ChangeNormativeNormType(() => {});
+            handler.ChangeNormativeProbabilityType(() => {});
 
             // Assert
             Assert.AreEqual("Bevestigen", title);
-            string expectedMessage = "Als u de norm aanpast, dan worden de rekenresultaten van semi-probabilistische berekeningen zonder handmatig toetspeil verwijderd."
+            string expectedMessage = "Als u de norm aanpast, dan worden de rekenresultaten van semi-probabilistische berekeningen zonder handmatige waterstand verwijderd."
                                      + Environment.NewLine
                                      + Environment.NewLine
                                      + "Weet u zeker dat u wilt doorgaan?";
@@ -129,7 +129,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void GivenCalculationsWithOutput_WhenChangingNormativeNormType_ThenAllDependingOutputClearedAndActionPerformedAndAllAffectedObjectsNotified()
+        public void GivenCalculationsWithOutput_WhenChangingNormativeProbabilityType_ThenAllDependingOutputClearedAndActionPerformedAndAllAffectedObjectsNotified()
         {
             // Given
             DialogBoxHandler = (name, wnd) =>
@@ -166,7 +166,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             // When
             var actionPerformed = false;
-            void Call() => handler.ChangeNormativeNormType(() => actionPerformed = true);
+            void Call() => handler.ChangeNormativeProbabilityType(() => actionPerformed = true);
 
             // Then
             var expectedMessages = new[]
@@ -180,7 +180,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void GivenCalculationsWithoutOutput_WhenChangingNormativeNormType_ThenActionPerformedAndContributionNotified()
+        public void GivenCalculationsWithoutOutput_WhenChangingNormativeProbabilityType_ThenActionPerformedAndContributionNotified()
         {
             // Given
             DialogBoxHandler = (name, wnd) =>
@@ -212,7 +212,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             // When
             var actionPerformed = false;
-            void Call() => handler.ChangeNormativeNormType(() => actionPerformed = true);
+            void Call() => handler.ChangeNormativeProbabilityType(() => actionPerformed = true);
 
             // Then
             TestHelper.AssertLogMessagesCount(Call, 0);
@@ -221,7 +221,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void ChangeNormativeNormActionNull_ThrowsArgumentNullException()
+        public void ChangeNormativeProbability_ActionNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -231,7 +231,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var handler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
 
             // Call
-            void Call() => handler.ChangeNormativeNorm(null);
+            void Call() => handler.ChangeNormativeProbability(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -240,7 +240,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void ChangeNormativeNorm_WithAction_ConfirmationRequired()
+        public void ChangeNormativeProbability_WithAction_ConfirmationRequired()
         {
             // Setup
             var title = "";
@@ -261,11 +261,11 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var handler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
 
             // Call
-            handler.ChangeNormativeNorm(() => {});
+            handler.ChangeNormativeProbability(() => {});
 
             // Assert
             Assert.AreEqual("Bevestigen", title);
-            string expectedMessage = "Als u de norm aanpast, dan worden de rekenresultaten van alle hydraulische belastingenlocaties behorende bij deze norm en semi-probabilistische berekeningen zonder handmatig toetspeil verwijderd."
+            string expectedMessage = "Als u de norm aanpast, dan worden de rekenresultaten van alle hydraulische belastingenlocaties behorende bij deze norm en semi-probabilistische berekeningen zonder handmatige waterstand verwijderd."
                                      + Environment.NewLine
                                      + Environment.NewLine
                                      + "Weet u zeker dat u wilt doorgaan?";
@@ -274,9 +274,9 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        [TestCaseSource(nameof(GetChangeNormativeNormCases))]
-        public void GivenCalculationsWithOutput_WhenChangingNormativeNorm_ThenAllDependingOutputClearedAndActionPerformedAndAllAffectedObjectsNotified(
-            NormType normType, Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getLocationCalculationsFunc,
+        [TestCaseSource(nameof(GetChangeNormativeProbabilityCases))]
+        public void GivenCalculationsWithOutput_WhenChangingNormativeProbability_ThenAllDependingOutputClearedAndActionPerformedAndAllAffectedObjectsNotified(
+            NormativeProbabilityType normativeProbabilityType, Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getLocationCalculationsFunc,
             WaveConditionsInputWaterLevelType waterLevelType)
         {
             // Given
@@ -287,7 +287,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             };
 
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
-            assessmentSection.FailureMechanismContribution.NormativeNorm = normType;
+            assessmentSection.FailureMechanismContribution.NormativeProbabilityType = normativeProbabilityType;
 
             IEnumerable<HydraulicBoundaryLocationCalculation> expectedLocationCalculationsToClear = getLocationCalculationsFunc(assessmentSection);
 
@@ -337,7 +337,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             // When
             var actionPerformed = false;
-            void Call() => handler.ChangeNormativeNorm(() => actionPerformed = true);
+            void Call() => handler.ChangeNormativeProbability(() => actionPerformed = true);
 
             // Then
             var expectedMessages = new[]
@@ -355,9 +355,9 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        [TestCaseSource(nameof(GetChangeNormativeNormCases))]
-        public void GivenCalculationsWithoutOutput_WhenChangingNormativeNorm_ThenActionPerformedAndContributionNotified(
-            NormType normType, Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getLocationCalculationsFunc,
+        [TestCaseSource(nameof(GetChangeNormativeProbabilityCases))]
+        public void GivenCalculationsWithoutOutput_WhenChangingNormativeProbability_ThenActionPerformedAndContributionNotified(
+            NormativeProbabilityType normativeProbabilityType, Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getLocationCalculationsFunc,
             WaveConditionsInputWaterLevelType waterLevelType)
         {
             // Given
@@ -368,7 +368,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             };
 
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
-            assessmentSection.FailureMechanismContribution.NormativeNorm = normType;
+            assessmentSection.FailureMechanismContribution.NormativeProbabilityType = normativeProbabilityType;
 
             IEnumerable<HydraulicBoundaryLocationCalculation> calculationsBelongingToNorm = getLocationCalculationsFunc(assessmentSection);
 
@@ -412,7 +412,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             // When
             var actionPerformed = false;
-            void Call() => handler.ChangeNormativeNorm(() => actionPerformed = true);
+            void Call() => handler.ChangeNormativeProbability(() => actionPerformed = true);
 
             // Then
             TestHelper.AssertLogMessagesCount(Call, 0);
@@ -421,7 +421,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void ChangeNormActionNull_ThrowsArgumentNullException()
+        public void ChangeProbability_ActionNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -431,7 +431,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var handler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
 
             // Call
-            void Call() => handler.ChangeNorm(null);
+            void Call() => handler.ChangeProbability(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -440,7 +440,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void ChangeNorm_WithAction_ConfirmationRequired()
+        public void ChangeProbability_WithAction_ConfirmationRequired()
         {
             // Setup
             var title = "";
@@ -461,7 +461,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var handler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
 
             // Call
-            handler.ChangeNorm(() => {});
+            handler.ChangeProbability(() => {});
 
             // Assert
             Assert.AreEqual("Bevestigen", title);
@@ -474,9 +474,9 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        [TestCaseSource(nameof(GetChangeNormCases))]
-        public void GivenCalculationsWithOutput_WhenChangingNorm_ThenAllDependingOutputClearedAndActionPerformedAndAllAffectedObjectsNotified(
-            NormType normType, Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc,
+        [TestCaseSource(nameof(GetChangeProbabilityCases))]
+        public void GivenCalculationsWithOutput_WhenChangingProbability_ThenAllDependingOutputClearedAndActionPerformedAndAllAffectedObjectsNotified(
+            NormativeProbabilityType normativeProbabilityType, Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc,
             WaveConditionsInputWaterLevelType waterLevelType)
         {
             // Given
@@ -487,7 +487,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             };
 
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
-            assessmentSection.FailureMechanismContribution.NormativeNorm = normType;
+            assessmentSection.FailureMechanismContribution.NormativeProbabilityType = normativeProbabilityType;
 
             IEnumerable<HydraulicBoundaryLocationCalculation> expectedCalculationsToClear = getCalculationsFunc(assessmentSection);
 
@@ -527,7 +527,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             // When
             var actionPerformed = false;
-            void Call() => handler.ChangeNorm(() => actionPerformed = true);
+            void Call() => handler.ChangeProbability(() => actionPerformed = true);
 
             // Then
             var expectedMessages = new[]
@@ -543,9 +543,9 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        [TestCaseSource(nameof(GetChangeNormCases))]
-        public void GivenCalculationsWithoutOutput_WhenChangingNorm_ThenActionPerformedAndContributionNotified(
-            NormType normType, Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getLocationCalculationsFunc,
+        [TestCaseSource(nameof(GetChangeProbabilityCases))]
+        public void GivenCalculationsWithoutOutput_WhenChangingProbability_ThenActionPerformedAndContributionNotified(
+            NormativeProbabilityType normativeProbabilityType, Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getLocationCalculationsFunc,
             WaveConditionsInputWaterLevelType waterLevelType)
         {
             // Given
@@ -556,7 +556,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             };
 
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
-            assessmentSection.FailureMechanismContribution.NormativeNorm = normType;
+            assessmentSection.FailureMechanismContribution.NormativeProbabilityType = normativeProbabilityType;
 
             IEnumerable<HydraulicBoundaryLocationCalculation> calculationsBelongingToNorm = getLocationCalculationsFunc(assessmentSection);
 
@@ -591,7 +591,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             // When
             var actionPerformed = false;
-            void Call() => handler.ChangeNorm(() => actionPerformed = true);
+            void Call() => handler.ChangeProbability(() => actionPerformed = true);
 
             // Then
             TestHelper.AssertLogMessagesCount(Call, 0);
@@ -599,28 +599,28 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             mocks.VerifyAll();
         }
 
-        private static IEnumerable<TestCaseData> GetChangeNormativeNormCases()
+        private static IEnumerable<TestCaseData> GetChangeNormativeProbabilityCases()
         {
             yield return new TestCaseData(
-                NormType.LowerLimit, new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
-                    section => section.WaterLevelCalculationsForLowerLimitNorm),
-                WaveConditionsInputWaterLevelType.LowerLimit);
+                NormativeProbabilityType.MaximumAllowableFloodingProbability, new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
+                    section => section.WaterLevelCalculationsForMaximumAllowableFloodingProbability),
+                WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability);
             yield return new TestCaseData(
-                NormType.Signaling, new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
-                    section => section.WaterLevelCalculationsForSignalingNorm),
-                WaveConditionsInputWaterLevelType.Signaling);
+                NormativeProbabilityType.SignalFloodingProbability, new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
+                    section => section.WaterLevelCalculationsForSignalFloodingProbability),
+                WaveConditionsInputWaterLevelType.SignalFloodingProbability);
         }
 
-        private static IEnumerable<TestCaseData> GetChangeNormCases()
+        private static IEnumerable<TestCaseData> GetChangeProbabilityCases()
         {
             yield return new TestCaseData(
-                NormType.LowerLimit, new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
-                    section => section.WaterLevelCalculationsForSignalingNorm),
-                WaveConditionsInputWaterLevelType.Signaling);
+                NormativeProbabilityType.MaximumAllowableFloodingProbability, new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
+                    section => section.WaterLevelCalculationsForSignalFloodingProbability),
+                WaveConditionsInputWaterLevelType.SignalFloodingProbability);
             yield return new TestCaseData(
-                NormType.Signaling, new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
-                    section => section.WaterLevelCalculationsForLowerLimitNorm),
-                WaveConditionsInputWaterLevelType.LowerLimit);
+                NormativeProbabilityType.SignalFloodingProbability, new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
+                    section => section.WaterLevelCalculationsForMaximumAllowableFloodingProbability),
+                WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -31,7 +31,7 @@ namespace Riskeer.Piping.Primitives
     /// <summary>
     /// Definition of a surface line for piping.
     /// </summary>
-    public class PipingSurfaceLine : MechanismSurfaceLineBase
+    public sealed class PipingSurfaceLine : MechanismSurfaceLineBase
     {
         /// <summary>
         /// Creates a new instance of <see cref="PipingSurfaceLine"/>.

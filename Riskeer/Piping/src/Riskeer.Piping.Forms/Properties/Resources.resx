@@ -290,7 +290,7 @@
     <value>Betrouwbaarheidsindex [-]</value>
   </data>
   <data name="PipingOutput_PipingProbability_Description" xml:space="preserve">
-    <value>De benaderde kans dat het toetsspoor piping optreedt voor deze berekening.</value>
+    <value>De benaderde kans dat het faalmechanisme piping optreedt voor deze berekening.</value>
   </data>
   <data name="PipingOutput_PipingProbability_DisplayName" xml:space="preserve">
     <value>Benaderde faalkans [1/jaar]</value>
@@ -510,14 +510,14 @@ opbarsten
   <data name="PipingScenariosViewFailureMechanismSectionViewModel_GetScenarioConfigurationTypeDisplayName_Probabilistic" xml:space="preserve">
     <value>probabilistisch</value>
   </data>
-  <data name="Calculations_per_FailureMechanismSection_And_ScenarioConfigurationType_DisplayName" xml:space="preserve">
-    <value>Berekeningen voor geselecteerd vak en type toets</value>
+  <data name="Calculations_for_current_Selection_DisplayName" xml:space="preserve">
+    <value>Berekeningen voor huidige selectie</value>
   </data>
   <data name="ScenarioConfigurationType_SemiProbabilistic_DisplayName" xml:space="preserve">
-    <value>Semi-probabilistische toets</value>
+    <value>Semi-probabilistisch</value>
   </data>
   <data name="ScenarioConfigurationType_Probabilistic_DisplayName" xml:space="preserve">
-    <value>Probabilistische toets</value>
+    <value>Probabilistisch</value>
   </data>
   <data name="PipingScenariosView_InitializeInfoIcon_ScenarioConfigurationType_PerSection_ToolTip" xml:space="preserve">
     <value>In het geval van 'Per vak instelbaar' is een onderbouwing nodig,
@@ -526,6 +526,6 @@ en semi-probabilistisch getoetste vakken niet leidt tot
 een te onveilig rekenresultaat op het trajectniveau.</value>
   </data>
   <data name="PipingScenariosView_ScenarioConfigurationType_DisplayName" xml:space="preserve">
-    <value>Type toets:</value>
+    <value>Type toets</value>
   </data>
 </root>

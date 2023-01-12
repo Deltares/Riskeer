@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -43,12 +43,12 @@ namespace Riskeer.Common.Forms.Views
     /// <typeparam name="TCalculation">The type of calculation.</typeparam>
     /// <typeparam name="TCalculationInput">The type of the calculation input.</typeparam>
     /// <typeparam name="TCalculationRow">The type of the calculation row.</typeparam>
-    /// <typeparam name="TFailureMechanism">The type of the failure mechanism.</typeparam>
+    /// <typeparam name="TFailureMechanism">The type of the calculatable failure mechanism.</typeparam>
     public abstract partial class CalculationsView<TCalculation, TCalculationInput, TCalculationRow, TFailureMechanism> : UserControl, ISelectionProvider, IView
         where TCalculation : class, ICalculation<TCalculationInput>
         where TCalculationRow : CalculationRow<TCalculation>
         where TCalculationInput : class, ICalculationInput
-        where TFailureMechanism : IFailureMechanism
+        where TFailureMechanism : ICalculatableFailureMechanism
     {
         private int nameColumnIndex = -1;
         private int selectableHydraulicBoundaryLocationColumnIndex = -1;

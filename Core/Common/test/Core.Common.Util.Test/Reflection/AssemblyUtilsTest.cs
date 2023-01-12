@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -70,10 +70,10 @@ namespace Core.Common.Util.Test.Reflection
 
             // Assert
             Assert.AreEqual("Deltares", assemblyInfo.Company);
-            Assert.AreEqual("Copyright © Deltares 2021", assemblyInfo.Copyright);
+            Assert.AreEqual("Copyright © Deltares 2022", assemblyInfo.Copyright);
             Assert.AreEqual("Core.Common.Util.Test", assemblyInfo.Product);
             Assert.AreEqual("Core.Common.Util.Test", assemblyInfo.Title);
-            StringAssert.StartsWith("21.2.1.1", assemblyInfo.Version);
+            StringAssert.StartsWith("22.2.1.1", assemblyInfo.Version);
         }
 
         [Test]

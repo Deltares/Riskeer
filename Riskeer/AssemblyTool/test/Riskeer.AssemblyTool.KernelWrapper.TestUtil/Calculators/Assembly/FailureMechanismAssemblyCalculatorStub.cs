@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -42,16 +42,22 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         public IEnumerable<FailureMechanismSectionAssemblyResult> SectionAssemblyResultsInput { get; private set; }
 
         /// <summary>
+        /// Gets the indicator whether the failure mechanism section length effect is applied.
+        /// </summary>
+        public bool ApplyLengthEffect { get; private set; }
+
+        /// <summary>
         /// Sets an indicator whether an exception must be thrown while performing the calculation.
         /// </summary>
         public bool ThrowExceptionOnCalculate { private get; set; }
 
         /// <summary>
-        /// Gets or sets the result of the assembly calculation.
+        /// Gets or sets the result output of the assembly calculation.
         /// </summary>
-        public double AssemblyResult { get; set; }
+        public FailureMechanismAssemblyResultWrapper AssemblyResultOutput { get; set; }
 
-        public double Assemble(double failureMechanismN, IEnumerable<FailureMechanismSectionAssemblyResult> sectionAssemblyResults)
+        public FailureMechanismAssemblyResultWrapper Assemble(double failureMechanismN, IEnumerable<FailureMechanismSectionAssemblyResult> sectionAssemblyResults,
+                                                              bool applySectionLengthEffect)
         {
             if (ThrowExceptionOnCalculate)
             {
@@ -60,8 +66,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
 
             FailureMechanismN = failureMechanismN;
             SectionAssemblyResultsInput = sectionAssemblyResults;
+            ApplyLengthEffect = applySectionLengthEffect;
 
-            return AssemblyResult;
+            return AssemblyResultOutput ?? (AssemblyResultOutput = new FailureMechanismAssemblyResultWrapper(0.1, AssemblyMethod.BOI1A1));
         }
     }
 }

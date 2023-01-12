@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -79,18 +79,18 @@ namespace Riskeer.Revetment.Data.TestUtil
                 new Action<WaveConditionsInput>(input =>
                 {
                     input.HydraulicBoundaryLocation = hydraulicBoundaryLocation;
-                    input.WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit;
+                    input.WaterLevelType = WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability;
                 }),
-                assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First().Output.Result);
+                assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability.First().Output.Result);
 
             yield return new TestCaseData(
                 assessmentSection,
                 new Action<WaveConditionsInput>(input =>
                 {
                     input.HydraulicBoundaryLocation = hydraulicBoundaryLocation;
-                    input.WaterLevelType = WaveConditionsInputWaterLevelType.Signaling;
+                    input.WaterLevelType = WaveConditionsInputWaterLevelType.SignalFloodingProbability;
                 }),
-                assessmentSection.WaterLevelCalculationsForSignalingNorm.First().Output.Result);
+                assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.First().Output.Result);
 
             yield return new TestCaseData(
                 assessmentSection,

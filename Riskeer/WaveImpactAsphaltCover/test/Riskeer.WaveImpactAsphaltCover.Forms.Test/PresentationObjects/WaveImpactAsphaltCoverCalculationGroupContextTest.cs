@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -32,7 +32,7 @@ using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
 namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class WaveImpactAsphaltCoverWaveConditionsCalculationGroupContextTest
+    public class WaveImpactAsphaltCoverCalculationGroupContextTest
     {
         [Test]
         [TestCase(true)]
@@ -50,7 +50,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
             CalculationGroup parent = hasParent ? new CalculationGroup() : null;
 
             // Call
-            var groupContext = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(calculationGroup, parent, failureMechanism, assessmentSection);
+            var groupContext = new WaveImpactAsphaltCoverCalculationGroupContext(calculationGroup, parent, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<WaveImpactAsphaltCoverContext<CalculationGroup>>(groupContext);
@@ -65,9 +65,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
 
         [TestFixture(true)]
         [TestFixture(false)]
-        private class WaveImpactAsphaltCoverWaveConditionsCalculationGroupContextEqualsTest
-            : EqualsTestFixture<WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext,
-                DerivedWaveImpactAsphaltCoverWaveConditionsCalculationGroupContext>
+        private class WaveImpactAsphaltCoverCalculationGroupContextEqualsTest
+            : EqualsTestFixture<WaveImpactAsphaltCoverCalculationGroupContext,
+                DerivedWaveImpactAsphaltCoverCalculationGroupContext>
         {
             private static readonly MockRepository mocks = new MockRepository();
 
@@ -89,48 +89,48 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
                 mocks.VerifyAll();
             }
 
-            public WaveImpactAsphaltCoverWaveConditionsCalculationGroupContextEqualsTest(bool hasParent)
+            public WaveImpactAsphaltCoverCalculationGroupContextEqualsTest(bool hasParent)
             {
                 parent = hasParent ? new CalculationGroup() : null;
             }
 
-            protected override WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext CreateObject()
+            protected override WaveImpactAsphaltCoverCalculationGroupContext CreateObject()
             {
-                return new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(calculationGroup,
-                                                                                       parent,
-                                                                                       failureMechanism,
-                                                                                       assessmentSection);
+                return new WaveImpactAsphaltCoverCalculationGroupContext(calculationGroup,
+                                                                         parent,
+                                                                         failureMechanism,
+                                                                         assessmentSection);
             }
 
-            protected override DerivedWaveImpactAsphaltCoverWaveConditionsCalculationGroupContext CreateDerivedObject()
+            protected override DerivedWaveImpactAsphaltCoverCalculationGroupContext CreateDerivedObject()
             {
-                return new DerivedWaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(calculationGroup,
-                                                                                              parent,
-                                                                                              failureMechanism,
-                                                                                              assessmentSection);
+                return new DerivedWaveImpactAsphaltCoverCalculationGroupContext(calculationGroup,
+                                                                                parent,
+                                                                                failureMechanism,
+                                                                                assessmentSection);
             }
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
             {
-                yield return new TestCaseData(new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(new CalculationGroup(),
-                                                                                                              parent,
-                                                                                                              failureMechanism,
-                                                                                                              assessmentSection))
+                yield return new TestCaseData(new WaveImpactAsphaltCoverCalculationGroupContext(new CalculationGroup(),
+                                                                                                parent,
+                                                                                                failureMechanism,
+                                                                                                assessmentSection))
                     .SetName("Wrapped Calculation Group");
-                yield return new TestCaseData(new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(calculationGroup,
-                                                                                                              new CalculationGroup(),
-                                                                                                              failureMechanism,
-                                                                                                              assessmentSection))
+                yield return new TestCaseData(new WaveImpactAsphaltCoverCalculationGroupContext(calculationGroup,
+                                                                                                new CalculationGroup(),
+                                                                                                failureMechanism,
+                                                                                                assessmentSection))
                     .SetName("Parent");
             }
         }
 
-        private class DerivedWaveImpactAsphaltCoverWaveConditionsCalculationGroupContext : WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext
+        private class DerivedWaveImpactAsphaltCoverCalculationGroupContext : WaveImpactAsphaltCoverCalculationGroupContext
         {
-            public DerivedWaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(CalculationGroup calculationsGroup,
-                                                                                      CalculationGroup parent,
-                                                                                      WaveImpactAsphaltCoverFailureMechanism failureMechanism,
-                                                                                      IAssessmentSection assessmentSection)
+            public DerivedWaveImpactAsphaltCoverCalculationGroupContext(CalculationGroup calculationsGroup,
+                                                                        CalculationGroup parent,
+                                                                        WaveImpactAsphaltCoverFailureMechanism failureMechanism,
+                                                                        IAssessmentSection assessmentSection)
                 : base(calculationsGroup, parent, failureMechanism, assessmentSection) {}
         }
     }

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -28,6 +28,7 @@ using Components.Persistence.Stability;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
+using Core.Common.Util;
 using Core.Common.Util.Extensions;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -184,7 +185,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
                 }
                 finally
                 {
-                    Directory.Delete(folderPath, true);
+                    DirectoryHelper.TryDelete(folderPath);
                 }
             }
         }
@@ -226,7 +227,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             }
             finally
             {
-                Directory.Delete(folderPath, true);
+                DirectoryHelper.TryDelete(folderPath);
             }
         }
 
@@ -269,7 +270,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             }
             finally
             {
-                Directory.Delete(folderPath, true);
+                DirectoryHelper.TryDelete(folderPath);
             }
         }
 
@@ -326,7 +327,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             }
             finally
             {
-                Directory.Delete(folderPath, true);
+                DirectoryHelper.TryDelete(folderPath);
             }
         }
 
@@ -395,7 +396,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             }
             finally
             {
-                Directory.Delete(folderPath, true);
+                DirectoryHelper.TryDelete(folderPath);
             }
         }
 
@@ -443,7 +444,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             }
             finally
             {
-                Directory.Delete(folderPath, true);
+                DirectoryHelper.TryDelete(folderPath);
             }
         }
 
@@ -512,7 +513,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             }
             finally
             {
-                Directory.Delete(folderPath, true);
+                DirectoryHelper.TryDelete(folderPath);
             }
         }
 
@@ -552,7 +553,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             }
             finally
             {
-                Directory.Delete(folderPath, true);
+                DirectoryHelper.TryDelete(folderPath);
             }
         }
 
@@ -597,7 +598,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             }
             finally
             {
-                Directory.Delete(folderPath, true);
+                DirectoryHelper.TryDelete(folderPath);
             }
         }
 
@@ -645,7 +646,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             }
             finally
             {
-                Directory.Delete(folderPath, true);
+                DirectoryHelper.TryDelete(folderPath);
             }
         }
 
@@ -701,7 +702,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             }
             finally
             {
-                Directory.Delete(folderPath, true);
+                DirectoryHelper.TryDelete(folderPath);
             }
         }
 
@@ -760,7 +761,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             }
             finally
             {
-                Directory.Delete(folderPath, true);
+                DirectoryHelper.TryDelete(folderPath);
             }
         }
 
@@ -801,7 +802,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             }
             finally
             {
-                Directory.Delete(folderPath, true);
+                DirectoryHelper.TryDelete(folderPath);
             }
         }
 

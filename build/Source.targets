@@ -12,6 +12,6 @@
       if ErrorLevel 1 goto loop"/>
     <Exec Command=":loop
       xcopy /d/s/y &quot;$(OutDir)$(AssemblyName).pdb&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Core\*&quot;
-      if ErrorLevel 1 goto loop" Condition="$(DefineConstants.Contains('DEBUG')) Or $(DefineConstants.Contains('RELEASEFORCODECOVERAGE'))"/>
+      if ErrorLevel 1 goto loop" Condition="$(DefineConstants.Contains('DEBUG')) Or $(DefineConstants.Contains('COVERAGE'))"/>
   </Target>
 </Project>

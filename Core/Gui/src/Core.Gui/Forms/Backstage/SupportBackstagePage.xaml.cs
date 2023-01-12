@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -19,6 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Diagnostics;
+using System.Windows.Navigation;
+
 namespace Core.Gui.Forms.Backstage
 {
     /// <summary>
@@ -32,6 +35,13 @@ namespace Core.Gui.Forms.Backstage
         public SupportBackstagePage()
         {
             InitializeComponent();
+        }
+
+        private void SupportWebsiteHyperlinkRequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
+
+            e.Handled = true;
         }
     }
 }

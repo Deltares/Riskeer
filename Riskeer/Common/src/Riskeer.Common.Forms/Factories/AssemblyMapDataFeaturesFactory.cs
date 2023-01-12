@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -22,14 +22,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Util;
+using Core.Common.Util.Enums;
 using Core.Components.Gis.Features;
 using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.Forms;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Properties;
-using RiskeerCommonPrimitivesResources = Riskeer.Common.Primitives.Properties.Resources;
 
 namespace Riskeer.Common.Forms.Factories
 {
@@ -47,7 +45,7 @@ namespace Riskeer.Common.Forms.Factories
         /// <returns>A collection of <see cref="MapFeature"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static IEnumerable<MapFeature> CreateAssemblyGroupFeatures<TSectionResult>(
-            IHasSectionResults<TSectionResult> failureMechanism,
+            IFailureMechanism<TSectionResult> failureMechanism,
             Func<TSectionResult, FailureMechanismSectionAssemblyResult> performAssemblyFunc)
             where TSectionResult : FailureMechanismSectionResult
         {
@@ -83,8 +81,8 @@ namespace Riskeer.Common.Forms.Factories
                 }
 
                 feature.MetaData[Resources.AssemblyGroup_DisplayName] =
-                    new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyGroup>(
-                        DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(assemblyResult.AssemblyGroup)).DisplayName;
+                    EnumDisplayNameHelper.GetDisplayName(assemblyResult.FailureMechanismSectionAssemblyGroup);
+                feature.MetaData[Resources.AssemblyMapDataFeaturesFactory_ProbabilityPerSection_DisplayName] = assemblyResult.SectionProbability;
 
                 yield return feature;
             }

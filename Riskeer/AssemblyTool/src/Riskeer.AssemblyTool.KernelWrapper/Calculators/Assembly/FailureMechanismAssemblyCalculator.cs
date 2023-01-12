@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -25,9 +25,9 @@ using System.Linq;
 using Assembly.Kernel.Exceptions;
 using Assembly.Kernel.Interfaces;
 using Assembly.Kernel.Model;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Creators;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
-using KernelFailureMechanismSectionAssemblyResult = Assembly.Kernel.Model.FailureMechanismSections.FailureMechanismSectionAssemblyResult;
 using RiskeerFailureMechanismSectionAssemblyResult = Riskeer.AssemblyTool.Data.FailureMechanismSectionAssemblyResult;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
@@ -54,7 +54,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             this.factory = factory;
         }
 
-        public double Assemble(double failureMechanismN, IEnumerable<RiskeerFailureMechanismSectionAssemblyResult> sectionAssemblyResults)
+        public FailureMechanismAssemblyResultWrapper Assemble(double failureMechanismN, IEnumerable<RiskeerFailureMechanismSectionAssemblyResult> sectionAssemblyResults,
+                                                              bool applySectionLengthEffect)
         {
             if (sectionAssemblyResults == null)
             {
@@ -65,13 +66,19 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             {
                 IFailureMechanismResultAssembler kernel = factory.CreateFailureMechanismAssemblyKernel();
 
-                KernelFailureMechanismSectionAssemblyResult[] kernelInput =
-                    sectionAssemblyResults.Select(FailureMechanismAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyResult)
-                                          .ToArray();
+                FailureMechanismAssemblyResult result;
+                if (applySectionLengthEffect)
+                {
+                    result = kernel.CalculateFailureMechanismFailureProbabilityWithLengthEffectBoi1A2(
+                        failureMechanismN, sectionAssemblyResults.Select(FailureMechanismAssemblyCalculatorInputCreator.CreateResultWithProfileAndSectionProbabilities),
+                        false);
+                    return new FailureMechanismAssemblyResultWrapper(result.Probability, AssemblyMethod.BOI1A2);
+                }
 
-                FailureMechanismAssemblyResult result = kernel.AssembleFailureMechanismWbi1B1(failureMechanismN, kernelInput, false);
-
-                return result.Probability.Value;
+                result = kernel.CalculateFailureMechanismFailureProbabilityBoi1A1(
+                    failureMechanismN, sectionAssemblyResults.Select(sr => AssemblyCalculatorInputCreator.CreateProbability(sr.SectionProbability)),
+                    false);
+                return new FailureMechanismAssemblyResultWrapper(result.Probability, AssemblyMethod.BOI1A1);
             }
             catch (AssemblyException e)
             {

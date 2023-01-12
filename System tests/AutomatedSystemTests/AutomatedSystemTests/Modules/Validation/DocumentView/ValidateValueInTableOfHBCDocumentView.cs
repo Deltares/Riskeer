@@ -93,10 +93,10 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
             
             Ranorex.Table table = myRepository.RiskeerMainWindow.ContainerMultipleViews.MessagesDataGridView.Self;
             if (labelFM=="GEBU") {
-                table = myRepository.RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.Self;
+                table = myRepository.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.DesignWaterLevelWaveHeightCalculationsView.LeftSide.Table.Self;
             }
             else if (labelFM=="DA") {
-                table = myRepository.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.HydraulicBCDunes.Table.Self;
+                table = myRepository.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainer.HydraulicBCDunes.Table.Self;
             }
             Row row = table.Rows[Int32.Parse(rowIndex)+1];
             Cell cell = row.Cells[Int32.Parse(columnIndex)];

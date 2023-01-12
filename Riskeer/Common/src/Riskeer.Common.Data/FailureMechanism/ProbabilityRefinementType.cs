@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -34,13 +34,13 @@ namespace Riskeer.Common.Data.FailureMechanism
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ProbabilityRefinementType_Profile_DisplayName))]
         Profile = 1,
-        
+
         /// <summary>
         /// Refine the probability for the section.
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ProbabilityRefinementType_Section_DisplayName))]
         Section = 2,
-        
+
         /// <summary>
         /// Refine the probability for both the profile and the section.
         /// </summary>

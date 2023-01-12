@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -43,7 +43,7 @@ namespace Riskeer.Common.Forms.ChangeHandlers
         /// <param name="query">The query which should be displayed when inquiring for a confirmation.</param>
         /// <param name="inquiryHandler">Object responsible for inquiring required data.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public FailureMechanismCalculationChangeHandler(IFailureMechanism failureMechanism,
+        public FailureMechanismCalculationChangeHandler(ICalculatableFailureMechanism failureMechanism,
                                                         string query,
                                                         IInquiryHelper inquiryHandler)
         {
@@ -78,8 +78,8 @@ namespace Riskeer.Common.Forms.ChangeHandlers
         }
 
         /// <summary>
-        /// Gets the <see cref="IFailureMechanism"/>.
+        /// Gets the <see cref="ICalculatableFailureMechanism"/>.
         /// </summary>
-        protected IFailureMechanism FailureMechanism { get; }
+        protected ICalculatableFailureMechanism FailureMechanism { get; }
     }
 }

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -234,82 +234,82 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
         private static IEnumerable<TestCaseData> GetSetStochastParametersActions(string testNameFormat)
         {
             foreach (TestCaseData caseData in StochastConfigurationCases(
-                (c, s) => c.LevelCrestStructureNotClosing = s,
-                nameof(ClosingStructuresCalculationConfiguration.LevelCrestStructureNotClosing),
-                testNameFormat,
-                true))
+                         (c, s) => c.LevelCrestStructureNotClosing = s,
+                         nameof(ClosingStructuresCalculationConfiguration.LevelCrestStructureNotClosing),
+                         testNameFormat,
+                         true))
             {
                 yield return caseData;
             }
 
             foreach (TestCaseData caseData in StochastConfigurationCases(
-                (c, s) => c.AreaFlowApertures = s,
-                nameof(ClosingStructuresCalculationConfiguration.AreaFlowApertures),
-                testNameFormat,
-                true))
+                         (c, s) => c.AreaFlowApertures = s,
+                         nameof(ClosingStructuresCalculationConfiguration.AreaFlowApertures),
+                         testNameFormat,
+                         true))
             {
                 yield return caseData;
             }
 
             foreach (TestCaseData caseData in StochastConfigurationCases(
-                (c, s) => c.InsideWaterLevel = s,
-                nameof(ClosingStructuresCalculationConfiguration.InsideWaterLevel),
-                testNameFormat,
-                true))
+                         (c, s) => c.InsideWaterLevel = s,
+                         nameof(ClosingStructuresCalculationConfiguration.InsideWaterLevel),
+                         testNameFormat,
+                         true))
             {
                 yield return caseData;
             }
 
             foreach (TestCaseData caseData in StochastConfigurationCases(
-                (c, s) => c.ThresholdHeightOpenWeir = s,
-                nameof(ClosingStructuresCalculationConfiguration.ThresholdHeightOpenWeir),
-                testNameFormat,
-                true))
+                         (c, s) => c.ThresholdHeightOpenWeir = s,
+                         nameof(ClosingStructuresCalculationConfiguration.ThresholdHeightOpenWeir),
+                         testNameFormat,
+                         true))
             {
                 yield return caseData;
             }
 
             foreach (TestCaseData caseData in StochastConfigurationCases(
-                (c, s) => c.AllowedLevelIncreaseStorage = s,
-                nameof(ClosingStructuresCalculationConfiguration.AllowedLevelIncreaseStorage),
-                testNameFormat,
-                true))
+                         (c, s) => c.AllowedLevelIncreaseStorage = s,
+                         nameof(ClosingStructuresCalculationConfiguration.AllowedLevelIncreaseStorage),
+                         testNameFormat,
+                         true))
             {
                 yield return caseData;
             }
 
             foreach (TestCaseData caseData in StochastConfigurationCases(
-                (c, s) => c.FlowWidthAtBottomProtection = s,
-                nameof(ClosingStructuresCalculationConfiguration.FlowWidthAtBottomProtection),
-                testNameFormat,
-                true))
+                         (c, s) => c.FlowWidthAtBottomProtection = s,
+                         nameof(ClosingStructuresCalculationConfiguration.FlowWidthAtBottomProtection),
+                         testNameFormat,
+                         true))
             {
                 yield return caseData;
             }
 
             foreach (TestCaseData caseData in StochastConfigurationCases(
-                (c, s) => c.WidthFlowApertures = s,
-                nameof(ClosingStructuresCalculationConfiguration.WidthFlowApertures),
-                testNameFormat,
-                true))
+                         (c, s) => c.WidthFlowApertures = s,
+                         nameof(ClosingStructuresCalculationConfiguration.WidthFlowApertures),
+                         testNameFormat,
+                         true))
             {
                 yield return caseData;
             }
 
             foreach (TestCaseData caseData in StochastConfigurationCases(
-                (c, s) => c.CriticalOvertoppingDischarge = s,
-                nameof(ClosingStructuresCalculationConfiguration.CriticalOvertoppingDischarge),
-                testNameFormat,
-                false))
+                         (c, s) => c.CriticalOvertoppingDischarge = s,
+                         nameof(ClosingStructuresCalculationConfiguration.CriticalOvertoppingDischarge),
+                         testNameFormat,
+                         false))
             {
                 yield return caseData;
             }
 
             foreach (TestCaseData caseData in StochastConfigurationCases(
-                (c, s) => c.StorageStructureArea = s,
-                nameof(ClosingStructuresCalculationConfiguration.StorageStructureArea),
-                testNameFormat,
-                false))
+                         (c, s) => c.StorageStructureArea = s,
+                         nameof(ClosingStructuresCalculationConfiguration.StorageStructureArea),
+                         testNameFormat,
+                         false))
             {
                 yield return caseData;
             }

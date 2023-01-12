@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -35,6 +35,7 @@ using Core.Common.Util.Extensions;
 using Core.Gui;
 using Core.Gui.ContextMenu;
 using Core.Gui.Forms.Main;
+using Core.Gui.Forms.ViewHost;
 using Core.Gui.TestUtil;
 using Core.Gui.TestUtil.ContextMenu;
 using NUnit.Extensions.Forms;
@@ -112,7 +113,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         [TestCase(0.0025, 0.00025, 0.025, 0.0025, "1/400 (1)")]
         [TestCase(0.0025, 0.0025, 0.025, 0.0025, "1/400 (2)")]
         [TestCase(0.0025, 0.0025, 0.0025, 0.0025, "1/400 (3)")]
-        public void Text_WithContext_ReturnsUniquelyFormattedTargetProbability(double lowerLimitNorm, double signalingNorm,
+        public void Text_WithContext_ReturnsUniquelyFormattedTargetProbability(double maximumAllowableFloodingProbability,
+                                                                               double signalFloodingProbability,
                                                                                double userDefinedTargetProbability1,
                                                                                double userDefinedTargetProbability2,
                                                                                string expectedText)
@@ -122,9 +124,9 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mockRepository);
 
-            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(lowerLimitNorm, signalingNorm));
-            assessmentSection.Stub(a => a.WaterLevelCalculationsForLowerLimitNorm).Return(new ObservableList<HydraulicBoundaryLocationCalculation>());
-            assessmentSection.Stub(a => a.WaterLevelCalculationsForSignalingNorm).Return(new ObservableList<HydraulicBoundaryLocationCalculation>());
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(maximumAllowableFloodingProbability, signalFloodingProbability));
+            assessmentSection.Stub(a => a.WaterLevelCalculationsForMaximumAllowableFloodingProbability).Return(new ObservableList<HydraulicBoundaryLocationCalculation>());
+            assessmentSection.Stub(a => a.WaterLevelCalculationsForSignalFloodingProbability).Return(new ObservableList<HydraulicBoundaryLocationCalculation>());
             assessmentSection.Stub(a => a.WaterLevelCalculationsForUserDefinedTargetProbabilities).Return(
                 new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>
                 {
@@ -654,6 +656,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 gui.Stub(g => g.ProjectStore).Return(mockRepository.Stub<IStoreProject>());
+                gui.Stub(g => g.DocumentViewController).Return(mockRepository.Stub<IDocumentViewController>());
 
                 var designWaterLevelCalculator = new TestDesignWaterLevelCalculator();
                 var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
@@ -742,6 +745,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 gui.Stub(g => g.ProjectStore).Return(mockRepository.Stub<IStoreProject>());
+                gui.Stub(g => g.DocumentViewController).Return(mockRepository.Stub<IDocumentViewController>());
 
                 var designWaterLevelCalculator = new TestDesignWaterLevelCalculator();
                 var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
@@ -828,6 +832,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 gui.Stub(g => g.ProjectStore).Return(mockRepository.Stub<IStoreProject>());
+                gui.Stub(g => g.DocumentViewController).Return(mockRepository.Stub<IDocumentViewController>());
 
                 var designWaterLevelCalculator = new TestDesignWaterLevelCalculator();
                 var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
@@ -909,6 +914,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 gui.Stub(g => g.ProjectStore).Return(mockRepository.Stub<IStoreProject>());
+                gui.Stub(g => g.DocumentViewController).Return(mockRepository.Stub<IDocumentViewController>());
 
                 var calculator = new TestDesignWaterLevelCalculator
                 {
@@ -1049,7 +1055,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         [TestCase(0.0025, 0.00025, 0.025, 0.0025, "1/400 (1)")]
         [TestCase(0.0025, 0.0025, 0.025, 0.0025, "1/400 (2)")]
         [TestCase(0.0025, 0.0025, 0.0025, 0.0025, "1/400 (3)")]
-        public void GivenCalculationWithIllustrationPoints_WhenClearIllustrationPointsClicked_ThenExpectedInquiryGiven(double lowerLimitNorm, double signalingNorm,
+        public void GivenCalculationWithIllustrationPoints_WhenClearIllustrationPointsClicked_ThenExpectedInquiryGiven(double maximumAllowableFloodingProbability,
+                                                                                                                       double signalFloodingProbability,
                                                                                                                        double userDefinedTargetProbability1,
                                                                                                                        double userDefinedTargetProbability2,
                                                                                                                        string expectedText)
@@ -1073,8 +1080,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             {
                 FailureMechanismContribution =
                 {
-                    LowerLimitNorm = lowerLimitNorm,
-                    SignalingNorm = signalingNorm
+                    MaximumAllowableFloodingProbability = maximumAllowableFloodingProbability,
+                    SignalFloodingProbability = signalFloodingProbability
                 },
                 WaterLevelCalculationsForUserDefinedTargetProbabilities =
                 {

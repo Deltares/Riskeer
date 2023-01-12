@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -234,7 +234,7 @@ namespace Riskeer.StabilityStoneCover.Integration.Test
                 GeneralStabilityStoneCoverWaveConditionsInput generalInput = stabilityStoneCoverFailureMechanism.GeneralInput;
 
                 WaveConditionsInput input = calculation.InputParameters;
-                double targetProbability = assessmentSection.FailureMechanismContribution.LowerLimitNorm;
+                double targetProbability = assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability;
 
                 var waterLevelIndex = 0;
                 for (var i = 0; i < waveConditionsInputs.Length / 2; i++)
@@ -722,7 +722,7 @@ namespace Riskeer.StabilityStoneCover.Integration.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit,
+                    WaterLevelType = WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability,
                     ForeshoreProfile = new TestForeshoreProfile(true),
                     UseForeshore = true,
                     UseBreakWater = true,
@@ -757,7 +757,7 @@ namespace Riskeer.StabilityStoneCover.Integration.Test
                 hydraulicBoundaryLocation
             });
 
-            assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(9.3);
+            assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(9.3);
 
             return assessmentSection;
         }

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -44,9 +44,14 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         public double LenghtEffectFactor { get; private set; }
 
         /// <summary>
-        /// Gets the collection of <see cref="FailureMechanismSectionAssemblyResult"/>.
+        /// Gets the collection of <see cref="ResultWithProfileAndSectionProbabilities"/>.
         /// </summary>
-        public IEnumerable<FailureMechanismSectionAssemblyResult> FailureMechanismSectionAssemblyResults { get; private set; }
+        public IEnumerable<ResultWithProfileAndSectionProbabilities> FailureMechanismSectionAssemblyResults { get; private set; }
+
+        /// <summary>
+        /// Gets the collection of <see cref="Probability"/>.
+        /// </summary>
+        public IEnumerable<Probability> FailureMechanismSectionProbabilities { get; private set; }
 
         /// <summary>
         /// Gets a value indicating whether an assembly is partial.
@@ -68,9 +73,10 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         /// </summary>
         public bool ThrowAssemblyExceptionOnCalculate { private get; set; }
 
-        public FailureMechanismAssemblyResult AssembleFailureMechanismWbi1B1(double lengthEffectFactor,
-                                                                             IEnumerable<FailureMechanismSectionAssemblyResult> failureMechanismSectionAssemblyResults,
-                                                                             bool partialAssembly)
+        public FailureMechanismAssemblyResult CalculateFailureMechanismFailureProbabilityWithLengthEffectBoi1A2(
+            double lengthEffectFactor,
+            IEnumerable<ResultWithProfileAndSectionProbabilities> failureMechanismSectionAssemblyResults,
+            bool partialAssembly)
         {
             ThrowException();
 
@@ -82,17 +88,24 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             return ProbabilityResult;
         }
 
+        public FailureMechanismAssemblyResult CalculateFailureMechanismFailureProbabilityBoi1A1(
+            double lengthEffectFactor,
+            IEnumerable<Probability> failureMechanismSectionProbabilities,
+            bool partialAssembly)
+        {
+            ThrowException();
+
+            Calculated = true;
+            LenghtEffectFactor = lengthEffectFactor;
+            FailureMechanismSectionProbabilities = failureMechanismSectionProbabilities;
+            PartialAssembly = partialAssembly;
+
+            return ProbabilityResult;
+        }
+
         private void ThrowException()
         {
-            if (ThrowExceptionOnCalculate)
-            {
-                throw new Exception("Message", new Exception());
-            }
-
-            if (ThrowAssemblyExceptionOnCalculate)
-            {
-                throw new AssemblyException("entity", EAssemblyErrors.EmptyResultsList);
-            }
+            AssemblyKernelStubHelper.ThrowException(ThrowExceptionOnCalculate, ThrowAssemblyExceptionOnCalculate, EAssemblyErrors.InvalidCategoryLimits);
         }
     }
 }

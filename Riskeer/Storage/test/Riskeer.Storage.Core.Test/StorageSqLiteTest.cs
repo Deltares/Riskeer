@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -28,7 +28,6 @@ using Core.Common.Base.Storage;
 using Core.Common.TestUtil;
 using Core.Common.Util.Extensions;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Util;
 using Riskeer.Integration.Data;
@@ -119,7 +118,7 @@ namespace Riskeer.Storage.Core.Test
             void Call() => new StorageSqLite().LoadProject(tempProjectFilePath);
 
             // Assert
-            string expectedMessage = $@"Fout bij het lezen van bestand '{tempProjectFilePath}': het bestand is geen geldig Riskeer bestand.";
+            var expectedMessage = $@"Fout bij het lezen van bestand '{tempProjectFilePath}': het bestand is geen geldig Riskeer bestand.";
 
             var exception = Assert.Throws<StorageException>(Call);
             Assert.IsInstanceOf<Exception>(exception);
@@ -262,8 +261,8 @@ namespace Riskeer.Storage.Core.Test
             // Setup
             string tempProjectFilePath = Path.Combine(workingDirectory, nameof(LoadProject_ReadProjectThrowsEntityReadException_ThrowsStorageException));
             var storage = new StorageSqLite();
-            var mockRepository = new MockRepository();
-            var project = mockRepository.StrictMock<RiskeerProject>(CreateAssessmentSection());
+
+            RiskeerProject project = CreateProject();
 
             // Precondition
             void Precondition()
@@ -271,6 +270,7 @@ namespace Riskeer.Storage.Core.Test
                 SqLiteDatabaseHelper.CreateValidProjectDatabase(tempProjectFilePath, project);
                 SqLiteDatabaseHelper.SetInvalidNumberOfAssessmentSectionEntities(tempProjectFilePath);
             }
+
             Assert.DoesNotThrow(Precondition);
 
             // Call
@@ -284,7 +284,7 @@ namespace Riskeer.Storage.Core.Test
             var expectedMessage = $"Fout bij het lezen van bestand '{tempProjectFilePath}': {innerException.Message.FirstToLower()}";
             Assert.AreEqual(expectedMessage, exception.Message);
         }
-        
+
         [Test]
         public void LoadProject_ValidDatabase_ReturnsProject()
         {
@@ -292,8 +292,8 @@ namespace Riskeer.Storage.Core.Test
             string tempProjectFilePath = Path.Combine(workingDirectory, nameof(LoadProject_ValidDatabase_ReturnsProject));
             string projectName = Path.GetFileNameWithoutExtension(tempProjectFilePath);
             var storage = new StorageSqLite();
-            var mockRepository = new MockRepository();
-            var project = mockRepository.StrictMock<RiskeerProject>(CreateAssessmentSection());
+
+            RiskeerProject project = CreateProject();
             project.Description = "<some description>";
 
             // Precondition
@@ -545,11 +545,10 @@ namespace Riskeer.Storage.Core.Test
         public void HasStagedProjectChanges_SavedToEmptyDatabaseFile_ReturnsFalse()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var project = mockRepository.StrictMock<RiskeerProject>(CreateAssessmentSection());
-            mockRepository.ReplayAll();
             var storage = new StorageSqLite();
             string tempProjectFilePath = Path.Combine(workingDirectory, nameof(HasStagedProjectChanges_SavedToEmptyDatabaseFile_ReturnsFalse));
+
+            RiskeerProject project = CreateProject();
 
             // Precondition, required to set the connection string
             storage.StageProject(project);
@@ -563,8 +562,6 @@ namespace Riskeer.Storage.Core.Test
 
             // Assert
             Assert.IsFalse(hasChanges);
-
-            mockRepository.VerifyAll();
         }
 
         private static RiskeerProject CreateProject()

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -80,7 +80,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test
             DikeProfile dikeProfile2 = DikeProfileTestFactory.CreateDikeProfile(new Point2D(0.0, 0.0), "profiel 2");
 
             var failureMechanismContribution = new FailureMechanismContribution(0.01, 0.001);
-            
+
             // Call
             GrassCoverErosionInwardsCalculationConfigurationHelper.GenerateCalculations(
                 calculationGroup, new[]
@@ -95,14 +95,14 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test
             var calculation1 = (GrassCoverErosionInwardsCalculationScenario) calculationGroup.Children.First();
             Assert.AreEqual("name", calculation1.Name);
             Assert.AreEqual(dikeProfile1, calculation1.InputParameters.DikeProfile);
-            Assert.AreEqual(failureMechanismContribution.Norm, calculation1.InputParameters.DikeHeightTargetProbability);
-            Assert.AreEqual(failureMechanismContribution.Norm, calculation1.InputParameters.OvertoppingRateTargetProbability);
+            Assert.AreEqual(failureMechanismContribution.NormativeProbability, calculation1.InputParameters.DikeHeightTargetProbability);
+            Assert.AreEqual(failureMechanismContribution.NormativeProbability, calculation1.InputParameters.OvertoppingRateTargetProbability);
 
             var calculation2 = (GrassCoverErosionInwardsCalculationScenario) calculationGroup.Children.Last();
             Assert.AreEqual("name (1)", calculation2.Name);
             Assert.AreEqual(dikeProfile2, calculation2.InputParameters.DikeProfile);
-            Assert.AreEqual(failureMechanismContribution.Norm, calculation2.InputParameters.DikeHeightTargetProbability);
-            Assert.AreEqual(failureMechanismContribution.Norm, calculation2.InputParameters.OvertoppingRateTargetProbability);
+            Assert.AreEqual(failureMechanismContribution.NormativeProbability, calculation2.InputParameters.DikeHeightTargetProbability);
+            Assert.AreEqual(failureMechanismContribution.NormativeProbability, calculation2.InputParameters.OvertoppingRateTargetProbability);
         }
     }
 }

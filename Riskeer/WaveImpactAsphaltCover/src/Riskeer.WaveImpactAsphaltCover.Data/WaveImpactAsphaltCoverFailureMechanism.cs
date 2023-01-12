@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -21,7 +21,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base;
+using Riskeer.Common.Data;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
@@ -35,26 +35,23 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
     /// Model containing input and output needed to perform different levels of the
     /// Wave Impact on Asphalt failure mechanism.
     /// </summary>
-    public class WaveImpactAsphaltCoverFailureMechanism : FailureMechanismBase, IHasSectionResults<WaveImpactAsphaltCoverFailureMechanismSectionResultOld, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
+    public class WaveImpactAsphaltCoverFailureMechanism : FailureMechanismBase<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>,
+                                                          ICalculatableFailureMechanism
     {
-        private readonly ObservableList<WaveImpactAsphaltCoverFailureMechanismSectionResultOld> sectionResultsOld;
-        private readonly ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="WaveImpactAsphaltCoverFailureMechanism"/> class.
         /// </summary>
         public WaveImpactAsphaltCoverFailureMechanism()
             : base(Resources.WaveImpactAsphaltCoverFailureMechanism_DisplayName, Resources.WaveImpactAsphaltCoverFailureMechanism_Code)
         {
-            sectionResultsOld = new ObservableList<WaveImpactAsphaltCoverFailureMechanismSectionResultOld>();
-            sectionResults = new ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();
-            WaveConditionsCalculationGroup = new CalculationGroup
+            CalculationsGroup = new CalculationGroup
             {
                 Name = RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName
             };
             ForeshoreProfiles = new ForeshoreProfileCollection();
             GeneralInput = new GeneralWaveConditionsInput(1.0, 0.0, 0.0);
             GeneralWaveImpactAsphaltCoverInput = new GeneralWaveImpactAsphaltCoverInput();
+            CalculationsInputComments = new Comment();
         }
 
         /// <summary>
@@ -72,28 +69,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
         /// </summary>
         public GeneralWaveImpactAsphaltCoverInput GeneralWaveImpactAsphaltCoverInput { get; }
 
-        /// <summary>
-        /// Gets the container of all wave conditions calculations.
-        /// </summary>
-        public CalculationGroup WaveConditionsCalculationGroup { get; }
+        public IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations().OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>();
 
-        public override IEnumerable<ICalculation> Calculations => WaveConditionsCalculationGroup.GetCalculations().OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>();
+        public CalculationGroup CalculationsGroup { get; }
 
-        public IObservableEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResultOld> SectionResultsOld => sectionResultsOld;
-
-        public IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> SectionResults => sectionResults;
-
-        protected override void AddSectionDependentData(FailureMechanismSection section)
-        {
-            base.AddSectionDependentData(section);
-            sectionResultsOld.Add(new WaveImpactAsphaltCoverFailureMechanismSectionResultOld(section));
-            sectionResults.Add(new NonAdoptableWithProfileProbabilityFailureMechanismSectionResult(section));
-        }
-
-        protected override void ClearSectionDependentData()
-        {
-            sectionResultsOld.Clear();
-            sectionResults.Clear();
-        }
+        public Comment CalculationsInputComments { get; }
     }
 }

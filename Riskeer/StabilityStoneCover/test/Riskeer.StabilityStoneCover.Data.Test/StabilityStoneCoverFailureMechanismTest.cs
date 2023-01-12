@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -21,12 +21,10 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.TestUtil;
 
 namespace Riskeer.StabilityStoneCover.Data.Test
 {
@@ -34,78 +32,27 @@ namespace Riskeer.StabilityStoneCover.Data.Test
     public class StabilityStoneCoverFailureMechanismTest
     {
         [Test]
-        public void DefaultConstructor_Always_PropertiesSet()
+        public void Constructor_ExpectedValues()
         {
             // Call
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
-            Assert.IsInstanceOf<IHasSectionResults<StabilityStoneCoverFailureMechanismSectionResultOld, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>>(failureMechanism);
+            Assert.IsInstanceOf<FailureMechanismBase<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>>(failureMechanism);
+            Assert.IsInstanceOf<ICalculatableFailureMechanism>(failureMechanism);
             Assert.AreEqual("Stabiliteit steenzetting", failureMechanism.Name);
             Assert.AreEqual("ZST", failureMechanism.Code);
             Assert.IsInstanceOf<GeneralStabilityStoneCoverWaveConditionsInput>(failureMechanism.GeneralInput);
 
-            Assert.AreEqual("Hydraulische belastingen", failureMechanism.WaveConditionsCalculationGroup.Name);
-            CollectionAssert.IsEmpty(failureMechanism.WaveConditionsCalculationGroup.Children);
+            Assert.AreEqual("Hydraulische belastingen", failureMechanism.CalculationsGroup.Name);
+            CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);
             CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.Calculations);
 
-            CollectionAssert.IsEmpty(failureMechanism.SectionResultsOld);
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
-        }
 
-        [Test]
-        public void SetSections_WithSection_SetsSectionResults()
-        {
-            // Setup
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-
-            // Call
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                section
-            });
-
-            // Assert
-            Assert.AreEqual(1, failureMechanism.Sections.Count());
-            Assert.AreEqual(1, failureMechanism.SectionResultsOld.Count());
-            Assert.AreSame(section, failureMechanism.SectionResultsOld.First().Section);
-
-            Assert.AreEqual(1, failureMechanism.SectionResults.Count());
-            Assert.AreSame(section, failureMechanism.SectionResults.First().Section);
-        }
-
-        [Test]
-        public void ClearAllSections_WithSectionResults_SectionResultsCleared()
-        {
-            // Setup
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
-                {
-                    new Point2D(2, 1)
-                }),
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
-                {
-                    new Point2D(2, 1)
-                })
-            });
-
-            // Precondition
-            Assert.AreEqual(2, failureMechanism.SectionResultsOld.Count());
-            Assert.AreEqual(2, failureMechanism.SectionResults.Count());
-
-            // Call
-            failureMechanism.ClearAllSections();
-
-            // Assert
-            CollectionAssert.IsEmpty(failureMechanism.SectionResultsOld);
-            CollectionAssert.IsEmpty(failureMechanism.SectionResults);
+            Assert.IsNotNull(failureMechanism.CalculationsInputComments);
         }
 
         [Test]
@@ -115,7 +62,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
             var mocks = new MockRepository();
             var failureMechanism = new StabilityStoneCoverFailureMechanism
             {
-                WaveConditionsCalculationGroup =
+                CalculationsGroup =
                 {
                     Children =
                     {

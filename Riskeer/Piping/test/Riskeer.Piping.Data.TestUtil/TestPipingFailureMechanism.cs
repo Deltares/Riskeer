@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -30,14 +30,6 @@ namespace Riskeer.Piping.Data.TestUtil
     /// </summary>
     public class TestPipingFailureMechanism : PipingFailureMechanism
     {
-        /// <summary>
-        /// Creates a new instance of a <see cref="TestPipingFailureMechanism"/> with a non-zero contribution.
-        /// </summary>
-        public TestPipingFailureMechanism()
-        {
-            Contribution = 24;
-        }
-
         /// <summary>
         /// Creates a new instance of a <see cref="TestPipingFailureMechanism"/> with sections and a surface line.
         /// </summary>

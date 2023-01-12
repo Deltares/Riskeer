@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -102,7 +102,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                     calculationsForTargetProbability
                 }
             };
-            
+
             var context = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(calculationsForTargetProbability,
                                                                                            assessmentSection);
             using (var plugin = new RiskeerPlugin())
@@ -113,7 +113,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                 string viewName = info.GetViewName(null, context);
 
                 // Assert
-                Assert.AreEqual($"Golfhoogten bij doelkans - {expectedProbabilityText}", viewName);
+                Assert.AreEqual($"Golfhoogten bij vrije doelkans - {expectedProbabilityText}", viewName);
             }
         }
 
@@ -215,7 +215,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                     hydraulicBoundaryLocationCalculation
                 }
             };
-            
+
             var assessmentSection = new AssessmentSectionStub();
             assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Add(calculationsForTargetProbability);
 

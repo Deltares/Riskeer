@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -78,16 +78,6 @@ namespace Core.Components.BruTile.Properties {
             }
             set {
                 resourceCulture = value;
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bron staat het niet toe om toegang te krijgen tot de kaart tegels..
-        /// </summary>
-        internal static string Configuration_InitializeFromTileSource_TileSource_does_not_allow_access_to_provider {
-            get {
-                return ResourceManager.GetString("Configuration_InitializeFromTileSource_TileSource_does_not_allow_access_to_provid" +
-                        "er", resourceCulture);
             }
         }
         

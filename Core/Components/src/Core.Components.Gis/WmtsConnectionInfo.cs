@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -26,7 +26,7 @@ namespace Core.Components.Gis
     /// <summary>
     /// This class defines properties for a WMTS connection.
     /// </summary>
-    public class WmtsConnectionInfo : IEquatable<WmtsConnectionInfo>
+    public sealed class WmtsConnectionInfo : IEquatable<WmtsConnectionInfo>
     {
         /// <summary>
         /// Creates a new instance of <see cref="WmtsConnectionInfo"/>.

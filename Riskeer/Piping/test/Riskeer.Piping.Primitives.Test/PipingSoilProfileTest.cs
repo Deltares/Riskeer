@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -58,22 +58,22 @@ namespace Riskeer.Piping.Primitives.Test
         public void Constructor_WithNameBottomLayersEmpty_ThrowsArgumentException()
         {
             // Call
-            TestDelegate test = () => new PipingSoilProfile(string.Empty, double.NaN, new Collection<PipingSoilLayer>(), SoilProfileType.SoilProfile1D);
+            void Call() => new PipingSoilProfile(string.Empty, double.NaN, new Collection<PipingSoilLayer>(), SoilProfileType.SoilProfile1D);
 
             // Assert
             const string expectedMessage = "Geen lagen gevonden voor de ondergrondschematisatie.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
         }
 
         [Test]
         public void Constructor_WithNameBottomLayersNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new PipingSoilProfile(string.Empty, double.NaN, null, SoilProfileType.SoilProfile1D);
+            void Call() => new PipingSoilProfile(string.Empty, double.NaN, null, SoilProfileType.SoilProfile1D);
 
             // Assert
             const string expectedMessage = "Geen lagen gevonden voor de ondergrondschematisatie.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(Call, expectedMessage);
         }
 
         [Test]
@@ -83,13 +83,10 @@ namespace Riskeer.Piping.Primitives.Test
             var random = new Random(22);
 
             // Call
-            TestDelegate test = () => new PipingSoilProfile(null,
-                                                            double.NaN,
-                                                            null,
-                                                            random.NextEnumValue<SoilProfileType>());
+            void Call() => new PipingSoilProfile(null, double.NaN, null, random.NextEnumValue<SoilProfileType>());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("name", exception.ParamName);
         }
 
@@ -135,11 +132,11 @@ namespace Riskeer.Piping.Primitives.Test
             };
 
             // Call
-            TestDelegate test = () => new PipingSoilProfile(string.Empty, bottom, pipingSoilLayers, SoilProfileType.SoilProfile1D);
+            void Call() => new PipingSoilProfile(string.Empty, bottom, pipingSoilLayers, SoilProfileType.SoilProfile1D);
 
             // Assert
-            const string expectedMessage = "Eén of meerdere lagen hebben een top onder de bodem van de ondergrondschematisatie.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
+            const string expectedMessage = "Een of meerdere lagen hebben een top onder de bodem van de ondergrondschematisatie.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
         }
 
         [Test]
@@ -174,11 +171,11 @@ namespace Riskeer.Piping.Primitives.Test
             var profile = new PipingSoilProfile(string.Empty, 0.0, pipingSoilLayers, SoilProfileType.SoilProfile1D);
 
             // Call
-            TestDelegate test = () => profile.GetLayerThickness(new PipingSoilLayer(1.1));
+            void Call() => profile.GetLayerThickness(new PipingSoilLayer(1.1));
 
             // Assert
             const string expectedMessage = "Layer not found in profile.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
         }
 
         [Test]
@@ -193,14 +190,14 @@ namespace Riskeer.Piping.Primitives.Test
             }, SoilProfileType.SoilProfile1D);
 
             // Call
-            string text = profile.ToString();
+            var text = profile.ToString();
 
             // Assert
             Assert.AreEqual(name, text);
         }
 
         [TestFixture]
-        private class PipingSoilProfileEqualsTest : EqualsTestFixture<PipingSoilProfile, TestProfile>
+        private class PipingSoilProfileEqualsTest : EqualsTestFixture<PipingSoilProfile>
         {
             private const string baseName = "Profile name";
             private const double baseBottom = 3.14;
@@ -209,12 +206,6 @@ namespace Riskeer.Piping.Primitives.Test
             protected override PipingSoilProfile CreateObject()
             {
                 return CreateSingleLayerProfile(baseName, baseBottom, type);
-            }
-
-            protected override TestProfile CreateDerivedObject()
-            {
-                PipingSoilProfile baseProfile = CreateSingleLayerProfile(baseName, baseBottom, type);
-                return new TestProfile(baseProfile);
             }
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
@@ -256,15 +247,6 @@ namespace Riskeer.Piping.Primitives.Test
                     new PipingSoilLayer(bottom + 1.0)
                 }, type);
             }
-        }
-
-        private class TestProfile : PipingSoilProfile
-        {
-            public TestProfile(PipingSoilProfile profile)
-                : base(profile.Name,
-                       profile.Bottom,
-                       profile.Layers,
-                       profile.SoilProfileSourceType) {}
         }
     }
 }

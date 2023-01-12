@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -36,10 +36,10 @@ namespace Riskeer.MacroStabilityInwards.Primitives.Test
         public void Constructor_OuterRingNullWithoutDataAndNestedLayers_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsSoilLayer2D(null);
+            void Call() => new MacroStabilityInwardsSoilLayer2D(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("outerRing", exception.ParamName);
         }
 
@@ -47,12 +47,12 @@ namespace Riskeer.MacroStabilityInwards.Primitives.Test
         public void Constructor_OuterRingNullWithDataAndNestedLayers_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsSoilLayer2D(null,
-                                                                           new MacroStabilityInwardsSoilLayerData(),
-                                                                           Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>());
+            void Call() => new MacroStabilityInwardsSoilLayer2D(null,
+                                                                new MacroStabilityInwardsSoilLayerData(),
+                                                                Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("outerRing", exception.ParamName);
         }
 
@@ -63,10 +63,12 @@ namespace Riskeer.MacroStabilityInwards.Primitives.Test
             Ring outerRing = RingTestFactory.CreateRandomRing();
 
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsSoilLayer2D(outerRing, null, Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>());
+            void Call() => new MacroStabilityInwardsSoilLayer2D(outerRing,
+                                                                null,
+                                                                Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("data", exception.ParamName);
         }
 
@@ -77,10 +79,12 @@ namespace Riskeer.MacroStabilityInwards.Primitives.Test
             Ring outerRing = RingTestFactory.CreateRandomRing();
 
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsSoilLayer2D(outerRing, new MacroStabilityInwardsSoilLayerData(), null);
+            void Call() => new MacroStabilityInwardsSoilLayer2D(outerRing,
+                                                                new MacroStabilityInwardsSoilLayerData(),
+                                                                null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("nestedLayers", exception.ParamName);
         }
 
@@ -120,16 +124,11 @@ namespace Riskeer.MacroStabilityInwards.Primitives.Test
 
         [TestFixture]
         private class MacroStabilityInwardsSoilLayer2DEqualsTest
-            : EqualsTestFixture<MacroStabilityInwardsSoilLayer2D, DerivedMacroStabilityInwardsSoilLayer2D>
+            : EqualsTestFixture<MacroStabilityInwardsSoilLayer2D>
         {
             protected override MacroStabilityInwardsSoilLayer2D CreateObject()
             {
                 return CreateRandomLayer(21);
-            }
-
-            protected override DerivedMacroStabilityInwardsSoilLayer2D CreateDerivedObject()
-            {
-                return new DerivedMacroStabilityInwardsSoilLayer2D(CreateRandomLayer(21));
             }
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
@@ -175,12 +174,6 @@ namespace Riskeer.MacroStabilityInwards.Primitives.Test
                                                                 new MacroStabilityInwardsSoilLayer2D(RingTestFactory.CreateRandomRing(randomSeed))
                                                             });
             }
-        }
-
-        private class DerivedMacroStabilityInwardsSoilLayer2D : MacroStabilityInwardsSoilLayer2D
-        {
-            public DerivedMacroStabilityInwardsSoilLayer2D(MacroStabilityInwardsSoilLayer2D layer)
-                : base(layer.OuterRing, layer.Data, layer.NestedLayers) {}
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -598,7 +598,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
                     Structure = structure
                 }
             };
-            var failureMechanism = new TestStabilityPointStructuresFailureMechanism
+            var failureMechanism = new StabilityPointStructuresFailureMechanism
             {
                 CalculationsGroup =
                 {

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -214,9 +214,9 @@ namespace Riskeer.Integration.Service
                                                                                                                                 .OfType<DuneErosionFailureMechanism>()
                                                                                                                                 .Single()));
             affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(
-                                         assessmentSection.WaterLevelCalculationsForSignalingNorm));
+                                         assessmentSection.WaterLevelCalculationsForSignalFloodingProbability));
             affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(
-                                         assessmentSection.WaterLevelCalculationsForLowerLimitNorm));
+                                         assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability));
 
             foreach (IEnumerable<HydraulicBoundaryLocationCalculation> calculations in assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities
                                                                                                         .Select(c => c.HydraulicBoundaryLocationCalculations))
@@ -252,27 +252,27 @@ namespace Riskeer.Integration.Service
         }
 
         /// <summary>
-        /// Clears the wave conditions calculation output that corresponds with the <paramref name="normType"/>
+        /// Clears the wave conditions calculation output that corresponds with the <paramref name="normativeProbabilityType"/>
         /// in the <paramref name="assessmentSection"/>. 
         /// </summary>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> which contains the calculations.</param>
-        /// <param name="normType">The <see cref="NormType"/> to clear for.</param>
+        /// <param name="normativeProbabilityType">The <see cref="NormativeProbabilityType"/> to clear for.</param>
         /// <returns>All objects affected by the operation.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> is invalid.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is not supported.</exception>
-        public static IEnumerable<IObservable> ClearAllWaveConditionsCalculationOutput(IAssessmentSection assessmentSection, NormType normType)
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normativeProbabilityType"/> is invalid.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="normativeProbabilityType"/> is not supported.</exception>
+        public static IEnumerable<IObservable> ClearAllWaveConditionsCalculationOutput(IAssessmentSection assessmentSection, NormativeProbabilityType normativeProbabilityType)
         {
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            if (!Enum.IsDefined(typeof(NormType), normType))
+            if (!Enum.IsDefined(typeof(NormativeProbabilityType), normativeProbabilityType))
             {
-                throw new InvalidEnumArgumentException(nameof(normType),
-                                                       (int) normType,
-                                                       typeof(NormType));
+                throw new InvalidEnumArgumentException(nameof(normativeProbabilityType),
+                                                       (int) normativeProbabilityType,
+                                                       typeof(NormativeProbabilityType));
             }
 
             var changedObservables = new List<IObservable>();
@@ -283,15 +283,15 @@ namespace Riskeer.Integration.Service
                 {
                     case GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism:
                         changedObservables.AddRange(WaveConditionsDataSynchronizationService.ClearAllWaveConditionsCalculationOutput<GrassCoverErosionOutwardsFailureMechanism,
-                                                        GrassCoverErosionOutwardsWaveConditionsCalculation>(grassCoverErosionOutwardsFailureMechanism, normType));
+                                                        GrassCoverErosionOutwardsWaveConditionsCalculation>(grassCoverErosionOutwardsFailureMechanism, normativeProbabilityType));
                         break;
                     case StabilityStoneCoverFailureMechanism stabilityStoneCoverFailureMechanism:
                         changedObservables.AddRange(WaveConditionsDataSynchronizationService.ClearAllWaveConditionsCalculationOutput<StabilityStoneCoverFailureMechanism,
-                                                        StabilityStoneCoverWaveConditionsCalculation>(stabilityStoneCoverFailureMechanism, normType));
+                                                        StabilityStoneCoverWaveConditionsCalculation>(stabilityStoneCoverFailureMechanism, normativeProbabilityType));
                         break;
                     case WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCoverFailureMechanism:
                         changedObservables.AddRange(WaveConditionsDataSynchronizationService.ClearAllWaveConditionsCalculationOutput<WaveImpactAsphaltCoverFailureMechanism,
-                                                        WaveImpactAsphaltCoverWaveConditionsCalculation>(waveImpactAsphaltCoverFailureMechanism, normType));
+                                                        WaveImpactAsphaltCoverWaveConditionsCalculation>(waveImpactAsphaltCoverFailureMechanism, normativeProbabilityType));
                         break;
                 }
             }
@@ -404,9 +404,9 @@ namespace Riskeer.Integration.Service
 
             var affectedObjects = new List<IObservable>();
             affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(
-                                         assessmentSection.WaterLevelCalculationsForSignalingNorm));
+                                         assessmentSection.WaterLevelCalculationsForSignalFloodingProbability));
             affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(
-                                         assessmentSection.WaterLevelCalculationsForLowerLimitNorm));
+                                         assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability));
             return affectedObjects;
         }
 
@@ -495,7 +495,8 @@ namespace Riskeer.Integration.Service
             var changedObjects = new List<IObservable>();
             var removedObjects = new List<object>();
 
-            foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
+            foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms()
+                                                                            .Concat(assessmentSection.SpecificFailureMechanisms))
             {
                 ClearResults results = GetClearResultsForFailureMechanism(failureMechanism);
 
@@ -817,11 +818,11 @@ namespace Riskeer.Integration.Service
                 case StabilityPointStructuresFailureMechanism stabilityPointStructuresFailureMechanism:
                     return StabilityPointStructuresDataSynchronizationService.ClearReferenceLineDependentData(stabilityPointStructuresFailureMechanism);
                 default:
-                    return ClearReferenceLineDependentDataForFailureMechanism(failureMechanism);
+                    return ClearReferenceLineDependentDataForFailureMechanism((IFailureMechanism<FailureMechanismSectionResult>) failureMechanism);
             }
         }
 
-        private static ClearResults ClearReferenceLineDependentDataForFailureMechanism(IFailureMechanism failureMechanism)
+        private static ClearResults ClearReferenceLineDependentDataForFailureMechanism(IFailureMechanism<FailureMechanismSectionResult> failureMechanism)
         {
             var removedObjects = new List<object>();
             var changedObjects = new List<IObservable>();
@@ -829,11 +830,8 @@ namespace Riskeer.Integration.Service
             removedObjects.AddRange(failureMechanism.Sections);
             changedObjects.Add(failureMechanism);
 
-            if (failureMechanism is IHasSectionResults<FailureMechanismSectionResult> failureMechanismWithSectionResults)
-            {
-                removedObjects.AddRange(failureMechanismWithSectionResults.SectionResults);
-                changedObjects.Add(failureMechanismWithSectionResults.SectionResults);
-            }
+            removedObjects.AddRange(failureMechanism.SectionResults);
+            changedObjects.Add(failureMechanism.SectionResults);
 
             failureMechanism.ClearAllSections();
 

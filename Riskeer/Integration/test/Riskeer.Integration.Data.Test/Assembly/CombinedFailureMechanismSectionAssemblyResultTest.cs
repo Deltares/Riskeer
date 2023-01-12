@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -37,9 +37,10 @@ namespace Riskeer.Integration.Data.Test.Assembly
             var random = new Random(21);
 
             // Call
-            void Call() => new CombinedFailureMechanismSectionAssemblyResult(
-                random.Next(), random.NextDouble(), random.NextDouble(),
-                random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(), null);
+            void Call() => new CombinedFailureMechanismSectionAssemblyResult(random.NextDouble(), random.NextDouble(),
+                                                                             random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
+                                                                             random.NextEnumValue<AssemblyMethod>(), random.NextEnumValue<AssemblyMethod>(),
+                                                                             random.NextEnumValue<AssemblyMethod>(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -51,44 +52,49 @@ namespace Riskeer.Integration.Data.Test.Assembly
         {
             // Setup
             var random = new Random(21);
-            int sectionNumber = random.Next();
             double sectionStart = random.NextDouble();
             double sectionEnd = random.NextDouble();
             var totalResult = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>();
+            var commonSectionAssemblyMethod = random.NextEnumValue<AssemblyMethod>();
+            var failureMechanismResultsAssemblyMethod = random.NextEnumValue<AssemblyMethod>();
+            var combinedSectionResultAssemblyMethod = random.NextEnumValue<AssemblyMethod>();
 
             // Call
-            var result = new CombinedFailureMechanismSectionAssemblyResult(
-                sectionNumber, sectionStart, sectionEnd, totalResult,
-                new CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties());
+            var result = new CombinedFailureMechanismSectionAssemblyResult(sectionStart, sectionEnd, totalResult, commonSectionAssemblyMethod,
+                                                                           failureMechanismResultsAssemblyMethod, combinedSectionResultAssemblyMethod,
+                                                                           new CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties());
 
             // Assert
-            Assert.AreEqual(sectionNumber, result.SectionNumber);
             Assert.AreEqual(sectionStart, result.SectionStart);
             Assert.AreEqual(sectionEnd, result.SectionEnd);
             Assert.AreEqual(totalResult, result.TotalResult);
-            Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, result.Piping);
-            Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, result.GrassCoverErosionInwards);
-            Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, result.MacroStabilityInwards);
-            Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, result.Microstability);
-            Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, result.StabilityStoneCover);
-            Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, result.WaveImpactAsphaltCover);
-            Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, result.WaterPressureAsphaltCover);
-            Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, result.GrassCoverErosionOutwards);
-            Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, result.GrassCoverSlipOffOutwards);
-            Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, result.GrassCoverSlipOffInwards);
-            Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, result.HeightStructures);
-            Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, result.ClosingStructures);
-            Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, result.PipingStructure);
-            Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, result.StabilityPointStructures);
-            Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, result.DuneErosion);
+            Assert.AreEqual(FailureMechanismSectionAssemblyGroup.NoResult, result.Piping);
+            Assert.AreEqual(FailureMechanismSectionAssemblyGroup.NoResult, result.GrassCoverErosionInwards);
+            Assert.AreEqual(FailureMechanismSectionAssemblyGroup.NoResult, result.MacroStabilityInwards);
+            Assert.AreEqual(FailureMechanismSectionAssemblyGroup.NoResult, result.Microstability);
+            Assert.AreEqual(FailureMechanismSectionAssemblyGroup.NoResult, result.StabilityStoneCover);
+            Assert.AreEqual(FailureMechanismSectionAssemblyGroup.NoResult, result.WaveImpactAsphaltCover);
+            Assert.AreEqual(FailureMechanismSectionAssemblyGroup.NoResult, result.WaterPressureAsphaltCover);
+            Assert.AreEqual(FailureMechanismSectionAssemblyGroup.NoResult, result.GrassCoverErosionOutwards);
+            Assert.AreEqual(FailureMechanismSectionAssemblyGroup.NoResult, result.GrassCoverSlipOffOutwards);
+            Assert.AreEqual(FailureMechanismSectionAssemblyGroup.NoResult, result.GrassCoverSlipOffInwards);
+            Assert.AreEqual(FailureMechanismSectionAssemblyGroup.NoResult, result.HeightStructures);
+            Assert.AreEqual(FailureMechanismSectionAssemblyGroup.NoResult, result.ClosingStructures);
+            Assert.AreEqual(FailureMechanismSectionAssemblyGroup.NoResult, result.PipingStructure);
+            Assert.AreEqual(FailureMechanismSectionAssemblyGroup.NoResult, result.StabilityPointStructures);
+            Assert.AreEqual(FailureMechanismSectionAssemblyGroup.NoResult, result.DuneErosion);
+            Assert.IsEmpty(result.SpecificFailureMechanisms);
+
+            Assert.AreEqual(result.CommonSectionAssemblyMethod, commonSectionAssemblyMethod);
+            Assert.AreEqual(result.FailureMechanismResultsAssemblyMethod, failureMechanismResultsAssemblyMethod);
+            Assert.AreEqual(result.CombinedSectionResultAssemblyMethod, combinedSectionResultAssemblyMethod);
         }
 
         [Test]
-        public void Constructor_WithConstructionProperties_ExpectedValues()
+        public void Constructor_WithConstructionPropertiesRepresentingAllFailureMechanismsInAssembly_ExpectedValues()
         {
             // Setup
             var random = new Random(21);
-            int sectionNumber = random.Next();
             double sectionStart = random.NextDouble();
             double sectionEnd = random.NextDouble();
             var totalResult = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>();
@@ -107,31 +113,40 @@ namespace Riskeer.Integration.Data.Test.Assembly
             var pipingStructureResult = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>();
             var stabilityPointStructuresResult = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>();
             var duneErosionResult = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>();
+            var specificFailureMechanismResults = new FailureMechanismSectionAssemblyGroup?[]
+            {
+                random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
+                random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
+                random.NextEnumValue<FailureMechanismSectionAssemblyGroup>()
+            };
+            var commonSectionAssemblyMethod = random.NextEnumValue<AssemblyMethod>();
+            var failureMechanismResultsAssemblyMethod = random.NextEnumValue<AssemblyMethod>();
+            var combinedSectionResultAssemblyMethod = random.NextEnumValue<AssemblyMethod>();
 
             // Call
-            var result = new CombinedFailureMechanismSectionAssemblyResult(
-                sectionNumber, sectionStart, sectionEnd, totalResult,
-                new CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties
-                {
-                    Piping = pipingResult,
-                    GrassCoverErosionInwards = grassCoverErosionInwardsResult,
-                    MacroStabilityInwards = macroStabilityInwardsResult,
-                    Microstability = microstabilityResult,
-                    StabilityStoneCover = stabilityStoneCoverResult,
-                    WaveImpactAsphaltCover = waveImpactAsphaltCoverResult,
-                    WaterPressureAsphaltCover = waterPressureAsphaltCoverResult,
-                    GrassCoverErosionOutwards = grassCoverErosionOutwardsResult,
-                    GrassCoverSlipOffOutwards = grassCoverSlipOffOutwardsResult,
-                    GrassCoverSlipOffInwards = grassCoverSlipOffInwardsResult,
-                    HeightStructures = heightStructuresResult,
-                    ClosingStructures = closingStructuresResult,
-                    PipingStructure = pipingStructureResult,
-                    StabilityPointStructures = stabilityPointStructuresResult,
-                    DuneErosion = duneErosionResult
-                });
+            var result = new CombinedFailureMechanismSectionAssemblyResult(sectionStart, sectionEnd, totalResult, commonSectionAssemblyMethod,
+                                                                           failureMechanismResultsAssemblyMethod, combinedSectionResultAssemblyMethod,
+                                                                           new CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties
+                                                                           {
+                                                                               Piping = pipingResult,
+                                                                               GrassCoverErosionInwards = grassCoverErosionInwardsResult,
+                                                                               MacroStabilityInwards = macroStabilityInwardsResult,
+                                                                               Microstability = microstabilityResult,
+                                                                               StabilityStoneCover = stabilityStoneCoverResult,
+                                                                               WaveImpactAsphaltCover = waveImpactAsphaltCoverResult,
+                                                                               WaterPressureAsphaltCover = waterPressureAsphaltCoverResult,
+                                                                               GrassCoverErosionOutwards = grassCoverErosionOutwardsResult,
+                                                                               GrassCoverSlipOffOutwards = grassCoverSlipOffOutwardsResult,
+                                                                               GrassCoverSlipOffInwards = grassCoverSlipOffInwardsResult,
+                                                                               HeightStructures = heightStructuresResult,
+                                                                               ClosingStructures = closingStructuresResult,
+                                                                               PipingStructure = pipingStructureResult,
+                                                                               StabilityPointStructures = stabilityPointStructuresResult,
+                                                                               DuneErosion = duneErosionResult,
+                                                                               SpecificFailureMechanisms = specificFailureMechanismResults
+                                                                           });
 
             // Assert
-            Assert.AreEqual(sectionNumber, result.SectionNumber);
             Assert.AreEqual(sectionStart, result.SectionStart);
             Assert.AreEqual(sectionEnd, result.SectionEnd);
             Assert.AreEqual(totalResult, result.TotalResult);
@@ -150,6 +165,81 @@ namespace Riskeer.Integration.Data.Test.Assembly
             Assert.AreEqual(pipingStructureResult, result.PipingStructure);
             Assert.AreEqual(stabilityPointStructuresResult, result.StabilityPointStructures);
             Assert.AreEqual(duneErosionResult, result.DuneErosion);
+            CollectionAssert.AreEqual(specificFailureMechanismResults, result.SpecificFailureMechanisms);
+            Assert.AreEqual(result.CommonSectionAssemblyMethod, commonSectionAssemblyMethod);
+            Assert.AreEqual(result.FailureMechanismResultsAssemblyMethod, failureMechanismResultsAssemblyMethod);
+            Assert.AreEqual(result.CombinedSectionResultAssemblyMethod, combinedSectionResultAssemblyMethod);
+        }
+
+        [Test]
+        public void Constructor_WithConstructionPropertiesRepresentingAllFailureMechanismsNotInAssembly_ExpectedValues()
+        {
+            // Setup
+            var random = new Random(21);
+            double sectionStart = random.NextDouble();
+            double sectionEnd = random.NextDouble();
+            var totalResult = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>();
+            var specificFailureMechanismResults = new FailureMechanismSectionAssemblyGroup?[]
+            {
+                null,
+                null,
+                null
+            };
+            var commonSectionAssemblyMethod = random.NextEnumValue<AssemblyMethod>();
+            var failureMechanismResultsAssemblyMethod = random.NextEnumValue<AssemblyMethod>();
+            var combinedSectionResultAssemblyMethod = random.NextEnumValue<AssemblyMethod>();
+
+            // Call
+            var result = new CombinedFailureMechanismSectionAssemblyResult(sectionStart, sectionEnd, totalResult, commonSectionAssemblyMethod,
+                                                                           failureMechanismResultsAssemblyMethod, combinedSectionResultAssemblyMethod,
+                                                                           new CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties
+                                                                           {
+                                                                               Piping = null,
+                                                                               GrassCoverErosionInwards = null,
+                                                                               MacroStabilityInwards = null,
+                                                                               Microstability = null,
+                                                                               StabilityStoneCover = null,
+                                                                               WaveImpactAsphaltCover = null,
+                                                                               WaterPressureAsphaltCover = null,
+                                                                               GrassCoverErosionOutwards = null,
+                                                                               GrassCoverSlipOffOutwards = null,
+                                                                               GrassCoverSlipOffInwards = null,
+                                                                               HeightStructures = null,
+                                                                               ClosingStructures = null,
+                                                                               PipingStructure = null,
+                                                                               StabilityPointStructures = null,
+                                                                               DuneErosion = null,
+                                                                               SpecificFailureMechanisms = specificFailureMechanismResults
+                                                                           });
+
+            // Assert
+            Assert.AreEqual(sectionStart, result.SectionStart);
+            Assert.AreEqual(sectionEnd, result.SectionEnd);
+            Assert.AreEqual(totalResult, result.TotalResult);
+            Assert.IsNull(result.Piping);
+            Assert.IsNull(result.GrassCoverErosionInwards);
+            Assert.IsNull(result.MacroStabilityInwards);
+            Assert.IsNull(result.Microstability);
+            Assert.IsNull(result.StabilityStoneCover);
+            Assert.IsNull(result.WaveImpactAsphaltCover);
+            Assert.IsNull(result.WaterPressureAsphaltCover);
+            Assert.IsNull(result.GrassCoverErosionOutwards);
+            Assert.IsNull(result.GrassCoverSlipOffOutwards);
+            Assert.IsNull(result.GrassCoverSlipOffInwards);
+            Assert.IsNull(result.HeightStructures);
+            Assert.IsNull(result.ClosingStructures);
+            Assert.IsNull(result.PipingStructure);
+            Assert.IsNull(result.StabilityPointStructures);
+            Assert.IsNull(result.DuneErosion);
+            Assert.AreEqual(specificFailureMechanismResults.Length, result.SpecificFailureMechanisms.Length);
+            foreach (FailureMechanismSectionAssemblyGroup? specificFailureMechanismResult in result.SpecificFailureMechanisms)
+            {
+                Assert.IsNull(specificFailureMechanismResult);
+            }
+
+            Assert.AreEqual(result.CommonSectionAssemblyMethod, commonSectionAssemblyMethod);
+            Assert.AreEqual(result.FailureMechanismResultsAssemblyMethod, failureMechanismResultsAssemblyMethod);
+            Assert.AreEqual(result.CombinedSectionResultAssemblyMethod, combinedSectionResultAssemblyMethod);
         }
     }
 }

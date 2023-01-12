@@ -14,6 +14,7 @@ using System.Text.RegularExpressions;
 using System.Drawing;
 using System.Threading;
 using WinForms = System.Windows.Forms;
+using System.Linq;
 
 using Ranorex;
 using Ranorex.Core;
@@ -70,13 +71,15 @@ namespace AutomatedSystemTests.Modules.IO
         /// that will in turn invoke this method.</remarks>
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 0;
-            Keyboard.DefaultKeyPressTime = 0;
-            Delay.SpeedFactor = 0.0;
-            foreach (var sourceFilePath in Directory.GetFiles(sourcePath, searchPattern))
+//            if (!Directory.Exists("X:\\script09\\input_2\\"))
+//            {
+//                Directory.CreateDirectory("X:\\script09\\input_2\\");
+//            }
+            foreach (var sourceFilePath in Directory.GetFiles(sourcePath, searchPattern).ToList())
                 {
                 string fileName = Path.GetFileName(sourceFilePath);
                 string destinationFilePath = Path.Combine(targetPath, fileName);
+                Report.Info("source: " + sourceFilePath + "; target: " + destinationFilePath);
                 System.IO.File.Copy(sourceFilePath, destinationFilePath , true);
                 }
         }

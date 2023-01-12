@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -39,20 +39,20 @@ namespace Riskeer.Revetment.Service
     public static class WaveConditionsDataSynchronizationService
     {
         /// <summary>
-        /// Clears the output for all calculations that corresponds with the <paramref name="normType"/>
+        /// Clears the output for all calculations that corresponds with the <paramref name="normativeProbabilityType"/>
         /// in the given <paramref name="failureMechanism"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism which contains the calculations.</param>
-        /// <param name="normType">The <see cref="NormType"/> to clear for.</param>
-        /// <typeparam name="TFailureMechanism">The type of the failure mechanism.</typeparam>
+        /// <param name="normativeProbabilityType">The <see cref="NormativeProbabilityType"/> to clear for.</param>
+        /// <typeparam name="TFailureMechanism">The type of the calculatable failure mechanism.</typeparam>
         /// <typeparam name="TCalculation">The type of the calculation.</typeparam>
         /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by clearing the output.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> is invalid.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is not supported.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normativeProbabilityType"/> is invalid.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="normativeProbabilityType"/> is not supported.</exception>
         public static IEnumerable<IObservable> ClearAllWaveConditionsCalculationOutput<TFailureMechanism, TCalculation>(
-            TFailureMechanism failureMechanism, NormType normType)
-            where TFailureMechanism : IFailureMechanism
+            TFailureMechanism failureMechanism, NormativeProbabilityType normativeProbabilityType)
+            where TFailureMechanism : ICalculatableFailureMechanism
             where TCalculation : ICalculation<WaveConditionsInput>
         {
             if (failureMechanism == null)
@@ -60,7 +60,7 @@ namespace Riskeer.Revetment.Service
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            WaveConditionsInputWaterLevelType waterLevelType = GetWaterLevelTypeFromNormType(normType);
+            WaveConditionsInputWaterLevelType waterLevelType = GetWaterLevelTypeFromNormativeProbabilityType(normativeProbabilityType);
 
             var affectedItems = new List<IObservable>();
             foreach (TCalculation calculation in failureMechanism.Calculations
@@ -80,13 +80,13 @@ namespace Riskeer.Revetment.Service
         /// <param name="failureMechanism">The failure mechanism which contains the calculations.</param>
         /// <param name="calculationsForTargetProbability">The <see cref="HydraulicBoundaryLocationCalculationsForTargetProbability"/>
         /// to clear for.</param>
-        /// <typeparam name="TFailureMechanism">The type of the failure mechanism.</typeparam>
+        /// <typeparam name="TFailureMechanism">The type of the calculatable failure mechanism.</typeparam>
         /// <typeparam name="TCalculation">The type of the calculation.</typeparam>
         /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by clearing the output.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static IEnumerable<IObservable> ClearAllWaveConditionsCalculationOutput<TFailureMechanism, TCalculation>(
             TFailureMechanism failureMechanism, HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability)
-            where TFailureMechanism : IFailureMechanism
+            where TFailureMechanism : ICalculatableFailureMechanism
             where TCalculation : ICalculation<WaveConditionsInput>
         {
             if (failureMechanism == null)
@@ -118,13 +118,13 @@ namespace Riskeer.Revetment.Service
         /// <param name="failureMechanism">The failure mechanism which contains the calculations.</param>
         /// <param name="calculationsForTargetProbability">The <see cref="HydraulicBoundaryLocationCalculationsForTargetProbability"/>
         /// to clear for.</param>
-        /// <typeparam name="TFailureMechanism">The type of the failure mechanism.</typeparam>
+        /// <typeparam name="TFailureMechanism">The type of the calculatable failure mechanism.</typeparam>
         /// <typeparam name="TCalculation">The type of the calculation.</typeparam>
         /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by clearing the output.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static IEnumerable<IObservable> ClearWaveConditionsCalculationOutputAndRemoveTargetProbability<TFailureMechanism, TCalculation>(
             TFailureMechanism failureMechanism, HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability)
-            where TFailureMechanism : IFailureMechanism
+            where TFailureMechanism : ICalculatableFailureMechanism
             where TCalculation : ICalculation<WaveConditionsInput>
         {
             if (failureMechanism == null)
@@ -153,27 +153,27 @@ namespace Riskeer.Revetment.Service
         }
 
         /// <summary>
-        /// Gets the <see cref="WaveConditionsInputWaterLevelType"/> based on the given <paramref name="normType"/>.
+        /// Gets the <see cref="WaveConditionsInputWaterLevelType"/> based on the given <paramref name="normativeProbabilityType"/>.
         /// </summary>
-        /// <param name="normType">The <see cref="NormType"/> to get the <see cref="WaveConditionsInputWaterLevelType"/> from.</param>
+        /// <param name="normativeProbabilityType">The <see cref="NormativeProbabilityType"/> to get the <see cref="WaveConditionsInputWaterLevelType"/> from.</param>
         /// <returns>A <see cref="WaveConditionsInputWaterLevelType"/>.</returns>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> is invalid.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is not supported.</exception>
-        private static WaveConditionsInputWaterLevelType GetWaterLevelTypeFromNormType(NormType normType)
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normativeProbabilityType"/> is invalid.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="normativeProbabilityType"/> is not supported.</exception>
+        private static WaveConditionsInputWaterLevelType GetWaterLevelTypeFromNormativeProbabilityType(NormativeProbabilityType normativeProbabilityType)
         {
-            if (!Enum.IsDefined(typeof(NormType), normType))
+            if (!Enum.IsDefined(typeof(NormativeProbabilityType), normativeProbabilityType))
             {
-                throw new InvalidEnumArgumentException(nameof(normType),
-                                                       (int) normType,
-                                                       typeof(NormType));
+                throw new InvalidEnumArgumentException(nameof(normativeProbabilityType),
+                                                       (int) normativeProbabilityType,
+                                                       typeof(NormativeProbabilityType));
             }
 
-            switch (normType)
+            switch (normativeProbabilityType)
             {
-                case NormType.LowerLimit:
-                    return WaveConditionsInputWaterLevelType.LowerLimit;
-                case NormType.Signaling:
-                    return WaveConditionsInputWaterLevelType.Signaling;
+                case NormativeProbabilityType.MaximumAllowableFloodingProbability:
+                    return WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability;
+                case NormativeProbabilityType.SignalFloodingProbability:
+                    return WaveConditionsInputWaterLevelType.SignalFloodingProbability;
                 default:
                     throw new NotSupportedException();
             }

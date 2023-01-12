@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -24,7 +24,9 @@ using System.Globalization;
 using System.Linq;
 using System.Management;
 using System.Windows;
+using System.Windows.Media.Imaging;
 using Core.Gui.Forms.Backstage;
+using Core.Gui.Settings;
 using NUnit.Framework;
 
 namespace Core.Gui.Test.Forms.Backstage
@@ -33,18 +35,34 @@ namespace Core.Gui.Test.Forms.Backstage
     public class AboutViewModelTest
     {
         [Test]
+        public void Constructor_SettingsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new AboutViewModel(null, string.Empty);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("settings", exception.ParamName);
+        }
+
+        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            const string applicationName = "Test application";
+            var settings = new GuiCoreSettings
+            {
+                ApplicationName = "Test application",
+                MadeByBitmapImage = new BitmapImage()
+            };
+
             const string version = "1.0";
 
             // Call
-            var viewModel = new AboutViewModel(applicationName, version);
+            var viewModel = new AboutViewModel(settings, version);
 
             // Assert
             Assert.IsInstanceOf<IBackstagePageViewModel>(viewModel);
-            Assert.AreEqual(applicationName, viewModel.ApplicationName);
+            Assert.AreEqual(settings.ApplicationName, viewModel.ApplicationName);
             Assert.AreEqual(version, viewModel.Version);
 
             ManagementObject processorManagementObject =
@@ -66,6 +84,7 @@ namespace Core.Gui.Test.Forms.Backstage
             Assert.AreEqual(processorManagementObject["Name"], viewModel.Processor);
             Assert.AreEqual(installedRam, AboutViewModel.InstalledRam);
             Assert.AreEqual(GetResolution(), AboutViewModel.Resolution);
+            Assert.AreSame(settings.MadeByBitmapImage, viewModel.MadeByBitmapImage);
         }
 
         private static string GetResolution()

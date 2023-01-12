@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -36,7 +36,7 @@ namespace Riskeer.Common.IO.FileImporters
     public class FailureMechanismSectionUpdateStrategy<T> : IFailureMechanismSectionUpdateStrategy
         where T : FailureMechanismSectionResult
     {
-        private readonly IHasSectionResults<T> failureMechanism;
+        private readonly IFailureMechanism<T> failureMechanism;
         private readonly IFailureMechanismSectionResultUpdateStrategy<T> sectionResultUpdateStrategy;
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace Riskeer.Common.IO.FileImporters
         /// <param name="sectionResultUpdateStrategy">The <see cref="IFailureMechanismSectionResultUpdateStrategy{T}"/> to use when updating
         /// the section results.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public FailureMechanismSectionUpdateStrategy(IHasSectionResults<T> failureMechanism,
+        public FailureMechanismSectionUpdateStrategy(IFailureMechanism<T> failureMechanism,
                                                      IFailureMechanismSectionResultUpdateStrategy<T> sectionResultUpdateStrategy)
         {
             if (failureMechanism == null)

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -20,10 +20,8 @@
 // All rights reserved.
 
 using System;
-using System.ComponentModel;
-using Riskeer.AssemblyTool.Data;
-using KernelFailureMechanismSectionAssemblyResult = Assembly.Kernel.Model.FailureMechanismSections.FailureMechanismSectionAssemblyResult;
-using RiskeerFailureMechanismSectionAssemblyResult = Riskeer.AssemblyTool.Data.FailureMechanismSectionAssemblyResult;
+using Assembly.Kernel.Model.FailureMechanismSections;
+using FailureMechanismSectionAssemblyResult = Riskeer.AssemblyTool.Data.FailureMechanismSectionAssemblyResult;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Creators
 {
@@ -33,27 +31,22 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
     internal static class FailureMechanismAssemblyCalculatorInputCreator
     {
         /// <summary>
-        /// Creates an <see cref="KernelFailureMechanismSectionAssemblyResult"/> based on <paramref name="result"/>.
+        /// Creates a <see cref="ResultWithProfileAndSectionProbabilities"/> based on <paramref name="result"/>.
         /// </summary>
-        /// <param name="result">The <see cref="RiskeerFailureMechanismSectionAssemblyResult"/> to create the
-        /// <see cref="KernelFailureMechanismSectionAssemblyResult"/> with.</param>
-        /// <returns>An <see cref="KernelFailureMechanismSectionAssemblyResult"/>.</returns>
+        /// <param name="result">The <see cref="FailureMechanismSectionAssemblyResult"/> to create the
+        /// <see cref="ResultWithProfileAndSectionProbabilities"/> with.</param>
+        /// <returns>A <see cref="ResultWithProfileAndSectionProbabilities"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="FailureMechanismSectionAssemblyGroup"/>
-        /// is an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyGroup"/>
-        /// is a valid value, but unsupported.</exception>
-        public static KernelFailureMechanismSectionAssemblyResult CreateFailureMechanismSectionAssemblyResult(RiskeerFailureMechanismSectionAssemblyResult result)
+        public static ResultWithProfileAndSectionProbabilities CreateResultWithProfileAndSectionProbabilities(FailureMechanismSectionAssemblyResult result)
         {
             if (result == null)
             {
                 throw new ArgumentNullException(nameof(result));
             }
 
-            return new KernelFailureMechanismSectionAssemblyResult(
+            return new ResultWithProfileAndSectionProbabilities(
                 AssemblyCalculatorInputCreator.CreateProbability(result.ProfileProbability),
-                AssemblyCalculatorInputCreator.CreateProbability(result.SectionProbability),
-                FailureMechanismSectionAssemblyGroupConverter.ConvertFrom(result.AssemblyGroup));
+                AssemblyCalculatorInputCreator.CreateProbability(result.SectionProbability));
         }
     }
 }

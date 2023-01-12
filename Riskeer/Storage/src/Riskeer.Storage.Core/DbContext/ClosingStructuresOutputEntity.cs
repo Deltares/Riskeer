@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -35,9 +35,9 @@ namespace Riskeer.Storage.Core.DbContext
         public long ClosingStructuresOutputEntityId { get; set; }
         public long ClosingStructuresCalculationEntityId { get; set; }
         public long? GeneralResultFaultTreeIllustrationPointEntityId { get; set; }
+        public double? Reliability { get; set; }
 
         public virtual ClosingStructuresCalculationEntity ClosingStructuresCalculationEntity { get; set; }
         public virtual GeneralResultFaultTreeIllustrationPointEntity GeneralResultFaultTreeIllustrationPointEntity { get; set; }
-        public double? Reliability { get; set; }
     }
 }

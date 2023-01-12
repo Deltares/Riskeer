@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -29,7 +29,6 @@ using Core.Common.Controls.DataGrid;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.Views;
@@ -64,11 +63,11 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IFailurePath>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
             // Call
-            void Call() => new FailureMechanismSectionsView(null, failurePath);
+            void Call() => new FailureMechanismSectionsView(null, failureMechanism);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
@@ -82,18 +81,18 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IFailurePath>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
             IEnumerable<FailureMechanismSection> sections = Enumerable.Empty<FailureMechanismSection>();
 
             // Call
-            using (FailureMechanismSectionsView view = ShowFailureMechanismSectionsView(sections, failurePath))
+            using (FailureMechanismSectionsView view = ShowFailureMechanismSectionsView(sections, failureMechanism))
             {
                 // Assert
-                Assert.IsInstanceOf<CloseForFailurePathView>(view);
+                Assert.IsInstanceOf<CloseForFailureMechanismView>(view);
                 Assert.IsNull(view.Data);
-                Assert.AreSame(failurePath, view.FailurePath);
+                Assert.AreSame(failureMechanism, view.FailureMechanism);
                 Assert.AreEqual(1, view.Controls.Count);
 
                 DataGridViewControl sectionsDataGridViewControl = GetSectionsDataGridViewControl(view);
@@ -117,13 +116,13 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IFailurePath>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
             IEnumerable<FailureMechanismSection> sections = Enumerable.Empty<FailureMechanismSection>();
 
             // Call
-            using (FailureMechanismSectionsView view = ShowFailureMechanismSectionsView(sections, failurePath))
+            using (FailureMechanismSectionsView view = ShowFailureMechanismSectionsView(sections, failureMechanism))
             {
                 // Assert
                 CollectionAssert.IsEmpty(GetSectionsDataGridViewControl(view).Rows);
@@ -137,7 +136,7 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IFailurePath>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
             FailureMechanismSection[] sections =
@@ -148,7 +147,7 @@ namespace Riskeer.Common.Forms.Test.Views
             };
 
             // Call
-            using (FailureMechanismSectionsView view = ShowFailureMechanismSectionsView(sections, failurePath))
+            using (FailureMechanismSectionsView view = ShowFailureMechanismSectionsView(sections, failureMechanism))
             {
                 // Assert
                 DataGridViewControl sectionsDataGridViewControl = GetSectionsDataGridViewControl(view);
@@ -163,28 +162,28 @@ namespace Riskeer.Common.Forms.Test.Views
         public void GivenViewWithSections_WhenFailureMechanismNotifiesChangeAndSectionsUpdated_ThenDataGridViewUpdated()
         {
             // Given
-            var failurePath = new TestFailurePath();
-            FailureMechanismTestHelper.SetSections(failurePath, new[]
+            var failureMechanism = new TestFailureMechanism();
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 CreateFailureMechanismSection("a")
             });
 
-            using (FailureMechanismSectionsView view = ShowFailureMechanismSectionsView(failurePath.Sections, failurePath))
+            using (FailureMechanismSectionsView view = ShowFailureMechanismSectionsView(failureMechanism.Sections, failureMechanism))
             {
                 DataGridViewControl sectionsDataGridViewControl = GetSectionsDataGridViewControl(view);
 
                 // Precondition
-                AssertSectionsDataGridViewControl(failurePath.Sections.ToArray(), sectionsDataGridViewControl);
+                AssertSectionsDataGridViewControl(failureMechanism.Sections.ToArray(), sectionsDataGridViewControl);
 
                 // When
-                FailureMechanismTestHelper.SetSections(failurePath, new[]
+                FailureMechanismTestHelper.SetSections(failureMechanism, new[]
                 {
                     FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
                 });
-                failurePath.NotifyObservers();
+                failureMechanism.NotifyObservers();
 
                 // Then
-                AssertSectionsDataGridViewControl(failurePath.Sections.ToArray(), sectionsDataGridViewControl);
+                AssertSectionsDataGridViewControl(failureMechanism.Sections.ToArray(), sectionsDataGridViewControl);
             }
         }
 
@@ -192,13 +191,13 @@ namespace Riskeer.Common.Forms.Test.Views
         public void GivenViewWithSections_WhenFailureMechanismNotifiesChangeAndSectionsNotUpdated_ThenDataGridViewNotUpdated()
         {
             // Given
-            var failurePath = new TestFailurePath();
-            FailureMechanismTestHelper.SetSections(failurePath, new[]
+            var failureMechanism = new TestFailureMechanism();
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 CreateFailureMechanismSection("a")
             });
 
-            using (FailureMechanismSectionsView view = ShowFailureMechanismSectionsView(failurePath.Sections, failurePath))
+            using (FailureMechanismSectionsView view = ShowFailureMechanismSectionsView(failureMechanism.Sections, failureMechanism))
             {
                 DataGridView sectionsDataGridView = GetSectionsDataGridView(view);
 
@@ -210,7 +209,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 };
 
                 // When
-                failurePath.NotifyObservers();
+                failureMechanism.NotifyObservers();
 
                 // Then
                 Assert.IsFalse(invalidated);
@@ -264,9 +263,9 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         private FailureMechanismSectionsView ShowFailureMechanismSectionsView(IEnumerable<FailureMechanismSection> sections,
-                                                                              IFailurePath failurePath)
+                                                                              IFailureMechanism failureMechanism)
         {
-            var view = new FailureMechanismSectionsView(sections, failurePath);
+            var view = new FailureMechanismSectionsView(sections, failureMechanism);
 
             testForm.Controls.Add(view);
             testForm.Show();

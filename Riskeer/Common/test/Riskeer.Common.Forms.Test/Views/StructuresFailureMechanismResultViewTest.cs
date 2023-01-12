@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -23,14 +23,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
+using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
@@ -69,41 +67,6 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var failureMechanism = new TestStructuresFailureMechanism();
-
-            // Call
-            void Call() => new StructuresFailureMechanismResultView<TestStructuresFailureMechanism, TestStructuresInput>(
-                failureMechanism.SectionResults, failureMechanism, null, fm => double.NaN);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_GetNFuncNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new TestStructuresFailureMechanism();
-
-            // Call
-            void Call() => new StructuresFailureMechanismResultView<TestStructuresFailureMechanism, TestStructuresInput>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection, null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("getNFunc", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
@@ -115,7 +78,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             // Call
             using (var view = new StructuresFailureMechanismResultView<TestStructuresFailureMechanism, TestStructuresInput>(
-                       failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => double.NaN))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, section) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.BOI1A1)))
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultView<AdoptableFailureMechanismSectionResult,
@@ -216,32 +179,6 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void FailureMechanismResultsView_AllDataSet_SetsCorrectInputOnCalculator()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-
-            var failureMechanism = new TestStructuresFailureMechanism();
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                section
-            });
-
-            var assessmentSection = new AssessmentSectionStub();
-
-            // Call
-            using (new AssemblyToolCalculatorFactoryConfig())
-            using (ShowFailureMechanismResultsView(failureMechanism, assessmentSection))
-            {
-                // Assert
-                var testFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub calculator = testFactory.LastCreatedFailureMechanismAssemblyCalculator;
-
-                Assert.AreEqual(1.2345, calculator.FailureMechanismN);
-            }
-        }
-
-        [Test]
         public void GivenStructuresFailureMechanismResultView_WhenCalculationNotifiesObservers_ThenDataGridViewUpdatedAndAssemblyPerformed()
         {
             // Given
@@ -261,33 +198,30 @@ namespace Riskeer.Common.Forms.Test.Views
             };
             failureMechanism.CalculationsGroup.Children.Add(calculationScenario);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
-            using (ShowFailureMechanismResultsView(failureMechanism))
+            int nrOfCalls = 0;
+            Func<TestStructuresFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc = (fm, ass) =>
             {
-                var testFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionAssemblyCalculator = testFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                failureMechanismSectionAssemblyCalculator.FailureMechanismSectionAssemblyResultOutput = new FailureMechanismSectionAssemblyResult(1, 1, 1, FailureMechanismSectionAssemblyGroup.III);
+                nrOfCalls++;
+                return new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.BOI1A1);
+            };
 
-                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = testFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                IEnumerable<FailureMechanismSectionAssemblyResult> initialCalculatorInput = failureMechanismAssemblyCalculator.SectionAssemblyResultsInput
-                                                                                                                              .ToArray();
-
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (ShowFailureMechanismResultsView(failureMechanism, performFailureMechanismAssemblyFunc))
+            {
                 var rowsChanged = false;
                 DataGridView dataGridView = GetDataGridView();
                 dataGridView.Rows.CollectionChanged += (sender, args) => rowsChanged = true;
 
                 // Precondition
+                Assert.AreEqual(1, nrOfCalls);
                 Assert.IsFalse(rowsChanged);
 
                 // When
                 calculationScenario.NotifyObservers();
 
                 // Then
+                Assert.AreEqual(2, nrOfCalls);
                 Assert.IsTrue(rowsChanged);
-
-                IEnumerable<FailureMechanismSectionAssemblyResult> updatedCalculatorInput = failureMechanismAssemblyCalculator.SectionAssemblyResultsInput
-                                                                                                                              .ToArray();
-                CollectionAssert.AreNotEqual(initialCalculatorInput, updatedCalculatorInput);
             }
         }
 
@@ -311,33 +245,30 @@ namespace Riskeer.Common.Forms.Test.Views
             };
             failureMechanism.CalculationsGroup.Children.Add(calculationScenario);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
-            using (ShowFailureMechanismResultsView(failureMechanism))
+            int nrOfCalls = 0;
+            Func<TestStructuresFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc = (fm, ass) =>
             {
-                var testFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionAssemblyCalculator = testFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                failureMechanismSectionAssemblyCalculator.FailureMechanismSectionAssemblyResultOutput = new FailureMechanismSectionAssemblyResult(1, 1, 1, FailureMechanismSectionAssemblyGroup.III);
+                nrOfCalls++;
+                return new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.BOI1A1);
+            };
 
-                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = testFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                IEnumerable<FailureMechanismSectionAssemblyResult> initialCalculatorInput = failureMechanismAssemblyCalculator.SectionAssemblyResultsInput
-                                                                                                                              .ToArray();
-
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (ShowFailureMechanismResultsView(failureMechanism, performFailureMechanismAssemblyFunc))
+            {
                 var rowsChanged = false;
                 DataGridView dataGridView = GetDataGridView();
                 dataGridView.Rows.CollectionChanged += (sender, args) => rowsChanged = true;
 
                 // Precondition
+                Assert.AreEqual(1, nrOfCalls);
                 Assert.IsFalse(rowsChanged);
 
                 // When
                 calculationScenario.InputParameters.NotifyObservers();
 
                 // Then
+                Assert.AreEqual(2, nrOfCalls);
                 Assert.IsTrue(rowsChanged);
-
-                IEnumerable<FailureMechanismSectionAssemblyResult> updatedCalculatorInput = failureMechanismAssemblyCalculator.SectionAssemblyResultsInput
-                                                                                                                              .ToArray();
-                CollectionAssert.AreNotEqual(initialCalculatorInput, updatedCalculatorInput);
             }
         }
 
@@ -363,49 +294,60 @@ namespace Riskeer.Common.Forms.Test.Views
             calculationGroup.Children.Add(calculationScenario);
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
-            using (ShowFailureMechanismResultsView(failureMechanism))
+            int nrOfCalls = 0;
+            Func<TestStructuresFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc = (fm, ass) =>
             {
-                var testFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionAssemblyCalculator = testFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                failureMechanismSectionAssemblyCalculator.FailureMechanismSectionAssemblyResultOutput = new FailureMechanismSectionAssemblyResult(1, 1, 1, FailureMechanismSectionAssemblyGroup.III);
+                nrOfCalls++;
+                return new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.BOI1A1);
+            };
 
-                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = testFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                IEnumerable<FailureMechanismSectionAssemblyResult> initialCalculatorInput = failureMechanismAssemblyCalculator.SectionAssemblyResultsInput
-                                                                                                                              .ToArray();
-
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (ShowFailureMechanismResultsView(failureMechanism, performFailureMechanismAssemblyFunc))
+            {
                 var rowsChanged = false;
                 DataGridView dataGridView = GetDataGridView();
                 dataGridView.Rows.CollectionChanged += (sender, args) => rowsChanged = true;
 
                 // Precondition
+                Assert.AreEqual(1, nrOfCalls);
                 Assert.IsFalse(rowsChanged);
 
                 // When
                 calculationScenario.InputParameters.NotifyObservers();
 
                 // Then
+                Assert.AreEqual(2, nrOfCalls);
                 Assert.IsTrue(rowsChanged);
-
-                IEnumerable<FailureMechanismSectionAssemblyResult> updatedCalculatorInput = failureMechanismAssemblyCalculator.SectionAssemblyResultsInput
-                                                                                                                              .ToArray();
-                CollectionAssert.AreNotEqual(initialCalculatorInput, updatedCalculatorInput);
             }
         }
 
-        private StructuresFailureMechanismResultView<TestStructuresFailureMechanism, TestStructuresInput> ShowFailureMechanismResultsView(TestStructuresFailureMechanism failureMechanism)
+        private StructuresFailureMechanismResultView<TestStructuresFailureMechanism, TestStructuresInput> ShowFailureMechanismResultsView(
+            TestStructuresFailureMechanism failureMechanism)
         {
             return ShowFailureMechanismResultsView(failureMechanism, new AssessmentSectionStub());
         }
 
-        private StructuresFailureMechanismResultView<TestStructuresFailureMechanism, TestStructuresInput> ShowFailureMechanismResultsView(TestStructuresFailureMechanism failureMechanism,
-                                                                                                                                          IAssessmentSection assessmentSection)
+        private StructuresFailureMechanismResultView<TestStructuresFailureMechanism, TestStructuresInput> ShowFailureMechanismResultsView(
+            TestStructuresFailureMechanism failureMechanism, Func<TestStructuresFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc)
+        {
+            return ShowFailureMechanismResultsView(failureMechanism, new AssessmentSectionStub(), performFailureMechanismAssemblyFunc);
+        }
+
+        private StructuresFailureMechanismResultView<TestStructuresFailureMechanism, TestStructuresInput> ShowFailureMechanismResultsView(
+            TestStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        {
+            return ShowFailureMechanismResultsView(failureMechanism, assessmentSection, (fm, section) => new FailureMechanismAssemblyResultWrapper(1.2345, AssemblyMethod.Manual));
+        }
+
+        private StructuresFailureMechanismResultView<TestStructuresFailureMechanism, TestStructuresInput> ShowFailureMechanismResultsView(
+            TestStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection,
+            Func<TestStructuresFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc)
         {
             var failureMechanismResultView = new StructuresFailureMechanismResultView<TestStructuresFailureMechanism, TestStructuresInput>(
                 failureMechanism.SectionResults,
                 failureMechanism,
                 assessmentSection,
-                fm => 1.2345);
+                performFailureMechanismAssemblyFunc);
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();
 
@@ -417,29 +359,19 @@ namespace Riskeer.Common.Forms.Test.Views
             return (DataGridView) new ControlTester("dataGridView").TheObject;
         }
 
-        private class TestStructuresFailureMechanism : FailureMechanismBase, ICalculatableFailureMechanism,
-                                                       IHasSectionResults<AdoptableFailureMechanismSectionResult>
+        private class TestStructuresFailureMechanism : FailureMechanismBase<AdoptableFailureMechanismSectionResult>, ICalculatableFailureMechanism
         {
-            private readonly ObservableList<AdoptableFailureMechanismSectionResult> sectionResults;
-
             public TestStructuresFailureMechanism()
                 : base("Test", "T")
             {
                 CalculationsGroup = new CalculationGroup();
-                sectionResults = new ObservableList<AdoptableFailureMechanismSectionResult>();
             }
+
+            public IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations();
 
             public CalculationGroup CalculationsGroup { get; }
 
-            public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations();
-
-            public IObservableEnumerable<AdoptableFailureMechanismSectionResult> SectionResults => sectionResults;
-
-            protected override void AddSectionDependentData(FailureMechanismSection section)
-            {
-                base.AddSectionDependentData(section);
-                sectionResults.Add(new AdoptableFailureMechanismSectionResult(section));
-            }
+            public Comment CalculationsInputComments { get; }
         }
     }
 }

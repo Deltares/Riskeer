@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -24,12 +24,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Util.Extensions;
+using Core.Gui.Forms.ViewHost;
 using log4net;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Structures;
 using Riskeer.GrassCoverErosionInwards.Data;
@@ -53,6 +53,23 @@ namespace Riskeer.Integration.Plugin.Merge
     public class AssessmentSectionMergeHandler : IAssessmentSectionMergeHandler
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(AssessmentSectionMergeHandler));
+        private readonly IDocumentViewController documentViewController;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AssessmentSectionMergeHandler"/>.
+        /// </summary>
+        /// <param name="documentViewController">The document view controller.</param>
+        /// <exception cref="ArgumentNullException">Thrown when
+        /// <paramref name="documentViewController"/> is <c>mull</c>.</exception>
+        public AssessmentSectionMergeHandler(IDocumentViewController documentViewController)
+        {
+            if (documentViewController == null)
+            {
+                throw new ArgumentNullException(nameof(documentViewController));
+            }
+
+            this.documentViewController = documentViewController;
+        }
 
         public void PerformMerge(AssessmentSection targetAssessmentSection, AssessmentSectionMergeData mergeData)
         {
@@ -68,15 +85,10 @@ namespace Riskeer.Integration.Plugin.Merge
 
             ValidateMergeData(mergeData);
 
-            var changedObjects = new List<IObservable>
-            {
-                targetAssessmentSection
-            };
-
-            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection, mergeData.AssessmentSection));
+            IEnumerable<IObservable> changedObjects = MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection, mergeData.AssessmentSection);
 
             MergeFailureMechanisms(targetAssessmentSection, mergeData);
-            MergeSpecificFailurePaths(targetAssessmentSection, mergeData.MergeSpecificFailurePaths);
+            MergeSpecificFailureMechanism(targetAssessmentSection, mergeData.MergeSpecificFailureMechanisms);
 
             AfterMerge(changedObjects);
         }
@@ -89,16 +101,22 @@ namespace Riskeer.Integration.Plugin.Merge
         private static void ValidateMergeData(AssessmentSectionMergeData mergeData)
         {
             AssessmentSection sourceAssessmentSection = mergeData.AssessmentSection;
-            if (!mergeData.MergeSpecificFailurePaths.All(fp => sourceAssessmentSection.SpecificFailurePaths.Contains(fp)))
+            if (!mergeData.MergeSpecificFailureMechanisms.All(fp => sourceAssessmentSection.SpecificFailureMechanisms.Contains(fp)))
             {
-                throw new ArgumentException($"{nameof(AssessmentSectionMergeData.MergeSpecificFailurePaths)} must contain items of " +
+                throw new ArgumentException($"{nameof(AssessmentSectionMergeData.MergeSpecificFailureMechanisms)} must contain items of " +
                                             $"the assessment section in {nameof(mergeData)}.");
             }
         }
 
-        private static void AfterMerge(IEnumerable<IObservable> changedObjects)
+        private void AfterMerge(IEnumerable<IObservable> changedObjects)
         {
+            documentViewController.CloseAllViews();
             changedObjects.ForEachElementDo(co => co.NotifyObservers());
+        }
+
+        private static void LogMergeMessage(SpecificFailureMechanism failureMechanism)
+        {
+            log.InfoFormat(Resources.AssessmentSectionMergeHandler_TryMergeFailureMechanism_FailureMechanism_0_added, failureMechanism.Name);
         }
 
         private static void LogMergeMessage(IFailureMechanism failureMechanism)
@@ -106,19 +124,14 @@ namespace Riskeer.Integration.Plugin.Merge
             log.InfoFormat(Resources.AssessmentSectionMergeHandler_TryMergeFailureMechanism_FailureMechanism_0_replaced, failureMechanism.Name);
         }
 
-        private static void LogMergeMessage(IFailurePath failurePath)
-        {
-            log.InfoFormat(Resources.AssessmentSectionMergeHandler_TryMergeFailurePath_FailurePath_0_added, failurePath.Name);
-        }
+        #region SpecificFailureMechanisms
 
-        #region FailurePaths
-
-        private static void MergeSpecificFailurePaths(AssessmentSection targetAssessmentSection, IEnumerable<IFailurePath> mergeFailurePaths)
+        private static void MergeSpecificFailureMechanism(AssessmentSection targetAssessmentSection, IEnumerable<SpecificFailureMechanism> mergeFailureMechanisms)
         {
-            if (mergeFailurePaths.Any())
+            if (mergeFailureMechanisms.Any())
             {
-                targetAssessmentSection.SpecificFailurePaths.AddRange(mergeFailurePaths);
-                mergeFailurePaths.ForEachElementDo(LogMergeMessage);
+                targetAssessmentSection.SpecificFailureMechanisms.AddRange(mergeFailureMechanisms);
+                mergeFailureMechanisms.ForEachElementDo(LogMergeMessage);
             }
         }
 
@@ -131,10 +144,10 @@ namespace Riskeer.Integration.Plugin.Merge
         {
             var changedObjects = new List<IObservable>();
 
-            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaterLevelCalculationsForSignalingNorm,
-                                                                               sourceAssessmentSection.WaterLevelCalculationsForSignalingNorm));
-            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaterLevelCalculationsForLowerLimitNorm,
-                                                                               sourceAssessmentSection.WaterLevelCalculationsForLowerLimitNorm));
+            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaterLevelCalculationsForSignalFloodingProbability,
+                                                                               sourceAssessmentSection.WaterLevelCalculationsForSignalFloodingProbability));
+            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability,
+                                                                               sourceAssessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability));
             changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities,
                                                                                sourceAssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities,
                                                                                targetAssessmentSection.HydraulicBoundaryDatabase.Locations));
@@ -375,7 +388,7 @@ namespace Riskeer.Integration.Plugin.Merge
 
         private static void UpdateCalculationHydraulicBoundaryLocationReferences<TFailureMechanism, TCalculation, TCalculationInput>(
             TFailureMechanism failureMechanism, IEnumerable<HydraulicBoundaryLocation> locations)
-            where TFailureMechanism : IFailureMechanism
+            where TFailureMechanism : ICalculatableFailureMechanism
             where TCalculation : ICalculation<TCalculationInput>
             where TCalculationInput : class, ICalculationInputWithHydraulicBoundaryLocation
         {

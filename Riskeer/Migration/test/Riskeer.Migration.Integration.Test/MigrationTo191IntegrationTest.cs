@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -1193,7 +1193,7 @@ namespace Riskeer.Migration.Integration.Test
                     new MigrationLogMessage("18.1", newVersion, "* Traject: 'PipingSoilLayer'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("18.1", newVersion, "  + Toetsspoor: 'Piping'"),
+                    new MigrationLogMessage("18.1", newVersion, "  + Faalmechanisme: 'Piping'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("18.1", newVersion, "    - De waarde '0.0049' voor het gemiddelde van parameter 'Verzadigd gewicht' van ondergrondlaag 'BelowPhreaticLevelMean' is ongeldig en is veranderd naar NaN."),
@@ -1233,7 +1233,7 @@ namespace Riskeer.Migration.Integration.Test
                     new MigrationLogMessage("18.1", newVersion, "  + Er worden standaardwaarden conform WBI2017 gebruikt voor de HLCD bestandsinformatie."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("18.1", newVersion, "  + Toetsspoor: 'Grasbekleding erosie kruin en binnentalud'"),
+                    new MigrationLogMessage("18.1", newVersion, "  + Faalmechanisme: 'Grasbekleding erosie kruin en binnentalud'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("18.1", newVersion, "    - Berekening 'InvalidDikeProfile' maakt gebruik van ongeldig dijkprofiel 'InvalidDikeProfile.' De schematisatie van het dijkprofiel is verwijderd."),
@@ -1258,7 +1258,7 @@ namespace Riskeer.Migration.Integration.Test
                     new MigrationLogMessage("18.1", newVersion, "  + Er worden standaardwaarden conform WBI2017 gebruikt voor de HLCD bestandsinformatie."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("18.1", newVersion, "  + Toetsspoor: 'Hoogte kunstwerk'"),
+                    new MigrationLogMessage("18.1", newVersion, "  + Faalmechanisme: 'Hoogte kunstwerk'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("18.1", newVersion, "    - Berekening 'InvalidForeshore - No Output' maakt gebruik van ongeldig voorlandprofiel 'InvalidForeshoreProfile.' De schematisatie van het voorlandprofiel is verwijderd."),
@@ -1270,7 +1270,7 @@ namespace Riskeer.Migration.Integration.Test
                     new MigrationLogMessage("18.1", newVersion, "    - Voorlandprofiel 'InvalidForeshoreProfile' definieert geen geldige voorlandgeometrie. De voorlandgeometrie moet bestaan uit 0 of tenminste 2 punten. Het voorlandprofiel is verwijderd."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("18.1", newVersion, "  + Toetsspoor: 'Betrouwbaarheid sluiting kunstwerk'"),
+                    new MigrationLogMessage("18.1", newVersion, "  + Faalmechanisme: 'Betrouwbaarheid sluiting kunstwerk'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("18.1", newVersion, "    - Berekening 'InvalidForeshore - No Output' maakt gebruik van ongeldig voorlandprofiel 'InvalidForeshoreProfile.' De schematisatie van het voorlandprofiel is verwijderd."),
@@ -1282,7 +1282,7 @@ namespace Riskeer.Migration.Integration.Test
                     new MigrationLogMessage("18.1", newVersion, "    - Voorlandprofiel 'InvalidForeshoreProfile' definieert geen geldige voorlandgeometrie. De voorlandgeometrie moet bestaan uit 0 of tenminste 2 punten. Het voorlandprofiel is verwijderd."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("18.1", newVersion, "  + Toetsspoor: 'Golfklappen op asfaltbekleding'"),
+                    new MigrationLogMessage("18.1", newVersion, "  + Faalmechanisme: 'Golfklappen op asfaltbekleding'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("18.1", newVersion, "    - Berekening 'InvalidForeshore - No Output' maakt gebruik van ongeldig voorlandprofiel 'InvalidForeshoreProfile.' De schematisatie van het voorlandprofiel is verwijderd."),
@@ -1294,7 +1294,7 @@ namespace Riskeer.Migration.Integration.Test
                     new MigrationLogMessage("18.1", newVersion, "    - Voorlandprofiel 'InvalidForeshoreProfile' definieert geen geldige voorlandgeometrie. De voorlandgeometrie moet bestaan uit 0 of tenminste 2 punten. Het voorlandprofiel is verwijderd."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("18.1", newVersion, "  + Toetsspoor: 'Grasbekleding erosie buitentalud'"),
+                    new MigrationLogMessage("18.1", newVersion, "  + Faalmechanisme: 'Grasbekleding erosie buitentalud'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("18.1", newVersion, "    - Berekening 'InvalidForeshore - No Output' maakt gebruik van ongeldig voorlandprofiel 'InvalidForeshoreProfile.' De schematisatie van het voorlandprofiel is verwijderd."),
@@ -1306,7 +1306,7 @@ namespace Riskeer.Migration.Integration.Test
                     new MigrationLogMessage("18.1", newVersion, "    - Voorlandprofiel 'InvalidForeshoreProfile' definieert geen geldige voorlandgeometrie. De voorlandgeometrie moet bestaan uit 0 of tenminste 2 punten. Het voorlandprofiel is verwijderd."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("18.1", newVersion, "  + Toetsspoor: 'Stabiliteit steenzetting'"),
+                    new MigrationLogMessage("18.1", newVersion, "  + Faalmechanisme: 'Stabiliteit steenzetting'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("18.1", newVersion, "    - Berekening 'InvalidForeshore - No Output' maakt gebruik van ongeldig voorlandprofiel 'InvalidForeshoreProfile.' De schematisatie van het voorlandprofiel is verwijderd."),
@@ -1318,7 +1318,7 @@ namespace Riskeer.Migration.Integration.Test
                     new MigrationLogMessage("18.1", newVersion, "    - Voorlandprofiel 'InvalidForeshoreProfile' definieert geen geldige voorlandgeometrie. De voorlandgeometrie moet bestaan uit 0 of tenminste 2 punten. Het voorlandprofiel is verwijderd."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("18.1", newVersion, "  + Toetsspoor: 'Sterkte en stabiliteit puntconstructies'"),
+                    new MigrationLogMessage("18.1", newVersion, "  + Faalmechanisme: 'Sterkte en stabiliteit puntconstructies'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("18.1", newVersion, "    - Berekening 'InvalidForeshore - No Output' maakt gebruik van ongeldig voorlandprofiel 'InvalidForeshoreProfile.' De schematisatie van het voorlandprofiel is verwijderd."),

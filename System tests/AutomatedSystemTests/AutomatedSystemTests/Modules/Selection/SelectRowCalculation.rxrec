@@ -35,10 +35,10 @@ mode="Global">
 			<bindings>
 			</bindings>
 			<info
-			id="8d26c2ea-9826-475b-ba13-7a87660216ce"
+			id="096ce337-4db1-4319-ad18-58102ed16cb0"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='DesignWaterLevelCalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row '+$rowIndex]
+					/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename&lt;' '+$rowIndex]
 				</path>
 			</info>
 			<arguments
@@ -55,10 +55,10 @@ mode="Global">
 			<bindings>
 			</bindings>
 			<info
-			id="8d26c2ea-9826-475b-ba13-7a87660216ce"
+			id="096ce337-4db1-4319-ad18-58102ed16cb0"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&lt;'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row '+$rowIndex]
+					/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename&lt;' '+$rowIndex]
 				</path>
 			</info>
 			<arguments
@@ -82,10 +82,10 @@ mode="Global">
 			<bindings>
 			</bindings>
 			<info
-			id="8d26c2ea-9826-475b-ba13-7a87660216ce"
+			id="096ce337-4db1-4319-ad18-58102ed16cb0"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&lt;'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row '+$rowIndex]
+					/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename&lt;' '+$rowIndex]
 				</path>
 			</info>
 		</mouseitem>

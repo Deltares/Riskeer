@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -25,7 +25,6 @@ using System.ComponentModel;
 using System.Linq;
 using Assembly.Kernel.Exceptions;
 using Assembly.Kernel.Model;
-using Assembly.Kernel.Model.AssessmentSection;
 using Assembly.Kernel.Model.Categories;
 using Assembly.Kernel.Model.FailureMechanismSections;
 using Core.Common.TestUtil;
@@ -38,7 +37,7 @@ using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories;
+using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Groups;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 {
@@ -96,8 +95,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         {
             // Setup
             var random = new Random(21);
-            double signalingNorm = random.NextDouble();
-            double lowerLimitNorm = signalingNorm + 1e-3;
+            double signalFloodingProbability = random.NextDouble();
+            double maximumAllowableFloodingProbability = signalFloodingProbability + 1e-3;
 
             int nrOfProbabilities = random.Next(1, 10);
             IEnumerable<double> failureMechanismProbabilities = Enumerable.Repeat(random.NextDouble(), nrOfProbabilities)
@@ -107,29 +106,32 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
 
-                var categoryLimits = new CategoriesList<AssessmentSectionCategory>(new[]
+                var assessmentSectionCategories = new CategoriesList<AssessmentSectionCategory>(new[]
                 {
                     new AssessmentSectionCategory(random.NextEnumValue<EAssessmentGrade>(), new Probability(0), new Probability(1))
                 });
                 AssemblyCategoryLimitsKernelStub categoryLimitsKernel = factory.LastCreatedAssemblyCategoryLimitsKernel;
-                categoryLimitsKernel.AssessmentSectionCategoryLimits = categoryLimits;
+                categoryLimitsKernel.AssessmentSectionCategoryLimits = assessmentSectionCategories;
 
                 AssessmentSectionAssemblyKernelStub assessmentSectionAssemblyKernel = factory.LastCreatedAssessmentSectionAssemblyKernel;
-                assessmentSectionAssemblyKernel.AssessmentSectionAssemblyResult = new AssessmentSectionResult(new Probability(random.NextDouble()), random.NextEnumValue<EAssessmentGrade>());
+                var assemblyProbability = new Probability(random.NextDouble());
+                assessmentSectionAssemblyKernel.AssemblyProbability = assemblyProbability;
+                assessmentSectionAssemblyKernel.AssemblyGroup = random.NextEnumValue<EAssessmentGrade>();
 
                 var calculator = new AssessmentSectionAssemblyCalculator(factory);
 
                 // Call
-                calculator.AssembleAssessmentSection(failureMechanismProbabilities, lowerLimitNorm, signalingNorm);
+                calculator.AssembleAssessmentSection(failureMechanismProbabilities, maximumAllowableFloodingProbability, signalFloodingProbability);
 
                 // Assert
                 Assert.IsTrue(categoryLimitsKernel.Calculated);
-                ProbabilityAssert.AreEqual(lowerLimitNorm, categoryLimitsKernel.AssessmentSection.FailureProbabilityLowerLimit);
-                ProbabilityAssert.AreEqual(signalingNorm, categoryLimitsKernel.AssessmentSection.FailureProbabilitySignallingLimit);
+                ProbabilityAssert.AreEqual(maximumAllowableFloodingProbability, categoryLimitsKernel.AssessmentSection.MaximumAllowableFloodingProbability);
+                ProbabilityAssert.AreEqual(signalFloodingProbability, categoryLimitsKernel.AssessmentSection.SignalFloodingProbability);
 
-                Assert.IsTrue(assessmentSectionAssemblyKernel.Calculated);
+                Assert.IsTrue(assessmentSectionAssemblyKernel.ProbabilityCalculated);
+                Assert.IsTrue(assessmentSectionAssemblyKernel.AssemblyGroupCalculated);
                 Assert.IsFalse(assessmentSectionAssemblyKernel.PartialAssembly);
-                Assert.AreSame(categoryLimits, assessmentSectionAssemblyKernel.Categories);
+                Assert.AreSame(assessmentSectionCategories, assessmentSectionAssemblyKernel.Categories);
 
                 IEnumerable<Probability> actualProbabilitiesInput = assessmentSectionAssemblyKernel.FailureMechanismProbabilities;
                 Assert.AreEqual(nrOfProbabilities, actualProbabilitiesInput.Count());
@@ -138,6 +140,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                     ProbabilityAssert.AreEqual(failureMechanismProbabilities.ElementAt(i),
                                                actualProbabilitiesInput.ElementAt(i));
                 }
+
+                Assert.AreEqual(assemblyProbability, assessmentSectionAssemblyKernel.AssemblyProbabilityInput);
             }
         }
 
@@ -146,25 +150,31 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         {
             // Setup
             var random = new Random(21);
-            double signalingNorm = random.NextDouble();
-            double lowerLimitNorm = signalingNorm + 1e-3;
+            double signalFloodingProbability = random.NextDouble();
+            double maximumAllowableFloodingProbability = signalFloodingProbability + 1e-3;
 
             using (new AssemblyToolKernelFactoryConfig())
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 AssessmentSectionAssemblyKernelStub kernel = factory.LastCreatedAssessmentSectionAssemblyKernel;
-                var assemblyResult = new AssessmentSectionResult(new Probability(random.NextDouble()), random.NextEnumValue<EAssessmentGrade>());
-                kernel.AssessmentSectionAssemblyResult = assemblyResult;
+                var assemblyProbability = new Probability(random.NextDouble());
+                var assemblyGroup = random.NextEnumValue<EAssessmentGrade>();
+                kernel.AssemblyProbability = assemblyProbability;
+                kernel.AssemblyGroup = assemblyGroup;
 
                 var calculator = new AssessmentSectionAssemblyCalculator(factory);
 
                 // Call
-                AssessmentSectionAssemblyResult result = calculator.AssembleAssessmentSection(Enumerable.Empty<double>(), lowerLimitNorm, signalingNorm);
+                AssessmentSectionAssemblyResultWrapper resultWrapper = calculator.AssembleAssessmentSection(
+                    Enumerable.Empty<double>(), maximumAllowableFloodingProbability, signalFloodingProbability);
 
                 // Assert
-                Assert.AreEqual(assemblyResult.FailureProbability, result.Probability);
-                Assert.AreEqual(AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategory(assemblyResult.Category),
-                                result.AssemblyCategoryGroup);
+                AssessmentSectionAssemblyResult result = resultWrapper.AssemblyResult;
+                Assert.AreEqual(assemblyProbability, result.Probability);
+                Assert.AreEqual(AssessmentSectionAssemblyGroupCreator.CreateAssessmentSectionAssemblyGroup(assemblyGroup),
+                                result.AssemblyGroup);
+                Assert.AreEqual(AssemblyMethod.BOI2A1, resultWrapper.ProbabilityMethod);
+                Assert.AreEqual(AssemblyMethod.BOI2B1, resultWrapper.AssemblyGroupMethod);
             }
         }
 
@@ -173,20 +183,20 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         {
             // Setup
             var random = new Random(21);
-            double signalingNorm = random.NextDouble();
-            double lowerLimitNorm = signalingNorm + 1e-3;
+            double signalFloodingProbability = random.NextDouble();
+            double maximumAllowableFloodingProbability = signalFloodingProbability + 1e-3;
 
             using (new AssemblyToolKernelFactoryConfig())
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 AssessmentSectionAssemblyKernelStub kernel = factory.LastCreatedAssessmentSectionAssemblyKernel;
-                var assemblyResult = new AssessmentSectionResult(new Probability(random.NextDouble()), (EAssessmentGrade) 99);
-                kernel.AssessmentSectionAssemblyResult = assemblyResult;
+                kernel.AssemblyProbability = new Probability(random.NextDouble());
+                kernel.AssemblyGroup = (EAssessmentGrade) 99;
 
                 var calculator = new AssessmentSectionAssemblyCalculator(factory);
 
                 // Call
-                void Call() => calculator.AssembleAssessmentSection(Enumerable.Empty<double>(), lowerLimitNorm, signalingNorm);
+                void Call() => calculator.AssembleAssessmentSection(Enumerable.Empty<double>(), maximumAllowableFloodingProbability, signalFloodingProbability);
 
                 // Assert
                 var exception = Assert.Throws<AssessmentSectionAssemblyCalculatorException>(Call);
@@ -200,8 +210,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         {
             // Setup
             var random = new Random(21);
-            double signalingNorm = random.NextDouble();
-            double lowerLimitNorm = signalingNorm + 1e-3;
+            double signalFloodingProbability = random.NextDouble();
+            double maximumAllowableFloodingProbability = signalFloodingProbability + 1e-3;
 
             using (new AssemblyToolKernelFactoryConfig())
             {
@@ -212,7 +222,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var calculator = new AssessmentSectionAssemblyCalculator(factory);
 
                 // Call
-                void Call() => calculator.AssembleAssessmentSection(Enumerable.Empty<double>(), lowerLimitNorm, signalingNorm);
+                void Call() => calculator.AssembleAssessmentSection(Enumerable.Empty<double>(), maximumAllowableFloodingProbability, signalFloodingProbability);
 
                 // Assert
                 var exception = Assert.Throws<AssessmentSectionAssemblyCalculatorException>(Call);
@@ -226,8 +236,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         {
             // Setup
             var random = new Random(21);
-            double signalingNorm = random.NextDouble();
-            double lowerLimitNorm = signalingNorm + 1e-3;
+            double signalFloodingProbability = random.NextDouble();
+            double maximumAllowableFloodingProbability = signalFloodingProbability + 1e-3;
 
             using (new AssemblyToolKernelFactoryConfig())
             {
@@ -238,16 +248,34 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var calculator = new AssessmentSectionAssemblyCalculator(factory);
 
                 // Call
-                void Call() => calculator.AssembleAssessmentSection(Enumerable.Empty<double>(), lowerLimitNorm, signalingNorm);
+                void Call() => calculator.AssembleAssessmentSection(Enumerable.Empty<double>(), maximumAllowableFloodingProbability, signalFloodingProbability);
 
                 // Assert
                 var exception = Assert.Throws<AssessmentSectionAssemblyCalculatorException>(Call);
                 Assert.IsInstanceOf<AssemblyException>(exception.InnerException);
                 Assert.AreEqual(AssemblyErrorMessageCreator.CreateErrorMessage(new[]
                 {
-                    new AssemblyErrorMessage(string.Empty, EAssemblyErrors.InvalidCategoryLimits)
+                    AssemblyErrorMessageTestHelper.Create(string.Empty, EAssemblyErrors.InvalidCategoryLimits)
                 }), exception.Message);
             }
+        }
+
+        [Test]
+        public void AssembleCombinedFailureMechanismSections_InputNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var kernelFactory = mocks.Stub<IAssemblyToolKernelFactory>();
+            mocks.ReplayAll();
+
+            var calculator = new AssessmentSectionAssemblyCalculator(kernelFactory);
+
+            // Call
+            void Call() => calculator.AssembleCombinedFailureMechanismSections(null, double.NaN);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("input", exception.ParamName);
         }
 
         [Test]
@@ -295,16 +323,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 CombinedFailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedCombinedFailureMechanismSectionAssemblyKernel;
-                kernel.AssemblyResult = new AssemblyResult(new[]
-                {
-                    new FailureMechanismSectionList(string.Empty, new[]
-                    {
-                        new FailureMechanismSectionWithCategory(0, 1, random.NextEnumValue<EInterpretationCategory>())
-                    })
-                }, new[]
-                {
-                    new FailureMechanismSectionWithCategory(0, 1, random.NextEnumValue<EInterpretationCategory>())
-                });
 
                 var calculator = new AssessmentSectionAssemblyCalculator(factory);
 
@@ -312,10 +330,18 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 calculator.AssembleCombinedFailureMechanismSections(input, assessmentSectionLength);
 
                 // Assert
-                Assert.AreEqual(assessmentSectionLength, kernel.AssessmentSectionLength);
                 CombinedFailureMechanismSectionsInputAssert.AssertCombinedFailureMechanismInput(input, kernel.FailureMechanismSectionLists);
+                Assert.AreEqual(assessmentSectionLength, kernel.AssessmentSectionLength);
+                Assert.IsTrue(kernel.CalculatedCommonSections);
+
+                Assert.AreSame(kernel.FailureMechanismSectionLists.Single(), kernel.FailureMechanismSectionList);
+                Assert.AreSame(kernel.CommonSections, kernel.CommonSectionsInput);
+                Assert.IsTrue(kernel.CalculatedCommonSectionResults);
+
+                Assert.AreEqual(1, kernel.FailureMechanismResultsInput.Count());
+                Assert.AreSame(kernel.FailureMechanismResult, kernel.FailureMechanismResultsInput.First());
                 Assert.IsFalse(kernel.PartialAssembly);
-                Assert.IsTrue(kernel.Calculated);
+                Assert.IsTrue(kernel.CalculatedSectionResults);
             }
         }
 
@@ -328,31 +354,26 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             using (new AssemblyToolKernelFactoryConfig())
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
-                CombinedFailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedCombinedFailureMechanismSectionAssemblyKernel;
-                kernel.AssemblyResult = new AssemblyResult(new[]
-                {
-                    new FailureMechanismSectionList(string.Empty, new[]
-                    {
-                        new FailureMechanismSectionWithCategory(0, 1, random.NextEnumValue<EInterpretationCategory>())
-                    })
-                }, new[]
-                {
-                    new FailureMechanismSectionWithCategory(0, 1, random.NextEnumValue<EInterpretationCategory>())
-                });
-
                 var calculator = new AssessmentSectionAssemblyCalculator(factory);
 
                 // Call
-                CombinedFailureMechanismSectionAssembly[] output = calculator.AssembleCombinedFailureMechanismSections(new[]
+                CombinedFailureMechanismSectionAssemblyResultWrapper output = calculator.AssembleCombinedFailureMechanismSections(new[]
                 {
                     new[]
                     {
                         new CombinedAssemblyFailureMechanismSection(0, 1, random.NextEnumValue<FailureMechanismSectionAssemblyGroup>())
                     }
-                }, random.NextDouble()).ToArray();
+                }, random.NextDouble());
 
                 // Assert
-                CombinedFailureMechanismSectionAssemblyAssert.AssertAssembly(kernel.AssemblyResult, output);
+                CombinedFailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedCombinedFailureMechanismSectionAssemblyKernel;
+                CombinedFailureMechanismSectionAssemblyAssert.AssertAssembly(new[]
+                {
+                    kernel.FailureMechanismResult
+                }, kernel.CombinedSectionResults, output.AssemblyResults);
+                Assert.AreEqual(AssemblyMethod.BOI3A1, output.CommonSectionAssemblyMethod);
+                Assert.AreEqual(AssemblyMethod.BOI3B1, output.FailureMechanismResultsAssemblyMethod);
+                Assert.AreEqual(AssemblyMethod.BOI3C1, output.CombinedSectionResultAssemblyMethod);
             }
         }
 
@@ -366,28 +387,21 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 CombinedFailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedCombinedFailureMechanismSectionAssemblyKernel;
-                kernel.AssemblyResult = new AssemblyResult(new[]
+                kernel.FailureMechanismResult = new FailureMechanismSectionList(new[]
                 {
-                    new FailureMechanismSectionList(string.Empty, new[]
-                    {
-                        new FailureMechanismSectionWithCategory(0, 1, (EInterpretationCategory) 99)
-                    })
-                }, new[]
-                {
-                    new FailureMechanismSectionWithCategory(0, 1, random.NextEnumValue<EInterpretationCategory>())
+                    new FailureMechanismSectionWithCategory(0, 1, (EInterpretationCategory) 99)
                 });
 
                 var calculator = new AssessmentSectionAssemblyCalculator(factory);
 
                 // Call
                 void Call() => calculator.AssembleCombinedFailureMechanismSections(new[]
-                                         {
-                                             new[]
-                                             {
-                                                 new CombinedAssemblyFailureMechanismSection(0, 1, random.NextEnumValue<FailureMechanismSectionAssemblyGroup>())
-                                             }
-                                         }, random.NextDouble())
-                                         .ToArray();
+                {
+                    new[]
+                    {
+                        new CombinedAssemblyFailureMechanismSection(0, 1, random.NextEnumValue<FailureMechanismSectionAssemblyGroup>())
+                    }
+                }, random.NextDouble());
 
                 // Assert
                 var exception = Assert.Throws<AssessmentSectionAssemblyCalculatorException>(Call);
@@ -413,13 +427,12 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 // Call
                 void Call() =>
                     calculator.AssembleCombinedFailureMechanismSections(new[]
-                              {
-                                  new[]
-                                  {
-                                      new CombinedAssemblyFailureMechanismSection(0, 1, random.NextEnumValue<FailureMechanismSectionAssemblyGroup>())
-                                  }
-                              }, random.NextDouble())
-                              .ToArray();
+                    {
+                        new[]
+                        {
+                            new CombinedAssemblyFailureMechanismSection(0, 1, random.NextEnumValue<FailureMechanismSectionAssemblyGroup>())
+                        }
+                    }, random.NextDouble());
 
                 // Assert
                 var exception = Assert.Throws<AssessmentSectionAssemblyCalculatorException>(Call);
@@ -445,20 +458,19 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 // Call
                 void Call() =>
                     calculator.AssembleCombinedFailureMechanismSections(new[]
-                              {
-                                  new[]
-                                  {
-                                      new CombinedAssemblyFailureMechanismSection(0, 1, random.NextEnumValue<FailureMechanismSectionAssemblyGroup>())
-                                  }
-                              }, random.NextDouble())
-                              .ToArray();
+                    {
+                        new[]
+                        {
+                            new CombinedAssemblyFailureMechanismSection(0, 1, random.NextEnumValue<FailureMechanismSectionAssemblyGroup>())
+                        }
+                    }, random.NextDouble());
 
                 // Assert
                 var exception = Assert.Throws<AssessmentSectionAssemblyCalculatorException>(Call);
                 Assert.IsInstanceOf<AssemblyException>(exception.InnerException);
                 Assert.AreEqual(AssemblyErrorMessageCreator.CreateErrorMessage(new[]
                 {
-                    new AssemblyErrorMessage(string.Empty, EAssemblyErrors.EmptyResultsList)
+                    AssemblyErrorMessageTestHelper.Create(string.Empty, EAssemblyErrors.EmptyResultsList)
                 }), exception.Message);
             }
         }

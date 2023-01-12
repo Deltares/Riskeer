@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -28,14 +28,14 @@ namespace Riskeer.Common.Forms.Observers
 {
     /// <summary>
     /// Class that observes all objects in an <typeparamref name="TFailureMechanism"/>
-    /// related to its section results.
+    /// related to its assembly results.
     /// </summary>
     /// <typeparam name="TFailureMechanism">The type of the failure mechanism to listen to.</typeparam>
     /// <typeparam name="TSectionResult">The type of the failure mechanism section results in the <typeparamref name="TFailureMechanism"/>.</typeparam>
     /// <typeparam name="TCalculation">The type of the calculations in the <typeparamref name="TFailureMechanism"/>.</typeparam>
     public class CalculatableFailureMechanismResultObserver<TFailureMechanism, TSectionResult, TCalculation>
         : FailureMechanismResultObserver<TFailureMechanism, TSectionResult>
-        where TFailureMechanism : IFailureMechanism, IHasSectionResults<TSectionResult>, ICalculatableFailureMechanism
+        where TFailureMechanism : IFailureMechanism, IFailureMechanism<TSectionResult>, ICalculatableFailureMechanism
         where TSectionResult : FailureMechanismSectionResult
         where TCalculation : ICalculation<ICalculationInput>
     {

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -41,26 +41,23 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         public void Constructor_ExpectedValues()
         {
             // Call
-            var changeHandler = new FailureMechanismPropertyChangeHandler<IFailureMechanism>();
+            var changeHandler = new FailureMechanismPropertyChangeHandler<ICalculatableFailureMechanism>();
 
             // Assert
-            Assert.IsInstanceOf<IFailureMechanismPropertyChangeHandler<IFailureMechanism>>(changeHandler);
+            Assert.IsInstanceOf<IFailureMechanismPropertyChangeHandler<ICalculatableFailureMechanism>>(changeHandler);
         }
 
         [Test]
         public void SetPropertyValueAfterConfirmation_WithoutFailureMechanism_ThrowsArgumentNullException()
         {
             // Setup
-            var changeHandler = new FailureMechanismPropertyChangeHandler<IFailureMechanism>();
+            var changeHandler = new FailureMechanismPropertyChangeHandler<ICalculatableFailureMechanism>();
 
             // Call
-            TestDelegate test = () => changeHandler.SetPropertyValueAfterConfirmation(
-                null,
-                3,
-                (f, v) => {});
+            void Call() => changeHandler.SetPropertyValueAfterConfirmation(null, 3, (f, v) => {});
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("failureMechanism", paramName);
         }
 
@@ -68,16 +65,13 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         public void SetPropertyValueAfterConfirmation_WithoutValue_ThrowsArgumentNullException()
         {
             // Setup
-            var changeHandler = new FailureMechanismPropertyChangeHandler<IFailureMechanism>();
+            var changeHandler = new FailureMechanismPropertyChangeHandler<ICalculatableFailureMechanism>();
 
             // Call
-            TestDelegate test = () => changeHandler.SetPropertyValueAfterConfirmation<int?>(
-                new TestFailureMechanism(),
-                null,
-                (f, v) => {});
+            void Call() => changeHandler.SetPropertyValueAfterConfirmation<int?>(new TestCalculatableFailureMechanism(), null, (f, v) => {});
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("value", paramName);
         }
 
@@ -85,16 +79,13 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         public void SetPropertyValueAfterConfirmation_WithoutSetProperty_ThrowsArgumentNullException()
         {
             // Setup
-            var changeHandler = new FailureMechanismPropertyChangeHandler<IFailureMechanism>();
+            var changeHandler = new FailureMechanismPropertyChangeHandler<ICalculatableFailureMechanism>();
 
             // Call
-            TestDelegate test = () => changeHandler.SetPropertyValueAfterConfirmation(
-                new TestFailureMechanism(),
-                3,
-                null);
+            void Call() => changeHandler.SetPropertyValueAfterConfirmation(new TestCalculatableFailureMechanism(), 3, null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("setValue", paramName);
         }
 
@@ -119,10 +110,10 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
                 };
             }
 
-            var testFailureMechanism = new TestFailureMechanism(testCase.Calculations);
+            var testFailureMechanism = new TestCalculatableFailureMechanism(testCase.Calculations);
             var propertySet = 0;
 
-            var changeHandler = new FailureMechanismPropertyChangeHandler<IFailureMechanism>();
+            var changeHandler = new FailureMechanismPropertyChangeHandler<ICalculatableFailureMechanism>();
 
             // Precondition
             Assert.IsTrue(testCase.ExpectedAffectedCalculations.All(c => c.HasOutput));
@@ -137,7 +128,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             if (dialogBoxWillBeShown)
             {
                 Assert.AreEqual("Bevestigen", title);
-                string expectedMessage = "Als u deze parameter wijzigt, zal de uitvoer van alle berekeningen in dit toetsspoor verwijderd worden."
+                string expectedMessage = "Als u deze parameter wijzigt, zal de uitvoer van alle berekeningen in dit faalmechanisme verwijderd worden."
                                          + Environment.NewLine + Environment.NewLine +
                                          "Weet u zeker dat u wilt doorgaan?";
                 Assert.AreEqual(expectedMessage, message);
@@ -165,7 +156,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             ICalculation calculationWithOutput = CalculationTestDataFactory.CreateCalculationWithOutput();
             ICalculation calculationWithoutOutput = CalculationTestDataFactory.CreateCalculationWithoutOutput();
 
-            var testFailureMechanism = new TestFailureMechanism(
+            var testFailureMechanism = new TestCalculatableFailureMechanism(
                 new[]
                 {
                     calculationWithOutput,
@@ -173,7 +164,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
                 });
             var propertySet = 0;
 
-            var changeHandler = new FailureMechanismPropertyChangeHandler<IFailureMechanism>();
+            var changeHandler = new FailureMechanismPropertyChangeHandler<ICalculatableFailureMechanism>();
 
             // Call
             IEnumerable<IObservable> affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(
@@ -197,23 +188,24 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
                 tester.ClickOk();
             };
 
-            var testFailureMechanism = new TestFailureMechanism(
+            var testFailureMechanism = new TestCalculatableFailureMechanism(
                 new[]
                 {
                     CalculationTestDataFactory.CreateCalculationWithOutput()
                 });
 
-            var changeHandler = new FailureMechanismPropertyChangeHandler<IFailureMechanism>();
+            var changeHandler = new FailureMechanismPropertyChangeHandler<ICalculatableFailureMechanism>();
             var expectedException = new Exception();
 
             // Call
-            TestDelegate test = () => changeHandler.SetPropertyValueAfterConfirmation(
-                testFailureMechanism,
-                3,
-                (f, v) => { throw expectedException; });
+            void Call() =>
+                changeHandler.SetPropertyValueAfterConfirmation(testFailureMechanism, 3, (f, v) =>
+                {
+                    throw expectedException;
+                });
 
             // Assert
-            var exception = Assert.Throws<Exception>(test);
+            var exception = Assert.Throws<Exception>(Call);
             Assert.AreSame(expectedException, exception);
         }
 
@@ -221,18 +213,19 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         public void SetPropertyValueAfterConfirmation_ConfirmationNotRequiredExceptionInSetValue_ExceptionBubbled()
         {
             // Setup
-            var testFailureMechanism = new TestFailureMechanism();
-            var changeHandler = new FailureMechanismPropertyChangeHandler<IFailureMechanism>();
+            var testFailureMechanism = new TestCalculatableFailureMechanism();
+            var changeHandler = new FailureMechanismPropertyChangeHandler<ICalculatableFailureMechanism>();
             var expectedException = new Exception();
 
             // Call
-            TestDelegate test = () => changeHandler.SetPropertyValueAfterConfirmation(
-                testFailureMechanism,
-                3,
-                (f, v) => { throw expectedException; });
+            void Call() =>
+                changeHandler.SetPropertyValueAfterConfirmation(testFailureMechanism, 3, (f, v) =>
+                {
+                    throw expectedException;
+                });
 
             // Assert
-            var exception = Assert.Throws<Exception>(test);
+            var exception = Assert.Throws<Exception>(Call);
             Assert.AreSame(expectedException, exception);
         }
 

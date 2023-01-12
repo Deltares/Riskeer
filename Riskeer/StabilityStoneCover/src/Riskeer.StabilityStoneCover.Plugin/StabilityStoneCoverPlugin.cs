@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -59,6 +59,12 @@ using Riskeer.StabilityStoneCover.Forms.Views;
 using Riskeer.StabilityStoneCover.IO.Configurations;
 using Riskeer.StabilityStoneCover.IO.Exporters;
 using Riskeer.StabilityStoneCover.Service;
+using HydraulicLoadsStateFailureMechanismContext = Riskeer.StabilityStoneCover.Forms.PresentationObjects.HydraulicLoadsState.StabilityStoneCoverFailureMechanismContext;
+using RegistrationStateFailureMechanismContext = Riskeer.StabilityStoneCover.Forms.PresentationObjects.RegistrationState.StabilityStoneCoverFailureMechanismContext;
+using HydraulicLoadsStateFailureMechanismProperties = Riskeer.StabilityStoneCover.Forms.PropertyClasses.HydraulicLoadsState.StabilityStoneCoverFailureMechanismProperties;
+using RegistrationStateFailureMechanismProperties = Riskeer.StabilityStoneCover.Forms.PropertyClasses.RegistrationState.StabilityStoneCoverFailureMechanismProperties;
+using HydraulicLoadsStateFailureMechanismView = Riskeer.StabilityStoneCover.Forms.Views.HydraulicLoadsState.StabilityStoneCoverFailureMechanismView;
+using RegistrationStateFailureMechanismView = Riskeer.StabilityStoneCover.Forms.Views.RegistrationState.StabilityStoneCoverFailureMechanismView;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -71,13 +77,13 @@ namespace Riskeer.StabilityStoneCover.Plugin
     {
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<StabilityStoneCoverHydraulicLoadsContext, StabilityStoneCoverHydraulicLoadsProperties>
+            yield return new PropertyInfo<HydraulicLoadsStateFailureMechanismContext, HydraulicLoadsStateFailureMechanismProperties>
             {
-                CreateInstance = context => new StabilityStoneCoverHydraulicLoadsProperties(context.WrappedData)
+                CreateInstance = context => new HydraulicLoadsStateFailureMechanismProperties(context.WrappedData)
             };
-            yield return new PropertyInfo<StabilityStoneCoverFailurePathContext, StabilityStoneCoverFailurePathProperties>
+            yield return new PropertyInfo<RegistrationStateFailureMechanismContext, RegistrationStateFailureMechanismProperties>
             {
-                CreateInstance = context => new StabilityStoneCoverFailurePathProperties(context.WrappedData)
+                CreateInstance = context => new RegistrationStateFailureMechanismProperties(context.WrappedData)
             };
             yield return new PropertyInfo<StabilityStoneCoverWaveConditionsOutputContext, StabilityStoneCoverWaveConditionsOutputProperties>
             {
@@ -94,18 +100,18 @@ namespace Riskeer.StabilityStoneCover.Plugin
 
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
-            yield return new RiskeerViewInfo<StabilityStoneCoverHydraulicLoadsContext, StabilityStoneCoverFailureMechanismView>(() => Gui)
+            yield return new RiskeerViewInfo<HydraulicLoadsStateFailureMechanismContext, HydraulicLoadsStateFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                CreateInstance = context => new StabilityStoneCoverFailureMechanismView(context.WrappedData, context.Parent)
+                CreateInstance = context => new HydraulicLoadsStateFailureMechanismView(context.WrappedData, context.Parent)
             };
 
-            yield return new RiskeerViewInfo<StabilityStoneCoverFailurePathContext, StabilityStoneCoverFailurePathView>(() => Gui)
+            yield return new RiskeerViewInfo<RegistrationStateFailureMechanismContext, RegistrationStateFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 AdditionalDataCheck = context => context.WrappedData.InAssembly,
-                CreateInstance = context => new StabilityStoneCoverFailurePathView(context.WrappedData, context.Parent),
-                CloseForData = CloseFailurePathViewForData
+                CreateInstance = context => new RegistrationStateFailureMechanismView(context.WrappedData, context.Parent),
+                CloseForData = CloseFailureMechanismViewForData
             };
 
             yield return new RiskeerViewInfo<StabilityStoneCoverFailureMechanismSectionResultContext,
@@ -123,7 +129,8 @@ namespace Riskeer.StabilityStoneCover.Plugin
                     return new NonAdoptableWithProfileProbabilityFailureMechanismResultView<StabilityStoneCoverFailureMechanism>(
                         context.WrappedData,
                         failureMechanism,
-                        fm => fm.GeneralInput.N,
+                        assessmentSection,
+                        StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism,
                         fm => fm.GeneralInput.ApplyLengthEffectInSection,
                         sr => StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleSection(sr, failureMechanism, assessmentSection));
                 }
@@ -144,20 +151,20 @@ namespace Riskeer.StabilityStoneCover.Plugin
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
-            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<StabilityStoneCoverHydraulicLoadsContext>(
-                HydraulicLoadsChildNodeObjects,
-                HydraulicLoadsContextMenuStrip);
+            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<HydraulicLoadsStateFailureMechanismContext>(
+                HydraulicLoadsStateFailureMechanismChildNodeObjects,
+                HydraulicLoadsStateFailureMechanismContextMenuStrip);
 
-            yield return RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<StabilityStoneCoverFailurePathContext>(
-                FailurePathEnabledChildNodeObjects,
-                FailurePathDisabledChildNodeObjects,
-                FailurePathEnabledContextMenuStrip,
-                FailurePathDisabledContextMenuStrip);
+            yield return RiskeerTreeNodeInfoFactory.CreateRegistrationStateContextTreeNodeInfo<RegistrationStateFailureMechanismContext>(
+                RegistrationStateFailureMechanismEnabledChildNodeObjects,
+                RegistrationStateFailureMechanismDisabledChildNodeObjects,
+                RegistrationStateFailureMechanismEnabledContextMenuStrip,
+                RegistrationStateFailureMechanismDisabledContextMenuStrip);
 
-            yield return RiskeerTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<StabilityStoneCoverWaveConditionsCalculationGroupContext>(
-                WaveConditionsCalculationGroupContextChildNodeObjects,
-                WaveConditionsCalculationGroupContextContextMenuStrip,
-                WaveConditionsCalculationGroupContextOnNodeRemoved);
+            yield return RiskeerTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<StabilityStoneCoverCalculationGroupContext>(
+                CalculationGroupContextChildNodeObjects,
+                CalculationGroupContextContextMenuStrip,
+                CalculationGroupContextOnNodeRemoved);
 
             yield return RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<StabilityStoneCoverWaveConditionsCalculationContext>(
                 WaveConditionsCalculationContextChildNodeObjects,
@@ -207,7 +214,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
 
         public override IEnumerable<ImportInfo> GetImportInfos()
         {
-            yield return RiskeerImportInfoFactory.CreateCalculationConfigurationImportInfo<StabilityStoneCoverWaveConditionsCalculationGroupContext>(
+            yield return RiskeerImportInfoFactory.CreateCalculationConfigurationImportInfo<StabilityStoneCoverCalculationGroupContext>(
                 (context, filePath) =>
                     new StabilityStoneCoverWaveConditionsCalculationConfigurationImporter(
                         filePath,
@@ -220,7 +227,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
 
         public override IEnumerable<ExportInfo> GetExportInfos()
         {
-            yield return new ExportInfo<StabilityStoneCoverWaveConditionsCalculationGroupContext>
+            yield return new ExportInfo<StabilityStoneCoverCalculationGroupContext>
             {
                 Name = context => RiskeerCommonFormsResources.WaveConditionsExporter_DisplayName,
                 Extension = RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
@@ -247,7 +254,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
                 GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), GetWaveConditionsFileFilterGenerator())
             };
 
-            yield return RiskeerExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<StabilityStoneCoverWaveConditionsCalculationGroupContext>(
+            yield return RiskeerExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<StabilityStoneCoverCalculationGroupContext>(
                 (context, filePath) => new StabilityStoneCoverWaveConditionsCalculationConfigurationExporter(
                     context.WrappedData.Children, filePath, context.AssessmentSection),
                 context => context.WrappedData.Children.Any(),
@@ -278,7 +285,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
 
         #region ViewInfos
 
-        private static bool CloseFailurePathViewForData(StabilityStoneCoverFailurePathView view, object dataToCloseFor)
+        private static bool CloseFailureMechanismViewForData(RegistrationStateFailureMechanismView view, object dataToCloseFor)
         {
             var failureMechanism = dataToCloseFor as StabilityStoneCoverFailureMechanism;
 
@@ -298,9 +305,9 @@ namespace Riskeer.StabilityStoneCover.Plugin
                                                     .FirstOrDefault();
             }
 
-            if (dataToCloseFor is IFailurePathContext<StabilityStoneCoverFailureMechanism> failurePathContext)
+            if (dataToCloseFor is IFailureMechanismContext<StabilityStoneCoverFailureMechanism> failureMechanismContext)
             {
-                failureMechanism = failurePathContext.WrappedData;
+                failureMechanism = failureMechanismContext.WrappedData;
             }
 
             return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
@@ -310,9 +317,9 @@ namespace Riskeer.StabilityStoneCover.Plugin
 
         #region TreeNodeInfos
 
-        #region StabilityStoneCoverHydraulicLoadsContext TreeNodeInfo
+        #region HydraulicLoadsStateFailureMechanismContext TreeNodeInfo
 
-        private static object[] HydraulicLoadsChildNodeObjects(StabilityStoneCoverHydraulicLoadsContext context)
+        private static object[] HydraulicLoadsStateFailureMechanismChildNodeObjects(HydraulicLoadsStateFailureMechanismContext context)
         {
             StabilityStoneCoverFailureMechanism failureMechanism = context.WrappedData;
             IAssessmentSection assessmentSection = context.Parent;
@@ -320,13 +327,13 @@ namespace Riskeer.StabilityStoneCover.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
-                                       GetHydraulicLoadsInputs(failureMechanism, assessmentSection), TreeFolderCategory.Input),
-                new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup, null,
-                                                                             failureMechanism, assessmentSection)
+                                       GetHydraulicLoadsStateFailureMechanismInputs(failureMechanism, assessmentSection), TreeFolderCategory.Input),
+                new StabilityStoneCoverCalculationGroupContext(failureMechanism.CalculationsGroup, null,
+                                                               failureMechanism, assessmentSection)
             };
         }
 
-        private static IEnumerable<object> GetHydraulicLoadsInputs(StabilityStoneCoverFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetHydraulicLoadsStateFailureMechanismInputs(StabilityStoneCoverFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
@@ -335,9 +342,9 @@ namespace Riskeer.StabilityStoneCover.Plugin
             };
         }
 
-        private ContextMenuStrip HydraulicLoadsContextMenuStrip(StabilityStoneCoverHydraulicLoadsContext context,
-                                                                object parentData,
-                                                                TreeViewControl treeViewControl)
+        private ContextMenuStrip HydraulicLoadsStateFailureMechanismContextMenuStrip(HydraulicLoadsStateFailureMechanismContext context,
+                                                                                     object parentData,
+                                                                                     TreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
@@ -355,12 +362,12 @@ namespace Riskeer.StabilityStoneCover.Plugin
                           .Build();
         }
 
-        private static string EnableValidateAndCalculateMenuItemForFailureMechanism(StabilityStoneCoverHydraulicLoadsContext context)
+        private static string EnableValidateAndCalculateMenuItemForFailureMechanism(HydraulicLoadsStateFailureMechanismContext context)
         {
             return EnableValidateAndCalculateMenuItem(context.Parent);
         }
 
-        private void CalculateAllInFailureMechanism(StabilityStoneCoverHydraulicLoadsContext context)
+        private void CalculateAllInFailureMechanism(HydraulicLoadsStateFailureMechanismContext context)
         {
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow,
@@ -370,9 +377,9 @@ namespace Riskeer.StabilityStoneCover.Plugin
 
         #endregion
 
-        #region StabilityStoneCoverFailurePathContext TreeNodeInfo
+        #region RegistrationStateFailureMechanismContext TreeNodeInfo
 
-        private static object[] FailurePathEnabledChildNodeObjects(StabilityStoneCoverFailurePathContext context)
+        private static object[] RegistrationStateFailureMechanismEnabledChildNodeObjects(RegistrationStateFailureMechanismContext context)
         {
             StabilityStoneCoverFailureMechanism failureMechanism = context.WrappedData;
             IAssessmentSection assessmentSection = context.Parent;
@@ -380,13 +387,13 @@ namespace Riskeer.StabilityStoneCover.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
-                                       GetFailurePathInputs(failureMechanism, assessmentSection), TreeFolderCategory.Input),
+                                       GetRegistrationStateFailureMechanismInputs(failureMechanism, assessmentSection), TreeFolderCategory.Input),
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
-                                       GetFailurePathOutputs(failureMechanism, assessmentSection), TreeFolderCategory.Output)
+                                       GetRegistrationStateFailureMechanismOutputs(failureMechanism, assessmentSection), TreeFolderCategory.Output)
             };
         }
 
-        private static object[] FailurePathDisabledChildNodeObjects(StabilityStoneCoverFailurePathContext context)
+        private static object[] RegistrationStateFailureMechanismDisabledChildNodeObjects(RegistrationStateFailureMechanismContext context)
         {
             return new object[]
             {
@@ -394,7 +401,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
             };
         }
 
-        private static IEnumerable<object> GetFailurePathInputs(StabilityStoneCoverFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetRegistrationStateFailureMechanismInputs(StabilityStoneCoverFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
@@ -403,7 +410,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
             };
         }
 
-        private static IEnumerable<object> GetFailurePathOutputs(StabilityStoneCoverFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetRegistrationStateFailureMechanismOutputs(StabilityStoneCoverFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
@@ -412,15 +419,15 @@ namespace Riskeer.StabilityStoneCover.Plugin
             };
         }
 
-        private ContextMenuStrip FailurePathEnabledContextMenuStrip(StabilityStoneCoverFailurePathContext context,
-                                                                    object parentData,
-                                                                    TreeViewControl treeViewControl)
+        private ContextMenuStrip RegistrationStateFailureMechanismEnabledContextMenuStrip(RegistrationStateFailureMechanismContext context,
+                                                                                          object parentData,
+                                                                                          TreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
             return builder.AddOpenItem()
                           .AddSeparator()
-                          .AddToggleInAssemblyOfFailurePathItem(context, RemoveAllViewsForItem)
+                          .AddToggleInAssemblyOfFailureMechanismItem(context, RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
@@ -429,13 +436,13 @@ namespace Riskeer.StabilityStoneCover.Plugin
                           .Build();
         }
 
-        private ContextMenuStrip FailurePathDisabledContextMenuStrip(StabilityStoneCoverFailurePathContext context,
-                                                                     object parentData,
-                                                                     TreeViewControl treeViewControl)
+        private ContextMenuStrip RegistrationStateFailureMechanismDisabledContextMenuStrip(RegistrationStateFailureMechanismContext context,
+                                                                                           object parentData,
+                                                                                           TreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
-            return builder.AddToggleInAssemblyOfFailurePathItem(context, RemoveAllViewsForItem)
+            return builder.AddToggleInAssemblyOfFailureMechanismItem(context, RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
@@ -444,16 +451,16 @@ namespace Riskeer.StabilityStoneCover.Plugin
                           .Build();
         }
 
-        private void RemoveAllViewsForItem(StabilityStoneCoverFailurePathContext context)
+        private void RemoveAllViewsForItem(RegistrationStateFailureMechanismContext context)
         {
             Gui.ViewCommands.RemoveAllViewsForItem(context);
         }
 
         #endregion
 
-        #region StabilityStoneCoverWaveConditionsCalculationGroupContext TreeNodeInfo
+        #region StabilityStoneCoverCalculationGroupContext TreeNodeInfo
 
-        private static object[] WaveConditionsCalculationGroupContextChildNodeObjects(StabilityStoneCoverWaveConditionsCalculationGroupContext nodeData)
+        private static object[] CalculationGroupContextChildNodeObjects(StabilityStoneCoverCalculationGroupContext nodeData)
         {
             var childNodeObjects = new List<object>();
 
@@ -468,10 +475,10 @@ namespace Riskeer.StabilityStoneCover.Plugin
                 }
                 else if (item is CalculationGroup group)
                 {
-                    childNodeObjects.Add(new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
-                                                                                                      nodeData.WrappedData,
-                                                                                                      nodeData.FailureMechanism,
-                                                                                                      nodeData.AssessmentSection));
+                    childNodeObjects.Add(new StabilityStoneCoverCalculationGroupContext(group,
+                                                                                        nodeData.WrappedData,
+                                                                                        nodeData.FailureMechanism,
+                                                                                        nodeData.AssessmentSection));
                 }
                 else
                 {
@@ -482,15 +489,15 @@ namespace Riskeer.StabilityStoneCover.Plugin
             return childNodeObjects.ToArray();
         }
 
-        private ContextMenuStrip WaveConditionsCalculationGroupContextContextMenuStrip(StabilityStoneCoverWaveConditionsCalculationGroupContext nodeData,
-                                                                                       object parentData,
-                                                                                       TreeViewControl treeViewControl)
+        private ContextMenuStrip CalculationGroupContextContextMenuStrip(StabilityStoneCoverCalculationGroupContext nodeData,
+                                                                         object parentData,
+                                                                         TreeViewControl treeViewControl)
         {
             CalculationGroup group = nodeData.WrappedData;
             IInquiryHelper inquiryHelper = GetInquiryHelper();
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
-            bool isNestedGroup = parentData is StabilityStoneCoverWaveConditionsCalculationGroupContext;
+            bool isNestedGroup = parentData is StabilityStoneCoverCalculationGroupContext;
 
             StabilityStoneCoverWaveConditionsCalculation[] calculations = group
                                                                           .GetCalculations()
@@ -550,16 +557,16 @@ namespace Riskeer.StabilityStoneCover.Plugin
                           .Build();
         }
 
-        private StrictContextMenuItem CreateGenerateWaveConditionsCalculationsItem(StabilityStoneCoverWaveConditionsCalculationGroupContext nodeData)
+        private StrictContextMenuItem CreateGenerateWaveConditionsCalculationsItem(StabilityStoneCoverCalculationGroupContext nodeData)
         {
             bool locationsAvailable = nodeData.AssessmentSection.HydraulicBoundaryDatabase.Locations.Any();
 
-            string stabilityStoneCoverWaveConditionsCalculationGroupContextToolTip = locationsAvailable
-                                                                                         ? RiskeerCommonFormsResources.CalculationGroup_CreateGenerateHydraulicBoundaryCalculationsItem_ToolTip
-                                                                                         : RiskeerCommonFormsResources.CalculationGroup_No_HydraulicBoundaryDatabase_To_Generate_ToolTip;
+            string calculationGroupContextToolTip = locationsAvailable
+                                                        ? RiskeerCommonFormsResources.CalculationGroup_CreateGenerateHydraulicBoundaryCalculationsItem_ToolTip
+                                                        : RiskeerCommonFormsResources.CalculationGroup_No_HydraulicBoundaryDatabase_To_Generate_ToolTip;
 
             return new StrictContextMenuItem(RiskeerCommonFormsResources.CalculationGroup_Generate_calculations,
-                                             stabilityStoneCoverWaveConditionsCalculationGroupContextToolTip,
+                                             calculationGroupContextToolTip,
                                              RiskeerCommonFormsResources.GenerateScenariosIcon,
                                              (sender, args) => ShowHydraulicBoundaryLocationSelectionDialog(nodeData))
             {
@@ -567,7 +574,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
             };
         }
 
-        private void ShowHydraulicBoundaryLocationSelectionDialog(StabilityStoneCoverWaveConditionsCalculationGroupContext nodeData)
+        private void ShowHydraulicBoundaryLocationSelectionDialog(StabilityStoneCoverCalculationGroupContext nodeData)
         {
             using (var dialog = new HydraulicBoundaryLocationSelectionDialog(Gui.MainWindow, nodeData.AssessmentSection.HydraulicBoundaryDatabase.Locations))
             {
@@ -577,7 +584,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
                 {
                     GenerateStabilityStoneCoverCalculations(dialog.SelectedItems,
                                                             nodeData.WrappedData.Children,
-                                                            nodeData.AssessmentSection.FailureMechanismContribution.NormativeNorm);
+                                                            nodeData.AssessmentSection.FailureMechanismContribution.NormativeProbabilityType);
                     nodeData.NotifyObservers();
                 }
             }
@@ -585,15 +592,15 @@ namespace Riskeer.StabilityStoneCover.Plugin
 
         private static void GenerateStabilityStoneCoverCalculations(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
                                                                     List<ICalculationBase> calculationCollection,
-                                                                    NormType normType)
+                                                                    NormativeProbabilityType normativeProbabilityType)
         {
             StabilityStoneCoverCalculationConfigurationHelper.AddCalculationsFromLocations(
                 hydraulicBoundaryLocations,
                 calculationCollection,
-                normType);
+                normativeProbabilityType);
         }
 
-        private static void AddWaveConditionsCalculation(StabilityStoneCoverWaveConditionsCalculationGroupContext nodeData)
+        private static void AddWaveConditionsCalculation(StabilityStoneCoverCalculationGroupContext nodeData)
         {
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
@@ -602,27 +609,27 @@ namespace Riskeer.StabilityStoneCover.Plugin
                                                   c => c.Name)
             };
             WaveConditionsInputHelper.SetWaterLevelType(calculation.InputParameters,
-                                                        nodeData.AssessmentSection.FailureMechanismContribution.NormativeNorm);
+                                                        nodeData.AssessmentSection.FailureMechanismContribution.NormativeProbabilityType);
 
             nodeData.WrappedData.Children.Add(calculation);
             nodeData.WrappedData.NotifyObservers();
         }
 
-        private static void WaveConditionsCalculationGroupContextOnNodeRemoved(StabilityStoneCoverWaveConditionsCalculationGroupContext nodeData, object parentNodeData)
+        private static void CalculationGroupContextOnNodeRemoved(StabilityStoneCoverCalculationGroupContext nodeData, object parentNodeData)
         {
-            var parentGroupContext = (StabilityStoneCoverWaveConditionsCalculationGroupContext) parentNodeData;
+            var parentGroupContext = (StabilityStoneCoverCalculationGroupContext) parentNodeData;
 
             parentGroupContext.WrappedData.Children.Remove(nodeData.WrappedData);
 
             parentGroupContext.NotifyObservers();
         }
 
-        private static string EnableValidateAndCalculateMenuItemForCalculationGroup(StabilityStoneCoverWaveConditionsCalculationGroupContext context)
+        private static string EnableValidateAndCalculateMenuItemForCalculationGroup(StabilityStoneCoverCalculationGroupContext context)
         {
             return EnableValidateAndCalculateMenuItem(context.AssessmentSection);
         }
 
-        private static void ValidateAllInCalculationGroup(StabilityStoneCoverWaveConditionsCalculationGroupContext context)
+        private static void ValidateAllInCalculationGroup(StabilityStoneCoverCalculationGroupContext context)
         {
             foreach (StabilityStoneCoverWaveConditionsCalculation calculation in context.WrappedData.GetCalculations().OfType<StabilityStoneCoverWaveConditionsCalculation>())
             {
@@ -632,7 +639,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
             }
         }
 
-        private void CalculateAllInCalculationGroup(StabilityStoneCoverWaveConditionsCalculationGroupContext context)
+        private void CalculateAllInCalculationGroup(StabilityStoneCoverCalculationGroupContext context)
         {
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow,
@@ -728,7 +735,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
 
         private static void WaveConditionsCalculationContextOnNodeRemoved(StabilityStoneCoverWaveConditionsCalculationContext nodeData, object parentNodeData)
         {
-            if (parentNodeData is StabilityStoneCoverWaveConditionsCalculationGroupContext calculationGroupContext)
+            if (parentNodeData is StabilityStoneCoverCalculationGroupContext calculationGroupContext)
             {
                 bool successfullyRemovedData = calculationGroupContext.WrappedData.Children.Remove(nodeData.WrappedData);
                 if (successfullyRemovedData)

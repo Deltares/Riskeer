@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -48,9 +48,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
             {
                 return 0;
             }
+
             if (Math.Abs(x.StressValue - y.StressValue) < 1e-6
-				&& Math.Abs(x.Point.X - y.Point.X) < 1e-6
-				&& Math.Abs(x.Point.Z - y.Point.Z) < 1e-6)
+                && Math.Abs(x.Point.X - y.Point.X) < 1e-6
+                && Math.Abs(x.Point.Z - y.Point.Z) < 1e-6)
             {
                 return 0;
             }

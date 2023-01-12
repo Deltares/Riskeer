@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -34,13 +34,13 @@ namespace Riskeer.Piping.Data
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.SemiProbabilistic_DisplayName))]
         SemiProbabilistic = 1,
-        
+
         /// <summary>
         /// The probabilistic scenario configuration type.
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Probabilistic_DisplayName))]
         Probabilistic = 2,
-        
+
         /// <summary>
         /// The per failure mechanism section scenario configuration type.
         /// </summary>

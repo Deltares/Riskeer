@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using Core.Common.Base;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 
 namespace Riskeer.Common.IO.FileImporters
 {
@@ -34,22 +33,22 @@ namespace Riskeer.Common.IO.FileImporters
     /// </summary>
     public class FailureMechanismSectionReplaceStrategy : IFailureMechanismSectionUpdateStrategy
     {
-        private readonly IFailurePath failurePath;
+        private readonly IFailureMechanism<FailureMechanismSectionResult> failureMechanism;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismSectionReplaceStrategy"/>.
         /// </summary>
-        /// <param name="failurePath">The <see cref="IFailurePath"/> to set the sections to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failurePath"/>
+        /// <param name="failureMechanism">The failure mechanism to set the sections to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// is <c>null</c>.</exception>
-        public FailureMechanismSectionReplaceStrategy(IFailurePath failurePath)
+        public FailureMechanismSectionReplaceStrategy(IFailureMechanism<FailureMechanismSectionResult> failureMechanism)
         {
-            if (failurePath == null)
+            if (failureMechanism == null)
             {
-                throw new ArgumentNullException(nameof(failurePath));
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            this.failurePath = failurePath;
+            this.failureMechanism = failureMechanism;
         }
 
         public virtual IEnumerable<IObservable> UpdateSectionsWithImportedData(IEnumerable<FailureMechanismSection> importedFailureMechanismSections,
@@ -69,17 +68,13 @@ namespace Riskeer.Common.IO.FileImporters
 
             try
             {
-                failurePath.SetSections(importedFailureMechanismSections, sourcePath);
-                affectedObjects.Add(failurePath);
+                failureMechanism.SetSections(importedFailureMechanismSections, sourcePath);
+                affectedObjects.Add(failureMechanism);
+                affectedObjects.Add(failureMechanism.SectionResults);
             }
             catch (ArgumentException e)
             {
                 throw new UpdateDataException(e.Message, e);
-            }
-
-            if (failurePath is IHasSectionResults<FailureMechanismSectionResult> hasSectionResults)
-            {
-                affectedObjects.Add(hasSectionResults.SectionResults);
             }
 
             return affectedObjects;

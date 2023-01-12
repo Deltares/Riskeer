@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -36,11 +36,11 @@ namespace Riskeer.AssemblyTool.Data.Test
             double upperBoundary = random.NextDouble();
 
             // Call
-            var category = new SimpleGroupBoundaries(lowerBoundary, upperBoundary);
+            var groupBoundaries = new SimpleGroupBoundaries(lowerBoundary, upperBoundary);
 
             // Assert
-            Assert.AreEqual(lowerBoundary, category.LowerBoundary);
-            Assert.AreEqual(upperBoundary, category.UpperBoundary);
+            Assert.AreEqual(lowerBoundary, groupBoundaries.LowerBoundary);
+            Assert.AreEqual(upperBoundary, groupBoundaries.UpperBoundary);
         }
 
         private class SimpleGroupBoundaries : AssemblyGroupBoundaries

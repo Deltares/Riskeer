@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -77,7 +77,7 @@ namespace Riskeer.Integration.Test
             CollectionAssert.AreEqual(originalReferenceLineGeometry, assessmentSection.ReferenceLine.Points);
 
             Assert.AreEqual("Bevestigen", messageBoxTitle);
-            string expectedText = "Na het importeren van een aangepaste ligging van de referentielijn zullen alle geïmporteerde en berekende gegevens van alle toetssporen worden gewist." + Environment.NewLine +
+            string expectedText = "Na het importeren van een aangepaste ligging van de referentielijn zullen alle geïmporteerde en berekende gegevens van alle faalmechanismen worden gewist." + Environment.NewLine +
                                   Environment.NewLine + "Wilt u doorgaan?";
             Assert.AreEqual(expectedText, messageBoxText);
             mocks.VerifyAll();
@@ -103,7 +103,8 @@ namespace Riskeer.Integration.Test
             mocks.ReplayAll();
 
             DataImportHelper.ImportReferenceLine(assessmentSection);
-            DataImportHelper.ImportFailureMechanismSections(assessmentSection, assessmentSection.GetFailureMechanisms());
+            DataImportHelper.ImportFailureMechanismSections(assessmentSection, assessmentSection.GetFailureMechanisms()
+                                                                                                .Cast<IFailureMechanism<FailureMechanismSectionResult>>());
             DataImportHelper.ImportPipingSurfaceLines(assessmentSection);
             DataImportHelper.ImportPipingStochasticSoilModels(assessmentSection);
 
@@ -159,7 +160,7 @@ namespace Riskeer.Integration.Test
             CollectionAssert.IsEmpty(assessmentSection.Piping.CalculationsGroup.Children);
 
             Assert.AreEqual("Bevestigen", messageBoxTitle);
-            string expectedText = "Na het importeren van een aangepaste ligging van de referentielijn zullen alle geïmporteerde en berekende gegevens van alle toetssporen worden gewist." + Environment.NewLine +
+            string expectedText = "Na het importeren van een aangepaste ligging van de referentielijn zullen alle geïmporteerde en berekende gegevens van alle faalmechanismen worden gewist." + Environment.NewLine +
                                   Environment.NewLine + "Wilt u doorgaan?";
             Assert.AreEqual(expectedText, messageBoxText);
 

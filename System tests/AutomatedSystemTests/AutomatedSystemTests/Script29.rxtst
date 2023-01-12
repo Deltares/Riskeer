@@ -103,10 +103,10 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="nameStateFA"
+					dataname="nameState"
 					datasourceid="92d15ab5-01db-4817-81c6-28cfb61a0057"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -143,6 +143,7 @@
 			name="AddExtraLayerBackground">
 				<parameters>
 					<param
+					mask="False"
 					name="namePanelMap"
 					value="Kaart">
 					</param>
@@ -155,10 +156,10 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="nameStateTR"
+					dataname="nameState"
 					datasourceid="451c2b85-8ed2-4788-ad44-81c3482d2750"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -311,14 +312,17 @@
 			name="MakeCurrentLayerVisible">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToVisibilityParameter"
 					value="Kaartlaag>Weergeven">
 					</param>
 					<param
+					mask="False"
 					name="visibility"
 					value="True">
 					</param>
 					<param
+					mask="False"
 					name="typeParameter"
 					value="Text">
 					</param>
@@ -362,6 +366,7 @@
 			name="SelectWMTSBackgroundMap">
 				<parameters>
 					<param
+					mask="False"
 					name="pathBackgroundItem"
 					value="Traject>Achtergrondkaart">
 					</param>
@@ -369,11 +374,12 @@
 			</smartfoldernode>
 			<smartfoldernode
 			id="19ed3775-279e-4955-97b2-3dc0b5408c33"
-			name="SetStateFailurePathsAssembly">
+			name="SetStateResultsAssembly">
 				<parameters>
 					<param
-					name="nameStateFA"
-					value="Faalpaden">
+					mask="False"
+					name="nameState"
+					value="@RA">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -396,10 +402,12 @@
 			name="HideAllLayers">
 				<parameters>
 					<param
+					mask="False"
 					name="visibilityStatusAllLayers"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="nameParameterVisibility"
 					value="Weergeven">
 					</param>
@@ -416,14 +424,17 @@
 			name="LoopValidateThatEachDataLayerInFMViewMapExists">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToRootFolder"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="isLayerExpected"
 					value="true">
 					</param>
 					<param
+					mask="False"
 					name="fullPathToItem"
 					value="">
 					</param>
@@ -456,42 +467,52 @@
 			name="script29_Gegevens_tonen_op_kaart">
 				<parameters>
 					<param
+					mask="False"
 					name="caseNumber"
 					value="29">
 					</param>
 					<param
+					mask="False"
 					name="scriptOutputFolder"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="dummyString"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="folderProjectPreviousRelease"
 					value="X:\script29\previousRelease">
 					</param>
 					<param
+					mask="False"
 					name="folderProjectsCurrentRelease"
 					value="X:\script29\currentRelease">
 					</param>
 					<param
+					mask="False"
 					name="extensionRiskeerProjects"
 					value="*.risk">
 					</param>
 					<param
+					mask="False"
 					name="substringTraject"
 					value="Traject">
 					</param>
 					<param
+					mask="False"
 					name="pathSeparatorCharacter"
 					value=">">
 					</param>
 					<param
+					mask="False"
 					name="SubstringGenericFailurePaths"
-					value="Generieke faalpaden">
+					value="@GF">
 					</param>
 					<param
+					mask="False"
 					name="wildcardCharacter"
 					value="*">
 					</param>
@@ -574,10 +595,12 @@
 			name="HideAllLayers">
 				<parameters>
 					<param
+					mask="False"
 					name="visibilityStatusAllLayers"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="nameParameterVisibility"
 					value="Weergeven">
 					</param>
@@ -658,6 +681,7 @@
 			name="ShowMapLayersPanel">
 				<parameters>
 					<param
+					mask="False"
 					name="namePanelToBeShown"
 					value="Kaart">
 					</param>
@@ -767,11 +791,12 @@
 			</testmodule>
 			<smartfoldernode
 			id="3789e403-9ec5-4959-8ef7-03c7af296b21"
-			name="SetStateFailurePathsAssembly">
+			name="SetStateResultsAssembly">
 				<parameters>
 					<param
-					name="nameStateFA"
-					value="Faalpaden">
+					mask="False"
+					name="nameState"
+					value="@RA">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -834,6 +859,7 @@
 			name="OpenProject">
 				<parameters>
 					<param
+					mask="False"
 					name="projectToOpen"
 					value="Project_andere.risk">
 					</param>
@@ -987,10 +1013,12 @@
 			name="ShowMapsSideBySide">
 				<parameters>
 					<param
+					mask="False"
 					name="nameFMView"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="indexLast"
 					value="-1">
 					</param>
@@ -1021,14 +1049,17 @@
 			name="MakeCurrentLayerInvisible">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToVisibilityParameter"
 					value="Kaartlaag>Weergeven">
 					</param>
 					<param
+					mask="False"
 					name="visibility"
 					value="False">
 					</param>
 					<param
+					mask="False"
 					name="typeParameter"
 					value="Text">
 					</param>
@@ -1039,8 +1070,9 @@
 			name="SetStateTraject">
 				<parameters>
 					<param
-					name="nameStateTR"
-					value="Traject">
+					mask="False"
+					name="nameState"
+					value="@TR">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -1080,6 +1112,7 @@
 			name="ShowProjectExplorerPanel">
 				<parameters>
 					<param
+					mask="False"
 					name="namePanelToBeShown"
 					value="Projectverkenner">
 					</param>
@@ -1090,14 +1123,17 @@
 			name="MakeCurrentLayerVisible">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToVisibilityParameter"
 					value="Kaartlaag>Weergeven">
 					</param>
 					<param
+					mask="False"
 					name="visibility"
 					value="True">
 					</param>
 					<param
+					mask="False"
 					name="typeParameter"
 					value="Text">
 					</param>
@@ -1148,12 +1184,6 @@
 			name="a)BackgroundMap">
 			</smartfoldernode>
 			<testmodule
-			id="4dd8e7e7-5aa8-4657-964e-5a1204700ecd"
-			name="CreateScreenshotEntireDesktop"
-			ref="0f7ebadb-0285-4449-9422-0cd6fde5bf4d"
-			type="Recording">
-			</testmodule>
-			<testmodule
 			id="4e0209f2-4974-409f-859c-a96c00c8dd6f"
 			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
 			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
@@ -1184,6 +1214,7 @@
 			name="MakeAllItemsInPropertiesPanelVisible">
 				<parameters>
 					<param
+					mask="False"
 					name="numberOfPassesToExpandRows"
 					value="3">
 					</param>
@@ -1194,6 +1225,7 @@
 			name="OpenMapTraject">
 				<parameters>
 					<param
+					mask="False"
 					name="pathTraject"
 					value="Traject">
 					</param>
@@ -1224,6 +1256,7 @@
 			name="OpenProject">
 				<parameters>
 					<param
+					mask="False"
 					name="projectToOpen"
 					value="Project_andere.risk">
 					</param>
@@ -1240,6 +1273,7 @@
 			name="OpenViewForFP">
 				<parameters>
 					<param
+					mask="False"
 					name="fullPathToFPItem"
 					value="">
 					</param>
@@ -1250,6 +1284,7 @@
 			name="ShowProjectExplorerPanel">
 				<parameters>
 					<param
+					mask="False"
 					name="namePanelToBeShown"
 					value="Projectverkenner">
 					</param>
@@ -1327,6 +1362,7 @@
 			name="SelectRandomFM">
 				<parameters>
 					<param
+					mask="False"
 					name="nameSmartFolderIterations"
 					value="LoopItemWithMap">
 					</param>
@@ -1348,11 +1384,12 @@
 			</testmodule>
 			<smartfoldernode
 			id="66985f9c-b944-45ea-9b6d-d3c1e4b1de0f"
-			name="SetStateFailurePathsAssembly">
+			name="SetStateResultsAssembly">
 				<parameters>
 					<param
-					name="nameStateFA"
-					value="Faalpaden">
+					mask="False"
+					name="nameState"
+					value="@RA">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -1463,6 +1500,7 @@
 			name="ShowProjectExplorerPanel">
 				<parameters>
 					<param
+					mask="False"
 					name="namePanelToBeShown"
 					value="Projectverkenner">
 					</param>
@@ -1476,6 +1514,7 @@
 			name="LoopValidateLayersTraject">
 				<parameters>
 					<param
+					mask="False"
 					name="nameSmartFolderStylingLayer"
 					value="CustomizeLayerStyleParameter">
 					</param>
@@ -1686,14 +1725,17 @@
 			name="MakeCurrentLayerInvisible">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToVisibilityParameter"
 					value="Kaartlaag>Weergeven">
 					</param>
 					<param
+					mask="False"
 					name="visibility"
 					value="False">
 					</param>
 					<param
+					mask="False"
 					name="typeParameter"
 					value="Text">
 					</param>
@@ -1767,10 +1809,6 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
-			<testcase
-			id="85a3c9f1-960b-4f4d-b379-d5c05acbe835"
-			name="TakeScreenshotOfDesktop">
-			</testcase>
 			<smartfoldernode
 			id="85c80477-b489-48ce-858b-44638a9a14a5"
 			name="ReportScreenShotOfApplication">
@@ -1780,23 +1818,34 @@
 			name="BuildPathFailurePath">
 			</smartfoldernode>
 			<testsuite
+			ExportColumnList="None"
 			ReportTime="RelativeToTestSuiteStartTime"
+			SelectedActions="All"
 			TracingScreenshotMode="Foreground"
 			TracingScreenshotQuality="40"
 			VideoBitrate="2000"
 			VideoFps="15"
 			VideoRecordingMode="KeepAllTests"
 			VideoSource="Auto"
+			createindividualreportpdfchecked="False"
+			createsinglereportpdfchecked="True"
+			enableCSVReport="False"
 			enabletracingscreenshots="True"
+			exportAllColummns="True"
 			id="8aa23268-e000-43b4-b1f2-e1733ad5bf4c"
+			includeimageschecked="False"
+			includerecordingschecked="False"
 			junitreport="False"
 			name="Script29"
+			overwritefilechecked="False"
 			reportcompress="False"
+			reportdescription=""
 			reportdirectoryname="Reports"
 			reportenabled="True"
 			reportfilename="%S_%Y%M%D_%T.rxlog"
 			reporttemplatefolder="ReportDeltaresStyle"
-			reportwriteinterval="30000ms">
+			reportwriteinterval="30000ms"
+			singlereportpdfdirectory="SingleReportPDF">
 			</testsuite>
 			<testmodule
 			id="8ab343fa-45cb-4a68-b86e-d0f05bd63941"
@@ -1804,7 +1853,7 @@
 			ref="d035a6b8-ea2d-4376-8933-25d2336cd530"
 			type="Recording">
 				<description>
-					<![CDATA[Add control so that if no connection is possible, it fails f=gracefully]]>
+					<![CDATA[Add control so that if no connection is possible, it fails gracefully]]>
 				</description>
 			</testmodule>
 			<smartfoldernode
@@ -1812,6 +1861,7 @@
 			name="SetRangeOfLayersToValidate">
 				<parameters>
 					<param
+					mask="False"
 					name="nameSmartFolder"
 					value="LoopValidateThatEachDataLayerInFMViewMapExists">
 					</param>
@@ -1836,14 +1886,17 @@
 			name="AdjustTransparencyBackgroundMap">
 				<parameters>
 					<param
+					mask="False"
 					name="newTransparency"
 					value="0.4">
 					</param>
 					<param
+					mask="False"
 					name="pathTransparency"
 					value="Algemeen>Transparantie">
 					</param>
 					<param
+					mask="False"
 					name="typeValueTransparency"
 					value="Double">
 					</param>
@@ -1851,11 +1904,12 @@
 			</smartfoldernode>
 			<smartfoldernode
 			id="92d15ab5-01db-4817-81c6-28cfb61a0057"
-			name="SetStateFailurePathsAssembly">
+			name="SetStateResultsAssembly">
 				<parameters>
 					<param
-					name="nameStateFA"
-					value="Faalpaden">
+					mask="False"
+					name="nameState"
+					value="@RA">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -2022,10 +2076,12 @@
 			name="LoopFMs">
 				<parameters>
 					<param
+					mask="False"
 					name="newProjectMustOpened"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathToBackgroundItemInProjectExplorerStateTraject"
 					value="Traject>Achtergrondkaart">
 					</param>
@@ -2036,6 +2092,7 @@
 			name="AddBackgroundLayer(TypePolygon)">
 				<parameters>
 					<param
+					mask="False"
 					name="pathShapeLayerToImport"
 					value="X:\script29\background\gem_2011_gn1.shp">
 					</param>
@@ -2184,6 +2241,7 @@
 			name="OpenProject">
 				<parameters>
 					<param
+					mask="False"
 					name="projectToOpen"
 					value="ProjectAllFMsRelevant.risk">
 					</param>
@@ -2237,8 +2295,9 @@
 			name="SetStateTraject">
 				<parameters>
 					<param
-					name="nameStateFA"
-					value="Traject">
+					mask="False"
+					name="nameState"
+					value="@TR">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -2249,10 +2308,10 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="nameStateFA"
+					dataname="nameState"
 					datasourceid="66985f9c-b944-45ea-9b6d-d3c1e4b1de0f"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -2315,14 +2374,17 @@
 			name="MakeCurrentLayerInvisible">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToVisibilityParameter"
 					value="Kaartlaag>Weergeven">
 					</param>
 					<param
+					mask="False"
 					name="visibility"
 					value="False">
 					</param>
 					<param
+					mask="False"
 					name="typeParameter"
 					value="Text">
 					</param>
@@ -2330,14 +2392,17 @@
 			</smartfoldernode>
 			<smartfoldernode
 			datasource="script29c_LayersInMapViewForAssemblyCombinedAssessmentSection"
+			errorbehavior="ContinueNextIteration"
 			id="ad657d77-3a36-4994-929f-4320b7dd154f"
 			name="LoopValidateThatEachLayerExists">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToRootFolder"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="isLayerExpected"
 					value="true">
 					</param>
@@ -2545,6 +2610,7 @@
 			name="MakeMapLayersPanelVisible">
 				<parameters>
 					<param
+					mask="False"
 					name="nameProjectExplorerPanel"
 					value="Kaart">
 					</param>
@@ -2555,6 +2621,7 @@
 			name="OpenViewForAssemblyCombinedAssessmentSection">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToAssemblyCombinedAssessmentSection"
 					value="Traject>Assemblage>Assemblagekaart">
 					</param>
@@ -2567,10 +2634,10 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="nameStateFA"
+					dataname="nameState"
 					datasourceid="a567a181-7393-443c-9396-c15f458fad26"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -2612,10 +2679,12 @@
 			name="HideAllLayers">
 				<parameters>
 					<param
+					mask="False"
 					name="visibilityStatusAllLayers"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="nameParameterVisibility"
 					value="Weergeven">
 					</param>
@@ -2689,6 +2758,7 @@
 			name="ShowMapLayersPanel">
 				<parameters>
 					<param
+					mask="False"
 					name="namePanelToBeShown"
 					value="Kaart">
 					</param>
@@ -2699,6 +2769,7 @@
 			name="MakeProjectExplorerPanelVisible">
 				<parameters>
 					<param
+					mask="False"
 					name="nameProjectExplorerPanel"
 					value="Projectverkenner">
 					</param>
@@ -2817,14 +2888,17 @@
 			name="EnableBackgroundMap">
 				<parameters>
 					<param
+					mask="False"
 					name="typeValueShowBackground"
 					value="Text">
 					</param>
 					<param
+					mask="False"
 					name="pathShowBackground"
 					value="Algemeen>Weergeven">
 					</param>
 					<param
+					mask="False"
 					name="newValueShowBackground"
 					value="True">
 					</param>
@@ -2835,6 +2909,7 @@
 			name="CloseOpenTabView">
 				<parameters>
 					<param
+					mask="False"
 					name="dataViewIndexToClose"
 					value="2">
 					</param>
@@ -2855,6 +2930,7 @@
 			name="OpenMapFM">
 				<parameters>
 					<param
+					mask="False"
 					name="fullPath"
 					value="">
 					</param>
@@ -2884,6 +2960,7 @@
 			name="TryToExportMapLayer">
 				<parameters>
 					<param
+					mask="False"
 					name="optionToExportItem"
 					value="Exporteren">
 					</param>
@@ -2894,14 +2971,17 @@
 			name="AdjustTransparencyBackgroundMap">
 				<parameters>
 					<param
+					mask="False"
 					name="newTransparency"
 					value="0.92">
 					</param>
 					<param
+					mask="False"
 					name="pathTransparency"
 					value="Algemeen>Transparantie">
 					</param>
 					<param
+					mask="False"
 					name="typeValueTransparency"
 					value="Double">
 					</param>
@@ -2913,12 +2993,39 @@
 			reportlevel="Info;20">
 				<parameters>
 					<param
+					mask="False"
 					name="AppProcessID"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="AppPath"
 					value="..\..\..\..\..\bin\Debug\Riskeer.exe">
+					</param>
+					<param
+					mask="False"
+					name="PdfDirectoryPath"
+					value="">
+					</param>
+					<param
+					mask="False"
+					name="DeleteRanorexReport"
+					value="false">
+					</param>
+					<param
+					mask="False"
+					name="Details"
+					value="all">
+					</param>
+					<param
+					mask="False"
+					name="Xml"
+					value="Reports\style29.xml">
+					</param>
+					<param
+					mask="False"
+					name="PdfName"
+					value="script29_Gegevens_tonen_op_kaart.pdf">
 					</param>
 				</parameters>
 			</testcase>
@@ -2976,6 +3083,7 @@
 			name="MakeProjectExplorerPanelVisible">
 				<parameters>
 					<param
+					mask="False"
 					name="nameProjectExplorerPanel"
 					value="Projectverkenner">
 					</param>
@@ -2996,14 +3104,17 @@
 			name="MakeCurrentLayerVisible">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToVisibilityParameter"
 					value="Kaartlaag>Weergeven">
 					</param>
 					<param
+					mask="False"
 					name="visibility"
 					value="True">
 					</param>
 					<param
+					mask="False"
 					name="typeParameter"
 					value="Text">
 					</param>
@@ -3016,10 +3127,10 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="nameStateFA"
+					dataname="nameState"
 					datasourceid="3789e403-9ec5-4959-8ef7-03c7af296b21"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -3080,6 +3191,7 @@
 			name="MakeAllItemsInPropertiesPanelVisible">
 				<parameters>
 					<param
+					mask="False"
 					name="numberOfPassesToExpandRows"
 					value="2">
 					</param>
@@ -3135,14 +3247,17 @@
 			name="DisableBackgroundMap">
 				<parameters>
 					<param
+					mask="False"
 					name="typeValueShowBackground"
 					value="Text">
 					</param>
 					<param
+					mask="False"
 					name="pathShowBackground"
 					value="Algemeen>Weergeven">
 					</param>
 					<param
+					mask="False"
 					name="newValueShowBackground"
 					value="False">
 					</param>
@@ -3155,10 +3270,10 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="nameStateFA"
+					dataname="nameState"
 					datasourceid="19ed3775-279e-4955-97b2-3dc0b5408c33"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -3184,14 +3299,6 @@
 				<testcase
 				id="d9f46e49-056c-4e8b-a453-306c17602806"
 				name="Script29">
-					<testcase
-					id="85a3c9f1-960b-4f4d-b379-d5c05acbe835"
-					name="TakeScreenshotOfDesktop">
-						<testmodule
-						id="4dd8e7e7-5aa8-4657-964e-5a1204700ecd"
-						name="CreateScreenshotEntireDesktop">
-						</testmodule>
-					</testcase>
 					<testcase
 					id="21114deb-06e3-49f6-85ff-11b20b73d8e5"
 					name="script29_Gegevens_tonen_op_kaart">
@@ -3240,7 +3347,7 @@
 							</smartfoldernode>
 							<smartfoldernode
 							id="66985f9c-b944-45ea-9b6d-d3c1e4b1de0f"
-							name="SetStateFailurePathsAssembly">
+							name="SetStateResultsAssembly">
 								<testmodule
 								id="a7a1ebd5-c3d2-4b74-8613-82b450d167c4"
 								name="SelectState">
@@ -3519,7 +3626,7 @@
 								</smartfoldernode>
 								<smartfoldernode
 								id="19ed3775-279e-4955-97b2-3dc0b5408c33"
-								name="SetStateFailurePathsAssembly">
+								name="SetStateResultsAssembly">
 									<testmodule
 									id="fd9810a9-5a92-4a03-a363-cdd0a496815e"
 									name="SelectState">
@@ -3715,7 +3822,7 @@
 								</smartfoldernode>
 								<smartfoldernode
 								id="3789e403-9ec5-4959-8ef7-03c7af296b21"
-								name="SetStateFailurePathsAssembly">
+								name="SetStateResultsAssembly">
 									<testmodule
 									id="e9602b84-a632-4951-959e-0913e3e40972"
 									name="SelectState">
@@ -3916,7 +4023,7 @@
 							</smartfoldernode>
 							<smartfoldernode
 							id="92d15ab5-01db-4817-81c6-28cfb61a0057"
-							name="SetStateFailurePathsAssembly">
+							name="SetStateResultsAssembly">
 								<testmodule
 								id="05753ec9-a56b-4945-a9a0-8f1c33a495bf"
 								name="SelectState">
@@ -4703,7 +4810,7 @@
 		</DataSource>
 		<DataSource
 		id="9d2df0f0-220c-4783-8aea-8e4eb9843abd"
-		lastknownrowcount="60"
+		lastknownrowcount="45"
 		name="script29b_LayersInMapViewForTrajectAndFailureMechanisms"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -4775,31 +4882,7 @@
 				</tr>
 				<tr>
 					<td>
-						Toetsoordeel&gt;Gecombineerd toetsoordeel
-					</td>
-					<td>
-						STPH, STBI
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Toetsoordeel&gt;Toetsoordeel eenvoudige toets
-					</td>
-					<td>
-						STPH, STBI
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Toetsoordeel&gt;Toetsoordeel gedetailleerde toets
-					</td>
-					<td>
-						STPH, STBI
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Toetsoordeel&gt;Toetsoordeel toets op maat
+						Duidingsklasse per vak
 					</td>
 					<td>
 						STPH, STBI
@@ -4887,31 +4970,7 @@
 				</tr>
 				<tr>
 					<td>
-						Toetsoordeel&gt;Gecombineerd toetsoordeel
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Toetsoordeel&gt;Toetsoordeel eenvoudige toets
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Toetsoordeel&gt;Toetsoordeel gedetailleerde toets
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Toetsoordeel&gt;Toetsoordeel toets op maat
+						Duidingsklasse per vak
 					</td>
 					<td>
 						GEKB
@@ -4983,31 +5042,7 @@
 				</tr>
 				<tr>
 					<td>
-						Toetsoordeel&gt;Gecombineerd toetsoordeel
-					</td>
-					<td>
-						HTKW, BSKW, STKWp
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Toetsoordeel&gt;Toetsoordeel eenvoudige toets
-					</td>
-					<td>
-						HTKW, BSKW, STKWp
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Toetsoordeel&gt;Toetsoordeel gedetailleerde toets
-					</td>
-					<td>
-						HTKW, BSKW, STKWp
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Toetsoordeel&gt;Toetsoordeel toets op maat
+						Duidingsklasse per vak
 					</td>
 					<td>
 						HTKW, BSKW, STKWp
@@ -5071,31 +5106,7 @@
 				</tr>
 				<tr>
 					<td>
-						Toetsoordeel&gt;Gecombineerd toetsoordeel
-					</td>
-					<td>
-						ZST, AGK, GEBU
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Toetsoordeel&gt;Toetsoordeel eenvoudige toets
-					</td>
-					<td>
-						ZST, AGK, GEBU
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Toetsoordeel&gt;Toetsoordeel gedetailleerde toets
-					</td>
-					<td>
-						ZST, AGK, GEBU
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Toetsoordeel&gt;Toetsoordeel toets op maat
+						Duidingsklasse per vak
 					</td>
 					<td>
 						ZST, AGK, GEBU
@@ -5143,31 +5154,7 @@
 				</tr>
 				<tr>
 					<td>
-						Toetsoordeel&gt;Gecombineerd toetsoordeel
-					</td>
-					<td>
-						STMI, AWO, GABU, GABI, PKW, DA
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Toetsoordeel&gt;Toetsoordeel eenvoudige toets
-					</td>
-					<td>
-						STMI, AWO, GABU, GABI, PKW, DA
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Toetsoordeel&gt;Toetsoordeel gedetailleerde toets
-					</td>
-					<td>
-						STMI, GABU, GABI, PKW, DA
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Toetsoordeel&gt;Toetsoordeel toets op maat
+						Duidingsklasse per vak
 					</td>
 					<td>
 						STMI, AWO, GABU, GABI, PKW, DA
@@ -5251,7 +5238,7 @@
 						script20cd_STPH.risk
 					</td>
 					<td>
-						3,4,6-16
+						3,4,6-13
 					</td>
 					<td>
 						@STPH
@@ -5265,7 +5252,7 @@
 						script20cd_STBI.risk
 					</td>
 					<td>
-						5-16
+						5-13
 					</td>
 					<td>
 						@STBI
@@ -5279,7 +5266,7 @@
 						script20cd_GEKB.risk
 					</td>
 					<td>
-						17-28
+						14-22
 					</td>
 					<td>
 						@GEKB
@@ -5293,7 +5280,7 @@
 						script20cd_BSKW.risk
 					</td>
 					<td>
-						29-40
+						23-31
 					</td>
 					<td>
 						@BSKW
@@ -5307,7 +5294,7 @@
 						script20cd_HTKW.risk
 					</td>
 					<td>
-						29-40
+						23-31
 					</td>
 					<td>
 						@HTKW
@@ -5321,7 +5308,7 @@
 						script20cd_STKWp.risk
 					</td>
 					<td>
-						29-40
+						23-31
 					</td>
 					<td>
 						@STKWp
@@ -5335,7 +5322,7 @@
 						script15abc_ZST.risk
 					</td>
 					<td>
-						41-51
+						32-39
 					</td>
 					<td>
 						@ZST
@@ -5349,7 +5336,7 @@
 						script15abc_AGK.risk
 					</td>
 					<td>
-						41-51
+						32-39
 					</td>
 					<td>
 						@AGK
@@ -5363,7 +5350,7 @@
 						script15abc_GEBU.risk
 					</td>
 					<td>
-						41-51
+						32-39
 					</td>
 					<td>
 						@GEBU
@@ -5377,7 +5364,7 @@
 						script15abc_DA.risk
 					</td>
 					<td>
-						52-60
+						40-45
 					</td>
 					<td>
 						@DA
@@ -5391,7 +5378,7 @@
 						Project_andere.risk
 					</td>
 					<td>
-						52-60
+						40-45
 					</td>
 					<td>
 						@STMI
@@ -5405,7 +5392,7 @@
 						Project_andere.risk
 					</td>
 					<td>
-						52-54,56-60
+						40-45
 					</td>
 					<td>
 						@AWO
@@ -5419,7 +5406,7 @@
 						Project_andere.risk
 					</td>
 					<td>
-						52-60
+						40-45
 					</td>
 					<td>
 						@GABU
@@ -5433,7 +5420,7 @@
 						Project_andere.risk
 					</td>
 					<td>
-						52-60
+						40-45
 					</td>
 					<td>
 						@GABI
@@ -5447,7 +5434,7 @@
 						Project_andere.risk
 					</td>
 					<td>
-						52-60
+						40-45
 					</td>
 					<td>
 						@PKW
@@ -5575,7 +5562,7 @@
 				</tr>
 				<tr>
 					<td>
-						Assemblagekaart&gt;Gecombineerd vakoordeel
+						Assemblagekaart&gt;Slechtste duidingsklasse per deelvak
 					</td>
 				</tr>
 				<tr>
@@ -5737,9 +5724,6 @@
 			id="8443b3bb-b263-4823-ac47-9fb80d61b0fa">
 			</testcontainer>
 			<testcontainer
-			id="85a3c9f1-960b-4f4d-b379-d5c05acbe835">
-			</testcontainer>
-			<testcontainer
 			id="85c80477-b489-48ce-858b-44638a9a14a5">
 			</testcontainer>
 			<testcontainer
@@ -5888,6 +5872,9 @@
 		</reference>
 		<reference>
 			Ranorex Automation Helpers.dll
+		</reference>
+		<reference>
+			Ranorex.ReportToPDF.exe
 		</reference>
 	</references>
 </testsuitedoc>

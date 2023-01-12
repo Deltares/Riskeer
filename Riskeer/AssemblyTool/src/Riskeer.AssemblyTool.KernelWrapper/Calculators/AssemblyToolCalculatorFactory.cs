@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
-using Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories;
+using Riskeer.AssemblyTool.KernelWrapper.Calculators.Groups;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Calculators
@@ -35,7 +35,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators
         private AssemblyToolCalculatorFactory() {}
 
         /// <summary>
-        /// Gets or sets an instance of <see cref="IAssemblyToolCalculatorFactoryOld"/>.
+        /// Gets or sets an instance of <see cref="IAssemblyToolCalculatorFactory"/>.
         /// </summary>
         public static IAssemblyToolCalculatorFactory Instance
         {
@@ -43,9 +43,14 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators
             internal set => instance = value;
         }
 
-        public IAssemblyGroupBoundariesCalculator CreateAssemblyGroupBoundariesCalculator(IAssemblyToolKernelFactory factory)
+        public IAssessmentSectionAssemblyGroupBoundariesCalculator CreateAssessmentSectionAssemblyGroupBoundariesCalculator(IAssemblyToolKernelFactory factory)
         {
-            return new AssemblyGroupBoundariesCalculator(factory);
+            return new AssessmentSectionAssemblyGroupBoundariesCalculator(factory);
+        }
+
+        public IFailureMechanismSectionAssemblyGroupBoundariesCalculator CreateFailureMechanismSectionAssemblyGroupBoundariesCalculator(IAssemblyToolKernelFactory factory)
+        {
+            return new FailureMechanismSectionAssemblyGroupBoundariesCalculator(factory);
         }
 
         public IFailureMechanismSectionAssemblyCalculator CreateFailureMechanismSectionAssemblyCalculator(IAssemblyToolKernelFactory factory)

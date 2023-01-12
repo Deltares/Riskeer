@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Contribution_Value_should_be_in_Range_0_" xml:space="preserve">
-    <value>De waarde voor de toegestane bijdrage aan de faalkans moet in het bereik {0} liggen.</value>
-  </data>
   <data name="ReferenceLine_SetGeometry_New_geometry_cannot_be_null" xml:space="preserve">
     <value>De geometrie die opgegeven werd voor de referentielijn heeft geen waarde.</value>
   </data>
@@ -127,13 +124,10 @@
     <value>Een punt in de geometrie voor de referentielijn heeft geen waarde.</value>
   </data>
   <data name="FailureMechanismSectionCollection_ValidateSection_Section_0_must_connect_to_existing_sections" xml:space="preserve">
-    <value>Vak '{0}' sluit niet aan op de al gedefinieerde vakken van het toetsspoor.</value>
+    <value>Vak '{0}' sluit niet aan op de al gedefinieerde vakken van het faalmechanisme.</value>
   </data>
   <data name="FailureMechanismSection_Section_must_have_at_least_1_geometry_point" xml:space="preserve">
     <value>Vak moet minstens uit één punt bestaan.</value>
-  </data>
-  <data name="OtherFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Overig</value>
   </data>
   <data name="ReferenceLine_DisplayName" xml:space="preserve">
     <value>Referentielijn</value>
@@ -152,9 +146,6 @@
   </data>
   <data name="CalculationGroup_DefaultName" xml:space="preserve">
     <value>Nieuwe map</value>
-  </data>
-  <data name="OtherFailureMechanism_Code" xml:space="preserve">
-    <value>-</value>
   </data>
   <data name="FailureMechanism_Calculations_DisplayName" xml:space="preserve">
     <value>Berekeningen</value>
@@ -327,23 +318,23 @@
   <data name="MechanismSurfaceLineBase_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_" xml:space="preserve">
     <value>De geometrie bevat geen punt op locatie {0} om als '{1}' in te stellen.</value>
   </data>
-  <data name="NormType_LowerLimit_DisplayName" xml:space="preserve">
-    <value>Ondergrens</value>
+  <data name="NormativeProbabilityType_MaximumAllowableFloodingProbability_DisplayName" xml:space="preserve">
+    <value>Omgevingswaarde</value>
   </data>
-  <data name="NormType_Signaling_DisplayName" xml:space="preserve">
-    <value>Signaleringswaarde</value>
+  <data name="NormativeProbabilityType_SignalFloodingProbability_DisplayName" xml:space="preserve">
+    <value>Signaleringsparameter</value>
   </data>
   <data name="Norm_should_be_in_Range_0_" xml:space="preserve">
     <value>De waarde van de norm moet in het bereik {0} liggen.</value>
   </data>
-  <data name="FailureMechanismContribution_SignalingNorm_should_be_same_or_smaller_than_LowerLimitNorm" xml:space="preserve">
-    <value>De signaleringswaarde moet gelijk zijn aan of kleiner zijn dan de ondergrens.</value>
+  <data name="FailureMechanismContribution_SignalFloodingProbability_should_be_same_or_smaller_than_MaximumAllowableFloodingProbability" xml:space="preserve">
+    <value>De signaleringsparameter moet gelijk zijn aan of kleiner zijn dan de omgevingswaarde.</value>
   </data>
   <data name="StochasticSoilModelCollection_TypeDescriptor" xml:space="preserve">
     <value>Stochastische ondergrondmodellen</value>
   </data>
-  <data name="FailureMechanismContribution_LowerLimitNorm_should_be_same_or_greater_than_SignalingNorm" xml:space="preserve">
-    <value>De ondergrens moet gelijk zijn aan of groter zijn dan de signaleringswaarde.</value>
+  <data name="FailureMechanismContribution_MaximumAllowableFloodingProbability_should_be_same_or_greater_than_SignalFloodingProbability" xml:space="preserve">
+    <value>De omgevingswaarde moet gelijk zijn aan of groter zijn dan de signaleringsparameter.</value>
   </data>
   <data name="CharacteristicPoint_DikeTopAtRiver" xml:space="preserve">
     <value>Kruin buitentalud</value>
@@ -405,10 +396,16 @@
     <data name="ProbabilityRefinementType_Both_DisplayName" xml:space="preserve">
     <value>Beide</value>
   </data>
-    <data name="FailurePathAssemblyProbabilityResultTypeAutomatic_DisplayName" xml:space="preserve">
+    <data name="FailureMechanismAssemblyProbabilityResultTypeAutomatic_DisplayName" xml:space="preserve">
     <value>Automatisch berekenen</value>
   </data>
-    <data name="FailurePathAssemblyProbabilityResultTypeManual_DisplayName" xml:space="preserve">
+    <data name="FailureMechanismAssemblyProbabilityResultTypeManual_DisplayName" xml:space="preserve">
     <value>Handmatig invullen</value>
+  </data>
+  <data name="SpecificFailureMechanism_DefaultName" xml:space="preserve">
+    <value>Nieuw faalmechanisme</value>
+  </data>
+  <data name="SpecificFailureMechanism_DefaultCode" xml:space="preserve">
+    <value>NIEUW</value>
   </data>
 </root>

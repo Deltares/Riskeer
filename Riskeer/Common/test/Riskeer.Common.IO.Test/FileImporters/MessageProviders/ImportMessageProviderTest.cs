@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -48,7 +48,7 @@ namespace Riskeer.Common.IO.Test.FileImporters.MessageProviders
             string message = messageProvider.GetAddDataToModelProgressText();
 
             // Assert
-            const string expectedMessage = "Geïmporteerde data toevoegen aan het toetsspoor.";
+            const string expectedMessage = "Geïmporteerde data toevoegen aan het faalmechanisme.";
             Assert.AreEqual(expectedMessage, message);
         }
 

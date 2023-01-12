@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -21,12 +21,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using Core.Common.Base;
-using Core.Common.Base.Data;
-using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Data.FailurePath;
-using Riskeer.Common.Data.Properties;
 
 namespace Riskeer.Common.Data.FailureMechanism
 {
@@ -35,14 +30,14 @@ namespace Riskeer.Common.Data.FailureMechanism
     /// to implement <see cref="IFailureMechanism"/> can and should most likely inherit
     /// from this class.
     /// </summary>
-    public abstract class FailureMechanismBase : Observable, IFailureMechanism
+    /// <typeparam name="T">The type of section results.</typeparam>
+    public abstract class FailureMechanismBase<T> : Observable, IFailureMechanism<T> where T : FailureMechanismSectionResult
     {
-        private static readonly Range<double> contributionValidityRange = new Range<double>(0, 100);
         private readonly FailureMechanismSectionCollection sectionCollection;
-        private double contribution;
+        private readonly ObservableList<T> sectionResults;
 
         /// <summary>
-        /// Creates a new instance of the <see cref="FailureMechanismBase"/> class.
+        /// Creates a new instance of the <see cref="FailureMechanismBase{T}"/> class.
         /// </summary>
         /// <param name="name">The name of the failure mechanism.</param>
         /// <param name="failureMechanismCode">The code of the failure mechanism.</param>
@@ -64,38 +59,17 @@ namespace Riskeer.Common.Data.FailureMechanism
             InAssemblyOutputComments = new Comment();
             NotInAssemblyComments = new Comment();
 
-            CalculationsInputComments = new Comment();
-
-            AssemblyResult = new FailurePathAssemblyResult();
-        }
-
-        public double Contribution
-        {
-            get => contribution;
-            set
-            {
-                if (!contributionValidityRange.InRange(value))
-                {
-                    string message = string.Format(Resources.Contribution_Value_should_be_in_Range_0_,
-                                                   contributionValidityRange.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture));
-                    throw new ArgumentOutOfRangeException(nameof(value), message);
-                }
-
-                contribution = value;
-            }
+            AssemblyResult = new FailureMechanismAssemblyResult();
+            sectionResults = new ObservableList<T>();
         }
 
         public string Name { get; }
 
         public string Code { get; }
 
-        public abstract IEnumerable<ICalculation> Calculations { get; }
-
-        public Comment CalculationsInputComments { get; }
-
         public IEnumerable<FailureMechanismSection> Sections => sectionCollection;
 
-        public FailurePathAssemblyResult AssemblyResult { get; }
+        public FailureMechanismAssemblyResult AssemblyResult { get; }
 
         public string FailureMechanismSectionSourcePath => sectionCollection.SourcePath;
 
@@ -106,6 +80,8 @@ namespace Riskeer.Common.Data.FailureMechanism
         public Comment NotInAssemblyComments { get; }
 
         public bool InAssembly { get; set; }
+
+        public IObservableEnumerable<T> SectionResults => sectionResults;
 
         public void SetSections(IEnumerable<FailureMechanismSection> sections, string sourcePath)
         {
@@ -134,9 +110,15 @@ namespace Riskeer.Common.Data.FailureMechanism
             ClearSectionDependentData();
         }
 
-        protected virtual void AddSectionDependentData(FailureMechanismSection section) {}
+        protected virtual void AddSectionDependentData(FailureMechanismSection section)
+        {
+            sectionResults.Add(FailureMechanismSectionResultFactory.Create<T>(section));
+        }
 
-        protected virtual void ClearSectionDependentData() {}
+        protected virtual void ClearSectionDependentData()
+        {
+            sectionResults.Clear();
+        }
 
         private static void ValidateParameters(string failureMechanismName, string failureMechanismCode)
         {

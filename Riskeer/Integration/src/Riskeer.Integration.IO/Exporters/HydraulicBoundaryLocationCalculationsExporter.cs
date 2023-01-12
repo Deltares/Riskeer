@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -93,7 +93,7 @@ namespace Riskeer.Integration.IO.Exporters
             {
                 if (Directory.Exists(tempFolderPath))
                 {
-                    Directory.Delete(tempFolderPath, true);
+                    DirectoryHelper.TryDelete(tempFolderPath);
                 }
             }
         }
@@ -104,9 +104,9 @@ namespace Riskeer.Integration.IO.Exporters
                 new[]
                 {
                     new Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>(
-                        assessmentSection.WaterLevelCalculationsForLowerLimitNorm, assessmentSection.FailureMechanismContribution.LowerLimitNorm),
+                        assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability, assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability),
                     new Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>(
-                        assessmentSection.WaterLevelCalculationsForSignalingNorm, assessmentSection.FailureMechanismContribution.SignalingNorm)
+                        assessmentSection.WaterLevelCalculationsForSignalFloodingProbability, assessmentSection.FailureMechanismContribution.SignalFloodingProbability)
                 },
                 HydraulicBoundaryLocationCalculationsType.WaterLevel,
                 Path.Combine(tempFolderPath, RiskeerCommonUtilResources.WaterLevelCalculationsForNormTargetProbabilities_DisplayName));

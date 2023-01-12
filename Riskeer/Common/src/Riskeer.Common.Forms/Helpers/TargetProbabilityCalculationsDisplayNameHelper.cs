@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -60,12 +60,10 @@ namespace Riskeer.Common.Forms.Helpers
             var nonUniqueWaterLevelCalculationsDisplayNameLookup = new Dictionary<object, string>
             {
                 {
-                    assessmentSection.WaterLevelCalculationsForLowerLimitNorm,
-                    noProbabilityValueDoubleConverter.ConvertToString(assessmentSection.FailureMechanismContribution.LowerLimitNorm)
+                    assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability, noProbabilityValueDoubleConverter.ConvertToString(assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability)
                 },
                 {
-                    assessmentSection.WaterLevelCalculationsForSignalingNorm,
-                    noProbabilityValueDoubleConverter.ConvertToString(assessmentSection.FailureMechanismContribution.SignalingNorm)
+                    assessmentSection.WaterLevelCalculationsForSignalFloodingProbability, noProbabilityValueDoubleConverter.ConvertToString(assessmentSection.FailureMechanismContribution.SignalFloodingProbability)
                 }
             };
 

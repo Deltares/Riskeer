@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -307,7 +307,7 @@ namespace Riskeer.Revetment.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Doelkans (1/jaar).
+        ///   Looks up a localized string similar to Doelkans [1/jaar].
         /// </summary>
         public static string WaveConditionsInput_SelectedTargetProbability_DisplayName {
             get {

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -21,39 +21,61 @@
 
 using System;
 using System.ComponentModel;
+using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.Categories;
-using Riskeer.AssemblyTool.Data;
-using KernelFailureMechanismSectionAssemblyResult = Assembly.Kernel.Model.FailureMechanismSections.FailureMechanismSectionAssemblyResult;
-using RiskeerFailureMechanismSectionAssemblyResult = Riskeer.AssemblyTool.Data.FailureMechanismSectionAssemblyResult;
+using Assembly.Kernel.Model.FailureMechanismSections;
+using FailureMechanismSectionAssemblyResult = Riskeer.AssemblyTool.Data.FailureMechanismSectionAssemblyResult;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Creators
 {
     /// <summary>
-    /// Creates <see cref="RiskeerFailureMechanismSectionAssemblyResult"/> instances and
-    /// <see cref="FailureMechanismSectionAssemblyGroup"/> values.
+    /// Creates <see cref="FailureMechanismSectionAssemblyResult"/> instances.
     /// </summary>
     internal static class FailureMechanismSectionAssemblyResultCreator
     {
         /// <summary>
-        /// Converts an <see cref="KernelFailureMechanismSectionAssemblyResult"/> into a <see cref="RiskeerFailureMechanismSectionAssemblyResult"/>.
+        /// Converts a <see cref="Probability"/> combined with a <see cref="EInterpretationCategory"/>
+        /// into a <see cref="FailureMechanismSectionAssemblyResult"/>.
         /// </summary>
-        /// <param name="result">The <see cref="KernelFailureMechanismSectionAssemblyResult"/> to convert.</param>
-        /// <returns>A <see cref="RiskeerFailureMechanismSectionAssemblyResult"/> based on <paramref name="result"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="EInterpretationCategory"/>
+        /// <param name="sectionProbability">The <see cref="Probability"/> to convert.</param>
+        /// <param name="category">The <see cref="EInterpretationCategory"/> to convert.</param>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyResult"/> based on <paramref name="sectionProbability"/>
+        /// and <paramref name="category"/>.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="category"/>
         /// is an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <see cref="EInterpretationCategory"/>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="category"/>
         /// is a valid value, but unsupported.</exception>
-        public static RiskeerFailureMechanismSectionAssemblyResult CreateFailureMechanismSectionAssemblyResult(KernelFailureMechanismSectionAssemblyResult result)
+        public static FailureMechanismSectionAssemblyResult Create(Probability sectionProbability, EInterpretationCategory category)
+        {
+            return new FailureMechanismSectionAssemblyResult(
+                sectionProbability, sectionProbability, 1.0,
+                FailureMechanismSectionAssemblyGroupConverter.ConvertTo(category));
+        }
+
+        /// <summary>
+        /// Converts a <see cref="ResultWithProfileAndSectionProbabilities"/> combined with a <see cref="EInterpretationCategory"/>
+        /// into a <see cref="FailureMechanismSectionAssemblyResult"/>.
+        /// </summary>
+        /// <param name="result">The <see cref="ResultWithProfileAndSectionProbabilities"/> to convert.</param>
+        /// <param name="category">The <see cref="EInterpretationCategory"/> to convert.</param>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyResult"/> based on <paramref name="result"/>
+        /// and <paramref name="category"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="category"/>
+        /// is an invalid value.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="category"/>
+        /// is a valid value, but unsupported.</exception>
+        public static FailureMechanismSectionAssemblyResult Create(ResultWithProfileAndSectionProbabilities result,
+                                                                   EInterpretationCategory category)
         {
             if (result == null)
             {
                 throw new ArgumentNullException(nameof(result));
             }
 
-            return new RiskeerFailureMechanismSectionAssemblyResult(
-                result.ProbabilityProfile.Value, result.ProbabilitySection.Value, result.NSection,
-                FailureMechanismSectionAssemblyGroupConverter.ConvertTo(result.InterpretationCategory));
+            return new FailureMechanismSectionAssemblyResult(
+                result.ProbabilityProfile, result.ProbabilitySection, result.LengthEffectFactor,
+                FailureMechanismSectionAssemblyGroupConverter.ConvertTo(category));
         }
     }
 }

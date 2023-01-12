@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -536,7 +536,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test
         {
             return string.Format("Fout bij het lezen van bestand '{0}' (Kunstwerk '{1}' ({2})): klik op details voor meer informatie."
                                  + Environment.NewLine
-                                 + "Er zijn één of meerdere fouten gevonden waardoor dit kunstwerk niet ingelezen kan worden:" + Environment.NewLine + "{3}",
+                                 + "Er zijn een of meerdere fouten gevonden waardoor dit kunstwerk niet ingelezen kan worden:" + Environment.NewLine + "{3}",
                                  filePath, structureName, structureId,
                                  string.Join(Environment.NewLine, messages.Select(msg => "* " + msg)));
         }

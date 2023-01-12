@@ -155,7 +155,7 @@
     <data name="CalculationGroup_Calculate_All_ToolTip" xml:space="preserve">
     <value>Voer alle berekeningen binnen deze map met berekeningen uit.</value>
   </data>
-    <data name="CalculationGroup_Calculate_All_No_calculations_to_run" xml:space="preserve">
+    <data name="Calculate_All_No_calculations_to_run" xml:space="preserve">
     <value>Er zijn geen berekeningen om uit te voeren.</value>
   </data>
     <data name="Clear_all_output" xml:space="preserve">
@@ -176,7 +176,7 @@
         </value>
     </data>
     <data name="Calculate_All_ToolTip" xml:space="preserve">
-    <value>Voer alle berekeningen binnen dit toetsspoor uit.</value>
+    <value>Voer alle berekeningen binnen dit faalmechanisme uit.</value>
   </data>
     <data name="WaterLevel_Calculate_All_ToolTip" xml:space="preserve">
     <value>Alle waterstanden berekenen.</value>
@@ -185,7 +185,7 @@
     <value>Alle golfhoogten berekenen.</value>
   </data>
     <data name="Clear_all_output_ToolTip" xml:space="preserve">
-    <value>Wis de uitvoer van alle berekeningen binnen dit toetsspoor.</value>
+    <value>Wis de uitvoer van alle berekeningen binnen dit faalmechanisme.</value>
   </data>
     <data name="ClearIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
         <value>..\resources\table_delete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral,
@@ -220,7 +220,7 @@
     <value>Alles &amp;valideren</value>
   </data>
     <data name="FailureMechanism_Validate_All_ToolTip" xml:space="preserve">
-    <value>Valideer alle berekeningen binnen dit toetsspoor.</value>
+    <value>Valideer alle berekeningen binnen dit faalmechanisme.</value>
   </data>
     <data name="Validate_ToolTip" xml:space="preserve">
     <value>Valideer de invoer voor deze berekening.</value>
@@ -313,11 +313,11 @@
             PublicKeyToken=b03f5f7f11d50a3a
         </value>
     </data>
-    <data name="FailurePathContextMenuStrip_In_assembly" xml:space="preserve">
+    <data name="FailureMechanismContextMenuStrip_In_assembly" xml:space="preserve">
     <value>I&amp;n assemblage</value>
   </data>
-    <data name="FailurePath_InAssembly_Description" xml:space="preserve">
-    <value>Geeft aan of dit faalpad wordt meegenomen in de assemblage.</value>
+    <data name="FailureMechanism_InAssembly_Description" xml:space="preserve">
+    <value>Geeft aan of dit faalmechanisme wordt meegenomen in de assemblage.</value>
   </data>
     <data name="CalculationGroup_Add_Calculation_Tooltip" xml:space="preserve">
     <value>Voeg een nieuwe berekening toe aan deze map met berekeningen.</value>
@@ -342,12 +342,6 @@
   </data>
     <data name="FailureMechanism_ContextMenuStrip_Are_you_sure_clear_all_output" xml:space="preserve">
     <value>Weet u zeker dat u alle uitvoer wilt wissen?</value>
-  </data>
-    <data name="FailureMechanism_CreateCalculateAllItem_No_calculations_to_run" xml:space="preserve">
-    <value>Er zijn geen berekeningen om uit te voeren.</value>
-  </data>
-    <data name="FailureMechanism_CreateValidateAllItem_No_calculations_to_validate" xml:space="preserve">
-    <value>Er zijn geen berekeningen om te valideren.</value>
   </data>
     <data name="GeneralOutputIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
         <value>..\Resources\table.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral,
@@ -382,7 +376,7 @@
     <value>Resultaat</value>
   </data>
     <data name="ProbabilityAssessmentOutput_Probability_Description" xml:space="preserve">
-    <value>De kans dat het toetsspoor optreedt voor deze berekening.</value>
+    <value>De kans dat het faalmechanisme optreedt voor deze berekening.</value>
   </data>
     <data name="ProbabilityAssessmentOutput_Probability_Displayname" xml:space="preserve">
     <value>Faalkans [1/jaar]</value>
@@ -460,13 +454,13 @@
     <value>Resultaat</value>
   </data>
     <data name="FailureMechanism_Code_Description" xml:space="preserve">
-    <value>Het label van het toetsspoor.</value>
+    <value>Het label van het faalmechanisme.</value>
   </data>
     <data name="FailureMechanism_Code_DisplayName" xml:space="preserve">
     <value>Label</value>
   </data>
     <data name="FailureMechanism_Name_Description" xml:space="preserve">
-    <value>De naam van het toetsspoor.</value>
+    <value>De naam van het faalmechanisme.</value>
   </data>
     <data name="FailureMechanism_Name_DisplayName" xml:space="preserve">
     <value>Naam</value>
@@ -894,7 +888,7 @@
   </data>
     <data name="CalculationOutput_TargetProbability_DisplayName" xml:space="preserve">
     <value>Doelkans [1/jaar]</value>
-  </data>
+  </data>    
     <data name="CalculationOutput_TargetReliability_Description" xml:space="preserve">
     <value>Betrouwbaarheidsindex van de ingevoerde kans waarvoor het resultaat moet worden berekend.</value>
   </data>
@@ -903,7 +897,7 @@
   </data>
     <data name="FailureMechanismPropertyChangeHandler_Confirm_change_composition_and_clear_dependent_data"
           xml:space="preserve">
-    <value>Als u deze parameter wijzigt, zal de uitvoer van alle berekeningen in dit toetsspoor verwijderd worden.
+    <value>Als u deze parameter wijzigt, zal de uitvoer van alle berekeningen in dit faalmechanisme verwijderd worden.
 
 Weet u zeker dat u wilt doorgaan?</value>
   </data>
@@ -929,7 +923,7 @@ Weet u zeker dat u wilt doorgaan?</value>
             PublicKeyToken=b03f5f7f11d50a3a
         </value>
     </data>
-    <data name="FailurePath_InAssembly_DisplayName" xml:space="preserve">
+    <data name="FailureMechanism_InAssembly_DisplayName" xml:space="preserve">
     <value>In assemblage</value>
   </data>
     <data name="DataTypeDisplayName_xml_file_filter_Extension" xml:space="preserve">
@@ -1269,7 +1263,7 @@ Betrouwbaarheidsindex = {1}</value>
     <value>Waarden in het illustratiepunt</value>
   </data>
     <data name="FailureMechanismSections_Description" xml:space="preserve">
-    <value>Vakindeling waarmee de waterkering voor dit toetsspoor is geschematiseerd ten behoeve van de beoordeling.</value>
+    <value>Vakindeling waarmee de waterkering voor dit faalmechanisme is geschematiseerd ten behoeve van de beoordeling.</value>
   </data>
     <data name="FailureMechanismSection_EndPoint_Description" xml:space="preserve">
     <value>Eindpunt van het vak (X-coördinaat, Y-coördinaat).</value>
@@ -1335,19 +1329,10 @@ Betrouwbaarheidsindex = {1}</value>
         </value>
     </data>
     <data name="FailureMechanismResultView_FailureMechanismAssemblyLabel" xml:space="preserve">
-      <value>Gecombineerde faalkans [1/jaar]</value>
+      <value>Faalkans van dit faalmechanisme voor het traject [1/jaar]</value>
     </data>
-    <data name="AssemblyCategory_Color_DisplayName" xml:space="preserve">
+    <data name="AssemblyGroup_Color_DisplayName" xml:space="preserve">
     <value>Kleur</value>
-  </data>
-    <data name="AssemblyCategory_Group_DisplayName" xml:space="preserve">
-    <value>Categorie</value>
-  </data>
-    <data name="AssemblyCategory_LowerBoundary_DisplayName" xml:space="preserve">
-    <value>Ondergrens [1/jaar]</value>
-  </data>
-    <data name="AssemblyCategory_UpperBoundary_DisplayName" xml:space="preserve">
-    <value>Bovengrens [1/jaar]</value>
   </data>
     <data name="DesignWaterLevelCalculation_Result_Description" xml:space="preserve">
     <value>Berekende waterstand.</value>
@@ -1376,11 +1361,6 @@ Betrouwbaarheidsindex = {1}</value>
     <data name="StructuresInputFailureMechanismContext_ModelFactorLongThreshold_Description" xml:space="preserve">
     <value>Modelfactor voor een lange overlaat.</value>
   </data>
-    <data name="PencilWarning" type="System.Resources.ResXFileRef, System.Windows.Forms">
-        <value>..\Resources\pencil--exclamation.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0,
-            Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a
-        </value>
-    </data>
     <data name="SectionEnd_DisplayName" xml:space="preserve">
     <value>Metrering tot* [m]</value>
   </data>
@@ -1402,14 +1382,11 @@ Betrouwbaarheidsindex = {1}</value>
 berekende kans
 [-]</value>
   </data>
-    <data name="AssemblyResult_DisplayName" xml:space="preserve">
-    <value>Toetsoordeel</value>
+    <data name="AssessmentSectionAssemblyGroups_DisplayName" xml:space="preserve">
+    <value>Veiligheidscategorieën</value>
   </data>
-    <data name="NormClasses_DisplayName" xml:space="preserve">
-    <value>Normklassen</value>
-  </data>
-    <data name="CombinedAssembly_DisplayName" xml:space="preserve">
-    <value>Gecombineerd toetsoordeel</value>
+    <data name="AssemblyResultTotal_DisplayName" xml:space="preserve">
+    <value>Veiligheidsoordeel</value>
   </data>
     <data name="CreateClearIllustrationPointsOfCalculationsItem_ClearIllustrationPoints_DisplayName"
           xml:space="preserve">
@@ -1423,7 +1400,7 @@ berekende kans
   </data>
     <data name="CreateClearIllustrationPointsOfCalculationsItem_Clear_IllustrationPoints_In_FailureMechanism"
           xml:space="preserve">
-    <value>Wis alle berekende illustratiepunten binnen dit toetsspoor.</value>
+    <value>Wis alle berekende illustratiepunten binnen dit faalmechanisme.</value>
   </data>
     <data name="ClearHydraulicBoundaryLocationCalculationsIllustrationPointsChangeHandler_ClearIllustrationPoints_Remove_calculated_IllustrationPoints_for_collection_0_"
           xml:space="preserve">
@@ -1606,10 +1583,10 @@ faalkans per vak
     <data name="AssemblyGroup_DisplayName" xml:space="preserve">
     <value>Duidingsklasse</value>
   </data>
-    <data name="FailurePath_ApplyLengthEffectInSection_DisplayName" xml:space="preserve">
+    <data name="FailureMechanism_ApplyLengthEffectInSection_DisplayName" xml:space="preserve">
     <value>Toepassen lengte-effect binnen vak</value>
   </data>
-    <data name="FailurePath_ApplyLengthEffectInSection_Description" xml:space="preserve">
+    <data name="FailureMechanism_ApplyLengthEffectInSection_Description" xml:space="preserve">
     <value>Geeft aan of het lengte-effect binnen een vak toegepast wordt.</value>
   </data>
     <data name="FailureMechanismSectionResultRow_Derived_DisplayName" xml:space="preserve">
@@ -1618,10 +1595,13 @@ faalkans per vak
     <data name="FailureProbability_must_not_be_NaN" xml:space="preserve">
       <value>Er moet een waarde worden ingevuld voor de faalkans.</value>
     </data>
-    <data name="AssemblyCategoryPerSection_DisplayName" xml:space="preserve">
+    <data name="AssemblyGroupPerSection_DisplayName" xml:space="preserve">
       <value>Duidingsklasse per vak</value>
     </data>
-    <data name="AssemblyGroups_DisplayName" xml:space="preserve">
-    <value>Duidingsklassen</value>
-  </data>
+    <data name="AssemblyMapDataFeaturesFactory_ProbabilityPerSection_DisplayName" xml:space="preserve">
+      <value>Rekenwaarde faalkans per vak</value>
+    </data>
+    <data name="FailureMechanismResultView_To_Enter_An_AssemblyProbability_Failure_Mechanism_Sections_Must_Be_Imported" xml:space="preserve">
+      <value>Om een oordeel te kunnen invoeren moet voor het faalmechanisme een vakindeling zijn geïmporteerd.</value>
+    </data>
 </root>

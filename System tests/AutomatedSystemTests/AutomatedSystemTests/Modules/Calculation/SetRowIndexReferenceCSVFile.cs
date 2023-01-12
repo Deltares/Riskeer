@@ -81,11 +81,18 @@ namespace AutomatedSystemTests.Modules.Calculation
         void ITestModule.Run()
         {
             int idxCurrentIteration = Int32.Parse(indexCurrentIterationInValidation);
-            if (idxCurrentIteration>=1 && idxCurrentIteration<=4) {
+            
+            bool hbIteration = idxCurrentIteration>=1 && idxCurrentIteration<=10;
+            bool stphIteration = idxCurrentIteration>=11 && idxCurrentIteration<=42;
+            bool gekbIteration = idxCurrentIteration>=43 && idxCurrentIteration<=50;
+            bool zstBskwIteration = idxCurrentIteration>=51 && idxCurrentIteration<=54;
+                
+            
+            if (hbIteration) {
                 // Hydraulic Boundary Condition (Water Level or Wave Height).
                 // No modification of row index is required.
                 rowIndexReferenceCSV = originalRowIndexReferenceCSV;
-            } else if (idxCurrentIteration>=5 && idxCurrentIteration<=36) {
+            } else if (stphIteration) {
                 // Iteration is checking an item of Piping FM
                 if (indecesMergedFMs.Contains("1")) {
                     // Piping has been merged (overwritten) by information in project B.
@@ -96,7 +103,7 @@ namespace AutomatedSystemTests.Modules.Calculation
                     // No modification of row index is required.
                     rowIndexReferenceCSV = originalRowIndexReferenceCSV;
                 }
-            } else if (idxCurrentIteration>=37 && idxCurrentIteration<=44) {
+            } else if (gekbIteration) {
                 // Iteration is checking an item of GEKB FM
                 if (indecesMergedFMs.Contains("2")) {
                     // GEKB has been merged (overwritten) by information in project B.
@@ -107,7 +114,7 @@ namespace AutomatedSystemTests.Modules.Calculation
                     // No modification of row index is required.
                     rowIndexReferenceCSV = originalRowIndexReferenceCSV;
                 }
-            } else if (idxCurrentIteration>=45 && idxCurrentIteration<=48) {
+            } else if (zstBskwIteration) {
                 // Iteration is checking an item of ZST or BSKW
                 // No modification of row index is required.
                 rowIndexReferenceCSV = originalRowIndexReferenceCSV;

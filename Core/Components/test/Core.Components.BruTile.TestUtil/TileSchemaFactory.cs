@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -51,7 +51,7 @@ namespace Core.Components.BruTile.TestUtil
             schema.Title = mapData.Name;
             schema.Format = mapData.PreferredFormat;
 
-            schema.Resolutions["1"] = new Resolution("1", 1);
+            schema.Resolutions[1] = new Resolution(1, 1);
 
             var capabilityIdRegex = new Regex(@"(?<Layer>.+)\((?<TileMatrixSet>.+)\)");
             Match match = capabilityIdRegex.Match(mapData.SelectedCapabilityIdentifier);

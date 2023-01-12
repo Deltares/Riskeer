@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -87,16 +87,16 @@ namespace Riskeer.Integration.Plugin.Handlers
         /// <item>The shape file does not contain the required attributes.</item>
         /// <item>The assessment section ids in the shape file are not unique or are missing.</item>
         /// <item>No <see cref="ReferenceLineMeta"/> could be read from the shape file.</item>
-        /// <item>The lower limit norm is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
-        /// <item>The signaling norm is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
-        /// <item>The signaling norm is larger than the lower limit norm.</item>
+        /// <item>The maximum allowable flooding probability is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
+        /// <item>The signal flooding probability is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
+        /// <item>The signal flooding probability is larger than the maximum allowable flooding probability.</item>
         /// </list></exception>
         public AssessmentSection GetAssessmentSectionFromFile()
         {
             TryReadSourceFiles();
             return GetAssessmentSectionFromDialog();
         }
-        
+
         private static void SetFailureMechanismsValueN(AssessmentSection assessmentSection, int n)
         {
             var roundedN = (RoundedDouble) n;
@@ -121,9 +121,9 @@ namespace Riskeer.Integration.Plugin.Handlers
                 return selectedItem == null
                            ? null
                            : TryCreateAssessmentSection(selectedItem,
-                                                        dialog.SelectedLowerLimitNorm,
-                                                        dialog.SelectedSignalingNorm,
-                                                        dialog.SelectedNormativeNorm);
+                                                        dialog.SelectedMaximumAllowableFloodingProbability,
+                                                        dialog.SelectedSignalFloodingProbability,
+                                                        dialog.SelectedNormativeProbabilityType);
             }
         }
 
@@ -140,39 +140,39 @@ namespace Riskeer.Integration.Plugin.Handlers
         /// Creates a new instance of <see cref="AssessmentSection"/> with <see cref="AssessmentSectionComposition"/> 
         /// set to <see cref="AssessmentSectionComposition.Dike"/>.
         /// </summary>
-        /// <param name="lowerLimitNorm">The lower limit norm of the assessment section.</param>
-        /// <param name="signalingNorm">The signaling norm of the assessment section.</param>
+        /// <param name="maximumAllowableFloodingProbability">The maximum allowable flooding probability of the assessment section.</param>
+        /// <param name="signalFloodingProbability">The signal flooding probability of the assessment section.</param>
         /// <returns>The newly created <see cref="AssessmentSection"/>.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when:
         /// <list type="bullet">
-        /// <item><paramref name="lowerLimitNorm"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
-        /// <item><paramref name="signalingNorm"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
-        /// <item>The <paramref name="signalingNorm"/> is larger than <paramref name="lowerLimitNorm"/>.</item>
+        /// <item><paramref name="maximumAllowableFloodingProbability"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
+        /// <item><paramref name="signalFloodingProbability"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
+        /// <item>The <paramref name="signalFloodingProbability"/> is larger than <paramref name="maximumAllowableFloodingProbability"/>.</item>
         /// </list>
         /// </exception>
-        private static AssessmentSection CreateDikeAssessmentSection(double lowerLimitNorm, double signalingNorm)
+        private static AssessmentSection CreateDikeAssessmentSection(double maximumAllowableFloodingProbability, double signalFloodingProbability)
         {
-            return new AssessmentSection(AssessmentSectionComposition.Dike, lowerLimitNorm, signalingNorm);
+            return new AssessmentSection(AssessmentSectionComposition.Dike, maximumAllowableFloodingProbability, signalFloodingProbability);
         }
 
         /// <summary>
         /// Creates a new instance of <see cref="AssessmentSection"/> with <see cref="AssessmentSectionComposition"/> 
         /// set to <see cref="AssessmentSectionComposition.Dike"/>.
         /// </summary>
-        /// <param name="lowerLimitNorm">The lower limit norm of the assessment section.</param>
-        /// <param name="signalingNorm">The signaling norm of the assessment section.</param>
+        /// <param name="maximumAllowableFloodingProbability">The maximum allowable flooding probability of the assessment section.</param>
+        /// <param name="signalFloodingProbability">The signal flooding probability of the assessment section.</param>
         /// <param name="n">The 'N' parameter used to factor in the 'length effect'.</param>
         /// <returns>The newly created <see cref="AssessmentSection"/>.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when:
         /// <list type="bullet">
-        /// <item><paramref name="lowerLimitNorm"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
-        /// <item><paramref name="signalingNorm"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
-        /// <item>The <paramref name="signalingNorm"/> is larger than <paramref name="lowerLimitNorm"/>.</item>
+        /// <item><paramref name="maximumAllowableFloodingProbability"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
+        /// <item><paramref name="signalFloodingProbability"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
+        /// <item>The <paramref name="signalFloodingProbability"/> is larger than <paramref name="maximumAllowableFloodingProbability"/>.</item>
         /// </list>
         /// </exception>
-        private static AssessmentSection CreateDikeAssessmentSection(double lowerLimitNorm, double signalingNorm, int n)
+        private static AssessmentSection CreateDikeAssessmentSection(double maximumAllowableFloodingProbability, double signalFloodingProbability, int n)
         {
-            AssessmentSection assessmentSection = CreateDikeAssessmentSection(lowerLimitNorm, signalingNorm);
+            AssessmentSection assessmentSection = CreateDikeAssessmentSection(maximumAllowableFloodingProbability, signalFloodingProbability);
             SetFailureMechanismsValueN(assessmentSection, n);
             return assessmentSection;
         }
@@ -181,22 +181,22 @@ namespace Riskeer.Integration.Plugin.Handlers
         /// Creates a new instance of <see cref="AssessmentSection"/> with <see cref="AssessmentSectionComposition"/> 
         /// set to <see cref="AssessmentSectionComposition.Dune"/>.
         /// </summary>
-        /// <param name="lowerLimitNorm">The lower limit norm of the assessment section.</param>
-        /// <param name="signalingNorm">The signaling norm of the assessment section.</param>
+        /// <param name="maximumAllowableFloodingProbability">The maximum allowable flooding probability of the assessment section.</param>
+        /// <param name="signalFloodingProbability">The signal flooding probability of the assessment section.</param>
         /// <param name="n">The 'N' parameter used to factor in the 'length effect'.</param>
         /// <returns>The newly created <see cref="AssessmentSection"/>.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when:
         /// <list type="bullet">
-        /// <item><paramref name="lowerLimitNorm"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
-        /// <item><paramref name="signalingNorm"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
-        /// <item>The <paramref name="signalingNorm"/> is larger than <paramref name="lowerLimitNorm"/>.</item>
+        /// <item><paramref name="maximumAllowableFloodingProbability"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
+        /// <item><paramref name="signalFloodingProbability"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
+        /// <item>The <paramref name="signalFloodingProbability"/> is larger than <paramref name="maximumAllowableFloodingProbability"/>.</item>
         /// </list>
         /// </exception>
-        private static AssessmentSection CreateDuneAssessmentSection(double lowerLimitNorm, double signalingNorm, int n)
+        private static AssessmentSection CreateDuneAssessmentSection(double maximumAllowableFloodingProbability, double signalFloodingProbability, int n)
         {
             var duneAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dune,
-                                                              lowerLimitNorm,
-                                                              signalingNorm);
+                                                              maximumAllowableFloodingProbability,
+                                                              signalFloodingProbability);
             SetFailureMechanismsValueN(duneAssessmentSection, n);
             return duneAssessmentSection;
         }
@@ -205,37 +205,37 @@ namespace Riskeer.Integration.Plugin.Handlers
         /// Creates a new instance of <see cref="AssessmentSection"/>.
         /// </summary>
         /// <param name="selectedItem">The selected <see cref="ReferenceLineMeta"/>.</param>
-        /// <param name="lowerLimitNorm">The lower limit norm of the assessment section.</param>
-        /// <param name="signalingNorm">The signaling norm of the assessment section.</param>
-        /// <param name="normativeNorm">The norm type of the assessment section.</param>
+        /// <param name="maximumAllowableFloodingProbability">The maximum allowable flooding probability of the assessment section.</param>
+        /// <param name="signalFloodingProbability">The signal flooding probability of the assessment section.</param>
+        /// <param name="normativeProbabilityType">The normative probability type of the assessment section.</param>
         /// <returns>The newly created <see cref="AssessmentSection"/>.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when:
         /// <list type="bullet">
-        /// <item><paramref name="lowerLimitNorm"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
-        /// <item><paramref name="signalingNorm"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
-        /// <item>The <paramref name="signalingNorm"/> is larger than <paramref name="lowerLimitNorm"/>.</item>
+        /// <item><paramref name="maximumAllowableFloodingProbability"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
+        /// <item><paramref name="signalFloodingProbability"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
+        /// <item>The <paramref name="signalFloodingProbability"/> is larger than <paramref name="maximumAllowableFloodingProbability"/>.</item>
         /// </list>
         /// </exception>
         private AssessmentSection CreateAssessmentSection(ReferenceLineMeta selectedItem,
-                                                          double lowerLimitNorm,
-                                                          double signalingNorm,
-                                                          NormType normativeNorm)
+                                                          double maximumAllowableFloodingProbability,
+                                                          double signalFloodingProbability,
+                                                          NormativeProbabilityType normativeProbabilityType)
         {
             AssessmentSection assessmentSection;
             AssessmentSectionSettings settingOfSelectedAssessmentSection = settings.FirstOrDefault(s => s.AssessmentSectionId == selectedItem.AssessmentSectionId);
             if (settingOfSelectedAssessmentSection == null)
             {
                 log.Warn(Resources.AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_No_settings_found_for_AssessmentSection);
-                assessmentSection = CreateDikeAssessmentSection(lowerLimitNorm, signalingNorm);
+                assessmentSection = CreateDikeAssessmentSection(maximumAllowableFloodingProbability, signalFloodingProbability);
             }
             else
             {
                 assessmentSection = settingOfSelectedAssessmentSection.IsDune
-                                        ? CreateDuneAssessmentSection(lowerLimitNorm,
-                                                                      signalingNorm,
+                                        ? CreateDuneAssessmentSection(maximumAllowableFloodingProbability,
+                                                                      signalFloodingProbability,
                                                                       settingOfSelectedAssessmentSection.N)
-                                        : CreateDikeAssessmentSection(lowerLimitNorm,
-                                                                      signalingNorm,
+                                        : CreateDikeAssessmentSection(maximumAllowableFloodingProbability,
+                                                                      signalFloodingProbability,
                                                                       settingOfSelectedAssessmentSection.N);
             }
 
@@ -251,7 +251,7 @@ namespace Riskeer.Integration.Plugin.Handlers
                 assessmentSection.ReferenceLine.SetGeometry(selectedItem.ReferenceLine.Points);
             }
 
-            assessmentSection.FailureMechanismContribution.NormativeNorm = normativeNorm;
+            assessmentSection.FailureMechanismContribution.NormativeProbabilityType = normativeProbabilityType;
 
             return assessmentSection;
         }
@@ -260,35 +260,35 @@ namespace Riskeer.Integration.Plugin.Handlers
         /// Tries to create the <see cref="AssessmentSection"/>.
         /// </summary>
         /// <param name="selectedItem">The selected <see cref="ReferenceLineMeta"/>.</param>
-        /// <param name="lowerLimitNorm">The lower limit norm of the assessment section.</param>
-        /// <param name="signalingNorm">The signaling norm of the assessment section.</param>
-        /// <param name="normativeNorm">The norm type of the assessment section.</param>
+        /// <param name="maximumAllowableFloodingProbability">The maximum allowable flooding probability of the assessment section.</param>
+        /// <param name="signalFloodingProbability">The signal flooding probability of the assessment section.</param>
+        /// <param name="normativeProbabilityType">The normative probability type of the assessment section.</param>
         /// <returns>The created <see cref="AssessmentSection"/>.</returns>
         /// <exception cref="CriticalFileValidationException">Thrown when:
         /// <list type="bullet">
-        /// <item><paramref name="lowerLimitNorm"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
-        /// <item><paramref name="signalingNorm"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
-        /// <item>The <paramref name="signalingNorm"/> is larger than <paramref name="lowerLimitNorm"/>.</item>
+        /// <item><paramref name="maximumAllowableFloodingProbability"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
+        /// <item><paramref name="signalFloodingProbability"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
+        /// <item>The <paramref name="signalFloodingProbability"/> is larger than <paramref name="maximumAllowableFloodingProbability"/>.</item>
         /// </list>
         /// </exception>
         private AssessmentSection TryCreateAssessmentSection(ReferenceLineMeta selectedItem,
-                                                             double lowerLimitNorm,
-                                                             double signalingNorm,
-                                                             NormType normativeNorm)
+                                                             double maximumAllowableFloodingProbability,
+                                                             double signalFloodingProbability,
+                                                             NormativeProbabilityType normativeProbabilityType)
         {
             try
             {
                 return CreateAssessmentSection(selectedItem,
-                                               lowerLimitNorm,
-                                               signalingNorm,
-                                               normativeNorm);
+                                               maximumAllowableFloodingProbability,
+                                               signalFloodingProbability,
+                                               normativeProbabilityType);
             }
             catch (ArgumentOutOfRangeException exception)
             {
                 var normValidityRange = new Range<double>(1.0 / 1000000, 1.0 / 10);
-                string message = string.Format(Resources.AssessmentSectionFromFileCommandHandler_Unable_to_create_assessmentSection_with_LowerLimitNorm_0_and_SignalingNorm_1_Norms_should_be_in_Range_2_,
-                                               ProbabilityFormattingHelper.Format(lowerLimitNorm),
-                                               ProbabilityFormattingHelper.Format(signalingNorm),
+                string message = string.Format(Resources.AssessmentSectionFromFileCommandHandler_Unable_to_create_assessmentSection_with_MaximumAllowableFloodingProbability_0_and_SignalFloodingProbability_1_Probabilities_should_be_in_Range_2_,
+                                               ProbabilityFormattingHelper.Format(maximumAllowableFloodingProbability),
+                                               ProbabilityFormattingHelper.Format(signalFloodingProbability),
                                                normValidityRange.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture));
 
                 throw new CriticalFileValidationException(message, exception);

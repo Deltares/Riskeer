@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -97,16 +97,11 @@ namespace Riskeer.Common.Data.Test.DikeProfiles
         }
 
         [TestFixture]
-        private class BreakWaterEqualsTest : EqualsTestFixture<BreakWater, DerivedBreakWater>
+        private class BreakWaterEqualsTest : EqualsTestFixture<BreakWater>
         {
             protected override BreakWater CreateObject()
             {
                 return CreateBreakWater();
-            }
-
-            protected override DerivedBreakWater CreateDerivedObject()
-            {
-                return new DerivedBreakWater(CreateBreakWater());
             }
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
@@ -126,12 +121,6 @@ namespace Riskeer.Common.Data.Test.DikeProfiles
             {
                 return new BreakWater(BreakWaterType.Caisson, 3.14);
             }
-        }
-
-        private class DerivedBreakWater : BreakWater
-        {
-            public DerivedBreakWater(BreakWater breakWater)
-                : base(breakWater.Type, breakWater.Height) {}
         }
     }
 }

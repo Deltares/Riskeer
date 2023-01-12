@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -99,6 +99,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
             AssessmentSectionComposition originalComposition = assessmentSection.Composition;
             ICalculation[] calculationsWithOutput = assessmentSection.GetFailureMechanisms()
+                                                                     .OfType<ICalculatableFailureMechanism>()
                                                                      .SelectMany(fm => fm.Calculations)
                                                                      .Where(c => c.HasOutput)
                                                                      .ToArray();
@@ -107,8 +108,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                                                                                                        .Where(HasDuneLocationCalculationOutput)
                                                                                                        .ToArray();
 
-            IEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculationsWithOutput = assessmentSection.WaterLevelCalculationsForLowerLimitNorm.Where(HasHydraulicBoundaryLocationCalculationOutput)
-                                                                                                                                 .Concat(assessmentSection.WaterLevelCalculationsForSignalingNorm.Where(HasHydraulicBoundaryLocationCalculationOutput))
+            IEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculationsWithOutput = assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability.Where(HasHydraulicBoundaryLocationCalculationOutput)
+                                                                                                                                 .Concat(assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.Where(HasHydraulicBoundaryLocationCalculationOutput))
                                                                                                                                  .Concat(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.SelectMany(tp => tp.HydraulicBoundaryLocationCalculations))
                                                                                                                                  .ToArray();
 

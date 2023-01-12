@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -44,8 +44,8 @@ namespace Riskeer.Common.Forms.MapLayers
         private Observer failureMechanismContributionObserver;
 
         private Observer hydraulicBoundaryLocationsObserver;
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForSignalingNormObserver;
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForLowerLimitNormObserver;
+        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForSignalFloodingProbabilityObserver;
+        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForMaximumAllowableFloodingProbabilityObserver;
 
         private Observer waterLevelForUserDefinedTargetProbabilitiesCollectionObserver;
         private Observer waveHeightForUserDefinedTargetProbabilitiesCollectionObserver;
@@ -97,8 +97,8 @@ namespace Riskeer.Common.Forms.MapLayers
             {
                 failureMechanismContributionObserver.Dispose();
                 hydraulicBoundaryLocationsObserver.Dispose();
-                waterLevelCalculationsForSignalingNormObserver.Dispose();
-                waterLevelCalculationsForLowerLimitNormObserver.Dispose();
+                waterLevelCalculationsForSignalFloodingProbabilityObserver.Dispose();
+                waterLevelCalculationsForMaximumAllowableFloodingProbabilityObserver.Dispose();
                 waterLevelForUserDefinedTargetProbabilitiesCollectionObserver.Dispose();
                 waveHeightForUserDefinedTargetProbabilitiesCollectionObserver.Dispose();
                 waterLevelForUserDefinedTargetProbabilitiesObserver.Dispose();
@@ -121,10 +121,10 @@ namespace Riskeer.Common.Forms.MapLayers
                 Observable = assessmentSection.HydraulicBoundaryDatabase.Locations
             };
 
-            waterLevelCalculationsForSignalingNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                assessmentSection.WaterLevelCalculationsForSignalingNorm, UpdateFeatures);
-            waterLevelCalculationsForLowerLimitNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                assessmentSection.WaterLevelCalculationsForLowerLimitNorm, UpdateFeatures);
+            waterLevelCalculationsForSignalFloodingProbabilityObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
+                assessmentSection.WaterLevelCalculationsForSignalFloodingProbability, UpdateFeatures);
+            waterLevelCalculationsForMaximumAllowableFloodingProbabilityObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
+                assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability, UpdateFeatures);
 
             waterLevelForUserDefinedTargetProbabilitiesCollectionObserver = new Observer(() =>
             {
@@ -253,8 +253,8 @@ namespace Riskeer.Common.Forms.MapLayers
                     tp => (IObservableEnumerable<HydraulicBoundaryLocationCalculation>) tp.HydraulicBoundaryLocationCalculations,
                     tp => tp.TargetProbability);
 
-            waterLevelCalculations.Add(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, assessmentSection.FailureMechanismContribution.LowerLimitNorm);
-            waterLevelCalculations.Add(assessmentSection.WaterLevelCalculationsForSignalingNorm, assessmentSection.FailureMechanismContribution.SignalingNorm);
+            waterLevelCalculations.Add(assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability, assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability);
+            waterLevelCalculations.Add(assessmentSection.WaterLevelCalculationsForSignalFloodingProbability, assessmentSection.FailureMechanismContribution.SignalFloodingProbability);
 
             return waterLevelCalculations.OrderByDescending(pair => pair.Value)
                                          .ToDictionary(x => x.Key, x => string.Format(Resources.MetaData_WaterLevel_TargetProbability_0,

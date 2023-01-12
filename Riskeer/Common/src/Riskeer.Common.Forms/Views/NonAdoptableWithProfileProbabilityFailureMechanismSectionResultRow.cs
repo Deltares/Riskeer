@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -23,6 +23,7 @@ using System;
 using System.ComponentModel;
 using Core.Common.Base.Data;
 using Core.Common.Controls.DataGrid;
+using Core.Common.Util.Enums;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.Exceptions;
@@ -52,7 +53,7 @@ namespace Riskeer.Common.Forms.Views
         private readonly int assemblyGroupIndex;
 
         private readonly IFailureMechanismSectionResultRowErrorProvider failureMechanismSectionResultRowErrorProvider;
-        private readonly Func<FailureMechanismSectionAssemblyResult> performAssemblyFunc;
+        private readonly Func<FailureMechanismSectionAssemblyResultWrapper> performAssemblyFunc;
 
         /// <summary>
         /// Creates a new instance of <see cref="NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow"/>.
@@ -67,7 +68,7 @@ namespace Riskeer.Common.Forms.Views
         /// <exception cref="ArgumentNullException">Throw when any parameter is <c>null</c>.</exception>
         public NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow(NonAdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult,
                                                                                   IFailureMechanismSectionResultRowErrorProvider failureMechanismSectionResultRowErrorProvider,
-                                                                                  Func<FailureMechanismSectionAssemblyResult> performAssemblyFunc,
+                                                                                  Func<FailureMechanismSectionAssemblyResultWrapper> performAssemblyFunc,
                                                                                   ConstructionProperties constructionProperties)
             : base(sectionResult)
         {
@@ -85,7 +86,7 @@ namespace Riskeer.Common.Forms.Views
             {
                 throw new ArgumentNullException(nameof(constructionProperties));
             }
-            
+
             this.failureMechanismSectionResultRowErrorProvider = failureMechanismSectionResultRowErrorProvider;
             this.performAssemblyFunc = performAssemblyFunc;
 
@@ -225,7 +226,7 @@ namespace Riskeer.Common.Forms.Views
         /// <summary>
         /// Gets the assembly group.
         /// </summary>
-        public string AssemblyGroup => FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(AssemblyResult.AssemblyGroup);
+        public string AssemblyGroup => EnumDisplayNameHelper.GetDisplayName(AssemblyResult.FailureMechanismSectionAssemblyGroup);
 
         public override void Update()
         {
@@ -281,7 +282,7 @@ namespace Riskeer.Common.Forms.Views
         {
             try
             {
-                AssemblyResult = performAssemblyFunc();
+                AssemblyResult = performAssemblyFunc().AssemblyResult;
             }
             catch (AssemblyException e)
             {
@@ -335,7 +336,7 @@ namespace Riskeer.Common.Forms.Views
                 ColumnStateHelper.EnableColumn(ColumnStateDefinitions[refinedSectionProbabilityIndex]);
             }
 
-            FailureMechanismSectionResultRowHelper.SetAssemblyGroupStyle(ColumnStateDefinitions[assemblyGroupIndex], AssemblyResult.AssemblyGroup);
+            FailureMechanismSectionResultRowHelper.SetAssemblyGroupStyle(ColumnStateDefinitions[assemblyGroupIndex], AssemblyResult.FailureMechanismSectionAssemblyGroup);
         }
 
         /// <summary>

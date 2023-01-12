@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -40,7 +40,7 @@ namespace Application.Riskeer.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -100,22 +100,12 @@ namespace Application.Riskeer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De Helpdesk Water is gehuisvest bij de Rijkswaterstaat Water, Verkeer en Leefomgeving (RWS WVL). De helpdesk richt zich op het ontsluiten van kennis die aanwezig is binnen de werkvelden waterbeleid en waterbeheer in de breedste zin.
-        ///
-        ///Hierbij wordt intensief samengewerkt met diverse organisatieonderdelen zowel binnen Rijkswaterstaat als daar buiten. Op deze manier kan de helpdesk uw vragen snel en efficiënt beantwoorden, waarbij optimaal gebruik wordt gemaakt van de beschikbare kennis..
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static string HelpdeskWater_Description {
+        internal static System.Drawing.Bitmap MadeBy {
             get {
-                return ResourceManager.GetString("HelpdeskWater_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Helpdesk Water.
-        /// </summary>
-        internal static string HelpdeskWater_DisplayName {
-            get {
-                return ResourceManager.GetString("HelpdeskWater_DisplayName", resourceCulture);
+                object obj = ResourceManager.GetObject("MadeBy", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -126,6 +116,26 @@ namespace Application.Riskeer.Properties {
             get {
                 object obj = ResourceManager.GetObject("Riskeer", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Informatiepunt Leefomgeving.
+        /// </summary>
+        internal static string SupportHeader {
+            get {
+                return ResourceManager.GetString("SupportHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Samen met onze partners, informeert het Informatiepunt Leefomgeving (IPLO) over de juridische uitleg en praktische toepassingen van de Omgevingswet, de onderliggende regelgeving en de digitale voorzieningen. Dit ter ondersteuning van een goede in- en uitvoering van de wet en het gebruik van de digitale voorzieningen.
+        ///
+        ///Hierbij wordt intensief samengewerkt met diverse organisatieonderdelen zowel binnen Rijkswaterstaat als daar buiten. Op deze manier kan het IPLO uw vragen snel en efficiënt beantwoorden, waa [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string SupportText {
+            get {
+                return ResourceManager.GetString("SupportText", resourceCulture);
             }
         }
     }

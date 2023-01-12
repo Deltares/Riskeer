@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -30,12 +30,12 @@ namespace Riskeer.AssemblyTool.Data
         /// Creates a new instance of <see cref="AssessmentSectionAssemblyResult"/>.
         /// </summary>
         /// <param name="probability">The failure probability of the assessment section.</param>
-        /// <param name="assemblyCategoryGroup">The <see cref="AssessmentSectionAssemblyCategoryGroup"/>.</param>
+        /// <param name="assemblyGroup">The <see cref="AssessmentSectionAssemblyGroup"/>.</param>
         public AssessmentSectionAssemblyResult(double probability,
-                                               AssessmentSectionAssemblyCategoryGroup assemblyCategoryGroup)
+                                               AssessmentSectionAssemblyGroup assemblyGroup)
         {
             Probability = probability;
-            AssemblyCategoryGroup = assemblyCategoryGroup;
+            AssemblyGroup = assemblyGroup;
         }
 
         /// <summary>
@@ -44,8 +44,8 @@ namespace Riskeer.AssemblyTool.Data
         public double Probability { get; }
 
         /// <summary>
-        /// Gets the <see cref="AssessmentSectionAssemblyCategoryGroup"/>.
+        /// Gets the <see cref="AssessmentSectionAssemblyGroup"/>.
         /// </summary>
-        public AssessmentSectionAssemblyCategoryGroup AssemblyCategoryGroup { get; }
+        public AssessmentSectionAssemblyGroup AssemblyGroup { get; }
     }
 }

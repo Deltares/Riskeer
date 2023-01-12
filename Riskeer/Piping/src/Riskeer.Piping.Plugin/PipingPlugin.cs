@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -71,6 +71,12 @@ using Riskeer.Piping.Service;
 using Riskeer.Piping.Service.Probabilistic;
 using Riskeer.Piping.Service.SemiProbabilistic;
 using Riskeer.Piping.Util;
+using CalculationsStateFailureMechanismContext = Riskeer.Piping.Forms.PresentationObjects.CalculationsState.PipingFailureMechanismContext;
+using RegistrationStateFailureMechanismContext = Riskeer.Piping.Forms.PresentationObjects.RegistrationState.PipingFailureMechanismContext;
+using CalculationsStateFailureMechanismProperties = Riskeer.Piping.Forms.PropertyClasses.CalculationsState.PipingFailureMechanismProperties;
+using RegistrationStateFailureMechanismProperties = Riskeer.Piping.Forms.PropertyClasses.RegistrationState.PipingFailureMechanismProperties;
+using CalculationsStateFailureMechanismView = Riskeer.Piping.Forms.Views.CalculationsState.PipingFailureMechanismView;
+using RegistrationStateFailureMechanismView = Riskeer.Piping.Forms.Views.RegistrationState.PipingFailureMechanismView;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 using PipingFormsResources = Riskeer.Piping.Forms.Properties.Resources;
@@ -84,19 +90,19 @@ namespace Riskeer.Piping.Plugin
     {
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<PipingCalculationsContext, PipingCalculationsProperties>
+            yield return new PropertyInfo<CalculationsStateFailureMechanismContext, CalculationsStateFailureMechanismProperties>
             {
-                CreateInstance = context => new PipingCalculationsProperties(context.WrappedData, new FailureMechanismPropertyChangeHandler<PipingFailureMechanism>())
+                CreateInstance = context => new CalculationsStateFailureMechanismProperties(context.WrappedData, new FailureMechanismPropertyChangeHandler<PipingFailureMechanism>())
             };
-            yield return new PropertyInfo<PipingFailurePathContext, PipingFailurePathProperties>
+            yield return new PropertyInfo<RegistrationStateFailureMechanismContext, RegistrationStateFailureMechanismProperties>
             {
-                CreateInstance = context => new PipingFailurePathProperties(context.WrappedData, context.Parent)
+                CreateInstance = context => new RegistrationStateFailureMechanismProperties(context.WrappedData, context.Parent)
             };
             yield return new PropertyInfo<SemiProbabilisticPipingInputContext, SemiProbabilisticPipingInputContextProperties>
             {
-                CreateInstance = context => new SemiProbabilisticPipingInputContextProperties(context,
-                                                                                              () => GetNormativeAssessmentLevel(context.AssessmentSection, context.PipingCalculation),
-                                                                                              new ObservablePropertyChangeHandler(context.PipingCalculation, context.WrappedData))
+                CreateInstance = context => new SemiProbabilisticPipingInputContextProperties(
+                    context, () => GetNormativeAssessmentLevel(context.AssessmentSection, context.PipingCalculation),
+                    new ObservablePropertyChangeHandler(context.PipingCalculation, context.WrappedData))
             };
             yield return new PropertyInfo<ProbabilisticPipingInputContext, ProbabilisticPipingInputContextProperties>
             {
@@ -104,7 +110,7 @@ namespace Riskeer.Piping.Plugin
             };
             yield return new PropertyInfo<SemiProbabilisticPipingOutputContext, SemiProbabilisticPipingOutputProperties>
             {
-                CreateInstance = context => new SemiProbabilisticPipingOutputProperties(context.WrappedData, context.AssessmentSection.FailureMechanismContribution.Norm)
+                CreateInstance = context => new SemiProbabilisticPipingOutputProperties(context.WrappedData, context.AssessmentSection.FailureMechanismContribution.NormativeProbability)
             };
             yield return new PropertyInfo<PipingSurfaceLinesContext, PipingSurfaceLineCollectionProperties>
             {
@@ -126,7 +132,7 @@ namespace Riskeer.Piping.Plugin
             yield return new PropertyInfo<PipingFailureMechanismSectionsContext, FailureMechanismSectionsProbabilityAssessmentProperties>
             {
                 CreateInstance = context => new FailureMechanismSectionsProbabilityAssessmentProperties(
-                    (IFailureMechanism) context.WrappedData, ((PipingFailureMechanism) context.WrappedData).PipingProbabilityAssessmentInput)
+                    context.WrappedData, ((PipingFailureMechanism) context.WrappedData).PipingProbabilityAssessmentInput)
             };
             yield return new PropertyInfo<ProbabilisticPipingProfileSpecificOutputContext, ProbabilisticPipingOutputProperties>
             {
@@ -242,18 +248,18 @@ namespace Riskeer.Piping.Plugin
 
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
-            yield return new RiskeerViewInfo<PipingCalculationsContext, PipingFailureMechanismView>(() => Gui)
+            yield return new RiskeerViewInfo<CalculationsStateFailureMechanismContext, CalculationsStateFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                CreateInstance = context => new PipingFailureMechanismView(context.WrappedData, context.Parent)
+                CreateInstance = context => new CalculationsStateFailureMechanismView(context.WrappedData, context.Parent)
             };
 
-            yield return new RiskeerViewInfo<PipingFailurePathContext, PipingFailurePathView>(() => Gui)
+            yield return new RiskeerViewInfo<RegistrationStateFailureMechanismContext, RegistrationStateFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 AdditionalDataCheck = context => context.WrappedData.InAssembly,
-                CreateInstance = context => new PipingFailurePathView(context.WrappedData, context.Parent),
-                CloseForData = ClosePipingFailurePathViewForData
+                CreateInstance = context => new RegistrationStateFailureMechanismView(context.WrappedData, context.Parent),
+                CloseForData = ClosePipingFailureMechanismViewForData
             };
 
             yield return new RiskeerViewInfo<
@@ -306,9 +312,9 @@ namespace Riskeer.Piping.Plugin
                 GetViewData = context => context.WrappedData.Sections,
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanismSections_DisplayName,
                 CloseForData = RiskeerPluginHelper.ShouldCloseForFailureMechanismView,
-                CreateInstance = context => new FailureMechanismSectionsProbabilityAssessmentView(context.WrappedData.Sections,
-                                                                                                  (IFailureMechanism) context.WrappedData,
-                                                                                                  ((PipingFailureMechanism) context.WrappedData).PipingProbabilityAssessmentInput)
+                CreateInstance = context => new FailureMechanismSectionsProbabilityAssessmentView(
+                    context.WrappedData.Sections, context.WrappedData,
+                    ((PipingFailureMechanism) context.WrappedData).PipingProbabilityAssessmentInput)
             };
 
             yield return new RiskeerViewInfo<ProbabilisticPipingProfileSpecificOutputContext, ProbabilisticPipingCalculationScenario, ProbabilisticFaultTreePipingOutputView>(() => Gui)
@@ -367,15 +373,15 @@ namespace Riskeer.Piping.Plugin
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
-            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<PipingCalculationsContext>(
-                CalculationsChildNodeObjects,
-                CalculationsContextMenuStrip);
+            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<CalculationsStateFailureMechanismContext>(
+                CalculationsStateFailureMechanismChildNodeObjects,
+                CalculationsStateFailureMechanismContextMenuStrip);
 
-            yield return RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<PipingFailurePathContext>(
-                FailurePathEnabledChildNodeObjects,
-                FailurePathDisabledChildNodeObjects,
-                FailurePathEnabledContextMenuStrip,
-                FailurePathDisabledContextMenuStrip);
+            yield return RiskeerTreeNodeInfoFactory.CreateRegistrationStateContextTreeNodeInfo<RegistrationStateFailureMechanismContext>(
+                RegistrationStateFailureMechanismEnabledChildNodeObjects,
+                RegistrationStateFailureMechanismDisabledChildNodeObjects,
+                RegistrationStateFailureMechanismEnabledContextMenuStrip,
+                RegistrationStateFailureMechanismDisabledContextMenuStrip);
 
             yield return RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<SemiProbabilisticPipingCalculationScenarioContext>(
                 SemiProbabilisticPipingCalculationScenarioContextChildNodeObjects,
@@ -578,11 +584,10 @@ namespace Riskeer.Piping.Plugin
 
         #region ViewInfos
 
-        private static bool ClosePipingFailurePathViewForData(PipingFailurePathView view, object dataToCloseFor)
+        private static bool ClosePipingFailureMechanismViewForData(RegistrationStateFailureMechanismView view, object dataToCloseFor)
         {
-            var assessmentSection = dataToCloseFor as IAssessmentSection;
             var pipingFailureMechanism = dataToCloseFor as PipingFailureMechanism;
-            return assessmentSection != null
+            return dataToCloseFor is IAssessmentSection assessmentSection
                        ? ReferenceEquals(view.AssessmentSection, assessmentSection)
                        : ReferenceEquals(view.FailureMechanism, pipingFailureMechanism);
         }
@@ -598,9 +603,9 @@ namespace Riskeer.Piping.Plugin
                                                     .FirstOrDefault();
             }
 
-            if (dataToCloseFor is IFailurePathContext<PipingFailureMechanism> failurePathContext)
+            if (dataToCloseFor is IFailureMechanismContext<PipingFailureMechanism> failureMechanismContext)
             {
-                failureMechanism = failurePathContext.WrappedData;
+                failureMechanism = failureMechanismContext.WrappedData;
             }
 
             return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
@@ -617,7 +622,7 @@ namespace Riskeer.Piping.Plugin
                                                     .FirstOrDefault();
             }
 
-            if (dataToCloseFor is PipingCalculationsContext context)
+            if (dataToCloseFor is CalculationsStateFailureMechanismContext context)
             {
                 failureMechanism = context.WrappedData;
             }
@@ -655,7 +660,7 @@ namespace Riskeer.Piping.Plugin
                                                     .FirstOrDefault();
             }
 
-            if (dataToCloseFor is PipingCalculationsContext context)
+            if (dataToCloseFor is CalculationsStateFailureMechanismContext context)
             {
                 failureMechanism = context.WrappedData;
             }
@@ -758,9 +763,9 @@ namespace Riskeer.Piping.Plugin
             return assessmentSection.GetNormativeAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation);
         }
 
-        #region PipingCalculationsContext TreeNodeInfo
+        #region CalculationsStateFailureMechanismContext TreeNodeInfo
 
-        private static object[] CalculationsChildNodeObjects(PipingCalculationsContext context)
+        private static object[] CalculationsStateFailureMechanismChildNodeObjects(CalculationsStateFailureMechanismContext context)
         {
             PipingFailureMechanism failureMechanism = context.WrappedData;
             IAssessmentSection assessmentSection = context.Parent;
@@ -768,13 +773,13 @@ namespace Riskeer.Piping.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
-                                       GetCalculationsInputs(failureMechanism, assessmentSection), TreeFolderCategory.Input),
+                                       GetCalculationsStateFailureMechanismInputs(failureMechanism, assessmentSection), TreeFolderCategory.Input),
                 new PipingCalculationGroupContext(failureMechanism.CalculationsGroup, null, failureMechanism.SurfaceLines,
                                                   failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection)
             };
         }
 
-        private static IEnumerable<object> GetCalculationsInputs(PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetCalculationsStateFailureMechanismInputs(PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
@@ -785,9 +790,9 @@ namespace Riskeer.Piping.Plugin
             };
         }
 
-        private ContextMenuStrip CalculationsContextMenuStrip(PipingCalculationsContext context,
-                                                              object parentData,
-                                                              TreeViewControl treeViewControl)
+        private ContextMenuStrip CalculationsStateFailureMechanismContextMenuStrip(CalculationsStateFailureMechanismContext context,
+                                                                                   object parentData,
+                                                                                   TreeViewControl treeViewControl)
         {
             IEnumerable<ProbabilisticPipingCalculationScenario> calculations = context.WrappedData
                                                                                       .Calculations
@@ -823,7 +828,7 @@ namespace Riskeer.Piping.Plugin
         /// <param name="context">The context to validate the calculations from.</param>
         /// <exception cref="NotSupportedException">Thrown when any of the calculations in <paramref name="context"/>
         /// is of a type that is not supported.</exception>
-        private static void ValidateAllInFailureMechanism(PipingCalculationsContext context)
+        private static void ValidateAllInFailureMechanism(CalculationsStateFailureMechanismContext context)
         {
             ValidateAll(context.WrappedData.Calculations.Cast<IPipingCalculationScenario<PipingInput>>(),
                         context.WrappedData, context.Parent);
@@ -835,7 +840,7 @@ namespace Riskeer.Piping.Plugin
         /// <param name="context">The context to perform the calculations from.</param>
         /// <exception cref="NotSupportedException">Thrown when any of the calculations in <paramref name="context"/>
         /// is of a type that is not supported.</exception>
-        private void CalculateAllInFailureMechanism(PipingCalculationsContext context)
+        private void CalculateAllInFailureMechanism(CalculationsStateFailureMechanismContext context)
         {
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow, PipingCalculationActivityFactory.CreateCalculationActivities(context.WrappedData,
@@ -844,9 +849,9 @@ namespace Riskeer.Piping.Plugin
 
         #endregion
 
-        #region PipingFailurePathContext TreeNodeInfo
+        #region RegistrationStateFailureMechanismContext TreeNodeInfo
 
-        private static object[] FailurePathEnabledChildNodeObjects(PipingFailurePathContext context)
+        private static object[] RegistrationStateFailureMechanismEnabledChildNodeObjects(RegistrationStateFailureMechanismContext context)
         {
             PipingFailureMechanism failureMechanism = context.WrappedData;
             IAssessmentSection assessmentSection = context.Parent;
@@ -854,13 +859,13 @@ namespace Riskeer.Piping.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
-                                       GetFailurePathInputs(failureMechanism, assessmentSection), TreeFolderCategory.Input),
+                                       GetRegistrationStateFailureMechanismInputs(failureMechanism, assessmentSection), TreeFolderCategory.Input),
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
-                                       GetFailurePathOutputs(failureMechanism, assessmentSection), TreeFolderCategory.Output)
+                                       GetRegistrationStateFailureMechanismOutputs(failureMechanism, assessmentSection), TreeFolderCategory.Output)
             };
         }
 
-        private static object[] FailurePathDisabledChildNodeObjects(PipingFailurePathContext context)
+        private static object[] RegistrationStateFailureMechanismDisabledChildNodeObjects(RegistrationStateFailureMechanismContext context)
         {
             return new object[]
             {
@@ -868,7 +873,7 @@ namespace Riskeer.Piping.Plugin
             };
         }
 
-        private static IEnumerable<object> GetFailurePathInputs(PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetRegistrationStateFailureMechanismInputs(PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
@@ -877,7 +882,7 @@ namespace Riskeer.Piping.Plugin
             };
         }
 
-        private static IEnumerable<object> GetFailurePathOutputs(PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetRegistrationStateFailureMechanismOutputs(PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
@@ -888,15 +893,15 @@ namespace Riskeer.Piping.Plugin
             };
         }
 
-        private ContextMenuStrip FailurePathEnabledContextMenuStrip(PipingFailurePathContext context,
-                                                                    object parentData,
-                                                                    TreeViewControl treeViewControl)
+        private ContextMenuStrip RegistrationStateFailureMechanismEnabledContextMenuStrip(RegistrationStateFailureMechanismContext context,
+                                                                                          object parentData,
+                                                                                          TreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
             return builder.AddOpenItem()
                           .AddSeparator()
-                          .AddToggleInAssemblyOfFailurePathItem(context, RemoveAllViewsForItem)
+                          .AddToggleInAssemblyOfFailureMechanismItem(context, RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
@@ -905,13 +910,13 @@ namespace Riskeer.Piping.Plugin
                           .Build();
         }
 
-        private ContextMenuStrip FailurePathDisabledContextMenuStrip(PipingFailurePathContext context,
-                                                                     object parentData,
-                                                                     TreeViewControl treeViewControl)
+        private ContextMenuStrip RegistrationStateFailureMechanismDisabledContextMenuStrip(RegistrationStateFailureMechanismContext context,
+                                                                                           object parentData,
+                                                                                           TreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
-            return builder.AddToggleInAssemblyOfFailurePathItem(context, RemoveAllViewsForItem)
+            return builder.AddToggleInAssemblyOfFailureMechanismItem(context, RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
@@ -920,7 +925,7 @@ namespace Riskeer.Piping.Plugin
                           .Build();
         }
 
-        private void RemoveAllViewsForItem(PipingFailurePathContext context)
+        private void RemoveAllViewsForItem(RegistrationStateFailureMechanismContext context)
         {
             Gui.ViewCommands.RemoveAllViewsForItem(context);
         }
@@ -1146,10 +1151,10 @@ namespace Riskeer.Piping.Plugin
                 if (dialog.SelectedItems.Any())
                 {
                     foreach (ICalculationBase group in PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
-                        dialog.SelectedItems,
-                        dialog.GenerateSemiProbabilistic,
-                        dialog.GenerateProbabilistic,
-                        nodeData.AvailableStochasticSoilModels))
+                                 dialog.SelectedItems,
+                                 dialog.GenerateSemiProbabilistic,
+                                 dialog.GenerateProbabilistic,
+                                 nodeData.AvailableStochasticSoilModels))
                     {
                         nodeData.WrappedData.Children.Add(group);
                     }

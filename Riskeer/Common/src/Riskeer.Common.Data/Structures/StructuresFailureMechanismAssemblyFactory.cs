@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -41,12 +41,12 @@ namespace Riskeer.Common.Data.Structures
         /// <param name="sectionResult">The section result to assemble.</param>
         /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> the section result belongs to.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the section belongs to.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssemblyResult"/>.</returns>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyResultWrapper"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the section could not be assembled.</exception>
-        public static FailureMechanismSectionAssemblyResult AssembleSection<TStructuresInput>(AdoptableFailureMechanismSectionResult sectionResult,
-                                                                                              IFailureMechanism failureMechanism,
-                                                                                              IAssessmentSection assessmentSection)
+        public static FailureMechanismSectionAssemblyResultWrapper AssembleSection<TStructuresInput>(AdoptableFailureMechanismSectionResult sectionResult,
+                                                                                                     ICalculatableFailureMechanism failureMechanism,
+                                                                                                     IAssessmentSection assessmentSection)
             where TStructuresInput : IStructuresCalculationInput<StructureBase>, new()
         {
             if (sectionResult == null)

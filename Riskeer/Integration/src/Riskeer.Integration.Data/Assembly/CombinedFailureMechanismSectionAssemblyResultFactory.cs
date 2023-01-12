@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -41,7 +41,7 @@ namespace Riskeer.Integration.Data.Assembly
         /// <param name="assessmentSection">The assessment section to use while creating the results.</param>
         /// <returns>A collection of <see cref="CombinedFailureMechanismSectionAssemblyResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static IEnumerable<CombinedFailureMechanismSectionAssemblyResult> Create(IEnumerable<CombinedFailureMechanismSectionAssembly> output,
+        public static IEnumerable<CombinedFailureMechanismSectionAssemblyResult> Create(CombinedFailureMechanismSectionAssemblyResultWrapper output,
                                                                                         IDictionary<IFailureMechanism, int> failureMechanisms,
                                                                                         AssessmentSection assessmentSection)
         {
@@ -60,13 +60,15 @@ namespace Riskeer.Integration.Data.Assembly
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return output.Select((assembly, sectionNumber) => new CombinedFailureMechanismSectionAssemblyResult(
-                                     sectionNumber + 1,
-                                     assembly.Section.SectionStart,
-                                     assembly.Section.SectionEnd,
-                                     assembly.Section.AssemblyGroup,
-                                     CreateFailureMechanismResults(assembly.FailureMechanismAssemblyGroupResults,
-                                                                   failureMechanisms, assessmentSection)))
+            return output.AssemblyResults.Select(assembly => new CombinedFailureMechanismSectionAssemblyResult(
+                                                     assembly.Section.SectionStart,
+                                                     assembly.Section.SectionEnd,
+                                                     assembly.Section.FailureMechanismSectionAssemblyGroup,
+                                                     output.CommonSectionAssemblyMethod,
+                                                     output.FailureMechanismResultsAssemblyMethod,
+                                                     output.CombinedSectionResultAssemblyMethod,
+                                                     CreateFailureMechanismResults(assembly.FailureMechanismSectionAssemblyGroupResults,
+                                                                                   failureMechanisms, assessmentSection)))
                          .ToArray();
         }
 
@@ -77,33 +79,34 @@ namespace Riskeer.Integration.Data.Assembly
         {
             var constructionProperties = new CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties
             {
-                Piping = GetCategoryGroup(assessmentSection.Piping, failureMechanisms, failureMechanismResults),
-                GrassCoverErosionInwards = GetCategoryGroup(assessmentSection.GrassCoverErosionInwards, failureMechanisms, failureMechanismResults),
-                MacroStabilityInwards = GetCategoryGroup(assessmentSection.MacroStabilityInwards, failureMechanisms, failureMechanismResults),
-                Microstability = GetCategoryGroup(assessmentSection.Microstability, failureMechanisms, failureMechanismResults),
-                StabilityStoneCover = GetCategoryGroup(assessmentSection.StabilityStoneCover, failureMechanisms, failureMechanismResults),
-                WaveImpactAsphaltCover = GetCategoryGroup(assessmentSection.WaveImpactAsphaltCover, failureMechanisms, failureMechanismResults),
-                WaterPressureAsphaltCover = GetCategoryGroup(assessmentSection.WaterPressureAsphaltCover, failureMechanisms, failureMechanismResults),
-                GrassCoverErosionOutwards = GetCategoryGroup(assessmentSection.GrassCoverErosionOutwards, failureMechanisms, failureMechanismResults),
-                GrassCoverSlipOffOutwards = GetCategoryGroup(assessmentSection.GrassCoverSlipOffOutwards, failureMechanisms, failureMechanismResults),
-                GrassCoverSlipOffInwards = GetCategoryGroup(assessmentSection.GrassCoverSlipOffInwards, failureMechanisms, failureMechanismResults),
-                HeightStructures = GetCategoryGroup(assessmentSection.HeightStructures, failureMechanisms, failureMechanismResults),
-                ClosingStructures = GetCategoryGroup(assessmentSection.ClosingStructures, failureMechanisms, failureMechanismResults),
-                PipingStructure = GetCategoryGroup(assessmentSection.PipingStructure, failureMechanisms, failureMechanismResults),
-                StabilityPointStructures = GetCategoryGroup(assessmentSection.StabilityPointStructures, failureMechanisms, failureMechanismResults),
-                DuneErosion = GetCategoryGroup(assessmentSection.DuneErosion, failureMechanisms, failureMechanismResults)
+                Piping = GetAssemblyGroup(assessmentSection.Piping, failureMechanisms, failureMechanismResults),
+                GrassCoverErosionInwards = GetAssemblyGroup(assessmentSection.GrassCoverErosionInwards, failureMechanisms, failureMechanismResults),
+                MacroStabilityInwards = GetAssemblyGroup(assessmentSection.MacroStabilityInwards, failureMechanisms, failureMechanismResults),
+                Microstability = GetAssemblyGroup(assessmentSection.Microstability, failureMechanisms, failureMechanismResults),
+                StabilityStoneCover = GetAssemblyGroup(assessmentSection.StabilityStoneCover, failureMechanisms, failureMechanismResults),
+                WaveImpactAsphaltCover = GetAssemblyGroup(assessmentSection.WaveImpactAsphaltCover, failureMechanisms, failureMechanismResults),
+                WaterPressureAsphaltCover = GetAssemblyGroup(assessmentSection.WaterPressureAsphaltCover, failureMechanisms, failureMechanismResults),
+                GrassCoverErosionOutwards = GetAssemblyGroup(assessmentSection.GrassCoverErosionOutwards, failureMechanisms, failureMechanismResults),
+                GrassCoverSlipOffOutwards = GetAssemblyGroup(assessmentSection.GrassCoverSlipOffOutwards, failureMechanisms, failureMechanismResults),
+                GrassCoverSlipOffInwards = GetAssemblyGroup(assessmentSection.GrassCoverSlipOffInwards, failureMechanisms, failureMechanismResults),
+                HeightStructures = GetAssemblyGroup(assessmentSection.HeightStructures, failureMechanisms, failureMechanismResults),
+                ClosingStructures = GetAssemblyGroup(assessmentSection.ClosingStructures, failureMechanisms, failureMechanismResults),
+                PipingStructure = GetAssemblyGroup(assessmentSection.PipingStructure, failureMechanisms, failureMechanismResults),
+                StabilityPointStructures = GetAssemblyGroup(assessmentSection.StabilityPointStructures, failureMechanisms, failureMechanismResults),
+                DuneErosion = GetAssemblyGroup(assessmentSection.DuneErosion, failureMechanisms, failureMechanismResults),
+                SpecificFailureMechanisms = assessmentSection.SpecificFailureMechanisms.Select(sfp => GetAssemblyGroup(sfp, failureMechanisms, failureMechanismResults)).ToArray()
             };
 
             return constructionProperties;
         }
 
-        private static FailureMechanismSectionAssemblyGroup GetCategoryGroup(IFailureMechanism failureMechanism,
-                                                                             IDictionary<IFailureMechanism, int> failureMechanisms,
-                                                                             IEnumerable<FailureMechanismSectionAssemblyGroup> failureMechanismResults)
+        private static FailureMechanismSectionAssemblyGroup? GetAssemblyGroup(IFailureMechanism failureMechanism,
+                                                                              IDictionary<IFailureMechanism, int> failureMechanisms,
+                                                                              IEnumerable<FailureMechanismSectionAssemblyGroup> failureMechanismResults)
         {
             return failureMechanisms.ContainsKey(failureMechanism)
                        ? failureMechanismResults.ElementAt(failureMechanisms[failureMechanism])
-                       : FailureMechanismSectionAssemblyGroup.Gr;
+                       : (FailureMechanismSectionAssemblyGroup?) null;
         }
     }
 }

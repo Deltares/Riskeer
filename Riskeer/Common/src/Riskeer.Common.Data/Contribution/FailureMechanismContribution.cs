@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -32,142 +32,131 @@ namespace Riskeer.Common.Data.Contribution
     /// </summary>
     public class FailureMechanismContribution : Observable
     {
-        private static readonly Range<double> normValidityRange = new Range<double>(1.0 / 1000000, 1.0 / 10);
+        private static readonly Range<double> floodingProbabilityValidityRange = new Range<double>(1.0 / 1000000, 1.0 / 10);
 
-        private double lowerLimitNorm;
-        private double signalingNorm;
+        private double maximumAllowableFloodingProbability;
+        private double signalFloodingProbability;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismContribution"/>
         /// </summary>
-        /// <param name="lowerLimitNorm">The lower limit norm.</param>
-        /// <param name="signalingNorm">The signaling norm.</param>
+        /// <param name="maximumAllowableFloodingProbability">The maximum allowable flooding probability.</param>
+        /// <param name="signalFloodingProbability">The signal flooding probability.</param>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when:
         /// <list type="bullet">
-        /// <item><paramref name="lowerLimitNorm"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
-        /// <item><paramref name="signalingNorm"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
-        /// <item>The <paramref name="signalingNorm"/> is larger than <paramref name="lowerLimitNorm"/>.</item>
+        /// <item><paramref name="maximumAllowableFloodingProbability"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
+        /// <item><paramref name="signalFloodingProbability"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
+        /// <item>The <paramref name="signalFloodingProbability"/> is larger than <paramref name="maximumAllowableFloodingProbability"/>.</item>
         /// </list>
         /// </exception>
-        public FailureMechanismContribution(double lowerLimitNorm, double signalingNorm)
+        public FailureMechanismContribution(double maximumAllowableFloodingProbability, double signalFloodingProbability)
         {
-            ValidateNorms(signalingNorm, lowerLimitNorm);
+            ValidateProbabilities(signalFloodingProbability, maximumAllowableFloodingProbability);
 
-            this.lowerLimitNorm = lowerLimitNorm;
-            this.signalingNorm = signalingNorm;
-            NormativeNorm = NormType.LowerLimit;
+            this.maximumAllowableFloodingProbability = maximumAllowableFloodingProbability;
+            this.signalFloodingProbability = signalFloodingProbability;
+            NormativeProbabilityType = NormativeProbabilityType.MaximumAllowableFloodingProbability;
         }
 
         /// <summary>
-        /// Gets the signaling norm which has been defined on the assessment section.
+        /// Gets the signal flooding probability which has been defined on the assessment section.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when
         /// <list type="bullet">
         /// <item>The new value is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
-        /// <item>The new value is larger than the <see cref="LowerLimitNorm"/>.</item>
+        /// <item>The new value is larger than the <see cref="MaximumAllowableFloodingProbability"/>.</item>
         /// </list></exception>
-        public double SignalingNorm
+        public double SignalFloodingProbability
         {
-            get
-            {
-                return signalingNorm;
-            }
+            get => signalFloodingProbability;
             set
             {
-                ValidateNorms(value, lowerLimitNorm);
+                ValidateProbabilities(value, maximumAllowableFloodingProbability);
 
-                signalingNorm = value;
+                signalFloodingProbability = value;
             }
         }
 
         /// <summary>
-        /// Gets the lower limit norm which has been defined on the assessment section.
+        /// Gets the maximum allowable flooding probability which has been defined on the assessment section.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when
         /// <list type="bullet">
         /// <item>The new value is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
-        /// <item>The new value is smaller than the <see cref="SignalingNorm"/>.</item>
+        /// <item>The new value is smaller than the <see cref="SignalFloodingProbability"/>.</item>
         /// </list></exception>
-        public double LowerLimitNorm
+        public double MaximumAllowableFloodingProbability
         {
-            get
-            {
-                return lowerLimitNorm;
-            }
+            get => maximumAllowableFloodingProbability;
             set
             {
-                ValidateNorm(value);
+                ValidateProbability(value);
 
-                if (value < signalingNorm)
+                if (value < signalFloodingProbability)
                 {
                     throw new ArgumentOutOfRangeException(nameof(value),
                                                           value,
-                                                          Resources.FailureMechanismContribution_LowerLimitNorm_should_be_same_or_greater_than_SignalingNorm);
+                                                          Resources.FailureMechanismContribution_MaximumAllowableFloodingProbability_should_be_same_or_greater_than_SignalFloodingProbability);
                 }
 
-                lowerLimitNorm = value;
+                maximumAllowableFloodingProbability = value;
             }
         }
 
         /// <summary>
-        /// Gets the norm which has been defined on the assessment section.
+        /// Gets the normative probability which has been defined on the assessment section.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when the new value is not in 
         /// the interval [0.000001, 0.1] or is <see cref="double.NaN"/>.</exception>
-        public double Norm
-        {
-            get
-            {
-                return NormativeNorm == NormType.LowerLimit
-                           ? LowerLimitNorm
-                           : SignalingNorm;
-            }
-        }
+        public double NormativeProbability =>
+            NormativeProbabilityType == NormativeProbabilityType.MaximumAllowableFloodingProbability
+                ? MaximumAllowableFloodingProbability
+                : SignalFloodingProbability;
 
         /// <summary>
-        /// Gets or sets the norm type which has been defined on the assessment section.
+        /// Gets or sets the normative probability type which has been defined on the assessment section.
         /// </summary>
-        public NormType NormativeNorm { get; set; }
+        public NormativeProbabilityType NormativeProbabilityType { get; set; }
 
         /// <summary>
-        /// Validates the norm value;
+        /// Validates the probability;
         /// </summary>
         /// <param name="value">The value to validate.</param>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when the new value is not in 
         /// the interval [0.000001, 0.1] or is <see cref="double.NaN"/>.</exception>
-        private static void ValidateNorm(double value)
+        private static void ValidateProbability(double value)
         {
-            if (!normValidityRange.InRange(value))
+            if (!floodingProbabilityValidityRange.InRange(value))
             {
                 string message = string.Format(Resources.Norm_should_be_in_Range_0_,
-                                               normValidityRange.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture));
+                                               floodingProbabilityValidityRange.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture));
                 throw new ArgumentOutOfRangeException(nameof(value), value, message);
             }
         }
 
         /// <summary>
-        /// Validates the norm values.
+        /// Validates the probabilities.
         /// </summary>
-        /// <param name="signalingNormValue">The signaling norm to validate.</param>
-        /// <param name="lowerLimitNormValue">The lower limit norm to validate against.</param>
+        /// <param name="signalFloodingProbability">The signal flooding probability  to validate.</param>
+        /// <param name="maximumAllowableFloodingProbability">The maximum allowable flooding probability to validate against.</param>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when:
         /// <list type="bullet">
-        /// <item><paramref name="lowerLimitNormValue"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
-        /// <item><paramref name="signalingNormValue"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
-        /// <item>The <paramref name="signalingNormValue"/> is larger than <paramref name="lowerLimitNormValue"/>.</item>
+        /// <item><paramref name="maximumAllowableFloodingProbability"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
+        /// <item><paramref name="signalFloodingProbability"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
+        /// <item>The <paramref name="signalFloodingProbability"/> is larger than <paramref name="maximumAllowableFloodingProbability"/>.</item>
         /// </list>
         /// </exception>
-        private static void ValidateNorms(double signalingNormValue,
-                                          double lowerLimitNormValue)
+        private static void ValidateProbabilities(double signalFloodingProbability,
+                                                  double maximumAllowableFloodingProbability)
         {
-            ValidateNorm(signalingNormValue);
-            ValidateNorm(lowerLimitNormValue);
+            ValidateProbability(signalFloodingProbability);
+            ValidateProbability(maximumAllowableFloodingProbability);
 
-            if (signalingNormValue > lowerLimitNormValue)
+            if (signalFloodingProbability > maximumAllowableFloodingProbability)
             {
-                throw new ArgumentOutOfRangeException(nameof(signalingNormValue),
-                                                      signalingNormValue,
-                                                      Resources.FailureMechanismContribution_SignalingNorm_should_be_same_or_smaller_than_LowerLimitNorm);
+                throw new ArgumentOutOfRangeException(nameof(signalFloodingProbability),
+                                                      signalFloodingProbability,
+                                                      Resources.FailureMechanismContribution_SignalFloodingProbability_should_be_same_or_smaller_than_MaximumAllowableFloodingProbability);
             }
         }
     }

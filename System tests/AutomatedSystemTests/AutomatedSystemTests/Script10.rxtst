@@ -105,14 +105,17 @@
 			name="ScreenshotsOfChartsInCalculations">
 				<parameters>
 					<param
+					mask="False"
 					name="fullPathToSingleCalculationInput"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="charSeparatorPath"
 					value=">">
 					</param>
 					<param
+					mask="False"
 					name="nameSmartFolderLoopSubsurfaceSchematizations"
 					value="LoopOriginalCalculations">
 					</param>
@@ -125,33 +128,46 @@
 			type="Recording">
 			</testmodule>
 			<testsuite
+			ExportColumnList="None"
 			ReportTime="RelativeToTestSuiteStartTime"
+			SelectedActions="All"
 			TracingScreenshotMode="Foreground"
 			TracingScreenshotQuality="40"
 			VideoBitrate="2000"
 			VideoFps="15"
 			VideoRecordingMode="KeepAllTests"
 			VideoSource="Auto"
+			createindividualreportpdfchecked="False"
+			createsinglereportpdfchecked="True"
+			enableCSVReport="False"
 			enabletracingscreenshots="True"
+			exportAllColummns="True"
 			id="08602645-5d8a-4624-9eab-f3aed98ecba2"
+			includeimageschecked="False"
+			includerecordingschecked="False"
 			junitreport="False"
 			name="Script10"
+			overwritefilechecked="False"
 			reportcompress="False"
+			reportdescription=""
 			reportdirectoryname="Reports"
 			reportenabled="True"
 			reportfilename="%S_%Y%M%D_%T.rxlog"
 			reporttemplatefolder="ReportDeltaresStyle"
-			reportwriteinterval="30000ms">
+			reportwriteinterval="30000ms"
+			singlereportpdfdirectory="SingleReportPDF">
 			</testsuite>
 			<smartfoldernode
 			id="090f0704-fc32-41b8-b32f-e6be461e4457"
 			name="ImportSurfaceLines">
 				<parameters>
 					<param
+					mask="False"
 					name="message1ToLog"
 					value="Screenshot of FM View before importing surface lines and subsurface stochastic schematization">
 					</param>
 					<param
+					mask="False"
 					name="message2ToLog"
 					value="Screenshot of FM View after importing surface lines and before importing subsurface stochastic schematization">
 					</param>
@@ -168,14 +184,17 @@
 			name="script10_Profielschematisaties_en_ondergrondgegevens_importeren">
 				<parameters>
 					<param
+					mask="False"
 					name="caseNumber"
 					value="10">
 					</param>
 					<param
+					mask="False"
 					name="scriptOutputFolder"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="dummyString"
 					value="">
 					</param>
@@ -186,6 +205,7 @@
 			name="ValidateSurfaceLines">
 				<parameters>
 					<param
+					mask="False"
 					name="parameterNameSourcePath"
 					value="Bronlocatie">
 					</param>
@@ -196,6 +216,7 @@
 			name="CopyFilesWithElementsRemoved">
 				<parameters>
 					<param
+					mask="False"
 					name="waitTimeInMiliseconds"
 					value="1000">
 					</param>
@@ -258,6 +279,44 @@
 					datasourceid="c3321720-07cb-4a9f-9614-4cb01db2d4aa"
 					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
 					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="1afcbfc1-f733-44c2-869b-bafee6fc9d7f"
+			name="ReportToPDFModule"
+			ref="ffa0759d-37d2-4abb-89a7-411f0fcf2dfe"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="PdfDirectoryPath"
+					datasourceid="d47afadd-08b5-44e7-bfab-e3d5723c892a"
+					variableid="536f8a69-f246-4f2b-ae9e-1f62babb2ba9"
+					variablename="PdfDirectoryPath">
+					</var>
+					<var
+					dataname="DeleteRanorexReport"
+					datasourceid="d47afadd-08b5-44e7-bfab-e3d5723c892a"
+					variableid="7f788c18-962c-41ab-b591-9c3122512c5e"
+					variablename="DeleteRanorexReport">
+					</var>
+					<var
+					dataname="Details"
+					datasourceid="d47afadd-08b5-44e7-bfab-e3d5723c892a"
+					variableid="b9993b89-d8cb-45fe-829b-42b0f8dd8a00"
+					variablename="Details">
+					</var>
+					<var
+					dataname="Xml"
+					datasourceid="d47afadd-08b5-44e7-bfab-e3d5723c892a"
+					variableid="c15f25ea-9409-4e1a-b76e-cd208bae6c56"
+					variablename="Xml">
+					</var>
+					<var
+					dataname="PdfName"
+					datasourceid="d47afadd-08b5-44e7-bfab-e3d5723c892a"
+					variableid="1d09c6b5-db7a-4ed0-a13c-ee2add5d3d37"
+					variablename="PdfName">
 					</var>
 				</databinding>
 			</testmodule>
@@ -352,8 +411,8 @@
 					<var
 					dataname="StateToSelect"
 					datasourceid="289b346e-90d8-4b41-82f8-9a47ba857e7e"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
 					</var>
 				</databinding>
 			</testmodule>
@@ -390,8 +449,9 @@
 			name="SelectStrengthCalculationsState">
 				<parameters>
 					<param
+					mask="False"
 					name="StateToSelect"
-					value="Sterkte">
+					value="@SB">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -425,18 +485,22 @@
 			name="SetTraject(6-5)">
 				<parameters>
 					<param
+					mask="False"
 					name="trajectIDDisjointWithSurfaceLines"
 					value="6-5">
 					</param>
 					<param
+					mask="False"
 					name="norm"
 					value="Signal">
 					</param>
 					<param
+					mask="False"
 					name="lowLimitValue"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="signallingValue"
 					value="">
 					</param>
@@ -615,6 +679,7 @@
 			name="ValidateErrorMessages">
 				<parameters>
 					<param
+					mask="False"
 					name="warnMessageToLog"
 					value="Please, notice that an error icon is present with the error message.">
 					</param>
@@ -647,10 +712,12 @@
 			name="LoopOriginalCalculations">
 				<parameters>
 					<param
+					mask="False"
 					name="messageToLogForScreenshotChartCalculation"
 					value="Original chart for calculation: ">
 					</param>
 					<param
+					mask="False"
 					name="nameInputFolder"
 					value="Invoer">
 					</param>
@@ -736,12 +803,6 @@
 			ref="be610d83-0566-4237-980c-570b403e4ee8"
 			type="Recording">
 			</testmodule>
-			<testmodule
-			id="4e9dc213-dd9c-4091-9b2c-37c958098c1b"
-			name="CreateScreenshotEntireDesktop"
-			ref="0f7ebadb-0285-4449-9422-0cd6fde5bf4d"
-			type="Recording">
-			</testmodule>
 			<smartfoldernode
 			datasource="script10_LoopValidateOriginalSubsurfaceShcematizations"
 			errorbehavior="ContinueNextIteration"
@@ -749,14 +810,17 @@
 			name="loopSubsurfaceSchematizations">
 				<parameters>
 					<param
+					mask="False"
 					name="fullPathToSubsurafecSchemtization"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="nameParameterName"
 					value="Naam">
 					</param>
 					<param
+					mask="False"
 					name="nameParameterContribution"
 					value="Aandeel [%]">
 					</param>
@@ -767,18 +831,22 @@
 			name="ValidateSubsurfaceStochasticModels">
 				<parameters>
 					<param
+					mask="False"
 					name="substringTraject"
 					value="12-2">
 					</param>
 					<param
+					mask="False"
 					name="substringFM"
 					value="Dijken en dammen - Piping">
 					</param>
 					<param
+					mask="False"
 					name="pathSubsurfaceStochasticModels"
 					value="X:\script10\Ondergrond traject 12_2_met_DSoil_v17_2_1_987.soil">
 					</param>
 					<param
+					mask="False"
 					name="nameSmartFolderLoopSubsurfaceSchematizations"
 					value="loopSubsurfaceSchematizations">
 					</param>
@@ -809,30 +877,37 @@
 			name="ScreenshotsOfChartsInCalculations">
 				<parameters>
 					<param
+					mask="False"
 					name="intermediateString1"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString2"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString3"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString4"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="fullPathToSingleCalculationInput"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="charSeparatorPath"
 					value=">">
 					</param>
 					<param
+					mask="False"
 					name="nameSmartFolderLoopSubsurfaceSchematizations"
 					value="LoopCalculationsElementsRemoved">
 					</param>
@@ -864,18 +939,22 @@
 			name="SetTraject(12-2)">
 				<parameters>
 					<param
+					mask="False"
 					name="trajectID"
 					value="12-2">
 					</param>
 					<param
+					mask="False"
 					name="normType"
 					value="Signal">
 					</param>
 					<param
+					mask="False"
 					name="signallingValue"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="lowLimitValue"
 					value="">
 					</param>
@@ -1131,10 +1210,12 @@
 			name="LoopEditedCalculations">
 				<parameters>
 					<param
+					mask="False"
 					name="messageToLogForScreenshotChartCalculation"
 					value="After updating to files with edited elements, chart for calculation: ">
 					</param>
 					<param
+					mask="False"
 					name="nameInputFolder"
 					value="Invoer">
 					</param>
@@ -1354,6 +1435,7 @@
 			name="UpdateSubsurfaceSchematizations">
 				<parameters>
 					<param
+					mask="False"
 					name="messageToLog"
 					value="Screenshot of FM view after updating surface lines and subsurface stochastic schematizations">
 					</param>
@@ -1364,8 +1446,9 @@
 			name="SelectStrengthCalculationsState">
 				<parameters>
 					<param
+					mask="False"
 					name="StateToSelect"
-					value="Sterkte">
+					value="@SB">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -1413,6 +1496,7 @@
 			name="ValidateSourcePath">
 				<parameters>
 					<param
+					mask="False"
 					name="nameParameterSourceLocation"
 					value="Bronlocatie">
 					</param>
@@ -1549,6 +1633,7 @@
 			name="UpdateSurfaceLines">
 				<parameters>
 					<param
+					mask="False"
 					name="messageToLog"
 					value="Screenshot of FM View after updating Surface Lines to files with elements removed">
 					</param>
@@ -1559,10 +1644,12 @@
 			name="UpdateCalculation">
 				<parameters>
 					<param
+					mask="False"
 					name="pathSurfaceLineParameterInPropertiesPanel"
 					value="Schematisatie>Profielschematisatie">
 					</param>
 					<param
+					mask="False"
 					name="newNameSurfaceLine"
 					value="12_2_00100_aangepast">
 					</param>
@@ -1579,6 +1666,7 @@
 			name="CopyOriginalFiles">
 				<parameters>
 					<param
+					mask="False"
 					name="waitTimeInMiliseconds"
 					value="1000">
 					</param>
@@ -1757,6 +1845,7 @@
 			name="ValidateSourcePath">
 				<parameters>
 					<param
+					mask="False"
 					name="nameParameterSourceLocation"
 					value="Bronlocatie">
 					</param>
@@ -1849,6 +1938,7 @@
 			name="ValidateErrorMessages">
 				<parameters>
 					<param
+					mask="False"
 					name="warningMessage"
 					value="Subsurafe schematizations are not updated. Checking error messages!">
 					</param>
@@ -1917,18 +2007,22 @@
 			name="LoopSurfaceLines">
 				<parameters>
 					<param
+					mask="False"
 					name="intermedateString"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="pathToSingleSurfaceLineItem"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="charSeparatorPath"
 					value=">">
 					</param>
 					<param
+					mask="False"
 					name="parameterNameName"
 					value="Naam">
 					</param>
@@ -1982,6 +2076,7 @@
 			name="ValidateSurfaceLines">
 				<parameters>
 					<param
+					mask="False"
 					name="parameterNameSourcePath"
 					value="Bronlocatie">
 					</param>
@@ -2027,6 +2122,10 @@
 			id="99b6db12-b870-4b3e-97a2-546f7a996406"
 			name="CalculatePathToInputCalculation">
 			</smartfoldernode>
+			<teardown
+			id="9a530d8b-ed2d-47a6-9441-9af4a8544a16"
+			name="teardown">
+			</teardown>
 			<testmodule
 			id="9ad64f63-9bdb-444f-a3ea-8e9e3287be9a"
 			name="SelectGenericItemInProjectExplorer"
@@ -2166,14 +2265,17 @@
 			name="LoopValidateThatPreviousSubsurfaceSchematizationsRemain">
 				<parameters>
 					<param
+					mask="False"
 					name="fullPathToSubsurafecSchemtization"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="nameParameterName"
 					value="Naam">
 					</param>
 					<param
+					mask="False"
 					name="nameParameterContribution"
 					value="Aandeel [%]">
 					</param>
@@ -2394,6 +2496,7 @@
 			name="ValidateSourcePath">
 				<parameters>
 					<param
+					mask="False"
 					name="nameParameterSourceLocation"
 					value="Bronlocatie">
 					</param>
@@ -2476,6 +2579,7 @@
 			name="OpenViewAndCreateScreenshot">
 				<parameters>
 					<param
+					mask="False"
 					name="logMessage"
 					value="">
 					</param>
@@ -2490,38 +2594,47 @@
 			name="LoopFMs">
 				<parameters>
 					<param
+					mask="False"
 					name="pathInputFilesFolder"
 					value="X:\script10\input">
 					</param>
 					<param
+					mask="False"
 					name="pathOriginalFilesFolder"
 					value="X:\script10\00original">
 					</param>
 					<param
+					mask="False"
 					name="pathEditedFilesFolder"
 					value="X:\script10\01edited">
 					</param>
 					<param
+					mask="False"
 					name="pathRemovedFilesFolder"
 					value="X:\script10\02removed">
 					</param>
 					<param
+					mask="False"
 					name="pathInvestigateLogMessageFiles"
 					value="X:\script10\03analyseLogMessages">
 					</param>
 					<param
+					mask="False"
 					name="filterAllFiles"
 					value="*.*">
 					</param>
 					<param
+					mask="False"
 					name="pathSurfaceLinesFile"
 					value="X:\script10\input\surfacelines traject 12-2.csv">
 					</param>
 					<param
+					mask="False"
 					name="pathSubsurfaceModel"
 					value="X:\script10\input\Ondergrond traject 12_2_met_DSoil_v17_2_1_987.soil">
 					</param>
 					<param
+					mask="False"
 					name="nameCommonFolderCalculations"
 					value="12_2_00100">
 					</param>
@@ -2532,6 +2645,7 @@
 			name="UpdateSurfaceLines">
 				<parameters>
 					<param
+					mask="False"
 					name="messageToLog"
 					value="Screenshot of FM View after updating Surface Lines to edited files">
 					</param>
@@ -2637,10 +2751,6 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
-			<testcase
-			id="b1513cc2-8f8a-46f7-82d5-cf4f6cb7d73e"
-			name="TakeScreenshotOfDesktop">
-			</testcase>
 			<testmodule
 			id="b26849d6-3393-41cd-a2f7-5e1bd96e6b90"
 			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
@@ -2672,10 +2782,12 @@
 			name="LoopCalculationsElementsRemoved">
 				<parameters>
 					<param
+					mask="False"
 					name="messageToLogForScreenshotChartCalculation"
 					value="After updating to files with removed elements, chart for calculation: ">
 					</param>
 					<param
+					mask="False"
 					name="nameInputFolder"
 					value="Invoer">
 					</param>
@@ -3052,14 +3164,17 @@
 			name="LoopSurfaceLines">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToSingleSurfaceLineItem"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="charSepatarorPath"
 					value=">">
 					</param>
 					<param
+					mask="False"
 					name="parameterNameName"
 					value="Naam">
 					</param>
@@ -3076,18 +3191,22 @@
 			name="ValidateSubsurfaceStochasticModels">
 				<parameters>
 					<param
+					mask="False"
 					name="substringTraject"
 					value="12-2">
 					</param>
 					<param
+					mask="False"
 					name="substringFM"
 					value="Dijken en dammen - Piping">
 					</param>
 					<param
+					mask="False"
 					name="pathSubsurfaceStochasticModels"
 					value="X:\script10\Ondergrond traject 12_2_met_DSoil_v17_2_1_987.soil">
 					</param>
 					<param
+					mask="False"
 					name="nameSmartFolderLoopSubsurfaceSchematizations"
 					value="LoopValidateThatPreviousSubsurfaceSchematizationsRemain">
 					</param>
@@ -3102,8 +3221,8 @@
 					<var
 					dataname="StateToSelect"
 					datasourceid="72368cd1-87e0-4572-91c9-e664bfc5b0e2"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
 					</var>
 				</databinding>
 			</testmodule>
@@ -3120,14 +3239,17 @@
 			name="LoopSurfaceLines">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToSingleSurfaceLineItem"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="charSepatarorPath"
 					value=">">
 					</param>
 					<param
+					mask="False"
 					name="parameterNameName"
 					value="Naam">
 					</param>
@@ -3138,6 +3260,7 @@
 			name="ValidateSurfaceLines">
 				<parameters>
 					<param
+					mask="False"
 					name="parameterNameSourcePath"
 					value="Bronlocatie">
 					</param>
@@ -3210,14 +3333,17 @@
 			name="LoopEditedSubsurfaceSchematizations">
 				<parameters>
 					<param
+					mask="False"
 					name="fullPathToSubsurafecSchemtization"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="nameParameterName"
 					value="Naam">
 					</param>
 					<param
+					mask="False"
 					name="nameParameterContribution"
 					value="Aandeel [%]">
 					</param>
@@ -3235,12 +3361,39 @@
 			reportlevel="Info;20">
 				<parameters>
 					<param
+					mask="False"
 					name="AppProcessID"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="AppPath"
 					value="..\..\..\..\..\bin\Debug\Riskeer.exe">
+					</param>
+					<param
+					mask="False"
+					name="PdfDirectoryPath"
+					value="">
+					</param>
+					<param
+					mask="False"
+					name="DeleteRanorexReport"
+					value="false">
+					</param>
+					<param
+					mask="False"
+					name="Details"
+					value="all">
+					</param>
+					<param
+					mask="False"
+					name="Xml"
+					value="Reports\style.xml">
+					</param>
+					<param
+					mask="False"
+					name="PdfName"
+					value="script10_Profielschematisaties_en_ondergrondgegevens_importeren.pdf">
 					</param>
 				</parameters>
 			</testcase>
@@ -3321,10 +3474,12 @@
 			name="GenerateCalculations">
 				<parameters>
 					<param
+					mask="False"
 					name="index"
 					value="0">
 					</param>
 					<param
+					mask="False"
 					name="messageToLog"
 					value="Screenshot after importing surface lines and subsurface stochastic schematizations, and generating calculations">
 					</param>
@@ -3405,30 +3560,37 @@
 			name="ScreenshotsOfChartsInCalculations">
 				<parameters>
 					<param
+					mask="False"
 					name="intermediateString1"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString2"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString3"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString4"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="fullPathToSingleCalculationInput"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="charSeparatorPath"
 					value=">">
 					</param>
 					<param
+					mask="False"
 					name="nameSmartFolderLoopSubsurfaceSchematizations"
 					value="LoopEditedCalculations">
 					</param>
@@ -3659,6 +3821,7 @@
 			name="UpdateSubsurfaceSchematizations">
 				<parameters>
 					<param
+					mask="False"
 					name="messageToLog"
 					value="Screenshot of FM view after updating surface lines and subsurface stochastic schematizations to files with elements removed">
 					</param>
@@ -3689,6 +3852,7 @@
 			name="CopyEditedFiles">
 				<parameters>
 					<param
+					mask="False"
 					name="waitTimeInMiliseconds"
 					value="1000">
 					</param>
@@ -3713,18 +3877,22 @@
 			name="ValidateSubsurfaceStochasticModels">
 				<parameters>
 					<param
+					mask="False"
 					name="substringTraject"
 					value="12-2">
 					</param>
 					<param
+					mask="False"
 					name="substringFM"
 					value="Dijken en dammen - Piping">
 					</param>
 					<param
+					mask="False"
 					name="pathSubsurfaceStochasticModels"
 					value="X:\script10\Ondergrond traject 12_2_met_DSoil_v17_2_1_987.soil">
 					</param>
 					<param
+					mask="False"
 					name="nameSmartFolderLoopSubsurfaceSchematizations"
 					value="LoopEditedSubsurfaceSchematizations">
 					</param>
@@ -3773,22 +3941,27 @@
 			name="ImportSurfaceLines">
 				<parameters>
 					<param
+					mask="False"
 					name="filenameSurfaceLines"
 					value="X:\script10\surfacelines traject 12-2.csv">
 					</param>
 					<param
+					mask="False"
 					name="substringTrajectName"
 					value="Traject 6-5">
 					</param>
 					<param
+					mask="False"
 					name="substringFM"
 					value="Dijken en dammen - Piping">
 					</param>
 					<param
+					mask="False"
 					name="message1ToLog"
 					value="Screenshot of FM View before importing surface lines disjoint with traject">
 					</param>
 					<param
+					mask="False"
 					name="message2ToLog"
 					value="Screenshot of FM View after importing surface lines surface lines disjoint with traject">
 					</param>
@@ -3875,6 +4048,7 @@
 			name="ImportSubsurfaceSchematizations">
 				<parameters>
 					<param
+					mask="False"
 					name="messageToLog"
 					value="Screenshot of FM view after importing surface lines and subsurface stochastic schematizations">
 					</param>
@@ -3930,14 +4104,6 @@
 				<testcase
 				id="d47afadd-08b5-44e7-bfab-e3d5723c892a"
 				name="Script10">
-					<testcase
-					id="b1513cc2-8f8a-46f7-82d5-cf4f6cb7d73e"
-					name="TakeScreenshotOfDesktop">
-						<testmodule
-						id="4e9dc213-dd9c-4091-9b2c-37c958098c1b"
-						name="CreateScreenshotEntireDesktop">
-						</testmodule>
-					</testcase>
 					<testcase
 					id="0aa9dcb3-bc47-46e1-b087-a8eda3368312"
 					name="script10_Profielschematisaties_en_ondergrondgegevens_importeren">
@@ -4778,6 +4944,14 @@
 							</testmodule>
 						</teardown>
 					</testcase>
+					<teardown
+					id="9a530d8b-ed2d-47a6-9441-9af4a8544a16"
+					name="teardown">
+						<testmodule
+						id="1afcbfc1-f733-44c2-869b-bafee6fc9d7f"
+						name="ReportToPDFModule">
+						</testmodule>
+					</teardown>
 				</testcase>
 			</testsuite>
 		</childhierarchy>
@@ -6083,9 +6257,6 @@
 			id="ae7a5676-2213-416d-9333-f79b23d53039">
 			</testcontainer>
 			<testcontainer
-			id="b1513cc2-8f8a-46f7-82d5-cf4f6cb7d73e">
-			</testcontainer>
-			<testcontainer
 			id="b6e127b6-2206-409a-b494-be3763bd22b7">
 			</testcontainer>
 			<testcontainer
@@ -6162,6 +6333,9 @@
 		</reference>
 		<reference>
 			Ranorex Automation Helpers.dll
+		</reference>
+		<reference>
+			Ranorex.ReportToPDF.exe
 		</reference>
 	</references>
 </testsuitedoc>

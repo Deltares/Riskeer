@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
-using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.DuneErosion.Data.Properties;
 
@@ -33,10 +33,8 @@ namespace Riskeer.DuneErosion.Data
     /// Model containing input and output needed to perform different levels of the
     /// Dune Erosion failure mechanism.
     /// </summary>
-    public class DuneErosionFailureMechanism : FailureMechanismBase, IHasSectionResults<DuneErosionFailureMechanismSectionResultOld, NonAdoptableFailureMechanismSectionResult>
+    public class DuneErosionFailureMechanism : FailureMechanismBase<NonAdoptableFailureMechanismSectionResult>
     {
-        private readonly ObservableList<DuneErosionFailureMechanismSectionResultOld> sectionResultsOld;
-        private readonly ObservableList<NonAdoptableFailureMechanismSectionResult> sectionResults;
         private readonly ObservableList<DuneLocation> duneLocationCollection = new ObservableList<DuneLocation>();
 
         /// <summary>
@@ -45,10 +43,9 @@ namespace Riskeer.DuneErosion.Data
         public DuneErosionFailureMechanism()
             : base(Resources.DuneErosionFailureMechanism_DisplayName, Resources.DuneErosionFailureMechanism_Code)
         {
-            sectionResultsOld = new ObservableList<DuneErosionFailureMechanismSectionResultOld>();
-            sectionResults = new ObservableList<NonAdoptableFailureMechanismSectionResult>();
             GeneralInput = new GeneralDuneErosionInput();
             DuneLocationCalculationsForUserDefinedTargetProbabilities = new ObservableList<DuneLocationCalculationsForTargetProbability>();
+            CalculationsInputComments = new Comment();
         }
 
         /// <summary>
@@ -66,17 +63,10 @@ namespace Riskeer.DuneErosion.Data
         /// </summary>
         public ObservableList<DuneLocationCalculationsForTargetProbability> DuneLocationCalculationsForUserDefinedTargetProbabilities { get; }
 
-        public override IEnumerable<ICalculation> Calculations
-        {
-            get
-            {
-                yield break;
-            }
-        }
-
-        public IObservableEnumerable<DuneErosionFailureMechanismSectionResultOld> SectionResultsOld => sectionResultsOld;
-
-        public IObservableEnumerable<NonAdoptableFailureMechanismSectionResult> SectionResults => sectionResults;
+        /// <summary>
+        /// Gets the input comments associated with the calculations of the data object.
+        /// </summary>
+        public Comment CalculationsInputComments { get; }
 
         /// <summary>
         /// Sets dune locations and calculations for the failure mechanism.
@@ -98,20 +88,6 @@ namespace Riskeer.DuneErosion.Data
                 dlc.DuneLocationCalculations.Clear();
                 dlc.DuneLocationCalculations.AddRange(duneLocations.Select(dl => new DuneLocationCalculation(dl)));
             });
-        }
-
-        protected override void AddSectionDependentData(FailureMechanismSection section)
-        {
-            base.AddSectionDependentData(section);
-
-            sectionResultsOld.Add(new DuneErosionFailureMechanismSectionResultOld(section));
-            sectionResults.Add(new NonAdoptableFailureMechanismSectionResult(section));
-        }
-
-        protected override void ClearSectionDependentData()
-        {
-            sectionResultsOld.Clear();
-            sectionResults.Clear();
         }
     }
 }

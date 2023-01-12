@@ -1,0 +1,1502 @@
+<?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml" xmlns:imgeo="http://www.geostandaarden.nl/imgeo/2.1" xmlns:imwa="http://dlg2.idsw.nl/imwa2007" xmlns:imwaveilig="http://www.aquo.nl/Aquo/schemas/imwaveilig/" elementFormDefault="qualified" targetNamespace="http://www.aquo.nl/Aquo/schemas/imwaveilig/" version="2.0">
+  <annotation>
+    <documentation>IMWA Waterveiligheid versie 2.0</documentation>
+  </annotation>
+  <import namespace="http://dlg2.idsw.nl/imwa2007"/>
+  <import namespace="http://www.geostandaarden.nl/imgeo/2.1"/>
+  <import namespace="http://www.opengis.net/gml" schemaLocation="http://schemas.opengis.net/gml/3.1.1/base/gml.xsd"/>
+  <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
+  <element name="Aansluitconstructie" substitutionGroup="imwa:IMWA_GeoObject" type="imwaveilig:AansluitconstructieType">
+    <annotation>
+      <documentation>Het gehele dwars- en lengteprofiel van een grondconstructie in zijn afwijkende vorm, bij de overgang naar een duin, hoge gronden of een kunstwerk.</documentation>
+    </annotation>
+  </element>
+  <complexType name="AansluitconstructieType">
+    <complexContent>
+      <extension base="imwa:IMWA_GeoObjectType">
+        <sequence>
+          <element name="geometrieLijn">
+            <annotation>
+              <documentation>Geometrische representatie van een object als lijn.</documentation>
+            </annotation>
+          </element>
+          <element name="waardebepalingsmethode" type="string">
+            <annotation>
+              <documentation>Omschrijving van de wijze waarop de aansluiting van waterkeringen op elkaar (bij verschillende typen) is bepaald.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="AansluitconstructiePropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaveilig:Aansluitconstructie"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Afsluiter" substitutionGroup="imwa:IMWA_GeoObject" type="imwaveilig:AfsluiterType"/>
+  <complexType name="AfsluiterType">
+    <complexContent>
+      <extension base="imwa:IMWA_GeoObjectType">
+        <sequence>
+          <element name="geometriePunt">
+            <annotation>
+              <documentation>Geometrische weergave van het object als punt.</documentation>
+            </annotation>
+          </element>
+          <element name="typeAfsluiter" type="gml:CodeType"/>
+          <element name="typeRegelbaarheid" type="gml:CodeType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="AfsluiterPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaveilig:Afsluiter"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Afwerkingslaag" substitutionGroup="imwa:IMWA_GeoObject" type="imwaveilig:AfwerkingslaagType">
+    <annotation>
+      <documentation>Laag zonder verdedigende functie die dient als afwerking van de bekledingsconstructie (voorstel project).</documentation>
+    </annotation>
+  </element>
+  <complexType name="AfwerkingslaagType">
+    <complexContent>
+      <extension base="imwa:IMWA_GeoObjectType">
+        <sequence>
+          <element name="geometrieVlak"/>
+          <element name="typeMateriaal" type="gml:CodeType">
+            <annotation>
+              <documentation>Bekelding_materiaal: Materiaalsoort(en) van de afwerkingslaag.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="AfwerkingslaagPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaveilig:Afwerkingslaag"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Basismateriaal" substitutionGroup="imwaveilig:Bekledinglaag" type="imwaveilig:BasismateriaalType">
+    <annotation>
+      <documentation>Bovenste laag van het grondlichaam onder de bekledingsconstructie.</documentation>
+    </annotation>
+  </element>
+  <complexType name="BasismateriaalType">
+    <complexContent>
+      <extension base="imwaveilig:BekledinglaagType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="fysiekeEigenschap" type="imwa:FysiekeEigenschapPropertyType">
+            <annotation>
+              <documentation>Een samengesteld attribuut voor het vastleggen van (op  WTI gebaseerde) parameters bestaande uit:
+- Waardetype: aanduiding van een parameter waar een waarde voor opgenomen wordt (bv. "toetsparameters;massapercentage steenslag/grind") 
+- Een waarde die bij een waardetype hoort.</documentation>
+            </annotation>
+          </element>
+          <element name="typeMateriaal" type="gml:CodeType">
+            <annotation>
+              <documentation>Bekleding_materiaal (groep Basismateriaal): Materiaalsoort(en) van het basismateriaal.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="BasismateriaalPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaveilig:Basismateriaal"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Beheerdersoordeel" substitutionGroup="gml:_GML" type="imwaveilig:BeheerdersoordeelType">
+    <annotation>
+      <documentation>Beoordeling van de veiligheid op basis van eigen inschatting van de beheerder.
+
+Domein: volgt TO; volgt TO niet, voldoende; volgt TO niet, onvoldoende</documentation>
+    </annotation>
+  </element>
+  <complexType name="BeheerdersoordeelType">
+    <complexContent>
+      <extension base="gml:AbstractGMLType">
+        <sequence>
+          <element name="beheerdersOordeel" type="gml:CodeType">
+            <annotation>
+              <documentation>volgt TO
+volgt TO niet - onvoldoende
+volgt TO niet – voldoende</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="toelichtingBO" type="gml:CodeType">
+            <annotation>
+              <documentation>-onverenigbaar met VTV
+-onverenigbaar met HR
+-geen score, niet verwijtbaar
+-waargenomen gedrag
+-waarneming per faalmechanisme
+-historische gegevens
+
+wel in toetsrap, niet in dit IM:
+-anders, nl: (vervalt, want er is een ander veld nadere toelichting, daarom enumeration)
+-niet ingevuld -&gt; optioneel attribuut)</documentation>
+            </annotation>
+          </element>
+          <element name="nadereToelichtingBO" type="string"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="BeheerdersoordeelPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaveilig:Beheerdersoordeel"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="Bekledinglaag" substitutionGroup="imwa:IMWA_GeoObject" type="imwaveilig:BekledinglaagType">
+    <annotation>
+      <documentation>Laag waaruit de bekledingsconstructie van een waterkering is opgebouwd (voorstel project).</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="BekledinglaagType">
+    <complexContent>
+      <extension base="imwa:IMWA_GeoObjectType">
+        <sequence>
+          <element minOccurs="0" name="geometrieVlak">
+            <annotation>
+              <documentation>Geometrische weergave van het object als vlak (2D/2.5) of volume-object (3D).</documentation>
+            </annotation>
+            <complexType>
+              <choice minOccurs="0"/>
+              <attributeGroup ref="gml:AssociationAttributeGroup"/>
+            </complexType>
+          </element>
+          <element name="typeBekledinglaag" type="gml:CodeType">
+            <annotation>
+              <documentation>BekledinglaagType: Nadere aanduiding van het type bekledinglaag.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="jaarVanAanleg" type="date">
+            <annotation>
+              <documentation>Het jaar van aanleg.</documentation>
+            </annotation>
+          </element>
+          <element name="volgnummer" type="integer">
+            <annotation>
+              <documentation>Volgnummer ter indicatie van de laagvolgorde.</documentation>
+            </annotation>
+          </element>
+          <element name="onderdeelVan" type="imwaveilig:BekledingsconstructiePropertyType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="BekledinglaagPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaveilig:Bekledinglaag"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Bekledingsconstructie" substitutionGroup="gml:_GML" type="imwaveilig:BekledingsconstructieType">
+    <annotation>
+      <documentation>Constructie die tot doel heeft de dijkkern te beschermen tegen erosie door de waterbeweging, bestaande uit één of meerdere toplagen met daaronder (eventueel) uitvul-, filter- en kleilagen (voorstel project).</documentation>
+    </annotation>
+  </element>
+  <complexType name="BekledingsconstructieType">
+    <complexContent>
+      <extension base="gml:AbstractGMLType">
+        <sequence>
+          <element name="geometrieVlak">
+            <annotation>
+              <documentation>Geometrische representatie van het object als vlak (2D / 2.5D)</documentation>
+            </annotation>
+          </element>
+          <element name="typeBekleding" type="gml:CodeType">
+            <annotation>
+              <documentation>BekledingType: Nadere aanduiding van het type bekleding</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="heeft" type="imwaveilig:AfwerkingslaagPropertyType"/>
+          <element name="onderdeelVan" type="imwaveilig:WaterkeringPropertyType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="BekledingsconstructiePropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaveilig:Bekledingsconstructie"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Beoordelingsproces" substitutionGroup="gml:_Feature" type="imwaveilig:BeoordelingsprocesType">
+    <annotation>
+      <documentation>Geheel van activiteiten gericht op het (periodiek) beoordelen of de momentane toestand van een object voldoet aan de vigerende functionele en/of wettelijke eisen.</documentation>
+    </annotation>
+  </element>
+  <complexType name="BeoordelingsprocesType">
+    <complexContent>
+      <extension base="gml:AbstractFeatureType">
+        <sequence>
+          <element name="beginJaarBeoordelingsronde" type="integer">
+            <annotation>
+              <documentation>Jaartal begin van de beoordelingsronde.
+
+Toelichting: een waterkering wordt in meerdere beoordelingsrondes beoordeeld (in de tijd). Bijvoorbeeld de beoordelingsronde die loopt van 2017 tot en met 2023.</documentation>
+            </annotation>
+          </element>
+          <element name="eindJaarBeoordelingsronde" type="integer">
+            <annotation>
+              <documentation>Jaartal einde van de beoordelingsronde.
+
+Toelichting: een waterkering wordt in meerdere beoordelingsrondes beoordeeld (in de tijd). Bijvoorbeeld de beoordelingsronde die loopt van 2017 tot en met 2023.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="omschrijving" type="string">
+            <annotation>
+              <documentation>Toelichting van het beoordelingsproces.</documentation>
+            </annotation>
+          </element>
+          <element name="beoordeelt" type="imwaveilig:WaterkeringstelselPropertyType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="BeoordelingsprocesPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaveilig:Beoordelingsproces"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Bodemlaag" substitutionGroup="imwa:IMWA_GeoObject" type="imwaveilig:BodemlaagType">
+    <annotation>
+      <documentation>Een laag in de bodem of de ondergrond met volgens de modelleringsregels van het aan het gebied ten grondslag liggende bodem en ondergrondmodel gelijke bodemkundige en/of aardkundige kenmerken.</documentation>
+    </annotation>
+  </element>
+  <complexType name="BodemlaagType">
+    <complexContent>
+      <extension base="imwa:IMWA_GeoObjectType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="fysiekeEigenschap" type="imwa:FysiekeEigenschapPropertyType">
+            <annotation>
+              <documentation>Attribuut voor kenmerken van een bodemlaag (bodemeigenschappen).
+
+Een samengesteld attribuut bestaande uit:
+- Waardetype: aanduiding van een parameter waar een waarde voor opgenomen wordt.
+- Een waarde die bij een waardetype hoort.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="geometrieVlak">
+            <annotation>
+              <documentation>Geometrische weergave van het object als vlak (2D/3D).</documentation>
+            </annotation>
+            <complexType>
+              <choice minOccurs="0"/>
+              <attributeGroup ref="gml:AssociationAttributeGroup"/>
+            </complexType>
+          </element>
+          <element name="typeBodemlaag" type="gml:CodeType">
+            <annotation>
+              <documentation>Nadere aanduiding van het type bodemlaag.</documentation>
+            </annotation>
+          </element>
+          <element name="volgnummer" type="integer">
+            <annotation>
+              <documentation>Volgnummer ter indicatie van de laagvolgorde.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="onderdeelVan" type="imwaveilig:KernopbouwPropertyType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="BodemlaagPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaveilig:Bodemlaag"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="Dijktraject" substitutionGroup="imwaveilig:Waterkeringstelsel" type="imwaveilig:DijktrajectType">
+    <annotation>
+      <documentation>Deel van een waterkering waarvoor dezelfde veiligheidsnorm geldt (voorstel project).</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="DijktrajectType">
+    <complexContent>
+      <extension base="imwaveilig:WaterkeringstelselType">
+        <sequence/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="DijktrajectPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaveilig:Dijktraject"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Drainage" substitutionGroup="imwa:IMWA_GeoObject" type="imwaveilig:DrainageType"/>
+  <complexType name="DrainageType">
+    <complexContent>
+      <extension base="imwa:IMWA_GeoObjectType">
+        <sequence/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="DrainagePropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaveilig:Drainage"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="FilterVlijlaag" substitutionGroup="imwaveilig:Bekledinglaag" type="imwaveilig:FilterVlijlaagType">
+    <annotation>
+      <documentation>Filter:
+Een tussenlaag in de taludbekleding die uitspoeling van fijnkorrelig materiaal uit de ondergrond door de bovenliggende laag van de bekleding voorkomt.
+
+Vlijlaag:
+Constructielaag met filterfunctie, bestaande uit één of meer lagen plat gelegde bakstenen die in verband zijn geplaatst.</documentation>
+    </annotation>
+  </element>
+  <complexType name="FilterVlijlaagType">
+    <complexContent>
+      <extension base="imwaveilig:BekledinglaagType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="fysiekeEigenschap" type="imwa:FysiekeEigenschapPropertyType">
+            <annotation>
+              <documentation>Een samengesteld attribuut voor het vastleggen van (op  WTI gebaseerde) parameters bestaande uit:
+- Waardetype: aanduiding van een parameter waar een waarde voor opgenomen wordt (bv. "toetsparameters;massapercentage steenslag/grind") 
+- Een waarde die bij een waardetype hoort.</documentation>
+            </annotation>
+          </element>
+          <element name="typeMateriaal" type="gml:CodeType">
+            <annotation>
+              <documentation>Bekelding_materiaal (groep Uitvullaag of Filter/Vlijlaag): Materiaalsoort(en) van de filter-/vlijlaag.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="FilterVlijlaagPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaveilig:FilterVlijlaag"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="FlexibeleWaterkering" substitutionGroup="imwaveilig:Waterkering" type="imwaveilig:FlexibeleWaterkeringType"/>
+  <complexType name="FlexibeleWaterkeringType">
+    <complexContent>
+      <extension base="imwaveilig:WaterkeringType">
+        <sequence/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="FlexibeleWaterkeringPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaveilig:FlexibeleWaterkering"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="GecombineerdToetsoordeel" substitutionGroup="gml:_Feature" type="imwaveilig:GecombineerdToetsoordeelType">
+    <annotation>
+      <documentation>Gecombineerd oordeel van de toetsoordelen van de verschillende toetssporen op (deel)vakniveau.</documentation>
+    </annotation>
+  </element>
+  <complexType name="GecombineerdToetsoordeelType">
+    <complexContent>
+      <extension base="gml:AbstractFeatureType">
+        <sequence>
+          <element maxOccurs="unbounded" name="eindtoetsoordeelToetsspoor" type="imwaveilig:ToetsoordeelGecombineerdVakPropertyType">
+            <annotation>
+              <documentation>Maatgevend resultaat van een toetsspoor voor een vak.</documentation>
+            </annotation>
+          </element>
+          <element name="toetsoordeelGecombineerd" type="imwaveilig:ToetsoordeelVakPropertyType">
+            <annotation>
+              <documentation>Gecombineerd&lt;i&gt; &lt;/i&gt;resultaat van een combinatie van toetssporen voor een vak.</documentation>
+            </annotation>
+          </element>
+          <element name="geldtVoor" type="imwaveilig:WaterkeringsectiePropertyType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="GecombineerdToetsoordeelPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaveilig:GecombineerdToetsoordeel"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Geotextiel" substitutionGroup="imwaveilig:Bekledinglaag" type="imwaveilig:GeotextielType">
+    <annotation>
+      <documentation>Een vlak doorlatend weefsel of vlies, in contact met grond en/of andere materialen toegepast in geotechnische en civieltechnische constructies.</documentation>
+    </annotation>
+  </element>
+  <complexType name="GeotextielType">
+    <complexContent>
+      <extension base="imwaveilig:BekledinglaagType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="fysiekeEigenschap" type="imwa:FysiekeEigenschapPropertyType">
+            <annotation>
+              <documentation>Een samengesteld attribuut voor het vastleggen van (op  WTI gebaseerde) parameters bestaande uit:
+- Waardetype: aanduiding van een parameter waar een waarde voor opgenomen wordt (bv. "toetsparameters;massapercentage steenslag/grind") 
+- Een waarde die bij een waardetype hoort.</documentation>
+            </annotation>
+          </element>
+          <element name="typeMateriaal" type="gml:CodeType">
+            <annotation>
+              <documentation>Bekelding_materiaal (groep geotextiel): Materiaalsoort(en) van het geotextiel.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="GeotextielPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaveilig:Geotextiel"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="HRuitvoerlocatie" substitutionGroup="gml:_GML" type="imwaveilig:HRuitvoerlocatieType">
+    <annotation>
+      <documentation>Hydraulische randvoorwaarden voor het toetsen van primaire waterkeringen.</documentation>
+    </annotation>
+  </element>
+  <complexType name="HRuitvoerlocatieType">
+    <complexContent>
+      <extension base="gml:AbstractGMLType">
+        <sequence>
+          <element maxOccurs="unbounded" name="fysiekeEigenschap" type="imwa:FysiekeEigenschapPropertyType"/>
+          <element name="toetsjaar" type="dateTime">
+            <annotation>
+              <documentation>Jaar/datum/tijd waarin de hydraulische randvoorwaarden zijn vastgesteld voor de veiligheidstoetsing.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="HRuitvoerlocatiePropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaveilig:HRuitvoerlocatie"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="HWBPProjectSectie" substitutionGroup="gml:_GML" type="imwaveilig:HWBPProjectSectieType">
+    <annotation>
+      <documentation>Een waterkeringsectie die in aanmerking komt voor opname in een programma voor versterking (voorstel project).</documentation>
+    </annotation>
+  </element>
+  <complexType name="HWBPProjectSectieType">
+    <complexContent>
+      <extension base="gml:AbstractGMLType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="fysiekeEigenschap" type="imwa:FysiekeEigenschapPropertyType"/>
+          <element name="indicatieVersterkenBuitendijks" type="boolean">
+            <annotation>
+              <documentation>Indicatie of het dijkvak buitendijks versterkt mag worden (ja of nee).</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="HWBPProjectSectiePropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaveilig:HWBPProjectSectie"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Kernopbouw" substitutionGroup="gml:_GML" type="imwaveilig:KernopbouwType"/>
+  <complexType name="KernopbouwType">
+    <complexContent>
+      <extension base="gml:AbstractGMLType">
+        <sequence>
+          <element name="typeKernopbouw" type="gml:CodeType">
+            <annotation>
+              <documentation>Nadere aanduiding van de opbouw van het grondlichaam (volgens indeling WTI)</documentation>
+            </annotation>
+          </element>
+          <element name="onderdeelVan" type="imwaveilig:WaterkeringPropertyType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="KernopbouwPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaveilig:Kernopbouw"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Kistdam" substitutionGroup="imwaveilig:Waterkering" type="imwaveilig:KistdamType">
+    <annotation>
+      <documentation>Een grond- en/of waterkerende constructie bestaande uit twee gekoppelde damwanden, waartussen zich grond of een andere vulmassa (meestal granulair materiaal) bevindt.</documentation>
+    </annotation>
+  </element>
+  <complexType name="KistdamType">
+    <complexContent>
+      <extension base="imwaveilig:WaterkeringType">
+        <sequence>
+          <element minOccurs="0" name="typeWaterkerendeConstructie" type="gml:CodeType">
+            <annotation>
+              <documentation>WaterkerendeConstructieType: Type constructie in relatie tot de waterkerende functie (volgens de leidraad waterkerende kunstwerken).</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="KistdamPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaveilig:Kistdam"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Kostenraming" substitutionGroup="gml:_GML" type="imwaveilig:KostenramingType">
+    <annotation>
+      <documentation>Kostenraming voor te versterken keringsecties en/of kunstwerken (voorstel project).</documentation>
+    </annotation>
+  </element>
+  <complexType name="KostenramingType">
+    <complexContent>
+      <extension base="gml:AbstractGMLType">
+        <sequence/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="KostenramingPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaveilig:Kostenraming"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Oeververdediging" substitutionGroup="imwa:IMWA_GeoObject" type="imwaveilig:OeververdedigingType">
+    <annotation>
+      <documentation>Een kunstmatige verdediging van talud en/of bodem van een water (Aquo 'profielverdediging').</documentation>
+    </annotation>
+  </element>
+  <complexType name="OeververdedigingType">
+    <complexContent>
+      <extension base="imwa:IMWA_GeoObjectType">
+        <sequence>
+          <element name="geometrieVlak">
+            <annotation>
+              <documentation>Geometrische representatie van het object als vlak (2D/3D).</documentation>
+            </annotation>
+            <complexType>
+              <choice minOccurs="0"/>
+              <attributeGroup ref="gml:AssociationAttributeGroup"/>
+            </complexType>
+          </element>
+          <element name="typeOeververdediging" type="gml:CodeType">
+            <annotation>
+              <documentation>Nadere aanduiding van het type oververdediging.</documentation>
+            </annotation>
+          </element>
+          <element name="ligtOp" type="imgeo:OndersteunendWaterdeelPropertyType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="OeververdedigingPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaveilig:Oeververdediging"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Ondergrondsectie" substitutionGroup="gml:_GML" type="imwaveilig:OndergrondsectieType"/>
+  <complexType name="OndergrondsectieType">
+    <complexContent>
+      <extension base="gml:AbstractGMLType">
+        <sequence/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="OndergrondsectiePropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaveilig:Ondergrondsectie"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="ProfielVanVrijeRuimte" substitutionGroup="imwa:WaterstaatkundigeZonering" type="imwaveilig:ProfielVanVrijeRuimteType">
+    <annotation>
+      <documentation>Vrij te houden ruimte voor het blijvend kunnen realiseren van de waterkerende functie van een kering, ook in de toekomst.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ProfielVanVrijeRuimteType">
+    <complexContent>
+      <extension base="imwa:WaterstaatkundigeZoneringType">
+        <sequence/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="ProfielVanVrijeRuimtePropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaveilig:ProfielVanVrijeRuimte"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Projectfase" substitutionGroup="gml:_GML" type="imwaveilig:ProjectfaseType"/>
+  <complexType name="ProjectfaseType">
+    <complexContent>
+      <extension base="gml:AbstractGMLType">
+        <sequence>
+          <element name="typeFasering" type="gml:CodeType">
+            <annotation>
+              <documentation>Projectfase: Nadere aanduiding van het type fase (bv. verkenningsfase).</documentation>
+            </annotation>
+          </element>
+          <element name="beginDatum" type="date"/>
+          <element name="eindDatum" type="date"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="ProjectfasePropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaveilig:Projectfase"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Referentiepunt" substitutionGroup="imwa:IMWA_GeoObject" type="imwaveilig:ReferentiepuntType">
+    <annotation>
+      <documentation>Punt dat gebruikt wordt als referentie aanduiding.</documentation>
+    </annotation>
+  </element>
+  <complexType name="ReferentiepuntType">
+    <complexContent>
+      <extension base="imwa:IMWA_GeoObjectType">
+        <sequence>
+          <element minOccurs="0" name="geometriePunt">
+            <annotation>
+              <documentation>Geometrische representatie van het object als punt.</documentation>
+            </annotation>
+          </element>
+          <element name="afstandTotNulpunt" type="integer">
+            <annotation>
+              <documentation>Afstand (in meters) t.o.v. het beginpunt van het referentiestelsel van de waterkering.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" name="onderdeelVan" type="imwaveilig:ReferentiestelselPropertyType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="ReferentiepuntPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaveilig:Referentiepunt"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Referentiestelsel" substitutionGroup="gml:_GML" type="imwaveilig:ReferentiestelselType">
+    <annotation>
+      <documentation>Realisatie van een referentiesysteem.
+
+Toelichting:
+Een referentiestelsel definieert een lokaal ruimtelijk referentiesysteem op basis van de referentielijn (representatie van de waterkering). Hiervoor wordt de referentie van een locatie uitgedrukt als afstand over de referentielijn ten opzichte van een nulpunt. Voorbeelden van referentiestelsels zijn dijkpalen, hectometrering en kilometrering.</documentation>
+    </annotation>
+  </element>
+  <complexType name="ReferentiestelselType">
+    <complexContent>
+      <extension base="gml:AbstractGMLType">
+        <sequence>
+          <element minOccurs="0" name="naam" type="string">
+            <annotation>
+              <documentation>Naam van het referentiestelsel</documentation>
+            </annotation>
+          </element>
+          <element name="typeReferentiestelsel" type="gml:CodeType">
+            <annotation>
+              <documentation>ReferentiestelselType: Nadere aanduiding van het type referentiestelsel.</documentation>
+            </annotation>
+          </element>
+          <element name="beginAfstand" type="integer">
+            <annotation>
+              <documentation>Nulpunt van het referentiestelsel ten opzichte van het beginpunt van de referentielijn (in meters).</documentation>
+            </annotation>
+          </element>
+          <element name="isReferentieVoor" type="imwaveilig:WaterkeringPropertyType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="ReferentiestelselPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaveilig:Referentiestelsel"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Schematisatie" substitutionGroup="gml:_GML" type="imwaveilig:SchematisatieType"/>
+  <complexType name="SchematisatieType">
+    <complexContent>
+      <extension base="gml:AbstractGMLType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="wordtGebruiktVoor" type="imwaveilig:ToetsspoorPropertyType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="SchematisatiePropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaveilig:Schematisatie"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Teenbestorting" substitutionGroup="imwa:IMWA_GeoObject" type="imwaveilig:TeenbestortingType">
+    <annotation>
+      <documentation>Horizontaal gedeelte van een dijk, aan de buitenzijde gelegen, als overgang tussen de harde bekleding en de rest van het talud of de vooroever.</documentation>
+    </annotation>
+  </element>
+  <complexType name="TeenbestortingType">
+    <complexContent>
+      <extension base="imwa:IMWA_GeoObjectType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="fysiekeEigenschap" type="imwa:FysiekeEigenschapPropertyType">
+            <annotation>
+              <documentation>Een samengesteld attribuut voor het vastleggen van parameters bestaande uit:
+- Waardetype: aanduiding van een parameter waar een waarde voor opgenomen wordt.
+- Een waarde die bij een waardetype hoort.</documentation>
+            </annotation>
+          </element>
+          <element name="geometrieVlak">
+            <annotation>
+              <documentation>Geometrische representatie van het object als vlak (2D/3D).</documentation>
+            </annotation>
+            <complexType>
+              <choice minOccurs="0"/>
+              <attributeGroup ref="gml:AssociationAttributeGroup"/>
+            </complexType>
+          </element>
+          <element name="typeMateriaal" type="gml:CodeType">
+            <annotation>
+              <documentation>Materiaalsoort(en) van de bestorting.</documentation>
+            </annotation>
+          </element>
+          <element name="onderdeelVan" type="imwaveilig:WaterkeringPropertyType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="TeenbestortingPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaveilig:Teenbestorting"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="TeenconstructieOvergangsconstructie" substitutionGroup="imwa:IMWA_GeoObject" type="imwaveilig:TeenconstructieOvergangsconstructieType">
+    <annotation>
+      <documentation>Overgangsconstructie:
+Constructie die tot doel heeft om twee verschillende bekledingsconstructies op elkaar aan te sluiten.
+
+Teenconstructie:
+Constructie aan de onderzijde van het talud als overgang naar het voorland of de teenbestorting.</documentation>
+    </annotation>
+  </element>
+  <complexType name="TeenconstructieOvergangsconstructieType">
+    <complexContent>
+      <extension base="imwa:IMWA_GeoObjectType">
+        <sequence>
+          <element name="geometrieLijn">
+            <annotation>
+              <documentation>Geometrische representatie van het object als (2D/3D) lijn.</documentation>
+            </annotation>
+          </element>
+          <element name="typeConstructie" type="gml:CodeType">
+            <annotation>
+              <documentation>Nadere aanduiding van het type teenconstructie/overgangsconstructie.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="2" name="sluitAanOp" type="imwaveilig:BekledingsconstructiePropertyType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="TeenconstructieOvergangsconstructiePropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaveilig:TeenconstructieOvergangsconstructie"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Toets" substitutionGroup="gml:_GML" type="imwaveilig:ToetsType">
+    <annotation>
+      <documentation>Geen definitie in Aquo-lex
+
+Domein: goed, voldoende, onvoldoende, geen oordeel</documentation>
+    </annotation>
+  </element>
+  <complexType name="ToetsType">
+    <complexContent>
+      <extension base="gml:AbstractGMLType">
+        <sequence>
+          <element name="assemblagemethode" type="gml:CodeType">
+            <annotation>
+              <documentation>Gehanteerde methode voor de assemblage.</documentation>
+            </annotation>
+          </element>
+          <element name="toetslaag" type="gml:CodeType">
+            <annotation>
+              <documentation>Onderscheid in één van de volgende typen:
+- Eenvoudige toets
+- Gedetailleerde toets
+- Toets op maat</documentation>
+            </annotation>
+          </element>
+          <element name="toetsoordeel" type="gml:CodeType">
+            <annotation>
+              <documentation>Toetsresultaat vertaald naar standaard categorie (toetsoordeel).</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="toetsresultaatAanduiding" type="gml:CodeType">
+            <annotation>
+              <documentation>Toetsresultaat is afhankelijk van de gebruikte methode.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="toetsresultaatFaalkans" type="imwa:FysiekeEigenschapPropertyType">
+            <annotation>
+              <documentation>Toetsresultaat als (faal)kans</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="ToetsPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaveilig:Toets"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Toets" substitutionGroup="gml:_Feature" type="imwaveilig:ToetsType">
+    <annotation>
+      <documentation>Onderdeel van de toetsprocedure waarmee bepaald wordt of
+(een deel van de) waterkering voldoet aan de eisen.</documentation>
+    </annotation>
+  </element>
+  <complexType name="ToetsType">
+    <complexContent>
+      <extension base="gml:AbstractFeatureType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="toetsoordeelVak" type="imwaveilig:ToetsoordeelVakPropertyType">
+            <annotation>
+              <documentation>Geüniformeerd resultaat van een toetsspoor voor een vak.
+
+[31-8-2018}: Multiplicity = [0:*]; gewijzigd op verzoek van WBI.</documentation>
+            </annotation>
+          </element>
+          <element name="eindtoetsoordeel" type="imwaveilig:ToetsoordeelVakPropertyType">
+            <annotation>
+              <documentation>Maatgevend resultaat van een toetsspoor voor een vak.</documentation>
+            </annotation>
+          </element>
+          <element name="beoordeelt" type="imwaveilig:WaterkeringsectiePropertyType"/>
+          <element name="onderdeelVan" type="imwaveilig:ToetsspoorPropertyType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="ToetsPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaveilig:Toets"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="ToetsoordeelGecombineerdVak" substitutionGroup="gml:_Object" type="imwaveilig:ToetsoordeelGecombineerdVakType"/>
+  <complexType name="ToetsoordeelGecombineerdVakType">
+    <sequence>
+      <element name="toetsspoor"/>
+      <element name="status" type="gml:CodeType"/>
+      <element name="categorieVak" type="gml:CodeType">
+        <annotation>
+          <documentation>ToetsoordeelVak: Toetsoordeel of veiligheidsoordeel waarmee de afstand tot de norm van het traject wordt uitgedrukt.</documentation>
+        </annotation>
+      </element>
+      <element name="assemblagemethode" type="gml:CodeType">
+        <annotation>
+          <documentation>Assemblagemethode: Methode voor het combineren van ongelijksoortige toetsresultaten per vak en per toetsspoor tot toetsoordelen per vak of per traject of tot het veiligheidsoordeel.</documentation>
+        </annotation>
+      </element>
+    </sequence>
+  </complexType>
+  <complexType name="ToetsoordeelGecombineerdVakPropertyType">
+    <sequence>
+      <element ref="imwaveilig:ToetsoordeelGecombineerdVak"/>
+    </sequence>
+  </complexType>
+  <element name="ToetsoordeelTraject" substitutionGroup="gml:_Object" type="imwaveilig:ToetsoordeelTrajectType"/>
+  <complexType name="ToetsoordeelTrajectType">
+    <sequence>
+      <element name="status" type="gml:CodeType">
+        <annotation>
+          <documentation>OordeelType: Aanduiding of het een tussentijds of volledig oordeel betreft.</documentation>
+        </annotation>
+      </element>
+      <element name="categorieTraject" type="gml:CodeType">
+        <annotation>
+          <documentation>ToetsoordeelTraject: Toetsoordeel of veiligheidsoordeel waarmee de afstand tot de norm van het traject wordt uitgedrukt.</documentation>
+        </annotation>
+      </element>
+      <element minOccurs="0" name="faalkans" type="double">
+        <annotation>
+          <documentation>Kans op overschrijden van de uiterste grenstoestand van een
+waterkering of een onderdeel daarvan.</documentation>
+        </annotation>
+      </element>
+      <element name="assemblagemethode" type="gml:CodeType">
+        <annotation>
+          <documentation>Assemblagemethode: Methode voor het combineren van ongelijksoortige toetsresultaten per vak en per toetsspoor tot toetsoordelen per vak of per traject of tot het veiligheidsoordeel.</documentation>
+        </annotation>
+      </element>
+    </sequence>
+  </complexType>
+  <complexType name="ToetsoordeelTrajectPropertyType">
+    <sequence>
+      <element ref="imwaveilig:ToetsoordeelTraject"/>
+    </sequence>
+  </complexType>
+  <element name="ToetsoordeelVak" substitutionGroup="gml:_Object" type="imwaveilig:ToetsoordeelVakType"/>
+  <complexType name="ToetsoordeelVakType">
+    <sequence>
+      <element name="toets" type="gml:CodeType">
+        <annotation>
+          <documentation>Toets: Onderdeel van een toetsprocedure.</documentation>
+        </annotation>
+      </element>
+      <element name="categorieVak" type="gml:CodeType">
+        <annotation>
+          <documentation>ToetsoordeelVak: Toetsoordeel of veiligheidsoordeel waarmee de afstand tot de norm van het traject wordt uitgedrukt.</documentation>
+        </annotation>
+      </element>
+      <element minOccurs="0" name="faalkans" type="double">
+        <annotation>
+          <documentation>Kans op overschrijden van de uiterste grenstoestand van een
+waterkering of een onderdeel daarvan.</documentation>
+        </annotation>
+      </element>
+      <element name="assemblagemethode" type="gml:CodeType">
+        <annotation>
+          <documentation>Assemblagemethode: Methode voor het combineren van ongelijksoortige toetsresultaten per vak en per toetsspoor tot toetsoordelen per vak of per traject of tot het veiligheidsoordeel.</documentation>
+        </annotation>
+      </element>
+    </sequence>
+  </complexType>
+  <complexType name="ToetsoordeelVakPropertyType">
+    <sequence>
+      <element ref="imwaveilig:ToetsoordeelVak"/>
+    </sequence>
+  </complexType>
+  <element name="Toetsspoor" substitutionGroup="gml:_Feature" type="imwaveilig:ToetsspoorType">
+    <annotation>
+      <documentation>De wijze waarop een mechanisme of een onderdeel van de
+waterkering wordt beoordeeld.</documentation>
+    </annotation>
+  </element>
+  <complexType name="ToetsspoorType">
+    <complexContent>
+      <extension base="gml:AbstractFeatureType">
+        <sequence>
+          <element name="typeToetsspoor" type="gml:CodeType">
+            <annotation>
+              <documentation>Toetsspoor: Naam van het toetsspoor gebaseerd op het faalmechanisme.</documentation>
+            </annotation>
+          </element>
+          <element name="toetsspoorGroep" type="gml:CodeType">
+            <annotation>
+              <documentation>Toetsgroep: Groep van toetssporen gebaseerd op een onderverdeling op grond van de beschikbare berekeningswijze.</documentation>
+            </annotation>
+          </element>
+          <element name="typeFaalmechanisme" type="gml:CodeType">
+            <annotation>
+              <documentation>ToetsspoorType: Aanduiding of een faalmechanisme direct of indirect leidt tot falen van het systeem.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="toetsvoorschrift" type="string">
+            <annotation>
+              <documentation>Voorschrift dat is gebruikt voor het beoordelen van het toetsspoor.</documentation>
+            </annotation>
+          </element>
+          <element name="toetsoordeel" type="imwaveilig:ToetsoordeelTrajectPropertyType">
+            <annotation>
+              <documentation>Geüniformeerd resultaat van een toetsspoor of een combinatie van toetssporen voor een dijktraject.</documentation>
+            </annotation>
+          </element>
+          <element name="leidtTot" type="imwaveilig:VeiligheidsoordeelPropertyType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="onderdeelVan" type="imwaveilig:VeiligheidsoordeelPropertyType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="ToetsspoorPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaveilig:Toetsspoor"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="ToetsspoorDeelsectie" substitutionGroup="gml:_GML" type="imwaveilig:ToetsspoorDeelsectieType"/>
+  <complexType name="ToetsspoorDeelsectieType">
+    <complexContent>
+      <extension base="gml:AbstractGMLType">
+        <sequence>
+          <element maxOccurs="unbounded" name="toetsoordeelToetsspoor" type="gml:CodeType"/>
+          <element name="toetsoordeelGecombineerd" type="gml:CodeType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="ToetsspoorDeelsectiePropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaveilig:ToetsspoorDeelsectie"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="ToetsspoorSectie" substitutionGroup="gml:_GML" type="imwaveilig:ToetsspoorSectieType">
+    <annotation>
+      <documentation>Een deel van de bekleding waarvoor geldt dat de randvoorwaarden en kenmerken voor de toetsing bij benadering constant zijn.</documentation>
+    </annotation>
+  </element>
+  <complexType name="ToetsspoorSectieType">
+    <complexContent>
+      <extension base="gml:AbstractGMLType">
+        <sequence/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="ToetsspoorSectiePropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaveilig:ToetsspoorSectie"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Toetsvak" substitutionGroup="imwaveilig:Waterkeringsectie" type="imwaveilig:ToetsvakType">
+    <annotation>
+      <documentation>Een deel van de waterkering waarvoor geldt dat de randvoorwaarden en kenmerken voor de toetsing bij benadering constant zijn.</documentation>
+    </annotation>
+  </element>
+  <complexType name="ToetsvakType">
+    <complexContent>
+      <extension base="imwaveilig:WaterkeringsectieType">
+        <sequence>
+          <element name="assemblagemethode" type="gml:CodeType">
+            <annotation>
+              <documentation>Assemblagemethode: Methode voor het combineren van ongelijksoortige toetsresultaten per vak en per toetsspoor tot toetsoordelen per vak of per traject of tot het veiligheidsoordeel.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="ToetsvakPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaveilig:Toetsvak"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Toplaag" substitutionGroup="imwaveilig:Bekledinglaag" type="imwaveilig:ToplaagType">
+    <annotation>
+      <documentation>Buitenste verdedigingslaag van de bekledingsconstructie (voorstel project).</documentation>
+    </annotation>
+  </element>
+  <complexType name="ToplaagType">
+    <complexContent>
+      <extension base="imwaveilig:BekledinglaagType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="fysiekeEigenschap" type="imwa:FysiekeEigenschapPropertyType">
+            <annotation>
+              <documentation>Een samengesteld attribuut voor het vastleggen van (op  WTI gebaseerde) parameters bestaande uit:
+- Waardetype: aanduiding van een parameter waar een waarde voor opgenomen wordt (bv. "toetsparameters;massapercentage steenslag/grind") 
+- Een waarde die bij een waardetype hoort.</documentation>
+            </annotation>
+          </element>
+          <element name="ingewassenJN" type="gml:CodeType">
+            <annotation>
+              <documentation>Indicatie of de toplaag is ingewassen of niet. Alleen relevant voor Steenzettingen.</documentation>
+            </annotation>
+          </element>
+          <element name="typeMateriaal" type="gml:CodeType">
+            <annotation>
+              <documentation>Bekleding_materiaal (groep Toplaag): Materiaalsoort(en) van de toplaag.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="ToplaagPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaveilig:Toplaag"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Uitvullaag" substitutionGroup="imwaveilig:Bekledinglaag" type="imwaveilig:UitvullaagType">
+    <annotation>
+      <documentation>Dun laagje granulair materiaal, bedoeld om oneffenheden van het oppervlak van de laag eronder op te vullen, zodat een vlak oppervlak voor het plaatsen van de toplaagelementen wordt verkregen.</documentation>
+    </annotation>
+  </element>
+  <complexType name="UitvullaagType">
+    <complexContent>
+      <extension base="imwaveilig:BekledinglaagType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="fysiekeEigenschap" type="imwa:FysiekeEigenschapPropertyType"/>
+          <element name="typeMateriaal" type="gml:CodeType">
+            <annotation>
+              <documentation>Bekelding_materiaal (groep Uitvullaag of Filter/Vlijlaag): Materiaalsoort(en) van de uitvullaag.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="UitvullaagPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaveilig:Uitvullaag"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Urgentie" substitutionGroup="gml:_GML" type="imwaveilig:UrgentieType">
+    <annotation>
+      <documentation>Urgentiescore voor te versterken keringsecties en/of kunstwerken (voorstel project).</documentation>
+    </annotation>
+  </element>
+  <complexType name="UrgentieType">
+    <complexContent>
+      <extension base="gml:AbstractGMLType">
+        <sequence>
+          <element minOccurs="0" name="faalkansScore" type="gml:CodeType">
+            <annotation>
+              <documentation>Score per faalkans (laag / middel / hoog)</documentation>
+            </annotation>
+          </element>
+          <element name="gevolgenScore" type="gml:CodeType">
+            <annotation>
+              <documentation>Gevolgen op basis van VNK2 en/of WV21 (laag / middel / hoog)</documentation>
+            </annotation>
+          </element>
+          <element name="urgentieScore" type="integer">
+            <annotation>
+              <documentation>Urgentiescore per te versterken keringsectie.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="UrgentiePropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaveilig:Urgentie"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="Vakindeling" substitutionGroup="gml:_Feature" type="imwaveilig:VakindelingType">
+    <annotation>
+      <documentation>Indeling van een waterkering in de lengterichting op basis van relevante eigenschappen.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="VakindelingType">
+    <complexContent>
+      <extension base="gml:AbstractFeatureType">
+        <sequence>
+          <element name="geltdtVoor" type="imwaveilig:WaterkeringPropertyType"/>
+          <element name="geldtVoor" type="imwaveilig:WaterkeringPropertyType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="VakindelingPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaveilig:Vakindeling"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Veiligheidsoordeel" substitutionGroup="gml:_Feature" type="imwaveilig:VeiligheidsoordeelType">
+    <annotation>
+      <documentation>Geüniformeerd oordeel over het dijktraject rekening houdend met alle
+toetssporen.</documentation>
+    </annotation>
+  </element>
+  <complexType name="VeiligheidsoordeelType">
+    <complexContent>
+      <extension base="gml:AbstractFeatureType">
+        <sequence>
+          <element name="toetsoordeelZonderKansschatting" type="imwaveilig:ToetsoordeelTrajectPropertyType">
+            <annotation>
+              <documentation>Geüniformeerd&lt;i&gt; &lt;/i&gt;resultaat van een toetsspoor of een combinatie van toetssporen zonder faalkansschatting.
+
+[31-8-2018}: Multiplicity = [1]; gewijzigd op verzoek van WBI.</documentation>
+            </annotation>
+          </element>
+          <element name="toetsoordeelMetKansschatting" type="imwaveilig:ToetsoordeelTrajectPropertyType">
+            <annotation>
+              <documentation>Geüniformeerd&lt;i&gt; &lt;/i&gt;resultaat van een toetsspoor of een combinatie van toetssporen met faalkansschatting.
+
+[31-8-2018}: Multiplicity = [1]; gewijzigd op verzoek van WBI.</documentation>
+            </annotation>
+          </element>
+          <element name="veiligheidsoordeel" type="imwaveilig:VeiligheidsoordeelPropertyType">
+            <annotation>
+              <documentation>Geüniformeerd oordeel over het traject rekening houdend met alle
+toetssporen, uitgedrukt in een categorie.</documentation>
+            </annotation>
+          </element>
+          <element name="uitkomstVan" type="imwaveilig:BeoordelingsprocesPropertyType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="VeiligheidsoordeelPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaveilig:Veiligheidsoordeel"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Veiligheidsoordeel" substitutionGroup="gml:_Object" type="imwaveilig:VeiligheidsoordeelType"/>
+  <complexType name="VeiligheidsoordeelType">
+    <sequence>
+      <element name="status" type="gml:CodeType"/>
+      <element name="categorie" type="gml:CodeType">
+        <annotation>
+          <documentation>Veiligheidsoordeel: Toetsoordeel of veiligheidsoordeel waarmee de afstand tot de norm van het traject wordt uitgedrukt.</documentation>
+        </annotation>
+      </element>
+      <element name="assemblagemethode">
+        <annotation>
+          <documentation>Assemblagemethode: Methode voor het combineren van ongelijksoortige toetsresultaten per vak en per toetsspoor tot toetsoordelen per vak of per traject of tot het veiligheidsoordeel.</documentation>
+        </annotation>
+      </element>
+    </sequence>
+  </complexType>
+  <complexType name="VeiligheidsoordeelPropertyType">
+    <sequence>
+      <element ref="imwaveilig:Veiligheidsoordeel"/>
+    </sequence>
+  </complexType>
+  <element name="Versterkingsproject" substitutionGroup="gml:_GML" type="imwaveilig:VersterkingsprojectType">
+    <annotation>
+      <documentation>Set samenhangende werkzaamheden met een specifiek einddoel.
+
+Voorbeeld: project voor het verstreken van dijktrajecten die niet voldoen aan de veiligheidsnorm (uitgevoerd onder de vlag van het HWBP).</documentation>
+    </annotation>
+  </element>
+  <complexType name="VersterkingsprojectType">
+    <complexContent>
+      <extension base="gml:AbstractGMLType">
+        <sequence>
+          <element name="naam" type="string">
+            <annotation>
+              <documentation>Naam van het project.</documentation>
+            </annotation>
+          </element>
+          <element name="projectCode" type="string">
+            <annotation>
+              <documentation>Unieke identificerende code voor het project.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="VersterkingsprojectPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaveilig:Versterkingsproject"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Wandconstructie" substitutionGroup="imwaveilig:Waterkering" type="imwaveilig:WandconstructieType">
+    <annotation>
+      <documentation>Een zelfstandige constructie, of onderdeel van een constructie, die verticaal geplaatst is en een kerende functie vervult (voorstel project).</documentation>
+    </annotation>
+  </element>
+  <complexType name="WandconstructieType">
+    <complexContent>
+      <extension base="imwaveilig:WaterkeringType">
+        <sequence>
+          <element minOccurs="0" name="geometrie2D">
+            <annotation>
+              <documentation>Punt-, lijn-, vlak- of multivlakgeometrie.</documentation>
+            </annotation>
+            <complexType>
+              <choice minOccurs="0"/>
+              <attributeGroup ref="gml:AssociationAttributeGroup"/>
+            </complexType>
+          </element>
+          <element name="typeWandconstructie" type="gml:CodeType">
+            <annotation>
+              <documentation>Wandconstructie_soort: Nadere aanduiding van het type wandconstructie.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="typeWaterkerendeConstructie" type="gml:CodeType">
+            <annotation>
+              <documentation>WaterkerendeConstructieType: Type constructie in relatie tot de waterkerende functie (volgens de leidraad waterkerende kunstwerken).</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="isOnderdeelVan" type="imwaveilig:WaterkeringPropertyType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="WandconstructiePropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaveilig:Wandconstructie"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Waterkering" substitutionGroup="gml:_Feature" type="imwaveilig:WaterkeringType">
+    <annotation>
+      <documentation>Een waterkerende en / of scheidende, kunstmatige of natuurlijke hoogte of hooggelegen gronden inclusief de daarin aanwezige waterkerende elementen.</documentation>
+    </annotation>
+  </element>
+  <complexType name="WaterkeringType">
+    <complexContent>
+      <extension base="gml:AbstractFeatureType">
+        <sequence>
+          <element name="geometrieLijn2D"/>
+          <element minOccurs="0" name="typeReferentielijn" type="gml:CodeType"/>
+          <element name="typeWaterkering" type="gml:CodeType"/>
+          <element name="categorieWaterkering" type="gml:CodeType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="WaterkeringPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaveilig:Waterkering"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Waterkering" substitutionGroup="imwa:Waterstaatswerk" type="imwaveilig:WaterkeringType">
+    <annotation>
+      <documentation>Een waterkerende kunstmatige hoogte of natuurlijke hoogte of hooggelegen gronden, inclusief de daarin aanwezige waterkerende elementen.</documentation>
+    </annotation>
+  </element>
+  <complexType name="WaterkeringType">
+    <complexContent>
+      <extension base="imwa:WaterstaatswerkType">
+        <sequence>
+          <element name="geometrieLijn2D">
+            <annotation>
+              <documentation>Geometrische representatie van de waterkering als 2D (referentie)lijn. Als referentielijn voor primaire waterkeringen geldt als voorkeur de buitenkruinlijn.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="typeReferentielijn" type="gml:CodeType">
+            <annotation>
+              <documentation>ReferentielijnType: Aanduiding van het type referentielijn.</documentation>
+            </annotation>
+          </element>
+          <element name="typeWaterkering" type="gml:CodeType">
+            <annotation>
+              <documentation>Waterkeringtype: Nadere aanduiding van het type waterkering.</documentation>
+            </annotation>
+          </element>
+          <element name="categorieWaterkering" type="gml:CodeType">
+            <annotation>
+              <documentation>WaterkeringCategorie: Indeling van waterkeringen naar primair, regionaal en overig.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="2" minOccurs="0" name="onderdeelVan" type="imwaveilig:WaterkeringstelselPropertyType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="sluitAanOp" type="imwaveilig:WaterkeringPropertyType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="WaterkeringPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaveilig:Waterkering"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Waterkeringsectie" substitutionGroup="gml:_Feature" type="imwaveilig:WaterkeringsectieType">
+    <annotation>
+      <documentation>Deel van een waterkering met min of meer gelijke eigenschappen (Aquo, 'Toetsvak').
+
+Voorbeelden: toetssectie, inspectievak, onderhoudsvak.</documentation>
+    </annotation>
+  </element>
+  <complexType name="WaterkeringsectieType">
+    <complexContent>
+      <extension base="gml:AbstractFeatureType">
+        <sequence>
+          <element minOccurs="0" name="geometrieLijn2D">
+            <annotation>
+              <documentation>Geometrische representatie van het object als lijn.</documentation>
+            </annotation>
+          </element>
+          <element name="typeWaterkeringsectie" type="gml:CodeType">
+            <annotation>
+              <documentation>WaterkeringsectieType: Nadere aanduiding van het type waterkeringsectie.</documentation>
+            </annotation>
+          </element>
+          <element name="afstandBegin" type="gml:MeasureType">
+            <annotation>
+              <documentation>Afstand (in meters) van het begin van de sectie t.o.v. het nulpunt van het referentiestelsel van de waterkering.</documentation>
+            </annotation>
+          </element>
+          <element name="afstandEinde" type="gml:MeasureType">
+            <annotation>
+              <documentation>Afstand (in meters) van het einde van de sectie t.o.v. het nulpunt van het referentiestelsel van de waterkering.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="lengte" type="gml:MeasureType">
+            <annotation>
+              <documentation>Lengte van een waterkeringsectie.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="onleentBelastingVan" type="imwaveilig:HRuitvoerlocatiePropertyType"/>
+          <element name="onderdeelVan" type="imwaveilig:VakindelingPropertyType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="WaterkeringsectiePropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaveilig:Waterkeringsectie"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Waterkeringstelsel" substitutionGroup="gml:_Feature" type="imwaveilig:WaterkeringstelselType">
+    <annotation>
+      <documentation>Een logisch samenhangend stelsel van waterkeringen.</documentation>
+    </annotation>
+  </element>
+  <complexType name="WaterkeringstelselType">
+    <complexContent>
+      <extension base="gml:AbstractFeatureType">
+        <sequence>
+          <element name="geometrie2D">
+            <annotation>
+              <documentation>Geometrische representatie van het object als lijn of vlak.</documentation>
+            </annotation>
+            <complexType>
+              <choice minOccurs="0"/>
+              <attributeGroup ref="gml:AssociationAttributeGroup"/>
+            </complexType>
+          </element>
+          <element name="typeWaterkeringstelsel" type="gml:CodeType">
+            <annotation>
+              <documentation>WaterkeringstelselType: Nadere aanduiding van het type waterkeringstelsel.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="naam" type="string">
+            <annotation>
+              <documentation>Naam van het waterkeringstelsel.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="lengte" type="gml:MeasureType">
+            <annotation>
+              <documentation>Lengte van het waterkeringstelsel.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="kent"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="sluitAanOp" type="imwaveilig:WaterkeringstelselPropertyType"/>
+          <element maxOccurs="unbounded" name="bestaatUit" type="imwaveilig:WaterkeringPropertyType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="WaterkeringstelselPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwaveilig:Waterkeringstelsel"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+</schema>

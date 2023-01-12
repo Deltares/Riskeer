@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -34,8 +34,8 @@ namespace Riskeer.AssemblyTool.Data.Test
         {
             // Setup
             var random = new Random(21);
-            double lowerLimitNorm = random.NextDouble();
-            double signalingNorm = random.NextDouble();
+            double maximumAllowableFloodingProbability = random.NextDouble();
+            double signalFloodingProbability = random.NextDouble();
             bool isRelevant = random.NextBoolean();
             bool hasProbabilitySpecified = random.NextBoolean();
             double sectionProbability = random.NextDouble();
@@ -44,12 +44,12 @@ namespace Riskeer.AssemblyTool.Data.Test
 
             // Call
             var input = new FailureMechanismSectionAssemblyInput(
-                lowerLimitNorm, signalingNorm, isRelevant, hasProbabilitySpecified,
+                maximumAllowableFloodingProbability, signalFloodingProbability, isRelevant, hasProbabilitySpecified,
                 sectionProbability, furtherAnalysisType, refinedSectionProbability);
 
             // Assert
-            Assert.AreEqual(signalingNorm, input.SignalingNorm);
-            Assert.AreEqual(lowerLimitNorm, input.LowerLimitNorm);
+            Assert.AreEqual(signalFloodingProbability, input.SignalFloodingProbability);
+            Assert.AreEqual(maximumAllowableFloodingProbability, input.MaximumAllowableFloodingProbability);
 
             Assert.AreEqual(isRelevant, input.IsRelevant);
             Assert.AreEqual(hasProbabilitySpecified, input.HasProbabilitySpecified);

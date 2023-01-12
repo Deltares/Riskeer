@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -220,21 +220,21 @@ namespace Riskeer.Revetment.IO.Configurations
             }
             else
             {
-                waveConditionsCalculation.InputParameters.WaterLevelType = ConvertNormType();
+                waveConditionsCalculation.InputParameters.WaterLevelType = ConvertNormativeProbabilityType();
                 return true;
             }
 
             return false;
         }
 
-        private WaveConditionsInputWaterLevelType ConvertNormType()
+        private WaveConditionsInputWaterLevelType ConvertNormativeProbabilityType()
         {
-            switch (failureMechanismContribution.NormativeNorm)
+            switch (failureMechanismContribution.NormativeProbabilityType)
             {
-                case NormType.LowerLimit:
-                    return WaveConditionsInputWaterLevelType.LowerLimit;
-                case NormType.Signaling:
-                    return WaveConditionsInputWaterLevelType.Signaling;
+                case NormativeProbabilityType.MaximumAllowableFloodingProbability:
+                    return WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability;
+                case NormativeProbabilityType.SignalFloodingProbability:
+                    return WaveConditionsInputWaterLevelType.SignalFloodingProbability;
                 default:
                     throw new NotSupportedException();
             }
@@ -249,9 +249,9 @@ namespace Riskeer.Revetment.IO.Configurations
                                                               c.TargetProbability, WaveConditionsInputWaterLevelType.UserDefinedTargetProbability, c)))
             {
                 new Tuple<double, WaveConditionsInputWaterLevelType, HydraulicBoundaryLocationCalculationsForTargetProbability>(
-                    failureMechanismContribution.LowerLimitNorm, WaveConditionsInputWaterLevelType.LowerLimit, null),
+                    failureMechanismContribution.MaximumAllowableFloodingProbability, WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability, null),
                 new Tuple<double, WaveConditionsInputWaterLevelType, HydraulicBoundaryLocationCalculationsForTargetProbability>(
-                    failureMechanismContribution.SignalingNorm, WaveConditionsInputWaterLevelType.Signaling, null)
+                    failureMechanismContribution.SignalFloodingProbability, WaveConditionsInputWaterLevelType.SignalFloodingProbability, null)
             };
 
             Tuple<double, WaveConditionsInputWaterLevelType, HydraulicBoundaryLocationCalculationsForTargetProbability>[] matchedTargetProbabilities = availableTargetProbabilities.Where(

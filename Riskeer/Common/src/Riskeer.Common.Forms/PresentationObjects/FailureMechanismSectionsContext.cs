@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -23,22 +23,21 @@ using System;
 using Core.Common.Controls.PresentationObjects;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 
 namespace Riskeer.Common.Forms.PresentationObjects
 {
     /// <summary>
     /// This class is a presentation object for <see cref="IFailureMechanism.Sections"/>.
     /// </summary>
-    public class FailureMechanismSectionsContext : ObservableWrappedObjectContextBase<IFailurePath>
+    public class FailureMechanismSectionsContext : ObservableWrappedObjectContextBase<IFailureMechanism<FailureMechanismSectionResult>>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="FailureMechanismSectionsContext"/> class.
         /// </summary>
-        /// <param name="wrappedData">The failure path to wrap.</param>
+        /// <param name="wrappedData">The failure mechanism to wrap.</param>
         /// <param name="assessmentSection">The owning assessment section of <paramref name="wrappedData"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public FailureMechanismSectionsContext(IFailurePath wrappedData, IAssessmentSection assessmentSection)
+        public FailureMechanismSectionsContext(IFailureMechanism<FailureMechanismSectionResult> wrappedData, IAssessmentSection assessmentSection)
             : base(wrappedData)
         {
             if (assessmentSection == null)

@@ -1,0 +1,572 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:IMWAProxies="https://data.aquo.nl/xsd/BOI/imwaproxies/v20220630"
+           xmlns:Uitwisselmodel="https://data.aquo.nl/xsd/BOI/uitwisselmodel/v20220630"
+           xmlns:gml="http://www.opengis.net/gml/3.2"
+           xmlns:gmlsf="http://www.opengis.net/gmlsf/2.0"
+           xmlns:imf="http://www.imvertor.org/xsl/functions"
+           xmlns:imvert="http://www.imvertor.org/schema/system"
+           xmlns:math="http://www.w3.org/2005/xpath-functions/math"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="https://data.aquo.nl/xsd/BOI/uitwisselmodel/v20220630"
+           elementFormDefault="qualified"
+           attributeFormDefault="unqualified"
+           version="1.0-1">
+   <xs:annotation>
+      <xs:appinfo source="http://www.imvertor.org/model-info/project">SIM</xs:appinfo>
+      <xs:appinfo source="http://www.imvertor.org/model-info/application">BOI</xs:appinfo>
+      <xs:appinfo source="http://www.imvertor.org/model-info/release">20220630</xs:appinfo>
+      <xs:appinfo source="http://www.imvertor.org/model-info/version">1.0</xs:appinfo>
+      <xs:appinfo source="http://www.imvertor.org/model-info/phase">1</xs:appinfo>
+      <xs:appinfo source="http://www.imvertor.org/model-info/uri">https://data.aquo.nl/xsd/BOI/uitwisselmodel</xs:appinfo>
+      <xs:appinfo source="http://www.imvertor.org/model-info/generated">2022-11-25T10:30:52Z</xs:appinfo>
+      <xs:appinfo source="http://www.imvertor.org/xml-schema-info/file-location">BOI/uitwisselmodel/v20220630/BOI_Uitwisselmodel_v1_0.xsd</xs:appinfo>
+      <xs:appinfo source="http://www.imvertor.org/xml-schema-info/generated">November 25, 2022 at 10:30:52</xs:appinfo>
+      <xs:appinfo source="http://www.imvertor.org/xml-schema-info/generator">1.67.1</xs:appinfo>
+      <xs:documentation source="http://www.imvertor.org/schema-info/file-location">BOI/uitwisselmodel/v20220630/BOI_Uitwisselmodel_v1_0.xsd</xs:documentation>
+      <xs:documentation source="http://www.imvertor.org/schema-info/conversion">
+        This schema is based on an UML specification, which is transformed by the Imvertor software. Imvertor modules are in the public domain, see http://www.imvertor.org.
+    </xs:documentation>
+   </xs:annotation>
+   <xs:annotation>
+      <xs:appinfo source="http://schemas.opengis.net/gmlsfProfile/2.0/gmlsfLevels.xsd">
+         <gmlsf:ComplianceLevel>0</gmlsf:ComplianceLevel>
+      </xs:appinfo>
+   </xs:annotation>
+   <xs:import namespace="https://data.aquo.nl/xsd/BOI/imwaproxies/v20220630"
+              schemaLocation="../../../BOI/imwaproxies/v20220630/BOI_IMWAProxies_v1_0.xsd"/>
+   <xs:import namespace="http://www.opengis.net/gml/3.2"
+              schemaLocation="../../../gml/3.2/ihw-gml.xsd"/>
+   <xs:element name="Assembleren-collectie"
+               type="Uitwisselmodel:Assembleren-collectieType"
+               substitutionGroup="gml:AbstractGML"/>
+   <xs:complexType name="Assembleren-collectieType">
+      <xs:complexContent>
+         <xs:extension base="gml:AbstractFeatureType">
+            <xs:sequence minOccurs="0" maxOccurs="unbounded">
+               <xs:element name="featureMember">
+                  <xs:complexType>
+                     <xs:complexContent>
+                        <xs:extension base="gml:AbstractFeatureMemberType">
+                           <xs:sequence>
+                              <xs:element ref="gml:AbstractFeature"/>
+                           </xs:sequence>
+                        </xs:extension>
+                     </xs:complexContent>
+                  </xs:complexType>
+               </xs:element>
+            </xs:sequence>
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+   <xs:element name="Beoordelingsproces"
+               type="Uitwisselmodel:BeoordelingsprocesType"
+               substitutionGroup="gml:AbstractFeature">
+      <xs:annotation>
+         <xs:documentation source="http://www.imvertor.org/model-info/technical-documentation">Definition: Definitie: geheel van activiteiten gericht op het (periodiek) beoordelen of de momentane toestand van een object voldoet aan de vigerende functionele en/of wettelijke eisen.</xs:documentation>
+      </xs:annotation>
+   </xs:element>
+   <xs:complexType name="BeoordelingsprocesType">
+      <xs:complexContent>
+         <xs:extension base="gml:AbstractFeatureType">
+            <xs:sequence>
+               <xs:element name="beginJaarBeoordelingsronde"
+                           type="xs:integer"
+                           minOccurs="1"
+                           maxOccurs="1">
+                  <xs:annotation>
+                     <xs:documentation source="http://www.imvertor.org/model-info/technical-documentation">Definition: Jaartal begin van de beoordelingsronde. Toelichting: een waterkering wordt in meerdere beoordelingsrondes beoordeeld (in de tijd). Bijvoorbeeld de beoordelingsronde die loopt van 2017 tot en met 2023.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="eindJaarBeoordelingsronde"
+                           type="xs:integer"
+                           minOccurs="1"
+                           maxOccurs="1">
+                  <xs:annotation>
+                     <xs:documentation source="http://www.imvertor.org/model-info/technical-documentation">Definition: Jaartal einde van de beoordelingsronde. Toelichting: een waterkering wordt in meerdere beoordelingsrondes beoordeeld (in de tijd). Bijvoorbeeld de beoordelingsronde die loopt van 2017 tot en met 2023.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="omschrijving"
+                           minOccurs="0"
+                           maxOccurs="1"
+                           type="xs:string">
+                  <xs:annotation>
+                     <xs:documentation source="http://www.imvertor.org/model-info/technical-documentation">Definition: Toelichting van het beoordelingsproces.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="1"
+                           maxOccurs="1"
+                           name="beoordeelt"
+                           nillable="false"
+                           type="IMWAProxies:WaterkeringstelselPropertyType"/>
+            </xs:sequence>
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="BeoordelingsprocesPropertyType">
+      <xs:sequence minOccurs="0">
+         <xs:element ref="Uitwisselmodel:Beoordelingsproces"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+      <xs:attributeGroup ref="gml:OwnershipAttributeGroup"/>
+   </xs:complexType>
+   <xs:element name="Veiligheidsoordeel"
+               type="Uitwisselmodel:VeiligheidsoordeelType"
+               substitutionGroup="gml:AbstractFeature">
+      <xs:annotation>
+         <xs:documentation source="http://www.imvertor.org/model-info/technical-documentation">Definition: Definitie: De relatie tussen de overstromings- of faalkans van een dijktraject tot de omgevingswaarde en signaleringsparameter van het dijktraject uitgedrukt in categorieën. (De mate waarin het dijktraject voldoet aan de norm.)</xs:documentation>
+      </xs:annotation>
+   </xs:element>
+   <xs:complexType name="VeiligheidsoordeelType">
+      <xs:complexContent>
+         <xs:extension base="gml:AbstractFeatureType">
+            <xs:sequence>
+               <xs:element name="categorie"
+                           minOccurs="1"
+                           maxOccurs="1"
+                           type="gml:CodeType">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <CodeListName>Veiligheidsoordeel</CodeListName>
+                        <CodeListURI>www.aquo.nl</CodeListURI>
+                     </xs:appinfo>
+                     <xs:documentation source="http://www.imvertor.org/model-info/technical-documentation">Definition: Definitie: geeft de categorie van het veiligheidsoordeel. Categorieën zijn beschreven in OR Bijlage XXXIIA.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="assemblagemethodeVeiligheidsoordeel"
+                           minOccurs="1"
+                           maxOccurs="1"
+                           type="gml:CodeType">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <CodeListName>Assemblagemethode</CodeListName>
+                        <CodeListURI>www.aquo.nl</CodeListURI>
+                     </xs:appinfo>
+                     <xs:documentation source="http://www.imvertor.org/model-info/technical-documentation">Definition: Definitie: methode voor het combineren van ongelijksoortige analyseresultaten per vak en per faalmechanisme tot analyseresultaten per traject en per faalmechanisme of tot het veiligheidsoordeel.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="faalkans" type="xs:float" minOccurs="1" maxOccurs="1">
+                  <xs:annotation>
+                     <xs:documentation source="http://www.imvertor.org/model-info/technical-documentation">Definition: Definitie: Kans op een ongewenste gebeurtenis (falen).</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="assemblagemethodeFaalkans"
+                           minOccurs="1"
+                           maxOccurs="1"
+                           type="gml:CodeType">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <CodeListName>Assemblagemethode</CodeListName>
+                        <CodeListURI>www.aquo.nl</CodeListURI>
+                     </xs:appinfo>
+                     <xs:documentation source="http://www.imvertor.org/model-info/technical-documentation">Definition: Definitie: methode voor het combineren van ongelijksoortige analyseresultaten per vak en per faalmechanisme tot analyseresultaten per traject en per faalmechanisme of tot het veiligheidsoordeel.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="status" minOccurs="1" maxOccurs="1" type="gml:CodeType">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <CodeListName>OordeelStatus</CodeListName>
+                        <CodeListURI>www.aquo.nl</CodeListURI>
+                     </xs:appinfo>
+                     <xs:documentation source="http://www.imvertor.org/model-info/technical-documentation">Definition: Definitie: status van het veiligheidsoordeel. geeft aan of het een tussentijdse of een volledige beoordeling betreft.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="1"
+                           maxOccurs="1"
+                           name="uitkomstVan"
+                           nillable="false"
+                           type="Uitwisselmodel:BeoordelingsprocesPropertyType"/>
+            </xs:sequence>
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="VeiligheidsoordeelPropertyType">
+      <xs:sequence minOccurs="0">
+         <xs:element ref="Uitwisselmodel:Veiligheidsoordeel"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+      <xs:attributeGroup ref="gml:OwnershipAttributeGroup"/>
+   </xs:complexType>
+   <xs:element name="Faalmechanisme"
+               type="Uitwisselmodel:FaalmechanismeType"
+               substitutionGroup="gml:AbstractFeature">
+      <xs:annotation>
+         <xs:documentation source="http://www.imvertor.org/model-info/technical-documentation">Definition: Definitie: De verzameling van faalpaden met gemeenschappelijk initieel mechanisme.</xs:documentation>
+      </xs:annotation>
+   </xs:element>
+   <xs:complexType name="FaalmechanismeType">
+      <xs:complexContent>
+         <xs:extension base="gml:AbstractFeatureType">
+            <xs:sequence>
+               <xs:element name="duidingsklasse"
+                           minOccurs="0"
+                           maxOccurs="1"
+                           type="gml:CodeType">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <CodeListName>Duidingsklasse</CodeListName>
+                        <CodeListURI>www.aquo.nl</CodeListURI>
+                     </xs:appinfo>
+                     <xs:documentation source="http://www.imvertor.org/model-info/technical-documentation">Definition: de verhouding van de bijdragen van de verschillende faalpaden aan de overstromings- of faalkans van het dijktraject.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="faalkans" type="xs:float" minOccurs="1" maxOccurs="1">
+                  <xs:annotation>
+                     <xs:documentation source="http://www.imvertor.org/model-info/technical-documentation">Definition: Kans op een ongewenste gebeurtenis (falen).</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="assemblagemethodeDuidingsklasse"
+                           minOccurs="0"
+                           maxOccurs="1"
+                           type="gml:CodeType">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <CodeListName>Assemblagemethode</CodeListName>
+                        <CodeListURI>www.aquo.nl</CodeListURI>
+                     </xs:appinfo>
+                     <xs:documentation source="http://www.imvertor.org/model-info/technical-documentation">Definition: methode voor het combineren van ongelijksoortige analyseresultaten per vak en per faalmechanisme tot analyseresultaten per traject en per faalmechanisme of tot het veiligheidsoordeel.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="assemblagemethodeFaalkans"
+                           minOccurs="1"
+                           maxOccurs="1"
+                           type="gml:CodeType">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <CodeListName>Assemblagemethode</CodeListName>
+                        <CodeListURI>www.aquo.nl</CodeListURI>
+                     </xs:appinfo>
+                     <xs:documentation source="http://www.imvertor.org/model-info/technical-documentation">Definition: methode voor het combineren van ongelijksoortige analyseresultaten per vak en per faalmechanisme tot analyseresultaten per traject en per faalmechanisme of tot het veiligheidsoordeel.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="status" minOccurs="1" maxOccurs="1" type="gml:CodeType">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <CodeListName>OordeelStatus</CodeListName>
+                        <CodeListURI>www.aquo.nl</CodeListURI>
+                     </xs:appinfo>
+                     <xs:documentation source="http://www.imvertor.org/model-info/technical-documentation">Definition: geeft aan of het een tussentijdse of een volledige beoordeling betreft.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="1"
+                           maxOccurs="1"
+                           name="bepaalt"
+                           nillable="false"
+                           type="Uitwisselmodel:VeiligheidsoordeelPropertyType"/>
+            </xs:sequence>
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="FaalmechanismePropertyType">
+      <xs:sequence minOccurs="0">
+         <xs:element ref="Uitwisselmodel:Faalmechanisme"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+      <xs:attributeGroup ref="gml:OwnershipAttributeGroup"/>
+   </xs:complexType>
+   <xs:element name="GeneriekFaalmechanisme"
+               type="Uitwisselmodel:GeneriekFaalmechanismeType"
+               substitutionGroup="Uitwisselmodel:Faalmechanisme">
+      <xs:annotation>
+         <xs:documentation source="http://www.imvertor.org/model-info/technical-documentation">Definition: Definitie: De verzameling van faalpaden met gemeenschappelijk initieel mechanisme.</xs:documentation>
+      </xs:annotation>
+   </xs:element>
+   <xs:complexType name="GeneriekFaalmechanismeType">
+      <xs:complexContent>
+         <xs:extension base="Uitwisselmodel:FaalmechanismeType">
+            <xs:sequence>
+               <xs:element name="generiekFaalmechanisme"
+                           minOccurs="1"
+                           maxOccurs="1"
+                           type="gml:CodeType">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <CodeListName>Faalmechanisme</CodeListName>
+                        <CodeListURI>www.aquo.nl</CodeListURI>
+                     </xs:appinfo>
+                     <xs:documentation source="http://www.imvertor.org/model-info/technical-documentation">Definition: Naam van het generiek faalmechanisme, als het een generiek faalmechanisme betreft. Als het geen generiek faalmechanisme betreft, dan is dit attribuut leeg.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+            </xs:sequence>
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="GeneriekFaalmechanismePropertyType">
+      <xs:sequence minOccurs="0">
+         <xs:element ref="Uitwisselmodel:GeneriekFaalmechanisme"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+      <xs:attributeGroup ref="gml:OwnershipAttributeGroup"/>
+   </xs:complexType>
+   <xs:element name="Faalanalyse"
+               type="Uitwisselmodel:FaalanalyseType"
+               substitutionGroup="gml:AbstractFeature">
+      <xs:annotation>
+         <xs:documentation source="http://www.imvertor.org/model-info/technical-documentation">Definition: Definitie: Analyse van faalpaden of (faal)mechanisme. Toelichting: De analyse vindt plaats per kunstwerk of vak op een representatief dwarsprofiel binnen het vak.</xs:documentation>
+      </xs:annotation>
+   </xs:element>
+   <xs:complexType name="FaalanalyseType">
+      <xs:complexContent>
+         <xs:extension base="gml:AbstractFeatureType">
+            <xs:sequence>
+               <xs:element name="duidingsklasse"
+                           minOccurs="1"
+                           maxOccurs="1"
+                           type="gml:CodeType">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <CodeListName>Duidingsklasse</CodeListName>
+                        <CodeListURI>www.aquo.nl</CodeListURI>
+                     </xs:appinfo>
+                     <xs:documentation source="http://www.imvertor.org/model-info/technical-documentation">Definition: de verhouding van de bijdragen van de verschillende faalpaden aan de overstromings- of faalkans van het dijktraject.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="faalkans" type="xs:float" minOccurs="0" maxOccurs="1">
+                  <xs:annotation>
+                     <xs:documentation source="http://www.imvertor.org/model-info/technical-documentation">Definition: Kans op een ongewenste gebeurtenis (falen).</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="assemblagemethodeDuidingsklasse"
+                           minOccurs="1"
+                           maxOccurs="1"
+                           type="gml:CodeType">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <CodeListName>Assemblagemethode</CodeListName>
+                        <CodeListURI>www.aquo.nl</CodeListURI>
+                     </xs:appinfo>
+                     <xs:documentation source="http://www.imvertor.org/model-info/technical-documentation">Definition: methode voor het combineren van ongelijksoortige analyseresultaten per vak en per faalmechanisme tot analyseresultaten per traject en per faalmechanisme of tot het veiligheidsoordeel.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="assemblagemethodeFaalkans"
+                           minOccurs="1"
+                           maxOccurs="1"
+                           type="gml:CodeType">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <CodeListName>Assemblagemethode</CodeListName>
+                        <CodeListURI>www.aquo.nl</CodeListURI>
+                     </xs:appinfo>
+                     <xs:documentation source="http://www.imvertor.org/model-info/technical-documentation">Definition: methode voor het combineren van ongelijksoortige analyseresultaten per vak en per faalmechanisme tot analyseresultaten per traject en per faalmechanisme of tot het veiligheidsoordeel.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="status" minOccurs="0" maxOccurs="1" type="gml:CodeType">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <CodeListName>OordeelStatus</CodeListName>
+                        <CodeListURI>www.aquo.nl</CodeListURI>
+                     </xs:appinfo>
+                     <xs:documentation source="http://www.imvertor.org/model-info/technical-documentation">Definition: geeft aan of het een tussentijdse of een volledige beoordeling betreft.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="1"
+                           maxOccurs="1"
+                           name="analyseert"
+                           nillable="false"
+                           type="Uitwisselmodel:FaalmechanismePropertyType"/>
+               <xs:element minOccurs="1"
+                           maxOccurs="1"
+                           name="geldtVoor"
+                           nillable="false"
+                           type="IMWAProxies:WaterkeringsectiePropertyType"/>
+            </xs:sequence>
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="FaalanalysePropertyType">
+      <xs:sequence minOccurs="0">
+         <xs:element ref="Uitwisselmodel:Faalanalyse"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+      <xs:attributeGroup ref="gml:OwnershipAttributeGroup"/>
+   </xs:complexType>
+   <xs:element name="SpecifiekFaalmechanisme"
+               type="Uitwisselmodel:SpecifiekFaalmechanismeType"
+               substitutionGroup="Uitwisselmodel:Faalmechanisme">
+      <xs:annotation>
+         <xs:documentation source="http://www.imvertor.org/model-info/technical-documentation">Definition: Definitie: De verzameling van faalpaden met gemeenschappelijk initieel mechanisme.</xs:documentation>
+      </xs:annotation>
+   </xs:element>
+   <xs:complexType name="SpecifiekFaalmechanismeType">
+      <xs:complexContent>
+         <xs:extension base="Uitwisselmodel:FaalmechanismeType">
+            <xs:sequence>
+               <xs:element name="specifiekFaalmechanisme"
+                           minOccurs="1"
+                           maxOccurs="1"
+                           type="xs:string">
+                  <xs:annotation>
+                     <xs:documentation source="http://www.imvertor.org/model-info/technical-documentation">Definition: Naam van het generiek faalmechanisme, als het een generiek faalmechanisme betreft. Als het geen generiek faalmechanisme betreft, dan is dit attribuut leeg.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+            </xs:sequence>
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="SpecifiekFaalmechanismePropertyType">
+      <xs:sequence minOccurs="0">
+         <xs:element ref="Uitwisselmodel:SpecifiekFaalmechanisme"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+      <xs:attributeGroup ref="gml:OwnershipAttributeGroup"/>
+   </xs:complexType>
+   <xs:element name="AnalyseDeelvakGecombineerd"
+               type="Uitwisselmodel:AnalyseDeelvakGecombineerdType"
+               substitutionGroup="gml:AbstractFeature">
+      <xs:annotation>
+         <xs:documentation source="http://www.imvertor.org/model-info/technical-documentation">Definition: Afgeleide analyse van faalpaden of (faal)mechanisme voor een deelvak .</xs:documentation>
+      </xs:annotation>
+   </xs:element>
+   <xs:complexType name="AnalyseDeelvakGecombineerdType">
+      <xs:complexContent>
+         <xs:extension base="gml:AbstractFeatureType">
+            <xs:sequence>
+               <xs:element name="duidingsklasse"
+                           minOccurs="1"
+                           maxOccurs="1"
+                           type="gml:CodeType">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <CodeListName>Duidingsklasse</CodeListName>
+                        <CodeListURI>www.aquo.nl</CodeListURI>
+                     </xs:appinfo>
+                     <xs:documentation source="http://www.imvertor.org/model-info/technical-documentation">Definition: de verhouding van de bijdragen van de verschillende faalpaden aan de overstromings- of faalkans van het dijktraject.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="assemblagemethode"
+                           minOccurs="1"
+                           maxOccurs="1"
+                           type="gml:CodeType">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <CodeListName>Assemblagemethode</CodeListName>
+                        <CodeListURI>www.aquo.nl</CodeListURI>
+                     </xs:appinfo>
+                     <xs:documentation source="http://www.imvertor.org/model-info/technical-documentation">Definition: methode voor het combineren van ongelijksoortige analyseresultaten per vak en per faalmechanisme tot analyseresultaten per traject en per faalmechanisme of tot het veiligheidsoordeel.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="status" minOccurs="1" maxOccurs="1" type="gml:CodeType">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <CodeListName>OordeelStatus</CodeListName>
+                        <CodeListURI>www.aquo.nl</CodeListURI>
+                     </xs:appinfo>
+                     <xs:documentation source="http://www.imvertor.org/model-info/technical-documentation">Definition: geeft aan of het een tussentijdse of een volledige beoordeling betreft.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="1"
+                           maxOccurs="1"
+                           name="specificeert"
+                           nillable="false"
+                           type="Uitwisselmodel:VeiligheidsoordeelPropertyType"/>
+               <xs:element minOccurs="1"
+                           maxOccurs="1"
+                           name="geldtVoor"
+                           nillable="false"
+                           type="Uitwisselmodel:DeelvakPropertyType"/>
+            </xs:sequence>
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="AnalyseDeelvakGecombineerdPropertyType">
+      <xs:sequence minOccurs="0">
+         <xs:element ref="Uitwisselmodel:AnalyseDeelvakGecombineerd"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+      <xs:attributeGroup ref="gml:OwnershipAttributeGroup"/>
+   </xs:complexType>
+   <xs:element name="Deelvak"
+               type="Uitwisselmodel:DeelvakType"
+               substitutionGroup="IMWAProxies:Waterkeringsectie">
+      <xs:annotation>
+         <xs:documentation source="http://www.imvertor.org/model-info/technical-documentation">Definition: Definitie: Grootste gemene deelvak op basis van verschillende vakindelingen van alle betrokken faalmechanismen.</xs:documentation>
+      </xs:annotation>
+   </xs:element>
+   <xs:complexType name="DeelvakType">
+      <xs:complexContent>
+         <xs:extension base="IMWAProxies:WaterkeringsectieType">
+            <xs:sequence>
+               <xs:element name="assemblagemethode"
+                           minOccurs="0"
+                           maxOccurs="1"
+                           type="gml:CodeType">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <CodeListName>Assemblagemethode</CodeListName>
+                        <CodeListURI>www.aquo.nl</CodeListURI>
+                     </xs:appinfo>
+                     <xs:documentation source="http://www.imvertor.org/model-info/technical-documentation">Definition: methode voor het combineren van ongelijksoortige analyseresultaten per vak en per faalmechanisme tot analyseresultaten per traject en per faalmechanisme of tot het veiligheidsoordeel.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+            </xs:sequence>
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="DeelvakPropertyType">
+      <xs:sequence minOccurs="0">
+         <xs:element ref="Uitwisselmodel:Deelvak"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+      <xs:attributeGroup ref="gml:OwnershipAttributeGroup"/>
+   </xs:complexType>
+   <xs:element name="AnalyseDeelvak"
+               type="Uitwisselmodel:AnalyseDeelvakType"
+               substitutionGroup="gml:AbstractFeature"/>
+   <xs:complexType name="AnalyseDeelvakType">
+      <xs:complexContent>
+         <xs:extension base="gml:AbstractFeatureType">
+            <xs:sequence>
+               <xs:element name="duidingsklasse"
+                           minOccurs="1"
+                           maxOccurs="1"
+                           type="gml:CodeType">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <CodeListName>Duidingsklasse</CodeListName>
+                        <CodeListURI>www.aquo.nl</CodeListURI>
+                     </xs:appinfo>
+                     <xs:documentation source="http://www.imvertor.org/model-info/technical-documentation">Definition: de verhouding van de bijdragen van de verschillende faalpaden aan de overstromings- of faalkans van het dijktraject.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="assemblagemethode"
+                           minOccurs="1"
+                           maxOccurs="1"
+                           type="gml:CodeType">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <CodeListName>Assemblagemethode</CodeListName>
+                        <CodeListURI>www.aquo.nl</CodeListURI>
+                     </xs:appinfo>
+                     <xs:documentation source="http://www.imvertor.org/model-info/technical-documentation">Definition: methode voor het combineren van ongelijksoortige analyseresultaten per vak en per faalmechanisme tot analyseresultaten per traject en per faalmechanisme of tot het veiligheidsoordeel.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="status" minOccurs="1" maxOccurs="1" type="gml:CodeType">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <CodeListName>OordeelStatus</CodeListName>
+                        <CodeListURI>www.aquo.nl</CodeListURI>
+                     </xs:appinfo>
+                     <xs:documentation source="http://www.imvertor.org/model-info/technical-documentation">Definition: geeft aan of het een tussentijdse of een volledige beoordeling betreft.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="1"
+                           maxOccurs="1"
+                           name="afgeleidVan"
+                           nillable="false"
+                           type="Uitwisselmodel:FaalanalysePropertyType"/>
+               <xs:element minOccurs="1"
+                           maxOccurs="1"
+                           name="duidt"
+                           nillable="false"
+                           type="Uitwisselmodel:AnalyseDeelvakGecombineerdPropertyType"/>
+            </xs:sequence>
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="AnalyseDeelvakPropertyType">
+      <xs:sequence minOccurs="0">
+         <xs:element ref="Uitwisselmodel:AnalyseDeelvak"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+      <xs:attributeGroup ref="gml:OwnershipAttributeGroup"/>
+   </xs:complexType>
+</xs:schema>

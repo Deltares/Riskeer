@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -21,7 +21,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
@@ -36,13 +35,9 @@ namespace Riskeer.StabilityPointStructures.Data
     /// Model containing input and output needed to perform different levels of the
     /// Strength and Stability of Point Constructions failure mechanism.
     /// </summary>
-    public class StabilityPointStructuresFailureMechanism : FailureMechanismBase,
-                                                            ICalculatableFailureMechanism,
-                                                            IHasSectionResults<StabilityPointStructuresFailureMechanismSectionResultOld, AdoptableFailureMechanismSectionResult>
+    public class StabilityPointStructuresFailureMechanism : FailureMechanismBase<AdoptableFailureMechanismSectionResult>,
+                                                            ICalculatableFailureMechanism
     {
-        private readonly ObservableList<StabilityPointStructuresFailureMechanismSectionResultOld> sectionResultsOld;
-        private readonly ObservableList<AdoptableFailureMechanismSectionResult> sectionResults;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="StabilityPointStructuresFailureMechanism"/> class.
         /// </summary>
@@ -56,9 +51,7 @@ namespace Riskeer.StabilityPointStructures.Data
             GeneralInput = new GeneralStabilityPointStructuresInput();
             StabilityPointStructures = new StructureCollection<StabilityPointStructure>();
             ForeshoreProfiles = new ForeshoreProfileCollection();
-
-            sectionResultsOld = new ObservableList<StabilityPointStructuresFailureMechanismSectionResultOld>();
-            sectionResults = new ObservableList<AdoptableFailureMechanismSectionResult>();
+            CalculationsInputComments = new Comment();
         }
 
         /// <summary>
@@ -76,37 +69,10 @@ namespace Riskeer.StabilityPointStructures.Data
         /// </summary>
         public ForeshoreProfileCollection ForeshoreProfiles { get; }
 
+        public IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations().Cast<StructuresCalculation<StabilityPointStructuresInput>>();
+
         public CalculationGroup CalculationsGroup { get; }
 
-        public override IEnumerable<ICalculation> Calculations
-        {
-            get
-            {
-                return CalculationsGroup.GetCalculations().Cast<StructuresCalculation<StabilityPointStructuresInput>>();
-            }
-        }
-
-        public IObservableEnumerable<StabilityPointStructuresFailureMechanismSectionResultOld> SectionResultsOld
-        {
-            get
-            {
-                return sectionResultsOld;
-            }
-        }
-
-        public IObservableEnumerable<AdoptableFailureMechanismSectionResult> SectionResults => sectionResults;
-
-        protected override void AddSectionDependentData(FailureMechanismSection section)
-        {
-            base.AddSectionDependentData(section);
-            sectionResultsOld.Add(new StabilityPointStructuresFailureMechanismSectionResultOld(section));
-            sectionResults.Add(new AdoptableFailureMechanismSectionResult(section));
-        }
-
-        protected override void ClearSectionDependentData()
-        {
-            sectionResultsOld.Clear();
-            sectionResults.Clear();
-        }
+        public Comment CalculationsInputComments { get; }
     }
 }

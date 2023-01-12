@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -78,15 +78,6 @@ namespace Core.Common.Controls.Test.Properties {
             }
             set {
                 resourceCulture = value;
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Display name.
-        /// </summary>
-        internal static string DataGridViewControlTest_DisplayNameValueDisplayName {
-            get {
-                return ResourceManager.GetString("DataGridViewControlTest_DisplayNameValueDisplayName", resourceCulture);
             }
         }
     }

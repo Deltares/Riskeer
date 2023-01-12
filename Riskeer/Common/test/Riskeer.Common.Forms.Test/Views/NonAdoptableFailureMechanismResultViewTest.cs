@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -20,17 +20,13 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
-using Core.Common.Base;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.AssemblyTool.KernelWrapper.Calculators;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Views;
@@ -66,41 +62,6 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var failureMechanism = new TestNonAdoptableFailureMechanism();
-
-            // Call
-            void Call() => new NonAdoptableFailureMechanismResultView<TestNonAdoptableFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, null, fm => double.NaN);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_GetNFuncNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new TestNonAdoptableFailureMechanism();
-
-            // Call
-            void Call() => new NonAdoptableFailureMechanismResultView<TestNonAdoptableFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection, null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("getNFunc", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
@@ -112,7 +73,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             // Call
             using (var view = new NonAdoptableFailureMechanismResultView<TestNonAdoptableFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => double.NaN))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultView<NonAdoptableFailureMechanismSectionResult,
@@ -201,45 +162,26 @@ namespace Riskeer.Common.Forms.Test.Views
             }
         }
 
-        [Test]
-        public void FailureMechanismResultsView_AllDataSet_SetsCorrectInputOnCalculator()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-
-            var failureMechanism = new TestNonAdoptableFailureMechanism();
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                section
-            });
-
-            var assessmentSection = new AssessmentSectionStub();
-
-            // Call
-            using (new AssemblyToolCalculatorFactoryConfig())
-            using (ShowFailureMechanismResultsView(failureMechanism, assessmentSection))
-            {
-                // Assert
-                var testFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub calculator = testFactory.LastCreatedFailureMechanismAssemblyCalculator;
-
-                Assert.AreEqual(1.2345, calculator.FailureMechanismN);
-            }
-        }
-
         private NonAdoptableFailureMechanismResultView<TestNonAdoptableFailureMechanism> ShowFailureMechanismResultsView(TestNonAdoptableFailureMechanism failureMechanism)
         {
             return ShowFailureMechanismResultsView(failureMechanism, new AssessmentSectionStub());
         }
 
-        private NonAdoptableFailureMechanismResultView<TestNonAdoptableFailureMechanism> ShowFailureMechanismResultsView(TestNonAdoptableFailureMechanism failureMechanism,
-                                                                                                                         IAssessmentSection assessmentSection)
+        private NonAdoptableFailureMechanismResultView<TestNonAdoptableFailureMechanism> ShowFailureMechanismResultsView(
+            TestNonAdoptableFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        {
+            return ShowFailureMechanismResultsView(failureMechanism, assessmentSection, (fm, section) => new FailureMechanismAssemblyResultWrapper(1.2345, AssemblyMethod.Manual));
+        }
+
+        private NonAdoptableFailureMechanismResultView<TestNonAdoptableFailureMechanism> ShowFailureMechanismResultsView(
+            TestNonAdoptableFailureMechanism failureMechanism, IAssessmentSection assessmentSection,
+            Func<TestNonAdoptableFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc)
         {
             var failureMechanismResultView = new NonAdoptableFailureMechanismResultView<TestNonAdoptableFailureMechanism>(
                 failureMechanism.SectionResults,
                 failureMechanism,
                 assessmentSection,
-                fm => 1.2345);
+                performFailureMechanismAssemblyFunc);
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();
 
@@ -251,23 +193,9 @@ namespace Riskeer.Common.Forms.Test.Views
             return (DataGridView) new ControlTester("dataGridView").TheObject;
         }
 
-        private class TestNonAdoptableFailureMechanism : FailureMechanismBase, IHasSectionResults< NonAdoptableFailureMechanismSectionResult>
+        private class TestNonAdoptableFailureMechanism : FailureMechanismBase<NonAdoptableFailureMechanismSectionResult>
         {
-            private readonly ObservableList<NonAdoptableFailureMechanismSectionResult> sectionResults;
-
-            public TestNonAdoptableFailureMechanism() : base("Test", "T")
-            {
-                sectionResults = new ObservableList<NonAdoptableFailureMechanismSectionResult>();
-            }
-
-            public override IEnumerable<ICalculation> Calculations { get; }
-            public IObservableEnumerable<NonAdoptableFailureMechanismSectionResult> SectionResults => sectionResults;
-
-            protected override void AddSectionDependentData(FailureMechanismSection section)
-            {
-                base.AddSectionDependentData(section);
-                sectionResults.Add(new NonAdoptableFailureMechanismSectionResult(section));
-            }
+            public TestNonAdoptableFailureMechanism() : base("Test", "T") {}
         }
     }
 }

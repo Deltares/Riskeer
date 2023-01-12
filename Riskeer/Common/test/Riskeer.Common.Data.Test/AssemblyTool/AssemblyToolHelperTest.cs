@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -20,19 +20,12 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
-using Core.Common.Base;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.KernelWrapper.Calculators;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.TestUtil;
 
 namespace Riskeer.Common.Data.Test.AssemblyTool
@@ -78,7 +71,8 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
 
             // Call
             FailureMechanismSectionAssemblyResult assemblyResult = AssemblyToolHelper.AssembleFailureMechanismSection(
-                sectionResult, sr => expectedAssemblyResult);
+                sectionResult, sr => new FailureMechanismSectionAssemblyResultWrapper(expectedAssemblyResult, random.NextEnumValue<AssemblyMethod>(),
+                                                                                      random.NextEnumValue<AssemblyMethod>()));
 
             // Assert
             Assert.AreSame(expectedAssemblyResult, assemblyResult);
@@ -96,211 +90,6 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
 
             // Assert
             Assert.IsInstanceOf<DefaultFailureMechanismSectionAssemblyResult>(assemblyResult);
-        }
-
-        [Test]
-        public void AssembleFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => AssemblyToolHelper.AssemblyFailureMechanism<FailureMechanismSectionResult>(
-                null, sr => null, double.NaN);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
-        }
-
-        [Test]
-        public void AssembleFailureMechanism_PerformSectionAssemblyFuncNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IHasSectionResults<FailureMechanismSectionResult>>();
-            mocks.ReplayAll();
-
-            // Call
-            void Call() => AssemblyToolHelper.AssemblyFailureMechanism(
-                failurePath, null, double.NaN);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("performSectionAssemblyFunc", exception.ParamName);
-        }
-
-        [Test]
-        public void AssembleFailureMechanism_WithFailureInAssemblyFalse_ReturnsNaN()
-        {
-            // Setup
-            var random = new Random(21);
-
-            var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IHasSectionResults<FailureMechanismSectionResult>>();
-            mocks.ReplayAll();
-
-            failurePath.InAssembly = false;
-
-            // Call
-            double assemblyResult = AssemblyToolHelper.AssemblyFailureMechanism(
-                failurePath, sr => null, random.NextDouble());
-
-            // Assert
-            Assert.IsNaN(assemblyResult);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void AssembleFailureMechanism_WithFailurePathAssemblyProbabilityResultTypeManual_ReturnsExpectedAssemblyResult()
-        {
-            // Setup
-            var random = new Random(21);
-            double expectedAssemblyResult = random.NextDouble();
-
-            var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IHasSectionResults<FailureMechanismSectionResult>>();
-            failurePath.Stub(fp => fp.AssemblyResult)
-                       .Return(new FailurePathAssemblyResult
-                       {
-                           ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Manual,
-                           ManualFailurePathAssemblyProbability = expectedAssemblyResult
-                       });
-            mocks.ReplayAll();
-
-            failurePath.InAssembly = true;
-
-            // Call
-            double assemblyResult = AssemblyToolHelper.AssemblyFailureMechanism(failurePath, sr => null, double.NaN);
-
-            // Assert
-            Assert.AreEqual(expectedAssemblyResult, assemblyResult);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void AssembleFailureMechanism_WithFailurePathAssemblyProbabilityResultTypeAutomatic_InputCorrectlySetOnCalculator()
-        {
-            // Setup
-            var random = new Random(21);
-            double failureMechanismN = random.NextDouble();
-
-            var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IHasSectionResults<TestFailureMechanismSectionResult>>();
-            failurePath.Stub(fp => fp.AssemblyResult)
-                       .Return(new FailurePathAssemblyResult
-                       {
-                           ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Automatic,
-                           ManualFailurePathAssemblyProbability = double.NaN
-                       });
-            failurePath.Stub(fp => fp.SectionResults)
-                       .Return(new ObservableList<TestFailureMechanismSectionResult>
-                       {
-                           new TestFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-                       });
-            mocks.ReplayAll();
-
-            failurePath.InAssembly = true;
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var failureMechanismSectionAssemblyResult = new FailureMechanismSectionAssemblyResult(
-                    random.NextDouble(), random.NextDouble(), random.NextDouble(),
-                    random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
-
-                // Call
-                AssemblyToolHelper.AssemblyFailureMechanism(failurePath, sr => failureMechanismSectionAssemblyResult, failureMechanismN);
-
-                // Assert
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-
-                CollectionAssert.AreEqual(new[]
-                {
-                    failureMechanismSectionAssemblyResult
-                }, failureMechanismAssemblyCalculator.SectionAssemblyResultsInput);
-                Assert.AreEqual(failureMechanismN, failureMechanismAssemblyCalculator.FailureMechanismN);
-            }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void AssembleFailureMechanism_WithFailurePathAssemblyProbabilityResultTypeAutomaticAndFailureMechanismSectionAssemblyThrowsException_InputCorrectlySetOnCalculator()
-        {
-            // Setup
-            var random = new Random(21);
-            double failureMechanismN = random.NextDouble();
-
-            var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IHasSectionResults<TestFailureMechanismSectionResult>>();
-            failurePath.Stub(fp => fp.AssemblyResult)
-                       .Return(new FailurePathAssemblyResult
-                       {
-                           ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Automatic,
-                           ManualFailurePathAssemblyProbability = double.NaN
-                       });
-            failurePath.Stub(fp => fp.SectionResults)
-                       .Return(new ObservableList<TestFailureMechanismSectionResult>
-                       {
-                           new TestFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-                       });
-            mocks.ReplayAll();
-
-            failurePath.InAssembly = true;
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                // Call
-                AssemblyToolHelper.AssemblyFailureMechanism(failurePath, sr => throw new AssemblyException(), failureMechanismN);
-
-                // Assert
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-
-                Assert.AreEqual(1, failureMechanismAssemblyCalculator.SectionAssemblyResultsInput.Count());
-                Assert.IsInstanceOf<DefaultFailureMechanismSectionAssemblyResult>(failureMechanismAssemblyCalculator.SectionAssemblyResultsInput.First());
-                Assert.AreEqual(failureMechanismN, failureMechanismAssemblyCalculator.FailureMechanismN);
-            }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void AssembleFailureMechanism_WithFailurePathAssemblyProbabilityResultTypeAutomatic_ReturnsExpectedAssemblyResult()
-        {
-            // Setup
-            var random = new Random(21);
-            double expectedAssemblyResult = random.NextDouble();
-
-            var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IHasSectionResults<FailureMechanismSectionResult>>();
-            failurePath.Stub(fp => fp.AssemblyResult)
-                       .Return(new FailurePathAssemblyResult
-                       {
-                           ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Automatic,
-                           ManualFailurePathAssemblyProbability = double.NaN
-                       });
-            failurePath.Stub(fp => fp.SectionResults)
-                       .Return(new ObservableList<TestFailureMechanismSectionResult>
-                       {
-                           new TestFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-                       });
-            mocks.ReplayAll();
-
-            failurePath.InAssembly = true;
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                failureMechanismAssemblyCalculator.AssemblyResult = expectedAssemblyResult;
-
-                // Call
-                double assemblyResult = AssemblyToolHelper.AssemblyFailureMechanism(failurePath, sr => null, double.NaN);
-
-                // Assert
-                Assert.AreEqual(expectedAssemblyResult, assemblyResult);
-            }
-
-            mocks.VerifyAll();
         }
     }
 }

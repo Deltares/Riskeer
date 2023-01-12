@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -27,10 +27,8 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
 using Core.Common.Controls.DataGrid;
-using Core.Common.Controls.Test.Properties;
 using Core.Common.TestUtil;
-using Core.Common.Util;
-using Core.Common.Util.Attributes;
+using Core.Common.Util.Enums;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 
@@ -721,6 +719,7 @@ namespace Core.Common.Controls.Test.DataGrid
         [Test]
         public void RefreshDataGridView_ShouldAutoResizeFalseAndShorterText_SameColumnWidth()
         {
+            // Setup
             using (var form = new Form())
             using (var control = new DataGridViewControl())
             {
@@ -746,6 +745,32 @@ namespace Core.Common.Controls.Test.DataGrid
                 // Assert
                 int newTextWidth = dataGridViewCell.OwningColumn.Width;
                 Assert.AreEqual(newTextWidth, initialWidth);
+            }
+        }
+
+        [Test]
+        public void DataGridView_ClearColumns_ClearsAllColumns()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+                control.AddTextBoxColumn("Test property", "Test header");
+                control.AddCheckBoxColumn("Test property2", "Test header2");
+
+                // Precondition
+                Assert.AreEqual(2, dataGridView.Columns.Count);
+
+                // Call
+                control.ClearColumns();
+
+                // Assert
+                Assert.AreEqual(0, dataGridView.Columns.Count);
             }
         }
 
@@ -983,10 +1008,10 @@ namespace Core.Common.Controls.Test.DataGrid
                 });
 
                 // Call
-                TestDelegate call = () => control.GetRowFromIndex(5);
+                void Call() => control.GetRowFromIndex(5);
 
                 // Assert
-                Assert.Throws<ArgumentOutOfRangeException>(call);
+                Assert.Throws<ArgumentOutOfRangeException>(Call);
             }
         }
 
@@ -1086,10 +1111,10 @@ namespace Core.Common.Controls.Test.DataGrid
                 });
 
                 // Call
-                TestDelegate call = () => control.GetCell(5, 0);
+                void Call() => control.GetCell(5, 0);
 
                 // Assert
-                Assert.Throws<ArgumentOutOfRangeException>(call);
+                Assert.Throws<ArgumentOutOfRangeException>(Call);
             }
         }
 
@@ -1110,10 +1135,10 @@ namespace Core.Common.Controls.Test.DataGrid
                 });
 
                 // Call
-                TestDelegate call = () => control.GetCell(0, 5);
+                void Call() => control.GetCell(0, 5);
 
                 // Assert
-                Assert.Throws<ArgumentOutOfRangeException>(call);
+                Assert.Throws<ArgumentOutOfRangeException>(Call);
             }
         }
 
@@ -1163,10 +1188,10 @@ namespace Core.Common.Controls.Test.DataGrid
                 });
 
                 // Call
-                TestDelegate call = () => control.GetColumnFromIndex(5);
+                void Call() => control.GetColumnFromIndex(5);
 
                 // Assert
-                Assert.Throws<ArgumentOutOfRangeException>(call);
+                Assert.Throws<ArgumentOutOfRangeException>(Call);
             }
         }
 
@@ -1284,11 +1309,11 @@ namespace Core.Common.Controls.Test.DataGrid
                 DataGridViewCell firstcell = control.CurrentRow.HeaderCell;
 
                 // Call
-                TestDelegate test = () => control.SetCurrentCell(firstcell);
+                void Call() => control.SetCurrentCell(firstcell);
 
                 // Assert
                 const string message = "Unable to set the cell active.";
-                var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
+                var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, message);
                 Assert.AreEqual("cell", exception.ParamName);
                 Assert.IsInstanceOf<ArgumentOutOfRangeException>(exception.InnerException);
             }
@@ -1315,11 +1340,11 @@ namespace Core.Common.Controls.Test.DataGrid
                 dataGridViewRow.Visible = false;
 
                 // Call
-                TestDelegate test = () => control.SetCurrentCell(dataGridViewRow.Cells[0]);
+                void Call() => control.SetCurrentCell(dataGridViewRow.Cells[0]);
 
                 // Assert
                 const string message = "Unable to set the cell active.";
-                var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
+                var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, message);
                 Assert.AreEqual("cell", exception.ParamName);
                 Assert.IsInstanceOf<InvalidOperationException>(exception.InnerException);
             }
@@ -1420,14 +1445,6 @@ namespace Core.Common.Controls.Test.DataGrid
                 // Assert
                 Assert.AreEqual(isVisible, dataGridViewColumn.Visible);
             }
-        }
-
-        private enum TestEnum
-        {
-            NoDisplayName,
-
-            [ResourcesDisplayName(typeof(Resources), nameof(Resources.DataGridViewControlTest_DisplayNameValueDisplayName))]
-            DisplayName
         }
 
         private class TestDataGridViewRow

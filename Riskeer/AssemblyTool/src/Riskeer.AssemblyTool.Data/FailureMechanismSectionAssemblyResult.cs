@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -32,16 +32,14 @@ namespace Riskeer.AssemblyTool.Data
         /// <param name="profileProbability">The probability of the failure mechanism section, expressed for profile.</param>
         /// <param name="sectionProbability">The probability of the failure mechanism section, expressed for the section.</param>
         /// <param name="n">The length effect of the failure mechanism section.</param>
-        /// <param name="assemblyGroup">The <see cref="FailureMechanismSectionAssemblyGroup"/>.</param>
-        public FailureMechanismSectionAssemblyResult(double profileProbability,
-                                                     double sectionProbability,
-                                                     double n,
-                                                     FailureMechanismSectionAssemblyGroup assemblyGroup)
+        /// <param name="failureMechanismSectionAssemblyGroup">The <see cref="Data.FailureMechanismSectionAssemblyGroup"/>.</param>
+        public FailureMechanismSectionAssemblyResult(double profileProbability, double sectionProbability, double n,
+                                                     FailureMechanismSectionAssemblyGroup failureMechanismSectionAssemblyGroup)
         {
             ProfileProbability = profileProbability;
             SectionProbability = sectionProbability;
             N = n;
-            AssemblyGroup = assemblyGroup;
+            FailureMechanismSectionAssemblyGroup = failureMechanismSectionAssemblyGroup;
         }
 
         /// <summary>
@@ -62,6 +60,6 @@ namespace Riskeer.AssemblyTool.Data
         /// <summary>
         /// Gets the <see cref="FailureMechanismSectionAssemblyGroup"/>.
         /// </summary>
-        public FailureMechanismSectionAssemblyGroup AssemblyGroup { get; }
+        public FailureMechanismSectionAssemblyGroup FailureMechanismSectionAssemblyGroup { get; }
     }
 }

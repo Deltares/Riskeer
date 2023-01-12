@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -62,15 +62,15 @@ namespace Riskeer.Common.Forms.Test.Helpers
         }
 
         [Test]
-        [TestCaseSource(typeof(AssemblyGroupColorTestHelper), nameof(AssemblyGroupColorTestHelper.FailureMechanismSectionAssemblyGroupColorCases))]
+        [TestCaseSource(typeof(FailureMechanismSectionAssemblyGroupColorTestHelper), nameof(FailureMechanismSectionAssemblyGroupColorTestHelper.FailureMechanismSectionAssemblyGroupColorCases))]
         public void SetAssemblyGroupStyle_ValidFailureMechanismSectionAssemblyGroup_UpdatesColumnStyle(
-            FailureMechanismSectionAssemblyGroup assemblyCategoryGroup, Color expectedColor)
+            FailureMechanismSectionAssemblyGroup assemblyGroup, Color expectedColor)
         {
             // Setup
             var columnStateDefinition = new DataGridViewColumnStateDefinition();
 
             // Call
-            FailureMechanismSectionResultRowHelper.SetAssemblyGroupStyle(columnStateDefinition, assemblyCategoryGroup);
+            FailureMechanismSectionResultRowHelper.SetAssemblyGroupStyle(columnStateDefinition, assemblyGroup);
 
             // Assert
             Assert.AreEqual(expectedColor, columnStateDefinition.Style.BackgroundColor);

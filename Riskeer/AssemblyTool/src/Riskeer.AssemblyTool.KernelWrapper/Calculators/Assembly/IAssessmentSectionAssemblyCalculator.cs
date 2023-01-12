@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -34,25 +34,26 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// Assembles an assessment section based on the input arguments.
         /// </summary>
         /// <param name="failureMechanismProbabilities">The collection of failure mechanism probabilities.</param>
-        /// <param name="lowerLimitNorm">The lower limit norm to assemble with.</param>
-        /// <param name="signalingNorm">The signalling norm to assemble with.</param>
-        /// <returns>A <see cref="AssessmentSectionAssemblyResult"/>.</returns>
+        /// <param name="maximumAllowableFloodingProbability">The maximum allowable flooding probability to assemble with.</param>
+        /// <param name="signalFloodingProbability">The signal flooding probability to assemble with.</param>
+        /// <returns>An <see cref="AssessmentSectionAssemblyResultWrapper"/> containing the assembly result of the assessment section.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismProbabilities"/> is <c>null</c>.</exception>
         /// <exception cref="AssessmentSectionAssemblyCalculatorException">Thrown when
         /// an error occurs while assembling.</exception>
-        AssessmentSectionAssemblyResult AssembleAssessmentSection(IEnumerable<double> failureMechanismProbabilities,
-                                                                  double lowerLimitNorm,
-                                                                  double signalingNorm);
+        AssessmentSectionAssemblyResultWrapper AssembleAssessmentSection(IEnumerable<double> failureMechanismProbabilities,
+                                                                         double maximumAllowableFloodingProbability,
+                                                                         double signalFloodingProbability);
 
         /// <summary>
         /// Assembles the combined assessment section for the given input.
         /// </summary>
         /// <param name="input">The collection of failure mechanism section collections to assemble for.</param>
         /// <param name="assessmentSectionLength">The length of the assessment section.</param>
-        /// <returns>A collection of <see cref="CombinedFailureMechanismSectionAssembly"/>.</returns>
+        /// <returns>A <see cref="CombinedFailureMechanismSectionAssemblyResultWrapper"/> containing the assembly results.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
         /// <exception cref="AssessmentSectionAssemblyCalculatorException">Thrown when
         /// an error occurs while assembling.</exception>
-        IEnumerable<CombinedFailureMechanismSectionAssembly> AssembleCombinedFailureMechanismSections(
+        CombinedFailureMechanismSectionAssemblyResultWrapper AssembleCombinedFailureMechanismSections(
             IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> input, double assessmentSectionLength);
     }
 }

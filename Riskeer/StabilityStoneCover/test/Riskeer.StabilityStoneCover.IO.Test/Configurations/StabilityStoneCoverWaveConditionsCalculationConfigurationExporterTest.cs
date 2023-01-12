@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -49,7 +49,7 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Configurations
                 InputParameters =
                 {
                     ForeshoreProfile = new TestForeshoreProfile("ForeshoreA"),
-                    WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit
+                    WaterLevelType = WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability
                 }
             };
 

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using Assembly.Kernel.Model.AssessmentSection;
 using Assembly.Kernel.Model.Categories;
 using Assembly.Kernel.Model.FailureMechanismSections;
 using Core.Common.TestUtil;
@@ -36,14 +35,25 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
     public class CombinedFailureMechanismSectionAssemblyCreatorTest
     {
         [Test]
-        public void Create_ResultNull_ThrowsArgumentNullException()
+        public void Create_ResultsPerFailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => CombinedFailureMechanismSectionAssemblyCreator.Create(null);
+            void Call() => CombinedFailureMechanismSectionAssemblyCreator.Create(null, Array.Empty<FailureMechanismSectionWithCategory>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("result", exception.ParamName);
+            Assert.AreEqual("resultsPerFailureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void Create_CombinedSectionResultsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => CombinedFailureMechanismSectionAssemblyCreator.Create(Array.Empty<FailureMechanismSectionList>(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("combinedSectionResults", exception.ParamName);
         }
 
         [Test]
@@ -61,13 +71,13 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
 
             var failureMechanismResults = new[]
             {
-                new FailureMechanismSectionList(string.Empty, new[]
+                new FailureMechanismSectionList(new[]
                 {
                     CreateCategory(sections[0], random),
                     CreateCategory(sections[1], random),
                     CreateCategory(sections[2], random)
                 }),
-                new FailureMechanismSectionList(string.Empty, new[]
+                new FailureMechanismSectionList(new[]
                 {
                     CreateCategory(sections[0], random),
                     CreateCategory(sections[1], random),
@@ -82,13 +92,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
                 CreateCategory(sections[2], random)
             };
 
-            var assembly = new AssemblyResult(failureMechanismResults, combinedResults);
-
             // Call
-            IEnumerable<CombinedFailureMechanismSectionAssembly> results = CombinedFailureMechanismSectionAssemblyCreator.Create(assembly);
+            IEnumerable<CombinedFailureMechanismSectionAssembly> results = CombinedFailureMechanismSectionAssemblyCreator.Create(failureMechanismResults, combinedResults);
 
             // Assert
-            CombinedFailureMechanismSectionAssemblyAssert.AssertAssembly(assembly, results);
+            CombinedFailureMechanismSectionAssemblyAssert.AssertAssembly(failureMechanismResults, combinedResults, results);
         }
 
         private static FailureMechanismSectionWithCategory CreateCategory(Tuple<double, double> section, Random random)

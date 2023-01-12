@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -30,6 +30,7 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.HeightStructures.Data;
 using Riskeer.HeightStructures.Forms.PresentationObjects;
+using Riskeer.HeightStructures.Forms.PresentationObjects.CalculationsState;
 using Riskeer.HeightStructures.Forms.Views;
 
 namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
@@ -197,7 +198,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
 
             using (var view = new HeightStructuresCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection))
             {
-                var context = new HeightStructuresCalculationsContext(new HeightStructuresFailureMechanism(), assessmentSection);
+                var context = new HeightStructuresFailureMechanismContext(new HeightStructuresFailureMechanism(), assessmentSection);
 
                 // Call
                 bool closeForData = info.CloseForData(view, context);
@@ -216,7 +217,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
 
             using (var view = new HeightStructuresCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection))
             {
-                var context = new HeightStructuresCalculationsContext(failureMechanism, assessmentSection);
+                var context = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
                 // Call
                 bool closeForData = info.CloseForData(view, context);

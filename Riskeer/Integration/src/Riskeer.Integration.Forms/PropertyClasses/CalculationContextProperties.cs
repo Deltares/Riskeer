@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -29,7 +29,10 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.PropertyClasses
 {
-    public class CalculationContextProperties : ObjectProperties<ICalculationContext<ICalculation, IFailureMechanism>>
+    /// <summary>
+    /// Object properties class for a <see cref="ICalculationContext{TCalculationBase,TFailureMechanism}"/>.
+    /// </summary>
+    public class CalculationContextProperties : ObjectProperties<ICalculationContext<ICalculation, ICalculatableFailureMechanism>>
     {
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Calculation_Name_DisplayName))]

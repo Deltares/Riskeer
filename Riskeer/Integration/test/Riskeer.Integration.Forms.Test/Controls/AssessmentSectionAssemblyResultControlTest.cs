@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -24,7 +24,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls;
 using Core.Common.TestUtil;
-using Core.Common.Util;
+using Core.Common.Util.Enums;
 using Core.Common.Util.Reflection;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
@@ -38,7 +38,7 @@ namespace Riskeer.Integration.Forms.Test.Controls
     public class AssessmentSectionAssemblyResultControlTest
     {
         [Test]
-        public void DefaultConstructor_ExpectedValues()
+        public void Constructor_ExpectedValues()
         {
             // Call
             using (var form = new Form())
@@ -55,15 +55,15 @@ namespace Riskeer.Integration.Forms.Test.Controls
                 Assert.AreEqual(2, panel.ColumnCount);
                 Assert.AreEqual(2, panel.RowCount);
 
-                var assemblyCategoryGroupDisplayNameLabel = (Label) panel.GetControlFromPosition(0, 0);
-                Assert.AreEqual("Veiligheidsoordeel", assemblyCategoryGroupDisplayNameLabel.Text);
-                Assert.IsTrue(assemblyCategoryGroupDisplayNameLabel.AutoSize);
-                Assert.AreEqual(DockStyle.Left, assemblyCategoryGroupDisplayNameLabel.Dock);
-                Assert.AreEqual(new Padding(5, 0, 5, 0), assemblyCategoryGroupDisplayNameLabel.Padding);
-                Assert.AreEqual(new Padding(3), assemblyCategoryGroupDisplayNameLabel.Margin);
+                var assemblyGroupDisplayNameLabel = (Label) panel.GetControlFromPosition(0, 0);
+                Assert.AreEqual("Veiligheidsoordeel", assemblyGroupDisplayNameLabel.Text);
+                Assert.IsTrue(assemblyGroupDisplayNameLabel.AutoSize);
+                Assert.AreEqual(DockStyle.Left, assemblyGroupDisplayNameLabel.Dock);
+                Assert.AreEqual(new Padding(5, 0, 5, 0), assemblyGroupDisplayNameLabel.Padding);
+                Assert.AreEqual(new Padding(3), assemblyGroupDisplayNameLabel.Margin);
 
                 var failureProbabilityDisplayNameLabel = (Label) panel.GetControlFromPosition(0, 1);
-                Assert.AreEqual("Faalkans", failureProbabilityDisplayNameLabel.Text);
+                Assert.AreEqual("Faalkans van het traject [1/jaar]", failureProbabilityDisplayNameLabel.Text);
                 Assert.IsTrue(failureProbabilityDisplayNameLabel.AutoSize);
                 Assert.AreEqual(DockStyle.Left, failureProbabilityDisplayNameLabel.Dock);
                 Assert.AreEqual(new Padding(5, 0, 5, 0), failureProbabilityDisplayNameLabel.Padding);
@@ -110,7 +110,7 @@ namespace Riskeer.Integration.Forms.Test.Controls
             // Setup
             var random = new Random(39);
             var result = new AssessmentSectionAssemblyResult(random.NextDouble(),
-                                                             random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>());
+                                                             random.NextEnumValue<AssessmentSectionAssemblyGroup>());
             using (var resultControl = new AssessmentSectionAssemblyResultControl())
             {
                 // Call
@@ -118,7 +118,7 @@ namespace Riskeer.Integration.Forms.Test.Controls
 
                 // Assert
                 BorderedLabel groupLabel = GetGroupLabel(resultControl);
-                AssertGroupLabel(result.AssemblyCategoryGroup, groupLabel);
+                AssertGroupLabel(result.AssemblyGroup, groupLabel);
 
                 BorderedLabel probabilityLabel = GetProbabilityLabel(resultControl);
                 AssertProbabilityLabel(result.Probability, probabilityLabel);
@@ -134,12 +134,12 @@ namespace Riskeer.Integration.Forms.Test.Controls
             using (var resultControl = new AssessmentSectionAssemblyResultControl())
             {
                 var result = new AssessmentSectionAssemblyResult(random.NextDouble(),
-                                                                 random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>());
+                                                                 random.NextEnumValue<AssessmentSectionAssemblyGroup>());
                 resultControl.SetAssemblyResult(result);
 
                 // Precondition
                 BorderedLabel groupLabel = GetGroupLabel(resultControl);
-                AssertGroupLabel(result.AssemblyCategoryGroup, groupLabel);
+                AssertGroupLabel(result.AssemblyGroup, groupLabel);
 
                 BorderedLabel probabilityLabel = GetProbabilityLabel(resultControl);
                 AssertProbabilityLabel(result.Probability, probabilityLabel);
@@ -148,7 +148,7 @@ namespace Riskeer.Integration.Forms.Test.Controls
                 resultControl.ClearAssemblyResult();
 
                 // Assert
-                Assert.IsEmpty(groupLabel.Text);
+                Assert.AreEqual("-", groupLabel.Text);
                 Assert.AreEqual(Color.White, groupLabel.BackColor);
 
                 Assert.AreEqual("-", probabilityLabel.Text);
@@ -193,7 +193,7 @@ namespace Riskeer.Integration.Forms.Test.Controls
         }
 
         [Test]
-        public void GivenControlWithMessages_WhenMessagesCleared_ThenMessagesCleared()
+        public void GivenControlWithErrors_WhenErrorsCleared_ThenErrorsCleared()
         {
             // Given
             using (var resultControl = new AssessmentSectionAssemblyResultControl())
@@ -210,7 +210,7 @@ namespace Riskeer.Integration.Forms.Test.Controls
                 Assert.IsNotEmpty(errorProvider.GetError(probabilityLabel));
 
                 // When
-                resultControl.ClearMessages();
+                resultControl.ClearErrors();
 
                 // Then
                 Assert.IsEmpty(errorProvider.GetError(groupLabel));
@@ -218,11 +218,10 @@ namespace Riskeer.Integration.Forms.Test.Controls
             }
         }
 
-        private static void AssertGroupLabel(AssessmentSectionAssemblyCategoryGroup result, BorderedLabel groupLabel)
+        private static void AssertGroupLabel(AssessmentSectionAssemblyGroup result, BorderedLabel groupLabel)
         {
-            Assert.AreEqual(new EnumDisplayWrapper<AssessmentSectionAssemblyCategoryGroup>(result).DisplayName,
-                            groupLabel.Text);
-            Assert.AreEqual(AssemblyCategoryGroupColorHelper.GetAssessmentSectionAssemblyCategoryGroupColor(result),
+            Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(result), groupLabel.Text);
+            Assert.AreEqual(AssessmentSectionAssemblyGroupColorHelper.GetAssessmentSectionAssemblyGroupColor(result),
                             groupLabel.BackColor);
         }
 

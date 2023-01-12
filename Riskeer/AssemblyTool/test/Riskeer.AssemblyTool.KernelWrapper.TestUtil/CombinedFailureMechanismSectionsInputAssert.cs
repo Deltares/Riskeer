@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -38,7 +38,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil
         /// </summary>
         /// <param name="original">The original collection of <see cref="CombinedAssemblyFailureMechanismSection"/>
         /// collections.</param>
-        /// <param name="actual">The actual collection of <see cref="Assembly.Kernel.Model.FailureMechanismSections.FailureMechanismSectionList"/>.</param>
+        /// <param name="actual">The actual collection of <see cref="FailureMechanismSectionList"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="original"/>.</exception>
         public static void AssertCombinedFailureMechanismInput(IEnumerable<CombinedAssemblyFailureMechanismSection[]> original, IEnumerable<FailureMechanismSectionList> actual)
@@ -49,7 +49,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil
             {
                 CombinedAssemblyFailureMechanismSection[] sections = original.ElementAt(i);
                 FailureMechanismSectionList sectionList = actual.ElementAt(i);
-                Assert.IsEmpty(sectionList.FailureMechanismId);
                 AssertSections(sections, sectionList.Sections);
             }
         }
@@ -59,9 +58,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil
             Assert.AreEqual(originalSections.Count(), failureMechanismSections.Count());
             Assert.IsTrue(failureMechanismSections.All(fms => fms.GetType() == typeof(FailureMechanismSectionWithCategory)));
 
-            CollectionAssert.AreEqual(originalSections.Select(s => s.SectionStart), failureMechanismSections.Select(r => r.SectionStart));
-            CollectionAssert.AreEqual(originalSections.Select(s => s.SectionEnd), failureMechanismSections.Select(r => r.SectionEnd));
-            CollectionAssert.AreEqual(originalSections.Select(s => FailureMechanismSectionAssemblyGroupConverter.ConvertFrom(s.AssemblyGroup)),
+            CollectionAssert.AreEqual(originalSections.Select(s => s.SectionStart), failureMechanismSections.Select(r => r.Start));
+            CollectionAssert.AreEqual(originalSections.Select(s => s.SectionEnd), failureMechanismSections.Select(r => r.End));
+            CollectionAssert.AreEqual(originalSections.Select(s => FailureMechanismSectionAssemblyGroupConverter.ConvertFrom(s.FailureMechanismSectionAssemblyGroup)),
                                       failureMechanismSections.Select(fms => fms)
                                                               .Cast<FailureMechanismSectionWithCategory>()
                                                               .Select(c => c.Category));

@@ -1,5 +1,5 @@
 <!--
-Copyright (C) Stichting Deltares 2021. All rights reserved.
+Copyright (C) Stichting Deltares 2022. All rights reserved.
 
 This file is part of Riskeer.
 
@@ -114,4 +114,16 @@ All rights reserved.
         <Setter Property="Height" Value="1" />
         <Setter Property="Margin" Value="25 10" />
     </Style>
+    
+    <Style x:Key="HyperlinkStyle" TargetType="{x:Type Hyperlink}">
+        <Setter Property="Foreground" Value="Blue"/>
+        <Setter Property="TextDecorations" Value=""/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="TextDecorations" Value="Underline"/>
+                <Setter Property="Foreground" Value="SaddleBrown"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
 </ResourceDictionary>

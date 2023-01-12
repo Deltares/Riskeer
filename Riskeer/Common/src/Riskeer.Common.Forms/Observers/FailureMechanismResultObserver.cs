@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -27,15 +27,17 @@ namespace Riskeer.Common.Forms.Observers
 {
     /// <summary>
     /// Class that observes all objects in an <typeparamref name="TFailureMechanism"/> related to
-    /// its section results.
+    /// its assembly results.
     /// </summary>
     /// <typeparam name="TFailureMechanism">The type of the failure mechanism to observe.</typeparam>
     /// <typeparam name="TSectionResult">The type of the section results in the failure mechanism.</typeparam>
     public class FailureMechanismResultObserver<TFailureMechanism, TSectionResult> : Observable, IDisposable
-        where TFailureMechanism : IFailureMechanism, IHasSectionResults<TSectionResult>
+        where TFailureMechanism : IFailureMechanism<TSectionResult>
         where TSectionResult : FailureMechanismSectionResult
     {
         private readonly Observer failureMechanismObserver;
+        private readonly Observer failureMechanismAssemblyResultObserver;
+        private readonly Observer failureMechanismSectionResultObserver;
         private readonly RecursiveObserver<IObservableEnumerable<TSectionResult>, TSectionResult> failureMechanismSectionResultsObserver;
 
         /// <summary>
@@ -53,6 +55,16 @@ namespace Riskeer.Common.Forms.Observers
             failureMechanismObserver = new Observer(NotifyObservers)
             {
                 Observable = failureMechanism
+            };
+
+            failureMechanismAssemblyResultObserver = new Observer(NotifyObservers)
+            {
+                Observable = failureMechanism.AssemblyResult
+            };
+
+            failureMechanismSectionResultObserver = new Observer(NotifyObservers)
+            {
+                Observable = failureMechanism.SectionResults
             };
 
             failureMechanismSectionResultsObserver = new RecursiveObserver<IObservableEnumerable<TSectionResult>, TSectionResult>(
@@ -74,6 +86,8 @@ namespace Riskeer.Common.Forms.Observers
             if (disposing)
             {
                 failureMechanismObserver.Dispose();
+                failureMechanismAssemblyResultObserver.Dispose();
+                failureMechanismSectionResultObserver.Dispose();
                 failureMechanismSectionResultsObserver.Dispose();
             }
         }

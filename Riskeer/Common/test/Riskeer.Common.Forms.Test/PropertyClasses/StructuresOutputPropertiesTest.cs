@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -89,7 +89,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
             Assert.AreEqual(ProbabilityFormattingHelper.Format(0.5), properties.Probability);
             Assert.AreEqual(0, properties.Reliability, properties.Reliability.GetAccuracy());
-            
+
             TestHelper.AssertTypeConverter<StructuresOutputProperties, KeyValueExpandableArrayConverter>(
                 nameof(StructuresOutputProperties.AlphaValues));
             TestHelper.AssertTypeConverter<StructuresOutputProperties, KeyValueExpandableArrayConverter>(
@@ -143,7 +143,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(probabilityProperty,
                                                                             resultCategoryName,
                                                                             "Faalkans [1/jaar]",
-                                                                            "De kans dat het toetsspoor optreedt voor deze berekening.",
+                                                                            "De kans dat het faalmechanisme optreedt voor deze berekening.",
                                                                             true);
 
             PropertyDescriptor reliabilityProperty = dynamicProperties[reliabilityPropertyIndex];
@@ -199,7 +199,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(probabilityProperty,
                                                                             resultCategoryName,
                                                                             "Faalkans [1/jaar]",
-                                                                            "De kans dat het toetsspoor optreedt voor deze berekening.",
+                                                                            "De kans dat het faalmechanisme optreedt voor deze berekening.",
                                                                             true);
 
             PropertyDescriptor reliabilityProperty = dynamicProperties[reliabilityPropertyIndex];

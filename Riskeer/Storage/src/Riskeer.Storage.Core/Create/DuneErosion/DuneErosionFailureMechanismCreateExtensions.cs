@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base;
+using Core.Common.Util.Extensions;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.DuneErosion.Data;
 using Riskeer.Storage.Core.Create.FailureMechanismSectionResults;
@@ -44,6 +45,8 @@ namespace Riskeer.Storage.Core.Create.DuneErosion
         internal static FailureMechanismEntity Create(this DuneErosionFailureMechanism mechanism, PersistenceRegistry registry)
         {
             FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.DuneErosion, registry);
+            entity.CalculationsInputComments = mechanism.CalculationsInputComments.Body.DeepClone();
+
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
             AddEntitiesForDuneLocations(mechanism.DuneLocations, entity, registry);
             AddEntitiesForFailureMechanismMeta(mechanism, entity, registry);
@@ -56,9 +59,9 @@ namespace Riskeer.Storage.Core.Create.DuneErosion
         {
             foreach (NonAdoptableFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
             {
-                var sectionResultEntity = failureMechanismSectionResult.Create<DuneErosionSectionResultEntity>();
+                NonAdoptableFailureMechanismSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
-                section.DuneErosionSectionResultEntities.Add(sectionResultEntity);
+                section.NonAdoptableFailureMechanismSectionResultEntities.Add(sectionResultEntity);
             }
         }
 

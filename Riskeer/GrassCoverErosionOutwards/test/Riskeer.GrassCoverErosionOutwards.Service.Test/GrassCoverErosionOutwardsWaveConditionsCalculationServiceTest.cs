@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -416,7 +416,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
 
                 var waterLevelIndex = 0;
                 GeneralGrassCoverErosionOutwardsInput generalInput = failureMechanism.GeneralInput;
-                double expectedTargetProbability = assessmentSection.FailureMechanismContribution.LowerLimitNorm;
+                double expectedTargetProbability = assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability;
                 int nrOfReceivedInputsPerType = nrOfReceivedInputs / 3;
                 for (var i = 0; i < nrOfReceivedInputsPerType; i++)
                 {
@@ -789,7 +789,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                 Assert.AreEqual(3, waveImpactWithWaveDirectionOutputs.Length);
 
                 WaveConditionsOutputTestHelper.AssertFailedOutput(waterLevelUpperBoundaryRevetment,
-                                                                  assessmentSection.FailureMechanismContribution.LowerLimitNorm,
+                                                                  assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability,
                                                                   waveImpactOutputs[0]);
             }
 
@@ -1033,7 +1033,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
 
         private static void ConfigureAssessmentSectionWithHydraulicBoundaryOutput(IAssessmentSection assessmentSection)
         {
-            assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(9.3);
+            assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(9.3);
         }
 
         private static GrassCoverErosionOutwardsWaveConditionsCalculation GetValidCalculation(HydraulicBoundaryLocation location)
@@ -1043,7 +1043,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = location,
-                    WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit,
+                    WaterLevelType = WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability,
                     CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.All,
                     ForeshoreProfile = new TestForeshoreProfile(true),
                     UseForeshore = true,

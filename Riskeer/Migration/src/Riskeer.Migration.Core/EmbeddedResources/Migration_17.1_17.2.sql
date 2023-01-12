@@ -1606,7 +1606,7 @@ SELECT
 	"17.2",
 	CASE
 		WHEN [NrRemaining] > 0
-			THEN "* Alle berekende resultaten zijn verwijderd, behalve die van het toetsspoor 'Piping' waarbij de waterstand handmatig is ingevuld."
+			THEN "* Alle berekende resultaten zijn verwijderd, behalve die van het faalmechanisme 'Piping' waarbij de waterstand handmatig is ingevuld."
 			ELSE "* Alle berekende resultaten zijn verwijderd."
 	END
 	FROM TempLogOutputDeleted
@@ -1655,7 +1655,7 @@ SELECT
 	[AssessmentSectionEntityId],
 	[Name],
 	0,
-	"De ondergrens is gelijk gesteld aan 1/" || CAST(ROUND(CAST(1.0 / [LowerLimitNorm] AS FLOAT)) AS INT) ||
+	"De omgevingswaarde is gelijk gesteld aan 1/" || CAST(ROUND(CAST(1.0 / [LowerLimitNorm] AS FLOAT)) AS INT) ||
 	CASE 
 		WHEN [NormativeNormType] IS 1
 			THEN " (voorheen de waarde van de norm)"
@@ -1669,7 +1669,7 @@ SELECT
 	[AssessmentSectionEntityId],
 	[Name],
 	1,
-	"De signaleringswaarde is gelijk gesteld aan 1/" || CAST(ROUND(CAST(1.0 / [SignalingNorm] AS FLOAT)) AS INT) ||
+	"De signaleringsparameter is gelijk gesteld aan 1/" || CAST(ROUND(CAST(1.0 / [SignalingNorm] AS FLOAT)) AS INT) ||
 	CASE 
 		WHEN [NormativeNormType] IS 2
 			THEN " (voorheen de waarde van de norm)"
@@ -1683,11 +1683,11 @@ SELECT
 	[AssessmentSectionEntityId],
 	[Name],
 	2,
-	"De norm van het dijktraject is gelijk gesteld aan de " ||
+	"De norm van het traject is gelijk gesteld aan de " ||
 	CASE 
 		WHEN [NormativeNormType] IS 1
-			THEN "ondergrens"
-		ELSE "signaleringswaarde"
+			THEN "omgevingswaarde"
+		ELSE "signaleringsparameter"
 	END || "."
 	FROM AssessmentSectionEntity;
 
@@ -1959,7 +1959,7 @@ SELECT
 		ELSE
 			CASE
 				WHEN [FailureMechanismName] IS NOT NULL
-					THEN "  + Toetsspoor: '" || [FailureMechanismName] || "'"
+					THEN "  + Faalmechanisme: '" || [FailureMechanismName] || "'"
 				ELSE
 				"    - " || [msg]
 			END

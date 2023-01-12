@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -114,7 +114,7 @@ namespace Core.Components.DotSpatial.Projections
             for (var i = 0; i < targetTile.Height; i++)
             {
                 foreach (Tuple<Point, Point> ppair in
-                    GetValidPoints(offsetY + i, offsetY, offsetX, offsetX + targetTile.Width, sourceReference, sourceTileSize))
+                         GetValidPoints(offsetY + i, offsetY, offsetX, offsetX + targetTile.Width, sourceReference, sourceTileSize))
                 {
                     Color c = sourceTileColorAccess[ppair.Item1.X, ppair.Item1.Y];
                     targetTileColorAccess[ppair.Item2.X, ppair.Item2.Y] = c;

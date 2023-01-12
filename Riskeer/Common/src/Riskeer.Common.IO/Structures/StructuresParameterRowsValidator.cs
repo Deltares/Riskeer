@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -267,7 +267,7 @@ namespace Riskeer.Common.IO.Structures
         /// contains duplicate elements.</exception>
         public static IEnumerable<StructuresParameterRow> GetRelevantHeightStructuresParameters(IEnumerable<StructuresParameterRow> structureParameterRows)
         {
-            return GetStructuresParameters(structureParameterRows, heightStructuresRules).ToArray();
+            return GetStructuresParameters(structureParameterRows, heightStructuresRules);
         }
 
         /// <summary>
@@ -283,7 +283,7 @@ namespace Riskeer.Common.IO.Structures
         /// contains duplicate elements.</exception>
         public static IEnumerable<StructuresParameterRow> GetRelevantClosingStructuresParameters(IEnumerable<StructuresParameterRow> structureParameterRows)
         {
-            return GetStructuresParameters(structureParameterRows, closingStructuresRules).ToArray();
+            return GetStructuresParameters(structureParameterRows, closingStructuresRules);
         }
 
         /// <summary>
@@ -299,7 +299,7 @@ namespace Riskeer.Common.IO.Structures
         /// contains duplicate elements.</exception>
         public static IEnumerable<StructuresParameterRow> GetRelevantStabilityPointStructuresParameters(IEnumerable<StructuresParameterRow> structureParameterRows)
         {
-            return GetStructuresParameters(structureParameterRows, stabilityPointStructuresRules).ToArray();
+            return GetStructuresParameters(structureParameterRows, stabilityPointStructuresRules);
         }
 
         /// <summary>
@@ -322,6 +322,8 @@ namespace Riskeer.Common.IO.Structures
                 throw new ArgumentNullException(nameof(structureParameterRows));
             }
 
+            var structuresParameters = new List<StructuresParameterRow>();
+
             foreach (string parameterName in rules.Keys)
             {
                 int count = structureParameterRows.Count(row => GetMatchingStructuresParameterRow(row.ParameterId, parameterName));
@@ -333,9 +335,11 @@ namespace Riskeer.Common.IO.Structures
 
                 if (count == 1)
                 {
-                    yield return structureParameterRows.Single(row => GetMatchingStructuresParameterRow(row.ParameterId, parameterName));
+                    structuresParameters.Add(structureParameterRows.Single(row => GetMatchingStructuresParameterRow(row.ParameterId, parameterName)));
                 }
             }
+
+            return structuresParameters;
         }
 
         /// <summary>

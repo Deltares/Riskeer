@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -34,9 +34,9 @@ namespace Riskeer.Storage.Core.DbContext
     {
         public long MicrostabilityFailureMechanismMetaEntityId { get; set; }
         public long FailureMechanismEntityId { get; set; }
-
-        public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
         public double N { get; set; }
         public byte ApplyLengthEffectInSection { get; set; }
+
+        public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
     }
 }

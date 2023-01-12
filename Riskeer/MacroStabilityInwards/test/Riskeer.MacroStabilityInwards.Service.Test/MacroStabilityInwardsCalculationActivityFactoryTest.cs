@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -102,7 +102,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             {
                 FailureMechanismContribution =
                 {
-                    NormativeNorm = NormType.LowerLimit
+                    NormativeProbabilityType = NormativeProbabilityType.MaximumAllowableFloodingProbability
                 }
             };
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
@@ -112,7 +112,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
 
             var random = new Random(39);
 
-            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation = assessmentSection.WaterLevelCalculationsForLowerLimitNorm.Single();
+            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation = assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability.Single();
             hydraulicBoundaryLocationCalculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
 
             MacroStabilityInwardsCalculationScenario calculation = CreateValidCalculation(hydraulicBoundaryLocation);
@@ -181,7 +181,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             {
                 FailureMechanismContribution =
                 {
-                    NormativeNorm = NormType.LowerLimit
+                    NormativeProbabilityType = NormativeProbabilityType.MaximumAllowableFloodingProbability
                 }
             };
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
@@ -192,10 +192,10 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
 
             var random = new Random(39);
 
-            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation1 = assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First();
+            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation1 = assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability.First();
             hydraulicBoundaryLocationCalculation1.Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
 
-            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation2 = assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ElementAt(1);
+            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation2 = assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability.ElementAt(1);
             hydraulicBoundaryLocationCalculation2.Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
 
             MacroStabilityInwardsCalculationScenario calculation1 = CreateValidCalculation(hydraulicBoundaryLocation1);
@@ -261,7 +261,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             {
                 FailureMechanismContribution =
                 {
-                    NormativeNorm = NormType.LowerLimit
+                    NormativeProbabilityType = NormativeProbabilityType.MaximumAllowableFloodingProbability
                 }
             };
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
@@ -272,10 +272,10 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
 
             var random = new Random(39);
 
-            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation1 = assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First();
+            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation1 = assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability.First();
             hydraulicBoundaryLocationCalculation1.Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
 
-            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation2 = assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ElementAt(1);
+            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation2 = assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability.ElementAt(1);
             hydraulicBoundaryLocationCalculation2.Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
 
             MacroStabilityInwardsCalculationScenario calculation1 = CreateValidCalculation(hydraulicBoundaryLocation1);

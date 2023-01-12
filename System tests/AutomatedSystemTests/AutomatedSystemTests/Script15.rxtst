@@ -9,8 +9,8 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="fileNameToSave"
-					datasourceid="0bbd3232-7af5-42b4-b849-73a61bcb8af4"
+					dataname="fileToSave"
+					datasourceid="e66dd6d3-0a18-41b0-a3be-cac4cd389930"
 					variableid="d40271fe-a08b-44b0-bb48-a991f40e104b"
 					variablename="fileName">
 					</var>
@@ -35,30 +35,10 @@
 			name="ValidateAfterAllCalculationsHaveFinished">
 			</smartfoldernode>
 			<testmodule
-			id="06d572e7-29c8-4298-9f6b-e21de976ab9e"
-			name="CalculateFullPathToHydraulicBCcalculation"
-			ref="bc4780cd-bce6-4cd8-b162-bb67f03a7885"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="fullPathToHydraulicBCCalculation"
-					datasourceid="833c17ff-1478-4e5d-a14d-367dda66d1ad"
-					variableid="3690de2e-e255-41b9-bd34-cd09b7661fae"
-					variablename="fullPathToCalculation">
-					</var>
-					<var
-					dataname="pathFromTrajectToHydraulicBCCalculationItem"
-					datasourceid="f15d38ce-c989-46a1-b670-6491a0acaf99"
-					variableid="ecfec53b-d181-4fe7-8ee5-b024507fbede"
-					variablename="pathFromTrajectToCalculation">
-					</var>
-					<var
-					dataname="pathToTraject"
-					datasourceid="8ee8e897-e223-4d18-8fe1-f17a8c0e3348"
-					variableid="91cc69f5-1b40-4834-8b49-05e113fd479a"
-					variablename="pathToTraject">
-					</var>
-				</databinding>
+			id="05f79697-8c1a-4253-a7a0-857223bcb6f7"
+			name="WaitUntilAllCalculationsHaveBeenCarriedOut"
+			ref="ada8c353-8b24-47e4-b6bf-adfb36229783"
+			type="Recording">
 			</testmodule>
 			<smartfoldernode
 			id="06e7a2b3-ba04-4fc3-ad59-68d4051de8a7"
@@ -85,7 +65,7 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="fullPathToHydraulicBCCalculation"
+					dataname="FullPathToHBCItemInPEWithCurrentCulture"
 					datasourceid="46d281ab-a2a3-4602-8787-792a9fb83272"
 					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
 					variablename="pathToItemInProjectExplorer">
@@ -105,50 +85,62 @@
 			name="script15_CalculationHydraulicBoundaryConditions">
 				<parameters>
 					<param
+					mask="False"
 					name="caseNumber"
 					value="15">
 					</param>
 					<param
+					mask="False"
 					name="scriptOutputFolder"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="migrationSourceFolder"
 					value="X:\script15\previousRelease">
 					</param>
 					<param
+					mask="False"
 					name="migrationTargetFolder"
 					value="X:\script15\currentRelease">
 					</param>
 					<param
+					mask="False"
 					name="filterRiskeerProjects"
 					value="*.risk">
 					</param>
 					<param
+					mask="False"
 					name="dummyString"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="separatorCharInPath"
 					value=">">
 					</param>
 					<param
+					mask="False"
 					name="separatorCharInFileName"
 					value="_">
 					</param>
 					<param
+					mask="False"
 					name="spaceChar"
 					value=" ">
 					</param>
 					<param
+					mask="False"
 					name="extensionCSVFile"
 					value=".csv">
 					</param>
 					<param
+					mask="False"
 					name="separatorCSVFile"
 					value=";">
 					</param>
 					<param
+					mask="False"
 					name="fractionLineChar"
 					value="/">
 					</param>
@@ -159,6 +151,7 @@
 			name="SelectRowGEBU">
 				<parameters>
 					<param
+					mask="False"
 					name="nameOfAlphasGropuToExpand"
 					value="Invloedscoëfficiënten [-]">
 					</param>
@@ -185,34 +178,6 @@
 					</condition>
 				</conditiongroup>
 			</smartfoldernode>
-			<testmodule
-			id="0ae51d80-9408-4dbf-85f1-a51b661f36c9"
-			name="SetRangeInSmartFolder"
-			ref="3b9354d6-0537-452c-9857-667f5c0e7124"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="nameSmartFolderToSetRange"
-					datasourceid="b28a236b-613f-40f8-8fca-9fc994c25477"
-					variableid="e27c2717-8089-484f-8051-57077da63c0b"
-					variablename="nameOfSmartFolder">
-					</var>
-					<var
-					dataname="indexFMToCarryOutSeparateCalculation"
-					datasourceid="394ebd4a-a478-4652-a62c-20fa2acf9739"
-					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
-					variablename="rangeToBeSetInSmartFolder">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="indexFMToCarryOutSeparateCalculation"
-					datasourceid="6246b962-c751-4777-a6b5-f5e452aa499e"
-					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
-					variablename="rangeToBeSetInSmartFolder">
-					</var>
-				</missingdatabinding>
-			</testmodule>
 			<testmodule
 			id="0ba3f377-893d-4ade-b603-086435e4470c"
 			name="ValidateWaterLevelWaveHeightInDocumentView"
@@ -250,13 +215,29 @@
 			<smartfoldernode
 			id="0bbd3232-7af5-42b4-b849-73a61bcb8af4"
 			name="SaveProjectScript15a,b,c">
-				<parameters>
-					<param
-					name="fileNameToSave"
-					value="script15abc.risk">
-					</param>
-				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="0c2fad60-bd4d-42d2-892e-6415ad658b66"
+			name="SelectState"
+			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="stateName"
+					datasourceid="e3bfbfc0-3e28-4673-a704-6693ceefa9ec"
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="StateWithCalculations"
+					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
+					variableid="dd230550-3763-4882-aad6-2c842903d448"
+					variablename="StateToSelect">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="0caaacfb-8725-483f-8225-5222d1723fdf"
 			name="StartCalculationsForFM">
@@ -267,6 +248,7 @@
 			name="OpenProject">
 				<parameters>
 					<param
+					mask="False"
 					name="fielNameToOpen"
 					value="Project_15a_15b_15c_zonder_resultaten.risk">
 					</param>
@@ -335,6 +317,7 @@
 			name="SaveProject">
 				<parameters>
 					<param
+					mask="False"
 					name="fileNameToSave"
 					value="script15abc.risk">
 					</param>
@@ -345,6 +328,7 @@
 			name="GenerateCSVPropertiesPanel">
 				<parameters>
 					<param
+					mask="False"
 					name="number OfIterationsExpand"
 					value="2">
 					</param>
@@ -425,8 +409,8 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="fileNameToSave"
-					datasourceid="d8fb52cf-6011-4dbf-b61f-85ca5166431a"
+					dataname="fileToSave"
+					datasourceid="8ee8e897-e223-4d18-8fe1-f17a8c0e3348"
 					variableid="d40271fe-a08b-44b0-bb48-a991f40e104b"
 					variablename="fileName">
 					</var>
@@ -514,10 +498,15 @@
 			name="SelectStateHBC">
 				<parameters>
 					<param
+					mask="False"
 					name="stateWithCalculations"
-					value="Hydraulische">
+					value="@HyB">
 					</param>
 				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			id="19d56aff-3e6d-4b7a-9a77-ed2fa3be50d1"
+			name="OpenDocumentViewForHydraulicBCItem">
 			</smartfoldernode>
 			<testmodule
 			id="1a829c5f-b3d4-4699-89a4-aa048f2ca1d8"
@@ -532,37 +521,153 @@
 					variablename="string1">
 					</var>
 					<var
+					dataname="fullPathToCalculationItem"
+					datasourceid="850dbcd4-4339-42fa-8eae-18973ae2fb83"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="relativePathToCalculationFromFolder"
+					datasourceid="4617c4ae-1af4-4500-b0fc-5d12dccf5e02"
+					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
+					variablename="string3">
+					</var>
+					<var
+					dataname="relativePathToResultsItemFromCalculation"
+					datasourceid="850dbcd4-4339-42fa-8eae-18973ae2fb83"
+					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
+					variablename="string4">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
+					variablename="string5">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
+					variablename="string6">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
+					variablename="string7">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
+					variablename="string8">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
+					variablename="string9">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
+					variablename="string10">
+					</var>
+					<var
+					dataname="relativePathToCalculationsToInspect"
+					datasourceid="4617c4ae-1af4-4500-b0fc-5d12dccf5e02"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
 					dataname="relativePathToCalculationsToInspect"
 					datasourceid="e66dd6d3-0a18-41b0-a3be-cac4cd389930"
 					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
 					variablename="string2">
 					</var>
+				</missingdatabinding>
+			</testmodule>
+			<smartfoldernode
+			id="1b807291-6298-4090-b767-122535e24b0e"
+			name="SetRangeForInputInspection">
+				<parameters>
+					<param
+					mask="False"
+					name="nameOfFolderToSetRange"
+					value="ValidateNoCalculationHasResults">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			id="1bbac447-1dc3-4458-8022-22d8aa46d453"
+			name="ClickOnStartSelectedCalculations">
+			</smartfoldernode>
+			<testmodule
+			id="1d3b14dd-623d-4da6-98f2-689ae3cdb150"
+			name="SetRangeInSmartFolder"
+			ref="3b9354d6-0537-452c-9857-667f5c0e7124"
+			type="UserCode">
+				<databinding>
 					<var
-					dataname="intermediatePath"
-					datasourceid="850dbcd4-4339-42fa-8eae-18973ae2fb83"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
+					dataname="nameOfFolderToSetRange"
+					datasourceid="1b807291-6298-4090-b767-122535e24b0e"
+					variableid="e27c2717-8089-484f-8051-57077da63c0b"
+					variablename="nameOfSmartFolder">
+					</var>
+					<var
+					dataname="rangeLoopInputViews"
+					datasourceid="e66dd6d3-0a18-41b0-a3be-cac4cd389930"
+					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
+					variablename="rangeToBeSetInSmartFolder">
 					</var>
 				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rangeInHydraulicBoundaryConditionCases"
+					datasourceid="2d553e9c-1b87-46c6-9a96-1bfce2ce98ec"
+					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
+					variablename="rangeToBeSetInSmartFolder">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="1d78e5d0-ebdf-4449-ba17-fa5a555dbff1"
+			name="OpenProject"
+			ref="3f746bb2-6845-45b4-9b28-b7fd605378f3"
+			type="Recording">
+				<description>
+					<![CDATA[Open project Project_15a_15b_15c]]>
+				</description>
+				<databinding>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="b7b39e3c-a1f6-46e4-bf70-84c02fc78fd6"
+					variablename="scriptOutputPath">
+					</var>
+					<var
+					dataname="fileToOpen"
+					datasourceid="e66dd6d3-0a18-41b0-a3be-cac4cd389930"
+					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
+					variablename="fileName">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="fileToOpen"
+					datasourceid="2d553e9c-1b87-46c6-9a96-1bfce2ce98ec"
+					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
+					variablename="fileName">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="1e2e252e-f985-4501-b5ab-b479b7c1b6c8"
 			name="StartCalculationsForFM">
 			</smartfoldernode>
-			<testmodule
-			id="20645c84-3bde-43b1-b155-6e0eb0d4c05c"
-			name="SelectGenericItemInProjectExplorer"
-			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="pathItem"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
-					variablename="pathToItemInProjectExplorer">
-					</var>
-				</databinding>
-			</testmodule>
 			<testmodule
 			id="212af744-93db-49f2-a8ec-1e20ff3a7838"
 			name="SelectGenericItemInProjectExplorer"
@@ -602,8 +707,8 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="fielNameToOpen"
-					datasourceid="3564532c-32de-4e99-8c34-c3a14fddcde7"
+					dataname="fileToOpen"
+					datasourceid="8ee8e897-e223-4d18-8fe1-f17a8c0e3348"
 					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
 					variablename="fileName">
 					</var>
@@ -619,12 +724,20 @@
 			id="25938c33-b517-428c-a3aa-e12337ea0104"
 			name="CalculateFullPathToCalculationItem">
 			</smartfoldernode>
+			<testmodule
+			id="267ed6f2-6dbe-405d-ae57-1838e95bcd25"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
+			</testmodule>
 			<smartfoldernode
 			datasource="script15b_pathCalculationsToInspectChart"
+			errorbehavior="ContinueNextIteration"
 			id="276025e1-84cc-4480-82dd-e8515eb34125"
 			name="ValidateNoCalculationHasResults">
 				<parameters>
 					<param
+					mask="False"
 					name="nameItemResultsInPropertiesPanel"
 					value="Resultaat">
 					</param>
@@ -634,6 +747,20 @@
 			id="281cc25b-9665-40d2-b9b8-beff08d662fc"
 			name="CloseDocumentView">
 			</smartfoldernode>
+			<testmodule
+			id="2a467a68-d8a2-4b64-bd7d-491e9576f0c5"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="FullPathToHBCItemInPEWithCurrentCulture"
+					datasourceid="ad9b73b0-e562-47e6-bf3f-383ac988ef38"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="2ac878aa-9705-49f7-b73f-e683190037ef"
 			name="OpenProject"
@@ -697,20 +824,10 @@
 			id="34654bfe-ef73-4a94-953b-f59a2f3cf462"
 			name="MakeScreenshotOfDocumentView">
 			</smartfoldernode>
-			<testcase
-			id="35523cdf-1355-475b-b44d-f4ab30239350"
-			name="TakeScreenshotOfDesktop">
-			</testcase>
 			<smartfoldernode
 			errorbehavior="ContinueParent"
 			id="3564532c-32de-4e99-8c34-c3a14fddcde7"
 			name="OpenProject">
-				<parameters>
-					<param
-					name="fielNameToOpen"
-					value="Project_15d_zonder_resultaten.risk">
-					</param>
-				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="35dae353-d5cf-4b90-82ad-0ab995e714de"
@@ -738,20 +855,29 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="377d108a-36af-4426-8a9b-f9aeb7360007"
+			name="ClickOnRunSelectedHBCCalculations"
+			ref="907b89b7-6058-4333-a615-ff354007586c"
+			type="Recording">
+			</testmodule>
 			<smartfoldernode
 			datasource="script15ac_LoopAddFailureProbabilityItems"
 			id="37bfa9ed-411e-418c-93cd-e94e465cf897"
 			name="AddFailureProbabilityItems">
 				<parameters>
 					<param
+					mask="False"
 					name="pathToFailureProbabilityInPropPanel"
 					value="Algemeen>Doelkans">
 					</param>
 					<param
+					mask="False"
 					name="typeVauleFailureProbability"
 					value="Text">
 					</param>
 					<param
+					mask="False"
 					name="optionToSelectInContextMenu"
 					value="Doelkans toevoegen">
 					</param>
@@ -762,39 +888,12 @@
 			name="d)CalculationHydraulicBoundaryConditionsForClimateScenario">
 				<parameters>
 					<param
+					mask="False"
 					name="indexFMToCarryOutSeparateCalculation"
 					value="">
 					</param>
 				</parameters>
 			</smartfoldernode>
-			<testmodule
-			id="3d017260-2390-4393-a3b9-2f5585e1233e"
-			name="SetRangeInSmartFolder"
-			ref="3b9354d6-0537-452c-9857-667f5c0e7124"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="nameSmartFolderToSetRange"
-					datasourceid="a0157b87-e5a5-40ad-8a7a-568786c17fcc"
-					variableid="e27c2717-8089-484f-8051-57077da63c0b"
-					variablename="nameOfSmartFolder">
-					</var>
-					<var
-					dataname="indexFMToCarryOutSeparateCalculation"
-					datasourceid="394ebd4a-a478-4652-a62c-20fa2acf9739"
-					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
-					variablename="rangeToBeSetInSmartFolder">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="indexFMToCarryOutSeparateCalculation"
-					datasourceid="6246b962-c751-4777-a6b5-f5e452aa499e"
-					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
-					variablename="rangeToBeSetInSmartFolder">
-					</var>
-				</missingdatabinding>
-			</testmodule>
 			<testmodule
 			id="3dbc413a-f7f6-490f-940b-4374717d13a2"
 			name="WaitUntilAllCalculationsHaveBeenCarriedOut"
@@ -956,10 +1055,30 @@
 			name="OpenDocumentViewForHydraulicBCItem">
 				<parameters>
 					<param
-					name="fullPathToHydraulicBCCalculation"
+					mask="False"
+					name="FullPathToHBCItemInPEWithCurrentCulture"
+					value="">
+					</param>
+					<param
+					mask="False"
+					name="StepInPathContainingTargetProbability"
+					value="4">
+					</param>
+					<param
+					mask="False"
+					name="TargetProbabilityInvariantCulture"
+					value="">
+					</param>
+					<param
+					mask="False"
+					name="TargetProbabilityCurrentCulture"
 					value="">
 					</param>
 				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			id="4772b159-5cec-455b-8c2d-94caad63edd8"
+			name="CloseHBCView">
 			</smartfoldernode>
 			<testmodule
 			id="47d87cd5-3d15-4843-984c-6d8f72addf84"
@@ -1001,6 +1120,17 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="48034436-92e0-490f-8de2-4c589678e899"
+			name="SetRangeForInputInspection">
+				<parameters>
+					<param
+					mask="False"
+					name="nameOfFolderToSetRange"
+					value="InspectInputOfSomeCalculations">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="48898fb1-2673-475e-8910-956412a4c5c6"
 			name="CloseViewCentralPanelWithFocus"
@@ -1057,12 +1187,12 @@
 				</conditiongroup>
 			</smartfoldernode>
 			<smartfoldernode
-			datarangeactive="True"
 			datasource="script15_ac_LoopFMs"
+			errorbehavior="ContinueNextIteration"
 			id="4f95265d-8bea-4348-97b9-151ec19e126c"
-			maxrange="0"
-			minrange="0"
-			name="a)_c)WaterLevelsAndWaveConditionsTrajectAndFM(GEBU_DA)">
+			maxrange="1"
+			minrange="1"
+			name="a)_c)TargetProbsAndHBCCalculations(GEBU_DA)">
 			</smartfoldernode>
 			<testmodule
 			id="505c11ac-775d-4928-8d35-b8dc0cfb401e"
@@ -1084,6 +1214,12 @@
 			id="51e41a2c-1f0a-4d5c-9eb6-e997300ae3f5"
 			name="ValidateMessagesInterruption">
 			</smartfoldernode>
+			<testmodule
+			id="527ae9ca-57c0-4d4a-941e-0ba62549d694"
+			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
+			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
+			type="Recording">
+			</testmodule>
 			<testmodule
 			id="531711c3-1136-4f9b-859a-e0332642384b"
 			name="SetNewHBCScenario"
@@ -1148,15 +1284,45 @@
 			id="570d8bbf-7357-4f63-bd9f-40e1421600b6"
 			name="CalculateFullPathToCalculationItem">
 			</smartfoldernode>
+			<testmodule
+			id="57313155-422e-4025-92f0-63d605b1d8dd"
+			name="SetRangeInSmartFolder"
+			ref="3b9354d6-0537-452c-9857-667f5c0e7124"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="nameOfFolderToSetRange"
+					datasourceid="48034436-92e0-490f-8de2-4c589678e899"
+					variableid="e27c2717-8089-484f-8051-57077da63c0b"
+					variablename="nameOfSmartFolder">
+					</var>
+					<var
+					dataname="rangeLoopInputViews"
+					datasourceid="e66dd6d3-0a18-41b0-a3be-cac4cd389930"
+					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
+					variablename="rangeToBeSetInSmartFolder">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rangeInHydraulicBoundaryConditionCases"
+					datasourceid="2d553e9c-1b87-46c6-9a96-1bfce2ce98ec"
+					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
+					variablename="rangeToBeSetInSmartFolder">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="57c0813e-ccc9-428a-8ff2-2e57d32bbe74"
 			name="ValidateResultInDocumentViewHasBeenDeleted">
 				<parameters>
 					<param
+					mask="False"
 					name="rowIndexFirstElement"
 					value="0">
 					</param>
 					<param
+					mask="False"
 					name="expectedValueForDeletedResult"
 					value="-">
 					</param>
@@ -1230,6 +1396,54 @@
 					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
 					variablename="concatenatedString">
 					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
+					variablename="string3">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
+					variablename="string4">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
+					variablename="string5">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
+					variablename="string6">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
+					variablename="string7">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
+					variablename="string8">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
+					variablename="string9">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
+					variablename="string10">
+					</var>
 				</databinding>
 				<missingdatabinding>
 					<var
@@ -1245,6 +1459,40 @@
 			name="WaitUntilCalculationsFinished_NoScreenShotOfDialog"
 			ref="a653ace9-5ee8-4659-932a-53a321bc6e32"
 			type="Recording">
+			</testmodule>
+			<testmodule
+			id="5e513b9b-2f84-485d-ac45-2366d977b5b5"
+			name="ConvertProbabilityToCurrentCulture"
+			ref="22750fb4-c0e3-4cfe-aef2-41ef0cf191ea"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="TargetProbabilityCurrentCulture"
+					datasourceid="46d281ab-a2a3-4602-8787-792a9fb83272"
+					variableid="4e3d9d15-9f92-43b1-8d85-9b5bf21b9d1b"
+					variablename="convertedProbability">
+					</var>
+					<var
+					dataname="TargetProbabilityInvariantCulture"
+					datasourceid="46d281ab-a2a3-4602-8787-792a9fb83272"
+					variableid="6cf6f909-28aa-444f-bb66-18024b346f25"
+					variablename="originalProbability">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="TargetProbabilityInvariantCulture"
+					datasourceid="833c17ff-1478-4e5d-a14d-367dda66d1ad"
+					variableid="6cf6f909-28aa-444f-bb66-18024b346f25"
+					variablename="originalProbability">
+					</var>
+					<var
+					dataname="TargetProbabilityCurrentCulture"
+					datasourceid="833c17ff-1478-4e5d-a14d-367dda66d1ad"
+					variableid="4e3d9d15-9f92-43b1-8d85-9b5bf21b9d1b"
+					variablename="convertedProbability">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="5e916234-87b7-4a05-8c0c-d4ab4597dfb6"
@@ -1273,6 +1521,7 @@
 			name="SetRangeForCurrentFP">
 				<parameters>
 					<param
+					mask="False"
 					name="nameOfFolderToSetRange"
 					value="HydraulicBoundaryConditionCases">
 					</param>
@@ -1283,49 +1532,17 @@
 			name="CarryOutCalculations">
 				<parameters>
 					<param
+					mask="False"
 					name="calculationIndexToStopAt"
 					value="2 van">
 					</param>
 					<param
+					mask="False"
 					name="maximumCalculationTime"
 					value="1800000">
 					</param>
 				</parameters>
 			</smartfoldernode>
-			<testmodule
-			id="5f7771db-a9b0-42c8-aed1-9e0548229252"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="intermediatePath"
-					datasourceid="850dbcd4-4339-42fa-8eae-18973ae2fb83"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="intermediatePath2"
-					datasourceid="850dbcd4-4339-42fa-8eae-18973ae2fb83"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-					<var
-					dataname="relativePathToSingleCalculationToFullyValidate"
-					datasourceid="e66dd6d3-0a18-41b0-a3be-cac4cd389930"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="relativePathToCalculationFromFolder"
-					datasourceid="4617c4ae-1af4-4500-b0fc-5d12dccf5e02"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-				</missingdatabinding>
-			</testmodule>
 			<testmodule
 			id="5fd8a3c4-7a88-4229-a5e1-ec62a9adab4d"
 			name="WaitUntilAllCalculationsHaveBeenCarriedOut"
@@ -1369,7 +1586,7 @@
 			datasource="script15d_CalculationHydraulicBoundaryConditionsForClimateScenario"
 			errorbehavior="ContinueNextIteration"
 			id="6246b962-c751-4777-a6b5-f5e452aa499e"
-			name="LoopCalculationHydraulicBoundaryConditionsForClimateScenario">
+			name="MainLoop">
 			</smartfoldernode>
 			<smartfoldernode
 			errorbehavior="ContinueNextIteration"
@@ -1384,9 +1601,10 @@
 			</testmodule>
 			<smartfoldernode
 			id="64095390-c618-4a6a-b149-4fefb5347827"
-			name="CoupleHBCWithScenarioInformation">
+			name="ChangeHBCScenarioInformation">
 				<parameters>
 					<param
+					mask="False"
 					name="nameParameterHBCScenarioInformationInPropertiesPanel"
 					value="HLCD bestandslocatie">
 					</param>
@@ -1448,6 +1666,7 @@
 			name="InspectInputOfSomeCalculations">
 				<parameters>
 					<param
+					mask="False"
 					name="nameDamInPP"
 					value="Dam">
 					</param>
@@ -1458,14 +1677,17 @@
 			name="ValidateProperties">
 				<parameters>
 					<param
+					mask="False"
 					name="FullPathReferenceFile"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="RootPathReferenceFile"
 					value="X:\script15\reference\">
 					</param>
 					<param
+					mask="False"
 					name="fullPathCreatedCSVFile"
 					value="">
 					</param>
@@ -1504,9 +1726,63 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
+			id="6cef0a4b-2a4b-4bdb-a644-50bc5e4dad17"
+			name="CarryOutCalculations">
+				<parameters>
+					<param
+					mask="False"
+					name="calculationIndexToStopAt"
+					value="2 van">
+					</param>
+					<param
+					mask="False"
+					name="maximumCalculationTime"
+					value="1800000">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
 			id="6f07d318-9293-4e1b-84fa-b1b56d1efd3e"
 			name="ValidateResultInDocumentView">
 			</smartfoldernode>
+			<testmodule
+			id="702eb601-1a5a-4a65-9080-4724692aa432"
+			name="ReportToPDFModule"
+			ref="ffa0759d-37d2-4abb-89a7-411f0fcf2dfe"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="PdfDirectoryPath"
+					datasourceid="a38b84dc-9266-49d9-9457-9740092668f1"
+					variableid="536f8a69-f246-4f2b-ae9e-1f62babb2ba9"
+					variablename="PdfDirectoryPath">
+					</var>
+					<var
+					dataname="DeleteRanorexReport"
+					datasourceid="a38b84dc-9266-49d9-9457-9740092668f1"
+					variableid="7f788c18-962c-41ab-b591-9c3122512c5e"
+					variablename="DeleteRanorexReport">
+					</var>
+					<var
+					dataname="Details"
+					datasourceid="a38b84dc-9266-49d9-9457-9740092668f1"
+					variableid="b9993b89-d8cb-45fe-829b-42b0f8dd8a00"
+					variablename="Details">
+					</var>
+					<var
+					dataname="Xml"
+					datasourceid="a38b84dc-9266-49d9-9457-9740092668f1"
+					variableid="c15f25ea-9409-4e1a-b76e-cd208bae6c56"
+					variablename="Xml">
+					</var>
+					<var
+					dataname="PdfName"
+					datasourceid="a38b84dc-9266-49d9-9457-9740092668f1"
+					variableid="1d09c6b5-db7a-4ed0-a13c-ee2add5d3d37"
+					variablename="PdfName">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="71252533-99a1-42ae-a829-cb8685f026b0"
 			name="ValidateDoubleValueparameterInPropertiesPanelGivenPath"
@@ -1527,51 +1803,125 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="725d13d6-bdec-4489-8ca2-872aa465de39"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
+			</testmodule>
+			<smartfoldernode
+			id="726e5e40-ae1d-4931-a411-e1608c4fdaa2"
+			name="CalculateSingleFM">
+			</smartfoldernode>
+			<testmodule
+			id="72a38dd0-35eb-4c03-9a18-849bc6b4a024"
+			name="ReplaceSubstring"
+			ref="92030a75-8205-438c-9c04-f777a02a0b87"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="TargetProbabilityInvariantCulture"
+					datasourceid="46d281ab-a2a3-4602-8787-792a9fb83272"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
+					</var>
+					<var
+					dataname="FullPathToHBCItemInPEWithCurrentCulture"
+					datasourceid="46d281ab-a2a3-4602-8787-792a9fb83272"
+					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
+					variablename="finalString">
+					</var>
+					<var
+					dataname="TargetProbabilityCurrentCulture"
+					datasourceid="46d281ab-a2a3-4602-8787-792a9fb83272"
+					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
+					variablename="substringToReplaceWith">
+					</var>
+					<var
+					dataname="originalPathToHydraulicBCCalculation"
+					datasourceid="8ee8e897-e223-4d18-8fe1-f17a8c0e3348"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="originalPathToHydraulicBCCalculation"
+					datasourceid="833c17ff-1478-4e5d-a14d-367dda66d1ad"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+					<var
+					dataname="TargetProbabilityCurrentCulture"
+					datasourceid="833c17ff-1478-4e5d-a14d-367dda66d1ad"
+					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
+					variablename="substringToReplaceWith">
+					</var>
+					<var
+					dataname="TargetProbabilityInvariantCulture"
+					datasourceid="833c17ff-1478-4e5d-a14d-367dda66d1ad"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
+					</var>
+					<var
+					dataname="FullPathToHBCItemInPEWithCurrentCulture"
+					datasourceid="833c17ff-1478-4e5d-a14d-367dda66d1ad"
+					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
+					variablename="finalString">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<smartfoldernode
+			id="72de45be-e768-49b9-b4f3-8b2613de0686"
+			name="CalculateHBC">
+			</smartfoldernode>
 			<smartfoldernode
 			id="73c515ab-e4a1-49d5-9431-333bfe397aef"
 			name="ValidateResultsHaveBeenObtained">
 				<parameters>
 					<param
+					mask="False"
 					name="fullPathToResults"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="nameOfResultsInPropertiesPanel"
 					value="Resultaat">
 					</param>
 				</parameters>
 			</smartfoldernode>
 			<testmodule
-			id="73f0adf5-0cef-404a-a5f1-c4a8d5e716dc"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			id="74a660bf-1a47-4660-9b63-2582f2868048"
+			name="ConvertProbabilityToCurrentCulture"
+			ref="22750fb4-c0e3-4cfe-aef2-41ef0cf191ea"
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="intermediatePath2"
-					datasourceid="850dbcd4-4339-42fa-8eae-18973ae2fb83"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
+					dataname="TargetProbabilityInvariantCulture"
+					datasourceid="833c17ff-1478-4e5d-a14d-367dda66d1ad"
+					variableid="6cf6f909-28aa-444f-bb66-18024b346f25"
+					variablename="originalProbability">
 					</var>
 					<var
-					dataname="fullPathToCalculationItem"
-					datasourceid="850dbcd4-4339-42fa-8eae-18973ae2fb83"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-					<var
-					dataname="relativePathToResultsItemFromCalculation"
-					datasourceid="850dbcd4-4339-42fa-8eae-18973ae2fb83"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
+					dataname="TargetProbabilityCurrentCulture"
+					datasourceid="833c17ff-1478-4e5d-a14d-367dda66d1ad"
+					variableid="4e3d9d15-9f92-43b1-8d85-9b5bf21b9d1b"
+					variablename="convertedProbability">
 					</var>
 				</databinding>
 				<missingdatabinding>
 					<var
-					dataname="relativePathToInputItemFromCalculation"
-					datasourceid="6859a38d-9137-4b54-924a-f4abe85d4f1c"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
+					dataname="TargetProbabilityInvariantCulture"
+					datasourceid="ad9b73b0-e562-47e6-bf3f-383ac988ef38"
+					variableid="6cf6f909-28aa-444f-bb66-18024b346f25"
+					variablename="originalProbability">
+					</var>
+					<var
+					dataname="TargetProbabilityCurrentCulture"
+					datasourceid="ad9b73b0-e562-47e6-bf3f-383ac988ef38"
+					variableid="4e3d9d15-9f92-43b1-8d85-9b5bf21b9d1b"
+					variablename="convertedProbability">
 					</var>
 				</missingdatabinding>
 			</testmodule>
@@ -1626,32 +1976,6 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<testmodule
-			id="7901be3d-a0c4-4e67-ad9a-9a30c4f2f13a"
-			name="CalculateFullPathToHydraulicBCcalculation"
-			ref="bc4780cd-bce6-4cd8-b162-bb67f03a7885"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="fullPathToHydraulicBCCalculation"
-					datasourceid="46d281ab-a2a3-4602-8787-792a9fb83272"
-					variableid="3690de2e-e255-41b9-bd34-cd09b7661fae"
-					variablename="fullPathToCalculation">
-					</var>
-					<var
-					dataname="pathFromTrajectToHydraulicBCCalculationItem"
-					datasourceid="f15d38ce-c989-46a1-b670-6491a0acaf99"
-					variableid="ecfec53b-d181-4fe7-8ee5-b024507fbede"
-					variablename="pathFromTrajectToCalculation">
-					</var>
-					<var
-					dataname="pathToTraject"
-					datasourceid="8ee8e897-e223-4d18-8fe1-f17a8c0e3348"
-					variableid="91cc69f5-1b40-4834-8b49-05e113fd479a"
-					variablename="pathToTraject">
-					</var>
-				</databinding>
-			</testmodule>
 			<smartfoldernode
 			datasource="lastMessageCalculationHasBeenCanceled"
 			id="79152a3b-29b1-4f88-9fd3-8d577eb67d3b"
@@ -1664,68 +1988,45 @@
 			type="Recording">
 			</testmodule>
 			<testmodule
-			id="7a3a9eed-a0e7-4ea3-a3e2-016930912f93"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="intermediatePath2"
-					datasourceid="850dbcd4-4339-42fa-8eae-18973ae2fb83"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="fullPathToCalculationItem"
-					datasourceid="850dbcd4-4339-42fa-8eae-18973ae2fb83"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-					<var
-					dataname="relativePathToInputItemFromCalculation"
-					datasourceid="850dbcd4-4339-42fa-8eae-18973ae2fb83"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="relativePathToInputItemFromCalculation"
-					datasourceid="6859a38d-9137-4b54-924a-f4abe85d4f1c"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-				</missingdatabinding>
+			id="7a1d334b-354f-4eae-9de8-8616b77ac21c"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
 			</testmodule>
 			<testsuite
+			ExportColumnList="None"
 			ReportTime="RelativeToTestSuiteStartTime"
+			SelectedActions="All"
 			TracingScreenshotMode="Foreground"
 			TracingScreenshotQuality="40"
 			VideoBitrate="2000"
 			VideoFps="15"
 			VideoRecordingMode="KeepAllTests"
 			VideoSource="Auto"
+			createindividualreportpdfchecked="False"
+			createsinglereportpdfchecked="True"
+			enableCSVReport="False"
 			enabletracingscreenshots="True"
+			exportAllColummns="True"
 			id="7cd036a5-c765-4f18-8c86-76cf86c45caa"
+			includeimageschecked="False"
+			includerecordingschecked="False"
 			junitreport="False"
 			name="Script15"
+			overwritefilechecked="False"
 			reportcompress="False"
+			reportdescription=""
 			reportdirectoryname="Reports"
 			reportenabled="True"
 			reportfilename="%S_%Y%M%D_%T.rxlog"
 			reporttemplatefolder="ReportDeltaresStyle"
-			reportwriteinterval="30000ms">
+			reportwriteinterval="30000ms"
+			singlereportpdfdirectory="SingleReportPDF">
 			</testsuite>
 			<smartfoldernode
 			id="813f9d5e-3122-4eff-9467-87cf8a5491b8"
 			name="MakeScreenshotOfDocumentView">
 			</smartfoldernode>
-			<testmodule
-			id="822cb4ff-7f8b-4596-bacc-84d1be428b3e"
-			name="CreateScreenshotEntireDesktop"
-			ref="0f7ebadb-0285-4449-9422-0cd6fde5bf4d"
-			type="Recording">
-			</testmodule>
 			<testmodule
 			id="823a090b-85fb-41f9-a45d-5d777a525c1f"
 			name="SelectState"
@@ -1735,8 +2036,8 @@
 					<var
 					dataname="stateWithCalculations"
 					datasourceid="18455637-0838-4b15-bd6b-f6d6bc24f402"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -1759,7 +2060,23 @@
 			name="OpenDocumentViewForHydraulicBCItem">
 				<parameters>
 					<param
-					name="fullPathToHydraulicBCCalculation"
+					mask="False"
+					name="TargetProbabilityCurrentCulture"
+					value="">
+					</param>
+					<param
+					mask="False"
+					name="TargetProbabilityInvariantCulture"
+					value="">
+					</param>
+					<param
+					mask="False"
+					name="StepInPathContainingTargetProbability"
+					value="4">
+					</param>
+					<param
+					mask="False"
+					name="FullPathToHBCItemInPEWithCurrentCulture"
 					value="">
 					</param>
 				</parameters>
@@ -1779,6 +2096,7 @@
 			name="LoopSeparateCalculationsAfterChangeClimateScenario">
 				<parameters>
 					<param
+					mask="False"
 					name="fullPathToSeparateCalculation"
 					value="">
 					</param>
@@ -1789,10 +2107,12 @@
 			name="ValidateResultsHaveBeenObtained">
 				<parameters>
 					<param
+					mask="False"
 					name="fullPathToResults"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="nameOfResultsInPropertiesPanel"
 					value="Resultaat">
 					</param>
@@ -1807,26 +2127,32 @@
 			name="LoopFMs">
 				<parameters>
 					<param
+					mask="False"
 					name="progressToStopAt"
 					value="2 van">
 					</param>
 					<param
+					mask="False"
 					name="fullPathToCalculationItem"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediatePath"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediatePath2"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="relativePathToInputItemFromCalculation"
 					value=">Invoer">
 					</param>
 					<param
+					mask="False"
 					name="relativePathToResultsItemFromCalculation"
 					value=">Resultaat">
 					</param>
@@ -1859,7 +2185,7 @@
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="pathItem"
+					dataname="pathToItem"
 					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
 					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
 					variablename="string1">
@@ -1926,6 +2252,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="8935242f-e11a-474f-a005-b5e99813a720"
+			name="WaitForAllCalculationsToFinish">
+			</smartfoldernode>
 			<testmodule
 			id="89530da1-7c02-4965-a829-c4da18c33247"
 			name="SelectGenericItemInProjectExplorer"
@@ -1973,6 +2303,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<teardown
+			id="8b2a51a3-6b99-4d50-8d67-a05756acd43b"
+			name="teardown">
+			</teardown>
 			<smartfoldernode
 			id="8c12e4f6-e379-4b57-87d9-014bd22071b4"
 			name="CloseDocumentView">
@@ -2047,6 +2381,56 @@
 			id="900b704e-770b-4187-9dea-07e27f4cbb24"
 			name="InterruptCalculationsAt2ndTask">
 			</smartfoldernode>
+			<smartfoldernode
+			id="91e04eeb-cc8b-4ac3-8cc9-37bf29718a9a"
+			name="CalculateRequiredHBC">
+			</smartfoldernode>
+			<testmodule
+			id="920a1d73-0967-442a-bba5-fbc5a5d68cbf"
+			name="GetStepFromPath"
+			ref="d0d76556-8eb7-4ec6-a100-deb33de45819"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="StepInPathContainingTargetProbability"
+					datasourceid="46d281ab-a2a3-4602-8787-792a9fb83272"
+					variableid="9265f296-64dd-4f64-a430-82614dfc36ea"
+					variablename="indexStep">
+					</var>
+					<var
+					dataname="TargetProbabilityInvariantCulture"
+					datasourceid="46d281ab-a2a3-4602-8787-792a9fb83272"
+					variableid="72c1ba24-4090-4cb8-8c20-5a5fe2f7b2da"
+					variablename="stepString">
+					</var>
+					<var
+					dataname="originalPathToHydraulicBCCalculation"
+					datasourceid="8ee8e897-e223-4d18-8fe1-f17a8c0e3348"
+					variableid="79fe10d1-42c4-4cc5-929d-1adc08c1204a"
+					variablename="fullPath">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="originalPathToHydraulicBCCalculation"
+					datasourceid="833c17ff-1478-4e5d-a14d-367dda66d1ad"
+					variableid="79fe10d1-42c4-4cc5-929d-1adc08c1204a"
+					variablename="fullPath">
+					</var>
+					<var
+					dataname="StepInPathContainingTargetProbability"
+					datasourceid="833c17ff-1478-4e5d-a14d-367dda66d1ad"
+					variableid="9265f296-64dd-4f64-a430-82614dfc36ea"
+					variablename="indexStep">
+					</var>
+					<var
+					dataname="TargetProbabilityInvariantCulture"
+					datasourceid="833c17ff-1478-4e5d-a14d-367dda66d1ad"
+					variableid="72c1ba24-4090-4cb8-8c20-5a5fe2f7b2da"
+					variablename="stepString">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testmodule
 			id="92d80658-cb18-4e58-9c15-6d4dcb6dc248"
 			name="SelectGenericItemInProjectExplorer"
@@ -2058,6 +2442,26 @@
 					datasourceid="8ee8e897-e223-4d18-8fe1-f17a8c0e3348"
 					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
 					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="92db6fbe-f2b7-465a-b90c-a7c46460741a"
+			name="ConvertProbabilityToCurrentCulture"
+			ref="22750fb4-c0e3-4cfe-aef2-41ef0cf191ea"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="TargetProbabilityInvariantCulture"
+					datasourceid="dfb14444-0393-4477-abd1-dc57c2d78b0c"
+					variableid="6cf6f909-28aa-444f-bb66-18024b346f25"
+					variablename="originalProbability">
+					</var>
+					<var
+					dataname="TargetProbabilityCurrentCulture"
+					datasourceid="dfb14444-0393-4477-abd1-dc57c2d78b0c"
+					variableid="4e3d9d15-9f92-43b1-8d85-9b5bf21b9d1b"
+					variablename="convertedProbability">
 					</var>
 				</databinding>
 			</testmodule>
@@ -2118,13 +2522,14 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
-			id="9641c767-1998-472a-9f7e-b031819cb143"
-			name="RunHydraulicBCCalculationUntilFinished">
+			datasource="script15a_LocationsToCalculateWaterLevels"
+			errorbehavior="ContinueNextIteration"
+			id="95e899b2-c82b-4d38-af22-a050c545c6ec"
+			name="SelectLocationsForCalculation">
 			</smartfoldernode>
 			<smartfoldernode
-			datasource="script15d_HydraulicBCCalculationsToCarryOut"
-			id="9837787a-f477-49c6-9446-572143a9290d"
-			name="LoopHydraulicBoundaryCalculationsToCarryOut">
+			id="9641c767-1998-472a-9f7e-b031819cb143"
+			name="RunHydraulicBCCalculationUntilFinished">
 			</smartfoldernode>
 			<smartfoldernode
 			id="98dc9686-98c4-484a-836c-1ab771730111"
@@ -2168,6 +2573,46 @@
 					</condition>
 				</conditiongroup>
 			</smartfoldernode>
+			<testmodule
+			id="9a411ff9-6e2c-4f96-879b-2e644997eda4"
+			name="ReplaceSubstring"
+			ref="92030a75-8205-438c-9c04-f777a02a0b87"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="TargetProbabilityCurrentCulture"
+					datasourceid="dfb14444-0393-4477-abd1-dc57c2d78b0c"
+					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
+					variablename="substringToReplaceWith">
+					</var>
+					<var
+					dataname="TargetProbabilityInvariantCulture"
+					datasourceid="dfb14444-0393-4477-abd1-dc57c2d78b0c"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
+					</var>
+					<var
+					dataname="FullPathToHBCItemInPEWithCurrentCulture"
+					datasourceid="dfb14444-0393-4477-abd1-dc57c2d78b0c"
+					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
+					variablename="finalString">
+					</var>
+					<var
+					dataname="pathToHBCItem"
+					datasourceid="e66dd6d3-0a18-41b0-a3be-cac4cd389930"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathToItem"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testmodule
 			id="9a496640-4fb1-4d5f-aded-b38b00c519aa"
 			name="ReplaceSubstring"
@@ -2231,6 +2676,7 @@
 			name="LoopSeparateCalculationsBeforeChangeClimateScenario">
 				<parameters>
 					<param
+					mask="False"
 					name="fullPathToSeparateCalculation"
 					value="">
 					</param>
@@ -2253,6 +2699,7 @@
 			name="CalculateFullPathReferenceFile">
 				<parameters>
 					<param
+					mask="False"
 					name="pathNoIllegalChars"
 					value="">
 					</param>
@@ -2282,12 +2729,13 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
-			id="a0157b87-e5a5-40ad-8a7a-568786c17fcc"
-			name="SetRangeLoopSeparateCalculationsBeforeChangeClimateScenario">
+			id="9fcca8dc-ff4e-4ed6-ab57-3dc86164f379"
+			name="SelectStateHBC">
 				<parameters>
 					<param
-					name="nameSmartFolderToSetRange"
-					value="LoopSeparateCalculationsBeforeChangeClimateScenario">
+					mask="False"
+					name="stateWithCalculations"
+					value="@HyB">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -2323,15 +2771,88 @@
 			reportlevel="Info;20">
 				<parameters>
 					<param
+					mask="False"
 					name="AppProcessID"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="AppPath"
 					value="..\..\..\..\..\bin\Debug\Riskeer.exe">
 					</param>
+					<param
+					mask="False"
+					name="PdfDirectoryPath"
+					value="">
+					</param>
+					<param
+					mask="False"
+					name="DeleteRanorexReport"
+					value="false">
+					</param>
+					<param
+					mask="False"
+					name="Details"
+					value="all">
+					</param>
+					<param
+					mask="False"
+					name="Xml"
+					value="Reports\style.xml">
+					</param>
+					<param
+					mask="False"
+					name="PdfName"
+					value="script15_CalculationHydraulicBoundaryConditions.pdf">
+					</param>
 				</parameters>
 			</testcase>
+			<testmodule
+			id="a3feda9e-d763-4c1b-80ee-28ff8e148634"
+			name="SelectCheckboxesForListRowsInHBCView"
+			ref="f30c9c45-0ef8-41b8-9fc7-309fad59682c"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="indexLocationHBC"
+					datasourceid="e66dd6d3-0a18-41b0-a3be-cac4cd389930"
+					variableid="83193dfe-bd14-4722-9469-4fdd56269f24"
+					variablename="listRowIndecesToSelect">
+					</var>
+					<var
+					dataname="checkedCalculate"
+					datasourceid="a6e69d8b-be70-46b3-9fda-59e4abd28fcf"
+					variableid="c7e81578-ff46-480e-a453-c9cd381d1f46"
+					variablename="calculationMustBeChecked">
+					</var>
+					<var
+					dataname="checkedReadIllustrationPoints"
+					datasourceid="a6e69d8b-be70-46b3-9fda-59e4abd28fcf"
+					variableid="74ee3ea5-2cb1-4ac1-bbf3-03c851b9a1d4"
+					variablename="illPointMustBeChecked">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="calculationsMustBeChecked"
+					datasourceid="c0b17cb8-c61f-49e5-8b12-6f6eae29746e"
+					variableid="c7e81578-ff46-480e-a453-c9cd381d1f46"
+					variablename="calculationMustBeChecked">
+					</var>
+					<var
+					dataname="illPointsMustBeChecked"
+					datasourceid="c0b17cb8-c61f-49e5-8b12-6f6eae29746e"
+					variableid="74ee3ea5-2cb1-4ac1-bbf3-03c851b9a1d4"
+					variablename="illPointMustBeChecked">
+					</var>
+					<var
+					dataname="listIndecesHBCLocationsToCalculate"
+					datasourceid="5a70b5e0-a998-4c22-bb33-49f8d3d9ed82"
+					variableid="83193dfe-bd14-4722-9469-4fdd56269f24"
+					variablename="listRowIndecesToSelect">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testmodule
 			id="a441e92a-9f14-4107-8433-b93abe31f435"
 			name="ValidateTextValueParameterCurrentlyShownInPropertiesPanel"
@@ -2353,9 +2874,25 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
-			datasource="script15d_LocationsToCalculateWaterLevels"
 			id="a663e2cc-feee-43a8-b58e-1d87f4596239"
 			name="SelectLocationForCalculation">
+				<parameters>
+					<param
+					mask="False"
+					name="rowIndex"
+					value="0">
+					</param>
+					<param
+					mask="False"
+					name="checkedCalculate"
+					value="true">
+					</param>
+					<param
+					mask="False"
+					name="checkedReadIllustrationPoints"
+					value="false">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="a7346479-b435-42cf-aec8-305f8e52d961"
@@ -2428,37 +2965,32 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
-			id="aa146835-ce24-4abc-8ff8-15164ca40204"
-			name="DetermineRandomFMToCarryOutSeparateCalculation">
-				<parameters>
-					<param
-					name="nameSmartFolder"
-					value="LoopSeparateCalculationsBeforeChangeClimateScenario">
-					</param>
-				</parameters>
-			</smartfoldernode>
-			<smartfoldernode
 			errorbehavior="ContinueNextIteration"
 			id="ab3b3ff4-f40b-4a05-83f5-d4d6437bbbed"
 			name="ValidateDetailedResultsInSingleCalculation">
 				<parameters>
 					<param
+					mask="False"
 					name="pathWaterLevelInPPanel"
 					value="Hydraulische belastingen>[1]>Waterstand">
 					</param>
 					<param
+					mask="False"
 					name="pathWaveHeightInPPanel"
 					value="Hydraulische belastingen>[1]>Golfhoogte">
 					</param>
 					<param
+					mask="False"
 					name="pathWavePeriodInPPanel"
 					value="Hydraulische belastingen>[1]>Golfperiode">
 					</param>
 					<param
+					mask="False"
 					name="pathWaveDirectionWRTNorthInPPanel"
 					value="Hydraulische belastingen>[1]>Noord">
 					</param>
 					<param
+					mask="False"
 					name="pathWaveDirectionWRTNormalInPPanel"
 					value="Hydraulische belastingen>[1]>dijknormaal">
 					</param>
@@ -2505,6 +3037,32 @@
 						</rightvalue>
 					</condition>
 				</conditiongroup>
+			</smartfoldernode>
+			<smartfoldernode
+			id="ad9b73b0-e562-47e6-bf3f-383ac988ef38"
+			name="SelectHBItem">
+				<parameters>
+					<param
+					mask="False"
+					name="StepInPathContainingTargetProbability"
+					value="4">
+					</param>
+					<param
+					mask="False"
+					name="TargetProbabilityInvariantCulture"
+					value="">
+					</param>
+					<param
+					mask="False"
+					name="TargetProbabilityCurrentCulture"
+					value="">
+					</param>
+					<param
+					mask="False"
+					name="FullPathToHBCItemInPEWithCurrentCulture"
+					value="">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="ae153244-59f1-46c6-9246-1be63f6377ab"
@@ -2672,16 +3230,6 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
-			<smartfoldernode
-			id="b28a236b-613f-40f8-8fca-9fc994c25477"
-			name="SetRangeLoopSeparateCalculationsAfterChangeClimateScenario">
-				<parameters>
-					<param
-					name="nameSmartFolderToSetRange"
-					value="LoopSeparateCalculationsAfterChangeClimateScenario">
-					</param>
-				</parameters>
-			</smartfoldernode>
 			<testmodule
 			id="b668e3f9-cea4-4581-a6b6-03c3f2ab705c"
 			name="CalculateFullPathToSeparateCalculation"
@@ -2757,36 +3305,17 @@
 				</databinding>
 			</testmodule>
 			<testmodule
-			id="b8644a7f-796f-4e8d-b031-dfabfc503239"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="intermediatePath"
-					datasourceid="850dbcd4-4339-42fa-8eae-18973ae2fb83"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="relativePathToCalculationFromFolder"
-					datasourceid="4617c4ae-1af4-4500-b0fc-5d12dccf5e02"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="intermediatePath2"
-					datasourceid="850dbcd4-4339-42fa-8eae-18973ae2fb83"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</databinding>
+			id="b8366dfe-0f39-4ac9-bcfe-833d6269789f"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
 			</testmodule>
 			<smartfoldernode
 			id="b90504ff-0735-4284-bafe-cecf4f223312"
 			name="SetRangeAddFailureProbs">
 				<parameters>
 					<param
+					mask="False"
 					name="nameOfFolderToSetRange"
 					value="AddFailureProbabilityItems">
 					</param>
@@ -2847,38 +3376,18 @@
 					variablename="nameOfSmartFolder">
 					</var>
 					<var
-					dataname="rangeHBCCalculations"
+					dataname="rangeInHydraulicBoundaryConditionCases"
 					datasourceid="2d553e9c-1b87-46c6-9a96-1bfce2ce98ec"
 					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
 					variablename="rangeToBeSetInSmartFolder">
 					</var>
 				</databinding>
-			</testmodule>
-			<testmodule
-			id="b9c96adf-a1e4-4ddb-bdfc-a4ecc31574a4"
-			name="GenerateRandomIndexInRangeOfSmartFolder"
-			ref="57e8241e-e1ed-4068-a5f9-cf3c3a66e673"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="nameSmartFolder"
-					datasourceid="aa146835-ce24-4abc-8ff8-15164ca40204"
-					variableid="46e1126b-a8f6-47ec-81ed-ffabf616caff"
-					variablename="nameOfSmartFolder">
-					</var>
-					<var
-					dataname="indexFMToCarryOutSeparateCalculation"
-					datasourceid="394ebd4a-a478-4652-a62c-20fa2acf9739"
-					variableid="fc28675a-0851-49ee-90d4-85279ce6fa30"
-					variablename="generatedRandomIndex">
-					</var>
-				</databinding>
 				<missingdatabinding>
 					<var
-					dataname="indexFMToCarryOutSeparateCalculation"
-					datasourceid="6246b962-c751-4777-a6b5-f5e452aa499e"
-					variableid="fc28675a-0851-49ee-90d4-85279ce6fa30"
-					variablename="generatedRandomIndex">
+					dataname="rangeHBCCalculations"
+					datasourceid="2d553e9c-1b87-46c6-9a96-1bfce2ce98ec"
+					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
+					variablename="rangeToBeSetInSmartFolder">
 					</var>
 				</missingdatabinding>
 			</testmodule>
@@ -2909,35 +3418,77 @@
 			name="ValidateResultsArePresentPresentInDocumentView">
 			</smartfoldernode>
 			<testmodule
-			id="bdef9def-a604-491f-9c7c-c4ee7d8ce600"
-			name="SelectCalculationsAndIllustrationPoints"
-			ref="7654cb84-67f3-46ba-9397-46d52163b934"
-			type="Recording">
+			id="bdf2687c-fc7d-4d85-aa8d-4433f5dc6b4b"
+			name="SelectCheckboxesForListRowsInHBCView"
+			ref="f30c9c45-0ef8-41b8-9fc7-309fad59682c"
+			type="UserCode">
 				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="a6e69d8b-be70-46b3-9fda-59e4abd28fcf"
+					variableid="83193dfe-bd14-4722-9469-4fdd56269f24"
+					variablename="listRowIndecesToSelect">
+					</var>
 					<var
 					dataname="checkedCalculate"
 					datasourceid="a6e69d8b-be70-46b3-9fda-59e4abd28fcf"
-					variableid="0deed09a-95e3-4a17-893a-487322bef16e"
+					variableid="c7e81578-ff46-480e-a453-c9cd381d1f46"
 					variablename="calculationMustBeChecked">
 					</var>
 					<var
 					dataname="checkedReadIllustrationPoints"
 					datasourceid="a6e69d8b-be70-46b3-9fda-59e4abd28fcf"
-					variableid="36a16845-003d-4dee-a9b0-1c99113783c1"
-					variablename="IllustrationPointsMustBeChecked">
-					</var>
-					<var
-					dataname="rowIndex"
-					datasourceid="a6e69d8b-be70-46b3-9fda-59e4abd28fcf"
-					variableid="e7afd8e0-9527-4691-bd42-5bf89a1349ac"
-					variablename="rowIndex">
+					variableid="74ee3ea5-2cb1-4ac1-bbf3-03c851b9a1d4"
+					variablename="illPointMustBeChecked">
 					</var>
 				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="calculationsMustBeChecked"
+					datasourceid="c0b17cb8-c61f-49e5-8b12-6f6eae29746e"
+					variableid="c7e81578-ff46-480e-a453-c9cd381d1f46"
+					variablename="calculationMustBeChecked">
+					</var>
+					<var
+					dataname="illPointsMustBeChecked"
+					datasourceid="c0b17cb8-c61f-49e5-8b12-6f6eae29746e"
+					variableid="74ee3ea5-2cb1-4ac1-bbf3-03c851b9a1d4"
+					variablename="illPointMustBeChecked">
+					</var>
+					<var
+					dataname="listIndecesHBCLocationsToCalculate"
+					datasourceid="5a70b5e0-a998-4c22-bb33-49f8d3d9ed82"
+					variableid="83193dfe-bd14-4722-9469-4fdd56269f24"
+					variablename="listRowIndecesToSelect">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="be110e48-01d9-44a3-b623-31412fba1729"
 			name="b)WaveConditionsForRevetments(ZST,AGK,GEBU)">
 			</smartfoldernode>
+			<testmodule
+			id="be699301-ce36-4e62-8c10-92b2e4e759be"
+			name="SelectState"
+			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="stateWithCalculations"
+					datasourceid="9fcca8dc-ff4e-4ed6-ab57-3dc86164f379"
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="StateWithCalculations"
+					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
+					variableid="dd230550-3763-4882-aad6-2c842903d448"
+					variablename="StateToSelect">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testmodule
 			id="c20235f3-9ad9-41ca-83d0-4fc333a9011f"
 			name="SaveAs"
@@ -3028,7 +3579,7 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="fullPathToHydraulicBCCalculation"
+					dataname="FullPathToHBCItemInPEWithCurrentCulture"
 					datasourceid="833c17ff-1478-4e5d-a14d-367dda66d1ad"
 					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
 					variablename="pathToItemInProjectExplorer">
@@ -3049,19 +3600,56 @@
 			name="ValidateAllResultsUsingCSVExportedFile">
 				<parameters>
 					<param
+					mask="False"
 					name="rootFileNameExportCSV"
 					value="currentResults">
 					</param>
 					<param
+					mask="False"
 					name="rootPathForReferenceCSVFile"
 					value="X:\script15\External">
 					</param>
 					<param
+					mask="False"
 					name="fullPathCSVFileCurrentResults"
 					value="">
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="c411af54-f22b-4199-b14c-8c588dbfb1e4"
+			name="GetStepFromPath"
+			ref="d0d76556-8eb7-4ec6-a100-deb33de45819"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="StepInPathContainingTargetProbability"
+					datasourceid="dfb14444-0393-4477-abd1-dc57c2d78b0c"
+					variableid="9265f296-64dd-4f64-a430-82614dfc36ea"
+					variablename="indexStep">
+					</var>
+					<var
+					dataname="TargetProbabilityInvariantCulture"
+					datasourceid="dfb14444-0393-4477-abd1-dc57c2d78b0c"
+					variableid="72c1ba24-4090-4cb8-8c20-5a5fe2f7b2da"
+					variablename="stepString">
+					</var>
+					<var
+					dataname="pathToHBCItem"
+					datasourceid="e66dd6d3-0a18-41b0-a3be-cac4cd389930"
+					variableid="79fe10d1-42c4-4cc5-929d-1adc08c1204a"
+					variablename="fullPath">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathToItem"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="79fe10d1-42c4-4cc5-929d-1adc08c1204a"
+					variablename="fullPath">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="c4e4215d-8510-4c46-9141-f9123e8f0280"
 			name="OpenDocumentViewForHydraulicBCItem">
@@ -3138,22 +3726,22 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="rowIndex"
-					datasourceid="4a60ee36-4886-48f5-a7ed-2c77fde452a0"
-					variableid="e7afd8e0-9527-4691-bd42-5bf89a1349ac"
-					variablename="rowIndex">
-					</var>
-					<var
 					dataname="checkedCalculate"
-					datasourceid="4a60ee36-4886-48f5-a7ed-2c77fde452a0"
+					datasourceid="a663e2cc-feee-43a8-b58e-1d87f4596239"
 					variableid="0deed09a-95e3-4a17-893a-487322bef16e"
 					variablename="calculationMustBeChecked">
 					</var>
 					<var
 					dataname="checkedReadIllustrationPoints"
-					datasourceid="4a60ee36-4886-48f5-a7ed-2c77fde452a0"
+					datasourceid="a663e2cc-feee-43a8-b58e-1d87f4596239"
 					variableid="36a16845-003d-4dee-a9b0-1c99113783c1"
 					variablename="IllustrationPointsMustBeChecked">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="a663e2cc-feee-43a8-b58e-1d87f4596239"
+					variableid="e7afd8e0-9527-4691-bd42-5bf89a1349ac"
+					variablename="rowIndex">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -3177,6 +3765,68 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="c7a08849-d0cd-4bb7-8a38-1cc1fe9b6479"
+			name="ReplaceSubstring"
+			ref="92030a75-8205-438c-9c04-f777a02a0b87"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="TargetProbabilityCurrentCulture"
+					datasourceid="833c17ff-1478-4e5d-a14d-367dda66d1ad"
+					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
+					variablename="substringToReplaceWith">
+					</var>
+					<var
+					dataname="TargetProbabilityInvariantCulture"
+					datasourceid="833c17ff-1478-4e5d-a14d-367dda66d1ad"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
+					</var>
+					<var
+					dataname="FullPathToHBCItemInPEWithCurrentCulture"
+					datasourceid="833c17ff-1478-4e5d-a14d-367dda66d1ad"
+					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
+					variablename="finalString">
+					</var>
+					<var
+					dataname="originalPathToHydraulicBCCalculation"
+					datasourceid="8ee8e897-e223-4d18-8fe1-f17a8c0e3348"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathToItem"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+					<var
+					dataname="TargetProbabilityCurrentCulture"
+					datasourceid="ad9b73b0-e562-47e6-bf3f-383ac988ef38"
+					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
+					variablename="substringToReplaceWith">
+					</var>
+					<var
+					dataname="TargetProbabilityInvariantCulture"
+					datasourceid="ad9b73b0-e562-47e6-bf3f-383ac988ef38"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
+					</var>
+					<var
+					dataname="FullPathToHBCItemInPEWithCurrentCulture"
+					datasourceid="ad9b73b0-e562-47e6-bf3f-383ac988ef38"
+					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
+					variablename="finalString">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<smartfoldernode
+			id="c7ecb4e3-186b-42cf-89c7-7840e90561cf"
+			name="CalculateSingleFM">
+			</smartfoldernode>
 			<testmodule
 			id="c94f3cda-5a20-4d7b-ace6-fa54f373c967"
 			name="StartAUT"
@@ -3256,6 +3906,20 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="cd9c4052-5d2c-4911-9d1c-e40eadbed219"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="FullPathToHBCItemInPEWithCurrentCulture"
+					datasourceid="dfb14444-0393-4477-abd1-dc57c2d78b0c"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="ce684fbf-0fe9-4c41-9941-50b5ef87b46a"
 			name="CreateScreenShotPropertiesPanel"
 			ref="bbe1b453-6dad-446c-8f21-3104847f3bd8"
@@ -3322,14 +3986,17 @@
 			name="CalculateActualPropertiesCSVFileNameClimateScenario">
 				<parameters>
 					<param
+					mask="False"
 					name="intermediateString"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="intermediateString2"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="suffixClimateScenario"
 					value="_ClimateScenario">
 					</param>
@@ -3449,32 +4116,6 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
-			<testmodule
-			id="d81243e5-222e-4110-addc-eeab139cd041"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="intermediatePath"
-					datasourceid="850dbcd4-4339-42fa-8eae-18973ae2fb83"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="relativePathToCalculationFromFolder"
-					datasourceid="4617c4ae-1af4-4500-b0fc-5d12dccf5e02"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="intermediatePath2"
-					datasourceid="850dbcd4-4339-42fa-8eae-18973ae2fb83"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</databinding>
-			</testmodule>
 			<smartfoldernode
 			id="d853804b-0b45-4a3a-a474-443dd27d734c"
 			name="CalculateFullPathToCalculationItem">
@@ -3482,12 +4123,10 @@
 			<smartfoldernode
 			id="d8fb52cf-6011-4dbf-b61f-85ca5166431a"
 			name="SaveProjectScript15d">
-				<parameters>
-					<param
-					name="fileNameToSave"
-					value="script15d.risk">
-					</param>
-				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			id="d946d7ec-7467-4842-a487-1a67cfeb1fd0"
+			name="CalculateHBC">
 			</smartfoldernode>
 			<testmodule
 			id="d959a8d2-791f-4345-b3bc-1f9434c07c4c"
@@ -3524,6 +4163,26 @@
 					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
 					variableid="db7295e4-3f53-4f0b-9cfb-89e2468a69dc"
 					variablename="labelFM">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="da19d7f8-576c-42d0-aa0f-43737bbf3482"
+			name="ConvertProbabilityToCurrentCulture"
+			ref="22750fb4-c0e3-4cfe-aef2-41ef0cf191ea"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="TargetProbabilityInvariantCulture"
+					datasourceid="ad9b73b0-e562-47e6-bf3f-383ac988ef38"
+					variableid="6cf6f909-28aa-444f-bb66-18024b346f25"
+					variablename="originalProbability">
+					</var>
+					<var
+					dataname="TargetProbabilityCurrentCulture"
+					datasourceid="ad9b73b0-e562-47e6-bf3f-383ac988ef38"
+					variableid="4e3d9d15-9f92-43b1-8d85-9b5bf21b9d1b"
+					variablename="convertedProbability">
 					</var>
 				</databinding>
 			</testmodule>
@@ -3636,6 +4295,18 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			errorbehavior="ContinueParent"
+			id="dea3a23b-ebf0-4a4d-946d-2e204d545fb0"
+			name="OpenProject">
+				<parameters>
+					<param
+					mask="False"
+					name="fielNameToOpen"
+					value="Project_15a_15b_15c_zonder_resultaten.risk">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="deb11140-64b4-49c9-93da-79665192bfca"
 			name="PressCancelDialogAtStepText"
@@ -3653,6 +4324,32 @@
 			<smartfoldernode
 			id="df2a7edc-865f-4333-a2ca-46ecdbf3db9c"
 			name="MakeScreenshotOfPropertiesPanel">
+			</smartfoldernode>
+			<smartfoldernode
+			id="dfb14444-0393-4477-abd1-dc57c2d78b0c"
+			name="SelectHBItem">
+				<parameters>
+					<param
+					mask="False"
+					name="StepInPathContainingTargetProbability"
+					value="4">
+					</param>
+					<param
+					mask="False"
+					name="TargetProbabilityInvariantCulture"
+					value="">
+					</param>
+					<param
+					mask="False"
+					name="TargetProbabilityCurrentCulture"
+					value="">
+					</param>
+					<param
+					mask="False"
+					name="FullPathToHBCItemInPEWithCurrentCulture"
+					value="">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="dfd1c565-f9c6-4d9f-a186-5078266cd2ec"
@@ -3689,6 +4386,52 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="e0169527-116a-4ce6-af38-51bef607cb57"
+			name="GetStepFromPath"
+			ref="d0d76556-8eb7-4ec6-a100-deb33de45819"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="StepInPathContainingTargetProbability"
+					datasourceid="833c17ff-1478-4e5d-a14d-367dda66d1ad"
+					variableid="9265f296-64dd-4f64-a430-82614dfc36ea"
+					variablename="indexStep">
+					</var>
+					<var
+					dataname="TargetProbabilityInvariantCulture"
+					datasourceid="833c17ff-1478-4e5d-a14d-367dda66d1ad"
+					variableid="72c1ba24-4090-4cb8-8c20-5a5fe2f7b2da"
+					variablename="stepString">
+					</var>
+					<var
+					dataname="originalPathToHydraulicBCCalculation"
+					datasourceid="8ee8e897-e223-4d18-8fe1-f17a8c0e3348"
+					variableid="79fe10d1-42c4-4cc5-929d-1adc08c1204a"
+					variablename="fullPath">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathToItem"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="79fe10d1-42c4-4cc5-929d-1adc08c1204a"
+					variablename="fullPath">
+					</var>
+					<var
+					dataname="StepInPathContainingTargetProbability"
+					datasourceid="ad9b73b0-e562-47e6-bf3f-383ac988ef38"
+					variableid="9265f296-64dd-4f64-a430-82614dfc36ea"
+					variablename="indexStep">
+					</var>
+					<var
+					dataname="TargetProbabilityInvariantCulture"
+					datasourceid="ad9b73b0-e562-47e6-bf3f-383ac988ef38"
+					variableid="72c1ba24-4090-4cb8-8c20-5a5fe2f7b2da"
+					variablename="stepString">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="e0241af8-9a94-4e8c-94df-9ccdcb71bb6e"
 			name="ConcatenateStrings"
 			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
@@ -3702,15 +4445,63 @@
 					</var>
 					<var
 					dataname="relativePathToCalculationsToInspect"
-					datasourceid="e66dd6d3-0a18-41b0-a3be-cac4cd389930"
+					datasourceid="4617c4ae-1af4-4500-b0fc-5d12dccf5e02"
 					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
 					variablename="string2">
 					</var>
 					<var
-					dataname="intermediatePath"
+					dataname="fullPathToCalculationItem"
 					datasourceid="850dbcd4-4339-42fa-8eae-18973ae2fb83"
 					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
 					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="relativePathToCalculationFromFolder"
+					datasourceid="4617c4ae-1af4-4500-b0fc-5d12dccf5e02"
+					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
+					variablename="string3">
+					</var>
+					<var
+					dataname="relativePathToInputItemFromCalculation"
+					datasourceid="850dbcd4-4339-42fa-8eae-18973ae2fb83"
+					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
+					variablename="string4">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
+					variablename="string5">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
+					variablename="string6">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
+					variablename="string7">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
+					variablename="string8">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
+					variablename="string9">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
+					variablename="string10">
 					</var>
 				</databinding>
 			</testmodule>
@@ -3753,6 +4544,46 @@
 					variablename="pathToElementInPropertiesPanel">
 					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="e1a76be2-8ec1-4633-b43b-b43cdef761bf"
+			name="ReplaceSubstring"
+			ref="92030a75-8205-438c-9c04-f777a02a0b87"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="TargetProbabilityCurrentCulture"
+					datasourceid="ad9b73b0-e562-47e6-bf3f-383ac988ef38"
+					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
+					variablename="substringToReplaceWith">
+					</var>
+					<var
+					dataname="TargetProbabilityInvariantCulture"
+					datasourceid="ad9b73b0-e562-47e6-bf3f-383ac988ef38"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
+					</var>
+					<var
+					dataname="FullPathToHBCItemInPEWithCurrentCulture"
+					datasourceid="ad9b73b0-e562-47e6-bf3f-383ac988ef38"
+					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
+					variablename="finalString">
+					</var>
+					<var
+					dataname="pathToItem"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathToHBCCategoryInPE"
+					datasourceid="5a70b5e0-a998-4c22-bb33-49f8d3d9ed82"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="e26a7d32-6892-4333-853a-bc0826f9a1cc"
@@ -3814,6 +4645,17 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="e3bfbfc0-3e28-4673-a704-6693ceefa9ec"
+			name="SelectStateHBC">
+				<parameters>
+					<param
+					mask="False"
+					name="stateName"
+					value="@HyB">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="e67bd927-35e5-4e2d-9227-ed2812bc01a9"
 			name="PrependString"
@@ -3952,51 +4794,11 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
-			<smartfoldernode
-			datasource="script15d_HydraulicBCCalculationsToCarryOut"
-			errorbehavior="ContinueNextIteration"
-			id="eb0bc417-7050-4ce7-abc9-d0dcfcd6efb1"
-			name="LoopHydraulicBoundaryCalculationsAfterChangeClimateScenario">
-			</smartfoldernode>
 			<testmodule
 			id="ec30564b-16d1-4927-a1ca-ef52351ada8f"
 			name="ClickOnRunSelectedHBCCalculations"
 			ref="907b89b7-6058-4333-a615-ff354007586c"
 			type="Recording">
-			</testmodule>
-			<testmodule
-			id="ecbe07da-5374-4278-91fe-a0e0e8486262"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="intermediatePath2"
-					datasourceid="850dbcd4-4339-42fa-8eae-18973ae2fb83"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="fullPathToCalculationItem"
-					datasourceid="850dbcd4-4339-42fa-8eae-18973ae2fb83"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-					<var
-					dataname="relativePathToResultsItemFromCalculation"
-					datasourceid="850dbcd4-4339-42fa-8eae-18973ae2fb83"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="relativePathToInputItemFromCalculation"
-					datasourceid="6859a38d-9137-4b54-924a-f4abe85d4f1c"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="ee948dd7-df2e-4ca2-928b-a17d6a744b9b"
@@ -4095,18 +4897,74 @@
 					variablename="string1">
 					</var>
 					<var
+					dataname="fullPathToCalculationItem"
+					datasourceid="850dbcd4-4339-42fa-8eae-18973ae2fb83"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="relativePathToResultsItemFromCalculation"
+					datasourceid="850dbcd4-4339-42fa-8eae-18973ae2fb83"
+					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
+					variablename="string3">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
+					variablename="string4">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
+					variablename="string5">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
+					variablename="string6">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
+					variablename="string7">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
+					variablename="string8">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
+					variablename="string9">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
+					variablename="string10">
+					</var>
+					<var
+					dataname="relativePathToSingleCalculationToFullyValidate"
+					datasourceid="e66dd6d3-0a18-41b0-a3be-cac4cd389930"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
 					dataname="relativePathToCalculationsToInspect"
 					datasourceid="e66dd6d3-0a18-41b0-a3be-cac4cd389930"
 					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
 					variablename="string2">
 					</var>
-					<var
-					dataname="intermediatePath"
-					datasourceid="850dbcd4-4339-42fa-8eae-18973ae2fb83"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</databinding>
+				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			datasource="script15_a_ExpectedResultsCalculations"
@@ -4117,22 +4975,27 @@
 			name="HydraulicBoundaryConditionCases">
 				<parameters>
 					<param
+					mask="False"
 					name="trajectSubstring"
 					value="6-6">
 					</param>
 					<param
+					mask="False"
 					name="rowCalculationToValidate"
 					value="0">
 					</param>
 					<param
+					mask="False"
 					name="expectedValueIfNotRun"
 					value="-">
 					</param>
 					<param
+					mask="False"
 					name="stringForValueIsExpectedToBePresent"
 					value="true">
 					</param>
 					<param
+					mask="False"
 					name="stringForValueIsNotExpectedToBePresent"
 					value="false">
 					</param>
@@ -4148,10 +5011,12 @@
 			name="ValidateResultsHaveBeenErased">
 				<parameters>
 					<param
+					mask="False"
 					name="fullPathToResults"
 					value="">
 					</param>
 					<param
+					mask="False"
 					name="nameOfResultsInPropertiesPanel"
 					value="Resultaat">
 					</param>
@@ -4166,6 +5031,40 @@
 			name="CreateScreenShotProgressDialog"
 			ref="81428c82-c89c-48af-ab82-91a6bcfc44f8"
 			type="Recording">
+			</testmodule>
+			<testmodule
+			id="fa65cedf-203a-43c3-afa2-055ca3d7b20c"
+			name="GetStepFromPath"
+			ref="d0d76556-8eb7-4ec6-a100-deb33de45819"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="StepInPathContainingTargetProbability"
+					datasourceid="ad9b73b0-e562-47e6-bf3f-383ac988ef38"
+					variableid="9265f296-64dd-4f64-a430-82614dfc36ea"
+					variablename="indexStep">
+					</var>
+					<var
+					dataname="TargetProbabilityInvariantCulture"
+					datasourceid="ad9b73b0-e562-47e6-bf3f-383ac988ef38"
+					variableid="72c1ba24-4090-4cb8-8c20-5a5fe2f7b2da"
+					variablename="stepString">
+					</var>
+					<var
+					dataname="pathToItem"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="79fe10d1-42c4-4cc5-929d-1adc08c1204a"
+					variablename="fullPath">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathToHBCCategoryInPE"
+					datasourceid="5a70b5e0-a998-4c22-bb33-49f8d3d9ed82"
+					variableid="79fe10d1-42c4-4cc5-929d-1adc08c1204a"
+					variablename="fullPath">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="fbd90976-9759-4334-811f-70f341b69196"
@@ -4191,6 +5090,7 @@
 			name="ValidateDetailedResults">
 				<parameters>
 					<param
+					mask="False"
 					name="nameFolderLoopValidationDoubleValuesInPropertiesPanel"
 					value="ValidateResultsDoubleValuesInPropertiesPanel">
 					</param>
@@ -4208,14 +5108,6 @@
 				<testcase
 				id="a38b84dc-9266-49d9-9457-9740092668f1"
 				name="Script15">
-					<testcase
-					id="35523cdf-1355-475b-b44d-f4ab30239350"
-					name="TakeScreenshotOfDesktop">
-						<testmodule
-						id="822cb4ff-7f8b-4596-bacc-84d1be428b3e"
-						name="CreateScreenshotEntireDesktop">
-						</testmodule>
-					</testcase>
 					<testcase
 					id="08adf017-662c-43fb-a395-1601a27769e5"
 					name="script15_CalculationHydraulicBoundaryConditions">
@@ -4241,7 +5133,7 @@
 						</setup>
 						<smartfoldernode
 						id="4f95265d-8bea-4348-97b9-151ec19e126c"
-						name="a)_c)WaterLevelsAndWaveConditionsTrajectAndFM(GEBU_DA)">
+						name="a)_c)TargetProbsAndHBCCalculations(GEBU_DA)">
 							<smartfoldernode
 							id="0e18d60e-93a2-4e17-bd6e-d9789ae914d1"
 							name="OpenProject">
@@ -4300,10 +5192,26 @@
 								<smartfoldernode
 								id="c4e4215d-8510-4c46-9141-f9123e8f0280"
 								name="OpenDocumentViewForHydraulicBCItem">
-									<testmodule
-									id="20645c84-3bde-43b1-b155-6e0eb0d4c05c"
-									name="SelectGenericItemInProjectExplorer">
-									</testmodule>
+									<smartfoldernode
+									id="ad9b73b0-e562-47e6-bf3f-383ac988ef38"
+									name="SelectHBItem">
+										<testmodule
+										id="fa65cedf-203a-43c3-afa2-055ca3d7b20c"
+										name="GetStepFromPath">
+										</testmodule>
+										<testmodule
+										id="da19d7f8-576c-42d0-aa0f-43737bbf3482"
+										name="ConvertProbabilityToCurrentCulture">
+										</testmodule>
+										<testmodule
+										id="e1a76be2-8ec1-4633-b43b-b43cdef761bf"
+										name="ReplaceSubstring">
+										</testmodule>
+										<testmodule
+										id="2a467a68-d8a2-4b64-bd7d-491e9576f0c5"
+										name="SelectGenericItemInProjectExplorer">
+										</testmodule>
+									</smartfoldernode>
 									<testmodule
 									id="ee948dd7-df2e-4ca2-928b-a17d6a744b9b"
 									name="OpenViewForCurrentlySelectedItemInProjectExplorer">
@@ -4316,8 +5224,8 @@
 									id="b94d20bf-4d0b-4056-ae2c-7dea46c7c177"
 									name="GEBU">
 										<testmodule
-										id="bdef9def-a604-491f-9c7c-c4ee7d8ce600"
-										name="SelectCalculationsAndIllustrationPoints">
+										id="bdf2687c-fc7d-4d85-aa8d-4433f5dc6b4b"
+										name="SelectCheckboxesForListRowsInHBCView">
 										</testmodule>
 									</smartfoldernode>
 									<smartfoldernode
@@ -4670,6 +5578,102 @@
 							id="850dbcd4-4339-42fa-8eae-18973ae2fb83"
 							name="LoopFMs">
 								<smartfoldernode
+								id="dea3a23b-ebf0-4a4d-946d-2e204d545fb0"
+								name="OpenProject">
+									<testmodule
+									id="1d78e5d0-ebdf-4449-ba17-fa5a555dbff1"
+									name="OpenProject">
+									</testmodule>
+									<testmodule
+									id="b8366dfe-0f39-4ac9-bcfe-833d6269789f"
+									name="CloseViewCentralPanelWithFocus">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="e3bfbfc0-3e28-4673-a704-6693ceefa9ec"
+								name="SelectStateHBC">
+									<testmodule
+									id="0c2fad60-bd4d-42d2-892e-6415ad658b66"
+									name="SelectState">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="48034436-92e0-490f-8de2-4c589678e899"
+								name="SetRangeForInputInspection">
+									<testmodule
+									id="57313155-422e-4025-92f0-63d605b1d8dd"
+									name="SetRangeInSmartFolder">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="91e04eeb-cc8b-4ac3-8cc9-37bf29718a9a"
+								name="CalculateRequiredHBC">
+									<smartfoldernode
+									id="19d56aff-3e6d-4b7a-9a77-ed2fa3be50d1"
+									name="OpenDocumentViewForHydraulicBCItem">
+										<smartfoldernode
+										id="dfb14444-0393-4477-abd1-dc57c2d78b0c"
+										name="SelectHBItem">
+											<testmodule
+											id="c411af54-f22b-4199-b14c-8c588dbfb1e4"
+											name="GetStepFromPath">
+											</testmodule>
+											<testmodule
+											id="92db6fbe-f2b7-465a-b90c-a7c46460741a"
+											name="ConvertProbabilityToCurrentCulture">
+											</testmodule>
+											<testmodule
+											id="9a411ff9-6e2c-4f96-879b-2e644997eda4"
+											name="ReplaceSubstring">
+											</testmodule>
+											<testmodule
+											id="cd9c4052-5d2c-4911-9d1c-e40eadbed219"
+											name="SelectGenericItemInProjectExplorer">
+											</testmodule>
+										</smartfoldernode>
+										<testmodule
+										id="527ae9ca-57c0-4d4a-941e-0ba62549d694"
+										name="OpenViewForCurrentlySelectedItemInProjectExplorer">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="95e899b2-c82b-4d38-af22-a050c545c6ec"
+									name="SelectLocationsForCalculation">
+										<testmodule
+										id="a3feda9e-d763-4c1b-80ee-28ff8e148634"
+										name="SelectCheckboxesForListRowsInHBCView">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="6cef0a4b-2a4b-4bdb-a644-50bc5e4dad17"
+									name="CarryOutCalculations">
+										<smartfoldernode
+										id="1bbac447-1dc3-4458-8022-22d8aa46d453"
+										name="ClickOnStartSelectedCalculations">
+											<testmodule
+											id="377d108a-36af-4426-8a9b-f9aeb7360007"
+											name="ClickOnRunSelectedHBCCalculations">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="8935242f-e11a-474f-a005-b5e99813a720"
+										name="WaitForAllCalculationsToFinish">
+											<testmodule
+											id="05f79697-8c1a-4253-a7a0-857223bcb6f7"
+											name="WaitUntilAllCalculationsHaveBeenCarriedOut">
+											</testmodule>
+										</smartfoldernode>
+									</smartfoldernode>
+									<smartfoldernode
+									id="4772b159-5cec-455b-8c2d-94caad63edd8"
+									name="CloseHBCView">
+										<testmodule
+										id="267ed6f2-6dbe-405d-ae57-1838e95bcd25"
+										name="CloseViewCentralPanelWithFocus">
+										</testmodule>
+									</smartfoldernode>
+								</smartfoldernode>
+								<smartfoldernode
 								id="6859a38d-9137-4b54-924a-f4abe85d4f1c"
 								name="InspectInputOfSomeCalculations">
 									<smartfoldernode
@@ -4677,14 +5681,6 @@
 									name="CalculateFullPathToCalculationItem">
 										<testmodule
 										id="e0241af8-9a94-4e8c-94df-9ccdcb71bb6e"
-										name="ConcatenateStrings">
-										</testmodule>
-										<testmodule
-										id="b8644a7f-796f-4e8d-b031-dfabfc503239"
-										name="ConcatenateStrings">
-										</testmodule>
-										<testmodule
-										id="7a3a9eed-a0e7-4ea3-a3e2-016930912f93"
 										name="ConcatenateStrings">
 										</testmodule>
 									</smartfoldernode>
@@ -4707,6 +5703,10 @@
 									<testmodule
 									id="9a84add1-d5a9-4bb0-a4e4-c3dcccde323d"
 									name="CreateScreenShotPropertiesPanel">
+									</testmodule>
+									<testmodule
+									id="725d13d6-bdec-4489-8ca2-872aa465de39"
+									name="CloseViewCentralPanelWithFocus">
 									</testmodule>
 								</smartfoldernode>
 								<smartfoldernode
@@ -4741,6 +5741,14 @@
 										</testmodule>
 									</smartfoldernode>
 									<smartfoldernode
+									id="1b807291-6298-4090-b767-122535e24b0e"
+									name="SetRangeForInputInspection">
+										<testmodule
+										id="1d3b14dd-623d-4da6-98f2-689ae3cdb150"
+										name="SetRangeInSmartFolder">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
 									id="276025e1-84cc-4480-82dd-e8515eb34125"
 									name="ValidateNoCalculationHasResults">
 										<smartfoldernode
@@ -4748,14 +5756,6 @@
 										name="CalculateFullPathToCalculationItem">
 											<testmodule
 											id="1a829c5f-b3d4-4699-89a4-aa048f2ca1d8"
-											name="ConcatenateStrings">
-											</testmodule>
-											<testmodule
-											id="d81243e5-222e-4110-addc-eeab139cd041"
-											name="ConcatenateStrings">
-											</testmodule>
-											<testmodule
-											id="ecbe07da-5374-4278-91fe-a0e0e8486262"
 											name="ConcatenateStrings">
 											</testmodule>
 										</smartfoldernode>
@@ -4819,14 +5819,6 @@
 										id="f25675f4-ba60-49dd-90e4-be1d4f23b361"
 										name="ConcatenateStrings">
 										</testmodule>
-										<testmodule
-										id="5f7771db-a9b0-42c8-aed1-9e0548229252"
-										name="ConcatenateStrings">
-										</testmodule>
-										<testmodule
-										id="73f0adf5-0cef-404a-a5f1-c4a8d5e716dc"
-										name="ConcatenateStrings">
-										</testmodule>
 									</smartfoldernode>
 									<testmodule
 									id="2b318918-6a10-4a7f-804a-ef89f047a1fd"
@@ -4877,38 +5869,42 @@
 									name="ValidatePlainTextFilesAreEqual">
 									</testmodule>
 								</smartfoldernode>
+								<smartfoldernode
+								id="0bbd3232-7af5-42b4-b849-73a61bcb8af4"
+								name="SaveProjectScript15a,b,c">
+									<testmodule
+									id="00ac3e74-e0d9-45bc-bf1e-99fae0b6571f"
+									name="SaveAs">
+									</testmodule>
+								</smartfoldernode>
 							</smartfoldernode>
-						</smartfoldernode>
-						<smartfoldernode
-						id="0bbd3232-7af5-42b4-b849-73a61bcb8af4"
-						name="SaveProjectScript15a,b,c">
-							<testmodule
-							id="00ac3e74-e0d9-45bc-bf1e-99fae0b6571f"
-							name="SaveAs">
-							</testmodule>
 						</smartfoldernode>
 						<smartfoldernode
 						id="394ebd4a-a478-4652-a62c-20fa2acf9739"
 						name="d)CalculationHydraulicBoundaryConditionsForClimateScenario">
 							<smartfoldernode
-							id="3564532c-32de-4e99-8c34-c3a14fddcde7"
-							name="OpenProject">
-								<testmodule
-								id="24c819c3-a9e4-4727-b3e9-c54999be2095"
-								name="OpenProject">
-								</testmodule>
-							</smartfoldernode>
-							<smartfoldernode
-							id="aa146835-ce24-4abc-8ff8-15164ca40204"
-							name="DetermineRandomFMToCarryOutSeparateCalculation">
-								<testmodule
-								id="b9c96adf-a1e4-4ddb-bdfc-a4ecc31574a4"
-								name="GenerateRandomIndexInRangeOfSmartFolder">
-								</testmodule>
-							</smartfoldernode>
-							<smartfoldernode
 							id="6246b962-c751-4777-a6b5-f5e452aa499e"
-							name="LoopCalculationHydraulicBoundaryConditionsForClimateScenario">
+							name="MainLoop">
+								<smartfoldernode
+								id="3564532c-32de-4e99-8c34-c3a14fddcde7"
+								name="OpenProject">
+									<testmodule
+									id="24c819c3-a9e4-4727-b3e9-c54999be2095"
+									name="OpenProject">
+									</testmodule>
+									<testmodule
+									id="7a1d334b-354f-4eae-9de8-8616b77ac21c"
+									name="CloseViewCentralPanelWithFocus">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="9fcca8dc-ff4e-4ed6-ab57-3dc86164f379"
+								name="SelectStateHBC">
+									<testmodule
+									id="be699301-ce36-4e62-8c10-92b2e4e759be"
+									name="SelectState">
+									</testmodule>
+								</smartfoldernode>
 								<smartfoldernode
 								id="c61bc5b1-1bea-4a0c-a51b-d0c623be9792"
 								name="CoupleToHBCDatabase">
@@ -4922,14 +5918,22 @@
 									</testmodule>
 								</smartfoldernode>
 								<smartfoldernode
-								id="9837787a-f477-49c6-9446-572143a9290d"
-								name="LoopHydraulicBoundaryCalculationsToCarryOut">
+								id="72de45be-e768-49b9-b4f3-8b2613de0686"
+								name="CalculateHBC">
 									<smartfoldernode
 									id="833c17ff-1478-4e5d-a14d-367dda66d1ad"
 									name="OpenDocumentViewForHydraulicBCItem">
 										<testmodule
-										id="06d572e7-29c8-4298-9f6b-e21de976ab9e"
-										name="CalculateFullPathToHydraulicBCcalculation">
+										id="e0169527-116a-4ce6-af38-51bef607cb57"
+										name="GetStepFromPath">
+										</testmodule>
+										<testmodule
+										id="74a660bf-1a47-4660-9b63-2582f2868048"
+										name="ConvertProbabilityToCurrentCulture">
+										</testmodule>
+										<testmodule
+										id="c7a08849-d0cd-4bb7-8a38-1cc1fe9b6479"
+										name="ReplaceSubstring">
 										</testmodule>
 										<testmodule
 										id="c2a4bc85-2f9d-4d57-9160-806dfa1ef654"
@@ -4970,52 +5974,48 @@
 									</smartfoldernode>
 								</smartfoldernode>
 								<smartfoldernode
-								id="a0157b87-e5a5-40ad-8a7a-568786c17fcc"
-								name="SetRangeLoopSeparateCalculationsBeforeChangeClimateScenario">
-									<testmodule
-									id="3d017260-2390-4393-a3b9-2f5585e1233e"
-									name="SetRangeInSmartFolder">
-									</testmodule>
-								</smartfoldernode>
-								<smartfoldernode
-								id="9a74e862-8b16-46ab-871d-ce2180d4ed61"
-								name="LoopSeparateCalculationsBeforeChangeClimateScenario">
-									<testmodule
-									id="b668e3f9-cea4-4581-a6b6-03c3f2ab705c"
-									name="CalculateFullPathToSeparateCalculation">
-									</testmodule>
-									<testmodule
-									id="5e916234-87b7-4a05-8c0c-d4ab4597dfb6"
-									name="SelectGenericItemInProjectExplorer">
-									</testmodule>
-									<testmodule
-									id="6a5071e5-8a3e-4459-909b-ee8e2d8e99b4"
-									name="StartSingleCalculation">
-									</testmodule>
-									<testmodule
-									id="47d87cd5-3d15-4843-984c-6d8f72addf84"
-									name="WaitUntilCalculationsFinished_NoScreenShotOfDialog">
-									</testmodule>
+								id="726e5e40-ae1d-4931-a411-e1608c4fdaa2"
+								name="CalculateSingleFM">
 									<smartfoldernode
-									id="84dfe37a-dd66-41a0-8666-4203aed8c4c8"
-									name="ValidateResultsHaveBeenObtained">
+									id="9a74e862-8b16-46ab-871d-ce2180d4ed61"
+									name="LoopSeparateCalculationsBeforeChangeClimateScenario">
 										<testmodule
-										id="87840a6c-8416-42f3-8b79-f969a3e9bc07"
-										name="CalculateFullPathToResultsFromFullPathToCalculation">
+										id="b668e3f9-cea4-4581-a6b6-03c3f2ab705c"
+										name="CalculateFullPathToSeparateCalculation">
 										</testmodule>
 										<testmodule
-										id="a7346479-b435-42cf-aec8-305f8e52d961"
+										id="5e916234-87b7-4a05-8c0c-d4ab4597dfb6"
 										name="SelectGenericItemInProjectExplorer">
 										</testmodule>
 										<testmodule
-										id="de626b2d-7fec-41c5-a4d6-44904ded79a5"
-										name="ValidateResultsArePresentInPropertiesPanel">
+										id="6a5071e5-8a3e-4459-909b-ee8e2d8e99b4"
+										name="StartSingleCalculation">
 										</testmodule>
+										<testmodule
+										id="47d87cd5-3d15-4843-984c-6d8f72addf84"
+										name="WaitUntilCalculationsFinished_NoScreenShotOfDialog">
+										</testmodule>
+										<smartfoldernode
+										id="84dfe37a-dd66-41a0-8666-4203aed8c4c8"
+										name="ValidateResultsHaveBeenObtained">
+											<testmodule
+											id="87840a6c-8416-42f3-8b79-f969a3e9bc07"
+											name="CalculateFullPathToResultsFromFullPathToCalculation">
+											</testmodule>
+											<testmodule
+											id="a7346479-b435-42cf-aec8-305f8e52d961"
+											name="SelectGenericItemInProjectExplorer">
+											</testmodule>
+											<testmodule
+											id="de626b2d-7fec-41c5-a4d6-44904ded79a5"
+											name="ValidateResultsArePresentInPropertiesPanel">
+											</testmodule>
+										</smartfoldernode>
 									</smartfoldernode>
 								</smartfoldernode>
 								<smartfoldernode
 								id="64095390-c618-4a6a-b149-4fefb5347827"
-								name="CoupleHBCWithScenarioInformation">
+								name="ChangeHBCScenarioInformation">
 									<testmodule
 									id="92d80658-cb18-4e58-9c15-6d4dcb6dc248"
 									name="SelectGenericItemInProjectExplorer">
@@ -5026,14 +6026,22 @@
 									</testmodule>
 								</smartfoldernode>
 								<smartfoldernode
-								id="eb0bc417-7050-4ce7-abc9-d0dcfcd6efb1"
-								name="LoopHydraulicBoundaryCalculationsAfterChangeClimateScenario">
+								id="d946d7ec-7467-4842-a487-1a67cfeb1fd0"
+								name="CalculateHBC">
 									<smartfoldernode
 									id="46d281ab-a2a3-4602-8787-792a9fb83272"
 									name="OpenDocumentViewForHydraulicBCItem">
 										<testmodule
-										id="7901be3d-a0c4-4e67-ad9a-9a30c4f2f13a"
-										name="CalculateFullPathToHydraulicBCcalculation">
+										id="920a1d73-0967-442a-bba5-fbc5a5d68cbf"
+										name="GetStepFromPath">
+										</testmodule>
+										<testmodule
+										id="5e513b9b-2f84-485d-ac45-2366d977b5b5"
+										name="ConvertProbabilityToCurrentCulture">
+										</testmodule>
+										<testmodule
+										id="72a38dd0-35eb-4c03-9a18-849bc6b4a024"
+										name="ReplaceSubstring">
 										</testmodule>
 										<testmodule
 										id="0828bfaf-af05-441b-88c4-64202b1f5fc7"
@@ -5082,81 +6090,77 @@
 									</smartfoldernode>
 								</smartfoldernode>
 								<smartfoldernode
-								id="b28a236b-613f-40f8-8fca-9fc994c25477"
-								name="SetRangeLoopSeparateCalculationsAfterChangeClimateScenario">
-									<testmodule
-									id="0ae51d80-9408-4dbf-85f1-a51b661f36c9"
-									name="SetRangeInSmartFolder">
-									</testmodule>
-								</smartfoldernode>
-								<smartfoldernode
-								id="838a2c5c-1949-4773-b347-7e461a2c4bbd"
-								name="LoopSeparateCalculationsAfterChangeClimateScenario">
-									<testmodule
-									id="cc7ca566-f5b2-43c5-b3a9-5225c6a7dca2"
-									name="CalculateFullPathToSeparateCalculation">
-									</testmodule>
+								id="c7ecb4e3-186b-42cf-89c7-7840e90561cf"
+								name="CalculateSingleFM">
 									<smartfoldernode
-									id="f8475eaa-6f1c-41bd-9bc2-4086151b977e"
-									name="ValidateResultsHaveBeenErased">
+									id="838a2c5c-1949-4773-b347-7e461a2c4bbd"
+									name="LoopSeparateCalculationsAfterChangeClimateScenario">
 										<testmodule
-										id="efd80357-0883-4fef-a572-cdf525c15b25"
-										name="CalculateFullPathToResultsFromFullPathToCalculation">
-										</testmodule>
-										<testmodule
-										id="c66db998-be66-40e5-805c-7dcd66107d24"
-										name="SelectGenericItemInProjectExplorer">
-										</testmodule>
-										<testmodule
-										id="07d39e3c-8ddf-4f0b-b4bc-5b44277d0f52"
-										name="ValidateRowDoesNotExistInPropertiesPanel">
-										</testmodule>
-									</smartfoldernode>
-									<smartfoldernode
-									id="45207e8e-e6a3-45ad-aeef-cb284c84c442"
-									name="RunAgainCalculation">
-										<testmodule
-										id="139cce45-4807-469c-b6c7-9d557cbb450a"
+										id="cc7ca566-f5b2-43c5-b3a9-5225c6a7dca2"
 										name="CalculateFullPathToSeparateCalculation">
 										</testmodule>
-										<testmodule
-										id="b10ca8b2-92f3-41b8-b190-3372e552ff92"
-										name="SelectGenericItemInProjectExplorer">
-										</testmodule>
-										<testmodule
-										id="79c824f0-0696-45cc-8747-dbf989f3c512"
-										name="StartSingleCalculation">
-										</testmodule>
-										<testmodule
-										id="5adfad61-6fb2-4b0a-a6af-57e517ad124a"
-										name="WaitUntilCalculationsFinished_NoScreenShotOfDialog">
-										</testmodule>
-									</smartfoldernode>
-									<smartfoldernode
-									id="73c515ab-e4a1-49d5-9431-333bfe397aef"
-									name="ValidateResultsHaveBeenObtained">
-										<testmodule
-										id="446a2b55-6c84-4fef-86f8-4591f3853488"
-										name="CalculateFullPathToResultsFromFullPathToCalculation">
-										</testmodule>
-										<testmodule
-										id="89530da1-7c02-4965-a829-c4da18c33247"
-										name="SelectGenericItemInProjectExplorer">
-										</testmodule>
-										<testmodule
-										id="e9b47464-ca69-4bb4-8dbf-fc1643dae37b"
-										name="ValidateResultsArePresentInPropertiesPanel">
-										</testmodule>
+										<smartfoldernode
+										id="f8475eaa-6f1c-41bd-9bc2-4086151b977e"
+										name="ValidateResultsHaveBeenErased">
+											<testmodule
+											id="efd80357-0883-4fef-a572-cdf525c15b25"
+											name="CalculateFullPathToResultsFromFullPathToCalculation">
+											</testmodule>
+											<testmodule
+											id="c66db998-be66-40e5-805c-7dcd66107d24"
+											name="SelectGenericItemInProjectExplorer">
+											</testmodule>
+											<testmodule
+											id="07d39e3c-8ddf-4f0b-b4bc-5b44277d0f52"
+											name="ValidateRowDoesNotExistInPropertiesPanel">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="45207e8e-e6a3-45ad-aeef-cb284c84c442"
+										name="RunAgainCalculation">
+											<testmodule
+											id="139cce45-4807-469c-b6c7-9d557cbb450a"
+											name="CalculateFullPathToSeparateCalculation">
+											</testmodule>
+											<testmodule
+											id="b10ca8b2-92f3-41b8-b190-3372e552ff92"
+											name="SelectGenericItemInProjectExplorer">
+											</testmodule>
+											<testmodule
+											id="79c824f0-0696-45cc-8747-dbf989f3c512"
+											name="StartSingleCalculation">
+											</testmodule>
+											<testmodule
+											id="5adfad61-6fb2-4b0a-a6af-57e517ad124a"
+											name="WaitUntilCalculationsFinished_NoScreenShotOfDialog">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="73c515ab-e4a1-49d5-9431-333bfe397aef"
+										name="ValidateResultsHaveBeenObtained">
+											<testmodule
+											id="446a2b55-6c84-4fef-86f8-4591f3853488"
+											name="CalculateFullPathToResultsFromFullPathToCalculation">
+											</testmodule>
+											<testmodule
+											id="89530da1-7c02-4965-a829-c4da18c33247"
+											name="SelectGenericItemInProjectExplorer">
+											</testmodule>
+											<testmodule
+											id="e9b47464-ca69-4bb4-8dbf-fc1643dae37b"
+											name="ValidateResultsArePresentInPropertiesPanel">
+											</testmodule>
+										</smartfoldernode>
 									</smartfoldernode>
 								</smartfoldernode>
-							</smartfoldernode>
-							<smartfoldernode
-							id="d8fb52cf-6011-4dbf-b61f-85ca5166431a"
-							name="SaveProjectScript15d">
-								<testmodule
-								id="15306982-4a35-4638-9447-af8614f66e07"
-								name="SaveAs">
-								</testmodule>
+								<smartfoldernode
+								id="d8fb52cf-6011-4dbf-b61f-85ca5166431a"
+								name="SaveProjectScript15d">
+									<testmodule
+									id="15306982-4a35-4638-9447-af8614f66e07"
+									name="SaveAs">
+									</testmodule>
+								</smartfoldernode>
 							</smartfoldernode>
 						</smartfoldernode>
 						<teardown
@@ -5168,6 +6172,14 @@
 							</testmodule>
 						</teardown>
 					</testcase>
+					<teardown
+					id="8b2a51a3-6b99-4d50-8d67-a05756acd43b"
+					name="teardown">
+						<testmodule
+						id="702eb601-1a5a-4a65-9080-4724692aa432"
+						name="ReportToPDFModule">
+						</testmodule>
+					</teardown>
 				</testcase>
 			</testsuite>
 		</childhierarchy>
@@ -5216,4251 +6228,13 @@
 			</table>
 		</DataSource>
 		<DataSource
-		id="720ce3b1-d9d1-4c30-a433-626999fb14bf"
-		lastknownrowcount="300"
-		name="script15_a_c_ExpectedDoubleValuesInPropertiesPanel"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					labelFM
-				</column>
-				<column>
-					labelCase
-				</column>
-				<column>
-					nameParameter
-				</column>
-				<column>
-					expectedValueParameter
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						labelFM
-					</th>
-					<th>
-						labelCase
-					</th>
-					<th>
-						nameParameter
-					</th>
-					<th>
-						expectedValueParameter
-					</th>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand A+
-					</td>
-					<td>
-						Waterstand [m+NAP]
-					</td>
-					<td>
-						6.02
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand A+
-					</td>
-					<td>
-						Windrichting
-					</td>
-					<td>
-						-0.33686
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand A+
-					</td>
-					<td>
-						Waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand A+
-					</td>
-					<td>
-						Waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand A+
-					</td>
-					<td>
-						Waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand A+
-					</td>
-					<td>
-						Waterstand Lauwersoog
-					</td>
-					<td>
-						-0.92026
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand A+
-					</td>
-					<td>
-						Waterstand West Terschelling
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand A+
-					</td>
-					<td>
-						Windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand A+
-					</td>
-					<td>
-						Onzekerheid waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand A+
-					</td>
-					<td>
-						Onzekerheid waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand A+
-					</td>
-					<td>
-						Onzekerheid waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand A+
-					</td>
-					<td>
-						Onzekerheid waterstand Lauwersoog
-					</td>
-					<td>
-						-0.19911
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand A+
-					</td>
-					<td>
-						Onzekerheid windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand A+
-					</td>
-					<td>
-						Onzekerheid windsnelheid
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand A+
-					</td>
-					<td>
-						Modelonzekerheid lokale waterstand
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand A
-					</td>
-					<td>
-						Waterstand [m+NAP]
-					</td>
-					<td>
-						5.20
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand A
-					</td>
-					<td>
-						Windrichting
-					</td>
-					<td>
-						-0.37773
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand A
-					</td>
-					<td>
-						Waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand A
-					</td>
-					<td>
-						Waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand A
-					</td>
-					<td>
-						Waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand A
-					</td>
-					<td>
-						Waterstand Lauwersoog
-					</td>
-					<td>
-						-0.91610
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand A
-					</td>
-					<td>
-						Waterstand West Terschelling
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand A
-					</td>
-					<td>
-						Windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand A
-					</td>
-					<td>
-						Onzekerheid waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand A
-					</td>
-					<td>
-						Onzekerheid waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand A
-					</td>
-					<td>
-						Onzekerheid waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand A
-					</td>
-					<td>
-						Onzekerheid waterstand Lauwersoog
-					</td>
-					<td>
-						-0.13445
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand A
-					</td>
-					<td>
-						Onzekerheid windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand A
-					</td>
-					<td>
-						Onzekerheid windsnelheid
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand A
-					</td>
-					<td>
-						Modelonzekerheid lokale waterstand
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand B
-					</td>
-					<td>
-						Waterstand [m+NAP]
-					</td>
-					<td>
-						4.93
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand B
-					</td>
-					<td>
-						Windrichting
-					</td>
-					<td>
-						-0.39439
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand B
-					</td>
-					<td>
-						Waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand B
-					</td>
-					<td>
-						Waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand B
-					</td>
-					<td>
-						Waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand B
-					</td>
-					<td>
-						Waterstand Lauwersoog
-					</td>
-					<td>
-						-0.91218
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand B
-					</td>
-					<td>
-						Waterstand West Terschelling
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand B
-					</td>
-					<td>
-						Windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand B
-					</td>
-					<td>
-						Onzekerheid waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand B
-					</td>
-					<td>
-						Onzekerheid waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand B
-					</td>
-					<td>
-						Onzekerheid waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand B
-					</td>
-					<td>
-						Onzekerheid waterstand Lauwersoog
-					</td>
-					<td>
-						-0.11131
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand B
-					</td>
-					<td>
-						Onzekerheid windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand B
-					</td>
-					<td>
-						Onzekerheid windsnelheid
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand B
-					</td>
-					<td>
-						Modelonzekerheid lokale waterstand
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand C
-					</td>
-					<td>
-						Waterstand [m+NAP]
-					</td>
-					<td>
-						4.03
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand C
-					</td>
-					<td>
-						Windrichting
-					</td>
-					<td>
-						-0.46386
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand C
-					</td>
-					<td>
-						Waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand C
-					</td>
-					<td>
-						Waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand C
-					</td>
-					<td>
-						Waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand C
-					</td>
-					<td>
-						Waterstand Lauwersoog
-					</td>
-					<td>
-						-0.88461
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand C
-					</td>
-					<td>
-						Waterstand West Terschelling
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand C
-					</td>
-					<td>
-						Windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand C
-					</td>
-					<td>
-						Onzekerheid waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand C
-					</td>
-					<td>
-						Onzekerheid waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand C
-					</td>
-					<td>
-						Onzekerheid waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand C
-					</td>
-					<td>
-						Onzekerheid waterstand Lauwersoog
-					</td>
-					<td>
-						-0.04784
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand C
-					</td>
-					<td>
-						Onzekerheid windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand C
-					</td>
-					<td>
-						Onzekerheid windsnelheid
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand C
-					</td>
-					<td>
-						Modelonzekerheid lokale waterstand
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten A+
-					</td>
-					<td>
-						Golfhoogte [m]
-					</td>
-					<td>
-						2.61
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten A+
-					</td>
-					<td>
-						Windrichting
-					</td>
-					<td>
-						-0.37533
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten A+
-					</td>
-					<td>
-						Waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten A+
-					</td>
-					<td>
-						Waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten A+
-					</td>
-					<td>
-						Waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten A+
-					</td>
-					<td>
-						Waterstand Lauwersoog
-					</td>
-					<td>
-						-0.80209
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten A+
-					</td>
-					<td>
-						Waterstand West Terschelling
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten A+
-					</td>
-					<td>
-						Windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						-0.08169
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten A+
-					</td>
-					<td>
-						Onzekerheid waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten A+
-					</td>
-					<td>
-						Onzekerheid waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten A+
-					</td>
-					<td>
-						Onzekerheid waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten A+
-					</td>
-					<td>
-						Onzekerheid waterstand Lauwersoog
-					</td>
-					<td>
-						-0.1354
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten A+
-					</td>
-					<td>
-						Onzekerheid windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten A+
-					</td>
-					<td>
-						Modelonzekerheid golfhoogte
-					</td>
-					<td>
-						-0.43678
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten A+
-					</td>
-					<td>
-						Modelonzekerheid lokale waterstand
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten A
-					</td>
-					<td>
-						Golfhoogte [m]
-					</td>
-					<td>
-						1.97
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten A
-					</td>
-					<td>
-						Windrichting
-					</td>
-					<td>
-						-0.40683
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten A
-					</td>
-					<td>
-						Waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten A
-					</td>
-					<td>
-						Waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten A
-					</td>
-					<td>
-						Waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten A
-					</td>
-					<td>
-						Waterstand Lauwersoog
-					</td>
-					<td>
-						-0.77959
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten A
-					</td>
-					<td>
-						Waterstand West Terschelling
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten A
-					</td>
-					<td>
-						Windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						-0.08887
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten A
-					</td>
-					<td>
-						Onzekerheid waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten A
-					</td>
-					<td>
-						Onzekerheid waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten A
-					</td>
-					<td>
-						Onzekerheid waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten A
-					</td>
-					<td>
-						Onzekerheid waterstand Lauwersoog
-					</td>
-					<td>
-						-0.10528
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten A
-					</td>
-					<td>
-						Onzekerheid windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten A
-					</td>
-					<td>
-						Modelonzekerheid golfhoogte
-					</td>
-					<td>
-						-0.4558
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten A
-					</td>
-					<td>
-						Modelonzekerheid lokale waterstand
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten B
-					</td>
-					<td>
-						Golfhoogte [m]
-					</td>
-					<td>
-						1.77
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten B
-					</td>
-					<td>
-						Windrichting
-					</td>
-					<td>
-						-0.41748
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten B
-					</td>
-					<td>
-						Waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten B
-					</td>
-					<td>
-						Waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten B
-					</td>
-					<td>
-						Waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten B
-					</td>
-					<td>
-						Waterstand Lauwersoog
-					</td>
-					<td>
-						-0.7667
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten B
-					</td>
-					<td>
-						Waterstand West Terschelling
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten B
-					</td>
-					<td>
-						Windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						-0.09619
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten B
-					</td>
-					<td>
-						Onzekerheid waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten B
-					</td>
-					<td>
-						Onzekerheid waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten B
-					</td>
-					<td>
-						Onzekerheid waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten B
-					</td>
-					<td>
-						Onzekerheid waterstand Lauwersoog
-					</td>
-					<td>
-						-0.09552
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten B
-					</td>
-					<td>
-						Onzekerheid windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten B
-					</td>
-					<td>
-						Modelonzekerheid golfhoogte
-					</td>
-					<td>
-						-0.46852
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten B
-					</td>
-					<td>
-						Modelonzekerheid lokale waterstand
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten C
-					</td>
-					<td>
-						Golfhoogte [m]
-					</td>
-					<td>
-						1.17
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten C
-					</td>
-					<td>
-						Windrichting
-					</td>
-					<td>
-						-0.45202
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten C
-					</td>
-					<td>
-						Waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten C
-					</td>
-					<td>
-						Waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten C
-					</td>
-					<td>
-						Waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten C
-					</td>
-					<td>
-						Waterstand Lauwersoog
-					</td>
-					<td>
-						-0.71307
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten C
-					</td>
-					<td>
-						Waterstand West Terschelling
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten C
-					</td>
-					<td>
-						Windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						-0.09912
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten C
-					</td>
-					<td>
-						Onzekerheid waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten C
-					</td>
-					<td>
-						Onzekerheid waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten C
-					</td>
-					<td>
-						Onzekerheid waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten C
-					</td>
-					<td>
-						Onzekerheid waterstand Lauwersoog
-					</td>
-					<td>
-						-0.06465
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten C
-					</td>
-					<td>
-						Onzekerheid windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten C
-					</td>
-					<td>
-						Modelonzekerheid golfhoogte
-					</td>
-					<td>
-						-0.52269
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten C
-					</td>
-					<td>
-						Modelonzekerheid lokale waterstand
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand Iv
-					</td>
-					<td>
-						Waterstand [m+NAP]
-					</td>
-					<td>
-						6.99
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand Iv
-					</td>
-					<td>
-						Windrichting
-					</td>
-					<td>
-						-0.30166
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand Iv
-					</td>
-					<td>
-						Waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand Iv
-					</td>
-					<td>
-						Waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand Iv
-					</td>
-					<td>
-						Waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand Iv
-					</td>
-					<td>
-						Waterstand Lauwersoog
-					</td>
-					<td>
-						-0.91775
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand Iv
-					</td>
-					<td>
-						Waterstand West Terschelling
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand Iv
-					</td>
-					<td>
-						Windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand Iv
-					</td>
-					<td>
-						Onzekerheid waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand Iv
-					</td>
-					<td>
-						Onzekerheid waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand Iv
-					</td>
-					<td>
-						Onzekerheid waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand Iv
-					</td>
-					<td>
-						Onzekerheid waterstand Lauwersoog
-					</td>
-					<td>
-						-0.25832
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand Iv
-					</td>
-					<td>
-						Onzekerheid windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand Iv
-					</td>
-					<td>
-						Onzekerheid windsnelheid
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand Iv
-					</td>
-					<td>
-						Modelonzekerheid lokale waterstand
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand IIv
-					</td>
-					<td>
-						Waterstand [m+NAP]
-					</td>
-					<td>
-						6.19
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand IIv
-					</td>
-					<td>
-						Windrichting
-					</td>
-					<td>
-						-0.33002
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand IIv
-					</td>
-					<td>
-						Waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand IIv
-					</td>
-					<td>
-						Waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand IIv
-					</td>
-					<td>
-						Waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand IIv
-					</td>
-					<td>
-						Waterstand Lauwersoog
-					</td>
-					<td>
-						-0.92033
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand IIv
-					</td>
-					<td>
-						Waterstand West Terschelling
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand IIv
-					</td>
-					<td>
-						Windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand IIv
-					</td>
-					<td>
-						Onzekerheid waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand IIv
-					</td>
-					<td>
-						Onzekerheid waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand IIv
-					</td>
-					<td>
-						Onzekerheid waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand IIv
-					</td>
-					<td>
-						Onzekerheid waterstand Lauwersoog
-					</td>
-					<td>
-						-0.20995
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand IIv
-					</td>
-					<td>
-						Onzekerheid windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand IIv
-					</td>
-					<td>
-						Onzekerheid windsnelheid
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand IIv
-					</td>
-					<td>
-						Modelonzekerheid lokale waterstand
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand IIIv
-					</td>
-					<td>
-						Waterstand [m+NAP]
-					</td>
-					<td>
-						5.93
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand IIIv
-					</td>
-					<td>
-						Windrichting
-					</td>
-					<td>
-						-0.34101
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand IIIv
-					</td>
-					<td>
-						Waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand IIIv
-					</td>
-					<td>
-						Waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand IIIv
-					</td>
-					<td>
-						Waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand IIIv
-					</td>
-					<td>
-						Waterstand Lauwersoog
-					</td>
-					<td>
-						-0.92041
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand IIIv
-					</td>
-					<td>
-						Waterstand West Terschelling
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand IIIv
-					</td>
-					<td>
-						Windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand IIIv
-					</td>
-					<td>
-						Onzekerheid waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand IIIv
-					</td>
-					<td>
-						Onzekerheid waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand IIIv
-					</td>
-					<td>
-						Onzekerheid waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand IIIv
-					</td>
-					<td>
-						Onzekerheid waterstand Lauwersoog
-					</td>
-					<td>
-						-0.19118
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand IIIv
-					</td>
-					<td>
-						Onzekerheid windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand IIIv
-					</td>
-					<td>
-						Onzekerheid windsnelheid
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand IIIv
-					</td>
-					<td>
-						Modelonzekerheid lokale waterstand
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand IVv
-					</td>
-					<td>
-						Waterstand [m+NAP]
-					</td>
-					<td>
-						4.93
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand IVv
-					</td>
-					<td>
-						Windrichting
-					</td>
-					<td>
-						-0.39439
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand IVv
-					</td>
-					<td>
-						Waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand IVv
-					</td>
-					<td>
-						Waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand IVv
-					</td>
-					<td>
-						Waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand IVv
-					</td>
-					<td>
-						Waterstand Lauwersoog
-					</td>
-					<td>
-						-0.91218
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand IVv
-					</td>
-					<td>
-						Waterstand West Terschelling
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand IVv
-					</td>
-					<td>
-						Windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand IVv
-					</td>
-					<td>
-						Onzekerheid waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand IVv
-					</td>
-					<td>
-						Onzekerheid waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand IVv
-					</td>
-					<td>
-						Onzekerheid waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand IVv
-					</td>
-					<td>
-						Onzekerheid waterstand Lauwersoog
-					</td>
-					<td>
-						-0.11131
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand IVv
-					</td>
-					<td>
-						Onzekerheid windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand IVv
-					</td>
-					<td>
-						Onzekerheid windsnelheid
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand IVv
-					</td>
-					<td>
-						Modelonzekerheid lokale waterstand
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand Vv
-					</td>
-					<td>
-						Waterstand [m+NAP]
-					</td>
-					<td>
-						4.03
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand Vv
-					</td>
-					<td>
-						Windrichting
-					</td>
-					<td>
-						-0.46386
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand Vv
-					</td>
-					<td>
-						Waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand Vv
-					</td>
-					<td>
-						Waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand Vv
-					</td>
-					<td>
-						Waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand Vv
-					</td>
-					<td>
-						Waterstand Lauwersoog
-					</td>
-					<td>
-						-0.88461
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand Vv
-					</td>
-					<td>
-						Waterstand West Terschelling
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand Vv
-					</td>
-					<td>
-						Windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand Vv
-					</td>
-					<td>
-						Onzekerheid waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand Vv
-					</td>
-					<td>
-						Onzekerheid waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand Vv
-					</td>
-					<td>
-						Onzekerheid waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand Vv
-					</td>
-					<td>
-						Onzekerheid waterstand Lauwersoog
-					</td>
-					<td>
-						-0.04784
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand Vv
-					</td>
-					<td>
-						Onzekerheid windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand Vv
-					</td>
-					<td>
-						Onzekerheid windsnelheid
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Waterstand Vv
-					</td>
-					<td>
-						Modelonzekerheid lokale waterstand
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten Iv
-					</td>
-					<td>
-						Golfhoogte [m]
-					</td>
-					<td>
-						3.48
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten Iv
-					</td>
-					<td>
-						Windrichting
-					</td>
-					<td>
-						-0.34371
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten Iv
-					</td>
-					<td>
-						Waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten Iv
-					</td>
-					<td>
-						Waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten Iv
-					</td>
-					<td>
-						Waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten Iv
-					</td>
-					<td>
-						Waterstand Lauwersoog
-					</td>
-					<td>
-						-0.82694
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten Iv
-					</td>
-					<td>
-						Waterstand West Terschelling
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten Iv
-					</td>
-					<td>
-						Windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						-0.08649
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten Iv
-					</td>
-					<td>
-						Onzekerheid waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten Iv
-					</td>
-					<td>
-						Onzekerheid waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten Iv
-					</td>
-					<td>
-						Onzekerheid waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten Iv
-					</td>
-					<td>
-						Onzekerheid waterstand Lauwersoog
-					</td>
-					<td>
-						-0.17785
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten Iv
-					</td>
-					<td>
-						Onzekerheid windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten Iv
-					</td>
-					<td>
-						Modelonzekerheid golfhoogte
-					</td>
-					<td>
-						-0.39866
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten Iv
-					</td>
-					<td>
-						Modelonzekerheid lokale waterstand
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten IIv
-					</td>
-					<td>
-						Golfhoogte [m]
-					</td>
-					<td>
-						2.75
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten IIv
-					</td>
-					<td>
-						Windrichting
-					</td>
-					<td>
-						-0.36913
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten IIv
-					</td>
-					<td>
-						Waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten IIv
-					</td>
-					<td>
-						Waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten IIv
-					</td>
-					<td>
-						Waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten IIv
-					</td>
-					<td>
-						Waterstand Lauwersoog
-					</td>
-					<td>
-						-0.80921
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten IIv
-					</td>
-					<td>
-						Waterstand West Terschelling
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten IIv
-					</td>
-					<td>
-						Windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						-0.08223
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten IIv
-					</td>
-					<td>
-						Onzekerheid waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten IIv
-					</td>
-					<td>
-						Onzekerheid waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten IIv
-					</td>
-					<td>
-						Onzekerheid waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten IIv
-					</td>
-					<td>
-						Onzekerheid waterstand Lauwersoog
-					</td>
-					<td>
-						-0.1444
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten IIv
-					</td>
-					<td>
-						Onzekerheid windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten IIv
-					</td>
-					<td>
-						Modelonzekerheid golfhoogte
-					</td>
-					<td>
-						-0.4258
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten IIv
-					</td>
-					<td>
-						Modelonzekerheid lokale waterstand
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten IIIv
-					</td>
-					<td>
-						Golfhoogte [m]
-					</td>
-					<td>
-						2.54
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten IIIv
-					</td>
-					<td>
-						Windrichting
-					</td>
-					<td>
-						-0.37961
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten IIIv
-					</td>
-					<td>
-						Waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten IIIv
-					</td>
-					<td>
-						Waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten IIIv
-					</td>
-					<td>
-						Waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten IIIv
-					</td>
-					<td>
-						Waterstand Lauwersoog
-					</td>
-					<td>
-						-0.80067
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten IIIv
-					</td>
-					<td>
-						Waterstand West Terschelling
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten IIIv
-					</td>
-					<td>
-						Windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						-0.08056
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten IIIv
-					</td>
-					<td>
-						Onzekerheid waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten IIIv
-					</td>
-					<td>
-						Onzekerheid waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten IIIv
-					</td>
-					<td>
-						Onzekerheid waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten IIIv
-					</td>
-					<td>
-						Onzekerheid waterstand Lauwersoog
-					</td>
-					<td>
-						-0.12812
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten IIIv
-					</td>
-					<td>
-						Onzekerheid windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten IIIv
-					</td>
-					<td>
-						Modelonzekerheid golfhoogte
-					</td>
-					<td>
-						-0.43809
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten IIIv
-					</td>
-					<td>
-						Modelonzekerheid lokale waterstand
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten IVv
-					</td>
-					<td>
-						Golfhoogte [m]
-					</td>
-					<td>
-						1.77
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten IVv
-					</td>
-					<td>
-						Windrichting
-					</td>
-					<td>
-						-0.41748
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten IVv
-					</td>
-					<td>
-						Waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten IVv
-					</td>
-					<td>
-						Waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten IVv
-					</td>
-					<td>
-						Waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten IVv
-					</td>
-					<td>
-						Waterstand Lauwersoog
-					</td>
-					<td>
-						-0.7667
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten IVv
-					</td>
-					<td>
-						Waterstand West Terschelling
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten IVv
-					</td>
-					<td>
-						Windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						-0.09619
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten IVv
-					</td>
-					<td>
-						Onzekerheid waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten IVv
-					</td>
-					<td>
-						Onzekerheid waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten IVv
-					</td>
-					<td>
-						Onzekerheid waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten IVv
-					</td>
-					<td>
-						Onzekerheid waterstand Lauwersoog
-					</td>
-					<td>
-						-0.09552
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten IVv
-					</td>
-					<td>
-						Onzekerheid windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten IVv
-					</td>
-					<td>
-						Modelonzekerheid golfhoogte
-					</td>
-					<td>
-						-0.46852
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten IVv
-					</td>
-					<td>
-						Modelonzekerheid lokale waterstand
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten Vv
-					</td>
-					<td>
-						Golfhoogte [m]
-					</td>
-					<td>
-						1.17
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten Vv
-					</td>
-					<td>
-						Windrichting
-					</td>
-					<td>
-						-0.45202
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten Vv
-					</td>
-					<td>
-						Waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten Vv
-					</td>
-					<td>
-						Waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten Vv
-					</td>
-					<td>
-						Waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten Vv
-					</td>
-					<td>
-						Waterstand Lauwersoog
-					</td>
-					<td>
-						-0.71307
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten Vv
-					</td>
-					<td>
-						Waterstand West Terschelling
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten Vv
-					</td>
-					<td>
-						Windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						-0.09912
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten Vv
-					</td>
-					<td>
-						Onzekerheid waterstand Delfzijl
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten Vv
-					</td>
-					<td>
-						Onzekerheid waterstand Harlingen
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten Vv
-					</td>
-					<td>
-						Onzekerheid waterstand Huibertgat
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten Vv
-					</td>
-					<td>
-						Onzekerheid waterstand Lauwersoog
-					</td>
-					<td>
-						-0.06465
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten Vv
-					</td>
-					<td>
-						Onzekerheid windsnelheid West Terschelling | wl LO
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten Vv
-					</td>
-					<td>
-						Modelonzekerheid golfhoogte
-					</td>
-					<td>
-						-0.52269
-					</td>
-				</tr>
-				<tr>
-					<td>
-						GEBU
-					</td>
-					<td>
-						Golfhoogten Vv
-					</td>
-					<td>
-						Modelonzekerheid lokale waterstand
-					</td>
-					<td>
-						0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						DA
-					</td>
-					<td>
-						HB Iv
-					</td>
-					<td>
-						Rekenwaarde waterstand [m+NAP]
-					</td>
-					<td>
-						7.40
-					</td>
-				</tr>
-				<tr>
-					<td>
-						DA
-					</td>
-					<td>
-						HB Iv
-					</td>
-					<td>
-						Rekenwaarde Tp
-					</td>
-					<td>
-						16.05
-					</td>
-				</tr>
-				<tr>
-					<td>
-						DA
-					</td>
-					<td>
-						HB Iv
-					</td>
-					<td>
-						Rekenwaarde d50
-					</td>
-					<td>
-						0.000219
-					</td>
-				</tr>
-				<tr>
-					<td>
-						DA
-					</td>
-					<td>
-						HB Iv
-					</td>
-					<td>
-						Betrouwbaarheidsindex doelkans
-					</td>
-					<td>
-						4.78947
-					</td>
-				</tr>
-				<tr>
-					<td>
-						DA
-					</td>
-					<td>
-						HB Iv
-					</td>
-					<td>
-						Betrouwbaarheidsindex berekende kans
-					</td>
-					<td>
-						4.78938
-					</td>
-				</tr>
-				<tr>
-					<td>
-						DA
-					</td>
-					<td>
-						HB Iv
-					</td>
-					<td>
-						Rekenwaarde Hs
-					</td>
-					<td>
-						9.78
-					</td>
-				</tr>
-				<tr>
-					<td>
-						DA
-					</td>
-					<td>
-						HB IIv
-					</td>
-					<td>
-						Rekenwaarde waterstand [m+NAP]
-					</td>
-					<td>
-						5.88
-					</td>
-				</tr>
-				<tr>
-					<td>
-						DA
-					</td>
-					<td>
-						HB IIv
-					</td>
-					<td>
-						Rekenwaarde Tp
-					</td>
-					<td>
-						14.87
-					</td>
-				</tr>
-				<tr>
-					<td>
-						DA
-					</td>
-					<td>
-						HB IIv
-					</td>
-					<td>
-						Rekenwaarde d50
-					</td>
-					<td>
-						0.000219
-					</td>
-				</tr>
-				<tr>
-					<td>
-						DA
-					</td>
-					<td>
-						HB IIv
-					</td>
-					<td>
-						Betrouwbaarheidsindex doelkans
-					</td>
-					<td>
-						4.05485
-					</td>
-				</tr>
-				<tr>
-					<td>
-						DA
-					</td>
-					<td>
-						HB IIv
-					</td>
-					<td>
-						Betrouwbaarheidsindex berekende kans
-					</td>
-					<td>
-						4.05500
-					</td>
-				</tr>
-				<tr>
-					<td>
-						DA
-					</td>
-					<td>
-						HB IIv
-					</td>
-					<td>
-						Rekenwaarde Hs
-					</td>
-					<td>
-						8.85
-					</td>
-				</tr>
-				<tr>
-					<td>
-						DA
-					</td>
-					<td>
-						HB IIIv
-					</td>
-					<td>
-						Rekenwaarde waterstand [m+NAP]
-					</td>
-					<td>
-						5.88
-					</td>
-				</tr>
-				<tr>
-					<td>
-						DA
-					</td>
-					<td>
-						HB IIIv
-					</td>
-					<td>
-						Rekenwaarde Tp
-					</td>
-					<td>
-						14.87
-					</td>
-				</tr>
-				<tr>
-					<td>
-						DA
-					</td>
-					<td>
-						HB IIIv
-					</td>
-					<td>
-						Rekenwaarde d50
-					</td>
-					<td>
-						0.000219
-					</td>
-				</tr>
-				<tr>
-					<td>
-						DA
-					</td>
-					<td>
-						HB IIIv
-					</td>
-					<td>
-						Betrouwbaarheidsindex doelkans
-					</td>
-					<td>
-						4.05485
-					</td>
-				</tr>
-				<tr>
-					<td>
-						DA
-					</td>
-					<td>
-						HB IIIv
-					</td>
-					<td>
-						Betrouwbaarheidsindex berekende kans
-					</td>
-					<td>
-						4.05500
-					</td>
-				</tr>
-				<tr>
-					<td>
-						DA
-					</td>
-					<td>
-						HB IIIv
-					</td>
-					<td>
-						Rekenwaarde Hs
-					</td>
-					<td>
-						8.85
-					</td>
-				</tr>
-				<tr>
-					<td>
-						DA
-					</td>
-					<td>
-						HB IVv
-					</td>
-					<td>
-						Rekenwaarde waterstand [m+NAP]
-					</td>
-					<td>
-						5.46
-					</td>
-				</tr>
-				<tr>
-					<td>
-						DA
-					</td>
-					<td>
-						HB IVv
-					</td>
-					<td>
-						Rekenwaarde Tp
-					</td>
-					<td>
-						14.51
-					</td>
-				</tr>
-				<tr>
-					<td>
-						DA
-					</td>
-					<td>
-						HB IVv
-					</td>
-					<td>
-						Rekenwaarde d50
-					</td>
-					<td>
-						0.000219
-					</td>
-				</tr>
-				<tr>
-					<td>
-						DA
-					</td>
-					<td>
-						HB IVv
-					</td>
-					<td>
-						Betrouwbaarheidsindex doelkans
-					</td>
-					<td>
-						3.80234
-					</td>
-				</tr>
-				<tr>
-					<td>
-						DA
-					</td>
-					<td>
-						HB IVv
-					</td>
-					<td>
-						Betrouwbaarheidsindex berekende kans
-					</td>
-					<td>
-						3.80281
-					</td>
-				</tr>
-				<tr>
-					<td>
-						DA
-					</td>
-					<td>
-						HB IVv
-					</td>
-					<td>
-						Rekenwaarde Hs
-					</td>
-					<td>
-						8.56
-					</td>
-				</tr>
-				<tr>
-					<td>
-						DA
-					</td>
-					<td>
-						HB Vv
-					</td>
-					<td>
-						Rekenwaarde waterstand [m+NAP]
-					</td>
-					<td>
-						4.22
-					</td>
-				</tr>
-				<tr>
-					<td>
-						DA
-					</td>
-					<td>
-						HB Vv
-					</td>
-					<td>
-						Rekenwaarde Tp
-					</td>
-					<td>
-						13.25
-					</td>
-				</tr>
-				<tr>
-					<td>
-						DA
-					</td>
-					<td>
-						HB Vv
-					</td>
-					<td>
-						Rekenwaarde d50
-					</td>
-					<td>
-						0.000219
-					</td>
-				</tr>
-				<tr>
-					<td>
-						DA
-					</td>
-					<td>
-						HB Vv
-					</td>
-					<td>
-						Betrouwbaarheidsindex doelkans
-					</td>
-					<td>
-						2.85527
-					</td>
-				</tr>
-				<tr>
-					<td>
-						DA
-					</td>
-					<td>
-						HB Vv
-					</td>
-					<td>
-						Betrouwbaarheidsindex berekende kans
-					</td>
-					<td>
-						2.85617
-					</td>
-				</tr>
-				<tr>
-					<td>
-						DA
-					</td>
-					<td>
-						HB Vv
-					</td>
-					<td>
-						Rekenwaarde Hs
-					</td>
-					<td>
-						7.56
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
 		id="06eef7a3-b1a2-4052-b746-d1d65394a95f"
 		lastknownrowcount="3"
 		name="script15_a_ExpectedResultsCalculations"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
 				<column>
-					pathItem
+					pathToItem
 				</column>
 				<column>
 					labelFM
@@ -9492,7 +6266,7 @@
 			<table>
 				<tr>
 					<th>
-						pathItem
+						pathToItem
 					</th>
 					<th>
 						labelFM
@@ -9521,7 +6295,7 @@
 				</tr>
 				<tr>
 					<td>
-						Traject&gt;@HB&gt;Waterstanden bij norm&gt;1/1000
+						Traject&gt;@HB&gt;Waterstanden bij vrije doelkans&gt;1/10000
 					</td>
 					<td>
 						GEBU
@@ -9539,7 +6313,7 @@
 						Waterstand [m+NAP]
 					</td>
 					<td>
-						6.02
+						5.49
 					</td>
 					<td>
 						Maatgevende windrichting
@@ -9550,7 +6324,7 @@
 				</tr>
 				<tr>
 					<td>
-						Traject&gt;@HB&gt;Waterstanden bij norm&gt;1/3000
+						Traject&gt;@HB&gt;Golfhoogten bij vrije doelkans&gt;1/1000
 					</td>
 					<td>
 						GEBU
@@ -9565,16 +6339,16 @@
 						16-30
 					</td>
 					<td>
-						Waterstand [m+NAP]
+						Golfhoogte [m]
 					</td>
 					<td>
-						5.20
+						1.77
 					</td>
 					<td>
 						Maatgevende windrichting
 					</td>
 					<td>
-						300.0
+						330.0
 					</td>
 				</tr>
 				<tr>
@@ -9622,10 +6396,10 @@
 					fileToSave
 				</column>
 				<column>
-					rangeHBCCalculations
+					rangeAddFailureProbabilityItems
 				</column>
 				<column>
-					rangeAddFailureProbabilityItems
+					rangeInHydraulicBoundaryConditionCases
 				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
@@ -9642,10 +6416,10 @@
 						fileToSave
 					</th>
 					<th>
-						rangeHBCCalculations
+						rangeAddFailureProbabilityItems
 					</th>
 					<th>
-						rangeAddFailureProbabilityItems
+						rangeInHydraulicBoundaryConditionCases
 					</th>
 				</tr>
 				<tr>
@@ -9659,6 +6433,7 @@
 						output_Project_15ab_GEBU.risk
 					</td>
 					<td>
+						1-2
 					</td>
 					<td>
 						1-2
@@ -9675,10 +6450,10 @@
 						output_Project_15c_DA.risk
 					</td>
 					<td>
-						19
+						3-5
 					</td>
 					<td>
-						3-5
+						3
 					</td>
 				</tr>
 			</table>
@@ -10066,7 +6841,7 @@
 						GEBU
 					</td>
 					<td>
-						Traject&gt;@HB&gt;Waterstanden bij doelkans
+						Traject&gt;@HB&gt;Waterstanden bij vrije doelkans
 					</td>
 					<td>
 						1/10000
@@ -10077,7 +6852,7 @@
 						GEBU
 					</td>
 					<td>
-						Traject&gt;@HB&gt;Golfhoogten bij doelkans
+						Traject&gt;@HB&gt;Golfhoogten bij vrije doelkans
 					</td>
 					<td>
 						1/1000
@@ -10088,7 +6863,7 @@
 						DA
 					</td>
 					<td>
-						Traject&gt;@HB&gt;Waterstanden bij doelkans
+						Traject&gt;@HB&gt;Waterstanden bij vrije doelkans
 					</td>
 					<td>
 						1/10000
@@ -10099,7 +6874,7 @@
 						DA
 					</td>
 					<td>
-						Traject&gt;@HB&gt;Golfhoogten bij doelkans
+						Traject&gt;@HB&gt;Golfhoogten bij vrije doelkans
 					</td>
 					<td>
 						1/1000
@@ -10128,10 +6903,22 @@
 					fmLabel
 				</column>
 				<column>
+					fileToSave
+				</column>
+				<column>
+					fileToOpen
+				</column>
+				<column>
+					pathToHBCItem
+				</column>
+				<column>
+					indexLocationHBC
+				</column>
+				<column>
 					pathToAllCalculationsItem
 				</column>
 				<column>
-					relativePathToCalculationsToInspect
+					rangeLoopInputViews
 				</column>
 				<column>
 					pathReferenceResultsCSVFile
@@ -10166,10 +6953,22 @@
 						fmLabel
 					</th>
 					<th>
+						fileToSave
+					</th>
+					<th>
+						fileToOpen
+					</th>
+					<th>
+						pathToHBCItem
+					</th>
+					<th>
+						indexLocationHBC
+					</th>
+					<th>
 						pathToAllCalculationsItem
 					</th>
 					<th>
-						relativePathToCalculationsToInspect
+						rangeLoopInputViews
 					</th>
 					<th>
 						pathReferenceResultsCSVFile
@@ -10201,19 +7000,31 @@
 						ZST
 					</td>
 					<td>
-						28-1&gt;Dijken en dammen - Stabiliteit steenzetting&gt;Hydraulische belastingen
+						output_Project_15b_ZST.risk
 					</td>
 					<td>
-						&gt;blokken en zuilen
+						input_Project_15b_ZST.risk
 					</td>
 					<td>
-						X:\script15\referenceResultsZST.csv
+						Traject&gt;@HB&gt;Waterstanden bij vaste doelkans&gt;1/1000
+					</td>
+					<td>
+						37
+					</td>
+					<td>
+						Traject&gt;@ZST&gt;@HB
+					</td>
+					<td>
+						1-4
+					</td>
+					<td>
+						X:\script15\reference\referenceResultsZST.csv
 					</td>
 					<td>
 						currentResultsZST.csv
 					</td>
 					<td>
-						&gt;dam1voorland1
+						&gt;zuilen&gt;dam1voorland1
 					</td>
 					<td>
 						3.34
@@ -10236,12 +7047,25 @@
 						AGK
 					</td>
 					<td>
-						8-3&gt;Dijken en dammen - Golfklappen op asfaltbekleding&gt;Hydraulische belastingen
+						output_Project_15b_AGK.risk
 					</td>
 					<td>
+						input_Project_15b_AGK.risk
 					</td>
 					<td>
-						X:\script15\referenceResultsAGK.csv
+						Traject&gt;@HB&gt;Waterstanden bij vaste doelkans&gt;1/30000
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						Traject&gt;@AGK&gt;@HB
+					</td>
+					<td>
+						5-8
+					</td>
+					<td>
+						X:\script15\reference\referenceResultsAGK.csv
 					</td>
 					<td>
 						currentResultsAGK.csv
@@ -10270,46 +7094,64 @@
 						GEBU
 					</td>
 					<td>
-						6-6&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Hydraulische belastingen&gt;Berekeningen
+						output_Project_15ab_GEBU.risk
 					</td>
 					<td>
-						&gt;golfklap
+						input_Project_15ab_GEBU.risk
 					</td>
 					<td>
-						X:\script15\referenceResultsGEBU.csv
+						Traject&gt;@HB&gt;Waterstanden bij vaste doelkans&gt;1/1000
+					</td>
+					<td>
+						164
+					</td>
+					<td>
+						Traject&gt;@GEBU&gt;@HB
+					</td>
+					<td>
+						9-12
+					</td>
+					<td>
+						X:\script15\reference\referenceResultsGEBU.csv
 					</td>
 					<td>
 						currentResultsGEBU.csv
 					</td>
 					<td>
-						&gt;dam1voorland1
+						&gt;golfklap&gt;dam1voorland1
 					</td>
 					<td>
-						6.85
+						5.30
 					</td>
 					<td>
-						0.80
+						0.77
 					</td>
 					<td>
-						4.47
+						3.88
 					</td>
 					<td>
-						29.79
+						31.30
 					</td>
 					<td>
-						-78.21
+						-76.70
 					</td>
 				</tr>
 			</table>
 		</DataSource>
 		<DataSource
 		id="4617c4ae-1af4-4500-b0fc-5d12dccf5e02"
-		lastknownrowcount="4"
+		lastknownrowcount="12"
 		name="script15b_pathCalculationsToInspectChart"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
 				<column>
+					relativePathToCalculationsToInspect
+				</column>
+				<column>
 					relativePathToCalculationFromFolder
+				</column>
+				<column>
+					labelFM
 				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
@@ -10317,27 +7159,141 @@
 			<table>
 				<tr>
 					<th>
+						relativePathToCalculationsToInspect
+					</th>
+					<th>
 						relativePathToCalculationFromFolder
+					</th>
+					<th>
+						labelFM
 					</th>
 				</tr>
 				<tr>
 					<td>
+						&gt;blokken
+					</td>
+					<td>
 						&gt;dam0voorland0
+					</td>
+					<td>
+						ZST
 					</td>
 				</tr>
 				<tr>
 					<td>
-						&gt;dam0voorland1
+						&gt;zuilen
 					</td>
-				</tr>
-				<tr>
 					<td>
 						&gt;dam1voorland0
 					</td>
+					<td>
+						ZST
+					</td>
 				</tr>
 				<tr>
 					<td>
+						&gt;zuilen
+					</td>
+					<td>
 						&gt;dam1voorland1
+					</td>
+					<td>
+						ZST
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;blokken en zuilen
+					</td>
+					<td>
+						&gt;dam0voorland1
+					</td>
+					<td>
+						ZST
+					</td>
+				</tr>
+				<tr>
+					<td>
+					</td>
+					<td>
+						&gt;dam0voorland0
+					</td>
+					<td>
+						AGK
+					</td>
+				</tr>
+				<tr>
+					<td>
+					</td>
+					<td>
+						&gt;dam0voorland1
+					</td>
+					<td>
+						AGK
+					</td>
+				</tr>
+				<tr>
+					<td>
+					</td>
+					<td>
+						&gt;dam1voorland0
+					</td>
+					<td>
+						AGK
+					</td>
+				</tr>
+				<tr>
+					<td>
+					</td>
+					<td>
+						&gt;dam1voorland1
+					</td>
+					<td>
+						AGK
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;golfoploop en golfklap
+					</td>
+					<td>
+						&gt;dam0voorland0
+					</td>
+					<td>
+						GEBU
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;golfoploop en golfklap
+					</td>
+					<td>
+						&gt;dam0voorland1
+					</td>
+					<td>
+						GEBU
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;golfoploop
+					</td>
+					<td>
+						&gt;dam1voorland0
+					</td>
+					<td>
+						GEBU
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;golfklap
+					</td>
+					<td>
+						&gt;dam1voorland1
+					</td>
+					<td>
+						GEBU
 					</td>
 				</tr>
 			</table>
@@ -10349,10 +7305,19 @@
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
 				<column>
+					fileToOpen
+				</column>
+				<column>
+					fileToSave
+				</column>
+				<column>
 					pathToHBCDatabase
 				</column>
 				<column>
 					pathToItemHBCDatabaseInProjectExplorer
+				</column>
+				<column>
+					originalPathToHydraulicBCCalculation
 				</column>
 				<column>
 					pathToTraject
@@ -10366,10 +7331,19 @@
 			<table>
 				<tr>
 					<th>
+						fileToOpen
+					</th>
+					<th>
+						fileToSave
+					</th>
+					<th>
 						pathToHBCDatabase
 					</th>
 					<th>
 						pathToItemHBCDatabaseInProjectExplorer
+					</th>
+					<th>
+						originalPathToHydraulicBCCalculation
 					</th>
 					<th>
 						pathToTraject
@@ -10380,10 +7354,19 @@
 				</tr>
 				<tr>
 					<td>
+						input_Project_15d_zonder_resultaten_12_2.risk
+					</td>
+					<td>
+						output_Project_15d_zonder_resultaten_12_2.risk
+					</td>
+					<td>
 						X:\script15\External\WBI2017_IJsselmeer_12-2_v02_klimaat\WBI2017_IJsselmeer_12-2_v02.sqlite
 					</td>
 					<td>
-						12-2&gt;Hydraulische belastingen
+						12-2&gt;@HB
+					</td>
+					<td>
+						Traject&gt;@HB&gt;bij vaste doelkans&gt;1/1000
 					</td>
 					<td>
 						12-2
@@ -10394,63 +7377,25 @@
 				</tr>
 				<tr>
 					<td>
+						input_Project_15d_zonder_resultaten_14_4.risk
+					</td>
+					<td>
+						output_Project_15d_zonder_resultaten_14_4.risk
+					</td>
+					<td>
 						X:\script15\External\WBI2017_Europoort_14-4_v03_klimaat\WBI2017_Europoort_14-4_v03.sqlite
 					</td>
 					<td>
-						14-4&gt;Hydraulische belastingen
+						14-4&gt;@HB
+					</td>
+					<td>
+						Traject&gt;@HB&gt;bij vaste doelkans&gt;1/3000
 					</td>
 					<td>
 						14-4
 					</td>
 					<td>
 						X:\script15\External\WBI2017_Europoort_14-4_v03_klimaat\hlcd_klimaat.sqlite
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="f15d38ce-c989-46a1-b670-6491a0acaf99"
-		lastknownrowcount="3"
-		name="script15d_HydraulicBCCalculationsToCarryOut"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					pathFromTrajectToHydraulicBCCalculationItem
-				</column>
-				<column>
-					fmLabel
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						pathFromTrajectToHydraulicBCCalculationItem
-					</th>
-					<th>
-						fmLabel
-					</th>
-				</tr>
-				<tr>
-					<td>
-						&gt;Hydraulische belastingen&gt;Waterstanden&gt;Categoriegrens A
-					</td>
-					<td>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						&gt;Hydraulische belastingen&gt;Golfhoogten&gt;Categoriegrens A
-					</td>
-					<td>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Hydraulische belastingen&gt;Waterstanden&gt;Categoriegrens IIv
-					</td>
-					<td>
 					</td>
 				</tr>
 			</table>
@@ -10524,7 +7469,7 @@
 				</tr>
 				<tr>
 					<td>
-						&gt;steenzetting&gt;Hydraulische belastingen&gt;berekening
+						&gt;@ZST&gt;@HB&gt;berekening
 					</td>
 					<td>
 						ZST
@@ -10532,7 +7477,7 @@
 				</tr>
 				<tr>
 					<td>
-						&gt;Dijken en dammen - Golfklappen op asfaltbekleding&gt;Hydraulische belastingen&gt;berekening
+						&gt;@AGK&gt;@HB&gt;berekening
 					</td>
 					<td>
 						AGK
@@ -10540,7 +7485,7 @@
 				</tr>
 				<tr>
 					<td>
-						&gt;erosie buitentalud&gt;Hydraulische belastingen&gt;Berekeningen&gt;berekening
+						&gt;@GEBU&gt;@HB&gt;berekening
 					</td>
 					<td>
 						GEBU
@@ -10566,6 +7511,15 @@
 			id="0909da98-b3a7-4b30-8207-cdb76c08c92e">
 			</testcontainer>
 			<testcontainer
+			id="0bbd3232-7af5-42b4-b849-73a61bcb8af4">
+			</testcontainer>
+			<testcontainer
+			id="0caaacfb-8725-483f-8225-5222d1723fdf">
+			</testcontainer>
+			<testcontainer
+			id="0e18d60e-93a2-4e17-bd6e-d9789ae914d1">
+			</testcontainer>
+			<testcontainer
 			id="0f46eca1-215b-474c-ae7f-d3b7718d04b4">
 			</testcontainer>
 			<testcontainer
@@ -10581,13 +7535,43 @@
 			id="1723cbbd-3943-4428-bcb1-ff81c264e994">
 			</testcontainer>
 			<testcontainer
+			id="18455637-0838-4b15-bd6b-f6d6bc24f402">
+			</testcontainer>
+			<testcontainer
+			id="19d56aff-3e6d-4b7a-9a77-ed2fa3be50d1">
+			</testcontainer>
+			<testcontainer
+			id="1b807291-6298-4090-b767-122535e24b0e">
+			</testcontainer>
+			<testcontainer
+			id="1bbac447-1dc3-4458-8022-22d8aa46d453">
+			</testcontainer>
+			<testcontainer
+			id="1e2e252e-f985-4501-b5ab-b479b7c1b6c8">
+			</testcontainer>
+			<testcontainer
+			id="2294af5d-3e49-4ecc-8c1d-6526306f8cf5">
+			</testcontainer>
+			<testcontainer
+			id="25938c33-b517-428c-a3aa-e12337ea0104">
+			</testcontainer>
+			<testcontainer
+			id="276025e1-84cc-4480-82dd-e8515eb34125">
+			</testcontainer>
+			<testcontainer
+			id="281cc25b-9665-40d2-b9b8-beff08d662fc">
+			</testcontainer>
+			<testcontainer
 			id="34654bfe-ef73-4a94-953b-f59a2f3cf462">
 			</testcontainer>
 			<testcontainer
-			id="35523cdf-1355-475b-b44d-f4ab30239350">
+			id="3564532c-32de-4e99-8c34-c3a14fddcde7">
 			</testcontainer>
 			<testcontainer
 			id="37bfa9ed-411e-418c-93cd-e94e465cf897">
+			</testcontainer>
+			<testcontainer
+			id="394ebd4a-a478-4652-a62c-20fa2acf9739">
 			</testcontainer>
 			<testcontainer
 			id="3ddaa28c-f676-402b-854a-be31193e26de">
@@ -10597,6 +7581,18 @@
 			</testcontainer>
 			<testcontainer
 			id="44c6c909-2abe-420b-ac95-a4aadd7b75ca">
+			</testcontainer>
+			<testcontainer
+			id="45207e8e-e6a3-45ad-aeef-cb284c84c442">
+			</testcontainer>
+			<testcontainer
+			id="46d281ab-a2a3-4602-8787-792a9fb83272">
+			</testcontainer>
+			<testcontainer
+			id="4772b159-5cec-455b-8c2d-94caad63edd8">
+			</testcontainer>
+			<testcontainer
+			id="48034436-92e0-490f-8de2-4c589678e899">
 			</testcontainer>
 			<testcontainer
 			id="4a167f05-22e5-4f0b-ad15-18adadddabf6">
@@ -10614,10 +7610,37 @@
 			id="51e41a2c-1f0a-4d5c-9eb6-e997300ae3f5">
 			</testcontainer>
 			<testcontainer
+			id="570d8bbf-7357-4f63-bd9f-40e1421600b6">
+			</testcontainer>
+			<testcontainer
+			id="57c0813e-ccc9-428a-8ff2-2e57d32bbe74">
+			</testcontainer>
+			<testcontainer
+			id="59d658ef-baaf-4629-aea2-261b8a98b24e">
+			</testcontainer>
+			<testcontainer
 			id="5f26ad9f-2ad5-4637-8d9c-99e6b5b47b7f">
 			</testcontainer>
 			<testcontainer
 			id="5f60f9a9-969b-41af-9a43-9f85c1b79061">
+			</testcontainer>
+			<testcontainer
+			id="5ffbd4bf-934f-4121-922c-6dcebc873aa6">
+			</testcontainer>
+			<testcontainer
+			id="6246b962-c751-4777-a6b5-f5e452aa499e">
+			</testcontainer>
+			<testcontainer
+			id="62cc4aba-157c-484c-9867-2b73599e391c">
+			</testcontainer>
+			<testcontainer
+			id="64095390-c618-4a6a-b149-4fefb5347827">
+			</testcontainer>
+			<testcontainer
+			id="65d35fbd-a017-4be6-93af-4ce3ba52e314">
+			</testcontainer>
+			<testcontainer
+			id="6859a38d-9137-4b54-924a-f4abe85d4f1c">
 			</testcontainer>
 			<testcontainer
 			id="689e6e69-8446-4594-aae4-af2cecb1a87d">
@@ -10626,16 +7649,49 @@
 			id="695146a6-53dc-40e5-bdec-f87137957877">
 			</testcontainer>
 			<testcontainer
+			id="6cef0a4b-2a4b-4bdb-a644-50bc5e4dad17">
+			</testcontainer>
+			<testcontainer
 			id="6f07d318-9293-4e1b-84fa-b1b56d1efd3e">
+			</testcontainer>
+			<testcontainer
+			id="726e5e40-ae1d-4931-a411-e1608c4fdaa2">
+			</testcontainer>
+			<testcontainer
+			id="72de45be-e768-49b9-b4f3-8b2613de0686">
+			</testcontainer>
+			<testcontainer
+			id="73c515ab-e4a1-49d5-9431-333bfe397aef">
 			</testcontainer>
 			<testcontainer
 			id="756e4451-4389-4c7f-944a-d8c60a1eed9b">
 			</testcontainer>
 			<testcontainer
+			id="79152a3b-29b1-4f88-9fd3-8d577eb67d3b">
+			</testcontainer>
+			<testcontainer
 			id="813f9d5e-3122-4eff-9467-87cf8a5491b8">
 			</testcontainer>
 			<testcontainer
+			id="833c17ff-1478-4e5d-a14d-367dda66d1ad">
+			</testcontainer>
+			<testcontainer
+			id="838a2c5c-1949-4773-b347-7e461a2c4bbd">
+			</testcontainer>
+			<testcontainer
+			id="84dfe37a-dd66-41a0-8666-4203aed8c4c8">
+			</testcontainer>
+			<testcontainer
+			id="850dbcd4-4339-42fa-8eae-18973ae2fb83">
+			</testcontainer>
+			<testcontainer
+			id="8935242f-e11a-474f-a005-b5e99813a720">
+			</testcontainer>
+			<testcontainer
 			id="89e46680-aac8-4eb0-b81f-c7e364ddd4d0">
+			</testcontainer>
+			<testcontainer
+			id="8c12e4f6-e379-4b57-87d9-014bd22071b4">
 			</testcontainer>
 			<testcontainer
 			id="8df05726-7bd6-44eb-86e8-fefc1d9cc88b">
@@ -10644,10 +7700,25 @@
 			id="900b704e-770b-4187-9dea-07e27f4cbb24">
 			</testcontainer>
 			<testcontainer
+			id="91e04eeb-cc8b-4ac3-8cc9-37bf29718a9a">
+			</testcontainer>
+			<testcontainer
+			id="95e899b2-c82b-4d38-af22-a050c545c6ec">
+			</testcontainer>
+			<testcontainer
+			id="9641c767-1998-472a-9f7e-b031819cb143">
+			</testcontainer>
+			<testcontainer
 			id="98dc9686-98c4-484a-836c-1ab771730111">
 			</testcontainer>
 			<testcontainer
+			id="9a74e862-8b16-46ab-871d-ce2180d4ed61">
+			</testcontainer>
+			<testcontainer
 			id="9d0d9f40-d938-4a73-8d9f-57f314f4fea9">
+			</testcontainer>
+			<testcontainer
+			id="9fcca8dc-ff4e-4ed6-ab57-3dc86164f379">
 			</testcontainer>
 			<testcontainer
 			id="a37b0061-3a37-479a-99c4-d58f6d25dbf0">
@@ -10656,7 +7727,16 @@
 			id="a38b84dc-9266-49d9-9457-9740092668f1">
 			</testcontainer>
 			<testcontainer
+			id="a663e2cc-feee-43a8-b58e-1d87f4596239">
+			</testcontainer>
+			<testcontainer
+			id="ab3b3ff4-f40b-4a05-83f5-d4d6437bbbed">
+			</testcontainer>
+			<testcontainer
 			id="ab99dfa5-90d0-437e-98e9-89e9a88af1c5">
+			</testcontainer>
+			<testcontainer
+			id="ad9b73b0-e562-47e6-bf3f-383ac988ef38">
 			</testcontainer>
 			<testcontainer
 			id="aecf18cb-584c-4769-bba1-7b14b027a5f6">
@@ -10677,13 +7757,28 @@
 			id="bda37355-29ee-4c32-b5be-0e9c44137624">
 			</testcontainer>
 			<testcontainer
+			id="be110e48-01d9-44a3-b623-31412fba1729">
+			</testcontainer>
+			<testcontainer
+			id="c314a0f4-afec-40ba-885e-cf8664dff5c1">
+			</testcontainer>
+			<testcontainer
 			id="c4e4215d-8510-4c46-9141-f9123e8f0280">
+			</testcontainer>
+			<testcontainer
+			id="c61bc5b1-1bea-4a0c-a51b-d0c623be9792">
 			</testcontainer>
 			<testcontainer
 			id="c667e5a4-a335-4576-a1c4-6b68821e9fd0">
 			</testcontainer>
 			<testcontainer
+			id="c7ecb4e3-186b-42cf-89c7-7840e90561cf">
+			</testcontainer>
+			<testcontainer
 			id="cf8eeaba-f8d2-4e2d-96c9-b897fd8c4654">
+			</testcontainer>
+			<testcontainer
+			id="d1ac0764-0f41-40c7-bb02-ac97d6ea4c7c">
 			</testcontainer>
 			<testcontainer
 			id="d1d8d24b-9d2c-4c1e-80f4-0410b69cbcc4">
@@ -10695,7 +7790,19 @@
 			id="d48ecd42-a06f-4750-bcd6-23b636ceda4b">
 			</testcontainer>
 			<testcontainer
+			id="d853804b-0b45-4a3a-a474-443dd27d734c">
+			</testcontainer>
+			<testcontainer
+			id="d8fb52cf-6011-4dbf-b61f-85ca5166431a">
+			</testcontainer>
+			<testcontainer
+			id="d946d7ec-7467-4842-a487-1a67cfeb1fd0">
+			</testcontainer>
+			<testcontainer
 			id="dc41187a-b4fd-4c84-8a13-bf6daf533744">
+			</testcontainer>
+			<testcontainer
+			id="dca088ce-ce35-41a2-a66b-d53bec05c9e9">
 			</testcontainer>
 			<testcontainer
 			id="dd32358d-df2e-4482-a637-adbb285da1a1">
@@ -10704,7 +7811,25 @@
 			id="dd81f597-2874-4906-9cd5-9112d223eb9e">
 			</testcontainer>
 			<testcontainer
+			id="dea3a23b-ebf0-4a4d-946d-2e204d545fb0">
+			</testcontainer>
+			<testcontainer
+			id="df2a7edc-865f-4333-a2ca-46ecdbf3db9c">
+			</testcontainer>
+			<testcontainer
+			id="dfb14444-0393-4477-abd1-dc57c2d78b0c">
+			</testcontainer>
+			<testcontainer
+			id="e3bfbfc0-3e28-4673-a704-6693ceefa9ec">
+			</testcontainer>
+			<testcontainer
 			id="f439c70d-b78e-4927-af51-08e1f2ab0e05">
+			</testcontainer>
+			<testcontainer
+			id="f6703f8b-81e1-47cc-8b29-6b8f4dbc2d18">
+			</testcontainer>
+			<testcontainer
+			id="f8475eaa-6f1c-41bd-9bc2-4086151b977e">
 			</testcontainer>
 			<testcontainer
 			id="f8d4be1d-73a2-4043-ab1f-30788c9b0e11">
@@ -10723,6 +7848,9 @@
 		</reference>
 		<reference>
 			Ranorex Automation Helpers.dll
+		</reference>
+		<reference>
+			Ranorex.ReportToPDF.exe
 		</reference>
 	</references>
 </testsuitedoc>

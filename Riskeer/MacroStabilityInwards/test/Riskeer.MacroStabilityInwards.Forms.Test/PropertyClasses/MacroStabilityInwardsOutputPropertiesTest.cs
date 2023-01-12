@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -106,7 +106,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(macroStabilityInwardsProbabilityProperty,
                                                                             macroStabilityInwardsCategory,
                                                                             "Benaderde faalkans [1/jaar]",
-                                                                            "De benaderde kans dat het toetsspoor macrostabiliteit binnenwaarts optreedt voor deze berekening.",
+                                                                            "De benaderde kans dat het faalmechanisme macrostabiliteit binnenwaarts optreedt voor deze berekening.",
                                                                             true);
 
             PropertyDescriptor macroStabilityInwardsReliabilityProperty = dynamicProperties[2];

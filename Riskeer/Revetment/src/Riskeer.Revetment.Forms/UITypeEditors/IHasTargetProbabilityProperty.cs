@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -34,7 +34,7 @@ namespace Riskeer.Revetment.Forms.UITypeEditors
         /// Gets the <see cref="SelectableTargetProbability"/> that is selected.
         /// </summary>
         SelectableTargetProbability SelectedTargetProbability { get; }
-        
+
         /// <summary>
         /// Gets all the <see cref="SelectableTargetProbability"/> items.
         /// </summary>

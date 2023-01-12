@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -35,7 +35,6 @@ using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.Probabilistics;
@@ -48,7 +47,6 @@ using Riskeer.GrassCoverErosionOutwards.Data.TestUtil;
 using Riskeer.HeightStructures.Data;
 using Riskeer.HeightStructures.Data.TestUtil;
 using Riskeer.Integration.Data;
-using Riskeer.Integration.Data.FailurePath;
 using Riskeer.Integration.Data.StandAlone;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
@@ -93,9 +91,9 @@ namespace Riskeer.Storage.Core.TestUtil
                 Id = "12-2",
                 FailureMechanismContribution =
                 {
-                    LowerLimitNorm = 1.0 / 10,
-                    SignalingNorm = 1.0 / 1000000,
-                    NormativeNorm = NormType.Signaling
+                    MaximumAllowableFloodingProbability = 1.0 / 10,
+                    SignalFloodingProbability = 1.0 / 1000000,
+                    NormativeProbabilityType = NormativeProbabilityType.SignalFloodingProbability
                 }
             };
             SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
@@ -215,14 +213,14 @@ namespace Riskeer.Storage.Core.TestUtil
             assessmentSection.GetFailureMechanisms().ForEachElementDo(fm =>
             {
                 SetComments(fm);
-                SetFailurePathAssemblyResults(fm, i++);
+                SetFailureMechanismAssemblyResults(fm, i++);
             });
 
-            IEnumerable<SpecificFailurePath> failurePaths = Enumerable.Repeat(new SpecificFailurePath(), random.Next(1, 10))
-                                                                      .ToArray();
-            SetSpecificFailurePaths(failurePaths);
-            assessmentSection.SpecificFailurePaths.AddRange(failurePaths);
-            assessmentSection.SpecificFailurePaths.ForEach(SetComments);
+            IEnumerable<SpecificFailureMechanism> failureMechanisms = Enumerable.Repeat(new SpecificFailureMechanism(), random.Next(1, 10))
+                                                                                .ToArray();
+            SetSpecificFailureMechanisms(failureMechanisms);
+            assessmentSection.SpecificFailureMechanisms.AddRange(failureMechanisms);
+            assessmentSection.SpecificFailureMechanisms.ForEach(SetComments);
 
             var fullTestProject = new RiskeerProject(assessmentSection)
             {
@@ -252,9 +250,9 @@ namespace Riskeer.Storage.Core.TestUtil
                                                                                        "Comment");
         }
 
-        private static void SetSections(IFailurePath failurePath)
+        private static void SetSections(IFailureMechanism failureMechanism)
         {
-            failurePath.SetSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 new FailureMechanismSection("section 1", new[]
                 {
@@ -324,13 +322,13 @@ namespace Riskeer.Storage.Core.TestUtil
                                                             HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             var random = new Random(21);
-            HydraulicBoundaryLocationCalculation signalingNormCalculation = assessmentSection.WaterLevelCalculationsForSignalingNorm
-                                                                                             .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation));
-            ConfigureDesignWaterLevelCalculation(signalingNormCalculation, random.NextBoolean());
+            HydraulicBoundaryLocationCalculation signalFloodingProbabilityCalculation = assessmentSection.WaterLevelCalculationsForSignalFloodingProbability
+                                                                                                         .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation));
+            ConfigureDesignWaterLevelCalculation(signalFloodingProbabilityCalculation, random.NextBoolean());
 
-            HydraulicBoundaryLocationCalculation lowerLimitNormCalculation = assessmentSection.WaterLevelCalculationsForLowerLimitNorm
-                                                                                              .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation));
-            ConfigureDesignWaterLevelCalculation(lowerLimitNormCalculation, random.NextBoolean());
+            HydraulicBoundaryLocationCalculation maximumAllowableFloodingProbabilityCalculation = assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability
+                                                                                                                   .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation));
+            ConfigureDesignWaterLevelCalculation(maximumAllowableFloodingProbabilityCalculation, random.NextBoolean());
 
             foreach (HydraulicBoundaryLocationCalculation calculation in assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities
                                                                                           .Select(c => c.HydraulicBoundaryLocationCalculations.Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation))))
@@ -446,25 +444,24 @@ namespace Riskeer.Storage.Core.TestUtil
             );
         }
 
-        private static void SetComments(IFailurePath failurePath)
-        {
-            failurePath.InAssemblyInputComments.Body = $"Input comment {failurePath.Name}";
-            failurePath.InAssemblyOutputComments.Body = $"Output comment {failurePath.Name}";
-            failurePath.NotInAssemblyComments.Body = $"Not in assembly comment {failurePath.Name}";
-        }
-
         private static void SetComments(IFailureMechanism failureMechanism)
         {
-            SetComments((IFailurePath) failureMechanism);
-            failureMechanism.CalculationsInputComments.Body = $"Calculations input comment: {failureMechanism.Name}";
+            failureMechanism.InAssemblyInputComments.Body = $"Input comment {failureMechanism.Name}";
+            failureMechanism.InAssemblyOutputComments.Body = $"Output comment {failureMechanism.Name}";
+            failureMechanism.NotInAssemblyComments.Body = $"Not in assembly comment {failureMechanism.Name}";
+
+            if (failureMechanism is ICalculatableFailureMechanism calculatableFailureMechanism)
+            {
+                calculatableFailureMechanism.CalculationsInputComments.Body = $"Calculations input comment: {failureMechanism.Name}";
+            }
         }
 
-        private static void SetFailurePathAssemblyResults(IFailurePath failurePath, int seed)
+        private static void SetFailureMechanismAssemblyResults(IFailureMechanism failureMechanism, int seed)
         {
             var random = new Random(seed);
-            FailurePathAssemblyResult assemblyResult = failurePath.AssemblyResult;
-            assemblyResult.ProbabilityResultType = random.NextEnumValue<FailurePathAssemblyProbabilityResultType>();
-            assemblyResult.ManualFailurePathAssemblyProbability = random.NextDouble();
+            FailureMechanismAssemblyResult assemblyResult = failureMechanism.AssemblyResult;
+            assemblyResult.ProbabilityResultType = random.NextEnumValue<FailureMechanismAssemblyProbabilityResultType>();
+            assemblyResult.ManualFailureMechanismAssemblyProbability = random.NextDouble();
         }
 
         private static void SetSectionResults(IEnumerable<AdoptableFailureMechanismSectionResult> sectionResults)
@@ -535,24 +532,25 @@ namespace Riskeer.Storage.Core.TestUtil
 
         #endregion
 
-        #region Specific FailurePath
+        #region Specific FailureMechanism
 
-        private static void SetSpecificFailurePaths(IEnumerable<SpecificFailurePath> specificFailurePaths)
+        private static void SetSpecificFailureMechanisms(IEnumerable<SpecificFailureMechanism> specificFailureMechanisms)
         {
             var i = 0;
-            foreach (SpecificFailurePath failurePath in specificFailurePaths)
+            foreach (SpecificFailureMechanism failureMechanism in specificFailureMechanisms)
             {
                 var random = new Random(i);
-                failurePath.Input.N = random.NextRoundedDouble(1, 20);
+                failureMechanism.GeneralInput.N = random.NextRoundedDouble(1, 20);
 
-                failurePath.Name = $"Path {i}";
-                failurePath.InAssembly = random.NextBoolean();
-                failurePath.InAssemblyInputComments.Body = $"Input comment path: {i}";
-                failurePath.InAssemblyOutputComments.Body = $"Output comment path: {i}";
-                failurePath.NotInAssemblyComments.Body = $"NotInAssembly comment path: {i}";
+                failureMechanism.Name = $"Path {i}";
+                failureMechanism.InAssembly = random.NextBoolean();
+                failureMechanism.InAssemblyInputComments.Body = $"Input comment path: {i}";
+                failureMechanism.InAssemblyOutputComments.Body = $"Output comment path: {i}";
+                failureMechanism.NotInAssemblyComments.Body = $"NotInAssembly comment path: {i}";
 
-                SetSections(failurePath);
-                SetFailurePathAssemblyResults(failurePath, i);
+                SetSections(failureMechanism);
+                SetSectionResults(failureMechanism.SectionResults);
+                SetFailureMechanismAssemblyResults(failureMechanism, i);
                 i++;
             }
         }
@@ -909,9 +907,9 @@ namespace Riskeer.Storage.Core.TestUtil
                                 StandardDeviation = (RoundedDouble) 2.2
                             },
                             ShouldDikeHeightBeCalculated = true,
-                            DikeHeightTargetProbability = assessmentSection.FailureMechanismContribution.Norm,
+                            DikeHeightTargetProbability = assessmentSection.FailureMechanismContribution.NormativeProbability,
                             ShouldOvertoppingRateBeCalculated = true,
-                            OvertoppingRateTargetProbability = assessmentSection.FailureMechanismContribution.Norm,
+                            OvertoppingRateTargetProbability = assessmentSection.FailureMechanismContribution.NormativeProbability,
                             UseForeshore = true,
                             UseBreakWater = true
                         },
@@ -946,10 +944,10 @@ namespace Riskeer.Storage.Core.TestUtil
                             UseBreakWater = true,
                             ShouldOvertoppingOutputIllustrationPointsBeCalculated = true,
                             ShouldDikeHeightBeCalculated = true,
-                            DikeHeightTargetProbability = assessmentSection.FailureMechanismContribution.Norm,
+                            DikeHeightTargetProbability = assessmentSection.FailureMechanismContribution.NormativeProbability,
                             ShouldDikeHeightIllustrationPointsBeCalculated = true,
                             ShouldOvertoppingRateBeCalculated = true,
-                            OvertoppingRateTargetProbability = assessmentSection.FailureMechanismContribution.Norm,
+                            OvertoppingRateTargetProbability = assessmentSection.FailureMechanismContribution.NormativeProbability,
                             ShouldOvertoppingRateIllustrationPointsBeCalculated = true
                         },
                         Output = new GrassCoverErosionInwardsOutput(new OvertoppingOutput(0.45, true, 1.1, GetConfiguredGeneralResultFaultTreeIllustrationPoint()),
@@ -972,8 +970,8 @@ namespace Riskeer.Storage.Core.TestUtil
                     },
                     InputParameters =
                     {
-                        DikeHeightTargetProbability = assessmentSection.FailureMechanismContribution.Norm,
-                        OvertoppingRateTargetProbability = assessmentSection.FailureMechanismContribution.Norm
+                        DikeHeightTargetProbability = assessmentSection.FailureMechanismContribution.NormativeProbability,
+                        OvertoppingRateTargetProbability = assessmentSection.FailureMechanismContribution.NormativeProbability
                     }
                 });
         }
@@ -988,7 +986,7 @@ namespace Riskeer.Storage.Core.TestUtil
             failureMechanism.GeneralInput.N = (RoundedDouble) 15.0;
             ForeshoreProfile foreshoreProfile = failureMechanism.ForeshoreProfiles[0];
             HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First();
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
+            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
             {
                 Name = "GCEO A",
                 Children =
@@ -1052,11 +1050,11 @@ namespace Riskeer.Storage.Core.TestUtil
                     }
                 }
             });
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
+            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
             {
                 Name = "GCEO B"
             });
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(
+            failureMechanism.CalculationsGroup.Children.Add(
                 new GrassCoverErosionOutwardsWaveConditionsCalculation
                 {
                     Name = "Calculation 3",
@@ -1082,7 +1080,7 @@ namespace Riskeer.Storage.Core.TestUtil
                         LowerBoundaryWaterLevels = (RoundedDouble) (-1.9),
                         StepSize = WaveConditionsInputStepSize.One,
                         CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact,
-                        WaterLevelType = WaveConditionsInputWaterLevelType.Signaling
+                        WaterLevelType = WaveConditionsInputWaterLevelType.SignalFloodingProbability
                     },
                     Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create(
                         new[]
@@ -1114,7 +1112,7 @@ namespace Riskeer.Storage.Core.TestUtil
 
             ForeshoreProfile foreshoreProfile = failureMechanism.ForeshoreProfiles[0];
             HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0];
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
+            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
             {
                 Name = "SSC A",
                 Children =
@@ -1178,11 +1176,11 @@ namespace Riskeer.Storage.Core.TestUtil
                     }
                 }
             });
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
+            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
             {
                 Name = "SSC B"
             });
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(
+            failureMechanism.CalculationsGroup.Children.Add(
                 new StabilityStoneCoverWaveConditionsCalculation
                 {
                     Name = "Calculation 3",
@@ -1207,7 +1205,7 @@ namespace Riskeer.Storage.Core.TestUtil
                         UpperBoundaryWaterLevels = (RoundedDouble) 13.3,
                         LowerBoundaryWaterLevels = (RoundedDouble) (-1.9),
                         StepSize = WaveConditionsInputStepSize.One,
-                        WaterLevelType = WaveConditionsInputWaterLevelType.Signaling
+                        WaterLevelType = WaveConditionsInputWaterLevelType.SignalFloodingProbability
                     },
                     Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create(new[]
                     {
@@ -1232,7 +1230,7 @@ namespace Riskeer.Storage.Core.TestUtil
 
             ForeshoreProfile foreshoreProfile = failureMechanism.ForeshoreProfiles[0];
             HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0];
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
+            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
             {
                 Name = "WIAC A",
                 Children =
@@ -1294,11 +1292,11 @@ namespace Riskeer.Storage.Core.TestUtil
                     }
                 }
             });
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
+            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
             {
                 Name = "WIAC B"
             });
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(
+            failureMechanism.CalculationsGroup.Children.Add(
                 new WaveImpactAsphaltCoverWaveConditionsCalculation
                 {
                     Name = "Calculation 3",
@@ -1323,7 +1321,7 @@ namespace Riskeer.Storage.Core.TestUtil
                         UpperBoundaryWaterLevels = (RoundedDouble) 13.3,
                         LowerBoundaryWaterLevels = (RoundedDouble) (-1.9),
                         StepSize = WaveConditionsInputStepSize.One,
-                        WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit
+                        WaterLevelType = WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability
                     },
                     Output = new WaveImpactAsphaltCoverWaveConditionsOutput(new[]
                     {
@@ -1339,6 +1337,8 @@ namespace Riskeer.Storage.Core.TestUtil
 
         private static void ConfigureDuneErosionFailureMechanism(DuneErosionFailureMechanism failureMechanism)
         {
+            failureMechanism.CalculationsInputComments.Body = $"Calculations input comment: {failureMechanism.Name}";
+
             failureMechanism.GeneralInput.N = (RoundedDouble) 5.5;
 
             var random = new Random(21);
@@ -1351,7 +1351,7 @@ namespace Riskeer.Storage.Core.TestUtil
 
             SetDuneLocations(failureMechanism);
         }
-        
+
         private static void SetDuneLocations(DuneErosionFailureMechanism failureMechanism)
         {
             var locationOne = new DuneLocation(12, "DuneLocation", new Point2D(790, 456),

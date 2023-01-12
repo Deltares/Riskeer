@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -291,7 +291,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
                     UseForeshore = false,
                     Orientation = (RoundedDouble) 0,
                     ForeshoreProfile = foreshoreProfile,
-                    WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit
+                    WaterLevelType = WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability
                 }
             };
 
@@ -300,9 +300,9 @@ namespace Riskeer.Revetment.IO.Test.Configurations
         }
 
         [Test]
-        [TestCase(NormType.LowerLimit, WaveConditionsInputWaterLevelType.LowerLimit)]
-        [TestCase(NormType.Signaling, WaveConditionsInputWaterLevelType.Signaling)]
-        public void Import_TargetProbabilityNull_DataAddedToModel(NormType normType, WaveConditionsInputWaterLevelType expectedWaterLevelType)
+        [TestCase(NormativeProbabilityType.MaximumAllowableFloodingProbability, WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability)]
+        [TestCase(NormativeProbabilityType.SignalFloodingProbability, WaveConditionsInputWaterLevelType.SignalFloodingProbability)]
+        public void Import_TargetProbabilityNull_DataAddedToModel(NormativeProbabilityType normativeProbabilityType, WaveConditionsInputWaterLevelType expectedWaterLevelType)
         {
             // Setup
             string filePath = Path.Combine(path, "validConfigurationWithoutTargetProbability.xml");
@@ -321,7 +321,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
             });
             var failureMechanismContribution = new FailureMechanismContribution(0.1, 0.1)
             {
-                NormativeNorm = normType
+                NormativeProbabilityType = normativeProbabilityType
             };
 
             var importer = new TestWaveConditionsCalculationConfigurationImporter(
@@ -504,11 +504,11 @@ namespace Riskeer.Revetment.IO.Test.Configurations
             yield return new TestCaseData(
                 new FailureMechanismContribution(0.01, 0.005),
                 new HydraulicBoundaryLocationCalculationsForTargetProbability(0.05),
-                WaveConditionsInputWaterLevelType.LowerLimit);
+                WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability);
             yield return new TestCaseData(
                 new FailureMechanismContribution(0.02, 0.01),
                 new HydraulicBoundaryLocationCalculationsForTargetProbability(0.05),
-                WaveConditionsInputWaterLevelType.Signaling);
+                WaveConditionsInputWaterLevelType.SignalFloodingProbability);
             yield return new TestCaseData(
                 new FailureMechanismContribution(0.02, 0.005),
                 new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01),

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -30,7 +30,7 @@ namespace Riskeer.Common.Util
     public static class ProjectVersionHelper
     {
         private const string validDatabaseVersion = "5";
-        private const string currentDatabaseVersion = "21.2";
+        private const string currentDatabaseVersion = "22.2";
 
         /// <summary>
         /// Gets the current database version.

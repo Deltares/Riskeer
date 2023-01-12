@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -39,7 +39,7 @@ namespace Riskeer.Common.Forms.Test.Observers
         {
             // Call
             using (var resultObserver = new CalculatableFailureMechanismResultObserver<TestCalculatableFailureMechanism,
-                FailureMechanismSectionResult, TestCalculationWithInput>(new TestCalculatableFailureMechanism()))
+                       FailureMechanismSectionResult, TestCalculationWithInput>(new TestCalculatableFailureMechanism()))
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultObserver<TestCalculatableFailureMechanism,
@@ -56,8 +56,7 @@ namespace Riskeer.Common.Forms.Test.Observers
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
             using (var resultObserver = new CalculatableFailureMechanismResultObserver<TestCalculatableFailureMechanism,
-                FailureMechanismSectionResult,
-                TestCalculationWithInput>(failureMechanism))
+                       FailureMechanismSectionResult, TestCalculationWithInput>(failureMechanism))
             {
                 var mocks = new MockRepository();
                 var observer = mocks.StrictMock<IObserver>();
@@ -83,8 +82,7 @@ namespace Riskeer.Common.Forms.Test.Observers
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
             using (var resultObserver = new CalculatableFailureMechanismResultObserver<TestCalculatableFailureMechanism,
-                FailureMechanismSectionResult,
-                TestCalculationWithInput>(failureMechanism))
+                       FailureMechanismSectionResult, TestCalculationWithInput>(failureMechanism))
             {
                 var mocks = new MockRepository();
                 var observer = mocks.StrictMock<IObserver>();
@@ -99,16 +97,6 @@ namespace Riskeer.Common.Forms.Test.Observers
                 // Then
                 mocks.VerifyAll();
             }
-        }
-
-        private class TestCalculatableFailureMechanism : TestFailureMechanism, ICalculatableFailureMechanism
-        {
-            public TestCalculatableFailureMechanism()
-            {
-                CalculationsGroup = new CalculationGroup();
-            }
-
-            public CalculationGroup CalculationsGroup { get; }
         }
 
         private class TestCalculationWithInput : CloneableObservable, ICalculation<TestCalculationInput>

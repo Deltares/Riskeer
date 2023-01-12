@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -34,7 +34,7 @@ namespace Riskeer.Common.Forms.TestUtil
     public static class MapThemeTestHelper
     {
         /// <summary>
-        /// Asserts whether the <paramref name="theme"/> is configured for category values
+        /// Asserts whether the <paramref name="theme"/> is configured for values
         /// of type <see cref="FailureMechanismSectionAssemblyGroup"/>.
         /// </summary>
         /// <param name="theme">The <see cref="MapTheme{T}"/> to assert.</param>
@@ -44,10 +44,10 @@ namespace Riskeer.Common.Forms.TestUtil
         /// <item><paramref name="theme"/> does not have the expected number of criteria as themes.</item>
         /// <item><paramref name="theme"/> does not have the expected categorical criteria as themes.</item>
         /// </list></exception>
-        public static void AssertDisplayFailureMechanismSectionAssemblyGroupMapTheme(MapTheme<LineCategoryTheme> theme)
+        public static void AssertFailureMechanismSectionAssemblyGroupMapTheme(MapTheme<LineCategoryTheme> theme)
         {
             Assert.AreEqual("Duidingsklasse", theme.AttributeName);
-            Assert.AreEqual(10, theme.CategoryThemes.Count());
+            Assert.AreEqual(11, theme.CategoryThemes.Count());
             AssertCategoryTheme("+III", Color.FromArgb(255, 34, 139, 34), theme.CategoryThemes.ElementAt(0));
             AssertCategoryTheme("+II", Color.FromArgb(255, 146, 208, 80), theme.CategoryThemes.ElementAt(1));
             AssertCategoryTheme("+I", Color.FromArgb(255, 198, 224, 180), theme.CategoryThemes.ElementAt(2));
@@ -55,9 +55,10 @@ namespace Riskeer.Common.Forms.TestUtil
             AssertCategoryTheme("-I", Color.FromArgb(255, 255, 165, 0), theme.CategoryThemes.ElementAt(4));
             AssertCategoryTheme("-II", Color.FromArgb(255, 255, 0, 0), theme.CategoryThemes.ElementAt(5));
             AssertCategoryTheme("-III", Color.FromArgb(255, 178, 34, 34), theme.CategoryThemes.ElementAt(6));
-            AssertCategoryTheme("D", Color.FromArgb(255, 255, 90, 172), theme.CategoryThemes.ElementAt(7));
-            AssertCategoryTheme("ND", Color.FromArgb(255, 192, 192, 192), theme.CategoryThemes.ElementAt(8));
-            AssertCategoryTheme(string.Empty, Color.FromArgb(0, 0, 0, 0), theme.CategoryThemes.ElementAt(9));
+            AssertCategoryTheme("Do", Color.FromArgb(255, 255, 90, 172), theme.CategoryThemes.ElementAt(7));
+            AssertCategoryTheme("NDo", Color.FromArgb(255, 192, 192, 192), theme.CategoryThemes.ElementAt(8));
+            AssertCategoryTheme("NR", Color.FromArgb(255, 38, 245, 245), theme.CategoryThemes.ElementAt(9));
+            AssertCategoryTheme(string.Empty, Color.FromArgb(0, 0, 0, 0), theme.CategoryThemes.ElementAt(10));
         }
 
         private static void AssertCategoryTheme(string expectedValue, Color expectedColor, LineCategoryTheme categoryTheme)

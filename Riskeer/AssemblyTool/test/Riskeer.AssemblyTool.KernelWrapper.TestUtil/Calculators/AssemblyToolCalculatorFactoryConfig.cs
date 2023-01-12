@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -45,9 +45,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators
         private readonly IAssemblyToolCalculatorFactory previousFactory;
 
         /// <summary>
-        /// Creates a new instance of <see cref="AssemblyToolCalculatorFactoryConfigOld"/>.
-        /// Sets a <see cref="TestAssemblyToolCalculatorFactoryOld"/> to 
-        /// <see cref="AssemblyToolCalculatorFactoryOld.Instance"/>
+        /// Creates a new instance of <see cref="AssemblyToolCalculatorFactoryConfig"/>.
+        /// Sets a <see cref="TestAssemblyToolCalculatorFactory"/> to <see cref="AssemblyToolCalculatorFactory.Instance"/>
         /// </summary>
         public AssemblyToolCalculatorFactoryConfig()
         {

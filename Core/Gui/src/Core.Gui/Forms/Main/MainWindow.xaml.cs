@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -299,7 +299,10 @@ namespace Core.Gui.Forms.Main
                 }
             };
 
-            stateToggleButton.Click += (sender, e) => { HandleStateButtonClick((ToggleButton) sender); };
+            stateToggleButton.Click += (sender, e) =>
+            {
+                HandleStateButtonClick((ToggleButton) sender);
+            };
 
             MainButtonStackPanel.Children.Insert(MainButtonStackPanel.Children.Count - 1, stateToggleButton);
 
@@ -331,7 +334,10 @@ namespace Core.Gui.Forms.Main
             }
             else
             {
-                stateToggleButtonLookup.Keys.ForEachElementDo(stb => { stb.IsEnabled = true; });
+                stateToggleButtonLookup.Keys.ForEachElementDo(stb =>
+                {
+                    stb.IsEnabled = true;
+                });
 
                 ToggleButton firstStateToggleButton = stateToggleButtonLookup.First().Key;
 

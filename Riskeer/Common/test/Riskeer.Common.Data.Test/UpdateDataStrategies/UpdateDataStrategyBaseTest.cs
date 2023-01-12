@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -39,10 +39,10 @@ namespace Riskeer.Common.Data.Test.UpdateDataStrategies
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new TestUpdateDataStrategy(null, new NameComparer(), new TestUniqueItemCollection());
+            void Call() => new TestUpdateDataStrategy(null, new NameComparer(), new TestUniqueItemCollection());
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("failureMechanism", paramName);
         }
 
@@ -50,10 +50,10 @@ namespace Riskeer.Common.Data.Test.UpdateDataStrategies
         public void Constructor_EqualityComparerNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new TestUpdateDataStrategy(new TestFailureMechanism(), null, new TestUniqueItemCollection());
+            void Call() => new TestUpdateDataStrategy(new TestFailureMechanism(), null, new TestUniqueItemCollection());
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("equalityComparer", paramName);
         }
 
@@ -61,10 +61,10 @@ namespace Riskeer.Common.Data.Test.UpdateDataStrategies
         public void Constructor_TargetCollectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new TestUpdateDataStrategy(new TestFailureMechanism(), new NameComparer(), null);
+            void Call() => new TestUpdateDataStrategy(new TestFailureMechanism(), new NameComparer(), null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("targetCollection", paramName);
         }
 
@@ -72,10 +72,10 @@ namespace Riskeer.Common.Data.Test.UpdateDataStrategies
         public void Constructor_ParametersSet_DoesNotThrowException()
         {
             // Call
-            TestDelegate call = () => new TestUpdateDataStrategy(new TestFailureMechanism(), new NameComparer(), new TestUniqueItemCollection());
+            void Call() => new TestUpdateDataStrategy(new TestFailureMechanism(), new NameComparer(), new TestUniqueItemCollection());
 
             // Assert
-            Assert.DoesNotThrow(call);
+            Assert.DoesNotThrow(Call);
         }
 
         [Test]
@@ -85,10 +85,10 @@ namespace Riskeer.Common.Data.Test.UpdateDataStrategies
             TestUpdateDataStrategy strategy = CreateDefaultTestStrategy(new TestUniqueItemCollection());
 
             // Call
-            TestDelegate call = () => strategy.ConcreteUpdateData(null, string.Empty);
+            void Call() => strategy.ConcreteUpdateData(null, string.Empty);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("importedDataCollection", paramName);
         }
 
@@ -99,13 +99,14 @@ namespace Riskeer.Common.Data.Test.UpdateDataStrategies
             TestUpdateDataStrategy strategy = CreateDefaultTestStrategy(new TestUniqueItemCollection());
 
             // Call
-            TestDelegate call = () => strategy.ConcreteUpdateData(new TestItem[]
-            {
-                null
-            }, string.Empty);
+            void Call() =>
+                strategy.ConcreteUpdateData(new TestItem[]
+                {
+                    null
+                }, string.Empty);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentException>(Call).ParamName;
             Assert.AreEqual("updatedObjects", paramName);
         }
 
@@ -117,10 +118,10 @@ namespace Riskeer.Common.Data.Test.UpdateDataStrategies
             TestUpdateDataStrategy strategy = CreateDefaultTestStrategy(collection);
 
             // Call
-            TestDelegate call = () => strategy.ConcreteUpdateData(Enumerable.Empty<TestItem>(), null);
+            void Call() => strategy.ConcreteUpdateData(Enumerable.Empty<TestItem>(), null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("sourceFilePath", paramName);
         }
 
@@ -237,10 +238,10 @@ namespace Riskeer.Common.Data.Test.UpdateDataStrategies
             TestUpdateDataStrategy strategy = CreateDefaultTestStrategy(collection);
 
             // Call
-            TestDelegate call = () => strategy.ConcreteUpdateData(importedCollection, sourceFilePath);
+            void Call() => strategy.ConcreteUpdateData(importedCollection, sourceFilePath);
 
             // Assert
-            var exception = Assert.Throws<UpdateDataException>(call);
+            var exception = Assert.Throws<UpdateDataException>(Call);
             const string message = "Geïmporteerde data moet unieke elementen bevatten.";
             Assert.AreEqual(message, exception.Message);
 
@@ -522,11 +523,10 @@ namespace Riskeer.Common.Data.Test.UpdateDataStrategies
             TestUpdateDataStrategy strategy = CreateDefaultTestStrategy(collection);
 
             // Call
-            TestDelegate call = () => strategy.ConcreteUpdateData(importedItems,
-                                                                  sourceFilePath);
+            void Call() => strategy.ConcreteUpdateData(importedItems, sourceFilePath);
 
             // Assert
-            var exception = Assert.Throws<UpdateDataException>(call);
+            var exception = Assert.Throws<UpdateDataException>(Call);
             Assert.AreEqual("Geïmporteerde data moet unieke elementen bevatten.", exception.Message);
         }
 

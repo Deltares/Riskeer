@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data;
@@ -29,7 +30,6 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
@@ -41,7 +41,6 @@ using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data.TestUtil;
 using Riskeer.HeightStructures.Data;
 using Riskeer.Integration.Data;
-using Riskeer.Integration.Data.FailurePath;
 using Riskeer.Integration.Service;
 using Riskeer.MacroStabilityInwards.Data.TestUtil;
 using Riskeer.Piping.Data.TestUtil;
@@ -103,8 +102,8 @@ namespace Riskeer.Integration.TestUtil
                 hydraulicBoundaryLocation
             });
 
-            assessmentSection.WaterLevelCalculationsForSignalingNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
-            assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
+            assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
+            assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
 
             assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.First()
                              .HydraulicBoundaryLocationCalculations.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
@@ -127,6 +126,10 @@ namespace Riskeer.Integration.TestUtil
             SetFullyConfiguredFailureMechanism(assessmentSection.PipingStructure);
             SetFullyConfiguredFailureMechanism(assessmentSection.WaterPressureAsphaltCover);
 
+            var failureMechanism = new SpecificFailureMechanism();
+            SetFullyConfiguredFailureMechanism(failureMechanism);
+            assessmentSection.SpecificFailureMechanisms.Add(failureMechanism);
+
             return assessmentSection;
         }
 
@@ -135,32 +138,32 @@ namespace Riskeer.Integration.TestUtil
         /// <list type="bullet">
         /// <item>a desired <see cref="AssessmentSectionComposition"/>,</item>
         /// <item>all possible configurations for the parent and nested calculations of the failure mechanisms,</item>
-        /// <item>and configured failure paths</item>
+        /// <item>and configured specific failure mechanisms</item>
         /// </list>
         /// </summary>
         /// <param name="composition">The desired <see cref="AssessmentSectionComposition"/> to initialize the <see cref="AssessmentSection"/> with.</param>
         /// <returns>The configured <see cref="AssessmentSection"/>.</returns>
-        public static AssessmentSection GetAssessmentSectionWithAllCalculationConfigurationsAndFailurePaths(
+        public static AssessmentSection GetAssessmentSectionWithAllCalculationConfigurationsAndSpecificFailureMechanisms(
             AssessmentSectionComposition composition = AssessmentSectionComposition.Dike)
         {
-            var failurePaths = new List<IFailurePath>
+            var failureMechanisms = new List<SpecificFailureMechanism>
             {
-                new SpecificFailurePath
+                new SpecificFailureMechanism
                 {
                     Name = "Path 1"
                 },
-                new SpecificFailurePath
+                new SpecificFailureMechanism
                 {
                     Name = "Path 2"
                 }
             };
-            for (int i = 0; i < failurePaths.Count; i++)
+            for (var i = 0; i < failureMechanisms.Count; i++)
             {
-                AddFailureMechanismSections(failurePaths[i], i);
+                AddFailureMechanismSections(failureMechanisms[i], i);
             }
-            
+
             AssessmentSection assessmentSection = GetAssessmentSectionWithAllCalculationConfigurations(composition);
-            assessmentSection.SpecificFailurePaths.AddRange(failurePaths);
+            assessmentSection.SpecificFailureMechanisms.AddRange(failureMechanisms);
             return assessmentSection;
         }
 
@@ -302,6 +305,15 @@ namespace Riskeer.Integration.TestUtil
             for (var i = 0; i < failureMechanisms.Count(); i++)
             {
                 AddFailureMechanismSections(failureMechanisms.ElementAt(i), i);
+            }
+
+            assessmentSection.SpecificFailureMechanisms.Add(new SpecificFailureMechanism());
+            assessmentSection.SpecificFailureMechanisms.Add(new SpecificFailureMechanism());
+
+            ObservableList<SpecificFailureMechanism> specificFailureMechanisms = assessmentSection.SpecificFailureMechanisms;
+            for (var i = 0; i < specificFailureMechanisms.Count; i++)
+            {
+                AddFailureMechanismSections(specificFailureMechanisms.ElementAt(i), i);
             }
 
             return assessmentSection;
@@ -687,12 +699,12 @@ namespace Riskeer.Integration.TestUtil
                 }
             };
 
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithForeshoreProfile);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocationAndForeshoreProfile);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithForeshoreProfile);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocationAndForeshoreProfile);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
+            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
             {
                 Children =
                 {
@@ -811,12 +823,12 @@ namespace Riskeer.Integration.TestUtil
                 }
             };
 
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithForeshoreProfile);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocationAndForeshoreProfile);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithForeshoreProfile);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocationAndForeshoreProfile);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
+            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
             {
                 Children =
                 {
@@ -935,12 +947,12 @@ namespace Riskeer.Integration.TestUtil
                 }
             };
 
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithHydraulicBoundaryLocationAndForeshoreProfile);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocationAndForeshoreProfile);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithHydraulicBoundaryLocationAndForeshoreProfile);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocationAndForeshoreProfile);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
+            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
             {
                 Children =
                 {
@@ -1091,7 +1103,7 @@ namespace Riskeer.Integration.TestUtil
             }, pathToSections);
         }
 
-        private static void AddFailureMechanismSections(IFailurePath failureMechanism, int numberOfSections)
+        private static void AddFailureMechanismSections(IFailureMechanism failureMechanism, int numberOfSections)
         {
             var startPoint = new Point2D(-1, -1);
             var endPoint = new Point2D(15, 15);

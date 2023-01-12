@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -31,21 +31,21 @@ namespace Riskeer.AssemblyTool.Data
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismSectionAssemblyInput"/>.
         /// </summary>
-        /// <param name="lowerLimitNorm">The lower limit norm.</param>
-        /// <param name="signalingNorm">The signaling norm.</param>
+        /// <param name="maximumAllowableFloodingProbability">The maximum allowable flooding probability.</param>
+        /// <param name="signalFloodingProbability">The signal flooding probability.</param>
         /// <param name="isRelevant">The indicator whether the section is relevant.</param>
         /// <param name="hasProbabilitySpecified">Indicator whether the section has a probability specified.</param>
         /// <param name="initialSectionProbability">The initial probability for the section.</param>
         /// <param name="furtherAnalysisType">The <see cref="FailureMechanismSectionResultFurtherAnalysisType"/>.</param>
         /// <param name="refinedSectionProbability">The refined probability for the section.</param>
-        public FailureMechanismSectionAssemblyInput(double lowerLimitNorm, double signalingNorm,
+        public FailureMechanismSectionAssemblyInput(double maximumAllowableFloodingProbability, double signalFloodingProbability,
                                                     bool isRelevant, bool hasProbabilitySpecified,
                                                     double initialSectionProbability,
                                                     FailureMechanismSectionResultFurtherAnalysisType furtherAnalysisType,
                                                     double refinedSectionProbability)
         {
-            LowerLimitNorm = lowerLimitNorm;
-            SignalingNorm = signalingNorm;
+            MaximumAllowableFloodingProbability = maximumAllowableFloodingProbability;
+            SignalFloodingProbability = signalFloodingProbability;
 
             IsRelevant = isRelevant;
             HasProbabilitySpecified = hasProbabilitySpecified;
@@ -55,14 +55,14 @@ namespace Riskeer.AssemblyTool.Data
         }
 
         /// <summary>
-        /// Gets the lower limit norm.
+        /// Gets the maximum allowable flooding probability.
         /// </summary>
-        public double LowerLimitNorm { get; }
+        public double MaximumAllowableFloodingProbability { get; }
 
         /// <summary>
-        /// Gets the signaling norm.
+        /// Gets the signal flooding probability.
         /// </summary>
-        public double SignalingNorm { get; }
+        public double SignalFloodingProbability { get; }
 
         /// <summary>
         /// Gets the indicator whether the section is relevant.

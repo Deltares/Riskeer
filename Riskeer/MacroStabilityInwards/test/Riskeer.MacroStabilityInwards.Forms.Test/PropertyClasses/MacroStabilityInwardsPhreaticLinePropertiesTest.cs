@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -41,10 +41,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_DataNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsPhreaticLineProperties(null);
+            void Call() => new MacroStabilityInwardsPhreaticLineProperties(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("data", exception.ParamName);
         }
 
@@ -52,7 +52,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_ValidPhreaticLine_ExpectedValues()
         {
             // Setup
-            var phreaticLine = new TestMacroStabilityInwardsPhreaticLine();
+            MacroStabilityInwardsPhreaticLine phreaticLine = MacroStabilityInwardsTestDataFactory.CreateMacroStabilityInwardsPhreaticLine();
 
             // Call
             var properties = new MacroStabilityInwardsPhreaticLineProperties(phreaticLine);
@@ -93,7 +93,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             var properties = new MacroStabilityInwardsPhreaticLineProperties(phreaticLine);
 
             // Call
-            string name = properties.ToString();
+            var name = properties.ToString();
 
             // Assert
             Assert.AreEqual(name, expectedName);
@@ -103,7 +103,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_ValidData_PropertiesHaveExpectedAttributeValues()
         {
             // Setup
-            var phreaticLine = new TestMacroStabilityInwardsPhreaticLine();
+            MacroStabilityInwardsPhreaticLine phreaticLine = MacroStabilityInwardsTestDataFactory.CreateMacroStabilityInwardsPhreaticLine();
 
             // Call
             var properties = new MacroStabilityInwardsPhreaticLineProperties(phreaticLine);

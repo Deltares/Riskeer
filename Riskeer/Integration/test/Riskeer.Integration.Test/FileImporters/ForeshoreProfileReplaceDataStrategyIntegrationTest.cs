@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -45,7 +45,7 @@ namespace Riskeer.Integration.Test.FileImporters
         [Test]
         [TestCaseSource(nameof(GetSupportedFailureMechanisms))]
         public void UpdateForeshoreProfilesWithImportedData_SupportedFailureMechanism_CalculationUpdatedAndReturnsAffectedData(
-            IFailureMechanism failureMechanism,
+            ICalculatableFailureMechanism failureMechanism,
             ForeshoreProfileCollection foreshoreProfiles)
         {
             // Setup

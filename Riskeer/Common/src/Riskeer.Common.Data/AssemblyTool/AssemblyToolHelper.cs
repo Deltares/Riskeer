@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -20,11 +20,9 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 
 namespace Riskeer.Common.Data.AssemblyTool
 {
@@ -44,7 +42,7 @@ namespace Riskeer.Common.Data.AssemblyTool
         /// <remarks>When the failure mechanism section cannot be assembled,
         /// a <see cref="DefaultFailureMechanismSectionAssemblyResult"/> is created.</remarks>
         public static FailureMechanismSectionAssemblyResult AssembleFailureMechanismSection<TSectionResult>(
-            TSectionResult sectionResult, Func<TSectionResult, FailureMechanismSectionAssemblyResult> performSectionAssemblyFunc)
+            TSectionResult sectionResult, Func<TSectionResult, FailureMechanismSectionAssemblyResultWrapper> performSectionAssemblyFunc)
             where TSectionResult : FailureMechanismSectionResult
         {
             if (sectionResult == null)
@@ -59,56 +57,12 @@ namespace Riskeer.Common.Data.AssemblyTool
 
             try
             {
-                return performSectionAssemblyFunc(sectionResult);
+                return performSectionAssemblyFunc(sectionResult).AssemblyResult;
             }
             catch (AssemblyException)
             {
                 return new DefaultFailureMechanismSectionAssemblyResult();
             }
-        }
-
-        /// <summary>
-        /// Assembles the failure path.
-        /// </summary>
-        /// <param name="failureMechanism">The failure mechanism to assemble.</param>
-        /// <param name="performSectionAssemblyFunc">The <see cref="Func{T1,TResult}"/> to perform the failure mechanism section assembly.</param>
-        /// <param name="failureMechanismN">The n value of the <paramref name="failureMechanism"/>.</param>
-        /// <typeparam name="TSectionResult">The type of section result.</typeparam>
-        /// <returns>The failure path probability.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
-        /// or <paramref name="performSectionAssemblyFunc"/> is <c>null</c>.</exception>
-        /// <exception cref="AssemblyException">Thrown when the failure mechanism could not be successfully assembled.</exception>
-        public static double AssemblyFailureMechanism<TSectionResult>(
-            IHasSectionResults<TSectionResult> failureMechanism,
-            Func<TSectionResult, FailureMechanismSectionAssemblyResult> performSectionAssemblyFunc,
-            double failureMechanismN)
-            where TSectionResult : FailureMechanismSectionResult
-        {
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
-            if (performSectionAssemblyFunc == null)
-            {
-                throw new ArgumentNullException(nameof(performSectionAssemblyFunc));
-            }
-
-            if (!failureMechanism.InAssembly)
-            {
-                return double.NaN;
-            }
-
-            FailurePathAssemblyResult assemblyResult = failureMechanism.AssemblyResult;
-            if (assemblyResult.ProbabilityResultType == FailurePathAssemblyProbabilityResultType.Manual)
-            {
-                return assemblyResult.ManualFailurePathAssemblyProbability;
-            }
-
-            return FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(
-                failureMechanismN, failureMechanism.SectionResults.Select(sr => AssembleFailureMechanismSection(
-                                                                              sr, performSectionAssemblyFunc))
-                                                   .ToArray());
         }
     }
 }

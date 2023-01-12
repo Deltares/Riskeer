@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -39,10 +39,10 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
             double top = new Random(22).NextDouble();
 
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsSoilLayer1D(top, null);
+            void Call() => new MacroStabilityInwardsSoilLayer1D(top, null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("data", paramName);
         }
 
@@ -78,17 +78,11 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
         }
 
         [TestFixture]
-        private class MacroStabilityInwardsSoilLayer1DEqualsTest
-            : EqualsTestFixture<MacroStabilityInwardsSoilLayer1D, DerivedMacroStabilityInwardsSoilLayer1D>
+        private class MacroStabilityInwardsSoilLayer1DEqualsTest : EqualsTestFixture<MacroStabilityInwardsSoilLayer1D>
         {
             protected override MacroStabilityInwardsSoilLayer1D CreateObject()
             {
                 return CreateRandomLayer(21);
-            }
-
-            protected override DerivedMacroStabilityInwardsSoilLayer1D CreateDerivedObject()
-            {
-                return new DerivedMacroStabilityInwardsSoilLayer1D(CreateRandomLayer(21));
             }
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
@@ -115,11 +109,6 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
                     }
                 };
             }
-        }
-
-        private class DerivedMacroStabilityInwardsSoilLayer1D : MacroStabilityInwardsSoilLayer1D
-        {
-            public DerivedMacroStabilityInwardsSoilLayer1D(MacroStabilityInwardsSoilLayer1D layer) : base(layer.Top, layer.Data) {}
         }
     }
 }

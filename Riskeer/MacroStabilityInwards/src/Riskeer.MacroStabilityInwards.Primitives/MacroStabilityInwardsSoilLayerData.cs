@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -29,7 +29,7 @@ namespace Riskeer.MacroStabilityInwards.Primitives
     /// <summary>
     /// Data of a soil layer.
     /// </summary>
-    public class MacroStabilityInwardsSoilLayerData
+    public sealed class MacroStabilityInwardsSoilLayerData
     {
         private readonly VariationCoefficientLogNormalDistribution abovePhreaticLevel;
         private readonly VariationCoefficientLogNormalDistribution belowPhreaticLevel;

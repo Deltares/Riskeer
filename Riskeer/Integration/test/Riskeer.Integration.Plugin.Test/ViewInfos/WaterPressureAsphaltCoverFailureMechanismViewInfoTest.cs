@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -61,7 +61,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(WaterPressureAsphaltCoverFailurePathContext), info.DataType);
+            Assert.AreEqual(typeof(WaterPressureAsphaltCoverFailureMechanismContext), info.DataType);
             Assert.AreEqual(typeof(WaterPressureAsphaltCoverFailureMechanism), info.ViewDataType);
         }
 
@@ -73,7 +73,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
-            var failureMechanismContext = new WaterPressureAsphaltCoverFailurePathContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new WaterPressureAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             string viewName = info.GetViewName(null, failureMechanismContext);
@@ -137,7 +137,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                 InAssembly = inAssembly
             };
 
-            var context = new WaterPressureAsphaltCoverFailurePathContext(failureMechanism, assessmentSection);
+            var context = new WaterPressureAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             bool result = info.AdditionalDataCheck(context);
@@ -154,7 +154,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
 
-            var context = new WaterPressureAsphaltCoverFailurePathContext(failureMechanism, assessmentSection);
+            var context = new WaterPressureAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             IView view = info.CreateInstance(context);

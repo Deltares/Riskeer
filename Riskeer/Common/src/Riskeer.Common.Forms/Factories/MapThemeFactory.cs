@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System.Drawing;
-using Core.Common.Util;
+using Core.Common.Util.Enums;
 using Core.Components.Gis.Style;
 using Core.Components.Gis.Theme;
-using Riskeer.AssemblyTool.Forms;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Forms.Properties;
 
 namespace Riskeer.Common.Forms.Factories
@@ -37,27 +37,28 @@ namespace Riskeer.Common.Forms.Factories
         private const LineDashStyle lineDashStyle = LineDashStyle.Solid;
 
         /// <summary>
-        /// Creates a <see cref="MapTheme{T}"/> based on the values of <see cref="DisplayFailureMechanismSectionAssemblyGroup"/>.
+        /// Creates a <see cref="MapTheme{T}"/> based on the values of <see cref="FailureMechanismSectionAssemblyGroup"/>.
         /// </summary>
         /// <returns>The created <see cref="MapTheme{T}"/>.</returns>
-        public static MapTheme<LineCategoryTheme> CreateDisplayFailureMechanismAssemblyCategoryGroupMapTheme()
+        public static MapTheme<LineCategoryTheme> CreateFailureMechanismSectionAssemblyGroupMapTheme()
         {
             return new MapTheme<LineCategoryTheme>(Resources.AssemblyGroup_DisplayName, new[]
             {
-                CreateCategoryTheme(Color.FromArgb(255, 34, 139, 34), DisplayFailureMechanismSectionAssemblyGroup.III),
-                CreateCategoryTheme(Color.FromArgb(255, 146, 208, 80), DisplayFailureMechanismSectionAssemblyGroup.II),
-                CreateCategoryTheme(Color.FromArgb(255, 198, 224, 180), DisplayFailureMechanismSectionAssemblyGroup.I),
-                CreateCategoryTheme(Color.FromArgb(255, 255, 255, 0), DisplayFailureMechanismSectionAssemblyGroup.Zero),
-                CreateCategoryTheme(Color.FromArgb(255, 255, 165, 0), DisplayFailureMechanismSectionAssemblyGroup.IMin),
-                CreateCategoryTheme(Color.FromArgb(255, 255, 0, 0), DisplayFailureMechanismSectionAssemblyGroup.IIMin),
-                CreateCategoryTheme(Color.FromArgb(255, 178, 34, 34), DisplayFailureMechanismSectionAssemblyGroup.IIIMin),
-                CreateCategoryTheme(Color.FromArgb(255, 255, 90, 172), DisplayFailureMechanismSectionAssemblyGroup.Dominant),
-                CreateCategoryTheme(Color.FromArgb(255, 192, 192, 192), DisplayFailureMechanismSectionAssemblyGroup.NotDominant),
-                CreateCategoryTheme(Color.FromArgb(0, 0, 0, 0), DisplayFailureMechanismSectionAssemblyGroup.GR)
+                CreateAssemblyGroupTheme(Color.FromArgb(255, 34, 139, 34), FailureMechanismSectionAssemblyGroup.III),
+                CreateAssemblyGroupTheme(Color.FromArgb(255, 146, 208, 80), FailureMechanismSectionAssemblyGroup.II),
+                CreateAssemblyGroupTheme(Color.FromArgb(255, 198, 224, 180), FailureMechanismSectionAssemblyGroup.I),
+                CreateAssemblyGroupTheme(Color.FromArgb(255, 255, 255, 0), FailureMechanismSectionAssemblyGroup.Zero),
+                CreateAssemblyGroupTheme(Color.FromArgb(255, 255, 165, 0), FailureMechanismSectionAssemblyGroup.IMin),
+                CreateAssemblyGroupTheme(Color.FromArgb(255, 255, 0, 0), FailureMechanismSectionAssemblyGroup.IIMin),
+                CreateAssemblyGroupTheme(Color.FromArgb(255, 178, 34, 34), FailureMechanismSectionAssemblyGroup.IIIMin),
+                CreateAssemblyGroupTheme(Color.FromArgb(255, 255, 90, 172), FailureMechanismSectionAssemblyGroup.Dominant),
+                CreateAssemblyGroupTheme(Color.FromArgb(255, 192, 192, 192), FailureMechanismSectionAssemblyGroup.NotDominant),
+                CreateAssemblyGroupTheme(Color.FromArgb(255, 38, 245, 245), FailureMechanismSectionAssemblyGroup.NotRelevant),
+                CreateAssemblyGroupTheme(Color.FromArgb(0, 0, 0, 0), FailureMechanismSectionAssemblyGroup.NoResult)
             });
         }
 
-        private static LineCategoryTheme CreateCategoryTheme(Color color, DisplayFailureMechanismSectionAssemblyGroup categoryGroup)
+        private static LineCategoryTheme CreateAssemblyGroupTheme(Color color, FailureMechanismSectionAssemblyGroup assemblyGroup)
         {
             var lineStyle = new LineStyle
             {
@@ -66,13 +67,13 @@ namespace Riskeer.Common.Forms.Factories
                 Width = lineWidth
             };
 
-            return new LineCategoryTheme(CreateCriterion(categoryGroup), lineStyle);
+            return new LineCategoryTheme(CreateCriterion(assemblyGroup), lineStyle);
         }
 
-        private static ValueCriterion CreateCriterion(DisplayFailureMechanismSectionAssemblyGroup category)
+        private static ValueCriterion CreateCriterion(FailureMechanismSectionAssemblyGroup assemblyGroup)
         {
             return new ValueCriterion(ValueCriterionOperator.EqualValue,
-                                      new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyGroup>(category).DisplayName);
+                                      EnumDisplayNameHelper.GetDisplayName(assemblyGroup));
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -34,13 +34,13 @@ namespace Riskeer.Common.Data.FailureMechanism
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.InitialFailureMechanismResultType_Adopt_DisplayName))]
         Adopt = 1,
-        
+
         /// <summary>
         /// Manually fill in the result.
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.InitialFailureMechanismResultType_Manual_DisplayName))]
         Manual = 2,
-        
+
         /// <summary>
         /// There is no failure probability for this result.
         /// </summary>

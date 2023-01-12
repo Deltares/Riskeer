@@ -76,10 +76,10 @@ namespace AutomatedSystemTests.Modules.Calculation
                 listIndeces.Reverse();
                 int indexFM = Int32.Parse(listIndeces[Int32.Parse(indexOrderMessage)-1]);
                 var listFMS = new List<string>{
-                    "Dijken en dammen - Piping",
-                    "Dijken en dammen - Grasbekleding erosie kruin en binnentalud",
-                    "Dijken en dammen - Stabiliteit steenzetting",
-                    "Kunstwerken - Betrouwbaarheid sluiting kunstwerk"
+                    "Piping",
+                    "Grasbekleding erosie kruin en binnentalud",
+                    "Stabiliteit steenzetting",
+                    "Betrouwbaarheid sluiting kunstwerk"
                 };
                 fmSubstring = listFMS[indexFM-1];
             } else {

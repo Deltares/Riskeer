@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using Core.Common.Base;
+using Riskeer.Common.Data;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Piping.Data.SoilProfile;
@@ -32,10 +33,8 @@ namespace Riskeer.Piping.Data
     /// <summary>
     /// Model for performing piping calculations.
     /// </summary>
-    public class PipingFailureMechanism : FailureMechanismBase, ICalculatableFailureMechanism, IHasSectionResults<PipingFailureMechanismSectionResultOld, AdoptableWithProfileProbabilityFailureMechanismSectionResult>
+    public class PipingFailureMechanism : FailureMechanismBase<AdoptableWithProfileProbabilityFailureMechanismSectionResult>, ICalculatableFailureMechanism
     {
-        private readonly ObservableList<PipingFailureMechanismSectionResultOld> sectionResultsOld;
-        private readonly ObservableList<AdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults;
         private readonly ObservableList<PipingScenarioConfigurationPerFailureMechanismSection> scenarioConfigurationsPerFailureMechanismSection;
 
         /// <summary>
@@ -53,11 +52,9 @@ namespace Riskeer.Piping.Data
                 Name = RiskeerCommonDataResources.FailureMechanism_Calculations_DisplayName
             };
 
-            sectionResultsOld = new ObservableList<PipingFailureMechanismSectionResultOld>();
-            sectionResults = new ObservableList<AdoptableWithProfileProbabilityFailureMechanismSectionResult>();
-
             ScenarioConfigurationType = PipingScenarioConfigurationType.SemiProbabilistic;
             scenarioConfigurationsPerFailureMechanismSection = new ObservableList<PipingScenarioConfigurationPerFailureMechanismSection>();
+            CalculationsInputComments = new Comment();
         }
 
         /// <summary>
@@ -92,26 +89,21 @@ namespace Riskeer.Piping.Data
         public IObservableEnumerable<PipingScenarioConfigurationPerFailureMechanismSection> ScenarioConfigurationsPerFailureMechanismSection =>
             scenarioConfigurationsPerFailureMechanismSection;
 
+        public IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations();
+
         public CalculationGroup CalculationsGroup { get; }
 
-        public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations();
-
-        public IObservableEnumerable<PipingFailureMechanismSectionResultOld> SectionResultsOld => sectionResultsOld;
-
-        public IObservableEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult> SectionResults => sectionResults;
+        public Comment CalculationsInputComments { get; }
 
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {
             base.AddSectionDependentData(section);
-            sectionResultsOld.Add(new PipingFailureMechanismSectionResultOld(section));
-            sectionResults.Add(new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section));
             scenarioConfigurationsPerFailureMechanismSection.Add(new PipingScenarioConfigurationPerFailureMechanismSection(section));
         }
 
         protected override void ClearSectionDependentData()
         {
-            sectionResultsOld.Clear();
-            sectionResults.Clear();
+            base.ClearSectionDependentData();
             scenarioConfigurationsPerFailureMechanismSection.Clear();
         }
     }

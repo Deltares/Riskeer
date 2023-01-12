@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -35,7 +35,7 @@ namespace Riskeer.Common.Forms.MapLayers
     /// <typeparam name="TSectionResult">The type of section result.</typeparam>
     /// <typeparam name="TCalculationInput">The type of calculation input.</typeparam>
     public class CalculatableFailureMechanismSectionResultsMapLayer<TFailureMechanism, TSectionResult, TCalculationInput> : NonCalculatableFailureMechanismSectionResultsMapLayer<TSectionResult>
-        where TFailureMechanism : IHasSectionResults<TSectionResult>, ICalculatableFailureMechanism
+        where TFailureMechanism : IFailureMechanism<TSectionResult>, ICalculatableFailureMechanism
         where TSectionResult : FailureMechanismSectionResult
         where TCalculationInput : class, ICalculationInput
     {
@@ -46,9 +46,9 @@ namespace Riskeer.Common.Forms.MapLayers
         /// <summary>
         /// Creates a new instance of <see cref="CalculatableFailureMechanismSectionResultsMapLayer{TFailureMechanism,TSectionResult,TCalculationInput}"/>.
         /// </summary>
-        /// <param name="failureMechanism">The failure path to get the data from.</param>
+        /// <param name="failureMechanism">The failure mechanism to get the data from.</param>
         /// <param name="performAssemblyFunc">The <see cref="Func{T,T2}"/> used to assemble the result of a section result.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public CalculatableFailureMechanismSectionResultsMapLayer(
             TFailureMechanism failureMechanism, Func<TSectionResult, FailureMechanismSectionAssemblyResult> performAssemblyFunc)
             : base(failureMechanism, performAssemblyFunc)
@@ -57,13 +57,13 @@ namespace Riskeer.Common.Forms.MapLayers
             {
                 Observable = failureMechanism.CalculationsGroup
             };
-            
+
             calculationInputsObserver = new RecursiveObserver<CalculationGroup, TCalculationInput>(
                 UpdateFeatures, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<ICalculation<TCalculationInput>>().Select(pc => pc.InputParameters)))
             {
                 Observable = failureMechanism.CalculationsGroup
             };
-            
+
             calculationScenariosObserver = new RecursiveObserver<CalculationGroup, ICalculationScenario>(UpdateFeatures, pcg => pcg.Children)
             {
                 Observable = failureMechanism.CalculationsGroup
@@ -78,7 +78,7 @@ namespace Riskeer.Common.Forms.MapLayers
                 calculationGroupsObserver.Dispose();
                 calculationScenariosObserver.Dispose();
             }
-            
+
             base.Dispose(disposing);
         }
     }

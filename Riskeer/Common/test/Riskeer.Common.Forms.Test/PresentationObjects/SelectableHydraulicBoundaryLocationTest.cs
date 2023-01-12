@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -55,10 +55,10 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             var referencePoint = new Point2D(0, 0);
 
             // Call
-            TestDelegate call = () => new SelectableHydraulicBoundaryLocation(null, referencePoint);
+            void Call() => new SelectableHydraulicBoundaryLocation(null, referencePoint);
 
             // Assert 
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("hydraulicBoundaryLocation", paramName);
         }
 
@@ -71,14 +71,14 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             var inputItem = new SelectableHydraulicBoundaryLocation(location, referencePoint);
 
             // Call
-            string stringRepresentation = inputItem.ToString();
+            var stringRepresentation = inputItem.ToString();
 
             // Assert
             Assert.AreEqual(expectedString, stringRepresentation);
         }
 
         [TestFixture]
-        private class SelectableHydraulicBoundaryLocationEqualsTest : EqualsTestFixture<SelectableHydraulicBoundaryLocation, DerivedSelectableHydraulicBoundaryLocation>
+        private class SelectableHydraulicBoundaryLocationEqualsTest : EqualsTestFixture<SelectableHydraulicBoundaryLocation>
         {
             private readonly HydraulicBoundaryLocation location = new HydraulicBoundaryLocation(1, "Name", 0, 1);
 
@@ -103,12 +103,6 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             protected override SelectableHydraulicBoundaryLocation CreateObject()
             {
                 return new SelectableHydraulicBoundaryLocation(location, CreateReferencePoint());
-            }
-
-            protected override DerivedSelectableHydraulicBoundaryLocation CreateDerivedObject()
-            {
-                return new DerivedSelectableHydraulicBoundaryLocation(location,
-                                                                      CreateReferencePoint());
             }
 
             private static Point2D CreateReferencePoint()
@@ -170,12 +164,6 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             return distance / 1000 < 1
                        ? $"{location.Name} ({distance:f0} m)"
                        : $"{location.Name} ({distance / 1000:f1} km)";
-        }
-
-        private class DerivedSelectableHydraulicBoundaryLocation : SelectableHydraulicBoundaryLocation
-        {
-            public DerivedSelectableHydraulicBoundaryLocation(HydraulicBoundaryLocation hydraulicBoundaryLocation, Point2D referencePoint)
-                : base(hydraulicBoundaryLocation, referencePoint) {}
         }
     }
 }

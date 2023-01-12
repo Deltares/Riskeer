@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -23,7 +23,6 @@ using System.Collections.Generic;
 using Core.Common.Base;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.Hydraulics;
 
 namespace Riskeer.Common.Data.AssessmentSection
@@ -75,14 +74,14 @@ namespace Riskeer.Common.Data.AssessmentSection
         BackgroundData BackgroundData { get; }
 
         /// <summary>
-        /// Gets the water level calculations corresponding to the signaling norm.
+        /// Gets the water level calculations corresponding to the signal flooding probability.
         /// </summary>
-        IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForSignalingNorm { get; }
+        IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForSignalFloodingProbability { get; }
 
         /// <summary>
-        /// Gets the water level calculations corresponding to the lower limit norm.
+        /// Gets the water level calculations corresponding to the maximum allowable flooding probability.
         /// </summary>
-        IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForLowerLimitNorm { get; }
+        IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForMaximumAllowableFloodingProbability { get; }
 
         /// <summary>
         /// Gets the water level calculations corresponding to the user defined target probabilities.
@@ -95,20 +94,14 @@ namespace Riskeer.Common.Data.AssessmentSection
         ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> WaveHeightCalculationsForUserDefinedTargetProbabilities { get; }
 
         /// <summary>
-        /// Gets the collection of specific failure paths within the assessment section.
+        /// Gets the collection of specific failure mechanisms within the assessment section.
         /// </summary>
-        ObservableList<IFailurePath> SpecificFailurePaths { get; }
+        ObservableList<SpecificFailureMechanism> SpecificFailureMechanisms { get; }
 
         /// <summary>
         /// Gets the failure mechanisms corresponding to the assessment section.
         /// </summary>
         IEnumerable<IFailureMechanism> GetFailureMechanisms();
-
-        /// <summary>
-        /// Gets the contributing failure mechanisms of the assessment section.
-        /// </summary>
-        /// <returns>A collection of failure mechanisms.</returns>
-        IEnumerable<IFailureMechanism> GetContributingFailureMechanisms();
 
         /// <summary>
         /// Changes <see cref="Composition"/> and reconfigures <see cref="FailureMechanismContribution"/>

@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -46,11 +46,11 @@ namespace Riskeer.Common.Data.AssemblyTool
         /// to assemble with.</param>
         /// <param name="useLengthEffect">Indicator whether to use the length effect or not.</param>
         /// <param name="sectionN">The N value for the section.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssemblyResult"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any <paramref name="sectionResult"/>,
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyResultWrapper"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/>,
         /// <paramref name="assessmentSection"/> or <paramref name="calculateProbabilityStrategy"/> is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the section could not be successfully assembled.</exception>
-        public static FailureMechanismSectionAssemblyResult AssembleSection(
+        public static FailureMechanismSectionAssemblyResultWrapper AssembleSection(
             AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult, IAssessmentSection assessmentSection,
             IFailureMechanismSectionResultCalculateProbabilityStrategy calculateProbabilityStrategy,
             bool useLengthEffect, double sectionN)
@@ -70,9 +70,9 @@ namespace Riskeer.Common.Data.AssemblyTool
                 throw new ArgumentNullException(nameof(calculateProbabilityStrategy));
             }
 
-            bool adopt = sectionResult.InitialFailureMechanismResultType == AdoptableInitialFailureMechanismResultType.Adopt;
+            bool isInitialFailureMechanismResultTypeAdopt = sectionResult.InitialFailureMechanismResultType == AdoptableInitialFailureMechanismResultType.Adopt;
             double initialFailureMechanismResultSectionProbability =
-                adopt
+                isInitialFailureMechanismResultTypeAdopt
                     ? calculateProbabilityStrategy.CalculateSectionProbability()
                     : sectionResult.ManualInitialFailureMechanismResultSectionProbability;
 
@@ -81,7 +81,7 @@ namespace Riskeer.Common.Data.AssemblyTool
             if (useLengthEffect)
             {
                 double initialFailureMechanismResultProfileProbability =
-                    adopt
+                    isInitialFailureMechanismResultTypeAdopt
                         ? calculateProbabilityStrategy.CalculateProfileProbability()
                         : sectionResult.ManualInitialFailureMechanismResultProfileProbability;
 
@@ -108,10 +108,10 @@ namespace Riskeer.Common.Data.AssemblyTool
         /// <param name="sectionResult">The section result to assemble for.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to assemble with.</param>
         /// <param name="calculateProbabilityFunc">The <see cref="Func{TResult}"/> to calculate the probability with.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssemblyResult"/>.</returns>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyResultWrapper"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the section could not be successfully assembled.</exception>
-        public static FailureMechanismSectionAssemblyResult AssembleSection(
+        public static FailureMechanismSectionAssemblyResultWrapper AssembleSection(
             AdoptableFailureMechanismSectionResult sectionResult, IAssessmentSection assessmentSection, Func<double> calculateProbabilityFunc)
         {
             if (sectionResult == null)
@@ -149,11 +149,11 @@ namespace Riskeer.Common.Data.AssemblyTool
         /// <param name="sectionResult">The section result to assemble for.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to assemble with.</param>
         /// <param name="useLengthEffect">Indicator whether to use the length effect or not.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssemblyResult"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any <paramref name="sectionResult"/> or <paramref name="assessmentSection"/>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyResultWrapper"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> or <paramref name="assessmentSection"/>
         /// is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the section could not be successfully assembled.</exception>
-        public static FailureMechanismSectionAssemblyResult AssembleSection(
+        public static FailureMechanismSectionAssemblyResultWrapper AssembleSection(
             NonAdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult, IAssessmentSection assessmentSection,
             bool useLengthEffect)
         {
@@ -190,10 +190,10 @@ namespace Riskeer.Common.Data.AssemblyTool
         /// </summary>
         /// <param name="sectionResult">The section result to assemble for.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to assemble with.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssemblyResult"/>.</returns>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyResultWrapper"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the section could not be successfully assembled.</exception>
-        public static FailureMechanismSectionAssemblyResult AssembleSection(
+        public static FailureMechanismSectionAssemblyResultWrapper AssembleSection(
             NonAdoptableFailureMechanismSectionResult sectionResult, IAssessmentSection assessmentSection)
         {
             if (sectionResult == null)
@@ -222,7 +222,7 @@ namespace Riskeer.Common.Data.AssemblyTool
         {
             FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
             return new FailureMechanismSectionAssemblyInput(
-                failureMechanismContribution.LowerLimitNorm, failureMechanismContribution.SignalingNorm,
+                failureMechanismContribution.MaximumAllowableFloodingProbability, failureMechanismContribution.SignalFloodingProbability,
                 isRelevant, hasProbabilitySpecified, initialSectionProbability, furtherAnalysisType, refinedSectionProbability);
         }
 
@@ -236,7 +236,7 @@ namespace Riskeer.Common.Data.AssemblyTool
         {
             if (probabilityRefinementType == ProbabilityRefinementType.Profile)
             {
-                refinedSectionProbability = refinedProfileProbability * sectionN;
+                refinedSectionProbability = Math.Min(1.0, refinedProfileProbability * sectionN);
             }
 
             if (probabilityRefinementType == ProbabilityRefinementType.Section)
@@ -260,7 +260,7 @@ namespace Riskeer.Common.Data.AssemblyTool
         {
             FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
             return new FailureMechanismSectionWithProfileProbabilityAssemblyInput(
-                failureMechanismContribution.LowerLimitNorm, failureMechanismContribution.SignalingNorm,
+                failureMechanismContribution.MaximumAllowableFloodingProbability, failureMechanismContribution.SignalFloodingProbability,
                 isRelevant, hasProbabilitySpecified, initialProfileProbability, initialSectionProbability,
                 furtherAnalysisType, refinedProfileProbability, refinedSectionProbability);
         }
@@ -269,9 +269,9 @@ namespace Riskeer.Common.Data.AssemblyTool
         /// Performs the assembly based on the <see cref="FailureMechanismSectionAssemblyInput"/>.
         /// </summary>
         /// <param name="input">The input to use in the assembly.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssemblyResult"/>.</returns>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyResultWrapper"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when the section could not be successfully assembled.</exception>
-        private static FailureMechanismSectionAssemblyResult PerformAssembly(FailureMechanismSectionAssemblyInput input)
+        private static FailureMechanismSectionAssemblyResultWrapper PerformAssembly(FailureMechanismSectionAssemblyInput input)
         {
             IFailureMechanismSectionAssemblyCalculator calculator = AssemblyToolCalculatorFactory.Instance.CreateFailureMechanismSectionAssemblyCalculator(
                 AssemblyToolKernelFactory.Instance);

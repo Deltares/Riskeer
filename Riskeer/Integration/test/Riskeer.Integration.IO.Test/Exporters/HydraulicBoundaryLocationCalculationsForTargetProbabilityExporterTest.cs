@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -26,6 +26,7 @@ using System.Linq;
 using System.Security.AccessControl;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
+using Core.Common.Util;
 using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.IO.TestUtil;
@@ -67,8 +68,8 @@ namespace Riskeer.Integration.IO.Test.Exporters
 
             // Call
             void Call() => new HydraulicBoundaryLocationCalculationsForTargetProbabilityExporter(
-                    Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), filePath, hydraulicBoundaryLocationCalculationsType);
-            
+                Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), filePath, hydraulicBoundaryLocationCalculationsType);
+
             // Assert
             string expectedMessage = $"The value of argument 'calculationsType' ({hydraulicBoundaryLocationCalculationsType}) " +
                                      $"is invalid for Enum type '{nameof(HydraulicBoundaryLocationCalculationsType)}'.";
@@ -127,7 +128,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
             }
             finally
             {
-                Directory.Delete(directoryPath, true);
+                DirectoryHelper.TryDelete(directoryPath);
             }
         }
 
@@ -163,7 +164,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
             }
             finally
             {
-                Directory.Delete(directoryPath, true);
+                DirectoryHelper.TryDelete(directoryPath);
             }
         }
     }

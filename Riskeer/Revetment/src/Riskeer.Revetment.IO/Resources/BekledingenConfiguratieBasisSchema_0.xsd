@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!--
-Copyright (C) Stichting Deltares 2021. All rights reserved.
+Copyright (C) Stichting Deltares 2022. All rights reserved.
 
 This file is part of Riskeer.
 
@@ -47,22 +47,22 @@ All rights reserved.
     </xs:complexType>
   </xs:redefine>
   
-  <!--Generieke definitie van de geselecteerde HB locatie voor alle toetssporen.-->
+  <!--Generieke definitie van de geselecteerde HB locatie voor alle faalmechanismen.-->
   <xs:include schemaLocation="HbLocatieSchema_0.xsd"/>
 
-  <!--Generieke definitie voor de orientatie voor alle toetssporen.-->
+  <!--Generieke definitie voor de orientatie voor alle faalmechanismen.-->
   <xs:include schemaLocation="OrientatieSchema.xsd"/>
 
-  <!--Generieke definitie voor het voorlandprofiel voor alle toetssporen.-->
+  <!--Generieke definitie voor het voorlandprofiel voor alle faalmechanismen.-->
   <xs:include schemaLocation="VoorlandProfielSchema.xsd"/>
 
-  <!--Generieke definitie voor golfreducerende parameters voor alle toetssporen.-->
+  <!--Generieke definitie voor golfreducerende parameters voor alle faalmechanismen.-->
   <xs:include schemaLocation="GolfReductieSchema.xsd"/>
 
-  <!--Elementen die specifiek voor dit toetsspoor nodig zijn.-->
+  <!--Elementen die specifiek voor dit faalmechanisme nodig zijn.-->
   
   <!--Specificeert de bovengrens van de bekleding (of maximale berekeningsrange 
-  voor het toetsen van de bekleding voor het specifieke toetsspoor).-->
+  voor het toetsen van de bekleding voor het specifieke faalmechanisme).-->
   <xs:element name="bovengrensbekleding">
     <xs:simpleType>
       <xs:restriction base="xs:double"/>
@@ -70,7 +70,7 @@ All rights reserved.
   </xs:element>
 
   <!--Specificeert de ondergrens van de bekleding (of maximale berekeningsrange 
-  voor het toetsen van de bekleding voor het specifieke toetsspoor).-->
+  voor het toetsen van de bekleding voor het specifieke faalmechanisme).-->
   <xs:element name="ondergrensbekleding">
     <xs:simpleType>
       <xs:restriction base="xs:double"/>

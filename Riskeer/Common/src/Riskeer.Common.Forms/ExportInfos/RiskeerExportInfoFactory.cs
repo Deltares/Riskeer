@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -50,7 +50,7 @@ namespace Riskeer.Common.Forms.ExportInfos
             Func<TCalculationGroupContext, string, IFileExporter> createFileExporter,
             Func<TCalculationGroupContext, bool> isEnabled,
             IInquiryHelper inquiryHelper)
-            where TCalculationGroupContext : ICalculationContext<CalculationGroup, IFailureMechanism>
+            where TCalculationGroupContext : ICalculationContext<CalculationGroup, ICalculatableFailureMechanism>
         {
             return new ExportInfo<TCalculationGroupContext>
             {
@@ -76,7 +76,7 @@ namespace Riskeer.Common.Forms.ExportInfos
         public static ExportInfo<TCalculationContext> CreateCalculationConfigurationExportInfo<TCalculationContext>(
             Func<TCalculationContext, string, IFileExporter> createFileExporter,
             IInquiryHelper inquiryHelper)
-            where TCalculationContext : ICalculationContext<ICalculation, IFailureMechanism>
+            where TCalculationContext : ICalculationContext<ICalculation, ICalculatableFailureMechanism>
         {
             return new ExportInfo<TCalculationContext>
             {

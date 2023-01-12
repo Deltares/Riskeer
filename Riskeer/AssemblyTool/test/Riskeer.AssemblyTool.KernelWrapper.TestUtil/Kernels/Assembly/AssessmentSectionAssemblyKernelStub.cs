@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using Assembly.Kernel.Exceptions;
 using Assembly.Kernel.Interfaces;
 using Assembly.Kernel.Model;
-using Assembly.Kernel.Model.AssessmentSection;
 using Assembly.Kernel.Model.Categories;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
@@ -40,9 +39,14 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         public IEnumerable<Probability> FailureMechanismProbabilities { get; private set; }
 
         /// <summary>
-        /// Gets the collection of categories.
+        /// Gets the collection of assessment section categories.
         /// </summary>
         public CategoriesList<AssessmentSectionCategory> Categories { get; private set; }
+
+        /// <summary>
+        /// Gets the assembly probability.
+        /// </summary>
+        public Probability AssemblyProbabilityInput { get; private set; }
 
         /// <summary>
         /// Gets a value indicating whether an assembly is partial.
@@ -50,9 +54,14 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         public bool? PartialAssembly { get; private set; }
 
         /// <summary>
-        /// Gets a value indicating whether a calculation was called or not. 
+        /// Gets a value indicating whether a probability calculation was called or not. 
         /// </summary>
-        public bool Calculated { get; private set; }
+        public bool ProbabilityCalculated { get; private set; }
+
+        /// <summary>
+        /// Gets a value indicating whether an assembly group calculation was called or not. 
+        /// </summary>
+        public bool AssemblyGroupCalculated { get; private set; }
 
         /// <summary>
         /// Sets an indicator whether an <see cref="Exception"/> must be thrown while performing a calculation.
@@ -65,35 +74,40 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         public bool ThrowAssemblyExceptionOnCalculate { private get; set; }
 
         /// <summary>
-        /// Sets the assembly result of an assessment section.
+        /// Sets the assembly probability of an assessment section.
         /// </summary>
-        public AssessmentSectionResult AssessmentSectionAssemblyResult { private get; set; }
+        public Probability AssemblyProbability { private get; set; }
 
-        public AssessmentSectionResult AssembleAssessmentSectionWbi2B1(IEnumerable<Probability> failureMechanismProbabilities,
-                                                                       CategoriesList<AssessmentSectionCategory> categories,
-                                                                       bool partialAssembly)
+        /// <summary>
+        /// Sets the assembly group of an assessment section.
+        /// </summary>
+        public EAssessmentGrade AssemblyGroup { private get; set; }
+
+        public Probability CalculateAssessmentSectionFailureProbabilityBoi2A1(IEnumerable<Probability> failureMechanismProbabilities, bool partialAssembly)
         {
             ThrowException();
 
-            Calculated = true;
-            PartialAssembly = partialAssembly;
+            ProbabilityCalculated = true;
             FailureMechanismProbabilities = failureMechanismProbabilities;
+            PartialAssembly = partialAssembly;
+
+            return AssemblyProbability;
+        }
+
+        public EAssessmentGrade DetermineAssessmentGradeBoi2B1(Probability failureProbability, CategoriesList<AssessmentSectionCategory> categories)
+        {
+            ThrowException();
+
+            AssemblyGroupCalculated = true;
+            AssemblyProbabilityInput = failureProbability;
             Categories = categories;
 
-            return AssessmentSectionAssemblyResult;
+            return AssemblyGroup;
         }
 
         private void ThrowException()
         {
-            if (ThrowExceptionOnCalculate)
-            {
-                throw new Exception("Message", new Exception());
-            }
-
-            if (ThrowAssemblyExceptionOnCalculate)
-            {
-                throw new AssemblyException("entity", EAssemblyErrors.InvalidCategoryLimits);
-            }
+            AssemblyKernelStubHelper.ThrowException(ThrowExceptionOnCalculate, ThrowAssemblyExceptionOnCalculate, EAssemblyErrors.InvalidCategoryLimits);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -288,7 +288,7 @@ namespace Core.Components.Gis.Forms.Test.Views
                 Assert.IsNotNull(selectedMapData);
                 Assert.AreEqual("PDOK achtergrondkaart", selectedMapData.Name);
                 Assert.AreEqual("brtachtergrondkaart(EPSG:28992)", selectedMapData.SelectedCapabilityIdentifier);
-                Assert.AreEqual("https://geodata.nationaalgeoregister.nl/wmts/top10nlv2?VERSION=1.0.0&request=GetCapabilities",
+                Assert.AreEqual("https://geodata.nationaalgeoregister.nl/tiles/service/wmts/ahn2?request=GetCapabilities",
                                 selectedMapData.SourceCapabilitiesUrl);
                 Assert.AreEqual("image/png8", selectedMapData.PreferredFormat);
             }
@@ -772,7 +772,7 @@ namespace Core.Components.Gis.Forms.Test.Views
 
                 DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(4, cells.Count);
-                Assert.AreEqual("brtachtergrondkaart(EPSG:28992)", cells[mapLayerIdColumnIndex].FormattedValue);
+                Assert.AreEqual("opentopoachtergrondkaart(EPSG:28992)", cells[mapLayerIdColumnIndex].FormattedValue);
                 Assert.AreEqual("image/png", cells[mapLayerFormatColumnIndex].FormattedValue);
                 Assert.AreEqual("Stub schema", cells[mapLayerTitleColumnIndex].FormattedValue);
                 Assert.AreEqual("EPSG:28992", cells[mapLayerCoordinateSystemColumnIndex].FormattedValue);
@@ -942,7 +942,7 @@ namespace Core.Components.Gis.Forms.Test.Views
             ComboBox urlLocations = form.Controls.Find("urlLocationComboBox", true).OfType<ComboBox>().First();
             urlLocations.DataSource = new List<WmtsConnectionInfo>
             {
-                new WmtsConnectionInfo("PDOK achtergrondkaart", "https://geodata.nationaalgeoregister.nl/wmts/top10nlv2?VERSION=1.0.0&request=GetCapabilities")
+                new WmtsConnectionInfo("PDOK achtergrondkaart", "https://geodata.nationaalgeoregister.nl/tiles/service/wmts/ahn2?request=GetCapabilities")
             };
 
             var connectToButton = (Button) new ButtonTester("connectToButton", form).TheObject;

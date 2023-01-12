@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -21,32 +21,90 @@
 
 using System;
 using System.Collections.Generic;
-using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Data.FailurePath;
+using Core.Common.Base;
 
 namespace Riskeer.Common.Data.FailureMechanism
 {
     /// <summary>
     /// Defines a failure mechanism.
     /// </summary>
-    public interface IFailureMechanism : IFailurePath
+    public interface IFailureMechanism : IObservable
     {
         /// <summary>
-        /// Gets or sets the amount of contribution as a percentage [0, 100] for the <see cref="IFailureMechanism"/>
-        /// as part of the overall verdict.
+        /// Gets the name of the failure mechanism.
         /// </summary>
-        /// <exception cref="ArgumentException">Thrown when the <paramref name="value"/> is not in the interval [0, 100].</exception>
-        double Contribution { get; set; }
+        string Name { get; }
 
         /// <summary>
-        /// Gets an <see cref="IEnumerable{T}"/> of all the <see cref="ICalculation"/> instances added to
-        /// the failure mechanism.
+        /// Gets the code of the failure mechanism.
         /// </summary>
-        IEnumerable<ICalculation> Calculations { get; }
-        
+        string Code { get; }
+
         /// <summary>
-        /// Gets the input comments associated with the calculations of the data object.
+        /// Gets the comments associated with the input of the data object when it is part of the assembly.
         /// </summary>
-        Comment CalculationsInputComments { get; }
+        Comment InAssemblyInputComments { get; }
+
+        /// <summary>
+        /// Gets the comments associated with the output of the data object when it is part of the assembly.
+        /// </summary>
+        Comment InAssemblyOutputComments { get; }
+
+        /// <summary>
+        /// Gets the comments associated when the failure mechanism is set to not be part of the assembly.
+        /// </summary>
+        Comment NotInAssemblyComments { get; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this failure mechanism is part of the assembly.
+        /// </summary>
+        bool InAssembly { get; set; }
+
+        /// <summary>
+        /// Gets the source path of the imported <see cref="Sections"/>.
+        /// </summary>
+        string FailureMechanismSectionSourcePath { get; }
+
+        /// <summary>
+        /// Gets the collection of sections that define areas for which a calculation could determine
+        /// a representative result.
+        /// </summary>
+        IEnumerable<FailureMechanismSection> Sections { get; }
+
+        /// <summary>
+        /// Gets the assembly result of the failure mechanism.
+        /// </summary>
+        FailureMechanismAssemblyResult AssemblyResult { get; }
+
+        /// <summary>
+        /// Sets a collection of <see cref="FailureMechanismSection"/> to <see cref="Sections"/>.
+        /// </summary>
+        /// <param name="sections">The sections to set.</param>
+        /// <param name="sourcePath">The path of the file the sections originate from.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="sourcePath"/> is not a valid file path.</item>
+        /// <item><paramref name="sections"/> contains sections that are not properly chained.</item>
+        /// </list></exception>
+        void SetSections(IEnumerable<FailureMechanismSection> sections, string sourcePath);
+
+        /// <summary>
+        /// Clears all sections from <see cref="Sections"/>.
+        /// </summary>
+        void ClearAllSections();
+    }
+
+    /// <summary>
+    /// This interface describes an <see cref="IFailureMechanism"/> containing <see cref="FailureMechanismSectionResult"/> objects.
+    /// </summary>
+    /// <typeparam name="T">The type of the section results.</typeparam>
+    public interface IFailureMechanism<out T> : IFailureMechanism
+        where T : FailureMechanismSectionResult
+    {
+        /// <summary>
+        /// Gets an <see cref="IObservableEnumerable{T}"/> of <see cref="FailureMechanismSectionResult"/>.
+        /// </summary>
+        IObservableEnumerable<T> SectionResults { get; }
     }
 }

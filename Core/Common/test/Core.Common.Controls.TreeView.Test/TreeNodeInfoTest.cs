@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -298,18 +298,30 @@ namespace Core.Common.Controls.TreeView.Test
                     new object()
                 },
                 CanRename = (o1, o2) => true,
-                OnNodeRenamed = (o, newName) => { onNodeRenamedCounter++; },
+                OnNodeRenamed = (o, newName) =>
+                {
+                    onNodeRenamedCounter++;
+                },
                 CanRemove = (o1, o2) => true,
-                OnNodeRemoved = (o1, o2) => { onNodeRemovedCounter++; },
+                OnNodeRemoved = (o1, o2) =>
+                {
+                    onNodeRemovedCounter++;
+                },
                 OnRemoveConfirmationText = o => "Confirmation message",
                 OnRemoveChildNodesConfirmationText = o => "Confirmation message 2",
                 CanCheck = o => true,
                 CheckedState = o => TreeNodeCheckedState.Checked,
-                OnNodeChecked = (o1, o2) => { onNodeCheckedCounter++; },
+                OnNodeChecked = (o1, o2) =>
+                {
+                    onNodeCheckedCounter++;
+                },
                 CanDrag = (o1, o2) => true,
                 CanDrop = (o1, o2) => true,
                 CanInsert = (o1, o2) => true,
-                OnDrop = (o1, o2, o3, index, tvc) => { onDropCounter++; }
+                OnDrop = (o1, o2, o3, index, tvc) =>
+                {
+                    onDropCounter++;
+                }
             };
 
             // Precondition

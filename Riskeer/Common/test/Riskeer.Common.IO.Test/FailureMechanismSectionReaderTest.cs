@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -301,7 +301,7 @@ namespace Riskeer.Common.IO.Test
 
                 // Assert
                 string message = Assert.Throws<CriticalFileReadException>(call).Message;
-                string expectedMessage = $"Fout bij het lezen van bestand '{validFilePath}': het bestand bevat één of meerdere multi-polylijnen. " +
+                string expectedMessage = $"Fout bij het lezen van bestand '{validFilePath}': het bestand bevat een of meerdere multi-polylijnen. " +
                                          "Multi-polylijnen worden niet ondersteund.";
                 Assert.AreEqual(expectedMessage, message);
             }

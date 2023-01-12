@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -53,7 +53,7 @@ namespace Riskeer.HeightStructures.Data.Test
             // Assert
             Assert.AreEqual(2, generalHeightStructuresInput.N.NumberOfDecimalPlaces);
             Assert.AreEqual(2.0, generalHeightStructuresInput.N, generalHeightStructuresInput.N.GetAccuracy());
-            
+
             Assert.IsFalse(generalHeightStructuresInput.ApplyLengthEffectInSection);
 
             Assert.AreEqual(2, generalHeightStructuresInput.GravitationalAcceleration.NumberOfDecimalPlaces);

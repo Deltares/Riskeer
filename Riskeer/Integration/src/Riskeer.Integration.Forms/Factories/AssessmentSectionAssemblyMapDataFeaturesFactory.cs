@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -22,14 +22,12 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base.Geometry;
-using Core.Common.Util;
+using Core.Common.Util.Enums;
 using Core.Components.Gis.Features;
-using Riskeer.AssemblyTool.Forms;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Forms.Factories;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Assembly;
-using Riskeer.Integration.Forms.Properties;
 using Riskeer.Integration.Util;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -73,9 +71,7 @@ namespace Riskeer.Integration.Forms.Factories
                 MapFeature mapFeature = RiskeerMapDataFeaturesFactory.CreateSingleLineMapFeature(geometry);
 
                 mapFeature.MetaData[RiskeerCommonFormsResources.AssemblyGroup_DisplayName] =
-                    new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyGroup>(
-                        DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(assemblyResult.TotalResult)).DisplayName;
-                mapFeature.MetaData[Resources.SectionNumber_DisplayName] = assemblyResult.SectionNumber;
+                    EnumDisplayNameHelper.GetDisplayName(assemblyResult.TotalResult);
 
                 mapFeatures.Add(mapFeature);
             }

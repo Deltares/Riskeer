@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -212,7 +212,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
-            var failureMechanism = new TestClosingStructuresFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
             var parent = new CalculationGroup();
             var calculation = new StructuresCalculationScenario<ClosingStructuresInput>();
             var nodeData = new ClosingStructuresCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
@@ -280,7 +280,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             var parent = new CalculationGroup();
             var calculation = new StructuresCalculationScenario<ClosingStructuresInput>();
-            var failureMechanism = new TestClosingStructuresFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
             var nodeData = new ClosingStructuresCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -318,7 +318,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                     Structure = new TestClosingStructure()
                 }
             };
-            var failureMechanism = new TestClosingStructuresFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
             var nodeData = new ClosingStructuresCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -356,7 +356,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                     Structure = new TestClosingStructure()
                 }
             };
-            var failureMechanism = new TestClosingStructuresFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
             var nodeData = new ClosingStructuresCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -556,7 +556,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             var parent = new CalculationGroup();
             var calculation = new StructuresCalculationScenario<ClosingStructuresInput>();
-            var failureMechanism = new TestClosingStructuresFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
             var nodeData = new ClosingStructuresCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
@@ -591,7 +591,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
             var parent = new CalculationGroup();
             var calculation = new StructuresCalculationScenario<ClosingStructuresInput>();
-            var failureMechanism = new TestClosingStructuresFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
             var nodeData = new ClosingStructuresCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
@@ -639,7 +639,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             var parent = new CalculationGroup();
             var calculation = new StructuresCalculationScenario<ClosingStructuresInput>();
-            var failureMechanism = new TestClosingStructuresFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
             var nodeData = new ClosingStructuresCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
@@ -670,7 +670,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-            var failureMechanism = new TestClosingStructuresFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
             var parent = new CalculationGroup();
             var calculation = new StructuresCalculationScenario<ClosingStructuresInput>();
 
@@ -707,7 +707,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-            var failureMechanism = new TestClosingStructuresFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
             var parent = new CalculationGroup();
             var calculation = new StructuresCalculationScenario<ClosingStructuresInput>
             {
@@ -750,7 +750,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-            var failureMechanism = new TestClosingStructuresFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
 
             var foreshoreProfileInput = new TestForeshoreProfile();
             var parent = new CalculationGroup();
@@ -799,7 +799,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             calculationInputObserver.Expect(o => o.UpdateObserver());
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-            var failureMechanism = new TestClosingStructuresFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
 
             var foreshoreProfileInput = new TestForeshoreProfile(true);
             var parent = new CalculationGroup();
@@ -851,7 +851,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             var calculationObserver = mocks.StrictMock<IObserver>();
             var calculationInputObserver = mocks.StrictMock<IObserver>();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-            var failureMechanism = new TestClosingStructuresFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
 
             var foreshoreProfileInput = new TestForeshoreProfile(true);
             var parent = new CalculationGroup();
@@ -933,7 +933,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
 
-            var failureMechanism = new TestClosingStructuresFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
@@ -991,10 +991,10 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                 {
                     // When
-                    Action action = () => contextMenuStrip.Items[contextMenuCalculateIndex].PerformClick();
+                    void Action() => contextMenuStrip.Items[contextMenuCalculateIndex].PerformClick();
 
                     // Then
-                    TestHelper.AssertLogMessages(action, messages =>
+                    TestHelper.AssertLogMessages(Action, messages =>
                     {
                         string[] msgs = messages.ToArray();
                         Assert.AreEqual(7, msgs.Length);
@@ -1045,7 +1045,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             var observer = mocks.StrictMock<IObserver>();
             calculation.Attach(observer);
 
-            var failureMechanism = new TestClosingStructuresFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculationContext = new ClosingStructuresCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
@@ -1057,10 +1057,10 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(calculationContext, null, treeViewControl))
                 {
                     // When
-                    Action action = () => contextMenuStrip.Items[contextMenuValidateIndex].PerformClick();
+                    void Action() => contextMenuStrip.Items[contextMenuValidateIndex].PerformClick();
 
                     // Then
-                    TestHelper.AssertLogMessages(action, messages =>
+                    TestHelper.AssertLogMessages(Action, messages =>
                     {
                         string[] msgs = messages.ToArray();
                         Assert.AreEqual(2, msgs.Length);

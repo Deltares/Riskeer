@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -44,7 +44,7 @@ namespace Riskeer.Common.Plugin.TestUtil
         public void ShouldCloseMethod_ViewCorrespondingToRemovedCalculationContext_ReturnsTrue()
         {
             // Setup
-            ICalculationContext<ICalculation, IFailureMechanism> calculationContext = GetCalculationContextWithCalculation();
+            ICalculationContext<ICalculation, ICalculatableFailureMechanism> calculationContext = GetCalculationContextWithCalculation();
 
             using (IView view = GetView(calculationContext.WrappedData))
             {
@@ -60,7 +60,7 @@ namespace Riskeer.Common.Plugin.TestUtil
         public void ShouldCloseMethod_ViewNotCorrespondingToRemovedCalculationContext_ReturnsFalse()
         {
             // Setup
-            ICalculationContext<ICalculation, IFailureMechanism> calculationContext = GetCalculationContextWithCalculation();
+            ICalculationContext<ICalculation, ICalculatableFailureMechanism> calculationContext = GetCalculationContextWithCalculation();
 
             using (IView view = GetView(GetCalculation()))
             {
@@ -76,7 +76,7 @@ namespace Riskeer.Common.Plugin.TestUtil
         public void ShouldCloseMethod_ViewCorrespondingWithRemovedCalculationGroupContext_ReturnsTrue()
         {
             // Setup
-            ICalculationContext<CalculationGroup, IFailureMechanism> calculationGroupContext = GetCalculationGroupContextWithCalculation();
+            ICalculationContext<CalculationGroup, ICalculatableFailureMechanism> calculationGroupContext = GetCalculationGroupContextWithCalculation();
 
             using (IView view = GetView(calculationGroupContext.WrappedData.GetCalculations().First()))
             {
@@ -92,7 +92,7 @@ namespace Riskeer.Common.Plugin.TestUtil
         public void ShouldCloseMethod_ViewNotCorrespondingWithRemovedCalculationGroupContext_ReturnsFalse()
         {
             // Setup
-            ICalculationContext<CalculationGroup, IFailureMechanism> calculationGroupContext = GetCalculationGroupContextWithCalculation();
+            ICalculationContext<CalculationGroup, ICalculatableFailureMechanism> calculationGroupContext = GetCalculationGroupContextWithCalculation();
 
             using (IView view = GetView(GetCalculation()))
             {
@@ -108,7 +108,7 @@ namespace Riskeer.Common.Plugin.TestUtil
         public void ShouldCloseMethod_ViewCorrespondingWithRemovedFailureMechanism_ReturnsTrue()
         {
             // Setup
-            IFailureMechanism failureMechanism = GetFailureMechanismWithCalculation();
+            ICalculatableFailureMechanism failureMechanism = GetFailureMechanismWithCalculation();
             using (IView view = GetView(failureMechanism.Calculations.First()))
             {
                 // Call
@@ -123,7 +123,7 @@ namespace Riskeer.Common.Plugin.TestUtil
         public void ShouldCloseMethod_ViewNotCorrespondingWithRemovedFailureMechanism_ReturnsFalse()
         {
             // Setup
-            IFailureMechanism failureMechanism = GetFailureMechanismWithCalculation();
+            ICalculatableFailureMechanism failureMechanism = GetFailureMechanismWithCalculation();
             using (IView view = GetView(GetCalculation()))
             {
                 // Call
@@ -141,7 +141,7 @@ namespace Riskeer.Common.Plugin.TestUtil
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
 
-            IFailureMechanism failureMechanism = GetFailureMechanismWithCalculation();
+            ICalculatableFailureMechanism failureMechanism = GetFailureMechanismWithCalculation();
             assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
             {
                 failureMechanism
@@ -168,7 +168,7 @@ namespace Riskeer.Common.Plugin.TestUtil
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
 
-            IFailureMechanism failureMechanism = GetFailureMechanismWithCalculation();
+            ICalculatableFailureMechanism failureMechanism = GetFailureMechanismWithCalculation();
             assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
             {
                 failureMechanism
@@ -218,7 +218,7 @@ namespace Riskeer.Common.Plugin.TestUtil
         /// </summary>
         /// <returns>A calculation context object.</returns>
         /// <remarks>A default implementation is added for creating a <see cref="TestCalculationContext"/>.</remarks>
-        protected virtual ICalculationContext<ICalculation, IFailureMechanism> GetCalculationContextWithCalculation()
+        protected virtual ICalculationContext<ICalculation, ICalculatableFailureMechanism> GetCalculationContextWithCalculation()
         {
             return new TestCalculationContext();
         }
@@ -228,7 +228,7 @@ namespace Riskeer.Common.Plugin.TestUtil
         /// </summary>
         /// <returns>A calculation group context object.</returns>
         /// <remarks>A default implementation is added for creating a <see cref="TestCalculationGroupContext"/>.</remarks>
-        protected virtual ICalculationContext<CalculationGroup, IFailureMechanism> GetCalculationGroupContextWithCalculation()
+        protected virtual ICalculationContext<CalculationGroup, ICalculatableFailureMechanism> GetCalculationGroupContextWithCalculation()
         {
             return new TestCalculationGroupContext();
         }
@@ -237,31 +237,31 @@ namespace Riskeer.Common.Plugin.TestUtil
         /// Gets a failure mechanism for testing purposes.
         /// </summary>
         /// <returns>A failure mechanism object.</returns>
-        protected virtual IFailureMechanism GetFailureMechanismWithCalculation()
+        protected virtual ICalculatableFailureMechanism GetFailureMechanismWithCalculation()
         {
-            return new TestFailureMechanism(new[]
+            return new TestCalculatableFailureMechanism(new[]
             {
                 new TestCalculation()
             });
         }
 
-        private class TestCalculationContext : Observable, ICalculationContext<TestCalculation, TestFailureMechanism>
+        private class TestCalculationContext : Observable, ICalculationContext<TestCalculation, TestCalculatableFailureMechanism>
         {
             public TestCalculationContext()
             {
                 WrappedData = new TestCalculation("Calculation");
                 Parent = new CalculationGroup();
-                FailureMechanism = new TestFailureMechanism();
+                FailureMechanism = new TestCalculatableFailureMechanism();
             }
 
             public TestCalculation WrappedData { get; }
 
             public CalculationGroup Parent { get; }
 
-            public TestFailureMechanism FailureMechanism { get; }
+            public TestCalculatableFailureMechanism FailureMechanism { get; }
         }
 
-        private class TestCalculationGroupContext : Observable, ICalculationContext<CalculationGroup, TestFailureMechanism>
+        private class TestCalculationGroupContext : Observable, ICalculationContext<CalculationGroup, TestCalculatableFailureMechanism>
         {
             public TestCalculationGroupContext()
             {
@@ -273,14 +273,14 @@ namespace Riskeer.Common.Plugin.TestUtil
                     }
                 };
                 Parent = new CalculationGroup();
-                FailureMechanism = new TestFailureMechanism();
+                FailureMechanism = new TestCalculatableFailureMechanism();
             }
 
             public CalculationGroup WrappedData { get; }
 
             public CalculationGroup Parent { get; }
 
-            public TestFailureMechanism FailureMechanism { get; }
+            public TestCalculatableFailureMechanism FailureMechanism { get; }
         }
     }
 }

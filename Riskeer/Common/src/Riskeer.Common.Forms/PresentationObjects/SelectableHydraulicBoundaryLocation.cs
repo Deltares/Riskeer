@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -29,7 +29,7 @@ namespace Riskeer.Common.Forms.PresentationObjects
     /// <summary>
     /// Class that represents a <see cref="HydraulicBoundaryLocation"/> with respect to a reference point.
     /// </summary>
-    public class SelectableHydraulicBoundaryLocation
+    public sealed class SelectableHydraulicBoundaryLocation
     {
         /// <summary>
         /// Creates a new instance of <see cref="SelectableHydraulicBoundaryLocation"/>.

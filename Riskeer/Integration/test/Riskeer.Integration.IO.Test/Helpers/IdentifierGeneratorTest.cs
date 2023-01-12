@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -20,13 +20,9 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
-using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.Integration.IO.Assembly;
 using Riskeer.Integration.IO.Helpers;
-using Riskeer.Integration.IO.TestUtil;
 
 namespace Riskeer.Integration.IO.Test.Helpers
 {
@@ -37,127 +33,110 @@ namespace Riskeer.Integration.IO.Test.Helpers
         [TestCase(null)]
         [TestCase("")]
         [TestCase("   ")]
-        public void GetNewId_InvalidPrefix_ThrowsArgumentException(string invalidPrefix)
+        public void GetUniqueId_InvalidPrefix_ThrowsArgumentException(string invalidPrefix)
         {
             // Setup
             var generator = new IdentifierGenerator();
 
             // Call
-            TestDelegate call = () => generator.GetNewId(invalidPrefix);
+            void Call() => generator.GetUniqueId(invalidPrefix);
 
             // Assert
             const string expectedMessage = "'prefix' is null, empty or consists of whitespace.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
         }
 
         [Test]
-        public void GetNewId_WithPrefix_ReturnsExpectedValue()
+        public void GetUniqueId_WithPrefix_ReturnsExpectedValue()
         {
             // Setup
             const string prefix = "prefix";
             var generator = new IdentifierGenerator();
 
             // Call
-            string id = generator.GetNewId(prefix);
+            string id = generator.GetUniqueId(prefix);
 
             // Assert
             Assert.AreEqual($"{prefix}.0", id);
         }
 
         [Test]
-        public void GetNewId_PrefixAlreadyUsed_ReturnsExpectedValue()
+        public void GetUniqueId_PrefixAlreadyUsed_ReturnsExpectedValue()
         {
             // Setup
             const string prefix = "prefix";
             var generator = new IdentifierGenerator();
-            string currentId = generator.GetNewId(prefix);
+            string currentId = generator.GetUniqueId(prefix);
 
             // Precondition
             Assert.AreEqual($"{prefix}.0", currentId);
 
             // Call
-            string generatedId = generator.GetNewId(prefix);
+            string generatedId = generator.GetUniqueId(prefix);
 
             // Assert
             Assert.AreEqual($"{prefix}.1", generatedId);
         }
 
         [Test]
-        public void GetNewId_NewPrefix_ReturnsExpectedValues()
+        public void GetUniqueId_NewPrefix_ReturnsExpectedValue()
         {
             // Given
             const string prefix = "prefix";
             var generator = new IdentifierGenerator();
 
             // Precondition
-            Assert.AreEqual($"{prefix}.0", generator.GetNewId(prefix));
+            Assert.AreEqual($"{prefix}.0", generator.GetUniqueId(prefix));
 
             const string newPrefix = "NewPrefix";
 
             // When
-            string newPrefixId = generator.GetNewId(newPrefix);
+            string newPrefixId = generator.GetUniqueId(newPrefix);
 
             // Then
             Assert.AreEqual($"{newPrefix}.0", newPrefixId);
         }
 
         [Test]
-        public void GivenIdGenerator_WhenMultiplePrefixesUsed_ThenReturnsExpectedValues()
-        {
-            // Given
-            const string prefix = "prefix";
-            var generator = new IdentifierGenerator();
-
-            // Precondition
-            Assert.AreEqual($"{prefix}.0", generator.GetNewId(prefix));
-
-            const string newPrefix = "NewPrefix";
-
-            // When
-            string oldPrefixId = generator.GetNewId(prefix);
-            string newPrefixId = generator.GetNewId(newPrefix);
-
-            // Then
-            Assert.AreEqual($"{prefix}.1", oldPrefixId);
-            Assert.AreEqual($"{newPrefix}.0", newPrefixId);
-        }
-
-        [Test]
-        public void GenerateId_AssessmentSectionNull_ThrowsArgumentNullException()
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("   ")]
+        public void GenerateId_InvalidPrefix_ThrowsArgumentException(string invalidPrefix)
         {
             // Call
-            TestDelegate call = () => IdentifierGenerator.GeneratedId(null);
+            void Call() => IdentifierGenerator.GenerateId(invalidPrefix, "id");
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
+            const string expectedMessage = "'prefix' is null, empty or consists of whitespace.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
         }
 
         [Test]
-        public void GenerateId_WithAssessmentSection_GeneratesId()
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("   ")]
+        public void GenerateId_InvalidId_ThrowsArgumentException(string invalidId)
+        {
+            // Call
+            void Call() => IdentifierGenerator.GenerateId("prefix", invalidId);
+
+            // Assert
+            const string expectedMessage = "'id' is null, empty or consists of whitespace.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
+        }
+
+        [Test]
+        public void GenerateId_WithValidArguments_GeneratesId()
         {
             // Setup
-            const string assessmentSectionId = "AssessmentSectionId";
-            ExportableAssessmentSection assessmentSection = CreateAssessmentSection(assessmentSectionId);
+            const string prefix = "prefix";
+            const string id = "id";
 
             // Call
-            string generatedId = IdentifierGenerator.GeneratedId(assessmentSection);
+            string generatedId = IdentifierGenerator.GenerateId(prefix, id);
 
             // Assert
-            Assert.AreEqual($"Wks.{assessmentSection.Id}", generatedId);
-        }
-
-        private static ExportableAssessmentSection CreateAssessmentSection(string id)
-        {
-            return new ExportableAssessmentSection(string.Empty,
-                                                   id,
-                                                   Enumerable.Empty<Point2D>(),
-                                                   ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
-                                                   ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithProbability(),
-                                                   ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithoutProbability(),
-                                                   Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>>(),
-                                                   Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>>(),
-                                                   Enumerable.Empty<ExportableCombinedSectionAssembly>());
+            Assert.AreEqual($"{prefix}.{id}", generatedId);
         }
     }
 }

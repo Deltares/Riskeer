@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -22,6 +22,7 @@
 using System;
 using System.Linq;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
@@ -146,10 +147,63 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        public void CalculateSectionProbability_MultipleScenarios_ReturnsValueBasedOnRelevantScenarios()
+        public void CalculateSectionProbability_MultipleScenariosForSectionWithSmallLength_ReturnsValueBasedOnRelevantScenarios()
+        {
+            // Setup
+            var section = new FailureMechanismSection("test", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 0)
+            });
+
+            MacroStabilityInwardsFailureMechanismSectionResultCalculateProbabilityStrategy strategy = CreateStrategyForMultipleScenarios(section);
+
+            // Call
+            double sectionProbability = strategy.CalculateSectionProbability();
+
+            // Assert
+            Assert.AreEqual(0.99078184, sectionProbability, 1e-8);
+        }
+
+        [Test]
+        public void CalculateSectionProbability_MultipleScenariosForSectionWithLargeLength_ReturnsProbabilityEqualToOne()
+        {
+            // Setup
+            var section = new FailureMechanismSection("test", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(100, 0)
+            });
+
+            MacroStabilityInwardsFailureMechanismSectionResultCalculateProbabilityStrategy strategy = CreateStrategyForMultipleScenarios(section);
+
+            // Call
+            double sectionProbability = strategy.CalculateSectionProbability();
+
+            // Assert
+            Assert.AreEqual(1.0, sectionProbability);
+        }
+
+        [Test]
+        public void CalculateSectionProbability_NoScenarios_ReturnsNaN()
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
+
+            var strategy = new MacroStabilityInwardsFailureMechanismSectionResultCalculateProbabilityStrategy(
+                sectionResult, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
+                new MacroStabilityInwardsFailureMechanism());
+
+            // Call
+            double sectionProbability = strategy.CalculateSectionProbability();
+
+            // Assert
+            Assert.IsNaN(sectionProbability);
+        }
+
+        private static MacroStabilityInwardsFailureMechanismSectionResultCalculateProbabilityStrategy CreateStrategyForMultipleScenarios(FailureMechanismSection section)
+        {
             var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
             const double factorOfStability1 = 1.0 / 10.0;
@@ -172,32 +226,8 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
                 macroStabilityInwardsCalculationScenario3
             };
 
-            var strategy = new MacroStabilityInwardsFailureMechanismSectionResultCalculateProbabilityStrategy(
+            return new MacroStabilityInwardsFailureMechanismSectionResultCalculateProbabilityStrategy(
                 sectionResult, calculations, new MacroStabilityInwardsFailureMechanism());
-
-            // Call
-            double sectionProbability = strategy.CalculateSectionProbability();
-
-            // Assert
-            Assert.AreEqual(0.99078184, sectionProbability, 1e-8);
-        }
-
-        [Test]
-        public void CalculateSectionProbability_NoScenarios_ReturnsNaN()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
-
-            var strategy = new MacroStabilityInwardsFailureMechanismSectionResultCalculateProbabilityStrategy(
-                sectionResult, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
-                new MacroStabilityInwardsFailureMechanism());
-
-            // Call
-            double sectionProbability = strategy.CalculateSectionProbability();
-
-            // Assert
-            Assert.IsNaN(sectionProbability);
         }
     }
 }

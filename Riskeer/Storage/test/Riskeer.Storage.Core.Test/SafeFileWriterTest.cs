@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -23,6 +23,7 @@ using System;
 using System.IO;
 using System.Security.AccessControl;
 using Core.Common.TestUtil;
+using Core.Common.Util;
 using NUnit.Framework;
 
 namespace Riskeer.Storage.Core.Test
@@ -263,7 +264,7 @@ namespace Riskeer.Storage.Core.Test
         [OneTimeTearDown]
         public void OneTimeTearDown()
         {
-            Directory.Delete(testWorkDir, true);
+            DirectoryHelper.TryDelete(testWorkDir);
         }
     }
 }

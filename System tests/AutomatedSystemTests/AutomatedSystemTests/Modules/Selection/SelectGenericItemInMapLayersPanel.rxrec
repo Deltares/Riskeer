@@ -66,6 +66,8 @@ mode="Global">
 						<path>
 							/form[@automationid='RiskeerMainWindow']//container[@controlname='MapLegendView']/container/tree/tree/treeitem
 						</path>
+						<robustPath>
+						</robustPath>
 					</info>
 				</argument>
 			</arguments>

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
@@ -39,7 +40,7 @@ namespace Riskeer.Common.Forms.Views
     /// <typeparam name="TFailureMechanism">The type of failure mechanism.</typeparam>
     /// <typeparam name="TStructuresInput">The type of input.</typeparam>
     public class StructuresFailureMechanismResultView<TFailureMechanism, TStructuresInput> : FailureMechanismResultView<AdoptableFailureMechanismSectionResult, AdoptableFailureMechanismSectionResultRow, TFailureMechanism>
-        where TFailureMechanism : IHasSectionResults<AdoptableFailureMechanismSectionResult>, ICalculatableFailureMechanism
+        where TFailureMechanism : IFailureMechanism<AdoptableFailureMechanismSectionResult>, ICalculatableFailureMechanism, IFailureMechanism
         where TStructuresInput : IStructuresCalculationInput<StructureBase>, new()
     {
         private const int initialFailureMechanismResultTypeIndex = 2;
@@ -52,9 +53,6 @@ namespace Riskeer.Common.Forms.Views
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputsObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
 
-        private readonly IAssessmentSection assessmentSection;
-        private readonly Func<TFailureMechanism, double> getNFunc;
-
         /// <summary>
         /// Creates a new instance of <see cref="StructuresFailureMechanismResultView{TFailureMechanism,TStructuresInput}"/>.
         /// </summary>
@@ -62,27 +60,14 @@ namespace Riskeer.Common.Forms.Views
         /// show in the view.</param>
         /// <param name="failureMechanism">The failure mechanism the results belong to.</param>
         /// <param name="assessmentSection">The assessment section the failure mechanism results belong to.</param>
-        /// <param name="getNFunc">The <see cref="Func{T1,TResult}"/> to get the N.</param>
+        /// <param name="performFailureMechanismAssemblyFunc">The function to perform an assembly on the failure mechanism.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public StructuresFailureMechanismResultView(IObservableEnumerable<AdoptableFailureMechanismSectionResult> failureMechanismSectionResults,
                                                     TFailureMechanism failureMechanism,
                                                     IAssessmentSection assessmentSection,
-                                                    Func<TFailureMechanism, double> getNFunc)
-            : base(failureMechanismSectionResults, failureMechanism)
+                                                    Func<TFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc)
+            : base(failureMechanismSectionResults, failureMechanism, assessmentSection, performFailureMechanismAssemblyFunc)
         {
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
-            if (getNFunc == null)
-            {
-                throw new ArgumentNullException(nameof(getNFunc));
-            }
-
-            this.assessmentSection = assessmentSection;
-            this.getNFunc = getNFunc;
-
             // The concat is needed to observe the input of calculations in child groups.
             calculationInputsObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
                 UpdateInternalViewData,
@@ -111,7 +96,7 @@ namespace Riskeer.Common.Forms.Views
                 sectionResult,
                 () => sectionResult.GetInitialFailureMechanismResultProbability(calculationScenarios),
                 CreateErrorProvider(sectionResult, calculationScenarios),
-                () => StructuresFailureMechanismAssemblyFactory.AssembleSection<TStructuresInput>(sectionResult, FailureMechanism, assessmentSection),
+                () => StructuresFailureMechanismAssemblyFactory.AssembleSection<TStructuresInput>(sectionResult, FailureMechanism, AssessmentSection),
                 new AdoptableFailureMechanismSectionResultRow.ConstructionProperties
                 {
                     InitialFailureMechanismResultTypeIndex = initialFailureMechanismResultTypeIndex,
@@ -129,11 +114,6 @@ namespace Riskeer.Common.Forms.Views
             calculationGroupObserver.Dispose();
 
             base.Dispose(disposing);
-        }
-
-        protected override double GetN()
-        {
-            return getNFunc(FailureMechanism);
         }
 
         protected override void AddDataGridColumns()

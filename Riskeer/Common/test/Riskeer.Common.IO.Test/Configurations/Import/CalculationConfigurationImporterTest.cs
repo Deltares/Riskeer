@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -164,7 +164,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             {
                 new ProgressNotification("Inlezen berekeningenconfiguratie.", 1, 3),
                 new ProgressNotification("Valideren berekeningenconfiguratie.", 2, 3),
-                new ProgressNotification("Geïmporteerde data toevoegen aan het toetsspoor.", 3, 3)
+                new ProgressNotification("Geïmporteerde data toevoegen aan het faalmechanisme.", 3, 3)
             };
             ProgressNotificationTestHelper.AssertProgressNotificationsAreEqual(expectedProgressNotifications, progressChangeNotifications);
         }

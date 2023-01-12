@@ -3,7 +3,7 @@
   <!-- Static variables. -->
   <?include Variables.wxi ?>
   
-  <Product Id="*" Name="$(var.ApplicationFullName)" Language="1043" Version="$(var.ReleaseVersion)" Manufacturer="!(loc.Manufacturer)" UpgradeCode="C4106747-8CE1-4922-8463-397F920B1408">
+  <Product Id="*" Name="$(var.ApplicationFullName)" Language="1043" Version="$(var.ReleaseVersion)" Manufacturer="!(loc.Manufacturer)" UpgradeCode="E6B69456-09C0-4271-9753-81BDDF45EF7C">
     <!--Comment left empty on purpose to remove auto-generated text.-->
     <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Languages="1043" Manufacturer="!(loc.Manufacturer)" Comments=" "/>
     
@@ -12,11 +12,14 @@
 
     <MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeErrorMessage)" AllowSameVersionUpgrades="yes"/>
 
-    <!-- Specify default installer UI and which folder the user can configure during setup -->
+    <!-- Specify default installer UI and which folder the user can configure during setup. -->
     <UIRef Id="WixUI_Deltares"/>
+    <!-- Specify that Wix supplies the progress texts. -->
+    <UIRef Id="WixUI_ErrorProgressText"/>
+
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR"/>
-    <WixVariable Id="WixUIBannerBmp" Value="Banner_493x77.bmp" />
-    <WixVariable Id="WixUIDialogBmp" Value="Start_493x312.bmp" />
+    <WixVariable Id="WixUIBannerBmp" Value="Banner_493x77.jpg" />
+    <WixVariable Id="WixUIDialogBmp" Value="Start_493x312.jpg" />
 
     <!-- Requirement: .Net framework 4.6.1 installed on machine -->
     <PropertyRef Id="WIX_IS_NETFRAMEWORK_461_OR_LATER_INSTALLED" />

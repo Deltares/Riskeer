@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -72,7 +72,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             using (var form = new Form())
             {
                 var mapControl = new MapControl();
-                Map mapView = mapControl.Controls.OfType<Map>().First();
+                Map mapView = mapControl.Controls.Find("Map", true).OfType<Map>().Single();
                 form.Controls.Add(mapControl);
                 form.Show();
 

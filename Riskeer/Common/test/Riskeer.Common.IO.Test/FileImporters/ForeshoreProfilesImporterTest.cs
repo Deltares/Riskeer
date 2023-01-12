@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -342,7 +342,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.ReferenceLine).Return(referenceLine);
-            var failureMechanism = mockRepository.Stub<IFailureMechanism>();
+            var failureMechanism = mockRepository.Stub<ICalculatableFailureMechanism>();
 
             var strategy = mockRepository.StrictMock<IForeshoreProfileUpdateDataStrategy>();
             var foreshoreProfiles = new ForeshoreProfileCollection();
@@ -412,7 +412,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.ReferenceLine).Return(referenceLine);
-            var failureMechanism = mockRepository.Stub<IFailureMechanism>();
+            var failureMechanism = mockRepository.Stub<ICalculatableFailureMechanism>();
 
             var foreshoreProfiles = new ForeshoreProfileCollection();
             var strategy = mockRepository.StrictMock<IForeshoreProfileUpdateDataStrategy>();

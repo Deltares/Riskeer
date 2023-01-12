@@ -1,5 +1,5 @@
 <!--
-Copyright (C) Stichting Deltares 2021. All rights reserved.
+Copyright (C) Stichting Deltares 2022. All rights reserved.
 
 This file is part of Riskeer.
 
@@ -91,11 +91,13 @@ All rights reserved.
     <Style x:Key="Header1" TargetType="{x:Type TextBlock}">
         <Setter Property="Margin" Value="0,0,0,16" />
         <Setter Property="FontSize" Value="36" />
+        <Setter Property="VerticalAlignment" Value="Bottom" />
     </Style>
 
     <Style x:Key="Header2" TargetType="{x:Type TextBlock}">
         <Setter Property="FontSize" Value="16" />
         <Setter Property="Margin" Value="0 16 0 8" />
+        <Setter Property="VerticalAlignment" Value="Bottom" />
     </Style>
 
 </ResourceDictionary>

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -21,7 +21,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base;
 using Riskeer.ClosingStructures.Data.Properties;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.Calculation;
@@ -36,13 +35,9 @@ namespace Riskeer.ClosingStructures.Data
     /// Model containing input and output needed to perform different levels of the
     /// Closing Structures failure mechanism.
     /// </summary>
-    public class ClosingStructuresFailureMechanism : FailureMechanismBase,
-                                                     ICalculatableFailureMechanism,
-                                                     IHasSectionResults<ClosingStructuresFailureMechanismSectionResultOld, AdoptableFailureMechanismSectionResult>
+    public class ClosingStructuresFailureMechanism : FailureMechanismBase<AdoptableFailureMechanismSectionResult>,
+                                                     ICalculatableFailureMechanism
     {
-        private readonly ObservableList<ClosingStructuresFailureMechanismSectionResultOld> sectionResultsOld;
-        private readonly ObservableList<AdoptableFailureMechanismSectionResult> sectionResults;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ClosingStructuresFailureMechanism"/> class.
         /// </summary>
@@ -56,9 +51,9 @@ namespace Riskeer.ClosingStructures.Data
 
             GeneralInput = new GeneralClosingStructuresInput();
             ClosingStructures = new StructureCollection<ClosingStructure>();
-            sectionResultsOld = new ObservableList<ClosingStructuresFailureMechanismSectionResultOld>();
-            sectionResults = new ObservableList<AdoptableFailureMechanismSectionResult>();
             ForeshoreProfiles = new ForeshoreProfileCollection();
+
+            CalculationsInputComments = new Comment();
         }
 
         /// <summary>
@@ -76,25 +71,10 @@ namespace Riskeer.ClosingStructures.Data
         /// </summary>
         public ForeshoreProfileCollection ForeshoreProfiles { get; }
 
+        public IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations().Cast<StructuresCalculation<ClosingStructuresInput>>();
+
         public CalculationGroup CalculationsGroup { get; }
 
-        public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations().Cast<StructuresCalculation<ClosingStructuresInput>>();
-
-        public IObservableEnumerable<ClosingStructuresFailureMechanismSectionResultOld> SectionResultsOld => sectionResultsOld;
-
-        public IObservableEnumerable<AdoptableFailureMechanismSectionResult> SectionResults => sectionResults;
-
-        protected override void AddSectionDependentData(FailureMechanismSection section)
-        {
-            base.AddSectionDependentData(section);
-            sectionResultsOld.Add(new ClosingStructuresFailureMechanismSectionResultOld(section));
-            sectionResults.Add(new AdoptableFailureMechanismSectionResult(section));
-        }
-
-        protected override void ClearSectionDependentData()
-        {
-            sectionResultsOld.Clear();
-            sectionResults.Clear();
-        }
+        public Comment CalculationsInputComments { get; }
     }
 }

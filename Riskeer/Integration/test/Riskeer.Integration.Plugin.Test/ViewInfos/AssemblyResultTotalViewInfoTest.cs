@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -80,7 +80,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             string viewName = info.GetViewName(null, null);
 
             // Assert
-            Assert.AreEqual("Gecombineerd toetsoordeel", viewName);
+            Assert.AreEqual("Veiligheidsoordeel", viewName);
         }
 
         [Test]

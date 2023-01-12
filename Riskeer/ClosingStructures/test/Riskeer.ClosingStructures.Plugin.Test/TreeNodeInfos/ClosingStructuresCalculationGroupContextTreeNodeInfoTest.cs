@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -487,7 +487,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 }
             };
 
-            var failureMechanism = new TestClosingStructuresFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculationScenario<ClosingStructuresInput>());
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
@@ -537,7 +537,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 }
             };
 
-            var failureMechanism = new TestClosingStructuresFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculationScenario<ClosingStructuresInput>());
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
@@ -560,12 +560,12 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // Assert
-                    ToolStripItem calculatAllContextMenuItem = contextMenu.Items[contextMenuCalculateAllIndexRootGroup];
+                    ToolStripItem calculateAllContextMenuItem = contextMenu.Items[contextMenuCalculateAllIndexRootGroup];
 
-                    Assert.AreEqual("Alles be&rekenen", calculatAllContextMenuItem.Text);
-                    StringAssert.Contains("Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt.", calculatAllContextMenuItem.ToolTipText);
-                    TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.CalculateAllIcon, calculatAllContextMenuItem.Image);
-                    Assert.IsFalse(calculatAllContextMenuItem.Enabled);
+                    Assert.AreEqual("Alles be&rekenen", calculateAllContextMenuItem.Text);
+                    StringAssert.Contains("Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt.", calculateAllContextMenuItem.ToolTipText);
+                    TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.CalculateAllIcon, calculateAllContextMenuItem.Image);
+                    Assert.IsFalse(calculateAllContextMenuItem.Enabled);
 
                     ToolStripItem validateAllContextMenuItem = contextMenu.Items[contextMenuValidateAllIndexRootGroup];
 
@@ -591,7 +591,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
-            var failureMechanism = new TestClosingStructuresFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculationScenario<ClosingStructuresInput>());
 
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
@@ -640,7 +640,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-            var failureMechanism = new TestClosingStructuresFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new StructuresCalculationScenario<ClosingStructuresInput>
             {
                 InputParameters =
@@ -693,7 +693,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             calculationInputObserver.Expect(o => o.UpdateObserver());
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-            var failureMechanism = new TestClosingStructuresFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
 
             var calculation = new StructuresCalculationScenario<ClosingStructuresInput>
             {
@@ -968,7 +968,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub(mocks);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            var failureMechanism = new TestClosingStructuresFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new TestClosingStructuresCalculationScenario
             {
                 Name = "A",
@@ -1065,7 +1065,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             // Setup
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            var failureMechanism = new TestClosingStructuresFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new TestClosingStructuresCalculationScenario
             {
                 Name = "A",

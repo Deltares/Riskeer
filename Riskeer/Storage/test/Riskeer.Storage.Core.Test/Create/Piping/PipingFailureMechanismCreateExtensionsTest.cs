@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -216,7 +216,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
             Assert.IsNotNull(entity);
             ICollection<FailureMechanismSectionEntity> failureMechanismSectionEntities = entity.FailureMechanismSectionEntities;
             Assert.AreEqual(1, failureMechanismSectionEntities.Count);
-            Assert.AreEqual(1, failureMechanismSectionEntities.SelectMany(fms => fms.PipingSectionResultEntities)
+            Assert.AreEqual(1, failureMechanismSectionEntities.SelectMany(fms => fms.AdoptableWithProfileProbabilityFailureMechanismSectionResultEntities)
                                                               .Count());
             Assert.AreEqual(1, failureMechanismSectionEntities.SelectMany(fms => fms.PipingScenarioConfigurationPerFailureMechanismSectionEntities)
                                                               .Count());

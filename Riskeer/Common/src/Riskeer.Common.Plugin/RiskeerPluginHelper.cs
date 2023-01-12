@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -26,7 +26,6 @@ using Core.Gui.Plugin;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.Views;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
@@ -47,15 +46,13 @@ namespace Riskeer.Common.Plugin
         /// <returns>Whether the view should be closed.</returns>
         public static bool ShouldCloseViewWithCalculationData(IView view, object removedObject)
         {
-            var context = removedObject as ICalculationContext<ICalculation, IFailureMechanism>;
-            if (context != null)
+            if (removedObject is ICalculationContext<ICalculation, ICalculatableFailureMechanism> context)
             {
                 return ReferenceEquals(view.Data, context.WrappedData);
             }
 
             IEnumerable<ICalculation> calculations;
-            var calculationGroupContext = removedObject as ICalculationContext<CalculationGroup, IFailureMechanism>;
-            if (calculationGroupContext != null)
+            if (removedObject is ICalculationContext<CalculationGroup, ICalculatableFailureMechanism> calculationGroupContext)
             {
                 calculations = calculationGroupContext.WrappedData
                                                       .GetCalculations();
@@ -75,67 +72,37 @@ namespace Riskeer.Common.Plugin
         /// <param name="view">The view to be checked.</param>
         /// <param name="removedObject">The object that is removed.</param>
         /// <returns>Whether the view should be closed.</returns>
-        public static bool ShouldCloseForFailureMechanismView(CloseForFailurePathView view, object removedObject)
+        public static bool ShouldCloseForFailureMechanismView(CloseForFailureMechanismView view, object removedObject)
         {
-            var assessmentSection = removedObject as IAssessmentSection;
-            var failurePathContext = removedObject as IFailurePathContext<IFailureMechanism>;
             var failureMechanism = removedObject as IFailureMechanism;
 
-            if (failurePathContext != null)
+            if (removedObject is IFailureMechanismContext<IFailureMechanism> failureMechanismContext)
             {
-                failureMechanism = failurePathContext.WrappedData;
+                failureMechanism = failureMechanismContext.WrappedData;
             }
 
-            if (assessmentSection != null)
+            if (removedObject is IAssessmentSection assessmentSection)
             {
                 failureMechanism = assessmentSection.GetFailureMechanisms()
-                                                    .FirstOrDefault(fm => fm == view.FailurePath);
+                                                    .FirstOrDefault(fm => fm == view.FailureMechanism)
+                                   ?? assessmentSection.SpecificFailureMechanisms
+                                                       .FirstOrDefault(fp => fp == view.FailureMechanism);
             }
 
-            return failureMechanism != null && ReferenceEquals(view.FailurePath, failureMechanism);
-        }
-
-        /// <summary>
-        /// Checks whether <paramref name="view"/> should be closed based on the removal of
-        /// <paramref name="removedObject"/>.
-        /// </summary>
-        /// <param name="view">The view to be checked.</param>
-        /// <param name="removedObject">The object that is removed.</param>
-        /// <returns>Whether the view should be closed.</returns>
-        public static bool ShouldCloseForFailurePathView(CloseForFailurePathView view, object removedObject)
-        {
-            var assessmentSection = removedObject as IAssessmentSection;
-            var failurePathContext = removedObject as IFailurePathContext<IFailurePath>;
-            var failurePath = removedObject as IFailurePath;
-
-            if (failurePathContext != null)
-            {
-                failurePath = failurePathContext.WrappedData;
-            }
-
-            if (assessmentSection != null)
-            {
-                failurePath = assessmentSection.GetFailureMechanisms()
-                                               .FirstOrDefault(fm => fm == view.FailurePath)
-                              ?? assessmentSection.SpecificFailurePaths
-                                                  .FirstOrDefault(fp => fp == view.FailurePath);
-            }
-
-            return failurePath != null && ReferenceEquals(view.FailurePath, failurePath);
+            return failureMechanism != null && ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
 
         private static IEnumerable<ICalculation> GetCalculationsFromFailureMechanisms(object o)
         {
-            var failureMechanism = o as IFailureMechanism;
-            if (failureMechanism != null)
+            if (o is ICalculatableFailureMechanism failureMechanism)
             {
                 return failureMechanism.Calculations;
             }
 
-            var assessmentSection = o as IAssessmentSection;
-            if (assessmentSection != null)
+            if (o is IAssessmentSection assessmentSection)
             {
                 return assessmentSection.GetFailureMechanisms()
+                                        .OfType<ICalculatableFailureMechanism>()
                                         .SelectMany(fm => fm.Calculations);
             }
 

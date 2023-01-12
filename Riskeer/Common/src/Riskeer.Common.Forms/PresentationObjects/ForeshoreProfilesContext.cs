@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -41,7 +41,7 @@ namespace Riskeer.Common.Forms.PresentationObjects
         /// <param name="parentFailureMechanism">The parent failure mechanism</param>
         /// <param name="parentAssessmentSection">The parent assessment section.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public ForeshoreProfilesContext(ForeshoreProfileCollection foreshoreProfiles, IFailureMechanism parentFailureMechanism, IAssessmentSection parentAssessmentSection)
+        public ForeshoreProfilesContext(ForeshoreProfileCollection foreshoreProfiles, ICalculatableFailureMechanism parentFailureMechanism, IAssessmentSection parentAssessmentSection)
             : base(foreshoreProfiles)
         {
             if (parentAssessmentSection == null)
@@ -66,6 +66,6 @@ namespace Riskeer.Common.Forms.PresentationObjects
         /// <summary>
         /// Gets the parent failure mechanism.
         /// </summary>
-        public IFailureMechanism ParentFailureMechanism { get; }
+        public ICalculatableFailureMechanism ParentFailureMechanism { get; }
     }
 }

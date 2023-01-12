@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -136,7 +136,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             }, string.Empty);
 
             // Assert
-            const string expectedMessage = "Vak 'B' sluit niet aan op de al gedefinieerde vakken van het toetsspoor.";
+            const string expectedMessage = "Vak 'B' sluit niet aan op de al gedefinieerde vakken van het faalmechanisme.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
             CollectionAssert.IsEmpty(sectionCollection);
             Assert.IsNull(sectionCollection.SourcePath);
@@ -167,7 +167,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             }, string.Empty);
 
             // Assert
-            const string expectedMessage = "Vak 'B' sluit niet aan op de al gedefinieerde vakken van het toetsspoor.";
+            const string expectedMessage = "Vak 'B' sluit niet aan op de al gedefinieerde vakken van het faalmechanisme.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
             CollectionAssert.IsEmpty(sectionCollection);
             Assert.IsNull(sectionCollection.SourcePath);

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -59,7 +59,7 @@ namespace Core.Gui.Forms.Backstage
             this.settings = settings;
 
             InfoViewModel = new InfoViewModel();
-            AboutViewModel = new AboutViewModel(settings.ApplicationName, version);
+            AboutViewModel = new AboutViewModel(settings, version);
             SupportViewModel = new SupportViewModel(settings);
 
             OpenUserManualCommand = new RelayCommand(OnOpenUserManual, CanOpenUserManual);

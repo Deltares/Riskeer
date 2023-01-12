@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -82,12 +82,11 @@ namespace Riskeer.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekeningen voor geselecteerd vak en type toets.
+        ///   Looks up a localized string similar to Berekeningen voor huidige selectie.
         /// </summary>
-        public static string Calculations_per_FailureMechanismSection_And_ScenarioConfigurationType_DisplayName {
+        public static string Calculations_for_current_Selection_DisplayName {
             get {
-                return ResourceManager.GetString("Calculations_per_FailureMechanismSection_And_ScenarioConfigurationType_DisplayNam" +
-                        "e", resourceCulture);
+                return ResourceManager.GetString("Calculations_for_current_Selection_DisplayName", resourceCulture);
             }
         }
         
@@ -741,7 +740,7 @@ namespace Riskeer.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De benaderde kans dat het toetsspoor piping optreedt voor deze berekening..
+        ///   Looks up a localized string similar to De benaderde kans dat het faalmechanisme piping optreedt voor deze berekening..
         /// </summary>
         public static string PipingOutput_PipingProbability_Description {
             get {
@@ -970,7 +969,7 @@ namespace Riskeer.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Type toets:.
+        ///   Looks up a localized string similar to Type toets.
         /// </summary>
         public static string PipingScenariosView_ScenarioConfigurationType_DisplayName {
             get {
@@ -1220,7 +1219,7 @@ namespace Riskeer.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Probabilistische toets.
+        ///   Looks up a localized string similar to Probabilistisch.
         /// </summary>
         public static string ScenarioConfigurationType_Probabilistic_DisplayName {
             get {
@@ -1229,7 +1228,7 @@ namespace Riskeer.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Semi-probabilistische toets.
+        ///   Looks up a localized string similar to Semi-probabilistisch.
         /// </summary>
         public static string ScenarioConfigurationType_SemiProbabilistic_DisplayName {
             get {

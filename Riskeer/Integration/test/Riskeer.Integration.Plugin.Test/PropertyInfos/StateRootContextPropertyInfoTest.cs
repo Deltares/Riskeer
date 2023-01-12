@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -86,7 +86,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
         {
             return plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(AssessmentSectionProperties));
         }
-        
+
         private class TestStateRootContext : StateRootContext
         {
             public TestStateRootContext(AssessmentSection wrappedData) : base(wrappedData) {}

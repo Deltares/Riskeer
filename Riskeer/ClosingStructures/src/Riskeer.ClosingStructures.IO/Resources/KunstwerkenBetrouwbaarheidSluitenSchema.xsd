@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!--
-Copyright (C) Stichting Deltares 2021. All rights reserved.
+Copyright (C) Stichting Deltares 2022. All rights reserved.
 
 This file is part of Riskeer.
 
@@ -66,7 +66,7 @@ All rights reserved.
     </xs:complexType>
   </xs:redefine>
 
-  <!--Herdefinieer stochastnamen. Voor dit toetsspoor zijn alleen de onderstaande
+  <!--Herdefinieer stochastnamen. Voor dit faalmechanisme zijn alleen de onderstaande
   namen voor stochasten toegestaan (en ze mogen ook maar maximaal 1 keer voorkomen).-->
   <xs:redefine schemaLocation="StochastSchema.xsd">
     <xs:simpleType name="nameType">
@@ -87,7 +87,7 @@ All rights reserved.
     </xs:simpleType>
   </xs:redefine>
 
-  <!--Elementen die specifiek voor dit toetsspoor nodig zijn.-->
+  <!--Elementen die specifiek voor dit faalmechanisme nodig zijn.-->
   
   <!--Specificeert de factor voor stormduur hoogwater gegeven een geopend kunstwerk.-->
   <xs:element name="factorstormduur">

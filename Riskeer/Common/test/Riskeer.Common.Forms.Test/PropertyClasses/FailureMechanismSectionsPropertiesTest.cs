@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -30,7 +30,6 @@ using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PropertyClasses;
 
@@ -40,14 +39,14 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
     public class FailureMechanismSectionsPropertiesTest
     {
         [Test]
-        public void Constructor_FailurePathNull_ThrowsArgumentNullException()
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new FailureMechanismSectionsProperties(null);
+            void Call() => new FailureMechanismSectionsProperties(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("failurePath", exception.ParamName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
         [Test]
@@ -60,16 +59,16 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             };
 
-            var failurePath = new TestFailurePath();
-            failurePath.SetSections(sections, sourcePath);
-            
+            var failureMechanism = new TestFailureMechanism();
+            failureMechanism.SetSections(sections, sourcePath);
+
             // Call
-            using (var properties = new FailureMechanismSectionsProperties(failurePath))
+            using (var properties = new FailureMechanismSectionsProperties(failureMechanism))
             {
                 // Assert
-                Assert.IsInstanceOf<ObjectProperties<IFailurePath>>(properties);
+                Assert.IsInstanceOf<ObjectProperties<IFailureMechanism>>(properties);
                 Assert.IsInstanceOf<IDisposable>(properties);
-                Assert.AreSame(failurePath, properties.Data);
+                Assert.AreSame(failureMechanism, properties.Data);
 
                 TestHelper.AssertTypeConverter<FailureMechanismSectionsProperties, ExpandableArrayConverter>(
                     nameof(FailureMechanismSectionsProperties.Sections));
@@ -97,16 +96,16 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IFailurePath>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
             // Call
-            using (var properties = new FailureMechanismSectionsProperties(failurePath))
+            using (var properties = new FailureMechanismSectionsProperties(failureMechanism))
             {
                 // Assert
                 PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
                 Assert.AreEqual(2, dynamicProperties.Count);
-                var generalCategoryName = "Algemeen";
+                const string generalCategoryName = "Algemeen";
 
                 PropertyDescriptor sourcePathProperty = dynamicProperties[0];
                 PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(sourcePathProperty,
@@ -119,7 +118,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                 PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(sectionsProperty,
                                                                                 generalCategoryName,
                                                                                 "Vakindeling",
-                                                                                "Vakindeling waarmee de waterkering voor dit toetsspoor is " +
+                                                                                "Vakindeling waarmee de waterkering voor dit faalmechanisme is " +
                                                                                 "geschematiseerd ten behoeve van de beoordeling.",
                                                                                 true);
                 mocks.VerifyAll();
@@ -127,10 +126,10 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GivenPropertyControlWithData_WhenFailurePathUpdated_RefreshRequiredEventRaised()
+        public void GivenPropertyControlWithData_WhenFailureMechanismUpdated_RefreshRequiredEventRaised()
         {
             // Given
-            var failureMechanism = new TestFailurePath();
+            var failureMechanism = new TestFailureMechanism();
 
             using (var properties = new FailureMechanismSectionsProperties(failureMechanism))
             {

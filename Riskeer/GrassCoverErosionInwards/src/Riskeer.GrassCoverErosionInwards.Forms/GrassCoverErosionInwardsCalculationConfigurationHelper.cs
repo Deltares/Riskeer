@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -68,8 +68,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms
                     InputParameters =
                     {
                         DikeProfile = profile,
-                        DikeHeightTargetProbability = failureMechanismContribution.Norm,
-                        OvertoppingRateTargetProbability = failureMechanismContribution.Norm
+                        DikeHeightTargetProbability = failureMechanismContribution.NormativeProbability,
+                        OvertoppingRateTargetProbability = failureMechanismContribution.NormativeProbability
                     }
                 };
                 calculationGroup.Children.Add(calculation);

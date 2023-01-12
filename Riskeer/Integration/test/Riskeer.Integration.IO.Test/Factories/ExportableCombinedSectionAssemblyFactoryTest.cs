@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -26,11 +26,18 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.IO.Model;
+using Riskeer.AssemblyTool.IO.TestUtil;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Assembly;
-using Riskeer.Integration.IO.Assembly;
+using Riskeer.Integration.Data.TestUtil;
+using Riskeer.Integration.IO.Converters;
+using Riskeer.Integration.IO.Exceptions;
 using Riskeer.Integration.IO.Factories;
-using Riskeer.Integration.Util;
+using Riskeer.Integration.IO.Helpers;
 
 namespace Riskeer.Integration.IO.Test.Factories
 {
@@ -38,83 +45,187 @@ namespace Riskeer.Integration.IO.Test.Factories
     public class ExportableCombinedSectionAssemblyFactoryTest
     {
         [Test]
+        public void CreateExportableCombinedSectionAssemblyCollection_IdGeneratorNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => ExportableCombinedSectionAssemblyFactory.CreateExportableCombinedSectionAssemblyCollection(
+                null, new ExportableModelRegistry(), Enumerable.Empty<CombinedFailureMechanismSectionAssemblyResult>(),
+                new AssessmentSection(AssessmentSectionComposition.Dike));
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("idGenerator", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateExportableCombinedSectionAssemblyCollection_RegistryNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => ExportableCombinedSectionAssemblyFactory.CreateExportableCombinedSectionAssemblyCollection(
+                new IdentifierGenerator(), null, Enumerable.Empty<CombinedFailureMechanismSectionAssemblyResult>(),
+                new AssessmentSection(AssessmentSectionComposition.Dike));
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("registry", exception.ParamName);
+        }
+
+        [Test]
         public void CreateExportableCombinedSectionAssemblyCollection_CombinedSectionAssemblyResultsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ExportableCombinedSectionAssemblyFactory.CreateExportableCombinedSectionAssemblyCollection(
-                null, new ReferenceLine());
+            void Call() => ExportableCombinedSectionAssemblyFactory.CreateExportableCombinedSectionAssemblyCollection(
+                new IdentifierGenerator(), new ExportableModelRegistry(), null, new AssessmentSection(AssessmentSectionComposition.Dike));
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("combinedSectionAssemblyResults", exception.ParamName);
         }
 
         [Test]
-        public void CreateExportableCombinedSectionAssemblyCollection_ReferenceLineNull_ThrowsArgumentNullException()
+        public void CreateExportableCombinedSectionAssemblyCollection_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ExportableCombinedSectionAssemblyFactory.CreateExportableCombinedSectionAssemblyCollection(
-                Enumerable.Empty<CombinedFailureMechanismSectionAssemblyResult>(), null);
+            void Call() => ExportableCombinedSectionAssemblyFactory.CreateExportableCombinedSectionAssemblyCollection(
+                new IdentifierGenerator(), new ExportableModelRegistry(), Enumerable.Empty<CombinedFailureMechanismSectionAssemblyResult>(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("referenceLine", exception.ParamName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
-        public void CreateExportableCombinedSectionAssemblyCollection_WithAssemblyResults_ReturnsExportableCombinedSectionAssemblyCollection()
+        [TestCase(FailureMechanismSectionAssemblyGroup.NoResult)]
+        [TestCase(FailureMechanismSectionAssemblyGroup.Dominant)]
+        public void CreateExportableCombinedSectionAssemblyCollection_WithInvalidAssemblyResults_ThrowsAssemblyFactoryException(
+            FailureMechanismSectionAssemblyGroup assemblyGroup)
         {
             // Setup
-            var referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(new[]
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            var random = new Random(21);
+            CombinedFailureMechanismSectionAssemblyResult[] assemblyResults =
+            {
+                new CombinedFailureMechanismSectionAssemblyResult(
+                    random.NextDouble(), random.NextDouble(), assemblyGroup,
+                    random.NextEnumValue<AssemblyMethod>(), random.NextEnumValue<AssemblyMethod>(),
+                    random.NextEnumValue<AssemblyMethod>(), new CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties())
+            };
+
+            // Call
+            void Call() => ExportableCombinedSectionAssemblyFactory.CreateExportableCombinedSectionAssemblyCollection(
+                new IdentifierGenerator(), new ExportableModelRegistry(), assemblyResults, assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<AssemblyFactoryException>(Call);
+            Assert.AreEqual("The assembly result is invalid and cannot be created.", exception.Message);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void CreateExportableCombinedSectionAssemblyCollection_WithAssemblyResults_ReturnsExportableCombinedSectionAssemblyCollection(bool hasAssemblyGroupResults)
+        {
+            // Setup
+            CombinedFailureMechanismSectionAssemblyResult[] assemblyResults =
+            {
+                CombinedFailureMechanismSectionAssemblyResultTestFactory.Create(21, hasAssemblyGroupResults),
+                CombinedFailureMechanismSectionAssemblyResultTestFactory.Create(22, hasAssemblyGroupResults)
+            };
+
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            assessmentSection.ReferenceLine.SetGeometry(new[]
             {
                 new Point2D(0, 0),
                 new Point2D(2, 2)
             });
-            CombinedFailureMechanismSectionAssemblyResult[] assemblyResults =
+
+            assessmentSection.SpecificFailureMechanisms.AddRange(new[]
             {
-                CreateCombinedFailureMechanismSectionAssemblyResult(21),
-                CreateCombinedFailureMechanismSectionAssemblyResult(22)
-            };
+                new SpecificFailureMechanism
+                {
+                    Code = "Nieuw1"
+                },
+                new SpecificFailureMechanism
+                {
+                    Code = "Nieuw2"
+                }
+            });
+            SetFailureMechanismSections(assessmentSection, assemblyResults.Length);
+
+            var idGenerator = new IdentifierGenerator();
+            var registry = new ExportableModelRegistry();
+            RegisterFailureMechanismSections(registry, assessmentSection.ReferenceLine, assemblyResults);
+            RegisterFailureMechanismSectionResults(registry, assessmentSection, assemblyResults);
 
             // Call
             IEnumerable<ExportableCombinedSectionAssembly> exportableCombinedSectionAssemblies =
-                ExportableCombinedSectionAssemblyFactory.CreateExportableCombinedSectionAssemblyCollection(assemblyResults, referenceLine);
+                ExportableCombinedSectionAssemblyFactory.CreateExportableCombinedSectionAssemblyCollection(
+                    idGenerator, registry, assemblyResults, assessmentSection);
 
             // Assert
-            AssertCombinedFailureMechanismSectionAssemblyResults(assemblyResults, exportableCombinedSectionAssemblies, referenceLine);
+            AssertCombinedFailureMechanismSectionAssemblyResults(registry, assessmentSection, assemblyResults,
+                                                                 exportableCombinedSectionAssemblies, hasAssemblyGroupResults);
         }
 
-        private static CombinedFailureMechanismSectionAssemblyResult CreateCombinedFailureMechanismSectionAssemblyResult(int seed)
+        private static void SetFailureMechanismSections(IAssessmentSection assessmentSection, int nrOfCombinedAssemblyResults)
         {
-            var random = new Random(seed);
-
-            return new CombinedFailureMechanismSectionAssemblyResult(
-                random.Next(), random.NextDouble(), random.NextDouble(),
-                random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
-                new CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties
-                {
-                    Piping = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
-                    GrassCoverErosionInwards = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
-                    MacroStabilityInwards = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
-                    Microstability = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
-                    StabilityStoneCover = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
-                    WaveImpactAsphaltCover = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
-                    WaterPressureAsphaltCover = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
-                    GrassCoverErosionOutwards = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
-                    GrassCoverSlipOffOutwards = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
-                    GrassCoverSlipOffInwards = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
-                    HeightStructures = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
-                    ClosingStructures = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
-                    PipingStructure = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
-                    StabilityPointStructures = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
-                    DuneErosion = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>()
-                });
+            IEnumerable<IFailureMechanism> failureMechanisms = assessmentSection.GetFailureMechanisms()
+                                                                                .Concat(assessmentSection.SpecificFailureMechanisms);
+            foreach (IFailureMechanism failureMechanism in failureMechanisms)
+            {
+                FailureMechanismTestHelper.AddSections(failureMechanism, nrOfCombinedAssemblyResults);
+            }
         }
 
-        private static void AssertCombinedFailureMechanismSectionAssemblyResults(IEnumerable<CombinedFailureMechanismSectionAssemblyResult> assemblyResults,
-                                                                                 IEnumerable<ExportableCombinedSectionAssembly> exportableCombinedSectionAssemblies,
-                                                                                 ReferenceLine referenceLine)
+        private static void RegisterFailureMechanismSections(ExportableModelRegistry registry, ReferenceLine referenceLine,
+                                                             IEnumerable<CombinedFailureMechanismSectionAssemblyResult> assemblyResults)
+        {
+            ExportableFailureMechanismSectionCollectionFactory.CreateExportableFailureMechanismSectionCollection(
+                new IdentifierGenerator(), registry, referenceLine, assemblyResults);
+        }
+
+        private static void RegisterFailureMechanismSectionResults(ExportableModelRegistry registry, AssessmentSection assessmentSection,
+                                                                   IEnumerable<CombinedFailureMechanismSectionAssemblyResult> combinedSectionAssemblyResults)
+        {
+            RegisterFailureMechanismSectionResults(registry, assessmentSection.Piping.SectionResults, combinedSectionAssemblyResults);
+            RegisterFailureMechanismSectionResults(registry, assessmentSection.GrassCoverErosionInwards.SectionResults, combinedSectionAssemblyResults);
+            RegisterFailureMechanismSectionResults(registry, assessmentSection.MacroStabilityInwards.SectionResults, combinedSectionAssemblyResults);
+            RegisterFailureMechanismSectionResults(registry, assessmentSection.Microstability.SectionResults, combinedSectionAssemblyResults);
+            RegisterFailureMechanismSectionResults(registry, assessmentSection.StabilityStoneCover.SectionResults, combinedSectionAssemblyResults);
+            RegisterFailureMechanismSectionResults(registry, assessmentSection.WaveImpactAsphaltCover.SectionResults, combinedSectionAssemblyResults);
+            RegisterFailureMechanismSectionResults(registry, assessmentSection.WaterPressureAsphaltCover.SectionResults, combinedSectionAssemblyResults);
+            RegisterFailureMechanismSectionResults(registry, assessmentSection.GrassCoverErosionOutwards.SectionResults, combinedSectionAssemblyResults);
+            RegisterFailureMechanismSectionResults(registry, assessmentSection.GrassCoverSlipOffOutwards.SectionResults, combinedSectionAssemblyResults);
+            RegisterFailureMechanismSectionResults(registry, assessmentSection.GrassCoverSlipOffInwards.SectionResults, combinedSectionAssemblyResults);
+            RegisterFailureMechanismSectionResults(registry, assessmentSection.HeightStructures.SectionResults, combinedSectionAssemblyResults);
+            RegisterFailureMechanismSectionResults(registry, assessmentSection.ClosingStructures.SectionResults, combinedSectionAssemblyResults);
+            RegisterFailureMechanismSectionResults(registry, assessmentSection.PipingStructure.SectionResults, combinedSectionAssemblyResults);
+            RegisterFailureMechanismSectionResults(registry, assessmentSection.StabilityPointStructures.SectionResults, combinedSectionAssemblyResults);
+            RegisterFailureMechanismSectionResults(registry, assessmentSection.DuneErosion.SectionResults, combinedSectionAssemblyResults);
+
+            foreach (SpecificFailureMechanism specificFailureMechanism in assessmentSection.SpecificFailureMechanisms)
+            {
+                RegisterFailureMechanismSectionResults(registry, specificFailureMechanism.SectionResults, combinedSectionAssemblyResults);
+            }
+        }
+
+        private static void RegisterFailureMechanismSectionResults(ExportableModelRegistry registry,
+                                                                   IEnumerable<FailureMechanismSectionResult> sectionAssemblyResults,
+                                                                   IEnumerable<CombinedFailureMechanismSectionAssemblyResult> combinedSectionAssemblyResults)
+        {
+            for (var i = 0; i < combinedSectionAssemblyResults.Count(); i++)
+            {
+                CombinedFailureMechanismSectionAssemblyResult assemblyResult = combinedSectionAssemblyResults.ElementAt(i);
+                ExportableFailureMechanismSection exportableSection = ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(
+                    assemblyResult.SectionStart, assemblyResult.SectionEnd);
+                registry.Register(sectionAssemblyResults.ElementAt(i), ExportableFailureMechanismSectionAssemblyResultTestFactory.Create(exportableSection, i));
+            }
+        }
+
+        private static void AssertCombinedFailureMechanismSectionAssemblyResults(
+            ExportableModelRegistry registry, AssessmentSection assessmentSection, IEnumerable<CombinedFailureMechanismSectionAssemblyResult> assemblyResults,
+            IEnumerable<ExportableCombinedSectionAssembly> exportableCombinedSectionAssemblies, bool hasAssemblyGroupResults)
         {
             int expectedNrOfSections = assemblyResults.Count();
             Assert.AreEqual(expectedNrOfSections, exportableCombinedSectionAssemblies.Count());
@@ -124,83 +235,81 @@ namespace Riskeer.Integration.IO.Test.Factories
                 CombinedFailureMechanismSectionAssemblyResult combinedFailureMechanismSectionAssemblyResult = assemblyResults.ElementAt(i);
                 ExportableCombinedSectionAssembly exportableCombinedSectionAssembly = exportableCombinedSectionAssemblies.ElementAt(i);
 
-                AssertExportableCombinedFailureMechanismSection(combinedFailureMechanismSectionAssemblyResult, exportableCombinedSectionAssembly.Section, referenceLine);
-                AssertExportableCombinedFailureMechanismSectionResult(combinedFailureMechanismSectionAssemblyResult, exportableCombinedSectionAssembly.Section, exportableCombinedSectionAssembly);
+                AssertExportableCombinedFailureMechanismSectionResult(i, registry, assessmentSection, combinedFailureMechanismSectionAssemblyResult,
+                                                                      registry.Get(combinedFailureMechanismSectionAssemblyResult),
+                                                                      exportableCombinedSectionAssembly, hasAssemblyGroupResults);
             }
         }
 
-        private static void AssertExportableCombinedFailureMechanismSection(CombinedFailureMechanismSectionAssemblyResult expectedSection,
-                                                                            ExportableCombinedFailureMechanismSection actualSection,
-                                                                            ReferenceLine referenceLine)
+        private static void AssertExportableCombinedFailureMechanismSectionResult(
+            int index, ExportableModelRegistry registry, AssessmentSection assessmentSection,
+            CombinedFailureMechanismSectionAssemblyResult expectedSection, ExportableCombinedFailureMechanismSection actualSection,
+            ExportableCombinedSectionAssembly actualSectionResult, bool hasAssemblyGroupResults)
         {
-            IEnumerable<Point2D> expectedGeometry = FailureMechanismSectionHelper.GetFailureMechanismSectionGeometry(
-                referenceLine,
-                actualSection.StartDistance,
-                actualSection.EndDistance).ToArray();
-            CollectionAssert.IsNotEmpty(expectedGeometry);
+            Assert.AreEqual($"Gf.{index}", actualSectionResult.Id);
 
-            Assert.AreEqual(expectedSection.SectionStart, actualSection.StartDistance);
-            Assert.AreEqual(expectedSection.SectionEnd, actualSection.EndDistance);
-            CollectionAssert.AreEqual(expectedGeometry, actualSection.Geometry);
-            Assert.AreEqual(ExportableAssemblyMethod.WBI3A1, actualSection.AssemblyMethod);
-        }
-
-        private static void AssertExportableCombinedFailureMechanismSectionResult(CombinedFailureMechanismSectionAssemblyResult expectedSection,
-                                                                                  ExportableCombinedFailureMechanismSection actualSection,
-                                                                                  ExportableCombinedSectionAssembly actualSectionResult)
-        {
             Assert.AreSame(actualSection, actualSectionResult.Section);
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, actualSectionResult.CombinedSectionAssemblyResult.AssemblyCategory);
-            Assert.AreEqual(ExportableAssemblyMethod.WBI3C1, actualSectionResult.CombinedSectionAssemblyResult.AssemblyMethod);
+            Assert.AreEqual(ExportableFailureMechanismSectionAssemblyGroupConverter.ConvertTo(expectedSection.TotalResult), actualSectionResult.AssemblyGroup);
+            Assert.AreEqual(ExportableAssemblyMethodConverter.ConvertTo(expectedSection.CombinedSectionResultAssemblyMethod), actualSectionResult.AssemblyGroupAssemblyMethod);
 
             IEnumerable<ExportableFailureMechanismCombinedSectionAssemblyResult> failureMechanismCombinedSectionResults = actualSectionResult.FailureMechanismResults;
-            Assert.AreEqual(15, failureMechanismCombinedSectionResults.Count());
-            Assert.IsTrue(failureMechanismCombinedSectionResults.All(result => result.SectionAssemblyResult.AssemblyMethod == ExportableAssemblyMethod.WBI3B1));
 
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, failureMechanismCombinedSectionResults.ElementAt(0).SectionAssemblyResult.AssemblyCategory);
-            Assert.AreEqual(ExportableFailureMechanismType.STPH, failureMechanismCombinedSectionResults.ElementAt(0).Code);
+            if (!hasAssemblyGroupResults)
+            {
+                CollectionAssert.IsEmpty(failureMechanismCombinedSectionResults);
+                return;
+            }
 
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, failureMechanismCombinedSectionResults.ElementAt(1).SectionAssemblyResult.AssemblyCategory);
-            Assert.AreEqual(ExportableFailureMechanismType.GEKB, failureMechanismCombinedSectionResults.ElementAt(1).Code);
+            Assert.AreEqual(17, failureMechanismCombinedSectionResults.Count());
+            Assert.IsTrue(failureMechanismCombinedSectionResults.All(result => result.AssemblyMethod == ExportableAssemblyMethodConverter.ConvertTo(
+                                                                                   expectedSection.FailureMechanismResultsAssemblyMethod)));
 
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, failureMechanismCombinedSectionResults.ElementAt(2).SectionAssemblyResult.AssemblyCategory);
-            Assert.AreEqual(ExportableFailureMechanismType.STBI, failureMechanismCombinedSectionResults.ElementAt(2).Code);
+            AssertSubSection(index, registry, assessmentSection.Piping,
+                             expectedSection.Piping, failureMechanismCombinedSectionResults.ElementAt(0));
+            AssertSubSection(index, registry, assessmentSection.GrassCoverErosionInwards,
+                             expectedSection.GrassCoverErosionInwards, failureMechanismCombinedSectionResults.ElementAt(1));
+            AssertSubSection(index, registry, assessmentSection.MacroStabilityInwards,
+                             expectedSection.MacroStabilityInwards, failureMechanismCombinedSectionResults.ElementAt(2));
+            AssertSubSection(index, registry, assessmentSection.Microstability,
+                             expectedSection.Microstability, failureMechanismCombinedSectionResults.ElementAt(3));
+            AssertSubSection(index, registry, assessmentSection.StabilityStoneCover,
+                             expectedSection.StabilityStoneCover, failureMechanismCombinedSectionResults.ElementAt(4));
+            AssertSubSection(index, registry, assessmentSection.WaveImpactAsphaltCover,
+                             expectedSection.WaveImpactAsphaltCover, failureMechanismCombinedSectionResults.ElementAt(5));
+            AssertSubSection(index, registry, assessmentSection.WaterPressureAsphaltCover,
+                             expectedSection.WaterPressureAsphaltCover, failureMechanismCombinedSectionResults.ElementAt(6));
+            AssertSubSection(index, registry, assessmentSection.GrassCoverErosionOutwards,
+                             expectedSection.GrassCoverErosionOutwards, failureMechanismCombinedSectionResults.ElementAt(7));
+            AssertSubSection(index, registry, assessmentSection.GrassCoverSlipOffOutwards,
+                             expectedSection.GrassCoverSlipOffOutwards, failureMechanismCombinedSectionResults.ElementAt(8));
+            AssertSubSection(index, registry, assessmentSection.GrassCoverSlipOffInwards,
+                             expectedSection.GrassCoverSlipOffInwards, failureMechanismCombinedSectionResults.ElementAt(9));
+            AssertSubSection(index, registry, assessmentSection.HeightStructures,
+                             expectedSection.HeightStructures, failureMechanismCombinedSectionResults.ElementAt(10));
+            AssertSubSection(index, registry, assessmentSection.ClosingStructures,
+                             expectedSection.ClosingStructures, failureMechanismCombinedSectionResults.ElementAt(11));
+            AssertSubSection(index, registry, assessmentSection.PipingStructure,
+                             expectedSection.PipingStructure, failureMechanismCombinedSectionResults.ElementAt(12));
+            AssertSubSection(index, registry, assessmentSection.StabilityPointStructures,
+                             expectedSection.StabilityPointStructures, failureMechanismCombinedSectionResults.ElementAt(13));
+            AssertSubSection(index, registry, assessmentSection.DuneErosion,
+                             expectedSection.DuneErosion, failureMechanismCombinedSectionResults.ElementAt(14));
+            AssertSubSection(index, registry, assessmentSection.SpecificFailureMechanisms[0],
+                             expectedSection.SpecificFailureMechanisms[0], failureMechanismCombinedSectionResults.ElementAt(15));
+            AssertSubSection(index, registry, assessmentSection.SpecificFailureMechanisms[1],
+                             expectedSection.SpecificFailureMechanisms[1], failureMechanismCombinedSectionResults.ElementAt(16));
+        }
 
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, failureMechanismCombinedSectionResults.ElementAt(3).SectionAssemblyResult.AssemblyCategory);
-            Assert.AreEqual(ExportableFailureMechanismType.STMI, failureMechanismCombinedSectionResults.ElementAt(3).Code);
+        private static void AssertSubSection<T>(int index, ExportableModelRegistry registry, IFailureMechanism<T> failureMechanism,
+                                                FailureMechanismSectionAssemblyGroup? subSectionGroup,
+                                                ExportableFailureMechanismCombinedSectionAssemblyResult actualResult)
+            where T : FailureMechanismSectionResult
+        {
+            Assert.AreEqual(ExportableFailureMechanismSectionAssemblyGroupConverter.ConvertTo(subSectionGroup.Value), actualResult.AssemblyGroup);
 
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, failureMechanismCombinedSectionResults.ElementAt(4).SectionAssemblyResult.AssemblyCategory);
-            Assert.AreEqual(ExportableFailureMechanismType.ZST, failureMechanismCombinedSectionResults.ElementAt(4).Code);
-
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, failureMechanismCombinedSectionResults.ElementAt(5).SectionAssemblyResult.AssemblyCategory);
-            Assert.AreEqual(ExportableFailureMechanismType.AGK, failureMechanismCombinedSectionResults.ElementAt(5).Code);
-
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, failureMechanismCombinedSectionResults.ElementAt(6).SectionAssemblyResult.AssemblyCategory);
-            Assert.AreEqual(ExportableFailureMechanismType.AWO, failureMechanismCombinedSectionResults.ElementAt(6).Code);
-
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, failureMechanismCombinedSectionResults.ElementAt(7).SectionAssemblyResult.AssemblyCategory);
-            Assert.AreEqual(ExportableFailureMechanismType.GEBU, failureMechanismCombinedSectionResults.ElementAt(7).Code);
-
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, failureMechanismCombinedSectionResults.ElementAt(8).SectionAssemblyResult.AssemblyCategory);
-            Assert.AreEqual(ExportableFailureMechanismType.GABU, failureMechanismCombinedSectionResults.ElementAt(8).Code);
-
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, failureMechanismCombinedSectionResults.ElementAt(9).SectionAssemblyResult.AssemblyCategory);
-            Assert.AreEqual(ExportableFailureMechanismType.GABI, failureMechanismCombinedSectionResults.ElementAt(9).Code);
-
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, failureMechanismCombinedSectionResults.ElementAt(10).SectionAssemblyResult.AssemblyCategory);
-            Assert.AreEqual(ExportableFailureMechanismType.HTKW, failureMechanismCombinedSectionResults.ElementAt(10).Code);
-
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, failureMechanismCombinedSectionResults.ElementAt(11).SectionAssemblyResult.AssemblyCategory);
-            Assert.AreEqual(ExportableFailureMechanismType.BSKW, failureMechanismCombinedSectionResults.ElementAt(11).Code);
-
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, failureMechanismCombinedSectionResults.ElementAt(12).SectionAssemblyResult.AssemblyCategory);
-            Assert.AreEqual(ExportableFailureMechanismType.PKW, failureMechanismCombinedSectionResults.ElementAt(12).Code);
-
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, failureMechanismCombinedSectionResults.ElementAt(13).SectionAssemblyResult.AssemblyCategory);
-            Assert.AreEqual(ExportableFailureMechanismType.STKWp, failureMechanismCombinedSectionResults.ElementAt(13).Code);
-
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, failureMechanismCombinedSectionResults.ElementAt(14).SectionAssemblyResult.AssemblyCategory);
-            Assert.AreEqual(ExportableFailureMechanismType.DA, failureMechanismCombinedSectionResults.ElementAt(14).Code);
+            T sectionResult = failureMechanism.SectionResults.ElementAt(index);
+            ExportableFailureMechanismSectionAssemblyResult expectedExportableSectionResult = registry.Get(sectionResult);
+            Assert.AreSame(expectedExportableSectionResult, actualResult.FailureMechanismSectionResult);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -20,14 +20,13 @@
 // All rights reserved.
 
 using System;
-using System.ComponentModel;
 using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.Categories;
+using Assembly.Kernel.Model.FailureMechanismSections;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.KernelWrapper.Creators;
-using KernelFailureMechanismSectionAssemblyResult = Assembly.Kernel.Model.FailureMechanismSections.FailureMechanismSectionAssemblyResult;
-using RiskeerFailureMechanismSectionAssemblyResult = Riskeer.AssemblyTool.Data.FailureMechanismSectionAssemblyResult;
+using FailureMechanismSectionAssemblyResult = Riskeer.AssemblyTool.Data.FailureMechanismSectionAssemblyResult;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
 {
@@ -35,57 +34,69 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
     public class FailureMechanismSectionAssemblyResultCreatorTest
     {
         [Test]
-        public void CreateFailureMechanismSectionAssemblyResult_ResultNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => FailureMechanismSectionAssemblyResultCreator.CreateFailureMechanismSectionAssemblyResult(null);
-
-            // Assert
-            Assert.That(Call, Throws.TypeOf<ArgumentNullException>()
-                                    .With.Property(nameof(ArgumentNullException.ParamName))
-                                    .EqualTo("result"));
-        }
-
-        [Test]
-        public void CreateFailureMechanismSectionAssemblyResult_WithInvalidResult_ThrowsInvalidEnumArgumentException()
+        public void CreateForProbabilityAndCategory_WithValidData_ReturnsExpectedFailureMechanismSectionAssembly()
         {
             // Setup
             var random = new Random(21);
-            double profileProbability = random.NextDouble();
-            double sectionProbability = random.NextDouble();
-
-            var result = new KernelFailureMechanismSectionAssemblyResult(
-                new Probability(profileProbability), new Probability(sectionProbability), (EInterpretationCategory) 99);
-
-            // Call
-            void Call() => FailureMechanismSectionAssemblyResultCreator.CreateFailureMechanismSectionAssemblyResult(result);
-
-            // Assert
-            var expectedMessage = $"The value of argument 'category' (99) is invalid for Enum type '{nameof(EInterpretationCategory)}'.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
-        }
-
-        [Test]
-        public void CreateFailureMechanismSectionAssemblyResult_WithValidResult_ReturnsExpectedFailureMechanismSectionAssembly()
-        {
-            // Setup
-            var random = new Random(21);
-            double profileProbability = random.NextDouble();
             double sectionProbability = random.NextDouble();
             var category = random.NextEnumValue<EInterpretationCategory>();
 
-            var result = new KernelFailureMechanismSectionAssemblyResult(
-                new Probability(profileProbability), new Probability(sectionProbability), category);
+            // Call
+            FailureMechanismSectionAssemblyResult result = FailureMechanismSectionAssemblyResultCreator.Create(
+                new Probability(sectionProbability), category);
+
+            // Assert
+            Assert.AreEqual(sectionProbability, result.ProfileProbability);
+            Assert.AreEqual(sectionProbability, result.SectionProbability);
+            Assert.AreEqual(1.0, result.N);
+            Assert.AreEqual(FailureMechanismSectionAssemblyGroupConverter.ConvertTo(category),
+                            result.FailureMechanismSectionAssemblyGroup);
+        }
+
+        [Test]
+        public void CreateForResultWithProfileAndSectionProbabilities_ResultNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var random = new Random(21);
 
             // Call
-            RiskeerFailureMechanismSectionAssemblyResult createdAssemblyResult = FailureMechanismSectionAssemblyResultCreator.CreateFailureMechanismSectionAssemblyResult(result);
+            void Call() => FailureMechanismSectionAssemblyResultCreator.Create(null, random.NextEnumValue<EInterpretationCategory>());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("result", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateForResultWithProfileAndSectionProbabilities_WithValidResult_ReturnsExpectedFailureMechanismSectionAssembly()
+        {
+            // Setup
+            var random = new Random(21);
+            double profileProbability = random.NextDouble(0.0001, 0.001);
+            double sectionProbability = random.NextDouble(0.0, 0.01);
+            EInterpretationCategory category = random.NextEnumValue(new[]
+            {
+                EInterpretationCategory.III,
+                EInterpretationCategory.II,
+                EInterpretationCategory.I,
+                EInterpretationCategory.Zero,
+                EInterpretationCategory.IMin,
+                EInterpretationCategory.IIMin,
+                EInterpretationCategory.IIIMin
+            });
+
+            var result = new ResultWithProfileAndSectionProbabilities(
+                new Probability(profileProbability), new Probability(sectionProbability));
+
+            // Call
+            FailureMechanismSectionAssemblyResult createdAssemblyResult = FailureMechanismSectionAssemblyResultCreator.Create(result, category);
 
             // Assert
             Assert.AreEqual(profileProbability, createdAssemblyResult.ProfileProbability);
             Assert.AreEqual(sectionProbability, createdAssemblyResult.SectionProbability);
-            Assert.AreEqual(result.NSection, createdAssemblyResult.N);
+            Assert.AreEqual(result.LengthEffectFactor, createdAssemblyResult.N);
             Assert.AreEqual(FailureMechanismSectionAssemblyGroupConverter.ConvertTo(category),
-                            createdAssemblyResult.AssemblyGroup);
+                            createdAssemblyResult.FailureMechanismSectionAssemblyGroup);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -46,7 +46,7 @@ namespace Riskeer.Storage.Core
     public class StorageSqLite : IStoreProject
     {
         private const string temporaryFileExtension = "bkup";
-        
+
         private StagedProject stagedProject;
 
         public string OpenProjectFileFilter => Resources.Supported_Riskeer_open_projects_file_filter;

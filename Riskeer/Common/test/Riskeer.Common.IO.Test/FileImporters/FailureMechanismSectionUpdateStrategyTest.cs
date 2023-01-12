@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -59,7 +59,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IHasSectionResults<TestFailureMechanismSectionResult>>();
+            var failureMechanism = mocks.Stub<IFailureMechanism<TestFailureMechanismSectionResult>>();
             mocks.ReplayAll();
 
             // Call
@@ -75,7 +75,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IHasSectionResults<TestFailureMechanismSectionResult>>();
+            var failureMechanism = mocks.Stub<IFailureMechanism<TestFailureMechanismSectionResult>>();
             var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<TestFailureMechanismSectionResult>>();
             mocks.ReplayAll();
 
@@ -92,7 +92,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IHasSectionResults<TestFailureMechanismSectionResult>>();
+            var failureMechanism = mocks.Stub<IFailureMechanism<TestFailureMechanismSectionResult>>();
             var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<TestFailureMechanismSectionResult>>();
             mocks.ReplayAll();
 
@@ -110,7 +110,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IHasSectionResults<TestFailureMechanismSectionResult>>();
+            var failureMechanism = mocks.Stub<IFailureMechanism<TestFailureMechanismSectionResult>>();
             var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<TestFailureMechanismSectionResult>>();
             mocks.ReplayAll();
 

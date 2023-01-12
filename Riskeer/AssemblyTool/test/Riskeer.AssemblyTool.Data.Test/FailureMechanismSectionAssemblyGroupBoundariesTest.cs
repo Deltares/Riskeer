@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -33,12 +33,12 @@ namespace Riskeer.AssemblyTool.Data.Test
         {
             // Setup
             var random = new Random(21);
-            var group = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>();
             double lowerBoundary = random.NextDouble();
             double upperBoundary = random.NextDouble();
+            var assemblyGroup = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>();
 
             // Call
-            var boundaries = new FailureMechanismSectionAssemblyGroupBoundaries(group, lowerBoundary, upperBoundary);
+            var boundaries = new FailureMechanismSectionAssemblyGroupBoundaries(lowerBoundary, upperBoundary, assemblyGroup);
 
             // Assert
             Assert.IsInstanceOf<AssemblyGroupBoundaries>(boundaries);

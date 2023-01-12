@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -47,26 +47,25 @@ namespace Riskeer.Integration.Forms.Test.Views
     [TestFixture]
     public class AssemblyResultPerSectionViewTest
     {
-        private const int sectionNumberColumnIndex = 0;
-        private const int sectionStartColumnIndex = 1;
-        private const int sectionEndColumnIndex = 2;
-        private const int sectionTotalAssemblyResultColumnIndex = 3;
-        private const int pipingColumnIndex = 4;
-        private const int grassCoverErosionInwardsColumnIndex = 5;
-        private const int macroStabilityInwardsColumnIndex = 6;
-        private const int microStabilityColumnIndex = 7;
-        private const int stabilityStoneCoverColumnIndex = 8;
-        private const int waveImpactAsphaltCoverColumnIndex = 9;
-        private const int waterPressureAsphaltCoverColumnIndex = 10;
-        private const int grassCoverErosionOutwardsColumnIndex = 11;
-        private const int grassCoverSlipOffOutwardsColumnIndex = 12;
-        private const int grassCoverSlipOffInwardsColumnIndex = 13;
-        private const int heightStructuresColumnIndex = 14;
-        private const int closingStructures = 15;
-        private const int pipingStructures = 16;
-        private const int stabilityPointStructuresColumnIndex = 17;
-        private const int duneErosionColumnIndex = 18;
-        private const int expectedColumnCount = 19;
+        private const int sectionStartColumnIndex = 0;
+        private const int sectionEndColumnIndex = 1;
+        private const int pipingColumnIndex = 2;
+        private const int grassCoverErosionInwardsColumnIndex = 3;
+        private const int macroStabilityInwardsColumnIndex = 4;
+        private const int microStabilityColumnIndex = 5;
+        private const int stabilityStoneCoverColumnIndex = 6;
+        private const int waveImpactAsphaltCoverColumnIndex = 7;
+        private const int waterPressureAsphaltCoverColumnIndex = 8;
+        private const int grassCoverErosionOutwardsColumnIndex = 9;
+        private const int grassCoverSlipOffOutwardsColumnIndex = 10;
+        private const int grassCoverSlipOffInwardsColumnIndex = 11;
+        private const int heightStructuresColumnIndex = 12;
+        private const int closingStructures = 13;
+        private const int pipingStructures = 14;
+        private const int stabilityPointStructuresColumnIndex = 15;
+        private const int duneErosionColumnIndex = 16;
+        private const int specificFailureMechanismStartIndex = 17;
+        private const int worstAssemblyResultPerSectionColumnIndex = 19;
         private const string assemblyResultOutdatedWarning = "De resultaten zijn verouderd. Druk op de \"Resultaten verversen\" knop om opnieuw te berekenen.";
 
         private Form testForm;
@@ -148,34 +147,101 @@ namespace Riskeer.Integration.Forms.Test.Views
         public void GivenFormWithAssemblyResultPerSectionView_ThenExpectedColumnsAreVisible()
         {
             // Given
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
+                new Random(21).NextEnumValue<AssessmentSectionComposition>());
             using (new AssemblyToolCalculatorFactoryConfig())
-            using (ShowAssemblyResultPerSectionView())
+            using (ShowAssemblyResultPerSectionView(assessmentSection))
             {
                 // Then
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-                Assert.AreEqual(expectedColumnCount, dataGridView.ColumnCount);
 
                 DataGridViewColumnCollection dataGridViewColumns = dataGridView.Columns;
 
-                AssertColumn(dataGridViewColumns[sectionNumberColumnIndex], "Vaknummer");
-                AssertColumn(dataGridViewColumns[sectionStartColumnIndex], "Metrering van* [m]");
-                AssertColumn(dataGridViewColumns[sectionEndColumnIndex], "Metrering tot* [m]");
-                AssertColumn(dataGridViewColumns[sectionTotalAssemblyResultColumnIndex], "Duidingsklasse");
-                AssertColumn(dataGridViewColumns[pipingColumnIndex], "STPH");
-                AssertColumn(dataGridViewColumns[grassCoverErosionInwardsColumnIndex], "GEKB");
-                AssertColumn(dataGridViewColumns[macroStabilityInwardsColumnIndex], "STBI");
-                AssertColumn(dataGridViewColumns[microStabilityColumnIndex], "STMI");
-                AssertColumn(dataGridViewColumns[stabilityStoneCoverColumnIndex], "ZST");
-                AssertColumn(dataGridViewColumns[waveImpactAsphaltCoverColumnIndex], "AGK");
-                AssertColumn(dataGridViewColumns[waterPressureAsphaltCoverColumnIndex], "AWO");
-                AssertColumn(dataGridViewColumns[grassCoverErosionOutwardsColumnIndex], "GEBU");
-                AssertColumn(dataGridViewColumns[grassCoverSlipOffOutwardsColumnIndex], "GABU");
-                AssertColumn(dataGridViewColumns[grassCoverSlipOffInwardsColumnIndex], "GABI");
-                AssertColumn(dataGridViewColumns[heightStructuresColumnIndex], "HTKW");
-                AssertColumn(dataGridViewColumns[closingStructures], "BSKW");
-                AssertColumn(dataGridViewColumns[pipingStructures], "PKW");
-                AssertColumn(dataGridViewColumns[stabilityPointStructuresColumnIndex], "STKWp");
-                AssertColumn(dataGridViewColumns[duneErosionColumnIndex], "DA");
+                AssertColumns(dataGridViewColumns, GetExpectedNrOfColumns(assessmentSection), assessmentSection.SpecificFailureMechanisms);
+            }
+        }
+
+        [Test]
+        public void GivenFormWithAssemblyResultPerSectionView_ThenExpectedFailureMechanismCellData()
+        {
+            // Given
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (ShowAssemblyResultPerSectionView())
+            {
+                DataGridView dataGridView = GetDataGridView();
+                object actualFirstFailureMechanismValue = dataGridView.Rows[0].Cells[specificFailureMechanismStartIndex].Value;
+                object actualSecondFailureMechanismValue = dataGridView.Rows[0].Cells[specificFailureMechanismStartIndex + 1].Value;
+
+                // Then
+                Assert.AreEqual("Do", actualFirstFailureMechanismValue);
+                Assert.AreEqual("Do", actualSecondFailureMechanismValue);
+            }
+        }
+
+        [Test]
+        public void GivenFormWithAssemblyResultPerSectionView_WhenSpecificFailureMechanismAdded_ThenColumnAdded()
+        {
+            // Given
+            var random = new Random(21);
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
+                random.NextEnumValue<AssessmentSectionComposition>());
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (ShowAssemblyResultPerSectionView(assessmentSection))
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssessmentSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
+
+                // Precondition
+                DataGridView dataGridView = GetDataGridView();
+                Assert.AreEqual(20, dataGridView.ColumnCount);
+
+                ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
+
+                // When
+                const string testCode = "TestCode";
+                var failureMechanism = new SpecificFailureMechanism
+                {
+                    Code = testCode
+                };
+
+                assessmentSection.SpecificFailureMechanisms.Add(failureMechanism);
+                assessmentSection.SpecificFailureMechanisms.NotifyObservers();
+                calculator.CombinedFailureMechanismSectionAssemblyOutput = null;
+                buttonTester.Click();
+
+                // Then
+                AssertColumns(dataGridView.Columns, GetExpectedNrOfColumns(assessmentSection), assessmentSection.SpecificFailureMechanisms);
+            }
+        }
+
+        [Test]
+        public void GivenFormWithAssemblyResultPerSectionView_WhenSpecificFailureMechanismRemoved_ThenColumnRemoved()
+        {
+            // Given
+            var random = new Random(21);
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
+                random.NextEnumValue<AssessmentSectionComposition>());
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (ShowAssemblyResultPerSectionView(assessmentSection))
+            {
+                // Precondition
+                DataGridView dataGridView = GetDataGridView();
+
+                DataGridViewColumnCollection dataGridViewColumns = dataGridView.Columns;
+                AssertColumns(dataGridViewColumns, GetExpectedNrOfColumns(assessmentSection), assessmentSection.SpecificFailureMechanisms);
+
+                ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
+
+                // When
+                SpecificFailureMechanism failureMechanismToRemove = assessmentSection.SpecificFailureMechanisms.First();
+                assessmentSection.SpecificFailureMechanisms.Remove(failureMechanismToRemove);
+                assessmentSection.NotifyObservers();
+                buttonTester.Click();
+
+                // Then
+                AssertColumns(dataGridViewColumns, GetExpectedNrOfColumns(assessmentSection), assessmentSection.SpecificFailureMechanisms);
             }
         }
 
@@ -197,11 +263,8 @@ namespace Riskeer.Integration.Forms.Test.Views
         [Test]
         public void Constructor_AssessmentSectionWithoutReferenceLine_ExpectedValues()
         {
-            // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-
             // Call
-            using (ShowAssemblyResultPerSectionView(assessmentSection))
+            using (ShowAssemblyResultPerSectionView())
             {
                 DataGridView dataGridView = GetDataGridView();
                 DataGridViewRowCollection rows = dataGridView.Rows;
@@ -227,7 +290,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 dataGridView.CellFormatting += (sender, args) =>
                 {
                     var row = (IHasColumnStateDefinitions) dataGridView.Rows[0].DataBoundItem;
-                    DataGridViewColumnStateDefinition definition = row.ColumnStateDefinitions[sectionTotalAssemblyResultColumnIndex];
+                    DataGridViewColumnStateDefinition definition = row.ColumnStateDefinitions[worstAssemblyResultPerSectionColumnIndex];
                     definition.ReadOnly = readOnly;
                     definition.ErrorText = errorText;
                     definition.Style = style;
@@ -237,7 +300,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 buttonTester.Click();
 
                 // Then
-                DataGridViewCell cell = dataGridView.Rows[0].Cells[sectionTotalAssemblyResultColumnIndex];
+                DataGridViewCell cell = dataGridView.Rows[0].Cells[worstAssemblyResultPerSectionColumnIndex];
                 Assert.AreEqual(readOnly, cell.ReadOnly);
                 Assert.AreEqual(errorText, cell.ErrorText);
                 Assert.AreEqual(style.BackgroundColor, cell.Style.BackColor);
@@ -431,6 +494,42 @@ namespace Riskeer.Integration.Forms.Test.Views
             testForm.Show();
 
             return view;
+        }
+
+        private static void AssertColumns(DataGridViewColumnCollection dataGridViewColumns, int totalColumnCount, IEnumerable<SpecificFailureMechanism> specificFailureMechanisms)
+        {
+            Assert.AreEqual(totalColumnCount, dataGridViewColumns.Count);
+            AssertColumn(dataGridViewColumns[sectionStartColumnIndex], "Metrering van* [m]");
+            AssertColumn(dataGridViewColumns[sectionEndColumnIndex], "Metrering tot* [m]");
+            AssertColumn(dataGridViewColumns[pipingColumnIndex], "STPH");
+            AssertColumn(dataGridViewColumns[grassCoverErosionInwardsColumnIndex], "GEKB");
+            AssertColumn(dataGridViewColumns[macroStabilityInwardsColumnIndex], "STBI");
+            AssertColumn(dataGridViewColumns[microStabilityColumnIndex], "STMI");
+            AssertColumn(dataGridViewColumns[stabilityStoneCoverColumnIndex], "ZST");
+            AssertColumn(dataGridViewColumns[waveImpactAsphaltCoverColumnIndex], "AGK");
+            AssertColumn(dataGridViewColumns[waterPressureAsphaltCoverColumnIndex], "AWO");
+            AssertColumn(dataGridViewColumns[grassCoverErosionOutwardsColumnIndex], "GEBU");
+            AssertColumn(dataGridViewColumns[grassCoverSlipOffOutwardsColumnIndex], "GABU");
+            AssertColumn(dataGridViewColumns[grassCoverSlipOffInwardsColumnIndex], "GABI");
+            AssertColumn(dataGridViewColumns[heightStructuresColumnIndex], "HTKW");
+            AssertColumn(dataGridViewColumns[closingStructures], "BSKW");
+            AssertColumn(dataGridViewColumns[pipingStructures], "PKW");
+            AssertColumn(dataGridViewColumns[stabilityPointStructuresColumnIndex], "STKWp");
+            AssertColumn(dataGridViewColumns[duneErosionColumnIndex], "DA");
+            for (int i = 0; i < specificFailureMechanisms.Count(); i++)
+            {
+                AssertColumn(dataGridViewColumns[specificFailureMechanismStartIndex + i], specificFailureMechanisms.ElementAt(i).Code);
+            }
+
+            AssertColumn(dataGridViewColumns[specificFailureMechanismStartIndex + specificFailureMechanisms.Count()], "Slechtste duidingsklasse per deelvak");
+        }
+
+        private static int GetExpectedNrOfColumns(IAssessmentSection assessmentSection)
+        {
+            const int nrOfFixedColumns = 3;
+            int nrOfGenericFailureMechanisms = assessmentSection.GetFailureMechanisms().Count();
+            int nrOSpecificFailureMechanisms = assessmentSection.SpecificFailureMechanisms.Count;
+            return nrOfFixedColumns + nrOfGenericFailureMechanisms + nrOSpecificFailureMechanisms;
         }
     }
 }

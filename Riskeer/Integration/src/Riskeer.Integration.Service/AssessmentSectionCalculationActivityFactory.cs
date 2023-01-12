@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -66,7 +66,7 @@ namespace Riskeer.Integration.Service
                                     assessmentSection.WaveImpactAsphaltCover,
                                     assessmentSection));
             activities.AddRange(GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivities(
-                                    assessmentSection.GrassCoverErosionOutwards.WaveConditionsCalculationGroup,
+                                    assessmentSection.GrassCoverErosionOutwards.CalculationsGroup,
                                     assessmentSection.GrassCoverErosionOutwards,
                                     assessmentSection));
             activities.AddRange(DuneLocationCalculationActivityFactory.CreateCalculationActivities(

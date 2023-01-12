@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -91,43 +91,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er zijn een of meerdere vakken met duidingsklasse &apos;Dominant&apos;. Dit kan niet verder geassembleerd worden..
-        /// </summary>
-        internal static string AssemblyErrorMessageCreator_Cannot_assemble_with_dominant_category {
-            get {
-                return ResourceManager.GetString("AssemblyErrorMessageCreator_Cannot_assemble_with_dominant_category", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Categoriebovengrens moet in het bereik [0,1] liggen..
-        /// </summary>
-        internal static string AssemblyErrorMessageCreator_CategoryLowerLimitOutOfRange {
-            get {
-                return ResourceManager.GetString("AssemblyErrorMessageCreator_CategoryLowerLimitOutOfRange", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het specificeren van een toetsoordeel voor deze categorie is niet mogelijk..
-        /// </summary>
-        internal static string AssemblyErrorMessageCreator_CategoryNotAllowed {
-            get {
-                return ResourceManager.GetString("AssemblyErrorMessageCreator_CategoryNotAllowed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Categorieondergrens moet in het bereik [0,1] liggen..
-        /// </summary>
-        internal static string AssemblyErrorMessageCreator_CategoryUpperLimitOutOfRange {
-            get {
-                return ResourceManager.GetString("AssemblyErrorMessageCreator_CategoryUpperLimitOutOfRange", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ieder toetsspoor in de assemblage moet een vakindeling geïmporteerd hebben..
+        ///   Looks up a localized string similar to Ieder faalmechanisme in de assemblage moet een vakindeling geïmporteerd hebben..
         /// </summary>
         internal static string AssemblyErrorMessageCreator_CommonFailureMechanismSectionsInvalid {
             get {
@@ -141,15 +105,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Properties {
         internal static string AssemblyErrorMessageCreator_CommonFailureMechanismSectionsNotConsecutive {
             get {
                 return ResourceManager.GetString("AssemblyErrorMessageCreator_CommonFailureMechanismSectionsNotConsecutive", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Een lagere categorie moet als voldoende worden aangemerkt indien het vak aan een hogere categorie voldoet..
-        /// </summary>
-        internal static string AssemblyErrorMessageCreator_DoesNotComplyAfterComply {
-            get {
-                return ResourceManager.GetString("AssemblyErrorMessageCreator_DoesNotComplyAfterComply", resourceCulture);
             }
         }
         
@@ -190,15 +145,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Faalkansruimte moet in het bereik [0,1] liggen..
-        /// </summary>
-        internal static string AssemblyErrorMessageCreator_FailureProbabilityMarginOutOfRange {
-            get {
-                return ResourceManager.GetString("AssemblyErrorMessageCreator_FailureProbabilityMarginOutOfRange", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De gespecificeerde kans moet in het bereik [0,1] liggen..
         /// </summary>
         internal static string AssemblyErrorMessageCreator_FailureProbabilityOutOfRange {
@@ -217,7 +163,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De categoriegrenzen zijn niet aaneengesloten en spannen niet de volledige faalkansruimte..
+        ///   Looks up a localized string similar to De klassengrenzen zijn niet aaneengesloten of dekken niet de volledige faalkansruimte af..
         /// </summary>
         internal static string AssemblyErrorMessageCreator_GetErrorMessage_InvalidCategoryLimits {
             get {
@@ -231,6 +177,15 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Properties {
         internal static string AssemblyErrorMessageCreator_InputNotTheSameType {
             get {
                 return ResourceManager.GetString("AssemblyErrorMessageCreator_InputNotTheSameType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er is ongeldige invoer gedefinieerd voor de gebruikte methode..
+        /// </summary>
+        internal static string AssemblyErrorMessageCreator_InvalidInput {
+            get {
+                return ResourceManager.GetString("AssemblyErrorMessageCreator_InvalidInput", resourceCulture);
             }
         }
         
@@ -253,33 +208,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ondergrens moet in het bereik [0,1] liggen..
-        /// </summary>
-        internal static string AssemblyErrorMessageCreator_LowerLimitOutOfRange {
-            get {
-                return ResourceManager.GetString("AssemblyErrorMessageCreator_LowerLimitOutOfRange", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Er moet een vakindeling zijn geïmporteerd..
-        /// </summary>
-        internal static string AssemblyErrorMessageCreator_NoSectionsImported {
-            get {
-                return ResourceManager.GetString("AssemblyErrorMessageCreator_NoSectionsImported", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Berekende ondergrens per doorsnede is groter dan de ondergrens van het traject..
-        /// </summary>
-        internal static string AssemblyErrorMessageCreator_PlowDsnAbovePlow {
-            get {
-                return ResourceManager.GetString("AssemblyErrorMessageCreator_PlowDsnAbovePlow", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De faalkans per vak moet groter zijn dan of gelijk zijn aan de faalkans per doorsnede..
         /// </summary>
         internal static string AssemblyErrorMessageCreator_ProfileProbabilityGreaterThanSectionProbability {
@@ -289,16 +217,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekende signaleringskans per doorsnede is groter dan de signaleringskans van het traject..
-        /// </summary>
-        internal static string AssemblyErrorMessageCreator_PsigDsnAbovePsig {
-            get {
-                return ResourceManager.GetString("AssemblyErrorMessageCreator_PsigDsnAbovePsig", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De gespecificeerde resultaten voor een of meerdere toetssporen dekken niet de volledige lengte van het traject..
+        ///   Looks up a localized string similar to De gespecificeerde resultaten voor een of meerdere faalmechanismen dekken niet de volledige lengte van het traject..
         /// </summary>
         internal static string AssemblyErrorMessageCreator_RequestedPointOutOfRange {
             get {
@@ -316,7 +235,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er zijn een of meerdere vakindelingen gevonden die geen categorie hebben..
+        ///   Looks up a localized string similar to Er zijn een of meerdere vakken gevonden die geen duidingsklasse hebben..
         /// </summary>
         internal static string AssemblyErrorMessageCreator_SectionsWithoutCategory {
             get {
@@ -325,38 +244,12 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De signaleringskans moet kleiner zijn dan de ondergrens..
+        ///   Looks up a localized string similar to De signaleringsparameter moet kleiner zijn dan de omgevingswaarde..
         /// </summary>
-        internal static string AssemblyErrorMessageCreator_SignalingLimitAboveLowerLimit {
+        internal static string AssemblyErrorMessageCreator_SignalFloodingProbabilityAboveMaximumAllowableFloodingProbability {
             get {
-                return ResourceManager.GetString("AssemblyErrorMessageCreator_SignalingLimitAboveLowerLimit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Signaleringskans moet in het bereik [0,1] liggen..
-        /// </summary>
-        internal static string AssemblyErrorMessageCreator_SignalingLimitOutOfRange {
-            get {
-                return ResourceManager.GetString("AssemblyErrorMessageCreator_SignalingLimitOutOfRange", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Er is een ongeldig resultaat gespecificeerd voor de gebruikte methode..
-        /// </summary>
-        internal static string AssemblyErrorMessageCreator_TranslateAssessmentInvalidInput {
-            get {
-                return ResourceManager.GetString("AssemblyErrorMessageCreator_TranslateAssessmentInvalidInput", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Er is ongeldige invoer gedefinieerd voor de gebruikte methode..
-        /// </summary>
-        internal static string AssemblyErrorMessageCreator_ValueMayNotBeNull {
-            get {
-                return ResourceManager.GetString("AssemblyErrorMessageCreator_ValueMayNotBeNull", resourceCulture);
+                return ResourceManager.GetString("AssemblyErrorMessageCreator_SignalFloodingProbabilityAboveMaximumAllowableFloodin" +
+                        "gProbability", resourceCulture);
             }
         }
     }

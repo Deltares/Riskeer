@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -46,6 +46,8 @@ namespace Core.Common.TestUtil
 
         public static class Core
         {
+            public static readonly TestDataPath Gui = "Core.Gui.Test";
+
             public static class Common
             {
                 public static readonly TestDataPath Util = "Core.Common.Util.Test";
@@ -59,8 +61,6 @@ namespace Core.Common.TestUtil
                     public static readonly TestDataPath IO = "Core.Components.Gis.IO.Test";
                 }
             }
-
-            public static readonly TestDataPath Gui = "Core.Gui.Test";
         }
 
         public static class Riskeer

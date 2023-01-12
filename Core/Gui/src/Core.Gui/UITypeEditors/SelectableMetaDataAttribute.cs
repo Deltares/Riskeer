@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -28,7 +28,7 @@ namespace Core.Gui.UITypeEditors
     /// Class that represents a <see cref="FeatureBasedMapData.MetaData"/> attribute in the drop down list edit control
     /// for the <see cref="FeatureBasedMapData.MetaData"/>.
     /// </summary>
-    public class SelectableMetaDataAttribute
+    public sealed class SelectableMetaDataAttribute
     {
         /// <summary>
         /// Creates a new instance of <see cref="SelectableMetaDataAttribute"/>.

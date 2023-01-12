@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -28,6 +28,7 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.DuneErosion.Data;
 using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
@@ -220,6 +221,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             IEnumerable<HydraulicBoundaryLocationCalculation> locations = GetLocationCalculations(assessmentSection);
             IEnumerable<DuneLocationCalculation> duneLocations = GetDuneLocationCalculations(assessmentSection);
             ICalculation[] calculationsWithOutput = assessmentSection.GetFailureMechanisms()
+                                                                     .OfType<ICalculatableFailureMechanism>()
                                                                      .SelectMany(fm => fm.Calculations)
                                                                      .Where(c => c.HasOutput)
                                                                      .ToArray();
@@ -260,8 +262,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         {
             var calculations = new List<HydraulicBoundaryLocationCalculation>();
 
-            calculations.AddRange(assessmentSection.WaterLevelCalculationsForSignalingNorm);
-            calculations.AddRange(assessmentSection.WaterLevelCalculationsForLowerLimitNorm);
+            calculations.AddRange(assessmentSection.WaterLevelCalculationsForSignalFloodingProbability);
+            calculations.AddRange(assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability);
 
             foreach (HydraulicBoundaryLocationCalculationsForTargetProbability element in assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities)
             {

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -51,7 +51,7 @@ namespace Riskeer.Storage.Core.Read.StabilityStoneCover
             {
                 throw new ArgumentNullException(nameof(generalInput));
             }
-            
+
             generalInput.N = (RoundedDouble) entity.N;
             generalInput.ApplyLengthEffectInSection = Convert.ToBoolean(entity.ApplyLengthEffectInSection);
         }

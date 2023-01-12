@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -25,6 +25,7 @@ using System.Drawing;
 using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
+using Core.Common.Util.Enums;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.AssemblyTool.Data;
@@ -36,7 +37,6 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.TestUtil.Probability;
-using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.Providers;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.TypeConverters;
@@ -455,8 +455,8 @@ namespace Riskeer.Common.Forms.Test.Views
 
                 // Assert
                 FailureMechanismSectionAssemblyInput input = calculator.FailureMechanismSectionAssemblyInput;
-                Assert.AreEqual(assessmentSection.FailureMechanismContribution.SignalingNorm, input.SignalingNorm);
-                Assert.AreEqual(assessmentSection.FailureMechanismContribution.LowerLimitNorm, input.LowerLimitNorm);
+                Assert.AreEqual(assessmentSection.FailureMechanismContribution.SignalFloodingProbability, input.SignalFloodingProbability);
+                Assert.AreEqual(assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability, input.MaximumAllowableFloodingProbability);
                 Assert.AreEqual(row.IsRelevant, input.IsRelevant);
                 Assert.IsTrue(input.HasProbabilitySpecified);
                 Assert.AreEqual(row.InitialFailureMechanismResultSectionProbability, input.InitialSectionProbability);
@@ -484,19 +484,18 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                calculator.FailureMechanismSectionAssemblyResultOutput = new FailureMechanismSectionAssemblyResult(
-                    random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
+                calculator.FailureMechanismSectionAssemblyResultOutput = new FailureMechanismSectionAssemblyResultWrapper(
+                    new FailureMechanismSectionAssemblyResult(random.NextDouble(), random.NextDouble(), random.NextDouble(),
+                                                              random.NextEnumValue<FailureMechanismSectionAssemblyGroup>()),
+                    random.NextEnumValue<AssemblyMethod>(), random.NextEnumValue<AssemblyMethod>());
 
                 // Call
                 var row = new NonAdoptableFailureMechanismSectionResultRow(result, errorProvider, new AssessmentSectionStub(), ConstructionProperties);
 
                 // Assert
-                FailureMechanismSectionAssemblyResult calculatorOutput = calculator.FailureMechanismSectionAssemblyResultOutput;
-                FailureMechanismSectionAssemblyResult rowAssemblyResult = row.AssemblyResult;
-                Assert.AreSame(calculatorOutput, row.AssemblyResult);
-
-                Assert.AreEqual(rowAssemblyResult.SectionProbability, row.SectionProbability);
-                Assert.AreEqual(FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(rowAssemblyResult.AssemblyGroup),
+                FailureMechanismSectionAssemblyResult calculatorOutput = calculator.FailureMechanismSectionAssemblyResultOutput.AssemblyResult;
+                Assert.AreEqual(calculatorOutput.SectionProbability, row.SectionProbability);
+                Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(calculatorOutput.FailureMechanismSectionAssemblyGroup),
                                 row.AssemblyGroup);
             }
 
@@ -511,8 +510,6 @@ namespace Riskeer.Common.Forms.Test.Views
             var errorProvider = mocks.Stub<IFailureMechanismSectionResultRowErrorProvider>();
             mocks.ReplayAll();
 
-            var random = new Random(39);
-
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new NonAdoptableFailureMechanismSectionResult(section);
 
@@ -520,14 +517,14 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                calculator.FailureMechanismSectionAssemblyResultOutput = new FailureMechanismSectionAssemblyResult(
-                    random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
 
                 var row = new NonAdoptableFailureMechanismSectionResultRow(result, errorProvider, new AssessmentSectionStub(), ConstructionProperties);
 
                 // Precondition
-                FailureMechanismSectionAssemblyResult calculatorOutput = calculator.FailureMechanismSectionAssemblyResultOutput;
-                Assert.AreSame(calculatorOutput, row.AssemblyResult);
+                FailureMechanismSectionAssemblyResult calculatorOutput = calculator.FailureMechanismSectionAssemblyResultOutput.AssemblyResult;
+                Assert.AreEqual(calculatorOutput.SectionProbability, row.SectionProbability);
+                Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(calculatorOutput.FailureMechanismSectionAssemblyGroup),
+                                row.AssemblyGroup);
 
                 // When
                 calculator.ThrowExceptionOnCalculate = true;
@@ -535,11 +532,9 @@ namespace Riskeer.Common.Forms.Test.Views
 
                 // Then
                 var expectedAssemblyResult = new DefaultFailureMechanismSectionAssemblyResult();
-                FailureMechanismSectionAssemblyResult actualAssemblyResult = row.AssemblyResult;
-                Assert.AreEqual(expectedAssemblyResult.N, actualAssemblyResult.N);
-                Assert.AreEqual(expectedAssemblyResult.SectionProbability, actualAssemblyResult.SectionProbability);
-                Assert.AreEqual(expectedAssemblyResult.ProfileProbability, actualAssemblyResult.ProfileProbability);
-                Assert.AreEqual(expectedAssemblyResult.AssemblyGroup, actualAssemblyResult.AssemblyGroup);
+                Assert.AreEqual(expectedAssemblyResult.SectionProbability, row.SectionProbability);
+                Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(expectedAssemblyResult.FailureMechanismSectionAssemblyGroup),
+                                row.AssemblyGroup);
             }
 
             mocks.VerifyAll();
@@ -574,7 +569,6 @@ namespace Riskeer.Common.Forms.Test.Views
 
                 // Then
                 const string expectedErrorText = "Message";
-
                 Assert.AreEqual(expectedErrorText, columnStateDefinitions[ConstructionProperties.SectionProbabilityIndex].ErrorText);
                 Assert.AreEqual(expectedErrorText, columnStateDefinitions[ConstructionProperties.AssemblyGroupIndex].ErrorText);
             }
@@ -762,11 +756,13 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        [TestCaseSource(typeof(AssemblyGroupColorTestHelper), nameof(AssemblyGroupColorTestHelper.FailureMechanismSectionAssemblyGroupColorCases))]
+        [TestCaseSource(typeof(FailureMechanismSectionAssemblyGroupColorTestHelper), nameof(FailureMechanismSectionAssemblyGroupColorTestHelper.FailureMechanismSectionAssemblyGroupColorCases))]
         public void Constructor_WithAssemblyGroupSet_ExpectedColumnStates(FailureMechanismSectionAssemblyGroup assemblyGroup,
                                                                           Color expectedBackgroundColor)
         {
             // Setup
+            var random = new Random(21);
+
             var mocks = new MockRepository();
             var errorProvider = mocks.Stub<IFailureMechanismSectionResultRowErrorProvider>();
             mocks.ReplayAll();
@@ -778,7 +774,9 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                calculator.FailureMechanismSectionAssemblyResultOutput = new FailureMechanismSectionAssemblyResult(double.NaN, double.NaN, double.NaN, assemblyGroup);
+                calculator.FailureMechanismSectionAssemblyResultOutput = new FailureMechanismSectionAssemblyResultWrapper(
+                    new FailureMechanismSectionAssemblyResult(double.NaN, double.NaN, double.NaN, assemblyGroup),
+                    random.NextEnumValue<AssemblyMethod>(), random.NextEnumValue<AssemblyMethod>());
 
                 // Call
                 var row = new NonAdoptableFailureMechanismSectionResultRow(result, errorProvider, new AssessmentSectionStub(), ConstructionProperties);

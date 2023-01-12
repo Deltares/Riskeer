@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -35,10 +35,10 @@ namespace Riskeer.Revetment.Data.Test
                     WaveConditionsInputWaterLevelType.None, 1
                 },
                 {
-                    WaveConditionsInputWaterLevelType.LowerLimit, 2
+                    WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability, 2
                 },
                 {
-                    WaveConditionsInputWaterLevelType.Signaling, 3
+                    WaveConditionsInputWaterLevelType.SignalFloodingProbability, 3
                 },
                 {
                     WaveConditionsInputWaterLevelType.UserDefinedTargetProbability, 4

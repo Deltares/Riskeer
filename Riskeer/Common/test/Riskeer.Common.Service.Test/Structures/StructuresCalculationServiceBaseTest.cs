@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -98,7 +98,7 @@ namespace Riskeer.Common.Service.Test.Structures
         {
             // Setup
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new TestFailureMechanism(),
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new TestCalculatableFailureMechanism(),
                                                                                                            mocks,
                                                                                                            Path.Combine(testDataPath, "notexisting.sqlite"));
             mocks.ReplayAll();
@@ -132,7 +132,7 @@ namespace Riskeer.Common.Service.Test.Structures
             var mocks = new MockRepository();
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                new TestFailureMechanism(), mocks, validHydraulicBoundaryDatabaseFilePath);
+                new TestCalculatableFailureMechanism(), mocks, validHydraulicBoundaryDatabaseFilePath);
 
             assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.CanUsePreprocessor = true;
             assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessor = true;
@@ -166,7 +166,7 @@ namespace Riskeer.Common.Service.Test.Structures
         {
             // Setup
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new TestFailureMechanism(),
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new TestCalculatableFailureMechanism(),
                                                                                                            mocks,
                                                                                                            Path.Combine(testDataPath, "HRD nosettings.sqlite"));
             mocks.ReplayAll();
@@ -198,7 +198,7 @@ namespace Riskeer.Common.Service.Test.Structures
         {
             // Setup
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new TestFailureMechanism(),
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new TestCalculatableFailureMechanism(),
                                                                                                            mocks);
             mocks.ReplayAll();
 
@@ -226,7 +226,7 @@ namespace Riskeer.Common.Service.Test.Structures
         {
             // Setup
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new TestFailureMechanism(),
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new TestCalculatableFailureMechanism(),
                                                                                                            mocks,
                                                                                                            validHydraulicBoundaryDatabaseFilePath);
             mocks.ReplayAll();
@@ -262,7 +262,7 @@ namespace Riskeer.Common.Service.Test.Structures
         public void Validate_CalculationWithoutStructuresValidHydraulicBoundaryDatabase_LogsErrorAndReturnsFalse()
         {
             // Setup
-            var failureMechanism = new TestFailureMechanism();
+            var failureMechanism = new TestCalculatableFailureMechanism();
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
@@ -300,7 +300,7 @@ namespace Riskeer.Common.Service.Test.Structures
         public void Validate_InputInvalidAccordingToValidationRule_LogErrorAndReturnFalse()
         {
             // Setup
-            var failureMechanism = new TestFailureMechanism();
+            var failureMechanism = new TestCalculatableFailureMechanism();
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
@@ -340,7 +340,7 @@ namespace Riskeer.Common.Service.Test.Structures
         public void Validate_ValidInputWithCanUseProcessorFalse_ReturnsTrue()
         {
             // Setup
-            var failureMechanism = new TestFailureMechanism();
+            var failureMechanism = new TestCalculatableFailureMechanism();
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
@@ -382,7 +382,7 @@ namespace Riskeer.Common.Service.Test.Structures
             var mocks = new MockRepository();
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                new TestFailureMechanism(), mocks, validHydraulicBoundaryDatabaseFilePath);
+                new TestCalculatableFailureMechanism(), mocks, validHydraulicBoundaryDatabaseFilePath);
 
             assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.CanUsePreprocessor = true;
             assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessor = false;
@@ -425,7 +425,7 @@ namespace Riskeer.Common.Service.Test.Structures
             var mocks = new MockRepository();
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                new TestFailureMechanism(), mocks, validHydraulicBoundaryDatabaseFilePath);
+                new TestCalculatableFailureMechanism(), mocks, validHydraulicBoundaryDatabaseFilePath);
 
             assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.CanUsePreprocessor = true;
             assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessor = true;

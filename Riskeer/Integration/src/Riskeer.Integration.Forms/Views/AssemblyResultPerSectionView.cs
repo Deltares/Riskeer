@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -26,6 +26,7 @@ using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Riskeer.Common.Data.Exceptions;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Assembly;
 using Riskeer.Integration.Forms.Observers;
@@ -51,7 +52,10 @@ namespace Riskeer.Integration.Forms.Views
     /// </summary>
     public partial class AssemblyResultPerSectionView : UserControl, IView
     {
+        private const int numberOfFixedColumns = 17;
         private readonly Observer assessmentSectionResultObserver;
+        private int numberOfTotalColumns;
+        private bool suspendDueToAddingColumns;
 
         /// <summary>
         /// Creates a new instance of <see cref="AssemblyResultPerSectionView"/>.
@@ -118,22 +122,30 @@ namespace Riskeer.Integration.Forms.Views
 
         private void HandleCellStyling(object sender, DataGridViewCellFormattingEventArgs e)
         {
+            if (suspendDueToAddingColumns)
+            {
+                return;
+            }
+
             dataGridViewControl.FormatCellWithColumnStateDefinition(e.RowIndex, e.ColumnIndex);
+
+            if (e.ColumnIndex >= numberOfFixedColumns && e.ColumnIndex < numberOfTotalColumns)
+            {
+                var dataRow = (CombinedFailureMechanismSectionAssemblyResultRow) dataGridViewControl.GetRowFromIndex(e.RowIndex).DataBoundItem;
+                DataGridViewCell cell = dataGridViewControl.GetCell(e.RowIndex, e.ColumnIndex);
+                cell.Value = dataRow.SpecificFailureMechanisms[e.ColumnIndex - numberOfFixedColumns];
+            }
         }
 
         private void InitializeDataGridView()
         {
-            dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.SectionNumber),
-                                                 Resources.SectionNumber_DisplayName,
-                                                 true);
+            suspendDueToAddingColumns = true;
+
             dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.SectionStart),
                                                  RiskeerCommonFormsResources.SectionStart_DisplayName,
                                                  true);
             dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.SectionEnd),
                                                  RiskeerCommonFormsResources.SectionEnd_DisplayName,
-                                                 true);
-            dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.TotalResult),
-                                                 RiskeerCommonFormsResources.AssemblyGroup_DisplayName,
                                                  true);
             dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.Piping),
                                                  PipingDataResources.PipingFailureMechanism_DisplayCode,
@@ -181,13 +193,34 @@ namespace Riskeer.Integration.Forms.Views
                                                  DuneErosionDataResources.DuneErosionFailureMechanism_Code,
                                                  true);
 
+            SetSpecificFailureMechanismTextBoxColumns();
+
+            dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.TotalResult),
+                                                 Resources.Worst_AssemblyResult_per_section_DisplayName,
+                                                 true);
+
+            numberOfTotalColumns = numberOfFixedColumns + AssessmentSection.SpecificFailureMechanisms.Count;
+
+            suspendDueToAddingColumns = false;
+
             SetDataSource();
         }
 
         private void RefreshAssemblyResults_Click(object sender, EventArgs e)
         {
             refreshAssemblyResultsButton.Enabled = false;
-            SetDataSource();
+            dataGridViewControl.ClearColumns();
+            InitializeDataGridView();
+        }
+
+        private void SetSpecificFailureMechanismTextBoxColumns()
+        {
+            foreach (SpecificFailureMechanism specificFailureMechanism in AssessmentSection.SpecificFailureMechanisms)
+            {
+                dataGridViewControl.AddTextBoxColumn(string.Empty,
+                                                     specificFailureMechanism.Code,
+                                                     true);
+            }
         }
 
         private void SetDataSource()

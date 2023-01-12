@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -24,23 +24,27 @@ using Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints;
 
 namespace Riskeer.HydraRing.Calculation.TestUtil.IllustrationPoints
 {
+    /// <summary>
+    /// Factory for creating <see cref="GeneralResult"/> instances.
+    /// </summary>
     public static class GeneralResultTestFactory
     {
         /// <summary>
-        /// Creates a new instance of <see cref="GeneralResult"/>
-        /// with duplicate stochasts.
+        /// Creates a new instance of <see cref="GeneralResult"/> with duplicate stochasts.
         /// </summary>
         /// <returns>A <see cref="GeneralResult"/> with duplicate stochasts.</returns>
         public static GeneralResult CreateGeneralResultWithDuplicateStochasts()
         {
             var stochast = new Stochast("Stochast A", 0, 0);
-            Stochast[] stochasts =
-            {
-                stochast,
-                stochast
-            };
-            var illustrationPoints = new Dictionary<WindDirectionClosingSituation, IllustrationPointTreeNode>();
-            return new GeneralResult(0.5, new TestWindDirection(), stochasts, illustrationPoints);
+
+            return new GeneralResult(0.5,
+                                     WindDirectionTestFactory.CreateWindDirection(),
+                                     new[]
+                                     {
+                                         stochast,
+                                         stochast
+                                     },
+                                     new Dictionary<WindDirectionClosingSituation, IllustrationPointTreeNode>());
         }
     }
 }

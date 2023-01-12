@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -90,9 +90,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         private readonly IDictionary<MacroStabilityInwardsPhreaticLine, ChartLineData> phreaticLineDailyLookup;
         private readonly IDictionary<MacroStabilityInwardsWaternetLine, ChartMultipleAreaData> waternetLineExtremeLookup;
         private readonly IDictionary<MacroStabilityInwardsWaternetLine, ChartMultipleAreaData> waternetLineDailyLookup;
+        private readonly GeneralMacroStabilityInwardsInput generalInput;
 
         private MacroStabilityInwardsCalculationScenario data;
-        private readonly GeneralMacroStabilityInwardsInput generalInput;
         private MacroStabilityInwardsSurfaceLine currentSurfaceLine;
         private IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> currentSoilProfile;
 

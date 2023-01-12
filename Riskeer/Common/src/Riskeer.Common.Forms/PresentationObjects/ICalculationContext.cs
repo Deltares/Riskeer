@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -32,7 +32,7 @@ namespace Riskeer.Common.Forms.PresentationObjects
     /// <typeparam name="TFailureMechanism">The type of the failure mechanism the wrapped calculation item belongs to.</typeparam>
     public interface ICalculationContext<out TCalculationBase, out TFailureMechanism> : IObservable
         where TCalculationBase : ICalculationBase
-        where TFailureMechanism : IFailureMechanism
+        where TFailureMechanism : ICalculatableFailureMechanism
     {
         /// <summary>
         /// Gets the wrapped calculation item.

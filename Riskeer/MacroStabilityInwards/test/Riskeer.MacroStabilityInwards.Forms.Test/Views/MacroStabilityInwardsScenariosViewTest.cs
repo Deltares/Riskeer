@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -28,7 +28,6 @@ using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.Views;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.TestUtil;
@@ -115,8 +114,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             Assert.IsTrue(Convert.ToBoolean(cells[isRelevantColumnIndex].FormattedValue));
             Assert.AreEqual(new RoundedDouble(2, 100).ToString(), cells[contributionColumnIndex].FormattedValue);
             Assert.AreEqual("Calculation 2", cells[nameColumnIndex].FormattedValue);
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(1), cells[failureProbabilityColumnIndex].FormattedValue);
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(5.8), cells[sectionFailureProbabilityColumnIndex].FormattedValue);
+            Assert.AreEqual("1/93", cells[failureProbabilityColumnIndex].FormattedValue);
+            Assert.AreEqual("1/88", cells[sectionFailureProbabilityColumnIndex].FormattedValue);
         }
 
         private void ShowFullyConfiguredMacroStabilityInwardsScenariosView()
@@ -152,12 +151,12 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 new FailureMechanismSection("Section 1", new[]
                 {
                     new Point2D(0.0, 0.0),
-                    new Point2D(8000.0, 0.0)
+                    new Point2D(80.0, 0.0)
                 }),
                 new FailureMechanismSection("Section 2", new[]
                 {
-                    new Point2D(8000.0, 0.0),
-                    new Point2D(9000.0, 0.0)
+                    new Point2D(80.0, 0.0),
+                    new Point2D(90.0, 0.0)
                 })
             });
 
@@ -180,7 +179,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                     },
                     Output = MacroStabilityInwardsOutputTestFactory.CreateOutput(new MacroStabilityInwardsOutput.ConstructionProperties
                     {
-                        FactorOfStability = 0.2
+                        FactorOfStability = 0.8
                     })
                 }
             });

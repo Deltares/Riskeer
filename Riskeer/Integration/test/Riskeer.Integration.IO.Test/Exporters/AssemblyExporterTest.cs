@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -20,16 +20,21 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
+using Core.Common.Util;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
+using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.IO.Exporters;
@@ -46,10 +51,10 @@ namespace Riskeer.Integration.IO.Test.Exporters
             string filePath = TestHelper.GetScratchPadPath(Path.Combine("export", "test.gml"));
 
             // Call
-            TestDelegate call = () => new AssemblyExporter(null, filePath);
+            void Call() => new AssemblyExporter(null, filePath);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -61,10 +66,10 @@ namespace Riskeer.Integration.IO.Test.Exporters
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
 
             // Call
-            TestDelegate call = () => new AssemblyExporter(assessmentSection, null);
+            void Call() => new AssemblyExporter(assessmentSection, null);
 
             // Assert
-            Assert.Throws<ArgumentException>(call);
+            Assert.Throws<ArgumentException>(Call);
         }
 
         [Test]
@@ -84,6 +89,51 @@ namespace Riskeer.Integration.IO.Test.Exporters
         }
 
         [Test]
+        [TestCase(true, true, false)]
+        [TestCase(true, false, true)]
+        [TestCase(false, true, true)]
+        [TestCase(false, false, true)]
+        public void Export_SpecificFailureMechanismsWithSameName_ExpectedResultBasedOnInAssemblyState(
+            bool firstSpecificFailureMechanismInAssembly,
+            bool secondSpecificFailureMechanismInAssembly,
+            bool isExportExpectedToBeSuccessful)
+        {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath(nameof(Export_SpecificFailureMechanismsWithSameName_ExpectedResultBasedOnInAssemblyState));
+            AssessmentSection assessmentSection = CreateConfiguredAssessmentSection();
+
+            SpecificFailureMechanism specificFailureMechanism1 = assessmentSection.SpecificFailureMechanisms.ElementAt(0);
+            SpecificFailureMechanism specificFailureMechanism2 = assessmentSection.SpecificFailureMechanisms.ElementAt(1);
+
+            specificFailureMechanism1.InAssembly = firstSpecificFailureMechanismInAssembly;
+            specificFailureMechanism2.InAssembly = secondSpecificFailureMechanismInAssembly;
+            assessmentSection.SpecificFailureMechanisms.Last().Name = specificFailureMechanism1.Name;
+
+            using (new FileDisposeHelper(filePath))
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var exporter = new AssemblyExporter(assessmentSection, filePath);
+                SetCombinedFailureMechanismSectionAssemblyOutput(assessmentSection);
+
+                // Call & Assert
+                if (isExportExpectedToBeSuccessful)
+                {
+                    Assert.IsTrue(exporter.Export());
+                }
+                else
+                {
+                    var isExported = true;
+
+                    const string expectedMessage = "Om assemblageresultaten te kunnen exporteren moeten alle specifieke faalmechanismen die onderdeel zijn van de assemblage een unieke naam hebben.";
+                    TestHelper.AssertLogMessageWithLevelIsGenerated(() => isExported = exporter.Export(),
+                                                                    new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
+
+                    Assert.IsFalse(isExported);
+                }
+            }
+        }
+
+        [Test]
         public void Export_CalculatorThrowsAssemblyException_LogsErrorAndReturnsFalse()
         {
             // Setup
@@ -92,111 +142,90 @@ namespace Riskeer.Integration.IO.Test.Exporters
 
             var exporter = new AssemblyExporter(assessmentSection, filePath);
 
-            using (new AssemblyToolCalculatorFactoryConfigOld())
+            using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
-                AssessmentSectionAssemblyCalculatorStubOld assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
                 assessmentSectionAssemblyCalculator.ThrowExceptionOnCalculate = true;
 
                 // Call
                 var isExported = true;
-                Action call = () => isExported = exporter.Export();
+                void Call() => isExported = exporter.Export();
 
                 // Assert
-                const string expectedMessage = "Om een toetsoordeel te kunnen exporteren moet voor alle vakken een resultaat zijn gespecificeerd.";
-                TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
+                const string expectedMessage = "De assemblage kan niet succesvol worden afgerond. Inspecteer de resultaten van de faalmechanismen die onderdeel zijn van de assemblage of het veiligheidsoordeel voor meer details.";
+                TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
                 Assert.IsFalse(isExported);
             }
         }
 
         [Test]
-        [TestCase(AssessmentSectionAssemblyCategoryGroup.None)]
-        [TestCase(AssessmentSectionAssemblyCategoryGroup.NotApplicable)]
-        public void Export_InvalidAssessmentSectionCategoryGroupResults_LogsErrorAndReturnsFalse(AssessmentSectionAssemblyCategoryGroup invalidAssessmentSectionAssemblyCategoryGroup)
+        public void Export_AssemblyFactoryExceptionThrown_LogsErrorAndReturnsFalse()
         {
             // Setup
-            string filePath = TestHelper.GetScratchPadPath(nameof(Export_InvalidAssessmentSectionCategoryGroupResults_LogsErrorAndReturnsFalse));
+            string filePath = TestHelper.GetScratchPadPath(nameof(Export_AssemblyFactoryExceptionThrown_LogsErrorAndReturnsFalse));
             AssessmentSection assessmentSection = CreateConfiguredAssessmentSection();
 
             var exporter = new AssemblyExporter(assessmentSection, filePath);
 
-            using (new AssemblyToolCalculatorFactoryConfigOld())
+            using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
-                AssessmentSectionAssemblyCalculatorStubOld assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
-                assessmentSectionAssemblyCalculator.AssembleAssessmentSectionCategoryGroupOutput = invalidAssessmentSectionAssemblyCategoryGroup;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                failureMechanismSectionAssemblyCalculator.FailureMechanismSectionAssemblyResultOutput = new FailureMechanismSectionAssemblyResultWrapper(
+                    new DefaultFailureMechanismSectionAssemblyResult(), AssemblyMethod.BOI0A1, AssemblyMethod.BOI0B1);
 
                 // Call
                 var isExported = true;
-                Action call = () => isExported = exporter.Export();
+                void Call() => isExported = exporter.Export();
 
                 // Assert
-                const string expectedMessage = "Om een toetsoordeel te kunnen exporteren moet voor alle vakken een resultaat zijn gespecificeerd.";
-                TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
+                const string expectedMessage = "De assemblage kan niet succesvol worden afgerond. Inspecteer de resultaten van de faalmechanismen die onderdeel zijn van de assemblage of het veiligheidsoordeel voor meer details.";
+                TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
                 Assert.IsFalse(isExported);
             }
         }
 
         [Test]
-        public void Export_AssemblyCreatorExceptionThrown_LogsErrorAndReturnsFalse()
-        {
-            // Setup
-            string filePath = TestHelper.GetScratchPadPath(nameof(Export_AssemblyCreatorExceptionThrown_LogsErrorAndReturnsFalse));
-            AssessmentSection assessmentSection = CreateConfiguredAssessmentSection();
-
-            var exporter = new AssemblyExporter(assessmentSection, filePath);
-
-            using (new AssemblyToolCalculatorFactoryConfigOld())
-            {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
-                FailureMechanismSectionAssemblyCalculatorOldStub failureMechanismSectionAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                failureMechanismSectionAssemblyCalculator.CombinedAssemblyCategoryOutput = FailureMechanismSectionAssemblyCategoryGroup.None;
-
-                // Call
-                var isExported = true;
-                Action call = () => isExported = exporter.Export();
-
-                // Assert
-                const string expectedMessage = "Om een toetsoordeel te kunnen exporteren moet voor alle vakken een resultaat zijn gespecificeerd.";
-                TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
-                Assert.IsFalse(isExported);
-            }
-        }
-
-        [Test]
-        [Explicit("Fix this test in WTI-2681")]
         public void Export_FullyConfiguredAssessmentSectionAndValidAssemblyResults_ReturnsTrueAndCreatesFile()
         {
             // Setup
-            string filePath = TestHelper.GetScratchPadPath(nameof(Export_FullyConfiguredAssessmentSectionAndValidAssemblyResults_ReturnsTrueAndCreatesFile));
+            string folderPath = TestHelper.GetScratchPadPath(nameof(Export_FullyConfiguredAssessmentSectionAndValidAssemblyResults_ReturnsTrueAndCreatesFile));
+            Directory.CreateDirectory(folderPath);
+            string filePath = Path.Combine(folderPath, "actualAssembly.gml");
+
             AssessmentSection assessmentSection = CreateConfiguredAssessmentSection();
 
             var exporter = new AssemblyExporter(assessmentSection, filePath);
 
             using (new FileDisposeHelper(filePath))
-            using (new AssemblyToolCalculatorFactoryConfigOld())
+            using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
-                AssessmentSectionAssemblyCalculatorStubOld assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
-                assessmentSectionAssemblyCalculator.AssembleAssessmentSectionCategoryGroupOutput = AssessmentSectionAssemblyCategoryGroup.A;
+                SetCombinedFailureMechanismSectionAssemblyOutput(assessmentSection);
 
-                // Call
-                bool isExported = exporter.Export();
+                try
+                {
+                    // Call
+                    bool isExported = exporter.Export();
 
-                // Assert
-                Assert.IsTrue(File.Exists(filePath));
-                Assert.IsTrue(isExported);
+                    // Assert
+                    Assert.IsTrue(File.Exists(filePath));
+                    Assert.IsTrue(isExported);
 
-                string expectedGmlFilePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.IO),
-                                                          nameof(AssemblyExporter), "ExpectedGml.gml");
-                string expectedGml = File.ReadAllText(expectedGmlFilePath);
-                string actualGml = File.ReadAllText(filePath);
-                Assert.AreEqual(expectedGml, actualGml);
+                    string expectedGmlFilePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.IO),
+                                                              nameof(AssemblyExporter), "ExpectedGml.gml");
+                    string expectedGml = File.ReadAllText(expectedGmlFilePath);
+                    string actualGml = File.ReadAllText(filePath);
+                    Assert.AreEqual(expectedGml, actualGml);
+                }
+                finally
+                {
+                    DirectoryHelper.TryDelete(folderPath);
+                }
             }
         }
 
         [Test]
-        [Explicit("Fix this test in WTI-2681")]
         public void Export_InvalidDirectoryRights_LogsErrorAndReturnsFalse()
         {
             // Setup
@@ -206,18 +235,23 @@ namespace Riskeer.Integration.IO.Test.Exporters
             var exporter = new AssemblyExporter(assessmentSection, filePath);
 
             using (var fileDisposeHelper = new FileDisposeHelper(filePath))
-            using (new AssemblyToolCalculatorFactoryConfigOld())
+            using (new AssemblyToolCalculatorFactoryConfig())
             {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
+                assessmentSectionAssemblyCalculator.CombinedFailureMechanismSectionAssemblyOutput = new CombinedFailureMechanismSectionAssemblyResultWrapper(
+                    Array.Empty<CombinedFailureMechanismSectionAssembly>(), AssemblyMethod.BOI3A1, AssemblyMethod.BOI3B1, AssemblyMethod.BOI3C1);
+
                 fileDisposeHelper.LockFiles();
 
                 // Call
                 var isExported = true;
-                Action call = () => isExported = exporter.Export();
+                void Call() => isExported = exporter.Export();
 
                 // Assert
                 string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'. " +
-                                         "Er is geen toetsoordeel geëxporteerd.";
-                TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
+                                         "Er zijn geen assemblageresultaten geëxporteerd.";
+                TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
                 Assert.IsFalse(isExported);
             }
         }
@@ -231,8 +265,20 @@ namespace Riskeer.Integration.IO.Test.Exporters
             };
             assessmentSection.ReferenceLine.SetGeometry(new[]
             {
-                new Point2D(1, 1),
-                new Point2D(2, 2)
+                new Point2D(0, 0),
+                new Point2D(3, 4)
+            });
+
+            assessmentSection.SpecificFailureMechanisms.AddRange(new[]
+            {
+                new SpecificFailureMechanism
+                {
+                    Name = "Specific failure mechanism 1"
+                },
+                new SpecificFailureMechanism
+                {
+                    Name = "Specific failure mechanism 2"
+                }
             });
 
             FailureMechanismTestHelper.AddSections(assessmentSection.Piping, 2);
@@ -253,7 +299,27 @@ namespace Riskeer.Integration.IO.Test.Exporters
             FailureMechanismTestHelper.AddSections(assessmentSection.PipingStructure, 2);
             FailureMechanismTestHelper.AddSections(assessmentSection.WaterPressureAsphaltCover, 2);
 
+            FailureMechanismTestHelper.AddSections(assessmentSection.SpecificFailureMechanisms.First(), 2);
+            FailureMechanismTestHelper.AddSections(assessmentSection.SpecificFailureMechanisms.Last(), 2);
+
             return assessmentSection;
+        }
+
+        private static void SetCombinedFailureMechanismSectionAssemblyOutput(IAssessmentSection assessmentSection)
+        {
+            IEnumerable<IFailureMechanism> failureMechanisms = assessmentSection.GetFailureMechanisms()
+                                                                                .Concat(assessmentSection.SpecificFailureMechanisms);
+
+            var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+            AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
+            assessmentSectionAssemblyCalculator.CombinedFailureMechanismSectionAssemblyOutput = new CombinedFailureMechanismSectionAssemblyResultWrapper(
+                new[]
+                {
+                    new CombinedFailureMechanismSectionAssembly(new CombinedAssemblyFailureMechanismSection(0, 2.5, FailureMechanismSectionAssemblyGroup.II),
+                                                                failureMechanisms.Select(fm => FailureMechanismSectionAssemblyGroup.II)),
+                    new CombinedFailureMechanismSectionAssembly(new CombinedAssemblyFailureMechanismSection(2.5, 5, FailureMechanismSectionAssemblyGroup.III),
+                                                                failureMechanisms.Select(fm => FailureMechanismSectionAssemblyGroup.III))
+                }, AssemblyMethod.BOI3A1, AssemblyMethod.BOI3B1, AssemblyMethod.BOI3C1);
         }
     }
 }

@@ -136,7 +136,7 @@
     <value>failureMechanismSectionsDataGridViewControl</value>
   </data>
   <data name="&gt;&gt;failureMechanismSectionsDataGridViewControl.Type" xml:space="preserve">
-    <value>Core.Common.Controls.DataGrid.DataGridViewControl, Core.Common.Controls, Version=18.1.1.1, Culture=neutral, PublicKeyToken=null</value>
+    <value>Core.Common.Controls.DataGrid.DataGridViewControl, Core.Common.Controls, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;failureMechanismSectionsDataGridViewControl.Parent" xml:space="preserve">
     <value>$this</value>

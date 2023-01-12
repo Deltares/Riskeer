@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -23,7 +23,7 @@ namespace Riskeer.Storage.Core.DbContext
 {
     /// <summary>
     /// Partial implementation of <see cref="FailureMechanismEntity"/> that implements a
-    /// <see cref="IFailurePathEntity"/>.
+    /// <see cref="IFailureMechanismEntity"/>.
     /// </summary>
-    public partial class FailureMechanismEntity : IFailurePathEntity {}
+    public partial class FailureMechanismEntity : IFailureMechanismEntity {}
 }

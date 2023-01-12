@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -56,7 +56,7 @@ namespace Riskeer.Common.Forms.Helpers
 
             columnStateDefinition.Style = new CellStyle(
                 Color.FromKnownColor(KnownColor.ControlText),
-                AssemblyGroupColorHelper.GetFailureMechanismSectionAssemblyCategoryGroupColor(assemblyGroup));
+                FailureMechanismSectionAssemblyGroupColorHelper.GetFailureMechanismSectionAssemblyGroupColor(assemblyGroup));
         }
     }
 }

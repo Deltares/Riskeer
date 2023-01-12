@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -34,7 +34,10 @@ namespace Core.Common.Base.Test
             var counter = 0;
 
             // Call
-            using (var recursiveObserver = new RecursiveObserver<TestContainer, TestContainer>(() => { counter++; }, GetChildren))
+            using (var recursiveObserver = new RecursiveObserver<TestContainer, TestContainer>(() =>
+            {
+                counter++;
+            }, GetChildren))
             {
                 // Assert
                 Assert.IsInstanceOf<IObserver>(recursiveObserver);

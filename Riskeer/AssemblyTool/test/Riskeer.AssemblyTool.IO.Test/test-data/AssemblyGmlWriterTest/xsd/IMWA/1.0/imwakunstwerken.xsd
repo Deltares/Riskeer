@@ -1,0 +1,671 @@
+<?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml" xmlns:imgeo="http://www.geostandaarden.nl/imgeo/2.1" xmlns:imwa="http://dlg2.idsw.nl/imwa2007" xmlns:imwakunstwerken="http://www.geostandaarden.nl/imwa/imwakunstwerken/0.1" elementFormDefault="qualified" targetNamespace="http://www.geostandaarden.nl/imwa/imwakunstwerken/0.1" version="0.1">
+  <annotation>
+    <documentation>Wijzigingen:
+
+[20-12-2017]:
+- Datatype 'FysiekeEigenschap' vervangen door 'PhysicalProperty'</documentation>
+  </annotation>
+  <import namespace="http://dlg2.idsw.nl/imwa2007"/>
+  <import namespace="http://www.geostandaarden.nl/imgeo/2.1"/>
+  <import namespace="http://www.opengis.net/gml" schemaLocation="http://schemas.opengis.net/gml/3.1.1/base/gml.xsd"/>
+  <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
+  <element name="Afsluitmiddel" substitutionGroup="imwa:IMWA_GeoObject" type="imwakunstwerken:AfsluitmiddelType">
+    <annotation>
+      <documentation>Een beweegbare constructie met als doel een waterkerende functie te kunnen vervullen.</documentation>
+    </annotation>
+  </element>
+  <complexType name="AfsluitmiddelType">
+    <complexContent>
+      <extension base="imwa:IMWA_GeoObjectType">
+        <sequence>
+          <element minOccurs="0" name="geometrie2D" type="gml:PointPropertyType">
+            <annotation>
+              <documentation>Geometrische weergave van het object als punt.</documentation>
+            </annotation>
+          </element>
+          <element name="typeAfsluitmiddel" type="gml:CodeType">
+            <annotation>
+              <documentation>AfsluitmiddelType: Nadere aanduiding van het type afsluitmiddel.</documentation>
+            </annotation>
+          </element>
+          <element name="typeRegelbaarheid" type="gml:CodeType">
+            <annotation>
+              <documentation>Besturingswijze: Nadere aanduiding van het type regelbaarheid.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="fysiekeEigenschap">
+            <annotation>
+              <documentation>Een samengesteld attribuut (datatype) voor het vastleggen van eigenschappen van het object, bestaande uit:
+- parameter
+- grootheid
+- waarde + eenheid (measure)
+- hoedanigheid</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="onderdeelVanDuiker" type="imwakunstwerken:DuikerPropertyType"/>
+          <element minOccurs="0" name="onderdeelVanGemaal" type="imwakunstwerken:GemaalPropertyType"/>
+          <element minOccurs="0" name="onderdeelVanHevel" type="imwakunstwerken:HevelPropertyType"/>
+          <element minOccurs="0" name="onderdeelVanSifon" type="imwakunstwerken:SifonPropertyType"/>
+          <element minOccurs="0" name="onderdeelVanSluis" type="imwakunstwerken:SluisPropertyType"/>
+          <element minOccurs="0" name="onderdeelVanStuw" type="imwakunstwerken:StuwPropertyType"/>
+          <element minOccurs="0" name="onderdeelVanVispassage" type="imwakunstwerken:VispassagePropertyType"/>
+          <element minOccurs="0" name="onderdeelVan" type="imwakunstwerken:CoupurePropertyType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="AfsluitmiddelPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwakunstwerken:Afsluitmiddel"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Aquaduct" substitutionGroup="imwa:Overbruggingsdeel" type="imwakunstwerken:AquaductType">
+    <annotation>
+      <documentation>&lt;u&gt;Definitie:&lt;/u&gt;
+Een kokervormige constructie met als doel de wederzijdse verbinding tussen oppervlaktewater te waarborgen, waarbij in principe de bodem van de waterloop, in tegenstelling tot die van de brug, wordt onderbroken.
+
+&lt;u&gt;Herkomst definitie:&lt;/u&gt; Aquo-lex</documentation>
+    </annotation>
+  </element>
+  <complexType name="AquaductType">
+    <complexContent>
+      <extension base="imwa:OverbruggingsdeelType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="fysiekeEigenschap">
+            <annotation>
+              <documentation>Een samengesteld attribuut (datatype) voor het vastleggen van eigenschappen van het object, bestaande uit:
+- parameter
+- grootheid
+- waarde + eenheid (measure)
+- hoedanigheid</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="AquaductPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwakunstwerken:Aquaduct"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Bodemval" substitutionGroup="imwa:Kunstwerk" type="imwakunstwerken:BodemvalType">
+    <annotation>
+      <documentation>&lt;u&gt;Definitie:&lt;/u&gt;
+Een kokervormige constructie met een verhoogd middengedeelte dat twee wederzijds gelegen wateren met elkaar verbindt.
+
+Herkomst definitie: Aquo-lex</documentation>
+    </annotation>
+  </element>
+  <complexType name="BodemvalType">
+    <complexContent>
+      <extension base="imwa:KunstwerkType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="fysiekeEigenschap">
+            <annotation>
+              <documentation>Een samengesteld attribuut (datatype) voor het vastleggen van eigenschappen van het object, bestaande uit:
+- parameter
+- grootheid
+- waarde + eenheid (measure)
+- hoedanigheid</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="BodemvalPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwakunstwerken:Bodemval"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Brug" substitutionGroup="imwa:Overbruggingsdeel" type="imwakunstwerken:BrugType">
+    <annotation>
+      <documentation>&lt;u&gt;Definitie:&lt;/u&gt;
+Civielkundige constructie die doorgang verschaft voor voetgangers, dieren, voertuigen en diensten boven obstakels of tussen twee punten op een hoogte boven de grond
+
+&lt;u&gt;Herkomst definitie:&lt;/u&gt; Aquo-lex</documentation>
+    </annotation>
+  </element>
+  <complexType name="BrugType">
+    <complexContent>
+      <extension base="imwa:OverbruggingsdeelType">
+        <sequence>
+          <element name="typeBrug" type="gml:CodeType">
+            <annotation>
+              <documentation>KunstwerkType (groep: Brug): Nadere aanduiding van het type brug.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="fysiekeEigenschap">
+            <annotation>
+              <documentation>Een samengesteld attribuut (datatype) voor het vastleggen van eigenschappen van het object, bestaande uit:
+- parameter
+- grootheid
+- waarde + eenheid (measure)
+- hoedanigheid</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="BrugPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwakunstwerken:Brug"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Coupure" substitutionGroup="imwa:Kunstwerk" type="imwakunstwerken:CoupureType">
+    <annotation>
+      <documentation>Een onderbreking in een waterkering voor de doorvoer van een weg of spoorweg, die bij extreme waterstanden afsluitbaar is.</documentation>
+    </annotation>
+  </element>
+  <complexType name="CoupureType">
+    <complexContent>
+      <extension base="imwa:KunstwerkType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="fysiekeEigenschap">
+            <annotation>
+              <documentation>Een samengesteld attribuut voor het vastleggen van parameters bestaande uit:
+- Waardetype: aanduiding van een parameter waar een waarde voor opgenomen wordt.
+- Een waarde die bij een waardetype hoort.
+
+Domein:
+- Drempelhoogte (m tov NAP)</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="CoupurePropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwakunstwerken:Coupure"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Doorstroomopening" substitutionGroup="gml:_GML" type="imwakunstwerken:DoorstroomopeningType">
+    <annotation>
+      <documentation>Doorstroomopening: &lt;u&gt;Defnitie:&lt;/u&gt;
+Een doorstroomopening onder een brug.
+
+&lt;u&gt;Herkomst Definitie:&lt;/u&gt; Project IMWA Watersysteem.</documentation>
+    </annotation>
+  </element>
+  <complexType name="DoorstroomopeningType">
+    <complexContent>
+      <extension base="gml:AbstractGMLType">
+        <sequence>
+          <element minOccurs="0" name="indicatieDoorvaarbaar" type="boolean">
+            <annotation>
+              <documentation>J/N: Indicatie of de doorstroomopening doorvaarbaar is of niet.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="fysiekeEigenschap">
+            <annotation>
+              <documentation>Een samengesteld attribuut (datatype) voor het vastleggen van eigenschappen van het object, bestaande uit:
+- parameter
+- grootheid
+- waarde + eenheid (measure)
+- hoedanigheid</documentation>
+            </annotation>
+          </element>
+          <element name="onderdeelVan" type="imwakunstwerken:BrugPropertyType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="DoorstroomopeningPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwakunstwerken:Doorstroomopening"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Duiker" substitutionGroup="imwa:Kunstwerk" type="imwakunstwerken:DuikerType">
+    <annotation>
+      <documentation>&lt;u&gt;Definitie&lt;/u&gt;
+Een kokervormige constructie met als doel de wederzijdse verbinding tussen oppervlaktewater te waarborgen, waarbij in principe de bodem van de waterloop, in tegenstelling tot die van de brug, wordt onderbroken.
+
+&lt;u&gt;Herkomst definitie:&lt;/u&gt; Aquo-lex</documentation>
+    </annotation>
+  </element>
+  <complexType name="DuikerType">
+    <complexContent>
+      <extension base="imwa:KunstwerkType">
+        <sequence>
+          <element minOccurs="0" name="geomtrieLijn2D" type="gml:CurvePropertyType">
+            <annotation>
+              <documentation>Geometrische representatie van het object weergegeven als 2D lijn.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="fysiekeEigenschap">
+            <annotation>
+              <documentation>Een samengesteld attribuut (datatype) voor het vastleggen van eigenschappen van het object, bestaande uit:
+- parameter
+- grootheid
+- waarde + eenheid (measure)
+- hoedanigheid</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="DuikerPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwakunstwerken:Duiker"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Gemaal" substitutionGroup="imwa:Kunstwerk" type="imwakunstwerken:GemaalType">
+    <annotation>
+      <documentation>&lt;u&gt;Definitie:&lt;/u&gt;
+Een gemaal dient in principe om water van een laag peil naar een hoog peil te brengen, waarvan de noodzaak kan liggen in wateroverschot aan de lage kant (afvoer) of in waterbehoefte in het gebied aan de hoge kant (aanvoer).
+
+&lt;u&gt;Herkomst definitie:&lt;/u&gt; Aquo-lex</documentation>
+    </annotation>
+  </element>
+  <complexType name="GemaalType">
+    <complexContent>
+      <extension base="imwa:KunstwerkType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="fysiekeEigenschap">
+            <annotation>
+              <documentation>Een samengesteld attribuut (datatype) voor het vastleggen van eigenschappen van het object, bestaande uit:
+- parameter
+- grootheid
+- waarde + eenheid (measure)
+- hoedanigheid</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="GemaalPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwakunstwerken:Gemaal"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Hevel" substitutionGroup="imwa:Overbruggingsdeel" type="imwakunstwerken:HevelType">
+    <annotation>
+      <documentation>&lt;u&gt;Definitie:&lt;/u&gt;
+Een kokervormige constructie met een verhoogd middengedeelte dat twee wederzijds gelegen wateren met elkaar verbindt.
+
+&lt;u&gt;Herkomst definitie:&lt;/u&gt; Aquo-lex</documentation>
+    </annotation>
+  </element>
+  <complexType name="HevelType">
+    <complexContent>
+      <extension base="imwa:OverbruggingsdeelType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="fysiekeEigenschap">
+            <annotation>
+              <documentation>Een samengesteld attribuut (datatype) voor het vastleggen van eigenschappen van het object, bestaande uit:
+- parameter
+- grootheid
+- waarde + eenheid (measure)
+- hoedanigheid</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="HevelPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwakunstwerken:Hevel"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Kunstwerkcomplex" substitutionGroup="imwa:IMWA_GeoObject" type="imwakunstwerken:KunstwerkcomplexType">
+    <annotation>
+      <documentation>&lt;u&gt;Definitie:&lt;/u&gt;
+Verzameling van één of meer bouwwerken, die samen een functionele eenheid vormen, en die een aantal voorzieningen kunnen delen.
+
+&lt;u&gt;Herkomst definitie:&lt;/u&gt; Object Type Library (OTL) Rijkswaterstaat.</documentation>
+    </annotation>
+  </element>
+  <complexType name="KunstwerkcomplexType">
+    <complexContent>
+      <extension base="imwa:IMWA_GeoObjectType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="samengesteldUit" type="imgeo:OnbegroeidTerreindeelPropertyType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="samengesteldUit" type="imgeo:PlantCoverPropertyType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="samengestelsUit" type="imgeo:BuildingPartPropertyType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="samengesteldUit" type="imgeo:OverigBouwwerkPropertyType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="samengesteldUit" type="imgeo:ScheidingPropertyType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="KunstwerkcomplexPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwakunstwerken:Kunstwerkcomplex"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Peilschaal" substitutionGroup="imwa:IMWA_GeoObject" type="imwakunstwerken:PeilschaalType">
+    <annotation>
+      <documentation>&lt;u&gt;Definitie:&lt;/u&gt;
+Gegradueerde schaal die gebruikt wordt voor het aangeven van de waterstand in een waterlichaam.
+
+&lt;u&gt;Herkomst definitie:&lt;/u&gt; Aquo-lex</documentation>
+    </annotation>
+  </element>
+  <complexType name="PeilschaalType">
+    <complexContent>
+      <extension base="imwa:IMWA_GeoObjectType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="fysiekeEigenschap">
+            <annotation>
+              <documentation>Een samengesteld attribuut (datatype) voor het vastleggen van eigenschappen van het object, bestaande uit:
+- parameter
+- grootheid
+- waarde + eenheid (measure)
+- hoedanigheid</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="PeilschaalPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwakunstwerken:Peilschaal"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Pomp" substitutionGroup="gml:_GML" type="imwakunstwerken:PompType">
+    <annotation>
+      <documentation>&lt;u&gt;Definitie:&lt;/u&gt;
+Werktuig dat door middel van een verschil in druk vloeistoffen of gassen verplaatst.
+
+&lt;u&gt;Herkomst definitie:&lt;/u&gt; Aquo-lex</documentation>
+    </annotation>
+  </element>
+  <complexType name="PompType">
+    <complexContent>
+      <extension base="gml:AbstractGMLType">
+        <sequence>
+          <element minOccurs="0" name="fysiekeEigenschap">
+            <annotation>
+              <documentation>Een samengesteld attribuut (datatype) voor het vastleggen van eigenschappen van het object, bestaande uit:
+- parameter
+- grootheid
+- waarde + eenheid (measure)
+- hoedanigheid</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="onderdeelVan" type="imwakunstwerken:GemaalPropertyType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="PompPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwakunstwerken:Pomp"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Sifon" substitutionGroup="imwa:Overbruggingsdeel" type="imwakunstwerken:SifonType">
+    <annotation>
+      <documentation>&lt;u&gt;Definitie:&lt;/u&gt;
+Een kokervormige constructie met een verlaagd middengedeelte dat twee wederzijds gelegen wateren met elkaar verbindt
+
+&lt;u&gt;Herkomst definitie:&lt;/u&gt; Aquo-lex</documentation>
+    </annotation>
+  </element>
+  <complexType name="SifonType">
+    <complexContent>
+      <extension base="imwa:OverbruggingsdeelType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="fysiekeEigenschap">
+            <annotation>
+              <documentation>Een samengesteld attribuut (datatype) voor het vastleggen van eigenschappen van het object, bestaande uit:
+- parameter
+- grootheid
+- waarde + eenheid (measure)
+- hoedanigheid</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="SifonPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwakunstwerken:Sifon"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Sluis" substitutionGroup="imwa:Kunstwerk" type="imwakunstwerken:SluisType">
+    <annotation>
+      <documentation>Sluis:
+Een kunstmatige, beweegbare waterkering die de verbinding tussen twee wateren kan afsluiten of openstellen en daartoe van deuren of schuiven is voorzien.
+
+Stormvloedkering:
+Keersluis die gesloten wordt bij zeer hoge buitenwaterstanden.</documentation>
+    </annotation>
+  </element>
+  <complexType name="SluisType">
+    <complexContent>
+      <extension base="imwa:KunstwerkType">
+        <sequence>
+          <element name="typeSluis" type="gml:CodeType">
+            <annotation>
+              <documentation>KunstwerkType (groep: Sluis): Nadere aanduiding van het type sluis.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="fysiekeEigenschap">
+            <annotation>
+              <documentation>Een samengesteld attribuut (datatype) voor het vastleggen van eigenschappen van het object, bestaande uit:
+- parameter
+- grootheid
+- waarde + eenheid (measure)
+- hoedanigheid</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="SluisPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwakunstwerken:Sluis"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Stuw" substitutionGroup="imwa:Kunstwerk" type="imwakunstwerken:StuwType">
+    <annotation>
+      <documentation>Vaste of beweegbare constructie die dient om het peil bovenstrooms van de constructie te verhogen c.q. te regelen.</documentation>
+    </annotation>
+  </element>
+  <complexType name="StuwType">
+    <complexContent>
+      <extension base="imwa:KunstwerkType">
+        <sequence>
+          <element name="typeStuw" type="gml:CodeType">
+            <annotation>
+              <documentation>KunstwerkType (groep: Stuw): Nadere aanduiding van het type stuw.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="fysiekeEigenschap">
+            <annotation>
+              <documentation>Een samengesteld attribuut (datatype) voor het vastleggen van eigenschappen van het object, bestaande uit:
+- parameter
+- grootheid
+- waarde + eenheid (measure)
+- hoedanigheid</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="StuwPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwakunstwerken:Stuw"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="VasteDam" substitutionGroup="imwa:Kunstwerk" type="imwakunstwerken:VasteDamType">
+    <annotation>
+      <documentation>&lt;u&gt;Definitie:&lt;/u&gt;
+Dwars door een water gelegen afsluiting, bedoeld om water te keren of te beheersen.
+
+&lt;u&gt;Herkomst definitie:&lt;/u&gt; Aquo-lex</documentation>
+    </annotation>
+  </element>
+  <complexType name="VasteDamType">
+    <complexContent>
+      <extension base="imwa:KunstwerkType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="fysiekeEigenschap">
+            <annotation>
+              <documentation>Een samengesteld attribuut (datatype) voor het vastleggen van eigenschappen van het object, bestaande uit:
+- parameter
+- grootheid
+- waarde + eenheid (measure)
+- hoedanigheid</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="VasteDamPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwakunstwerken:VasteDam"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Vispassage" substitutionGroup="imwa:Kunstwerk" type="imwakunstwerken:VispassageType">
+    <annotation>
+      <documentation>Een kunstmatige passage ten behoeve van de vistrek bij kunstwerken in wateren</documentation>
+    </annotation>
+  </element>
+  <complexType name="VispassageType">
+    <complexContent>
+      <extension base="imwa:KunstwerkType">
+        <sequence>
+          <element name="typeVispassage" type="gml:CodeType">
+            <annotation>
+              <documentation>KunstwerkType (groep: Vispassage): Nadere aanduiding van het type vispassage.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="fysiekeEigenschap">
+            <annotation>
+              <documentation>Een samengesteld attribuut (datatype) voor het vastleggen van eigenschappen van het object, bestaande uit:
+- parameter
+- grootheid
+- waarde + eenheid (measure)
+- hoedanigheid</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="VispassagePropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwakunstwerken:Vispassage"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Voorde" substitutionGroup="imwa:Kunstwerk" type="imwakunstwerken:VoordeType">
+    <annotation>
+      <documentation>&lt;u&gt;Definitie:&lt;/u&gt; Een doorwaadbare, doorgaans verharde, plaats in de waterloop, die dient voor de oversteek van die waterloop.
+
+&lt;u&gt;Herkomst definitie:&lt;/u&gt; Aquo-lex</documentation>
+    </annotation>
+  </element>
+  <complexType name="VoordeType">
+    <complexContent>
+      <extension base="imwa:KunstwerkType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="fysiekeEigenschap">
+            <annotation>
+              <documentation>Een samengesteld attribuut (datatype) voor het vastleggen van eigenschappen van het object, bestaande uit:
+- parameter
+- grootheid
+- waarde + eenheid (measure)
+- hoedanigheid</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="VoordePropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwakunstwerken:Voorde"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Vuilvang" substitutionGroup="imwa:IMWA_GeoObject" type="imwakunstwerken:VuilvangType">
+    <annotation>
+      <documentation>&lt;u&gt;Definitie:&lt;/u&gt;
+Een voorziening om de waterloop dan wel één of meerdere objecten benedenstrooms te vrijwaren van drijvend vuil en dergelijke.
+
+&lt;u&gt;Herkomst definitie:&lt;/u&gt; Aquo-lex</documentation>
+    </annotation>
+  </element>
+  <complexType name="VuilvangType">
+    <complexContent>
+      <extension base="imwa:IMWA_GeoObjectType">
+        <sequence>
+          <element name="typeVuilvang" type="gml:CodeType">
+            <annotation>
+              <documentation>VuilvangType: Nadere aanduiding van het type vuilvang.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="statusLegger" type="gml:CodeType">
+            <annotation>
+              <documentation>LeggerStatus: Een aanduiding voor de status van de legger waarin het object is opgenomen.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="typeRegelbaarheid" type="gml:CodeType">
+            <annotation>
+              <documentation>Besturingswijze: Nadere aanduiding van het type regelbaarheid.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="VuilvangPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwakunstwerken:Vuilvang"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <element name="Zandvang" substitutionGroup="imwa:Kunstwerk" type="imwakunstwerken:ZandvangType"/>
+  <complexType name="ZandvangType">
+    <complexContent>
+      <extension base="imwa:KunstwerkType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="fysiekeEigenschap">
+            <annotation>
+              <documentation>Een samengesteld attribuut (datatype) voor het vastleggen van eigenschappen van het object, bestaande uit:
+- parameter
+- grootheid
+- waarde + eenheid (measure)
+- hoedanigheid</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="ZandvangPropertyType">
+    <sequence minOccurs="0">
+      <element ref="imwakunstwerken:Zandvang"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+</schema>

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -19,61 +19,80 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Util.Attributes;
+using Riskeer.AssemblyTool.Data.Properties;
+
 namespace Riskeer.AssemblyTool.Data
 {
     /// <summary>
-    /// Enum defining the assembly categories for a failure mechanism section.
+    /// Enum defining the assembly groups for a failure mechanism section.
     /// </summary>
     public enum FailureMechanismSectionAssemblyGroup
     {
         /// <summary>
-        /// Represents the interpretation category Not Dominant for a failure mechanism section.
+        /// Represents group Not Dominant.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyGroup_NotDominant_DisplayName))]
         NotDominant = 1,
 
         /// <summary>
-        /// Represents the interpretation category III for a failure mechanism section.
+        /// Represents group +III.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyGroup_III_DisplayName))]
         III = 2,
 
         /// <summary>
-        /// Represents the interpretation category II for a failure mechanism section.
+        /// Represents group +II.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyGroup_II_DisplayName))]
         II = 3,
 
         /// <summary>
-        /// Represents the interpretation category I for a failure mechanism section.
+        /// Represents group +I.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyGroup_I_DisplayName))]
         I = 4,
 
         /// <summary>
-        /// Represents the interpretation category 0 for a failure mechanism section.
+        /// Represents group 0.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyGroup_Zero_DisplayName))]
         Zero = 5,
 
         /// <summary>
-        /// Represents the interpretation category I- for a failure mechanism section.
+        /// Represents group -I.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyGroup_IMin_DisplayName))]
         IMin = 6,
 
         /// <summary>
-        /// Represents the interpretation category II- for a failure mechanism section.
+        /// Represents group -II.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyGroup_IIMin_DisplayName))]
         IIMin = 7,
 
         /// <summary>
-        /// Represents the interpretation category III- for a failure mechanism section.
+        /// Represents group -III.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyGroup_IIIMin_DisplayName))]
         IIIMin = 8,
 
         /// <summary>
-        /// Represents the interpretation category Dominant for a failure mechanism section.
+        /// Represents group Dominant.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyGroup_Dominant_DisplayName))]
         Dominant = 9,
 
         /// <summary>
-        /// Represents the interpretation category GR for a failure mechanism section.
+        /// Represents group No Result.
         /// </summary>
-        Gr = 10
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyGroup_NoResult_DisplayName))]
+        NoResult = 10,
+
+        /// <summary>
+        /// Represents group Not Relevant.
+        /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyGroup_NotRelevant_DisplayName))]
+        NotRelevant = 11
     }
 }

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -39,11 +39,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         public bool Calculated { get; private set; }
 
         /// <summary>
-        /// Gets the <see cref="ESectionInitialMechanismProbabilitySpecification"/>.
-        /// </summary>
-        public ESectionInitialMechanismProbabilitySpecification InitialMechanismProbabilitySpecification { get; private set; }
-
-        /// <summary>
         /// Gets the initial probability of the profile for the failure mechanism section.
         /// </summary>
         public Probability ProbabilityInitialMechanismProfile { get; private set; }
@@ -52,11 +47,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         /// Gets the initial probability of the section for the failure mechanism section.
         /// </summary>
         public Probability ProbabilityInitialMechanismSection { get; private set; }
-
-        /// <summary>
-        /// Gets the refinement status for the failure mechanism section.
-        /// </summary>
-        public ERefinementStatus RefinementStatus { get; private set; }
 
         /// <summary>
         /// Gets the initial probability of the profile for the failure mechanism section.
@@ -69,9 +59,19 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         public Probability RefinedProbabilitySection { get; private set; }
 
         /// <summary>
-        /// Gets the collection of categories.
+        /// Gets the collection of interpretation categories.
         /// </summary>
         public CategoriesList<InterpretationCategory> Categories { get; private set; }
+
+        /// <summary>
+        /// Gets the analysis state.
+        /// </summary>
+        public EAnalysisState AnalysisState { get; private set; }
+
+        /// <summary>
+        /// Gets the category.
+        /// </summary>
+        public EInterpretationCategory CategoryInput { get; private set; }
 
         /// <summary>
         /// Sets an indicator whether an <see cref="Exception"/> must be thrown while performing a calculation.
@@ -84,65 +84,126 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         public bool ThrowAssemblyExceptionOnCalculate { private get; set; }
 
         /// <summary>
-        /// Sets the assembly result of a failure mechanism section.
+        /// Sets the section probability.
         /// </summary>
-        public FailureMechanismSectionAssemblyResult FailureMechanismSectionAssemblyResult { private get; set; }
+        public Probability SectionProbability { private get; set; }
 
-        public FailureMechanismSectionAssemblyResult TranslateAssessmentResultWbi0A2(ESectionInitialMechanismProbabilitySpecification relevance,
-                                                                                     Probability probabilityInitialMechanismSection,
-                                                                                     ERefinementStatus refinementStatus,
-                                                                                     Probability refinedProbabilitySection,
-                                                                                     CategoriesList<InterpretationCategory> categories)
+        /// <summary>
+        /// Gets the profile and section probability.
+        /// </summary>
+        public ResultWithProfileAndSectionProbabilities ProfileAndSectionProbabilities { private get; set; }
+
+        /// <summary>
+        /// Sets the category.
+        /// </summary>
+        public EInterpretationCategory CategoryOutput { private get; set; }
+
+        /// <summary>
+        /// Gets whether the refinement is necessary.
+        /// </summary>
+        public bool RefinementNecessary { get; private set; }
+
+        /// <summary>
+        /// Gets the section probability.
+        /// </summary>
+        public Probability SectionProbabilityInput { get; private set; }
+
+        public FailureMechanismSectionAssemblyResult TranslateAssessmentResultAggregatedMethod(ESectionInitialMechanismProbabilitySpecification relevance,
+                                                                                               Probability probabilityInitialMechanismSection,
+                                                                                               ERefinementStatus refinementStatus,
+                                                                                               Probability refinedProbabilitySection,
+                                                                                               CategoriesList<InterpretationCategory> categories)
         {
-            ThrowException();
-            Calculated = true;
-
-            InitialMechanismProbabilitySpecification = relevance;
-            ProbabilityInitialMechanismSection = probabilityInitialMechanismSection;
-
-            RefinementStatus = refinementStatus;
-            RefinedProbabilitySection = refinedProbabilitySection;
-
-            Categories = categories;
-
-            return FailureMechanismSectionAssemblyResult;
+            throw new NotImplementedException();
         }
 
-        public FailureMechanismSectionAssemblyResult TranslateAssessmentResultWbi0A2(ESectionInitialMechanismProbabilitySpecification relevance,
-                                                                                     Probability probabilityInitialMechanismProfile,
-                                                                                     Probability probabilityInitialMechanismSection,
-                                                                                     ERefinementStatus refinementStatus,
-                                                                                     Probability refinedProbabilityProfile,
-                                                                                     Probability refinedProbabilitySection,
-                                                                                     CategoriesList<InterpretationCategory> categories)
+        public FailureMechanismSectionAssemblyResultWithLengthEffect TranslateAssessmentResultWithLengthEffectAggregatedMethod(ESectionInitialMechanismProbabilitySpecification relevance,
+                                                                                                                               Probability probabilityInitialMechanismProfile,
+                                                                                                                               Probability probabilityInitialMechanismSection,
+                                                                                                                               ERefinementStatus refinementStatus,
+                                                                                                                               Probability refinedProbabilityProfile,
+                                                                                                                               Probability refinedProbabilitySection,
+                                                                                                                               CategoriesList<InterpretationCategory> categories)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Probability DetermineRepresentativeProbabilityBoi0A1(
+            bool refinementNecessary, Probability probabilityInitialMechanismSection,
+            Probability refinedProbabilitySection)
         {
             ThrowException();
             Calculated = true;
 
-            InitialMechanismProbabilitySpecification = relevance;
+            RefinementNecessary = refinementNecessary;
+            ProbabilityInitialMechanismSection = probabilityInitialMechanismSection;
+            RefinedProbabilitySection = refinedProbabilitySection;
+
+            return SectionProbability;
+        }
+
+        public ResultWithProfileAndSectionProbabilities DetermineRepresentativeProbabilitiesBoi0A2(
+            bool refinementNecessary, Probability probabilityInitialMechanismProfile, Probability probabilityInitialMechanismSection,
+            Probability refinedProbabilityProfile, Probability refinedProbabilitySection)
+        {
+            ThrowException();
+            Calculated = true;
+
+            RefinementNecessary = refinementNecessary;
             ProbabilityInitialMechanismProfile = probabilityInitialMechanismProfile;
             ProbabilityInitialMechanismSection = probabilityInitialMechanismSection;
-
-            RefinementStatus = refinementStatus;
             RefinedProbabilityProfile = refinedProbabilityProfile;
             RefinedProbabilitySection = refinedProbabilitySection;
 
+            return ProfileAndSectionProbabilities;
+        }
+
+        public EInterpretationCategory DetermineInterpretationCategoryFromFailureMechanismSectionProbabilityBoi0B1(
+            Probability sectionProbability, CategoriesList<InterpretationCategory> categories)
+        {
+            ThrowException();
+            Calculated = true;
+
+            SectionProbabilityInput = sectionProbability;
             Categories = categories;
 
-            return FailureMechanismSectionAssemblyResult;
+            return CategoryOutput;
+        }
+
+        public EInterpretationCategory DetermineInterpretationCategoryWithoutProbabilityEstimationBoi0C1(EAnalysisState analysisState)
+        {
+            ThrowException();
+            Calculated = true;
+
+            AnalysisState = analysisState;
+
+            return CategoryOutput;
+        }
+
+        public Probability TranslateInterpretationCategoryToProbabilityBoi0C2(EInterpretationCategory category)
+        {
+            ThrowException();
+            Calculated = true;
+
+            CategoryInput = category;
+
+            return SectionProbability;
+        }
+
+        public Probability CalculateProfileProbabilityToSectionProbabilityBoi0D1(Probability profileProbability, double lengthEffectFactor)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Probability CalculateSectionProbabilityToProfileProbabilityBoi0D2(Probability sectionProbability, double lengthEffectFactor)
+        {
+            throw new NotImplementedException();
         }
 
         private void ThrowException()
         {
-            if (ThrowExceptionOnCalculate)
-            {
-                throw new Exception("Message", new Exception());
-            }
-
-            if (ThrowAssemblyExceptionOnCalculate)
-            {
-                throw new AssemblyException("entity", EAssemblyErrors.EmptyResultsList);
-            }
+            AssemblyKernelStubHelper.ThrowException(ThrowExceptionOnCalculate, ThrowAssemblyExceptionOnCalculate,
+                                                    EAssemblyErrors.EmptyResultsList);
         }
     }
 }

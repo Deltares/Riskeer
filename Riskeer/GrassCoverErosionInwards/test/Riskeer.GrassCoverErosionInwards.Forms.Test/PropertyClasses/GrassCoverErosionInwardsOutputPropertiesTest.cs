@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -22,7 +22,7 @@
 using System;
 using System.ComponentModel;
 using Core.Common.TestUtil;
-using Core.Common.Util;
+using Core.Common.Util.Enums;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
@@ -141,7 +141,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             TestHelper.AssertTypeConverter<GrassCoverErosionInwardsOutputProperties, NoValueRoundedDoubleConverter>(
                 nameof(GrassCoverErosionInwardsOutputProperties.DikeHeightCalculatedReliability));
 
-            string dikeHeightConvergenceValue = new EnumDisplayWrapper<CalculationConvergence>(dikeHeightConvergence).DisplayName;
+            string dikeHeightConvergenceValue = EnumDisplayNameHelper.GetDisplayName(dikeHeightConvergence);
             Assert.AreEqual(dikeHeightConvergenceValue, properties.DikeHeightConvergence);
 
             Assert.AreEqual(2, properties.OvertoppingRate.NumberOfDecimalPlaces);
@@ -159,7 +159,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             TestHelper.AssertTypeConverter<GrassCoverErosionInwardsOutputProperties, NoValueRoundedDoubleConverter>(
                 nameof(GrassCoverErosionInwardsOutputProperties.OvertoppingRateCalculatedReliability));
 
-            string overtoppingRateConvergenceValue = new EnumDisplayWrapper<CalculationConvergence>(overtoppingRateConvergence).DisplayName;
+            string overtoppingRateConvergenceValue = EnumDisplayNameHelper.GetDisplayName(overtoppingRateConvergence);
             Assert.AreEqual(overtoppingRateConvergenceValue, properties.OvertoppingRateConvergence);
         }
 
@@ -272,7 +272,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(probabilityProperty,
                                                                             resultCategory,
                                                                             "Faalkans [1/jaar]",
-                                                                            "De kans dat het toetsspoor optreedt voor deze berekening.",
+                                                                            "De kans dat het faalmechanisme optreedt voor deze berekening.",
                                                                             true);
 
             PropertyDescriptor reliabilityProperty = dynamicProperties[reliabilityPropertyIndex];

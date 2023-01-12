@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -316,13 +316,19 @@ namespace Riskeer.Common.IO.Test.Configurations
                 new StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>.StandardDeviationDefinition("stochastA",
                                                                                                                                                                 standardDeviationStochastConfiguration,
                                                                                                                                                                 input => input.AllowedLevelIncreaseStorage,
-                                                                                                                                                                (input, distribution) => { input.AllowedLevelIncreaseStorage = (LogNormalDistribution) distribution; });
+                                                                                                                                                                (input, distribution) =>
+                                                                                                                                                                {
+                                                                                                                                                                    input.AllowedLevelIncreaseStorage = (LogNormalDistribution) distribution;
+                                                                                                                                                                });
 
             var definitionB =
                 new StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>.VariationCoefficientDefinition("stochastB",
                                                                                                                                                                    variationCoefficientStochastConfiguration,
                                                                                                                                                                    input => input.CriticalOvertoppingDischarge,
-                                                                                                                                                                   (input, distribution) => { input.CriticalOvertoppingDischarge = (VariationCoefficientLogNormalDistribution) distribution; });
+                                                                                                                                                                   (input, distribution) =>
+                                                                                                                                                                   {
+                                                                                                                                                                       input.CriticalOvertoppingDischarge = (VariationCoefficientLogNormalDistribution) distribution;
+                                                                                                                                                                   });
 
             var assigner = new SimpleStructuresCalculationStochastAssigner(
                 configuration,

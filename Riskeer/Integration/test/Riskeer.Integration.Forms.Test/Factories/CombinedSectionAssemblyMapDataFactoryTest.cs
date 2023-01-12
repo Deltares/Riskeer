@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -38,7 +38,7 @@ namespace Riskeer.Integration.Forms.Test.Factories
             MapLineData data = CombinedSectionAssemblyMapDataFactory.CreateCombinedSectionAssemblyResultMapData();
 
             // Assert
-            Assert.AreEqual("Gecombineerd vakoordeel", data.Name);
+            Assert.AreEqual("Slechtste duidingsklasse per deelvak", data.Name);
 
             Assert.IsTrue(data.ShowLabels);
             CollectionAssert.IsEmpty(data.Features);
@@ -48,8 +48,8 @@ namespace Riskeer.Integration.Forms.Test.Factories
             Assert.AreEqual(6, lineStyle.Width);
             Assert.AreEqual(LineDashStyle.Solid, lineStyle.DashStyle);
 
-            Assert.AreEqual("Vaknummer", data.SelectedMetaDataAttribute);
-            MapThemeTestHelper.AssertDisplayFailureMechanismSectionAssemblyGroupMapTheme(data.Theme);
+            Assert.AreEqual("Duidingsklasse", data.SelectedMetaDataAttribute);
+            MapThemeTestHelper.AssertFailureMechanismSectionAssemblyGroupMapTheme(data.Theme);
         }
     }
 }
