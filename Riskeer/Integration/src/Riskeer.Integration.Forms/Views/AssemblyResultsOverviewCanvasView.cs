@@ -58,9 +58,9 @@ namespace Riskeer.Integration.Forms.Views
         public object Data { get; set; }
 
         private void CreateRow<TFailureMechanism, TSectionResult>(TFailureMechanism failureMechanism,
-                                                                  Func<TSectionResult, AssessmentSection, FailureMechanismSectionAssemblyResult> performAssemblyFunc,
+                                                                  Func<TSectionResult, AssessmentSection, FailureMechanismSectionAssemblyResultWrapper> performAssemblyFunc,
                                                                   int rowNumber, Graphics graphics, Pen pen)
-            where TFailureMechanism : IHasSectionResults<TSectionResult>
+            where TFailureMechanism : IFailureMechanism<TSectionResult>
             where TSectionResult : FailureMechanismSectionResult
         {
             var height = 30;
@@ -78,8 +78,8 @@ namespace Riskeer.Integration.Forms.Views
 
                 var sectionWidth = (int) (widthPerMeter * sectionResult.Section.Length);
                 graphics.DrawRectangle(pen, new Rectangle(xPosition, yPosition, sectionWidth, height));
-                graphics.FillRectangle(new SolidBrush(AssemblyGroupColorHelper.GetFailureMechanismSectionAssemblyCategoryGroupColor(
-                                                          sectionAssemblyResult.AssemblyGroup)),
+                graphics.FillRectangle(new SolidBrush(FailureMechanismSectionAssemblyGroupColorHelper.GetFailureMechanismSectionAssemblyGroupColor(
+                                                          sectionAssemblyResult.FailureMechanismSectionAssemblyGroup)),
                                        xPosition, yPosition, sectionWidth, height);
 
                 xPosition += sectionWidth;
@@ -88,11 +88,11 @@ namespace Riskeer.Integration.Forms.Views
 
         #region funcs
 
-        private static Func<AdoptableWithProfileProbabilityFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyResult> PipingAssemblyFunc =>
+        private static Func<AdoptableWithProfileProbabilityFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyResultWrapper> PipingAssemblyFunc =>
             (sectionResult, assessmentSection) => PipingFailureMechanismAssemblyFactory.AssembleSection(
                 sectionResult, assessmentSection.Piping, assessmentSection);
 
-        private static Func<AdoptableWithProfileProbabilityFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyResult> GrassCoverErosionInwardsAssemblyFunc =>
+        private static Func<AdoptableWithProfileProbabilityFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyResultWrapper> GrassCoverErosionInwardsAssemblyFunc =>
             (sectionResult, assessmentSection) => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleSection(
                 sectionResult, assessmentSection.GrassCoverErosionInwards, assessmentSection);
 
