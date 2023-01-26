@@ -46,7 +46,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         public void Constructor_WithSoilLayerData_ExpectedValues()
         {
             // Setup
@@ -118,7 +118,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         public void Constructor_WithSoilLayerDataEmptyAndNaN_ExpectedValues()
         {
             // Setup

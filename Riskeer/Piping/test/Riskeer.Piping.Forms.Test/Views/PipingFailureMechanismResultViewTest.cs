@@ -158,7 +158,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase(PipingScenarioConfigurationType.SemiProbabilistic, PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic, "1/31")]
         [TestCase(PipingScenarioConfigurationType.Probabilistic, PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic, "1/4")]
         [TestCase(PipingScenarioConfigurationType.PerFailureMechanismSection, PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic, "1/31")]

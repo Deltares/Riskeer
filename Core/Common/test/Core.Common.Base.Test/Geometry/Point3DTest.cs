@@ -77,14 +77,14 @@ namespace Core.Common.Base.Test.Geometry
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         public void ToString_HasCoordinateValues_NL_PrintCoordinateValuesInLocalCulture()
         {
             DoToString_HasCoordinateValues_PrintCoordinateValuesInLocalCulture();
         }
 
         [Test]
-        [SetCulture("en-US")]
+        [Culture("en-US")]
         public void ToString_HasCoordinateValues_EN_PrintCoordinateValuesInLocalCulture()
         {
             DoToString_HasCoordinateValues_PrintCoordinateValuesInLocalCulture();

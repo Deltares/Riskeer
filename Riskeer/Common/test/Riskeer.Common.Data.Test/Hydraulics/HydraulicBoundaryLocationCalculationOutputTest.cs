@@ -32,7 +32,7 @@ namespace Riskeer.Common.Data.Test.Hydraulics
     public class HydraulicBoundaryLocationCalculationOutputTest
     {
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [Combinatorial]
         public void Constructor_InvalidTargetProbability_ThrowsArgumentOutOfRangeException([Values(-0.01, 1.01)] double targetProbability,
                                                                                            [Values(true, false)] bool withIllustrationPoints)
@@ -62,7 +62,7 @@ namespace Riskeer.Common.Data.Test.Hydraulics
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [Combinatorial]
         public void Constructor_InvalidCalculatedProbability_ThrowsArgumentOutOfRangeException([Values(-0.01, 1.01)] double calculatedProbability,
                                                                                                [Values(true, false)] bool withIllustrationPoints)

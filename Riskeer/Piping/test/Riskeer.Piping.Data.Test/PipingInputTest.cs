@@ -122,7 +122,7 @@ namespace Riskeer.Piping.Data.Test
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase(5.4)]
         [TestCase(1.006)]
         [TestCase(-0.005)]
@@ -196,7 +196,7 @@ namespace Riskeer.Piping.Data.Test
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase(5.4)]
         [TestCase(1.006)]
         [TestCase(-0.005)]

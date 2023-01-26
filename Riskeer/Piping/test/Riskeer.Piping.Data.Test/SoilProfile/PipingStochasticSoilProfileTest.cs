@@ -64,7 +64,7 @@ namespace Riskeer.Piping.Data.Test.SoilProfile
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase(12.5)]
         [TestCase(1 + 1e-6)]
         [TestCase(0 - 1e-6)]

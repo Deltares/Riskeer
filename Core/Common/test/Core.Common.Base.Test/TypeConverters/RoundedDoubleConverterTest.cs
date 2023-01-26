@@ -69,7 +69,7 @@ namespace Core.Common.Base.Test.TypeConverters
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase(123.4567)]
         [TestCase(-9.87654321)]
         public void ConvertFrom_SomeNumericalTextInDutchCulture_ReturnConvertedRoundedDouble(double input)
@@ -78,7 +78,7 @@ namespace Core.Common.Base.Test.TypeConverters
         }
 
         [Test]
-        [SetCulture("en-US")]
+        [Culture("en-US")]
         [TestCase(12.34)]
         [TestCase(-0.96834715)]
         public void ConvertFrom_SomeNumericalTextInEnglishCulture_ReturnConvertedRoundedDouble(double input)

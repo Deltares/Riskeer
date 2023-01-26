@@ -31,7 +31,7 @@ namespace Riskeer.Common.Data.Test.Contribution
     {
         [Test]
         [TestCaseSource(nameof(GetInvalidProbabilityValues))]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         public void Constructor_InvalidMaximumAllowableFloodingProbability_ThrowsArgumentOutOfRangeException(double invalidNorm)
         {
             // Call
@@ -46,7 +46,7 @@ namespace Riskeer.Common.Data.Test.Contribution
 
         [Test]
         [TestCaseSource(nameof(GetInvalidProbabilityValues))]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         public void Constructor_InvalidSignalFloodingProbability_ThrowsArgumentOutOfRangeException(double invalidNorm)
         {
             // Call
@@ -91,7 +91,7 @@ namespace Riskeer.Common.Data.Test.Contribution
 
         [Test]
         [TestCaseSource(nameof(GetInvalidProbabilityValues))]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         public void MaximumAllowableFloodingProbability_InvalidNewProbability_ThrowsArgumentOutOfRangeException(double invalidProbability)
         {
             // Setup
@@ -110,7 +110,7 @@ namespace Riskeer.Common.Data.Test.Contribution
 
         [Test]
         [TestCaseSource(nameof(GetInvalidProbabilityValues))]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         public void SignalFloodingProbability_InvalidNewProbability_ThrowsArgumentOutOfRangeException(double invalidProbability)
         {
             // Setup

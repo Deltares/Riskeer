@@ -312,7 +312,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         public void GetAssessmentSectionFromFile_ShapeWithInvalidNorm_ThrowsCriticalFileValidationException()
         {
             // Setup

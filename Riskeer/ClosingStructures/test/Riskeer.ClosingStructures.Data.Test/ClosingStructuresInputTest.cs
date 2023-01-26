@@ -341,7 +341,7 @@ namespace Riskeer.ClosingStructures.Data.Test
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase(400)]
         [TestCase(360.05)]
         [TestCase(-360.005)]
@@ -510,7 +510,7 @@ namespace Riskeer.ClosingStructures.Data.Test
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase(-1.1)]
         [TestCase(2)]
         [TestCase(double.NaN)]
@@ -543,7 +543,7 @@ namespace Riskeer.ClosingStructures.Data.Test
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase(-1.1)]
         [TestCase(2)]
         [TestCase(double.NaN)]
@@ -602,7 +602,7 @@ namespace Riskeer.ClosingStructures.Data.Test
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase(-1e-6)]
         [TestCase(-23456)]
         [TestCase(double.NaN)]

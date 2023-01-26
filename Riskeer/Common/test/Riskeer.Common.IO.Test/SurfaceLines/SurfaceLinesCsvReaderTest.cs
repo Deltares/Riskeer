@@ -260,14 +260,14 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         public void ReadLine_OpenedValidFileWithHeaderAndTwoSurfaceLinesWithCultureNL_ReturnCreatedSurfaceLine()
         {
             DoReadLine_OpenedValidFileWithHeaderAndTwoSurfaceLines_ReturnCreatedSurfaceLine();
         }
 
         [Test]
-        [SetCulture("en-US")]
+        [Culture("en-US")]
         public void ReadLine_OpenedValidFileWithHeaderAndTwoSurfaceLinesWithCultureEN_ReturnCreatedSurfaceLine()
         {
             DoReadLine_OpenedValidFileWithHeaderAndTwoSurfaceLines_ReturnCreatedSurfaceLine();
@@ -372,7 +372,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
         }
 
         [Test]
-        [SetCulture("en-US")]
+        [Culture("en-US")]
         public void ReadLine_OpenedValidFileWithHeaderAndSurfaceLinesWithDuplicatePointsWithCultureEN_ReturnCreatedSurfaceLineWithDuplicatePoints()
         {
             // Setup

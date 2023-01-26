@@ -94,7 +94,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
         }
 
         [Test]
-        [SetCulture("NL-nl")]
+        [Culture("NL-nl")]
         [TestCaseSource(nameof(GetPreconsolidationStressInvalidDistributionValues))]
         public void Transform_InvalidPreconsolidationStressDistributionValues_ThrowsImportedDataTransformException(PreconsolidationStress preconsolidationStress)
         {

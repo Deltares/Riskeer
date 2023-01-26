@@ -39,7 +39,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCaseSource(nameof(GetProbabilityNotZeroTestCases))]
         public void Format_ProbabilityNotZero_ReturnOneOverReturnPeriod(double probability, string expectedText)
         {
@@ -74,7 +74,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCaseSource(nameof(GetProbabilityNotZeroTestCases))]
         public void FormatWithDiscreteNumbers_ProbabilityNotZero_ReturnOneOverReturnPeriod(double probability, string expectedText)
         {
@@ -96,7 +96,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase(1, "1/1")]
         [TestCase(2, "1/2")]
         [TestCase(10000, "1/10.000")]

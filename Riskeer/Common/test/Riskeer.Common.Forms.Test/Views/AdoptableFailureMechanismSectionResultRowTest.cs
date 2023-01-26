@@ -421,7 +421,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCaseSource(typeof(ProbabilityTestHelper), nameof(ProbabilityTestHelper.GetInvalidProbabilities))]
         public void InitialFailureMechanismResultSectionProbability_InvalidValue_ThrowsArgumentOutOfRangeException(double value)
         {
@@ -449,7 +449,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCaseSource(typeof(ProbabilityTestHelper), nameof(ProbabilityTestHelper.GetInvalidProbabilities))]
         public void RefinedSectionProbability_InvalidValue_ThrowsArgumentOutOfRangeException(double value)
         {

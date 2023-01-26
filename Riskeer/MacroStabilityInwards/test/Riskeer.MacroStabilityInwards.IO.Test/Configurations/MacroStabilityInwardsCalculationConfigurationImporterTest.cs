@@ -411,7 +411,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         public void Import_InvalidTangentLineZTopAndZBottom_LogMessageAndContinueImport()
         {
             // Setup
@@ -437,7 +437,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         public void Import_InvalidTangentLineNumber_LogMessageAndContinueImport()
         {
             // Setup
@@ -771,7 +771,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCaseSource(nameof(GetInvalidGridCombinations))]
         public void Import_InvalidGrid_LogMessageAndContinueImport(string file, string expectedMessage)
         {

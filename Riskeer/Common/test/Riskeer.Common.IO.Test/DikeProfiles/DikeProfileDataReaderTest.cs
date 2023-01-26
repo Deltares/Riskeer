@@ -332,7 +332,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase("faulty_richtingTooBig.prfl", 360.5)]
         [TestCase("faulty_richtingTooSmall.prfl", -12.36)]
         public void ReadDikeProfileData_FileWithOrientationOutOfRange_ThrowCriticalFileReadException(
@@ -370,7 +370,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase("faulty_voorlandHasRoughnessTooBig.prfl", 1.234, 11)]
         [TestCase("faulty_dijkHasRoughnessTooBig.prfl", 1.321, 15)]
         public void ReadDikeProfileData_FileWithRoughnessOutOfRange_ThrowCriticalFileReadException_nl_NL(
@@ -381,7 +381,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
         }
 
         [Test]
-        [SetCulture("en-US")]
+        [Culture("en-US")]
         [TestCase("faulty_voorlandHasRoughnessTooSmall.prfl", -0.943, 10)]
         [TestCase("faulty_dijkHasRoughnessTooSmall.prfl", -0.123, 14)]
         public void ReadDikeProfileData_FileWithRoughnessOutOfRange_ThrowCriticalFileReadException_en_US(

@@ -257,14 +257,14 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         public void ReadCharacteristicPointsLocation_OpenedValidFileWithHeaderAndTwoCharacteristicPointsLocationsWithCultureNL_ReturnCreatedCharacteristicPointsLocation()
         {
             ReadCharacteristicPointsLocation_OpenedValidFileWithHeaderAndTwoCharacteristicPointsLocations_ReturnCreatedCharacteristicPointsLocation("2locations.krp.csv");
         }
 
         [Test]
-        [SetCulture("en-US")]
+        [Culture("en-US")]
         public void ReadCharacteristicPointsLocation_OpenedValidFileWithHeaderAndTwoCharacteristicPointsLocationsWithCultureEN_ReturnCreatedCharacteristicPointsLocation()
         {
             ReadCharacteristicPointsLocation_OpenedValidFileWithHeaderAndTwoCharacteristicPointsLocations_ReturnCreatedCharacteristicPointsLocation("2locations.krp.csv");

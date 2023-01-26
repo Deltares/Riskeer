@@ -49,7 +49,7 @@ namespace Riskeer.Common.Data.Test.Probabilistics
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase(-1234.5678)]
         [TestCase(0 - 1e-6)]
         [TestCase(1 + 1e-6)]

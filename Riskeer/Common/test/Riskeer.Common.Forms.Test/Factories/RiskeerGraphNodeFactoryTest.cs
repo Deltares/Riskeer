@@ -153,7 +153,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase(1, "1/1")]
         [TestCase(0.1, "1/10")]
         [TestCase(0.00001, "1/100.000")]

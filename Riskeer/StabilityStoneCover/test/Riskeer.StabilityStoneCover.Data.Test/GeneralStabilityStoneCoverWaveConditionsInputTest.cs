@@ -80,7 +80,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase(-10.0)]
         [TestCase(0.99)]
         [TestCase(20.01)]

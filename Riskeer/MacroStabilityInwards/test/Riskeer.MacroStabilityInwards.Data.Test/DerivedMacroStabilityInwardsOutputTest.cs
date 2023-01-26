@@ -75,7 +75,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase(double.PositiveInfinity)]
         [TestCase(double.NegativeInfinity)]
         [TestCase(0.0 - 1e-2)]

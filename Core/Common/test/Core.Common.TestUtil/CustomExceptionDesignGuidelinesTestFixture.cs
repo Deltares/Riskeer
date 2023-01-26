@@ -33,7 +33,7 @@ namespace Core.Common.TestUtil
                                                                                                        where TBaseException : Exception
     {
         [Test]
-        [SetCulture("en-US")]
+        [Culture("en-US")]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call

@@ -104,7 +104,7 @@ namespace Riskeer.Common.IO.Test.Structures
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         public void ValidateHeightStructuresParameters_ParametersAllInvalid_IsValidFalseAndErrorMessages()
         {
             // Setup
@@ -528,7 +528,7 @@ namespace Riskeer.Common.IO.Test.Structures
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         public void ValidateClosingStructuresParameters_ParametersAllInvalid_IsValidFalseAndErrorMessages()
         {
             // Setup
@@ -1059,7 +1059,7 @@ namespace Riskeer.Common.IO.Test.Structures
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         public void ValidateStabilityPointStructuresParameters_ParametersAllInvalid_IsValidFalseAndErrorMessages()
         {
             // Setup

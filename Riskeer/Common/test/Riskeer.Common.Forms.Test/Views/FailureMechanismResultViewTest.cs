@@ -865,7 +865,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase(FailureMechanismAssemblyProbabilityResultType.Automatic, FailureMechanismAssemblyProbabilityResultType.Manual)]
         [TestCase(FailureMechanismAssemblyProbabilityResultType.Manual, FailureMechanismAssemblyProbabilityResultType.Automatic)]
         public void GivenFailureMechanismResultView_WhenChangingProbabilityResultType_ThenFailureMechanismAssemblyProbabilityUpdated(
@@ -917,7 +917,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase("NotAProbability", "De waarde kon niet geïnterpreteerd worden als een kans.")]
         [TestCase("30", "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.")]
         [TestCase("-1", "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.")]
@@ -1024,7 +1024,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase("0,1", "1/10", 0.1)]
         [TestCase("1/10", "1/10", 0.1)]
         public void GivenFailureMechanismResultTypeManualAndWithError_WhenSettingValidValue_ThenFailureMechanismAssemblyProbabilitySetAndObserversNotified(

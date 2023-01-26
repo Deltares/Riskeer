@@ -176,7 +176,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase(-1)]
         [TestCase(0.9)]
         [TestCase(20.1)]

@@ -223,7 +223,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.RegistrationState
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase(-1)]
         [TestCase(-0.1)]
         [TestCase(1.1)]

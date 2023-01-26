@@ -121,7 +121,7 @@ namespace Riskeer.Integration.Data.Test
                         {
                             "Constructor_InvalidMaximumAllowableFloodingProbability_ThrowsArgumentOutOfRangeException"
                         })]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         public void Constructor_InvalidMaximumAllowableFloodingProbability_ThrowsArgumentOutOfRangeException(double invalidProbability)
         {
             // Setup
@@ -143,7 +143,7 @@ namespace Riskeer.Integration.Data.Test
                         {
                             "Constructor_InvalidSignalFloodingProbability_ThrowsArgumentOutOfRangeException"
                         })]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         public void Constructor_InvalidSignalFloodingProbability_ThrowsArgumentOutOfRangeException(double invalidProbability)
         {
             // Setup

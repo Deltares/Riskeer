@@ -240,28 +240,28 @@ namespace Riskeer.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         public void Read_NLXmlDocumentWithOuterLoop_ReturnsLayerGeometryWithExpectedOuterLoop()
         {
             Read_XmlDocumentWithOuterLoop_ReturnsLayerGeometryWithExpectedOuterLoop();
         }
 
         [Test]
-        [SetCulture("en-US")]
+        [Culture("en-US")]
         public void Read_ENXmlDocumentWithOuterLoop_ReturnsLayerGeometryWithExpectedOuterLoop()
         {
             Read_XmlDocumentWithOuterLoop_ReturnsLayerGeometryWithExpectedOuterLoop();
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         public void Read_NLXmlDocumentWithInnerLoop_ReturnsLayerGeometryWithExpectedInnerLoop()
         {
             Read_XmlDocumentWithInnerLoop_ReturnsLayerGeometryWithExpectedInnerLoop();
         }
 
         [Test]
-        [SetCulture("en-US")]
+        [Culture("en-US")]
         public void Read_ENXmlDocumentWithInnerLoop_ReturnsLayerGeometryWithExpectedInnerLoop()
         {
             Read_XmlDocumentWithInnerLoop_ReturnsLayerGeometryWithExpectedInnerLoop();

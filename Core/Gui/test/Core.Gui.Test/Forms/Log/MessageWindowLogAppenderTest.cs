@@ -105,7 +105,7 @@ namespace Core.Gui.Test.Forms.Log
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         public void DoAppend_LogMessageHasFormattedText_ReturnLocalCulturedText()
         {
             // Setup
@@ -141,7 +141,7 @@ namespace Core.Gui.Test.Forms.Log
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         public void DoAppend_LogMessageHasFormattedTextWithBug_ForwardUnformattedText()
         {
             // Setup
@@ -175,7 +175,7 @@ namespace Core.Gui.Test.Forms.Log
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         public void DoAppend_LogMessageHasFormattedTextWithoutFormatArgument_ForwardUnformattedText()
         {
             // Setup

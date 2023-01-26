@@ -28,7 +28,7 @@ namespace Core.Common.Base.Test
     public class FormattableConstantsTest
     {
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase(123.456, "123,456")]
         [TestCase(0, "0,0")]
         [TestCase(.700, "0,7")]

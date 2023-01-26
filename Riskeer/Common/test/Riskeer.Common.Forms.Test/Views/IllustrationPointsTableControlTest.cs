@@ -98,7 +98,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         public void Data_SetNewValueWithDifferentClosingSituations_DataGridViewCorrectlyInitialized()
         {
             // Setup
@@ -139,7 +139,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         public void Data_SetNewValueWithSameClosingSituations_DataGridViewCorrectlyInitialized()
         {
             // Setup

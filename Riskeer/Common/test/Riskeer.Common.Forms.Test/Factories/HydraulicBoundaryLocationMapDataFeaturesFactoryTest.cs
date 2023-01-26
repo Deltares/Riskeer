@@ -115,7 +115,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         public void AddTargetProbabilityMetaData_WithAllData_AddsMetaDataItems()
         {
             // Setup

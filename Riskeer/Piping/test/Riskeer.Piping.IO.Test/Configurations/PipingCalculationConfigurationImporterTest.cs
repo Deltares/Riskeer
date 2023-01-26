@@ -91,7 +91,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
             where TCalculationScenario : IPipingCalculationScenario<PipingInput>
         {
             [Test]
-            [SetCulture("nl-NL")]
+            [Culture("nl-NL")]
             [TestCaseSource(typeof(PipingCalculationConfigurationImporterTestFixture<IPipingCalculationScenario<PipingInput>>), nameof(ValidConfigurationInvalidData))]
             public void Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(string file, string expectedErrorMessage)
             {

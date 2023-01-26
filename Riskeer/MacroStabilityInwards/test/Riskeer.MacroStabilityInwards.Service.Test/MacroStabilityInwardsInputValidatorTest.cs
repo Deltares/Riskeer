@@ -724,7 +724,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase(0.1, 2)]
         [TestCase(-2, 0.3)]
         public void Validate_ZoneBoundariesOutsideSurfaceLine_ReturnsError(double zoneBoundaryLeft, double zoneBoundaryRight)

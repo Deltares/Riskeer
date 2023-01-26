@@ -259,7 +259,7 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCaseSource(nameof(ValidConfigurationInvalidData))]
         public void Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(string file, string expectedErrorMessage)
         {

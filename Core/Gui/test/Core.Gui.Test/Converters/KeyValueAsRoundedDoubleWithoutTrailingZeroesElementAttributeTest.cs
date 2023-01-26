@@ -136,7 +136,7 @@ namespace Core.Gui.Test.Converters
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         public void GetValue_WithObjectWithRoundedDoubleProperty_ReturnsValueOfProperty()
         {
             // Setup
@@ -157,7 +157,7 @@ namespace Core.Gui.Test.Converters
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase(5.0000, "5")]
         [TestCase(-2.12000, "-2,12")]
         [TestCase(1.24560, "1,2456")]

@@ -186,7 +186,7 @@ namespace Riskeer.ClosingStructures.IO.Test
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         public void Import_InvalidCsvFile_LogAndFalse()
         {
             // Setup

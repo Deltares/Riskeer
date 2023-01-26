@@ -168,7 +168,7 @@ namespace Core.Common.Base.Test.Data
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase(1.0, 2, "1,00")]
         [TestCase(123456789.0, 3, "123456789,000")]
         [TestCase(12345678.90, 2, "12345678,90")]
@@ -212,7 +212,7 @@ namespace Core.Common.Base.Test.Data
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase("N", 1.0, 2, "1,00")]
         [TestCase("N0", 123456789.0, 3, "123.456.789")]
         [TestCase("N1", 12345678.90, 2, "12.345.678,9")]
@@ -244,7 +244,7 @@ namespace Core.Common.Base.Test.Data
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase("N", 1.0, 2, "1.00")]
         [TestCase("N0", 123456789.0, 3, "123,456,789")]
         [TestCase("N1", 12345678.90, 2, "12,345,678.9")]

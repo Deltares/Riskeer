@@ -31,7 +31,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
     public class ProbabilityParsingHelperTest
     {
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase("1/25", 0.04)]
         [TestCase("1/2,500", 0.4)]
         [TestCase("1/2.500", 0.0004)]
@@ -56,7 +56,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
         }
 
         [Test]
-        [SetCulture("en-US")]
+        [Culture("en-US")]
         [TestCase("1/25", 0.04)]
         [TestCase("1/2.5", 0.4)]
         [TestCase("1e-3", 0.001)]

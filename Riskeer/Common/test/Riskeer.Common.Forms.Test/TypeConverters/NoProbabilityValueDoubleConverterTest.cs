@@ -99,7 +99,7 @@ namespace Riskeer.Common.Forms.Test.TypeConverters
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase(123.4567)]
         [TestCase(-9.87654321)]
         public void ConvertFrom_SomeNumericalTextInDutchCulture_ReturnConvertedDouble(double input)
@@ -108,7 +108,7 @@ namespace Riskeer.Common.Forms.Test.TypeConverters
         }
 
         [Test]
-        [SetCulture("en-US")]
+        [Culture("en-US")]
         [TestCase(12.34)]
         [TestCase(-0.96834715)]
         public void ConvertFrom_SomeNumericalTextInEnglishCulture_ReturnConvertedDouble(double input)
@@ -117,7 +117,7 @@ namespace Riskeer.Common.Forms.Test.TypeConverters
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase("1/25", 0.04)]
         [TestCase("1/2,500", 0.4)]
         [TestCase("1/2.500", 0.0004)]
@@ -150,7 +150,7 @@ namespace Riskeer.Common.Forms.Test.TypeConverters
         }
 
         [Test]
-        [SetCulture("en-US")]
+        [Culture("en-US")]
         [TestCase("1/25", 0.04)]
         [TestCase("1/2.5", 0.4)]
         [TestCase("1e-3", 0.001)]
@@ -302,7 +302,7 @@ namespace Riskeer.Common.Forms.Test.TypeConverters
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase(-0.000235)]
         [TestCase(0.0069)]
         [TestCase(0.000000000000000069)]
@@ -320,7 +320,7 @@ namespace Riskeer.Common.Forms.Test.TypeConverters
         }
 
         [Test]
-        [SetCulture("en-US")]
+        [Culture("en-US")]
         [TestCase(-0.0000658)]
         [TestCase(0.000006788)]
         [TestCase(-0.000000000000000069)]

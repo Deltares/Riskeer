@@ -44,7 +44,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase(-20)]
         [TestCase(-1e-6)]
         [TestCase(1 + 1e-6)]

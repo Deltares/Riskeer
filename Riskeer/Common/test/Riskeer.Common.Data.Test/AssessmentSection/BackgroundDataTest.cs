@@ -78,7 +78,7 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase(-123.56)]
         [TestCase(0.0 - 1e-2)]
         [TestCase(1.0 + 1e-2)]

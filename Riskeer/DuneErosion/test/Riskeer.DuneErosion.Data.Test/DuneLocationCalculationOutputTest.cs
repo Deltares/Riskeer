@@ -42,7 +42,7 @@ namespace Riskeer.DuneErosion.Data.Test
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase(-1e-6)]
         [TestCase(1.0 + 1e-6)]
         public void Constructor_InvalidTargetProbability_ThrowsArgumentOutOfRangeException(double targetProbability)
@@ -77,7 +77,7 @@ namespace Riskeer.DuneErosion.Data.Test
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase(-0.01)]
         [TestCase(1.01)]
         public void Constructor_InvalidCalculatedProbability_ThrowsArgumentOutOfRangeException(double calculatedProbability)

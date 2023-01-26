@@ -273,7 +273,7 @@ namespace Riskeer.Piping.IO.Test.SoilProfiles
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCaseSource(nameof(GetSupportedStochasticSoilProfilesWithInvalidProbabilities))]
         public void Transform_ValidStochasticSoilModelWithStochasticProfileInvalidProbability_ThrowsImportedDataException(StochasticSoilProfile profile)
         {
@@ -296,7 +296,7 @@ namespace Riskeer.Piping.IO.Test.SoilProfiles
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCaseSource(nameof(GetValidConfiguredAndSupportedSoilProfiles))]
         public void Transform_ValidStochasticSoilModelWithSameProfileProbabilityExceedingValidRange_ThrowsImportedDataException(ISoilProfile profile)
         {

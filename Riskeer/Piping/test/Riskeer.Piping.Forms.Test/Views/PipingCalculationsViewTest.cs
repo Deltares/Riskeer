@@ -543,7 +543,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase(entryPointLColumnIndex, -0.1)]
         [TestCase(entryPointLColumnIndex, -1.0)]
         [TestCase(exitPointLColumnIndex, 10.1)]

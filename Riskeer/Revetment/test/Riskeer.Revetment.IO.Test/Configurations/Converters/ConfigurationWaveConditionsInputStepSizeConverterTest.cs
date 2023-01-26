@@ -83,7 +83,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations.Converters
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase(ConfigurationWaveConditionsInputStepSize.Half, "0,5")]
         [TestCase(ConfigurationWaveConditionsInputStepSize.One, "1,0")]
         [TestCase(ConfigurationWaveConditionsInputStepSize.Two, "2,0")]
@@ -119,7 +119,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations.Converters
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase(ConfigurationWaveConditionsInputStepSize.Half, WaveConditionsInputStepSize.Half)]
         [TestCase(ConfigurationWaveConditionsInputStepSize.One, WaveConditionsInputStepSize.One)]
         [TestCase(ConfigurationWaveConditionsInputStepSize.Two, WaveConditionsInputStepSize.Two)]
@@ -207,7 +207,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations.Converters
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         public void ConvertFrom_InvalidText_ThrowNotSupportedException()
         {
             // Setup

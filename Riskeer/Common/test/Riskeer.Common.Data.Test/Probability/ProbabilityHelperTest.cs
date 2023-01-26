@@ -68,7 +68,7 @@ namespace Riskeer.Common.Data.Test.Probability
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase(-123.456, "A")]
         [TestCase(-1e-6, "b")]
         [TestCase(1 + 1e-6, "C")]
@@ -124,7 +124,7 @@ namespace Riskeer.Common.Data.Test.Probability
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase(-123.456, "A")]
         [TestCase(-1e-6, "b")]
         [TestCase(1 + 1e-6, "C")]

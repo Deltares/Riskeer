@@ -118,7 +118,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase("validConfigurationUpperRevetmentBoundBelowLowerRevetmentBound.xml",
                   "Een waarde van '2,2' als ondergrens bekledingen is ongeldig. De bovengrens van de bekleding moet boven de ondergrens liggen.")]
         [TestCase("validConfigurationUpperWaterLevelBoundBelowLowerWaterLevelBound.xml",

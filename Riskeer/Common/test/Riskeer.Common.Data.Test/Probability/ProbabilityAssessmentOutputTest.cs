@@ -48,7 +48,7 @@ namespace Riskeer.Common.Data.Test.Probability
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase(double.PositiveInfinity)]
         [TestCase(double.NegativeInfinity)]
         [TestCase(-1e-6)]

@@ -105,7 +105,7 @@ namespace Riskeer.Migration.Integration.Test
         }
 
         [Test]
-        [SetCulture("en-US")]
+        [Culture("en-US")]
         [TestCaseSource(nameof(GetTrajectCombinations))]
         public void Given171ProjectOfTrajectWithNorm_WhenMigrated_ThenDatabaseUpdatedAndExpectedLogDatabase(NormativeProbabilityType setNormType,
                                                                                                             string trajectId,
@@ -188,7 +188,7 @@ namespace Riskeer.Migration.Integration.Test
         }
 
         [Test]
-        [SetCulture("en-US")]
+        [Culture("en-US")]
         [TestCase(2, NormativeProbabilityType.MaximumAllowableFloodingProbability, TestName = "Given171ProjectWithNormLargerThenLowerLimit_WhenMigrated_ThenLowerLimitNormSetToNormAndExpectedLogDatabase")]
         [TestCase(600, NormativeProbabilityType.SignalFloodingProbability, TestName = "Given171ProjectWithNormLessThenLowerLimit_WhenMigrated_ThenSignalingNormSetToNormAndExpectedLogDatabase")]
         public void Given171ProjectWithNormNotInList_WhenMigrated_ThenDatabaseUpdatedAndExpectedLogDatabase(int originalReturnPeriod,

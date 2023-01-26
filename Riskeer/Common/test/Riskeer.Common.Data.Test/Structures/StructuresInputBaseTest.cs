@@ -281,7 +281,7 @@ namespace Riskeer.Common.Data.Test.Structures
         #region Schematization
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase(400)]
         [TestCase(360.05)]
         [TestCase(-0.005)]
@@ -440,7 +440,7 @@ namespace Riskeer.Common.Data.Test.Structures
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase(-0.1)]
         [TestCase(1.1)]
         [TestCase(double.NaN)]

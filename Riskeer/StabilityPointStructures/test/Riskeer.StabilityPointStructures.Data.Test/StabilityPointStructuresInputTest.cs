@@ -775,7 +775,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase(-1.1)]
         [TestCase(2)]
         [TestCase(double.NaN)]
@@ -886,7 +886,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase(-1.1)]
         [TestCase(2)]
         [TestCase(double.NaN)]

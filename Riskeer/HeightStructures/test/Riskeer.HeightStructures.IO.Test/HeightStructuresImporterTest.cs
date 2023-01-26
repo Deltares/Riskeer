@@ -180,7 +180,7 @@ namespace Riskeer.HeightStructures.IO.Test
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         public void Import_InvalidCsvFile_LogAndFalse()
         {
             // Setup

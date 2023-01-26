@@ -30,7 +30,7 @@ namespace Riskeer.Common.Data.Test.Probability
     public class ProbabilityAssessmentInputTest
     {
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase(-1)]
         [TestCase(-0.1)]
         [TestCase(1.1)]
@@ -65,7 +65,7 @@ namespace Riskeer.Common.Data.Test.Probability
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase(-1)]
         [TestCase(-0.1)]
         [TestCase(1.1)]

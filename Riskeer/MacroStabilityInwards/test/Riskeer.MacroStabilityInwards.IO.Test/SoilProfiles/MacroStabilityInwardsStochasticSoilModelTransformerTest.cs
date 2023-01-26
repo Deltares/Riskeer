@@ -264,7 +264,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCaseSource(nameof(GetValidConfiguredAndSupportedSoilProfiles))]
         public void Transform_ValidStochasticSoilModelWithSameProfileInTwoStochasticSoilProfilesAndSumOfProbabilitiesInvalid_ThrowsImportedDataException(ISoilProfile soilProfile)
         {
@@ -289,7 +289,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCaseSource(nameof(GetSupportedStochasticSoilProfilesWithInvalidProbabilities))]
         public void Transform_ValidStochasticSoilModelWithProfileInvalidProbability_ThrowsImportedDataException(StochasticSoilProfile profile)
         {

@@ -35,7 +35,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
     public class HydraulicLoadsOutputTest
     {
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase(-0.01)]
         [TestCase(1.01)]
         public void Constructor_InvalidTargetProbability_ThrowsArgumentOutOfRangeException(double targetProbability)
@@ -62,7 +62,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase(-0.01)]
         [TestCase(1.01)]
         public void Constructor_InvalidCalculatedProbability_ThrowsArgumentOutOfRangeException(double calculatedProbability)

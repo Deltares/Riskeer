@@ -1066,7 +1066,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         public void EntryPointL_NotOnSurfaceLine_ThrowsArgumentOutOfRangeException()
         {
             // Setup
@@ -1114,7 +1114,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         public void ExitPointL_NotOnSurfaceLine_ThrowsArgumentOutOfRangeException()
         {
             // Setup

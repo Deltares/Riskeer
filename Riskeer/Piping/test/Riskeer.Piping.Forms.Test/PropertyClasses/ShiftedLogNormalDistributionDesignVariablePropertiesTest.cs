@@ -190,7 +190,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         public void ToString_Always_ReturnDistributionName()
         {
             // Setup

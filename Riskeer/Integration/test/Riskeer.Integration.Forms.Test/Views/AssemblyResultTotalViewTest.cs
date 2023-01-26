@@ -163,7 +163,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         public void GivenFormWithAssemblyResultTotalView_ThenExpectedCellsVisible()
         {
             // Given
@@ -430,7 +430,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         public void GivenAssessmentSectionObserversNotified_WhenRefreshingAssemblyResults_ThenDataGridViewDataSourceUpdated()
         {
             // Given
@@ -464,7 +464,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         public void GivenFormWithAssemblyResultTotalView_WhenSpecificFailureMechanismAddedAndRefreshingAssemblyResults_ThenDataGridViewDataSourceAndRowsUpdated()
         {
             // Given
@@ -498,7 +498,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         public void GivenFormWithAssemblyResultTotalView_WhenSpecificFailureMechanismRemovedAndRefreshingAssemblyResults_ThenDataGridViewDataSourceAndRowsUpdated()
         {
             // Given

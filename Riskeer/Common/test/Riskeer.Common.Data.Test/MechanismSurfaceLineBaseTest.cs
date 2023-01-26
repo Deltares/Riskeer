@@ -206,7 +206,7 @@ namespace Riskeer.Common.Data.Test
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase(-1)]
         [TestCase(-5e-3)]
         [TestCase(3.1 + 5e-3)]

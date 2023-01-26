@@ -379,7 +379,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase(-123.456f)]
         [TestCase(-1e-6f)]
         [TestCase(1.0f + 1e-6f)]

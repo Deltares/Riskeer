@@ -297,7 +297,7 @@ namespace Riskeer.HeightStructures.Data.Test
         #region Hydraulic data
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase(400)]
         [TestCase(360.05)]
         [TestCase(-360.005)]

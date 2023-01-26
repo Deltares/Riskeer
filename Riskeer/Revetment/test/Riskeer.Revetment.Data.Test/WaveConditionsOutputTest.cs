@@ -73,7 +73,7 @@ namespace Riskeer.Revetment.Data.Test
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase(-1e-6)]
         [TestCase(1 + 1e-6)]
         [TestCase(-100)]
@@ -92,7 +92,7 @@ namespace Riskeer.Revetment.Data.Test
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase(-1e-6)]
         [TestCase(1 + 1e-6)]
         [TestCase(-100)]

@@ -116,7 +116,7 @@ namespace Core.Common.Base.Test.Data
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase(int.MinValue, int.MaxValue)]
         [TestCase(0, 20)]
         public void ToString_ReturnIntRangeInCurrentCulture(int min, int max)
@@ -133,7 +133,7 @@ namespace Core.Common.Base.Test.Data
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase(double.MinValue, double.MaxValue)]
         [TestCase(0.123, 456.789)]
         public void ToString_ReturnDoubleRangeInCurrentCulture(double min, double max)

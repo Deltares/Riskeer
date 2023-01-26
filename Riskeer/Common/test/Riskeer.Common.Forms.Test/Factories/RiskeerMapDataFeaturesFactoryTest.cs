@@ -150,7 +150,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         [TestCase(true)]
         [TestCase(false)]
         public void CreateHydraulicBoundaryLocationFeatures_WithLocations_ReturnsLocationFeaturesCollection(bool setOutput)

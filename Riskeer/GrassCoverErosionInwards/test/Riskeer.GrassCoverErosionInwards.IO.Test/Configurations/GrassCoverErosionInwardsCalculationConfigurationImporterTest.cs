@@ -99,7 +99,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         public void Import_ValidConfigurationInvalidOrientation_LogMessageAndContinueImport()
         {
             // Setup
@@ -129,7 +129,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         public void Import_ValidConfigurationInvalidCriticalWaveReductionMean_LogMessageAndContinueImport()
         {
             // Setup
@@ -157,7 +157,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         public void Import_ValidConfigurationInvalidCriticalWaveReductionStandardDeviation_LogMessageAndContinueImport()
         {
             // Setup
@@ -185,7 +185,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         public void Import_ValidConfigurationInvalidDikeHeightTargetProbability_LogMessageAndContinueImport()
         {
             // Setup
@@ -213,7 +213,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
         }
 
         [Test]
-        [SetCulture("nl-NL")]
+        [Culture("nl-NL")]
         public void Import_ValidConfigurationInvalidOvertoppingRateTargetProbability_LogMessageAndContinueImport()
         {
             // Setup
