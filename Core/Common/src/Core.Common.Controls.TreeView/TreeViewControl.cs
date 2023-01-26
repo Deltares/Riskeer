@@ -960,7 +960,7 @@ namespace Core.Common.Controls.TreeView
                     // Update the context menu (relevant in case of keyboard navigation in the tree view)
                     UpdateContextMenuStrip(selectedNode, treeNodeInfo, parentTag);
 
-                    if (treeView.ContextMenu != null && selectedNode.ContextMenuStrip != null)
+                    if (treeView.ContextMenuStrip!= null && selectedNode.ContextMenuStrip != null)
                     {
                         Point location = selectedNode.Bounds.Location;
                         location.Offset(0, selectedNode.Bounds.Height);
