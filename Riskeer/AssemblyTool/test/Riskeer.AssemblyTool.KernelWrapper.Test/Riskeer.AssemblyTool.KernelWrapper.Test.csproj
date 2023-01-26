@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <Import Project="$(SolutionDir)build\Test.targets" />
   <ItemGroup>
       <Reference Include="Assembly.Kernel, Version=22.1.1.0, Culture=neutral, PublicKeyToken=null">
