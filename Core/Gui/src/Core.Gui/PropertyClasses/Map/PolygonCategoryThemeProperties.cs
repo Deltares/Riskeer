@@ -29,7 +29,7 @@ using Core.Components.Gis.Theme;
 using Core.Gui.Attributes;
 using Core.Gui.Converters;
 using Core.Gui.Properties;
-using Core.Gui.UITypeEditors;
+using CoreGUIColorEditor = Core.Gui.UITypeEditors.ColorEditor;
 
 namespace Core.Gui.PropertyClasses.Map
 {
@@ -53,7 +53,7 @@ namespace Core.Gui.PropertyClasses.Map
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapData_Color_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PolygonCategoryTheme_FillColor_Description))]
-        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [Editor(typeof(CoreGUIColorEditor), typeof(UITypeEditor))]
         [TypeConverter(typeof(ColorTypeConverter))]
         public Color FillColor
         {
@@ -72,7 +72,7 @@ namespace Core.Gui.PropertyClasses.Map
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapData_StrokeColor_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PolygonCategoryTheme_StrokeColor_Description))]
-        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [Editor(typeof(CoreGUIColorEditor), typeof(UITypeEditor))]
         [TypeConverter(typeof(ColorTypeConverter))]
         public Color StrokeColor
         {

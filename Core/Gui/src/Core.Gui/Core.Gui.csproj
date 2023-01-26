@@ -1,5 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <Import Project="$(SolutionDir)build\Source.targets" />
+  <PropertyGroup>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <EnableDefaultPageItems>false</EnableDefaultPageItems>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
