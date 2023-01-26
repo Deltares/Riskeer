@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Util.Extensions;
 using NUnit.Framework;
+using CoreCommonUtilCollectionExtensions = Core.Common.Util.Extensions.CollectionExtensions;
 
 namespace Core.Common.Util.Test.Extensions
 {
@@ -33,7 +34,7 @@ namespace Core.Common.Util.Test.Extensions
         public void RemoveAllWhere_CollectionNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => CollectionExtensions.RemoveAllWhere<object>(null, o => true);
+            TestDelegate call = () => CoreCommonUtilCollectionExtensions.RemoveAllWhere<object>(null, o => true);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
