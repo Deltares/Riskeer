@@ -4,7 +4,7 @@
     <OutDir>$(OutputPath)</OutDir>
     <Platforms>x86</Platforms>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <TargetFramework>net7.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <LangVersion>7.0</LangVersion>
     <FileAlignment>512</FileAlignment>
     <Company>Deltares</Company>
