@@ -25,5 +25,6 @@
     <PackageReference Include="NUnit">
       <Version>3.13.3</Version>
     </PackageReference>
+    <PackageReference Include="System.Management" Version="7.0.0" />
   </ItemGroup>
 </Project>
