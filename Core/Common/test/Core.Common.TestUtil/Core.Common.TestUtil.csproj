@@ -2,6 +2,8 @@
   <Import Project="$(SolutionDir)build\TestUtil.targets" />
   <PropertyGroup>
     <UseWindowsForms>true</UseWindowsForms>
+    <UseWPF>true</UseWPF>
+    <EnableDefaultPageItems>false</EnableDefaultPageItems>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="test-data\**" />
