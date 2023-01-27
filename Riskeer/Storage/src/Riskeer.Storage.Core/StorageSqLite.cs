@@ -160,11 +160,6 @@ namespace Riskeer.Storage.Core
             }
             catch (CannotDetermineFingerprintException e)
             {
-                if (e.InnerException is QuotaExceededException)
-                {
-                    throw new StorageException(Resources.StorageSqLite_HasStagedProjectChanges_Project_contains_too_many_objects_to_generate_fingerprint, e);
-                }
-
                 throw new StorageException(e.Message, e);
             }
         }

@@ -202,16 +202,6 @@ namespace Riskeer.Storage.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het project bevat te veel unieke objecten om een digitale vingerafdruk van te genereren..
-        /// </summary>
-        public static string StorageSqLite_HasStagedProjectChanges_Project_contains_too_many_objects_to_generate_fingerprint {
-            get {
-                return ResourceManager.GetString("StorageSqLite_HasStagedProjectChanges_Project_contains_too_many_objects_to_genera" +
-                        "te_fingerprint", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Het bestand is geen geldig Riskeer bestand..
         /// </summary>
         public static string StorageSqLite_LoadProject_Invalid_Riskeer_database_file {

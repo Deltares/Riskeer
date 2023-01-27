@@ -63,7 +63,7 @@ namespace Riskeer.Storage.Core
 
                 return computeHash;
             }
-            catch (Exception e) when (e is UnauthorizedAccessException || e is IOException || e is QuotaExceededException)
+            catch (Exception e) when (e is UnauthorizedAccessException || e is IOException)
             {
                 throw new CannotDetermineFingerprintException(Resources.FingerprintHelper_Critical_error_message, e);
             }
@@ -102,8 +102,6 @@ namespace Riskeer.Storage.Core
         /// <param name="filePath">The filepath to use as temporary storage.</param>
         /// <returns>The binary hashcode for <paramref name="entity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
-        /// <exception cref="QuotaExceededException">Thrown when <paramref name="entity"/>
-        /// contains more than <see cref="int.MaxValue"/> unique object instances.</exception>
         /// <exception cref="UnauthorizedAccessException">The caller does not have the
         /// required permissions or <paramref name="filePath"/> is read-only.</exception>
         /// <exception cref="IOException">An I/O exception occurred while creating the file
@@ -114,9 +112,7 @@ namespace Riskeer.Storage.Core
             using (FileStream stream = File.Create(filePath))
             using (XmlDictionaryWriter writer = XmlDictionaryWriter.CreateBinaryWriter(stream))
             {
-                var serializer = new DataContractSerializer(entity.GetType(),
-                                                            Enumerable.Empty<Type>(),
-                                                            int.MaxValue, false, true, null);
+                var serializer = new DataContractSerializer(entity.GetType());
                 serializer.WriteObject(writer, entity);
                 writer.Flush();
                 stream.Seek(0, SeekOrigin.Begin);
