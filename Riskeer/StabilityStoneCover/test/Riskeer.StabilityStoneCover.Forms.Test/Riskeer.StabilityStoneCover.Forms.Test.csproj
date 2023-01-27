@@ -8,7 +8,7 @@
     </Reference>
     <Reference Include="System.Core">
     </Reference>
-    <Reference Include="System.Drawing" />
+    
     <Reference Include="System.Windows.Forms">
     </Reference>
   </ItemGroup>

@@ -2,9 +2,9 @@
   <Import Project="$(SolutionDir)build\Test.targets" />
   <ItemGroup>
     <Reference Include="PresentationCore" />
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
+    
+    
+    
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>

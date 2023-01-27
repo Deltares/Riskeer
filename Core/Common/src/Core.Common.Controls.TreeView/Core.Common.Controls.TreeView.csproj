@@ -5,10 +5,10 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
+    
+    
+    
+    
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core.Common.Base\Core.Common.Base.csproj" />
