@@ -40,6 +40,9 @@
     <ProjectReference Include="..\Riskeer.GrassCoverErosionInwards.Service.TestUtil\Riskeer.GrassCoverErosionInwards.Service.TestUtil.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk">
+      <Version>17.4.1</Version>
+    </PackageReference>
     <PackageReference Include="NUnit">
       <Version>3.13.3</Version>
     </PackageReference>

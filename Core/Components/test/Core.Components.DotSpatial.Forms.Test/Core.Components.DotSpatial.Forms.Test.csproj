@@ -46,6 +46,7 @@
     <PackageReference Include="DotSpatial.Symbology" Version="2.0.0-rc1" />
     <PackageReference Include="DotSpatial.Symbology.Forms" Version="2.0.0-rc1" />
     <PackageReference Include="DotSpatial.Topology" Version="1.9.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.1" />
     <PackageReference Include="NUnit">
       <Version>3.13.3</Version>
     </PackageReference>

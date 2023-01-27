@@ -18,6 +18,9 @@
     <ProjectReference Include="..\Core.Components.Gis.TestUtil\Core.Components.Gis.TestUtil.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk">
+      <Version>17.4.1</Version>
+    </PackageReference>
     <PackageReference Include="NUnit">
       <Version>3.13.3</Version>
     </PackageReference>

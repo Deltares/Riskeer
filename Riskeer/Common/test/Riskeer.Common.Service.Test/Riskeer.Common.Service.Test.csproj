@@ -29,6 +29,9 @@
     <PackageReference Include="log4net">
       <Version>2.0.12</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.NET.Test.Sdk">
+      <Version>17.4.1</Version>
+    </PackageReference>
     <PackageReference Include="System.Data.SQLite.Core">
       <Version>1.0.109.2</Version>
     </PackageReference>
