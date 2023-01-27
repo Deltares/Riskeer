@@ -4,8 +4,6 @@
     <Reference Include="NUnitForms">
       <HintPath>..\..\..\..\lib\NUnitForms.dll</HintPath>
     </Reference>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
     
     
     
@@ -13,7 +11,9 @@
     
     
     
-    <Reference Include="WindowsBase" />
+    
+    
+    
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>

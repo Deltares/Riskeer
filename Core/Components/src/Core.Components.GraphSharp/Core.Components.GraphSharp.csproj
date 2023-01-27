@@ -5,11 +5,11 @@
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="PresentationCore" />
     
     
     
-    <Reference Include="WindowsBase" />
+    
+    
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">

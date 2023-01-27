@@ -12,11 +12,11 @@
     <ProjectReference Include="..\..\src\Core.Components.GraphSharp\Core.Components.GraphSharp.csproj"/>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
     
     
-    <Reference Include="WindowsBase" />
+    
+    
+    
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>

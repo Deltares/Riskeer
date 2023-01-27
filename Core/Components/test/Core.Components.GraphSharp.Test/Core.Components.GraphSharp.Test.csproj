@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <Import Project="$(SolutionDir)build\Test.targets" />
   <ItemGroup>
-    <Reference Include="PresentationCore" />
     
     
     
-    <Reference Include="WindowsBase" />
+    
+    
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">

@@ -4,7 +4,7 @@
     <Reference Include="NUnitForms">
       <HintPath>..\..\..\..\lib\NUnitForms.dll</HintPath>
     </Reference>
-    <Reference Include="PresentationCore" />
+    
     
     
     

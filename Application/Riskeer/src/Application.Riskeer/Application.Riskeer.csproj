@@ -10,8 +10,8 @@
     <None Remove="Resources\MadeBy.png" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
+    
+    
     
     
     
@@ -20,7 +20,7 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
-    <Reference Include="WindowsBase" />
+    
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
