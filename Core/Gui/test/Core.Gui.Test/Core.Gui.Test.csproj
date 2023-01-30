@@ -60,7 +60,7 @@
       <Version>1.14.4</Version>
     </PackageReference>
     <PackageReference Include="log4net">
-      <Version>2.0.12</Version>
+      <Version>2.0.15</Version>
     </PackageReference>
     <PackageReference Include="MahApps.Metro">
       <Version>2.4.4</Version>
