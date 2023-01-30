@@ -10,11 +10,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Core.Common.Base\Core.Common.Base.csproj" />
+    <ProjectReference Include="..\..\src\Core.Common.Base\Core.Common.Base.csproj"/>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NUnit">
-      <Version>3.13.3</Version>
+      <Version>3.8.1</Version>
     </PackageReference>
   </ItemGroup>
 </Project>

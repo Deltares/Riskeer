@@ -47,7 +47,7 @@
     <PackageReference Include="DotSpatial.Symbology.Forms" Version="2.0.0-rc1" />
     <PackageReference Include="DotSpatial.Topology" Version="1.9.0" />
     <PackageReference Include="NUnit">
-      <Version>3.13.3</Version>
+      <Version>3.8.1</Version>
     </PackageReference>
     <PackageReference Include="RhinoMocks">
       <Version>3.6.1</Version>

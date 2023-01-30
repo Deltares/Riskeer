@@ -11,12 +11,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj" />
-    <ProjectReference Include="..\..\src\Core.Components.PointedTree\Core.Components.PointedTree.csproj" />
+    <ProjectReference Include="..\..\..\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\src\Core.Components.PointedTree\Core.Components.PointedTree.csproj"/>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NUnit">
-      <Version>3.13.3</Version>
+      <Version>3.8.1</Version>
     </PackageReference>
   </ItemGroup>
 </Project>

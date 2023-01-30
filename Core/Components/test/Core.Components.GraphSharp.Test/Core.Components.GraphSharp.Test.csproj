@@ -13,14 +13,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj" />
-    <ProjectReference Include="..\..\src\Core.Components.GraphSharp\Core.Components.GraphSharp.csproj" />
-    <ProjectReference Include="..\..\src\Core.Components.PointedTree\Core.Components.PointedTree.csproj" />
-    <ProjectReference Include="..\Core.Components.GraphSharp.TestUtil\Core.Components.GraphSharp.TestUtil.csproj" />
+    <ProjectReference Include="..\..\..\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\src\Core.Components.GraphSharp\Core.Components.GraphSharp.csproj"/>
+    <ProjectReference Include="..\..\src\Core.Components.PointedTree\Core.Components.PointedTree.csproj"/>
+    <ProjectReference Include="..\Core.Components.GraphSharp.TestUtil\Core.Components.GraphSharp.TestUtil.csproj"/>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NUnit">
-      <Version>3.13.3</Version>
+      <Version>3.8.1</Version>
     </PackageReference>
     <PackageReference Include="QuickGraph">
       <Version>3.6.61119.7</Version>

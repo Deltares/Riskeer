@@ -12,18 +12,18 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj" />
-    <ProjectReference Include="..\..\..\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj" />
-    <ProjectReference Include="..\..\src\Core.Components.Chart.Forms\Core.Components.Chart.Forms.csproj" />
-    <ProjectReference Include="..\..\src\Core.Components.Chart\Core.Components.Chart.csproj" />
-    <ProjectReference Include="..\..\src\Core.Components.OxyPlot.Forms\Core.Components.OxyPlot.Forms.csproj" />
-    <ProjectReference Include="..\..\src\Core.Components.OxyPlot\Core.Components.OxyPlot.csproj" />
-    <ProjectReference Include="..\..\src\Core.Components.Stack.Forms\Core.Components.Stack.Forms.csproj" />
-    <ProjectReference Include="..\..\src\Core.Components.Stack\Core.Components.Stack.csproj" />
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj"/>
+    <ProjectReference Include="..\..\..\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\src\Core.Components.Chart.Forms\Core.Components.Chart.Forms.csproj"/>
+    <ProjectReference Include="..\..\src\Core.Components.Chart\Core.Components.Chart.csproj"/>
+    <ProjectReference Include="..\..\src\Core.Components.OxyPlot.Forms\Core.Components.OxyPlot.Forms.csproj"/>
+    <ProjectReference Include="..\..\src\Core.Components.OxyPlot\Core.Components.OxyPlot.csproj"/>
+    <ProjectReference Include="..\..\src\Core.Components.Stack.Forms\Core.Components.Stack.Forms.csproj"/>
+    <ProjectReference Include="..\..\src\Core.Components.Stack\Core.Components.Stack.csproj"/>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NUnit">
-      <Version>3.13.3</Version>
+      <Version>3.8.1</Version>
     </PackageReference>
     <PackageReference Include="OxyPlot.WindowsForms">
       <Version>1.0.0</Version>
