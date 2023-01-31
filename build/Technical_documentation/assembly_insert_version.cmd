@@ -21,7 +21,7 @@ ECHO "%argcount% arguments received"
 
 IF %argcount%==1 (
     ECHO "setting default in and out files."
-	SET VERSIONPATH=..\..\Core\Common\src\Core.Common.Version\Properties
+	SET VERSIONPATH=..\
 	SET VERSIONFILE=GlobalAssembly.cs
     SET INTEXTFILE=Riskeer.doxyfile
     SET OUTTEXTFILE=Riskeer.doxygen
@@ -40,7 +40,7 @@ REM GET THE SVN VERSION NUMBER AND  REVISION PATH
 CD %VERSIONPATH%
 ECHO executing in directory "%VERSIONPATH%"
 
-FOR /f "tokens=1,* delims=¶" %%A IN ( '"type %VERSIONFILE%"') DO (
+FOR /f "tokens=1,* delims=ï¿½" %%A IN ( '"type %VERSIONFILE%"') DO (
 	ECHO %%A | findstr /I "^[assembly: AssemblyVersion(" && SET REV_BUF=%%A
 )
 
@@ -63,7 +63,7 @@ IF EXIST %TEMPTEXTFILE% (
     DEL %TEMPTEXTFILE%
 )
 
-FOR /f "tokens=1,* delims=¶" %%A IN ( '"type %INTEXTFILE%"') DO (
+FOR /f "tokens=1,* delims=ï¿½" %%A IN ( '"type %INTEXTFILE%"') DO (
     SET string=%%A
     SET modified=!string:%SEARCHTEXT%=%SVN_REV%!
     ECHO !modified! >> %TEMPTEXTFILE%
