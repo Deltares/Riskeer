@@ -114,7 +114,8 @@ namespace Core.Common.Geometry
             return xCoordinates.Select(coordinate =>
             {
                 var referenceVector = new Vector2D(referencePoint.X, referencePoint.Y);
-                Vector2D pointVector = referenceVector + new Vector2D(0, coordinate - offset).Rotate(-rotation, AngleUnit.Degrees);
+
+                Vector2D pointVector = referenceVector + new Vector2D(0, coordinate - offset).Rotate(Angle.FromDegrees(-rotation));
                 return new Point2D(pointVector.X, pointVector.Y);
             }).ToArray();
         }
