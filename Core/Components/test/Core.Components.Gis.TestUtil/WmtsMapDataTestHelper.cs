@@ -29,14 +29,14 @@ namespace Core.Components.Gis.TestUtil
     public static class WmtsMapDataTestHelper
     {
         /// <summary>
-        /// Creates a new instance of <see cref="WmtsMapData"/> configured to the 'opentopoachtergrondkaart'
+        /// Creates a new instance of <see cref="WmtsMapData"/> configured to the 'top25raster' tile service
         /// of PDOK in RD-new coordinate system.
         /// </summary>
         public static WmtsMapData CreateDefaultPdokMapData()
         {
-            return new WmtsMapData("PDOK opentopoachtergrondkaart",
+            return new WmtsMapData("PDOK top25raster",
                                    "https://geodata.nationaalgeoregister.nl/tiles/service/wmts/ahn2?request=GetCapabilities",
-                                   "opentopoachtergrondkaart(EPSG:28992)",
+                                   "top25raster(EPSG:28992)",
                                    "image/png");
         }
 
