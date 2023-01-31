@@ -19,7 +19,7 @@
       <GeneratePathProperty>true</GeneratePathProperty>
     </PackageReference>
     <PackageReference Include="MathNet.Spatial">
-      <Version>0.3.0</Version>
+      <Version>0.6.0</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
     </PackageReference>
     <PackageReference Include="NetTopologySuite">
@@ -33,7 +33,7 @@
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy /d/s/y &quot;$(PkgMathNet_Numerics)\lib\net461\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\MathNet.Numerics-5.0.0\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(PkgMathNet_Spatial)\lib\net40\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\MathNet.Spatial-0.3.0\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgMathNet_Spatial)\lib\net461\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\MathNet.Spatial-0.6.0\*&quot;" />
     <Exec Command="xcopy /d/s/y &quot;$(PkgNetTopologySuite)\lib\net45\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\NetTopologySuite-1.14.0\*&quot;" />
     <Exec Command="xcopy /d/s/y &quot;$(PkgGeoAPI)\lib\net45\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\GeoAPI-1.7.4\*&quot;" />
   </Target>
