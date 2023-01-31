@@ -22,18 +22,18 @@
 namespace Riskeer.HydraRing.IO.HydraulicBoundaryDatabase
 {
     /// <summary>
-    /// Defines queries to execute on a HLCD file.
+    /// Defines queries to execute on a hydraulic location configuration database.
     /// </summary>
     public static class HlcdQueryBuilder
     {
         /// <summary>
-        /// Returns the query to get track ids from the database.
+        /// Returns the query to get HRD file names from a hydraulic location configuration database.
         /// </summary>
-        /// <param name="trackName">The name of the track to get the tracks ids for.</param>
-        /// <returns>The query to get the track ids from the database.</returns>
-        public static string GetTrackIdsQuery(string trackName)
+        /// <param name="trackName">The name of the track to get the corresponding HRD file names for.</param>
+        /// <returns>The query to get the HRD file names from a hydraulic location configuration database.</returns>
+        public static string GetHrdFileNamesQuery(string trackName)
         {
-            return $"SELECT {HlcdDefinitions.TracksIdColumn} FROM {HlcdDefinitions.TracksTable} WHERE WHERE {HlcdDefinitions.TrackNameColumn} LIKE '%{trackName}%';";
+            return $"SELECT {HlcdDefinitions.HrdFileNameColumn} FROM {HlcdDefinitions.TracksTable} WHERE {HlcdDefinitions.TrackNameColumn} LIKE '%{trackName}%';";
         }
     }
 }

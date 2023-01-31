@@ -22,12 +22,12 @@
 namespace Riskeer.HydraRing.IO.HydraulicBoundaryDatabase
 {
     /// <summary>
-    /// Defines table and column names within HLCD files.
+    /// Defines table and column names within hydraulic location configuration databases.
     /// </summary>
     public static class HlcdDefinitions
     {
         internal const string TracksTable = "Tracks";
-        internal const string TracksIdColumn = "TrackId";
         internal const string TrackNameColumn = "Name";
+        internal const string HrdFileNameColumn = "HRDFileName";
     }
 }

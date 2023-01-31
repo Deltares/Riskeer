@@ -33,14 +33,14 @@ using Riskeer.HydraRing.IO.Properties;
 namespace Riskeer.HydraRing.IO.HydraulicBoundaryDatabase
 {
     /// <summary>
-    /// Class for reading a HLCD file.
+    /// Class for reading a hydraulic location configuration database.
     /// </summary>
     public class HlcdReader : SqLiteDatabaseReaderBase
     {
         /// <summary>
         /// Creates a new instance of <see cref="HlcdReader"/>.
         /// </summary>
-        /// <param name="databaseFilePath">The path of the HLCD file to open.</param>
+        /// <param name="databaseFilePath">The path of the hydraulic location configuration database to open.</param>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
         /// <item>the <paramref name="databaseFilePath"/> contains invalid characters;</item>
@@ -50,23 +50,25 @@ namespace Riskeer.HydraRing.IO.HydraulicBoundaryDatabase
         public HlcdReader(string databaseFilePath) : base(databaseFilePath) {}
 
         /// <summary>
-        /// Reads the hydraulic boundary database.
+        /// Reads the hydraulic location configuration database.
         /// </summary>
         /// <returns>A <see cref="ReadHydraulicBoundaryDatabase"/>.</returns>
         /// <exception cref="LineParseException">Thrown when the database contains incorrect values for required properties.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when the data cannot be read.</exception>
         public ReadHydraulicBoundaryDatabase Read()
         {
-            return new ReadHydraulicBoundaryDatabase(ReadTrackId(), ReadVersion(), ReadLocations().ToArray());
+            IEnumerable<string> hrdFileNames = ReadHrdFileNames();
+            
+            return new ReadHydraulicBoundaryDatabase(hrdFileNames.FirstOrDefault(), ReadVersion(), ReadLocations().ToArray());
         }
 
         /// <summary>
-        /// Reads the track Id from the hydraulic boundary database.
+        /// Reads the HRD files names from the hydraulic location configuration database.
         /// </summary>
         /// <returns>The track Id found in the database.</returns>
         /// <exception cref="LineParseException">Thrown when the database contains incorrect values for required properties.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when the track Id cannot be read.</exception>
-        public long ReadTrackId()
+        public IEnumerable<string> ReadHrdFileNames()
         {
             try
             {
