@@ -772,7 +772,7 @@ namespace Core.Components.Gis.Forms.Test.Views
 
                 DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(4, cells.Count);
-                Assert.AreEqual("opentopoachtergrondkaart(EPSG:28992)", cells[mapLayerIdColumnIndex].FormattedValue);
+                Assert.AreEqual("top25raster(EPSG:28992)", cells[mapLayerIdColumnIndex].FormattedValue);
                 Assert.AreEqual("image/png", cells[mapLayerFormatColumnIndex].FormattedValue);
                 Assert.AreEqual("Stub schema", cells[mapLayerTitleColumnIndex].FormattedValue);
                 Assert.AreEqual("EPSG:28992", cells[mapLayerCoordinateSystemColumnIndex].FormattedValue);
