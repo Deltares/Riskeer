@@ -19,11 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
-using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
@@ -37,17 +35,23 @@ namespace Riskeer.HydraRing.IO.HydraulicBoundaryDatabase
     /// </summary>
     public class HlcdReader : SqLiteDatabaseReaderBase
     {
+        private readonly string trackName;
+
         /// <summary>
         /// Creates a new instance of <see cref="HlcdReader"/>.
         /// </summary>
         /// <param name="databaseFilePath">The path of the hydraulic location configuration database to open.</param>
+        /// <param name="trackName">The name of the track at stake.</param>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
         /// <item>the <paramref name="databaseFilePath"/> contains invalid characters;</item>
         /// <item>no file could be found at <paramref name="databaseFilePath"/>.</item>
         /// </list>
         /// </exception>
-        public HlcdReader(string databaseFilePath) : base(databaseFilePath) {}
+        public HlcdReader(string databaseFilePath, string trackName) : base(databaseFilePath)
+        {
+            this.trackName = trackName;
+        }
 
         /// <summary>
         /// Reads the hydraulic location configuration database.
@@ -59,108 +63,39 @@ namespace Riskeer.HydraRing.IO.HydraulicBoundaryDatabase
         {
             IEnumerable<string> hrdFileNames = ReadHrdFileNames();
             
-            return new ReadHydraulicBoundaryDatabase(hrdFileNames.FirstOrDefault(), ReadVersion(), ReadLocations().ToArray());
+            return null;
         }
 
         /// <summary>
-        /// Reads the HRD files names from the hydraulic location configuration database.
+        /// Reads the HRD file names from the hydraulic location configuration database.
         /// </summary>
-        /// <returns>The track Id found in the database.</returns>
+        /// <returns>The HRD file names found in the database.</returns>
         /// <exception cref="LineParseException">Thrown when the database contains incorrect values for required properties.</exception>
-        /// <exception cref="CriticalFileReadException">Thrown when the track Id cannot be read.</exception>
         public IEnumerable<string> ReadHrdFileNames()
         {
-            try
-            {
-                using (IDataReader reader = CreateDataReader(HydraulicBoundaryDatabaseQueryBuilder.GetTrackIdQuery(),
-                                                             new SQLiteParameter
-                                                             {
-                                                                 DbType = DbType.String
-                                                             }))
-                {
-                    if (reader.Read())
-                    {
-                        return Convert.ToInt64(reader[GeneralTableDefinitions.TrackId]);
-                    }
-
-                    throw new CriticalFileReadException(new FileReaderErrorMessageBuilder(Path)
-                                                            .Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column));
-                }
-            }
-            catch (InvalidCastException exception)
-            {
-                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
-                throw new LineParseException(message, exception);
-            }
-            catch (SQLiteException exception)
-            {
-                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.Error_HydraulicBoundaryLocation_read_from_database);
-                throw new CriticalFileReadException(message, exception);
-            }
-        }
-
-        /// <summary>
-        /// Gets the version of the hydraulic boundary database.
-        /// </summary>
-        /// <returns>The version found in the database, or <see cref="string.Empty"/> if the version cannot be found.</returns>
-        /// <exception cref="CriticalFileReadException">Thrown when the version cannot be read..</exception>
-        public string ReadVersion()
-        {
-            try
-            {
-                using (IDataReader reader = CreateDataReader(HydraulicBoundaryDatabaseQueryBuilder.GetVersionQuery(), null))
-                {
-                    if (reader.Read())
-                    {
-                        string version = Convert.ToString(reader[GeneralTableDefinitions.GeneratedVersion]);
-
-                        if (!string.IsNullOrEmpty(version))
-                        {
-                            return version;
-                        }
-                    }
-
-                    string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
-                    throw new CriticalFileReadException(message);
-                }
-            }
-            catch (SQLiteException e)
-            {
-                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.Error_HydraulicBoundaryLocation_read_from_database);
-                throw new CriticalFileReadException(message, e);
-            }
-        }
-
-        /// <summary>
-        /// Reads the locations from the database.
-        /// </summary>
-        /// <exception cref="LineParseException">Thrown when the database contains incorrect values for required properties.</exception>
-        private IEnumerable<ReadHydraulicBoundaryLocation> ReadLocations()
-        {
-            using (IDataReader reader = CreateDataReader(HydraulicBoundaryDatabaseQueryBuilder.GetRelevantLocationsQuery()))
+            using (IDataReader reader = CreateDataReader(HlcdQueryBuilder.GetHrdFileNamesQuery(trackName),
+                                                         new SQLiteParameter
+                                                         {
+                                                             DbType = DbType.String
+                                                         }))
             {
                 while (MoveNext(reader))
                 {
-                    yield return ReadLocation(reader);
+                    yield return ReadHrdFileName(reader);
                 }
             }
         }
-
+        
         /// <summary>
-        /// Reads a location from the database.
+        /// Reads a HRD file name from the database.
         /// </summary>
-        /// <returns>A <see cref="ReadHydraulicBoundaryLocation"/> based on the data read from the database.</returns>
+        /// <returns>A HRD file name based on the data read from the database.</returns>
         /// <exception cref="LineParseException">Thrown when the database contains incorrect values for required properties.</exception>
-        private ReadHydraulicBoundaryLocation ReadLocation(IDataReader reader)
+        private string ReadHrdFileName(IDataReader reader)
         {
             try
             {
-                var id = reader.Read<long>(HrdLocationsTableDefinitions.HrdLocationId);
-                var name = reader.Read<string>(HrdLocationsTableDefinitions.Name);
-                var x = reader.Read<double>(HrdLocationsTableDefinitions.XCoordinate);
-                var y = reader.Read<double>(HrdLocationsTableDefinitions.YCoordinate);
-
-                return new ReadHydraulicBoundaryLocation(id, name, x, y);
+                return reader.Read<string>(HlcdDefinitions.HrdFileNameColumn);
             }
             catch (ConversionException e)
             {
