@@ -56,7 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="ControlzEx">
-      <Version>5.0.2</Version>
+      <Version>4.4.0</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
     </PackageReference>
     <PackageReference Include="log4net">
@@ -97,7 +97,7 @@
     </Compile>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /d/s/y &quot;$(PkgControlzEx)\lib\net462\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\ControlzEx-5.0.2\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgControlzEx)\lib\net45\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\ControlzEx-4.4.0\*&quot;" />
     <Exec Command="xcopy /d/s/y &quot;$(Pkglog4net)\lib\net45\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\Log4net-2.0.12\*&quot;" />
     <Exec Command="xcopy /d/s/y &quot;$(PkgMahApps_Metro)\lib\net46\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\MahApps.Metro-2.4.9\*&quot;" />
     <Exec Command="xcopy /d/s/y &quot;$(PkgMicrosoft_Xaml_Behaviors_Wpf)\lib\net45\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\Microsoft.Xaml.Behaviors.Wpf-1.1.31\*&quot;" />
