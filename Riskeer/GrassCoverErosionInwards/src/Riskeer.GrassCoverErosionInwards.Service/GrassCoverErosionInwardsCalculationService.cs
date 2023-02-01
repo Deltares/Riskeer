@@ -158,7 +158,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service
             }
 
             HydraulicBoundaryCalculationSettings calculationSettings =
-                HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase);
+                HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabases, calculation.InputParameters.HydraulicBoundaryLocation);
             int numberOfCalculators = CreateCalculators(calculation, calculationSettings);
 
             string hydraulicBoundaryDatabaseFilePath = calculationSettings.HydraulicBoundaryDatabaseFilePath;
@@ -731,8 +731,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service
 
         private static IEnumerable<string> ValidateHydraulicBoundaryDatabase(IAssessmentSection assessmentSection)
         {
-            string preprocessorDirectory = assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory();
-            string databaseValidationProblem = HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
+            string preprocessorDirectory = assessmentSection.HydraulicBoundaryDatabases.First().EffectivePreprocessorDirectory();
+            string databaseValidationProblem = HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabases.First());
             if (!string.IsNullOrEmpty(databaseValidationProblem))
             {
                 yield return databaseValidationProblem;

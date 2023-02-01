@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using Riskeer.Common.Data.AssessmentSection;
@@ -91,7 +92,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects
         {
             get
             {
-                return AssessmentSection.HydraulicBoundaryDatabase.Locations;
+                return AssessmentSection.HydraulicBoundaryDatabases.SelectMany(hbd => hbd.Locations);
             }
         }
     }

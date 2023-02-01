@@ -51,7 +51,7 @@ namespace Riskeer.Integration.Service.Comparers
             return assessmentSection.Id == otherAssessmentSection.Id
                    && assessmentSection.Composition == otherAssessmentSection.Composition
                    && AreReferenceLinesEquivalent(assessmentSection.ReferenceLine, otherAssessmentSection.ReferenceLine)
-                   && AreHydraulicBoundaryDatabasesEquivalent(assessmentSection.HydraulicBoundaryDatabase, otherAssessmentSection.HydraulicBoundaryDatabase)
+                   && AreHydraulicBoundaryDatabasesEquivalent(assessmentSection.HydraulicBoundaryDatabases.First(), otherAssessmentSection.HydraulicBoundaryDatabases.First())
                    && AreFailureMechanismContributionsEquivalent(assessmentSection.FailureMechanismContribution, otherAssessmentSection.FailureMechanismContribution);
         }
 

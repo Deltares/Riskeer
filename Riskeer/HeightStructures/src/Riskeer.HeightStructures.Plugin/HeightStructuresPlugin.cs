@@ -122,7 +122,7 @@ namespace Riskeer.HeightStructures.Plugin
                 (context, filePath) => new HeightStructuresCalculationConfigurationImporter(
                     filePath,
                     context.WrappedData,
-                    context.AssessmentSection.HydraulicBoundaryDatabase.Locations,
+                    context.AssessmentSection.HydraulicBoundaryDatabases.SelectMany(hbd => hbd.Locations),
                     context.AvailableForeshoreProfiles,
                     context.AvailableStructures));
         }
@@ -909,7 +909,7 @@ namespace Riskeer.HeightStructures.Plugin
 
         private static string EnableValidateAndCalculateMenuItem(IAssessmentSection assessmentSection)
         {
-            return HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
+            return HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabases.First());
         }
 
         #endregion

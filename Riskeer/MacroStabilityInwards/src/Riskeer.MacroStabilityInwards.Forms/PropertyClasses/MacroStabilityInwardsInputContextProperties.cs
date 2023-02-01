@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Design;
+using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Util.Attributes;
@@ -162,7 +163,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         {
             Point2D referencePoint = SurfaceLine?.ReferenceLineIntersectionWorldPoint;
             return SelectableHydraulicBoundaryLocationHelper.GetSortedSelectableHydraulicBoundaryLocations(
-                data.AssessmentSection.HydraulicBoundaryDatabase.Locations, referencePoint);
+                data.AssessmentSection.HydraulicBoundaryDatabases.SelectMany(hbd => hbd.Locations), referencePoint);
         }
 
         private RoundedDouble GetEffectiveAssessmentLevel()

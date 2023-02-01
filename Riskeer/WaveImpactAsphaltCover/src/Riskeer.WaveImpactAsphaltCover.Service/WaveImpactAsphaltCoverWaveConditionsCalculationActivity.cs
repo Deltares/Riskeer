@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Service;
 using Riskeer.Revetment.Data;
@@ -74,7 +75,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Service
         {
             return WaveConditionsCalculationServiceBase.Validate(calculation.InputParameters,
                                                                  WaveConditionsInputHelper.GetAssessmentLevel(calculation.InputParameters, assessmentSection),
-                                                                 assessmentSection.HydraulicBoundaryDatabase);
+                                                                 assessmentSection.HydraulicBoundaryDatabases.First());
         }
 
         protected override void PerformCalculation()

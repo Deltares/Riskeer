@@ -93,7 +93,8 @@ namespace Riskeer.Piping.Service.Probabilistic
                     Math2D.ConvertPointsToLineSegments(s.Points)));
 
             service.Calculate(calculation, failureMechanism.GeneralInput,
-                              HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
+                              HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabases,
+                                  calculation.InputParameters.HydraulicBoundaryLocation),
                               section.Length);
         }
 

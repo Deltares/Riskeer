@@ -78,7 +78,7 @@ namespace Riskeer.Storage.Core.Create
                 NormativeProbabilityType = Convert.ToByte(contribution.NormativeProbabilityType)
             };
 
-            AddEntityForHydraulicDatabase(section.HydraulicBoundaryDatabase, entity, registry);
+            AddEntityForHydraulicDatabase(section.HydraulicBoundaryDatabases.First(), entity, registry);
             AddHydraulicLocationCalculationEntities(section, entity, registry);
             AddHydraulicLocationCalculationForTargetProbabilityCollectionEntities(section, entity, registry);
             AddEntityForReferenceLine(section, entity);

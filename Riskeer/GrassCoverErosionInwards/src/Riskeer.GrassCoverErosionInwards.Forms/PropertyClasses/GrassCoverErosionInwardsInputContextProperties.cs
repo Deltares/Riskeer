@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Design;
+using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Util.Attributes;
@@ -368,7 +369,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
             Point2D calculationLocation = data.WrappedData.DikeProfile?.WorldReferencePoint;
 
             return SelectableHydraulicBoundaryLocationHelper.GetSortedSelectableHydraulicBoundaryLocations(
-                data.AssessmentSection.HydraulicBoundaryDatabase.Locations, calculationLocation);
+                data.AssessmentSection.HydraulicBoundaryDatabases.SelectMany(hbd => hbd.Locations), calculationLocation);
         }
     }
 }

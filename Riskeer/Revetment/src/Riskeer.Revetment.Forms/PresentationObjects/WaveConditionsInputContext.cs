@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Controls.PresentationObjects;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
@@ -80,7 +81,7 @@ namespace Riskeer.Revetment.Forms.PresentationObjects
         {
             get
             {
-                return AssessmentSection.HydraulicBoundaryDatabase.Locations;
+                return AssessmentSection.HydraulicBoundaryDatabases.SelectMany(hbd => hbd.Locations);
             }
         }
 

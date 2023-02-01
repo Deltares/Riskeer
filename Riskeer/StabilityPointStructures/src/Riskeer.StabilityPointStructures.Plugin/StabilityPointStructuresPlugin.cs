@@ -245,7 +245,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
                 (context, filePath) => new StabilityPointStructuresCalculationConfigurationImporter(
                     filePath,
                     context.WrappedData,
-                    context.AssessmentSection.HydraulicBoundaryDatabase.Locations,
+                    context.AssessmentSection.HydraulicBoundaryDatabases.SelectMany(hbd => hbd.Locations),
                     context.AvailableForeshoreProfiles,
                     context.AvailableStructures));
         }
@@ -894,7 +894,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
 
         private static string EnableValidateAndCalculateMenu(IAssessmentSection assessmentSection)
         {
-            return HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
+            return HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabases.First());
         }
 
         private static void ValidateAll(IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> calculations, IAssessmentSection assessmentSection)
