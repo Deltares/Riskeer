@@ -76,7 +76,7 @@
       <GeneratePathProperty>true</GeneratePathProperty>
     </PackageReference>
     <PackageReference Include="System.Data.SQLite.EF6">
-      <Version>1.0.109</Version>
+      <Version>1.0.117</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
     </PackageReference>
   </ItemGroup>
@@ -104,7 +104,7 @@
     <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Data_Sqlite_Core)\lib\net46\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Data.SQLite.Core-1.0.109.2\*&quot;" />
     <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Data_Sqlite_Core)\build\net46\x64\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Data.SQLite.Core-1.0.109.2\x64\*&quot;" />
     <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Data_Sqlite_Core)\build\net46\x86\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Data.SQLite.Core-1.0.109.2\x86\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Data_Sqlite_EF6)\lib\net46\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Data.SQLite.EF6-1.0.109\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Data_Sqlite_EF6)\lib\net46\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\System.Data.SQLite.EF6-1.0.117\*&quot;" />
   </Target>
   <!-- Overwrite PostBuildCopyAssembly, because no dll's or pdb's to copy here. -->
   <Target Name="PostBuildCopyAssembly" AfterTargets="PostBuildEvent" />
