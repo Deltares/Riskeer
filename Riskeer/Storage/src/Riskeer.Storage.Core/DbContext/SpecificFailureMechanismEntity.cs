@@ -46,17 +46,17 @@ namespace Riskeer.Storage.Core.DbContext
         public string Name { get; set; }
         public string Code { get; set; }
         public int Order { get; set; }
+        public double N { get; set; }
+        public byte ApplyLengthEffectInSection { get; set; }
+
+        public virtual AssessmentSectionEntity AssessmentSectionEntity { get; set; }
         public byte InAssembly { get; set; }
         public string FailureMechanismSectionCollectionSourcePath { get; set; }
         public string InAssemblyInputComments { get; set; }
         public string InAssemblyOutputComments { get; set; }
         public string NotInAssemblyComments { get; set; }
-        public double N { get; set; }
         public byte FailureMechanismAssemblyResultProbabilityResultType { get; set; }
         public double? FailureMechanismAssemblyResultManualFailureMechanismAssemblyProbability { get; set; }
-        public byte ApplyLengthEffectInSection { get; set; }
-
-        public virtual AssessmentSectionEntity AssessmentSectionEntity { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FailureMechanismSectionEntity> FailureMechanismSectionEntities { get; set; }
