@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Design;
-using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Util.Attributes;
@@ -185,7 +184,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         {
             Point2D referenceLocation = data.WrappedData.Structure?.Location;
             return SelectableHydraulicBoundaryLocationHelper.GetSortedSelectableHydraulicBoundaryLocations(
-                data.AssessmentSection.HydraulicBoundaryDatabases.SelectMany(hbd => hbd.Locations), referenceLocation);
+                data.AssessmentSection.HydraulicBoundaryDatabase.Locations, referenceLocation);
         }
 
         public abstract IEnumerable<TStructure> GetAvailableStructures();

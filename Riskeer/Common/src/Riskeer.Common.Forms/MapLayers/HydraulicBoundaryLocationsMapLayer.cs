@@ -118,7 +118,7 @@ namespace Riskeer.Common.Forms.MapLayers
 
             hydraulicBoundaryLocationsObserver = new Observer(UpdateFeatures)
             {
-                Observable = assessmentSection.HydraulicBoundaryDatabases.First().Locations
+                Observable = assessmentSection.HydraulicBoundaryDatabase.Locations
             };
 
             waterLevelCalculationsForSignalFloodingProbabilityObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
@@ -193,7 +193,7 @@ namespace Riskeer.Common.Forms.MapLayers
             IReadOnlyDictionary<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, string> waveHeightsCalculations = GetWaveHeightCalculations();
 
             IEnumerable<AggregatedHydraulicBoundaryLocation> newLocations = AggregatedHydraulicBoundaryLocationFactory.CreateAggregatedHydraulicBoundaryLocations(
-                assessmentSection.HydraulicBoundaryDatabases.SelectMany(hbd => hbd.Locations), waterLevelCalculations, waveHeightsCalculations);
+                assessmentSection.HydraulicBoundaryDatabase.Locations, waterLevelCalculations, waveHeightsCalculations);
 
             MapData.Features = RiskeerMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(newLocations);
 

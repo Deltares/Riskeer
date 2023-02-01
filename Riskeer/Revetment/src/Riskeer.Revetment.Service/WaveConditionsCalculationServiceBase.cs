@@ -145,16 +145,16 @@ namespace Riskeer.Revetment.Service
                                                                             RoundedDouble b,
                                                                             RoundedDouble c,
                                                                             double targetProbability,
-                                                                            IEnumerable<HydraulicBoundaryDatabase> hydraulicBoundaryDatabases)
+                                                                            HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
             if (waveConditionsInput == null)
             {
                 throw new ArgumentNullException(nameof(waveConditionsInput));
             }
 
-            if (hydraulicBoundaryDatabases == null)
+            if (hydraulicBoundaryDatabase == null)
             {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabases));
+                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
             }
 
             var calculationsFailed = 0;
@@ -174,8 +174,7 @@ namespace Riskeer.Revetment.Service
                     WaveConditionsOutput output = CalculateWaterLevel(waterLevel,
                                                                       a, b, c, targetProbability,
                                                                       waveConditionsInput,
-                                                                      HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabases,
-                                                                                                                                 waveConditionsInput.HydraulicBoundaryLocation));
+                                                                      HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase));
 
                     if (output != null)
                     {

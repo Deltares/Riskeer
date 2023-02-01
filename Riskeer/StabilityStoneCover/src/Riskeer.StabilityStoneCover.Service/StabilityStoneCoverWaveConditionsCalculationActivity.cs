@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Service;
 using Riskeer.Revetment.Data;
@@ -75,7 +74,7 @@ namespace Riskeer.StabilityStoneCover.Service
         {
             return WaveConditionsCalculationServiceBase.Validate(calculation.InputParameters,
                                                                  WaveConditionsInputHelper.GetAssessmentLevel(calculation.InputParameters, assessmentSection),
-                                                                 assessmentSection.HydraulicBoundaryDatabases.First());
+                                                                 assessmentSection.HydraulicBoundaryDatabase);
         }
 
         protected override void PerformCalculation()

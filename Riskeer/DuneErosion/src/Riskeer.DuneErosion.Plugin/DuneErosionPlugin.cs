@@ -619,7 +619,7 @@ namespace Riskeer.DuneErosion.Plugin
                                                                                                                                                    probability => probability.TargetProbability));
                 });
 
-            string validationText = HydraulicBoundaryDatabaseConnectionValidator.Validate(context.AssessmentSection.HydraulicBoundaryDatabases.First());
+            string validationText = HydraulicBoundaryDatabaseConnectionValidator.Validate(context.AssessmentSection.HydraulicBoundaryDatabase);
 
             if (!string.IsNullOrEmpty(validationText))
             {
@@ -654,7 +654,7 @@ namespace Riskeer.DuneErosion.Plugin
                                                      DuneLocationCalculationActivityFactory.CreateCalculationActivities(failureMechanism, assessmentSection));
                 });
 
-            string validationText = HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabases.First());
+            string validationText = HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
 
             if (string.IsNullOrEmpty(validationText) && !failureMechanism.DuneLocations.Any())
             {

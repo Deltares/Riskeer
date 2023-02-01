@@ -120,7 +120,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                     filePath,
                     context.WrappedData,
                     context.AssessmentSection.FailureMechanismContribution,
-                    context.AssessmentSection.HydraulicBoundaryDatabases.SelectMany(hbd => hbd.Locations),
+                    context.AssessmentSection.HydraulicBoundaryDatabase.Locations,
                     context.AvailableDikeProfiles));
 
             yield return new ImportInfo<DikeProfilesContext>
@@ -1072,7 +1072,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
         private static string EnableValidateAndCalculateMenuItem(IAssessmentSection assessmentSection)
         {
-            return HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabases.First());
+            return HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
         }
 
         #endregion

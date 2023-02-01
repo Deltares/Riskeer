@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Riskeer.Common.Data.Hydraulics
 {
@@ -39,20 +37,12 @@ namespace Riskeer.Common.Data.Hydraulics
         /// <returns>A <see cref="HydraulicBoundaryCalculationSettings"/>.</returns>
         /// <exception cref="ArgumentException">Thrown when the hydraulic boundary database file path or
         /// the hlcd file path is <c>null</c>, is empty or consists of whitespace.</exception>
-        public static HydraulicBoundaryCalculationSettings CreateSettings(IEnumerable<HydraulicBoundaryDatabase> hydraulicBoundaryDatabases,
-                                                                          HydraulicBoundaryLocation location)
+        public static HydraulicBoundaryCalculationSettings CreateSettings(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
-            if (hydraulicBoundaryDatabases == null)
+            if (hydraulicBoundaryDatabase == null)
             {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabases));
+                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
             }
-
-            if (location == null)
-            {
-                throw new ArgumentNullException(nameof(location));
-            }
-
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = hydraulicBoundaryDatabases.First(hbd => hbd.Locations.Contains(location));
 
             return new HydraulicBoundaryCalculationSettings(hydraulicBoundaryDatabase.FilePath,
                                                             hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.FilePath,

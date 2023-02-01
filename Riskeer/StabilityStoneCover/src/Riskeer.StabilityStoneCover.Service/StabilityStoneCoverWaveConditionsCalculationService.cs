@@ -184,7 +184,7 @@ namespace Riskeer.StabilityStoneCover.Service
             IEnumerable<WaveConditionsOutput> outputs = CalculateWaveConditions(calculation.InputParameters,
                                                                                 assessmentLevel, generalInput.A,
                                                                                 generalInput.B, generalInput.C, targetProbability,
-                                                                                assessmentSection.HydraulicBoundaryDatabases);
+                                                                                assessmentSection.HydraulicBoundaryDatabase);
             log.InfoFormat(RevetmentServiceResources.WaveConditionsCalculationService_Calculate_calculationType_0_ended, calculationType);
             return outputs;
         }

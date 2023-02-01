@@ -235,7 +235,7 @@ namespace Riskeer.Common.Forms.Views
                 UpdateComboBoxColumns();
             })
             {
-                Observable = AssessmentSection.HydraulicBoundaryDatabases.First().Locations
+                Observable = AssessmentSection.HydraulicBoundaryDatabase.Locations
             };
 
             // The concat is needed to observe the input of calculations in child groups.
@@ -419,7 +419,7 @@ namespace Riskeer.Common.Forms.Views
         private IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocations(Point2D referencePoint)
         {
             return SelectableHydraulicBoundaryLocationHelper.GetSortedSelectableHydraulicBoundaryLocations(
-                AssessmentSection.HydraulicBoundaryDatabases.SelectMany(hbd => hbd.Locations), referencePoint);
+                AssessmentSection.HydraulicBoundaryDatabase.Locations, referencePoint);
         }
 
         #endregion

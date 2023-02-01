@@ -61,12 +61,11 @@ namespace Riskeer.Common.Service
                 throw new ArgumentNullException(nameof(calculations));
             }
 
-            return calculations.Select(calculation => new WaveHeightCalculationActivity(
-                                           calculation,
-                                           HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                                               assessmentSection.HydraulicBoundaryDatabases, calculation.HydraulicBoundaryLocation),
-                                           targetProbability,
-                                           calculationIdentifier)).ToArray();
+            HydraulicBoundaryCalculationSettings settings = HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase);
+            return calculations.Select(calculation => new WaveHeightCalculationActivity(calculation,
+                                                                                        settings,
+                                                                                        targetProbability,
+                                                                                        calculationIdentifier)).ToArray();
         }
 
         /// <summary>
@@ -97,12 +96,11 @@ namespace Riskeer.Common.Service
                 throw new ArgumentNullException(nameof(calculations));
             }
 
-            return calculations.Select(calculation => new DesignWaterLevelCalculationActivity(
-                                           calculation,
-                                           HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                                               assessmentSection.HydraulicBoundaryDatabases, calculation.HydraulicBoundaryLocation),
-                                           targetProbability,
-                                           calculationIdentifier)).ToArray();
+            HydraulicBoundaryCalculationSettings settings = HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase);
+            return calculations.Select(calculation => new DesignWaterLevelCalculationActivity(calculation,
+                                                                                              settings,
+                                                                                              targetProbability,
+                                                                                              calculationIdentifier)).ToArray();
         }
     }
 }

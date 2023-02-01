@@ -120,7 +120,7 @@ namespace Riskeer.Storage.Core.Read
             HydraulicBoundaryDatabaseEntity hydraulicBoundaryDatabaseEntity = entity.HydraulicBoundaryDatabaseEntities.SingleOrDefault();
             if (hydraulicBoundaryDatabaseEntity != null)
             {
-                HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabases.First();
+                HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
                 hydraulicBoundaryDatabaseEntity.Read(hydraulicBoundaryDatabase);
 
                 HydraulicBoundaryLocation[] readHydraulicBoundaryLocations = entity.HydraulicLocationEntities

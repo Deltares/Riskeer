@@ -81,8 +81,7 @@ namespace Riskeer.HeightStructures.Service
 
             calculationService.Calculate(calculation,
                                          failureMechanism.GeneralInput,
-                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabases,
-                                                                                                    calculation.InputParameters.HydraulicBoundaryLocation));
+                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase));
         }
 
         protected override void OnCancel()

@@ -144,7 +144,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         {
             Point2D referencePoint = SurfaceLine?.ReferenceLineIntersectionWorldPoint;
             return SelectableHydraulicBoundaryLocationHelper.GetSortedSelectableHydraulicBoundaryLocations(
-                data.AssessmentSection.HydraulicBoundaryDatabases.SelectMany(hbd => hbd.Locations), referencePoint);
+                data.AssessmentSection.HydraulicBoundaryDatabase.Locations, referencePoint);
         }
 
         /// <summary>

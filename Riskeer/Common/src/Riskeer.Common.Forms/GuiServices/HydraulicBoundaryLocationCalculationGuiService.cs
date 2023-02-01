@@ -70,7 +70,7 @@ namespace Riskeer.Common.Forms.GuiServices
                 throw new ArgumentNullException(nameof(calculations));
             }
 
-            RunActivities(assessmentSection.HydraulicBoundaryDatabases,
+            RunActivities(assessmentSection.HydraulicBoundaryDatabase,
                           HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
                               calculations,
                               assessmentSection,
@@ -93,7 +93,7 @@ namespace Riskeer.Common.Forms.GuiServices
                 throw new ArgumentNullException(nameof(calculations));
             }
 
-            RunActivities(assessmentSection.HydraulicBoundaryDatabases,
+            RunActivities(assessmentSection.HydraulicBoundaryDatabase,
                           HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
                               calculations,
                               assessmentSection,
@@ -101,25 +101,23 @@ namespace Riskeer.Common.Forms.GuiServices
                               calculationIdentifier));
         }
 
-        private void RunActivities(IEnumerable<HydraulicBoundaryDatabase> hydraulicBoundaryDatabases, IEnumerable<CalculatableActivity> activities)
+        private void RunActivities(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, IEnumerable<CalculatableActivity> activities)
         {
-            foreach (HydraulicBoundaryDatabase hydraulicBoundaryDatabase in hydraulicBoundaryDatabases)
-            {
-                string validationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(
-                    hydraulicBoundaryDatabase.FilePath,
-                    hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.FilePath,
-                    hydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
-                    hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessorClosure);
+            string validationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(
+                hydraulicBoundaryDatabase.FilePath,
+                hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.FilePath,
+                hydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
+                hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessorClosure);
 
-                if (!string.IsNullOrEmpty(validationProblem))
-                {
-                    log.ErrorFormat(Resources.CalculateHydraulicBoundaryLocation_Start_calculation_failed_0_,
-                                    validationProblem);
-                    return;
-                }
+            if (string.IsNullOrEmpty(validationProblem))
+            {
+                ActivityProgressDialogRunner.Run(viewParent, activities);
             }
-            
-            ActivityProgressDialogRunner.Run(viewParent, activities);
+            else
+            {
+                log.ErrorFormat(Resources.CalculateHydraulicBoundaryLocation_Start_calculation_failed_0_,
+                                validationProblem);
+            }
         }
     }
 }

@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Gui.Forms;
 using Core.Gui.Forms.ProgressDialog;
 using log4net;
@@ -82,9 +81,9 @@ namespace Riskeer.DuneErosion.Forms.GuiServices
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            string hydraulicBoundaryDatabaseFilePath = assessmentSection.HydraulicBoundaryDatabases.First().FilePath;
-            string preprocessorDirectory = assessmentSection.HydraulicBoundaryDatabases.First().EffectivePreprocessorDirectory();
-            HydraulicLocationConfigurationSettings hydraulicLocationConfigurationSettings = assessmentSection.HydraulicBoundaryDatabases.First().HydraulicLocationConfigurationSettings;
+            string hydraulicBoundaryDatabaseFilePath = assessmentSection.HydraulicBoundaryDatabase.FilePath;
+            string preprocessorDirectory = assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory();
+            HydraulicLocationConfigurationSettings hydraulicLocationConfigurationSettings = assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings;
 
             string validationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(hydraulicBoundaryDatabaseFilePath,
                                                                                                    hydraulicLocationConfigurationSettings.FilePath,
