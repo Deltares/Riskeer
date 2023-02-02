@@ -150,10 +150,10 @@ namespace Riskeer.Integration.Plugin.Merge
                                                                                sourceAssessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability));
             changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities,
                                                                                sourceAssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities,
-                                                                               targetAssessmentSection.HydraulicBoundaryDatabase.Locations));
+                                                                               targetAssessmentSection.HydraulicBoundaryDatabases.HydraulicBoundaryDatabaseInstances.First().Locations));
             changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities,
                                                                                sourceAssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities,
-                                                                               targetAssessmentSection.HydraulicBoundaryDatabase.Locations));
+                                                                               targetAssessmentSection.HydraulicBoundaryDatabases.HydraulicBoundaryDatabaseInstances.First().Locations));
 
             log.Info(changedObjects.Any()
                          ? Resources.AssessmentSectionMergeHandler_MergeHydraulicBoundaryLocations_HydraulicBoundaryLocations_merged
@@ -274,7 +274,7 @@ namespace Riskeer.Integration.Plugin.Merge
 
         private static void MergeFailureMechanisms(AssessmentSection targetAssessmentSection, AssessmentSectionMergeData mergeData)
         {
-            ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations = targetAssessmentSection.HydraulicBoundaryDatabase.Locations;
+            ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations = targetAssessmentSection.HydraulicBoundaryDatabases.HydraulicBoundaryDatabaseInstances.First().Locations;
             AssessmentSection sourceAssessmentSection = mergeData.AssessmentSection;
 
             if (mergeData.MergePiping)

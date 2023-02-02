@@ -80,21 +80,21 @@ namespace Riskeer.Revetment.Service
         /// <paramref name="hydraulicBoundaryDatabase"/> is <c>null</c>.</exception>
         public static bool Validate(WaveConditionsInput waveConditionsInput,
                                     RoundedDouble assessmentLevel,
-                                    HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+                                    HydraulicBoundaryDatabases hydraulicBoundaryDatabases)
         {
             if (waveConditionsInput == null)
             {
                 throw new ArgumentNullException(nameof(waveConditionsInput));
             }
 
-            if (hydraulicBoundaryDatabase == null)
+            if (hydraulicBoundaryDatabases == null)
             {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
+                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabases));
             }
 
             CalculationServiceHelper.LogValidationBegin();
 
-            string[] messages = ValidateInput(hydraulicBoundaryDatabase,
+            string[] messages = ValidateInput(hydraulicBoundaryDatabases,
                                               waveConditionsInput,
                                               assessmentLevel);
 
@@ -145,16 +145,16 @@ namespace Riskeer.Revetment.Service
                                                                             RoundedDouble b,
                                                                             RoundedDouble c,
                                                                             double targetProbability,
-                                                                            HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+                                                                            HydraulicBoundaryDatabases hydraulicBoundaryDatabases)
         {
             if (waveConditionsInput == null)
             {
                 throw new ArgumentNullException(nameof(waveConditionsInput));
             }
 
-            if (hydraulicBoundaryDatabase == null)
+            if (hydraulicBoundaryDatabases == null)
             {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
+                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabases));
             }
 
             var calculationsFailed = 0;
@@ -174,7 +174,7 @@ namespace Riskeer.Revetment.Service
                     WaveConditionsOutput output = CalculateWaterLevel(waterLevel,
                                                                       a, b, c, targetProbability,
                                                                       waveConditionsInput,
-                                                                      HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase));
+                                                                      HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabases, waveConditionsInput.HydraulicBoundaryLocation));
 
                     if (output != null)
                     {
@@ -205,19 +205,19 @@ namespace Riskeer.Revetment.Service
             return outputs;
         }
 
-        private static string[] ValidateInput(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
+        private static string[] ValidateInput(HydraulicBoundaryDatabases hydraulicBoundaryDatabases,
                                               WaveConditionsInput input,
                                               RoundedDouble assessmentLevel)
         {
             var validationResults = new List<string>();
 
-            string databaseFilePathValidationProblem = HydraulicBoundaryDatabaseConnectionValidator.Validate(hydraulicBoundaryDatabase);
+            string databaseFilePathValidationProblem = HydraulicBoundaryDatabaseConnectionValidator.Validate(hydraulicBoundaryDatabases);
             if (!string.IsNullOrEmpty(databaseFilePathValidationProblem))
             {
                 validationResults.Add(databaseFilePathValidationProblem);
             }
 
-            string preprocessorDirectoryValidationProblem = HydraulicBoundaryDatabaseHelper.ValidatePreprocessorDirectory(hydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
+            string preprocessorDirectoryValidationProblem = HydraulicBoundaryDatabaseHelper.ValidatePreprocessorDirectory(hydraulicBoundaryDatabases.EffectivePreprocessorDirectory());
             if (!string.IsNullOrEmpty(preprocessorDirectoryValidationProblem))
             {
                 validationResults.Add(preprocessorDirectoryValidationProblem);

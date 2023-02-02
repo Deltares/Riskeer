@@ -82,8 +82,8 @@ namespace Riskeer.DuneErosion.Forms.GuiServices
             }
 
             string hydraulicBoundaryDatabaseFilePath = assessmentSection.HydraulicBoundaryDatabase.FilePath;
-            string preprocessorDirectory = assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory();
-            HydraulicLocationConfigurationSettings hydraulicLocationConfigurationSettings = assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings;
+            string preprocessorDirectory = assessmentSection.HydraulicBoundaryDatabases.EffectivePreprocessorDirectory();
+            HydraulicLocationConfigurationSettings hydraulicLocationConfigurationSettings = assessmentSection.HydraulicBoundaryDatabases.HydraulicLocationConfigurationSettings;
 
             string validationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(hydraulicBoundaryDatabaseFilePath,
                                                                                                    hydraulicLocationConfigurationSettings.FilePath,

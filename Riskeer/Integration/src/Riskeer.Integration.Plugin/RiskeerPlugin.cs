@@ -1158,13 +1158,13 @@ namespace Riskeer.Integration.Plugin
             }
 
             AssessmentSection assessmentSection = riskeerProject.AssessmentSection;
-            if (assessmentSection.HydraulicBoundaryDatabase.IsLinked())
+            if (assessmentSection.HydraulicBoundaryDatabases.IsLinked())
             {
                 string validationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(
                     assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                    assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.FilePath,
-                    assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
-                    assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessorClosure);
+                    assessmentSection.HydraulicBoundaryDatabases.HydraulicLocationConfigurationSettings.FilePath,
+                    assessmentSection.HydraulicBoundaryDatabases.EffectivePreprocessorDirectory(),
+                    assessmentSection.HydraulicBoundaryDatabases.HydraulicLocationConfigurationSettings.UsePreprocessorClosure);
 
                 if (validationProblem != null)
                 {
@@ -2396,7 +2396,7 @@ namespace Riskeer.Integration.Plugin
 
         private static void SetHydraulicsMenuItemEnabledStateAndTooltip(IAssessmentSection assessmentSection, StrictContextMenuItem menuItem)
         {
-            string validationText = HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
+            string validationText = HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabases);
             if (!string.IsNullOrEmpty(validationText))
             {
                 menuItem.Enabled = false;
@@ -2762,7 +2762,7 @@ namespace Riskeer.Integration.Plugin
             var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01);
 
             calculationsForTargetProbability.HydraulicBoundaryLocationCalculations.AddRange(
-                assessmentSection.HydraulicBoundaryDatabase.Locations.Select(hbl => new HydraulicBoundaryLocationCalculation(hbl)));
+                assessmentSection.HydraulicBoundaryDatabases.GetAllLocations().Select(hbl => new HydraulicBoundaryLocationCalculation(hbl)));
 
             return calculationsForTargetProbability;
         }

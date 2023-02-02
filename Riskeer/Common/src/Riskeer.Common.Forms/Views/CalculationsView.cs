@@ -31,6 +31,7 @@ using Core.Common.Util.Extensions;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.Properties;
@@ -419,7 +420,7 @@ namespace Riskeer.Common.Forms.Views
         private IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocations(Point2D referencePoint)
         {
             return SelectableHydraulicBoundaryLocationHelper.GetSortedSelectableHydraulicBoundaryLocations(
-                AssessmentSection.HydraulicBoundaryDatabase.Locations, referencePoint);
+                AssessmentSection.HydraulicBoundaryDatabases.GetAllLocations(), referencePoint);
         }
 
         #endregion

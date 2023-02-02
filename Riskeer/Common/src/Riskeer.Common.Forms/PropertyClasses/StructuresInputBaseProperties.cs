@@ -32,6 +32,7 @@ using Riskeer.Common.Data;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.Helpers;
@@ -184,7 +185,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         {
             Point2D referenceLocation = data.WrappedData.Structure?.Location;
             return SelectableHydraulicBoundaryLocationHelper.GetSortedSelectableHydraulicBoundaryLocations(
-                data.AssessmentSection.HydraulicBoundaryDatabase.Locations, referenceLocation);
+                data.AssessmentSection.HydraulicBoundaryDatabases.GetAllLocations(), referenceLocation);
         }
 
         public abstract IEnumerable<TStructure> GetAvailableStructures();

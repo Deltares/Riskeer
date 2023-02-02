@@ -80,7 +80,7 @@ namespace Riskeer.Revetment.Forms.PresentationObjects
         {
             get
             {
-                return AssessmentSection.HydraulicBoundaryDatabase.Locations;
+                return AssessmentSection.HydraulicBoundaryDatabases.GetAllLocations();
             }
         }
 

@@ -74,7 +74,7 @@ namespace Riskeer.StabilityStoneCover.Service
         {
             return WaveConditionsCalculationServiceBase.Validate(calculation.InputParameters,
                                                                  WaveConditionsInputHelper.GetAssessmentLevel(calculation.InputParameters, assessmentSection),
-                                                                 assessmentSection.HydraulicBoundaryDatabase);
+                                                                 assessmentSection.HydraulicBoundaryDatabases);
         }
 
         protected override void PerformCalculation()

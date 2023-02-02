@@ -51,7 +51,7 @@ namespace Riskeer.Integration.Service.Comparers
             return assessmentSection.Id == otherAssessmentSection.Id
                    && assessmentSection.Composition == otherAssessmentSection.Composition
                    && AreReferenceLinesEquivalent(assessmentSection.ReferenceLine, otherAssessmentSection.ReferenceLine)
-                   && AreHydraulicBoundaryDatabasesEquivalent(assessmentSection.HydraulicBoundaryDatabase, otherAssessmentSection.HydraulicBoundaryDatabase)
+                   && AreHydraulicBoundaryDatabasesEquivalent(assessmentSection.HydraulicBoundaryDatabases, otherAssessmentSection.HydraulicBoundaryDatabases)
                    && AreFailureMechanismContributionsEquivalent(assessmentSection.FailureMechanismContribution, otherAssessmentSection.FailureMechanismContribution);
         }
 
@@ -77,12 +77,12 @@ namespace Riskeer.Integration.Service.Comparers
             return true;
         }
 
-        private static bool AreHydraulicBoundaryDatabasesEquivalent(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
-                                                                    HydraulicBoundaryDatabase otherHydraulicBoundaryDatabase)
+        private static bool AreHydraulicBoundaryDatabasesEquivalent(HydraulicBoundaryDatabases hydraulicBoundaryDatabases,
+                                                                    HydraulicBoundaryDatabases otherHydraulicBoundaryDatabases)
         {
-            return hydraulicBoundaryDatabase.Version == otherHydraulicBoundaryDatabase.Version
-                   && AreHydraulicBoundaryLocationConfigurationSettingsEquivalent(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings,
-                                                                                  otherHydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings);
+            return hydraulicBoundaryDatabases.HydraulicBoundaryDatabaseInstances.First().Version == otherHydraulicBoundaryDatabases.HydraulicBoundaryDatabaseInstances.First().Version
+                   && AreHydraulicBoundaryLocationConfigurationSettingsEquivalent(hydraulicBoundaryDatabases.HydraulicLocationConfigurationSettings,
+                                                                                  otherHydraulicBoundaryDatabases.HydraulicLocationConfigurationSettings);
         }
 
         private static bool AreHydraulicBoundaryLocationConfigurationSettingsEquivalent(HydraulicLocationConfigurationSettings hydraulicLocationConfigurationSettings,

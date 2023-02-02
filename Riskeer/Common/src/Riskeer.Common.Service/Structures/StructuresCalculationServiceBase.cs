@@ -328,8 +328,9 @@ namespace Riskeer.Common.Service.Structures
         {
             var validationResults = new List<string>();
 
-            string preprocessorDirectory = assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory();
-            string databaseFilePathValidationProblem = HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
+            string preprocessorDirectory = assessmentSection.HydraulicBoundaryDatabases.EffectivePreprocessorDirectory();
+            string databaseFilePathValidationProblem = HydraulicBoundaryDatabaseConnectionValidator.Validate(
+                assessmentSection.HydraulicBoundaryDatabases);
             if (!string.IsNullOrEmpty(databaseFilePathValidationProblem))
             {
                 validationResults.Add(databaseFilePathValidationProblem);

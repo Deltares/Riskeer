@@ -37,28 +37,31 @@ namespace Riskeer.Common.Service
         /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database to validate.</param>
         /// <returns>An error message if a problem was found; <c>null</c> in case no problems were found.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryDatabase"/> is <c>null</c>.</exception>
-        public static string Validate(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+        public static string Validate(HydraulicBoundaryDatabases hydraulicBoundaryDatabases)
         {
-            if (hydraulicBoundaryDatabase == null)
+            if (hydraulicBoundaryDatabases == null)
             {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
+                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabases));
             }
 
-            if (!hydraulicBoundaryDatabase.IsLinked())
+            if (!hydraulicBoundaryDatabases.IsLinked())
             {
                 return Resources.HydraulicBoundaryDatabaseConnectionValidator_No_hydraulic_boundary_database_imported;
             }
 
-            string validationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(
-                hydraulicBoundaryDatabase.FilePath,
-                hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.FilePath,
-                hydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
-                hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessorClosure);
-
-            if (!string.IsNullOrEmpty(validationProblem))
+            foreach (HydraulicBoundaryDatabase hydraulicBoundaryDatabase in hydraulicBoundaryDatabases.HydraulicBoundaryDatabaseInstances)
             {
-                return string.Format(Resources.Hydraulic_boundary_database_connection_failed_0_,
-                                     validationProblem);
+                string validationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(
+                    hydraulicBoundaryDatabase.FilePath,
+                    hydraulicBoundaryDatabases.HydraulicLocationConfigurationSettings.FilePath,
+                    hydraulicBoundaryDatabases.EffectivePreprocessorDirectory(),
+                    hydraulicBoundaryDatabases.HydraulicLocationConfigurationSettings.UsePreprocessorClosure);
+                
+                if (!string.IsNullOrEmpty(validationProblem))
+                {
+                    return string.Format(Resources.Hydraulic_boundary_database_connection_failed_0_,
+                                         validationProblem);
+                }
             }
 
             return null;

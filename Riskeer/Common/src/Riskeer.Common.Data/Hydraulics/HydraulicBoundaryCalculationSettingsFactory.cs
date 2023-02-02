@@ -37,17 +37,18 @@ namespace Riskeer.Common.Data.Hydraulics
         /// <returns>A <see cref="HydraulicBoundaryCalculationSettings"/>.</returns>
         /// <exception cref="ArgumentException">Thrown when the hydraulic boundary database file path or
         /// the hlcd file path is <c>null</c>, is empty or consists of whitespace.</exception>
-        public static HydraulicBoundaryCalculationSettings CreateSettings(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+        public static HydraulicBoundaryCalculationSettings CreateSettings(HydraulicBoundaryDatabases hydraulicBoundaryDatabases,
+                                                                          HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            if (hydraulicBoundaryDatabase == null)
+            if (hydraulicBoundaryDatabases == null)
             {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
+                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabases));
             }
 
-            return new HydraulicBoundaryCalculationSettings(hydraulicBoundaryDatabase.FilePath,
-                                                            hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.FilePath,
-                                                            hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessorClosure,
-                                                            hydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
+            return new HydraulicBoundaryCalculationSettings(hydraulicBoundaryDatabases.GetHydraulicBoundaryDatabase(hydraulicBoundaryLocation).FilePath,
+                                                            hydraulicBoundaryDatabases.HydraulicLocationConfigurationSettings.FilePath,
+                                                            hydraulicBoundaryDatabases.HydraulicLocationConfigurationSettings.UsePreprocessorClosure,
+                                                            hydraulicBoundaryDatabases.EffectivePreprocessorDirectory());
         }
     }
 }
