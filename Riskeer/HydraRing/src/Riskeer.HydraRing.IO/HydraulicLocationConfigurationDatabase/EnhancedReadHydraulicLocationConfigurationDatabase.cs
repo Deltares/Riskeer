@@ -31,24 +31,23 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// <summary>
         /// Creates a new instance of <see cref="EnhancedReadHydraulicLocationConfigurationDatabase"/>.
         /// </summary>
-        /// <param name="locationIdMappings">The location id mappings of the read hydraulic location
+        /// <param name="readHydraulicLocations">The locations of the read hydraulic location configuration database.</param>
+        /// <param name="readHydraulicLocationConfigurationDatabaseSettings">The settings of the read hydraulic location
         /// configuration database.</param>
-        /// <param name="readHydraulicLocationConfigurationDatabaseSettings">The hydraulic location configuration settings
-        /// of the read hydraulic location database.</param>
         /// <param name="usePreprocessorClosure">Indicator whether to use the preprocessor closure.</param>
-        internal EnhancedReadHydraulicLocationConfigurationDatabase(IEnumerable<ReadHydraulicLocationMapping> locationIdMappings,
+        internal EnhancedReadHydraulicLocationConfigurationDatabase(IEnumerable<ReadHydraulicLocation> readHydraulicLocations,
                                                                     IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> readHydraulicLocationConfigurationDatabaseSettings,
                                                                     bool usePreprocessorClosure)
         {
-            LocationIdMappings = locationIdMappings;
+            ReadHydraulicLocations = readHydraulicLocations;
             ReadHydraulicLocationConfigurationDatabaseSettings = readHydraulicLocationConfigurationDatabaseSettings;
             UsePreprocessorClosure = usePreprocessorClosure;
         }
 
         /// <summary>
-        /// Gets the location id mappings of the read hydraulic location configuration database.
+        /// Gets the locations of the read hydraulic location configuration database.
         /// </summary>
-        public IEnumerable<ReadHydraulicLocationMapping> LocationIdMappings { get; }
+        public IEnumerable<ReadHydraulicLocation> ReadHydraulicLocations { get; }
 
         /// <summary>
         /// Gets the settings of the read hydraulic location configuration database.
