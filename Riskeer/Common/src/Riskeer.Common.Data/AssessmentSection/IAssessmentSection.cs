@@ -66,7 +66,7 @@ namespace Riskeer.Common.Data.AssessmentSection
         /// <summary>
         /// Gets the hydraulic boundary database.
         /// </summary>
-        HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; }
+        HydraulicBoundaryDatabases HydraulicBoundaryDatabases { get; }
 
         /// <summary>
         /// Gets the data that represents the background for all geo-referenced data.
