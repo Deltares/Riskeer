@@ -61,34 +61,26 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// could not be read.</exception>
         /// <exception cref="LineParseException">Thrown when the database returned incorrect values for 
         /// required properties.</exception>
-        public ReadHydraulicLocationConfigurationDatabase Read()
+        public EnhancedReadHydraulicLocationConfigurationDatabase Read()
         {
             IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> configurationSettings = IsScenarioInformationTablePresent()
                                                                                                         ? GetConfigurationSettings()
                                                                                                         : null;
 
-            return new ReadHydraulicLocationConfigurationDatabase(GetLocationIdsByTrackId(1),
-                                                                  configurationSettings,
-                                                                  GetUsePreprocessorClosureByTrackId(1));
+            return new EnhancedReadHydraulicLocationConfigurationDatabase(GetLocations(),
+                                                                          configurationSettings,
+                                                                          GetUsePreprocessorClosureByTrackId(1));
         }
 
         /// <summary>
-        /// Gets the location ids from the database, based upon <paramref name="trackId"/>.
+        /// Gets the locations from the database.
         /// </summary>
-        /// <param name="trackId">The hydraulic boundary track id.</param>
-        /// <returns>A collection of <see cref="ReadHydraulicLocationMapping"/> as found in the database.</returns>
+        /// <returns>A collection of <see cref="ReadHydraulicLocation"/> as found in the database.</returns>
         /// <exception cref="CriticalFileReadException">Thrown when the database query failed.</exception>
         /// <exception cref="LineParseException">Thrown when the database returned incorrect values for 
         /// required properties.</exception>
-        private IEnumerable<ReadHydraulicLocationMapping> GetLocationIdsByTrackId(long trackId)
+        private IEnumerable<ReadHydraulicLocation> GetLocations()
         {
-            var trackParameter = new SQLiteParameter
-            {
-                DbType = DbType.String,
-                ParameterName = LocationsTableDefinitions.TrackId,
-                Value = trackId
-            };
-
             try
             {
                 return GetLocationIdsFromDatabase(trackParameter);
