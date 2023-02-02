@@ -4,13 +4,20 @@ namespace Riskeer.Common.Data.Hydraulics
 {
     public class HydraulicBoundaryDatabases : Observable
     {
+        private readonly ObservableList<HydraulicBoundaryDatabase> hydraulicBoundaryDatabaseInstances;
+        
         public HydraulicBoundaryDatabases()
         {
-            HydraulicBoundaryDatabaseInstances = new ObservableList<HydraulicBoundaryDatabase>();
+            hydraulicBoundaryDatabaseInstances = new ObservableList<HydraulicBoundaryDatabase>();
             HydraulicLocationConfigurationSettings = new HydraulicLocationConfigurationSettings();
         }
 
-        public IObservableEnumerable<HydraulicBoundaryDatabase> HydraulicBoundaryDatabaseInstances { get; }
+        public void AddHydraulicBoundaryDatabaseInstance(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+        {
+            hydraulicBoundaryDatabaseInstances.Add(hydraulicBoundaryDatabase);
+        }
+
+        public IObservableEnumerable<HydraulicBoundaryDatabase> HydraulicBoundaryDatabaseInstances => hydraulicBoundaryDatabaseInstances;
 
         /// <summary>
         /// Gets the <see cref="Hydraulics.HydraulicLocationConfigurationSettings"/>.

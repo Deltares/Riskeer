@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Riskeer.Common.Data.Hydraulics
@@ -46,6 +47,18 @@ namespace Riskeer.Common.Data.Hydraulics
                    && hydraulicBoundaryDatabases.HydraulicLocationConfigurationSettings.UsePreprocessor
                        ? hydraulicBoundaryDatabases.HydraulicLocationConfigurationSettings.PreprocessorDirectory
                        : string.Empty;
+        }
+
+        public static IEnumerable<HydraulicBoundaryLocation> GetAllLocations(this HydraulicBoundaryDatabases hydraulicBoundaryDatabases)
+        {
+            return hydraulicBoundaryDatabases.HydraulicBoundaryDatabaseInstances.SelectMany(hbd => hbd.Locations);
+        }
+
+        public static HydraulicBoundaryDatabase GetHydraulicBoundaryDatabase(this HydraulicBoundaryDatabases hydraulicBoundaryDatabases,
+                                                                             HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            return hydraulicBoundaryDatabases.HydraulicBoundaryDatabaseInstances.First(
+                hbd => hbd.Locations.Contains(hydraulicBoundaryLocation));
         }
     }
 }
