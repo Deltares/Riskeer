@@ -83,7 +83,7 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         {
             try
             {
-                return GetLocationIdsFromDatabase(trackParameter);
+                return GetLocationsFromDatabase();
             }
             catch (SQLiteException exception)
             {
@@ -98,19 +98,18 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         }
 
         /// <summary>
-        /// Gets the location ids from the database, based upon <paramref name="trackParameter"/>.
+        /// Gets the locations from the database.
         /// </summary>
-        /// <param name="trackParameter">A parameter containing the hydraulic boundary track id.</param>
-        /// <returns>A collection of <see cref="ReadHydraulicLocationMapping"/> as found in the database.</returns>
+        /// <returns>A collection of <see cref="ReadHydraulicLocation"/> as found in the database.</returns>
         /// <exception cref="SQLiteException">Thrown when the database query failed.</exception>
         /// <exception cref="InvalidCastException">Thrown when the database returned incorrect values for 
         /// required properties.</exception>
-        private IEnumerable<ReadHydraulicLocationMapping> GetLocationIdsFromDatabase(SQLiteParameter trackParameter)
+        private IEnumerable<ReadHydraulicLocation> GetLocationsFromDatabase()
         {
             string query = HydraulicLocationConfigurationDatabaseQueryBuilder.GetLocationIdsByTrackIdQuery();
             var locationLookup = new Dictionary<long, long>();
 
-            using (IDataReader dataReader = CreateDataReader(query, trackParameter))
+            using (IDataReader dataReader = CreateDataReader(query))
             {
                 while (MoveNext(dataReader))
                 {
@@ -129,7 +128,7 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
                 }
             }
 
-            return locationLookup.Select(lookup => new ReadHydraulicLocationMapping(lookup.Key, lookup.Value)).ToArray();
+            return locationLookup.Select(lookup => new ReadHydraulicLocation(lookup.Key, lookup.Value)).ToArray();
         }
 
         /// <summary>
