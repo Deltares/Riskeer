@@ -33,7 +33,12 @@ namespace Riskeer.HydraRing.IO.HydraulicBoundaryDatabase
         /// <returns>The query to get the HRD file names from a hydraulic location configuration database.</returns>
         public static string GetHrdFileNamesQuery(string trackName)
         {
-            return $"SELECT {HlcdDefinitions.HrdFileNameColumn} FROM {HlcdDefinitions.TracksTable} WHERE {HlcdDefinitions.TrackNameColumn} LIKE '%{trackName}%';";
+            return $"SELECT {HlcdDefinitions.HrdFileNameColumn} " +
+                   $"FROM {HlcdDefinitions.TracksTable} " +
+                   $"WHERE ({HlcdDefinitions.TrackNameColumn} = '{trackName}'" +
+                   $"OR {HlcdDefinitions.TrackNameColumn} LIKE '% {trackName} %'" +
+                   $"OR {HlcdDefinitions.TrackNameColumn} LIKE '{trackName} %'" +
+                   $"OR {HlcdDefinitions.TrackNameColumn} LIKE '% {trackName}');";
         }
     }
 }

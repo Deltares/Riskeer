@@ -82,5 +82,22 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicBoundaryDatabase
             var exception = Assert.Throws<CriticalFileReadException>(Call);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
+        
+        [Test]
+        [TestCase("99")]
+        public void Read_SpecificTrackName_ExpectedValues(string trackName)
+        {
+            // Setup
+            string hlcdFilePath = Path.Combine(testDataPath, "hlcdWithScenarioInformation.sqlite");
+
+            using (var reader = new HlcdReader(hlcdFilePath, trackName))
+            {
+                // Call
+                ReadHydraulicBoundaryDatabase result = reader.Read();
+
+                // Assert
+                // Fixme
+            }
+        }
     }
 }
