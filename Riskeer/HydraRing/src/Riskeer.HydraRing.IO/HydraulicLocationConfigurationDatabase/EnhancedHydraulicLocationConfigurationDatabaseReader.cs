@@ -63,12 +63,10 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// required properties.</exception>
         public EnhancedReadHydraulicLocationConfigurationDatabase Read()
         {
-            IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> configurationSettings = IsScenarioInformationTablePresent()
-                                                                                                        ? GetConfigurationSettings()
-                                                                                                        : null;
-
             return new EnhancedReadHydraulicLocationConfigurationDatabase(GetLocations(),
-                                                                          configurationSettings,
+                                                                          IsScenarioInformationTablePresent()
+                                                                              ? GetConfigurationSettings()
+                                                                              : null,
                                                                           GetUsePreprocessorClosureByTrackId(1));
         }
 
@@ -136,7 +134,34 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
                 throw new LineParseException(message, e);
             }
         }
-        
+
+        /// <summary>
+        /// Determines whether the table related to the scenario information is present in the database.
+        /// </summary>
+        /// <returns><c>true</c> if the table is present; <c>false</c> otherwise.</returns>
+        /// <exception cref="CriticalFileReadException">Thrown when the information could not be read from the database file.</exception>
+        private bool IsScenarioInformationTablePresent()
+        {
+            try
+            {
+                using (IDataReader dataReader = CreateDataReader(HydraulicLocationConfigurationDatabaseQueryBuilder.GetIsScenarioInformationPresentQuery()))
+                {
+                    if (dataReader.Read())
+                    {
+                        return Convert.ToBoolean(dataReader[ScenarioInformationTableDefinitions.IsScenarioInformationPresent]);
+                    }
+
+                    string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
+                    throw new CriticalFileReadException(message);
+                }
+            }
+            catch (SQLiteException exception)
+            {
+                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicLocationConfigurationDatabaseReader_Critical_Unexpected_Exception);
+                throw new CriticalFileReadException(message, exception);
+            }
+        }
+
         /// <summary>
         /// Gets the hydraulic location configuration settings from the database.
         /// </summary>
@@ -174,7 +199,7 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
                 }
             }
         }
-        
+
         /// <summary>
         /// Reads a hydraulic location configuration settings instance from the database.
         /// </summary>
@@ -200,35 +225,6 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
             {
                 string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
                 throw new LineParseException(message, e);
-            }
-        }
-        
-        /// <summary>
-        /// Determines whether the table related to the scenario information is present in the database.
-        /// </summary>
-        /// <returns><c>true</c> if the table is present; <c>false</c> otherwise.</returns>
-        /// <exception cref="CriticalFileReadException">Thrown when the information could not be read from the database file.</exception>
-        private bool IsScenarioInformationTablePresent()
-        {
-            string query = HydraulicLocationConfigurationDatabaseQueryBuilder.GetIsScenarioInformationPresentQuery();
-
-            try
-            {
-                using (IDataReader dataReader = CreateDataReader(query))
-                {
-                    if (dataReader.Read())
-                    {
-                        return Convert.ToBoolean(dataReader[ScenarioInformationTableDefinitions.IsScenarioInformationPresent]);
-                    }
-
-                    string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
-                    throw new CriticalFileReadException(message);
-                }
-            }
-            catch (SQLiteException exception)
-            {
-                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicLocationConfigurationDatabaseReader_Critical_Unexpected_Exception);
-                throw new CriticalFileReadException(message, exception);
             }
         }
 
