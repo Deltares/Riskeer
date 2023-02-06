@@ -81,7 +81,7 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         {
             try
             {
-                return GetLocationsFromDatabase();
+                return GetLocationsFromDatabase().ToArray();
             }
             catch (SQLiteException exception)
             {
@@ -126,14 +126,14 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         {
             try
             {
-                return GetConfigurationSettingsFromDatabase();
+                return GetConfigurationSettingsFromDatabase().ToArray();
             }
             catch (SQLiteException exception)
             {
                 string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicLocationConfigurationDatabaseReader_Critical_Unexpected_Exception);
                 throw new CriticalFileReadException(message, exception);
             }
-            catch (InvalidCastException exception)
+            catch (ConversionException exception)
             {
                 string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
                 throw new LineParseException(message, exception);
@@ -145,7 +145,7 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// </summary>
         /// <returns>A collection of the read hydraulic configuration database settings.</returns>
         /// <exception cref="SQLiteException">Thrown when the database query failed.</exception>
-        /// <exception cref="InvalidCastException">Thrown when the database returned incorrect values for 
+        /// <exception cref="ConversionException">Thrown when the database returned incorrect values for 
         /// required properties.</exception>
         private IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> GetConfigurationSettingsFromDatabase()
         {
@@ -153,15 +153,15 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
             {
                 while (MoveNext(dataReader))
                 {
-                    yield return new ReadHydraulicLocationConfigurationDatabaseSettings(Convert.ToString(dataReader[ScenarioInformationTableDefinitions.ScenarioName]),
-                                                                                        Convert.ToInt32(dataReader[ScenarioInformationTableDefinitions.Year]),
-                                                                                        Convert.ToString(dataReader[ScenarioInformationTableDefinitions.Scope]),
-                                                                                        Convert.ToString(dataReader[ScenarioInformationTableDefinitions.SeaLevel]),
-                                                                                        Convert.ToString(dataReader[ScenarioInformationTableDefinitions.RiverDischarge]),
-                                                                                        Convert.ToString(dataReader[ScenarioInformationTableDefinitions.LakeLevel]),
-                                                                                        Convert.ToString(dataReader[ScenarioInformationTableDefinitions.WindDirection]),
-                                                                                        Convert.ToString(dataReader[ScenarioInformationTableDefinitions.WindSpeed]),
-                                                                                        Convert.ToString(dataReader[ScenarioInformationTableDefinitions.Comment]));
+                    yield return new ReadHydraulicLocationConfigurationDatabaseSettings(dataReader.Read<string>(ScenarioInformationTableDefinitions.ScenarioName),
+                                                                                        dataReader.Read<int>(ScenarioInformationTableDefinitions.Year),
+                                                                                        dataReader.Read<string>(ScenarioInformationTableDefinitions.Scope),
+                                                                                        dataReader.Read<string>(ScenarioInformationTableDefinitions.SeaLevel),
+                                                                                        dataReader.Read<string>(ScenarioInformationTableDefinitions.RiverDischarge),
+                                                                                        dataReader.Read<string>(ScenarioInformationTableDefinitions.LakeLevel),
+                                                                                        dataReader.Read<string>(ScenarioInformationTableDefinitions.WindDirection),
+                                                                                        dataReader.Read<string>(ScenarioInformationTableDefinitions.WindSpeed),
+                                                                                        dataReader.Read<string>(ScenarioInformationTableDefinitions.Comment));
                 }
             }
         }
