@@ -31,5 +31,6 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         public const string LocationId = "LocationId";
         public const string HrdLocationId = "HRDLocationId";
         public const string TrackId = "TrackId";
+        public const string HrdFileName = "HRDFileName";
     }
 }

@@ -34,6 +34,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
             Assert.AreEqual("HRDLocationId", LocationsTableDefinitions.HrdLocationId);
             Assert.AreEqual("LocationId", LocationsTableDefinitions.LocationId);
             Assert.AreEqual("TrackId", LocationsTableDefinitions.TrackId);
+            Assert.AreEqual("HRDFileName", LocationsTableDefinitions.HrdFileName);
         }
     }
 }

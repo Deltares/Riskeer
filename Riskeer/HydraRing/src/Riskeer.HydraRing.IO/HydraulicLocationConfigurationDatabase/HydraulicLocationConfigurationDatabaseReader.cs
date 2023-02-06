@@ -116,7 +116,7 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// required properties.</exception>
         private IEnumerable<ReadHydraulicLocation> GetLocationIdsFromDatabase(SQLiteParameter trackParameter)
         {
-            string query = HydraulicLocationConfigurationDatabaseQueryBuilder.GetLocationIdsByTrackIdQuery();
+            string query = HydraulicLocationConfigurationDatabaseQueryBuilder.GetLocationsQuery();
             var locationLookup = new Dictionary<long, long>();
 
             using (IDataReader dataReader = CreateDataReader(query, trackParameter))

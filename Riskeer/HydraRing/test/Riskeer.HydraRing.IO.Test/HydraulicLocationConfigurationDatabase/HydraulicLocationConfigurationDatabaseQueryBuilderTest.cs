@@ -28,13 +28,13 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
     public class HydraulicLocationConfigurationDatabaseQueryBuilderTest
     {
         [Test]
-        public void GetLocationIdsByTrackIdQuery_Always_ReturnsExpectedValue()
+        public void GetLocationsQuery_Always_ReturnsExpectedValue()
         {
             // Call
-            string query = HydraulicLocationConfigurationDatabaseQueryBuilder.GetLocationIdsByTrackIdQuery();
+            string query = HydraulicLocationConfigurationDatabaseQueryBuilder.GetLocationsQuery();
 
             // Assert
-            const string expectedQuery = "SELECT LocationId, HRDLocationId FROM Locations WHERE TrackId = @TrackId ORDER BY HRDLocationId;";
+            const string expectedQuery = "SELECT LocationId, HRDLocationId, TrackId, HRDFileName FROM Locations;";
             Assert.AreEqual(expectedQuery, query);
         }
 
