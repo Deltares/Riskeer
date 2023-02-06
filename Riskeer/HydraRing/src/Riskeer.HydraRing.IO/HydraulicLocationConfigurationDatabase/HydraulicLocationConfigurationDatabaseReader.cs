@@ -177,17 +177,13 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// required properties.</exception>
         private IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> GetConfigurationSettingsFromDatabase()
         {
-            string query = HydraulicLocationConfigurationDatabaseQueryBuilder.GetScenarioInformationQuery();
-            var readSettings = new List<ReadHydraulicLocationConfigurationDatabaseSettings>();
-            using (IDataReader dataReader = CreateDataReader(query))
+            using (IDataReader dataReader = CreateDataReader(HydraulicLocationConfigurationDatabaseQueryBuilder.GetScenarioInformationQuery()))
             {
                 while (MoveNext(dataReader))
                 {
-                    readSettings.Add(ReadSetting(dataReader));
+                    yield return ReadSetting(dataReader);
                 }
             }
-
-            return readSettings;
         }
 
         /// <summary>
@@ -201,19 +197,15 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         {
             try
             {
-                var scenarioName = reader.Read<string>(ScenarioInformationTableDefinitions.ScenarioName);
-                var year = reader.Read<int>(ScenarioInformationTableDefinitions.Year);
-                var scope = reader.Read<string>(ScenarioInformationTableDefinitions.Scope);
-                var seaLevel = reader.Read<string>(ScenarioInformationTableDefinitions.SeaLevel);
-                var riverDischarge = reader.Read<string>(ScenarioInformationTableDefinitions.RiverDischarge);
-                var lakeLevel = reader.Read<string>(ScenarioInformationTableDefinitions.LakeLevel);
-                var windDirection = reader.Read<string>(ScenarioInformationTableDefinitions.WindDirection);
-                var windSpeed = reader.Read<string>(ScenarioInformationTableDefinitions.WindSpeed);
-                var comment = reader.Read<string>(ScenarioInformationTableDefinitions.Comment);
-
-                return new ReadHydraulicLocationConfigurationDatabaseSettings(scenarioName, year, scope,
-                                                                              seaLevel, riverDischarge, lakeLevel,
-                                                                              windDirection, windSpeed, comment);
+                return new ReadHydraulicLocationConfigurationDatabaseSettings(reader.Read<string>(ScenarioInformationTableDefinitions.ScenarioName),
+                                                                              reader.Read<int>(ScenarioInformationTableDefinitions.Year),
+                                                                              reader.Read<string>(ScenarioInformationTableDefinitions.Scope),
+                                                                              reader.Read<string>(ScenarioInformationTableDefinitions.SeaLevel),
+                                                                              reader.Read<string>(ScenarioInformationTableDefinitions.RiverDischarge),
+                                                                              reader.Read<string>(ScenarioInformationTableDefinitions.LakeLevel),
+                                                                              reader.Read<string>(ScenarioInformationTableDefinitions.WindDirection),
+                                                                              reader.Read<string>(ScenarioInformationTableDefinitions.WindSpeed),
+                                                                              reader.Read<string>(ScenarioInformationTableDefinitions.Comment));
             }
             catch (ConversionException e)
             {
