@@ -98,8 +98,9 @@ namespace Riskeer.Integration.IO.Importers
                 return false;
             }
 
-            ReadResult<ReadHydraulicLocationConfigurationDatabase> readHydraulicLocationConfigurationDatabaseResult = ReadHydraulicLocationConfigurationDatabase(
-                readTrackIdResult.Items.Single());
+            long trackId = readTrackIdResult.Items.Single();
+
+            ReadResult<ReadHydraulicLocationConfigurationDatabase> readHydraulicLocationConfigurationDatabaseResult = ReadHydraulicLocationConfigurationDatabase(trackId);
 
             if (readHydraulicLocationConfigurationDatabaseResult.CriticalErrorOccurred || Canceled)
             {
@@ -122,7 +123,9 @@ namespace Riskeer.Integration.IO.Importers
             }
 
             IEnumerable<long> locationIds = hydraulicBoundaryDatabase.Locations.Select(l => l.Id);
-            long[] intersect = locationIds.Intersect(readHydraulicLocationConfigurationDatabase.LocationIdMappings.Select(l => l.HlcdLocationId))
+            long[] intersect = locationIds.Intersect(readHydraulicLocationConfigurationDatabase.ReadHydraulicLocations
+                                                                                               .Where(rhl => rhl.TrackId == trackId)
+                                                                                               .Select(rhl => rhl.HlcdLocationId))
                                           .ToArray();
 
             if (intersect.Length != locationIds.Count())
