@@ -88,7 +88,7 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
                 string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicLocationConfigurationDatabaseReader_Critical_Unexpected_Exception);
                 throw new CriticalFileReadException(message, exception);
             }
-            catch (InvalidCastException exception)
+            catch (ConversionException exception)
             {
                 string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
                 throw new LineParseException(message, exception);
@@ -100,7 +100,7 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// </summary>
         /// <returns>A collection of <see cref="ReadHydraulicLocation"/> as found in the database.</returns>
         /// <exception cref="SQLiteException">Thrown when the database query failed.</exception>
-        /// <exception cref="InvalidCastException">Thrown when the database returned incorrect values for 
+        /// <exception cref="ConversionException">Thrown when the database returned incorrect values for 
         /// required properties.</exception>
         private IEnumerable<ReadHydraulicLocation> GetLocationsFromDatabase()
         {
@@ -108,9 +108,9 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
             {
                 while (MoveNext(dataReader))
                 {
-                    yield return new ReadHydraulicLocation(Convert.ToInt64(dataReader[LocationsTableDefinitions.LocationId]),
-                                                           Convert.ToInt64(dataReader[LocationsTableDefinitions.HrdLocationId]),
-                                                           Convert.ToInt64(dataReader[LocationsTableDefinitions.TrackId]));
+                    yield return new ReadHydraulicLocation(dataReader.Read<long>(LocationsTableDefinitions.LocationId),
+                                                           dataReader.Read<long>(LocationsTableDefinitions.HrdLocationId),
+                                                           dataReader.Read<long>(LocationsTableDefinitions.TrackId));
                 }
             }
         }
