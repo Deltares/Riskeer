@@ -84,7 +84,8 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
                 ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = hydraulicBoundaryDatabaseReader.Read(trackId);
 
                 // Assert
-                long actualLocationId = readHydraulicLocationConfigurationDatabase.LocationIdMappings.Where(m => m.HrdLocationId == hrdLocationId)
+                long actualLocationId = readHydraulicLocationConfigurationDatabase.ReadHydraulicLocations
+                                                                                  .Where(rhl => rhl.TrackId == trackId && rhl.HrdLocationId == hrdLocationId)
                                                                                   .Select(m => m.HlcdLocationId)
                                                                                   .SingleOrDefault();
                 Assert.AreEqual(expectedLocationId, actualLocationId);
@@ -107,7 +108,8 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
                 ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = hydraulicBoundaryDatabaseReader.Read(trackId);
 
                 // Assert
-                long actualLocationId = readHydraulicLocationConfigurationDatabase.LocationIdMappings.Where(m => m.HrdLocationId == hrdLocationId)
+                long actualLocationId = readHydraulicLocationConfigurationDatabase.ReadHydraulicLocations
+                                                                                  .Where(rhl => rhl.TrackId == trackId && rhl.HrdLocationId == hrdLocationId)
                                                                                   .Select(m => m.HlcdLocationId)
                                                                                   .SingleOrDefault();
                 Assert.AreEqual(expectedLocationId, actualLocationId);
