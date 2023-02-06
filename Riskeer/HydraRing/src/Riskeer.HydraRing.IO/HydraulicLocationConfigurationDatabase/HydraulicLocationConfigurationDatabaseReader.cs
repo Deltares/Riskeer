@@ -116,18 +116,14 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// required properties.</exception>
         private IEnumerable<ReadHydraulicLocation> GetLocationIdsFromDatabase(SQLiteParameter trackParameter)
         {
-            string query = HydraulicLocationConfigurationDatabaseQueryBuilder.GetLocationsQuery();
-
-            using (IDataReader dataReader = CreateDataReader(query))
+            using (IDataReader dataReader = CreateDataReader(HydraulicLocationConfigurationDatabaseQueryBuilder.GetLocationsQuery()))
             {
                 while (MoveNext(dataReader))
                 {
-                    var hlcdLocationId = Convert.ToInt64(dataReader[LocationsTableDefinitions.LocationId]);
-                    var hrdLocationId = Convert.ToInt64(dataReader[LocationsTableDefinitions.HrdLocationId]);
-                    var trackId = Convert.ToInt64(dataReader[LocationsTableDefinitions.TrackId]);
-                    var hrdFileName = Convert.ToString(dataReader[LocationsTableDefinitions.HrdFileName]);
-
-                    yield return new ReadHydraulicLocation(hlcdLocationId, hrdLocationId, trackId, hrdFileName);
+                    yield return new ReadHydraulicLocation(Convert.ToInt64(dataReader[LocationsTableDefinitions.LocationId]),
+                                                           Convert.ToInt64(dataReader[LocationsTableDefinitions.HrdLocationId]),
+                                                           Convert.ToInt64(dataReader[LocationsTableDefinitions.TrackId]),
+                                                           Convert.ToString(dataReader[LocationsTableDefinitions.HrdFileName]));
                 }
             }
         }
