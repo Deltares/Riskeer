@@ -140,6 +140,24 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         }
 
         /// <summary>
+        /// Gets the hydraulic location configuration settings from the database.
+        /// </summary>
+        /// <returns>A collection of the read hydraulic configuration database settings.</returns>
+        /// <exception cref="SQLiteException">Thrown when the database query failed.</exception>
+        /// <exception cref="LineParseException">Thrown when the database returned incorrect values for 
+        /// required properties.</exception>
+        private IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> GetConfigurationSettingsFromDatabase()
+        {
+            using (IDataReader dataReader = CreateDataReader(HydraulicLocationConfigurationDatabaseQueryBuilder.GetScenarioInformationQuery()))
+            {
+                while (MoveNext(dataReader))
+                {
+                    yield return ReadSetting(dataReader);
+                }
+            }
+        }
+        
+        /// <summary>
         /// Determines whether the table related to the scenario information is present in the database.
         /// </summary>
         /// <returns><c>true</c> if the table is present; <c>false</c> otherwise.</returns>
@@ -165,24 +183,6 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
             {
                 string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicLocationConfigurationDatabaseReader_Critical_Unexpected_Exception);
                 throw new CriticalFileReadException(message, exception);
-            }
-        }
-
-        /// <summary>
-        /// Gets the hydraulic location configuration settings from the database.
-        /// </summary>
-        /// <returns>A collection of the read hydraulic configuration database settings.</returns>
-        /// <exception cref="SQLiteException">Thrown when the database query failed.</exception>
-        /// <exception cref="LineParseException">Thrown when the database returned incorrect values for 
-        /// required properties.</exception>
-        private IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> GetConfigurationSettingsFromDatabase()
-        {
-            using (IDataReader dataReader = CreateDataReader(HydraulicLocationConfigurationDatabaseQueryBuilder.GetScenarioInformationQuery()))
-            {
-                while (MoveNext(dataReader))
-                {
-                    yield return ReadSetting(dataReader);
-                }
             }
         }
 
