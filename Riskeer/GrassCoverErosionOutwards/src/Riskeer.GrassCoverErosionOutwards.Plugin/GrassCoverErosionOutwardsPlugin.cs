@@ -645,7 +645,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                 WaveConditionsCalculationServiceBase.Validate(
                     calculation.InputParameters,
                     WaveConditionsInputHelper.GetAssessmentLevel(calculation.InputParameters, context.AssessmentSection),
-                    context.AssessmentSection.HydraulicBoundaryDatabase);
+                    context.AssessmentSection.HydraulicBoundaryDatabases);
             }
         }
 
