@@ -137,6 +137,11 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
                 string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicLocationConfigurationDatabaseReader_Critical_Unexpected_Exception);
                 throw new CriticalFileReadException(message, exception);
             }
+            catch (InvalidCastException exception)
+            {
+                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
+                throw new LineParseException(message, exception);
+            }
         }
 
         /// <summary>
@@ -144,7 +149,7 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// </summary>
         /// <returns>A collection of the read hydraulic configuration database settings.</returns>
         /// <exception cref="SQLiteException">Thrown when the database query failed.</exception>
-        /// <exception cref="LineParseException">Thrown when the database returned incorrect values for 
+        /// <exception cref="InvalidCastException">Thrown when the database returned incorrect values for 
         /// required properties.</exception>
         private IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> GetConfigurationSettingsFromDatabase()
         {
@@ -152,11 +157,19 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
             {
                 while (MoveNext(dataReader))
                 {
-                    yield return ReadSetting(dataReader);
+                    yield return new ReadHydraulicLocationConfigurationDatabaseSettings(Convert.ToString(dataReader[ScenarioInformationTableDefinitions.ScenarioName]),
+                                                                                        Convert.ToInt32(dataReader[ScenarioInformationTableDefinitions.Year]),
+                                                                                        Convert.ToString(dataReader[ScenarioInformationTableDefinitions.Scope]),
+                                                                                        Convert.ToString(dataReader[ScenarioInformationTableDefinitions.SeaLevel]),
+                                                                                        Convert.ToString(dataReader[ScenarioInformationTableDefinitions.RiverDischarge]),
+                                                                                        Convert.ToString(dataReader[ScenarioInformationTableDefinitions.LakeLevel]),
+                                                                                        Convert.ToString(dataReader[ScenarioInformationTableDefinitions.WindDirection]),
+                                                                                        Convert.ToString(dataReader[ScenarioInformationTableDefinitions.WindSpeed]),
+                                                                                        Convert.ToString(dataReader[ScenarioInformationTableDefinitions.Comment]));
                 }
             }
         }
-        
+
         /// <summary>
         /// Determines whether the table related to the scenario information is present in the database.
         /// </summary>
@@ -183,34 +196,6 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
             {
                 string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicLocationConfigurationDatabaseReader_Critical_Unexpected_Exception);
                 throw new CriticalFileReadException(message, exception);
-            }
-        }
-
-        /// <summary>
-        /// Reads the hydraulic location configuration setting from the database.
-        /// </summary>
-        /// <param name="reader">The <see cref="IDataReader"/> which is used to read the data.</param>
-        /// <returns>The read <see cref="ReadHydraulicLocationConfigurationDatabaseSettings"/>.</returns>
-        /// <exception cref="LineParseException">Thrown when the database returned incorrect values for 
-        /// required properties.</exception>
-        private ReadHydraulicLocationConfigurationDatabaseSettings ReadSetting(IDataReader reader)
-        {
-            try
-            {
-                return new ReadHydraulicLocationConfigurationDatabaseSettings(reader.Read<string>(ScenarioInformationTableDefinitions.ScenarioName),
-                                                                              reader.Read<int>(ScenarioInformationTableDefinitions.Year),
-                                                                              reader.Read<string>(ScenarioInformationTableDefinitions.Scope),
-                                                                              reader.Read<string>(ScenarioInformationTableDefinitions.SeaLevel),
-                                                                              reader.Read<string>(ScenarioInformationTableDefinitions.RiverDischarge),
-                                                                              reader.Read<string>(ScenarioInformationTableDefinitions.LakeLevel),
-                                                                              reader.Read<string>(ScenarioInformationTableDefinitions.WindDirection),
-                                                                              reader.Read<string>(ScenarioInformationTableDefinitions.WindSpeed),
-                                                                              reader.Read<string>(ScenarioInformationTableDefinitions.Comment));
-            }
-            catch (ConversionException e)
-            {
-                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
-                throw new LineParseException(message, e);
             }
         }
 
