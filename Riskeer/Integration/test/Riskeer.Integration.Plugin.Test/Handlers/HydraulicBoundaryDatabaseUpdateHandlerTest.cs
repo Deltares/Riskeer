@@ -564,7 +564,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             Assert.AreEqual(readHydraulicBoundaryDatabase.Version, hydraulicBoundaryDatabase.Version);
             Assert.AreEqual(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessorClosure, readHydraulicLocationConfigurationDatabase.UsePreprocessorClosure);
 
-            AssertHydraulicBoundaryLocations(readHydraulicBoundaryDatabase.Locations, readHydraulicLocationConfigurationDatabase, hydraulicBoundaryDatabase.Locations);
+            AssertHydraulicBoundaryLocations(readHydraulicBoundaryDatabase.Locations, readHydraulicLocationConfigurationDatabase,
+                                             hydraulicBoundaryDatabase.Locations, readHydraulicBoundaryDatabase.TrackId);
             AssertHydraulicBoundaryLocationsAndCalculations(hydraulicBoundaryDatabase.Locations, assessmentSection);
             mocks.VerifyAll();
         }
@@ -606,7 +607,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                            Enumerable.Empty<long>(), hydraulicBoundaryDatabaseFilePath, hlcdFilePath);
 
             // Assert
-            AssertHydraulicBoundaryLocations(readHydraulicBoundaryLocationsToInclude, readHydraulicLocationConfigurationDatabase, hydraulicBoundaryDatabase.Locations);
+            AssertHydraulicBoundaryLocations(readHydraulicBoundaryLocationsToInclude, readHydraulicLocationConfigurationDatabase,
+                                             hydraulicBoundaryDatabase.Locations, readHydraulicBoundaryDatabase.TrackId);
             mocks.VerifyAll();
         }
 
@@ -650,7 +652,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                            readHydraulicBoundaryLocationsToExclude.Select(l => l.Id), hydraulicBoundaryDatabaseFilePath, hlcdFilePath);
 
             // Assert
-            AssertHydraulicBoundaryLocations(readHydraulicBoundaryLocationsToInclude, readHydraulicLocationConfigurationDatabase, hydraulicBoundaryDatabase.Locations);
+            AssertHydraulicBoundaryLocations(readHydraulicBoundaryLocationsToInclude, readHydraulicLocationConfigurationDatabase,
+                                             hydraulicBoundaryDatabase.Locations, readHydraulicBoundaryDatabase.TrackId);
             mocks.VerifyAll();
         }
 
@@ -971,7 +974,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
         private static void AssertHydraulicBoundaryLocations(IEnumerable<ReadHydraulicBoundaryLocation> readLocations,
                                                              ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase,
-                                                             IEnumerable<HydraulicBoundaryLocation> actualLocations)
+                                                             IEnumerable<HydraulicBoundaryLocation> actualLocations,
+                                                             long trackId)
         {
             Assert.AreEqual(readLocations.Count(), actualLocations.Count());
 
@@ -980,9 +984,10 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 ReadHydraulicBoundaryLocation readLocation = readLocations.ElementAt(i);
                 HydraulicBoundaryLocation actualLocation = actualLocations.ElementAt(i);
 
-                Assert.AreEqual(readHydraulicLocationConfigurationDatabase.LocationIdMappings
-                                                                          .Single(l => l.HrdLocationId == readLocation.Id)
-                                                                          .HlcdLocationId, actualLocation.Id);
+                Assert.AreEqual(readHydraulicLocationConfigurationDatabase.ReadHydraulicLocations
+                                                                          .Where(rhl => rhl.TrackId == trackId)
+                                                                          .Single(l => l.HrdLocationId == readLocation.Id).HlcdLocationId,
+                                actualLocation.Id);
                 Assert.AreEqual(readLocation.Name, actualLocation.Name);
                 Assert.AreEqual(readLocation.CoordinateX, actualLocation.Location.X);
                 Assert.AreEqual(readLocation.CoordinateY, actualLocation.Location.Y);
