@@ -110,8 +110,7 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
                 {
                     yield return new ReadHydraulicLocation(Convert.ToInt64(dataReader[LocationsTableDefinitions.LocationId]),
                                                            Convert.ToInt64(dataReader[LocationsTableDefinitions.HrdLocationId]),
-                                                           Convert.ToInt64(dataReader[LocationsTableDefinitions.TrackId]),
-                                                           Convert.ToString(dataReader[LocationsTableDefinitions.HrdFileName]));
+                                                           Convert.ToInt64(dataReader[LocationsTableDefinitions.TrackId]));
                 }
             }
         }

@@ -32,8 +32,7 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// <returns>The query to get locations from the database.</returns>
         public static string GetLocationsQuery()
         {
-            return $"SELECT {LocationsTableDefinitions.LocationId}, {LocationsTableDefinitions.HrdLocationId}, " +
-                   $"{LocationsTableDefinitions.TrackId}, {LocationsTableDefinitions.HrdFileName} " +
+            return $"SELECT {LocationsTableDefinitions.LocationId}, {LocationsTableDefinitions.HrdLocationId}, {LocationsTableDefinitions.TrackId} " +
                    $"FROM {LocationsTableDefinitions.TableName};";
         }
 

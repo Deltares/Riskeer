@@ -92,7 +92,7 @@ namespace Riskeer.HydraRing.IO.TestUtil
 
         private static ReadHydraulicLocation CreateReadHydraulicLocation(long hrdLocationId)
         {
-            return new ReadHydraulicLocation(hrdLocationId + 100, hrdLocationId, 1000, "hrd.sqlite");
+            return new ReadHydraulicLocation(hrdLocationId + 100, hrdLocationId, 1000);
         }
     }
 }

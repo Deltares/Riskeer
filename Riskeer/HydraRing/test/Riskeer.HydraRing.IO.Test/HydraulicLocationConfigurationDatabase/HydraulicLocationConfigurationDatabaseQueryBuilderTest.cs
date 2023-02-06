@@ -34,7 +34,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
             string query = HydraulicLocationConfigurationDatabaseQueryBuilder.GetLocationsQuery();
 
             // Assert
-            const string expectedQuery = "SELECT LocationId, HRDLocationId, TrackId, HRDFileName FROM Locations;";
+            const string expectedQuery = "SELECT LocationId, HRDLocationId, TrackId FROM Locations;";
             Assert.AreEqual(expectedQuery, query);
         }
 
