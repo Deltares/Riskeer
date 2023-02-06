@@ -114,7 +114,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
                 Assert.IsFalse(readHydraulicLocationConfigurationDatabase.UsePreprocessorClosure);
                 ReadHydraulicLocationConfigurationDatabaseSettings[] readHydraulicLocationConfigurationDatabaseSettings =
                     readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings.ToArray();
-                
+
                 Assert.AreEqual(2, readHydraulicLocationConfigurationDatabaseSettings.Length);
 
                 CollectionAssert.AreEqual(new[]
