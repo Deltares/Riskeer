@@ -36,7 +36,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
             long hlcdLocationId = random.Next();
             long hrdLocationId = random.Next();
             long trackId = random.Next();
-            string hrdFileName = random.Next().ToString();
+            var hrdFileName = random.Next().ToString();
 
             // Call
             var readHydraulicLocation = new ReadHydraulicLocation(hlcdLocationId, hrdLocationId, trackId, hrdFileName);

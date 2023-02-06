@@ -123,8 +123,8 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
             {
                 while (MoveNext(dataReader))
                 {
-                    long hrdLocationId = Convert.ToInt64(dataReader[LocationsTableDefinitions.HrdLocationId]);
-                    long hlcdLocationId = Convert.ToInt64(dataReader[LocationsTableDefinitions.LocationId]);
+                    var hrdLocationId = Convert.ToInt64(dataReader[LocationsTableDefinitions.HrdLocationId]);
+                    var hlcdLocationId = Convert.ToInt64(dataReader[LocationsTableDefinitions.LocationId]);
 
                     // Must be unique
                     if (locationLookup.ContainsKey(hrdLocationId))
@@ -138,7 +138,7 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
                 }
             }
 
-            return locationLookup.Select(lookup => new ReadHydraulicLocation(lookup.Value, lookup.Key)).ToArray();
+            return locationLookup.Select(lookup => new ReadHydraulicLocation(lookup.Value, lookup.Key, 777, "Fixme")).ToArray();
         }
 
         /// <summary>
