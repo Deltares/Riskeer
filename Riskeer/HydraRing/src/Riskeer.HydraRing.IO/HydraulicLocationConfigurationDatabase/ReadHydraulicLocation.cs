@@ -31,10 +31,14 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// </summary>
         /// <param name="hlcdLocationId">The hydraulic location configuration id.</param>
         /// <param name="hrdLocationId">The hydraulic boundary location id.</param>
-        internal ReadHydraulicLocation(long hlcdLocationId, long hrdLocationId)
+        /// <param name="trackId">The track id.</param>
+        /// <param name="hrdFileName">The name of the corresponding HRD file.</param>
+        internal ReadHydraulicLocation(long hlcdLocationId, long hrdLocationId, long trackId, string hrdFileName)
         {
             HlcdLocationId = hlcdLocationId;
             HrdLocationId = hrdLocationId;
+            TrackId = trackId;
+            HrdFileName = hrdFileName;
         }
 
         /// <summary>
@@ -46,5 +50,15 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// Gets the hydraulic boundary location id.
         /// </summary>
         public long HrdLocationId { get; }
+
+        /// <summary>
+        /// Gets the track id.
+        /// </summary>
+        public long TrackId { get; }
+
+        /// <summary>
+        /// Gets the name of the corresponding HRD file.
+        /// </summary>
+        public string HrdFileName { get; }
     }
 }
