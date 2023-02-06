@@ -395,10 +395,12 @@ namespace Riskeer.Integration.IO.Test.Importers
                                          Arg<string>.Is.Equal(hlcdFilePath)))
                    .WhenCalled(invocation =>
                    {
-                       AssertReadHydraulicBoundaryDatabase((ReadHydraulicBoundaryDatabase) invocation.Arguments[1]);
+                       var readHydraulicBoundaryDatabase = (ReadHydraulicBoundaryDatabase) invocation.Arguments[1];
+                       
+                       AssertReadHydraulicBoundaryDatabase(readHydraulicBoundaryDatabase);
 
                        var readHydraulicLocationConfigurationDatabase = (ReadHydraulicLocationConfigurationDatabase) invocation.Arguments[2];
-                       Assert.AreEqual(18, readHydraulicLocationConfigurationDatabase.LocationIdMappings.Count());
+                       Assert.AreEqual(18, readHydraulicLocationConfigurationDatabase.ReadHydraulicLocations.Count(rhl => rhl.TrackId == readHydraulicBoundaryDatabase.TrackId));
                        Assert.IsNull(readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings);
                        Assert.AreEqual(usePreprocessorClosure, readHydraulicLocationConfigurationDatabase.UsePreprocessorClosure);
 
@@ -442,10 +444,12 @@ namespace Riskeer.Integration.IO.Test.Importers
                                          Arg<string>.Is.Equal(hlcdFilePath)))
                    .WhenCalled(invocation =>
                    {
-                       AssertReadHydraulicBoundaryDatabase((ReadHydraulicBoundaryDatabase) invocation.Arguments[1]);
+                       var readHydraulicBoundaryDatabase = (ReadHydraulicBoundaryDatabase) invocation.Arguments[1];
+                       
+                       AssertReadHydraulicBoundaryDatabase(readHydraulicBoundaryDatabase);
 
                        var readHydraulicLocationConfigurationDatabase = (ReadHydraulicLocationConfigurationDatabase) invocation.Arguments[2];
-                       Assert.AreEqual(18, readHydraulicLocationConfigurationDatabase.LocationIdMappings.Count());
+                       Assert.AreEqual(18, readHydraulicLocationConfigurationDatabase.ReadHydraulicLocations.Count(rhl => rhl.TrackId == readHydraulicBoundaryDatabase.TrackId));
                        Assert.AreEqual(1, readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings.Count());
 
                        var excludedLocationIds = (IEnumerable<long>) invocation.Arguments[3];
