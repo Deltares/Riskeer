@@ -47,11 +47,11 @@ namespace Riskeer.HydraRing.IO.TestUtil
         /// <summary>
         /// Creates a <see cref="ReadHydraulicLocationConfigurationDatabase"/>.
         /// </summary>
-        /// <param name="locationIds">The location ids to add.</param>
+        /// <param name="hrdLocationIds">The hydraulic boundary location ids to add.</param>
         /// <returns>The created <see cref="ReadHydraulicLocationConfigurationDatabase"/>.</returns>
-        public static ReadHydraulicLocationConfigurationDatabase Create(IEnumerable<long> locationIds)
+        public static ReadHydraulicLocationConfigurationDatabase Create(IEnumerable<long> hrdLocationIds)
         {
-            return Create(locationIds, null);
+            return Create(hrdLocationIds, null);
         }
 
         /// <summary>
@@ -84,11 +84,11 @@ namespace Riskeer.HydraRing.IO.TestUtil
             }, settings);
         }
 
-        private static ReadHydraulicLocationConfigurationDatabase Create(IEnumerable<long> locationIds,
+        private static ReadHydraulicLocationConfigurationDatabase Create(IEnumerable<long> hrdLocationIds,
                                                                          IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> settings)
         {
-            return new ReadHydraulicLocationConfigurationDatabase(locationIds.Select(locationId => new ReadHydraulicLocation(locationId, locationId + 100))
-                                                                             .ToList(),
+            return new ReadHydraulicLocationConfigurationDatabase(hrdLocationIds.Select(hrdLocationId => new ReadHydraulicLocation(hrdLocationId + 100, hrdLocationId))
+                                                                                .ToList(),
                                                                   settings, false);
         }
     }

@@ -138,7 +138,7 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
                 }
             }
 
-            return locationLookup.Select(lookup => new ReadHydraulicLocation(lookup.Key, lookup.Value)).ToArray();
+            return locationLookup.Select(lookup => new ReadHydraulicLocation(lookup.Value, lookup.Key)).ToArray();
         }
 
         /// <summary>
