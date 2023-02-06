@@ -117,28 +117,19 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         private IEnumerable<ReadHydraulicLocation> GetLocationIdsFromDatabase(SQLiteParameter trackParameter)
         {
             string query = HydraulicLocationConfigurationDatabaseQueryBuilder.GetLocationsQuery();
-            var locationLookup = new Dictionary<long, long>();
 
-            using (IDataReader dataReader = CreateDataReader(query, trackParameter))
+            using (IDataReader dataReader = CreateDataReader(query))
             {
                 while (MoveNext(dataReader))
                 {
-                    var hrdLocationId = Convert.ToInt64(dataReader[LocationsTableDefinitions.HrdLocationId]);
                     var hlcdLocationId = Convert.ToInt64(dataReader[LocationsTableDefinitions.LocationId]);
+                    var hrdLocationId = Convert.ToInt64(dataReader[LocationsTableDefinitions.HrdLocationId]);
+                    var trackId = Convert.ToInt64(dataReader[LocationsTableDefinitions.TrackId]);
+                    var hrdFileName = Convert.ToString(dataReader[LocationsTableDefinitions.HrdFileName]);
 
-                    // Must be unique
-                    if (locationLookup.ContainsKey(hrdLocationId))
-                    {
-                        log.Warn(Resources.HydraulicLocationConfigurationDatabaseReader_GetLocationIdFromDatabase_Ambiguous_Row_Found_Take_First);
-                    }
-                    else
-                    {
-                        locationLookup[hrdLocationId] = hlcdLocationId;
-                    }
+                    yield return new ReadHydraulicLocation(hlcdLocationId, hrdLocationId, trackId, hrdFileName);
                 }
             }
-
-            return locationLookup.Select(lookup => new ReadHydraulicLocation(lookup.Value, lookup.Key, 777, "Fixme")).ToArray();
         }
 
         /// <summary>

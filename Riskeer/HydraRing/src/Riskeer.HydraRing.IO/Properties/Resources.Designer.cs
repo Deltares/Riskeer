@@ -116,15 +116,5 @@ namespace Riskeer.HydraRing.IO.Properties {
                 return ResourceManager.GetString("HydraulicLocationConfigurationDatabaseReader_Critical_Unexpected_Exception", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Er zijn meerdere resultaten gevonden, wat niet voor zou mogen komen. Neem contact op met de leverancier. Het eerste resultaat zal worden gebruikt..
-        /// </summary>
-        public static string HydraulicLocationConfigurationDatabaseReader_GetLocationIdFromDatabase_Ambiguous_Row_Found_Take_First {
-            get {
-                return ResourceManager.GetString("HydraulicLocationConfigurationDatabaseReader_GetLocationIdFromDatabase_Ambiguous_" +
-                        "Row_Found_Take_First", resourceCulture);
-            }
-        }
     }
 }
