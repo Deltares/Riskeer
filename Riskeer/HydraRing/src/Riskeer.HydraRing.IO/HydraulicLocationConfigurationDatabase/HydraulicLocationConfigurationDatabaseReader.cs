@@ -68,20 +68,19 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
                                                                                                         ? GetConfigurationSettings()
                                                                                                         : null;
 
-            return new ReadHydraulicLocationConfigurationDatabase(GetLocationIdsByTrackId(trackId),
+            return new ReadHydraulicLocationConfigurationDatabase(GetLocations().Where(rhl => rhl.TrackId == trackId),
                                                                   configurationSettings,
                                                                   GetUsePreprocessorClosureByTrackId(trackId));
         }
 
         /// <summary>
-        /// Gets the location ids from the database, based upon <paramref name="trackId"/>.
+        /// Gets the locations from the database.
         /// </summary>
-        /// <param name="trackId">The hydraulic boundary track id.</param>
         /// <returns>A collection of <see cref="ReadHydraulicLocation"/> as found in the database.</returns>
         /// <exception cref="CriticalFileReadException">Thrown when the database query failed.</exception>
         /// <exception cref="LineParseException">Thrown when the database returned incorrect values for 
         /// required properties.</exception>
-        private IEnumerable<ReadHydraulicLocation> GetLocationIdsByTrackId(long trackId)
+        private IEnumerable<ReadHydraulicLocation> GetLocations()
         {
             try
             {
