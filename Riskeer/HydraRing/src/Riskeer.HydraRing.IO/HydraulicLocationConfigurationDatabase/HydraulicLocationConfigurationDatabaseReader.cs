@@ -28,7 +28,6 @@ using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.Util.Builders;
-using log4net;
 using Riskeer.HydraRing.IO.Properties;
 
 namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
@@ -38,8 +37,6 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
     /// </summary>
     public class HydraulicLocationConfigurationDatabaseReader : SqLiteDatabaseReaderBase
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(HydraulicLocationConfigurationDatabaseReader));
-
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicLocationConfigurationDatabaseReader"/>, 
         /// which will use the <paramref name="databaseFilePath"/> as its source.
