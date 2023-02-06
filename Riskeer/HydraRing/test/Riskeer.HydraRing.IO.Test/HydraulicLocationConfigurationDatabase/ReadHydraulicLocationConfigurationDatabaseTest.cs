@@ -35,7 +35,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
         public void Constructor_ExpectedValues()
         {
             // Setup
-            IEnumerable<ReadHydraulicLocationMapping> locationIdMappings = Enumerable.Empty<ReadHydraulicLocationMapping>();
+            IEnumerable<ReadHydraulicLocation> locationIdMappings = Enumerable.Empty<ReadHydraulicLocation>();
             IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> databaseSettings = Enumerable.Empty<ReadHydraulicLocationConfigurationDatabaseSettings>();
             bool usePreprocessorClosure = new Random(21).NextBoolean();
 

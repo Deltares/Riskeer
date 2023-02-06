@@ -22,16 +22,16 @@
 namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
 {
     /// <summary>
-    /// Class for holding a mapping between the hydraulic boundary location id and hydraulic location configuration id.
+    /// Container for read hydraulic location information.
     /// </summary>
-    public class ReadHydraulicLocationMapping
+    public class ReadHydraulicLocation
     {
         /// <summary>
-        /// Creates a new instance of <see cref="ReadHydraulicLocationMapping"/>.
+        /// Creates a new instance of <see cref="ReadHydraulicLocation"/>.
         /// </summary>
         /// <param name="hrdLocationId">The hydraulic boundary location id.</param>
         /// <param name="hlcdLocationId">The hydraulic location configuration id.</param>
-        internal ReadHydraulicLocationMapping(long hrdLocationId, long hlcdLocationId)
+        internal ReadHydraulicLocation(long hrdLocationId, long hlcdLocationId)
         {
             HrdLocationId = hrdLocationId;
             HlcdLocationId = hlcdLocationId;

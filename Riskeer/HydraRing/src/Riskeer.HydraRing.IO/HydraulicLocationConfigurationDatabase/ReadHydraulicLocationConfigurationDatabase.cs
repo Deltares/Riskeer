@@ -36,7 +36,7 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// <param name="readHydraulicLocationConfigurationDatabaseSettings">The hydraulic location configuration settings
         /// of the read hydraulic location database.</param>
         /// <param name="usePreprocessorClosure">Indicator whether to use the preprocessor closure.</param>
-        internal ReadHydraulicLocationConfigurationDatabase(IEnumerable<ReadHydraulicLocationMapping> locationIdMappings,
+        internal ReadHydraulicLocationConfigurationDatabase(IEnumerable<ReadHydraulicLocation> locationIdMappings,
                                                             IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> readHydraulicLocationConfigurationDatabaseSettings,
                                                             bool usePreprocessorClosure)
         {
@@ -48,7 +48,7 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// <summary>
         /// Gets the location id mappings of the read hydraulic location configuration database.
         /// </summary>
-        public IEnumerable<ReadHydraulicLocationMapping> LocationIdMappings { get; }
+        public IEnumerable<ReadHydraulicLocation> LocationIdMappings { get; }
 
         /// <summary>
         /// Gets the settings of the read hydraulic location configuration database.

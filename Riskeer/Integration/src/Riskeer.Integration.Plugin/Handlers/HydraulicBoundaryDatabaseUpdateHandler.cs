@@ -206,7 +206,7 @@ namespace Riskeer.Integration.Plugin.Handlers
         }
 
         private static void SetLocations(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, IEnumerable<ReadHydraulicBoundaryLocation> readLocations,
-                                         IEnumerable<ReadHydraulicLocationMapping> locationIdMappings, long[] excludedLocationIds)
+                                         IEnumerable<ReadHydraulicLocation> locationIdMappings, long[] excludedLocationIds)
         {
             hydraulicBoundaryDatabase.Locations.Clear();
 
