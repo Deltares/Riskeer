@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -85,7 +85,7 @@ namespace Core.Components.DotSpatial.Converter
                 layer.Reproject(originalLayerProjection);
             }
 
-            layer.AssignFastDrawnStates();
+            // layer.AssignFastDrawnStates();
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace Core.Components.DotSpatial.Converter
 
             layer.IsVisible = data.IsVisible;
             layer.Name = data.Name;
-            layer.ShowLabels = data.ShowLabels;
+            layer.ShowLabels = false;
             ((IMapFeatureLayer) layer).LabelLayer = GetLabelLayer(GetAttributeMapping(data), layer.DataSet, data.SelectedMetaDataAttribute);
 
             if (data.Theme != null)
@@ -111,6 +111,7 @@ namespace Core.Components.DotSpatial.Converter
             else
             {
                 layer.Symbolizer = CreateSymbolizer(data);
+                layer.SelectionSymbolizer = CreateSelectionSymbolizer(data);
             }
         }
 
@@ -130,6 +131,8 @@ namespace Core.Components.DotSpatial.Converter
         /// <returns>The newly created <see cref="IFeatureSymbolizer"/>.</returns>
         /// <remarks><c>null</c> should never be returned as this will break DotSpatial.</remarks>
         protected abstract IFeatureSymbolizer CreateSymbolizer(TFeatureBasedMapData mapData);
+
+        protected abstract IFeatureSymbolizer CreateSelectionSymbolizer(TFeatureBasedMapData mapData);
 
         /// <summary>
         /// Creates a new <see cref="IFeatureCategory"/> based on <paramref name="mapData"/>.

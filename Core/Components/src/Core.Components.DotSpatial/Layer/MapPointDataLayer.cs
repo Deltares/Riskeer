@@ -53,6 +53,8 @@ namespace Core.Components.DotSpatial.Layer
             this.mapPointData = mapPointData;
             Projection = MapDataConstants.FeatureBasedMapDataCoordinateSystem;
 
+            SelectionEnabled = true;
+            
             Update();
         }
 

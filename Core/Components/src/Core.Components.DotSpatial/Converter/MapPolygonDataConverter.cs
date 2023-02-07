@@ -74,6 +74,14 @@ namespace Core.Components.DotSpatial.Converter
                                          polygonStyle.StrokeThickness);
         }
 
+        protected override IFeatureSymbolizer CreateSelectionSymbolizer(MapPolygonData mapData)
+        {
+            PolygonStyle polygonStyle = mapData.Style;
+            return new PolygonSymbolizer(polygonStyle.FillColor,
+                                         Color.Yellow,
+                                         polygonStyle.StrokeThickness + 2);
+        }
+
         protected override IFeatureScheme CreateScheme()
         {
             return new PolygonScheme();

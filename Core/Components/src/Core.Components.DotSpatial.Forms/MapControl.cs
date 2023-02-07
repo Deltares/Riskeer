@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -80,7 +80,8 @@ namespace Core.Components.DotSpatial.Forms
 
             InitializeMap();
 
-            panToolStripButton.PerformClick();
+            // panToolStripButton.PerformClick();
+            map.FunctionMode = FunctionMode.Select;
             showCoordinatesToolStripButton.PerformClick();
 
             mapDataCollectionObserver = new RecursiveObserver<MapDataCollection, MapDataCollection>(HandleMapDataCollectionChange, mdc => mdc.Collection);
@@ -204,6 +205,11 @@ namespace Core.Components.DotSpatial.Forms
             mapFunctionPan.FunctionActivated += MapFunctionActivateFunction;
             mapFunctionPan.MouseDown += MapFunctionPanOnMouseDown;
             mapFunctionPan.MouseUp += MapFunctionOnMouseUp;
+
+            MapFunctionSelect mapFunctionSelect = map.MapFunctions.OfType<MapFunctionSelect>().First();
+            mapFunctionSelect.FunctionActivated += MapFunctionActivateFunction;
+            mapFunctionSelect.MouseDown += MapFunctionPanOnMouseDown;
+            mapFunctionSelect.MouseUp += MapFunctionOnMouseUp;
 
             mapFunctionSelectionZoom = new MapFunctionSelectionZoom(map);
             map.MapFunctions.Add(mapFunctionSelectionZoom);

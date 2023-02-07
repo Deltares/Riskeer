@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
@@ -45,6 +46,13 @@ namespace Core.Components.DotSpatial.Converter
         protected override IFeatureSymbolizer CreateSymbolizer(MapPointData mapData)
         {
             return CreatePointSymbolizer(mapData.Style);
+        }
+
+        protected override IFeatureSymbolizer CreateSelectionSymbolizer(MapPointData mapData)
+        {
+            PointSymbolizer symbolizer =  CreatePointSymbolizer(mapData.Style);
+            symbolizer.SetOutline(Color.Yellow, mapData.Style.StrokeThickness + 2);
+            return symbolizer;
         }
 
         protected override IFeatureCategory CreateDefaultCategory(MapPointData mapData)

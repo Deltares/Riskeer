@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using Core.Common.Base.Geometry;
@@ -50,6 +51,15 @@ namespace Core.Components.DotSpatial.Converter
             return new LineSymbolizer(mapData.Style.Color,
                                       mapData.Style.Color,
                                       mapData.Style.Width,
+                                      MapDataHelper.Convert(mapData.Style.DashStyle),
+                                      LineCap.Round);
+        }
+
+        protected override IFeatureSymbolizer CreateSelectionSymbolizer(MapLineData mapData)
+        {
+            return new LineSymbolizer(Color.Yellow,
+                                      Color.Yellow,
+                                      mapData.Style.Width + 2,
                                       MapDataHelper.Convert(mapData.Style.DashStyle),
                                       LineCap.Round);
         }

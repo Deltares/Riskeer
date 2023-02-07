@@ -816,6 +816,11 @@ namespace Core.Components.DotSpatial.Test.Converter
                 return new PointSymbolizer();
             }
 
+            protected override IFeatureSymbolizer CreateSelectionSymbolizer(TestFeatureBasedMapData mapData)
+            {
+                return new PointSymbolizer();
+            }
+
             protected override IFeatureCategory CreateDefaultCategory(TestFeatureBasedMapData mapData)
             {
                 defaultCategoryInputs.Add(mapData);
