@@ -14,27 +14,45 @@
     <ProjectReference Include="..\Core.Common.Base\Core.Common.Base.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="GeoAPI.CoordinateSystems">
+      <Version>1.7.5</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+    </PackageReference>
+    <PackageReference Include="GeoAPI.Core">
+      <Version>1.7.5</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+    </PackageReference>
     <PackageReference Include="MathNet.Numerics">
-      <Version>3.19.0</Version>
+      <Version>5.0.0</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
     </PackageReference>
     <PackageReference Include="MathNet.Spatial">
-      <Version>0.3.0</Version>
+      <Version>0.6.0</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
     </PackageReference>
     <PackageReference Include="NetTopologySuite">
-      <Version>1.14.0</Version>
+      <Version>1.15.3</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
     </PackageReference>
     <PackageReference Include="GeoAPI">
-      <Version>1.7.4</Version>
+      <Version>1.7.5</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+    </PackageReference>
+    <PackageReference Include="NetTopologySuite.CoordinateSystems">
+      <Version>1.15.3</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+    </PackageReference>
+    <PackageReference Include="NetTopologySuite.Core">
+      <Version>1.15.3</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
     </PackageReference>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /d/s/y &quot;$(PkgMathNet_Numerics)\lib\net40\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\MathNet.Numerics-3.19.0\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(PkgMathNet_Spatial)\lib\net40\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\MathNet.Spatial-0.3.0\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(PkgNetTopologySuite)\lib\net45\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\NetTopologySuite-1.14.0\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(PkgGeoAPI)\lib\net45\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\GeoAPI-1.7.4\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgMathNet_Numerics)\lib\net461\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\MathNet.Numerics-5.0.0\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgMathNet_Spatial)\lib\net461\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\MathNet.Spatial-0.6.0\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgNetTopologySuite_Core)\lib\net45\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\NetTopologySuite.Core-1.15.3\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgNetTopologySuite_CoordinateSystems)\lib\net45\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\NetTopologySuite.CoordinateSystems-1.15.3\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgGeoAPI_Core)\lib\net45\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\GeoAPI.Core-1.7.5\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgGeoAPI_CoordinateSystems)\lib\net45\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\GeoAPI.CoordinateSystems-1.7.5\*&quot;" />
   </Target>
 </Project>

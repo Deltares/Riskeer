@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using Core.Common.Util.Reflection;
 using Core.Gui.Properties;
 using log4net.Appender;
 using log4net.Core;
@@ -115,8 +114,8 @@ namespace Core.Gui.Forms.Log
             var stringFormat = loggingEvent.MessageObject as SystemStringFormat;
             if (stringFormat != null)
             {
-                var format = TypeUtils.GetField<string>(stringFormat, "m_format");
-                var args = TypeUtils.GetField<object[]>(stringFormat, "m_args");
+                string format = stringFormat.Format;
+                object[] args = stringFormat.Args;
                 message = GetLocalizedMessage(format, args);
             }
 

@@ -646,7 +646,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                 };
 
                 // Call
-                TestDelegate call = () => layer.DrawRegions(mapArgs, regions);
+                TestDelegate call = () => layer.DrawRegions(mapArgs, regions, false);
 
                 // Assert
                 Assert.DoesNotThrow(call,
@@ -693,7 +693,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                 }
 
                 // Call
-                layer.DrawRegions(mapArgs, regions);
+                layer.DrawRegions(mapArgs, regions, false);
 
                 // Assert
                 TestHelper.AssertImagesAreEqual(expectedResult, mapCanvas);
@@ -729,7 +729,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                 var regions = new List<DotSpatialExtent>();
 
                 // Call
-                layer.DrawRegions(mapArgs, regions);
+                layer.DrawRegions(mapArgs, regions, false);
 
                 // Assert
                 TestHelper.AssertImagesAreEqual(Resources.BackgroundLayerCanvasAfterAddingTestTiles, mapCanvas);
@@ -776,7 +776,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                 var regions = new List<DotSpatialExtent>();
 
                 // Call
-                layer.DrawRegions(mapArgs, regions);
+                layer.DrawRegions(mapArgs, regions, false);
 
                 // Assert
                 TestHelper.AssertImagesAreEqual(Resources.BackgroundLayerCanvas, mapCanvas);
@@ -840,7 +840,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
 
                 var regions = new List<DotSpatialExtent>();
 
-                layer.DrawRegions(mapArgs, regions);
+                layer.DrawRegions(mapArgs, regions, false);
 
                 // When
                 configuration.TileFetcher.Raise(tf => tf.TileReceived += null,
@@ -894,7 +894,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
 
                 var regions = new List<DotSpatialExtent>();
 
-                layer.DrawRegions(mapArgs, regions);
+                layer.DrawRegions(mapArgs, regions, false);
 
                 // When
                 configuration.TileFetcher.Raise(tf => tf.TileReceived += null,
