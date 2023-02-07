@@ -61,12 +61,10 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// required properties.</exception>
         public ReadHydraulicLocationConfigurationDatabase Read(long trackId)
         {
-            IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> configurationSettings = IsScenarioInformationTablePresent()
-                                                                                                        ? GetData(GetConfigurationSettingsFromDatabase)
-                                                                                                        : null;
-
-            return new ReadHydraulicLocationConfigurationDatabase(GetData(GetLocationsFromDatabase).Where(rhl => rhl.TrackId == trackId),
-                                                                  configurationSettings,
+            return new ReadHydraulicLocationConfigurationDatabase(GetData(GetLocationsFromDatabase),
+                                                                  IsScenarioInformationTablePresent()
+                                                                      ? GetData(GetConfigurationSettingsFromDatabase)
+                                                                      : null,
                                                                   GetUsePreprocessorClosureByTrackId(trackId));
         }
 
@@ -86,32 +84,6 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
                     yield return new ReadHydraulicLocation(dataReader.Read<long>(LocationsTableDefinitions.LocationId),
                                                            dataReader.Read<long>(LocationsTableDefinitions.HrdLocationId),
                                                            dataReader.Read<long>(LocationsTableDefinitions.TrackId));
-                }
-            }
-        }
-
-        /// <summary>
-        /// Gets the hydraulic location configuration settings from the database.
-        /// </summary>
-        /// <returns>A collection of the read hydraulic configuration database settings.</returns>
-        /// <exception cref="SQLiteException">Thrown when the database query failed.</exception>
-        /// <exception cref="ConversionException">Thrown when the database returned incorrect values for 
-        /// required properties.</exception>
-        private IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> GetConfigurationSettingsFromDatabase()
-        {
-            using (IDataReader dataReader = CreateDataReader(HydraulicLocationConfigurationDatabaseQueryBuilder.GetScenarioInformationQuery()))
-            {
-                while (MoveNext(dataReader))
-                {
-                    yield return new ReadHydraulicLocationConfigurationDatabaseSettings(dataReader.Read<string>(ScenarioInformationTableDefinitions.ScenarioName),
-                                                                                        dataReader.Read<int>(ScenarioInformationTableDefinitions.Year),
-                                                                                        dataReader.Read<string>(ScenarioInformationTableDefinitions.Scope),
-                                                                                        dataReader.Read<string>(ScenarioInformationTableDefinitions.SeaLevel),
-                                                                                        dataReader.Read<string>(ScenarioInformationTableDefinitions.RiverDischarge),
-                                                                                        dataReader.Read<string>(ScenarioInformationTableDefinitions.LakeLevel),
-                                                                                        dataReader.Read<string>(ScenarioInformationTableDefinitions.WindDirection),
-                                                                                        dataReader.Read<string>(ScenarioInformationTableDefinitions.WindSpeed),
-                                                                                        dataReader.Read<string>(ScenarioInformationTableDefinitions.Comment));
                 }
             }
         }
@@ -145,6 +117,32 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
             }
         }
 
+        /// <summary>
+        /// Gets the hydraulic location configuration settings from the database.
+        /// </summary>
+        /// <returns>A collection of the read hydraulic configuration database settings.</returns>
+        /// <exception cref="SQLiteException">Thrown when the database query failed.</exception>
+        /// <exception cref="ConversionException">Thrown when the database returned incorrect values for 
+        /// required properties.</exception>
+        private IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> GetConfigurationSettingsFromDatabase()
+        {
+            using (IDataReader dataReader = CreateDataReader(HydraulicLocationConfigurationDatabaseQueryBuilder.GetScenarioInformationQuery()))
+            {
+                while (MoveNext(dataReader))
+                {
+                    yield return new ReadHydraulicLocationConfigurationDatabaseSettings(dataReader.Read<string>(ScenarioInformationTableDefinitions.ScenarioName),
+                                                                                        dataReader.Read<int>(ScenarioInformationTableDefinitions.Year),
+                                                                                        dataReader.Read<string>(ScenarioInformationTableDefinitions.Scope),
+                                                                                        dataReader.Read<string>(ScenarioInformationTableDefinitions.SeaLevel),
+                                                                                        dataReader.Read<string>(ScenarioInformationTableDefinitions.RiverDischarge),
+                                                                                        dataReader.Read<string>(ScenarioInformationTableDefinitions.LakeLevel),
+                                                                                        dataReader.Read<string>(ScenarioInformationTableDefinitions.WindDirection),
+                                                                                        dataReader.Read<string>(ScenarioInformationTableDefinitions.WindSpeed),
+                                                                                        dataReader.Read<string>(ScenarioInformationTableDefinitions.Comment));
+                }
+            }
+        }
+        
         /// <summary>
         /// Gets the preprocessor closure indicator from the database.
         /// </summary>
