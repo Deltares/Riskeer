@@ -71,7 +71,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
 
         [Test]
         [TestCase(18169, 1000, 1801000)]
-        [TestCase(6, 1000, 0)]
+        [TestCase(20128, 2, 2000002)]
         public void Read_ValidFileWithoutScenarioInformation_ExpectedValues(int trackId, int hrdLocationId, int expectedLocationId)
         {
             // Setup
@@ -84,9 +84,9 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
 
                 // Assert
                 long actualLocationId = readHydraulicLocationConfigurationDatabase.ReadHydraulicLocations
-                                                                                  .Where(rhl => rhl.TrackId == trackId && rhl.HrdLocationId == hrdLocationId)
-                                                                                  .Select(m => m.HlcdLocationId)
-                                                                                  .SingleOrDefault();
+                                                                                  .First(rhl => rhl.TrackId == trackId && rhl.HrdLocationId == hrdLocationId)
+                                                                                  .HlcdLocationId;
+
                 Assert.AreEqual(expectedLocationId, actualLocationId);
                 Assert.IsFalse(readHydraulicLocationConfigurationDatabase.UsePreprocessorClosure);
                 Assert.IsNull(readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings);
@@ -95,7 +95,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
 
         [Test]
         [TestCase(18169, 1000, 1801000)]
-        [TestCase(6, 1000, 0)]
+        [TestCase(20128, 2, 2000002)]
         public void Read_ValidFileWithScenarioInformation_ExpectedValues(int trackId, int hrdLocationId, int expectedLocationId)
         {
             // Setup
@@ -108,9 +108,9 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
 
                 // Assert
                 long actualLocationId = readHydraulicLocationConfigurationDatabase.ReadHydraulicLocations
-                                                                                  .Where(rhl => rhl.TrackId == trackId && rhl.HrdLocationId == hrdLocationId)
-                                                                                  .Select(m => m.HlcdLocationId)
-                                                                                  .SingleOrDefault();
+                                                                                  .First(rhl => rhl.TrackId == trackId && rhl.HrdLocationId == hrdLocationId)
+                                                                                  .HlcdLocationId;
+
                 Assert.AreEqual(expectedLocationId, actualLocationId);
                 Assert.IsFalse(readHydraulicLocationConfigurationDatabase.UsePreprocessorClosure);
                 ReadHydraulicLocationConfigurationDatabaseSettings[] readHydraulicLocationConfigurationDatabaseSettings =
