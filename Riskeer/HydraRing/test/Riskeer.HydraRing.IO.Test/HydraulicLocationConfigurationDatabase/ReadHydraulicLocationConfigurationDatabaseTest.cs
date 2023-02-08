@@ -19,10 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 
@@ -37,15 +35,15 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
             // Setup
             IEnumerable<ReadHydraulicLocation> readHydraulicLocations = Enumerable.Empty<ReadHydraulicLocation>();
             IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> readHydraulicLocationConfigurationDatabaseSettings = Enumerable.Empty<ReadHydraulicLocationConfigurationDatabaseSettings>();
-            bool usePreprocessorClosure = new Random(21).NextBoolean();
+            IEnumerable<ReadTrack> readTracks = Enumerable.Empty<ReadTrack>();
 
             // Call
-            var readDatabase = new ReadHydraulicLocationConfigurationDatabase(readHydraulicLocations, readHydraulicLocationConfigurationDatabaseSettings, usePreprocessorClosure);
+            var readDatabase = new ReadHydraulicLocationConfigurationDatabase(readHydraulicLocations, readHydraulicLocationConfigurationDatabaseSettings, readTracks);
 
             // Assert
             Assert.AreSame(readHydraulicLocations, readDatabase.ReadHydraulicLocations);
             Assert.AreSame(readHydraulicLocationConfigurationDatabaseSettings, readDatabase.ReadHydraulicLocationConfigurationDatabaseSettings);
-            Assert.AreEqual(usePreprocessorClosure, readDatabase.UsePreprocessorClosure);
+            Assert.AreSame(readTracks, readDatabase.ReadTracks);
         }
     }
 }
