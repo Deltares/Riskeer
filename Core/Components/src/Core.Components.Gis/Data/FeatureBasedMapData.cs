@@ -45,7 +45,11 @@ namespace Core.Components.Gis.Data
         {
             features = new MapFeature[0];
             ShowLabels = false;
+
+            FeatureLookup = new Dictionary<object, MapFeature>();
         }
+
+        public IDictionary<object, MapFeature> FeatureLookup { get; }
 
         /// <summary>
         /// Gets or sets an array of features defined in the RD-new coordinate system.

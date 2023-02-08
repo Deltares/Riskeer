@@ -26,7 +26,7 @@ namespace Core.Components.DotSpatial.Layer
     /// <summary>
     /// Interface for feature based map data layers.
     /// </summary>
-    public interface IFeatureBasedMapDataLayer : IMapLayer
+    public interface IFeatureBasedMapDataLayer : IMapFeatureLayer
     {
         /// <summary>
         /// Updates the map data layer.

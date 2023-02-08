@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2022. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -73,6 +73,7 @@ namespace Core.Components.DotSpatial.Converter
 
                 foreach (IFeature feature in features)
                 {
+                    data.FeatureLookup.Add(feature, mapFeature);
                     AddFeatureToLayer(layer, feature, mapFeature, attributeMapping);
                 }
             }
@@ -214,6 +215,7 @@ namespace Core.Components.DotSpatial.Converter
 
         private void ClearLayerData(TFeatureBasedMapData mapData, IFeatureLayer layer)
         {
+            mapData.FeatureLookup.Clear();
             layer.DataSet.Features.Clear();
             layer.DataSet.DataTable.Reset();
             ClearFeatureScheme(mapData, layer.Symbology);

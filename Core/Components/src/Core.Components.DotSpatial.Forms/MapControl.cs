@@ -33,6 +33,7 @@ using Core.Components.DotSpatial.Layer.BruTile;
 using Core.Components.DotSpatial.MapFunctions;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Exceptions;
+using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
 using DotSpatial.Controls;
 using DotSpatial.Data;
@@ -425,7 +426,27 @@ namespace Core.Components.DotSpatial.Forms
                 featureBasedMapDataLayer.Reproject(Projection);
             }
 
+            if (featureBasedMapDataLayer.SelectionEnabled)
+            {
+                featureBasedMapDataLayer.SelectionChanged += (sender, args) => HandleMapLayerSelection(drawnMapData);
+            }
+
             map.Layers.Add(featureBasedMapDataLayer);
+        }
+
+        private static void HandleMapLayerSelection(DrawnMapData drawnMapData)
+        {
+            var selectedMapFeatures = new List<MapFeature>();
+
+            foreach (IFeature selectedFeature in drawnMapData.FeatureBasedMapDataLayer.Selection.ToFeatureList())
+            {
+                if (drawnMapData.FeatureBasedMapData.FeatureLookup.ContainsKey(selectedFeature))
+                {
+                    selectedMapFeatures.Add(drawnMapData.FeatureBasedMapData.FeatureLookup[selectedFeature]);
+                }
+            }
+
+            MapFeature[] fixme = selectedMapFeatures.ToArray();
         }
 
         private void DrawMissingMapDataOnCollectionChange(IEnumerable<FeatureBasedMapData> mapDataThatShouldBeDrawn,
@@ -463,6 +484,11 @@ namespace Core.Components.DotSpatial.Forms
 
         private void RemoveMapData(DrawnMapData drawnMapDataToRemove)
         {
+            if (drawnMapDataToRemove.FeatureBasedMapDataLayer.SelectionEnabled)
+            {
+                drawnMapDataToRemove.FeatureBasedMapDataLayer.SelectionChanged -= (sender, args) => HandleMapLayerSelection(drawnMapDataToRemove);
+            }
+            
             drawnMapDataToRemove.Observer.Dispose();
             drawnMapDataList.Remove(drawnMapDataToRemove);
 
