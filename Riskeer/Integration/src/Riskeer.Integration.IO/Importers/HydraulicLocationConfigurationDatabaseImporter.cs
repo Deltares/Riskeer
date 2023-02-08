@@ -98,9 +98,7 @@ namespace Riskeer.Integration.IO.Importers
                 return false;
             }
 
-            long trackId = readTrackIdResult.Items.Single();
-
-            ReadResult<ReadHydraulicLocationConfigurationDatabase> readHydraulicLocationConfigurationDatabaseResult = ReadHydraulicLocationConfigurationDatabase(trackId);
+            ReadResult<ReadHydraulicLocationConfigurationDatabase> readHydraulicLocationConfigurationDatabaseResult = ReadHydraulicLocationConfigurationDatabase();
 
             if (readHydraulicLocationConfigurationDatabaseResult.CriticalErrorOccurred || Canceled)
             {
@@ -114,6 +112,8 @@ namespace Riskeer.Integration.IO.Importers
                 Log.Error(BuildErrorMessage(FilePath, Resources.HydraulicLocationConfigurationDatabaseImporter_Invalid_number_of_ScenarioInformation_entries));
                 return false;
             }
+
+            long trackId = readTrackIdResult.Items.Single();
 
             bool usePreprocessorClosure = readHydraulicLocationConfigurationDatabase.ReadTracks.First(rt => rt.TrackId == trackId).UsePreprocessorClosure;
 
@@ -180,7 +180,7 @@ namespace Riskeer.Integration.IO.Importers
             }
         }
 
-        private ReadResult<ReadHydraulicLocationConfigurationDatabase> ReadHydraulicLocationConfigurationDatabase(long trackId)
+        private ReadResult<ReadHydraulicLocationConfigurationDatabase> ReadHydraulicLocationConfigurationDatabase()
         {
             NotifyProgress(Resources.HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HLCD_file, 2, numberOfSteps);
             try
@@ -191,7 +191,7 @@ namespace Riskeer.Integration.IO.Importers
                     {
                         Items = new[]
                         {
-                            reader.Read(trackId)
+                            reader.Read()
                         }
                     };
                 }
