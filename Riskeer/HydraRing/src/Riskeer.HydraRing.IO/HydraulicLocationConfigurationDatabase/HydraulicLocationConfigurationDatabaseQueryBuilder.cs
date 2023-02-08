@@ -75,17 +75,5 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
                    $"LEFT JOIN {RegionsTableDefinitions.TableName} " +
                    $"ON {TracksTableDefinitions.TableName}.{TracksTableDefinitions.RegionId} = {RegionsTableDefinitions.TableName}.{RegionsTableDefinitions.RegionId};";
         }
-
-        /// <summary>
-        /// Gets the query to get region information from the database.
-        /// </summary>
-        /// <returns>The query to get region information from the database.</returns>
-        public static string GetRegionByTrackIdQuery()
-        {
-            return $"SELECT * FROM {RegionsTableDefinitions.TableName} " +
-                   $"LEFT JOIN {TracksTableDefinitions.TableName} " +
-                   $"ON {RegionsTableDefinitions.TableName}.{RegionsTableDefinitions.RegionId} = {TracksTableDefinitions.TableName}.{TracksTableDefinitions.RegionId} " +
-                   $"WHERE {TracksTableDefinitions.TableName}.{TracksTableDefinitions.TrackId} = @{TracksTableDefinitions.TrackId}";
-        }
     }
 }

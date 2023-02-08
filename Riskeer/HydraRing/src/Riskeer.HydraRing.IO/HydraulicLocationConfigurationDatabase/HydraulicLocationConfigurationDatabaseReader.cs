@@ -65,7 +65,7 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
                                                                   IsScenarioInformationTablePresent()
                                                                       ? GetData(GetConfigurationSettingsFromDatabase)
                                                                       : null,
-                                                                  GetUsePreprocessorClosureByTrackId(trackId));
+                                                                  GetData(GetTracksFromDatabase).First(rt => rt.TrackId == trackId).UsePreprocessorClosure);
         }
 
         /// <summary>
@@ -178,74 +178,6 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
             DataColumn columnName = schemaTable.Columns[schemaTable.Columns.IndexOf("ColumnName")];
 
             return schemaTable.Rows.Cast<DataRow>().Any(row => row[columnName].ToString() == RegionsTableDefinitions.UsePreprocessorClosure);
-        }
-
-        /// <summary>
-        /// Gets the preprocessor closure indicator from the database.
-        /// </summary>
-        /// <param name="trackId">The track id to get the preprocessor closure for.</param>
-        /// <returns>The read indicator whether to use the preprocessor closure.</returns>
-        /// <exception cref="CriticalFileReadException">Thrown when the information could not be read
-        /// from the database file.</exception>
-        /// <exception cref="LineParseException">Thrown when the database returned incorrect values for 
-        /// required properties.</exception>
-        private bool GetUsePreprocessorClosureByTrackId(long trackId)
-        {
-            var trackParameter = new SQLiteParameter
-            {
-                DbType = DbType.String,
-                ParameterName = TracksTableDefinitions.TrackId,
-                Value = trackId
-            };
-
-            try
-            {
-                return ReadUsePreprocessorClosure(trackParameter);
-            }
-            catch (SQLiteException e)
-            {
-                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicLocationConfigurationDatabaseReader_Critical_Unexpected_Exception);
-                throw new CriticalFileReadException(message, e);
-            }
-            catch (InvalidCastException e)
-            {
-                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
-                throw new LineParseException(message, e);
-            }
-        }
-
-        /// <summary>
-        /// Reads the use preprocessor closure from the database.
-        /// </summary>
-        /// <param name="trackParameter">A parameter containing the hydraulic boundary track id.</param>
-        /// <returns>The read indicator whether to use the preprocessor closure.</returns>
-        /// <exception cref="CriticalFileReadException">Thrown when the information could not be read
-        /// from the database file.</exception>
-        /// <exception cref="SQLiteException">Thrown when the database query failed.</exception>
-        /// <exception cref="InvalidCastException">Thrown when the database returned incorrect values for 
-        /// required properties.</exception>
-        private bool ReadUsePreprocessorClosure(SQLiteParameter trackParameter)
-        {
-            string query = HydraulicLocationConfigurationDatabaseQueryBuilder.GetRegionByTrackIdQuery();
-
-            using (IDataReader dataReader = CreateDataReader(query, trackParameter))
-            {
-                DataTable schemaTable = dataReader.GetSchemaTable();
-                DataColumn columnName = schemaTable.Columns[schemaTable.Columns.IndexOf("ColumnName")];
-
-                if (schemaTable.Rows.Cast<DataRow>().All(row => row[columnName].ToString() != RegionsTableDefinitions.UsePreprocessorClosure))
-                {
-                    return false;
-                }
-
-                if (MoveNext(dataReader))
-                {
-                    return Convert.ToBoolean(dataReader[RegionsTableDefinitions.UsePreprocessorClosure]);
-                }
-
-                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicLocationConfigurationDatabaseReader_Critical_Unexpected_Exception);
-                throw new CriticalFileReadException(message);
-            }
         }
 
         /// <summary>
