@@ -78,7 +78,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
             using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(dbFile))
             {
                 // Call
-                ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = hydraulicBoundaryDatabaseReader.Read(777);
+                ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = hydraulicBoundaryDatabaseReader.Read();
 
                 // Assert
                 Assert.IsNull(readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings);
@@ -94,7 +94,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
             using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(dbFile))
             {
                 // Call
-                ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = hydraulicBoundaryDatabaseReader.Read(777);
+                ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = hydraulicBoundaryDatabaseReader.Read();
 
                 // Assert
                 ReadHydraulicLocationConfigurationDatabaseSettings[] readHydraulicLocationConfigurationDatabaseSettings =
@@ -160,7 +160,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
             using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(dbFile))
             {
                 // Call
-                ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = hydraulicBoundaryDatabaseReader.Read(777);
+                ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = hydraulicBoundaryDatabaseReader.Read();
 
                 // Assert
                 bool actualUsePreprocessorClosure = readHydraulicLocationConfigurationDatabase.ReadTracks.First(rt => rt.TrackId == trackId).UsePreprocessorClosure;
@@ -176,7 +176,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
             using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(dbFile))
             {
                 // Call
-                void Call() => hydraulicBoundaryDatabaseReader.Read(1000);
+                void Call() => hydraulicBoundaryDatabaseReader.Read();
 
                 // Assert
                 string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
@@ -190,13 +190,12 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
         public void Read_FileWithScenarioInformationAndMissingColumns_ThrowsCriticalFileReadException()
         {
             // Setup
-            const int trackId = 18169;
             string dbFile = Path.Combine(testDataPath, "hlcdWithScenarioInformationMissingColumn.sqlite");
 
             using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(dbFile))
             {
                 // Call
-                void Call() => hydraulicBoundaryDatabaseReader.Read(trackId);
+                void Call() => hydraulicBoundaryDatabaseReader.Read();
 
                 // Assert
                 string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build("Het bevragen van de database is mislukt.");
@@ -210,13 +209,12 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
         public void Read_FileWithScenarioInformationAndInvalidData_ThrowsLineParseException()
         {
             // Setup
-            const int trackId = 18169;
             string dbFile = Path.Combine(testDataPath, "hlcdWithScenarioInformationInvalidData.sqlite");
 
             using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(dbFile))
             {
                 // Call
-                void Call() => hydraulicBoundaryDatabaseReader.Read(trackId);
+                void Call() => hydraulicBoundaryDatabaseReader.Read();
 
                 // Assert
                 string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
@@ -231,12 +229,11 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
         {
             // Setup
             string dbFile = Path.Combine(testDataPath, "corruptschema.sqlite");
-            const int trackId = 1;
 
             using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(dbFile))
             {
                 // Call
-                void Call() => hydraulicBoundaryDatabaseReader.Read(trackId);
+                void Call() => hydraulicBoundaryDatabaseReader.Read();
 
                 // Assert
                 string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
@@ -251,12 +248,11 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
         {
             // Setup
             string dbFile = Path.Combine(testDataPath, "empty.sqlite");
-            const int trackId = 1;
 
             using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(dbFile))
             {
                 // Call
-                void Call() => hydraulicBoundaryDatabaseReader.Read(trackId);
+                void Call() => hydraulicBoundaryDatabaseReader.Read();
 
                 // Assert
                 string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build("Het bevragen van de database is mislukt.");
