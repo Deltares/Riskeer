@@ -34,14 +34,14 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// <param name="readHydraulicLocations">The locations of the read hydraulic location configuration database.</param>
         /// <param name="readHydraulicLocationConfigurationDatabaseSettings">The settings of the read hydraulic location
         /// configuration database.</param>
-        /// <param name="usePreprocessorClosure">Indicator whether to use the preprocessor closure.</param>
+        /// <param name="readTracks">The tracks of the read hydraulic location configuration database.</param>
         internal ReadHydraulicLocationConfigurationDatabase(IEnumerable<ReadHydraulicLocation> readHydraulicLocations,
                                                             IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> readHydraulicLocationConfigurationDatabaseSettings,
-                                                            bool usePreprocessorClosure)
+                                                            IEnumerable<ReadTrack> readTracks)
         {
             ReadHydraulicLocations = readHydraulicLocations;
             ReadHydraulicLocationConfigurationDatabaseSettings = readHydraulicLocationConfigurationDatabaseSettings;
-            UsePreprocessorClosure = usePreprocessorClosure;
+            ReadTracks = readTracks;
         }
 
         /// <summary>
@@ -55,8 +55,8 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         public IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> ReadHydraulicLocationConfigurationDatabaseSettings { get; }
 
         /// <summary>
-        /// Gets the indicator whether to use the preprocessor closure.
+        /// Gets the tracks of the read hydraulic location configuration database.
         /// </summary>
-        public bool UsePreprocessorClosure { get; }
+        public IEnumerable<ReadTrack> ReadTracks { get; }
     }
 }
