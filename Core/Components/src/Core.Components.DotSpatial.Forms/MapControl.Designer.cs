@@ -103,7 +103,7 @@ namespace Core.Components.DotSpatial.Forms
             this.zoomToRectangleToolStripButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 3);
             this.zoomToRectangleToolStripButton.Name = "zoomToRectangleToolStripButton";
             this.zoomToRectangleToolStripButton.Size = new System.Drawing.Size(22, 19);
-            this.zoomToRectangleToolStripButton.Text = "\uE901";
+            this.zoomToRectangleToolStripButton.Text = "\uE902";
             this.zoomToRectangleToolStripButton.ToolTipText = global::Core.Components.DotSpatial.Forms.Properties.Resources.MapControl_ZoomToRectangle;
             this.zoomToRectangleToolStripButton.Click += new System.EventHandler(this.ZoomToRectangleToolStripButtonClick);
             // 
@@ -118,7 +118,7 @@ namespace Core.Components.DotSpatial.Forms
             this.zoomToVisibleLayersToolStripButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 3);
             this.zoomToVisibleLayersToolStripButton.Name = "zoomToVisibleLayersToolStripButton";
             this.zoomToVisibleLayersToolStripButton.Size = new System.Drawing.Size(22, 19);
-            this.zoomToVisibleLayersToolStripButton.Text = "\uE902";
+            this.zoomToVisibleLayersToolStripButton.Text = "\uE903";
             this.zoomToVisibleLayersToolStripButton.ToolTipText = global::Core.Components.DotSpatial.Forms.Properties.Resources.MapControl_ZoomToVisibleLayers;
             this.zoomToVisibleLayersToolStripButton.Click += new System.EventHandler(this.ZoomToVisibleLayersToolStripButtonClick);
             // 
@@ -133,7 +133,7 @@ namespace Core.Components.DotSpatial.Forms
             this.showCoordinatesToolStripButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 3);
             this.showCoordinatesToolStripButton.Name = "showCoordinatesToolStripButton";
             this.showCoordinatesToolStripButton.Size = new System.Drawing.Size(22, 19);
-            this.showCoordinatesToolStripButton.Text = "\uE903";
+            this.showCoordinatesToolStripButton.Text = "\uE904";
             this.showCoordinatesToolStripButton.ToolTipText = global::Core.Components.DotSpatial.Forms.Properties.Resources.MapControl_ShowCoordinates;
             this.showCoordinatesToolStripButton.Click += new System.EventHandler(this.ShowCoordinatesToolStripButtonClick);
             // 
