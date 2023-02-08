@@ -33,43 +33,43 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="DotSpatial.Controls" Version="2.0.0-rc1">
+    <PackageReference Include="DotSpatial.Controls" Version="2.0.1.2">
       <GeneratePathProperty>true</GeneratePathProperty>
     </PackageReference>
-    <PackageReference Include="DotSpatial.Data" Version="2.0.0-rc1">
+    <PackageReference Include="DotSpatial.Data" Version="2.0.1.2">
       <GeneratePathProperty>true</GeneratePathProperty>
     </PackageReference>
-    <PackageReference Include="DotSpatial.Data.Forms" Version="2.0.0-rc1">
+    <PackageReference Include="DotSpatial.Data.Forms" Version="2.0.1.2">
       <GeneratePathProperty>true</GeneratePathProperty>
     </PackageReference>
-    <PackageReference Include="DotSpatial.Extensions" Version="2.0.0-rc1">
+    <PackageReference Include="DotSpatial.Extensions" Version="2.0.1.2">
       <GeneratePathProperty>true</GeneratePathProperty>
     </PackageReference>
     <PackageReference Include="DotSpatial.GeoAPI" Version="1.7.4.3">
       <GeneratePathProperty>true</GeneratePathProperty>
     </PackageReference>
-    <PackageReference Include="DotSpatial.Modeling.Forms" Version="2.0.0-rc1">
+    <PackageReference Include="DotSpatial.Modeling.Forms" Version="2.0.1.2">
       <GeneratePathProperty>true</GeneratePathProperty>
     </PackageReference>
     <PackageReference Include="DotSpatial.NetTopologySuite" Version="1.14.4">
       <GeneratePathProperty>true</GeneratePathProperty>
     </PackageReference>
-    <PackageReference Include="DotSpatial.NTSExtension" Version="2.0.0-rc1">
+    <PackageReference Include="DotSpatial.NTSExtension" Version="2.0.1.2">
       <GeneratePathProperty>true</GeneratePathProperty>
     </PackageReference>
-    <PackageReference Include="DotSpatial.Projections" Version="2.0.0-rc1">
+    <PackageReference Include="DotSpatial.Projections" Version="2.0.1.2">
       <GeneratePathProperty>true</GeneratePathProperty>
     </PackageReference>
-    <PackageReference Include="DotSpatial.Projections.Forms" Version="2.0.0-rc1">
+    <PackageReference Include="DotSpatial.Projections.Forms" Version="2.0.1.2">
       <GeneratePathProperty>true</GeneratePathProperty>
     </PackageReference>
-    <PackageReference Include="DotSpatial.Serialization" Version="2.0.0-rc1">
+    <PackageReference Include="DotSpatial.Serialization" Version="2.0.1.2">
       <GeneratePathProperty>true</GeneratePathProperty>
     </PackageReference>
-    <PackageReference Include="DotSpatial.Symbology" Version="2.0.0-rc1">
+    <PackageReference Include="DotSpatial.Symbology" Version="2.0.1.2">
       <GeneratePathProperty>true</GeneratePathProperty>
     </PackageReference>
-    <PackageReference Include="DotSpatial.Symbology.Forms" Version="2.0.0-rc1">
+    <PackageReference Include="DotSpatial.Symbology.Forms" Version="2.0.1.2">
       <GeneratePathProperty>true</GeneratePathProperty>
     </PackageReference>
     <PackageReference Include="log4net">
@@ -78,19 +78,19 @@
     </PackageReference>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /d/s/y &quot;$(PkgDotSpatial_Controls)\lib\net40-client\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\DotSpatial.Controls-2.0.0-rc1\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(PkgDotSpatial_Data)\lib\net40-client\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\DotSpatial.Data-2.0.0-rc1\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(PkgDotSpatial_Data_Forms)\lib\net40-client\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\DotSpatial.Data.Forms-2.0.0-rc1\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(PkgDotSpatial_Extensions)\lib\net40-client\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\DotSpatial.Extensions-2.0.0-rc1\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgDotSpatial_Controls)\lib\net452\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\DotSpatial.Controls-2.0.1.2\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgDotSpatial_Data)\lib\net452\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\DotSpatial.Data-2.0.1.2\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgDotSpatial_Data_Forms)\lib\net452\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\DotSpatial.Data.Forms-2.0.1.2\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgDotSpatial_Extensions)\lib\net452\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\DotSpatial.Extensions-2.0.1.2\*&quot;" />
     <Exec Command="xcopy /d/s/y &quot;$(PkgDotSpatial_GeoAPI)\lib\net40-client\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\DotSpatial.GeoAPI-1.7.4.3\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(PkgDotSpatial_Modeling_Forms)\lib\net40-client\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\DotSpatial.Modeling.Forms-2.0.0-rc1\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgDotSpatial_Modeling_Forms)\lib\net452\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\DotSpatial.Modeling.Forms-2.0.1.2\*&quot;" />
     <Exec Command="xcopy /d/s/y &quot;$(PkgDotSpatial_NetTopologySuite)\lib\net40-client\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\DotSpatial.NetTopologySuite-1.14.4\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(PkgDotSpatial_NTSExtension)\lib\net40-client\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\DotSpatial.NTSExtension-2.0.0-rc1\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(PkgDotSpatial_Projections)\lib\net40-client\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\DotSpatial.Projections-2.0.0-rc1\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(PkgDotSpatial_Projections_Forms)\lib\net40-client\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\DotSpatial.Projections.Forms-2.0.0-rc1\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(PkgDotSpatial_Serialization)\lib\net40-client\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\DotSpatial.Serialization-2.0.0-rc1\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(PkgDotSpatial_Symbology)\lib\net40-client\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\DotSpatial.Symbology-2.0.0-rc1\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(PkgDotSpatial_Symbology_Forms)\lib\net40-client\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\DotSpatial.Symbology.Forms-2.0.0-rc1\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgDotSpatial_NTSExtension)\lib\net452\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\DotSpatial.NTSExtension-2.0.1.2\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgDotSpatial_Projections)\lib\net452\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\DotSpatial.Projections-2.0.1.2\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgDotSpatial_Projections_Forms)\lib\net452\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\DotSpatial.Projections.Forms-2.0.1.2\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgDotSpatial_Serialization)\lib\net452\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\DotSpatial.Serialization-2.0.1.2\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgDotSpatial_Symbology)\lib\net452\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\DotSpatial.Symbology-2.0.1.2\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgDotSpatial_Symbology_Forms)\lib\net452\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\DotSpatial.Symbology.Forms-2.0.1.2\*&quot;" />
     <Exec Command="xcopy /d/s/y &quot;$(Pkglog4net)\lib\net45\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\Log4net-2.0.12\*&quot;" />
   </Target>
 </Project>
