@@ -70,9 +70,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
         }
 
         [Test]
-        [TestCase(18169, 1000, 1801000)]
-        [TestCase(20128, 2, 2000002)]
-        public void Read_ValidFileWithoutScenarioInformation_ExpectedValues(int trackId, int hrdLocationId, int expectedLocationId)
+        public void Read_ValidFileWithoutScenarioInformation_ExpectedValues()
         {
             // Setup
             string dbFile = Path.Combine(testDataPath, "hlcdWithoutScenarioInformation.sqlite");
@@ -80,23 +78,15 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
             using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(dbFile))
             {
                 // Call
-                ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = hydraulicBoundaryDatabaseReader.Read(trackId);
+                ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = hydraulicBoundaryDatabaseReader.Read(777);
 
                 // Assert
-                long actualLocationId = readHydraulicLocationConfigurationDatabase.ReadHydraulicLocations
-                                                                                  .First(rhl => rhl.TrackId == trackId && rhl.HrdLocationId == hrdLocationId)
-                                                                                  .HlcdLocationId;
-
-                Assert.AreEqual(expectedLocationId, actualLocationId);
-                Assert.IsFalse(readHydraulicLocationConfigurationDatabase.UsePreprocessorClosure);
                 Assert.IsNull(readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings);
             }
         }
 
         [Test]
-        [TestCase(18169, 1000, 1801000)]
-        [TestCase(20128, 2, 2000002)]
-        public void Read_ValidFileWithScenarioInformation_ExpectedValues(int trackId, int hrdLocationId, int expectedLocationId)
+        public void Read_ValidFileWithScenarioInformation_ExpectedValues()
         {
             // Setup
             string dbFile = Path.Combine(testDataPath, "hlcdWithScenarioInformation.sqlite");
@@ -104,15 +94,9 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
             using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(dbFile))
             {
                 // Call
-                ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = hydraulicBoundaryDatabaseReader.Read(trackId);
+                ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = hydraulicBoundaryDatabaseReader.Read(777);
 
                 // Assert
-                long actualLocationId = readHydraulicLocationConfigurationDatabase.ReadHydraulicLocations
-                                                                                  .First(rhl => rhl.TrackId == trackId && rhl.HrdLocationId == hrdLocationId)
-                                                                                  .HlcdLocationId;
-
-                Assert.AreEqual(expectedLocationId, actualLocationId);
-                Assert.IsFalse(readHydraulicLocationConfigurationDatabase.UsePreprocessorClosure);
                 ReadHydraulicLocationConfigurationDatabaseSettings[] readHydraulicLocationConfigurationDatabaseSettings =
                     readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings.ToArray();
 
@@ -176,10 +160,11 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
             using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(dbFile))
             {
                 // Call
-                ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = hydraulicBoundaryDatabaseReader.Read(trackId);
+                ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = hydraulicBoundaryDatabaseReader.Read(777);
 
                 // Assert
-                Assert.AreEqual(expectedUsePreprocessorClosure, readHydraulicLocationConfigurationDatabase.UsePreprocessorClosure);
+                bool actualUsePreprocessorClosure = readHydraulicLocationConfigurationDatabase.ReadTracks.First(rt => rt.TrackId == trackId).UsePreprocessorClosure;
+                Assert.AreEqual(expectedUsePreprocessorClosure, actualUsePreprocessorClosure);
             }
         }
 
