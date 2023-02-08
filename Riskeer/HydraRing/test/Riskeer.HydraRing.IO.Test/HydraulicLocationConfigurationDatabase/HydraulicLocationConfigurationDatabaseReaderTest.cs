@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Data.SQLite;
 using System.IO;
 using System.Linq;
@@ -198,7 +197,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
                 string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
                 var exception = Assert.Throws<LineParseException>(Call);
                 Assert.AreEqual(expectedMessage, exception.Message);
-                Assert.IsInstanceOf<InvalidCastException>(exception.InnerException);
+                Assert.IsInstanceOf<ConversionException>(exception.InnerException);
             }
         }
 
