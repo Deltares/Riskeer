@@ -65,7 +65,7 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
                                                                   IsScenarioInformationTablePresent()
                                                                       ? GetData(GetConfigurationSettingsFromDatabase)
                                                                       : null,
-                                                                  GetData(GetTracksFromDatabase).First(rt => rt.TrackId == trackId).UsePreprocessorClosure);
+                                                                  GetData(GetTracksFromDatabase));
         }
 
         /// <summary>
