@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Features;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.Factories;
@@ -77,6 +78,7 @@ namespace Riskeer.Common.Forms.MapLayers
 
             MapData = RiskeerMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
             currentMetaDataItems = new Dictionary<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, string>();
+            CurrentFeatures = new Dictionary<MapFeature, AggregatedHydraulicBoundaryLocation>();
             SetFeatures();
         }
 
@@ -84,6 +86,8 @@ namespace Riskeer.Common.Forms.MapLayers
         /// Gets the hydraulic boundary locations map data.
         /// </summary>
         public MapPointData MapData { get; }
+
+        public IReadOnlyDictionary<MapFeature, AggregatedHydraulicBoundaryLocation> CurrentFeatures { get; private set; }
 
         public void Dispose()
         {
@@ -195,8 +199,19 @@ namespace Riskeer.Common.Forms.MapLayers
             IEnumerable<AggregatedHydraulicBoundaryLocation> newLocations = AggregatedHydraulicBoundaryLocationFactory.CreateAggregatedHydraulicBoundaryLocations(
                 assessmentSection.HydraulicBoundaryDatabase.Locations, waterLevelCalculations, waveHeightsCalculations);
 
-            MapData.Features = RiskeerMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(newLocations);
+            IEnumerable<MapFeature> features = RiskeerMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(newLocations);
 
+            var newFeatures = new Dictionary<MapFeature, AggregatedHydraulicBoundaryLocation>();
+            
+            for (var i = 0; i < features.Count(); i++)
+            {
+                newFeatures.Add(features.ElementAt(i), newLocations.ElementAt(i));
+            }
+
+            CurrentFeatures = newFeatures;
+
+            MapData.Features = features;
+            
             if (MapData.Features.Any())
             {
                 UpdateMetaData(waterLevelCalculations, waveHeightsCalculations);
