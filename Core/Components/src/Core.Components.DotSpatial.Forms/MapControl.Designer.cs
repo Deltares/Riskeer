@@ -44,6 +44,7 @@ namespace Core.Components.DotSpatial.Forms
         {
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.panToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.rectangleSelectToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.zoomToRectangleToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.zoomToVisibleLayersToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -63,6 +64,7 @@ namespace Core.Components.DotSpatial.Forms
             this.toolStrip.BackColor = ColorDefinitions.ControlBackgroundColor;
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.panToolStripButton,
+            this.rectangleSelectToolStripButton,
             this.zoomToRectangleToolStripButton,
             this.toolStripSeparator1,
             this.zoomToVisibleLayersToolStripButton,
@@ -84,6 +86,16 @@ namespace Core.Components.DotSpatial.Forms
             this.panToolStripButton.Text = "\uE900";
             this.panToolStripButton.ToolTipText = global::Core.Components.DotSpatial.Forms.Properties.Resources.MapControl_Pan;
             this.panToolStripButton.Click += new System.EventHandler(this.PanToolStripButtonClick);
+            // 
+            // rectangleSelectToolStripButton
+            // 
+            this.rectangleSelectToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.rectangleSelectToolStripButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 3);
+            this.rectangleSelectToolStripButton.Name = "rectangleSelectToolStripButton";
+            this.rectangleSelectToolStripButton.Size = new System.Drawing.Size(22, 19);
+            this.rectangleSelectToolStripButton.Text = "\uE901";
+            this.rectangleSelectToolStripButton.ToolTipText = global::Core.Components.DotSpatial.Forms.Properties.Resources.MapControl_RectangleSelect;
+            this.rectangleSelectToolStripButton.Click += new System.EventHandler(this.RectangleSelectToolStripButtonClick);
             // 
             // zoomToRectangleToolStripButton
             // 
@@ -158,6 +170,7 @@ namespace Core.Components.DotSpatial.Forms
         #endregion
         private System.Windows.Forms.ToolStrip toolStrip;
         private System.Windows.Forms.ToolStripButton panToolStripButton;
+        private System.Windows.Forms.ToolStripButton rectangleSelectToolStripButton;
         private System.Windows.Forms.ToolStripButton zoomToRectangleToolStripButton;
         private System.Windows.Forms.ToolStripButton zoomToVisibleLayersToolStripButton;
         private System.Windows.Forms.ToolStripButton showCoordinatesToolStripButton;

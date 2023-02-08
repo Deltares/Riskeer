@@ -185,6 +185,7 @@ namespace Core.Components.DotSpatial.Forms
         private void SetFonts()
         {
             panToolStripButton.Font = font;
+            rectangleSelectToolStripButton.Font = font;
             zoomToRectangleToolStripButton.Font = font;
             zoomToVisibleLayersToolStripButton.Font = font;
             showCoordinatesToolStripButton.Font = font;
@@ -204,6 +205,11 @@ namespace Core.Components.DotSpatial.Forms
             mapFunctionPan.FunctionActivated += MapFunctionActivateFunction;
             mapFunctionPan.MouseDown += MapFunctionPanOnMouseDown;
             mapFunctionPan.MouseUp += MapFunctionOnMouseUp;
+
+            MapFunctionSelect mapFunctionSelect = map.MapFunctions.OfType<MapFunctionSelect>().First();
+            mapFunctionSelect.FunctionActivated += MapFunctionActivateFunction;
+            mapFunctionSelect.MouseDown += MapFunctionSelectOnMouseDown;
+            mapFunctionSelect.MouseUp += MapFunctionOnMouseUp;
 
             mapFunctionSelectionZoom = new MapFunctionSelectionZoom(map);
             map.MapFunctions.Add(mapFunctionSelectionZoom);
@@ -576,6 +582,11 @@ namespace Core.Components.DotSpatial.Forms
             map.Cursor = geoMouseArgs.Button != MouseButtons.Right ? Cursors.Hand : defaultCursor;
         }
 
+        private void MapFunctionSelectOnMouseDown(object sender, GeoMouseArgs geoMouseArgs)
+        {
+            map.Cursor = geoMouseArgs.Button != MouseButtons.Right ? Cursors.Arrow : defaultCursor;
+        }
+
         private void MapFunctionSelectionZoomOnMouseDown(object sender, GeoMouseArgs geoMouseArgs)
         {
             switch (geoMouseArgs.Button)
@@ -601,6 +612,21 @@ namespace Core.Components.DotSpatial.Forms
             map.FunctionMode = FunctionMode.Pan;
 
             panToolStripButton.Checked = true;
+            rectangleSelectToolStripButton.Checked = false;
+            zoomToRectangleToolStripButton.Checked = false;
+        }
+
+        private void RectangleSelectToolStripButtonClick(object sender, EventArgs e)
+        {
+            if (rectangleSelectToolStripButton.Checked)
+            {
+                return;
+            }
+
+            map.FunctionMode = FunctionMode.Select;
+
+            panToolStripButton.Checked = false;
+            rectangleSelectToolStripButton.Checked = true;
             zoomToRectangleToolStripButton.Checked = false;
         }
 
@@ -615,6 +641,7 @@ namespace Core.Components.DotSpatial.Forms
             map.ActivateMapFunction(mapFunctionSelectionZoom);
 
             panToolStripButton.Checked = false;
+            rectangleSelectToolStripButton.Checked = false;
             zoomToRectangleToolStripButton.Checked = true;
         }
 

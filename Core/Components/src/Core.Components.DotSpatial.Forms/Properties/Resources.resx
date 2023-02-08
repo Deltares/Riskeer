@@ -127,6 +127,9 @@
   <data name="MapControl_Pan" xml:space="preserve">
     <value>Verschuiven</value>
   </data>
+  <data name="MapControl_RectangleSelect" xml:space="preserve">
+    <value>Selecteer door rechthoek</value>
+  </data>
   <data name="MapControl_ZoomToRectangle" xml:space="preserve">
     <value>Zoom door rechthoek</value>
   </data>

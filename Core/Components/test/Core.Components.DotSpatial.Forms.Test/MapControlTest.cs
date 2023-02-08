@@ -95,6 +95,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
                 Assert.AreEqual(9, map.MapFunctions.Count);
                 Assert.AreEqual(1, map.MapFunctions.OfType<MapFunctionPan>().Count());
+                Assert.AreEqual(1, map.MapFunctions.OfType<MapFunctionSelect>().Count());
                 Assert.AreEqual(1, map.MapFunctions.OfType<MapFunctionSelectionZoom>().Count());
 
                 Assert.AreEqual(KnownCoordinateSystems.Projected.NationalGrids.Rijksdriehoekstelsel, map.Projection);
@@ -2720,30 +2721,6 @@ namespace Core.Components.DotSpatial.Forms.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void Panning_MouseUp_DefaultCursorSet()
-        {
-            using (var form = new Form())
-            {
-                // Setup
-                var mapControl = new MapControl();
-                form.Controls.Add(mapControl);
-                form.Show();
-
-                var map = (Map) new ControlTester("Map").TheObject;
-                MapFunctionPan mapFunctionPan = map.MapFunctions.OfType<MapFunctionPan>().First();
-
-                map.Cursor = Cursors.WaitCursor;
-
-                // Call
-                EventHelper.RaiseEvent(mapFunctionPan, "MouseUp", new GeoMouseArgs(new MouseEventArgs(MouseButtons.None, 1, 2, 3, 4), map));
-
-                // Assert
-                Assert.AreEqual(Cursors.Default, map.Cursor);
-            }
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
         public void Panning_Activated_DefaultCursorSet()
         {
             using (var form = new Form())
@@ -2768,7 +2745,9 @@ namespace Core.Components.DotSpatial.Forms.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void Panning_LeftMouseDown_HandCursorSet()
+        [TestCase(MouseButtons.Left)]
+        [TestCase(MouseButtons.Middle)]
+        public void Panning_LeftOrMiddleMouseDown_HandCursorSet(MouseButtons mouseButton)
         {
             using (var form = new Form())
             {
@@ -2783,31 +2762,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 map.Cursor = Cursors.WaitCursor;
 
                 // Call
-                EventHelper.RaiseEvent(mapFunctionPan, "MouseDown", new GeoMouseArgs(new MouseEventArgs(MouseButtons.Left, 1, 2, 3, 4), map));
-
-                // Assert
-                Assert.AreEqual(Cursors.Hand, map.Cursor);
-            }
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
-        public void Panning_MiddleMouseDown_HandCursorSet()
-        {
-            using (var form = new Form())
-            {
-                // Setup
-                var mapControl = new MapControl();
-                form.Controls.Add(mapControl);
-                form.Show();
-
-                var map = (Map) new ControlTester("Map").TheObject;
-                MapFunctionPan mapFunctionPan = map.MapFunctions.OfType<MapFunctionPan>().First();
-
-                map.Cursor = Cursors.WaitCursor;
-
-                // Call
-                EventHelper.RaiseEvent(mapFunctionPan, "MouseDown", new GeoMouseArgs(new MouseEventArgs(MouseButtons.Middle, 1, 2, 3, 4), map));
+                EventHelper.RaiseEvent(mapFunctionPan, "MouseDown", new GeoMouseArgs(new MouseEventArgs(mouseButton, 1, 2, 3, 4), map));
 
                 // Assert
                 Assert.AreEqual(Cursors.Hand, map.Cursor);
@@ -2832,6 +2787,135 @@ namespace Core.Components.DotSpatial.Forms.Test
 
                 // Call
                 EventHelper.RaiseEvent(mapFunctionPan, "MouseDown", new GeoMouseArgs(new MouseEventArgs(MouseButtons.Right, 1, 2, 3, 4), map));
+
+                // Assert
+                Assert.AreEqual(Cursors.Default, map.Cursor);
+            }
+        }
+        
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void Panning_MouseUp_DefaultCursorSet()
+        {
+            using (var form = new Form())
+            {
+                // Setup
+                var mapControl = new MapControl();
+                form.Controls.Add(mapControl);
+                form.Show();
+
+                var map = (Map) new ControlTester("Map").TheObject;
+                MapFunctionPan mapFunctionPan = map.MapFunctions.OfType<MapFunctionPan>().First();
+
+                map.Cursor = Cursors.WaitCursor;
+
+                // Call
+                EventHelper.RaiseEvent(mapFunctionPan, "MouseUp", new GeoMouseArgs(new MouseEventArgs(MouseButtons.None, 1, 2, 3, 4), map));
+
+                // Assert
+                Assert.AreEqual(Cursors.Default, map.Cursor);
+            }
+        }
+
+        #endregion
+
+        #region Select
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void Select_Activated_DefaultCursorSet()
+        {
+            using (var form = new Form())
+            {
+                // Setup
+                var mapControl = new MapControl();
+                form.Controls.Add(mapControl);
+                form.Show();
+
+                var map = (Map) new ControlTester("Map").TheObject;
+                MapFunctionSelect mapFunctionSelect = map.MapFunctions.OfType<MapFunctionSelect>().First();
+
+                map.Cursor = Cursors.WaitCursor;
+
+                // Call
+                mapFunctionSelect.Activate();
+
+                // Assert
+                Assert.AreEqual(Cursors.Default, map.Cursor);
+            }
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        [TestCase(MouseButtons.Left)]
+        [TestCase(MouseButtons.Middle)]
+        public void Select_LeftOrMiddleMouseDown_HandCursorSet(MouseButtons mouseButton)
+        {
+            using (var form = new Form())
+            {
+                // Setup
+                var mapControl = new MapControl();
+                form.Controls.Add(mapControl);
+                form.Show();
+
+                var map = (Map) new ControlTester("Map").TheObject;
+                MapFunctionSelect mapFunctionSelect = map.MapFunctions.OfType<MapFunctionSelect>().First();
+
+                map.Cursor = Cursors.WaitCursor;
+
+                // Call
+                EventHelper.RaiseEvent(mapFunctionSelect, "MouseDown", new GeoMouseArgs(new MouseEventArgs(mouseButton, 1, 2, 3, 4), map));
+
+                // Assert
+                Assert.AreEqual(Cursors.Arrow, map.Cursor);
+            }
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void Select_RightMouseDown_DefaultCursorSet()
+        {
+            using (var form = new Form())
+            {
+                // Setup
+                var mapControl = new MapControl();
+                form.Controls.Add(mapControl);
+                form.Show();
+
+                var map = (Map) new ControlTester("Map").TheObject;
+                MapFunctionSelect mapFunctionSelect = map.MapFunctions.OfType<MapFunctionSelect>().First();
+
+                map.Cursor = Cursors.WaitCursor;
+
+                // Call
+                EventHelper.RaiseEvent(mapFunctionSelect, "MouseDown", new GeoMouseArgs(new MouseEventArgs(MouseButtons.Right, 1, 2, 3, 4), map));
+
+                // Assert
+                Assert.AreEqual(Cursors.Default, map.Cursor);
+            }
+        }
+        
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        [Ignore("Fix when layer selection is dynamic.")]
+        public void Select_MouseUp_DefaultCursorSet()
+        {
+            using (var form = new Form())
+            {
+                // Setup
+                var mapControl = new MapControl();
+                form.Controls.Add(mapControl);
+                form.Show();
+
+                var map = (Map) new ControlTester("Map").TheObject;
+                MapFunctionSelect mapFunctionSelect = map.MapFunctions.OfType<MapFunctionSelect>().First();
+
+                // Need to raise MouseDown event to set  the 'isDragging' state to true. Otherwise the MouseUp event will be swallowed.
+                EventHelper.RaiseEvent(mapFunctionSelect, "MouseDown", new GeoMouseArgs(new MouseEventArgs(MouseButtons.Left, 1, 2, 3, 4), map));
+                map.Cursor = Cursors.WaitCursor;
+
+                // Call
+                EventHelper.RaiseEvent(mapFunctionSelect, "MouseUp", new GeoMouseArgs(new MouseEventArgs(MouseButtons.None, 1, 2, 3, 4), map));
 
                 // Assert
                 Assert.AreEqual(Cursors.Default, map.Cursor);

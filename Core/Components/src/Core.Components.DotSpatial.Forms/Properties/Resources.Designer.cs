@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -97,6 +97,15 @@ namespace Core.Components.DotSpatial.Forms.Properties {
         internal static string MapControl_Pan {
             get {
                 return ResourceManager.GetString("MapControl_Pan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selecteer door rechthoek.
+        /// </summary>
+        internal static string MapControl_RectangleSelect {
+            get {
+                return ResourceManager.GetString("MapControl_RectangleSelect", resourceCulture);
             }
         }
         
