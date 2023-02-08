@@ -48,6 +48,7 @@ namespace Core.Components.Gis.Test.Data
             Assert.AreEqual(name, data.Name);
             CollectionAssert.IsEmpty(data.Features);
             Assert.IsFalse(data.ShowLabels);
+            Assert.IsFalse(data.IsSelectable);
             Assert.IsNull(data.SelectedMetaDataAttribute);
             CollectionAssert.IsEmpty(data.MetaData);
         }
@@ -59,11 +60,11 @@ namespace Core.Components.Gis.Test.Data
         public void Constructor_InvalidName_ThrowsArgumentException(string invalidName)
         {
             // Call
-            TestDelegate test = () => new TestFeatureBasedMapData(invalidName);
+            void Call() => new TestFeatureBasedMapData(invalidName);
 
             // Assert
             const string expectedMessage = "A name must be set to the map data.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
         }
 
         [Test]
@@ -91,11 +92,11 @@ namespace Core.Components.Gis.Test.Data
             var data = new TestFeatureBasedMapData("test data");
 
             // Call
-            TestDelegate test = () => data.Features = null;
+            void Call() => data.Features = null;
 
             // Assert
             const string expectedMessage = "The array of features cannot be null or contain null.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(Call, expectedMessage);
         }
 
         [Test]
@@ -105,14 +106,14 @@ namespace Core.Components.Gis.Test.Data
             var data = new TestFeatureBasedMapData("test data");
 
             // Call
-            TestDelegate test = () => data.Features = new MapFeature[]
+            void Call() => data.Features = new MapFeature[]
             {
                 null
             };
 
             // Assert
             const string expectedMessage = "The array of features cannot be null or contain null.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(Call, expectedMessage);
         }
 
         [Test]
@@ -153,10 +154,10 @@ namespace Core.Components.Gis.Test.Data
         public void TypedConstructor_ThemeNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new TypedTestFeatureBasedMapData("name", null);
+            void Call() => new TypedTestFeatureBasedMapData("name", null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("theme", exception.ParamName);
         }
 

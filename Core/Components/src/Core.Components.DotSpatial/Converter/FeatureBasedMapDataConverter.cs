@@ -102,6 +102,7 @@ namespace Core.Components.DotSpatial.Converter
             layer.IsVisible = data.IsVisible;
             layer.Name = data.Name;
             layer.ShowLabels = data.ShowLabels;
+            layer.SelectionEnabled = data.IsSelectable;
             ((IMapFeatureLayer) layer).LabelLayer = GetLabelLayer(GetAttributeMapping(data), layer.DataSet, data.SelectedMetaDataAttribute);
 
             if (data.Theme != null)

@@ -45,6 +45,7 @@ namespace Core.Components.Gis.Data
         {
             features = new MapFeature[0];
             ShowLabels = false;
+            IsSelectable = false;
         }
 
         /// <summary>
@@ -71,6 +72,11 @@ namespace Core.Components.Gis.Data
         /// Gets or sets a value indicating whether the labels of the <see cref="FeatureBasedMapData"/> should be shown.
         /// </summary>
         public bool ShowLabels { get; set; }
+        
+        /// <summary>
+        /// Gets or sets a value indicating whether the layer features can be selected.
+        /// </summary>
+        public bool IsSelectable { get; set; }
 
         /// <summary>
         /// Gets or sets the selected attribute of the meta data to show as label.

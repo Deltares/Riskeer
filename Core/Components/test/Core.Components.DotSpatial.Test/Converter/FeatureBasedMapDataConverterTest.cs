@@ -53,11 +53,11 @@ namespace Core.Components.DotSpatial.Test.Converter
             var mapLayer = new TestFeatureLayer();
 
             // Call
-            TestDelegate test = () => testConverter.ConvertLayerFeatures(null, mapLayer);
+            void Call() => testConverter.ConvertLayerFeatures(null, mapLayer);
 
             // Assert
             const string expectedMessage = "Null data cannot be converted into feature layer data.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(Call, expectedMessage);
         }
 
         [Test]
@@ -68,11 +68,11 @@ namespace Core.Components.DotSpatial.Test.Converter
             var mapData = new TestFeatureBasedMapData("test data");
 
             // Call
-            TestDelegate test = () => testConverter.ConvertLayerFeatures(mapData, null);
+            void Call() => testConverter.ConvertLayerFeatures(mapData, null);
 
             // Assert
             const string expectedMessage = "Null data cannot be used as conversion target.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(Call, expectedMessage);
         }
 
         [Test]
@@ -83,11 +83,11 @@ namespace Core.Components.DotSpatial.Test.Converter
             var mapLayer = new TestFeatureLayer();
 
             // Call
-            TestDelegate test = () => testConverter.ConvertLayerProperties(null, mapLayer);
+            void Call() => testConverter.ConvertLayerProperties(null, mapLayer);
 
             // Assert
             const string expectedMessage = "Null data cannot be converted into feature layer data.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(Call, expectedMessage);
         }
 
         [Test]
@@ -98,11 +98,11 @@ namespace Core.Components.DotSpatial.Test.Converter
             var mapData = new TestFeatureBasedMapData("test data");
 
             // Call
-            TestDelegate test = () => testConverter.ConvertLayerProperties(mapData, null);
+            void Call() => testConverter.ConvertLayerProperties(mapData, null);
 
             // Assert
             const string expectedMessage = "Null data cannot be used as conversion target.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(Call, expectedMessage);
         }
 
         [Test]
@@ -497,6 +497,26 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             // Assert
             Assert.AreEqual(showLabels, mapLayer.ShowLabels);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ConvertLayerProperties_MapData_IsSelectableSetToLayer(bool isSelectable)
+        {
+            // Setup
+            var testConverter = new TestFeatureBasedMapDataConverter();
+            var mapData = new TestFeatureBasedMapData("test data")
+            {
+                IsSelectable = isSelectable
+            };
+            var mapLayer = new TestFeatureLayer();
+
+            // Call
+            testConverter.ConvertLayerProperties(mapData, mapLayer);
+
+            // Assert
+            Assert.AreEqual(isSelectable, mapLayer.SelectionEnabled);
         }
 
         [Test]
