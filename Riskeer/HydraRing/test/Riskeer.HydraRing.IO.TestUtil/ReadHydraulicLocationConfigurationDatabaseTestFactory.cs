@@ -34,7 +34,7 @@ namespace Riskeer.HydraRing.IO.TestUtil
         /// <summary>
         /// Creates a <see cref="ReadHydraulicLocationConfigurationDatabase"/>.
         /// </summary>
-        /// <param name="trackId">The track id to set to the locations.</param>
+        /// <param name="trackId">The track id.</param>
         /// <returns>The created <see cref="ReadHydraulicLocationConfigurationDatabase"/>.</returns>
         public static ReadHydraulicLocationConfigurationDatabase Create(long trackId)
         {
@@ -49,7 +49,7 @@ namespace Riskeer.HydraRing.IO.TestUtil
         /// Creates a <see cref="ReadHydraulicLocationConfigurationDatabase"/>.
         /// </summary>
         /// <param name="hrdLocationIds">The hydraulic boundary location ids to add.</param>
-        /// <param name="trackId">The track id to set to the locations.</param>
+        /// <param name="trackId">The track id.</param>
         /// <returns>The created <see cref="ReadHydraulicLocationConfigurationDatabase"/>.</returns>
         public static ReadHydraulicLocationConfigurationDatabase Create(IEnumerable<long> hrdLocationIds, long trackId)
         {
@@ -60,7 +60,7 @@ namespace Riskeer.HydraRing.IO.TestUtil
         /// Create a valid instance of <see cref="ReadHydraulicLocationConfigurationDatabase"/>
         /// with hydraulic location configuration database settings.
         /// </summary>
-        /// <param name="trackId">The track id to set to the locations.</param>
+        /// <param name="trackId">The track id.</param>
         /// <returns>The created <see cref="ReadHydraulicLocationConfigurationDatabase"/> with hydraulic location configuration database settings.</returns>
         public static ReadHydraulicLocationConfigurationDatabase CreateWithConfigurationSettings(long trackId)
         {
@@ -77,7 +77,7 @@ namespace Riskeer.HydraRing.IO.TestUtil
         /// with hydraulic location configuration database settings.
         /// </summary>
         /// <param name="settings">The <see cref="ReadHydraulicLocationConfigurationDatabaseSettings"/> to set.</param>
-        /// <param name="trackId">The track id to set to the locations.</param>
+        /// <param name="trackId">The track id.</param>
         /// <returns>The created <see cref="ReadHydraulicLocationConfigurationDatabase"/> with hydraulic location configuration database settings.</returns>
         public static ReadHydraulicLocationConfigurationDatabase CreateWithConfigurationSettings(IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> settings, long trackId)
         {
@@ -92,7 +92,12 @@ namespace Riskeer.HydraRing.IO.TestUtil
                                                                          IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> settings,
                                                                          long trackId)
         {
-            return new ReadHydraulicLocationConfigurationDatabase(hrdLocationIds.Select(hrdLocationId => CreateReadHydraulicLocation(hrdLocationId, trackId)).ToList(), settings, false);
+            return new ReadHydraulicLocationConfigurationDatabase(hrdLocationIds.Select(hrdLocationId => CreateReadHydraulicLocation(hrdLocationId, trackId)).ToList(),
+                                                                  settings,
+                                                                  new[]
+                                                                  {
+                                                                      new ReadTrack(trackId, "hrd.sqlite", false)
+                                                                  });
         }
 
         private static ReadHydraulicLocation CreateReadHydraulicLocation(long hrdLocationId, long trackId)
