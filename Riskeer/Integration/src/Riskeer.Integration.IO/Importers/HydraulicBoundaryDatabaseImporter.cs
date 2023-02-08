@@ -85,8 +85,7 @@ namespace Riskeer.Integration.IO.Importers
 
             string hlcdFilePath = GetHlcdFilePath();
 
-            ReadResult<ReadHydraulicLocationConfigurationDatabase> readHydraulicLocationConfigurationDatabaseResult = ReadHydraulicLocationConfigurationDatabase(
-                hlcdFilePath, readHydraulicBoundaryDatabase.TrackId);
+            ReadResult<ReadHydraulicLocationConfigurationDatabase> readHydraulicLocationConfigurationDatabaseResult = ReadHydraulicLocationConfigurationDatabase(hlcdFilePath);
 
             if (readHydraulicLocationConfigurationDatabaseResult.CriticalErrorOccurred || Canceled)
             {
@@ -170,14 +169,14 @@ namespace Riskeer.Integration.IO.Importers
             }
         }
 
-        private ReadResult<ReadHydraulicLocationConfigurationDatabase> ReadHydraulicLocationConfigurationDatabase(string hlcdFilePath, long trackId)
+        private ReadResult<ReadHydraulicLocationConfigurationDatabase> ReadHydraulicLocationConfigurationDatabase(string hlcdFilePath)
         {
             NotifyProgress(Resources.HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HLCD_file, 2, numberOfSteps);
             try
             {
                 using (var reader = new HydraulicLocationConfigurationDatabaseReader(hlcdFilePath))
                 {
-                    return ReadHydraulicLocationConfigurationDatabase(trackId, reader);
+                    return ReadHydraulicLocationConfigurationDatabase(reader);
                 }
             }
             catch (CriticalFileReadException)
@@ -186,7 +185,7 @@ namespace Riskeer.Integration.IO.Importers
             }
         }
 
-        private ReadResult<ReadHydraulicLocationConfigurationDatabase> ReadHydraulicLocationConfigurationDatabase(long trackId, HydraulicLocationConfigurationDatabaseReader reader)
+        private ReadResult<ReadHydraulicLocationConfigurationDatabase> ReadHydraulicLocationConfigurationDatabase(HydraulicLocationConfigurationDatabaseReader reader)
         {
             try
             {
@@ -194,7 +193,7 @@ namespace Riskeer.Integration.IO.Importers
                 {
                     Items = new[]
                     {
-                        reader.Read(trackId)
+                        reader.Read()
                     }
                 };
             }
