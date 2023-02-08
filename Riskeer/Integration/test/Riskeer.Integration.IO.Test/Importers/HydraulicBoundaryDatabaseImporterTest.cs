@@ -396,13 +396,13 @@ namespace Riskeer.Integration.IO.Test.Importers
                    .WhenCalled(invocation =>
                    {
                        var readHydraulicBoundaryDatabase = (ReadHydraulicBoundaryDatabase) invocation.Arguments[1];
-                       
+
                        AssertReadHydraulicBoundaryDatabase(readHydraulicBoundaryDatabase);
 
                        var readHydraulicLocationConfigurationDatabase = (ReadHydraulicLocationConfigurationDatabase) invocation.Arguments[2];
                        Assert.AreEqual(18, readHydraulicLocationConfigurationDatabase.ReadHydraulicLocations.Count(rhl => rhl.TrackId == readHydraulicBoundaryDatabase.TrackId));
                        Assert.IsNull(readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings);
-                       Assert.AreEqual(usePreprocessorClosure, readHydraulicLocationConfigurationDatabase.UsePreprocessorClosure);
+                       Assert.AreEqual(usePreprocessorClosure, readHydraulicLocationConfigurationDatabase.ReadTracks.First(rt => rt.TrackId == readHydraulicBoundaryDatabase.TrackId).UsePreprocessorClosure);
 
                        var excludedLocationIds = (IEnumerable<long>) invocation.Arguments[3];
                        Assert.AreEqual(1, excludedLocationIds.Count());
@@ -445,7 +445,7 @@ namespace Riskeer.Integration.IO.Test.Importers
                    .WhenCalled(invocation =>
                    {
                        var readHydraulicBoundaryDatabase = (ReadHydraulicBoundaryDatabase) invocation.Arguments[1];
-                       
+
                        AssertReadHydraulicBoundaryDatabase(readHydraulicBoundaryDatabase);
 
                        var readHydraulicLocationConfigurationDatabase = (ReadHydraulicLocationConfigurationDatabase) invocation.Arguments[2];
