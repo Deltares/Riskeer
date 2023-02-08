@@ -142,6 +142,39 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
                 }
             }
         }
+
+        /// <summary>
+        /// Gets the tracks from the database.
+        /// </summary>
+        /// <returns>A collection of <see cref="ReadTrack"/> as found in the database.</returns>
+        /// <exception cref="SQLiteException">Thrown when the database query failed.</exception>
+        /// <exception cref="ConversionException">Thrown when the database returned incorrect values for 
+        /// required properties.</exception>
+        private bool GetTracksFromDatabase()
+        {
+            string query = HydraulicLocationConfigurationDatabaseQueryBuilder.GetTracksQuery();
+
+            using (IDataReader dataReader = CreateDataReader(query))
+            {
+                DataTable schemaTable = dataReader.GetSchemaTable();
+                DataColumn columnName = schemaTable.Columns[schemaTable.Columns.IndexOf("ColumnName")];
+
+                if (schemaTable.Rows.Cast<DataRow>().All(row => row[columnName].ToString() != RegionsTableDefinitions.UsePreprocessorClosure))
+                {
+                    return false;
+                }
+
+                if (MoveNext(dataReader))
+                {
+                    return Convert.ToBoolean(dataReader[RegionsTableDefinitions.UsePreprocessorClosure]);
+                }
+
+                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicLocationConfigurationDatabaseReader_Critical_Unexpected_Exception);
+                throw new CriticalFileReadException(message);
+            }
+        }
+
+        
         
         /// <summary>
         /// Gets the preprocessor closure indicator from the database.
