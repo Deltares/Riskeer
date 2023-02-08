@@ -150,32 +150,36 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// <exception cref="SQLiteException">Thrown when the database query failed.</exception>
         /// <exception cref="ConversionException">Thrown when the database returned incorrect values for 
         /// required properties.</exception>
-        private bool GetTracksFromDatabase()
+        private IEnumerable<ReadTrack> GetTracksFromDatabase()
         {
             string query = HydraulicLocationConfigurationDatabaseQueryBuilder.GetTracksQuery();
 
             using (IDataReader dataReader = CreateDataReader(query))
             {
-                DataTable schemaTable = dataReader.GetSchemaTable();
-                DataColumn columnName = schemaTable.Columns[schemaTable.Columns.IndexOf("ColumnName")];
+                bool hasUsePreprocessorClosureColumn = HasUsePreprocessorClosureColumn(dataReader);
 
-                if (schemaTable.Rows.Cast<DataRow>().All(row => row[columnName].ToString() != RegionsTableDefinitions.UsePreprocessorClosure))
+                while (MoveNext(dataReader))
                 {
-                    return false;
+                    yield return new ReadTrack(dataReader.Read<long>(TracksTableDefinitions.TrackId),
+                                               dataReader.Read<string>(TracksTableDefinitions.HrdFileName),
+                                               hasUsePreprocessorClosureColumn && dataReader.Read<bool>(RegionsTableDefinitions.UsePreprocessorClosure));
                 }
-
-                if (MoveNext(dataReader))
-                {
-                    return Convert.ToBoolean(dataReader[RegionsTableDefinitions.UsePreprocessorClosure]);
-                }
-
-                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicLocationConfigurationDatabaseReader_Critical_Unexpected_Exception);
-                throw new CriticalFileReadException(message);
             }
         }
 
-        
-        
+        /// <summary>
+        /// Determines whether the use preprocessor closure column is present in the database.
+        /// </summary>
+        /// <returns><c>true</c> if the column is present; <c>false</c> otherwise.</returns>
+        /// <exception cref="CriticalFileReadException">Thrown when the information could not be read from the database file.</exception>
+        private static bool HasUsePreprocessorClosureColumn(IDataReader dataReader)
+        {
+            DataTable schemaTable = dataReader.GetSchemaTable();
+            DataColumn columnName = schemaTable.Columns[schemaTable.Columns.IndexOf("ColumnName")];
+
+            return schemaTable.Rows.Cast<DataRow>().Any(row => row[columnName].ToString() == RegionsTableDefinitions.UsePreprocessorClosure);
+        }
+
         /// <summary>
         /// Gets the preprocessor closure indicator from the database.
         /// </summary>
