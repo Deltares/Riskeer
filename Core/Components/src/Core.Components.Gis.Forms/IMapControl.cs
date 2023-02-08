@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Controls.Views;
 using Core.Components.Gis.Data;
 
 namespace Core.Components.Gis.Forms
@@ -27,7 +28,7 @@ namespace Core.Components.Gis.Forms
     /// <summary>
     /// Interface describing general map interactions.
     /// </summary>
-    public interface IMapControl
+    public interface IMapControl : ISelectionProvider
     {
         /// <summary>
         /// Gets the data to show in the <see cref="IMapControl"/>.

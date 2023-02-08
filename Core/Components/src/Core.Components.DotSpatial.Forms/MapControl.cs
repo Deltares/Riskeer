@@ -26,6 +26,7 @@ using System.Drawing.Text;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Controls.Views;
 using Core.Common.Util.Drawing;
 using Core.Components.DotSpatial.Forms.Properties;
 using Core.Components.DotSpatial.Layer;
@@ -47,7 +48,7 @@ namespace Core.Components.DotSpatial.Forms
     /// <summary>
     /// This class describes a map control with configured projection and function mode.
     /// </summary>
-    public partial class MapControl : UserControl, IMapControl
+    public partial class MapControl : UserControl, IMapControl, ISelectionProvider
     {
         private const int updateTimerInterval = 10;
 
@@ -434,7 +435,7 @@ namespace Core.Components.DotSpatial.Forms
             map.Layers.Add(featureBasedMapDataLayer);
         }
 
-        private static void HandleMapLayerSelection(DrawnMapData drawnMapData)
+        private void HandleMapLayerSelection(DrawnMapData drawnMapData)
         {
             var selectedMapFeatures = new List<MapFeature>();
 
@@ -446,7 +447,8 @@ namespace Core.Components.DotSpatial.Forms
                 }
             }
 
-            MapFeature[] fixme = selectedMapFeatures.ToArray();
+            Selection = selectedMapFeatures.ToArray();
+            SelectionChanged?.Invoke(this, EventArgs.Empty);
         }
 
         private void DrawMissingMapDataOnCollectionChange(IEnumerable<FeatureBasedMapData> mapDataThatShouldBeDrawn,
@@ -709,5 +711,8 @@ namespace Core.Components.DotSpatial.Forms
         }
 
         #endregion
+
+        public event EventHandler<EventArgs> SelectionChanged;
+        public object Selection { get; private set; }
     }
 }

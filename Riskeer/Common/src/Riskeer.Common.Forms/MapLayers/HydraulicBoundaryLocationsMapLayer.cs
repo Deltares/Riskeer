@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Controls.Views;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Riskeer.Common.Data.AssessmentSection;
@@ -38,7 +39,7 @@ namespace Riskeer.Common.Forms.MapLayers
     /// <summary>
     /// Map layer to show hydraulic boundary locations.
     /// </summary>
-    public class HydraulicBoundaryLocationsMapLayer : IDisposable
+    public class HydraulicBoundaryLocationsMapLayer : IDisposable, ISelectionProvider
     {
         private readonly IAssessmentSection assessmentSection;
 
@@ -58,6 +59,9 @@ namespace Riskeer.Common.Forms.MapLayers
         private List<RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation>> waveHeightCalculationsForTargetProbabilityObservers;
 
         private IReadOnlyDictionary<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, string> currentMetaDataItems;
+        private IReadOnlyDictionary<MapFeature, HydraulicBoundaryLocation> currentFeatures;
+
+        public event EventHandler<EventArgs> SelectionChanged;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationsMapLayer"/>.
@@ -78,7 +82,7 @@ namespace Riskeer.Common.Forms.MapLayers
 
             MapData = RiskeerMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
             currentMetaDataItems = new Dictionary<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, string>();
-            CurrentFeatures = new Dictionary<MapFeature, AggregatedHydraulicBoundaryLocation>();
+            currentFeatures = new Dictionary<MapFeature, HydraulicBoundaryLocation>();
             SetFeatures();
         }
 
@@ -87,7 +91,23 @@ namespace Riskeer.Common.Forms.MapLayers
         /// </summary>
         public MapPointData MapData { get; }
 
-        public IReadOnlyDictionary<MapFeature, AggregatedHydraulicBoundaryLocation> CurrentFeatures { get; private set; }
+        public object Selection { get; private set; }
+
+        public void MapControlSelectionChanged(MapFeature[] selectedMapFeatures)
+        {
+            var locationSelection = new List<HydraulicBoundaryLocation>();
+
+            foreach (MapFeature selectedMapFeature in selectedMapFeatures)
+            {
+                if (currentFeatures.ContainsKey(selectedMapFeature))
+                {
+                    locationSelection.Add(currentFeatures[selectedMapFeature]);
+                }
+            }
+
+            Selection = locationSelection.ToArray();
+            SelectionChanged?.Invoke(this, EventArgs.Empty);
+        }
 
         public void Dispose()
         {
@@ -201,17 +221,17 @@ namespace Riskeer.Common.Forms.MapLayers
 
             IEnumerable<MapFeature> features = RiskeerMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(newLocations);
 
-            var newFeatures = new Dictionary<MapFeature, AggregatedHydraulicBoundaryLocation>();
-            
+            var newFeatures = new Dictionary<MapFeature, HydraulicBoundaryLocation>();
+
             for (var i = 0; i < features.Count(); i++)
             {
-                newFeatures.Add(features.ElementAt(i), newLocations.ElementAt(i));
+                newFeatures.Add(features.ElementAt(i), assessmentSection.HydraulicBoundaryDatabase.Locations.ElementAt(i));
             }
 
-            CurrentFeatures = newFeatures;
+            currentFeatures = newFeatures;
 
             MapData.Features = features;
-            
+
             if (MapData.Features.Any())
             {
                 UpdateMetaData(waterLevelCalculations, waveHeightsCalculations);

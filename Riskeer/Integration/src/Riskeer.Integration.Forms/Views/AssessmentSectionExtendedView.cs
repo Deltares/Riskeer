@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Components.Gis.Features;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.MapLayers;
 
@@ -43,6 +44,8 @@ namespace Riskeer.Integration.Forms.Views
             mapLayer = new HydraulicBoundaryLocationsMapLayer(assessmentSection);
 
             MapDataCollection.Add(mapLayer.MapData);
+
+            Map.SelectionChanged += (sender, args) => mapLayer.MapControlSelectionChanged((MapFeature[]) Map.Selection);
         }
 
         protected override void Dispose(bool disposing)
