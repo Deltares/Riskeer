@@ -25,8 +25,7 @@ using Riskeer.Common.Data.Properties;
 namespace Riskeer.Common.Data.Hydraulics
 {
     /// <summary>
-    /// Class which holds information about the hydraulic
-    /// location configuration settings.
+    /// Class which holds information about the hydraulic location configuration settings.
     /// </summary>
     public class HydraulicLocationConfigurationSettings
     {
