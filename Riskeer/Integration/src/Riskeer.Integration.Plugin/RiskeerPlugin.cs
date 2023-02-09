@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO;
 using System.IO.Packaging;
 using System.Linq;
 using System.Windows.Forms;
@@ -871,15 +872,16 @@ namespace Riskeer.Integration.Plugin
             yield return new TreeNodeInfo<HrdFileGroupContext>
             {
                 Text = context => Resources.HrdFileGroup_DisplayName,
-                Image = context => RiskeerCommonFormsResources.GeneralFolderIcon
+                Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
+                ChildNodeObjects = HrdFileGroupContextChildNodeObjects
             };
 
             yield return new TreeNodeInfo<HrdFileContext>
             {
-                Text = context => context.WrappedData.FilePath,
+                Text = context => Path.GetFileName(context.WrappedData.FilePath),
                 Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon
             };
-            
+
             yield return new TreeNodeInfo<WaterLevelCalculationsForNormTargetProbabilitiesGroupContext>
             {
                 Text = context => RiskeerCommonUtilResources.WaterLevelCalculationsForNormTargetProbabilities_DisplayName,
@@ -2405,6 +2407,14 @@ namespace Riskeer.Integration.Plugin
             }
 
             return new object[0];
+        }
+
+        private static object[] HrdFileGroupContextChildNodeObjects(HrdFileGroupContext nodeData)
+        {
+            return new object[]
+            {
+                new HrdFileContext(nodeData.WrappedData, nodeData.AssessmentSection)
+            };
         }
 
         private static void SetHydraulicsMenuItemEnabledStateAndTooltip(IAssessmentSection assessmentSection, StrictContextMenuItem menuItem)
