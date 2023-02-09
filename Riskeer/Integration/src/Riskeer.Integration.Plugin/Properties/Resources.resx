@@ -324,4 +324,7 @@ Weet u zeker dat u wilt doorgaan?</value>
     <data name="AssessmentSectionMergeHandler_TryMergeFailureMechanism_FailureMechanism_0_added" xml:space="preserve">
         <value>Faalmechanisme '{0}' en de bijbehorende gegevens zijn toegevoegd aan de lijst van specifieke faalmechanismen.</value>
     </data>
+    <data name="HrdFileGroup_DisplayName" xml:space="preserve">
+        <value>HRD bestanden</value>
+    </data>
 </root>

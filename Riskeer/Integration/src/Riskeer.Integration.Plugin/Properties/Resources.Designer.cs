@@ -384,6 +384,15 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to HRD bestanden.
+        /// </summary>
+        public static string HrdFileGroup_DisplayName {
+            get {
+                return ResourceManager.GetString("HrdFileGroup_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hydraulische belastingendatabase.
         /// </summary>
         public static string HydraulicBoundaryDatabase_file_filter_Description {

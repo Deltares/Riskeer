@@ -859,13 +859,19 @@ namespace Riskeer.Integration.Plugin
 
             yield return new TreeNodeInfo<HydraulicBoundaryDatabaseContext>
             {
-                Text = hydraulicBoundaryDatabase => RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName,
-                Image = hydraulicBoundaryDatabase => RiskeerCommonFormsResources.GeneralFolderIcon,
+                Text = context => RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName,
+                Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
                 ForeColor = context => context.WrappedData.IsLinked()
                                            ? Color.FromKnownColor(KnownColor.ControlText)
                                            : Color.FromKnownColor(KnownColor.GrayText),
                 ChildNodeObjects = HydraulicBoundaryDatabaseChildNodeObjects,
                 ContextMenuStrip = HydraulicBoundaryDatabaseContextMenuStrip
+            };
+
+            yield return new TreeNodeInfo<HrdFileGroupContext>
+            {
+                Text = context => Resources.HrdFileGroup_DisplayName,
+                Image = context => RiskeerCommonFormsResources.GeneralFolderIcon
             };
 
             yield return new TreeNodeInfo<WaterLevelCalculationsForNormTargetProbabilitiesGroupContext>
