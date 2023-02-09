@@ -25,6 +25,8 @@ using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PresentationObjects;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -48,7 +50,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Assert.IsNull(info.ContextMenuStrip);
                 Assert.IsNull(info.EnsureVisibleOnCreate);
                 Assert.IsNull(info.ExpandOnCreate);
-                Assert.IsNull(info.ChildNodeObjects);
+                Assert.IsNotNull(info.ChildNodeObjects);
                 Assert.IsNull(info.CanRename);
                 Assert.IsNull(info.OnNodeRenamed);
                 Assert.IsNull(info.CanRemove);
@@ -92,6 +94,29 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
                 // Assert
                 TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.GeneralFolderIcon, image);
+            }
+        }
+
+        [Test]
+        public void ChildNodeObjects_WithContext_ReturnsChildrenOfData()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var hrdFileGroupContext = new HrdFileGroupContext(assessmentSection.HydraulicBoundaryDatabase, assessmentSection);
+
+            using (var plugin = new RiskeerPlugin())
+            {
+                TreeNodeInfo info = GetInfo(plugin);
+
+                // Call
+                object[] objects = info.ChildNodeObjects(hrdFileGroupContext).ToArray();
+
+                // Assert
+                Assert.AreEqual(1, objects.Length);
+
+                var hrdFileContext = (HrdFileContext) objects[0];
+                Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase, hrdFileContext.WrappedData);
+                Assert.AreSame(assessmentSection, hrdFileContext.AssessmentSection);
             }
         }
 
