@@ -2382,6 +2382,7 @@ namespace Riskeer.Integration.Plugin
             {
                 return new object[]
                 {
+                    new HrdFileGroupContext(nodeData.WrappedData, nodeData.AssessmentSection),
                     new WaterLevelCalculationsForNormTargetProbabilitiesGroupContext(nodeData.WrappedData.Locations,
                                                                                      nodeData.AssessmentSection),
                     new WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext(nodeData.AssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities,
