@@ -874,6 +874,12 @@ namespace Riskeer.Integration.Plugin
                 Image = context => RiskeerCommonFormsResources.GeneralFolderIcon
             };
 
+            yield return new TreeNodeInfo<HrdFileGroupContext>
+            {
+                Text = context => context.WrappedData.FilePath,
+                Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon
+            };
+            
             yield return new TreeNodeInfo<WaterLevelCalculationsForNormTargetProbabilitiesGroupContext>
             {
                 Text = context => RiskeerCommonUtilResources.WaterLevelCalculationsForNormTargetProbabilities_DisplayName,
