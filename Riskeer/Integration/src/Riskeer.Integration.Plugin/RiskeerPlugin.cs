@@ -874,7 +874,7 @@ namespace Riskeer.Integration.Plugin
                 Image = context => RiskeerCommonFormsResources.GeneralFolderIcon
             };
 
-            yield return new TreeNodeInfo<HrdFileGroupContext>
+            yield return new TreeNodeInfo<HrdFileContext>
             {
                 Text = context => context.WrappedData.FilePath,
                 Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon
