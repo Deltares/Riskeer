@@ -63,22 +63,36 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             Assert.AreEqual("", effectivePreprocessorDirectory);
         }
 
-        [TestCase(null, false)]
-        [TestCase("", false)]
-        [TestCase("Test", true)]
-        public void IsLinked_SpecificFilePath_ReturnsExpectedValue(string filePath, bool expectedValue)
+        [Test]
+        public void IsLinked_NoHrdFilesAdded_ReturnsFalse()
+        {
+            // Setup
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+
+            // Call
+            bool isLinked = hydraulicBoundaryDatabase.IsLinked();
+
+            // Assert
+            Assert.IsFalse(isLinked);
+        }
+
+        [Test]
+        public void IsLinked_HrdFileAdded_ReturnsTrue()
         {
             // Setup
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                FilePath = filePath
+                HrdFiles =
+                {
+                    new HrdFile()
+                }
             };
 
             // Call
             bool isLinked = hydraulicBoundaryDatabase.IsLinked();
 
             // Assert
-            Assert.AreEqual(expectedValue, isLinked);
+            Assert.IsTrue(isLinked);
         }
 
         [TestCase(false, "Test", "")]

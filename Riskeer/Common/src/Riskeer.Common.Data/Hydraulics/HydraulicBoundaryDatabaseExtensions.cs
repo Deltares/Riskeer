@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 
 namespace Riskeer.Common.Data.Hydraulics
 {
@@ -44,7 +45,7 @@ namespace Riskeer.Common.Data.Hydraulics
                 throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
             }
 
-            return !string.IsNullOrEmpty(hydraulicBoundaryDatabase.FilePath);
+            return hydraulicBoundaryDatabase.HrdFiles.Any();
         }
 
         /// <summary>
