@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -69,7 +70,9 @@ namespace Riskeer.Integration.Plugin.Handlers
             this.duneLocationsReplacementHandler = duneLocationsReplacementHandler;
         }
 
-        public bool IsConfirmationRequired(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase)
+        public bool IsConfirmationRequired(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
+                                           ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase,
+                                           string hrdFileName)
         {
             if (hydraulicBoundaryDatabase == null)
             {
@@ -81,7 +84,14 @@ namespace Riskeer.Integration.Plugin.Handlers
                 throw new ArgumentNullException(nameof(readHydraulicBoundaryDatabase));
             }
 
-            return hydraulicBoundaryDatabase.IsLinked() && hydraulicBoundaryDatabase.Version != readHydraulicBoundaryDatabase.Version;
+            if (hrdFileName == null)
+            {
+                throw new ArgumentNullException(nameof(hrdFileName));
+            }
+
+            HrdFile existingHrdFile = hydraulicBoundaryDatabase.HrdFiles.FirstOrDefault(hrd => Path.GetFileName(hrd.FilePath).Equals(hrdFileName));
+
+            return existingHrdFile != null && existingHrdFile.Version != readHydraulicBoundaryDatabase.Version;
         }
 
         public bool InquireConfirmation()

@@ -38,9 +38,12 @@ namespace Riskeer.Integration.IO.Handlers
         /// </summary>
         /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database.</param>
         /// <param name="readHydraulicBoundaryDatabase">The read hydraulic boundary database.</param>
+        /// <param name="hrdFileName">The name of the read hydraulic boundary database file.</param>
         /// <returns><c>true</c> when confirmation is required; <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        bool IsConfirmationRequired(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase);
+        bool IsConfirmationRequired(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
+                                    ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase,
+                                    string hrdFileName);
 
         /// <summary>
         /// Gets confirmation for updating the <see cref="HydraulicBoundaryDatabase"/>.

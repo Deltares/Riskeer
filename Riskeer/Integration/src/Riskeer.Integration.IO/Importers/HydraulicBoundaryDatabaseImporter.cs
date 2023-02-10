@@ -76,7 +76,7 @@ namespace Riskeer.Integration.IO.Importers
 
             ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = readHydraulicBoundaryDatabaseResult.Items.Single();
 
-            InquireConfirmation(readHydraulicBoundaryDatabase);
+            InquireConfirmation(readHydraulicBoundaryDatabase, Path.GetFileName(FilePath));
 
             if (Canceled)
             {
@@ -139,9 +139,9 @@ namespace Riskeer.Integration.IO.Importers
             }
         }
 
-        private void InquireConfirmation(ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase)
+        private void InquireConfirmation(ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase, string hrdFileName)
         {
-            if (updateHandler.IsConfirmationRequired(ImportTarget, readHydraulicBoundaryDatabase)
+            if (updateHandler.IsConfirmationRequired(ImportTarget, readHydraulicBoundaryDatabase, hrdFileName)
                 && !updateHandler.InquireConfirmation())
             {
                 Cancel();
