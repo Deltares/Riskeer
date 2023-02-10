@@ -205,8 +205,14 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                FilePath = validFilePath,
-                Version = "random"
+                HrdFiles =
+                {
+                    new HrdFile
+                    {
+                        FilePath = validFilePath,
+                        Version = "random"
+                    }
+                }
             };
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
 
@@ -608,8 +614,14 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                FilePath = validFilePath,
-                Version = "1.0"
+                HrdFiles =
+                {
+                    new HrdFile
+                    {
+                        FilePath = validFilePath,
+                        Version = "1.0"
+                    }
+                }
             };
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
 
@@ -1013,8 +1025,14 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                FilePath = validFilePath,
-                Version = "random",
+                HrdFiles =
+                {
+                    new HrdFile
+                    {
+                        FilePath = validFilePath,
+                        Version = "random"
+                    }
+                },
                 Locations =
                 {
                     hydraulicBoundaryLocation

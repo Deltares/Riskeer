@@ -481,8 +481,14 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             // Setup
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                FilePath = validFilePath,
-                Version = "random"
+                HrdFiles =
+                {
+                    new HrdFile
+                    {
+                        FilePath = validFilePath,
+                        Version = "random"
+                    }
+                }
             };
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
 

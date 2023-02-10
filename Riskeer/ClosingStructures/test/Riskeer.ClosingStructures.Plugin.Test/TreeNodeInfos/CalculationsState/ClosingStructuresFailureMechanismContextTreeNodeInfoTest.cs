@@ -351,8 +351,14 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos.CalculationsState
 
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                FilePath = validFilePath,
-                Version = "1.0"
+                HrdFiles =
+                {
+                    new HrdFile
+                    {
+                        FilePath = validFilePath,
+                        Version = "1.0"
+                    }
+                }
             };
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
 
