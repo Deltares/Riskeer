@@ -181,8 +181,14 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var handler = new HydraulicBoundaryDatabaseUpdateHandler(CreateAssessmentSection(), duneLocationsReplacementHandler);
             var database = new HydraulicBoundaryDatabase
             {
-                FilePath = "temp/hrdFile1.sqlite",
-                Version = readHydraulicBoundaryDatabase.Version
+                HrdFiles =
+                {
+                    new HrdFile
+                    {
+                        FilePath = "temp/hrdFile1.sqlite",
+                        Version = readHydraulicBoundaryDatabase.Version
+                    }
+                }
             };
 
             // Call
@@ -208,8 +214,14 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var handler = new HydraulicBoundaryDatabaseUpdateHandler(CreateAssessmentSection(), duneLocationsReplacementHandler);
             var database = new HydraulicBoundaryDatabase
             {
-                FilePath = $"temp/{hrdFileName}",
-                Version = readHydraulicBoundaryDatabase.Version
+                HrdFiles =
+                {
+                    new HrdFile
+                    {
+                        FilePath = $"temp/{hrdFileName}",
+                        Version = readHydraulicBoundaryDatabase.Version
+                    }
+                }
             };
 
             // Call
@@ -233,8 +245,14 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var handler = new HydraulicBoundaryDatabaseUpdateHandler(CreateAssessmentSection(), duneLocationsReplacementHandler);
             var database = new HydraulicBoundaryDatabase
             {
-                FilePath = $"temp/{hrdFileName}",
-                Version = "1"
+                HrdFiles =
+                {
+                    new HrdFile
+                    {
+                        FilePath = $"temp/{hrdFileName}",
+                        Version = "1"
+                    }
+                }
             };
 
             // Call
@@ -446,8 +464,14 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                FilePath = hydraulicBoundaryDatabaseFilePath,
-                Version = readHydraulicBoundaryDatabase.Version,
+                HrdFiles =
+                {
+                    new HrdFile
+                    {
+                        FilePath = hydraulicBoundaryDatabaseFilePath,
+                        Version = readHydraulicBoundaryDatabase.Version
+                    }
+                },
                 Locations =
                 {
                     new TestHydraulicBoundaryLocation("old location 1"),
@@ -487,8 +511,14 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                FilePath = "old/file/path",
-                Version = readHydraulicBoundaryDatabase.Version,
+                HrdFiles =
+                {
+                    new HrdFile
+                    {
+                        FilePath = "old/file/path",
+                        Version = readHydraulicBoundaryDatabase.Version
+                    }
+                },
                 Locations =
                 {
                     new TestHydraulicBoundaryLocation("old location 1"),
@@ -523,8 +553,14 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             const string hlcdFilePath = "some/hlcd/FilePath";
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                FilePath = hydraulicBoundaryDatabaseFilePath,
-                Version = "1",
+                HrdFiles =
+                {
+                    new HrdFile
+                    {
+                        FilePath = hydraulicBoundaryDatabaseFilePath,
+                        Version = "1"
+                    }
+                },
                 Locations =
                 {
                     new TestHydraulicBoundaryLocation("old location 1"),
@@ -928,8 +964,14 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                FilePath = hydraulicBoundaryDatabaseFilePath,
-                Version = readHydraulicBoundaryDatabase.Version,
+                HrdFiles =
+                {
+                    new HrdFile
+                    {
+                        FilePath = hydraulicBoundaryDatabaseFilePath,
+                        Version = readHydraulicBoundaryDatabase.Version
+                    }
+                },
                 Locations =
                 {
                     new TestHydraulicBoundaryLocation("old location 1"),
@@ -969,8 +1011,14 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             AssessmentSection assessmentSection = CreateAssessmentSection();
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                FilePath = hydraulicBoundaryDatabaseFilePath,
-                Version = "1",
+                HrdFiles =
+                {
+                    new HrdFile
+                    {
+                        FilePath = hydraulicBoundaryDatabaseFilePath,
+                        Version = "1"
+                    }
+                },
                 Locations =
                 {
                     new TestHydraulicBoundaryLocation("old location 1"),
