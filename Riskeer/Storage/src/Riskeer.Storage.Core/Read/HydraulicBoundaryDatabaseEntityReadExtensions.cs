@@ -50,8 +50,14 @@ namespace Riskeer.Storage.Core.Read
                 throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
             }
 
-            hydraulicBoundaryDatabase.FilePath = entity.FilePath;
-            hydraulicBoundaryDatabase.Version = entity.Version;
+            if (!string.IsNullOrEmpty(entity.FilePath))
+            {
+                hydraulicBoundaryDatabase.HrdFiles.Add(new HrdFile
+                {
+                    FilePath = entity.FilePath,
+                    Version = entity.Version
+                });
+            }
 
             hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.SetValues(
                 entity.HydraulicLocationConfigurationSettingsFilePath,

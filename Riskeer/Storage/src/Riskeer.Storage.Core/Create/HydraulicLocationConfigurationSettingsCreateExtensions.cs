@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Core.Common.Util.Extensions;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Storage.Core.DbContext;
@@ -51,8 +52,8 @@ namespace Riskeer.Storage.Core.Create
             HydraulicLocationConfigurationSettings settings = hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings;
             return new HydraulicBoundaryDatabaseEntity
             {
-                FilePath = hydraulicBoundaryDatabase.FilePath.DeepClone(),
-                Version = hydraulicBoundaryDatabase.Version.DeepClone(),
+                FilePath = hydraulicBoundaryDatabase.HrdFiles.FirstOrDefault()?.FilePath.DeepClone(),
+                Version = hydraulicBoundaryDatabase.HrdFiles.FirstOrDefault()?.Version.DeepClone(),
                 HydraulicLocationConfigurationSettingsFilePath = settings.FilePath.DeepClone(),
                 HydraulicLocationConfigurationSettingsUsePreprocessorClosure = Convert.ToByte(settings.UsePreprocessorClosure),
                 HydraulicLocationConfigurationSettingsScenarioName = settings.ScenarioName.DeepClone(),
