@@ -933,8 +933,14 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                FilePath = Path.Combine(testDataPath, "complete.sqlite"),
-                Version = "random",
+                HrdFiles =
+                {
+                    new HrdFile
+                    {
+                        FilePath = Path.Combine(testDataPath, "complete.sqlite"),
+                        Version = "random"
+                    }
+                },
                 Locations =
                 {
                     hydraulicBoundaryLocation

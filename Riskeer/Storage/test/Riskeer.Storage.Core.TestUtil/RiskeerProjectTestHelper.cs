@@ -85,8 +85,14 @@ namespace Riskeer.Storage.Core.TestUtil
                 Name = "assessmentSection",
                 HydraulicBoundaryDatabase =
                 {
-                    FilePath = "/temp/test",
-                    Version = "1.0"
+                    HrdFiles =
+                    {
+                        new HrdFile
+                        {
+                            FilePath = "/temp/test",
+                            Version = "1.0"
+                        }
+                    }
                 },
                 Id = "12-2",
                 FailureMechanismContribution =
