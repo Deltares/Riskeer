@@ -163,21 +163,10 @@ namespace Riskeer.Integration.Plugin.Handlers
             }
             else
             {
-                if (hrdFile.Version != readHydraulicBoundaryDatabase.Version)
-                {
-                    hydraulicBoundaryDatabase.Version = readHydraulicBoundaryDatabase.Version;
+                updateLocations = hrdFile.Version != readHydraulicBoundaryDatabase.Version;
 
-                    updateLocations = true;
-                }
-                else
-                {
-                    updateLocations = false;
-                }
-
-                if (hydraulicBoundaryDatabase.FilePath != hydraulicBoundaryDatabaseFilePath)
-                {
-                    hydraulicBoundaryDatabase.FilePath = hydraulicBoundaryDatabaseFilePath;
-                }
+                hrdFile.Version = readHydraulicBoundaryDatabase.Version;
+                hrdFile.FilePath = hydraulicBoundaryDatabaseFilePath;
             }
 
             if (updateLocations)
