@@ -672,8 +672,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var duneLocationsReplacementHandler = mocks.Stub<IDuneLocationsReplacementHandler>();
             mocks.ReplayAll();
 
-            const string hydraulicBoundaryDatabaseFilePath = "some/file/path";
-            const string hlcdFilePath = "some/hlcd/FilePath";
+            const string hydraulicBoundaryDatabaseFilePath = "temp/hrdFile.sqlite";
+            const string hlcdFilePath = "temp/hlcdFile.sqlite";
             AssessmentSection assessmentSection = CreateAssessmentSection();
             var handler = new HydraulicBoundaryDatabaseUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
 
@@ -713,8 +713,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var duneLocationsReplacementHandler = mocks.Stub<IDuneLocationsReplacementHandler>();
             mocks.ReplayAll();
 
-            const string hydraulicBoundaryDatabaseFilePath = "some/file/path";
-            const string hlcdFilePath = "some/hlcd/FilePath";
+            const string hydraulicBoundaryDatabaseFilePath = "temp/hrdFile.sqlite";
+            const string hlcdFilePath = "temp/hlcdFile.sqlite";
             AssessmentSection assessmentSection = CreateAssessmentSection();
             var handler = new HydraulicBoundaryDatabaseUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
 
@@ -758,8 +758,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var duneLocationsReplacementHandler = mocks.Stub<IDuneLocationsReplacementHandler>();
             mocks.ReplayAll();
 
-            const string hydraulicBoundaryDatabaseFilePath = "some/file/path";
-            const string hlcdFilePath = "some/hlcd/FilePath";
+            const string hydraulicBoundaryDatabaseFilePath = "temp/hrdFile.sqlite";
+            const string hlcdFilePath = "temp/hlcdFile.sqlite";
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var handler = new HydraulicBoundaryDatabaseUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
 
@@ -808,8 +808,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var duneLocationsReplacementHandler = mocks.Stub<IDuneLocationsReplacementHandler>();
             mocks.ReplayAll();
 
-            const string hydraulicBoundaryDatabaseFilePath = "some/file/path";
-            const string hlcdFilePath = "some/hlcd/FilePath";
+            const string hydraulicBoundaryDatabaseFilePath = "temp/hrdFile.sqlite";
+            const string hlcdFilePath = "temp/hlcdFile.sqlite";
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var handler = new HydraulicBoundaryDatabaseUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
 
@@ -856,14 +856,18 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var duneLocationsReplacementHandler = mocks.Stub<IDuneLocationsReplacementHandler>();
             mocks.ReplayAll();
 
-            const string hydraulicBoundaryDatabaseFilePath = "some/file/path";
-            const string hlcdFilePath = "some/hlcd/FilePath";
+            const string hydraulicBoundaryDatabaseFilePath = "temp/hrdFile.sqlite";
+            const string hlcdFilePath = "temp/hlcdFile.sqlite";
             AssessmentSection assessmentSection = CreateAssessmentSection();
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             if (isLinked)
             {
-                hydraulicBoundaryDatabase.FilePath = hydraulicBoundaryDatabaseFilePath;
-                hydraulicBoundaryDatabase.Version = "1";
+                hydraulicBoundaryDatabase.HrdFiles.Add(new HrdFile
+                {
+                    FilePath = hydraulicBoundaryDatabaseFilePath;
+                    Version = "1";
+                });
+                
                 hydraulicBoundaryDatabase.Locations.AddRange(new[]
                 {
                     new TestHydraulicBoundaryLocation("old location 1"),
@@ -911,8 +915,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var duneLocationsReplacementHandler = mocks.Stub<IDuneLocationsReplacementHandler>();
             mocks.ReplayAll();
 
-            const string hydraulicBoundaryDatabaseFilePath = "some/file/path";
-            const string hlcdFilePath = "some/hlcd/FilePath";
+            const string hydraulicBoundaryDatabaseFilePath = "temp/hrdFile.sqlite";
+            const string hlcdFilePath = "temp/hlcdFile.sqlite";
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
 
             ICalculation[] calculationsWithOutput = assessmentSection.GetFailureMechanisms()
@@ -968,8 +972,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var duneLocationsReplacementHandler = mocks.StrictMock<IDuneLocationsReplacementHandler>();
             mocks.ReplayAll();
 
-            const string hydraulicBoundaryDatabaseFilePath = "some/file/path";
-            const string hlcdFilePath = "some/hlcd/FilePath";
+            const string hydraulicBoundaryDatabaseFilePath = "temp/hrdFile.sqlite";
+            const string hlcdFilePath = "temp/hlcdFile.sqlite";
             AssessmentSection assessmentSection = CreateAssessmentSection();
             ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
@@ -1016,8 +1020,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             duneLocationsReplacementHandler.Expect(h => h.DoPostReplacementUpdates());
             mocks.ReplayAll();
 
-            const string hydraulicBoundaryDatabaseFilePath = "old/file/path";
-            const string hlcdFilePath = "some/hlcd/FilePath";
+            const string hydraulicBoundaryDatabaseFilePath = "temp/hrdFile.sqlite";
+            const string hlcdFilePath = "temp/hlcdFile.sqlite";
             AssessmentSection assessmentSection = CreateAssessmentSection();
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
