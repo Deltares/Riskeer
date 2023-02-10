@@ -151,7 +151,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void IsConfirmationRequired_HydraulicBoundaryDatabaseNotLinked_ReturnsFalse()
+        public void IsConfirmationRequired_NotLinkedToAnyHrdFile_ReturnsFalse()
         {
             // Setup
             var mocks = new MockRepository();
@@ -161,7 +161,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var handler = new HydraulicBoundaryDatabaseUpdateHandler(CreateAssessmentSection(), duneLocationsReplacementHandler);
 
             // Call
-            bool confirmationRequired = handler.IsConfirmationRequired(new HydraulicBoundaryDatabase(), ReadHydraulicBoundaryDatabaseTestFactory.Create());
+            bool confirmationRequired = handler.IsConfirmationRequired(new HydraulicBoundaryDatabase(), ReadHydraulicBoundaryDatabaseTestFactory.Create(), "hrdFile.sqlite");
 
             // Assert
             Assert.IsFalse(confirmationRequired);
@@ -169,7 +169,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void IsConfirmationRequired_HydraulicBoundaryDatabaseLinkedAndReadDatabaseSameVersion_ReturnsFalse()
+        public void IsConfirmationRequired_LinkedToHrdFileWithDifferentName_ReturnsFalse()
         {
             // Setup
             var mocks = new MockRepository();
@@ -181,12 +181,39 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var handler = new HydraulicBoundaryDatabaseUpdateHandler(CreateAssessmentSection(), duneLocationsReplacementHandler);
             var database = new HydraulicBoundaryDatabase
             {
-                FilePath = "some/file/path",
+                FilePath = "temp/hrdFile1.sqlite",
                 Version = readHydraulicBoundaryDatabase.Version
             };
 
             // Call
-            bool confirmationRequired = handler.IsConfirmationRequired(database, readHydraulicBoundaryDatabase);
+            bool confirmationRequired = handler.IsConfirmationRequired(database, readHydraulicBoundaryDatabase, "hrdFile2.sqlite");
+
+            // Assert
+            Assert.IsFalse(confirmationRequired);
+            mocks.VerifyAll();
+        }
+        
+        [Test]
+        public void IsConfirmationRequired_LinkedToHrdFileWithSameNameAndSameVersion_ReturnsFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var duneLocationsReplacementHandler = mocks.Stub<IDuneLocationsReplacementHandler>();
+            mocks.ReplayAll();
+
+            ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
+            
+            const string hrdFileName = "hrdFile.sqlite";
+            
+            var handler = new HydraulicBoundaryDatabaseUpdateHandler(CreateAssessmentSection(), duneLocationsReplacementHandler);
+            var database = new HydraulicBoundaryDatabase
+            {
+                FilePath = $"temp/{hrdFileName}",
+                Version = readHydraulicBoundaryDatabase.Version
+            };
+
+            // Call
+            bool confirmationRequired = handler.IsConfirmationRequired(database, readHydraulicBoundaryDatabase, hrdFileName);
 
             // Assert
             Assert.IsFalse(confirmationRequired);
@@ -194,22 +221,24 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void IsConfirmationRequired_HydraulicBoundaryDatabaseLinkedAndReadDatabaseDifferentVersion_ReturnsTrue()
+        public void IsConfirmationRequired_LinkedToHrdFileWithSameNameButDifferentVersion_ReturnsTrue()
         {
             // Setup
             var mocks = new MockRepository();
             var duneLocationsReplacementHandler = mocks.Stub<IDuneLocationsReplacementHandler>();
             mocks.ReplayAll();
 
+            const string hrdFileName = "hrdFile.sqlite";
+
             var handler = new HydraulicBoundaryDatabaseUpdateHandler(CreateAssessmentSection(), duneLocationsReplacementHandler);
             var database = new HydraulicBoundaryDatabase
             {
-                FilePath = "some/file/path",
+                FilePath = $"temp/{hrdFileName}",
                 Version = "1"
             };
 
             // Call
-            bool confirmationRequired = handler.IsConfirmationRequired(database, ReadHydraulicBoundaryDatabaseTestFactory.Create());
+            bool confirmationRequired = handler.IsConfirmationRequired(database, ReadHydraulicBoundaryDatabaseTestFactory.Create(), hrdFileName);
 
             // Assert
             Assert.IsTrue(confirmationRequired);
