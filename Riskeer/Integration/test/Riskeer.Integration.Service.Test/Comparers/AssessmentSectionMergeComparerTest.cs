@@ -206,9 +206,9 @@ namespace Riskeer.Integration.Service.Test.Comparers
                                                                    }),
                                                                    "Referenceline different point");
 
-            yield return new ChangePropertyData<AssessmentSection>(sec => sec.Id = "DifferentVersion",
+            yield return new ChangePropertyData<AssessmentSection>(sec => sec.Id = "DifferentId",
                                                                    "Id");
-            yield return new ChangePropertyData<AssessmentSection>(sec => sec.HydraulicBoundaryDatabase.Version = "DifferentVersion",
+            yield return new ChangePropertyData<AssessmentSection>(sec => sec.HydraulicBoundaryDatabase.HrdFiles.First().Version = "DifferentVersion",
                                                                    "HydraulicBoundaryDataBase");
             yield return new ChangePropertyData<AssessmentSection>(sec => sec.FailureMechanismContribution.MaximumAllowableFloodingProbability -= 1e-15,
                                                                    "MaximumAllowableFloodingProbability");
