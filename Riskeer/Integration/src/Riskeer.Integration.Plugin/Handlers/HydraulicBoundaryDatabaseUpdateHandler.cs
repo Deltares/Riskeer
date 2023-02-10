@@ -145,13 +145,43 @@ namespace Riskeer.Integration.Plugin.Handlers
 
             var changedObjects = new List<IObservable>();
 
-            updateLocations = !hydraulicBoundaryDatabase.IsLinked() || hydraulicBoundaryDatabase.Version != readHydraulicBoundaryDatabase.Version;
+            string hrdFileName = Path.GetFileName(hydraulicBoundaryDatabaseFilePath);
+
+            HrdFile hrdFile = hydraulicBoundaryDatabase.HrdFiles.FirstOrDefault(hrd => Path.GetFileName(hrd.FilePath).Equals(hrdFileName));
+
+            if (hrdFile == null)
+            {
+                hrdFile = new HrdFile
+                {
+                    Version = readHydraulicBoundaryDatabase.Version,
+                    FilePath = hydraulicBoundaryDatabaseFilePath
+                };
+
+                hydraulicBoundaryDatabase.HrdFiles.Add(hrdFile);
+
+                updateLocations = true;
+            }
+            else
+            {
+                if (hrdFile.Version != readHydraulicBoundaryDatabase.Version)
+                {
+                    hydraulicBoundaryDatabase.Version = readHydraulicBoundaryDatabase.Version;
+
+                    updateLocations = true;
+                }
+                else
+                {
+                    updateLocations = false;
+                }
+
+                if (hydraulicBoundaryDatabase.FilePath != hydraulicBoundaryDatabaseFilePath)
+                {
+                    hydraulicBoundaryDatabase.FilePath = hydraulicBoundaryDatabaseFilePath;
+                }
+            }
 
             if (updateLocations)
             {
-                hydraulicBoundaryDatabase.FilePath = hydraulicBoundaryDatabaseFilePath;
-                hydraulicBoundaryDatabase.Version = readHydraulicBoundaryDatabase.Version;
-
                 SetLocations(hydraulicBoundaryDatabase, readHydraulicBoundaryDatabase.Locations,
                              readHydraulicLocationConfigurationDatabase.LocationIdMappings,
                              excludedLocationIds.ToArray());
@@ -162,13 +192,6 @@ namespace Riskeer.Integration.Plugin.Handlers
 
                 changedObjects.AddRange(GetLocationsAndCalculationsObservables(hydraulicBoundaryDatabase));
                 changedObjects.AddRange(RiskeerDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(assessmentSection));
-            }
-            else
-            {
-                if (hydraulicBoundaryDatabase.FilePath != hydraulicBoundaryDatabaseFilePath)
-                {
-                    hydraulicBoundaryDatabase.FilePath = hydraulicBoundaryDatabaseFilePath;
-                }
             }
 
             HydraulicLocationConfigurationSettingsUpdateHelper.SetHydraulicLocationConfigurationSettings(
