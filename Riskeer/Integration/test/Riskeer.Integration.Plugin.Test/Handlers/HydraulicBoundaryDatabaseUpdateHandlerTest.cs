@@ -130,7 +130,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             Assert.AreEqual("readHydraulicBoundaryDatabase", exception.ParamName);
             mocks.VerifyAll();
         }
-        
+
         [Test]
         public void IsConfirmationRequired_HrdFileNameNull_ThrowsArgumentNullException()
         {
@@ -192,7 +192,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             Assert.IsFalse(confirmationRequired);
             mocks.VerifyAll();
         }
-        
+
         [Test]
         public void IsConfirmationRequired_LinkedToHrdFileWithSameNameAndSameVersion_ReturnsFalse()
         {
@@ -202,9 +202,9 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             mocks.ReplayAll();
 
             ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
-            
+
             const string hrdFileName = "hrdFile.sqlite";
-            
+
             var handler = new HydraulicBoundaryDatabaseUpdateHandler(CreateAssessmentSection(), duneLocationsReplacementHandler);
             var database = new HydraulicBoundaryDatabase
             {
