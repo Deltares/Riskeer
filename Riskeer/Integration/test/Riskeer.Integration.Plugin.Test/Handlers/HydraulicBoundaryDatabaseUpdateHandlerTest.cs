@@ -546,15 +546,17 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void Update_FileNameNotSame_UpdatesFilePathAndReturnsEmptyCollection()
+        public void Update_FileNameNotSame_RegistersNewHrdFileAndReturnsEmptyCollection()
         {
             // Setup
             var mocks = new MockRepository();
             var duneLocationsReplacementHandler = mocks.StrictMock<IDuneLocationsReplacementHandler>();
             mocks.ReplayAll();
 
-            const string newHydraulicBoundaryDatabaseFilePath = "some/file/path";
-            const string hlcdFilePath = "some/hlcd/FilePath";
+            const string pathOfLinkedHydraulicBoundaryDatabase = "temp/hrdFile1.sqlite";
+            const string versionOfLinkedHydraulicBoundaryDatabase = "random";
+            const string pathOfOtherHydraulicBoundaryDatabase = "temp/hrdFile2.sqlite";
+            const string hlcdFilePath = "temp/hlcdFile.sqlite";
             AssessmentSection assessmentSection = CreateAssessmentSection();
             var handler = new HydraulicBoundaryDatabaseUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
             ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
@@ -564,8 +566,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 {
                     new HrdFile
                     {
-                        FilePath = "old/file/path",
-                        Version = readHydraulicBoundaryDatabase.Version
+                        FilePath = pathOfLinkedHydraulicBoundaryDatabase,
+                        Version = versionOfLinkedHydraulicBoundaryDatabase
                     }
                 },
                 Locations =
@@ -583,23 +585,26 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             // Call
             IEnumerable<IObservable> changedObjects = handler.Update(hydraulicBoundaryDatabase, readHydraulicBoundaryDatabase,
                                                                      ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(),
-                                                                     Enumerable.Empty<long>(), newHydraulicBoundaryDatabaseFilePath, hlcdFilePath);
+                                                                     Enumerable.Empty<long>(), pathOfOtherHydraulicBoundaryDatabase, hlcdFilePath);
 
             // Assert
             CollectionAssert.IsEmpty(changedObjects);
-            Assert.AreEqual(newHydraulicBoundaryDatabaseFilePath, hydraulicBoundaryDatabase.FilePath);
             Assert.AreEqual(hlcdFilePath, hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.FilePath);
-            Assert.AreEqual("version", hydraulicBoundaryDatabase.Version);
+            Assert.AreEqual(2, hydraulicBoundaryDatabase.HrdFiles.Count);
+            Assert.AreEqual(pathOfLinkedHydraulicBoundaryDatabase, hydraulicBoundaryDatabase.HrdFiles[0].FilePath);
+            Assert.AreEqual(versionOfLinkedHydraulicBoundaryDatabase, hydraulicBoundaryDatabase.HrdFiles[0].Version);
+            Assert.AreEqual(pathOfOtherHydraulicBoundaryDatabase, hydraulicBoundaryDatabase.HrdFiles[1].FilePath);
+            Assert.AreEqual(readHydraulicBoundaryDatabase.Version, hydraulicBoundaryDatabase.HrdFiles[1].Version);
             AssertHydraulicBoundaryLocationsAndCalculations(locations, assessmentSection);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void Update_DatabaseLinkedAndVersionNotSame_RemovesOldLocationsAndCalculations()
+        public void Update_VersionNotSame_RemovesOldLocationsAndCalculations()
         {
             // Setup
-            const string hydraulicBoundaryDatabaseFilePath = "some/file/path";
-            const string hlcdFilePath = "some/hlcd/FilePath";
+            const string hydraulicBoundaryDatabaseFilePath = "temp/hrdFile.sqlite";
+            const string hlcdFilePath = "temp/hlcdFile.sqlite";
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 HrdFiles =
