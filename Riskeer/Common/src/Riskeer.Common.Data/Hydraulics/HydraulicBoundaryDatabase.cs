@@ -45,11 +45,6 @@ namespace Riskeer.Common.Data.Hydraulics
         public string FilePath { get; set; }
 
         /// <summary>
-        /// Gets or sets the version of the hydraulic boundary database.
-        /// </summary>
-        public string Version { get; set; }
-
-        /// <summary>
         /// Gets the linked hydraulic boundary database files.
         /// </summary>
         public IList<HrdFile> HrdFiles { get; }
