@@ -457,20 +457,21 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var duneLocationsReplacementHandler = mocks.StrictMock<IDuneLocationsReplacementHandler>();
             mocks.ReplayAll();
 
-            const string hydraulicBoundaryDatabaseFilePath = "some/file/path";
-            const string hlcdFilePath = "some/hlcd/FilePath";
+            const string hydraulicBoundaryDatabaseFilePath = "temp/hrdFile.sqlite";
+            const string hlcdFilePath = "temp/hlcdFile.sqlite";
             AssessmentSection assessmentSection = CreateAssessmentSection();
             var handler = new HydraulicBoundaryDatabaseUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
             ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
+            var hrdFile = new HrdFile
+            {
+                FilePath = hydraulicBoundaryDatabaseFilePath,
+                Version = readHydraulicBoundaryDatabase.Version
+            };
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 HrdFiles =
                 {
-                    new HrdFile
-                    {
-                        FilePath = hydraulicBoundaryDatabaseFilePath,
-                        Version = readHydraulicBoundaryDatabase.Version
-                    }
+                    hrdFile
                 },
                 Locations =
                 {
@@ -490,8 +491,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             // Assert
             CollectionAssert.IsEmpty(changedObjects);
-            Assert.AreEqual(hydraulicBoundaryDatabaseFilePath, hydraulicBoundaryDatabase.FilePath);
-            Assert.AreEqual("version", hydraulicBoundaryDatabase.Version);
+            Assert.AreEqual(hydraulicBoundaryDatabaseFilePath, hrdFile.FilePath);
+            Assert.AreEqual(readHydraulicBoundaryDatabase.Version, hrdFile.Version);
             AssertHydraulicBoundaryLocationsAndCalculations(locations, assessmentSection);
             mocks.VerifyAll();
         }
