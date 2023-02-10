@@ -104,7 +104,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var handler = new HydraulicBoundaryDatabaseUpdateHandler(CreateAssessmentSection(), duneLocationsReplacementHandler);
 
             // Call
-            void Call() => handler.IsConfirmationRequired(null, ReadHydraulicBoundaryDatabaseTestFactory.Create());
+            void Call() => handler.IsConfirmationRequired(null, ReadHydraulicBoundaryDatabaseTestFactory.Create(), "hrdFile.sqlite");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -123,11 +123,30 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var handler = new HydraulicBoundaryDatabaseUpdateHandler(CreateAssessmentSection(), duneLocationsReplacementHandler);
 
             // Call
-            void Call() => handler.IsConfirmationRequired(new HydraulicBoundaryDatabase(), null);
+            void Call() => handler.IsConfirmationRequired(new HydraulicBoundaryDatabase(), null, "hrdFile.sqlite");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("readHydraulicBoundaryDatabase", exception.ParamName);
+            mocks.VerifyAll();
+        }
+        
+        [Test]
+        public void IsConfirmationRequired_HrdFileNameNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var duneLocationsReplacementHandler = mocks.Stub<IDuneLocationsReplacementHandler>();
+            mocks.ReplayAll();
+
+            var handler = new HydraulicBoundaryDatabaseUpdateHandler(CreateAssessmentSection(), duneLocationsReplacementHandler);
+
+            // Call
+            void Call() => handler.IsConfirmationRequired(new HydraulicBoundaryDatabase(), ReadHydraulicBoundaryDatabaseTestFactory.Create(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("hrdFileName", exception.ParamName);
             mocks.VerifyAll();
         }
 
