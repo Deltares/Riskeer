@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Riskeer.Common.Data.AssessmentSection;
@@ -80,9 +81,17 @@ namespace Riskeer.Integration.Service.Comparers
         private static bool AreHydraulicBoundaryDatabasesEquivalent(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
                                                                     HydraulicBoundaryDatabase otherHydraulicBoundaryDatabase)
         {
-            return hydraulicBoundaryDatabase.Version == otherHydraulicBoundaryDatabase.Version
+            return AreHrdFilesEquivalent(hydraulicBoundaryDatabase.HrdFiles, otherHydraulicBoundaryDatabase.HrdFiles)
                    && AreHydraulicBoundaryLocationConfigurationSettingsEquivalent(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings,
                                                                                   otherHydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings);
+        }
+
+        private static bool AreHrdFilesEquivalent(ICollection<HrdFile> hrdFiles, ICollection<HrdFile> otherHrdFiles)
+        {
+            return hrdFiles.Count == otherHrdFiles.Count
+                   && hrdFiles.All(hrd => otherHrdFiles
+                                       .Any(ohrd => Path.GetFileName(hrd.FilePath) == Path.GetFileName(ohrd.FilePath)
+                                                    && hrd.Version == ohrd.Version));
         }
 
         private static bool AreHydraulicBoundaryLocationConfigurationSettingsEquivalent(HydraulicLocationConfigurationSettings hydraulicLocationConfigurationSettings,
