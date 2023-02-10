@@ -450,55 +450,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void Update_FilePathAndVersionSame_NothingUpdatesAndReturnsEmptyCollection()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var duneLocationsReplacementHandler = mocks.StrictMock<IDuneLocationsReplacementHandler>();
-            mocks.ReplayAll();
-
-            const string hydraulicBoundaryDatabaseFilePath = "temp/hrdFile.sqlite";
-            const string hlcdFilePath = "temp/hlcdFile.sqlite";
-            AssessmentSection assessmentSection = CreateAssessmentSection();
-            var handler = new HydraulicBoundaryDatabaseUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
-            ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
-            var hrdFile = new HrdFile
-            {
-                FilePath = hydraulicBoundaryDatabaseFilePath,
-                Version = readHydraulicBoundaryDatabase.Version
-            };
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                HrdFiles =
-                {
-                    hrdFile
-                },
-                Locations =
-                {
-                    new TestHydraulicBoundaryLocation("old location 1"),
-                    new TestHydraulicBoundaryLocation("old location 2"),
-                    new TestHydraulicBoundaryLocation("old location 3")
-                }
-            };
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
-
-            HydraulicBoundaryLocation[] locations = hydraulicBoundaryDatabase.Locations.ToArray();
-
-            // Call
-            IEnumerable<IObservable> changedObjects = handler.Update(hydraulicBoundaryDatabase, readHydraulicBoundaryDatabase,
-                                                                     ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(),
-                                                                     Enumerable.Empty<long>(), hydraulicBoundaryDatabaseFilePath, hlcdFilePath);
-
-            // Assert
-            CollectionAssert.IsEmpty(changedObjects);
-            Assert.AreEqual(hydraulicBoundaryDatabaseFilePath, hrdFile.FilePath);
-            Assert.AreEqual(readHydraulicBoundaryDatabase.Version, hrdFile.Version);
-            AssertHydraulicBoundaryLocationsAndCalculations(locations, assessmentSection);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Update_FileNameAndVersionSame_UpdatesFilePathAndReturnsEmptyCollection()
+        public void Update_DatabaseLinkedWithSameFileNameAndVersion_UpdatesFilePathAndReturnsEmptyCollection()
         {
             // Setup
             var mocks = new MockRepository();
@@ -510,16 +462,15 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             AssessmentSection assessmentSection = CreateAssessmentSection();
             var handler = new HydraulicBoundaryDatabaseUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
             ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
-            var hrdFile = new HrdFile
-            {
-                FilePath = "temp/hrdFile.sqlite",
-                Version = readHydraulicBoundaryDatabase.Version
-            };
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 HrdFiles =
                 {
-                    hrdFile
+                    new HrdFile
+                    {
+                        FilePath = "temp/hrdFile.sqlite",
+                        Version = readHydraulicBoundaryDatabase.Version
+                    }
                 },
                 Locations =
                 {
@@ -539,14 +490,15 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             // Assert
             CollectionAssert.IsEmpty(changedObjects);
-            Assert.AreEqual(hydraulicBoundaryDatabaseWithSameNameButDifferentFilePath, hrdFile.FilePath);
-            Assert.AreEqual(readHydraulicBoundaryDatabase.Version, hrdFile.Version);
+            Assert.AreEqual(1, hydraulicBoundaryDatabase.HrdFiles.Count);
+            Assert.AreEqual(hydraulicBoundaryDatabaseWithSameNameButDifferentFilePath, hydraulicBoundaryDatabase.HrdFiles[0].FilePath);
+            Assert.AreEqual(readHydraulicBoundaryDatabase.Version, hydraulicBoundaryDatabase.HrdFiles[0].Version);
             AssertHydraulicBoundaryLocationsAndCalculations(locations, assessmentSection);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void Update_FileNameNotSame_RegistersNewHrdFileAndReturnsEmptyCollection()
+        public void Update_DatabaseLinkedWithDifferentFileName_RegistersNewHrdFileAndSetsAllData()
         {
             // Setup
             var mocks = new MockRepository();
@@ -555,7 +507,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             const string pathOfLinkedHydraulicBoundaryDatabase = "temp/hrdFile1.sqlite";
             const string versionOfLinkedHydraulicBoundaryDatabase = "random";
-            const string pathOfOtherHydraulicBoundaryDatabase = "temp/hrdFile2.sqlite";
+            const string pathOfNewHydraulicBoundaryDatabase = "temp/hrdFile2.sqlite";
             const string hlcdFilePath = "temp/hlcdFile.sqlite";
             AssessmentSection assessmentSection = CreateAssessmentSection();
             var handler = new HydraulicBoundaryDatabaseUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
@@ -585,7 +537,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             // Call
             IEnumerable<IObservable> changedObjects = handler.Update(hydraulicBoundaryDatabase, readHydraulicBoundaryDatabase,
                                                                      ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(),
-                                                                     Enumerable.Empty<long>(), pathOfOtherHydraulicBoundaryDatabase, hlcdFilePath);
+                                                                     Enumerable.Empty<long>(), pathOfNewHydraulicBoundaryDatabase, hlcdFilePath);
 
             // Assert
             CollectionAssert.IsEmpty(changedObjects);
@@ -593,17 +545,17 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             Assert.AreEqual(2, hydraulicBoundaryDatabase.HrdFiles.Count);
             Assert.AreEqual(pathOfLinkedHydraulicBoundaryDatabase, hydraulicBoundaryDatabase.HrdFiles[0].FilePath);
             Assert.AreEqual(versionOfLinkedHydraulicBoundaryDatabase, hydraulicBoundaryDatabase.HrdFiles[0].Version);
-            Assert.AreEqual(pathOfOtherHydraulicBoundaryDatabase, hydraulicBoundaryDatabase.HrdFiles[1].FilePath);
+            Assert.AreEqual(pathOfNewHydraulicBoundaryDatabase, hydraulicBoundaryDatabase.HrdFiles[1].FilePath);
             Assert.AreEqual(readHydraulicBoundaryDatabase.Version, hydraulicBoundaryDatabase.HrdFiles[1].Version);
             AssertHydraulicBoundaryLocationsAndCalculations(locations, assessmentSection);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void Update_VersionNotSame_RemovesOldLocationsAndCalculations()
+        public void Update_DatabaseLinkedWithSameFileNameButDifferentVersion_UpdatesFilePathRemovesOldLocationsAndRemovesOldCalculations()
         {
             // Setup
-            const string hydraulicBoundaryDatabaseFilePath = "temp/hrdFile.sqlite";
+            const string hydraulicBoundaryDatabaseWithSameNameButDifferentFilePath = "temp/temp/hrdFile.sqlite";
             const string hlcdFilePath = "temp/hlcdFile.sqlite";
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
@@ -611,7 +563,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 {
                     new HrdFile
                     {
-                        FilePath = hydraulicBoundaryDatabaseFilePath,
+                        FilePath = "temp/hrdFile.sqlite",
                         Version = "1"
                     }
                 },
@@ -639,15 +591,20 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             HydraulicBoundaryLocation[] oldLocations = hydraulicBoundaryDatabase.Locations.ToArray();
 
+            ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
+            
             // Precondition
             Assert.IsTrue(hydraulicBoundaryDatabase.IsLinked());
 
             // Call
-            handler.Update(hydraulicBoundaryDatabase, ReadHydraulicBoundaryDatabaseTestFactory.Create(),
+            handler.Update(hydraulicBoundaryDatabase, readHydraulicBoundaryDatabase,
                            ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(),
-                           Enumerable.Empty<long>(), hydraulicBoundaryDatabaseFilePath, hlcdFilePath);
+                           Enumerable.Empty<long>(), hydraulicBoundaryDatabaseWithSameNameButDifferentFilePath, hlcdFilePath);
 
             // Assert
+            Assert.AreEqual(1, hydraulicBoundaryDatabase.HrdFiles.Count);
+            Assert.AreEqual(hydraulicBoundaryDatabaseWithSameNameButDifferentFilePath, hydraulicBoundaryDatabase.HrdFiles[0].FilePath);
+            Assert.AreEqual(readHydraulicBoundaryDatabase.Version, hydraulicBoundaryDatabase.HrdFiles[0].Version);
             CollectionAssert.IsNotSubsetOf(oldLocations, hydraulicBoundaryDatabase.Locations);
             CollectionAssert.IsNotSubsetOf(oldLocations, assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.Select(hblc => hblc.HydraulicBoundaryLocation));
             CollectionAssert.IsNotSubsetOf(oldLocations, assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability.Select(hblc => hblc.HydraulicBoundaryLocation));
@@ -666,7 +623,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void Update_DatabaseNotLinked_SetsAllData()
+        public void Update_NoDatabaseLinked_RegistersNewHrdFileAndSetsAllData()
         {
             // Setup
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
@@ -680,8 +637,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                                            });
             mocks.ReplayAll();
 
-            const string hydraulicBoundaryDatabaseFilePath = "some/file/path";
-            const string hlcdFilePath = "some/hlcd/FilePath";
+            const string hydraulicBoundaryDatabaseFilePath = "temp/hrdFile.sqlite";
+            const string hlcdFilePath = "temp/hlcdFile.sqlite";
             AssessmentSection assessmentSection = CreateAssessmentSection();
             var handler = new HydraulicBoundaryDatabaseUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
 
@@ -697,11 +654,10 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                            Enumerable.Empty<long>(), hydraulicBoundaryDatabaseFilePath, hlcdFilePath);
 
             // Assert
-            Assert.IsTrue(hydraulicBoundaryDatabase.IsLinked());
-            Assert.AreEqual(hydraulicBoundaryDatabaseFilePath, hydraulicBoundaryDatabase.FilePath);
-            Assert.AreEqual(readHydraulicBoundaryDatabase.Version, hydraulicBoundaryDatabase.Version);
+            Assert.AreEqual(1, hydraulicBoundaryDatabase.HrdFiles.Count);
+            Assert.AreEqual(hydraulicBoundaryDatabaseFilePath, hydraulicBoundaryDatabase.HrdFiles[0].FilePath);
+            Assert.AreEqual(readHydraulicBoundaryDatabase.Version, hydraulicBoundaryDatabase.HrdFiles[0].Version);
             Assert.AreEqual(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessorClosure, readHydraulicLocationConfigurationDatabase.UsePreprocessorClosure);
-
             AssertHydraulicBoundaryLocations(readHydraulicBoundaryDatabase.Locations, readHydraulicLocationConfigurationDatabase, hydraulicBoundaryDatabase.Locations);
             AssertHydraulicBoundaryLocationsAndCalculations(hydraulicBoundaryDatabase.Locations, assessmentSection);
             mocks.VerifyAll();
