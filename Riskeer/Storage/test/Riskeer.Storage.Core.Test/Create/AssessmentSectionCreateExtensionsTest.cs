@@ -213,8 +213,14 @@ namespace Riskeer.Storage.Core.Test.Create
             {
                 HydraulicBoundaryDatabase =
                 {
-                    FilePath = testFilePath,
-                    Version = testVersion,
+                    HrdFiles =
+                    {
+                        new HrdFile
+                        {
+                            FilePath = testFilePath,
+                            Version = testVersion
+                        }
+                    },
                     Locations =
                     {
                         new HydraulicBoundaryLocation(-1, "name", 1, 2)
@@ -244,8 +250,8 @@ namespace Riskeer.Storage.Core.Test.Create
             HydraulicBoundaryDatabaseEntity hydraulicBoundaryDatabaseEntity = entity.HydraulicBoundaryDatabaseEntities.Single();
 
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
-            Assert.AreEqual(hydraulicBoundaryDatabase.FilePath, hydraulicBoundaryDatabaseEntity.FilePath);
-            Assert.AreEqual(hydraulicBoundaryDatabase.Version, hydraulicBoundaryDatabaseEntity.Version);
+            Assert.AreEqual(testFilePath, hydraulicBoundaryDatabaseEntity.FilePath);
+            Assert.AreEqual(testVersion, hydraulicBoundaryDatabaseEntity.Version);
 
             HydraulicLocationConfigurationSettings settings = hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings;
             Assert.AreEqual(settings.FilePath, hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsFilePath);

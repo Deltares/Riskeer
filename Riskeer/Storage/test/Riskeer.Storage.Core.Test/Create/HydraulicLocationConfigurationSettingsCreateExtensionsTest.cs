@@ -47,10 +47,17 @@ namespace Riskeer.Storage.Core.Test.Create
         {
             // Setup
             var random = new Random(21);
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var hrdFile = new HrdFile
             {
                 FilePath = "hydraulicBoundaryDatabasefilePath",
                 Version = "Version"
+            };
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                HrdFiles =
+                {
+                    hrdFile
+                }
             };
             hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.SetValues("hlcdFilePath",
                                                                                        "ScenarioName",
@@ -68,8 +75,8 @@ namespace Riskeer.Storage.Core.Test.Create
             HydraulicBoundaryDatabaseEntity entity = hydraulicBoundaryDatabase.Create();
 
             // Assert
-            TestHelper.AssertAreEqualButNotSame(hydraulicBoundaryDatabase.FilePath, entity.FilePath);
-            TestHelper.AssertAreEqualButNotSame(hydraulicBoundaryDatabase.Version, entity.Version);
+            TestHelper.AssertAreEqualButNotSame(hrdFile.FilePath, entity.FilePath);
+            TestHelper.AssertAreEqualButNotSame(hrdFile.Version, entity.Version);
 
             HydraulicLocationConfigurationSettings settings = hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings;
             TestHelper.AssertAreEqualButNotSame(settings.FilePath, entity.HydraulicLocationConfigurationSettingsFilePath);
