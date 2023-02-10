@@ -1855,8 +1855,8 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                                                             HydraulicBoundaryDatabase actualBoundaryDatabase)
         {
             Assert.IsNotNull(expectedBoundaryDatabase);
-            Assert.AreEqual(expectedBoundaryDatabase.Version, actualBoundaryDatabase.Version);
-            Assert.AreEqual(expectedBoundaryDatabase.FilePath, actualBoundaryDatabase.FilePath);
+            Assert.AreEqual(expectedBoundaryDatabase.HrdFiles.Count, actualBoundaryDatabase.HrdFiles.Count);
+            Assert.IsTrue(expectedBoundaryDatabase.HrdFiles.All(ehrd => actualBoundaryDatabase.HrdFiles.Count(ahrd => ehrd.FilePath == ahrd.FilePath && ehrd.Version == ahrd.Version) == 1));
 
             AssertHydraulicLocationConfigurationSettings(expectedBoundaryDatabase.HydraulicLocationConfigurationSettings,
                                                          actualBoundaryDatabase.HydraulicLocationConfigurationSettings);
