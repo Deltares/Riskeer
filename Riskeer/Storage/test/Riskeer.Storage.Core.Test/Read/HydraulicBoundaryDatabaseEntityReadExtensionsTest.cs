@@ -85,8 +85,10 @@ namespace Riskeer.Storage.Core.Test.Read
             entity.Read(hydraulicBoundaryDatabase);
 
             // Assert
-            Assert.AreEqual(entity.FilePath, hydraulicBoundaryDatabase.FilePath);
-            Assert.AreEqual(entity.Version, hydraulicBoundaryDatabase.Version);
+
+            Assert.AreEqual(1, hydraulicBoundaryDatabase.HrdFiles.Count);
+            Assert.AreEqual(entity.FilePath, hydraulicBoundaryDatabase.HrdFiles[0].FilePath);
+            Assert.AreEqual(entity.Version, hydraulicBoundaryDatabase.HrdFiles[0].Version);
 
             HydraulicLocationConfigurationSettings settings = hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings;
             Assert.AreEqual(entity.HydraulicLocationConfigurationSettingsFilePath, settings.FilePath);
