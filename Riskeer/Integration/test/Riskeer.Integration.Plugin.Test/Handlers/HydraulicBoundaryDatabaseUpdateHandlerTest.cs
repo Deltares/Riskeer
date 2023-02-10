@@ -592,7 +592,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             HydraulicBoundaryLocation[] oldLocations = hydraulicBoundaryDatabase.Locations.ToArray();
 
             ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
-            
+
             // Precondition
             Assert.IsTrue(hydraulicBoundaryDatabase.IsLinked());
 
@@ -864,10 +864,10 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             {
                 hydraulicBoundaryDatabase.HrdFiles.Add(new HrdFile
                 {
-                    FilePath = hydraulicBoundaryDatabaseFilePath;
-                    Version = "1";
+                    FilePath = hydraulicBoundaryDatabaseFilePath,
+                    Version = "1"
                 });
-                
+
                 hydraulicBoundaryDatabase.Locations.AddRange(new[]
                 {
                     new TestHydraulicBoundaryLocation("old location 1"),
