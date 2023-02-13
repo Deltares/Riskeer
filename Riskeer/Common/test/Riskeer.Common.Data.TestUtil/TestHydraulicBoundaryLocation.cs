@@ -39,6 +39,6 @@ namespace Riskeer.Common.Data.TestUtil
         /// with the given name.
         /// </summary>
         /// <param name="name">The name for the <see cref="TestHydraulicBoundaryLocation"/>.</param>
-        public TestHydraulicBoundaryLocation(string name) : base(0, name, 0, 0) {}
+        public TestHydraulicBoundaryLocation(string name) : base(0, name, 0, 0, new HrdFile()) {}
     }
 }

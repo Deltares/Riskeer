@@ -38,7 +38,7 @@ namespace Riskeer.Common.Data.Hydraulics
         /// <param name="coordinateY">The y-coordinate of the hydraulic boundary location.</param>
         /// <param name="hrdFile">The HRD file the hydraulic boundary location originates from.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> or <paramref name="hrdFile"/> is <c>null</c>.</exception>
-        public HydraulicBoundaryLocation(long id, string name, double coordinateX, double coordinateY, HrdFile hrdFile = null)
+        public HydraulicBoundaryLocation(long id, string name, double coordinateX, double coordinateY, HrdFile hrdFile)
         {
             if (name == null)
             {
