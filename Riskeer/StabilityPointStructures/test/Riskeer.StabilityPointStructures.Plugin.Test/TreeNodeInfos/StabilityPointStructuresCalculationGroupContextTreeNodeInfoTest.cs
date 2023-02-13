@@ -1499,7 +1499,13 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                FilePath = Path.Combine(testDataPath, "complete.sqlite")
+                HrdFiles =
+                {
+                    new HrdFile
+                    {
+                        FilePath = Path.Combine(testDataPath, "complete.sqlite")
+                    }
+                }
             };
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
 
@@ -1605,7 +1611,13 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                FilePath = validFilePath
+                HrdFiles =
+                {
+                    new HrdFile
+                    {
+                        FilePath = validFilePath
+                    }
+                }
             };
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
 
