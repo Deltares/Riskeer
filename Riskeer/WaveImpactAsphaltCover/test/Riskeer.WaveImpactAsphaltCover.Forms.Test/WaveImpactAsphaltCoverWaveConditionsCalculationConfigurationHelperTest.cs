@@ -93,8 +93,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test
             const string name = "name";
             var locations = new[]
             {
-                new HydraulicBoundaryLocation(1, name, 1, 1),
-                new HydraulicBoundaryLocation(2, name, 2, 2)
+                new HydraulicBoundaryLocation(1, name, 1, 1, new HrdFile()),
+                new HydraulicBoundaryLocation(2, name, 2, 2, new HrdFile())
             };
             var calculationBases = new List<ICalculationBase>();
 
@@ -129,8 +129,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test
             const string name = "name";
             var locations = new[]
             {
-                new HydraulicBoundaryLocation(1, name, 1, 1),
-                new HydraulicBoundaryLocation(2, name, 2, 2)
+                new HydraulicBoundaryLocation(1, name, 1, 1, new HrdFile()),
+                new HydraulicBoundaryLocation(2, name, 2, 2, new HrdFile())
             };
             var calculationBases = new List<ICalculationBase>
             {

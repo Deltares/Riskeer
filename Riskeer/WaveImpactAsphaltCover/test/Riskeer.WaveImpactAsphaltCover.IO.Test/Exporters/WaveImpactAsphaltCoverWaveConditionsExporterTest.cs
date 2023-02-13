@@ -157,7 +157,7 @@ namespace Riskeer.WaveImpactAsphaltCover.IO.Test.Exporters
                         Name = "aCalculation",
                         InputParameters =
                         {
-                            HydraulicBoundaryLocation = new HydraulicBoundaryLocation(8, "aLocation", 44, 123.456),
+                            HydraulicBoundaryLocation = new HydraulicBoundaryLocation(8, "aLocation", 44, 123.456, new HrdFile()),
                             ForeshoreProfile = new TestForeshoreProfile("foreshoreA"),
                             LowerBoundaryRevetment = (RoundedDouble) 1.384,
                             UpperBoundaryRevetment = (RoundedDouble) 11.54898963,
