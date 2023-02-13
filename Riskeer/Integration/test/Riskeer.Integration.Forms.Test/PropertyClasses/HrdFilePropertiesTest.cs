@@ -66,7 +66,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GetProperties_WithHrdFileWithPreprocessorData_ReturnExpectedValues()
+        public void GetProperties_WithHrdFile_ReturnsExpectedValues()
         {
             // Setup
             const bool usePreprocessor = true;
@@ -74,6 +74,8 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             var hrdFile = new HrdFile
             {
+                FilePath = "random",
+                UsePreprocessorClosure = new Random().NextBoolean(),
                 CanUsePreprocessor = true,
                 UsePreprocessor = usePreprocessor,
                 PreprocessorDirectory = preprocessorDirectory
@@ -83,27 +85,11 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var properties = new HrdFileProperties(hrdFile);
 
             // Assert
+            Assert.AreEqual(hrdFile.FilePath, properties.FilePath);
+            Assert.AreEqual(hrdFile.UsePreprocessorClosure, properties.UsePreprocessorClosure);
             Assert.AreEqual(usePreprocessor, properties.UsePreprocessor);
             Assert.AreEqual(preprocessorDirectory, properties.PreprocessorDirectory);
             Assert.AreEqual(preprocessorDirectory, properties.PreprocessorDirectoryReadOnly);
-        }
-
-        [Test]
-        public void GetProperties_WithHrdFile_ReturnsExpectedValues()
-        {
-            // Setup
-            var hrdFile = new HrdFile
-            {
-                FilePath = "random",
-                UsePreprocessorClosure = new Random().NextBoolean()
-            };
-
-            // Call
-            var properties = new HrdFileProperties(hrdFile);
-
-            // Assert
-            Assert.AreEqual(hrdFile.FilePath, properties.FilePath);
-            Assert.AreEqual(hrdFile.UsePreprocessorClosure, properties.UsePreprocessorClosure);
         }
 
         [Test]
