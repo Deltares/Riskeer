@@ -36,10 +36,16 @@ namespace Riskeer.Common.Data.Hydraulics
         /// <param name="name">The name of the hydraulic boundary location.</param>
         /// <param name="coordinateX">The x-coordinate of the hydraulic boundary location.</param>
         /// <param name="coordinateY">The y-coordinate of the hydraulic boundary location.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
-        public HydraulicBoundaryLocation(long id, string name, double coordinateX, double coordinateY)
+        /// <param name="hrdFile">The HRD file the hydraulic boundary location originates from.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> or <paramref name="hrdFile"/> is <c>null</c>.</exception>
+        public HydraulicBoundaryLocation(long id, string name, double coordinateX, double coordinateY, HrdFile hrdFile)
         {
             if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+
+            if (hrdFile == null)
             {
                 throw new ArgumentNullException(nameof(name));
             }
@@ -47,6 +53,7 @@ namespace Riskeer.Common.Data.Hydraulics
             Id = id;
             Name = name;
             Location = new Point2D(coordinateX, coordinateY);
+            HrdFile = hrdFile;
         }
 
         /// <summary>
@@ -63,6 +70,11 @@ namespace Riskeer.Common.Data.Hydraulics
         /// Gets the location of the hydraulic boundary.
         /// </summary>
         public Point2D Location { get; }
+
+        /// <summary>
+        /// Gets the HRD file the hydraulic boundary location originates from.
+        /// </summary>
+        public HrdFile HrdFile { get; }
 
         public override string ToString()
         {
