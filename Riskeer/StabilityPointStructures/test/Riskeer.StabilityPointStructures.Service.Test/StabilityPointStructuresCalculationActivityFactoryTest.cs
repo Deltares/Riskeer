@@ -285,7 +285,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2, new HrdFile()),
                     FailureProbabilityStructureWithErosion = new Random(39).NextDouble()
                 }
             };

@@ -109,7 +109,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views.RegistrationState
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 1.3, 2.3),
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 1.3, 2.3, new HrdFile()),
                     Structure = new TestStabilityPointStructure(new Point2D(1.2, 2.3))
                 }
             };
@@ -118,7 +118,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views.RegistrationState
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 7.7, 12.6),
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 7.7, 12.6, new HrdFile()),
                     Structure = new TestStabilityPointStructure(new Point2D(2.7, 2.0))
                 }
             };
