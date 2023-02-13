@@ -33,11 +33,22 @@ namespace Riskeer.Common.Data.Test.Hydraulics
         public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new HydraulicBoundaryLocation(0, null, 0.0, 0.0);
+            void Call() => new HydraulicBoundaryLocation(0, null, 0.0, 0.0, new HrdFile());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("name", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_HrdFileNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new HydraulicBoundaryLocation(0, "<some name>", 0.0, 0.0, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("hrdFile", exception.ParamName);
         }
 
         [Test]
@@ -48,9 +59,10 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             const string name = "<some name>";
             const double x = 567.0;
             const double y = 890.0;
+            var hrdFile = new HrdFile();
 
             // Call
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y, hrdFile);
 
             // Assert
             Assert.AreEqual(id, hydraulicBoundaryLocation.Id);
@@ -58,6 +70,7 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             Point2D location = hydraulicBoundaryLocation.Location;
             Assert.AreEqual(x, location.X);
             Assert.AreEqual(y, location.Y);
+            Assert.AreSame(hrdFile, hydraulicBoundaryLocation.HrdFile);
         }
 
         [Test]
@@ -65,10 +78,10 @@ namespace Riskeer.Common.Data.Test.Hydraulics
         {
             // Setup
             const string testName = "testName";
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, testName, 0, 0);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, testName, 0, 0, new HrdFile());
 
             // Call
-            string result = hydraulicBoundaryLocation.ToString();
+            var result = hydraulicBoundaryLocation.ToString();
 
             // Assert
             Assert.AreEqual(testName, result);
