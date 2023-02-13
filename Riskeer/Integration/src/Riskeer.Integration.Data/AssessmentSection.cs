@@ -231,6 +231,7 @@ namespace Riskeer.Integration.Data
 
             RemoveOutdatedHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
             AddMissingHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
+            SortHydraulicBoundaryLocationCalculations();
         }
 
         public IEnumerable<IFailureMechanism> GetFailureMechanisms()
@@ -320,6 +321,27 @@ namespace Riskeer.Integration.Data
                                                                             IEnumerable<HydraulicBoundaryLocation> missingHydraulicBoundaryLocations)
         {
             hydraulicBoundaryLocationCalculations.AddRange(missingHydraulicBoundaryLocations.Select(mhbl => new HydraulicBoundaryLocationCalculation(mhbl)));
+        }
+
+        private void SortHydraulicBoundaryLocationCalculations()
+        {
+            SortHydraulicBoundaryLocationCalculations(waterLevelCalculationsForSignalFloodingProbability);
+            SortHydraulicBoundaryLocationCalculations(waterLevelCalculationsForMaximumAllowableFloodingProbability);
+
+            foreach (HydraulicBoundaryLocationCalculationsForTargetProbability element in WaterLevelCalculationsForUserDefinedTargetProbabilities)
+            {
+                SortHydraulicBoundaryLocationCalculations(element.HydraulicBoundaryLocationCalculations);
+            }
+
+            foreach (HydraulicBoundaryLocationCalculationsForTargetProbability element in WaveHeightCalculationsForUserDefinedTargetProbabilities)
+            {
+                SortHydraulicBoundaryLocationCalculations(element.HydraulicBoundaryLocationCalculations);
+            }
+        }
+
+        private static void SortHydraulicBoundaryLocationCalculations(List<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations)
+        {
+            hydraulicBoundaryLocationCalculations.Sort((x, y) => x.HydraulicBoundaryLocation.Id.CompareTo(y.HydraulicBoundaryLocation.Id));
         }
 
         private void SetFailureMechanismsToBeInAssembly()
