@@ -83,17 +83,16 @@ namespace Riskeer.DuneErosion.Service
                     .FirstOrDefault(hbl => DoesHydraulicBoundaryLocationMatchWithDuneLocation(hbl, readDuneLocation));
                 if (correspondingHydraulicBoundaryLocation != null)
                 {
-                    var duneLocation = new DuneLocation(correspondingHydraulicBoundaryLocation.Id,
-                                                        readDuneLocation.Name,
-                                                        readDuneLocation.Location,
-                                                        new DuneLocation.ConstructionProperties
-                                                        {
-                                                            CoastalAreaId = readDuneLocation.CoastalAreaId,
-                                                            Offset = readDuneLocation.Offset,
-                                                            Orientation = readDuneLocation.Orientation,
-                                                            D50 = readDuneLocation.D50
-                                                        });
-                    correspondingDuneLocations.Add(duneLocation);
+                    correspondingDuneLocations.Add(new DuneLocation(correspondingHydraulicBoundaryLocation.Id,
+                                                                    readDuneLocation.Name,
+                                                                    readDuneLocation.Location,
+                                                                    new DuneLocation.ConstructionProperties
+                                                                    {
+                                                                        CoastalAreaId = readDuneLocation.CoastalAreaId,
+                                                                        Offset = readDuneLocation.Offset,
+                                                                        Orientation = readDuneLocation.Orientation,
+                                                                        D50 = readDuneLocation.D50
+                                                                    }));
                 }
             }
 
