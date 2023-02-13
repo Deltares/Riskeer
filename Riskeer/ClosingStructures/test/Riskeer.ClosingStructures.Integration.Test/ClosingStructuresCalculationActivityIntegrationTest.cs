@@ -170,7 +170,7 @@ namespace Riskeer.ClosingStructures.Integration.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1)
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1, new HrdFile())
                 }
             };
 
@@ -269,7 +269,7 @@ namespace Riskeer.ClosingStructures.Integration.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1),
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1, new HrdFile()),
                     Structure = new TestClosingStructure()
                 }
             };

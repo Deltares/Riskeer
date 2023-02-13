@@ -289,7 +289,7 @@ namespace Riskeer.ClosingStructures.Service.Test
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0, new HrdFile());
 
             var calculation1 = new StructuresCalculation<ClosingStructuresInput>
             {
@@ -341,7 +341,7 @@ namespace Riskeer.ClosingStructures.Service.Test
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0, new HrdFile());
 
             var calculation1 = new StructuresCalculation<ClosingStructuresInput>
             {

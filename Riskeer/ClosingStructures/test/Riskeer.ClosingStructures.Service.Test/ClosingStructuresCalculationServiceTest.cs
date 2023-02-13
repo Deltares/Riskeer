@@ -284,7 +284,7 @@ namespace Riskeer.ClosingStructures.Service.Test
                 InputParameters =
                 {
                     InflowModelType = inflowModelType,
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2, new HrdFile()),
                     ForeshoreProfile = new TestForeshoreProfile(new BreakWater(BreakWaterType.Dam, breakWaterHeight)),
                     UseBreakWater = true
                 }
