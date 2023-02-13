@@ -101,12 +101,20 @@ namespace Riskeer.Common.Data.TestUtil
 
         private static HydraulicBoundaryDatabase GetHydraulicBoundaryDatabase(string filePath)
         {
+            var hrdFile = new HrdFile
+            {
+                FilePath = filePath
+            };
+            
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                FilePath = filePath,
+                HrdFiles =
+                {
+                    hrdFile
+                },
                 Locations =
                 {
-                    new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0, new HrdFile())
+                    new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0, hrdFile)
                 }
             };
 

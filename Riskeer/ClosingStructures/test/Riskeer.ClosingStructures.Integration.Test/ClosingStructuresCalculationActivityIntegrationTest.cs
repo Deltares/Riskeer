@@ -60,7 +60,13 @@ namespace Riskeer.ClosingStructures.Integration.Test
             {
                 HydraulicBoundaryDatabase =
                 {
-                    FilePath = Path.Combine(testDataPath, "notexisting.sqlite")
+                    HrdFiles =
+                    {
+                        new HrdFile
+                        {
+                            FilePath = Path.Combine(testDataPath, "notexisting.sqlite")
+                        }
+                    }
                 }
             };
 
@@ -301,7 +307,13 @@ namespace Riskeer.ClosingStructures.Integration.Test
             {
                 HydraulicBoundaryDatabase =
                 {
-                    FilePath = validFilePath
+                    HrdFiles =
+                    {
+                        new HrdFile
+                        {
+                            FilePath = validFilePath
+                        }
+                    }
                 }
             };
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
@@ -344,7 +356,13 @@ namespace Riskeer.ClosingStructures.Integration.Test
             {
                 HydraulicBoundaryDatabase =
                 {
-                    FilePath = validFilePath,
+                    HrdFiles =
+                    {
+                        new HrdFile
+                        {
+                            FilePath = validFilePath
+                        }
+                    },
                     HydraulicLocationConfigurationSettings =
                     {
                         CanUsePreprocessor = true,
@@ -393,7 +411,13 @@ namespace Riskeer.ClosingStructures.Integration.Test
             {
                 HydraulicBoundaryDatabase =
                 {
-                    FilePath = validFilePath,
+                    HrdFiles =
+                    {
+                        new HrdFile
+                        {
+                            FilePath = validFilePath
+                        }
+                    },
                     HydraulicLocationConfigurationSettings =
                     {
                         CanUsePreprocessor = true,

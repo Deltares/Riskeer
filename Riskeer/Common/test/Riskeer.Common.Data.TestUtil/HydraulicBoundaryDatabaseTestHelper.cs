@@ -21,6 +21,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using Riskeer.Common.Data.Hydraulics;
 
 namespace Riskeer.Common.Data.TestUtil
@@ -39,12 +40,14 @@ namespace Riskeer.Common.Data.TestUtil
         public static void SetHydraulicBoundaryLocationConfigurationSettings(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
                                                                              bool usePreprocessorClosure = false)
         {
-            if (hydraulicBoundaryDatabase.FilePath == null)
+            string filePath = hydraulicBoundaryDatabase.HrdFiles.First().FilePath;
+
+            if (filePath == null)
             {
                 throw new ArgumentException("FilePath must be set.");
             }
 
-            string hlcdFilePath = Path.Combine(Path.GetDirectoryName(hydraulicBoundaryDatabase.FilePath), "hlcd.sqlite");
+            string hlcdFilePath = Path.Combine(Path.GetDirectoryName(filePath), "hlcd.sqlite");
 
             hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.SetValues(hlcdFilePath,
                                                                                        "ScenarioName",
