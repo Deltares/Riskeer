@@ -230,11 +230,7 @@ namespace Riskeer.Integration.Data
             }
 
             RemoveOutdatedHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
-
-            foreach (HydraulicBoundaryLocation hydraulicBoundaryLocation in hydraulicBoundaryLocations)
-            {
-                AddHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocation);
-            }
+            AddMissingHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
         }
 
         public IEnumerable<IFailureMechanism> GetFailureMechanisms()
@@ -299,20 +295,31 @@ namespace Riskeer.Integration.Data
             hydraulicBoundaryLocationCalculations.RemoveAllWhere(hblc => outdatedHydraulicBoundaryLocations.Contains(hblc.HydraulicBoundaryLocation));
         }
 
-        private void AddHydraulicBoundaryLocationCalculations(HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        private void AddMissingHydraulicBoundaryLocationCalculations(IEnumerable<HydraulicBoundaryLocation> allHydraulicBoundaryLocations)
         {
-            waterLevelCalculationsForSignalFloodingProbability.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
-            waterLevelCalculationsForMaximumAllowableFloodingProbability.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
+            HydraulicBoundaryLocation[] missingHydraulicBoundaryLocations = allHydraulicBoundaryLocations
+                                                                            .Except(waterLevelCalculationsForSignalFloodingProbability
+                                                                                        .Select(hblc => hblc.HydraulicBoundaryLocation))
+                                                                            .ToArray();
+
+            AddMissingHydraulicBoundaryLocationCalculations(waterLevelCalculationsForSignalFloodingProbability, missingHydraulicBoundaryLocations);
+            AddMissingHydraulicBoundaryLocationCalculations(waterLevelCalculationsForMaximumAllowableFloodingProbability, missingHydraulicBoundaryLocations);
 
             foreach (HydraulicBoundaryLocationCalculationsForTargetProbability element in WaterLevelCalculationsForUserDefinedTargetProbabilities)
             {
-                element.HydraulicBoundaryLocationCalculations.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
+                AddMissingHydraulicBoundaryLocationCalculations(element.HydraulicBoundaryLocationCalculations, missingHydraulicBoundaryLocations);
             }
 
             foreach (HydraulicBoundaryLocationCalculationsForTargetProbability element in WaveHeightCalculationsForUserDefinedTargetProbabilities)
             {
-                element.HydraulicBoundaryLocationCalculations.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
+                AddMissingHydraulicBoundaryLocationCalculations(element.HydraulicBoundaryLocationCalculations, missingHydraulicBoundaryLocations);
             }
+        }
+
+        private static void AddMissingHydraulicBoundaryLocationCalculations(List<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations,
+                                                                            IEnumerable<HydraulicBoundaryLocation> missingHydraulicBoundaryLocations)
+        {
+            hydraulicBoundaryLocationCalculations.AddRange(missingHydraulicBoundaryLocations.Select(mhbl => new HydraulicBoundaryLocationCalculation(mhbl)));
         }
 
         private void SetFailureMechanismsToBeInAssembly()
