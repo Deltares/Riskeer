@@ -36,7 +36,7 @@ namespace Riskeer.StabilityPointStructures.Data.TestUtil
         public TestStabilityPointStructuresCalculationScenario()
         {
             InputParameters.Structure = new TestStabilityPointStructure();
-            InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "location", 1, 1);
+            InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "location", 1, 1, new HrdFile());
             InputParameters.FactorStormDurationOpenStructure = (RoundedDouble) 1;
             InputParameters.FailureProbabilityStructureWithErosion = 1;
         }

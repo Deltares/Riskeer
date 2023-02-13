@@ -36,7 +36,7 @@ namespace Riskeer.ClosingStructures.Data.TestUtil
         public TestClosingStructuresCalculationScenario()
         {
             InputParameters.Structure = new TestClosingStructure();
-            InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "location", 1, 1);
+            InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "location", 1, 1, new HrdFile());
             InputParameters.FactorStormDurationOpenStructure = (RoundedDouble) 1;
             InputParameters.FailureProbabilityStructureWithErosion = 1;
             InputParameters.DeviationWaveDirection = (RoundedDouble) 0;
