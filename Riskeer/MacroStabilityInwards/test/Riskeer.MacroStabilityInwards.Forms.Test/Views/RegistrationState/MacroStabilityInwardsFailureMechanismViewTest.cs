@@ -163,8 +163,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views.RegistrationState
                 stochasticSoilModel2
             }, arbitraryFilePath);
 
-            var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(1, "test", 1.0, 2.0);
-            var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(2, "test", 3.0, 4.0);
+            var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(1, "test", 1.0, 2.0, new HrdFile());
+            var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(2, "test", 3.0, 4.0, new HrdFile());
 
             MacroStabilityInwardsCalculationScenario calculationA = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(hydraulicBoundaryLocation1);
             calculationA.InputParameters.SurfaceLine = surfaceLineA;

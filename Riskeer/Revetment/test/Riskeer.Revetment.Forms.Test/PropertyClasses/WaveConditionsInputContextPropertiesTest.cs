@@ -600,7 +600,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25, new HrdFile());
 
             var assessmentSection = new AssessmentSectionStub();
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
@@ -644,7 +644,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25, new HrdFile());
             var input = new WaveConditionsInput
             {
                 HydraulicBoundaryLocation = hydraulicBoundaryLocation,
@@ -686,7 +686,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25, new HrdFile());
 
             var input = new WaveConditionsInput
             {
@@ -728,10 +728,10 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
 
             var locations = new List<HydraulicBoundaryLocation>
             {
-                new HydraulicBoundaryLocation(1, "A", 0, 1),
-                new HydraulicBoundaryLocation(4, "C", 0, 2),
-                new HydraulicBoundaryLocation(3, "D", 0, 3),
-                new HydraulicBoundaryLocation(2, "B", 0, 4)
+                new HydraulicBoundaryLocation(1, "A", 0, 1, new HrdFile()),
+                new HydraulicBoundaryLocation(4, "C", 0, 2, new HrdFile()),
+                new HydraulicBoundaryLocation(3, "D", 0, 3, new HrdFile()),
+                new HydraulicBoundaryLocation(2, "B", 0, 4, new HrdFile())
             };
 
             var assessmentSection = new AssessmentSectionStub();
@@ -765,12 +765,12 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
 
             var locations = new List<HydraulicBoundaryLocation>
             {
-                new HydraulicBoundaryLocation(1, "A", 0, 10),
-                new HydraulicBoundaryLocation(4, "E", 0, 500),
-                new HydraulicBoundaryLocation(5, "F", 0, 100),
-                new HydraulicBoundaryLocation(6, "D", 0, 200),
-                new HydraulicBoundaryLocation(3, "C", 0, 200),
-                new HydraulicBoundaryLocation(2, "B", 0, 200)
+                new HydraulicBoundaryLocation(1, "A", 0, 10, new HrdFile()),
+                new HydraulicBoundaryLocation(4, "E", 0, 500, new HrdFile()),
+                new HydraulicBoundaryLocation(5, "F", 0, 100, new HrdFile()),
+                new HydraulicBoundaryLocation(6, "D", 0, 200, new HrdFile()),
+                new HydraulicBoundaryLocation(3, "C", 0, 200, new HrdFile()),
+                new HydraulicBoundaryLocation(2, "B", 0, 200, new HrdFile())
             };
 
             var input = new WaveConditionsInput
@@ -805,12 +805,12 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             // Given
             var locations = new List<HydraulicBoundaryLocation>
             {
-                new HydraulicBoundaryLocation(1, "A", 0, 10),
-                new HydraulicBoundaryLocation(3, "E", 0, 500),
-                new HydraulicBoundaryLocation(6, "F", 0, 100),
-                new HydraulicBoundaryLocation(5, "D", 0, 200),
-                new HydraulicBoundaryLocation(4, "C", 0, 200),
-                new HydraulicBoundaryLocation(2, "B", 0, 200)
+                new HydraulicBoundaryLocation(1, "A", 0, 10, new HrdFile()),
+                new HydraulicBoundaryLocation(3, "E", 0, 500, new HrdFile()),
+                new HydraulicBoundaryLocation(6, "F", 0, 100, new HrdFile()),
+                new HydraulicBoundaryLocation(5, "D", 0, 200, new HrdFile()),
+                new HydraulicBoundaryLocation(4, "C", 0, 200, new HrdFile()),
+                new HydraulicBoundaryLocation(2, "B", 0, 200, new HrdFile())
             };
 
             var assessmentSection = new AssessmentSectionStub();

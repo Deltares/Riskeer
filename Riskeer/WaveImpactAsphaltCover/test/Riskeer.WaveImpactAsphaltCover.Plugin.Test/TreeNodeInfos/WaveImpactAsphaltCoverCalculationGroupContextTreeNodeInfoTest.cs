@@ -1886,7 +1886,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
         private IAssessmentSection CreateAssessmentSectionWithHydraulicBoundaryOutput()
         {
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0, new HrdFile());
 
             var assessmentSection = new AssessmentSectionStub
             {

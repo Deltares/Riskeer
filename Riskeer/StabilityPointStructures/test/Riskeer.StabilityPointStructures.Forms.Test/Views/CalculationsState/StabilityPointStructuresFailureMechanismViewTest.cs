@@ -209,7 +209,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views.CalculationsState
             };
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
-                new HydraulicBoundaryLocation(1, "test", 1.0, 2.0)
+                new HydraulicBoundaryLocation(1, "test", 1.0, 2.0, new HrdFile())
             });
 
             // Call

@@ -73,7 +73,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             };
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
-                new HydraulicBoundaryLocation(1, "test", 1.0, 2.0)
+                new HydraulicBoundaryLocation(1, "test", 1.0, 2.0, new HrdFile())
             });
 
             // Call
@@ -109,7 +109,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             };
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
-                new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0)
+                new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0, new HrdFile())
             });
 
             AssessmentSectionExtendedView extendedView = ShowCalculationsView(assessmentSection);
@@ -129,7 +129,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             // Call
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
-                new HydraulicBoundaryLocation(2, "test2", 2.0, 3.0)
+                new HydraulicBoundaryLocation(2, "test2", 2.0, 3.0, new HrdFile())
             });
             assessmentSection.HydraulicBoundaryDatabase.Locations.NotifyObservers();
 

@@ -207,7 +207,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views.HydraulicLoadsState
             };
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
-                new HydraulicBoundaryLocation(1, "test", 1.0, 2.0)
+                new HydraulicBoundaryLocation(1, "test", 1.0, 2.0, new HrdFile())
             });
 
             // Call

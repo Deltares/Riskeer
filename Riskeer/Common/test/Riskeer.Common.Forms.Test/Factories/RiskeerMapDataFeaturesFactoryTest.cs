@@ -159,8 +159,8 @@ namespace Riskeer.Common.Forms.Test.Factories
             var assessmentSection = new AssessmentSectionStub();
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
-                new HydraulicBoundaryLocation(1, "location1", 1, 1),
-                new HydraulicBoundaryLocation(2, "location2", 2, 2)
+                new HydraulicBoundaryLocation(1, "location1", 1, 1, new HrdFile()),
+                new HydraulicBoundaryLocation(2, "location2", 2, 2, new HrdFile())
             }, setOutput);
 
             Dictionary<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, string> waterLevels =

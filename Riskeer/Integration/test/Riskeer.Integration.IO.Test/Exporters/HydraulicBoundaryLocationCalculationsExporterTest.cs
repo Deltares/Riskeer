@@ -125,7 +125,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
             var assessmentSection = new AssessmentSectionStub();
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
-                new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
+                new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2, new HrdFile())
             });
 
             string directoryPath = TestHelper.GetScratchPadPath(nameof(Export_HydraulicBoundaryLocationCalculationsExporterReturnsFalse_LogErrorAndReturnFalse));
@@ -163,7 +163,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
             var assessmentSection = new AssessmentSectionStub();
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
-                new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
+                new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2, new HrdFile())
             });
 
             string directoryPath = TestHelper.GetScratchPadPath(nameof(Export_CreatingZipFileThrowsCriticalFileWriteException_LogErrorAndReturnFalse));
@@ -200,7 +200,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
             var assessmentSectionWithTargetProbabilities = new AssessmentSectionStub();
             assessmentSectionWithTargetProbabilities.SetHydraulicBoundaryLocationCalculations(new[]
             {
-                new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
+                new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2, new HrdFile())
             });
             yield return new TestCaseData(assessmentSectionWithTargetProbabilities, new[]
             {
@@ -215,7 +215,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
             var assessmentSectionWithoutTargetProbabilities = new AssessmentSectionStub();
             assessmentSectionWithoutTargetProbabilities.SetHydraulicBoundaryLocationCalculations(new[]
             {
-                new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
+                new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2, new HrdFile())
             });
             assessmentSectionWithoutTargetProbabilities.WaterLevelCalculationsForUserDefinedTargetProbabilities.Clear();
             assessmentSectionWithoutTargetProbabilities.WaveHeightCalculationsForUserDefinedTargetProbabilities.Clear();
