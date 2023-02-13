@@ -106,7 +106,7 @@ namespace Riskeer.Common.Data.TestUtil
                 FilePath = filePath,
                 Locations =
                 {
-                    new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
+                    new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0, new HrdFile())
                 }
             };
 

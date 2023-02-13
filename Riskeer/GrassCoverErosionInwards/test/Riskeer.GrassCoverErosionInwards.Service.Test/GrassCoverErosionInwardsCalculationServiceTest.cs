@@ -101,7 +101,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2, new HrdFile()),
                     DikeProfile = DikeProfileTestFactory.CreateDikeProfile()
                 }
             };
@@ -143,7 +143,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2, new HrdFile()),
                     DikeProfile = DikeProfileTestFactory.CreateDikeProfile()
                 }
             };
@@ -182,7 +182,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2, new HrdFile()),
                     DikeProfile = DikeProfileTestFactory.CreateDikeProfile()
                 }
             };
@@ -218,7 +218,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2, new HrdFile()),
                     DikeProfile = DikeProfileTestFactory.CreateDikeProfile()
                 }
             };
@@ -254,7 +254,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2, new HrdFile()),
                     Orientation = (RoundedDouble) 0
                 }
             };
@@ -325,7 +325,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2, new HrdFile()),
                     DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
                                                   null, new DikeProfile.ConstructionProperties
                                                   {
@@ -370,7 +370,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2, new HrdFile()),
                     DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
                                                   null, new DikeProfile.ConstructionProperties
                                                   {
@@ -447,7 +447,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2, new HrdFile()),
                     DikeProfile = DikeProfileTestFactory.CreateDikeProfile()
                 }
             };
@@ -488,7 +488,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2, new HrdFile()),
                     DikeProfile = DikeProfileTestFactory.CreateDikeProfile()
                 }
             };
@@ -529,7 +529,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2, new HrdFile()),
                     DikeProfile = DikeProfileTestFactory.CreateDikeProfile()
                 }
             };
@@ -875,7 +875,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2, new HrdFile()),
                     DikeProfile = DikeProfileTestFactory.CreateDikeProfile()
                 }
             };
@@ -927,7 +927,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2, new HrdFile()),
                     DikeProfile = DikeProfileTestFactory.CreateDikeProfile(),
                     ShouldDikeHeightBeCalculated = true
                 }
@@ -992,7 +992,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2, new HrdFile()),
                     DikeProfile = DikeProfileTestFactory.CreateDikeProfile(),
                     ShouldDikeHeightBeCalculated = true,
                     ShouldOvertoppingRateBeCalculated = true
@@ -2922,7 +2922,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2, new HrdFile()),
                     DikeProfile = new DikeProfile(new Point2D(0, 0),
                                                   new RoughnessPoint[0],
                                                   new Point2D[0],

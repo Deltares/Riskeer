@@ -82,8 +82,8 @@ namespace Riskeer.Common.Forms.Test.Factories
             var random = new Random(21);
             var locations = new[]
             {
-                new HydraulicBoundaryLocation(1, "location1", 1, 1),
-                new HydraulicBoundaryLocation(2, "location2", 2, 2)
+                new HydraulicBoundaryLocation(1, "location1", 1, 1, new HrdFile()),
+                new HydraulicBoundaryLocation(2, "location2", 2, 2, new HrdFile())
             };
 
             var waterLevelCalculations = new Dictionary<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, string>

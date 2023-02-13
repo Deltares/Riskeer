@@ -84,7 +84,7 @@ namespace Riskeer.Common.Forms.Test.UITypeEditors
         public void EditValue_WithCurrentItemInAvailableItems_ReturnsCurrentItem()
         {
             // Setup
-            var selectedHydraulicBoundaryLocation = new HydraulicBoundaryLocation(23, "name", 0, 0);
+            var selectedHydraulicBoundaryLocation = new HydraulicBoundaryLocation(23, "name", 0, 0, new HrdFile());
             var properties = new ObjectPropertiesWithSelectableHydraulicBoundaryLocation(
                 new SelectableHydraulicBoundaryLocation(selectedHydraulicBoundaryLocation, null),
                 new[]
@@ -112,7 +112,7 @@ namespace Riskeer.Common.Forms.Test.UITypeEditors
 
         private static SelectableHydraulicBoundaryLocation CreateSelectableHydraulicBoundaryLocation()
         {
-            return new SelectableHydraulicBoundaryLocation(new HydraulicBoundaryLocation(1, "", 0, 0), null);
+            return new SelectableHydraulicBoundaryLocation(new HydraulicBoundaryLocation(1, "", 0, 0, new HrdFile()), null);
         }
 
         private class ObjectPropertiesWithSelectableHydraulicBoundaryLocation : ObjectProperties<object>, IHasHydraulicBoundaryLocationProperty

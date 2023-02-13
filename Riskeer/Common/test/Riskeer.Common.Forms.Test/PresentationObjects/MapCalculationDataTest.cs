@@ -36,7 +36,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         {
             // Setup
             var calculationLocation = new Point2D(0.0, 2.3);
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0.1, 2.3);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0.1, 2.3, new HrdFile());
 
             // Call
             TestDelegate test = () => new MapCalculationData(
@@ -57,7 +57,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         {
             // Setup
             const string calculationName = "name";
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0.1, 2.3);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0.1, 2.3, new HrdFile());
 
             // Call
             TestDelegate test = () => new MapCalculationData(
@@ -100,7 +100,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             // Setup
             const string calculationName = "name";
             var calculationLocation = new Point2D(0.0, 2.3);
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0.1, 2.3);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0.1, 2.3, new HrdFile());
 
             // Call
             var mapCalculationData = new MapCalculationData(calculationName,

@@ -401,7 +401,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             string filePath = Path.Combine(importerPath, "validConfigurationCalculationNotUseForeshoreWithoutGeometry.xml");
 
             var calculationGroup = new CalculationGroup();
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "HBlocatie", 10, 20);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "HBlocatie", 10, 20, new HrdFile());
             DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile("Dijkprofiel", "Dijkprofiel ID");
             const double norm = 0.01;
 
@@ -678,7 +678,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             string filePath = Path.Combine(importerPath, "validConfigurationFullCalculation.xml");
 
             var calculationGroup = new CalculationGroup();
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Locatie", 10, 20);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Locatie", 10, 20, new HrdFile());
             var dikeProfile = new DikeProfile(new Point2D(0, 0), new[]
             {
                 new RoughnessPoint(new Point2D(0, 0), 2.1),

@@ -68,7 +68,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
             string filePath = Path.Combine(path, "validConfigurationFullCalculation.xml");
 
             var calculationGroup = new CalculationGroup();
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Locatie", 10, 20);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Locatie", 10, 20, new HrdFile());
             var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), new[]
             {
                 new Point2D(0, 0),

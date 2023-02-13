@@ -423,7 +423,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 section2
             }, "some/path/to/sections");
 
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0, new HrdFile());
 
             var calculation = new GrassCoverErosionInwardsCalculation();
             var calculationWithOutput = new GrassCoverErosionInwardsCalculation

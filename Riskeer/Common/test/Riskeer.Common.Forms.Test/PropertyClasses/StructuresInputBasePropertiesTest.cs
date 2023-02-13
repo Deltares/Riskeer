@@ -340,7 +340,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void GetSelectableHydraulicBoundaryLocations_InputWithLocationsStructure_CalculatesDistanceWithCorrectReferencePoint()
         {
             // Setup
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25, new HrdFile());
 
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
             {
@@ -394,7 +394,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             // Setup
             mockRepository.ReplayAll();
 
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25, new HrdFile());
             var calculation = new StructuresCalculation<SimpleStructureInput>
             {
                 InputParameters =
@@ -434,7 +434,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void GivenPropertiesWithStructureAndLocations_WhenSelectingLocation_ThenSelectedLocationDistanceSameAsLocationItem()
         {
             // Given
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25, new HrdFile());
 
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
             {
@@ -485,10 +485,10 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             {
                 Locations =
                 {
-                    new HydraulicBoundaryLocation(1, "A", 0, 1),
-                    new HydraulicBoundaryLocation(4, "C", 0, 2),
-                    new HydraulicBoundaryLocation(3, "D", 0, 3),
-                    new HydraulicBoundaryLocation(2, "B", 0, 4)
+                    new HydraulicBoundaryLocation(1, "A", 0, 1, new HrdFile()),
+                    new HydraulicBoundaryLocation(4, "C", 0, 2, new HrdFile()),
+                    new HydraulicBoundaryLocation(3, "D", 0, 3, new HrdFile()),
+                    new HydraulicBoundaryLocation(2, "B", 0, 4, new HrdFile())
                 }
             };
 
@@ -526,12 +526,12 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             {
                 Locations =
                 {
-                    new HydraulicBoundaryLocation(1, "A", 0, 10),
-                    new HydraulicBoundaryLocation(4, "E", 0, 500),
-                    new HydraulicBoundaryLocation(6, "F", 0, 100),
-                    new HydraulicBoundaryLocation(5, "D", 0, 200),
-                    new HydraulicBoundaryLocation(3, "C", 0, 200),
-                    new HydraulicBoundaryLocation(2, "B", 0, 200)
+                    new HydraulicBoundaryLocation(1, "A", 0, 10, new HrdFile()),
+                    new HydraulicBoundaryLocation(4, "E", 0, 500, new HrdFile()),
+                    new HydraulicBoundaryLocation(6, "F", 0, 100, new HrdFile()),
+                    new HydraulicBoundaryLocation(5, "D", 0, 200, new HrdFile()),
+                    new HydraulicBoundaryLocation(3, "C", 0, 200, new HrdFile()),
+                    new HydraulicBoundaryLocation(2, "B", 0, 200, new HrdFile())
                 }
             };
 
@@ -578,12 +578,12 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             {
                 Locations =
                 {
-                    new HydraulicBoundaryLocation(1, "A", 0, 10),
-                    new HydraulicBoundaryLocation(4, "E", 0, 500),
-                    new HydraulicBoundaryLocation(6, "F", 0, 100),
-                    new HydraulicBoundaryLocation(5, "D", 0, 200),
-                    new HydraulicBoundaryLocation(3, "C", 0, 200),
-                    new HydraulicBoundaryLocation(2, "B", 0, 200)
+                    new HydraulicBoundaryLocation(1, "A", 0, 10, new HrdFile()),
+                    new HydraulicBoundaryLocation(4, "E", 0, 500, new HrdFile()),
+                    new HydraulicBoundaryLocation(6, "F", 0, 100, new HrdFile()),
+                    new HydraulicBoundaryLocation(5, "D", 0, 200, new HrdFile()),
+                    new HydraulicBoundaryLocation(3, "C", 0, 200, new HrdFile()),
+                    new HydraulicBoundaryLocation(2, "B", 0, 200, new HrdFile())
                 }
             };
 
@@ -859,7 +859,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
         private static HydraulicBoundaryLocation CreateHydraulicBoundaryLocation()
         {
-            return new HydraulicBoundaryLocation(0, "", 0, 0);
+            return new HydraulicBoundaryLocation(0, "", 0, 0, new HrdFile());
         }
 
         private class SimpleStructureInput : StructuresInputBase<TestStructure>

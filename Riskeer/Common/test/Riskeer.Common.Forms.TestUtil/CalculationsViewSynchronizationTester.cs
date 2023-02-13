@@ -94,7 +94,7 @@ namespace Riskeer.Common.Forms.TestUtil
             ObservableList<HydraulicBoundaryLocationCalculation> calculations = GetCalculationsInView(view);
 
             calculations.Clear();
-            calculations.Add(new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(10, "10", 10.0, 10.0)));
+            calculations.Add(new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(10, "10", 10.0, 10.0, new HrdFile())));
             calculations.NotifyObservers();
         }
 

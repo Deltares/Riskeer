@@ -105,7 +105,7 @@ namespace Riskeer.Integration.IO.Test.Helpers
                     {
                         new Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>(new[]
                         {
-                            new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2))
+                            new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2, new HrdFile()))
                         }, targetProbability)
                     }, calculationsType, directoryPath);
 
@@ -188,7 +188,7 @@ namespace Riskeer.Integration.IO.Test.Helpers
                                        {
                                            new Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>(new[]
                                            {
-                                               new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2))
+                                               new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2, new HrdFile()))
                                            }, targetProbability)
                                        }, calculationsType, directoryPath);
 

@@ -93,7 +93,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
                 Name = "Berekening 1",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Locatie", 10, 20),
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Locatie", 10, 20, new HrdFile()),
                     DikeProfile = new DikeProfile(new Point2D(0, 0), new[]
                     {
                         new RoughnessPoint(new Point2D(0, 0), 2.1),

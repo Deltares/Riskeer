@@ -221,7 +221,7 @@ namespace Riskeer.Common.Forms.Test.Views
             ShowFullyConfiguredWaveHeightCalculationsView(hydraulicBoundaryLocationCalculations, testForm);
 
             const double waveHeight = 10.23;
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(10, "10", 10.0, 10.0))
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(10, "10", 10.0, 10.0, new HrdFile()))
             {
                 InputParameters =
                 {
@@ -499,19 +499,19 @@ namespace Riskeer.Common.Forms.Test.Views
 
             return new ObservableList<HydraulicBoundaryLocationCalculation>
             {
-                new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(1, "1", 1.0, 1.0)),
-                new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(2, "2", 2.0, 2.0))
+                new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(1, "1", 1.0, 1.0, new HrdFile())),
+                new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(2, "2", 2.0, 2.0, new HrdFile()))
                 {
                     Output = new TestHydraulicBoundaryLocationCalculationOutput(1.23)
                 },
-                new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(3, "3", 3.0, 3.0))
+                new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(3, "3", 3.0, 3.0, new HrdFile()))
                 {
                     InputParameters =
                     {
                         ShouldIllustrationPointsBeCalculated = true
                     }
                 },
-                new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(4, "4", 4.0, 4.0))
+                new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(4, "4", 4.0, 4.0, new HrdFile()))
                 {
                     InputParameters =
                     {

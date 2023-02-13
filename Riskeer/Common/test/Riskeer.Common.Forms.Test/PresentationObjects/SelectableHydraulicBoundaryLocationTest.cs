@@ -37,7 +37,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         public void Constructor_ArgumentsNotNull_ReturnsRightData(Point2D referencePoint, double expectedDistance)
         {
             // Setup 
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Location", 0, 0);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Location", 0, 0, new HrdFile());
 
             // Call
             var inputItem = new SelectableHydraulicBoundaryLocation(hydraulicBoundaryLocation, referencePoint);
@@ -80,7 +80,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         [TestFixture]
         private class SelectableHydraulicBoundaryLocationEqualsTest : EqualsTestFixture<SelectableHydraulicBoundaryLocation>
         {
-            private readonly HydraulicBoundaryLocation location = new HydraulicBoundaryLocation(1, "Name", 0, 1);
+            private readonly HydraulicBoundaryLocation location = new HydraulicBoundaryLocation(1, "Name", 0, 1, new HrdFile());
 
             [Test]
             [TestCaseSource(nameof(EqualityReferencePoints))]
@@ -113,7 +113,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
             {
-                yield return new TestCaseData(new SelectableHydraulicBoundaryLocation(new HydraulicBoundaryLocation(1, "Name", 0, 1),
+                yield return new TestCaseData(new SelectableHydraulicBoundaryLocation(new HydraulicBoundaryLocation(1, "Name", 0, 1, new HrdFile()),
                                                                                       CreateReferencePoint()))
                     .SetName("Hydraulic Boundary Location");
             }
@@ -142,7 +142,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
 
         private static IEnumerable<TestCaseData> StringRepresentations()
         {
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(5, "Name", 0, 0);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(5, "Name", 0, 0, new HrdFile());
 
             var meters = new Point2D(0, 10);
             var kilometers = new Point2D(10000, 10000);

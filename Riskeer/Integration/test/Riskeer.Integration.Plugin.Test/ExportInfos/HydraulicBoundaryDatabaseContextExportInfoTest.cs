@@ -82,7 +82,7 @@ namespace Riskeer.Integration.Plugin.Test.ExportInfos
                 {
                     Locations =
                     {
-                        new HydraulicBoundaryLocation(1, "test", 0, 0)
+                        new HydraulicBoundaryLocation(1, "test", 0, 0, new HrdFile())
                     }
                 }
             };

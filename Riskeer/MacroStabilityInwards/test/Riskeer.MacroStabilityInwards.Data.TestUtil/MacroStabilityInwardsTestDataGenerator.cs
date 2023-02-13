@@ -149,7 +149,7 @@ namespace Riskeer.MacroStabilityInwards.Data.TestUtil
                 Name = "PK001_0001 W1-6_0_1D1",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "PUNT_KAT_18", 0, 0),
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "PUNT_KAT_18", 0, 0, new HrdFile()),
                     SurfaceLine = surfaceLine,
                     StochasticSoilModel = MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel("PK001_0001_Macrostabiliteit"),
                     StochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0, new MacroStabilityInwardsSoilProfile1D("W1-6_0_1D1", 0, new[]

@@ -60,7 +60,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
                 Name = "PK001_0002 W1-6_4_1D1",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "HydraulicLocationA", 0, 0),
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "HydraulicLocationA", 0, 0, new HrdFile()),
                     UseBreakWater = true,
                     CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp
                 }

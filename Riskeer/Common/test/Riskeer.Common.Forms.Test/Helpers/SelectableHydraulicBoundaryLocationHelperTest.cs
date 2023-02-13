@@ -53,10 +53,10 @@ namespace Riskeer.Common.Forms.Test.Helpers
             // Setup
             var hydraulicBoundaryLocations = new[]
             {
-                new HydraulicBoundaryLocation(1, "A", 0, 1),
-                new HydraulicBoundaryLocation(4, "C", 0, 2),
-                new HydraulicBoundaryLocation(3, "D", 0, 3),
-                new HydraulicBoundaryLocation(2, "B", 0, 4)
+                new HydraulicBoundaryLocation(1, "A", 0, 1, new HrdFile()),
+                new HydraulicBoundaryLocation(4, "C", 0, 2, new HrdFile()),
+                new HydraulicBoundaryLocation(3, "D", 0, 3, new HrdFile()),
+                new HydraulicBoundaryLocation(2, "B", 0, 4, new HrdFile())
             };
 
             // Call
@@ -76,12 +76,12 @@ namespace Riskeer.Common.Forms.Test.Helpers
             // Setup
             var hydraulicBoundaryLocations = new[]
             {
-                new HydraulicBoundaryLocation(1, "A", 0, 10),
-                new HydraulicBoundaryLocation(4, "E", 0, 500),
-                new HydraulicBoundaryLocation(6, "F", 0, 100),
-                new HydraulicBoundaryLocation(5, "D", 0, 200),
-                new HydraulicBoundaryLocation(3, "C", 0, 200),
-                new HydraulicBoundaryLocation(2, "B", 0, 200)
+                new HydraulicBoundaryLocation(1, "A", 0, 10, new HrdFile()),
+                new HydraulicBoundaryLocation(4, "E", 0, 500, new HrdFile()),
+                new HydraulicBoundaryLocation(6, "F", 0, 100, new HrdFile()),
+                new HydraulicBoundaryLocation(5, "D", 0, 200, new HrdFile()),
+                new HydraulicBoundaryLocation(3, "C", 0, 200, new HrdFile()),
+                new HydraulicBoundaryLocation(2, "B", 0, 200, new HrdFile())
             };
 
             var point2D = new Point2D(0.0, 0.0);

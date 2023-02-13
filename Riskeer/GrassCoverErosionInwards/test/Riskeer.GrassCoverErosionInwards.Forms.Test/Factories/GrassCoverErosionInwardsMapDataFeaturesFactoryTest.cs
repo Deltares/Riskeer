@@ -65,8 +65,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Factories
             calculationA.InputParameters.DikeProfile = DikeProfileTestFactory.CreateDikeProfile(new Point2D(1.0, 3.0));
             calculationB.InputParameters.DikeProfile = DikeProfileTestFactory.CreateDikeProfile(new Point2D(1.0, 4.0));
 
-            calculationA.InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 5.0, 4.0);
-            calculationB.InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 2.2, 3.8);
+            calculationA.InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 5.0, 4.0, new HrdFile());
+            calculationB.InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 2.2, 3.8, new HrdFile());
 
             // Call
             IEnumerable<MapFeature> features = GrassCoverErosionInwardsMapDataFeaturesFactory.CreateCalculationFeatures(new[]

@@ -147,8 +147,8 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 Locations =
                 {
-                    new HydraulicBoundaryLocation(1, "Location 1", 1.1, 2.2),
-                    new HydraulicBoundaryLocation(2, "Location 2", 3.3, 4.4)
+                    new HydraulicBoundaryLocation(1, "Location 1", 1.1, 2.2, new HrdFile()),
+                    new HydraulicBoundaryLocation(2, "Location 2", 3.3, 4.4, new HrdFile())
                 }
             });
         }
@@ -545,7 +545,7 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.AreEqual(5, hydraulicBoundaryLocationCombobox.Items.Count);
 
             // When
-            assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(3, "Location 3", 5.5, 6.6));
+            assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(3, "Location 3", 5.5, 6.6, new HrdFile()));
             assessmentSection.HydraulicBoundaryDatabase.Locations.NotifyObservers();
 
             // Then

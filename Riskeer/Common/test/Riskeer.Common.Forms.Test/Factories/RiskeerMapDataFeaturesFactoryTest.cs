@@ -438,8 +438,8 @@ namespace Riskeer.Common.Forms.Test.Factories
             var calculationLocationA = new Point2D(1.2, 2.3);
             var calculationLocationB = new Point2D(2.7, 2.0);
 
-            var hydraulicBoundaryLocationA = new HydraulicBoundaryLocation(1, string.Empty, 1.3, 2.3);
-            var hydraulicBoundaryLocationB = new HydraulicBoundaryLocation(1, string.Empty, 7.7, 12.6);
+            var hydraulicBoundaryLocationA = new HydraulicBoundaryLocation(1, string.Empty, 1.3, 2.3, new HrdFile());
+            var hydraulicBoundaryLocationB = new HydraulicBoundaryLocation(1, string.Empty, 7.7, 12.6, new HrdFile());
 
             var simpleStructuresCalculationA = new SimpleStructuresCalculation
             {
@@ -514,8 +514,8 @@ namespace Riskeer.Common.Forms.Test.Factories
             var calculationLocationA = new Point2D(1.2, 2.3);
             var calculationLocationB = new Point2D(2.7, 2.0);
 
-            var hydraulicBoundaryLocationA = new HydraulicBoundaryLocation(1, string.Empty, 1.3, 2.3);
-            var hydraulicBoundaryLocationB = new HydraulicBoundaryLocation(1, string.Empty, 7.7, 12.6);
+            var hydraulicBoundaryLocationA = new HydraulicBoundaryLocation(1, string.Empty, 1.3, 2.3, new HrdFile());
+            var hydraulicBoundaryLocationB = new HydraulicBoundaryLocation(1, string.Empty, 7.7, 12.6, new HrdFile());
 
             // Call
             IEnumerable<MapFeature> features = RiskeerMapDataFeaturesFactory.CreateCalculationFeatures(new[]

@@ -106,7 +106,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
 
             var exporter = new HydraulicBoundaryLocationCalculationsForTargetProbabilityExporter(new[]
             {
-                new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2))
+                new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2, new HrdFile()))
             }, filePath, calculationsType);
 
             // Precondition
@@ -144,7 +144,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
 
             var exporter = new HydraulicBoundaryLocationCalculationsForTargetProbabilityExporter(new[]
             {
-                new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2))
+                new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2, new HrdFile()))
             }, filePath, HydraulicBoundaryLocationCalculationsType.WaterLevel);
 
             try

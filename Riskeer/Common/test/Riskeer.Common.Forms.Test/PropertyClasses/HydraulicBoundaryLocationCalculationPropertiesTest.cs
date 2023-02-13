@@ -282,7 +282,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             double result = random.NextDouble();
             var calculationConvergence = random.NextEnumValue<CalculationConvergence>();
 
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(id, name, x, y))
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(id, name, x, y, new HrdFile()))
             {
                 Output = new TestHydraulicBoundaryLocationCalculationOutput(result, calculationConvergence)
             };
@@ -307,7 +307,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             const long id = 1234L;
             const double x = 567.0;
             const double y = 890.0;
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y, new HrdFile());
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation);
 
             // Call

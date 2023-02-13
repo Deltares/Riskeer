@@ -435,14 +435,14 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
             var targetLocations = new[]
             {
-                new HydraulicBoundaryLocation(1, "location 1", 1, 1),
-                new HydraulicBoundaryLocation(2, "location 2", 2, 2)
+                new HydraulicBoundaryLocation(1, "location 1", 1, 1, new HrdFile()),
+                new HydraulicBoundaryLocation(2, "location 2", 2, 2, new HrdFile())
             };
 
             var sourceLocations = new[]
             {
-                new HydraulicBoundaryLocation(1, "location 1", 1, 1),
-                new HydraulicBoundaryLocation(2, "location 2", 2, 2)
+                new HydraulicBoundaryLocation(1, "location 1", 1, 1, new HrdFile()),
+                new HydraulicBoundaryLocation(2, "location 2", 2, 2, new HrdFile())
             };
 
             AssessmentSection targetAssessmentSection = CreateAssessmentSection(targetLocations);
@@ -951,14 +951,14 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
             var targetLocations = new[]
             {
-                new HydraulicBoundaryLocation(1, "location 1", 1, 1),
-                new HydraulicBoundaryLocation(2, "location 2", 2, 2)
+                new HydraulicBoundaryLocation(1, "location 1", 1, 1, new HrdFile()),
+                new HydraulicBoundaryLocation(2, "location 2", 2, 2, new HrdFile())
             };
 
             var sourceLocations = new[]
             {
-                new HydraulicBoundaryLocation(1, "location 1", 1, 1),
-                new HydraulicBoundaryLocation(2, "location 2", 2, 2)
+                new HydraulicBoundaryLocation(1, "location 1", 1, 1, new HrdFile()),
+                new HydraulicBoundaryLocation(2, "location 2", 2, 2, new HrdFile())
             };
 
             AssessmentSection targetAssessmentSection = CreateAssessmentSection(targetLocations);
@@ -1010,14 +1010,14 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
             var targetLocations = new[]
             {
-                new HydraulicBoundaryLocation(1, "location 1", 1, 1),
-                new HydraulicBoundaryLocation(2, "location 2", 2, 2)
+                new HydraulicBoundaryLocation(1, "location 1", 1, 1, new HrdFile()),
+                new HydraulicBoundaryLocation(2, "location 2", 2, 2, new HrdFile())
             };
 
             var sourceLocations = new[]
             {
-                new HydraulicBoundaryLocation(1, "location 1", 1, 1),
-                new HydraulicBoundaryLocation(2, "location 2", 2, 2)
+                new HydraulicBoundaryLocation(1, "location 1", 1, 1, new HrdFile()),
+                new HydraulicBoundaryLocation(2, "location 2", 2, 2, new HrdFile())
             };
 
             AssessmentSection targetAssessmentSection = CreateAssessmentSection(targetLocations);

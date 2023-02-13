@@ -42,11 +42,11 @@ namespace Riskeer.DuneErosion.Service.Test
             {
                 yield return new TestCaseData(
                     new ReadDuneLocation("dune location 1", new Point2D(1.0, 2.0), 0, 0, 0, 0),
-                    new HydraulicBoundaryLocation(1, "hydraulic location 1", 2.0, 1.0)).SetName("DifferentCoordinates");
+                    new HydraulicBoundaryLocation(1, "hydraulic location 1", 2.0, 1.0, new HrdFile())).SetName("DifferentCoordinates");
 
                 yield return new TestCaseData(
                     new ReadDuneLocation("dune location 1", new Point2D(1.0, 2.0), 0, 2.2, 0, 0),
-                    new HydraulicBoundaryLocation(1, "hydraulic_location_1.1", 1.0, 2.0)).SetName("DifferentOffset");
+                    new HydraulicBoundaryLocation(1, "hydraulic_location_1.1", 1.0, 2.0, new HrdFile())).SetName("DifferentOffset");
             }
         }
 
@@ -129,7 +129,7 @@ namespace Riskeer.DuneErosion.Service.Test
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
             var readDuneLocation = new ReadDuneLocation("dune location 1", new Point2D(1.0, 5.3), 8, 1.1, 2.2, 3.3);
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Location_2_1.1", 1.0, 5.3);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Location_2_1.1", 1.0, 5.3, new HrdFile());
 
             // Precondition
             CollectionAssert.IsEmpty(failureMechanism.DuneLocations);
@@ -170,7 +170,7 @@ namespace Riskeer.DuneErosion.Service.Test
 
             var failureMechanism = new DuneErosionFailureMechanism();
             var readDuneLocation = new ReadDuneLocation("dune location 1", new Point2D(1.0, 5.3), 8, offset, 2.2, 3.3);
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, locationName, 1.0, 5.3);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, locationName, 1.0, 5.3, new HrdFile());
 
             // Precondition
             CollectionAssert.IsEmpty(failureMechanism.DuneLocations);

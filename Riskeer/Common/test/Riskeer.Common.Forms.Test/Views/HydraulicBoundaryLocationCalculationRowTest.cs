@@ -43,7 +43,7 @@ namespace Riskeer.Common.Forms.Test.Views
             const double coordinateX = 1.0;
             const double coordinateY = 2.0;
 
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, locationName, coordinateX, coordinateY);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, locationName, coordinateX, coordinateY, new HrdFile());
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation);
 
             // Call

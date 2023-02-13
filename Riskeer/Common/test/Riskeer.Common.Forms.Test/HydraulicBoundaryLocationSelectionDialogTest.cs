@@ -113,7 +113,7 @@ namespace Riskeer.Common.Forms.Test
             // Setup
             const string testname = "testName";
 
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, testname, 0, 0);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, testname, 0, 0, new HrdFile());
 
             // Call
             using (var viewParent = new Form())
