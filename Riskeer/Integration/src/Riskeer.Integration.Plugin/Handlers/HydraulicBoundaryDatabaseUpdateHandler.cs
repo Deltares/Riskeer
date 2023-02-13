@@ -25,6 +25,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Util.Extensions;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.DuneErosion.Plugin.Handlers;
 using Riskeer.HydraRing.IO.HydraulicBoundaryDatabase;
@@ -171,9 +172,8 @@ namespace Riskeer.Integration.Plugin.Handlers
 
             if (updateLocations)
             {
-                SetLocations(hydraulicBoundaryDatabase, readHydraulicBoundaryDatabase.Locations,
-                             readHydraulicLocationConfigurationDatabase.LocationIdMappings,
-                             excludedLocationIds.ToArray());
+                SetLocations(hydraulicBoundaryDatabase, hrdFile, readHydraulicBoundaryDatabase.Locations,
+                             readHydraulicLocationConfigurationDatabase.LocationIdMappings, excludedLocationIds.ToArray());
 
                 assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
 
@@ -227,10 +227,13 @@ namespace Riskeer.Integration.Plugin.Handlers
             return locationsAndCalculationsObservables;
         }
 
-        private static void SetLocations(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, IEnumerable<ReadHydraulicBoundaryLocation> readLocations,
-                                         IEnumerable<ReadHydraulicLocationMapping> locationIdMappings, long[] excludedLocationIds)
+        private static void SetLocations(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
+                                         HrdFile hrdFile,
+                                         IEnumerable<ReadHydraulicBoundaryLocation> readLocations,
+                                         IEnumerable<ReadHydraulicLocationMapping> locationIdMappings,
+                                         long[] excludedLocationIds)
         {
-            hydraulicBoundaryDatabase.Locations.Clear();
+            hydraulicBoundaryDatabase.Locations.RemoveAllWhere(l => ReferenceEquals(l.HrdFile, hrdFile));
 
             Array.Sort(excludedLocationIds);
 
@@ -242,16 +245,20 @@ namespace Riskeer.Integration.Plugin.Handlers
 
                 if (locationConfigurationId != 0 && ShouldInclude(excludedLocationIds, locationConfigurationId))
                 {
-                    hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(locationConfigurationId, readLocation.Name,
-                                                                                          readLocation.CoordinateX, readLocation.CoordinateY));
+                    hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(locationConfigurationId,
+                                                                                          readLocation.Name,
+                                                                                          readLocation.CoordinateX,
+                                                                                          readLocation.CoordinateY,
+                                                                                          hrdFile));
                 }
             }
+            
+            hydraulicBoundaryDatabase.Locations.Sort((x, y) => x.Id.CompareTo(y.Id));
         }
 
         private static bool ShouldInclude(long[] excludedLocationIds, long locationId)
         {
-            int matchingIndex = Array.BinarySearch(excludedLocationIds, locationId);
-            return matchingIndex < 0;
+            return Array.BinarySearch(excludedLocationIds, locationId) < 0;
         }
     }
 }
