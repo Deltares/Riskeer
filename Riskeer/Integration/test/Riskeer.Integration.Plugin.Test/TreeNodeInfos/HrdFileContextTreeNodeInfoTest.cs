@@ -26,6 +26,7 @@ using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PresentationObjects;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
@@ -71,15 +72,23 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             const string hrdFileName = "hrdFile.sqlite";
 
+            var hrdFile = new HrdFile
+            {
+                FilePath = $"path/to/{hrdFileName}"
+            };
+            
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 HydraulicBoundaryDatabase =
                 {
-                    FilePath = $"path/to/{hrdFileName}"
+                    HrdFiles =
+                    {
+                        hrdFile
+                    }
                 }
             };
 
-            var hrdFileContext = new HrdFileContext(assessmentSection.HydraulicBoundaryDatabase, assessmentSection);
+            var hrdFileContext = new HrdFileContext(hrdFile, assessmentSection);
 
             using (var plugin = new RiskeerPlugin())
             {

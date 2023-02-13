@@ -36,14 +36,15 @@ namespace Riskeer.Integration.Forms.Test.PresentationObjects
         public void Constructor_ExpectedValues()
         {
             // Setup
+            var hrdFile = new HrdFile();
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             // Call
-            var context = new HrdFileContext(assessmentSection.HydraulicBoundaryDatabase, assessmentSection);
+            var context = new HrdFileContext(hrdFile, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<HydraulicBoundaryDatabase>>(context);
-            Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase, context.WrappedData);
+            Assert.IsInstanceOf<WrappedObjectContextBase<HrdFile>>(context);
+            Assert.AreSame(hrdFile, context.WrappedData);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
         }
 
@@ -51,10 +52,10 @@ namespace Riskeer.Integration.Forms.Test.PresentationObjects
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new HrdFileContext(new HydraulicBoundaryDatabase(), null);
+            void Call() => new HrdFileContext(new HrdFile(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
     }

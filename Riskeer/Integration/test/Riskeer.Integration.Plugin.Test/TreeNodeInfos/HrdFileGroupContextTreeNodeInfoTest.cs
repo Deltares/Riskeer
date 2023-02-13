@@ -26,6 +26,7 @@ using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PresentationObjects;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
@@ -101,7 +102,20 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void ChildNodeObjects_WithContext_ReturnsChildrenOfData()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var hrdFile1 = new HrdFile();
+            var hrdFile2 = new HrdFile();
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                HydraulicBoundaryDatabase =
+                {
+                    HrdFiles =
+                    {
+                        hrdFile1,
+                        hrdFile2
+                    }
+                }
+            };
+
             var hrdFileGroupContext = new HrdFileGroupContext(assessmentSection.HydraulicBoundaryDatabase, assessmentSection);
 
             using (var plugin = new RiskeerPlugin())
@@ -112,11 +126,15 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 object[] objects = info.ChildNodeObjects(hrdFileGroupContext).ToArray();
 
                 // Assert
-                Assert.AreEqual(1, objects.Length);
+                Assert.AreEqual(2, objects.Length);
 
-                var hrdFileContext = (HrdFileContext) objects[0];
-                Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase, hrdFileContext.WrappedData);
-                Assert.AreSame(assessmentSection, hrdFileContext.AssessmentSection);
+                var hrdFileContext1 = (HrdFileContext) objects[0];
+                Assert.AreSame(hrdFile1, hrdFileContext1.WrappedData);
+                Assert.AreSame(assessmentSection, hrdFileContext1.AssessmentSection);
+
+                var hrdFileContext2 = (HrdFileContext) objects[1];
+                Assert.AreSame(hrdFile2, hrdFileContext2.WrappedData);
+                Assert.AreSame(assessmentSection, hrdFileContext2.AssessmentSection);
             }
         }
 

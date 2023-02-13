@@ -2411,10 +2411,12 @@ namespace Riskeer.Integration.Plugin
 
         private static object[] HrdFileGroupContextChildNodeObjects(HrdFileGroupContext nodeData)
         {
-            return new object[]
-            {
-                new HrdFileContext(nodeData.WrappedData, nodeData.AssessmentSection)
-            };
+            AssessmentSection assessmentSection = nodeData.AssessmentSection;
+
+            return nodeData.WrappedData.HrdFiles
+                           .Select(hrd => new HrdFileContext(hrd, assessmentSection))
+                           .Cast<object>()
+                           .ToArray();
         }
 
         private static void SetHydraulicsMenuItemEnabledStateAndTooltip(IAssessmentSection assessmentSection, StrictContextMenuItem menuItem)

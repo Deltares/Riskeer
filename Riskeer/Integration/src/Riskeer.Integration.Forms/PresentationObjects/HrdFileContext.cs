@@ -29,15 +29,15 @@ namespace Riskeer.Integration.Forms.PresentationObjects
     /// <summary>
     /// Presentation object for a HRD file that is part of a <see cref="HydraulicBoundaryDatabase"/>.
     /// </summary>
-    public class HrdFileContext : ObservableWrappedObjectContextBase<HydraulicBoundaryDatabase>
+    public class HrdFileContext : WrappedObjectContextBase<HrdFile>
     {
         /// <summary>
         /// Creates a new instance of <see cref="HrdFileContext"/>.
         /// </summary>
-        /// <param name="wrappedData">The <see cref="HydraulicBoundaryDatabase"/> that the <see cref="HrdFileContext"/> belongs to.</param>
+        /// <param name="wrappedData">The <see cref="HrdFile"/> that the <see cref="HrdFileContext"/> belongs to.</param>
         /// <param name="assessmentSection">The assessment section that the <see cref="HrdFileContext"/> belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public HrdFileContext(HydraulicBoundaryDatabase wrappedData,
+        public HrdFileContext(HrdFile wrappedData,
                               AssessmentSection assessmentSection)
             : base(wrappedData)
         {
