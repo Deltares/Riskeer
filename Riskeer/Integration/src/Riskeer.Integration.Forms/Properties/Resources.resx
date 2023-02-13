@@ -149,11 +149,11 @@
     <data name="HydraulicBoundaryDatabase_Connect_ToolTip" xml:space="preserve">
     <value>Koppel aan hydraulische belastingendatabase.</value>
   </data>
-    <data name="HydraulicBoundaryDatabase_FilePath_Description" xml:space="preserve">
-    <value>Locatie van het HRD bestand.</value>
+    <data name="HrdFile_FilePath_Description" xml:space="preserve">
+    <value>Locatie van het bestand.</value>
   </data>
-    <data name="HydraulicBoundaryDatabase_FilePath_DisplayName" xml:space="preserve">
-    <value>HRD bestandslocatie</value>
+    <data name="HrdFile_FilePath_DisplayName" xml:space="preserve">
+    <value>Bestandslocatie</value>
   </data>
     <data name="CalculationGroupContextProperties_DisplayName" xml:space="preserve">
     <value>Map met berekeningen</value>

@@ -554,6 +554,24 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Locatie van het bestand..
+        /// </summary>
+        public static string HrdFile_FilePath_Description {
+            get {
+                return ResourceManager.GetString("HrdFile_FilePath_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bestandslocatie.
+        /// </summary>
+        public static string HrdFile_FilePath_DisplayName {
+            get {
+                return ResourceManager.GetString("HrdFile_FilePath_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &amp;Koppel aan database....
         /// </summary>
         public static string HydraulicBoundaryDatabase_Connect {
@@ -568,24 +586,6 @@ namespace Riskeer.Integration.Forms.Properties {
         public static string HydraulicBoundaryDatabase_Connect_ToolTip {
             get {
                 return ResourceManager.GetString("HydraulicBoundaryDatabase_Connect_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Locatie van het HRD bestand..
-        /// </summary>
-        public static string HydraulicBoundaryDatabase_FilePath_Description {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabase_FilePath_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to HRD bestandslocatie.
-        /// </summary>
-        public static string HydraulicBoundaryDatabase_FilePath_DisplayName {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabase_FilePath_DisplayName", resourceCulture);
             }
         }
         

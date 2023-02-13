@@ -80,8 +80,8 @@ namespace Riskeer.Integration.Forms.PropertyClasses
 
         [PropertyOrder(hrdFilePathPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_FilePath_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_FilePath_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HrdFile_FilePath_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HrdFile_FilePath_Description))]
         public string HrdFilePath
         {
             get
