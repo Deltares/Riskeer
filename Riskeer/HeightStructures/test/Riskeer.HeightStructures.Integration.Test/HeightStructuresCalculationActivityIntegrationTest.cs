@@ -169,7 +169,7 @@ namespace Riskeer.HeightStructures.Integration.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1)
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1, new HrdFile())
                 }
             };
 
@@ -265,7 +265,7 @@ namespace Riskeer.HeightStructures.Integration.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1),
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1, new HrdFile()),
                     Structure = new TestHeightStructure()
                 }
             };
@@ -299,7 +299,7 @@ namespace Riskeer.HeightStructures.Integration.Test
                     FilePath = validFilePath,
                     Locations =
                     {
-                        new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
+                        new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0, new HrdFile())
                     }
                 }
             };
@@ -352,7 +352,7 @@ namespace Riskeer.HeightStructures.Integration.Test
                     FilePath = validFilePath,
                     Locations =
                     {
-                        new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
+                        new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0, new HrdFile())
                     },
                     HydraulicLocationConfigurationSettings =
                     {
@@ -411,7 +411,7 @@ namespace Riskeer.HeightStructures.Integration.Test
                     FilePath = validFilePath,
                     Locations =
                     {
-                        new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
+                        new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0, new HrdFile())
                     },
                     HydraulicLocationConfigurationSettings =
                     {

@@ -690,8 +690,8 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             {
                 Locations =
                 {
-                    new HydraulicBoundaryLocation(1, "Location 1", 1.1, 2.2),
-                    new HydraulicBoundaryLocation(2, "Location 2", 3.3, 4.4)
+                    new HydraulicBoundaryLocation(1, "Location 1", 1.1, 2.2, new HrdFile()),
+                    new HydraulicBoundaryLocation(2, "Location 2", 3.3, 4.4, new HrdFile())
                 }
             });
         }

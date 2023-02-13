@@ -80,7 +80,7 @@ namespace Riskeer.HeightStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2, new HrdFile()),
                     Structure = new TestHeightStructure()
                 }
             };
@@ -122,7 +122,7 @@ namespace Riskeer.HeightStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2)
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2, new HrdFile())
                 }
             };
 
@@ -166,7 +166,7 @@ namespace Riskeer.HeightStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2)
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2, new HrdFile())
                 }
             };
 
@@ -213,7 +213,7 @@ namespace Riskeer.HeightStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2)
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2, new HrdFile())
                 }
             };
 
@@ -259,7 +259,7 @@ namespace Riskeer.HeightStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2)
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2, new HrdFile())
                 }
             };
 
@@ -302,7 +302,7 @@ namespace Riskeer.HeightStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2, new HrdFile()),
                     ForeshoreProfile = new TestForeshoreProfile(new BreakWater(BreakWaterType.Dam, breakWaterHeight)),
                     UseBreakWater = true
                 }
@@ -340,7 +340,7 @@ namespace Riskeer.HeightStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2)
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2, new HrdFile())
                 }
             };
 

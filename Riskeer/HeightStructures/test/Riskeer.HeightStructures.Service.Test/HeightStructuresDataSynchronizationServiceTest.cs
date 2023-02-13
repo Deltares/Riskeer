@@ -289,7 +289,7 @@ namespace Riskeer.HeightStructures.Service.Test
         {
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0, new HrdFile());
 
             var calculation1 = new StructuresCalculation<HeightStructuresInput>
             {
@@ -341,7 +341,7 @@ namespace Riskeer.HeightStructures.Service.Test
         {
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0, new HrdFile());
 
             var calculation1 = new StructuresCalculation<HeightStructuresInput>
             {
