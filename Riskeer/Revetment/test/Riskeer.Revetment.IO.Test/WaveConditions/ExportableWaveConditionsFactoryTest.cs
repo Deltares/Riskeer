@@ -108,7 +108,7 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
             // Setup
             var waveConditionsInput = new WaveConditionsInput
             {
-                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "hblName", 1.0, 8.0),
+                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "hblName", 1.0, 8.0, new HrdFile()),
                 ForeshoreProfile = new TestForeshoreProfile(),
                 UseForeshore = true
             };

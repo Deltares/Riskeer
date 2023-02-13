@@ -166,7 +166,7 @@ namespace Riskeer.Piping.Data.TestUtil
                 Name = "PK001_0001 W1-6_0_1D1",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "PUNT_KAT_18", 0, 0),
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "PUNT_KAT_18", 0, 0, new HrdFile()),
                     SurfaceLine = surfaceLine,
                     StochasticSoilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("PK001_0001_Piping"),
                     StochasticSoilProfile = new PipingStochasticSoilProfile(

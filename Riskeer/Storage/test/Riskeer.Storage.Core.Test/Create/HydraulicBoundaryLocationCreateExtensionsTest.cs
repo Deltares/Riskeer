@@ -34,7 +34,7 @@ namespace Riskeer.Storage.Core.Test.Create
         public void Create_PersistenceRegistryNull_ThrowsArgumentNullException()
         {
             // Setup
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "testName", 2, 3);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "testName", 2, 3, new HrdFile());
 
             // Call
             TestDelegate test = () => hydraulicBoundaryLocation.Create(null, 0);
@@ -69,7 +69,7 @@ namespace Riskeer.Storage.Core.Test.Create
             int id = random.Next(0, 150);
             int order = random.Next();
 
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, testName, coordinateX, coordinateY);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, testName, coordinateX, coordinateY, new HrdFile());
             var registry = new PersistenceRegistry();
 
             // Call
@@ -89,7 +89,7 @@ namespace Riskeer.Storage.Core.Test.Create
         {
             // Setup
             const string testName = "original name";
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, testName, 0, 0);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, testName, 0, 0, new HrdFile());
             var registry = new PersistenceRegistry();
 
             // Call
@@ -106,7 +106,7 @@ namespace Riskeer.Storage.Core.Test.Create
         public void Create_HydraulicBoundaryLocationSavedMultipleTimes_ReturnSameEntity()
         {
             // Setup
-            var hydraulicBoundaryLocations = new HydraulicBoundaryLocation(1, "A", 1.1, 2.2);
+            var hydraulicBoundaryLocations = new HydraulicBoundaryLocation(1, "A", 1.1, 2.2, new HrdFile());
 
             var registry = new PersistenceRegistry();
 

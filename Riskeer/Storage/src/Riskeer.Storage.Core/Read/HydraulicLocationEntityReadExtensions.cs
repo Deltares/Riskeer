@@ -58,7 +58,8 @@ namespace Riskeer.Storage.Core.Read
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(entity.LocationId,
                                                                           entity.Name,
                                                                           entity.LocationX.ToNullAsNaN(),
-                                                                          entity.LocationY.ToNullAsNaN());
+                                                                          entity.LocationY.ToNullAsNaN(),
+                                                                          new HrdFile());
 
             collector.Read(entity, hydraulicBoundaryLocation);
 

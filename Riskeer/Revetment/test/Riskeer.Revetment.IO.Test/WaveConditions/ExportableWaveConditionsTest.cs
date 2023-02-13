@@ -186,7 +186,7 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
         {
             return new WaveConditionsInput
             {
-                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "hblName", 1.0, 8.0)
+                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "hblName", 1.0, 8.0, new HrdFile())
             };
         }
     }

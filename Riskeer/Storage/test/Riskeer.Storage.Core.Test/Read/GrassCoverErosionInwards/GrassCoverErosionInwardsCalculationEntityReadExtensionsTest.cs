@@ -215,7 +215,7 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
         public void Read_ValidEntityWithAlreadyReadHydraulicLocationEntity_ReturnCalculationWithReadHydraulicBoundaryLocation()
         {
             // Setup
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 0, 0);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 0, 0, new HrdFile());
             var hydraulicLocationEntity = new HydraulicLocationEntity();
             var entity = new GrassCoverErosionInwardsCalculationEntity
             {

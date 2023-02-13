@@ -198,7 +198,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
                 failureMechanism, mocks, invalidFilePath);
             mocks.ReplayAll();
 
-            calculation.InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2);
+            calculation.InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2, new HrdFile());
 
             // Call
             var isValid = true;
@@ -234,7 +234,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.PreprocessorDirectory = "NonExistingPreprocessorDirectory";
             mocks.ReplayAll();
 
-            calculation.InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2);
+            calculation.InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2, new HrdFile());
 
             // Call
             var isValid = true;
@@ -269,7 +269,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
                 failureMechanism, mocks, invalidFilePath);
             mocks.ReplayAll();
 
-            calculation.InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2);
+            calculation.InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2, new HrdFile());
 
             // Call
             var isValid = false;
@@ -302,7 +302,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
                 failureMechanism, mocks);
             mocks.ReplayAll();
 
-            calculation.InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2);
+            calculation.InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2, new HrdFile());
 
             // Call
             var isValid = false;

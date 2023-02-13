@@ -232,7 +232,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionInwards
         public void Create_CalculationWithAlreadySavedHydraulicBoundaryLocation_ReturnEntityWithHydraulicLocationEntity()
         {
             // Setup
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 1, 1);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 1, 1, new HrdFile());
             var calculation = new GrassCoverErosionInwardsCalculationScenario
             {
                 InputParameters =

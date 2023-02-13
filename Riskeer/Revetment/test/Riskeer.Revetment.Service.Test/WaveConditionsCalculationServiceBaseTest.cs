@@ -238,7 +238,7 @@ namespace Riskeer.Revetment.Service.Test
 
             var input = new WaveConditionsInput
             {
-                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
+                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0, new HrdFile())
             };
 
             // Call

@@ -193,7 +193,7 @@ namespace Riskeer.Storage.Core.Test.Read
         public void Read_EntityWithHydraulicLocationEntity_InputObjectUpdatedWithHydraulicBoundaryLocation()
         {
             // Setup
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "A", 0, 0);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "A", 0, 0, new HrdFile());
             var hydraulicLocationEntity = new HydraulicLocationEntity();
 
             var mocks = new MockRepository();

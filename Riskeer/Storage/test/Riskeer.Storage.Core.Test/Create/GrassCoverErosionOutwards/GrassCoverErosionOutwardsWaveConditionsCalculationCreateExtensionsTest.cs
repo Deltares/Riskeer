@@ -178,7 +178,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionOutwards
         public void Create_HasHydraulicLocationEntity_EntityHasHydraulicLocationEntity()
         {
             // Setup
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 2.3, 4.5);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 2.3, 4.5, new HrdFile());
 
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {

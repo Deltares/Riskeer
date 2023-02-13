@@ -223,7 +223,7 @@ namespace Riskeer.Storage.Core.Test.Create
                     },
                     Locations =
                     {
-                        new HydraulicBoundaryLocation(-1, "name", 1, 2)
+                        new HydraulicBoundaryLocation(-1, "name", 1, 2, new HrdFile())
                     }
                 },
                 WaveHeightCalculationsForUserDefinedTargetProbabilities =

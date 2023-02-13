@@ -834,7 +834,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations
                 stochasticSoilModel
             }, "readerPath");
 
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Locatie", 10, 20);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Locatie", 10, 20, new HrdFile());
             var importer = new MacroStabilityInwardsCalculationConfigurationImporter(filePath,
                                                                                      calculationGroup,
                                                                                      new[]

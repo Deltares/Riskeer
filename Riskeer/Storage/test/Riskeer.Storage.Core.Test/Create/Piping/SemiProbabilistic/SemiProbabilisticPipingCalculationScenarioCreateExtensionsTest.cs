@@ -188,7 +188,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping.SemiProbabilistic
         public void Create_HydraulicBoundaryLocation_EntityHasHydraulicLocationEntity()
         {
             // Setup
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 2.3, 4.5);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 2.3, 4.5, new HrdFile());
 
             var registry = new PersistenceRegistry();
             HydraulicLocationEntity hydraulicLocationEntity = hydraulicBoundaryLocation.Create(registry, 0);

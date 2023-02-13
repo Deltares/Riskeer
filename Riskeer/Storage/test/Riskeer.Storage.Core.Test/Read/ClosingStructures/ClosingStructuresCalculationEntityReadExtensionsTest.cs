@@ -247,7 +247,7 @@ namespace Riskeer.Storage.Core.Test.Read.ClosingStructures
         public void Read_EntityWithHydraulicLocationEntity_ReturnCalculationWithHydraulicBoundaryLocation()
         {
             // Setup
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 2, 3);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 2, 3, new HrdFile());
             var hydraulicLocationEntity = new HydraulicLocationEntity();
             var entity = new ClosingStructuresCalculationEntity
             {

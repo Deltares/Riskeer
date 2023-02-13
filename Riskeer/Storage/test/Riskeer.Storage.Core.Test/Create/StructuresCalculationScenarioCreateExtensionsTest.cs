@@ -270,7 +270,7 @@ namespace Riskeer.Storage.Core.Test.Create
         public void CreateForHeightStructures_CalculationWithAlreadySavedHydraulicBoundaryLocation_ReturnEntityWithHydraulicLocationEntity()
         {
             // Setup
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 1, 1);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 1, 1, new HrdFile());
             var calculation = new StructuresCalculationScenario<HeightStructuresInput>
             {
                 InputParameters =
@@ -664,7 +664,7 @@ namespace Riskeer.Storage.Core.Test.Create
         public void CreateForClosingStructures_CalculationWithHydraulicBoundaryLocation_ReturnEntityWithHydraulicLocationEntity()
         {
             // Setup
-            var alreadyRegisteredHydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 2, 3);
+            var alreadyRegisteredHydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 2, 3, new HrdFile());
             var calculation = new StructuresCalculationScenario<ClosingStructuresInput>
             {
                 InputParameters =
@@ -1172,7 +1172,7 @@ namespace Riskeer.Storage.Core.Test.Create
         public void CreateForStabilityPointStructures_CalculationWithHydraulicBoundaryLocation_ReturnEntityWithHydraulicLocationEntity()
         {
             // Setup
-            var alreadyRegisteredHydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 2, 3);
+            var alreadyRegisteredHydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 2, 3, new HrdFile());
             var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
                 InputParameters =

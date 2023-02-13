@@ -214,7 +214,7 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityStoneCover
         public void Read_EntityWithHydraulicBoundaryLocationInCollector_CalculationHasAlreadyReadHydraulicBoundaryLocation()
         {
             // Setup
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 1.1, 2.2);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 1.1, 2.2, new HrdFile());
             var hydraulicLocationEntity = new HydraulicLocationEntity();
             var entity = new StabilityStoneCoverWaveConditionsCalculationEntity
             {

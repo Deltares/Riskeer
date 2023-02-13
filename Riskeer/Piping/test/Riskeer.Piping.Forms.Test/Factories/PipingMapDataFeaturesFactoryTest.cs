@@ -175,10 +175,10 @@ namespace Riskeer.Piping.Forms.Test.Factories
             // Setup
             IPipingCalculationScenario<PipingInput> calculationA =
                 PipingCalculationScenarioTestFactory.CreateCalculationWithValidInput(
-                    new HydraulicBoundaryLocation(1, string.Empty, 5.0, 4.0));
+                    new HydraulicBoundaryLocation(1, string.Empty, 5.0, 4.0, new HrdFile()));
             IPipingCalculationScenario<PipingInput> calculationB =
                 PipingCalculationScenarioTestFactory.CreateCalculationWithValidInput(
-                    new HydraulicBoundaryLocation(1, string.Empty, 2.2, 3.8));
+                    new HydraulicBoundaryLocation(1, string.Empty, 2.2, 3.8, new HrdFile()));
 
             calculationA.InputParameters.SurfaceLine.ReferenceLineIntersectionWorldPoint = new Point2D(1.0, 3.0);
             calculationB.InputParameters.SurfaceLine.ReferenceLineIntersectionWorldPoint = new Point2D(1.0, 4.0);

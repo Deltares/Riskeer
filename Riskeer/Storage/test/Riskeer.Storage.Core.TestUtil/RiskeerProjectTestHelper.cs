@@ -309,9 +309,9 @@ namespace Riskeer.Storage.Core.TestUtil
 
         private static IEnumerable<HydraulicBoundaryLocation> GetHydraulicBoundaryLocations()
         {
-            yield return new HydraulicBoundaryLocation(13001, "test", 152.3, 2938.5);
-            yield return new HydraulicBoundaryLocation(13002, "test2", 135.2, 5293.8);
-            yield return new HydraulicBoundaryLocation(13003, "test3", 132.5, 5293.8);
+            yield return new HydraulicBoundaryLocation(13001, "test", 152.3, 2938.5, new HrdFile());
+            yield return new HydraulicBoundaryLocation(13002, "test2", 135.2, 5293.8, new HrdFile());
+            yield return new HydraulicBoundaryLocation(13003, "test3", 132.5, 5293.8, new HrdFile());
         }
 
         private static void ConfigureHydraulicBoundaryLocationCalculations(AssessmentSection assessmentSection)
