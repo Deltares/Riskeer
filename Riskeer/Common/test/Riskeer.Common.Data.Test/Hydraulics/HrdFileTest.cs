@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
@@ -58,6 +59,7 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             hrdFile.UsePreprocessor = usePreprocessor;
 
             // Assert
+            Assert.IsInstanceOf<Observable>(hrdFile);
             Assert.AreEqual(usePreprocessor, hrdFile.UsePreprocessor);
         }
 

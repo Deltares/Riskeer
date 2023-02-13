@@ -29,7 +29,7 @@ namespace Riskeer.Integration.Forms.PresentationObjects
     /// <summary>
     /// Presentation object for a HRD file that is part of a <see cref="HydraulicBoundaryDatabase"/>.
     /// </summary>
-    public class HrdFileContext : WrappedObjectContextBase<HrdFile>
+    public class HrdFileContext : ObservableWrappedObjectContextBase<HrdFile>
     {
         /// <summary>
         /// Creates a new instance of <see cref="HrdFileContext"/>.

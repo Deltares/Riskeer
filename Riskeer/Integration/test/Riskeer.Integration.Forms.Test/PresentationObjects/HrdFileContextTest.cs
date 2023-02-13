@@ -43,7 +43,7 @@ namespace Riskeer.Integration.Forms.Test.PresentationObjects
             var context = new HrdFileContext(hrdFile, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<WrappedObjectContextBase<HrdFile>>(context);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<HrdFile>>(context);
             Assert.AreSame(hrdFile, context.WrappedData);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
         }

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base;
 using Riskeer.Common.Data.Properties;
 
 namespace Riskeer.Common.Data.Hydraulics
@@ -27,7 +28,7 @@ namespace Riskeer.Common.Data.Hydraulics
     /// <summary>
     /// The data that represents a linked hydraulic boundary database file.
     /// </summary>
-    public class HrdFile
+    public class HrdFile : Observable
     {
         private bool canUsePreprocessor;
         private bool usePreprocessor;

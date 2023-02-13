@@ -33,7 +33,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.Integration.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="HrdFile"/> for properties panel.
+    /// ViewModel of a <see cref="HrdFile"/> for properties panel.
     /// </summary>
     public class HrdFileProperties : ObjectProperties<HrdFile>
     {
