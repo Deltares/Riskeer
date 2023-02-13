@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.IO.HydraRing;
 using Riskeer.Common.Service.Properties;
@@ -50,7 +51,7 @@ namespace Riskeer.Common.Service
             }
 
             string validationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(
-                hydraulicBoundaryDatabase.FilePath,
+                hydraulicBoundaryDatabase.HrdFiles.First().FilePath,
                 hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.FilePath,
                 hydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                 hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessorClosure);
