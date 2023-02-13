@@ -148,6 +148,8 @@ namespace Riskeer.Integration.Plugin.Handlers
 
             string hrdFileName = Path.GetFileName(hydraulicBoundaryDatabaseFilePath);
 
+            var removeLocations = false;
+
             HrdFile hrdFile = hydraulicBoundaryDatabase.HrdFiles.FirstOrDefault(hrd => Path.GetFileName(hrd.FilePath).Equals(hrdFileName));
 
             if (hrdFile == null)
@@ -164,7 +166,7 @@ namespace Riskeer.Integration.Plugin.Handlers
             }
             else
             {
-                updateLocations = hrdFile.Version != readHydraulicBoundaryDatabase.Version;
+                updateLocations = removeLocations = hrdFile.Version != readHydraulicBoundaryDatabase.Version;
 
                 hrdFile.Version = readHydraulicBoundaryDatabase.Version;
                 hrdFile.FilePath = hydraulicBoundaryDatabaseFilePath;
@@ -180,6 +182,10 @@ namespace Riskeer.Integration.Plugin.Handlers
                 duneLocationsReplacementHandler.Replace(hydraulicBoundaryDatabase.Locations);
 
                 changedObjects.AddRange(GetLocationsAndCalculationsObservables(hydraulicBoundaryDatabase));
+            }
+
+            if (removeLocations)
+            {
                 changedObjects.AddRange(RiskeerDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(assessmentSection));
             }
 
