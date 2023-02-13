@@ -36,20 +36,16 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
     [TestFixture]
     public class HydraulicBoundaryDatabasePropertiesTest
     {
-        private const int hrdFilePathPropertyIndex = 0;
         private const int hlcdFilePathPropertyIndex = 1;
-        private const int usePreprocessorClosurePropertyIndex = 2;
-        private const int scenarioNamePropertyIndex = 3;
-        private const int yearPropertyIndex = 4;
-        private const int scopePropertyIndex = 5;
-        private const int seaLevelPropertyIndex = 6;
-        private const int riverDischargePropertyIndex = 7;
-        private const int lakeLevelPropertyIndex = 8;
-        private const int windDirectionPropertyIndex = 9;
-        private const int windSpeedPropertyIndex = 10;
-        private const int commentPropertyIndex = 11;
-        private const int usePreprocessorPropertyIndex = 12;
-        private const int preprocessorDirectoryPropertyIndex = 13;
+        private const int scenarioNamePropertyIndex = 2;
+        private const int yearPropertyIndex = 3;
+        private const int scopePropertyIndex = 4;
+        private const int seaLevelPropertyIndex = 5;
+        private const int riverDischargePropertyIndex = 6;
+        private const int lakeLevelPropertyIndex = 7;
+        private const int windDirectionPropertyIndex = 8;
+        private const int windSpeedPropertyIndex = 9;
+        private const int commentPropertyIndex = 10;
 
         [Test]
         public void Constructor_HydraulicBoundaryDatabaseNull_ThrowsArgumentNullException()
@@ -60,10 +56,10 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new HydraulicBoundaryDatabaseProperties(null, importHandler);
+            void Call() => new HydraulicBoundaryDatabaseProperties(null, importHandler);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("hydraulicBoundaryDatabase", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -75,10 +71,10 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
             // Call
-            TestDelegate call = () => new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase, null);
+            void Call() => new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase, null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("hydraulicLocationConfigurationDatabaseImportHandler", exception.ParamName);
         }
 
@@ -102,37 +98,6 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GetProperties_WithHydraulicBoundaryDatabaseWithPreprocessorData_ReturnExpectedValues()
-        {
-            // Setup
-            const bool usePreprocessor = true;
-            const string preprocessorDirectory = @"C:\preprocessor";
-
-            var mocks = new MockRepository();
-            var importHandler = mocks.Stub<IHydraulicLocationConfigurationDatabaseImportHandler>();
-            mocks.ReplayAll();
-
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                HydraulicLocationConfigurationSettings =
-                {
-                    CanUsePreprocessor = true,
-                    UsePreprocessor = usePreprocessor,
-                    PreprocessorDirectory = preprocessorDirectory
-                }
-            };
-
-            // Call
-            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase, importHandler);
-
-            // Assert
-            Assert.AreEqual(usePreprocessor, properties.UsePreprocessor);
-            Assert.AreEqual(preprocessorDirectory, properties.PreprocessorDirectory);
-            Assert.AreEqual(preprocessorDirectory, properties.PreprocessorDirectoryReadOnly);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void GetProperties_WithUnlinkedDatabase_ReturnsExpectedValues()
         {
             // Setup
@@ -149,10 +114,8 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase, importHandler);
 
             // Assert
-            Assert.IsEmpty(properties.HrdFilePath);
             Assert.IsEmpty(properties.HlcdFilePath);
             Assert.IsEmpty(properties.HlcdFilePathReadOnly);
-            Assert.IsFalse(properties.UsePreprocessorClosure);
             Assert.IsEmpty(properties.ScenarioName);
             Assert.IsEmpty(properties.Year);
             Assert.IsEmpty(properties.Scope);
@@ -182,12 +145,9 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase, importHandler);
 
             // Assert
-            Assert.AreEqual(hydraulicBoundaryDatabase.FilePath, properties.HrdFilePath);
-
             HydraulicLocationConfigurationSettings configurationSettings = hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings;
             Assert.AreEqual(configurationSettings.FilePath, properties.HlcdFilePath);
             Assert.AreEqual(configurationSettings.FilePath, properties.HlcdFilePathReadOnly);
-            Assert.AreEqual(configurationSettings.UsePreprocessorClosure, properties.UsePreprocessorClosure);
             Assert.AreEqual(configurationSettings.ScenarioName, properties.ScenarioName);
             Assert.AreEqual(configurationSettings.Year.ToString(), properties.Year);
             Assert.AreEqual(configurationSettings.Scope, properties.Scope);
