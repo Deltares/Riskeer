@@ -329,13 +329,13 @@ namespace Riskeer.Common.Service.Structures
             var validationResults = new List<string>();
 
             string preprocessorDirectory = assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory();
-            string databaseFilePathValidationProblem = HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
-            if (!string.IsNullOrEmpty(databaseFilePathValidationProblem))
+            string connectionValidationProblem = HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
+            if (!string.IsNullOrEmpty(connectionValidationProblem))
             {
-                validationResults.Add(databaseFilePathValidationProblem);
+                validationResults.Add(connectionValidationProblem);
             }
 
-            string preprocessorDirectoryValidationProblem = HydraulicBoundaryDatabaseHelper.ValidatePreprocessorDirectory(preprocessorDirectory);
+            string preprocessorDirectoryValidationProblem = HydraulicBoundaryDataHelper.ValidatePreprocessorDirectory(preprocessorDirectory);
             if (!string.IsNullOrEmpty(preprocessorDirectoryValidationProblem))
             {
                 validationResults.Add(preprocessorDirectoryValidationProblem);
