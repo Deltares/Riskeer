@@ -134,10 +134,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
         public void ValidateFilesForCalculation_PathToHrdFileTooLong_ReturnsMessageWithError()
         {
             // Setup
-            const string hrdFilePath = "C:\\Thisissomeverylongpath\\toadirectorywhich\\doesntevenexist\\Nowlets\\finishwithsomelongname\\" +
-                                       "loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong" +
-                                       "naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaame" +
-                                       "\\followedbythefile";
+            string hrdFilePath = GetFolderPathThatIsTooLong() + "complete.sqlite";
 
             // Call
             string result = HydraulicBoundaryDataHelper.ValidateFilesForCalculation(hrdFilePath, validHlcdFilePath, testDataPath, false);
@@ -252,15 +249,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
         public void ValidatePreprocessorDirectory_PathTooLong_ReturnsExpectedMessage()
         {
             // Setup
-            var stringBuilder = new StringBuilder();
-            stringBuilder.Append(@"C:\");
-            for (var i = 0; i < 300; i++)
-            {
-                stringBuilder.Append("A");
-            }
-
-            stringBuilder.Append(Path.DirectorySeparatorChar);
-            string tooLongFolderPath = stringBuilder.ToString();
+            string tooLongFolderPath = GetFolderPathThatIsTooLong();
 
             // Call
             string message = HydraulicBoundaryDataHelper.ValidatePreprocessorDirectory(tooLongFolderPath);
@@ -337,6 +326,22 @@ namespace Riskeer.Common.IO.Test.HydraRing
 
             // Assert
             Assert.AreEqual(Path.Combine(testDataPath, "HLCD_preprocClosure.sqlite"), preprocessorClosureFilePath);
+        }
+
+        private static string GetFolderPathThatIsTooLong()
+        {
+            var stringBuilder = new StringBuilder();
+
+            stringBuilder.Append(@"C:\");
+
+            for (var i = 0; i < 300; i++)
+            {
+                stringBuilder.Append("A");
+            }
+
+            stringBuilder.Append(Path.DirectorySeparatorChar);
+
+            return stringBuilder.ToString();
         }
     }
 }
