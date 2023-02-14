@@ -565,7 +565,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryData
             {
                 Locations =
                 {
@@ -796,17 +796,16 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_AllRequiredInputSet_CalculateAllAndValidateAllEnabled()
         {
             // Setup
-            string validHydraulicBoundaryDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
-                                                                                   Path.Combine(nameof(HydraulicBoundaryDatabase), "complete.sqlite"));
+            string validHydraulicBoundaryDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, Path.Combine(nameof(HydraulicBoundaryData), "complete.sqlite"));
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 FilePath = validHydraulicBoundaryDatabasePath
             };
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryDatabase);
+            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryData);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryData);
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var group = new CalculationGroup();
@@ -1588,7 +1587,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
 
-                assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
+                assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryData
                 {
                     Locations =
                     {
