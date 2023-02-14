@@ -39,18 +39,18 @@ namespace Riskeer.Integration.IO.Handlers
         bool InquireConfirmation();
 
         /// <summary>
-        /// Updates the <see cref="HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings"/> and its dependent data with the
+        /// Updates the <see cref="HydraulicBoundaryData.HydraulicLocationConfigurationSettings"/> and its dependent data with the
         /// <paramref name="readHydraulicLocationConfigurationDatabaseSettings"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database to update the settings for.</param>
-        /// <param name="readHydraulicLocationConfigurationDatabaseSettings">The read hydraulic location
-        /// configuration database settings to update with.</param>
+        /// <param name="hydraulicBoundaryData">The hydraulic boundary data to update the settings for.</param>
+        /// <param name="readHydraulicLocationConfigurationDatabaseSettings">The read hydraulic location configuration database
+        /// settings to update with.</param>
         /// <param name="usePreprocessorClosure">Indicator whether to use the preprocessor closure.</param>
         /// <param name="hlcdFilePath">The file path of the hlcd.</param>
         /// <returns>All objects that have been affected by the update.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryDatabase"/>
-        /// or <paramref name="hlcdFilePath"/> is <c>null</c>.</exception>
-        IEnumerable<IObservable> Update(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryData"/> or
+        /// <paramref name="hlcdFilePath"/> is <c>null</c>.</exception>
+        IEnumerable<IObservable> Update(HydraulicBoundaryData hydraulicBoundaryData,
                                         ReadHydraulicLocationConfigurationDatabaseSettings readHydraulicLocationConfigurationDatabaseSettings,
                                         bool usePreprocessorClosure,
                                         string hlcdFilePath);

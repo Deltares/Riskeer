@@ -29,7 +29,7 @@ using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 namespace Riskeer.Integration.IO.Handlers
 {
     /// <summary>
-    /// Interface for an object that can properly update a <see cref="HydraulicBoundaryData"/> instance.
+    /// Interface for an object that can properly update <see cref="HydraulicBoundaryData"/>.
     /// </summary>
     public interface IHydraulicBoundaryDatabaseUpdateHandler
     {

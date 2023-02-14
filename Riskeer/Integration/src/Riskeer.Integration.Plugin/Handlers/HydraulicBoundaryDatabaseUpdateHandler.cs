@@ -38,7 +38,7 @@ using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 namespace Riskeer.Integration.Plugin.Handlers
 {
     /// <summary>
-    /// Class that can properly update a <see cref="HydraulicBoundaryData"/> instance.
+    /// Class that can properly update <see cref="HydraulicBoundaryData"/>.
     /// </summary>
     public class HydraulicBoundaryDatabaseUpdateHandler : IHydraulicBoundaryDatabaseUpdateHandler
     {

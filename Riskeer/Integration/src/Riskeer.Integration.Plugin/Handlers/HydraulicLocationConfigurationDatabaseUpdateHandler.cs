@@ -35,7 +35,7 @@ using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 namespace Riskeer.Integration.Plugin.Handlers
 {
     /// <summary>
-    /// Class that can properly update a <see cref="HydraulicLocationConfigurationSettings"/>.
+    /// Class that can properly update <see cref="HydraulicLocationConfigurationSettings"/>.
     /// </summary>
     public class HydraulicLocationConfigurationDatabaseUpdateHandler : IHydraulicLocationConfigurationDatabaseUpdateHandler
     {
@@ -65,14 +65,14 @@ namespace Riskeer.Integration.Plugin.Handlers
             return result == DialogResult.OK;
         }
 
-        public IEnumerable<IObservable> Update(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
+        public IEnumerable<IObservable> Update(HydraulicBoundaryDatabase hydraulicBoundaryData,
                                                ReadHydraulicLocationConfigurationDatabaseSettings readHydraulicLocationConfigurationDatabaseSettings,
                                                bool usePreprocessorClosure,
                                                string hlcdFilePath)
         {
-            if (hydraulicBoundaryDatabase == null)
+            if (hydraulicBoundaryData == null)
             {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
+                throw new ArgumentNullException(nameof(hydraulicBoundaryData));
             }
 
             if (hlcdFilePath == null)
@@ -81,12 +81,12 @@ namespace Riskeer.Integration.Plugin.Handlers
             }
 
             HydraulicLocationConfigurationSettingsUpdateHelper.SetHydraulicLocationConfigurationSettings(
-                hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings,
+                hydraulicBoundaryData.HydraulicLocationConfigurationSettings,
                 readHydraulicLocationConfigurationDatabaseSettings, usePreprocessorClosure, hlcdFilePath);
 
             var changedObjects = new List<IObservable>
             {
-                hydraulicBoundaryDatabase
+                hydraulicBoundaryData
             };
 
             changedObjects.AddRange(RiskeerDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection));
