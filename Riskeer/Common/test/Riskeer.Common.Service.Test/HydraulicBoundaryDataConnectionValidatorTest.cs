@@ -29,29 +29,29 @@ using Riskeer.Common.Data.TestUtil;
 namespace Riskeer.Common.Service.Test
 {
     [TestFixture]
-    public class HydraulicBoundaryDatabaseConnectionValidatorTest
+    public class HydraulicBoundaryDataConnectionValidatorTest
     {
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryData));
 
         [Test]
-        public void Validate_HydraulicBoundaryDatabaseNull_ThrowsArgumentNullException()
+        public void Validate_HydraulicBoundaryDataNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => HydraulicBoundaryDatabaseConnectionValidator.Validate(null);
+            void Call() => HydraulicBoundaryDataConnectionValidator.Validate(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("hydraulicBoundaryDatabase", paramName);
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
+            Assert.AreEqual("hydraulicBoundaryData", paramName);
         }
 
         [Test]
-        public void Validate_HydraulicBoundaryDatabaseNotLinked_ReturnErrorMessage()
+        public void Validate_HydraulicBoundaryDataNotLinked_ReturnErrorMessage()
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            var hydraulicBoundaryData = new HydraulicBoundaryData();
 
             // Call
-            string message = HydraulicBoundaryDatabaseConnectionValidator.Validate(hydraulicBoundaryDatabase);
+            string message = HydraulicBoundaryDataConnectionValidator.Validate(hydraulicBoundaryData);
 
             // Assert
             const string expectedMessage = "Er is geen hydraulische belastingendatabase geïmporteerd.";
@@ -59,35 +59,35 @@ namespace Riskeer.Common.Service.Test
         }
 
         [Test]
-        public void Validate_HydraulicBoundaryDatabaseLinkedToNotExistingDatabaseFile_ReturnsErrorMessage()
+        public void Validate_HydraulicBoundaryDataLinkedToNotExistingDatabaseFile_ReturnsErrorMessage()
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = "I_do_not_exist.db"
+                FilePath = "I_do_not_exist.sqlite"
             };
 
             // Call
-            string message = HydraulicBoundaryDatabaseConnectionValidator.Validate(hydraulicBoundaryDatabase);
+            string message = HydraulicBoundaryDataConnectionValidator.Validate(hydraulicBoundaryData);
 
             // Assert
-            const string expectedMessage = "Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt. Fout bij het lezen van bestand 'I_do_not_exist.db': het bestand bestaat niet.";
+            const string expectedMessage = "Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt. Fout bij het lezen van bestand 'I_do_not_exist.sqlite': het bestand bestaat niet.";
             Assert.AreEqual(expectedMessage, message);
         }
 
         [Test]
-        public void Validate_HydraulicBoundaryDatabaseLinkedToExistingDatabaseFileWithoutSettings_ReturnsErrorMessage()
+        public void Validate_HydraulicBoundaryDataLinkedToExistingDatabaseFileWithoutSettings_ReturnsErrorMessage()
         {
             // Setup
-            string invalidFilePath = Path.Combine(testDataPath, "invalidSettingsSchema", "complete.sqlite");
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = invalidFilePath
+                FilePath = Path.Combine(testDataPath, "invalidSettingsSchema", "complete.sqlite")
             };
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
+            
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryData);
 
             // Call
-            string message = HydraulicBoundaryDatabaseConnectionValidator.Validate(hydraulicBoundaryDatabase);
+            string message = HydraulicBoundaryDataConnectionValidator.Validate(hydraulicBoundaryData);
 
             // Assert
             const string expectedMessage = "Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt. De rekeninstellingen database heeft niet het juiste schema.";
@@ -98,15 +98,15 @@ namespace Riskeer.Common.Service.Test
         public void Validate_UsePreprocessorClosureTrueWithoutPreprocessorClosureFile_ReturnsMessageWithError()
         {
             // Setup
-            string validFilePath = Path.Combine(testDataPath, "withoutPreprocessorClosure", "complete.sqlite");
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = validFilePath
+                FilePath = Path.Combine(testDataPath, "withoutPreprocessorClosure", "complete.sqlite")
             };
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase, true);
+            
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryData, true);
 
             // Call
-            string message = HydraulicBoundaryDatabaseConnectionValidator.Validate(hydraulicBoundaryDatabase);
+            string message = HydraulicBoundaryDataConnectionValidator.Validate(hydraulicBoundaryData);
 
             // Assert
             string preprocessorClosureFilePath = Path.Combine(testDataPath, "withoutPreprocessorClosure", "hlcd_preprocClosure.sqlite");
@@ -117,18 +117,18 @@ namespace Riskeer.Common.Service.Test
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Validate_HydraulicBoundaryDatabaseLinkedToValidDatabaseFile_ReturnsNull(bool usePreprocessorClosure)
+        public void Validate_HydraulicBoundaryDataLinkedToValidDatabaseFile_ReturnsNull(bool usePreprocessorClosure)
         {
             // Setup
-            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = validFilePath
+                FilePath = Path.Combine(testDataPath, "complete.sqlite")
             };
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase, usePreprocessorClosure);
+            
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryData, usePreprocessorClosure);
 
             // Call
-            string message = HydraulicBoundaryDatabaseConnectionValidator.Validate(hydraulicBoundaryDatabase);
+            string message = HydraulicBoundaryDataConnectionValidator.Validate(hydraulicBoundaryData);
 
             // Assert
             Assert.IsNull(message);
