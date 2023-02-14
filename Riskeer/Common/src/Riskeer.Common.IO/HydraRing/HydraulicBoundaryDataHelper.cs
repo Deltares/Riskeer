@@ -43,11 +43,11 @@ namespace Riskeer.Common.IO.HydraRing
         private const string preprocessorClosureFileName = "preprocClosure.sqlite";
 
         /// <summary>
-        /// Attempts to connect to the <paramref name="filePath"/> as if it is a HRD file with a HLCD file and settings file next
-        /// to it.
+        /// Attempts to connect to the <paramref name="filePath"/> as if it is a hydraulic boundary database with a hydraulic
+        /// location configuration database and hydraulic boundary database settings file next to it.
         /// </summary>
-        /// <param name="filePath">The path of the HRD file.</param>
-        /// <param name="hlcdFilePath">The path of the HLCD file.</param>
+        /// <param name="filePath">The file path of the hydraulic boundary database.</param>
+        /// <param name="hlcdFilePath">The file path of the hydraulic location configuration database.</param>
         /// <param name="preprocessorDirectory">The preprocessor directory.</param>
         /// <param name="usePreprocessorClosure">Indicator whether the preprocessor closure is used in a calculation.</param>
         /// <returns>A <see cref="string"/> describing the problem when trying to connect to the <paramref name="filePath"/> 
@@ -116,7 +116,8 @@ namespace Riskeer.Common.IO.HydraRing
         /// boundary database at the given <see cref="hydraulicBoundaryDatabaseFilePath"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryData">The hydraulic boundary data to compare the version of.</param>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The path to the hydraulic boundary database to compare the version of.</param>
+        /// <param name="hydraulicBoundaryDatabaseFilePath">The file path to the hydraulic boundary database to compare the
+        /// version of.</param>
         /// <returns><c>true</c> if <paramref name="hydraulicBoundaryData"/> equals the version of the hydraulic boundary database
         /// at <paramref name="hydraulicBoundaryDatabaseFilePath"/>, <c>false</c> otherwise.</returns>
         /// <exception cref="CriticalFileReadException">Thrown when no connection with the hydraulic boundary database could be
@@ -143,10 +144,10 @@ namespace Riskeer.Common.IO.HydraRing
         }
 
         /// <summary>
-        /// Gets the file path of the hydraulic boundary database settings file.
+        /// Gets the path of the hydraulic boundary database settings file.
         /// </summary>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The file path of the corresponding hydraulic boundary database file.</param>
-        /// <returns>The file path of the hydraulic boundary settings database file.</returns>
+        /// <param name="hydraulicBoundaryDatabaseFilePath">The path of the corresponding hydraulic boundary database file.</param>
+        /// <returns>The path of the hydraulic boundary settings database file.</returns>
         public static string GetHydraulicBoundarySettingsDatabase(string hydraulicBoundaryDatabaseFilePath)
         {
             return Path.ChangeExtension(hydraulicBoundaryDatabaseFilePath, hydraRingConfigurationDatabaseExtension);
@@ -201,8 +202,8 @@ namespace Riskeer.Common.IO.HydraRing
         /// <summary>
         /// Returns the version from the hydraulic boundary database pointed at by the <paramref name="filePath"/>.
         /// </summary>
-        /// <param name="filePath">The location of the hydraulic boundary database.</param>
-        /// <returns>The version from the hydraulic boundary database as a <see cref="string"/>.</returns>
+        /// <param name="filePath">The file path of the hydraulic boundary database.</param>
+        /// <returns>The version of the hydraulic boundary database as a <see cref="string"/>.</returns>
         /// <exception cref="CriticalFileReadException">Thrown when no connection with the hydraulic boundary database could
         /// be created.</exception>
         private static string GetVersion(string filePath)
