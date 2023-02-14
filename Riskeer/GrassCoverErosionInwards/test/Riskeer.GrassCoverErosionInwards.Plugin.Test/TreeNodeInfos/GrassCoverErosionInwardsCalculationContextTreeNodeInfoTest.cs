@@ -65,7 +65,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         private const int contextMenuClearIndex = 10;
         private const int contextMenuClearIllustrationPointsIndex = 11;
 
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryDatabase));
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryData));
 
         private MockRepository mocks;
         private GrassCoverErosionInwardsPlugin plugin;

@@ -792,8 +792,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_AllRequiredInputSet_CalculateAllAndValidateAllEnabled()
         {
             // Setup
-            string validHydraulicBoundaryDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
-                                                                                   Path.Combine(nameof(HydraulicBoundaryDatabase), "complete.sqlite"));
+            string validHydraulicBoundaryDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, Path.Combine(nameof(HydraulicBoundaryData), "complete.sqlite"));
 
             var group = new CalculationGroup();
             group.Children.Add(new GrassCoverErosionOutwardsWaveConditionsCalculation());

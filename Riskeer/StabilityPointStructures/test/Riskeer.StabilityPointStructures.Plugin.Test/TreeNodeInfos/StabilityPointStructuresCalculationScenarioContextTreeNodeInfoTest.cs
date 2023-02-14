@@ -65,7 +65,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         private const int contextMenuCalculateIndex = 9;
         private const int contextMenuClearIndex = 11;
         private const int contextMenuClearIllustrationPointsIndex = 12;
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryDatabase));
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryData));
 
         private MockRepository mocks;
         private StabilityPointStructuresPlugin plugin;

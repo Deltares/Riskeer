@@ -82,7 +82,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         private const int contextMenuClearIllustrationPointsIndexNestedGroup = 15;
 
         private const string dikeProfileCollectionPath = "some/arbitrary/path";
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryDatabase));
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryData));
 
         private IGui gui;
         private TreeNodeInfo info;

@@ -62,7 +62,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
         private DuneErosionPlugin plugin;
         private TreeNodeInfo info;
 
-        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryDatabase));
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryData));
         private static readonly string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
         [SetUp]

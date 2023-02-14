@@ -43,7 +43,7 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
     [TestFixture]
     public class DuneLocationCalculationGuiServiceTest
     {
-        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryDatabase));
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryData));
         private static readonly string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
         private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
 

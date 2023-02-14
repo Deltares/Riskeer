@@ -475,7 +475,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             {
                 HydraulicBoundaryDatabase =
                 {
-                    FilePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryDatabase)), "complete.sqlite")
+                    FilePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryData)), "complete.sqlite")
                 }
             };
             assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Add(calculations);

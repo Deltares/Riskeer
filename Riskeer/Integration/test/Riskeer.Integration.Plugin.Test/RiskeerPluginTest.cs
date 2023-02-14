@@ -118,7 +118,7 @@ namespace Riskeer.Integration.Plugin.Test
             var projectMigrator = mocks.Stub<IMigrateProject>();
             mocks.ReplayAll();
 
-            string testDataDir = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryDatabase));
+            string testDataDir = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryData));
             string testFilePath = Path.Combine(testDataDir, "complete.sqlite");
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))

@@ -80,7 +80,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
         private const int contextMenuClearAllIndexNestedGroup = 15;
         private const int contextMenuClearIllustrationPointsIndexNestedGroup = 16;
 
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryDatabase));
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryData));
 
         private IGui gui;
         private TreeNodeInfo info;
