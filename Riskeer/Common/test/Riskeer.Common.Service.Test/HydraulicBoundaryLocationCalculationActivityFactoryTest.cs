@@ -115,9 +115,9 @@ namespace Riskeer.Common.Service.Test
             Assert.AreEqual(2, activities.Count());
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(WaveHeightCalculationActivity));
 
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
-            AssertWaveHeightCalculationActivity(activities.First(), hydraulicBoundaryLocation1, calculationIdentifier, targetProbability, hydraulicBoundaryDatabase);
-            AssertWaveHeightCalculationActivity(activities.ElementAt(1), hydraulicBoundaryLocation2, calculationIdentifier, targetProbability, hydraulicBoundaryDatabase);
+            HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryDatabase;
+            AssertWaveHeightCalculationActivity(activities.First(), hydraulicBoundaryLocation1, calculationIdentifier, targetProbability, hydraulicBoundaryData);
+            AssertWaveHeightCalculationActivity(activities.ElementAt(1), hydraulicBoundaryLocation2, calculationIdentifier, targetProbability, hydraulicBoundaryData);
 
             mocks.VerifyAll();
         }
@@ -191,9 +191,9 @@ namespace Riskeer.Common.Service.Test
             Assert.AreEqual(2, activities.Count());
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(DesignWaterLevelCalculationActivity));
 
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
-            AssertDesignWaterLevelCalculationActivity(activities.First(), hydraulicBoundaryLocation1, calculationIdentifier, targetProbability, hydraulicBoundaryDatabase);
-            AssertDesignWaterLevelCalculationActivity(activities.ElementAt(1), hydraulicBoundaryLocation2, calculationIdentifier, targetProbability, hydraulicBoundaryDatabase);
+            HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryDatabase;
+            AssertDesignWaterLevelCalculationActivity(activities.First(), hydraulicBoundaryLocation1, calculationIdentifier, targetProbability, hydraulicBoundaryData);
+            AssertDesignWaterLevelCalculationActivity(activities.ElementAt(1), hydraulicBoundaryLocation2, calculationIdentifier, targetProbability, hydraulicBoundaryData);
 
             mocks.VerifyAll();
         }
@@ -202,7 +202,7 @@ namespace Riskeer.Common.Service.Test
                                                                 HydraulicBoundaryLocation hydraulicBoundaryLocation,
                                                                 string calculationIdentifier,
                                                                 double targetProbability,
-                                                                HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+                                                                HydraulicBoundaryData hydraulicBoundaryData)
         {
             var mocks = new MockRepository();
             var calculator = new TestWaveHeightCalculator();
@@ -211,7 +211,7 @@ namespace Riskeer.Common.Service.Test
                              .WhenCalled(invocation =>
                              {
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase),
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData),
                                      (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(calculator);
@@ -236,7 +236,7 @@ namespace Riskeer.Common.Service.Test
                                                                       HydraulicBoundaryLocation hydraulicBoundaryLocation,
                                                                       string calculationIdentifier,
                                                                       double targetProbability,
-                                                                      HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+                                                                      HydraulicBoundaryData hydraulicBoundaryData)
         {
             var mocks = new MockRepository();
             var calculator = new TestDesignWaterLevelCalculator();
@@ -245,7 +245,7 @@ namespace Riskeer.Common.Service.Test
                              .WhenCalled(invocation =>
                              {
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase),
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData),
                                      (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(calculator);

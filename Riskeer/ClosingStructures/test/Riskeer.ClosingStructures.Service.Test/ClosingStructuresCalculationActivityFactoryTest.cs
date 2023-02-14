@@ -210,9 +210,9 @@ namespace Riskeer.ClosingStructures.Service.Test
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(ClosingStructuresCalculationActivity));
             Assert.AreEqual(2, activities.Count());
 
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
-            AssertClosingStructuresCalculationActivity(activities.First(), calculation1, hydraulicBoundaryDatabase);
-            AssertClosingStructuresCalculationActivity(activities.ElementAt(1), calculation2, hydraulicBoundaryDatabase);
+            HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryDatabase;
+            AssertClosingStructuresCalculationActivity(activities.First(), calculation1, hydraulicBoundaryData);
+            AssertClosingStructuresCalculationActivity(activities.ElementAt(1), calculation2, hydraulicBoundaryData);
             mocks.VerifyAll();
         }
 
@@ -273,9 +273,9 @@ namespace Riskeer.ClosingStructures.Service.Test
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(ClosingStructuresCalculationActivity));
             Assert.AreEqual(2, activities.Count());
 
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
-            AssertClosingStructuresCalculationActivity(activities.First(), calculation1, hydraulicBoundaryDatabase);
-            AssertClosingStructuresCalculationActivity(activities.ElementAt(1), calculation2, hydraulicBoundaryDatabase);
+            HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryDatabase;
+            AssertClosingStructuresCalculationActivity(activities.First(), calculation1, hydraulicBoundaryData);
+            AssertClosingStructuresCalculationActivity(activities.ElementAt(1), calculation2, hydraulicBoundaryData);
             mocks.VerifyAll();
         }
 
@@ -293,7 +293,7 @@ namespace Riskeer.ClosingStructures.Service.Test
 
         private static void AssertClosingStructuresCalculationActivity(Activity activity,
                                                                        ICalculation<ClosingStructuresInput> calculation,
-                                                                       HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+                                                                       HydraulicBoundaryData hydraulicBoundaryData)
         {
             var mocks = new MockRepository();
             var testCalculator = new TestStructuresCalculator<StructuresClosureCalculationInput>();
@@ -303,7 +303,7 @@ namespace Riskeer.ClosingStructures.Service.Test
                              .WhenCalled(invocation =>
                              {
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase),
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData),
                                      (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(testCalculator);
