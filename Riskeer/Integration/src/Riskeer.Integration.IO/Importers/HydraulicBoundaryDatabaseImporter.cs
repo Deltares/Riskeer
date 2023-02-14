@@ -39,9 +39,9 @@ using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 namespace Riskeer.Integration.IO.Importers
 {
     /// <summary>
-    /// Importer for hydraulic boundary database files and corresponding configuration files.
+    /// Importer for hydraulic boundary data files.
     /// </summary>
-    public class HydraulicBoundaryDatabaseImporter : FileImporterBase<HydraulicBoundaryDatabase>
+    public class HydraulicBoundaryDatabaseImporter : FileImporterBase<HydraulicBoundaryData>
     {
         private const int numberOfSteps = 4;
         private readonly List<IObservable> changedObservables = new List<IObservable>();
@@ -50,11 +50,11 @@ namespace Riskeer.Integration.IO.Importers
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryDatabaseImporter"/>.
         /// </summary>
-        /// <param name="importTarget">The hydraulic boundary database to import to.</param>
-        /// <param name="updateHandler">The object responsible for updating the <see cref="HydraulicBoundaryDatabase"/>.</param>
+        /// <param name="importTarget">The hydraulic boundary data to import to.</param>
+        /// <param name="updateHandler">The object responsible for updating the <see cref="HydraulicBoundaryData"/>.</param>
         /// <param name="filePath">The path of the hydraulic boundary database file to import from.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public HydraulicBoundaryDatabaseImporter(HydraulicBoundaryDatabase importTarget, IHydraulicBoundaryDatabaseUpdateHandler updateHandler,
+        public HydraulicBoundaryDatabaseImporter(HydraulicBoundaryData importTarget, IHydraulicBoundaryDatabaseUpdateHandler updateHandler,
                                                  string filePath)
             : base(filePath, importTarget)
         {
