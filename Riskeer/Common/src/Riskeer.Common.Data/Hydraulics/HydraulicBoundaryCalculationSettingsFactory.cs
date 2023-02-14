@@ -29,25 +29,25 @@ namespace Riskeer.Common.Data.Hydraulics
     public static class HydraulicBoundaryCalculationSettingsFactory
     {
         /// <summary>
-        /// Creates a new instance of <see cref="HydraulicBoundaryCalculationSettings"/>
-        /// based on a <see cref="HydraulicBoundaryDatabase"/>.
+        /// Creates a new instance of <see cref="HydraulicBoundaryCalculationSettings"/> based on the provided
+        /// <paramref name="hydraulicBoundaryData"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryDatabase"/>
-        /// to create a <see cref="HydraulicBoundaryCalculationSettings"/> for.</param>
-        /// <returns>A <see cref="HydraulicBoundaryCalculationSettings"/>.</returns>
-        /// <exception cref="ArgumentException">Thrown when the hydraulic boundary database file path or
-        /// the hlcd file path is <c>null</c>, is empty or consists of whitespace.</exception>
-        public static HydraulicBoundaryCalculationSettings CreateSettings(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+        /// <param name="hydraulicBoundaryData">The <see cref="HydraulicBoundaryData"/> to create the
+        /// <see cref="HydraulicBoundaryCalculationSettings"/> for.</param>
+        /// <returns>A <see cref="HydraulicBoundaryCalculationSettings"/> instance.</returns>
+        /// <exception cref="ArgumentException">Thrown when either the hydraulic boundary database file path or the HLCD file path
+        /// is <c>null</c>, is empty or consists of whitespaces.</exception>
+        public static HydraulicBoundaryCalculationSettings CreateSettings(HydraulicBoundaryData hydraulicBoundaryData)
         {
-            if (hydraulicBoundaryDatabase == null)
+            if (hydraulicBoundaryData == null)
             {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
+                throw new ArgumentNullException(nameof(hydraulicBoundaryData));
             }
 
-            return new HydraulicBoundaryCalculationSettings(hydraulicBoundaryDatabase.FilePath,
-                                                            hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.FilePath,
-                                                            hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessorClosure,
-                                                            hydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
+            return new HydraulicBoundaryCalculationSettings(hydraulicBoundaryData.FilePath,
+                                                            hydraulicBoundaryData.HydraulicLocationConfigurationSettings.FilePath,
+                                                            hydraulicBoundaryData.HydraulicLocationConfigurationSettings.UsePreprocessorClosure,
+                                                            hydraulicBoundaryData.EffectivePreprocessorDirectory());
         }
     }
 }
