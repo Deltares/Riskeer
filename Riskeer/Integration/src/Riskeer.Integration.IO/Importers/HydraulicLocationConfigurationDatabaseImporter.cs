@@ -115,7 +115,7 @@ namespace Riskeer.Integration.IO.Importers
             }
 
             if (readHydraulicLocationConfigurationDatabase.UsePreprocessorClosure
-                && !File.Exists(HydraulicBoundaryDatabaseHelper.GetPreprocessorClosureFilePath(FilePath)))
+                && !File.Exists(HydraulicBoundaryDataHelper.GetPreprocessorClosureFilePath(FilePath)))
             {
                 Log.Error(BuildErrorMessage(FilePath, Resources.HydraulicBoundaryDatabaseImporter_PreprocessorClosure_sqlite_Not_Found));
                 return false;

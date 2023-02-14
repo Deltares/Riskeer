@@ -217,7 +217,7 @@ namespace Riskeer.Revetment.Service
                 validationResults.Add(connectionValidationProblem);
             }
 
-            string preprocessorDirectoryValidationProblem = HydraulicBoundaryDatabaseHelper.ValidatePreprocessorDirectory(hydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
+            string preprocessorDirectoryValidationProblem = HydraulicBoundaryDataHelper.ValidatePreprocessorDirectory(hydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
             if (!string.IsNullOrEmpty(preprocessorDirectoryValidationProblem))
             {
                 validationResults.Add(preprocessorDirectoryValidationProblem);

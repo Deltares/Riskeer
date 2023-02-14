@@ -738,7 +738,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service
                 yield return connectionValidationProblem;
             }
 
-            string preprocessorDirectoryValidationProblem = HydraulicBoundaryDatabaseHelper.ValidatePreprocessorDirectory(preprocessorDirectory);
+            string preprocessorDirectoryValidationProblem = HydraulicBoundaryDataHelper.ValidatePreprocessorDirectory(preprocessorDirectory);
             if (!string.IsNullOrEmpty(preprocessorDirectoryValidationProblem))
             {
                 yield return preprocessorDirectoryValidationProblem;

@@ -1160,7 +1160,7 @@ namespace Riskeer.Integration.Plugin
             AssessmentSection assessmentSection = riskeerProject.AssessmentSection;
             if (assessmentSection.HydraulicBoundaryDatabase.IsLinked())
             {
-                string validationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(
+                string validationProblem = HydraulicBoundaryDataHelper.ValidateFilesForCalculation(
                     assessmentSection.HydraulicBoundaryDatabase.FilePath,
                     assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.FilePath,
                     assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),

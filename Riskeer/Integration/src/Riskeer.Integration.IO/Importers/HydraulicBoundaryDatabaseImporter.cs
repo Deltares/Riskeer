@@ -103,7 +103,7 @@ namespace Riskeer.Integration.IO.Importers
             }
 
             if (readHydraulicLocationConfigurationDatabase.UsePreprocessorClosure
-                && !File.Exists(HydraulicBoundaryDatabaseHelper.GetPreprocessorClosureFilePath(hlcdFilePath)))
+                && !File.Exists(HydraulicBoundaryDataHelper.GetPreprocessorClosureFilePath(hlcdFilePath)))
             {
                 Log.Error(BuildErrorMessage(hlcdFilePath, Resources.HydraulicBoundaryDatabaseImporter_PreprocessorClosure_sqlite_Not_Found));
                 return false;
@@ -207,10 +207,10 @@ namespace Riskeer.Integration.IO.Importers
         private ReadResult<IEnumerable<long>> ReadExcludedLocations()
         {
             NotifyProgress(Resources.HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HRD_settings_file, 3, numberOfSteps);
-            string settingsFilePath = HydraulicBoundaryDatabaseHelper.GetHydraulicBoundarySettingsDatabase(FilePath);
+            string hbsdFilePath = HydraulicBoundaryDataHelper.GetHydraulicBoundarySettingsDatabase(FilePath);
             try
             {
-                using (var reader = new HydraRingSettingsDatabaseReader(settingsFilePath))
+                using (var reader = new HydraRingSettingsDatabaseReader(hbsdFilePath))
                 {
                     return ReadExcludedLocations(reader);
                 }
