@@ -38,7 +38,7 @@ using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 namespace Riskeer.Integration.Plugin.Handlers
 {
     /// <summary>
-    /// Class that can properly update a <see cref="HydraulicBoundaryDatabase"/>.
+    /// Class that can properly update a <see cref="HydraulicBoundaryData"/> instance.
     /// </summary>
     public class HydraulicBoundaryDatabaseUpdateHandler : IHydraulicBoundaryDatabaseUpdateHandler
     {
@@ -69,7 +69,7 @@ namespace Riskeer.Integration.Plugin.Handlers
             this.duneLocationsReplacementHandler = duneLocationsReplacementHandler;
         }
 
-        public bool IsConfirmationRequired(HydraulicBoundaryDatabase hydraulicBoundaryData, ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase)
+        public bool IsConfirmationRequired(HydraulicBoundaryData hydraulicBoundaryData, ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase)
         {
             if (hydraulicBoundaryData == null)
             {
@@ -92,7 +92,7 @@ namespace Riskeer.Integration.Plugin.Handlers
             return result == DialogResult.OK;
         }
 
-        public IEnumerable<IObservable> Update(HydraulicBoundaryDatabase hydraulicBoundaryData, ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase,
+        public IEnumerable<IObservable> Update(HydraulicBoundaryData hydraulicBoundaryData, ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase,
                                                ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase,
                                                IEnumerable<long> excludedLocationIds, string hydraulicBoundaryDatabaseFilePath, string hlcdFilePath)
         {
@@ -184,11 +184,11 @@ namespace Riskeer.Integration.Plugin.Handlers
                    || readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings.Count() == 1;
         }
 
-        private IEnumerable<IObservable> GetLocationsAndCalculationsObservables(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+        private IEnumerable<IObservable> GetLocationsAndCalculationsObservables(HydraulicBoundaryData hydraulicBoundaryData)
         {
             var locationsAndCalculationsObservables = new List<IObservable>
             {
-                hydraulicBoundaryDatabase.Locations,
+                hydraulicBoundaryData.Locations,
                 assessmentSection.WaterLevelCalculationsForSignalFloodingProbability,
                 assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability,
                 assessmentSection.DuneErosion.DuneLocations,
@@ -205,10 +205,10 @@ namespace Riskeer.Integration.Plugin.Handlers
             return locationsAndCalculationsObservables;
         }
 
-        private static void SetLocations(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, IEnumerable<ReadHydraulicBoundaryLocation> readLocations,
+        private static void SetLocations(HydraulicBoundaryData hydraulicBoundaryData, IEnumerable<ReadHydraulicBoundaryLocation> readLocations,
                                          IEnumerable<ReadHydraulicLocationMapping> locationIdMappings, long[] excludedLocationIds)
         {
-            hydraulicBoundaryDatabase.Locations.Clear();
+            hydraulicBoundaryData.Locations.Clear();
 
             Array.Sort(excludedLocationIds);
 
@@ -220,8 +220,8 @@ namespace Riskeer.Integration.Plugin.Handlers
 
                 if (locationConfigurationId != 0 && ShouldInclude(excludedLocationIds, locationConfigurationId))
                 {
-                    hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(locationConfigurationId, readLocation.Name,
-                                                                                          readLocation.CoordinateX, readLocation.CoordinateY));
+                    hydraulicBoundaryData.Locations.Add(new HydraulicBoundaryLocation(locationConfigurationId, readLocation.Name,
+                                                                                      readLocation.CoordinateX, readLocation.CoordinateY));
                 }
             }
         }
