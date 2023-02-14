@@ -211,10 +211,10 @@ namespace Riskeer.Revetment.Service
         {
             var validationResults = new List<string>();
 
-            string databaseFilePathValidationProblem = HydraulicBoundaryDatabaseConnectionValidator.Validate(hydraulicBoundaryDatabase);
-            if (!string.IsNullOrEmpty(databaseFilePathValidationProblem))
+            string connectionValidationProblem = HydraulicBoundaryDataConnectionValidator.Validate(hydraulicBoundaryDatabase);
+            if (!string.IsNullOrEmpty(connectionValidationProblem))
             {
-                validationResults.Add(databaseFilePathValidationProblem);
+                validationResults.Add(connectionValidationProblem);
             }
 
             string preprocessorDirectoryValidationProblem = HydraulicBoundaryDatabaseHelper.ValidatePreprocessorDirectory(hydraulicBoundaryDatabase.EffectivePreprocessorDirectory());

@@ -2396,7 +2396,7 @@ namespace Riskeer.Integration.Plugin
 
         private static void SetHydraulicsMenuItemEnabledStateAndTooltip(IAssessmentSection assessmentSection, StrictContextMenuItem menuItem)
         {
-            string validationText = HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
+            string validationText = HydraulicBoundaryDataConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
             if (!string.IsNullOrEmpty(validationText))
             {
                 menuItem.Enabled = false;
