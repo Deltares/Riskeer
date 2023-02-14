@@ -39,14 +39,14 @@ namespace Riskeer.Common.Data.TestUtil
         private static readonly RoundedDouble testAssessmentLevel = new Random(21).NextRoundedDouble();
 
         /// <summary>
-        /// Creates a stub of <see cref="IAssessmentSection"/> with a <see cref="HydraulicBoundaryDatabase"/> that is not linked.
+        /// Creates a stub of <see cref="IAssessmentSection"/> with <see cref="HydraulicBoundaryData"/> that is not linked.
         /// </summary>
         /// <param name="mockRepository">The mock repository to create the stub with.</param>
         /// <returns>A stubbed <see cref="IAssessmentSection"/>.</returns>
         public static IAssessmentSection CreateAssessmentSectionStub(MockRepository mockRepository)
         {
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryData());
             assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             assessmentSection.Replay();
 
@@ -72,7 +72,7 @@ namespace Riskeer.Common.Data.TestUtil
             assessmentSection.Stub(a => a.Id).Return("21");
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(0.1, 1.0 / 30000));
             assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(failureMechanisms);
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(GetHydraulicBoundaryDatabase(filePath));
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(GetHydraulicBoundaryData(filePath));
             assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             assessmentSection.Replay();
 
@@ -99,9 +99,9 @@ namespace Riskeer.Common.Data.TestUtil
                        };
         }
 
-        private static HydraulicBoundaryDatabase GetHydraulicBoundaryDatabase(string filePath)
+        private static HydraulicBoundaryData GetHydraulicBoundaryData(string filePath)
         {
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 FilePath = filePath,
                 Locations =
@@ -112,10 +112,10 @@ namespace Riskeer.Common.Data.TestUtil
 
             if (filePath != null)
             {
-                HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryDatabase);
+                HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryData);
             }
 
-            return hydraulicBoundaryDatabase;
+            return hydraulicBoundaryData;
         }
     }
 }
