@@ -748,7 +748,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
         private static string EnableValidateAndCalculateMenuItem(IAssessmentSection assessmentSection)
         {
-            return HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
+            return HydraulicBoundaryDataConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
         }
 
         #endregion

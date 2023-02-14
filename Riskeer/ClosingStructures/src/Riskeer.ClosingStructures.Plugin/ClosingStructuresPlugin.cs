@@ -900,7 +900,7 @@ namespace Riskeer.ClosingStructures.Plugin
 
         private static string EnableValidateAndCalculateMenuItem(IAssessmentSection assessmentSection)
         {
-            return HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
+            return HydraulicBoundaryDataConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
         }
 
         #endregion

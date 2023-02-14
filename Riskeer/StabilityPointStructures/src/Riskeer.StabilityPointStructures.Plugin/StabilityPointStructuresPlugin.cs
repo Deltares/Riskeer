@@ -894,7 +894,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
 
         private static string EnableValidateAndCalculateMenu(IAssessmentSection assessmentSection)
         {
-            return HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
+            return HydraulicBoundaryDataConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
         }
 
         private static void ValidateAll(IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> calculations, IAssessmentSection assessmentSection)
