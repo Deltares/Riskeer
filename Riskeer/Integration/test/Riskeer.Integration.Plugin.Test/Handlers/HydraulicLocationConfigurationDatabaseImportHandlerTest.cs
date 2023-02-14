@@ -52,7 +52,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             mocks.ReplayAll();
 
             // Call
-            void Call() => new HydraulicLocationConfigurationDatabaseImportHandler(null, updateHandler, new HydraulicBoundaryDatabase());
+            void Call() => new HydraulicLocationConfigurationDatabaseImportHandler(null, updateHandler, new HydraulicBoundaryData());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -69,7 +69,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             mocks.ReplayAll();
 
             // Call
-            void Call() => new HydraulicLocationConfigurationDatabaseImportHandler(viewParent, null, new HydraulicBoundaryDatabase());
+            void Call() => new HydraulicLocationConfigurationDatabaseImportHandler(viewParent, null, new HydraulicBoundaryData());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -105,7 +105,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             mocks.ReplayAll();
 
             // Call
-            var importHandler = new HydraulicLocationConfigurationDatabaseImportHandler(viewParent, updateHandler, new HydraulicBoundaryDatabase());
+            var importHandler = new HydraulicLocationConfigurationDatabaseImportHandler(viewParent, updateHandler, new HydraulicBoundaryData());
 
             // Assert
             Assert.IsInstanceOf<IHydraulicLocationConfigurationDatabaseImportHandler>(importHandler);
@@ -121,13 +121,13 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var updateHandler = mocks.Stub<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
             mocks.ReplayAll();
 
-            var importHandler = new HydraulicLocationConfigurationDatabaseImportHandler(viewParent, updateHandler, new HydraulicBoundaryDatabase());
+            var importHandler = new HydraulicLocationConfigurationDatabaseImportHandler(viewParent, updateHandler, new HydraulicBoundaryData());
 
             // Call
-            TestDelegate call = () => importHandler.ImportHydraulicLocationConfigurationSettings(null, string.Empty);
+            void Call() => importHandler.ImportHydraulicLocationConfigurationSettings(null, string.Empty);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("hydraulicLocationConfigurationSettings", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -141,15 +141,14 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var updateHandler = mocks.Stub<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
             mocks.ReplayAll();
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            var importHandler = new HydraulicLocationConfigurationDatabaseImportHandler(viewParent, updateHandler, hydraulicBoundaryDatabase);
+            var hydraulicBoundaryData = new HydraulicBoundaryData();
+            var importHandler = new HydraulicLocationConfigurationDatabaseImportHandler(viewParent, updateHandler, hydraulicBoundaryData);
 
             // Call
-            TestDelegate call = () => importHandler.ImportHydraulicLocationConfigurationSettings(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings,
-                                                                                                 null);
+            void Call() => importHandler.ImportHydraulicLocationConfigurationSettings(hydraulicBoundaryData.HydraulicLocationConfigurationSettings, null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("hlcdFilePath", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -164,7 +163,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             DataImportHelper.ImportHydraulicBoundaryDatabase(assessmentSection,
                                                              Path.Combine(testDataDirectory, "complete.sqlite"));
 
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
+            HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryDatabase;
 
             var mocks = new MockRepository();
             var updateHandler = mocks.Stub<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
@@ -178,11 +177,11 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             using (var viewParent = new TestViewParentForm())
             {
                 var importHandler = new HydraulicLocationConfigurationDatabaseImportHandler(
-                    viewParent, updateHandler, hydraulicBoundaryDatabase);
+                    viewParent, updateHandler, hydraulicBoundaryData);
 
                 // Call
                 importHandler.ImportHydraulicLocationConfigurationSettings(
-                    hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings,
+                    hydraulicBoundaryData.HydraulicLocationConfigurationSettings,
                     newHlcdFilePath);
             }
 

@@ -38,18 +38,18 @@ namespace Riskeer.Integration.Plugin.Handlers
     {
         private readonly IViewParent viewParent;
         private readonly IHydraulicLocationConfigurationDatabaseUpdateHandler updateHandler;
-        private readonly HydraulicBoundaryDatabase hydraulicBoundaryDatabase;
+        private readonly HydraulicBoundaryData hydraulicBoundaryData;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicLocationConfigurationDatabaseImportHandler"/>.
         /// </summary>
         /// <param name="viewParent">The parent of the view.</param>
         /// <param name="updateHandler">The object responsible for updating the <see cref="HydraulicLocationConfigurationSettings"/>.</param>
-        /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database to import the data to.</param>
+        /// <param name="hydraulicBoundaryData">The hydraulic boundary data to import the data to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
         public HydraulicLocationConfigurationDatabaseImportHandler(IViewParent viewParent,
                                                                    IHydraulicLocationConfigurationDatabaseUpdateHandler updateHandler,
-                                                                   HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+                                                                   HydraulicBoundaryData hydraulicBoundaryData)
         {
             if (viewParent == null)
             {
@@ -61,14 +61,14 @@ namespace Riskeer.Integration.Plugin.Handlers
                 throw new ArgumentNullException(nameof(updateHandler));
             }
 
-            if (hydraulicBoundaryDatabase == null)
+            if (hydraulicBoundaryData == null)
             {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
+                throw new ArgumentNullException(nameof(hydraulicBoundaryData));
             }
 
             this.viewParent = viewParent;
             this.updateHandler = updateHandler;
-            this.hydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+            this.hydraulicBoundaryData = hydraulicBoundaryData;
         }
 
         public void ImportHydraulicLocationConfigurationSettings(HydraulicLocationConfigurationSettings hydraulicLocationConfigurationSettings, string hlcdFilePath)
@@ -86,7 +86,7 @@ namespace Riskeer.Integration.Plugin.Handlers
             var importSettingsActivity = new FileImportActivity(
                 new HydraulicLocationConfigurationDatabaseImporter(hydraulicLocationConfigurationSettings,
                                                                    updateHandler,
-                                                                   hydraulicBoundaryDatabase,
+                                                                   hydraulicBoundaryData,
                                                                    hlcdFilePath),
                 Resources.HydraulicLocationConfigurationDatabaseImportHandler_ImportHydraulicLocationConfigurationSettings_Description);
             ActivityProgressDialogRunner.Run(viewParent, importSettingsActivity);
