@@ -101,13 +101,13 @@ namespace Riskeer.Common.Forms.GuiServices
                               calculationIdentifier));
         }
 
-        private void RunActivities(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, IEnumerable<CalculatableActivity> activities)
+        private void RunActivities(HydraulicBoundaryData hydraulicBoundaryData, IEnumerable<CalculatableActivity> activities)
         {
             string validationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(
-                hydraulicBoundaryDatabase.FilePath,
-                hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.FilePath,
-                hydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
-                hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessorClosure);
+                hydraulicBoundaryData.FilePath,
+                hydraulicBoundaryData.HydraulicLocationConfigurationSettings.FilePath,
+                hydraulicBoundaryData.EffectivePreprocessorDirectory(),
+                hydraulicBoundaryData.HydraulicLocationConfigurationSettings.UsePreprocessorClosure);
 
             if (string.IsNullOrEmpty(validationProblem))
             {
