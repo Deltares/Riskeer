@@ -150,11 +150,11 @@ namespace Riskeer.Common.IO.Test.HydraRing
         public void ValidateFileForCalculation_UsePreprocessorClosureTrueWithoutPreprocessorClosureFile_ReturnsMessageWithError()
         {
             // Setup
-            string validFilePath = Path.Combine(testDataPath, "withoutPreprocessorClosure", "complete.sqlite");
-            string customHlcdFilePath = Path.Combine(testDataPath, "withoutPreprocessorClosure", "HLCD.sqlite");
+            string hrdFilePath = Path.Combine(testDataPath, "withoutPreprocessorClosure", "complete.sqlite");
+            string hlcdFilePath = Path.Combine(testDataPath, "withoutPreprocessorClosure", "HLCD.sqlite");
 
             // Call
-            string result = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(validFilePath, customHlcdFilePath, testDataPath, true);
+            string result = HydraulicBoundaryDataHelper.ValidateFilesForCalculation(hrdFilePath, hlcdFilePath, testDataPath, true);
 
             // Assert
             string preprocessorClosureFilePath = Path.Combine(testDataPath, "withoutPreprocessorClosure", "HLCD_preprocClosure.sqlite");
@@ -162,73 +162,75 @@ namespace Riskeer.Common.IO.Test.HydraRing
         }
 
         [Test]
-        public void HaveEqualVersion_InvalidFile_ThrowsCriticalFileReadException()
+        public void HaveEqualVersion_HydraulicBoundaryDataNull_ThrowsArgumentNullException()
         {
             // Setup
-            string invalidPath = Path.Combine(testDataPath, "complete.sqlite");
-            invalidPath = invalidPath.Replace('c', Path.GetInvalidPathChars()[0]);
+            string hrdFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
             // Call
-            TestDelegate test = () => HydraulicBoundaryDatabaseHelper.HaveEqualVersion(new HydraulicBoundaryDatabase(), invalidPath);
+            void Call() => HydraulicBoundaryDataHelper.HaveEqualVersion(null, hrdFilePath);
 
             // Assert
-            Assert.Throws<CriticalFileReadException>(test);
+            string parameter = Assert.Throws<ArgumentNullException>(Call).ParamName;
+            Assert.AreEqual("hydraulicBoundaryData", parameter);
         }
 
         [Test]
-        public void HaveEqualVersion_PathNotSet_ThrowsArgumentNullException()
+        public void HaveEqualVersion_HrdFilePathNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var hydraulicBoundaryData = new HydraulicBoundaryData();
+
             // Call
-            TestDelegate test = () => HydraulicBoundaryDatabaseHelper.HaveEqualVersion(new HydraulicBoundaryDatabase(), null);
+            void Call() => HydraulicBoundaryDataHelper.HaveEqualVersion(hydraulicBoundaryData, null);
 
             // Assert
-            string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("pathToDatabase", parameter);
+            string parameter = Assert.Throws<ArgumentNullException>(Call).ParamName;
+            Assert.AreEqual("hrdFilePath", parameter);
         }
 
         [Test]
-        public void HaveEqualVersion_DatabaseNotSet_ThrowsArgumentNullException()
+        public void HaveEqualVersion_HrdFileWithInvalidPathChars_ThrowsCriticalFileReadException()
         {
             // Setup
-            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
+            string hrdFilePath = Path.Combine(testDataPath, "complete.sqlite").Replace('c', Path.GetInvalidPathChars()[0]);
 
             // Call
-            TestDelegate test = () => HydraulicBoundaryDatabaseHelper.HaveEqualVersion(null, validFilePath);
+            void Test() => HydraulicBoundaryDataHelper.HaveEqualVersion(new HydraulicBoundaryData(), hrdFilePath);
 
             // Assert
-            string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("database", parameter);
+            Assert.Throws<CriticalFileReadException>(Test);
         }
 
         [Test]
-        public void HaveEqualVersion_ValidFileEqualVersion_ReturnsTrue()
+        public void HaveEqualVersion_EqualVersion_ReturnsTrue()
         {
             // Setup
-            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
-            var database = new HydraulicBoundaryDatabase
+            string hrdFilePath = Path.Combine(testDataPath, "complete.sqlite");
+            var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 Version = "Dutch coast South19-11-2015 12:0013"
             };
 
             // Call
-            bool isEqual = HydraulicBoundaryDatabaseHelper.HaveEqualVersion(database, validFilePath);
+            bool isEqual = HydraulicBoundaryDataHelper.HaveEqualVersion(hydraulicBoundaryData, hrdFilePath);
 
             // Assert
             Assert.IsTrue(isEqual);
         }
 
         [Test]
-        public void HaveEqualVersion_ValidFileDifferentVersion_ReturnsFalse()
+        public void HaveEqualVersion_DifferentVersions_ReturnsFalse()
         {
             // Setup
-            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
-            var database = new HydraulicBoundaryDatabase
+            string hrdFilePath = Path.Combine(testDataPath, "complete.sqlite");
+            var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 Version = "Dutch coast South19-11-2015 12:0113"
             };
 
             // Call
-            bool isEqual = HydraulicBoundaryDatabaseHelper.HaveEqualVersion(database, validFilePath);
+            bool isEqual = HydraulicBoundaryDataHelper.HaveEqualVersion(hydraulicBoundaryData, hrdFilePath);
 
             // Assert
             Assert.IsFalse(isEqual);
@@ -240,7 +242,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
         public void ValidatePreprocessorDirectory_InvalidEmptyPath_ReturnsExpectedMessage(string invalidEmptyPath)
         {
             // Call
-            string message = HydraulicBoundaryDatabaseHelper.ValidatePreprocessorDirectory(invalidEmptyPath);
+            string message = HydraulicBoundaryDataHelper.ValidatePreprocessorDirectory(invalidEmptyPath);
 
             // Assert
             Assert.AreEqual("De bestandsmap waar de preprocessor bestanden opslaat is ongeldig. Het bestandspad moet opgegeven zijn.", message);
@@ -261,7 +263,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
             string tooLongFolderPath = stringBuilder.ToString();
 
             // Call
-            string message = HydraulicBoundaryDatabaseHelper.ValidatePreprocessorDirectory(tooLongFolderPath);
+            string message = HydraulicBoundaryDataHelper.ValidatePreprocessorDirectory(tooLongFolderPath);
 
             // Assert
             Assert.AreEqual("De bestandsmap waar de preprocessor bestanden opslaat is ongeldig. Het bestandspad is te lang.", message);
@@ -274,7 +276,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
             const string folderWithInvalidColonCharacter = @"C:\Left:Right";
 
             // Call
-            string message = HydraulicBoundaryDatabaseHelper.ValidatePreprocessorDirectory(folderWithInvalidColonCharacter);
+            string message = HydraulicBoundaryDataHelper.ValidatePreprocessorDirectory(folderWithInvalidColonCharacter);
 
             // Assert
             Assert.AreEqual("De bestandsmap waar de preprocessor bestanden opslaat is ongeldig. Het bestandspad bevat een ':' op een ongeldige plek.", message);
@@ -284,7 +286,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
         public void ValidatePreprocessorDirectory_ValidEmptyPath_ReturnsNull()
         {
             // Call
-            string message = HydraulicBoundaryDatabaseHelper.ValidatePreprocessorDirectory("");
+            string message = HydraulicBoundaryDataHelper.ValidatePreprocessorDirectory("");
 
             // Assert
             Assert.IsNull(message);
@@ -297,7 +299,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
             string path = TestHelper.GetScratchPadPath();
 
             // Call
-            string message = HydraulicBoundaryDatabaseHelper.ValidatePreprocessorDirectory(path);
+            string message = HydraulicBoundaryDataHelper.ValidatePreprocessorDirectory(path);
 
             // Assert
             Assert.IsNull(message);
@@ -310,7 +312,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
             const string nonExistingFolder = "Preprocessor";
 
             // Call
-            string message = HydraulicBoundaryDatabaseHelper.ValidatePreprocessorDirectory(nonExistingFolder);
+            string message = HydraulicBoundaryDataHelper.ValidatePreprocessorDirectory(nonExistingFolder);
 
             // Assert
             Assert.AreEqual("De bestandsmap waar de preprocessor bestanden opslaat is ongeldig. De bestandsmap bestaat niet.", message);
@@ -320,10 +322,10 @@ namespace Riskeer.Common.IO.Test.HydraRing
         public void GetPreprocessorClosureFilePath_HlcdFilePathNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => HydraulicBoundaryDatabaseHelper.GetPreprocessorClosureFilePath(null);
+            void Call() => HydraulicBoundaryDataHelper.GetPreprocessorClosureFilePath(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("hlcdFilePath", exception.ParamName);
         }
 
@@ -331,7 +333,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
         public void GetPreprocessorClosureFilePath_WithHlcdFilePath_ReturnsPreprocessorClosureFilePath()
         {
             // Call
-            string preprocessorClosureFilePath = HydraulicBoundaryDatabaseHelper.GetPreprocessorClosureFilePath(validHlcdFilePath);
+            string preprocessorClosureFilePath = HydraulicBoundaryDataHelper.GetPreprocessorClosureFilePath(validHlcdFilePath);
 
             // Assert
             Assert.AreEqual(Path.Combine(testDataPath, "HLCD_preprocClosure.sqlite"), preprocessorClosureFilePath);
