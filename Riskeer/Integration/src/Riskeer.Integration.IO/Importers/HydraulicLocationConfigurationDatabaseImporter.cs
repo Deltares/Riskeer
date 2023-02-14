@@ -46,19 +46,19 @@ namespace Riskeer.Integration.IO.Importers
         private const int numberOfSteps = 3;
         private readonly List<IObservable> changedObservables = new List<IObservable>();
         private readonly IHydraulicLocationConfigurationDatabaseUpdateHandler updateHandler;
-        private readonly HydraulicBoundaryDatabase hydraulicBoundaryDatabase;
+        private readonly HydraulicBoundaryData hydraulicBoundaryData;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicLocationConfigurationDatabaseImporter"/>.
         /// </summary>
         /// <param name="importTarget">The hydraulic location configuration settings to import to.</param>
         /// <param name="updateHandler">The handler responsible for updating the <see cref="HydraulicLocationConfigurationSettings"/>.</param>
-        /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database the settings belong to.</param>
+        /// <param name="hydraulicBoundaryData">The hydraulic boundary data the settings belong to.</param>
         /// <param name="filePath">The path of the hydraulic location configuration settings file to import from.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public HydraulicLocationConfigurationDatabaseImporter(HydraulicLocationConfigurationSettings importTarget,
                                                               IHydraulicLocationConfigurationDatabaseUpdateHandler updateHandler,
-                                                              HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
+                                                              HydraulicBoundaryData hydraulicBoundaryData,
                                                               string filePath)
             : base(filePath, importTarget)
         {
@@ -67,13 +67,13 @@ namespace Riskeer.Integration.IO.Importers
                 throw new ArgumentNullException(nameof(updateHandler));
             }
 
-            if (hydraulicBoundaryDatabase == null)
+            if (hydraulicBoundaryData == null)
             {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
+                throw new ArgumentNullException(nameof(hydraulicBoundaryData));
             }
 
             this.updateHandler = updateHandler;
-            this.hydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+            this.hydraulicBoundaryData = hydraulicBoundaryData;
         }
 
         protected override bool OnImport()
@@ -85,7 +85,7 @@ namespace Riskeer.Integration.IO.Importers
                 return false;
             }
 
-            if (Path.GetDirectoryName(FilePath) != Path.GetDirectoryName(hydraulicBoundaryDatabase.FilePath))
+            if (Path.GetDirectoryName(FilePath) != Path.GetDirectoryName(hydraulicBoundaryData.FilePath))
             {
                 Log.Error(BuildErrorMessage(FilePath, Resources.HydraulicLocationConfigurationDatabaseImporter_HLCD_not_in_same_folder_as_HRD));
                 return false;
@@ -121,7 +121,7 @@ namespace Riskeer.Integration.IO.Importers
                 return false;
             }
 
-            IEnumerable<long> locationIds = hydraulicBoundaryDatabase.Locations.Select(l => l.Id);
+            IEnumerable<long> locationIds = hydraulicBoundaryData.Locations.Select(l => l.Id);
             long[] intersect = locationIds.Intersect(readHydraulicLocationConfigurationDatabase.LocationIdMappings.Select(l => l.HlcdLocationId))
                                           .ToArray();
 
@@ -158,7 +158,7 @@ namespace Riskeer.Integration.IO.Importers
             NotifyProgress(Resources.HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HRD_file, 1, numberOfSteps);
             try
             {
-                using (var reader = new HydraulicBoundaryDatabaseReader(hydraulicBoundaryDatabase.FilePath))
+                using (var reader = new HydraulicBoundaryDatabaseReader(hydraulicBoundaryData.FilePath))
                 {
                     return new ReadResult<long>(false)
                     {
@@ -209,7 +209,7 @@ namespace Riskeer.Integration.IO.Importers
                                                                           bool usePrepocessorClosure)
         {
             NotifyProgress(RiskeerCommonIOResources.Importer_ProgressText_Adding_imported_data_to_AssessmentSection, 3, numberOfSteps);
-            changedObservables.AddRange(updateHandler.Update(hydraulicBoundaryDatabase, readHydraulicLocationConfigurationDatabaseSettings, usePrepocessorClosure, FilePath));
+            changedObservables.AddRange(updateHandler.Update(hydraulicBoundaryData, readHydraulicLocationConfigurationDatabaseSettings, usePrepocessorClosure, FilePath));
         }
 
         private ReadResult<T> HandleCriticalFileReadError<T>(Exception e)

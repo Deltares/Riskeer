@@ -55,11 +55,12 @@ namespace Riskeer.Integration.IO.Test.Importers
         public void Constructor_UpdateHandlerNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), null,
-                                                                                         new HydraulicBoundaryDatabase(), validHlcdFilePath);
+            void Call() => new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(),
+                                                                              null, new HydraulicBoundaryData(),
+                                                                              validHlcdFilePath);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("updateHandler", exception.ParamName);
         }
 
@@ -72,11 +73,11 @@ namespace Riskeer.Integration.IO.Test.Importers
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), handler,
-                                                                                         null, validHlcdFilePath);
+            void Call() => new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(),
+                                                                              handler, null, validHlcdFilePath);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("hydraulicBoundaryDatabase", exception.ParamName);
         }
 
@@ -90,7 +91,7 @@ namespace Riskeer.Integration.IO.Test.Importers
 
             // Call
             var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), handler,
-                                                                              new HydraulicBoundaryDatabase(), validHlcdFilePath);
+                                                                              new HydraulicBoundaryData(), validHlcdFilePath);
 
             // Assert
             Assert.IsInstanceOf<FileImporterBase<HydraulicLocationConfigurationSettings>>(importer);
@@ -109,18 +110,18 @@ namespace Riskeer.Integration.IO.Test.Importers
             string hydraulicBoundaryDatabasePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.IO,
                                                                                            nameof(HydraulicBoundaryDatabaseImporter)), "complete.sqlite");
 
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = CreateHydraulicBoundaryDatabase(hydraulicBoundaryDatabasePath);
+            HydraulicBoundaryData hydraulicBoundaryData = CreateHydraulicBoundaryData(hydraulicBoundaryDatabasePath);
 
             var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), handler,
-                                                                              hydraulicBoundaryDatabase, validHlcdFilePath);
+                                                                              hydraulicBoundaryData, validHlcdFilePath);
 
             // Call
             var importSuccessful = true;
-            Action call = () => importSuccessful = importer.Import();
+            void Call() => importSuccessful = importer.Import();
 
             // Assert
-            string expectedMessage = $"Fout bij het lezen van bestand '{validHlcdFilePath}': het HLCD bestand is niet gevonden in dezelfde map als het HRD bestand.";
-            AssertImportFailed(call, expectedMessage, ref importSuccessful);
+            var expectedMessage = $"Fout bij het lezen van bestand '{validHlcdFilePath}': het HLCD bestand is niet gevonden in dezelfde map als het HRD bestand.";
+            AssertImportFailed(Call, expectedMessage, ref importSuccessful);
             mocks.VerifyAll();
         }
 
@@ -135,18 +136,18 @@ namespace Riskeer.Integration.IO.Test.Importers
 
             string path = Path.Combine(testDataPath, "CorruptHrd");
 
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = CreateHydraulicBoundaryDatabase(Path.Combine(path, "corruptschema.sqlite"));
+            HydraulicBoundaryData hydraulicBoundaryData = CreateHydraulicBoundaryData(Path.Combine(path, "corruptschema.sqlite"));
 
             var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), handler,
-                                                                              hydraulicBoundaryDatabase, Path.Combine(path, "HLCD.sqlite"));
+                                                                              hydraulicBoundaryData, Path.Combine(path, "HLCD.sqlite"));
 
             // Call
             var importSuccessful = true;
-            Action call = () => importSuccessful = importer.Import();
+            void Call() => importSuccessful = importer.Import();
 
             // Assert
-            string expectedMessage = $"Fout bij het lezen van bestand '{hydraulicBoundaryDatabase.FilePath}': kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.";
-            AssertImportFailed(call, expectedMessage, ref importSuccessful);
+            var expectedMessage = $"Fout bij het lezen van bestand '{hydraulicBoundaryData.FilePath}': kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.";
+            AssertImportFailed(Call, expectedMessage, ref importSuccessful);
             mocks.VerifyAll();
         }
 
@@ -161,18 +162,18 @@ namespace Riskeer.Integration.IO.Test.Importers
 
             string path = Path.Combine(testDataPath, "EmptyHrd");
 
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = CreateHydraulicBoundaryDatabase(Path.Combine(path, "empty.sqlite"));
+            HydraulicBoundaryData hydraulicBoundaryData = CreateHydraulicBoundaryData(Path.Combine(path, "empty.sqlite"));
 
             var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), handler,
-                                                                              hydraulicBoundaryDatabase, Path.Combine(path, "HLCD.sqlite"));
+                                                                              hydraulicBoundaryData, Path.Combine(path, "HLCD.sqlite"));
 
             // Call
             var importSuccessful = true;
-            Action call = () => importSuccessful = importer.Import();
+            void Call() => importSuccessful = importer.Import();
 
             // Assert
-            string expectedMessage = $"Fout bij het lezen van bestand '{hydraulicBoundaryDatabase.FilePath}': kon geen locaties verkrijgen van de database.";
-            AssertImportFailed(call, expectedMessage, ref importSuccessful);
+            var expectedMessage = $"Fout bij het lezen van bestand '{hydraulicBoundaryData.FilePath}': kon geen locaties verkrijgen van de database.";
+            AssertImportFailed(Call, expectedMessage, ref importSuccessful);
             mocks.VerifyAll();
         }
 
@@ -187,18 +188,18 @@ namespace Riskeer.Integration.IO.Test.Importers
 
             string path = Path.Combine(testDataPath, "empty.sqlite");
 
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = CreateHydraulicBoundaryDatabase(validHrdFilePath);
+            HydraulicBoundaryData hydraulicBoundaryData = CreateHydraulicBoundaryData(validHrdFilePath);
 
             var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), handler,
-                                                                              hydraulicBoundaryDatabase, path);
+                                                                              hydraulicBoundaryData, path);
 
             // Call
             var importSuccessful = true;
-            Action call = () => importSuccessful = importer.Import();
+            void Call() => importSuccessful = importer.Import();
 
             // Assert
-            string expectedMessage = $"Fout bij het lezen van bestand '{path}': het bevragen van de database is mislukt.";
-            AssertImportFailed(call, expectedMessage, ref importSuccessful);
+            var expectedMessage = $"Fout bij het lezen van bestand '{path}': het bevragen van de database is mislukt.";
+            AssertImportFailed(Call, expectedMessage, ref importSuccessful);
             mocks.VerifyAll();
         }
 
@@ -213,18 +214,18 @@ namespace Riskeer.Integration.IO.Test.Importers
 
             string path = Path.Combine(testDataPath, "invalid.sqlite");
 
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = CreateHydraulicBoundaryDatabase(validHrdFilePath);
+            HydraulicBoundaryData hydraulicBoundaryData = CreateHydraulicBoundaryData(validHrdFilePath);
 
             var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), handler,
-                                                                              hydraulicBoundaryDatabase, path);
+                                                                              hydraulicBoundaryData, path);
 
             // Call
             var importSuccessful = true;
-            Action call = () => importSuccessful = importer.Import();
+            void Call() => importSuccessful = importer.Import();
 
             // Assert
-            string expectedMessage = $"Fout bij het lezen van bestand '{path}': kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.";
-            AssertImportFailed(call, expectedMessage, ref importSuccessful);
+            var expectedMessage = $"Fout bij het lezen van bestand '{path}': kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.";
+            AssertImportFailed(Call, expectedMessage, ref importSuccessful);
             mocks.VerifyAll();
         }
 
@@ -241,18 +242,18 @@ namespace Riskeer.Integration.IO.Test.Importers
 
             string path = Path.Combine(testDataPath, $"{fileName}.sqlite");
 
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = CreateHydraulicBoundaryDatabase(validHrdFilePath);
+            HydraulicBoundaryData hydraulicBoundaryData = CreateHydraulicBoundaryData(validHrdFilePath);
 
             var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), handler,
-                                                                              hydraulicBoundaryDatabase, path);
+                                                                              hydraulicBoundaryData, path);
 
             // Call
             var importSuccessful = true;
-            Action call = () => importSuccessful = importer.Import();
+            void Call() => importSuccessful = importer.Import();
 
             // Assert
-            string expectedMessage = $"Fout bij het lezen van bestand '{path}': de tabel 'ScenarioInformation' moet exact 1 rij bevatten.";
-            AssertImportFailed(call, expectedMessage, ref importSuccessful);
+            var expectedMessage = $"Fout bij het lezen van bestand '{path}': de tabel 'ScenarioInformation' moet exact 1 rij bevatten.";
+            AssertImportFailed(Call, expectedMessage, ref importSuccessful);
             mocks.VerifyAll();
         }
 
@@ -262,25 +263,25 @@ namespace Riskeer.Integration.IO.Test.Importers
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             DataImportHelper.ImportHydraulicBoundaryDatabase(assessmentSection, validHrdFilePath);
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
+            HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryDatabase;
 
-            hydraulicBoundaryDatabase.Locations.Add(new TestHydraulicBoundaryLocation());
+            hydraulicBoundaryData.Locations.Add(new TestHydraulicBoundaryLocation());
 
             var mocks = new MockRepository();
             var handler = mocks.StrictMock<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
             handler.Stub(h => h.InquireConfirmation()).Return(true);
             mocks.ReplayAll();
 
-            var importer = new HydraulicLocationConfigurationDatabaseImporter(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings, handler,
-                                                                              hydraulicBoundaryDatabase, validHlcdFilePath);
+            var importer = new HydraulicLocationConfigurationDatabaseImporter(hydraulicBoundaryData.HydraulicLocationConfigurationSettings, handler,
+                                                                              hydraulicBoundaryData, validHlcdFilePath);
 
             // Call
             var importSuccessful = true;
-            Action call = () => importSuccessful = importer.Import();
+            void Call() => importSuccessful = importer.Import();
 
             // Assert
-            string expectedMessage = $"Fout bij het lezen van bestand '{validHlcdFilePath}': 1 of meerdere locaties komen niet voor in de HLCD.";
-            AssertImportFailed(call, expectedMessage, ref importSuccessful);
+            var expectedMessage = $"Fout bij het lezen van bestand '{validHlcdFilePath}': 1 of meerdere locaties komen niet voor in de HLCD.";
+            AssertImportFailed(Call, expectedMessage, ref importSuccessful);
             mocks.VerifyAll();
         }
 
@@ -290,23 +291,23 @@ namespace Riskeer.Integration.IO.Test.Importers
             // Setup
             string directory = Path.Combine(testDataPath, "missingPreprocessorClosure");
             string filePath = Path.Combine(directory, "newHlcd.sqlite");
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = CreateHydraulicBoundaryDatabase(Path.Combine(directory, "completeHrd.sqlite"));
+            HydraulicBoundaryData hydraulicBoundaryData = CreateHydraulicBoundaryData(Path.Combine(directory, "completeHrd.sqlite"));
 
             var mocks = new MockRepository();
             var handler = mocks.StrictMock<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
             handler.Expect(h => h.InquireConfirmation()).Return(true);
             mocks.ReplayAll();
 
-            var importer = new HydraulicLocationConfigurationDatabaseImporter(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings, handler,
-                                                                              hydraulicBoundaryDatabase, filePath);
+            var importer = new HydraulicLocationConfigurationDatabaseImporter(hydraulicBoundaryData.HydraulicLocationConfigurationSettings, handler,
+                                                                              hydraulicBoundaryData, filePath);
 
             // Call
             var importSuccessful = true;
-            Action call = () => importSuccessful = importer.Import();
+            void Call() => importSuccessful = importer.Import();
 
             // Assert
-            string expectedMessage = $"Fout bij het lezen van bestand '{filePath}': het bijbehorende preprocessor closure bestand is niet gevonden in dezelfde map als het HLCD bestand.";
-            AssertImportFailed(call, expectedMessage, ref importSuccessful);
+            var expectedMessage = $"Fout bij het lezen van bestand '{filePath}': het bijbehorende preprocessor closure bestand is niet gevonden in dezelfde map als het HLCD bestand.";
+            AssertImportFailed(Call, expectedMessage, ref importSuccessful);
             mocks.VerifyAll();
         }
 
@@ -322,10 +323,10 @@ namespace Riskeer.Integration.IO.Test.Importers
 
             var progressChangeNotifications = new List<ProgressNotification>();
 
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = CreateHydraulicBoundaryDatabase(validHrdFilePath);
+            HydraulicBoundaryData hydraulicBoundaryData = CreateHydraulicBoundaryData(validHrdFilePath);
 
             var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), handler,
-                                                                              hydraulicBoundaryDatabase, validHlcdFilePath);
+                                                                              hydraulicBoundaryData, validHlcdFilePath);
             importer.SetProgressChanged((description, step, steps) => progressChangeNotifications.Add(new ProgressNotification(description, step, steps)));
 
             // Call
@@ -354,10 +355,10 @@ namespace Riskeer.Integration.IO.Test.Importers
             handler.Stub(h => h.InquireConfirmation()).Return(true);
             mocks.ReplayAll();
 
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = CreateHydraulicBoundaryDatabase(validHrdFilePath);
+            HydraulicBoundaryData hydraulicBoundaryData = CreateHydraulicBoundaryData(validHrdFilePath);
 
             var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), handler,
-                                                                              hydraulicBoundaryDatabase, validHlcdFilePath);
+                                                                              hydraulicBoundaryData, validHlcdFilePath);
             importer.SetProgressChanged((description, currentStep, steps) =>
             {
                 if (currentStep == stepNumber)
@@ -368,11 +369,11 @@ namespace Riskeer.Integration.IO.Test.Importers
 
             // Call
             var importResult = true;
-            Action call = () => importResult = importer.Import();
+            void Call() => importResult = importer.Import();
 
             // Assert
             const string expectedMessage = "HLCD bestand importeren afgebroken. Geen gegevens gewijzigd.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Info), 1);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(Call, Tuple.Create(expectedMessage, LogLevelConstant.Info), 1);
             Assert.IsFalse(importResult);
             mocks.VerifyAll();
         }
@@ -387,10 +388,10 @@ namespace Riskeer.Integration.IO.Test.Importers
             handler.Stub(h => h.Update(null, null, false, null)).IgnoreArguments().Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = CreateHydraulicBoundaryDatabase(validHrdFilePath);
+            HydraulicBoundaryData hydraulicBoundaryData = CreateHydraulicBoundaryData(validHrdFilePath);
 
             var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), handler,
-                                                                              hydraulicBoundaryDatabase, validHlcdFilePath);
+                                                                              hydraulicBoundaryData, validHlcdFilePath);
             importer.SetProgressChanged((description, step, steps) =>
             {
                 if (step == totalNumberOfSteps)
@@ -403,11 +404,11 @@ namespace Riskeer.Integration.IO.Test.Importers
 
             // Call
             importer.Import();
-            Action call = () => importResult = importer.Import();
+            void Call() => importResult = importer.Import();
 
             // Assert
             const string expectedMessage = "Huidige actie was niet meer te annuleren en is daarom voortgezet.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Warn), 2);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(Call, Tuple.Create(expectedMessage, LogLevelConstant.Warn), 2);
             Assert.IsTrue(importResult);
             mocks.VerifyAll();
         }
@@ -421,19 +422,19 @@ namespace Riskeer.Integration.IO.Test.Importers
             handler.Expect(h => h.InquireConfirmation()).Return(false);
             mocks.ReplayAll();
 
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = CreateHydraulicBoundaryDatabase(validHrdFilePath);
+            HydraulicBoundaryData hydraulicBoundaryData = CreateHydraulicBoundaryData(validHrdFilePath);
 
             var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), handler,
-                                                                              hydraulicBoundaryDatabase, validHlcdFilePath);
+                                                                              hydraulicBoundaryData, validHlcdFilePath);
 
             var importResult = true;
 
             // Call
-            Action call = () => importResult = importer.Import();
+            void Call() => importResult = importer.Import();
 
             // Assert
             const string expectedMessage = "HLCD bestand importeren afgebroken. Geen gegevens gewijzigd.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Info), 1);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(Call, Tuple.Create(expectedMessage, LogLevelConstant.Info), 1);
             Assert.IsFalse(importResult);
             mocks.VerifyAll();
         }
@@ -446,29 +447,29 @@ namespace Riskeer.Integration.IO.Test.Importers
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             DataImportHelper.ImportHydraulicBoundaryDatabase(assessmentSection, validHrdFilePath);
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
+            HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryDatabase;
 
             string filePath = Path.Combine(testDataPath, $"{fileName}.sqlite");
 
             var mocks = new MockRepository();
             var handler = mocks.StrictMock<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
             handler.Expect(h => h.InquireConfirmation()).Return(true);
-            handler.Expect(h => h.Update(Arg<HydraulicBoundaryDatabase>.Is.Same(hydraulicBoundaryDatabase),
+            handler.Expect(h => h.Update(Arg<HydraulicBoundaryData>.Is.Same(hydraulicBoundaryData),
                                          Arg<ReadHydraulicLocationConfigurationDatabaseSettings>.Is.Null,
                                          Arg<bool>.Is.Equal(usePreprocessorClosure),
                                          Arg<string>.Is.Equal(filePath)))
                    .Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
-            var importer = new HydraulicLocationConfigurationDatabaseImporter(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings, handler,
-                                                                              hydraulicBoundaryDatabase, filePath);
+            var importer = new HydraulicLocationConfigurationDatabaseImporter(hydraulicBoundaryData.HydraulicLocationConfigurationSettings, handler,
+                                                                              hydraulicBoundaryData, filePath);
 
             // Call
             var importResult = false;
-            Action call = () => importResult = importer.Import();
+            void Call() => importResult = importer.Import();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
+            TestHelper.AssertLogMessageIsGenerated(Call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
             Assert.IsTrue(importResult);
             mocks.VerifyAll();
         }
@@ -479,29 +480,29 @@ namespace Riskeer.Integration.IO.Test.Importers
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             DataImportHelper.ImportHydraulicBoundaryDatabase(assessmentSection, validHrdFilePath);
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
+            HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryDatabase;
 
             string filePath = Path.Combine(testDataPath, "hlcdWithValidScenarioInformation.sqlite");
 
             var mocks = new MockRepository();
             var handler = mocks.StrictMock<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
             handler.Expect(h => h.InquireConfirmation()).Return(true);
-            handler.Expect(h => h.Update(Arg<HydraulicBoundaryDatabase>.Is.Same(hydraulicBoundaryDatabase),
+            handler.Expect(h => h.Update(Arg<HydraulicBoundaryData>.Is.Same(hydraulicBoundaryData),
                                          Arg<ReadHydraulicLocationConfigurationDatabaseSettings>.Is.NotNull,
                                          Arg<bool>.Is.Equal(false),
                                          Arg<string>.Is.Equal(filePath)))
                    .Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
-            var importer = new HydraulicLocationConfigurationDatabaseImporter(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings, handler,
-                                                                              hydraulicBoundaryDatabase, filePath);
+            var importer = new HydraulicLocationConfigurationDatabaseImporter(hydraulicBoundaryData.HydraulicLocationConfigurationSettings, handler,
+                                                                              hydraulicBoundaryData, filePath);
 
             // Call
             var importResult = false;
-            Action call = () => importResult = importer.Import();
+            void Call() => importResult = importer.Import();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
+            TestHelper.AssertLogMessageIsGenerated(Call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
             Assert.IsTrue(importResult);
             mocks.VerifyAll();
         }
@@ -510,7 +511,7 @@ namespace Riskeer.Integration.IO.Test.Importers
         public void DoPostImportUpdates_WhenImportSuccessful_NotifyObserversOfReturnedObjects()
         {
             // Setup
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = CreateHydraulicBoundaryDatabase(validHrdFilePath);
+            HydraulicBoundaryData hydraulicBoundaryData = CreateHydraulicBoundaryData(validHrdFilePath);
 
             var mocks = new MockRepository();
             var observable1 = mocks.StrictMock<IObservable>();
@@ -520,7 +521,7 @@ namespace Riskeer.Integration.IO.Test.Importers
 
             var handler = mocks.StrictMock<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
             handler.Expect(h => h.InquireConfirmation()).Return(true);
-            handler.Expect(h => h.Update(Arg<HydraulicBoundaryDatabase>.Is.NotNull,
+            handler.Expect(h => h.Update(Arg<HydraulicBoundaryData>.Is.NotNull,
                                          Arg<ReadHydraulicLocationConfigurationDatabaseSettings>.Is.Null,
                                          Arg<bool>.Is.Equal(false),
                                          Arg<string>.Is.NotNull))
@@ -531,8 +532,8 @@ namespace Riskeer.Integration.IO.Test.Importers
                    });
             mocks.ReplayAll();
 
-            var importer = new HydraulicLocationConfigurationDatabaseImporter(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings, handler,
-                                                                              hydraulicBoundaryDatabase, validHlcdFilePath);
+            var importer = new HydraulicLocationConfigurationDatabaseImporter(hydraulicBoundaryData.HydraulicLocationConfigurationSettings, handler,
+                                                                              hydraulicBoundaryData, validHlcdFilePath);
 
             // Precondition
             Assert.IsTrue(importer.Import());
@@ -544,9 +545,9 @@ namespace Riskeer.Integration.IO.Test.Importers
             mocks.VerifyAll(); // Expect NotifyObservers on updated observables
         }
 
-        private static HydraulicBoundaryDatabase CreateHydraulicBoundaryDatabase(string filePath)
+        private static HydraulicBoundaryData CreateHydraulicBoundaryData(string filePath)
         {
-            return new HydraulicBoundaryDatabase
+            return new HydraulicBoundaryData
             {
                 FilePath = filePath
             };
