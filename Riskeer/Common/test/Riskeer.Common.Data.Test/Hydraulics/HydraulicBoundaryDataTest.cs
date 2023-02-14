@@ -26,20 +26,20 @@ using Riskeer.Common.Data.Hydraulics;
 namespace Riskeer.Common.Data.Test.Hydraulics
 {
     [TestFixture]
-    public class HydraulicBoundaryDatabaseTest
+    public class HydraulicBoundaryDataTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            var hydraulicBoundaryData = new HydraulicBoundaryData();
 
             // Assert
-            Assert.IsInstanceOf<Observable>(hydraulicBoundaryDatabase);
-            Assert.IsNull(hydraulicBoundaryDatabase.FilePath);
-            Assert.IsNull(hydraulicBoundaryDatabase.Version);
-            Assert.IsNotNull(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings);
-            CollectionAssert.IsEmpty(hydraulicBoundaryDatabase.Locations);
+            Assert.IsInstanceOf<Observable>(hydraulicBoundaryData);
+            Assert.IsNull(hydraulicBoundaryData.FilePath);
+            Assert.IsNull(hydraulicBoundaryData.Version);
+            Assert.IsNotNull(hydraulicBoundaryData.HydraulicLocationConfigurationSettings);
+            CollectionAssert.IsEmpty(hydraulicBoundaryData.Locations);
         }
     }
 }
