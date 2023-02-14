@@ -26,38 +26,38 @@ using Riskeer.Common.Data.Hydraulics;
 namespace Riskeer.Common.Data.Test.Hydraulics
 {
     [TestFixture]
-    public class HydraulicBoundaryDatabaseExtensionsTest
+    public class HydraulicBoundaryDataExtensionsTest
     {
         [Test]
-        public void IsLinked_HydraulicBoundaryDatabaseNull_ThrowsArgumentNullException()
+        public void IsLinked_HydraulicBoundaryDataNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => HydraulicBoundaryDatabaseExtensions.IsLinked(null);
+            void Call() => HydraulicBoundaryDataExtensions.IsLinked(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("hydraulicBoundaryDatabase", paramName);
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
+            Assert.AreEqual("hydraulicBoundaryData", paramName);
         }
 
         [Test]
-        public void EffectivePreprocessorDirectory_HydraulicBoundaryDatabaseNull_ThrowsArgumentNullException()
+        public void EffectivePreprocessorDirectory_HydraulicBoundaryDataNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => HydraulicBoundaryDatabaseExtensions.EffectivePreprocessorDirectory(null);
+            void Call() => HydraulicBoundaryDataExtensions.EffectivePreprocessorDirectory(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("hydraulicBoundaryDatabase", paramName);
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
+            Assert.AreEqual("hydraulicBoundaryData", paramName);
         }
 
         [Test]
         public void EffectivePreprocessorDirectory_CanUsePreprocessorFalse_ReturnsExpectedValue()
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            var hydraulicBoundaryData = new HydraulicBoundaryData();
 
             // Call
-            string effectivePreprocessorDirectory = hydraulicBoundaryDatabase.EffectivePreprocessorDirectory();
+            string effectivePreprocessorDirectory = hydraulicBoundaryData.EffectivePreprocessorDirectory();
 
             // Assert
             Assert.AreEqual("", effectivePreprocessorDirectory);
@@ -69,13 +69,13 @@ namespace Riskeer.Common.Data.Test.Hydraulics
         public void IsLinked_SpecificFilePath_ReturnsExpectedValue(string filePath, bool expectedValue)
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 FilePath = filePath
             };
 
             // Call
-            bool isLinked = hydraulicBoundaryDatabase.IsLinked();
+            bool isLinked = hydraulicBoundaryData.IsLinked();
 
             // Assert
             Assert.AreEqual(expectedValue, isLinked);
@@ -88,7 +88,7 @@ namespace Riskeer.Common.Data.Test.Hydraulics
                                                                                                string expectedEffectivePreprocessorDirectory)
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 HydraulicLocationConfigurationSettings =
                 {
@@ -99,7 +99,7 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             };
 
             // Call
-            string effectivePreprocessorDirectory = hydraulicBoundaryDatabase.EffectivePreprocessorDirectory();
+            string effectivePreprocessorDirectory = hydraulicBoundaryData.EffectivePreprocessorDirectory();
 
             // Assert
             Assert.AreEqual(expectedEffectivePreprocessorDirectory, effectivePreprocessorDirectory);
