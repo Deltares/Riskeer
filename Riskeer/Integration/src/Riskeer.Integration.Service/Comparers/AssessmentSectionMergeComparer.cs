@@ -31,8 +31,7 @@ using Riskeer.Integration.Data;
 namespace Riskeer.Integration.Service.Comparers
 {
     /// <summary>
-    /// Class which compares <see cref="AssessmentSection"/> to
-    /// determine whether they are equal and can be used to merged.
+    /// Class which compares <see cref="AssessmentSection"/> to determine whether they are equal and can be used to merged.
     /// </summary>
     public class AssessmentSectionMergeComparer : IAssessmentSectionMergeComparer
     {
@@ -51,7 +50,7 @@ namespace Riskeer.Integration.Service.Comparers
             return assessmentSection.Id == otherAssessmentSection.Id
                    && assessmentSection.Composition == otherAssessmentSection.Composition
                    && AreReferenceLinesEquivalent(assessmentSection.ReferenceLine, otherAssessmentSection.ReferenceLine)
-                   && AreHydraulicBoundaryDatabasesEquivalent(assessmentSection.HydraulicBoundaryDatabase, otherAssessmentSection.HydraulicBoundaryDatabase)
+                   && AreHydraulicBoundaryDataInstancesEquivalent(assessmentSection.HydraulicBoundaryDatabase, otherAssessmentSection.HydraulicBoundaryDatabase)
                    && AreFailureMechanismContributionsEquivalent(assessmentSection.FailureMechanismContribution, otherAssessmentSection.FailureMechanismContribution);
         }
 
@@ -77,12 +76,12 @@ namespace Riskeer.Integration.Service.Comparers
             return true;
         }
 
-        private static bool AreHydraulicBoundaryDatabasesEquivalent(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
-                                                                    HydraulicBoundaryDatabase otherHydraulicBoundaryDatabase)
+        private static bool AreHydraulicBoundaryDataInstancesEquivalent(HydraulicBoundaryData hydraulicBoundaryData,
+                                                                        HydraulicBoundaryData otherHydraulicBoundaryData)
         {
-            return hydraulicBoundaryDatabase.Version == otherHydraulicBoundaryDatabase.Version
-                   && AreHydraulicBoundaryLocationConfigurationSettingsEquivalent(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings,
-                                                                                  otherHydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings);
+            return hydraulicBoundaryData.Version == otherHydraulicBoundaryData.Version
+                   && AreHydraulicBoundaryLocationConfigurationSettingsEquivalent(hydraulicBoundaryData.HydraulicLocationConfigurationSettings,
+                                                                                  otherHydraulicBoundaryData.HydraulicLocationConfigurationSettings);
         }
 
         private static bool AreHydraulicBoundaryLocationConfigurationSettingsEquivalent(HydraulicLocationConfigurationSettings hydraulicLocationConfigurationSettings,
