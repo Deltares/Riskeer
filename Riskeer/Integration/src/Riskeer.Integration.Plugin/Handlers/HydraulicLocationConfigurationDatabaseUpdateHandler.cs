@@ -42,11 +42,10 @@ namespace Riskeer.Integration.Plugin.Handlers
         private readonly AssessmentSection assessmentSection;
 
         /// <summary>
-        /// Creates a new instance of <see cref="HydraulicLocationConfigurationDatabaseUpdateHandler"/>
+        /// Creates a new instance of <see cref="HydraulicLocationConfigurationDatabaseUpdateHandler"/>.
         /// </summary>
         /// <param name="assessmentSection">The assessment section to use for clearing data.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
-        /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
         public HydraulicLocationConfigurationDatabaseUpdateHandler(AssessmentSection assessmentSection)
         {
             if (assessmentSection == null)
@@ -65,7 +64,7 @@ namespace Riskeer.Integration.Plugin.Handlers
             return result == DialogResult.OK;
         }
 
-        public IEnumerable<IObservable> Update(HydraulicBoundaryDatabase hydraulicBoundaryData,
+        public IEnumerable<IObservable> Update(HydraulicBoundaryData hydraulicBoundaryData,
                                                ReadHydraulicLocationConfigurationDatabaseSettings readHydraulicLocationConfigurationDatabaseSettings,
                                                bool usePreprocessorClosure,
                                                string hlcdFilePath)
