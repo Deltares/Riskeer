@@ -39,7 +39,7 @@ namespace Riskeer.Common.IO.HydraRing
     /// </summary>
     public static class HydraulicBoundaryDataHelper
     {
-        private const string hydraRingConfigurationDatabaseExtension = "config.sqlite";
+        private const string hydraulicBoundarySettingsDatabaseExtension = "config.sqlite";
         private const string preprocessorClosureFileName = "preprocClosure.sqlite";
 
         /// <summary>
@@ -143,21 +143,21 @@ namespace Riskeer.Common.IO.HydraRing
         }
 
         /// <summary>
-        /// Gets the path of the hydraulic boundary database settings file.
+        /// Gets the path of the hydraulic boundary settings database file.
         /// </summary>
         /// <param name="hrdFilePath">The path of the corresponding hydraulic boundary database file.</param>
         /// <returns>The path of the hydraulic boundary settings database file.</returns>
         public static string GetHydraulicBoundarySettingsDatabase(string hrdFilePath)
         {
-            return Path.ChangeExtension(hrdFilePath, hydraRingConfigurationDatabaseExtension);
+            return Path.ChangeExtension(hrdFilePath, hydraulicBoundarySettingsDatabaseExtension);
         }
 
         /// <summary>
         /// Checks <paramref name="preprocessorDirectory"/> for being a valid folder path.
         /// </summary>
         /// <param name="preprocessorDirectory">The preprocessor directory to validate.</param>
-        /// <returns>A <see cref="string"/> describing the problem with <paramref name="preprocessorDirectory"/> 
-        /// or <c>null</c> when <paramref name="preprocessorDirectory"/> is a valid directory path.</returns>
+        /// <returns>A <see cref="string"/> describing the problem with <paramref name="preprocessorDirectory"/> or <c>null</c>
+        /// when <paramref name="preprocessorDirectory"/> is a valid directory path.</returns>
         public static string ValidatePreprocessorDirectory(string preprocessorDirectory)
         {
             if (preprocessorDirectory != string.Empty)
@@ -199,7 +199,7 @@ namespace Riskeer.Common.IO.HydraRing
         }
 
         /// <summary>
-        /// Returns the version from the hydraulic boundary database pointed at by the <paramref name="hrdFilePath"/>.
+        /// Returns the version of the hydraulic boundary database pointed at by the <paramref name="hrdFilePath"/>.
         /// </summary>
         /// <param name="hrdFilePath">The file path of the hydraulic boundary database.</param>
         /// <returns>The version of the hydraulic boundary database as a <see cref="string"/>.</returns>
