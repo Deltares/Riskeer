@@ -186,7 +186,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             {
                 failureMechanism
             });
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryData
             {
                 Locations =
                 {

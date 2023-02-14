@@ -373,7 +373,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
 
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryData
             {
                 Locations =
                 {
@@ -452,7 +452,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
 
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryData
             {
                 Locations =
                 {
@@ -489,7 +489,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void GetSelectableLocations_InputWithLocationsNoDikeProfile_ReturnsLocationsSortedById()
         {
             // Setup
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryData
             {
                 Locations =
                 {
@@ -526,7 +526,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void GetSelectableHydraulicBoundaryLocations_InputWithLocationsAndNoDikeProfile_ReturnsLocationsSortedByDistanceThenById()
         {
             // Setup
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryData
             {
                 Locations =
                 {
@@ -570,7 +570,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void GivenLocationAndReferencePoint_WhenUpdatingDikeProfile_ThenUpdateSelectableBoundaryLocations()
         {
             // Given
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryData
             {
                 Locations =
                 {
