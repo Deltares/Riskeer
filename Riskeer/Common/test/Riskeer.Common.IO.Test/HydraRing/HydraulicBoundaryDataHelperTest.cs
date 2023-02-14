@@ -31,76 +31,75 @@ using Riskeer.Common.IO.HydraRing;
 namespace Riskeer.Common.IO.Test.HydraRing
 {
     [TestFixture]
-    public class HydraulicBoundaryDatabaseHelperTest
+    public class HydraulicBoundaryDataHelperTest
     {
-        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryDatabase));
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryData));
+        
         private readonly string hlcdFilePath = Path.Combine(testDataPath, "HLCD.sqlite");
 
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void ValidateFilesForCalculation_ExistingFileWithHlcdAndPreprocessorClosure_ReturnsNull(bool usePreprocessorClosure)
+        public void ValidateFilesForCalculation_ValidFilesWithPreprocessorClosure_ReturnsNull(bool usePreprocessorClosure)
         {
             // Setup
-            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
+            string hrdFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
             // Call
-            string result = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(validFilePath, hlcdFilePath, "", usePreprocessorClosure);
+            string result = HydraulicBoundaryDataHelper.ValidateFilesForCalculation(hrdFilePath, hlcdFilePath, testDataPath, usePreprocessorClosure);
 
             // Assert
             Assert.IsNull(result);
         }
 
         [Test]
-        public void ValidateFilesForCalculation_NonExistingFile_ReturnsMessageWithError()
+        public void ValidateFilesForCalculation_NonExistingHrdFile_ReturnsMessageWithError()
         {
             // Setup
-            const string nonexistingSqlite = "nonexisting.sqlite";
-            string filePath = Path.Combine(testDataPath, nonexistingSqlite);
+            string hrdFilePath = Path.Combine(testDataPath, "nonexisting.sqlite");
 
             // Call
-            string result = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(filePath, "", "", false);
+            string result = HydraulicBoundaryDataHelper.ValidateFilesForCalculation(hrdFilePath, hlcdFilePath, testDataPath, false);
 
             // Assert
-            StringAssert.StartsWith($"Fout bij het lezen van bestand '{filePath}':", result);
+            StringAssert.StartsWith($"Fout bij het lezen van bestand '{hrdFilePath}':", result);
         }
 
         [Test]
-        public void ValidateFilesForCalculation_InvalidFile_ReturnsMessageWithError()
+        public void ValidateFilesForCalculation_HrdFileWithInvalidPathChars_ReturnsMessageWithError()
         {
             // Setup
-            string invalidPath = Path.Combine(testDataPath, "complete.sqlite");
-            invalidPath = invalidPath.Replace('c', Path.GetInvalidPathChars()[0]);
+            string hrdFilePath = Path.Combine(testDataPath, "complete.sqlite").Replace('c', Path.GetInvalidPathChars()[0]);
 
             // Call
-            string result = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(invalidPath, hlcdFilePath, testDataPath, false);
+            string result = HydraulicBoundaryDataHelper.ValidateFilesForCalculation(hrdFilePath, hlcdFilePath, testDataPath, false);
 
             // Assert
-            StringAssert.StartsWith($"Fout bij het lezen van bestand '{invalidPath}':", result);
+            StringAssert.StartsWith($"Fout bij het lezen van bestand '{hrdFilePath}':", result);
         }
 
         [Test]
-        public void ValidateFilesForCalculation_FileIsDirectory_ReturnsMessageWithError()
+        public void ValidateFilesForCalculation_HrdFileIsDirectory_ReturnsMessageWithError()
         {
             // Setup
-            string filePath = Path.Combine(testDataPath, "/");
+            string hrdFilePath = Path.Combine(testDataPath, "/");
 
             // Call
-            string result = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(filePath, hlcdFilePath, testDataPath, false);
+            string result = HydraulicBoundaryDataHelper.ValidateFilesForCalculation(hrdFilePath, hlcdFilePath, testDataPath, false);
 
             // Assert
-            StringAssert.StartsWith($"Fout bij het lezen van bestand '{filePath}':", result);
+            StringAssert.StartsWith($"Fout bij het lezen van bestand '{hrdFilePath}':", result);
         }
 
         [Test]
-        public void ValidateFilesForCalculation_ExistingFileWithoutHlcd_ReturnsMessageWithError()
+        public void ValidateFilesForCalculation_HrdFileWithoutHlcdFile_ReturnsMessageWithError()
         {
             // Setup
-            string validFilePath = Path.Combine(testDataPath, "withoutHLCD", "empty.sqlite");
+            string hrdFilePath = Path.Combine(testDataPath, "withoutHLCD", "empty.sqlite");
             string customHlcdFilePath = Path.Combine(testDataPath, "withoutHLCD", "HLCD.sqlite");
 
             // Call
-            string result = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(validFilePath, customHlcdFilePath, testDataPath, false);
+            string result = HydraulicBoundaryDataHelper.ValidateFilesForCalculation(hrdFilePath, customHlcdFilePath, testDataPath, false);
 
             // Assert
             StringAssert.StartsWith($"Fout bij het lezen van bestand '{customHlcdFilePath}':", result);
