@@ -52,7 +52,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         private const int preprocessorDirectoryPropertyIndex = 13;
 
         [Test]
-        public void Constructor_HydraulicBoundaryDatabaseNull_ThrowsArgumentNullException()
+        public void Constructor_HydraulicBoundaryDataNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -60,11 +60,11 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new HydraulicBoundaryDatabaseProperties(null, importHandler);
+            void Call() => new HydraulicBoundaryDatabaseProperties(null, importHandler);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("hydraulicBoundaryDatabase", exception.ParamName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("hydraulicBoundaryData", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -72,13 +72,13 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         public void Constructor_HydraulicLocationConfigurationDatabaseImportHandlerNull_ThrowsArgumentNullException()
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            var hydraulicBoundaryData = new HydraulicBoundaryData();
 
             // Call
-            TestDelegate call = () => new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase, null);
+            void Call() => new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryData, null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("hydraulicLocationConfigurationDatabaseImportHandler", exception.ParamName);
         }
 
@@ -90,19 +90,19 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var importHandler = mocks.Stub<IHydraulicLocationConfigurationDatabaseImportHandler>();
             mocks.ReplayAll();
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            var hydraulicBoundaryData = new HydraulicBoundaryData();
 
             // Call
-            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase, importHandler);
+            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryData, importHandler);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<HydraulicBoundaryDatabase>>(properties);
-            Assert.AreSame(hydraulicBoundaryDatabase, properties.Data);
+            Assert.IsInstanceOf<ObjectProperties<HydraulicBoundaryData>>(properties);
+            Assert.AreSame(hydraulicBoundaryData, properties.Data);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void GetProperties_WithHydraulicBoundaryDatabaseWithPreprocessorData_ReturnExpectedValues()
+        public void GetProperties_WithHydraulicBoundaryDataWithPreprocessorData_ReturnExpectedValues()
         {
             // Setup
             const bool usePreprocessor = true;
@@ -112,7 +112,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var importHandler = mocks.Stub<IHydraulicLocationConfigurationDatabaseImportHandler>();
             mocks.ReplayAll();
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 HydraulicLocationConfigurationSettings =
                 {
@@ -123,7 +123,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase, importHandler);
+            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryData, importHandler);
 
             // Assert
             Assert.AreEqual(usePreprocessor, properties.UsePreprocessor);
@@ -133,20 +133,20 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GetProperties_WithUnlinkedDatabase_ReturnsExpectedValues()
+        public void GetProperties_WithUnlinkedHydraulicBoundaryDatabase_ReturnsExpectedValues()
         {
             // Setup
             var mocks = new MockRepository();
             var importHandler = mocks.Stub<IHydraulicLocationConfigurationDatabaseImportHandler>();
             mocks.ReplayAll();
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            var hydraulicBoundaryData = new HydraulicBoundaryData();
 
             // Precondition
-            Assert.IsFalse(hydraulicBoundaryDatabase.IsLinked());
+            Assert.IsFalse(hydraulicBoundaryData.IsLinked());
 
             // Call
-            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase, importHandler);
+            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryData, importHandler);
 
             // Assert
             Assert.IsEmpty(properties.HrdFilePath);
@@ -166,25 +166,25 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GetProperties_WithLinkedDatabase_ReturnsExpectedValues()
+        public void GetProperties_WithLinkedHydraulicBoundaryDatabase_ReturnsExpectedValues()
         {
             // Setup
             var mocks = new MockRepository();
             var importHandler = mocks.Stub<IHydraulicLocationConfigurationDatabaseImportHandler>();
             mocks.ReplayAll();
 
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = CreateLinkedHydraulicBoundaryDatabase();
+            HydraulicBoundaryData hydraulicBoundaryData = CreateLinkedHydraulicBoundaryData();
 
             // Precondition
-            Assert.IsTrue(hydraulicBoundaryDatabase.IsLinked());
+            Assert.IsTrue(hydraulicBoundaryData.IsLinked());
 
             // Call
-            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase, importHandler);
+            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryData, importHandler);
 
             // Assert
-            Assert.AreEqual(hydraulicBoundaryDatabase.FilePath, properties.HrdFilePath);
+            Assert.AreEqual(hydraulicBoundaryData.FilePath, properties.HrdFilePath);
 
-            HydraulicLocationConfigurationSettings configurationSettings = hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings;
+            HydraulicLocationConfigurationSettings configurationSettings = hydraulicBoundaryData.HydraulicLocationConfigurationSettings;
             Assert.AreEqual(configurationSettings.FilePath, properties.HlcdFilePath);
             Assert.AreEqual(configurationSettings.FilePath, properties.HlcdFilePathReadOnly);
             Assert.AreEqual(configurationSettings.UsePreprocessorClosure, properties.UsePreprocessorClosure);
@@ -210,7 +210,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var importHandler = mocks.Stub<IHydraulicLocationConfigurationDatabaseImportHandler>();
             mocks.ReplayAll();
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 HydraulicLocationConfigurationSettings =
                 {
@@ -221,7 +221,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase, importHandler);
+            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryData, importHandler);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -335,10 +335,10 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var importHandler = mocks.Stub<IHydraulicLocationConfigurationDatabaseImportHandler>();
             mocks.ReplayAll();
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            var hydraulicBoundaryData = new HydraulicBoundaryData();
 
             // Call
-            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase, importHandler);
+            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryData, importHandler);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -441,12 +441,12 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var importHandler = mocks.Stub<IHydraulicLocationConfigurationDatabaseImportHandler>();
             mocks.ReplayAll();
 
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = isLinked
-                                                                      ? CreateLinkedHydraulicBoundaryDatabase()
-                                                                      : new HydraulicBoundaryDatabase();
+            HydraulicBoundaryData hydraulicBoundaryData = isLinked
+                                                              ? CreateLinkedHydraulicBoundaryData()
+                                                              : new HydraulicBoundaryData();
 
             // Call
-            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase, importHandler);
+            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryData, importHandler);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -555,7 +555,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 HydraulicLocationConfigurationSettings =
                 {
@@ -565,15 +565,15 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                 }
             };
 
-            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase, importHandler);
+            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryData, importHandler);
 
-            hydraulicBoundaryDatabase.Attach(observer);
+            hydraulicBoundaryData.Attach(observer);
 
             // Call
             properties.UsePreprocessor = usePreprocessor;
 
             // Assert
-            Assert.AreEqual(usePreprocessor, hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessor);
+            Assert.AreEqual(usePreprocessor, hydraulicBoundaryData.HydraulicLocationConfigurationSettings.UsePreprocessor);
             mocks.VerifyAll();
         }
 
@@ -586,7 +586,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             const string newPreprocessorDirectory = @"C:/path";
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 HydraulicLocationConfigurationSettings =
                 {
@@ -596,13 +596,13 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                 }
             };
 
-            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase, importHandler);
+            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryData, importHandler);
 
             // Call
             properties.PreprocessorDirectory = newPreprocessorDirectory;
 
             // Assert
-            Assert.AreEqual(newPreprocessorDirectory, hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.PreprocessorDirectory);
+            Assert.AreEqual(newPreprocessorDirectory, hydraulicBoundaryData.HydraulicLocationConfigurationSettings.PreprocessorDirectory);
             mocks.VerifyAll();
         }
 
@@ -611,15 +611,15 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             const string hlcdFilePath = @"C:/path/HlcdFilePath";
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            var hydraulicBoundaryData = new HydraulicBoundaryData();
 
             var mocks = new MockRepository();
             var importHandler = mocks.StrictMock<IHydraulicLocationConfigurationDatabaseImportHandler>();
-            importHandler.Expect(ih => ih.ImportHydraulicLocationConfigurationSettings(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings,
+            importHandler.Expect(ih => ih.ImportHydraulicLocationConfigurationSettings(hydraulicBoundaryData.HydraulicLocationConfigurationSettings,
                                                                                        hlcdFilePath));
             mocks.ReplayAll();
 
-            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase, importHandler);
+            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryData, importHandler);
 
             // Call
             properties.HlcdFilePath = hlcdFilePath;
@@ -639,17 +639,17 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var importHandler = mocks.Stub<IHydraulicLocationConfigurationDatabaseImportHandler>();
             mocks.ReplayAll();
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            var hydraulicBoundaryData = new HydraulicBoundaryData();
 
             if (canUsePreprocessor)
             {
-                hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.CanUsePreprocessor = true;
-                hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessor = usePreprocessor;
-                hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.PreprocessorDirectory = "Preprocessor";
+                hydraulicBoundaryData.HydraulicLocationConfigurationSettings.CanUsePreprocessor = true;
+                hydraulicBoundaryData.HydraulicLocationConfigurationSettings.UsePreprocessor = usePreprocessor;
+                hydraulicBoundaryData.HydraulicLocationConfigurationSettings.PreprocessorDirectory = "Preprocessor";
             }
 
             // Call
-            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase, importHandler);
+            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryData, importHandler);
 
             // Assert
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.HrdFilePath)));
@@ -674,19 +674,19 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void DynamicVisibleValidationMethod_DependingOnHydraulicDatabaseLinkStatus_ReturnsExpectedVisibility(bool isHydraulicBoundaryDatabaseLinked)
+        public void DynamicVisibleValidationMethod_DependingOnHydraulicDatabaseLinkStatus_ReturnsExpectedVisibility(bool isHydraulicBoundaryDataLinked)
         {
             // Setup
             var mocks = new MockRepository();
             var importHandler = mocks.Stub<IHydraulicLocationConfigurationDatabaseImportHandler>();
             mocks.ReplayAll();
 
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = isHydraulicBoundaryDatabaseLinked
-                                                                      ? CreateLinkedHydraulicBoundaryDatabase()
-                                                                      : new HydraulicBoundaryDatabase();
+            HydraulicBoundaryData hydraulicBoundaryData = isHydraulicBoundaryDataLinked
+                                                              ? CreateLinkedHydraulicBoundaryData()
+                                                              : new HydraulicBoundaryData();
 
             // Call
-            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase, importHandler);
+            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryData, importHandler);
 
             // Assert
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.HrdFilePath)));
@@ -694,8 +694,8 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.PreprocessorDirectory)));
             Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.PreprocessorDirectoryReadOnly)));
 
-            Assert.AreEqual(isHydraulicBoundaryDatabaseLinked, properties.DynamicVisibleValidationMethod(nameof(properties.HlcdFilePath)));
-            Assert.AreEqual(!isHydraulicBoundaryDatabaseLinked, properties.DynamicVisibleValidationMethod(nameof(properties.HlcdFilePathReadOnly)));
+            Assert.AreEqual(isHydraulicBoundaryDataLinked, properties.DynamicVisibleValidationMethod(nameof(properties.HlcdFilePath)));
+            Assert.AreEqual(!isHydraulicBoundaryDataLinked, properties.DynamicVisibleValidationMethod(nameof(properties.HlcdFilePathReadOnly)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.ScenarioName)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Year)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Scope)));
@@ -708,28 +708,26 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             mocks.VerifyAll();
         }
 
-        private static HydraulicBoundaryDatabase CreateLinkedHydraulicBoundaryDatabase()
+        private static HydraulicBoundaryData CreateLinkedHydraulicBoundaryData()
         {
-            const string filePath = @"C:\file.sqlite";
-
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = filePath
+                FilePath = @"C:\file.sqlite"
             };
 
-            hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.SetValues("FilePath",
-                                                                                       "ScenarioName",
-                                                                                       10,
-                                                                                       "Scope",
-                                                                                       false,
-                                                                                       "SeaLevel",
-                                                                                       "RiverDischarge",
-                                                                                       "LakeLevel",
-                                                                                       "WindDirection",
-                                                                                       "WindSpeed",
-                                                                                       "Comment");
+            hydraulicBoundaryData.HydraulicLocationConfigurationSettings.SetValues("FilePath",
+                                                                                   "ScenarioName",
+                                                                                   10,
+                                                                                   "Scope",
+                                                                                   false,
+                                                                                   "SeaLevel",
+                                                                                   "RiverDischarge",
+                                                                                   "LakeLevel",
+                                                                                   "WindDirection",
+                                                                                   "WindSpeed",
+                                                                                   "Comment");
 
-            return hydraulicBoundaryDatabase;
+            return hydraulicBoundaryData;
         }
     }
 }

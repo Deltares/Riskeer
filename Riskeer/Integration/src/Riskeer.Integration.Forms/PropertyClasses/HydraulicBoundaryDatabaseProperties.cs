@@ -34,9 +34,9 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.Integration.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="HydraulicBoundaryDatabase"/> for properties panel.
+    /// ViewModel of <see cref="HydraulicBoundaryData"/> for properties panel.
     /// </summary>
-    public class HydraulicBoundaryDatabaseProperties : ObjectProperties<HydraulicBoundaryDatabase>
+    public class HydraulicBoundaryDatabaseProperties : ObjectProperties<HydraulicBoundaryData>
     {
         private const int hrdFilePathPropertyIndex = 0;
         private const int hlcdFilePathPropertyIndex = 1;
@@ -58,15 +58,15 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryDatabaseProperties"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database to show the properties for.</param>
+        /// <param name="hydraulicBoundaryData">The hydraulic boundary data to show the properties for.</param>
         /// <param name="hydraulicLocationConfigurationDatabaseImportHandler">The handler to update the hydraulic location configuration settings.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public HydraulicBoundaryDatabaseProperties(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
+        public HydraulicBoundaryDatabaseProperties(HydraulicBoundaryData hydraulicBoundaryData,
                                                    IHydraulicLocationConfigurationDatabaseImportHandler hydraulicLocationConfigurationDatabaseImportHandler)
         {
-            if (hydraulicBoundaryDatabase == null)
+            if (hydraulicBoundaryData == null)
             {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
+                throw new ArgumentNullException(nameof(hydraulicBoundaryData));
             }
 
             if (hydraulicLocationConfigurationDatabaseImportHandler == null)
@@ -75,7 +75,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
             }
 
             this.hydraulicLocationConfigurationDatabaseImportHandler = hydraulicLocationConfigurationDatabaseImportHandler;
-            Data = hydraulicBoundaryDatabase;
+            Data = hydraulicBoundaryData;
         }
 
         [PropertyOrder(hrdFilePathPropertyIndex)]
