@@ -74,29 +74,27 @@ namespace Riskeer.Revetment.Service
         /// </summary>
         /// <param name="waveConditionsInput">The input of the calculation.</param>
         /// <param name="assessmentLevel">The assessment level to use for determining water levels.</param>
-        /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database to validate.</param>
+        /// <param name="hydraulicBoundaryData">The hydraulic boundary data to validate.</param>
         /// <returns><c>true</c> if there were no validation errors; <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="waveConditionsInput"/> or
-        /// <paramref name="hydraulicBoundaryDatabase"/> is <c>null</c>.</exception>
+        /// <paramref name="hydraulicBoundaryData"/> is <c>null</c>.</exception>
         public static bool Validate(WaveConditionsInput waveConditionsInput,
                                     RoundedDouble assessmentLevel,
-                                    HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+                                    HydraulicBoundaryData hydraulicBoundaryData)
         {
             if (waveConditionsInput == null)
             {
                 throw new ArgumentNullException(nameof(waveConditionsInput));
             }
 
-            if (hydraulicBoundaryDatabase == null)
+            if (hydraulicBoundaryData == null)
             {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
+                throw new ArgumentNullException(nameof(hydraulicBoundaryData));
             }
 
             CalculationServiceHelper.LogValidationBegin();
 
-            string[] messages = ValidateInput(hydraulicBoundaryDatabase,
-                                              waveConditionsInput,
-                                              assessmentLevel);
+            string[] messages = ValidateInput(hydraulicBoundaryData, waveConditionsInput, assessmentLevel);
 
             CalculationServiceHelper.LogMessagesAsError(messages);
 
@@ -205,19 +203,19 @@ namespace Riskeer.Revetment.Service
             return outputs;
         }
 
-        private static string[] ValidateInput(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
+        private static string[] ValidateInput(HydraulicBoundaryData hydraulicBoundaryData,
                                               WaveConditionsInput input,
                                               RoundedDouble assessmentLevel)
         {
             var validationResults = new List<string>();
 
-            string connectionValidationProblem = HydraulicBoundaryDataConnectionValidator.Validate(hydraulicBoundaryDatabase);
+            string connectionValidationProblem = HydraulicBoundaryDataConnectionValidator.Validate(hydraulicBoundaryData);
             if (!string.IsNullOrEmpty(connectionValidationProblem))
             {
                 validationResults.Add(connectionValidationProblem);
             }
 
-            string preprocessorDirectoryValidationProblem = HydraulicBoundaryDataHelper.ValidatePreprocessorDirectory(hydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
+            string preprocessorDirectoryValidationProblem = HydraulicBoundaryDataHelper.ValidatePreprocessorDirectory(hydraulicBoundaryData.EffectivePreprocessorDirectory());
             if (!string.IsNullOrEmpty(preprocessorDirectoryValidationProblem))
             {
                 validationResults.Add(preprocessorDirectoryValidationProblem);
