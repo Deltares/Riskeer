@@ -29,40 +29,41 @@ using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 namespace Riskeer.Integration.IO.Handlers
 {
     /// <summary>
-    /// Interface for an object that can properly update a <see cref="HydraulicBoundaryDatabase"/>.
+    /// Interface for an object that can properly update a <see cref="HydraulicBoundaryData"/> instance.
     /// </summary>
     public interface IHydraulicBoundaryDatabaseUpdateHandler
     {
         /// <summary>
-        /// Checks whether confirmation is required before updating the <see cref="HydraulicBoundaryDatabase"/>.
+        /// Checks whether confirmation is required before updating the <see cref="HydraulicBoundaryData"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database.</param>
+        /// <param name="hydraulicBoundaryData">The hydraulic boundary data.</param>
         /// <param name="readHydraulicBoundaryDatabase">The read hydraulic boundary database.</param>
         /// <returns><c>true</c> when confirmation is required; <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        bool IsConfirmationRequired(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase);
+        bool IsConfirmationRequired(HydraulicBoundaryData hydraulicBoundaryData, ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase);
 
         /// <summary>
-        /// Gets confirmation for updating the <see cref="HydraulicBoundaryDatabase"/>.
+        /// Gets confirmation for updating the <see cref="HydraulicBoundaryData"/>.
         /// </summary>
         /// <returns><c>true</c> when confirmation is given; <c>false</c> otherwise.</returns>
         bool InquireConfirmation();
 
         /// <summary>
-        /// Updates the <paramref name="hydraulicBoundaryDatabase"/> and its dependent data with the
+        /// Updates the <paramref name="hydraulicBoundaryData"/> and its dependent data with the
         /// <paramref name="readHydraulicBoundaryDatabase"/> and the <paramref name="readHydraulicLocationConfigurationDatabase"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database to update.</param>
+        /// <param name="hydraulicBoundaryData">The hydraulic boundary data to update.</param>
         /// <param name="readHydraulicBoundaryDatabase">The read hydraulic boundary database to update with.</param>
-        /// <param name="readHydraulicLocationConfigurationDatabase">The read hydraulic location configuration database to update with.</param>
+        /// <param name="readHydraulicLocationConfigurationDatabase">The read hydraulic location configuration database to
+        /// update with.</param>
         /// <param name="excludedLocationIds">The location ids that should be excluded.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The file path of the read hydraulic boundary database.</param>
         /// <param name="hlcdFilePath">The file path of the hlcd.</param>
         /// <returns>All objects that have been affected by the update.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when the <paramref name="hydraulicBoundaryDatabase"/>
-        /// cannot be updated with <paramref name="readHydraulicLocationConfigurationDatabase"/>.</exception>
-        IEnumerable<IObservable> Update(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
+        /// <exception cref="ArgumentException">Thrown when the <paramref name="hydraulicBoundaryData"/> cannot be updated with
+        /// <paramref name="readHydraulicLocationConfigurationDatabase"/>.</exception>
+        IEnumerable<IObservable> Update(HydraulicBoundaryData hydraulicBoundaryData,
                                         ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase,
                                         ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase,
                                         IEnumerable<long> excludedLocationIds,

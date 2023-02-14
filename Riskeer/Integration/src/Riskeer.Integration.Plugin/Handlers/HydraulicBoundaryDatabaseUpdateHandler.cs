@@ -69,11 +69,11 @@ namespace Riskeer.Integration.Plugin.Handlers
             this.duneLocationsReplacementHandler = duneLocationsReplacementHandler;
         }
 
-        public bool IsConfirmationRequired(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase)
+        public bool IsConfirmationRequired(HydraulicBoundaryDatabase hydraulicBoundaryData, ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase)
         {
-            if (hydraulicBoundaryDatabase == null)
+            if (hydraulicBoundaryData == null)
             {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
+                throw new ArgumentNullException(nameof(hydraulicBoundaryData));
             }
 
             if (readHydraulicBoundaryDatabase == null)
@@ -81,7 +81,7 @@ namespace Riskeer.Integration.Plugin.Handlers
                 throw new ArgumentNullException(nameof(readHydraulicBoundaryDatabase));
             }
 
-            return hydraulicBoundaryDatabase.IsLinked() && hydraulicBoundaryDatabase.Version != readHydraulicBoundaryDatabase.Version;
+            return hydraulicBoundaryData.IsLinked() && hydraulicBoundaryData.Version != readHydraulicBoundaryDatabase.Version;
         }
 
         public bool InquireConfirmation()
@@ -92,13 +92,13 @@ namespace Riskeer.Integration.Plugin.Handlers
             return result == DialogResult.OK;
         }
 
-        public IEnumerable<IObservable> Update(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase,
+        public IEnumerable<IObservable> Update(HydraulicBoundaryDatabase hydraulicBoundaryData, ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase,
                                                ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase,
                                                IEnumerable<long> excludedLocationIds, string hydraulicBoundaryDatabaseFilePath, string hlcdFilePath)
         {
-            if (hydraulicBoundaryDatabase == null)
+            if (hydraulicBoundaryData == null)
             {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
+                throw new ArgumentNullException(nameof(hydraulicBoundaryData));
             }
 
             if (readHydraulicBoundaryDatabase == null)
@@ -135,34 +135,34 @@ namespace Riskeer.Integration.Plugin.Handlers
 
             var changedObjects = new List<IObservable>();
 
-            updateLocations = !hydraulicBoundaryDatabase.IsLinked() || hydraulicBoundaryDatabase.Version != readHydraulicBoundaryDatabase.Version;
+            updateLocations = !hydraulicBoundaryData.IsLinked() || hydraulicBoundaryData.Version != readHydraulicBoundaryDatabase.Version;
 
             if (updateLocations)
             {
-                hydraulicBoundaryDatabase.FilePath = hydraulicBoundaryDatabaseFilePath;
-                hydraulicBoundaryDatabase.Version = readHydraulicBoundaryDatabase.Version;
+                hydraulicBoundaryData.FilePath = hydraulicBoundaryDatabaseFilePath;
+                hydraulicBoundaryData.Version = readHydraulicBoundaryDatabase.Version;
 
-                SetLocations(hydraulicBoundaryDatabase, readHydraulicBoundaryDatabase.Locations,
+                SetLocations(hydraulicBoundaryData, readHydraulicBoundaryDatabase.Locations,
                              readHydraulicLocationConfigurationDatabase.LocationIdMappings,
                              excludedLocationIds.ToArray());
 
-                assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
+                assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryData.Locations);
 
-                duneLocationsReplacementHandler.Replace(hydraulicBoundaryDatabase.Locations);
+                duneLocationsReplacementHandler.Replace(hydraulicBoundaryData.Locations);
 
-                changedObjects.AddRange(GetLocationsAndCalculationsObservables(hydraulicBoundaryDatabase));
+                changedObjects.AddRange(GetLocationsAndCalculationsObservables(hydraulicBoundaryData));
                 changedObjects.AddRange(RiskeerDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(assessmentSection));
             }
             else
             {
-                if (hydraulicBoundaryDatabase.FilePath != hydraulicBoundaryDatabaseFilePath)
+                if (hydraulicBoundaryData.FilePath != hydraulicBoundaryDatabaseFilePath)
                 {
-                    hydraulicBoundaryDatabase.FilePath = hydraulicBoundaryDatabaseFilePath;
+                    hydraulicBoundaryData.FilePath = hydraulicBoundaryDatabaseFilePath;
                 }
             }
 
             HydraulicLocationConfigurationSettingsUpdateHelper.SetHydraulicLocationConfigurationSettings(
-                hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings,
+                hydraulicBoundaryData.HydraulicLocationConfigurationSettings,
                 readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings?.Single(),
                 readHydraulicLocationConfigurationDatabase.UsePreprocessorClosure,
                 hlcdFilePath);
