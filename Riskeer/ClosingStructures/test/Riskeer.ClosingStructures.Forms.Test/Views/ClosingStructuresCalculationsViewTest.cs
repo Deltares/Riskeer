@@ -722,7 +722,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
         private static void ConfigureHydraulicBoundaryDatabase(IAssessmentSection assessmentSection)
         {
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryData
             {
                 Locations =
                 {
