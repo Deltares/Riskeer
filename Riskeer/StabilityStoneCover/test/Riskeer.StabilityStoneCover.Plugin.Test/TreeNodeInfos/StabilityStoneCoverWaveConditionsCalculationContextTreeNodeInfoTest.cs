@@ -157,7 +157,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var location = new TestHydraulicBoundaryLocation();
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryData
             {
                 Locations =
                 {
@@ -217,7 +217,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var location = new TestHydraulicBoundaryLocation();
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryData
             {
                 Locations =
                 {
@@ -483,15 +483,15 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_AddCustomItems()
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 FilePath = validFilePath,
                 Version = "random"
             };
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryDatabase);
+            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryData);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryData);
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var parent = new CalculationGroup();
@@ -711,14 +711,14 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             // Given
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 FilePath = validFilePath
             };
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryDatabase);
+            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryData);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryData);
 
             var parent = new CalculationGroup();
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
@@ -1209,14 +1209,14 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             // Given
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 FilePath = validFilePath
             };
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryDatabase);
+            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryData);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryData);
 
             var parent = new CalculationGroup();
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
