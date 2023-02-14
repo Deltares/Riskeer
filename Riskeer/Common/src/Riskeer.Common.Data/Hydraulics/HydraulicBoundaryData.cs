@@ -24,14 +24,14 @@ using Core.Common.Base;
 namespace Riskeer.Common.Data.Hydraulics
 {
     /// <summary>
-    /// The data object for the hydraulic boundary database.
+    /// Container for hydraulic boundary data.
     /// </summary>
-    public class HydraulicBoundaryDatabase : Observable
+    public class HydraulicBoundaryData : Observable
     {
         /// <summary>
-        /// Creates a new instance of <see cref="HydraulicBoundaryDatabase"/>.
+        /// Creates a new instance of <see cref="HydraulicBoundaryData"/>.
         /// </summary>
-        public HydraulicBoundaryDatabase()
+        public HydraulicBoundaryData()
         {
             Locations = new ObservableList<HydraulicBoundaryLocation>();
             HydraulicLocationConfigurationSettings = new HydraulicLocationConfigurationSettings();
