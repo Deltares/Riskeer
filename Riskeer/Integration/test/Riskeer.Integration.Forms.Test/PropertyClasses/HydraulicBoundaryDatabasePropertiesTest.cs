@@ -546,7 +546,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void UsePreprocessor_SetNewValue_ValueSetToHydraulicBoundaryDatabaseAndObserversNotified(bool usePreprocessor)
+        public void UsePreprocessor_SetNewValue_ValueSetToHydraulicBoundaryDataAndObserversNotified(bool usePreprocessor)
         {
             // Setup
             var mocks = new MockRepository();
@@ -578,7 +578,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void PreprocessorDirectory_SetNewValue_ValueSetToHydraulicBoundaryDatabase()
+        public void PreprocessorDirectory_SetNewValue_ValueSetToHydraulicBoundaryData()
         {
             // Setup
             var mocks = new MockRepository();
@@ -674,7 +674,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void DynamicVisibleValidationMethod_DependingOnHydraulicDatabaseLinkStatus_ReturnsExpectedVisibility(bool isHydraulicBoundaryDataLinked)
+        public void DynamicVisibleValidationMethod_DependingOnHydraulicDataLinkStatus_ReturnsExpectedVisibility(bool isHydraulicBoundaryDataLinked)
         {
             // Setup
             var mocks = new MockRepository();
