@@ -120,11 +120,11 @@ namespace Riskeer.Revetment.Service
         /// <param name="b">The 'b' factor decided on failure mechanism level.</param>
         /// <param name="c">The 'c' factor decided on failure mechanism level.</param>
         /// <param name="targetProbability">The target probability to use.</param>
-        /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database to perform the calculations with.</param>
+        /// <param name="hydraulicBoundaryData">The hydraulic boundary data to perform the calculations with.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="WaveConditionsOutput"/>.</returns>
         /// <remarks>Preprocessing is disabled when the preprocessor directory equals <see cref="string.Empty"/>.</remarks>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="waveConditionsInput"/> or
-        /// <paramref name="hydraulicBoundaryDatabase"/> is <c>null</c>.</exception>
+        /// <paramref name="hydraulicBoundaryData"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when the hydraulic boundary database file path
         /// contains invalid characters.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
@@ -143,16 +143,16 @@ namespace Riskeer.Revetment.Service
                                                                             RoundedDouble b,
                                                                             RoundedDouble c,
                                                                             double targetProbability,
-                                                                            HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+                                                                            HydraulicBoundaryData hydraulicBoundaryData)
         {
             if (waveConditionsInput == null)
             {
                 throw new ArgumentNullException(nameof(waveConditionsInput));
             }
 
-            if (hydraulicBoundaryDatabase == null)
+            if (hydraulicBoundaryData == null)
             {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
+                throw new ArgumentNullException(nameof(hydraulicBoundaryData));
             }
 
             var calculationsFailed = 0;
@@ -172,7 +172,7 @@ namespace Riskeer.Revetment.Service
                     WaveConditionsOutput output = CalculateWaterLevel(waterLevel,
                                                                       a, b, c, targetProbability,
                                                                       waveConditionsInput,
-                                                                      HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase));
+                                                                      HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData));
 
                     if (output != null)
                     {
