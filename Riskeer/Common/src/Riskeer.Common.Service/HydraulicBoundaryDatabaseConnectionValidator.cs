@@ -27,38 +27,37 @@ using Riskeer.Common.Service.Properties;
 namespace Riskeer.Common.Service
 {
     /// <summary>
-    /// Class responsible for validating the connection of a <see cref="HydraulicBoundaryDatabase"/>.
+    /// Class responsible for validating the connection of a <see cref="HydraulicBoundaryData"/> instance.
     /// </summary>
-    public static class HydraulicBoundaryDatabaseConnectionValidator
+    public static class HydraulicBoundaryDataConnectionValidator
     {
         /// <summary>
-        /// Validates the connection of the provided hydraulic boundary database.
+        /// Validates the connection of the provided hydraulic boundary data.
         /// </summary>
-        /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database to validate.</param>
+        /// <param name="hydraulicBoundaryData">The hydraulic boundary data to validate.</param>
         /// <returns>An error message if a problem was found; <c>null</c> in case no problems were found.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryDatabase"/> is <c>null</c>.</exception>
-        public static string Validate(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryData"/> is <c>null</c>.</exception>
+        public static string Validate(HydraulicBoundaryData hydraulicBoundaryData)
         {
-            if (hydraulicBoundaryDatabase == null)
+            if (hydraulicBoundaryData == null)
             {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
+                throw new ArgumentNullException(nameof(hydraulicBoundaryData));
             }
 
-            if (!hydraulicBoundaryDatabase.IsLinked())
+            if (!hydraulicBoundaryData.IsLinked())
             {
                 return Resources.HydraulicBoundaryDatabaseConnectionValidator_No_hydraulic_boundary_database_imported;
             }
 
-            string validationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(
-                hydraulicBoundaryDatabase.FilePath,
-                hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.FilePath,
-                hydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
-                hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessorClosure);
+            string validationProblem = HydraulicBoundaryDataHelper.ValidateFilesForCalculation(
+                hydraulicBoundaryData.FilePath,
+                hydraulicBoundaryData.HydraulicLocationConfigurationSettings.FilePath,
+                hydraulicBoundaryData.EffectivePreprocessorDirectory(),
+                hydraulicBoundaryData.HydraulicLocationConfigurationSettings.UsePreprocessorClosure);
 
             if (!string.IsNullOrEmpty(validationProblem))
             {
-                return string.Format(Resources.Hydraulic_boundary_database_connection_failed_0_,
-                                     validationProblem);
+                return string.Format(Resources.Hydraulic_boundary_database_connection_failed_0_, validationProblem);
             }
 
             return null;
