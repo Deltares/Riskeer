@@ -92,17 +92,17 @@ namespace Riskeer.Common.IO.Test.HydraRing
         }
 
         [Test]
-        public void ValidateFilesForCalculation_HrdFileWithoutHlcdFile_ReturnsMessageWithError()
+        public void ValidateFilesForCalculation_NonExistingHlcdFile_ReturnsMessageWithError()
         {
             // Setup
-            string hrdFilePath = Path.Combine(testDataPath, "withoutHLCD", "empty.sqlite");
-            string customHlcdFilePath = Path.Combine(testDataPath, "withoutHLCD", "HLCD.sqlite");
-
+            string hrdFilePath = Path.Combine(testDataPath, "complete.sqlite");
+            string hlcdFilePath = Path.Combine(testDataPath, "nonexisting.sqlite");
+            
             // Call
-            string result = HydraulicBoundaryDataHelper.ValidateFilesForCalculation(hrdFilePath, customHlcdFilePath, testDataPath, false);
+            string result = HydraulicBoundaryDataHelper.ValidateFilesForCalculation(hrdFilePath, hlcdFilePath, testDataPath, false);
 
             // Assert
-            StringAssert.StartsWith($"Fout bij het lezen van bestand '{customHlcdFilePath}':", result);
+            StringAssert.StartsWith($"Fout bij het lezen van bestand '{hlcdFilePath}':", result);
         }
 
         [Test]
