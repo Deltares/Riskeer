@@ -42,7 +42,7 @@ namespace Riskeer.Integration.Forms.Test.PresentationObjects
             var context = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<HydraulicBoundaryDatabase>>(context);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<HydraulicBoundaryData>>(context);
             Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase, context.WrappedData);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
         }
@@ -51,7 +51,7 @@ namespace Riskeer.Integration.Forms.Test.PresentationObjects
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new HydraulicBoundaryDatabaseContext(new HydraulicBoundaryDatabase(), null);
+            TestDelegate call = () => new HydraulicBoundaryDatabaseContext(new HydraulicBoundaryData(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
