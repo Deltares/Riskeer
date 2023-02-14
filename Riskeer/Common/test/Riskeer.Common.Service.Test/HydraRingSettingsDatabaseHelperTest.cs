@@ -35,7 +35,7 @@ namespace Riskeer.Common.Service.Test
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.Service);
 
         [Test]
-        public void AssignSettingsFromDatabase_FileWithInvalidCharacters_ThrowsArgumentException()
+        public void AssignSettingsFromDatabase_HrdFilePathWithInvalidCharacters_ThrowsArgumentException()
         {
             // Call
             void Call() => HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(new TestHydraRingCalculationInput(), ">", false);
@@ -45,7 +45,7 @@ namespace Riskeer.Common.Service.Test
         }
 
         [Test]
-        public void AssignSettingsFromDatabase_FileWithoutSettingsDatabase_ThrowsCriticalFileReadException()
+        public void AssignSettingsFromDatabase_HrdFileWithoutSettingsDatabase_ThrowsCriticalFileReadException()
         {
             // Call
             void Call() => HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(new TestHydraRingCalculationInput(), "NoConfig.sqlite", false);
@@ -57,7 +57,7 @@ namespace Riskeer.Common.Service.Test
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void AssignSettingsFromDatabase_FileWithEmptySettingsDatabase_DefaultsSettingsAdded(bool usePreprocessor)
+        public void AssignSettingsFromDatabase_HrdFileWithEmptySettingsDatabase_DefaultsSettingsAdded(bool usePreprocessor)
         {
             // Setup
             var input = new TestHydraRingCalculationInput();

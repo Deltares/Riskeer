@@ -28,55 +28,51 @@ using Riskeer.HydraRing.Calculation.Data.Input;
 namespace Riskeer.Common.Service
 {
     /// <summary>
-    /// Helper class for providing a convenient method for obtaining and updating Hydra-Ring settings per location from the settings database 
-    /// based on <see cref="HydraRingCalculationInput"/>.
+    /// Helper class for obtaining and updating Hydra-Ring settings.
     /// </summary>
     public static class HydraRingSettingsDatabaseHelper
     {
         /// <summary>
-        /// Obtains the Hydra-Ring settings based on the location and the failure mechanism obtained from the <paramref name="calculationInput"/>
-        /// and sets these value on the <paramref name="calculationInput"/>.
+        /// Assigns Hydra-Ring settings to the provided <paramref name="calculationInput"/>.
         /// </summary>
         /// <param name="calculationInput">The calculation input for which the settings are updated.</param>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The path to the hydraulic boundary database file.</param>
+        /// <param name="hrdFilePath">The path to the hydraulic boundary database file.</param>
         /// <param name="usePreprocessor">Indicator whether to use the preprocessor in the calculation.</param>
-        /// <exception cref="ArgumentException">Thrown when the <paramref name="hydraulicBoundaryDatabaseFilePath"/> 
-        /// contains invalid characters.</exception>
+        /// <exception cref="ArgumentException">Thrown when the <paramref name="hrdFilePath"/> contains invalid characters.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
-        /// <item>No settings database file could be found at the location of <paramref name="hydraulicBoundaryDatabaseFilePath"/>
-        /// with the same name.</item>
-        /// <item>Unable to open settings database file.</item>
-        /// <item>Unable to read required data from database file.</item>
+        /// <item>no hydraulic boundary settings database could be found at the location of <paramref name="hrdFilePath"/>;</item>
+        /// <item>the hydraulic boundary settings database cannot be opened;</item>
+        /// <item>the required data cannot be read from the hydraulic boundary settings database.</item>
         /// </list>
         /// </exception>
-        public static void AssignSettingsFromDatabase(HydraRingCalculationInput calculationInput, string hydraulicBoundaryDatabaseFilePath, bool usePreprocessor)
+        public static void AssignSettingsFromDatabase(HydraRingCalculationInput calculationInput, string hrdFilePath, bool usePreprocessor)
         {
-            IOUtils.ValidateFilePath(hydraulicBoundaryDatabaseFilePath);
+            IOUtils.ValidateFilePath(hrdFilePath);
 
             long locationId = calculationInput.HydraulicBoundaryLocationId;
-            string settingsDatabaseFileName = HydraulicBoundaryDatabaseHelper.GetHydraulicBoundarySettingsDatabase(hydraulicBoundaryDatabaseFilePath);
+            string hbsdFilePath = HydraulicBoundaryDataHelper.GetHydraulicBoundarySettingsDatabase(hrdFilePath);
 
-            using (var preprocessorSettingsProvider = new PreprocessorSettingsProvider(settingsDatabaseFileName))
+            using (var preprocessorSettingsProvider = new PreprocessorSettingsProvider(hbsdFilePath))
             {
                 calculationInput.PreprocessorSetting = preprocessorSettingsProvider.GetPreprocessorSetting(locationId, usePreprocessor);
             }
 
-            using (var designTablesSettingsProviders = new DesignTablesSettingsProvider(settingsDatabaseFileName))
+            using (var designTablesSettingsProviders = new DesignTablesSettingsProvider(hbsdFilePath))
             {
                 calculationInput.DesignTablesSetting = designTablesSettingsProviders.GetDesignTablesSetting(
                     locationId,
                     calculationInput.FailureMechanismType);
             }
 
-            using (var numericsSettingsProvider = new NumericsSettingsProvider(settingsDatabaseFileName))
+            using (var numericsSettingsProvider = new NumericsSettingsProvider(hbsdFilePath))
             {
                 calculationInput.NumericsSettings = numericsSettingsProvider.GetNumericsSettings(
                     locationId,
                     calculationInput.FailureMechanismType);
             }
 
-            using (var timeIntegrationSettingsProvider = new TimeIntegrationSettingsProvider(settingsDatabaseFileName))
+            using (var timeIntegrationSettingsProvider = new TimeIntegrationSettingsProvider(hbsdFilePath))
             {
                 calculationInput.TimeIntegrationSetting = timeIntegrationSettingsProvider.GetTimeIntegrationSetting(
                     locationId,
