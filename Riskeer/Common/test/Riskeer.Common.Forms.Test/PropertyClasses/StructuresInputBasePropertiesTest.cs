@@ -342,7 +342,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
 
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryData
             {
                 Locations =
                 {
@@ -436,7 +436,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             // Given
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
 
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryData
             {
                 Locations =
                 {
@@ -481,7 +481,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void GetSelectableHydraulicBoundaryLocations_InputWithLocationsAndNoStructure_ReturnsLocationsSortedById()
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 Locations =
                 {
@@ -492,7 +492,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                 }
             };
 
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryData);
 
             mockRepository.ReplayAll();
 
@@ -511,7 +511,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
             // Assert
             IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
-                hydraulicBoundaryDatabase.Locations
+                hydraulicBoundaryData.Locations
                                          .Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, null))
                                          .OrderBy(hbl => hbl.HydraulicBoundaryLocation.Id);
             CollectionAssert.AreEqual(expectedList, availableHydraulicBoundaryLocations);
@@ -522,7 +522,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void GetSelectableHydraulicBoundaryLocations_InputWithLocationsAndStructure_ReturnsLocationsSortByDistanceThenById()
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 Locations =
                 {
@@ -535,7 +535,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                 }
             };
 
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryData);
 
             mockRepository.ReplayAll();
 
@@ -560,7 +560,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
             // Assert
             IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
-                hydraulicBoundaryDatabase.Locations
+                hydraulicBoundaryData.Locations
                                          .Select(hbl => new SelectableHydraulicBoundaryLocation(
                                                      hbl,
                                                      calculation.InputParameters.Structure.Location))
@@ -574,7 +574,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void GivenLocationAndReferencePoint_WhenUpdatingStructure_ThenUpdateSelectableBoundaryLocations()
         {
             // Given
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 Locations =
                 {
@@ -587,7 +587,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                 }
             };
 
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryData);
 
             mockRepository.ReplayAll();
 
@@ -625,7 +625,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             CollectionAssert.AreNotEqual(originalList, availableHydraulicBoundaryLocations);
 
             IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
-                hydraulicBoundaryDatabase.Locations
+                hydraulicBoundaryData.Locations
                                          .Select(hbl => new SelectableHydraulicBoundaryLocation(
                                                      hbl,
                                                      properties.StructureLocation))
