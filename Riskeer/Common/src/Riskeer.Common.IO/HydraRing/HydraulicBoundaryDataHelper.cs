@@ -35,19 +35,19 @@ using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 namespace Riskeer.Common.IO.HydraRing
 {
     /// <summary>
-    /// This class defines helper methods for obtaining meta data from hydraulic boundary databases.
+    /// This class defines helper methods for handling and using hydraulic boundary data.
     /// </summary>
-    public static class HydraulicBoundaryDatabaseHelper
+    public static class HydraulicBoundaryDataHelper
     {
         private const string hydraRingConfigurationDatabaseExtension = "config.sqlite";
         private const string preprocessorClosureFileName = "preprocClosure.sqlite";
 
         /// <summary>
-        /// Attempts to connect to the <paramref name="filePath"/> as if it is a Hydraulic Boundary Locations 
-        /// database with a Hydraulic Location Configurations database and settings next to it.
+        /// Attempts to connect to the <paramref name="filePath"/> as if it is a HRD file with a HLCD file and settings file next
+        /// to it.
         /// </summary>
-        /// <param name="filePath">The path of the Hydraulic Boundary Locations database file.</param>
-        /// <param name="hlcdFilePath">The path of the Hydraulic Location Configuration database file.</param>
+        /// <param name="filePath">The path of the HRD file.</param>
+        /// <param name="hlcdFilePath">The path of the HLCD file.</param>
         /// <param name="preprocessorDirectory">The preprocessor directory.</param>
         /// <param name="usePreprocessorClosure">Indicator whether the preprocessor closure is used in a calculation.</param>
         /// <returns>A <see cref="string"/> describing the problem when trying to connect to the <paramref name="filePath"/> 
@@ -112,33 +112,34 @@ namespace Riskeer.Common.IO.HydraRing
         }
 
         /// <summary>
-        /// Checks whether the version of a <see cref="HydraulicBoundaryDatabase"/> matches the version
-        /// of a database at the given <see cref="pathToDatabase"/>.
+        /// Checks whether the version of a <see cref="HydraulicBoundaryData"/> instance matches the version of a hydraulic
+        /// boundary database at the given <see cref="hydraulicBoundaryDatabaseFilePath"/>.
         /// </summary>
-        /// <param name="database">The database to compare the version of.</param>
-        /// <param name="pathToDatabase">The path to the database to compare the version of.</param>
-        /// <returns><c>true</c> if <paramref name="database"/> equals the version of the database at
-        /// <paramref name="pathToDatabase"/>, <c>false</c> otherwise.</returns>
-        /// <exception cref="CriticalFileReadException">Thrown when no connection with the hydraulic 
-        /// boundary database could be created using <paramref name="pathToDatabase"/>.</exception>
+        /// <param name="hydraulicBoundaryData">The hydraulic boundary data to compare the version of.</param>
+        /// <param name="hydraulicBoundaryDatabaseFilePath">The path to the hydraulic boundary database to compare the version of.</param>
+        /// <returns><c>true</c> if <paramref name="hydraulicBoundaryData"/> equals the version of the hydraulic boundary database
+        /// at <paramref name="hydraulicBoundaryDatabaseFilePath"/>, <c>false</c> otherwise.</returns>
+        /// <exception cref="CriticalFileReadException">Thrown when no connection with the hydraulic boundary database could be
+        /// created using <paramref name="hydraulicBoundaryDatabaseFilePath"/>.</exception>
         /// <exception cref="ArgumentNullException">Thrown when:
         /// <list type="bullet">
-        /// <item><paramref name="database"/> is <c>null</c></item>
-        /// <item><paramref name="pathToDatabase"/> is <c>null</c></item>
-        /// </list></exception>
-        public static bool HaveEqualVersion(HydraulicBoundaryDatabase database, string pathToDatabase)
+        /// <item><paramref name="hydraulicBoundaryData"/> is <c>null</c>;</item>
+        /// <item><paramref name="hydraulicBoundaryDatabaseFilePath"/> is <c>null</c>.</item>
+        /// </list>
+        /// </exception>
+        public static bool HaveEqualVersion(HydraulicBoundaryData hydraulicBoundaryData, string hydraulicBoundaryDatabaseFilePath)
         {
-            if (database == null)
+            if (hydraulicBoundaryData == null)
             {
-                throw new ArgumentNullException(nameof(database));
+                throw new ArgumentNullException(nameof(hydraulicBoundaryData));
             }
 
-            if (pathToDatabase == null)
+            if (hydraulicBoundaryDatabaseFilePath == null)
             {
-                throw new ArgumentNullException(nameof(pathToDatabase));
+                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabaseFilePath));
             }
 
-            return database.Version == GetVersion(pathToDatabase);
+            return hydraulicBoundaryData.Version == GetVersion(hydraulicBoundaryDatabaseFilePath);
         }
 
         /// <summary>
@@ -182,10 +183,9 @@ namespace Riskeer.Common.IO.HydraRing
         /// <summary>
         /// Gets the file path of the preprocessor closure database.
         /// </summary>
-        /// <param name="hlcdFilePath">The file path of the Hydraulic Location Configuration Database.</param>
+        /// <param name="hlcdFilePath">The file path of the hydraulic location configuration database.</param>
         /// <returns>The file path of the preprocessor closure database.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdFilePath"/>
-        /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdFilePath"/> is <c>null</c>.</exception>
         public static string GetPreprocessorClosureFilePath(string hlcdFilePath)
         {
             if (hlcdFilePath == null)
@@ -199,12 +199,12 @@ namespace Riskeer.Common.IO.HydraRing
         }
 
         /// <summary>
-        /// Returns the version from the database pointed at by the <paramref name="filePath"/>.
+        /// Returns the version from the hydraulic boundary database pointed at by the <paramref name="filePath"/>.
         /// </summary>
-        /// <param name="filePath">The location of the database.</param>
-        /// <returns>The version from the database as a <see cref="string"/>.</returns>
-        /// <exception cref="CriticalFileReadException">Thrown when no connection with the hydraulic 
-        /// boundary database could be created.</exception>
+        /// <param name="filePath">The location of the hydraulic boundary database.</param>
+        /// <returns>The version from the hydraulic boundary database as a <see cref="string"/>.</returns>
+        /// <exception cref="CriticalFileReadException">Thrown when no connection with the hydraulic boundary database could
+        /// be created.</exception>
         private static string GetVersion(string filePath)
         {
             using (var db = new HydraulicBoundaryDatabaseReader(filePath))
