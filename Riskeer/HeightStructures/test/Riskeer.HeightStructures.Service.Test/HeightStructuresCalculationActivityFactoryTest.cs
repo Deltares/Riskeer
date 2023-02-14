@@ -210,9 +210,9 @@ namespace Riskeer.HeightStructures.Service.Test
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(HeightStructuresCalculationActivity));
             Assert.AreEqual(2, activities.Count());
 
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
-            AssertHeightStructuresCalculationActivity(activities.First(), calculation1, hydraulicBoundaryDatabase);
-            AssertHeightStructuresCalculationActivity(activities.ElementAt(1), calculation2, hydraulicBoundaryDatabase);
+            HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryDatabase;
+            AssertHeightStructuresCalculationActivity(activities.First(), calculation1, hydraulicBoundaryData);
+            AssertHeightStructuresCalculationActivity(activities.ElementAt(1), calculation2, hydraulicBoundaryData);
             mocks.VerifyAll();
         }
 
@@ -273,9 +273,9 @@ namespace Riskeer.HeightStructures.Service.Test
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(HeightStructuresCalculationActivity));
             Assert.AreEqual(2, activities.Count());
 
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
-            AssertHeightStructuresCalculationActivity(activities.First(), calculation1, hydraulicBoundaryDatabase);
-            AssertHeightStructuresCalculationActivity(activities.ElementAt(1), calculation2, hydraulicBoundaryDatabase);
+            HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryDatabase;
+            AssertHeightStructuresCalculationActivity(activities.First(), calculation1, hydraulicBoundaryData);
+            AssertHeightStructuresCalculationActivity(activities.ElementAt(1), calculation2, hydraulicBoundaryData);
             mocks.VerifyAll();
         }
 
@@ -293,7 +293,7 @@ namespace Riskeer.HeightStructures.Service.Test
 
         private static void AssertHeightStructuresCalculationActivity(Activity activity,
                                                                       ICalculation<HeightStructuresInput> calculation,
-                                                                      HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+                                                                      HydraulicBoundaryData hydraulicBoundaryData)
         {
             var mocks = new MockRepository();
             var testCalculator = new TestStructuresCalculator<StructuresOvertoppingCalculationInput>();
@@ -303,7 +303,7 @@ namespace Riskeer.HeightStructures.Service.Test
                              .WhenCalled(invocation =>
                              {
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase),
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData),
                                      (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(testCalculator);

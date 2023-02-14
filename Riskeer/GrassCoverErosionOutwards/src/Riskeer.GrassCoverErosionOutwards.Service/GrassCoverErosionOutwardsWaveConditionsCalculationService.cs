@@ -112,7 +112,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
 
             double targetProbability = WaveConditionsInputHelper.GetTargetProbability(calculationInput, assessmentSection);
 
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
+            HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryDatabase;
 
             DetermineTotalWaterLevelCalculations(calculationInput, assessmentLevel);
 
@@ -122,7 +122,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
                 if (ShouldCalculateWaveRunUp(calculationType))
                 {
                     CurrentCalculationType = Resources.GrassCoverErosionOutwardsWaveConditions_WaveRunUp_DisplayName;
-                    waveRunUpOutput = CalculateWaveRunUp(calculation, failureMechanism, hydraulicBoundaryDatabase, assessmentLevel, targetProbability);
+                    waveRunUpOutput = CalculateWaveRunUp(calculation, failureMechanism, hydraulicBoundaryData, assessmentLevel, targetProbability);
                 }
 
                 if (Canceled)
@@ -134,14 +134,14 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
                 if (ShouldCalculateWaveImpact(calculationType))
                 {
                     CurrentCalculationType = Resources.GrassCoverErosionOutwardsWaveConditions_WaveImpact_DisplayName;
-                    waveImpactOutput = CalculateWaveImpact(calculation, failureMechanism, hydraulicBoundaryDatabase, assessmentLevel, targetProbability);
+                    waveImpactOutput = CalculateWaveImpact(calculation, failureMechanism, hydraulicBoundaryData, assessmentLevel, targetProbability);
                 }
 
                 IEnumerable<WaveConditionsOutput> waveImpactWithWaveDirectionOutput = null;
                 if (ShouldCalculateWaveImpactWithWaveDirection(calculationType))
                 {
                     CurrentCalculationType = Resources.GrassCoverErosionOutwardsWaveConditions_WaveImpactWithWaveDirection_DisplayName;
-                    waveImpactWithWaveDirectionOutput = CalculateWaveImpactWithWaveDirection(calculation, failureMechanism, hydraulicBoundaryDatabase, assessmentLevel, targetProbability);
+                    waveImpactWithWaveDirectionOutput = CalculateWaveImpactWithWaveDirection(calculation, failureMechanism, hydraulicBoundaryData, assessmentLevel, targetProbability);
                 }
 
                 if (!Canceled)
@@ -235,39 +235,39 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
 
         private IEnumerable<WaveConditionsOutput> CalculateWaveRunUp(GrassCoverErosionOutwardsWaveConditionsCalculation calculation,
                                                                      GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                                                                     HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
+                                                                     HydraulicBoundaryData hydraulicBoundaryData,
                                                                      RoundedDouble assessmentLevel,
                                                                      double targetProbability)
         {
-            return Calculate(calculation, hydraulicBoundaryDatabase, targetProbability, assessmentLevel,
+            return Calculate(calculation, hydraulicBoundaryData, targetProbability, assessmentLevel,
                              failureMechanism.GeneralInput.GeneralWaveRunUpWaveConditionsInput,
                              Resources.GrassCoverErosionOutwardsWaveConditions_WaveRunUp_DisplayName);
         }
 
         private IEnumerable<WaveConditionsOutput> CalculateWaveImpact(GrassCoverErosionOutwardsWaveConditionsCalculation calculation,
                                                                       GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                                                                      HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
+                                                                      HydraulicBoundaryData hydraulicBoundaryData,
                                                                       RoundedDouble assessmentLevel,
                                                                       double targetProbability)
         {
-            return Calculate(calculation, hydraulicBoundaryDatabase, targetProbability, assessmentLevel,
+            return Calculate(calculation, hydraulicBoundaryData, targetProbability, assessmentLevel,
                              failureMechanism.GeneralInput.GeneralWaveImpactWaveConditionsInput,
                              Resources.GrassCoverErosionOutwardsWaveConditions_WaveImpact_DisplayName);
         }
 
         private IEnumerable<WaveConditionsOutput> CalculateWaveImpactWithWaveDirection(GrassCoverErosionOutwardsWaveConditionsCalculation calculation,
                                                                                        GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                                                                                       HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
+                                                                                       HydraulicBoundaryData hydraulicBoundaryData,
                                                                                        RoundedDouble assessmentLevel,
                                                                                        double targetProbability)
         {
-            return Calculate(calculation, hydraulicBoundaryDatabase, targetProbability, assessmentLevel,
+            return Calculate(calculation, hydraulicBoundaryData, targetProbability, assessmentLevel,
                              failureMechanism.GeneralInput.GeneralWaveImpactWithWaveDirectionWaveConditionsInput,
                              Resources.GrassCoverErosionOutwardsWaveConditions_WaveImpactWithWaveDirection_DisplayName);
         }
 
         private IEnumerable<WaveConditionsOutput> Calculate(GrassCoverErosionOutwardsWaveConditionsCalculation calculation,
-                                                            HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
+                                                            HydraulicBoundaryData hydraulicBoundaryData,
                                                             double targetProbability,
                                                             RoundedDouble assessmentLevel,
                                                             GeneralWaveConditionsInput generalInput,
@@ -278,7 +278,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
             IEnumerable<WaveConditionsOutput> outputs = CalculateWaveConditions(calculation.InputParameters,
                                                                                 assessmentLevel,
                                                                                 generalInput.A, generalInput.B, generalInput.C, targetProbability,
-                                                                                hydraulicBoundaryDatabase);
+                                                                                hydraulicBoundaryData);
             log.InfoFormat(RevetmentServiceResources.WaveConditionsCalculationService_Calculate_calculationType_0_ended, calculationType);
             return outputs;
         }

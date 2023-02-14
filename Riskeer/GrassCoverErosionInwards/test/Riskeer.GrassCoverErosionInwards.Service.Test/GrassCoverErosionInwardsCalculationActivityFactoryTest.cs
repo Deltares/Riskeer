@@ -210,9 +210,9 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(GrassCoverErosionInwardsCalculationActivity));
             Assert.AreEqual(2, activities.Count());
 
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
-            AssertGrassCoverErosionInwardsCalculationActivity(activities.First(), calculation1, hydraulicBoundaryDatabase);
-            AssertGrassCoverErosionInwardsCalculationActivity(activities.ElementAt(1), calculation2, hydraulicBoundaryDatabase);
+            HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryDatabase;
+            AssertGrassCoverErosionInwardsCalculationActivity(activities.First(), calculation1, hydraulicBoundaryData);
+            AssertGrassCoverErosionInwardsCalculationActivity(activities.ElementAt(1), calculation2, hydraulicBoundaryData);
             mocks.VerifyAll();
         }
 
@@ -274,9 +274,9 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(GrassCoverErosionInwardsCalculationActivity));
             Assert.AreEqual(2, activities.Count());
 
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
-            AssertGrassCoverErosionInwardsCalculationActivity(activities.First(), calculation1, hydraulicBoundaryDatabase);
-            AssertGrassCoverErosionInwardsCalculationActivity(activities.ElementAt(1), calculation2, hydraulicBoundaryDatabase);
+            HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryDatabase;
+            AssertGrassCoverErosionInwardsCalculationActivity(activities.First(), calculation1, hydraulicBoundaryData);
+            AssertGrassCoverErosionInwardsCalculationActivity(activities.ElementAt(1), calculation2, hydraulicBoundaryData);
             mocks.VerifyAll();
         }
 
@@ -301,7 +301,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
         private static void AssertGrassCoverErosionInwardsCalculationActivity(Activity activity,
                                                                               GrassCoverErosionInwardsCalculation calculation,
-                                                                              HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+                                                                              HydraulicBoundaryData hydraulicBoundaryData)
         {
             var mocks = new MockRepository();
             var testCalculator = new TestOvertoppingCalculator();
@@ -310,7 +310,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                              .WhenCalled(invocation =>
                              {
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase),
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData),
                                      (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(testCalculator);
