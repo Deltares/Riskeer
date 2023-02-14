@@ -294,7 +294,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
                     FilePath = validFilePath
                 }
             };
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             return assessmentSection;
         }

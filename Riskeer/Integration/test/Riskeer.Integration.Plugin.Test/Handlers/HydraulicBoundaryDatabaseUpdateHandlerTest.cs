@@ -448,7 +448,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                     new TestHydraulicBoundaryLocation("old location 3")
                 }
             };
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
+            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryDatabase);
             assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
 
             HydraulicBoundaryLocation[] locations = hydraulicBoundaryDatabase.Locations.ToArray();

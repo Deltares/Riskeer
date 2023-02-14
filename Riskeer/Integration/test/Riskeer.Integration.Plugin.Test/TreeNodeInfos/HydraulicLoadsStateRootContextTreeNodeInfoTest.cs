@@ -252,7 +252,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 {
                     new TestHydraulicBoundaryLocation()
                 });
-                HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+                HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
                 var context = new HydraulicLoadsStateRootContext(assessmentSection);
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();

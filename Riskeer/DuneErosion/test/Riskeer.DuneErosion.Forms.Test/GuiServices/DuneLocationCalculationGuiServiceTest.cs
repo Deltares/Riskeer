@@ -137,7 +137,7 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
             {
                 FilePath = validFilePath
             };
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
+            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryDatabase);
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -173,7 +173,7 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
                     PreprocessorDirectory = validPreprocessorDirectory
                 }
             };
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
+            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryDatabase);
 
             const string calculationIdentifier = "1/100";
             const string duneLocationName = "duneLocationName";

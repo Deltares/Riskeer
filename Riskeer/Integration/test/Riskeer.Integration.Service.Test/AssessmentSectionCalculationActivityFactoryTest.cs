@@ -299,7 +299,7 @@ namespace Riskeer.Integration.Service.Test
                     FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite")
                 }
             };
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             return assessmentSection;
         }

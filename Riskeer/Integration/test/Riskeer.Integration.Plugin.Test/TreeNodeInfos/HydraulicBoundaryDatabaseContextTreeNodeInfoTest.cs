@@ -539,7 +539,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     FilePath = validFilePath
                 }
             };
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             SetHydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilities(assessmentSection);
 

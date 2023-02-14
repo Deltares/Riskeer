@@ -294,7 +294,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
                     FilePath = validFilePath
                 }
             };
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             return assessmentSection;
         }

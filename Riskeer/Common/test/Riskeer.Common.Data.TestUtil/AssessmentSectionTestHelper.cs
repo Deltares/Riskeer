@@ -112,7 +112,7 @@ namespace Riskeer.Common.Data.TestUtil
 
             if (filePath != null)
             {
-                HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
+                HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryDatabase);
             }
 
             return hydraulicBoundaryDatabase;

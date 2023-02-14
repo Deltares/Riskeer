@@ -346,7 +346,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             assessmentSection.HydraulicBoundaryDatabase.FilePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                                                                            nameof(HydraulicBoundaryDatabase)),
                                                                                 "complete.sqlite");
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             var nodeData = new WaterLevelCalculationsForNormTargetProbabilitiesGroupContext(new ObservableList<HydraulicBoundaryLocation>(),
                                                                                             assessmentSection);
@@ -482,7 +482,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 }
             };
 
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]

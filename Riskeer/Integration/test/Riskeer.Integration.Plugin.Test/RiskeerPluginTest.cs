@@ -133,7 +133,7 @@ namespace Riskeer.Integration.Plugin.Test
                         FilePath = testFilePath
                     }
                 };
-                HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+                HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
                 var project = new RiskeerProject(assessmentSection);
 
                 // When

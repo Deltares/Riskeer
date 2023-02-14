@@ -442,7 +442,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             };
             assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Add(calculations);
 
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             var nodeData = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(calculations, assessmentSection);
 
@@ -606,7 +606,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     calculations
                 }
             };
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             var context = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(calculations, assessmentSection);
 
@@ -695,7 +695,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     calculations
                 }
             };
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             var context = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(calculations, assessmentSection);
 
@@ -783,7 +783,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     calculations
                 }
             };
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             var context = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(calculations, assessmentSection);
             using (var treeViewControl = new TreeViewControl())
@@ -865,7 +865,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     calculations
                 }
             };
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             var context = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(calculations, assessmentSection);
             using (var treeViewControl = new TreeViewControl())

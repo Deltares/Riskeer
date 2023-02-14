@@ -1022,7 +1022,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                     FilePath = validFilePath
                 }
             };
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 new TestHydraulicBoundaryLocation()

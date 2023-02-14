@@ -714,7 +714,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
             {
                 new TestHydraulicBoundaryLocation()
             });
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             return assessmentSection;
         }
