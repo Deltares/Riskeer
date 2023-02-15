@@ -59,9 +59,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
         /// or <paramref name="assessmentSection"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when:
         /// <list type="bullet">
-        /// <item>the hydraulic boundary database file path contains invalid characters.</item>
+        /// <item>the hydraulic boundary database file path contains invalid characters;</item>
         /// <item><paramref name="failureMechanism"/> has no (0) contribution.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when an unexpected
         /// enum value is encountered.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when:

@@ -46,7 +46,7 @@ namespace Riskeer.Integration.IO.Handlers
         /// <param name="readHydraulicLocationConfigurationDatabaseSettings">The read hydraulic location configuration database
         /// settings to update with.</param>
         /// <param name="usePreprocessorClosure">Indicator whether to use the preprocessor closure.</param>
-        /// <param name="hlcdFilePath">The file path of the hlcd.</param>
+        /// <param name="hlcdFilePath">The file path of the hydraulic location configuration database.</param>
         /// <returns>All objects that have been affected by the update.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryData"/> or
         /// <paramref name="hlcdFilePath"/> is <c>null</c>.</exception>

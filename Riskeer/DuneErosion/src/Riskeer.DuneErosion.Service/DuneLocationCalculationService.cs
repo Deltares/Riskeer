@@ -60,11 +60,12 @@ namespace Riskeer.DuneErosion.Service
         /// <paramref name="calculationSettings"/> or <paramref name="messageProvider"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when:
         /// <list type="bullet">
-        /// <item>The hydraulic boundary database file path contains invalid characters.</item>
-        /// <item>The contribution of the failure mechanism is zero.</item>
-        /// <item>The target probability or the calculated probability falls outside the [0.0, 1.0] 
+        /// <item>the hydraulic boundary database file path contains invalid characters;</item>
+        /// <item>the contribution of the failure mechanism is zero;</item>
+        /// <item>the target probability or the calculated probability falls outside the [0.0, 1.0] 
         /// range and is not <see cref="double.NaN"/>.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
         /// <item>no hydraulic boundary settings database could be found;</item>
@@ -208,7 +209,7 @@ namespace Riskeer.DuneErosion.Service
         /// hydraulic boundary calculation settings.</param>
         /// <returns>A <see cref="DunesBoundaryConditionsCalculationInput"/> with all needed
         /// input data.</returns>
-        /// <exception cref="ArgumentException">Thrown when the hydraulic boundary database file path.
+        /// <exception cref="ArgumentException">Thrown when the hydraulic boundary database file path
         /// contains invalid characters.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">

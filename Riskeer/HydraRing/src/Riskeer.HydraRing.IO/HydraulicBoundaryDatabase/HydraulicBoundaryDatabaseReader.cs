@@ -33,8 +33,7 @@ using Riskeer.HydraRing.IO.Properties;
 namespace Riskeer.HydraRing.IO.HydraulicBoundaryDatabase
 {
     /// <summary>
-    /// This class reads a hydraulic boundary database file and constructs a
-    /// <see cref="ReadHydraulicBoundaryDatabase"/> instance from this database.
+    /// This class reads a hydraulic boundary database file and constructs a <see cref="ReadHydraulicBoundaryDatabase"/> from it.
     /// </summary>
     public class HydraulicBoundaryDatabaseReader : SqLiteDatabaseReaderBase
     {
