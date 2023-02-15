@@ -235,19 +235,19 @@ namespace Riskeer.Storage.Core.TestUtil
             failureMechanism.GeneralInput.N = random.NextRoundedDouble(1, 20);
         }
 
-        private static void SetHydraulicBoundaryLocationConfigurationSettings(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+        private static void SetHydraulicBoundaryLocationConfigurationSettings(HydraulicBoundaryData hydraulicBoundaryData)
         {
-            hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.SetValues("some\\Path\\ToHlcd",
-                                                                                       "ScenarioName",
-                                                                                       1337,
-                                                                                       "Scope",
-                                                                                       false,
-                                                                                       "SeaLevel",
-                                                                                       "RiverDischarge",
-                                                                                       "LakeLevel",
-                                                                                       "WindDirection",
-                                                                                       "WindSpeed",
-                                                                                       "Comment");
+            hydraulicBoundaryData.HydraulicLocationConfigurationSettings.SetValues("some\\Path\\ToHlcd",
+                                                                                   "ScenarioName",
+                                                                                   1337,
+                                                                                   "Scope",
+                                                                                   false,
+                                                                                   "SeaLevel",
+                                                                                   "RiverDischarge",
+                                                                                   "LakeLevel",
+                                                                                   "WindDirection",
+                                                                                   "WindSpeed",
+                                                                                   "Comment");
         }
 
         private static void SetSections(IFailureMechanism failureMechanism)

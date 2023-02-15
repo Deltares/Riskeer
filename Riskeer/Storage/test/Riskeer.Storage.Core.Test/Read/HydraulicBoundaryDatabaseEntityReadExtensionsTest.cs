@@ -35,10 +35,10 @@ namespace Riskeer.Storage.Core.Test.Read
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((HydraulicBoundaryDatabaseEntity) null).Read(new HydraulicBoundaryDatabase());
+            void Call() => ((HydraulicBoundaryDatabaseEntity) null).Read(new HydraulicBoundaryData());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("entity", exception.ParamName);
         }
 
@@ -49,10 +49,10 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new HydraulicBoundaryDatabaseEntity();
 
             // Call
-            TestDelegate call = () => entity.Read(null);
+            void Call() => entity.Read(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("hydraulicBoundaryDatabase", exception.ParamName);
         }
 
@@ -79,16 +79,16 @@ namespace Riskeer.Storage.Core.Test.Read
                 HydraulicLocationConfigurationSettingsComment = "Comment"
             };
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            var hydraulicBoundaryData = new HydraulicBoundaryData();
 
             // Call
-            entity.Read(hydraulicBoundaryDatabase);
+            entity.Read(hydraulicBoundaryData);
 
             // Assert
-            Assert.AreEqual(entity.FilePath, hydraulicBoundaryDatabase.FilePath);
-            Assert.AreEqual(entity.Version, hydraulicBoundaryDatabase.Version);
+            Assert.AreEqual(entity.FilePath, hydraulicBoundaryData.FilePath);
+            Assert.AreEqual(entity.Version, hydraulicBoundaryData.Version);
 
-            HydraulicLocationConfigurationSettings settings = hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings;
+            HydraulicLocationConfigurationSettings settings = hydraulicBoundaryData.HydraulicLocationConfigurationSettings;
             Assert.AreEqual(entity.HydraulicLocationConfigurationSettingsFilePath, settings.FilePath);
             Assert.AreEqual(entity.HydraulicLocationConfigurationSettingsScenarioName, settings.ScenarioName);
             Assert.AreEqual(entity.HydraulicLocationConfigurationSettingsYear, settings.Year);
