@@ -98,14 +98,14 @@ namespace Riskeer.Integration.IO.Importers
                 readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings;
             if (hydraulicLocationConfigurationDatabaseSettings != null && hydraulicLocationConfigurationDatabaseSettings.Count() != 1)
             {
-                Log.Error(BuildErrorMessage(hlcdFilePath, Resources.HydraulicBoundaryDatabaseImporter_HLCD_Invalid_number_of_ScenarioInformation_entries));
+                Log.Error(BuildErrorMessage(hlcdFilePath, Resources.HydraulicBoundaryDataImporter_HLCD_Invalid_number_of_ScenarioInformation_entries));
                 return false;
             }
 
             if (readHydraulicLocationConfigurationDatabase.UsePreprocessorClosure
                 && !File.Exists(HydraulicBoundaryDataHelper.GetPreprocessorClosureFilePath(hlcdFilePath)))
             {
-                Log.Error(BuildErrorMessage(hlcdFilePath, Resources.HydraulicBoundaryDatabaseImporter_PreprocessorClosure_sqlite_Not_Found));
+                Log.Error(BuildErrorMessage(hlcdFilePath, Resources.HydraulicBoundaryDataImporter_PreprocessorClosure_sqlite_Not_Found));
                 return false;
             }
 
@@ -124,7 +124,7 @@ namespace Riskeer.Integration.IO.Importers
 
         protected override void LogImportCanceledMessage()
         {
-            Log.Info(Resources.HydraulicBoundaryDatabaseImporter_ProgressText_Import_canceled_No_data_changed);
+            Log.Info(Resources.HydraulicBoundaryDataImporter_ProgressText_Import_canceled_No_data_changed);
         }
 
         protected override void DoPostImportUpdates()
@@ -150,7 +150,7 @@ namespace Riskeer.Integration.IO.Importers
 
         private ReadResult<ReadHydraulicBoundaryDatabase> ReadHydraulicBoundaryDatabase()
         {
-            NotifyProgress(Resources.HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HRD_file, 1, numberOfSteps);
+            NotifyProgress(Resources.HydraulicBoundaryDataImporter_ProgressText_Reading_HRD_file, 1, numberOfSteps);
             try
             {
                 using (var reader = new HydraulicBoundaryDatabaseReader(FilePath))
@@ -172,7 +172,7 @@ namespace Riskeer.Integration.IO.Importers
 
         private ReadResult<ReadHydraulicLocationConfigurationDatabase> ReadHydraulicLocationConfigurationDatabase(string hlcdFilePath, long trackId)
         {
-            NotifyProgress(Resources.HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HLCD_file, 2, numberOfSteps);
+            NotifyProgress(Resources.HydraulicBoundaryDataImporter_ProgressText_Reading_HLCD_file, 2, numberOfSteps);
             try
             {
                 using (var reader = new HydraulicLocationConfigurationDatabaseReader(hlcdFilePath))
@@ -182,7 +182,7 @@ namespace Riskeer.Integration.IO.Importers
             }
             catch (CriticalFileReadException)
             {
-                return HandleCriticalFileReadError<ReadHydraulicLocationConfigurationDatabase>(Resources.HydraulicBoundaryDatabaseImporter_HLCD_sqlite_Not_Found);
+                return HandleCriticalFileReadError<ReadHydraulicLocationConfigurationDatabase>(Resources.HydraulicBoundaryDataImporter_HLCD_sqlite_Not_Found);
             }
         }
 
@@ -206,7 +206,7 @@ namespace Riskeer.Integration.IO.Importers
 
         private ReadResult<IEnumerable<long>> ReadExcludedLocations()
         {
-            NotifyProgress(Resources.HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HRD_settings_file, 3, numberOfSteps);
+            NotifyProgress(Resources.HydraulicBoundaryDataImporter_ProgressText_Reading_HRD_settings_file, 3, numberOfSteps);
             string hbsdFilePath = HydraulicBoundaryDataHelper.GetHydraulicBoundarySettingsDatabaseFilePath(FilePath);
             try
             {
@@ -218,7 +218,7 @@ namespace Riskeer.Integration.IO.Importers
             catch (CriticalFileReadException e)
             {
                 return HandleCriticalFileReadError<IEnumerable<long>>(
-                    string.Format(Resources.HydraulicBoundaryDatabaseImporter_Cannot_open_hydraulic_calculation_settings_file_0_, e.Message));
+                    string.Format(Resources.HydraulicBoundaryDataImporter_Cannot_open_hydraulic_calculation_settings_file_0_, e.Message));
             }
         }
 
@@ -251,7 +251,7 @@ namespace Riskeer.Integration.IO.Importers
 
         private ReadResult<T> HandleCriticalFileReadError<T>(Exception e)
         {
-            string errorMessage = string.Format(Resources.HydraulicBoundaryDatabaseImporter_HandleCriticalFileReadError_Error_0_No_HydraulicBoundaryDatabase_imported,
+            string errorMessage = string.Format(Resources.HydraulicBoundaryDataImporter_HandleCriticalFileReadError_Error_0_No_HydraulicBoundaryDatabase_imported,
                                                 e.Message);
             Log.Error(errorMessage);
             return new ReadResult<T>(true);
@@ -282,7 +282,7 @@ namespace Riskeer.Integration.IO.Importers
         private static string BuildErrorMessage(string filePath, string message)
         {
             return new FileReaderErrorMessageBuilder(filePath).Build(
-                string.Format(Resources.HydraulicBoundaryDatabaseImporter_HandleCriticalFileReadError_Error_0_No_HydraulicBoundaryDatabase_imported,
+                string.Format(Resources.HydraulicBoundaryDataImporter_HandleCriticalFileReadError_Error_0_No_HydraulicBoundaryDatabase_imported,
                               message));
         }
     }

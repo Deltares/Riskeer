@@ -117,7 +117,7 @@ namespace Riskeer.Integration.IO.Importers
             if (readHydraulicLocationConfigurationDatabase.UsePreprocessorClosure
                 && !File.Exists(HydraulicBoundaryDataHelper.GetPreprocessorClosureFilePath(FilePath)))
             {
-                Log.Error(BuildErrorMessage(FilePath, Resources.HydraulicBoundaryDatabaseImporter_PreprocessorClosure_sqlite_Not_Found));
+                Log.Error(BuildErrorMessage(FilePath, Resources.HydraulicBoundaryDataImporter_PreprocessorClosure_sqlite_Not_Found));
                 return false;
             }
 
@@ -155,7 +155,7 @@ namespace Riskeer.Integration.IO.Importers
 
         private ReadResult<long> ReadTrackId()
         {
-            NotifyProgress(Resources.HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HRD_file, 1, numberOfSteps);
+            NotifyProgress(Resources.HydraulicBoundaryDataImporter_ProgressText_Reading_HRD_file, 1, numberOfSteps);
             try
             {
                 using (var reader = new HydraulicBoundaryDatabaseReader(hydraulicBoundaryData.FilePath))
@@ -177,7 +177,7 @@ namespace Riskeer.Integration.IO.Importers
 
         private ReadResult<ReadHydraulicLocationConfigurationDatabase> ReadHydraulicLocationConfigurationDatabase(long trackId)
         {
-            NotifyProgress(Resources.HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HLCD_file, 2, numberOfSteps);
+            NotifyProgress(Resources.HydraulicBoundaryDataImporter_ProgressText_Reading_HLCD_file, 2, numberOfSteps);
             try
             {
                 using (var reader = new HydraulicLocationConfigurationDatabaseReader(FilePath))
