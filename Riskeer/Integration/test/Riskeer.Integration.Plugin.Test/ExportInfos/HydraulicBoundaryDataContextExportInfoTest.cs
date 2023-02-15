@@ -34,7 +34,7 @@ using CoreGuiResources = Core.Gui.Properties.Resources;
 namespace Riskeer.Integration.Plugin.Test.ExportInfos
 {
     [TestFixture]
-    public class HydraulicBoundaryDatabaseContextExportInfoTest
+    public class HydraulicBoundaryDataContextExportInfoTest
     {
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -86,7 +86,7 @@ namespace Riskeer.Integration.Plugin.Test.ExportInfos
                     }
                 }
             };
-            var context = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryData, assessmentSection);
+            var context = new HydraulicBoundaryDataContext(assessmentSection.HydraulicBoundaryData, assessmentSection);
             const string filePath = "test";
 
             using (var plugin = new RiskeerPlugin())
@@ -106,7 +106,7 @@ namespace Riskeer.Integration.Plugin.Test.ExportInfos
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            var context = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryData, assessmentSection);
+            var context = new HydraulicBoundaryDataContext(assessmentSection.HydraulicBoundaryData, assessmentSection);
 
             using (var plugin = new RiskeerPlugin())
             {
@@ -131,7 +131,7 @@ namespace Riskeer.Integration.Plugin.Test.ExportInfos
                     FilePath = "databaseFile"
                 }
             };
-            var context = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryData, assessmentSection);
+            var context = new HydraulicBoundaryDataContext(assessmentSection.HydraulicBoundaryData, assessmentSection);
 
             using (var plugin = new RiskeerPlugin())
             {
@@ -147,7 +147,7 @@ namespace Riskeer.Integration.Plugin.Test.ExportInfos
 
         private static ExportInfo GetExportInfo(RiskeerPlugin plugin)
         {
-            return plugin.GetExportInfos().First(ei => ei.DataType == typeof(HydraulicBoundaryDatabaseContext));
+            return plugin.GetExportInfos().First(ei => ei.DataType == typeof(HydraulicBoundaryDataContext));
         }
     }
 }

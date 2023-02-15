@@ -29,15 +29,15 @@ namespace Riskeer.Integration.Forms.PresentationObjects
     /// <summary>
     /// Presentation object for all data required to configure an instance of <see cref="HydraulicBoundaryData"/>.
     /// </summary>
-    public class HydraulicBoundaryDatabaseContext : ObservableWrappedObjectContextBase<HydraulicBoundaryData>
+    public class HydraulicBoundaryDataContext : ObservableWrappedObjectContextBase<HydraulicBoundaryData>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="HydraulicBoundaryDatabaseContext"/>.
+        /// Creates a new instance of <see cref="HydraulicBoundaryDataContext"/>.
         /// </summary>
-        /// <param name="wrappedData">The <see cref="HydraulicBoundaryData"/> that the <see cref="HydraulicBoundaryDatabaseContext"/> belongs to.</param>
-        /// <param name="assessmentSection">The assessment section that the <see cref="HydraulicBoundaryDatabaseContext"/> belongs to.</param>
+        /// <param name="wrappedData">The <see cref="HydraulicBoundaryData"/> that the <see cref="HydraulicBoundaryDataContext"/> belongs to.</param>
+        /// <param name="assessmentSection">The assessment section that the <see cref="HydraulicBoundaryDataContext"/> belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public HydraulicBoundaryDatabaseContext(HydraulicBoundaryData wrappedData, AssessmentSection assessmentSection)
+        public HydraulicBoundaryDataContext(HydraulicBoundaryData wrappedData, AssessmentSection assessmentSection)
             : base(wrappedData)
         {
             if (assessmentSection == null)

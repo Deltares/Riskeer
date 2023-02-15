@@ -237,7 +237,7 @@ namespace Riskeer.Integration.Plugin
             {
                 CreateInstance = data => new BackgroundDataProperties(data)
             };
-            yield return new PropertyInfo<HydraulicBoundaryDatabaseContext, HydraulicBoundaryDatabaseProperties>
+            yield return new PropertyInfo<HydraulicBoundaryDataContext, HydraulicBoundaryDatabaseProperties>
             {
                 CreateInstance = context => new HydraulicBoundaryDatabaseProperties(
                     context.WrappedData,
@@ -560,7 +560,7 @@ namespace Riskeer.Integration.Plugin
                 VerifyUpdates = context => VerifyForeshoreProfileUpdates(context, Resources.RiskeerPlugin_VerifyForeshoreProfileUpdates_When_importing_ForeshoreProfile_definitions_assigned_to_calculations_output_will_be_cleared_confirm)
             };
 
-            yield return new ImportInfo<HydraulicBoundaryDatabaseContext>
+            yield return new ImportInfo<HydraulicBoundaryDataContext>
             {
                 Name = RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName,
                 Image = RiskeerCommonFormsResources.DatabaseIcon,
@@ -587,7 +587,7 @@ namespace Riskeer.Integration.Plugin
                                                                                                            RiskeerCommonIOResources.Shape_file_filter_Description))
             };
 
-            yield return new ExportInfo<HydraulicBoundaryDatabaseContext>
+            yield return new ExportInfo<HydraulicBoundaryDataContext>
             {
                 Name = context => RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName,
                 Extension = RiskeerCommonIOResources.Zip_file_filter_Extension,
@@ -857,15 +857,15 @@ namespace Riskeer.Integration.Plugin
                 ContextMenuStrip = CategoryTreeFolderContextMenu
             };
 
-            yield return new TreeNodeInfo<HydraulicBoundaryDatabaseContext>
+            yield return new TreeNodeInfo<HydraulicBoundaryDataContext>
             {
                 Text = hydraulicBoundaryDatabase => RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName,
                 Image = hydraulicBoundaryDatabase => RiskeerCommonFormsResources.GeneralFolderIcon,
                 ForeColor = context => context.WrappedData.IsLinked()
                                            ? Color.FromKnownColor(KnownColor.ControlText)
                                            : Color.FromKnownColor(KnownColor.GrayText),
-                ChildNodeObjects = HydraulicBoundaryDatabaseChildNodeObjects,
-                ContextMenuStrip = HydraulicBoundaryDatabaseContextMenuStrip
+                ChildNodeObjects = HydraulicBoundaryDataContextChildNodeObjects,
+                ContextMenuStrip = HydraulicBoundaryDataContextMenuStrip
             };
 
             yield return new TreeNodeInfo<WaterLevelCalculationsForNormTargetProbabilitiesGroupContext>
@@ -1742,7 +1742,7 @@ namespace Riskeer.Integration.Plugin
 
             return new object[]
             {
-                new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryData, assessmentSection),
+                new HydraulicBoundaryDataContext(assessmentSection.HydraulicBoundaryData, assessmentSection),
                 new StabilityStoneCoverHydraulicLoadsStateFailureMechanismContext(assessmentSection.StabilityStoneCover, assessmentSection),
                 new WaveImpactAsphaltCoverHydraulicLoadsStateFailureMechanismContext(assessmentSection.WaveImpactAsphaltCover, assessmentSection),
                 new GrassCoverErosionOutwardsHydraulicLoadsStateFailureMechanismContext(assessmentSection.GrassCoverErosionOutwards, assessmentSection),
@@ -2376,7 +2376,7 @@ namespace Riskeer.Integration.Plugin
 
         #region HydraulicBoundaryDatabase TreeNodeInfo
 
-        private static object[] HydraulicBoundaryDatabaseChildNodeObjects(HydraulicBoundaryDatabaseContext nodeData)
+        private static object[] HydraulicBoundaryDataContextChildNodeObjects(HydraulicBoundaryDataContext nodeData)
         {
             if (nodeData.WrappedData.IsLinked())
             {
@@ -2404,7 +2404,7 @@ namespace Riskeer.Integration.Plugin
             }
         }
 
-        private ContextMenuStrip HydraulicBoundaryDatabaseContextMenuStrip(HydraulicBoundaryDatabaseContext nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip HydraulicBoundaryDataContextMenuStrip(HydraulicBoundaryDataContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             var calculateAllItem = new StrictContextMenuItem(
                 RiskeerCommonFormsResources.Calculate_All,

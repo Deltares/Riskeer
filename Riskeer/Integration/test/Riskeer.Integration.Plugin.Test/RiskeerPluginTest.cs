@@ -234,7 +234,7 @@ namespace Riskeer.Integration.Plugin.Test
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(HydraulicBoundaryDatabaseContext),
+                    typeof(HydraulicBoundaryDataContext),
                     typeof(HydraulicBoundaryDatabaseProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
@@ -361,7 +361,7 @@ namespace Riskeer.Integration.Plugin.Test
                 // Assert
                 Assert.AreEqual(9, exportInfos.Length);
                 Assert.IsTrue(exportInfos.Any(ei => ei.DataType == typeof(ReferenceLineContext)));
-                Assert.IsTrue(exportInfos.Any(ei => ei.DataType == typeof(HydraulicBoundaryDatabaseContext)));
+                Assert.IsTrue(exportInfos.Any(ei => ei.DataType == typeof(HydraulicBoundaryDataContext)));
                 Assert.IsTrue(exportInfos.Any(ei => ei.DataType == typeof(AssemblyResultsContext)));
                 Assert.IsTrue(exportInfos.Any(ei => ei.DataType == typeof(WaterLevelCalculationsForUserDefinedTargetProbabilityContext)));
                 Assert.IsTrue(exportInfos.Any(ei => ei.DataType == typeof(WaveHeightCalculationsForUserDefinedTargetProbabilityContext)));
@@ -589,7 +589,7 @@ namespace Riskeer.Integration.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaterPressureAsphaltCoverFailureMechanismContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(CategoryTreeFolder)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionsContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(HydraulicBoundaryDatabaseContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(HydraulicBoundaryDataContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaterLevelCalculationsForNormTargetProbabilitiesGroupContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaterLevelCalculationsForNormTargetProbabilityContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext)));
@@ -690,7 +690,7 @@ namespace Riskeer.Integration.Plugin.Test
                 Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(ReferenceLineContext)));
                 Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(FailureMechanismSectionsContext)));
                 Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(ForeshoreProfilesContext)));
-                Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(HydraulicBoundaryDatabaseContext)));
+                Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(HydraulicBoundaryDataContext)));
             }
         }
 

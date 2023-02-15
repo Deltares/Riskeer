@@ -30,7 +30,7 @@ using Riskeer.Integration.Forms.PresentationObjects;
 namespace Riskeer.Integration.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class HydraulicBoundaryDatabaseContextTest
+    public class HydraulicBoundaryDataContextTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -39,7 +39,7 @@ namespace Riskeer.Integration.Forms.Test.PresentationObjects
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             // Call
-            var context = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryData, assessmentSection);
+            var context = new HydraulicBoundaryDataContext(assessmentSection.HydraulicBoundaryData, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<HydraulicBoundaryData>>(context);
@@ -51,7 +51,7 @@ namespace Riskeer.Integration.Forms.Test.PresentationObjects
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new HydraulicBoundaryDatabaseContext(new HydraulicBoundaryData(), null);
+            TestDelegate call = () => new HydraulicBoundaryDataContext(new HydraulicBoundaryData(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

@@ -58,7 +58,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class HydraulicBoundaryDatabaseContextTreeNodeInfoTest : NUnitFormTest
+    public class HydraulicBoundaryDataContextTreeNodeInfoTest : NUnitFormTest
     {
         private const int contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
         private const int contextMenuCalculateAllIndex = 3;
@@ -105,8 +105,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             const string name = "Hydraulische belastingen";
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            var context = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryData,
-                                                               assessmentSection);
+            var context = new HydraulicBoundaryDataContext(assessmentSection.HydraulicBoundaryData,
+                                                           assessmentSection);
 
             using (var plugin = new RiskeerPlugin())
             {
@@ -141,8 +141,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            var context = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryData,
-                                                               assessmentSection);
+            var context = new HydraulicBoundaryDataContext(assessmentSection.HydraulicBoundaryData,
+                                                           assessmentSection);
 
             var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
             using (mocks.Ordered())
@@ -188,8 +188,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            var context = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryData,
-                                                               assessmentSection);
+            var context = new HydraulicBoundaryDataContext(assessmentSection.HydraulicBoundaryData,
+                                                           assessmentSection);
 
             var applicationFeatureCommands = mocks.Stub<IApplicationFeatureCommands>();
             var importCommandHandler = mocks.Stub<IImportCommandHandler>();
@@ -241,15 +241,15 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryData,
-                                                                                        assessmentSection);
+            var hydraulicBoundaryDataContext = new HydraulicBoundaryDataContext(assessmentSection.HydraulicBoundaryData,
+                                                                                assessmentSection);
 
             using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                Color color = info.ForeColor(hydraulicBoundaryDatabaseContext);
+                Color color = info.ForeColor(hydraulicBoundaryDataContext);
 
                 // Assert
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);
@@ -267,15 +267,15 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     FilePath = "databaseFile"
                 }
             };
-            var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryData,
-                                                                                        assessmentSection);
+            var hydraulicBoundaryDataContext = new HydraulicBoundaryDataContext(assessmentSection.HydraulicBoundaryData,
+                                                                                assessmentSection);
 
             using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                Color color = info.ForeColor(hydraulicBoundaryDatabaseContext);
+                Color color = info.ForeColor(hydraulicBoundaryDataContext);
 
                 // Assert
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
@@ -287,15 +287,15 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryData,
-                                                                                        assessmentSection);
+            var hydraulicBoundaryDataContext = new HydraulicBoundaryDataContext(assessmentSection.HydraulicBoundaryData,
+                                                                                assessmentSection);
 
             using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                object[] objects = info.ChildNodeObjects(hydraulicBoundaryDatabaseContext).ToArray();
+                object[] objects = info.ChildNodeObjects(hydraulicBoundaryDataContext).ToArray();
 
                 // Assert
                 Assert.AreEqual(0, objects.Length);
@@ -313,15 +313,15 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     FilePath = "databaseFile"
                 }
             };
-            var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryData,
-                                                                                        assessmentSection);
+            var hydraulicBoundaryDataContext = new HydraulicBoundaryDataContext(assessmentSection.HydraulicBoundaryData,
+                                                                                assessmentSection);
 
             using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                object[] objects = info.ChildNodeObjects(hydraulicBoundaryDatabaseContext).ToArray();
+                object[] objects = info.ChildNodeObjects(hydraulicBoundaryDataContext).ToArray();
 
                 // Assert
                 Assert.AreEqual(3, objects.Length);
@@ -352,7 +352,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 hydraulicBoundaryLocation
             });
 
-            var nodeData = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryData, assessmentSection);
+            var nodeData = new HydraulicBoundaryDataContext(assessmentSection.HydraulicBoundaryData, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -402,7 +402,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 hydraulicBoundaryLocation
             });
 
-            var nodeData = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryData, assessmentSection);
+            var nodeData = new HydraulicBoundaryDataContext(assessmentSection.HydraulicBoundaryData, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -453,7 +453,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             HydraulicBoundaryLocationCalculation calculation = getHydraulicBoundaryLocationCalculationFunc(assessmentSection);
             calculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble(), new TestGeneralResultSubMechanismIllustrationPoint());
 
-            var nodeData = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryData, assessmentSection);
+            var nodeData = new HydraulicBoundaryDataContext(assessmentSection.HydraulicBoundaryData, assessmentSection);
 
             var mockRepository = new MockRepository();
             using (var treeViewControl = new TreeViewControl())
@@ -496,7 +496,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 new TestHydraulicBoundaryLocation()
             });
 
-            var nodeData = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryData, assessmentSection);
+            var nodeData = new HydraulicBoundaryDataContext(assessmentSection.HydraulicBoundaryData, assessmentSection);
 
             var mockRepository = new MockRepository();
             using (var treeViewControl = new TreeViewControl())
@@ -549,7 +549,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 hydraulicBoundaryLocation
             });
 
-            var context = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryData, assessmentSection);
+            var context = new HydraulicBoundaryDataContext(assessmentSection.HydraulicBoundaryData, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             using (var plugin = new RiskeerPlugin())
@@ -675,7 +675,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 helper.ClickCancel();
             };
 
-            var context = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryData, assessmentSection);
+            var context = new HydraulicBoundaryDataContext(assessmentSection.HydraulicBoundaryData, assessmentSection);
 
             var mockRepository = new MockRepository();
             using (var treeViewControl = new TreeViewControl())
@@ -736,7 +736,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 helper.ClickOk();
             };
 
-            var context = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryData, assessmentSection);
+            var context = new HydraulicBoundaryDataContext(assessmentSection.HydraulicBoundaryData, assessmentSection);
 
             var mockRepository = new MockRepository();
             using (var treeViewControl = new TreeViewControl())
@@ -859,7 +859,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
         private static TreeNodeInfo GetInfo(RiskeerPlugin plugin)
         {
-            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(HydraulicBoundaryDatabaseContext));
+            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(HydraulicBoundaryDataContext));
         }
     }
 }
