@@ -128,11 +128,11 @@ namespace Riskeer.Piping.Service.Probabilistic
         /// contains invalid characters.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
-        /// <item>No settings database file could be found at the location of the hydraulic boundary database file path
-        /// with the same name.</item>
-        /// <item>Unable to open settings database file.</item>
-        /// <item>Unable to read required data from database file.</item>
-        /// </list></exception>
+        /// <item>no hydraulic boundary settings database could be found;</item>
+        /// <item>the hydraulic boundary settings database cannot be opened;</item>
+        /// <item>the required data cannot be read from the hydraulic boundary settings database.</item>
+        /// </list>
+        /// </exception>
         /// <exception cref="HydraRingFileParserException">Thrown when an error occurs during parsing of the Hydra-Ring output.</exception>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs during the calculation.</exception>
         internal void Calculate(ProbabilisticPipingCalculation calculation, GeneralPipingInput generalInput,
