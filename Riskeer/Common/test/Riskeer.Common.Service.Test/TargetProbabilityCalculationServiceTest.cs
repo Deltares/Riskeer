@@ -33,7 +33,7 @@ namespace Riskeer.Common.Service.Test
     public class TargetProbabilityCalculationServiceTest
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
-        private static readonly string validHydraulicBoundaryDatabaseFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
         private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "Hlcd.sqlite");
         private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
         private static readonly TargetProbabilityCalculationService calculationService = new TestTargetProbabilityCalculationService();
@@ -73,8 +73,8 @@ namespace Riskeer.Common.Service.Test
         public void Validate_InvalidHydraulicBoundaryDatabasePath_LogsErrorAndReturnsFalse()
         {
             // Setup
-            string invalidHydraulicBoundaryDatabaseFilePath = Path.Combine(testDataPath, "notexisting.sqlite");
-            var calculationSettings = new HydraulicBoundaryCalculationSettings(invalidHydraulicBoundaryDatabaseFilePath,
+            string invalidHrdFilePath = Path.Combine(testDataPath, "notexisting.sqlite");
+            var calculationSettings = new HydraulicBoundaryCalculationSettings(invalidHrdFilePath,
                                                                                validHlcdFilePath,
                                                                                false,
                                                                                string.Empty);
@@ -99,9 +99,9 @@ namespace Riskeer.Common.Service.Test
         public void Validate_ValidHydraulicBoundaryDatabaseWithoutSettings_LogsErrorAndReturnsFalse()
         {
             // Setup
-            string invalidHydraulicBoundaryDatabaseFilePath = Path.Combine(testDataPath, "HRD nosettings.sqlite");
+            string invalidHrdFilePath = Path.Combine(testDataPath, "HRD nosettings.sqlite");
             var valid = false;
-            var calculationSettings = new HydraulicBoundaryCalculationSettings(invalidHydraulicBoundaryDatabaseFilePath,
+            var calculationSettings = new HydraulicBoundaryCalculationSettings(invalidHrdFilePath,
                                                                                validHlcdFilePath,
                                                                                false,
                                                                                string.Empty);
@@ -127,7 +127,7 @@ namespace Riskeer.Common.Service.Test
             // Setup
             const string invalidPreprocessorDirectory = "NonExistingPreprocessorDirectory";
             var valid = true;
-            var calculationSettings = new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
+            var calculationSettings = new HydraulicBoundaryCalculationSettings(validHrdFilePath,
                                                                                validHlcdFilePath,
                                                                                false,
                                                                                invalidPreprocessorDirectory);
@@ -152,7 +152,7 @@ namespace Riskeer.Common.Service.Test
         {
             // Setup
             var valid = true;
-            var calculationSettings = new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
+            var calculationSettings = new HydraulicBoundaryCalculationSettings(validHrdFilePath,
                                                                                validHlcdFilePath,
                                                                                true,
                                                                                string.Empty);
@@ -174,7 +174,7 @@ namespace Riskeer.Common.Service.Test
 
         private static HydraulicBoundaryCalculationSettings CreateValidCalculationSettings()
         {
-            return new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
+            return new HydraulicBoundaryCalculationSettings(validHrdFilePath,
                                                             validHlcdFilePath,
                                                             false,
                                                             validPreprocessorDirectory);

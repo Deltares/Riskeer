@@ -44,7 +44,7 @@ namespace Riskeer.Common.Service.Test
     public class WaveHeightCalculationActivityTest
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
-        private static readonly string validHydraulicBoundaryDatabaseFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
         private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "Hlcd.sqlite");
         private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
 
@@ -140,7 +140,7 @@ namespace Riskeer.Common.Service.Test
             const string locationName = "locationName";
             const string calculationIdentifier = "1/100";
 
-            var settings = new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
+            var settings = new HydraulicBoundaryCalculationSettings(validHrdFilePath,
                                                                     validHlcdFilePath,
                                                                     false,
                                                                     invalidPreprocessorDirectory);
@@ -180,7 +180,7 @@ namespace Riskeer.Common.Service.Test
                 Converged = true
             };
             string preprocessorDirectory = usePreprocessor ? validPreprocessorDirectory : string.Empty;
-            var calculationSettings = new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
+            var calculationSettings = new HydraulicBoundaryCalculationSettings(validHrdFilePath,
                                                                                validHlcdFilePath,
                                                                                false,
                                                                                preprocessorDirectory);
@@ -475,7 +475,7 @@ namespace Riskeer.Common.Service.Test
 
         private static HydraulicBoundaryCalculationSettings CreateCalculationSettings()
         {
-            return new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
+            return new HydraulicBoundaryCalculationSettings(validHrdFilePath,
                                                             validHlcdFilePath,
                                                             false,
                                                             string.Empty);
