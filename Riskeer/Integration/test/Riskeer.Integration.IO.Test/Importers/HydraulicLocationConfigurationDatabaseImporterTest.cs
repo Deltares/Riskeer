@@ -65,7 +65,7 @@ namespace Riskeer.Integration.IO.Test.Importers
         }
 
         [Test]
-        public void Constructor_HydraulicBoundaryDatabaseNull_ThrowsArgumentNullException()
+        public void Constructor_HydraulicBoundaryDataNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -78,7 +78,7 @@ namespace Riskeer.Integration.IO.Test.Importers
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("hydraulicBoundaryDatabase", exception.ParamName);
+            Assert.AreEqual("hydraulicBoundaryData", exception.ParamName);
         }
 
         [Test]

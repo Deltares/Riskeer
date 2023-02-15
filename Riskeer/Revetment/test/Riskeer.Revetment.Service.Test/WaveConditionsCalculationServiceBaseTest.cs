@@ -63,7 +63,7 @@ namespace Riskeer.Revetment.Service.Test
         }
 
         [Test]
-        public void Validate_HydraulicBoundaryDatabaseNull_ThrowArgumentNullException()
+        public void Validate_HydraulicBoundaryDataNull_ThrowArgumentNullException()
         {
             // Setup 
             var input = new WaveConditionsInput();
@@ -73,7 +73,7 @@ namespace Riskeer.Revetment.Service.Test
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("hydraulicBoundaryDatabase", exception.ParamName);
+            Assert.AreEqual("hydraulicBoundaryData", exception.ParamName);
         }
 
         [Test]
@@ -458,7 +458,7 @@ namespace Riskeer.Revetment.Service.Test
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("hydraulicBoundaryDatabase", exception.ParamName);
+            Assert.AreEqual("hydraulicBoundaryData", exception.ParamName);
         }
 
         [Test]

@@ -106,7 +106,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void Update_HydraulicBoundaryDatabaseNull_ThrowsArgumentNullException()
+        public void Update_HydraulicBoundaryDataNull_ThrowsArgumentNullException()
         {
             // Setup
             var handler = new HydraulicLocationConfigurationDatabaseUpdateHandler(CreateAssessmentSection());
@@ -116,7 +116,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("hydraulicBoundaryDatabase", exception.ParamName);
+            Assert.AreEqual("hydraulicBoundaryData", exception.ParamName);
         }
 
         [Test]

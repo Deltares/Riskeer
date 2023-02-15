@@ -43,7 +43,7 @@ namespace Riskeer.Storage.Core.Test.Read
         }
 
         [Test]
-        public void Read_HydraulicBoundaryDatabaseNull_ThrowsArgumentNullException()
+        public void Read_HydraulicBoundaryDataNull_ThrowsArgumentNullException()
         {
             // Setup
             var entity = new HydraulicBoundaryDatabaseEntity();
@@ -53,7 +53,7 @@ namespace Riskeer.Storage.Core.Test.Read
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("hydraulicBoundaryDatabase", exception.ParamName);
+            Assert.AreEqual("hydraulicBoundaryData", exception.ParamName);
         }
 
         [Test]

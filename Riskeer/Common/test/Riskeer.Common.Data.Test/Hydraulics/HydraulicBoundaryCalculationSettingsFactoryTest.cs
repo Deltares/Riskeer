@@ -33,14 +33,14 @@ namespace Riskeer.Common.Data.Test.Hydraulics
     public class HydraulicBoundaryCalculationSettingsFactoryTest
     {
         [Test]
-        public void CreateSettings_HydraulicBoundaryDatabaseNull_ThrowsArgumentNullException()
+        public void CreateSettings_HydraulicBoundaryDataNull_ThrowsArgumentNullException()
         {
             // Call
             void Call() => HydraulicBoundaryCalculationSettingsFactory.CreateSettings(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("hydraulicBoundaryDatabase", exception.ParamName);
+            Assert.AreEqual("hydraulicBoundaryData", exception.ParamName);
         }
 
         [Test]
