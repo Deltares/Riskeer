@@ -141,7 +141,7 @@ namespace Riskeer.Common.Forms.Test.Views
             mocks.VerifyAll();
         }
 
-        private static void ConfigureHydraulicBoundaryDatabase(IAssessmentSection assessmentSection)
+        private static void ConfigureHydraulicBoundaryData(IAssessmentSection assessmentSection)
         {
             assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
             {
@@ -182,7 +182,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
         private TestCalculationsView ShowFullyConfiguredCalculationsView(IAssessmentSection assessmentSection)
         {
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
 
             return ShowCalculationsView(ConfigureCalculationGroup(assessmentSection), new TestCalculatableFailureMechanism(), assessmentSection);
         }
@@ -370,7 +370,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             mocks.ReplayAll();
 
             // Call
@@ -411,7 +411,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             mocks.ReplayAll();
 
             // Call
@@ -533,7 +533,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Given
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             mocks.ReplayAll();
 
             ShowCalculationsView(ConfigureCalculationGroup(assessmentSection), new TestCalculatableFailureMechanism(), assessmentSection);
@@ -567,7 +567,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Given
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             mocks.ReplayAll();
 
             CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection);
@@ -596,7 +596,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             mocks.ReplayAll();
 
             CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection);
@@ -624,7 +624,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Given
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             mocks.ReplayAll();
 
             CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection);
@@ -704,7 +704,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
         private void ShowFullyConfiguredCalculationsViewWithColumnStateDefinitions(IAssessmentSection assessmentSection, bool initialReadOnlyState)
         {
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
 
             var calculationsView = new TestCalculationsViewWithColumnStateDefinitions(ConfigureCalculationGroup(assessmentSection),
                                                                                       new TestCalculatableFailureMechanism(),

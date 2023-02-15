@@ -81,7 +81,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             mocks.ReplayAll();
 
             GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
@@ -125,7 +125,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             mocks.ReplayAll();
 
             GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
@@ -150,7 +150,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             mocks.ReplayAll();
 
             GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
@@ -175,7 +175,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             mocks.ReplayAll();
 
             GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
@@ -223,7 +223,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             mocks.ReplayAll();
 
             GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
@@ -247,7 +247,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -296,7 +296,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             mocks.ReplayAll();
 
             GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
@@ -335,7 +335,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             mocks.ReplayAll();
 
             GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
@@ -366,7 +366,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var calculationObserver = mocks.StrictMock<IObserver>();
             var inputObserver = mocks.StrictMock<IObserver>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             mocks.ReplayAll();
 
             GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
@@ -398,7 +398,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var calculationObserver = mocks.StrictMock<IObserver>();
             var inputObserver = mocks.StrictMock<IObserver>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             mocks.ReplayAll();
 
             GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
@@ -454,7 +454,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             inputObserver.Expect(o => o.UpdateObserver());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
             assessmentSection.Replay();
@@ -494,7 +494,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             // Given
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             mocks.ReplayAll();
 
             GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
@@ -535,7 +535,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             mocks.ReplayAll();
 
             GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
@@ -562,7 +562,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             // Given
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             mocks.ReplayAll();
 
             const string arbitraryFilePath = "path";
@@ -606,7 +606,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(section => section.FailureMechanismContribution).Return(new FailureMechanismContribution(0.01, 0.001));
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
@@ -647,7 +647,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(section => section.FailureMechanismContribution).Return(new FailureMechanismContribution(0.01, 0.001));
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             mocks.ReplayAll();
 
             GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
@@ -687,7 +687,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             // Given
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
@@ -721,7 +721,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             // Given
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             mocks.ReplayAll();
 
             GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
@@ -762,7 +762,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             testForm.Dispose();
         }
 
-        private static void ConfigureHydraulicBoundaryDatabase(IAssessmentSection assessmentSection)
+        private static void ConfigureHydraulicBoundaryData(IAssessmentSection assessmentSection)
         {
             assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
             {

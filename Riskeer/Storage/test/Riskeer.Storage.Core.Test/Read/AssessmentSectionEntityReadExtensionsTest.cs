@@ -314,7 +314,7 @@ namespace Riskeer.Storage.Core.Test.Read
         }
 
         [Test]
-        public void Read_WithHydraulicBoundaryLocationDatabase_ReturnsNewAssessmentSectionWithHydraulicLocationConfigurationSettingsSet()
+        public void Read_WithHydraulicBoundaryData_ReturnsNewAssessmentSectionWithHydraulicLocationConfigurationSettingsSet()
         {
             // Setup
             var random = new Random(21);
