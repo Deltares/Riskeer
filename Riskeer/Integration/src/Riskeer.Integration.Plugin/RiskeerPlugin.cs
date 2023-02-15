@@ -568,7 +568,7 @@ namespace Riskeer.Integration.Plugin
                 FileFilterGenerator = new FileFilterGenerator(Resources.HydraulicBoundaryDatabase_FilePath_Extension,
                                                               Resources.HydraulicBoundaryDatabase_file_filter_Description),
                 CreateFileImporter = (context, filePath) => new HydraulicBoundaryDatabaseImporter(
-                    context.WrappedData, new HydraulicBoundaryDatabaseUpdateHandler(context.AssessmentSection,
+                    context.WrappedData, new HydraulicBoundaryDataUpdateHandler(context.AssessmentSection,
                                                                                     new DuneLocationsReplacementHandler(
                                                                                         Gui.ViewCommands, context.AssessmentSection.DuneErosion)),
                     filePath)

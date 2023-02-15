@@ -31,7 +31,7 @@ namespace Riskeer.Integration.IO.Handlers
     /// <summary>
     /// Interface for an object that can properly update <see cref="HydraulicBoundaryData"/>.
     /// </summary>
-    public interface IHydraulicBoundaryDatabaseUpdateHandler
+    public interface IHydraulicBoundaryDataUpdateHandler
     {
         /// <summary>
         /// Checks whether confirmation is required before updating the <see cref="HydraulicBoundaryData"/>.

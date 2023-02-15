@@ -40,19 +40,19 @@ namespace Riskeer.Integration.Plugin.Handlers
     /// <summary>
     /// Class that can properly update <see cref="HydraulicBoundaryData"/>.
     /// </summary>
-    public class HydraulicBoundaryDatabaseUpdateHandler : IHydraulicBoundaryDatabaseUpdateHandler
+    public class HydraulicBoundaryDataUpdateHandler : IHydraulicBoundaryDataUpdateHandler
     {
         private readonly AssessmentSection assessmentSection;
         private readonly IDuneLocationsReplacementHandler duneLocationsReplacementHandler;
         private bool updateLocations;
 
         /// <summary>
-        /// Creates a new instance of <see cref="HydraulicBoundaryDatabaseUpdateHandler"/>.
+        /// Creates a new instance of <see cref="HydraulicBoundaryDataUpdateHandler"/>.
         /// </summary>
         /// <param name="assessmentSection">The assessment section to update for.</param>
         /// <param name="duneLocationsReplacementHandler">The handler to replace dune locations.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public HydraulicBoundaryDatabaseUpdateHandler(AssessmentSection assessmentSection,
+        public HydraulicBoundaryDataUpdateHandler(AssessmentSection assessmentSection,
                                                       IDuneLocationsReplacementHandler duneLocationsReplacementHandler)
         {
             if (assessmentSection == null)
