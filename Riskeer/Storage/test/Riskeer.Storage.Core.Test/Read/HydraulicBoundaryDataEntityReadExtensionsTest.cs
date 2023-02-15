@@ -29,7 +29,7 @@ using Riskeer.Storage.Core.Read;
 namespace Riskeer.Storage.Core.Test.Read
 {
     [TestFixture]
-    public class HydraulicBoundaryDatabaseEntityReadExtensionsTest
+    public class HydraulicBoundaryDataEntityReadExtensionsTest
     {
         [Test]
         public void Read_EntityNull_ThrowsArgumentNullException()

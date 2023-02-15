@@ -28,7 +28,7 @@ namespace Riskeer.Storage.Core.Read
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="HydraulicBoundaryDatabaseEntity"/>.
     /// </summary>
-    internal static class HydraulicBoundaryDatabaseEntityReadExtensions
+    internal static class HydraulicBoundaryDataEntityReadExtensions
     {
         /// <summary>
         /// Reads the <see cref="HydraulicBoundaryDatabaseEntity"/> and uses the information to update a
