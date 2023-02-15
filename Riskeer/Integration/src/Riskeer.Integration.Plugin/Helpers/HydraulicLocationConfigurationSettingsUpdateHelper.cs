@@ -40,7 +40,7 @@ namespace Riskeer.Integration.Plugin.Helpers
         /// <param name="hydraulicLocationConfigurationSettings">The hydraulic location configuration settings to set on.</param>
         /// <param name="readHydraulicLocationConfigurationDatabaseSettings">The read settings to set.</param>
         /// <param name="usePreprocessorClosure">Indicator whether to use the preprocessor closure.</param>
-        /// <param name="hlcdFilePath">The hlcd file path.</param>
+        /// <param name="hlcdFilePath">The file path of the hydraulic location configuration database.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicLocationConfigurationSettings"/>
         /// or <paramref name="hlcdFilePath"/> is <c>null</c>.</exception>
         public static void SetHydraulicLocationConfigurationSettings(HydraulicLocationConfigurationSettings hydraulicLocationConfigurationSettings,

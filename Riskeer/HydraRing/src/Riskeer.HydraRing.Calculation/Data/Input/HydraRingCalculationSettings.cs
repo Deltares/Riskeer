@@ -31,7 +31,7 @@ namespace Riskeer.HydraRing.Calculation.Data.Input
         /// <summary>
         /// Creates a new instance of <see cref="HydraRingCalculationSettings"/>.
         /// </summary>
-        /// <param name="hlcdFilePath">The path which points to the HLCD file.</param>
+        /// <param name="hlcdFilePath">The file path of the hydraulic location configuration database.</param>
         /// <param name="preprocessorDirectory">The preprocessor directory to be used for the calculations.</param>
         /// <param name="usePreprocessorClosure">Indicator whether to use the preprocessor closure.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdFilePath"/> or
@@ -56,7 +56,7 @@ namespace Riskeer.HydraRing.Calculation.Data.Input
         }
 
         /// <summary>
-        /// Gets the HLCD filepath.
+        /// Gets the file path of the hydraulic location configuration database.
         /// </summary>
         public string HlcdFilePath { get; }
 
