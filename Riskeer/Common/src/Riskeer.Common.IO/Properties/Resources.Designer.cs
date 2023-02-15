@@ -970,6 +970,15 @@ namespace Riskeer.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het opgegeven bestandspad ({0}) is niet geldig..
+        /// </summary>
+        public static string HydraulicBoundaryDatabaseHelper_ValidatePathForCalculation_Invalid_path_0_ {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseHelper_ValidatePathForCalculation_Invalid_path_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De bestandsmap waar de preprocessor bestanden opslaat is ongeldig..
         /// </summary>
         public static string HydraulicBoundaryDatabaseHelper_ValidatePreprocessorDirectory_Invalid_path {

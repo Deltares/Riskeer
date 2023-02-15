@@ -29,7 +29,6 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.IO.Properties;
 using Riskeer.HydraRing.IO.HydraulicBoundaryDatabase;
 using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
-using HydraRingResources = Riskeer.HydraRing.IO.Properties.Resources;
 using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 
 namespace Riskeer.Common.IO.HydraRing
@@ -69,7 +68,7 @@ namespace Riskeer.Common.IO.HydraRing
             }
             catch (PathTooLongException)
             {
-                return string.Format(CultureInfo.CurrentCulture, HydraRingResources.HydraulicBoundaryDatabaseHelper_ValidatePathForCalculation_Invalid_path_0_,
+                return string.Format(CultureInfo.CurrentCulture, Resources.HydraulicBoundaryDatabaseHelper_ValidatePathForCalculation_Invalid_path_0_,
                                      hrdFilePath);
             }
 
