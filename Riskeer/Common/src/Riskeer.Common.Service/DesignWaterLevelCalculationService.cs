@@ -58,11 +58,12 @@ namespace Riskeer.Common.Service
         /// <remarks>Preprocessing is disabled when the preprocessor directory equals <see cref="string.Empty"/>.</remarks>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculation"/>,
         /// <paramref name="calculationSettings"/> or <paramref name="messageProvider"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when 
+        /// <exception cref="ArgumentException">Thrown when:
         /// <list type="bullet">
-        /// <item>the hydraulic boundary database file path contains invalid characters.</item>
-        /// <item>The target probability or the calculated probability falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</item>
-        /// </list></exception>
+        /// <item>the hydraulic boundary database file path contains invalid characters;</item>
+        /// <item>the target probability or the calculated probability falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</item>
+        /// </list>
+        /// </exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
         /// <item>no hydraulic boundary settings database could be found;</item>

@@ -36,7 +36,7 @@ namespace Riskeer.Common.Service
         /// Assigns Hydra-Ring settings to the provided <paramref name="calculationInput"/>.
         /// </summary>
         /// <param name="calculationInput">The calculation input for which the settings are updated.</param>
-        /// <param name="hrdFilePath">The path to the hydraulic boundary database file.</param>
+        /// <param name="hrdFilePath">The file path of the hydraulic boundary database.</param>
         /// <param name="usePreprocessor">Indicator whether to use the preprocessor in the calculation.</param>
         /// <exception cref="ArgumentException">Thrown when the <paramref name="hrdFilePath"/> contains invalid characters.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
