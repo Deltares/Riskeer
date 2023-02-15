@@ -112,10 +112,10 @@ namespace Riskeer.Migration.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Het migreren van het projectbestand &apos;{0}&apos; is geannuleerd..
         /// </summary>
-        internal static string ProjectMigrator_GenerateMigrationCancelledLogMessage_Updating_projectfile_0_was_cancelled {
+        internal static string ProjectMigrator_GenerateMigrationCancelledLogMessage_Updating_project_file_0_was_cancelled {
             get {
-                return ResourceManager.GetString("ProjectMigrator_GenerateMigrationCancelledLogMessage_Updating_projectfile_0_was_c" +
-                        "ancelled", resourceCulture);
+                return ResourceManager.GetString("ProjectMigrator_GenerateMigrationCancelledLogMessage_Updating_project_file_0_was_" +
+                        "cancelled", resourceCulture);
             }
         }
         
@@ -134,20 +134,20 @@ namespace Riskeer.Migration.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Het projectbestand &apos;{0}&apos; is succesvol gemigreerd naar &apos;{1}&apos; (versie {2})..
         /// </summary>
-        internal static string ProjectMigrator_MigrateToTargetLocation_Outdated_projectfile_0_succesfully_updated_to_target_file_path_1_version_2_ {
+        internal static string ProjectMigrator_MigrateToTargetLocation_Outdated_project_file_0_succesfully_updated_to_target_file_path_1_version_2_ {
             get {
-                return ResourceManager.GetString("ProjectMigrator_MigrateToTargetLocation_Outdated_projectfile_0_succesfully_update" +
-                        "d_to_target_file_path_1_version_2_", resourceCulture);
+                return ResourceManager.GetString("ProjectMigrator_MigrateToTargetLocation_Outdated_project_file_0_succesfully_updat" +
+                        "ed_to_target_file_path_1_version_2_", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Het migreren van het projectbestand &apos;{0}&apos; is mislukt: {1}.
         /// </summary>
-        internal static string ProjectMigrator_MigrateToTargetLocation_Updating_outdated_projectfile_0_failed_with_exception_1_ {
+        internal static string ProjectMigrator_MigrateToTargetLocation_Updating_outdated_project_file_0_failed_with_exception_1_ {
             get {
-                return ResourceManager.GetString("ProjectMigrator_MigrateToTargetLocation_Updating_outdated_projectfile_0_failed_wi" +
-                        "th_exception_1_", resourceCulture);
+                return ResourceManager.GetString("ProjectMigrator_MigrateToTargetLocation_Updating_outdated_project_file_0_failed_w" +
+                        "ith_exception_1_", resourceCulture);
             }
         }
         
