@@ -158,7 +158,7 @@ namespace Riskeer.Common.Service.Structures
 
             TCalculationInput input = CreateInput(calculation.InputParameters,
                                                   generalInput,
-                                                  calculationSettings.HydraulicBoundaryDatabaseFilePath,
+                                                  calculationSettings.HrdFilePath,
                                                   !string.IsNullOrEmpty(calculationSettings.PreprocessorDirectory));
 
             calculator = HydraRingCalculatorFactory.Instance.CreateStructuresCalculator<TCalculationInput>(

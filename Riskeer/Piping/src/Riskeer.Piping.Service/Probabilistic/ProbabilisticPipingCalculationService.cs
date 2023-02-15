@@ -153,7 +153,7 @@ namespace Riskeer.Piping.Service.Probabilistic
                 throw new ArgumentNullException(nameof(calculationSettings));
             }
 
-            string hydraulicBoundaryDatabaseFilePath = calculationSettings.HydraulicBoundaryDatabaseFilePath;
+            string hydraulicBoundaryDatabaseFilePath = calculationSettings.HrdFilePath;
             bool usePreprocessor = !string.IsNullOrEmpty(calculationSettings.PreprocessorDirectory);
 
             HydraRingCalculationSettings hydraRingCalculationSettings = HydraRingCalculationSettingsFactory.CreateSettings(calculationSettings);

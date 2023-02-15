@@ -33,17 +33,14 @@ namespace Riskeer.Common.Data.Test.Hydraulics
         [TestCase(null)]
         [TestCase("")]
         [TestCase("   ")]
-        public void Constructor_InvalidHydraulicBoundaryDatabaseFilePath_ThrowsArgumentNullException(string invalidHydraulicBoundaryDatabaseFilePath)
+        public void Constructor_InvalidHrdFilePath_ThrowsArgumentNullException(string invalidHrdFilePath)
         {
             // Call
-            TestDelegate call = () => new HydraulicBoundaryCalculationSettings(invalidHydraulicBoundaryDatabaseFilePath,
-                                                                               "D:\\hlcdFilePath",
-                                                                               false,
-                                                                               null);
+            void Call() => new HydraulicBoundaryCalculationSettings(invalidHrdFilePath, "D:\\hlcdFilePath", false, null);
 
             // Assert
-            const string expectedMessage = "hydraulicBoundaryDatabaseFilePath is null, empty or consist of whitespace.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+            const string expectedMessage = "hrdFilePath is null, empty or consists of whitespaces.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
         }
 
         [Test]
@@ -53,13 +50,13 @@ namespace Riskeer.Common.Data.Test.Hydraulics
         public void Constructor_InvalidHlcdFilePath_ThrowsArgumentNullException(string invalidHlcdFilePath)
         {
             // Call
-            TestDelegate call = () => new HydraulicBoundaryCalculationSettings("D:\\HydraulicBoundaryDatabseFilePath",
+            TestDelegate call = () => new HydraulicBoundaryCalculationSettings("D:\\hrdFilePath",
                                                                                invalidHlcdFilePath,
                                                                                false,
                                                                                null);
 
             // Assert
-            const string expectedMessage = "hlcdFilePath is null, empty or consist of whitespace.";
+            const string expectedMessage = "hlcdFilePath is null, empty or consists of whitespace.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
@@ -71,18 +68,18 @@ namespace Riskeer.Common.Data.Test.Hydraulics
         public void Constructor_WithArguments_ExpectedValues(string preprocessorDirectory)
         {
             // Setup
-            const string hydraulicBoundaryDatabaseFilePath = "D:\\HydraulicBoundaryDatabaseFilePath";
+            const string hrdFilePath = "D:\\hrdFilePath";
             const string hlcdFilePath = "D:\\hlcdFilePath";
             bool usePreprocessorClosure = new Random(21).NextBoolean();
 
             // Call
-            var settings = new HydraulicBoundaryCalculationSettings(hydraulicBoundaryDatabaseFilePath,
+            var settings = new HydraulicBoundaryCalculationSettings(hrdFilePath,
                                                                     hlcdFilePath,
                                                                     usePreprocessorClosure,
                                                                     preprocessorDirectory);
 
             // Assert
-            Assert.AreEqual(hydraulicBoundaryDatabaseFilePath, settings.HydraulicBoundaryDatabaseFilePath);
+            Assert.AreEqual(hrdFilePath, settings.HrdFilePath);
             Assert.AreEqual(hlcdFilePath, settings.HlcdFilePath);
             Assert.AreEqual(usePreprocessorClosure, settings.UsePreprocessorClosure);
             Assert.AreEqual(preprocessorDirectory, settings.PreprocessorDirectory);

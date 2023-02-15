@@ -62,7 +62,7 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             HydraulicBoundaryCalculationSettings settings = HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData);
 
             // Assert
-            Assert.AreEqual(hydraulicBoundaryDatabaseFilePath, settings.HydraulicBoundaryDatabaseFilePath);
+            Assert.AreEqual(hydraulicBoundaryDatabaseFilePath, settings.HrdFilePath);
             Assert.AreEqual(hlcdFilePath, settings.HlcdFilePath);
             Assert.AreEqual(usePreprocessorClosure, settings.UsePreprocessorClosure);
         }

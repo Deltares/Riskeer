@@ -161,7 +161,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service
                 HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData);
             int numberOfCalculators = CreateCalculators(calculation, calculationSettings);
 
-            string hydraulicBoundaryDatabaseFilePath = calculationSettings.HydraulicBoundaryDatabaseFilePath;
+            string hydraulicBoundaryDatabaseFilePath = calculationSettings.HrdFilePath;
             bool usePreprocessor = !string.IsNullOrEmpty(calculationSettings.PreprocessorDirectory);
             CalculationServiceHelper.LogCalculationBegin();
 
