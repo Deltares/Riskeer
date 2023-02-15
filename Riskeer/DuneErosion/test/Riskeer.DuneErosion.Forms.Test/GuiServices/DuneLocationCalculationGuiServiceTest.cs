@@ -98,7 +98,7 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
         }
 
         [Test]
-        public void Calculate_HydraulicDatabaseDoesNotExist_LogsError()
+        public void Calculate_HydraulicBoundaryDatabaseDoesNotExist_LogsError()
         {
             // Setup
             var hydraulicBoundaryData = new HydraulicBoundaryData

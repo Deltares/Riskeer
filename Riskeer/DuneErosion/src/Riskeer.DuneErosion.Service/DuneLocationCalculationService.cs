@@ -60,7 +60,7 @@ namespace Riskeer.DuneErosion.Service
         /// <paramref name="calculationSettings"/> or <paramref name="messageProvider"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when:
         /// <list type="bullet">
-        /// <item>The hydraulic boundary location database file path contains invalid characters.</item>
+        /// <item>The hydraulic boundary database file path contains invalid characters.</item>
         /// <item>The contribution of the failure mechanism is zero.</item>
         /// <item>The target probability or the calculated probability falls outside the [0.0, 1.0] 
         /// range and is not <see cref="double.NaN"/>.</item>

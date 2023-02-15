@@ -112,7 +112,7 @@ namespace Riskeer.Common.Forms.Test.GuiServices
         }
 
         [Test]
-        public void CalculateDesignWaterLevels_HydraulicDatabaseDoesNotExist_LogsError()
+        public void CalculateDesignWaterLevels_HydraulicBoundaryDatabaseDoesNotExist_LogsError()
         {
             // Setup
             var mocks = new MockRepository();
@@ -270,7 +270,7 @@ namespace Riskeer.Common.Forms.Test.GuiServices
         }
 
         [Test]
-        public void CalculateWaveHeights_HydraulicDatabaseDoesNotExist_LogsError()
+        public void CalculateWaveHeights_HydraulicBoundaryDatabaseDoesNotExist_LogsError()
         {
             // Setup
             var mocks = new MockRepository();

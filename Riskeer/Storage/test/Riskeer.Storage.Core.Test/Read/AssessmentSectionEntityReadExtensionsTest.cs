@@ -254,7 +254,7 @@ namespace Riskeer.Storage.Core.Test.Read
         }
 
         [Test]
-        public void Read_WithoutHydraulicBoundaryLocationDatabase_ReturnsNewAssessmentSectionWithoutHydraulicBoundaryLocationAndCalculations()
+        public void Read_WithoutHydraulicBoundaryData_ReturnsNewAssessmentSectionWithoutHydraulicBoundaryLocationAndCalculations()
         {
             // Setup
             AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
