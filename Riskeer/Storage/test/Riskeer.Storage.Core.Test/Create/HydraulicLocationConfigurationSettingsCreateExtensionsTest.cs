@@ -32,13 +32,13 @@ namespace Riskeer.Storage.Core.Test.Create
     public class HydraulicLocationConfigurationSettingsCreateExtensionsTest
     {
         [Test]
-        public void Create_HydraulicBoundaryDatabaseNull_ThrowsArgumentNullException()
+        public void Create_HydraulicBoundaryDataNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((HydraulicBoundaryDatabase) null).Create();
+            void Call() => ((HydraulicBoundaryData) null).Create();
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("hydraulicBoundaryDatabase", exception.ParamName);
         }
 
@@ -47,31 +47,32 @@ namespace Riskeer.Storage.Core.Test.Create
         {
             // Setup
             var random = new Random(21);
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 FilePath = "hydraulicBoundaryDatabasefilePath",
                 Version = "Version"
             };
-            hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.SetValues("hlcdFilePath",
-                                                                                       "ScenarioName",
-                                                                                       random.Next(),
-                                                                                       "Scope",
-                                                                                       random.NextBoolean(),
-                                                                                       "SeaLevel",
-                                                                                       "RiverDischarge",
-                                                                                       "LakeLevel",
-                                                                                       "WindDirection",
-                                                                                       "WindSpeed",
-                                                                                       "Comment");
+
+            hydraulicBoundaryData.HydraulicLocationConfigurationSettings.SetValues("hlcdFilePath",
+                                                                                   "ScenarioName",
+                                                                                   random.Next(),
+                                                                                   "Scope",
+                                                                                   random.NextBoolean(),
+                                                                                   "SeaLevel",
+                                                                                   "RiverDischarge",
+                                                                                   "LakeLevel",
+                                                                                   "WindDirection",
+                                                                                   "WindSpeed",
+                                                                                   "Comment");
 
             // Call
-            HydraulicBoundaryDatabaseEntity entity = hydraulicBoundaryDatabase.Create();
+            HydraulicBoundaryDatabaseEntity entity = hydraulicBoundaryData.Create();
 
             // Assert
-            TestHelper.AssertAreEqualButNotSame(hydraulicBoundaryDatabase.FilePath, entity.FilePath);
-            TestHelper.AssertAreEqualButNotSame(hydraulicBoundaryDatabase.Version, entity.Version);
+            TestHelper.AssertAreEqualButNotSame(hydraulicBoundaryData.FilePath, entity.FilePath);
+            TestHelper.AssertAreEqualButNotSame(hydraulicBoundaryData.Version, entity.Version);
 
-            HydraulicLocationConfigurationSettings settings = hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings;
+            HydraulicLocationConfigurationSettings settings = hydraulicBoundaryData.HydraulicLocationConfigurationSettings;
             TestHelper.AssertAreEqualButNotSame(settings.FilePath, entity.HydraulicLocationConfigurationSettingsFilePath);
             Assert.AreEqual(Convert.ToByte(settings.UsePreprocessorClosure), entity.HydraulicLocationConfigurationSettingsUsePreprocessorClosure);
             TestHelper.AssertAreEqualButNotSame(settings.ScenarioName, entity.HydraulicLocationConfigurationSettingsScenarioName);
