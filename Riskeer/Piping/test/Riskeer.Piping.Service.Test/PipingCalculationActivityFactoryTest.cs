@@ -53,7 +53,7 @@ namespace Riskeer.Piping.Service.Test
     public class PipingCalculationActivityFactoryTest
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
-        private static readonly string validHydraulicBoundaryDatabaseFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
         #region CreateCalculationActivitiesForFailureMechanism
 
@@ -107,7 +107,7 @@ namespace Riskeer.Piping.Service.Test
                 hydraulicBoundaryLocation2
             });
 
-            assessmentSection.HydraulicBoundaryData.FilePath = validHydraulicBoundaryDatabaseFilePath;
+            assessmentSection.HydraulicBoundaryData.FilePath = validHrdFilePath;
             HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData);
 
             var random = new Random(39);
@@ -260,7 +260,7 @@ namespace Riskeer.Piping.Service.Test
                 hydraulicBoundaryLocation2
             });
 
-            assessmentSection.HydraulicBoundaryData.FilePath = validHydraulicBoundaryDatabaseFilePath;
+            assessmentSection.HydraulicBoundaryData.FilePath = validHrdFilePath;
             HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData);
 
             var random = new Random(39);
@@ -501,7 +501,7 @@ namespace Riskeer.Piping.Service.Test
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             TestPipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
 
-            assessmentSection.HydraulicBoundaryData.FilePath = validHydraulicBoundaryDatabaseFilePath;
+            assessmentSection.HydraulicBoundaryData.FilePath = validHrdFilePath;
             HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData);
 
             var calculation = ProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<TestProbabilisticPipingCalculation>(

@@ -321,8 +321,8 @@ namespace Riskeer.Storage.Core.Test.Read
             AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
             var hydraulicBoundaryDatabaseEntity = new HydraulicBoundaryDatabaseEntity
             {
-                FilePath = "hydraulicBoundaryDatabaseFilePath",
-                Version = "hydraulicBoundaryDatabaseVersion",
+                FilePath = "hrdFilePath",
+                Version = "1.0",
                 HydraulicLocationConfigurationSettingsFilePath = "hlcdFilePath",
                 HydraulicLocationConfigurationSettingsScenarioName = "ScenarioName",
                 HydraulicLocationConfigurationSettingsYear = random.Next(),
@@ -1197,8 +1197,8 @@ namespace Riskeer.Storage.Core.Test.Read
         {
             return new HydraulicBoundaryDatabaseEntity
             {
-                FilePath = "hydraulicBoundaryDatabaseFilePath",
-                Version = "hydraulicBoundaryDatabaseVersion",
+                FilePath = "hrdFilePath",
+                Version = "1.0",
                 HydraulicLocationConfigurationSettingsFilePath = "hlcdFilePath",
                 HydraulicLocationConfigurationSettingsScenarioName = "ScenarioName",
                 HydraulicLocationConfigurationSettingsYear = 1,

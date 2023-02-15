@@ -64,8 +64,8 @@ namespace Riskeer.Storage.Core.Test.Read
             bool usePreprocessorClosure = random.NextBoolean();
             var entity = new HydraulicBoundaryDatabaseEntity
             {
-                FilePath = "hydraulicBoundaryDatabaseFilePath",
-                Version = "hydraulicBoundaryDatabaseVersion",
+                FilePath = "hrdFilePath",
+                Version = "1.0",
                 HydraulicLocationConfigurationSettingsFilePath = "hlcdFilePath",
                 HydraulicLocationConfigurationSettingsUsePreprocessorClosure = Convert.ToByte(usePreprocessorClosure),
                 HydraulicLocationConfigurationSettingsScenarioName = "ScenarioName",

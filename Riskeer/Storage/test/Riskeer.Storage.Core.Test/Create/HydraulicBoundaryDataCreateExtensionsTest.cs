@@ -49,7 +49,7 @@ namespace Riskeer.Storage.Core.Test.Create
             var random = new Random(21);
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = "hydraulicBoundaryDatabasefilePath",
+                FilePath = "hrdFilePath",
                 Version = "Version"
             };
 

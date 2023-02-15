@@ -67,7 +67,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.CalculationsState
         private const int contextMenuClearIllustrationPointsIndex = 6;
 
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
-        private static readonly string validHydraulicBoundaryDatabaseFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
         private MockRepository mocks;
         private PipingPlugin plugin;
@@ -595,7 +595,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.CalculationsState
                 var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
                 TestPipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
 
-                assessmentSection.HydraulicBoundaryData.FilePath = validHydraulicBoundaryDatabaseFilePath;
+                assessmentSection.HydraulicBoundaryData.FilePath = validHrdFilePath;
                 HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData);
                 assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
                 {
@@ -696,7 +696,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.CalculationsState
                 var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
                 TestPipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
 
-                assessmentSection.HydraulicBoundaryData.FilePath = validHydraulicBoundaryDatabaseFilePath;
+                assessmentSection.HydraulicBoundaryData.FilePath = validHrdFilePath;
                 HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData);
                 assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
                 {
