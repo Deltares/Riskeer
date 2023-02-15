@@ -86,7 +86,7 @@ namespace Riskeer.Integration.Plugin.Handlers
 
         public bool InquireConfirmation()
         {
-            DialogResult result = MessageBox.Show(Resources.HydraulicBoundaryDatabaseUpdateHandler_Confirm_clear_hydraulicBoundaryDatabase_dependent_data,
+            DialogResult result = MessageBox.Show(Resources.HydraulicBoundaryDataUpdateHandler_Confirm_clear_hydraulicBoundaryDatabase_dependent_data,
                                                   CoreCommonBaseResources.Confirm,
                                                   MessageBoxButtons.OKCancel);
             return result == DialogResult.OK;

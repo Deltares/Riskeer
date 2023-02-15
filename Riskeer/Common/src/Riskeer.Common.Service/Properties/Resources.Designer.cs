@@ -208,10 +208,9 @@ namespace Riskeer.Common.Service.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Er is geen hydraulische belastingendatabase geïmporteerd..
         /// </summary>
-        public static string HydraulicBoundaryDatabaseConnectionValidator_No_hydraulic_boundary_database_imported {
+        public static string HydraulicBoundaryDataConnectionValidator_No_hydraulic_boundary_database_imported {
             get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabaseConnectionValidator_No_hydraulic_boundary_database_impor" +
-                        "ted", resourceCulture);
+                return ResourceManager.GetString("HydraulicBoundaryDataConnectionValidator_No_hydraulic_boundary_database_imported", resourceCulture);
             }
         }
         

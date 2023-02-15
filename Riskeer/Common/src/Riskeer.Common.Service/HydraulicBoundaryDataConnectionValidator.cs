@@ -46,7 +46,7 @@ namespace Riskeer.Common.Service
 
             if (!hydraulicBoundaryData.IsLinked())
             {
-                return Resources.HydraulicBoundaryDatabaseConnectionValidator_No_hydraulic_boundary_database_imported;
+                return Resources.HydraulicBoundaryDataConnectionValidator_No_hydraulic_boundary_database_imported;
             }
 
             string validationProblem = HydraulicBoundaryDataHelper.ValidateFilesForCalculation(

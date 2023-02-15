@@ -406,10 +406,10 @@ namespace Riskeer.Integration.Plugin.Properties {
         ///
         ///Wilt u doorgaan?.
         /// </summary>
-        public static string HydraulicBoundaryDatabaseUpdateHandler_Confirm_clear_hydraulicBoundaryDatabase_dependent_data {
+        public static string HydraulicBoundaryDataUpdateHandler_Confirm_clear_hydraulicBoundaryDatabase_dependent_data {
             get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabaseUpdateHandler_Confirm_clear_hydraulicBoundaryDatabase_de" +
-                        "pendent_data", resourceCulture);
+                return ResourceManager.GetString("HydraulicBoundaryDataUpdateHandler_Confirm_clear_hydraulicBoundaryDatabase_depend" +
+                        "ent_data", resourceCulture);
             }
         }
         
