@@ -37,7 +37,7 @@ namespace Riskeer.StabilityStoneCover.IO.Exporters
         /// <summary>
         /// Creates a new instance of <see cref="StabilityStoneCoverWaveConditionsExporter"/>.
         /// </summary>
-        /// <param name="calculations"></param>
+        /// <param name="calculations">The <see cref="StabilityStoneCoverWaveConditionsCalculation"/> objects to export.</param>
         /// <param name="filePath">The file path to export to.</param>
         /// <param name="getTargetProbabilityFunc"><see cref="Func{TResult}"/> for getting the target probability to use.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> or 

@@ -480,7 +480,8 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
         ///         |                       |
         ///   10    1 --------------------- 1
         ///        0     5      10     15   20 
-        /// </code></item>
+        /// </code>
+        /// </item>
         /// <item>Soil layer (2) is defined as shown below:
         /// <code>
         ///                                  
@@ -490,7 +491,8 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
         ///   17                 2 -------- 2
         ///                                  
         ///        0     5      10     15   20
-        /// </code></item>
+        /// </code>
+        /// </item>
         /// </list>
         /// </remarks>
         [Test]
@@ -580,7 +582,8 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
         ///           /                    \   
         ///   10   1 ---------------------- 1  
         ///        0     5      10     15   20 
-        /// </code></item>
+        /// </code>
+        /// </item>
         /// <item>Soil layer two (2) is defined as shown below:
         /// <code>
         ///                                    
@@ -592,7 +595,8 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
         ///          /       \       /     \   
         ///   10   2 -------- 2 --- 2 ----- 2 
         ///        0     5      10     15   20 
-        /// </code></item>
+        /// </code>
+        /// </item>
         /// </list>
         /// </remarks>
         [Test]

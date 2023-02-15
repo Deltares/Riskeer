@@ -119,10 +119,10 @@ namespace Riskeer.Piping.KernelWrapper
         /// <returns>The thickness of the coverage layer.</returns>
         /// <exception cref="PipingCalculatorException">Thrown when:
         /// <list type="bullet">
-        /// <item>surface at exit point's x-coordinate is higher than the soil profile</item>
-        /// <item>surface line is <c>null</c></item>
-        /// <item>soil profile is <c>null</c></item>
-        /// <item>soil profile's aquifer layer is not set</item>
+        /// <item>surface at exit point's x-coordinate is higher than the soil profile;</item>
+        /// <item>surface line is <c>null</c>;</item>
+        /// <item>soil profile is <c>null</c>;</item>
+        /// <item>soil profile's aquifer layer is not set.</item>
         /// </list>
         /// </exception>
         public double CalculateEffectiveThicknessCoverageLayer()

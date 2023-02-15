@@ -34,7 +34,8 @@ namespace Core.Gui.PropertyBag
     /// <list type="bullet">
     /// <item><see cref="DynamicReadOnlyAttribute"/>;</item>
     /// <item><see cref="DynamicVisibleAttribute"/>.</item>
-    /// </list></remarks>
+    /// </list>
+    /// </remarks>
     public class PropertySpecDescriptor : PropertyDescriptor
     {
         private readonly PropertySpec item;

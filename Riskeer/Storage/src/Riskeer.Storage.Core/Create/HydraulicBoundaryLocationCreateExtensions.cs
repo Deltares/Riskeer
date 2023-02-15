@@ -38,7 +38,7 @@ namespace Riskeer.Storage.Core.Create
         /// <param name="registry">The object keeping track of create operations.</param>
         /// <param name="order">Index at which this instance resides inside its parent container.</param>
         /// <returns>A new <see cref="HydraulicLocationEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> or <param name="location"></param> 
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> or <paramref name="location"/> 
         /// is <c>null</c>.</exception>
         internal static HydraulicLocationEntity Create(this HydraulicBoundaryLocation location, PersistenceRegistry registry, int order)
         {

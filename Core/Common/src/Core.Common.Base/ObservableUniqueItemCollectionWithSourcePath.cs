@@ -179,7 +179,7 @@ namespace Core.Common.Base
         /// <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when 
         /// <list type="bullet">
-        /// <item>one of the items is <c>null</c></item>
+        /// <item>one of the items is <c>null</c>;</item>
         /// <item>when a duplicate item was found.</item>
         /// </list>
         /// </exception>

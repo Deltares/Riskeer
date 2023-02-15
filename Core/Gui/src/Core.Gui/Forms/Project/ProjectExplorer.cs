@@ -47,8 +47,8 @@ namespace Core.Gui.Forms.Project
         /// are used to draw nodes.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
-        /// <item><paramref name="viewCommands"/> is <c>null</c>,</item>
-        /// <item><paramref name="treeNodeInfos"/> is <c>null</c></item>
+        /// <item><paramref name="viewCommands"/> is <c>null</c>;</item>
+        /// <item><paramref name="treeNodeInfos"/> is <c>null</c>.</item>
         /// </list>
         /// </exception>
         public ProjectExplorer(IViewCommands viewCommands, IEnumerable<TreeNodeInfo> treeNodeInfos)

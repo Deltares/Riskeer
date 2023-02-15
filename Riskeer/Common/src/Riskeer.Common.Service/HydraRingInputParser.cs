@@ -49,8 +49,8 @@ namespace Riskeer.Common.Service
         /// Parses the breakwater properties of a calculation input object into a <see cref="HydraRingBreakWater"/> object.
         /// </summary>
         /// <param name="input">A calculation input object that implements <see cref="IUseBreakWater"/>.</param>
-        /// <returns>A <see cref="HydraRingBreakWater"/> object, <c>null</c> if <see cref="IUseBreakWater.UseBreakWater"/>
-        /// is <c>false</c></returns>
+        /// <returns>A <see cref="HydraRingBreakWater"/> object, or <c>null</c> if <see cref="IUseBreakWater.UseBreakWater"/>
+        /// is <c>false</c>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when the break water type is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when the break water type is a valid value, but unsupported.</exception>
         public static HydraRingBreakWater ParseBreakWater(IUseBreakWater input)

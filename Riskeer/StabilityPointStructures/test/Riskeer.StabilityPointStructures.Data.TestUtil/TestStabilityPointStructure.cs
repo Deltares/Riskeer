@@ -76,7 +76,7 @@ namespace Riskeer.StabilityPointStructures.Data.TestUtil
         /// Creates a new instance of <see cref="TestStabilityPointStructure"/>.
         /// </summary>
         /// <param name="name">The name of the structure.</param>
-        /// <param name="id"></param>
+        /// <param name="id">The id of the structure.</param>
         /// <param name="location">The location of the structure.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="location"/> 
         /// is <c>null</c>.</exception>
