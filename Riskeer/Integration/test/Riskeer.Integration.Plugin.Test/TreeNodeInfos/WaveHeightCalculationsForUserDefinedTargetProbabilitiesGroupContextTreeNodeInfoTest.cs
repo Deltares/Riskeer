@@ -437,9 +437,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         {
             // Setup
             IAssessmentSection assessmentSection = new AssessmentSectionStub();
-            assessmentSection.HydraulicBoundaryDatabase.FilePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
-                                                                                                           nameof(HydraulicBoundaryDatabase)),
-                                                                                "complete.sqlite");
+            assessmentSection.HydraulicBoundaryDatabase.FilePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryData)), "complete.sqlite");
             HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             var calculationsForTargetProbabilities = new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>

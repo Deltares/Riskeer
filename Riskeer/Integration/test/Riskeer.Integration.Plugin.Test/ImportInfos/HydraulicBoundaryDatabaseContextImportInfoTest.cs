@@ -119,7 +119,7 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
             gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
             mocks.ReplayAll();
 
-            var importTarget = new HydraulicBoundaryDatabaseContext(new HydraulicBoundaryDatabase(), new AssessmentSection(AssessmentSectionComposition.Dike));
+            var importTarget = new HydraulicBoundaryDatabaseContext(new HydraulicBoundaryData(), new AssessmentSection(AssessmentSectionComposition.Dike));
 
             // Call
             IFileImporter importer = importInfo.CreateFileImporter(importTarget, "");

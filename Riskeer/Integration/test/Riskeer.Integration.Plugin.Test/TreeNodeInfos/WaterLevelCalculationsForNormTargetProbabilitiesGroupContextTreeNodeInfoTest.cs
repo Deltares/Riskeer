@@ -130,9 +130,14 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             const double signalFloodingProbability = 0.002;
             const double maximumAllowableFloodingProbability = 0.005;
 
-            var assessmentSection = new AssessmentSectionStub();
-            assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability = maximumAllowableFloodingProbability;
-            assessmentSection.FailureMechanismContribution.SignalFloodingProbability = signalFloodingProbability;
+            var assessmentSection = new AssessmentSectionStub
+            {
+                FailureMechanismContribution =
+                {
+                    MaximumAllowableFloodingProbability = maximumAllowableFloodingProbability,
+                    SignalFloodingProbability = signalFloodingProbability
+                }
+            };
 
             var locations = new ObservableList<HydraulicBoundaryLocation>();
             var calculationsGroupContext = new WaterLevelCalculationsForNormTargetProbabilitiesGroupContext(locations, assessmentSection);
@@ -343,9 +348,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         {
             // Setup
             IAssessmentSection assessmentSection = new AssessmentSectionStub();
-            assessmentSection.HydraulicBoundaryDatabase.FilePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
-                                                                                                           nameof(HydraulicBoundaryDatabase)),
-                                                                                "complete.sqlite");
+            assessmentSection.HydraulicBoundaryDatabase.FilePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryData)), "complete.sqlite");
             HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             var nodeData = new WaterLevelCalculationsForNormTargetProbabilitiesGroupContext(new ObservableList<HydraulicBoundaryLocation>(),
