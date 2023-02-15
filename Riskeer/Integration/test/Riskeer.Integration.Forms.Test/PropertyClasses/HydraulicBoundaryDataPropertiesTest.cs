@@ -674,7 +674,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void DynamicVisibleValidationMethod_DependingOnHydraulicDataLinkStatus_ReturnsExpectedVisibility(bool isHydraulicBoundaryDataLinked)
+        public void DynamicVisibleValidationMethod_DependingOnHydraulicBoundaryDataLinkStatus_ReturnsExpectedVisibility(bool isHydraulicBoundaryDataLinked)
         {
             // Setup
             var mocks = new MockRepository();

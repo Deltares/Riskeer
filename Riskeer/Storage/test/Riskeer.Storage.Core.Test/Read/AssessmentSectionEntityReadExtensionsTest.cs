@@ -205,7 +205,7 @@ namespace Riskeer.Storage.Core.Test.Read
         {
             // Setup
             AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
-            entity.HydraulicBoundaryDatabaseEntities.Add(CreateHydraulicDatabaseEntity());
+            entity.HydraulicBoundaryDatabaseEntities.Add(CreateHydraulicBoundaryDatabaseEntity());
             entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
 
             HydraulicLocationEntity hydraulicLocationEntity = HydraulicLocationEntityTestFactory.CreateHydraulicLocationEntity();
@@ -279,11 +279,11 @@ namespace Riskeer.Storage.Core.Test.Read
         }
 
         [Test]
-        public void Read_WithHydraulicDatabaseLocations_ReturnsNewAssessmentSectionWithLocationsSet()
+        public void Read_WithHydraulicBoundaryDatabaseLocations_ReturnsNewAssessmentSectionWithLocationsSet()
         {
             // Setup
             AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
-            entity.HydraulicBoundaryDatabaseEntities.Add(CreateHydraulicDatabaseEntity());
+            entity.HydraulicBoundaryDatabaseEntities.Add(CreateHydraulicBoundaryDatabaseEntity());
             entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
 
             HydraulicLocationEntity hydraulicLocationEntityOne = HydraulicLocationEntityTestFactory.CreateHydraulicLocationEntity();
@@ -1193,7 +1193,7 @@ namespace Riskeer.Storage.Core.Test.Read
             };
         }
 
-        private static HydraulicBoundaryDatabaseEntity CreateHydraulicDatabaseEntity()
+        private static HydraulicBoundaryDatabaseEntity CreateHydraulicBoundaryDatabaseEntity()
         {
             return new HydraulicBoundaryDatabaseEntity
             {
