@@ -100,13 +100,13 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(assessmentSectionComposition, section.Composition);
             CollectionAssert.IsEmpty(section.ReferenceLine.Points);
 
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = section.HydraulicBoundaryDatabase;
-            Assert.IsNotNull(hydraulicBoundaryDatabase);
-            CollectionAssert.IsEmpty(hydraulicBoundaryDatabase.Locations);
-            Assert.IsNull(hydraulicBoundaryDatabase.FilePath);
-            Assert.IsNull(hydraulicBoundaryDatabase.Version);
+            HydraulicBoundaryData hydraulicBoundaryData = section.HydraulicBoundaryDatabase;
+            Assert.IsNotNull(hydraulicBoundaryData);
+            CollectionAssert.IsEmpty(hydraulicBoundaryData.Locations);
+            Assert.IsNull(hydraulicBoundaryData.FilePath);
+            Assert.IsNull(hydraulicBoundaryData.Version);
 
-            HydraulicLocationConfigurationSettings settings = hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings;
+            HydraulicLocationConfigurationSettings settings = hydraulicBoundaryData.HydraulicLocationConfigurationSettings;
             Assert.IsNull(settings.FilePath);
             Assert.IsNull(settings.ScenarioName);
             Assert.AreEqual(0, settings.Year);
@@ -266,10 +266,10 @@ namespace Riskeer.Storage.Core.Test.Read
             AssessmentSection section = entity.Read(collector);
 
             // Assert
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = section.HydraulicBoundaryDatabase;
-            CollectionAssert.IsEmpty(hydraulicBoundaryDatabase.Locations);
-            Assert.IsNull(hydraulicBoundaryDatabase.FilePath);
-            Assert.IsNull(hydraulicBoundaryDatabase.Version);
+            HydraulicBoundaryData hydraulicBoundaryData = section.HydraulicBoundaryDatabase;
+            CollectionAssert.IsEmpty(hydraulicBoundaryData.Locations);
+            Assert.IsNull(hydraulicBoundaryData.FilePath);
+            Assert.IsNull(hydraulicBoundaryData.Version);
 
             CollectionAssert.IsEmpty(section.WaterLevelCalculationsForSignalFloodingProbability);
             CollectionAssert.IsEmpty(section.WaterLevelCalculationsForMaximumAllowableFloodingProbability);
@@ -346,11 +346,11 @@ namespace Riskeer.Storage.Core.Test.Read
             AssessmentSection section = entity.Read(collector);
 
             // Assert
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = section.HydraulicBoundaryDatabase;
-            Assert.AreEqual(hydraulicBoundaryDatabaseEntity.FilePath, hydraulicBoundaryDatabase.FilePath);
-            Assert.AreEqual(hydraulicBoundaryDatabaseEntity.Version, hydraulicBoundaryDatabase.Version);
+            HydraulicBoundaryData hydraulicBoundaryData = section.HydraulicBoundaryDatabase;
+            Assert.AreEqual(hydraulicBoundaryDatabaseEntity.FilePath, hydraulicBoundaryData.FilePath);
+            Assert.AreEqual(hydraulicBoundaryDatabaseEntity.Version, hydraulicBoundaryData.Version);
 
-            HydraulicLocationConfigurationSettings settings = hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings;
+            HydraulicLocationConfigurationSettings settings = hydraulicBoundaryData.HydraulicLocationConfigurationSettings;
             Assert.AreEqual(hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsFilePath, settings.FilePath);
             Assert.AreEqual(hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsScenarioName, settings.ScenarioName);
             Assert.AreEqual(hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsYear, settings.Year);

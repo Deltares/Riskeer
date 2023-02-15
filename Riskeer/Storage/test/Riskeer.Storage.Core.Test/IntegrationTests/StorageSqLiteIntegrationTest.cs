@@ -232,7 +232,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             Assert.AreEqual(expectedContribution.NormativeProbabilityType, actualContribution.NormativeProbabilityType);
 
             BackgroundDataTestHelper.AssertBackgroundData(expectedAssessmentSection.BackgroundData, actualAssessmentSection.BackgroundData);
-            AssertHydraulicBoundaryDatabase(expectedAssessmentSection.HydraulicBoundaryDatabase, actualAssessmentSection.HydraulicBoundaryDatabase);
+            AssertHydraulicBoundaryData(expectedAssessmentSection.HydraulicBoundaryDatabase, actualAssessmentSection.HydraulicBoundaryDatabase);
             AssertHydraulicBoundaryLocationCalculations(expectedAssessmentSection, actualAssessmentSection);
             AssertReferenceLine(expectedAssessmentSection.ReferenceLine, actualAssessmentSection.ReferenceLine);
 
@@ -1849,21 +1849,21 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
 
         #endregion
 
-        #region Hydraulic Boundary Database
+        #region Hydraulic Boundary Data
 
-        private static void AssertHydraulicBoundaryDatabase(HydraulicBoundaryDatabase expectedBoundaryDatabase,
-                                                            HydraulicBoundaryDatabase actualBoundaryDatabase)
+        private static void AssertHydraulicBoundaryData(HydraulicBoundaryData expectedHydraulicBoundaryData,
+                                                        HydraulicBoundaryData actualHydraulicBoundaryData)
         {
-            Assert.IsNotNull(expectedBoundaryDatabase);
-            Assert.AreEqual(expectedBoundaryDatabase.Version, actualBoundaryDatabase.Version);
-            Assert.AreEqual(expectedBoundaryDatabase.FilePath, actualBoundaryDatabase.FilePath);
+            Assert.IsNotNull(expectedHydraulicBoundaryData);
+            Assert.AreEqual(expectedHydraulicBoundaryData.Version, actualHydraulicBoundaryData.Version);
+            Assert.AreEqual(expectedHydraulicBoundaryData.FilePath, actualHydraulicBoundaryData.FilePath);
 
-            AssertHydraulicLocationConfigurationSettings(expectedBoundaryDatabase.HydraulicLocationConfigurationSettings,
-                                                         actualBoundaryDatabase.HydraulicLocationConfigurationSettings);
+            AssertHydraulicLocationConfigurationSettings(expectedHydraulicBoundaryData.HydraulicLocationConfigurationSettings,
+                                                         actualHydraulicBoundaryData.HydraulicLocationConfigurationSettings);
 
-            Assert.AreEqual(expectedBoundaryDatabase.Locations.Count, actualBoundaryDatabase.Locations.Count);
+            Assert.AreEqual(expectedHydraulicBoundaryData.Locations.Count, actualHydraulicBoundaryData.Locations.Count);
 
-            AssertHydraulicBoundaryLocations(expectedBoundaryDatabase.Locations, actualBoundaryDatabase.Locations);
+            AssertHydraulicBoundaryLocations(expectedHydraulicBoundaryData.Locations, actualHydraulicBoundaryData.Locations);
         }
 
         private static void AssertHydraulicLocationConfigurationSettings(HydraulicLocationConfigurationSettings expectedSettings,
