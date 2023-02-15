@@ -234,7 +234,7 @@ namespace Core.Gui
         {
             if (requiredOpenProjectProperties.FilePath == null)
             {
-                throw new ArgumentException(@"Filepath should be set.", nameof(requiredOpenProjectProperties));
+                throw new ArgumentException(@"File path should be set.", nameof(requiredOpenProjectProperties));
             }
 
             if (requiredOpenProjectProperties.ProjectOwner == null)
@@ -278,7 +278,7 @@ namespace Core.Gui
         public class OpenProjectConstructionProperties
         {
             /// <summary>
-            /// Filepath to the project file that should be opened.
+            /// File path of the project that should be opened.
             /// </summary>
             public string FilePath { get; set; }
 

@@ -173,7 +173,7 @@ namespace Riskeer.Common.IO.FileImporters
         /// Validate the consistency of a <see cref="DikeProfileData"/> object.
         /// </summary>
         /// <param name="data">The <see cref="DikeProfileData"/> to validate.</param>
-        /// <param name="prflFilePath">Filepath of the profile data file.</param>
+        /// <param name="prflFilePath">File path of the profile data.</param>
         /// <returns>Value indicating whether the <see cref="DikeProfileData"/> is valid.</returns>
         protected abstract bool DikeProfileDataIsValid(DikeProfileData data, string prflFilePath);
 

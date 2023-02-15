@@ -97,7 +97,7 @@ namespace Core.Gui.Test
             TestDelegate call = () => new OpenProjectActivity(openProjectProperties);
 
             // Assert
-            const string expectedMessage = "Filepath should be set.";
+            const string expectedMessage = "File path should be set.";
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage).ParamName;
             Assert.AreEqual("requiredOpenProjectProperties", paramName);
 

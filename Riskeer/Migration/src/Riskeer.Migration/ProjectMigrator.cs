@@ -158,7 +158,7 @@ namespace Riskeer.Migration
             {
                 var versionedFile = new ProjectVersionedFile(sourceFilePath);
                 fileMigrator.Migrate(versionedFile, currentDatabaseVersion, targetLocation);
-                string message = string.Format(Resources.ProjectMigrator_MigrateToTargetLocation_Outdated_projectfile_0_succesfully_updated_to_target_filepath_1_version_2_,
+                string message = string.Format(Resources.ProjectMigrator_MigrateToTargetLocation_Outdated_projectfile_0_succesfully_updated_to_target_file_path_1_version_2_,
                                                sourceFilePath, targetLocation, currentDatabaseVersion);
                 log.Info(message);
 
@@ -259,7 +259,7 @@ namespace Riskeer.Migration
         {
             if (!IOUtils.IsValidFilePath(filePath))
             {
-                string message = string.Format(Resources.ProjectMigrator_ValidateProjectPath_TypeDescriptor_0_filepath_must_be_a_valid_path,
+                string message = string.Format(Resources.ProjectMigrator_ValidateProjectPath_TypeDescriptor_0_file_path_must_be_valid,
                                                pathDescription);
                 throw new ArgumentException(message, argumentName);
             }

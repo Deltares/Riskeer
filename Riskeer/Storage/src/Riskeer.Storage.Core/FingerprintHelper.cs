@@ -99,7 +99,7 @@ namespace Riskeer.Storage.Core
         /// <see cref="ProjectEntity"/>.
         /// </summary>
         /// <param name="entity">The <see cref="ProjectEntity"/> to generate a hashcode for.</param>
-        /// <param name="filePath">The filepath to use as temporary storage.</param>
+        /// <param name="filePath">The file path to use as temporary storage.</param>
         /// <returns>The binary hashcode for <paramref name="entity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
         /// <exception cref="QuotaExceededException">Thrown when <paramref name="entity"/>

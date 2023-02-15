@@ -65,7 +65,7 @@ namespace Riskeer.AssemblyTool.IO.Test
         public void Constructor_ExpectedValues()
         {
             // Call
-            var writer = new AssemblyGmlWriter("filepath");
+            var writer = new AssemblyGmlWriter("filePath");
 
             // Assert
             Assert.IsInstanceOf<IDisposable>(writer);
@@ -75,7 +75,7 @@ namespace Riskeer.AssemblyTool.IO.Test
         public void Write_AssemblyNull_ThrowsArgumentNullException()
         {
             // Setup
-            using (var writer = new AssemblyGmlWriter("filepath"))
+            using (var writer = new AssemblyGmlWriter("filePath"))
             {
                 // Call
                 void Call() => writer.Write(null);

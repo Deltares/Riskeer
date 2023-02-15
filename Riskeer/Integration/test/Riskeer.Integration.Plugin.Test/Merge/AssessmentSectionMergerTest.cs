@@ -265,7 +265,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
         public void GivenMatchedAssessmentSection_WhenAllDataValid_ThenMergePerformedAndLogged()
         {
             // Given
-            var filePath = "Filepath";
+            const string filePath = "filePath";
             var originalAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var assessmentSectionToMerge = new AssessmentSection(AssessmentSectionComposition.Dike);
             var mergeData = new AssessmentSectionMergeData(assessmentSectionToMerge, CreateDefaultConstructionProperties());

@@ -128,7 +128,7 @@ Weet u zeker dat u het bestand wilt migreren naar het formaat van uw huidige Ris
   <data name="Project_TypeDescription" xml:space="preserve">
     <value>Riskeer project</value>
   </data>
-  <data name="ProjectMigrator_MigrateToTargetLocation_Outdated_projectfile_0_succesfully_updated_to_target_filepath_1_version_2_" xml:space="preserve">
+  <data name="ProjectMigrator_MigrateToTargetLocation_Outdated_projectfile_0_succesfully_updated_to_target_file_path_1_version_2_" xml:space="preserve">
     <value>Het projectbestand '{0}' is succesvol gemigreerd naar '{1}' (versie {2}).</value>
   </data>
   <data name="ProjectMigrator_MigrateToTargetLocation_Updating_outdated_projectfile_0_failed_with_exception_1_" xml:space="preserve">
@@ -137,7 +137,7 @@ Weet u zeker dat u het bestand wilt migreren naar het formaat van uw huidige Ris
   <data name="ProjectMigrator_GenerateMigrationCancelledLogMessage_Updating_projectfile_0_was_cancelled" xml:space="preserve">
     <value>Het migreren van het projectbestand '{0}' is geannuleerd.</value>
   </data>
-  <data name="ProjectMigrator_ValidateProjectPath_TypeDescriptor_0_filepath_must_be_a_valid_path" xml:space="preserve">
+  <data name="ProjectMigrator_ValidateProjectPath_TypeDescriptor_0_file_path_must_be_valid" xml:space="preserve">
     <value>{0}projectpad moet een geldig projectpad zijn.</value>
   </data>
   <data name="ProjectMigrator_Source_Descriptor" xml:space="preserve">

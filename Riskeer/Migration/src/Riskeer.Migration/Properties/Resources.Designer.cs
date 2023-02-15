@@ -134,10 +134,10 @@ namespace Riskeer.Migration.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Het projectbestand &apos;{0}&apos; is succesvol gemigreerd naar &apos;{1}&apos; (versie {2})..
         /// </summary>
-        internal static string ProjectMigrator_MigrateToTargetLocation_Outdated_projectfile_0_succesfully_updated_to_target_filepath_1_version_2_ {
+        internal static string ProjectMigrator_MigrateToTargetLocation_Outdated_projectfile_0_succesfully_updated_to_target_file_path_1_version_2_ {
             get {
                 return ResourceManager.GetString("ProjectMigrator_MigrateToTargetLocation_Outdated_projectfile_0_succesfully_update" +
-                        "d_to_target_filepath_1_version_2_", resourceCulture);
+                        "d_to_target_file_path_1_version_2_", resourceCulture);
             }
         }
         
@@ -182,10 +182,9 @@ namespace Riskeer.Migration.Properties {
         /// <summary>
         ///   Looks up a localized string similar to {0}projectpad moet een geldig projectpad zijn..
         /// </summary>
-        internal static string ProjectMigrator_ValidateProjectPath_TypeDescriptor_0_filepath_must_be_a_valid_path {
+        internal static string ProjectMigrator_ValidateProjectPath_TypeDescriptor_0_file_path_must_be_valid {
             get {
-                return ResourceManager.GetString("ProjectMigrator_ValidateProjectPath_TypeDescriptor_0_filepath_must_be_a_valid_pat" +
-                        "h", resourceCulture);
+                return ResourceManager.GetString("ProjectMigrator_ValidateProjectPath_TypeDescriptor_0_file_path_must_be_valid", resourceCulture);
             }
         }
         
