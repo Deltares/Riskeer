@@ -177,7 +177,7 @@ namespace Riskeer.Integration.IO.Importers
 
         private ReadResult<ReadHydraulicLocationConfigurationDatabase> ReadHydraulicLocationConfigurationDatabase(long trackId)
         {
-            NotifyProgress(Resources.HydraulicBoundaryDataImporter_ProgressText_Reading_HLCD_file, 2, numberOfSteps);
+            NotifyProgress(Resources.HydraulicBoundaryDataImporter_ProgressText_Reading_Hlcd_file, 2, numberOfSteps);
             try
             {
                 using (var reader = new HydraulicLocationConfigurationDatabaseReader(FilePath))

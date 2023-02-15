@@ -98,7 +98,7 @@ namespace Riskeer.Integration.IO.Importers
                 readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings;
             if (hydraulicLocationConfigurationDatabaseSettings != null && hydraulicLocationConfigurationDatabaseSettings.Count() != 1)
             {
-                Log.Error(BuildErrorMessage(hlcdFilePath, Resources.HydraulicBoundaryDataImporter_HLCD_Invalid_number_of_ScenarioInformation_entries));
+                Log.Error(BuildErrorMessage(hlcdFilePath, Resources.HydraulicBoundaryDataImporter_Hlcd_Invalid_number_of_ScenarioInformation_entries));
                 return false;
             }
 
@@ -172,7 +172,7 @@ namespace Riskeer.Integration.IO.Importers
 
         private ReadResult<ReadHydraulicLocationConfigurationDatabase> ReadHydraulicLocationConfigurationDatabase(string hlcdFilePath, long trackId)
         {
-            NotifyProgress(Resources.HydraulicBoundaryDataImporter_ProgressText_Reading_HLCD_file, 2, numberOfSteps);
+            NotifyProgress(Resources.HydraulicBoundaryDataImporter_ProgressText_Reading_Hlcd_file, 2, numberOfSteps);
             try
             {
                 using (var reader = new HydraulicLocationConfigurationDatabaseReader(hlcdFilePath))
@@ -182,7 +182,7 @@ namespace Riskeer.Integration.IO.Importers
             }
             catch (CriticalFileReadException)
             {
-                return HandleCriticalFileReadError<ReadHydraulicLocationConfigurationDatabase>(Resources.HydraulicBoundaryDataImporter_HLCD_sqlite_Not_Found);
+                return HandleCriticalFileReadError<ReadHydraulicLocationConfigurationDatabase>(Resources.HydraulicBoundaryDataImporter_Hlcd_sqlite_not_found);
             }
         }
 

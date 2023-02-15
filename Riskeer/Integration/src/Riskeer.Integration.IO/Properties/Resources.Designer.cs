@@ -212,18 +212,18 @@ namespace Riskeer.Integration.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De tabel &apos;ScenarioInformation&apos; in het HLCD bestand moet exact 1 rij bevatten..
         /// </summary>
-        public static string HydraulicBoundaryDataImporter_HLCD_Invalid_number_of_ScenarioInformation_entries {
+        public static string HydraulicBoundaryDataImporter_Hlcd_Invalid_number_of_ScenarioInformation_entries {
             get {
-                return ResourceManager.GetString("HydraulicBoundaryDataImporter_HLCD_Invalid_number_of_ScenarioInformation_entries", resourceCulture);
+                return ResourceManager.GetString("HydraulicBoundaryDataImporter_Hlcd_Invalid_number_of_ScenarioInformation_entries", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Het bijbehorende HLCD bestand is niet gevonden in dezelfde map als het HRD bestand..
         /// </summary>
-        public static string HydraulicBoundaryDataImporter_HLCD_sqlite_Not_Found {
+        public static string HydraulicBoundaryDataImporter_Hlcd_sqlite_not_found {
             get {
-                return ResourceManager.GetString("HydraulicBoundaryDataImporter_HLCD_sqlite_Not_Found", resourceCulture);
+                return ResourceManager.GetString("HydraulicBoundaryDataImporter_Hlcd_sqlite_not_found", resourceCulture);
             }
         }
         
@@ -248,9 +248,9 @@ namespace Riskeer.Integration.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Inlezen van het hydraulische locatie configuratie bestand..
         /// </summary>
-        public static string HydraulicBoundaryDataImporter_ProgressText_Reading_HLCD_file {
+        public static string HydraulicBoundaryDataImporter_ProgressText_Reading_Hlcd_file {
             get {
-                return ResourceManager.GetString("HydraulicBoundaryDataImporter_ProgressText_Reading_HLCD_file", resourceCulture);
+                return ResourceManager.GetString("HydraulicBoundaryDataImporter_ProgressText_Reading_Hlcd_file", resourceCulture);
             }
         }
         

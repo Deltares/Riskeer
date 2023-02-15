@@ -34,7 +34,7 @@ using Riskeer.HydraRing.IO.Properties;
 namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
 {
     /// <summary>
-    /// Class for reading information from a hydraulic location configuration database (HLCD).
+    /// Class for reading information from a hydraulic location configuration database.
     /// </summary>
     public class HydraulicLocationConfigurationDatabaseReader : SqLiteDatabaseReaderBase
     {
