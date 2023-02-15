@@ -722,7 +722,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
         private static void ConfigureHydraulicBoundaryDatabase(IAssessmentSection assessmentSection)
         {
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryData
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
             {
                 Locations =
                 {
@@ -763,7 +763,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
                             },
                             InflowModelType = random.NextEnumValue<ClosingStructureInflowModelType>(),
                             ForeshoreProfile = failureMechanism.ForeshoreProfiles.FirstOrDefault(),
-                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(),
+                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.Locations.First(),
                             BreakWater =
                             {
                                 Height = (RoundedDouble) 3.3,
@@ -798,7 +798,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
                             },
                             InflowModelType = random.NextEnumValue<ClosingStructureInflowModelType>(),
                             ForeshoreProfile = failureMechanism.ForeshoreProfiles.LastOrDefault(),
-                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.Last(),
+                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.Locations.Last(),
                             BreakWater =
                             {
                                 Height = (RoundedDouble) 3.3,

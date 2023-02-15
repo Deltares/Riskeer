@@ -89,7 +89,7 @@ namespace Riskeer.Revetment.Forms.Test.PresentationObjects
             Assert.AreSame(waveConditionsInput, context.WrappedData);
             Assert.AreSame(calculation, context.Calculation);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
-            Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase.Locations, context.HydraulicBoundaryLocations);
+            Assert.AreSame(assessmentSection.HydraulicBoundaryData.Locations, context.HydraulicBoundaryLocations);
         }
 
         private class WaveConditionsInputContext : WaveConditionsInputContext<WaveConditionsInput>

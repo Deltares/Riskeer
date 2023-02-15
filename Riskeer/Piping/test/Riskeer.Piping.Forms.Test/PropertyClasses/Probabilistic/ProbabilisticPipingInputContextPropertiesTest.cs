@@ -1526,7 +1526,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
 
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryData
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
             {
                 Locations =
                 {
@@ -1587,7 +1587,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                 }
             };
 
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryData);
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
 
             mocks.ReplayAll();
 
@@ -1630,7 +1630,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                 }
             };
 
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryData);
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
 
             mocks.ReplayAll();
 
@@ -1685,7 +1685,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             };
 
             observable.Expect(o => o.NotifyObservers());
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryData);
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
 
             mocks.ReplayAll();
 

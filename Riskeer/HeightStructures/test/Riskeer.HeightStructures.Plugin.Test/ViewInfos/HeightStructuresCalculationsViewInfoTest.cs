@@ -167,7 +167,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
             {
                 failureMechanism
             });
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryData
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
             {
                 Locations =
                 {

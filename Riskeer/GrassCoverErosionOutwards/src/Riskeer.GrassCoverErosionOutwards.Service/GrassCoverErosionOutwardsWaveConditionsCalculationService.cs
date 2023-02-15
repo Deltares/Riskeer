@@ -112,7 +112,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
 
             double targetProbability = WaveConditionsInputHelper.GetTargetProbability(calculationInput, assessmentSection);
 
-            HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryDatabase;
+            HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryData;
 
             DetermineTotalWaterLevelCalculations(calculationInput, assessmentLevel);
 

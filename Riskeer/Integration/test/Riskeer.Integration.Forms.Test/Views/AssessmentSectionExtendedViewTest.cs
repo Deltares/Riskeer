@@ -131,7 +131,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             {
                 new HydraulicBoundaryLocation(2, "test2", 2.0, 3.0)
             });
-            assessmentSection.HydraulicBoundaryDatabase.Locations.NotifyObservers();
+            assessmentSection.HydraulicBoundaryData.Locations.NotifyObservers();
 
             // Assert
             var actualReferenceLineMapData = (MapLineData) mapData.Collection.ElementAt(referenceLineIndex + 1);

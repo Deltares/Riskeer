@@ -100,7 +100,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(assessmentSectionComposition, section.Composition);
             CollectionAssert.IsEmpty(section.ReferenceLine.Points);
 
-            HydraulicBoundaryData hydraulicBoundaryData = section.HydraulicBoundaryDatabase;
+            HydraulicBoundaryData hydraulicBoundaryData = section.HydraulicBoundaryData;
             Assert.IsNotNull(hydraulicBoundaryData);
             CollectionAssert.IsEmpty(hydraulicBoundaryData.Locations);
             Assert.IsNull(hydraulicBoundaryData.FilePath);
@@ -223,7 +223,7 @@ namespace Riskeer.Storage.Core.Test.Read
             AssessmentSection section = entity.Read(collector);
 
             // Assert
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = section.HydraulicBoundaryDatabase.Locations.Single();
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = section.HydraulicBoundaryData.Locations.Single();
 
             HydraulicBoundaryLocationCalculation calculation = section.WaterLevelCalculationsForSignalFloodingProbability.Single();
             HydraulicLocationCalculationEntity hydraulicLocationCalculationEntity = entity.HydraulicLocationCalculationCollectionEntity1
@@ -266,7 +266,7 @@ namespace Riskeer.Storage.Core.Test.Read
             AssessmentSection section = entity.Read(collector);
 
             // Assert
-            HydraulicBoundaryData hydraulicBoundaryData = section.HydraulicBoundaryDatabase;
+            HydraulicBoundaryData hydraulicBoundaryData = section.HydraulicBoundaryData;
             CollectionAssert.IsEmpty(hydraulicBoundaryData.Locations);
             Assert.IsNull(hydraulicBoundaryData.FilePath);
             Assert.IsNull(hydraulicBoundaryData.Version);
@@ -304,7 +304,7 @@ namespace Riskeer.Storage.Core.Test.Read
             AssessmentSection section = entity.Read(collector);
 
             // Assert
-            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations = section.HydraulicBoundaryDatabase.Locations;
+            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations = section.HydraulicBoundaryData.Locations;
             Assert.AreEqual(2, hydraulicBoundaryLocations.Count());
             CollectionAssert.AreEqual(new[]
             {
@@ -346,7 +346,7 @@ namespace Riskeer.Storage.Core.Test.Read
             AssessmentSection section = entity.Read(collector);
 
             // Assert
-            HydraulicBoundaryData hydraulicBoundaryData = section.HydraulicBoundaryDatabase;
+            HydraulicBoundaryData hydraulicBoundaryData = section.HydraulicBoundaryData;
             Assert.AreEqual(hydraulicBoundaryDatabaseEntity.FilePath, hydraulicBoundaryData.FilePath);
             Assert.AreEqual(hydraulicBoundaryDatabaseEntity.Version, hydraulicBoundaryData.Version);
 

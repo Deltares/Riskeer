@@ -182,7 +182,7 @@ namespace Riskeer.Piping.Plugin
                     new PipingCalculationConfigurationImporter(
                         filePath,
                         context.WrappedData,
-                        context.AssessmentSection.HydraulicBoundaryDatabase.Locations,
+                        context.AssessmentSection.HydraulicBoundaryData.Locations,
                         context.FailureMechanism));
         }
 

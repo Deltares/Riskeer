@@ -39,11 +39,11 @@ namespace Riskeer.Integration.Forms.Test.PresentationObjects
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             // Call
-            var context = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase, assessmentSection);
+            var context = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryData, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<HydraulicBoundaryData>>(context);
-            Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase, context.WrappedData);
+            Assert.AreSame(assessmentSection.HydraulicBoundaryData, context.WrappedData);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
         }
 

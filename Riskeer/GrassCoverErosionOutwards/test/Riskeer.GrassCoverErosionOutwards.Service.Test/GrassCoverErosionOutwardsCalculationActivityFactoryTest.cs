@@ -108,7 +108,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             // Setup
             GrassCoverErosionOutwardsFailureMechanism failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var assessmentSection = new AssessmentSectionStub();
-            HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryDatabase;
+            HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryData;
             hydraulicBoundaryData.FilePath = validFilePath;
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName 1");
@@ -186,7 +186,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             // Setup
             GrassCoverErosionOutwardsFailureMechanism failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var assessmentSection = new AssessmentSectionStub();
-            HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryDatabase;
+            HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryData;
             hydraulicBoundaryData.FilePath = validFilePath;
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName 1");

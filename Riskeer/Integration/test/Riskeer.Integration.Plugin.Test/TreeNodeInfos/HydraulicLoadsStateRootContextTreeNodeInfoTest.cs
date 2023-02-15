@@ -168,7 +168,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Assert.AreEqual(5, objects.Length);
 
                 var hydraulicBoundaryDatabaseContext = (HydraulicBoundaryDatabaseContext) objects[0];
-                Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase, hydraulicBoundaryDatabaseContext.WrappedData);
+                Assert.AreSame(assessmentSection.HydraulicBoundaryData, hydraulicBoundaryDatabaseContext.WrappedData);
                 Assert.AreSame(assessmentSection, hydraulicBoundaryDatabaseContext.AssessmentSection);
 
                 var stabilityStoneCoverFailureMechanismContext = (StabilityStoneCoverFailureMechanismContext) objects[1];
@@ -243,7 +243,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
                 {
-                    HydraulicBoundaryDatabase =
+                    HydraulicBoundaryData =
                     {
                         FilePath = validFilePath
                     }
@@ -252,7 +252,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 {
                     new TestHydraulicBoundaryLocation()
                 });
-                HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+                HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData);
 
                 var context = new HydraulicLoadsStateRootContext(assessmentSection);
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
@@ -326,7 +326,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             {
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
                 {
-                    HydraulicBoundaryDatabase =
+                    HydraulicBoundaryData =
                     {
                         FilePath = "invalidFilePath"
                     }

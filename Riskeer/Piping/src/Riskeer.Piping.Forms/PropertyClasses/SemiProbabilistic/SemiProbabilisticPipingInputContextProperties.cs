@@ -156,7 +156,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.SemiProbabilistic
         {
             Point2D referencePoint = SurfaceLine?.ReferenceLineIntersectionWorldPoint;
             return SelectableHydraulicBoundaryLocationHelper.GetSortedSelectableHydraulicBoundaryLocations(
-                data.AssessmentSection.HydraulicBoundaryDatabase.Locations, referencePoint);
+                data.AssessmentSection.HydraulicBoundaryData.Locations, referencePoint);
         }
 
         /// <summary>

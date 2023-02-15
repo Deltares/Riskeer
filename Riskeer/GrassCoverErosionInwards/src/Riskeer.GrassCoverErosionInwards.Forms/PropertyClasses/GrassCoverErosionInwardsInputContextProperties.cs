@@ -368,7 +368,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
             Point2D calculationLocation = data.WrappedData.DikeProfile?.WorldReferencePoint;
 
             return SelectableHydraulicBoundaryLocationHelper.GetSortedSelectableHydraulicBoundaryLocations(
-                data.AssessmentSection.HydraulicBoundaryDatabase.Locations, calculationLocation);
+                data.AssessmentSection.HydraulicBoundaryData.Locations, calculationLocation);
         }
     }
 }

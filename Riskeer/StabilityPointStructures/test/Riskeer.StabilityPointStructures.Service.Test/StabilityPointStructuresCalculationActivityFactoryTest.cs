@@ -123,7 +123,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
 
             // Assert
             Assert.IsInstanceOf<StabilityPointStructuresCalculationActivity>(activity);
-            AssertStabilityPointStructuresCalculationActivity(activity, calculation, assessmentSection.HydraulicBoundaryDatabase);
+            AssertStabilityPointStructuresCalculationActivity(activity, calculation, assessmentSection.HydraulicBoundaryData);
             mocks.VerifyAll();
         }
 
@@ -210,7 +210,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(StabilityPointStructuresCalculationActivity));
             Assert.AreEqual(2, activities.Count());
 
-            HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryDatabase;
+            HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryData;
             AssertStabilityPointStructuresCalculationActivity(activities.First(), calculation1, hydraulicBoundaryData);
             AssertStabilityPointStructuresCalculationActivity(activities.ElementAt(1), calculation2, hydraulicBoundaryData);
             mocks.VerifyAll();
@@ -273,7 +273,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(StabilityPointStructuresCalculationActivity));
             Assert.AreEqual(2, activities.Count());
 
-            HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryDatabase;
+            HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryData;
             AssertStabilityPointStructuresCalculationActivity(activities.First(), calculation1, hydraulicBoundaryData);
             AssertStabilityPointStructuresCalculationActivity(activities.ElementAt(1), calculation2, hydraulicBoundaryData);
             mocks.VerifyAll();

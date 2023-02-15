@@ -184,7 +184,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         {
             Point2D referenceLocation = data.WrappedData.Structure?.Location;
             return SelectableHydraulicBoundaryLocationHelper.GetSortedSelectableHydraulicBoundaryLocations(
-                data.AssessmentSection.HydraulicBoundaryDatabase.Locations, referenceLocation);
+                data.AssessmentSection.HydraulicBoundaryData.Locations, referenceLocation);
         }
 
         public abstract IEnumerable<TStructure> GetAvailableStructures();

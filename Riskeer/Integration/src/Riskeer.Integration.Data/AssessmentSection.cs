@@ -86,7 +86,7 @@ namespace Riskeer.Integration.Data
 
             ReferenceLine = new ReferenceLine();
 
-            HydraulicBoundaryDatabase = new HydraulicBoundaryData();
+            HydraulicBoundaryData = new HydraulicBoundaryData();
 
             SpecificFailureMechanisms = new ObservableList<SpecificFailureMechanism>();
             waterLevelCalculationsForSignalFloodingProbability = new ObservableList<HydraulicBoundaryLocationCalculation>();
@@ -211,7 +211,7 @@ namespace Riskeer.Integration.Data
 
         public FailureMechanismContribution FailureMechanismContribution { get; }
 
-        public HydraulicBoundaryData HydraulicBoundaryDatabase { get; }
+        public HydraulicBoundaryData HydraulicBoundaryData { get; }
 
         public BackgroundData BackgroundData { get; }
 

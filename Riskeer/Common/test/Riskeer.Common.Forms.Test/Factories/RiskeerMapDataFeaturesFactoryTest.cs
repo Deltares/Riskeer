@@ -172,7 +172,7 @@ namespace Riskeer.Common.Forms.Test.Factories
             waterLevels.Add(assessmentSection.WaterLevelCalculationsForSignalFloodingProbability, "h - 1/30.000 (1)");
 
             IEnumerable<AggregatedHydraulicBoundaryLocation> locations = AggregatedHydraulicBoundaryLocationFactory.CreateAggregatedHydraulicBoundaryLocations(
-                assessmentSection.HydraulicBoundaryDatabase.Locations,
+                assessmentSection.HydraulicBoundaryData.Locations,
                 waterLevels,
                 assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.ToDictionary(
                     tp => (IObservableEnumerable<HydraulicBoundaryLocationCalculation>) tp.HydraulicBoundaryLocationCalculations,

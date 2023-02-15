@@ -104,7 +104,7 @@ namespace Riskeer.Integration.Service.Test
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
 
             HydraulicBoundaryCalculationSettings expectedCalculationSettings =
-                HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase);
+                HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData);
             using (mocks.Ordered())
             {
                 calculatorFactory.Expect(cf => cf.CreatePipingCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
@@ -227,7 +227,7 @@ namespace Riskeer.Integration.Service.Test
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
 
             HydraulicBoundaryCalculationSettings expectedCalculationSettings =
-                HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase);
+                HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData);
             using (mocks.Ordered())
             {
                 calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
@@ -294,12 +294,12 @@ namespace Riskeer.Integration.Service.Test
         {
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.DikeAndDune)
             {
-                HydraulicBoundaryDatabase =
+                HydraulicBoundaryData =
                 {
                     FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite")
                 }
             };
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData);
 
             return assessmentSection;
         }

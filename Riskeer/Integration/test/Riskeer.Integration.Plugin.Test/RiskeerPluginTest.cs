@@ -128,12 +128,12 @@ namespace Riskeer.Integration.Plugin.Test
 
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
                 {
-                    HydraulicBoundaryDatabase =
+                    HydraulicBoundaryData =
                     {
                         FilePath = testFilePath
                     }
                 };
-                HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+                HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData);
                 var project = new RiskeerProject(assessmentSection);
 
                 // When
@@ -165,7 +165,7 @@ namespace Riskeer.Integration.Plugin.Test
                 const string nonExistingFile = "not_existing_file";
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
                 {
-                    HydraulicBoundaryDatabase =
+                    HydraulicBoundaryData =
                     {
                         FilePath = nonExistingFile
                     }

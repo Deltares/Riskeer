@@ -72,7 +72,7 @@ namespace Riskeer.Integration.TestUtil
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var assessmentSection = new AssessmentSection(composition)
             {
-                HydraulicBoundaryDatabase =
+                HydraulicBoundaryData =
                 {
                     Locations =
                     {

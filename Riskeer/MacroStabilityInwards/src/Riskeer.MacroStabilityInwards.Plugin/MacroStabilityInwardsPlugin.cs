@@ -161,7 +161,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                     new MacroStabilityInwardsCalculationConfigurationImporter(
                         filePath,
                         context.WrappedData,
-                        context.AssessmentSection.HydraulicBoundaryDatabase.Locations,
+                        context.AssessmentSection.HydraulicBoundaryData.Locations,
                         context.FailureMechanism));
         }
 

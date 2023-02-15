@@ -74,7 +74,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
         {
             return WaveConditionsCalculationServiceBase.Validate(calculation.InputParameters,
                                                                  WaveConditionsInputHelper.GetAssessmentLevel(calculation.InputParameters, assessmentSection),
-                                                                 assessmentSection.HydraulicBoundaryDatabase);
+                                                                 assessmentSection.HydraulicBoundaryData);
         }
 
         protected override void PerformCalculation()

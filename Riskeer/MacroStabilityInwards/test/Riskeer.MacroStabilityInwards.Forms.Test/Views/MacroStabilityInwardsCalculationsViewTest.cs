@@ -738,7 +738,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
         private static void ConfigureHydraulicBoundaryDatabase(IAssessmentSection assessmentSection)
         {
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryData
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
             {
                 Locations =
                 {
@@ -821,7 +821,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                         {
                             SurfaceLine = failureMechanism.SurfaceLines.First(),
                             StochasticSoilModel = failureMechanism.StochasticSoilModels.First(),
-                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First()
+                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.Locations.First()
                         }
                     },
                     new MacroStabilityInwardsCalculationScenario
@@ -832,7 +832,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                             SurfaceLine = failureMechanism.SurfaceLines.Last(),
                             StochasticSoilModel = stochasticSoilModelForCalculation2,
                             StochasticSoilProfile = stochasticSoilModelForCalculation2.StochasticSoilProfiles.First(),
-                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.Last()
+                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.Locations.Last()
                         }
                     }
                 }

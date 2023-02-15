@@ -70,7 +70,7 @@ namespace Riskeer.Common.Forms.GuiServices
                 throw new ArgumentNullException(nameof(calculations));
             }
 
-            RunActivities(assessmentSection.HydraulicBoundaryDatabase,
+            RunActivities(assessmentSection.HydraulicBoundaryData,
                           HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
                               calculations,
                               assessmentSection,
@@ -93,7 +93,7 @@ namespace Riskeer.Common.Forms.GuiServices
                 throw new ArgumentNullException(nameof(calculations));
             }
 
-            RunActivities(assessmentSection.HydraulicBoundaryDatabase,
+            RunActivities(assessmentSection.HydraulicBoundaryData,
                           HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
                               calculations,
                               assessmentSection,

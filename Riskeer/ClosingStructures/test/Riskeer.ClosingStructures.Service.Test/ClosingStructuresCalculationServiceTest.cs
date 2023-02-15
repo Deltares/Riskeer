@@ -367,7 +367,7 @@ namespace Riskeer.ClosingStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.Locations.First(hl => hl.Id == 1300001)
                 }
             };
 
@@ -447,7 +447,7 @@ namespace Riskeer.ClosingStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.Locations.First(hl => hl.Id == 1300001),
                     ForeshoreProfile = new TestForeshoreProfile(true)
                     {
                         BreakWater =
@@ -528,7 +528,7 @@ namespace Riskeer.ClosingStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.Locations.First(hl => hl.Id == 1300001),
                     InflowModelType = ClosingStructureInflowModelType.LowSill
                 }
             };
@@ -607,7 +607,7 @@ namespace Riskeer.ClosingStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.Locations.First(hl => hl.Id == 1300001),
                     InflowModelType = ClosingStructureInflowModelType.LowSill,
                     ForeshoreProfile = new TestForeshoreProfile(true)
                     {
@@ -686,7 +686,7 @@ namespace Riskeer.ClosingStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.Locations.First(hl => hl.Id == 1300001),
                     InflowModelType = ClosingStructureInflowModelType.FloodedCulvert
                 }
             };
@@ -763,7 +763,7 @@ namespace Riskeer.ClosingStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.Locations.First(hl => hl.Id == 1300001),
                     InflowModelType = ClosingStructureInflowModelType.FloodedCulvert,
                     ForeshoreProfile = new TestForeshoreProfile(true)
                     {
@@ -854,7 +854,7 @@ namespace Riskeer.ClosingStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.Locations.First(hl => hl.Id == 1300001)
                 }
             };
 
@@ -900,7 +900,7 @@ namespace Riskeer.ClosingStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.Locations.First(hl => hl.Id == 1300001),
                     InflowModelType = inflowModelType,
                     ForeshoreProfile = new TestForeshoreProfile(true),
                     UseForeshore = true,
@@ -969,7 +969,7 @@ namespace Riskeer.ClosingStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.Locations.First(hl => hl.Id == 1300001)
                 }
             };
 
@@ -1032,7 +1032,7 @@ namespace Riskeer.ClosingStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.Locations.First(hl => hl.Id == 1300001)
                 }
             };
 
@@ -1096,7 +1096,7 @@ namespace Riskeer.ClosingStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.Locations.First(hl => hl.Id == 1300001)
                 }
             };
 

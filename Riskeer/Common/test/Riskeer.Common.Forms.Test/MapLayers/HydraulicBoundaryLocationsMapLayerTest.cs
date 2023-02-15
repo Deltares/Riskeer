@@ -99,7 +99,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 {
                     new HydraulicBoundaryLocation(2, "test2", 2.0, 3.0)
                 });
-                assessmentSection.HydraulicBoundaryDatabase.Locations.NotifyObservers();
+                assessmentSection.HydraulicBoundaryData.Locations.NotifyObservers();
 
                 // Then
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
@@ -209,7 +209,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 // When
                 ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> targetProbabilities = getTargetProbabilitiesFunc(assessmentSection);
                 var newTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
-                newTargetProbability.HydraulicBoundaryLocationCalculations.AddRange(assessmentSection.HydraulicBoundaryDatabase.Locations
+                newTargetProbability.HydraulicBoundaryLocationCalculations.AddRange(assessmentSection.HydraulicBoundaryData.Locations
                                                                                                      .Select(l => new HydraulicBoundaryLocationCalculation(l)));
                 targetProbabilities.Add(newTargetProbability);
                 targetProbabilities.NotifyObservers();
@@ -280,7 +280,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
             {
                 ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> targetProbabilities = getTargetProbabilitiesFunc(assessmentSection);
                 var newTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
-                newTargetProbability.HydraulicBoundaryLocationCalculations.AddRange(assessmentSection.HydraulicBoundaryDatabase.Locations
+                newTargetProbability.HydraulicBoundaryLocationCalculations.AddRange(assessmentSection.HydraulicBoundaryData.Locations
                                                                                                      .Select(l => new HydraulicBoundaryLocationCalculation(l))
                                                                                                      .ToArray());
                 targetProbabilities.Add(newTargetProbability);

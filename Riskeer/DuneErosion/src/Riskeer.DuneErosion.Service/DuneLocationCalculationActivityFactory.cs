@@ -65,7 +65,7 @@ namespace Riskeer.DuneErosion.Service
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            HydraulicBoundaryCalculationSettings settings = HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase);
+            HydraulicBoundaryCalculationSettings settings = HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData);
             return calculations.Select(calculation => new DuneLocationCalculationActivity(calculation,
                                                                                           settings,
                                                                                           targetProbability,

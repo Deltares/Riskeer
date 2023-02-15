@@ -117,11 +117,11 @@ namespace Riskeer.Integration.Service.Test.Comparers
         {
             // Setup
             AssessmentSection assessmentSection = CreateAssessmentSection();
-            SetHydraulicLocationConfigurationValues(assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings,
+            SetHydraulicLocationConfigurationValues(assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings,
                                                     "FilePath1");
 
             AssessmentSection otherAssessmentSection = CreateAssessmentSection();
-            SetHydraulicLocationConfigurationValues(otherAssessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings,
+            SetHydraulicLocationConfigurationValues(otherAssessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings,
                                                     "FilePath2");
 
             var comparer = new AssessmentSectionMergeComparer();
@@ -139,7 +139,7 @@ namespace Riskeer.Integration.Service.Test.Comparers
         {
             // Setup
             AssessmentSection assessmentSection = CreateAssessmentSection();
-            SetHydraulicLocationConfigurationValues(assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings);
+            SetHydraulicLocationConfigurationValues(assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings);
 
             var comparer = new AssessmentSectionMergeComparer();
 
@@ -208,7 +208,7 @@ namespace Riskeer.Integration.Service.Test.Comparers
 
             yield return new ChangePropertyData<AssessmentSection>(sec => sec.Id = "DifferentVersion",
                                                                    "Id");
-            yield return new ChangePropertyData<AssessmentSection>(sec => sec.HydraulicBoundaryDatabase.Version = "DifferentVersion",
+            yield return new ChangePropertyData<AssessmentSection>(sec => sec.HydraulicBoundaryData.Version = "DifferentVersion",
                                                                    "HydraulicBoundaryDataBase");
             yield return new ChangePropertyData<AssessmentSection>(sec => sec.FailureMechanismContribution.MaximumAllowableFloodingProbability -= 1e-15,
                                                                    "MaximumAllowableFloodingProbability");
@@ -227,7 +227,7 @@ namespace Riskeer.Integration.Service.Test.Comparers
             foreach (ChangePropertyData<HydraulicLocationConfigurationSettings> changeSingleDataProperty in ChangeSingleDataOfHydraulicLocationConfigurationSettings())
             {
                 AssessmentSection assessmentSection = CreateAssessmentSection();
-                changeSingleDataProperty.ActionToChangeProperty(assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings);
+                changeSingleDataProperty.ActionToChangeProperty(assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings);
                 yield return new TestCaseData(assessmentSection).SetName(changeSingleDataProperty.PropertyName);
             }
         }

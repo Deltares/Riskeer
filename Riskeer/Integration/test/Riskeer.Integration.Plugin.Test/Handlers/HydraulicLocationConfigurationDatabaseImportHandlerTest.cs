@@ -163,7 +163,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             DataImportHelper.ImportHydraulicBoundaryDatabase(assessmentSection,
                                                              Path.Combine(testDataDirectory, "complete.sqlite"));
 
-            HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryDatabase;
+            HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryData;
 
             var mocks = new MockRepository();
             var updateHandler = mocks.Stub<IHydraulicLocationConfigurationDatabaseUpdateHandler>();

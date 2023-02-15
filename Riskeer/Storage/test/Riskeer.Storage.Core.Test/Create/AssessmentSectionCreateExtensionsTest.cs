@@ -187,7 +187,7 @@ namespace Riskeer.Storage.Core.Test.Create
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(assessmentSection.HydraulicBoundaryDatabase.Locations);
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(assessmentSection.HydraulicBoundaryData.Locations);
 
             var registry = new PersistenceRegistry();
 
@@ -211,7 +211,7 @@ namespace Riskeer.Storage.Core.Test.Create
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase =
+                HydraulicBoundaryData =
                 {
                     FilePath = testFilePath,
                     Version = testVersion,
@@ -232,7 +232,7 @@ namespace Riskeer.Storage.Core.Test.Create
                     new HydraulicBoundaryLocationCalculationsForTargetProbability(random.NextDouble(0, 0.1))
                 }
             };
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(assessmentSection.HydraulicBoundaryDatabase.Locations);
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(assessmentSection.HydraulicBoundaryData.Locations);
             SetHydraulicBoundaryLocationCalculationInputsOfAssessmentSection(assessmentSection);
 
             var registry = new PersistenceRegistry();
@@ -243,7 +243,7 @@ namespace Riskeer.Storage.Core.Test.Create
             // Assert
             HydraulicBoundaryDatabaseEntity hydraulicBoundaryDatabaseEntity = entity.HydraulicBoundaryDatabaseEntities.Single();
 
-            HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryDatabase;
+            HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryData;
             Assert.AreEqual(hydraulicBoundaryData.FilePath, hydraulicBoundaryDatabaseEntity.FilePath);
             Assert.AreEqual(hydraulicBoundaryData.Version, hydraulicBoundaryDatabaseEntity.Version);
 

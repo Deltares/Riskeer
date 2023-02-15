@@ -162,7 +162,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         {
             Point2D referencePoint = SurfaceLine?.ReferenceLineIntersectionWorldPoint;
             return SelectableHydraulicBoundaryLocationHelper.GetSortedSelectableHydraulicBoundaryLocations(
-                data.AssessmentSection.HydraulicBoundaryDatabase.Locations, referencePoint);
+                data.AssessmentSection.HydraulicBoundaryData.Locations, referencePoint);
         }
 
         private RoundedDouble GetEffectiveAssessmentLevel()

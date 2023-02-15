@@ -383,7 +383,7 @@ namespace Riskeer.Integration.Service.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase =
+                HydraulicBoundaryData =
                 {
                     Locations =
                     {

@@ -1158,13 +1158,13 @@ namespace Riskeer.Integration.Plugin
             }
 
             AssessmentSection assessmentSection = riskeerProject.AssessmentSection;
-            if (assessmentSection.HydraulicBoundaryDatabase.IsLinked())
+            if (assessmentSection.HydraulicBoundaryData.IsLinked())
             {
                 string validationProblem = HydraulicBoundaryDataHelper.ValidateFilesForCalculation(
-                    assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                    assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.FilePath,
-                    assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
-                    assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessorClosure);
+                    assessmentSection.HydraulicBoundaryData.FilePath,
+                    assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.FilePath,
+                    assessmentSection.HydraulicBoundaryData.EffectivePreprocessorDirectory(),
+                    assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.UsePreprocessorClosure);
 
                 if (validationProblem != null)
                 {
@@ -1742,7 +1742,7 @@ namespace Riskeer.Integration.Plugin
 
             return new object[]
             {
-                new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase, assessmentSection),
+                new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryData, assessmentSection),
                 new StabilityStoneCoverHydraulicLoadsStateFailureMechanismContext(assessmentSection.StabilityStoneCover, assessmentSection),
                 new WaveImpactAsphaltCoverHydraulicLoadsStateFailureMechanismContext(assessmentSection.WaveImpactAsphaltCover, assessmentSection),
                 new GrassCoverErosionOutwardsHydraulicLoadsStateFailureMechanismContext(assessmentSection.GrassCoverErosionOutwards, assessmentSection),
@@ -2396,7 +2396,7 @@ namespace Riskeer.Integration.Plugin
 
         private static void SetHydraulicsMenuItemEnabledStateAndTooltip(IAssessmentSection assessmentSection, StrictContextMenuItem menuItem)
         {
-            string validationText = HydraulicBoundaryDataConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
+            string validationText = HydraulicBoundaryDataConnectionValidator.Validate(assessmentSection.HydraulicBoundaryData);
             if (!string.IsNullOrEmpty(validationText))
             {
                 menuItem.Enabled = false;
@@ -2762,7 +2762,7 @@ namespace Riskeer.Integration.Plugin
             var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01);
 
             calculationsForTargetProbability.HydraulicBoundaryLocationCalculations.AddRange(
-                assessmentSection.HydraulicBoundaryDatabase.Locations.Select(hbl => new HydraulicBoundaryLocationCalculation(hbl)));
+                assessmentSection.HydraulicBoundaryData.Locations.Select(hbl => new HydraulicBoundaryLocationCalculation(hbl)));
 
             return calculationsForTargetProbability;
         }

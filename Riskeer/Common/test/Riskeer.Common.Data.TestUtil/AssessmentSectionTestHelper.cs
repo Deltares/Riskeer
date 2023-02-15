@@ -46,7 +46,7 @@ namespace Riskeer.Common.Data.TestUtil
         public static IAssessmentSection CreateAssessmentSectionStub(MockRepository mockRepository)
         {
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryData());
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData());
             assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             assessmentSection.Replay();
 
@@ -72,7 +72,7 @@ namespace Riskeer.Common.Data.TestUtil
             assessmentSection.Stub(a => a.Id).Return("21");
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(0.1, 1.0 / 30000));
             assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(failureMechanisms);
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(GetHydraulicBoundaryData(filePath));
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(GetHydraulicBoundaryData(filePath));
             assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             assessmentSection.Replay();
 

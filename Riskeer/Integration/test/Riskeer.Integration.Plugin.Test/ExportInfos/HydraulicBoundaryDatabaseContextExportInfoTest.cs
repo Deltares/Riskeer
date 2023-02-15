@@ -78,7 +78,7 @@ namespace Riskeer.Integration.Plugin.Test.ExportInfos
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase =
+                HydraulicBoundaryData =
                 {
                     Locations =
                     {
@@ -86,7 +86,7 @@ namespace Riskeer.Integration.Plugin.Test.ExportInfos
                     }
                 }
             };
-            var context = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase, assessmentSection);
+            var context = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryData, assessmentSection);
             const string filePath = "test";
 
             using (var plugin = new RiskeerPlugin())
@@ -106,7 +106,7 @@ namespace Riskeer.Integration.Plugin.Test.ExportInfos
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            var context = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase, assessmentSection);
+            var context = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryData, assessmentSection);
 
             using (var plugin = new RiskeerPlugin())
             {
@@ -126,12 +126,12 @@ namespace Riskeer.Integration.Plugin.Test.ExportInfos
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase =
+                HydraulicBoundaryData =
                 {
                     FilePath = "databaseFile"
                 }
             };
-            var context = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase, assessmentSection);
+            var context = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryData, assessmentSection);
 
             using (var plugin = new RiskeerPlugin())
             {

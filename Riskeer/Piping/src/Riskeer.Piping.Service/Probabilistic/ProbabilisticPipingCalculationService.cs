@@ -536,8 +536,8 @@ namespace Riskeer.Piping.Service.Probabilistic
 
         private static IEnumerable<string> ValidateHydraulicBoundaryDatabase(IAssessmentSection assessmentSection)
         {
-            string preprocessorDirectory = assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory();
-            string connectionValidationProblem = HydraulicBoundaryDataConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
+            string preprocessorDirectory = assessmentSection.HydraulicBoundaryData.EffectivePreprocessorDirectory();
+            string connectionValidationProblem = HydraulicBoundaryDataConnectionValidator.Validate(assessmentSection.HydraulicBoundaryData);
             if (!string.IsNullOrEmpty(connectionValidationProblem))
             {
                 yield return connectionValidationProblem;

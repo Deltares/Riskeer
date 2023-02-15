@@ -109,7 +109,7 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
             var mocks = new MockRepository();
             var viewParent = mocks.Stub<IViewParent>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase)
+            assessmentSection.Stub(a => a.HydraulicBoundaryData)
                              .Return(hydraulicBoundaryData);
             mocks.ReplayAll();
 
@@ -141,7 +141,7 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase)
+            assessmentSection.Stub(a => a.HydraulicBoundaryData)
                              .Return(hydraulicBoundaryData);
             mocks.ReplayAll();
 
@@ -189,7 +189,7 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
                              })
                              .Return(new TestDunesBoundaryConditionsCalculator());
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase)
+            assessmentSection.Stub(a => a.HydraulicBoundaryData)
                              .Return(hydraulicBoundaryData);
             mocks.ReplayAll();
 

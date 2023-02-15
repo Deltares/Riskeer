@@ -718,7 +718,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
 
         private static void ConfigureHydraulicBoundaryDatabase(IAssessmentSection assessmentSection)
         {
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryData
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
             {
                 Locations =
                 {
@@ -764,7 +764,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
                             },
                             EvaluationLevel = (RoundedDouble) 10.00,
                             ForeshoreProfile = failureMechanism.ForeshoreProfiles.FirstOrDefault(),
-                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(),
+                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.Locations.First(),
                             BreakWater =
                             {
                                 Height = (RoundedDouble) 3.3,
@@ -804,7 +804,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
                             },
                             EvaluationLevel = (RoundedDouble) 10.00,
                             ForeshoreProfile = failureMechanism.ForeshoreProfiles.LastOrDefault(),
-                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.Last(),
+                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.Locations.Last(),
                             BreakWater =
                             {
                                 Height = (RoundedDouble) 3.3,

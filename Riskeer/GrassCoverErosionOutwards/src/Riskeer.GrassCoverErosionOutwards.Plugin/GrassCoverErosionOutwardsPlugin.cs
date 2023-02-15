@@ -566,7 +566,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
         private StrictContextMenuItem CreateGenerateWaveConditionsCalculationsItem(GrassCoverErosionOutwardsCalculationGroupContext nodeData)
         {
-            bool locationsAvailable = nodeData.AssessmentSection.HydraulicBoundaryDatabase.Locations.Any();
+            bool locationsAvailable = nodeData.AssessmentSection.HydraulicBoundaryData.Locations.Any();
 
             string calculationGroupContextToolTip = locationsAvailable
                                                         ? RiskeerCommonFormsResources.CalculationGroup_CreateGenerateHydraulicBoundaryCalculationsItem_ToolTip
@@ -583,7 +583,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
         private void ShowHydraulicBoundaryLocationSelectionDialog(GrassCoverErosionOutwardsCalculationGroupContext nodeData)
         {
-            using (var dialog = new HydraulicBoundaryLocationSelectionDialog(Gui.MainWindow, nodeData.AssessmentSection.HydraulicBoundaryDatabase.Locations))
+            using (var dialog = new HydraulicBoundaryLocationSelectionDialog(Gui.MainWindow, nodeData.AssessmentSection.HydraulicBoundaryData.Locations))
             {
                 dialog.ShowDialog();
 
@@ -645,7 +645,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                 WaveConditionsCalculationServiceBase.Validate(
                     calculation.InputParameters,
                     WaveConditionsInputHelper.GetAssessmentLevel(calculation.InputParameters, context.AssessmentSection),
-                    context.AssessmentSection.HydraulicBoundaryDatabase);
+                    context.AssessmentSection.HydraulicBoundaryData);
             }
         }
 
@@ -736,7 +736,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
             WaveConditionsCalculationServiceBase.Validate(calculation.InputParameters,
                                                           WaveConditionsInputHelper.GetAssessmentLevel(calculation.InputParameters, assessmentSection),
-                                                          assessmentSection.HydraulicBoundaryDatabase);
+                                                          assessmentSection.HydraulicBoundaryData);
         }
 
         private void Calculate(GrassCoverErosionOutwardsWaveConditionsCalculationContext context)
@@ -775,7 +775,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
         private static string EnableValidateAndCalculateMenuItem(IAssessmentSection assessmentSection)
         {
-            return HydraulicBoundaryDataConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
+            return HydraulicBoundaryDataConnectionValidator.Validate(assessmentSection.HydraulicBoundaryData);
         }
 
         #endregion

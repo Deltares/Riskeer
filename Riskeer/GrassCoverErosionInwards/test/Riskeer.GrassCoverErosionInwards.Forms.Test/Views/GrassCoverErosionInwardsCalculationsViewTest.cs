@@ -764,7 +764,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
         private static void ConfigureHydraulicBoundaryDatabase(IAssessmentSection assessmentSection)
         {
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryData
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
             {
                 Locations =
                 {
@@ -791,7 +791,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                         InputParameters =
                         {
                             DikeProfile = failureMechanism.DikeProfiles.FirstOrDefault(),
-                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(),
+                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.Locations.First(),
                             DikeHeight = (RoundedDouble) 1.1,
                             Orientation = (RoundedDouble) 2.2,
                             BreakWater =
@@ -826,7 +826,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                         InputParameters =
                         {
                             DikeProfile = failureMechanism.DikeProfiles.LastOrDefault(),
-                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.Last(),
+                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.Locations.Last(),
                             DikeHeight = (RoundedDouble) 1.1,
                             Orientation = (RoundedDouble) 2.2,
                             BreakWater =

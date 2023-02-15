@@ -247,7 +247,7 @@ namespace Riskeer.ClosingStructures.Plugin
                 (context, filePath) => new ClosingStructuresCalculationConfigurationImporter(
                     filePath,
                     context.WrappedData,
-                    context.AssessmentSection.HydraulicBoundaryDatabase.Locations,
+                    context.AssessmentSection.HydraulicBoundaryData.Locations,
                     context.AvailableForeshoreProfiles,
                     context.AvailableStructures));
         }
@@ -900,7 +900,7 @@ namespace Riskeer.ClosingStructures.Plugin
 
         private static string EnableValidateAndCalculateMenuItem(IAssessmentSection assessmentSection)
         {
-            return HydraulicBoundaryDataConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
+            return HydraulicBoundaryDataConnectionValidator.Validate(assessmentSection.HydraulicBoundaryData);
         }
 
         #endregion

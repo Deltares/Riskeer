@@ -143,7 +143,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
         private static void ConfigureHydraulicBoundaryDatabase(IAssessmentSection assessmentSection)
         {
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryData
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
             {
                 Locations =
                 {
@@ -164,7 +164,7 @@ namespace Riskeer.Common.Forms.Test.Views
                         Name = "Calculation 1",
                         InputParameters =
                         {
-                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First()
+                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.Locations.First()
                         },
                         Output = null
                     },
@@ -173,7 +173,7 @@ namespace Riskeer.Common.Forms.Test.Views
                         Name = "Calculation 2",
                         InputParameters =
                         {
-                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.Last()
+                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.Locations.Last()
                         }
                     }
                 }
@@ -545,8 +545,8 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.AreEqual(5, hydraulicBoundaryLocationCombobox.Items.Count);
 
             // When
-            assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(3, "Location 3", 5.5, 6.6));
-            assessmentSection.HydraulicBoundaryDatabase.Locations.NotifyObservers();
+            assessmentSection.HydraulicBoundaryData.Locations.Add(new HydraulicBoundaryLocation(3, "Location 3", 5.5, 6.6));
+            assessmentSection.HydraulicBoundaryData.Locations.NotifyObservers();
 
             // Then
             DataGridViewComboBoxCell.ObjectCollection hydraulicBoundaryLocationComboboxItems = hydraulicBoundaryLocationCombobox.Items;
@@ -580,7 +580,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             // When
             TestCalculation calculation = calculationGroup.Children.Cast<TestCalculation>().First();
-            calculation.InputParameters.HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.Last();
+            calculation.InputParameters.HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.Locations.Last();
             calculation.InputParameters.NotifyObservers();
 
             // Then

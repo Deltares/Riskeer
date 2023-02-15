@@ -1113,7 +1113,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
 
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryData
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
             {
                 Locations =
                 {
@@ -1176,7 +1176,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                 }
             };
 
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryData);
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
 
             mocks.ReplayAll();
 
@@ -1221,7 +1221,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                 }
             };
 
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryData);
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
 
             mocks.ReplayAll();
 
@@ -1278,7 +1278,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             };
 
             observable.Expect(o => o.NotifyObservers());
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryData);
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
 
             mocks.ReplayAll();
 

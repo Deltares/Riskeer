@@ -232,7 +232,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             Assert.AreEqual(expectedContribution.NormativeProbabilityType, actualContribution.NormativeProbabilityType);
 
             BackgroundDataTestHelper.AssertBackgroundData(expectedAssessmentSection.BackgroundData, actualAssessmentSection.BackgroundData);
-            AssertHydraulicBoundaryData(expectedAssessmentSection.HydraulicBoundaryDatabase, actualAssessmentSection.HydraulicBoundaryDatabase);
+            AssertHydraulicBoundaryData(expectedAssessmentSection.HydraulicBoundaryData, actualAssessmentSection.HydraulicBoundaryData);
             AssertHydraulicBoundaryLocationCalculations(expectedAssessmentSection, actualAssessmentSection);
             AssertReferenceLine(expectedAssessmentSection.ReferenceLine, actualAssessmentSection.ReferenceLine);
 

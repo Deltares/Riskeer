@@ -837,7 +837,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var handler = new HydraulicBoundaryDatabaseUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
 
             // When
-            IEnumerable<IObservable> changedObjects = handler.Update(assessmentSection.HydraulicBoundaryDatabase, ReadHydraulicBoundaryDatabaseTestFactory.Create(),
+            IEnumerable<IObservable> changedObjects = handler.Update(assessmentSection.HydraulicBoundaryData, ReadHydraulicBoundaryDatabaseTestFactory.Create(),
                                                                      ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(),
                                                                      Enumerable.Empty<long>(), hydraulicBoundaryDatabaseFilePath, hlcdFilePath);
 

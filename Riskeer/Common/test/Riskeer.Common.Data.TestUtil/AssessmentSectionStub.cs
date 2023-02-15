@@ -53,7 +53,7 @@ namespace Riskeer.Common.Data.TestUtil
 
             ReferenceLine = new ReferenceLine();
 
-            HydraulicBoundaryDatabase = new HydraulicBoundaryData();
+            HydraulicBoundaryData = new HydraulicBoundaryData();
 
             WaterLevelCalculationsForUserDefinedTargetProbabilities = new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>
             {
@@ -85,7 +85,7 @@ namespace Riskeer.Common.Data.TestUtil
 
         public FailureMechanismContribution FailureMechanismContribution { get; }
 
-        public HydraulicBoundaryData HydraulicBoundaryDatabase { get; }
+        public HydraulicBoundaryData HydraulicBoundaryData { get; }
 
         public BackgroundData BackgroundData { get; set; }
 
@@ -107,7 +107,7 @@ namespace Riskeer.Common.Data.TestUtil
         /// hydraulic boundary location calculations.</param>
         public void SetHydraulicBoundaryLocationCalculations(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations, bool setCalculationOutput = false)
         {
-            HydraulicBoundaryDatabase.Locations.Clear();
+            HydraulicBoundaryData.Locations.Clear();
             waterLevelCalculationsForSignalFloodingProbability.Clear();
             waterLevelCalculationsForMaximumAllowableFloodingProbability.Clear();
 
@@ -139,7 +139,7 @@ namespace Riskeer.Common.Data.TestUtil
 
         private void AddHydraulicBoundaryLocation(HydraulicBoundaryLocation hydraulicBoundaryLocation, bool setCalculationOutput)
         {
-            HydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
+            HydraulicBoundaryData.Locations.Add(hydraulicBoundaryLocation);
 
             waterLevelCalculationsForSignalFloodingProbability.Add(CreateHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation, setCalculationOutput));
             waterLevelCalculationsForMaximumAllowableFloodingProbability.Add(CreateHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation, setCalculationOutput));

@@ -576,7 +576,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                 }
             });
 
-            assessmentSection.HydraulicBoundaryDatabase.Locations.AddRange(locations);
+            assessmentSection.HydraulicBoundaryData.Locations.AddRange(locations);
             assessmentSection.SetHydraulicBoundaryLocationCalculations(locations);
 
             return assessmentSection;

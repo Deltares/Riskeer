@@ -238,7 +238,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             Assert.IsTrue(duneLocations.All(l => l.Output != null));
 
             // Call
-            IEnumerable<IObservable> changedObjects = handler.Update(assessmentSection.HydraulicBoundaryDatabase, null, false, "some/file/path");
+            IEnumerable<IObservable> changedObjects = handler.Update(assessmentSection.HydraulicBoundaryData, null, false, "some/file/path");
 
             // Assert
             Assert.IsTrue(locations.All(l => !l.HasOutput));
@@ -247,7 +247,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             IEnumerable<IObservable> expectedChangedObjects = new IObservable[]
             {
-                assessmentSection.HydraulicBoundaryDatabase
+                assessmentSection.HydraulicBoundaryData
             }.Concat(locations).Concat(duneLocations).Concat(calculationsWithOutput);
 
             CollectionAssert.AreEquivalent(expectedChangedObjects, changedObjects);

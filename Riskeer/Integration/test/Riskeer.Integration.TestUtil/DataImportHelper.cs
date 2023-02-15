@@ -192,7 +192,7 @@ namespace Riskeer.Integration.TestUtil
             var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
-            var hydraulicBoundaryDatabaseImporter = new HydraulicBoundaryDatabaseImporter(assessmentSection.HydraulicBoundaryDatabase,
+            var hydraulicBoundaryDatabaseImporter = new HydraulicBoundaryDatabaseImporter(assessmentSection.HydraulicBoundaryData,
                                                                                           new HydraulicBoundaryDatabaseUpdateHandler(
                                                                                               assessmentSection,
                                                                                               new DuneLocationsReplacementHandler(viewCommands, assessmentSection.DuneErosion)),

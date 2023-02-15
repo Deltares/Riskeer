@@ -100,7 +100,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Service
                 IEnumerable<WaveConditionsOutput> outputs = CalculateWaveConditions(calculation.InputParameters,
                                                                                     assessmentLevel,
                                                                                     a, b, c, targetProbability,
-                                                                                    assessmentSection.HydraulicBoundaryDatabase);
+                                                                                    assessmentSection.HydraulicBoundaryData);
 
                 if (!Canceled)
                 {
