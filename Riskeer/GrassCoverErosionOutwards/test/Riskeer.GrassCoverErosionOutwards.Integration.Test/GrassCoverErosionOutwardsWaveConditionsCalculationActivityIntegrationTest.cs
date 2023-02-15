@@ -54,7 +54,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
         private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
 
         [Test]
-        public void Run_CalculationWithInvalidHydraulicBoundaryDatabaseFilePath_DoesNotPerformCalculationAndLogsError()
+        public void Run_CalculationWithInvalidHrdFilePath_DoesNotPerformCalculationAndLogsError()
         {
             // Setup
             string invalidFilePath = Path.Combine(testDataPath, "NonExisting.sqlite");

@@ -73,16 +73,16 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicBoundaryDatabase
         [Test]
         [TestCase(null)]
         [TestCase("")]
-        public void Constructor_FilePathNullOrEmpty_ThrowsCriticalFileReadException(string hydraulicBoundaryDatabaseFilePath)
+        public void Constructor_FilePathNullOrEmpty_ThrowsCriticalFileReadException(string hrdFilePath)
         {
             // Call
             TestDelegate test = () =>
             {
-                using (new HydraulicBoundaryDatabaseReader(hydraulicBoundaryDatabaseFilePath)) {}
+                using (new HydraulicBoundaryDatabaseReader(hrdFilePath)) {}
             };
 
             // Assert
-            string expectedMessage = $"Fout bij het lezen van bestand '{hydraulicBoundaryDatabaseFilePath}': bestandspad mag niet leeg of ongedefinieerd zijn.";
+            string expectedMessage = $"Fout bij het lezen van bestand '{hrdFilePath}': bestandspad mag niet leeg of ongedefinieerd zijn.";
             var exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreEqual(expectedMessage, exception.Message);
         }

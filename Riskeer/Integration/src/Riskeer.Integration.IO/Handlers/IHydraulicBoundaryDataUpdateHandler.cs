@@ -57,8 +57,8 @@ namespace Riskeer.Integration.IO.Handlers
         /// <param name="readHydraulicLocationConfigurationDatabase">The read hydraulic location configuration database to
         /// update with.</param>
         /// <param name="excludedLocationIds">The location ids that should be excluded.</param>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The file path of the read hydraulic boundary database.</param>
-        /// <param name="hlcdFilePath">The file path of the hlcd.</param>
+        /// <param name="hrdFilePath">The file path of the hydraulic boundary database.</param>
+        /// <param name="hlcdFilePath">The file path of the hydraulic location configuration database.</param>
         /// <returns>All objects that have been affected by the update.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when the <paramref name="hydraulicBoundaryData"/> cannot be updated with
@@ -67,7 +67,7 @@ namespace Riskeer.Integration.IO.Handlers
                                         ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase,
                                         ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase,
                                         IEnumerable<long> excludedLocationIds,
-                                        string hydraulicBoundaryDatabaseFilePath,
+                                        string hrdFilePath,
                                         string hlcdFilePath);
 
         /// <summary>

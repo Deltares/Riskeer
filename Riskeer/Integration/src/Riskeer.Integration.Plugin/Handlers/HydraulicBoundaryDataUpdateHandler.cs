@@ -94,7 +94,7 @@ namespace Riskeer.Integration.Plugin.Handlers
 
         public IEnumerable<IObservable> Update(HydraulicBoundaryData hydraulicBoundaryData, ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase,
                                                ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase,
-                                               IEnumerable<long> excludedLocationIds, string hydraulicBoundaryDatabaseFilePath, string hlcdFilePath)
+                                               IEnumerable<long> excludedLocationIds, string hrdFilePath, string hlcdFilePath)
         {
             if (hydraulicBoundaryData == null)
             {
@@ -116,9 +116,9 @@ namespace Riskeer.Integration.Plugin.Handlers
                 throw new ArgumentNullException(nameof(excludedLocationIds));
             }
 
-            if (hydraulicBoundaryDatabaseFilePath == null)
+            if (hrdFilePath == null)
             {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabaseFilePath));
+                throw new ArgumentNullException(nameof(hrdFilePath));
             }
 
             if (hlcdFilePath == null)
@@ -139,7 +139,7 @@ namespace Riskeer.Integration.Plugin.Handlers
 
             if (updateLocations)
             {
-                hydraulicBoundaryData.FilePath = hydraulicBoundaryDatabaseFilePath;
+                hydraulicBoundaryData.FilePath = hrdFilePath;
                 hydraulicBoundaryData.Version = readHydraulicBoundaryDatabase.Version;
 
                 SetLocations(hydraulicBoundaryData, readHydraulicBoundaryDatabase.Locations,
@@ -155,9 +155,9 @@ namespace Riskeer.Integration.Plugin.Handlers
             }
             else
             {
-                if (hydraulicBoundaryData.FilePath != hydraulicBoundaryDatabaseFilePath)
+                if (hydraulicBoundaryData.FilePath != hrdFilePath)
                 {
-                    hydraulicBoundaryData.FilePath = hydraulicBoundaryDatabaseFilePath;
+                    hydraulicBoundaryData.FilePath = hrdFilePath;
                 }
             }
 
