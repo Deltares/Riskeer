@@ -276,7 +276,7 @@ namespace Riskeer.Integration.IO.Test.Importers
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{path}': kon het rekeninstellingen bestand niet openen. " +
-                                     $"Fout bij het lezen van bestand '{HydraulicBoundaryDataHelper.GetHydraulicBoundarySettingsDatabase(path)}': het bestand bestaat niet.";
+                                     $"Fout bij het lezen van bestand '{HydraulicBoundaryDataHelper.GetHydraulicBoundarySettingsDatabaseFilePath(path)}': het bestand bestaat niet.";
             AssertImportFailed(Call, expectedMessage, ref importSuccessful);
             mocks.VerifyAll();
         }

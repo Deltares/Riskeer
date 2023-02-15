@@ -73,7 +73,8 @@ namespace Riskeer.Common.IO.HydraRing
                                      hrdFilePath);
             }
 
-            string settingsDatabaseFileName = GetHydraulicBoundarySettingsDatabase(hrdFilePath);
+            string hbsdFilePath = GetHydraulicBoundarySettingsDatabaseFilePath(hrdFilePath);
+
             try
             {
                 using (new HydraulicBoundaryDatabaseReader(hrdFilePath))
@@ -86,7 +87,7 @@ namespace Riskeer.Common.IO.HydraRing
                     // Used on purpose to check the hlcdFilePath
                 }
 
-                using (var validator = new HydraRingSettingsDatabaseValidator(settingsDatabaseFileName, preprocessorDirectory))
+                using (var validator = new HydraRingSettingsDatabaseValidator(hbsdFilePath, preprocessorDirectory))
                 {
                     if (!validator.ValidateSchema())
                     {
@@ -143,11 +144,11 @@ namespace Riskeer.Common.IO.HydraRing
         }
 
         /// <summary>
-        /// Gets the path of the hydraulic boundary settings database file.
+        /// Gets the file path of the hydraulic boundary settings database.
         /// </summary>
-        /// <param name="hrdFilePath">The path of the corresponding hydraulic boundary database file.</param>
-        /// <returns>The path of the hydraulic boundary settings database file.</returns>
-        public static string GetHydraulicBoundarySettingsDatabase(string hrdFilePath)
+        /// <param name="hrdFilePath">The file path of the corresponding hydraulic boundary database.</param>
+        /// <returns>The file path of the hydraulic boundary settings database.</returns>
+        public static string GetHydraulicBoundarySettingsDatabaseFilePath(string hrdFilePath)
         {
             return Path.ChangeExtension(hrdFilePath, hydraulicBoundarySettingsDatabaseExtension);
         }

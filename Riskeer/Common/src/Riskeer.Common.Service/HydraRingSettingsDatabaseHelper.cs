@@ -51,7 +51,7 @@ namespace Riskeer.Common.Service
             IOUtils.ValidateFilePath(hrdFilePath);
 
             long locationId = calculationInput.HydraulicBoundaryLocationId;
-            string hbsdFilePath = HydraulicBoundaryDataHelper.GetHydraulicBoundarySettingsDatabase(hrdFilePath);
+            string hbsdFilePath = HydraulicBoundaryDataHelper.GetHydraulicBoundarySettingsDatabaseFilePath(hrdFilePath);
 
             using (var preprocessorSettingsProvider = new PreprocessorSettingsProvider(hbsdFilePath))
             {
