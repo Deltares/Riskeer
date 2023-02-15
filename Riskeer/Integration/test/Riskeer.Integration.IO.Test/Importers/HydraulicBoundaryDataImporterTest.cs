@@ -424,9 +424,9 @@ namespace Riskeer.Integration.IO.Test.Importers
         public void Import_WithValidFileAndHlcdWithValidScenarioInformation_UpdatesHydraulicBoundaryDatabaseWithImportedData()
         {
             // Setup
-            string hydraulicBoundaryDatabaseFilePath = Path.Combine(testDataPath, "hlcdWithValidScenarioInformation", "complete.sqlite");
-            string hlcdFilePath = Path.Combine(testDataPath, "hlcdWithValidScenarioInformation", "hlcd.sqlite");
             var hydraulicBoundaryData = new HydraulicBoundaryData();
+            string hrdFilePath = Path.Combine(testDataPath, "hlcdWithValidScenarioInformation", "complete.sqlite");
+            string hlcdFilePath = Path.Combine(testDataPath, "hlcdWithValidScenarioInformation", "hlcd.sqlite");
 
             var mocks = new MockRepository();
             var handler = mocks.StrictMock<IHydraulicBoundaryDataUpdateHandler>();
@@ -438,7 +438,7 @@ namespace Riskeer.Integration.IO.Test.Importers
                                          Arg<ReadHydraulicBoundaryDatabase>.Is.NotNull,
                                          Arg<ReadHydraulicLocationConfigurationDatabase>.Is.NotNull,
                                          Arg<IEnumerable<long>>.Is.NotNull,
-                                         Arg<string>.Is.Equal(hydraulicBoundaryDatabaseFilePath),
+                                         Arg<string>.Is.Equal(hrdFilePath),
                                          Arg<string>.Is.Equal(hlcdFilePath)))
                    .WhenCalled(invocation =>
                    {
@@ -454,14 +454,14 @@ namespace Riskeer.Integration.IO.Test.Importers
                    .Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
-            var importer = new HydraulicBoundaryDataImporter(hydraulicBoundaryData, handler, hydraulicBoundaryDatabaseFilePath);
+            var importer = new HydraulicBoundaryDataImporter(hydraulicBoundaryData, handler, hrdFilePath);
 
             // Call
             var importResult = false;
             void Call() => importResult = importer.Import();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(Call, $"Gegevens zijn geïmporteerd vanuit bestand '{hydraulicBoundaryDatabaseFilePath}'.", 1);
+            TestHelper.AssertLogMessageIsGenerated(Call, $"Gegevens zijn geïmporteerd vanuit bestand '{hrdFilePath}'.", 1);
             Assert.IsTrue(importResult);
             mocks.VerifyAll();
         }

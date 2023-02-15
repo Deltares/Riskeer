@@ -58,7 +58,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         private const string averagingSoilLayerPropertiesMessage = "Meerdere aaneengesloten deklagen gevonden. De grondeigenschappen worden bepaald door het nemen van een gewogen gemiddelde, mits de standaardafwijkingen en verschuivingen voor alle lagen gelijk zijn.";
 
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
-        private static readonly string validHydraulicBoundaryDatabaseFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
         private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "Hlcd.sqlite");
         private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
 
@@ -134,7 +134,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
+                failureMechanism, mocks, validHrdFilePath);
             mocks.ReplayAll();
 
             // Call
@@ -160,7 +160,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
+                failureMechanism, mocks, validHrdFilePath);
             mocks.ReplayAll();
 
             calculation.InputParameters.HydraulicBoundaryLocation = null;
@@ -228,7 +228,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
+                failureMechanism, mocks, validHrdFilePath);
             assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.CanUsePreprocessor = true;
             assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.UsePreprocessor = true;
             assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.PreprocessorDirectory = "NonExistingPreprocessorDirectory";
@@ -332,7 +332,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
+                failureMechanism, mocks, validHrdFilePath);
             mocks.ReplayAll();
 
             // Call
@@ -367,7 +367,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
+                failureMechanism, mocks, validHrdFilePath);
             mocks.ReplayAll();
 
             var aquitardLayer = new PipingSoilLayer(2.0)
@@ -413,7 +413,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
+                failureMechanism, mocks, validHrdFilePath);
             mocks.ReplayAll();
 
             var aquiferLayer = new PipingSoilLayer(10.56)
@@ -467,7 +467,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
+                failureMechanism, mocks, validHrdFilePath);
             mocks.ReplayAll();
 
             var coverageLayerAboveSurfaceLine = new PipingSoilLayer(13.0)
@@ -526,7 +526,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
+                failureMechanism, mocks, validHrdFilePath);
             mocks.ReplayAll();
 
             var random = new Random(21);
@@ -611,7 +611,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
+                failureMechanism, mocks, validHrdFilePath);
             mocks.ReplayAll();
 
             var random = new Random(21);
@@ -686,7 +686,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
+                failureMechanism, mocks, validHrdFilePath);
             mocks.ReplayAll();
 
             var random = new Random(21);
@@ -762,7 +762,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
+                failureMechanism, mocks, validHrdFilePath);
             mocks.ReplayAll();
 
             var random = new Random(21);
@@ -836,7 +836,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
+                failureMechanism, mocks, validHrdFilePath);
             mocks.ReplayAll();
 
             var topCoverageLayer = new PipingSoilLayer(testSurfaceLineTopLevel)
@@ -912,7 +912,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
+                failureMechanism, mocks, validHrdFilePath);
             mocks.ReplayAll();
 
             var coverageLayerInvalidSaturatedVolumicWeight = new PipingSoilLayer(testSurfaceLineTopLevel)
@@ -980,7 +980,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
+                failureMechanism, mocks, validHrdFilePath);
             mocks.ReplayAll();
 
             // Call
@@ -1013,7 +1013,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
+                failureMechanism, mocks, validHrdFilePath);
             mocks.ReplayAll();
 
             // Call
@@ -1109,7 +1109,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
+                failureMechanism, mocks, validHrdFilePath);
 
             var profileSpecificCalculator = new TestPipingCalculator();
             var sectionSpecificCalculator = new TestPipingCalculator();
@@ -1156,7 +1156,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
+                failureMechanism, mocks, validHrdFilePath);
 
             var profileSpecificCalculator = new TestPipingCalculator();
             var sectionSpecificCalculator = new TestPipingCalculator();
@@ -1208,7 +1208,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
+                failureMechanism, mocks, validHrdFilePath);
 
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
@@ -1260,7 +1260,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
+                failureMechanism, mocks, validHrdFilePath);
 
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreatePipingCalculator(null))
@@ -1311,7 +1311,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
+                failureMechanism, mocks, validHrdFilePath);
 
             var profileSpecificCalculator = new TestPipingCalculator
             {
@@ -1379,7 +1379,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
+                failureMechanism, mocks, validHrdFilePath);
 
             var profileSpecificCalculator = new TestPipingCalculator
             {
@@ -1449,7 +1449,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
+                failureMechanism, mocks, validHrdFilePath);
 
             var profileSpecificCalculator = new TestPipingCalculator();
             var sectionSpecificCalculator = new TestPipingCalculator
@@ -1520,7 +1520,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
+                failureMechanism, mocks, validHrdFilePath);
 
             var profileSpecificCalculator = new TestPipingCalculator();
             var sectionSpecificCalculator = new TestPipingCalculator
@@ -2118,7 +2118,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
+                failureMechanism, mocks, validHrdFilePath);
             HydraulicBoundaryCalculationSettings calculationSettings = HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData);
 
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
@@ -2153,7 +2153,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
+                failureMechanism, mocks, validHrdFilePath);
             assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.CanUsePreprocessor = true;
             assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.UsePreprocessor = true;
             assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.PreprocessorDirectory = validPreprocessorDirectory;
@@ -2202,7 +2202,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
+                failureMechanism, mocks, validHrdFilePath);
             assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.CanUsePreprocessor = true;
             assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.UsePreprocessor = false;
             assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.PreprocessorDirectory = "NonExistingPreprocessorDirectory";
@@ -2321,7 +2321,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
         private static HydraulicBoundaryCalculationSettings CreateCalculationSettings()
         {
-            return new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
+            return new HydraulicBoundaryCalculationSettings(validHrdFilePath,
                                                             validHlcdFilePath,
                                                             false,
                                                             string.Empty);

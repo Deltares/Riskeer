@@ -54,7 +54,7 @@ namespace Riskeer.StabilityStoneCover.Integration.Test
         private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
         [Test]
-        public void Run_CalculationWithInvalidHydraulicBoundaryDatabaseFilePath_DoesNotPerformCalculationAndLogsError()
+        public void Run_CalculationWithInvalidHrdFilePath_DoesNotPerformCalculationAndLogsError()
         {
             // Setup
             string invalidFilePath = Path.Combine(testDataPath, "NonExisting.sqlite");
