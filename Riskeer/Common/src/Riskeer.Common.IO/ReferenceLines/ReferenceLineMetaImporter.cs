@@ -46,20 +46,20 @@ namespace Riskeer.Common.IO.ReferenceLines
         /// <summary>
         /// Initializes a new instance of the <see cref="ReferenceLineMetaImporter"/> class.
         /// </summary>
-        /// <param name="folderpath">The path to the folder where a shape file should be read.</param>
+        /// <param name="folderPath">The path to the folder where a shape file should be read.</param>
         /// <remarks>
-        /// The <paramref name="folderpath"/> is typically <c>
+        /// The <paramref name="folderPath"/> is typically <c>
         /// Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "WTI", "NBPW");</c>.
         /// </remarks>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
-        /// <item><paramref name="folderpath"/> points to an invalid directory.</item>
-        /// <item>The path <paramref name="folderpath"/> does not contain any shape files.</item>
+        /// <item><paramref name="folderPath"/> points to an invalid directory;</item>
+        /// <item><paramref name="folderPath"/> does not contain any shape files.</item>
         /// </list>
         /// </exception>
-        public ReferenceLineMetaImporter(string folderpath)
+        public ReferenceLineMetaImporter(string folderPath)
         {
-            ValidateAndConnectTo(folderpath);
+            ValidateAndConnectTo(folderPath);
         }
 
         /// <summary>
@@ -82,12 +82,12 @@ namespace Riskeer.Common.IO.ReferenceLines
             return referenceLineMetas;
         }
 
-        private void ValidateAndConnectTo(string folderpath)
+        private void ValidateAndConnectTo(string folderPath)
         {
-            string[] files = GetShapeFilesInFolder(folderpath);
+            string[] files = GetShapeFilesInFolder(folderPath);
             if (files.Length == 0)
             {
-                string message = string.Format(RiskeerCommonIOResources.ReferenceLineMetaImporter_ValidateAndConnectTo_No_shape_file_found_in_folder_0_, folderpath);
+                string message = string.Format(RiskeerCommonIOResources.ReferenceLineMetaImporter_ValidateAndConnectTo_No_shape_file_found_in_folder_0_, folderPath);
                 throw new CriticalFileReadException(message);
             }
 
