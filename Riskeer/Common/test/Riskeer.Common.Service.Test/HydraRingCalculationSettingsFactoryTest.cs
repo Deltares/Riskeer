@@ -33,10 +33,10 @@ namespace Riskeer.Common.Service.Test
         public void CreateSettings_HydraulicBoundaryCalculationSettingsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => HydraRingCalculationSettingsFactory.CreateSettings(null);
+            void Call() => HydraRingCalculationSettingsFactory.CreateSettings(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("hydraulicBoundaryCalculationSettings", exception.ParamName);
         }
 
@@ -44,7 +44,7 @@ namespace Riskeer.Common.Service.Test
         public void CreateSettings_WithHydraulicBoundaryCalculationSettings_ReturnsExpectedSettings()
         {
             // Setup
-            var hydraulicBoundaryCalculationSettings = new HydraulicBoundaryCalculationSettings("HydraulicBoundaryDataBaseFilePath",
+            var hydraulicBoundaryCalculationSettings = new HydraulicBoundaryCalculationSettings("hrdFilePath",
                                                                                                 "hlcdFilePath",
                                                                                                 false,
                                                                                                 "preprocessorDirectory");

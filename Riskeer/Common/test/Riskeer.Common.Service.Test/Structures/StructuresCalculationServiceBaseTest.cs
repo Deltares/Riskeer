@@ -47,7 +47,7 @@ namespace Riskeer.Common.Service.Test.Structures
     public class StructuresCalculationServiceBaseTest
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
-        private static readonly string validHydraulicBoundaryDatabaseFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
         private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "Hlcd.sqlite");
         private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
 
@@ -132,7 +132,7 @@ namespace Riskeer.Common.Service.Test.Structures
             var mocks = new MockRepository();
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                new TestCalculatableFailureMechanism(), mocks, validHydraulicBoundaryDatabaseFilePath);
+                new TestCalculatableFailureMechanism(), mocks, validHrdFilePath);
 
             assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.CanUsePreprocessor = true;
             assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.UsePreprocessor = true;
@@ -228,7 +228,7 @@ namespace Riskeer.Common.Service.Test.Structures
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new TestCalculatableFailureMechanism(),
                                                                                                            mocks,
-                                                                                                           validHydraulicBoundaryDatabaseFilePath);
+                                                                                                           validHrdFilePath);
             mocks.ReplayAll();
 
             var calculation = new TestStructuresCalculation
@@ -266,7 +266,7 @@ namespace Riskeer.Common.Service.Test.Structures
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
+                failureMechanism, mocks, validHrdFilePath);
             mocks.ReplayAll();
 
             var calculation = new TestStructuresCalculation
@@ -304,7 +304,7 @@ namespace Riskeer.Common.Service.Test.Structures
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
+                failureMechanism, mocks, validHrdFilePath);
             mocks.ReplayAll();
 
             var calculation = new TestStructuresCalculation
@@ -344,7 +344,7 @@ namespace Riskeer.Common.Service.Test.Structures
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
+                failureMechanism, mocks, validHrdFilePath);
             mocks.ReplayAll();
 
             var calculation = new TestStructuresCalculation
@@ -382,7 +382,7 @@ namespace Riskeer.Common.Service.Test.Structures
             var mocks = new MockRepository();
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                new TestCalculatableFailureMechanism(), mocks, validHydraulicBoundaryDatabaseFilePath);
+                new TestCalculatableFailureMechanism(), mocks, validHrdFilePath);
 
             assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.CanUsePreprocessor = true;
             assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.UsePreprocessor = false;
@@ -425,7 +425,7 @@ namespace Riskeer.Common.Service.Test.Structures
             var mocks = new MockRepository();
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                new TestCalculatableFailureMechanism(), mocks, validHydraulicBoundaryDatabaseFilePath);
+                new TestCalculatableFailureMechanism(), mocks, validHrdFilePath);
 
             assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.CanUsePreprocessor = true;
             assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.UsePreprocessor = true;
@@ -522,7 +522,7 @@ namespace Riskeer.Common.Service.Test.Structures
                                                ? validPreprocessorDirectory
                                                : string.Empty;
 
-            var calculationSettings = new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
+            var calculationSettings = new HydraulicBoundaryCalculationSettings(validHrdFilePath,
                                                                                validHlcdFilePath,
                                                                                false,
                                                                                preprocessorDirectory);
@@ -530,7 +530,7 @@ namespace Riskeer.Common.Service.Test.Structures
             var mocks = new MockRepository();
             var calculator = new TestStructuresCalculator<ExceedanceProbabilityCalculationInput>
             {
-                OutputDirectory = validHydraulicBoundaryDatabaseFilePath
+                OutputDirectory = validHrdFilePath
             };
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(
@@ -544,7 +544,7 @@ namespace Riskeer.Common.Service.Test.Structures
 
             const string performedCalculationMessage = "Calculation successful";
             var messageProvider = mocks.StrictMock<IStructuresCalculationMessageProvider>();
-            messageProvider.Expect(mp => mp.GetCalculationPerformedMessage(validHydraulicBoundaryDatabaseFilePath)).Return(performedCalculationMessage);
+            messageProvider.Expect(mp => mp.GetCalculationPerformedMessage(validHrdFilePath)).Return(performedCalculationMessage);
             mocks.ReplayAll();
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
@@ -585,7 +585,7 @@ namespace Riskeer.Common.Service.Test.Structures
             var mocks = new MockRepository();
             var calculator = new TestStructuresCalculator<ExceedanceProbabilityCalculationInput>
             {
-                OutputDirectory = validHydraulicBoundaryDatabaseFilePath,
+                OutputDirectory = validHrdFilePath,
                 IllustrationPointsResult = new TestGeneralResult()
             };
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
@@ -595,7 +595,7 @@ namespace Riskeer.Common.Service.Test.Structures
 
             const string performedCalculationMessage = "Calculation successful";
             var messageProvider = mocks.StrictMock<IStructuresCalculationMessageProvider>();
-            messageProvider.Expect(mp => mp.GetCalculationPerformedMessage(validHydraulicBoundaryDatabaseFilePath)).Return(performedCalculationMessage);
+            messageProvider.Expect(mp => mp.GetCalculationPerformedMessage(validHrdFilePath)).Return(performedCalculationMessage);
             mocks.ReplayAll();
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
@@ -642,7 +642,7 @@ namespace Riskeer.Common.Service.Test.Structures
             var mocks = new MockRepository();
             var calculator = new TestStructuresCalculator<ExceedanceProbabilityCalculationInput>
             {
-                OutputDirectory = validHydraulicBoundaryDatabaseFilePath,
+                OutputDirectory = validHrdFilePath,
                 IllustrationPointsParserErrorMessage = parserMessage
             };
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
@@ -652,7 +652,7 @@ namespace Riskeer.Common.Service.Test.Structures
 
             const string performedCalculationMessage = "Calculation successful";
             var messageProvider = mocks.StrictMock<IStructuresCalculationMessageProvider>();
-            messageProvider.Expect(mp => mp.GetCalculationPerformedMessage(validHydraulicBoundaryDatabaseFilePath)).Return(performedCalculationMessage);
+            messageProvider.Expect(mp => mp.GetCalculationPerformedMessage(validHrdFilePath)).Return(performedCalculationMessage);
             mocks.ReplayAll();
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
@@ -697,7 +697,7 @@ namespace Riskeer.Common.Service.Test.Structures
             var mocks = new MockRepository();
             var calculator = new TestStructuresCalculator<ExceedanceProbabilityCalculationInput>
             {
-                OutputDirectory = validHydraulicBoundaryDatabaseFilePath,
+                OutputDirectory = validHrdFilePath,
                 IllustrationPointsParserErrorMessage = "Parser error"
             };
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
@@ -707,7 +707,7 @@ namespace Riskeer.Common.Service.Test.Structures
 
             const string performedCalculationMessage = "Calculation successful";
             var messageProvider = mocks.StrictMock<IStructuresCalculationMessageProvider>();
-            messageProvider.Expect(mp => mp.GetCalculationPerformedMessage(validHydraulicBoundaryDatabaseFilePath)).Return(performedCalculationMessage);
+            messageProvider.Expect(mp => mp.GetCalculationPerformedMessage(validHrdFilePath)).Return(performedCalculationMessage);
             mocks.ReplayAll();
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
@@ -751,7 +751,7 @@ namespace Riskeer.Common.Service.Test.Structures
             var mocks = new MockRepository();
             var calculator = new TestStructuresCalculator<ExceedanceProbabilityCalculationInput>
             {
-                OutputDirectory = validHydraulicBoundaryDatabaseFilePath,
+                OutputDirectory = validHrdFilePath,
                 IllustrationPointsResult = TestGeneralResult.CreateGeneralResultWithSubMechanismIllustrationPoints()
             };
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
@@ -761,7 +761,7 @@ namespace Riskeer.Common.Service.Test.Structures
 
             const string performedCalculationMessage = "Calculation successful";
             var messageProvider = mocks.StrictMock<IStructuresCalculationMessageProvider>();
-            messageProvider.Expect(mp => mp.GetCalculationPerformedMessage(validHydraulicBoundaryDatabaseFilePath)).Return(performedCalculationMessage);
+            messageProvider.Expect(mp => mp.GetCalculationPerformedMessage(validHrdFilePath)).Return(performedCalculationMessage);
             mocks.ReplayAll();
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
@@ -810,7 +810,7 @@ namespace Riskeer.Common.Service.Test.Structures
             var mocks = new MockRepository();
             var calculator = new TestStructuresCalculator<ExceedanceProbabilityCalculationInput>
             {
-                OutputDirectory = validHydraulicBoundaryDatabaseFilePath,
+                OutputDirectory = validHrdFilePath,
                 IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultWithDuplicateStochasts()
             };
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
@@ -820,7 +820,7 @@ namespace Riskeer.Common.Service.Test.Structures
 
             const string performedCalculationMessage = "Calculation successful";
             var messageProvider = mocks.StrictMock<IStructuresCalculationMessageProvider>();
-            messageProvider.Expect(mp => mp.GetCalculationPerformedMessage(validHydraulicBoundaryDatabaseFilePath)).Return(performedCalculationMessage);
+            messageProvider.Expect(mp => mp.GetCalculationPerformedMessage(validHrdFilePath)).Return(performedCalculationMessage);
             mocks.ReplayAll();
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
@@ -987,7 +987,7 @@ namespace Riskeer.Common.Service.Test.Structures
 
         private static HydraulicBoundaryCalculationSettings CreateCalculationSettings()
         {
-            return new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
+            return new HydraulicBoundaryCalculationSettings(validHrdFilePath,
                                                             validHlcdFilePath,
                                                             false,
                                                             string.Empty);
