@@ -222,24 +222,21 @@ namespace Riskeer.Common.Service.Structures
         /// </summary>
         /// <param name="structureInput">The structure input to create the calculation input for.</param>
         /// <param name="generalInput">The <see cref="TGeneralInput"/> that is used in the calculation.</param>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The path to the hydraulic boundary database file.</param>
+        /// <param name="hrdFilePath">The file path of the hydraulic boundary database.</param>
         /// <param name="usePreprocessor">Indicator whether to use the preprocessor in the calculation.</param>
         /// <returns>A <see cref="TCalculationInput"/>.</returns>
-        /// <exception cref="ArgumentException">Thrown when the <paramref name="hydraulicBoundaryDatabaseFilePath"/> 
-        /// contains invalid characters.</exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when an unexpected
-        /// enum value is encountered.</exception>
+        /// <exception cref="ArgumentException">Thrown when the <paramref name="hrdFilePath"/> contains invalid characters.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when an unexpected enum value is encountered.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
-        /// <item>No settings database file could be found at the location of <paramref name="hydraulicBoundaryDatabaseFilePath"/>
-        /// with the same name.</item>
-        /// <item>Unable to open settings database file.</item>
-        /// <item>Unable to read required data from database file.</item>
+        /// <item>no hydraulic boundary settings database could be found;</item>
+        /// <item>the hydraulic boundary settings database cannot be opened;</item>
+        /// <item>the required data cannot be read from the hydraulic boundary settings database.</item>
         /// </list>
         /// </exception>
         protected abstract TCalculationInput CreateInput(TStructureInput structureInput,
                                                          TGeneralInput generalInput,
-                                                         string hydraulicBoundaryDatabaseFilePath,
+                                                         string hrdFilePath,
                                                          bool usePreprocessor);
 
         /// <summary>

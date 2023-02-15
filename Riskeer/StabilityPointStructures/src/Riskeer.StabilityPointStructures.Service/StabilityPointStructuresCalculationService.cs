@@ -45,7 +45,7 @@ namespace Riskeer.StabilityPointStructures.Service
 
         protected override StructuresStabilityPointCalculationInput CreateInput(StabilityPointStructuresInput structureInput,
                                                                                 GeneralStabilityPointStructuresInput generalInput,
-                                                                                string hydraulicBoundaryDatabaseFilePath,
+                                                                                string hrdFilePath,
                                                                                 bool usePreprocessor)
         {
             StabilityPointStructureInflowModelType inflowModelType = structureInput.InflowModelType;
@@ -69,7 +69,7 @@ namespace Riskeer.StabilityPointStructures.Service
                     throw new NotSupportedException();
             }
 
-            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(input, hydraulicBoundaryDatabaseFilePath, usePreprocessor);
+            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(input, hrdFilePath, usePreprocessor);
             return input;
         }
 
