@@ -972,28 +972,27 @@ namespace Riskeer.Common.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Het opgegeven bestandspad ({0}) is niet geldig..
         /// </summary>
-        public static string HydraulicBoundaryDatabaseHelper_ValidatePathForCalculation_Invalid_path_0_ {
+        public static string HydraulicBoundaryDataHelper_ValidatePathForCalculation_Invalid_path_0_ {
             get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabaseHelper_ValidatePathForCalculation_Invalid_path_0_", resourceCulture);
+                return ResourceManager.GetString("HydraulicBoundaryDataHelper_ValidatePathForCalculation_Invalid_path_0_", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De bestandsmap waar de preprocessor bestanden opslaat is ongeldig..
         /// </summary>
-        public static string HydraulicBoundaryDatabaseHelper_ValidatePreprocessorDirectory_Invalid_path {
+        public static string HydraulicBoundaryDataHelper_ValidatePreprocessorDirectory_Invalid_path {
             get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabaseHelper_ValidatePreprocessorDirectory_Invalid_path", resourceCulture);
+                return ResourceManager.GetString("HydraulicBoundaryDataHelper_ValidatePreprocessorDirectory_Invalid_path", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De bestandsmap bestaat niet..
         /// </summary>
-        public static string HydraulicBoundaryDatabaseHelper_ValidatePreprocessorDirectory_Path_does_not_exist {
+        public static string HydraulicBoundaryDataHelper_ValidatePreprocessorDirectory_Path_does_not_exist {
             get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabaseHelper_ValidatePreprocessorDirectory_Path_does_not_exist" +
-                        "", resourceCulture);
+                return ResourceManager.GetString("HydraulicBoundaryDataHelper_ValidatePreprocessorDirectory_Path_does_not_exist", resourceCulture);
             }
         }
         

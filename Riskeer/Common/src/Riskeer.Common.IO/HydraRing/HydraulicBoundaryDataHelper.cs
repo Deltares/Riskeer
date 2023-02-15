@@ -68,7 +68,7 @@ namespace Riskeer.Common.IO.HydraRing
             }
             catch (PathTooLongException)
             {
-                return string.Format(CultureInfo.CurrentCulture, Resources.HydraulicBoundaryDatabaseHelper_ValidatePathForCalculation_Invalid_path_0_,
+                return string.Format(CultureInfo.CurrentCulture, Resources.HydraulicBoundaryDataHelper_ValidatePathForCalculation_Invalid_path_0_,
                                      hrdFilePath);
             }
 
@@ -168,12 +168,12 @@ namespace Riskeer.Common.IO.HydraRing
                 }
                 catch (ArgumentException exception)
                 {
-                    return $"{Resources.HydraulicBoundaryDatabaseHelper_ValidatePreprocessorDirectory_Invalid_path} {exception.Message}";
+                    return $"{Resources.HydraulicBoundaryDataHelper_ValidatePreprocessorDirectory_Invalid_path} {exception.Message}";
                 }
 
                 if (!Directory.Exists(preprocessorDirectory))
                 {
-                    return $"{Resources.HydraulicBoundaryDatabaseHelper_ValidatePreprocessorDirectory_Invalid_path} {Resources.HydraulicBoundaryDatabaseHelper_ValidatePreprocessorDirectory_Path_does_not_exist}";
+                    return $"{Resources.HydraulicBoundaryDataHelper_ValidatePreprocessorDirectory_Invalid_path} {Resources.HydraulicBoundaryDataHelper_ValidatePreprocessorDirectory_Path_does_not_exist}";
                 }
             }
 
