@@ -257,18 +257,18 @@ namespace Riskeer.Integration.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Inlezen van het hydraulische belastingen bestand..
         /// </summary>
-        public static string HydraulicBoundaryDataImporter_ProgressText_Reading_HRD_file {
+        public static string HydraulicBoundaryDataImporter_ProgressText_Reading_Hrd_file {
             get {
-                return ResourceManager.GetString("HydraulicBoundaryDataImporter_ProgressText_Reading_HRD_file", resourceCulture);
+                return ResourceManager.GetString("HydraulicBoundaryDataImporter_ProgressText_Reading_Hrd_file", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Inlezen van het rekeninstellingen bestand..
         /// </summary>
-        public static string HydraulicBoundaryDataImporter_ProgressText_Reading_HRD_settings_file {
+        public static string HydraulicBoundaryDataImporter_ProgressText_Reading_Hrd_settings_file {
             get {
-                return ResourceManager.GetString("HydraulicBoundaryDataImporter_ProgressText_Reading_HRD_settings_file", resourceCulture);
+                return ResourceManager.GetString("HydraulicBoundaryDataImporter_ProgressText_Reading_Hrd_settings_file", resourceCulture);
             }
         }
         
@@ -306,9 +306,9 @@ namespace Riskeer.Integration.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Het HLCD bestand is niet gevonden in dezelfde map als het HRD bestand..
         /// </summary>
-        public static string HydraulicLocationConfigurationDatabaseImporter_HLCD_not_in_same_folder_as_HRD {
+        public static string HydraulicLocationConfigurationDatabaseImporter_Hlcd_not_in_same_folder_as_Hrd {
             get {
-                return ResourceManager.GetString("HydraulicLocationConfigurationDatabaseImporter_HLCD_not_in_same_folder_as_HRD", resourceCulture);
+                return ResourceManager.GetString("HydraulicLocationConfigurationDatabaseImporter_Hlcd_not_in_same_folder_as_Hrd", resourceCulture);
             }
         }
         

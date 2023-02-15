@@ -87,7 +87,7 @@ namespace Riskeer.Integration.IO.Importers
 
             if (Path.GetDirectoryName(FilePath) != Path.GetDirectoryName(hydraulicBoundaryData.FilePath))
             {
-                Log.Error(BuildErrorMessage(FilePath, Resources.HydraulicLocationConfigurationDatabaseImporter_HLCD_not_in_same_folder_as_HRD));
+                Log.Error(BuildErrorMessage(FilePath, Resources.HydraulicLocationConfigurationDatabaseImporter_Hlcd_not_in_same_folder_as_Hrd));
                 return false;
             }
 
@@ -155,7 +155,7 @@ namespace Riskeer.Integration.IO.Importers
 
         private ReadResult<long> ReadTrackId()
         {
-            NotifyProgress(Resources.HydraulicBoundaryDataImporter_ProgressText_Reading_HRD_file, 1, numberOfSteps);
+            NotifyProgress(Resources.HydraulicBoundaryDataImporter_ProgressText_Reading_Hrd_file, 1, numberOfSteps);
             try
             {
                 using (var reader = new HydraulicBoundaryDatabaseReader(hydraulicBoundaryData.FilePath))

@@ -150,7 +150,7 @@ namespace Riskeer.Integration.IO.Importers
 
         private ReadResult<ReadHydraulicBoundaryDatabase> ReadHydraulicBoundaryDatabase()
         {
-            NotifyProgress(Resources.HydraulicBoundaryDataImporter_ProgressText_Reading_HRD_file, 1, numberOfSteps);
+            NotifyProgress(Resources.HydraulicBoundaryDataImporter_ProgressText_Reading_Hrd_file, 1, numberOfSteps);
             try
             {
                 using (var reader = new HydraulicBoundaryDatabaseReader(FilePath))
@@ -206,7 +206,7 @@ namespace Riskeer.Integration.IO.Importers
 
         private ReadResult<IEnumerable<long>> ReadExcludedLocations()
         {
-            NotifyProgress(Resources.HydraulicBoundaryDataImporter_ProgressText_Reading_HRD_settings_file, 3, numberOfSteps);
+            NotifyProgress(Resources.HydraulicBoundaryDataImporter_ProgressText_Reading_Hrd_settings_file, 3, numberOfSteps);
             string hbsdFilePath = HydraulicBoundaryDataHelper.GetHydraulicBoundarySettingsDatabaseFilePath(FilePath);
             try
             {

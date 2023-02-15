@@ -138,7 +138,7 @@
   <data name="AssemblyExporter_Specific_failure_mechanisms_must_have_a_unique_name" xml:space="preserve">
     <value>Om assemblageresultaten te kunnen exporteren moeten alle specifieke faalmechanismen die onderdeel zijn van de assemblage een unieke naam hebben.</value>
   </data>
-  <data name="HydraulicBoundaryDataImporter_ProgressText_Reading_HRD_file" xml:space="preserve">
+  <data name="HydraulicBoundaryDataImporter_ProgressText_Reading_Hrd_file" xml:space="preserve">
     <value>Inlezen van het hydraulische belastingen bestand.</value>
   </data>
   <data name="HydraulicBoundaryDataImporter_HandleCriticalFileReadError_Error_0_No_HydraulicBoundaryDatabase_imported" xml:space="preserve">
@@ -154,7 +154,7 @@ Er is geen hydraulische belastingen database gekoppeld.</value>
   <data name="HydraulicBoundaryDataImporter_HLCD_sqlite_Not_Found" xml:space="preserve">
     <value>Het bijbehorende HLCD bestand is niet gevonden in dezelfde map als het HRD bestand.</value>
   </data>
-  <data name="HydraulicBoundaryDataImporter_ProgressText_Reading_HRD_settings_file" xml:space="preserve">
+  <data name="HydraulicBoundaryDataImporter_ProgressText_Reading_Hrd_settings_file" xml:space="preserve">
     <value>Inlezen van het rekeninstellingen bestand.</value>
   </data>
   <data name="HydraulicBoundaryDataImporter_Cannot_open_hydraulic_calculation_settings_file_0_" xml:space="preserve">
@@ -167,7 +167,7 @@ Er is geen hydraulische belastingen database gekoppeld.</value>
     <value>{0}
 Er is geen HLCD geïmporteerd.</value>
   </data>
-  <data name="HydraulicLocationConfigurationDatabaseImporter_HLCD_not_in_same_folder_as_HRD" xml:space="preserve">
+  <data name="HydraulicLocationConfigurationDatabaseImporter_Hlcd_not_in_same_folder_as_Hrd" xml:space="preserve">
     <value>Het HLCD bestand is niet gevonden in dezelfde map als het HRD bestand.</value>
   </data>
   <data name="HydraulicLocationConfigurationDatabaseImporter_Invalid_number_of_ScenarioInformation_entries" xml:space="preserve">
