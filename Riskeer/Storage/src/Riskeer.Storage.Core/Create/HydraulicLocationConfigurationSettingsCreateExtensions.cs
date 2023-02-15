@@ -27,32 +27,31 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Create
 {
     /// <summary>
-    /// Extension methods for <see cref="HydraulicBoundaryDatabase"/> related
-    /// to creating a <see cref="HydraulicBoundaryDatabaseEntity"/>
+    /// Extension methods for <see cref="HydraulicBoundaryData"/> related to creating a
+    /// <see cref="HydraulicBoundaryDatabaseEntity"/>.
     /// </summary>
     public static class HydraulicLocationConfigurationSettingsCreateExtensions
     {
         /// <summary>
         /// Creates a <see cref="HydraulicBoundaryDatabaseEntity"/> based on the information of the
-        /// <see cref="HydraulicBoundaryDatabase"/>.
+        /// <see cref="HydraulicBoundaryData"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryDatabase"/> to create a
+        /// <param name="hydraulicBoundaryData">The <see cref="HydraulicBoundaryData"/> to create a
         /// <see cref="HydraulicBoundaryDatabaseEntity"/> for.</param>
         /// <returns>A new <see cref="HydraulicBoundaryDatabaseEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryDatabase"/>
-        /// is <c>null</c>.</exception>
-        internal static HydraulicBoundaryDatabaseEntity Create(this HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryData"/> is <c>null</c>.</exception>
+        internal static HydraulicBoundaryDatabaseEntity Create(this HydraulicBoundaryData hydraulicBoundaryData)
         {
-            if (hydraulicBoundaryDatabase == null)
+            if (hydraulicBoundaryData == null)
             {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
+                throw new ArgumentNullException(nameof(hydraulicBoundaryData));
             }
 
-            HydraulicLocationConfigurationSettings settings = hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings;
+            HydraulicLocationConfigurationSettings settings = hydraulicBoundaryData.HydraulicLocationConfigurationSettings;
             return new HydraulicBoundaryDatabaseEntity
             {
-                FilePath = hydraulicBoundaryDatabase.FilePath.DeepClone(),
-                Version = hydraulicBoundaryDatabase.Version.DeepClone(),
+                FilePath = hydraulicBoundaryData.FilePath.DeepClone(),
+                Version = hydraulicBoundaryData.Version.DeepClone(),
                 HydraulicLocationConfigurationSettingsFilePath = settings.FilePath.DeepClone(),
                 HydraulicLocationConfigurationSettingsUsePreprocessorClosure = Convert.ToByte(settings.UsePreprocessorClosure),
                 HydraulicLocationConfigurationSettingsScenarioName = settings.ScenarioName.DeepClone(),
