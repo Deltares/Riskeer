@@ -26,34 +26,34 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Read
 {
     /// <summary>
-    /// This class defines  extension methods for read operations for a <see cref="HydraulicBoundaryDatabaseEntity"/>.
+    /// This class defines extension methods for read operations for a <see cref="HydraulicBoundaryDatabaseEntity"/>.
     /// </summary>
     internal static class HydraulicBoundaryDatabaseEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="HydraulicBoundaryDatabaseEntity"/> and uses the information to
-        /// update a <see cref="HydraulicBoundaryDatabase"/>.
+        /// Reads the <see cref="HydraulicBoundaryDatabaseEntity"/> and uses the information to update a
+        /// <see cref="HydraulicBoundaryData"/> instance.
         /// </summary>
         /// <param name="entity">The <see cref="HydraulicBoundaryDatabaseEntity"/> to update the
-        /// <see cref="HydraulicBoundaryDatabase"/>.</param>
-        /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryDatabase"/> to update.</param>
+        /// <see cref="HydraulicBoundaryData"/>.</param>
+        /// <param name="hydraulicBoundaryData">The <see cref="HydraulicBoundaryData"/> to update.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        internal static void Read(this HydraulicBoundaryDatabaseEntity entity, HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+        internal static void Read(this HydraulicBoundaryDatabaseEntity entity, HydraulicBoundaryData hydraulicBoundaryData)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException(nameof(entity));
             }
 
-            if (hydraulicBoundaryDatabase == null)
+            if (hydraulicBoundaryData == null)
             {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
+                throw new ArgumentNullException(nameof(hydraulicBoundaryData));
             }
 
-            hydraulicBoundaryDatabase.FilePath = entity.FilePath;
-            hydraulicBoundaryDatabase.Version = entity.Version;
+            hydraulicBoundaryData.FilePath = entity.FilePath;
+            hydraulicBoundaryData.Version = entity.Version;
 
-            hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.SetValues(
+            hydraulicBoundaryData.HydraulicLocationConfigurationSettings.SetValues(
                 entity.HydraulicLocationConfigurationSettingsFilePath,
                 entity.HydraulicLocationConfigurationSettingsScenarioName,
                 entity.HydraulicLocationConfigurationSettingsYear,
