@@ -29,7 +29,7 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Test.Create
 {
     [TestFixture]
-    public class HydraulicLocationConfigurationSettingsCreateExtensionsTest
+    public class HydraulicBoundaryDataCreateExtensionsTest
     {
         [Test]
         public void Create_HydraulicBoundaryDataNull_ThrowsArgumentNullException()

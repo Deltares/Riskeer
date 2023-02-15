@@ -30,7 +30,7 @@ namespace Riskeer.Storage.Core.Create
     /// Extension methods for <see cref="HydraulicBoundaryData"/> related to creating a
     /// <see cref="HydraulicBoundaryDatabaseEntity"/>.
     /// </summary>
-    public static class HydraulicLocationConfigurationSettingsCreateExtensions
+    public static class HydraulicBoundaryDataCreateExtensions
     {
         /// <summary>
         /// Creates a <see cref="HydraulicBoundaryDatabaseEntity"/> based on the information of the
