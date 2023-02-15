@@ -52,7 +52,8 @@ namespace Riskeer.Storage.Core.TestUtil.MacroStabilityInwards
         /// <item><see cref="MacroStabilityInwardsInput.HydraulicBoundaryLocation"/>.</item>
         /// <item><see cref="MacroStabilityInwardsInput.SurfaceLine"/>.</item>
         /// <item>The string related properties <see cref="MacroStabilityInwardsCalculationScenario.Name"/> and comments.</item>
-        /// </list></remarks>
+        /// </list>
+        /// </remarks>
         public static void AssertCalculationScenarioPropertyValues(MacroStabilityInwardsCalculationScenario scenario, MacroStabilityInwardsCalculationEntity entity)
         {
             if (scenario == null)

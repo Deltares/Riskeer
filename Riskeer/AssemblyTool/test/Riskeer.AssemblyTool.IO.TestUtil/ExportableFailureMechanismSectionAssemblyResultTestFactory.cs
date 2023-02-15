@@ -37,7 +37,7 @@ namespace Riskeer.AssemblyTool.IO.TestUtil
         /// </summary>
         /// <param name="section">The <see cref="ExportableFailureMechanismSection"/>.</param>
         /// <param name="seed">The seed to use.</param>
-        /// <returns>The created <see cref="ExportableFailureMechanismSectionAssemblyResult"/></returns>
+        /// <returns>The created <see cref="ExportableFailureMechanismSectionAssemblyResult"/>.</returns>
         public static ExportableFailureMechanismSectionAssemblyResult Create(
             ExportableFailureMechanismSection section, int seed)
         {

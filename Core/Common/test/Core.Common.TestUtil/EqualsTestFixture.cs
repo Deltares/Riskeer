@@ -178,7 +178,7 @@ namespace Core.Common.TestUtil
         /// Creates a fully configured object with set values that determine 
         /// an object's equality.
         /// </summary>
-        /// <returns>A fully configured object of type <typeparamref name="T"/></returns>
+        /// <returns>A fully configured object of type <typeparamref name="T"/>.</returns>
         protected abstract T CreateObject();
     }
 
@@ -236,7 +236,7 @@ namespace Core.Common.TestUtil
         /// Creates a fully configured derived object with the same properties and values as 
         /// <see cref="EqualsTestFixture{T}.CreateObject"/>.
         /// </summary>
-        /// <returns>A fully configured derived object of <typeparamref name="TDerived"/></returns>
+        /// <returns>A fully configured derived object of <typeparamref name="TDerived"/>.</returns>
         protected abstract TDerived CreateDerivedObject();
     }
 }

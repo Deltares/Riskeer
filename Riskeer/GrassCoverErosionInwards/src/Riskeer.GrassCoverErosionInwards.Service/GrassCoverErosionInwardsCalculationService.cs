@@ -114,9 +114,9 @@ namespace Riskeer.GrassCoverErosionInwards.Service
         /// <param name="generalInput">Calculation input parameters that apply to all <see cref="GrassCoverErosionInwardsCalculation"/> instances.</param>
         /// <exception cref="ArgumentNullException">Thrown when one of the following parameters is <c>null</c>:
         /// <list type="bullet">
-        /// <item><paramref name="calculation"/></item>
-        /// <item><paramref name="assessmentSection"/></item>
-        /// <item><paramref name="generalInput"/></item>
+        /// <item><paramref name="calculation"/>;</item>
+        /// <item><paramref name="assessmentSection"/>;</item>
+        /// <item><paramref name="generalInput"/>.</item>
         /// </list>
         /// </exception>
         /// <exception cref="ArgumentException">Thrown when the hydraulic boundary database file path contains invalid characters.</exception>

@@ -32,8 +32,8 @@ namespace Core.Gui.PropertyBag
     /// </summary>
     /// <remarks>The following dynamic attributes are supported:
     /// <list type="bullet">
-    /// <item><see cref="DynamicReadOnlyAttribute"/></item>
-    /// <item><see cref="DynamicVisibleAttribute"/></item>
+    /// <item><see cref="DynamicReadOnlyAttribute"/>;</item>
+    /// <item><see cref="DynamicVisibleAttribute"/>.</item>
     /// </list></remarks>
     public class PropertySpecDescriptor : PropertyDescriptor
     {
