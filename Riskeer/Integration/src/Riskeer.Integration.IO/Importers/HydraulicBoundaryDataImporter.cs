@@ -41,20 +41,20 @@ namespace Riskeer.Integration.IO.Importers
     /// <summary>
     /// Importer for hydraulic boundary data files.
     /// </summary>
-    public class HydraulicBoundaryDatabaseImporter : FileImporterBase<HydraulicBoundaryData>
+    public class HydraulicBoundaryDataImporter : FileImporterBase<HydraulicBoundaryData>
     {
         private const int numberOfSteps = 4;
         private readonly List<IObservable> changedObservables = new List<IObservable>();
         private readonly IHydraulicBoundaryDataUpdateHandler updateHandler;
 
         /// <summary>
-        /// Creates a new instance of <see cref="HydraulicBoundaryDatabaseImporter"/>.
+        /// Creates a new instance of <see cref="HydraulicBoundaryDataImporter"/>.
         /// </summary>
         /// <param name="importTarget">The hydraulic boundary data to import to.</param>
         /// <param name="updateHandler">The object responsible for updating the <see cref="HydraulicBoundaryData"/>.</param>
         /// <param name="filePath">The path of the hydraulic boundary database file to import from.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public HydraulicBoundaryDatabaseImporter(HydraulicBoundaryData importTarget, IHydraulicBoundaryDataUpdateHandler updateHandler,
+        public HydraulicBoundaryDataImporter(HydraulicBoundaryData importTarget, IHydraulicBoundaryDataUpdateHandler updateHandler,
                                                  string filePath)
             : base(filePath, importTarget)
         {

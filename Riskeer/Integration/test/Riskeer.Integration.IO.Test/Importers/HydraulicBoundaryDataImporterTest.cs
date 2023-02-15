@@ -39,17 +39,17 @@ using Riskeer.Integration.IO.Importers;
 namespace Riskeer.Integration.IO.Test.Importers
 {
     [TestFixture]
-    public class HydraulicBoundaryDatabaseImporterTest
+    public class HydraulicBoundaryDataImporterTest
     {
         private const int totalNumberOfSteps = 4;
-        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.IO, nameof(HydraulicBoundaryDatabaseImporter));
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.IO, nameof(HydraulicBoundaryDataImporter));
         private static readonly string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
         [Test]
         public void Constructor_UpdateHandlerNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryData(), null, "");
+            void Call() => new HydraulicBoundaryDataImporter(new HydraulicBoundaryData(), null, "");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -65,7 +65,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             mocks.ReplayAll();
 
             // Call
-            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryData(), updateHandler, "");
+            var importer = new HydraulicBoundaryDataImporter(new HydraulicBoundaryData(), updateHandler, "");
 
             // Assert
             Assert.IsInstanceOf<FileImporterBase<HydraulicBoundaryData>>(importer);
@@ -82,7 +82,7 @@ namespace Riskeer.Integration.IO.Test.Importers
 
             string path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.IO, Path.DirectorySeparatorChar.ToString());
 
-            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryData(), handler, path);
+            var importer = new HydraulicBoundaryDataImporter(new HydraulicBoundaryData(), handler, path);
 
             // Call
             var importSuccessful = true;
@@ -104,7 +104,7 @@ namespace Riskeer.Integration.IO.Test.Importers
 
             string path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.IO, "I_dont_exist");
 
-            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryData(), handler, path);
+            var importer = new HydraulicBoundaryDataImporter(new HydraulicBoundaryData(), handler, path);
 
             // Call
             var importSuccessful = true;
@@ -126,7 +126,7 @@ namespace Riskeer.Integration.IO.Test.Importers
 
             string path = Path.Combine(testDataPath, "corruptschema.sqlite");
 
-            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryData(), handler, path);
+            var importer = new HydraulicBoundaryDataImporter(new HydraulicBoundaryData(), handler, path);
 
             // Call
             var importSuccessful = true;
@@ -148,7 +148,7 @@ namespace Riskeer.Integration.IO.Test.Importers
 
             string path = Path.Combine(testDataPath, "empty.sqlite");
 
-            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryData(), handler, path);
+            var importer = new HydraulicBoundaryDataImporter(new HydraulicBoundaryData(), handler, path);
 
             // Call
             var importSuccessful = true;
@@ -171,7 +171,7 @@ namespace Riskeer.Integration.IO.Test.Importers
 
             string path = Path.Combine(testDataPath, "withoutHLCD", "complete.sqlite");
 
-            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryData(), handler, path);
+            var importer = new HydraulicBoundaryDataImporter(new HydraulicBoundaryData(), handler, path);
 
             // Call
             var importSuccessful = true;
@@ -195,7 +195,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             string path = Path.Combine(testDataPath, "EmptyHLCDSchema", "complete.sqlite");
             string hlcdFilePath = Path.Combine(Path.GetDirectoryName(path), "hlcd.sqlite");
 
-            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryData(), handler, path);
+            var importer = new HydraulicBoundaryDataImporter(new HydraulicBoundaryData(), handler, path);
 
             // Call
             var importSuccessful = true;
@@ -219,7 +219,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             string path = Path.Combine(testDataPath, "InvalidHLCDSchema", "complete.sqlite");
             string hlcdFilePath = Path.Combine(Path.GetDirectoryName(path), "hlcd.sqlite");
 
-            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryData(), handler, path);
+            var importer = new HydraulicBoundaryDataImporter(new HydraulicBoundaryData(), handler, path);
 
             // Call
             var importSuccessful = true;
@@ -245,7 +245,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             string path = Path.Combine(testDataPath, testFolder, "complete.sqlite");
             string hlcdFilePath = Path.Combine(Path.GetDirectoryName(path), "hlcd.sqlite");
 
-            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryData(), handler, path);
+            var importer = new HydraulicBoundaryDataImporter(new HydraulicBoundaryData(), handler, path);
 
             // Call
             var importSuccessful = true;
@@ -268,7 +268,7 @@ namespace Riskeer.Integration.IO.Test.Importers
 
             string path = Path.Combine(testDataPath, "withoutSettings", "complete.sqlite");
 
-            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryData(), handler, path);
+            var importer = new HydraulicBoundaryDataImporter(new HydraulicBoundaryData(), handler, path);
 
             // Call
             var importSuccessful = true;
@@ -292,7 +292,7 @@ namespace Riskeer.Integration.IO.Test.Importers
 
             string path = Path.Combine(testDataPath, "invalidSettings", "complete.sqlite");
 
-            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryData(), handler, path);
+            var importer = new HydraulicBoundaryDataImporter(new HydraulicBoundaryData(), handler, path);
 
             // Call
             var importSuccessful = true;
@@ -316,7 +316,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             string path = Path.Combine(testDataPath, "missingPreprocessorClosure", "complete.sqlite");
             string hlcdFilePath = Path.Combine(Path.GetDirectoryName(path), "hlcd.sqlite");
 
-            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryData(), handler, path);
+            var importer = new HydraulicBoundaryDataImporter(new HydraulicBoundaryData(), handler, path);
 
             // Call
             var importSuccessful = true;
@@ -360,7 +360,7 @@ namespace Riskeer.Integration.IO.Test.Importers
                    .Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
-            var importer = new HydraulicBoundaryDatabaseImporter(hydraulicBoundaryData, handler, validFilePath);
+            var importer = new HydraulicBoundaryDataImporter(hydraulicBoundaryData, handler, validFilePath);
 
             // Call
             var importResult = false;
@@ -408,7 +408,7 @@ namespace Riskeer.Integration.IO.Test.Importers
                    .Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
-            var importer = new HydraulicBoundaryDatabaseImporter(hydraulicBoundaryData, handler, filePath);
+            var importer = new HydraulicBoundaryDataImporter(hydraulicBoundaryData, handler, filePath);
 
             // Call
             var importResult = false;
@@ -454,7 +454,7 @@ namespace Riskeer.Integration.IO.Test.Importers
                    .Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
-            var importer = new HydraulicBoundaryDatabaseImporter(hydraulicBoundaryData, handler, hydraulicBoundaryDatabaseFilePath);
+            var importer = new HydraulicBoundaryDataImporter(hydraulicBoundaryData, handler, hydraulicBoundaryDatabaseFilePath);
 
             // Call
             var importResult = false;
@@ -478,7 +478,7 @@ namespace Riskeer.Integration.IO.Test.Importers
 
             var progressChangeNotifications = new List<ProgressNotification>();
 
-            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryData(), handler, validFilePath);
+            var importer = new HydraulicBoundaryDataImporter(new HydraulicBoundaryData(), handler, validFilePath);
             importer.SetProgressChanged((description, step, steps) => progressChangeNotifications.Add(new ProgressNotification(description, step, steps)));
 
             // Call
@@ -513,7 +513,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             handler.Expect(h => h.InquireConfirmation()).Return(false);
             mocks.ReplayAll();
 
-            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryData(), handler, validFilePath);
+            var importer = new HydraulicBoundaryDataImporter(new HydraulicBoundaryData(), handler, validFilePath);
 
             var importResult = true;
 
@@ -539,7 +539,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             handler.Stub(h => h.IsConfirmationRequired(null, null)).IgnoreArguments().Return(false);
             mocks.ReplayAll();
 
-            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryData(), handler, validFilePath);
+            var importer = new HydraulicBoundaryDataImporter(new HydraulicBoundaryData(), handler, validFilePath);
             importer.SetProgressChanged((description, currentStep, steps) =>
             {
                 if (currentStep == stepNumber)
@@ -572,7 +572,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             handler.Stub(h => h.Update(null, null, null, null, null, null)).IgnoreArguments().Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
-            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryData(), handler, validFilePath);
+            var importer = new HydraulicBoundaryDataImporter(new HydraulicBoundaryData(), handler, validFilePath);
             importer.SetProgressChanged((description, step, steps) =>
             {
                 if (step == totalNumberOfSteps)
@@ -627,7 +627,7 @@ namespace Riskeer.Integration.IO.Test.Importers
 
             hydraulicBoundaryData.Attach(hydraulicBoundaryDatabaseObserver);
 
-            var importer = new HydraulicBoundaryDatabaseImporter(hydraulicBoundaryData, handler, validFilePath);
+            var importer = new HydraulicBoundaryDataImporter(hydraulicBoundaryData, handler, validFilePath);
 
             // Precondition
             Assert.IsTrue(importer.Import());
@@ -648,7 +648,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
             var handler = mocks.StrictMock<IHydraulicBoundaryDataUpdateHandler>();
-            var importer = new HydraulicBoundaryDatabaseImporter(hydraulicBoundaryData, handler, validFilePath);
+            var importer = new HydraulicBoundaryDataImporter(hydraulicBoundaryData, handler, validFilePath);
             handler.Expect(h => h.IsConfirmationRequired(null, null)).IgnoreArguments()
                    .WhenCalled(invocation => importer.Cancel())
                    .Return(false);

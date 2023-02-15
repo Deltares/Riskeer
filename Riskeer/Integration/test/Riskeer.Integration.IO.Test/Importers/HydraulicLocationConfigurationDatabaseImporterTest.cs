@@ -108,7 +108,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             mocks.ReplayAll();
 
             string hydraulicBoundaryDatabasePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.IO,
-                                                                                           nameof(HydraulicBoundaryDatabaseImporter)), "complete.sqlite");
+                                                                                           nameof(HydraulicBoundaryDataImporter)), "complete.sqlite");
 
             HydraulicBoundaryData hydraulicBoundaryData = CreateHydraulicBoundaryData(hydraulicBoundaryDatabasePath);
 
