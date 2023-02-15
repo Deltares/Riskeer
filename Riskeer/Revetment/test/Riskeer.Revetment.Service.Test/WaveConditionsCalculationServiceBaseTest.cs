@@ -47,7 +47,7 @@ namespace Riskeer.Revetment.Service.Test
     public class WaveConditionsCalculationServiceBaseTest
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
-        private static readonly string validHydraulicBoundaryDatabaseFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
         private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
 
         [Test]
@@ -119,7 +119,7 @@ namespace Riskeer.Revetment.Service.Test
 
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = validHydraulicBoundaryDatabaseFilePath,
+                FilePath = validHrdFilePath,
                 HydraulicLocationConfigurationSettings =
                 {
                     CanUsePreprocessor = true,
@@ -886,7 +886,7 @@ namespace Riskeer.Revetment.Service.Test
         {
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = validHydraulicBoundaryDatabaseFilePath,
+                FilePath = validHrdFilePath,
                 HydraulicLocationConfigurationSettings =
                 {
                     CanUsePreprocessor = true,
@@ -927,7 +927,7 @@ namespace Riskeer.Revetment.Service.Test
         {
             var hydraulicBoundaryDatabaseUsePreprocessorTrue = new HydraulicBoundaryData
             {
-                FilePath = validHydraulicBoundaryDatabaseFilePath,
+                FilePath = validHrdFilePath,
                 HydraulicLocationConfigurationSettings =
                 {
                     CanUsePreprocessor = true,
@@ -940,7 +940,7 @@ namespace Riskeer.Revetment.Service.Test
 
             var hydraulicBoundaryDatabaseUsePreprocessorFalse = new HydraulicBoundaryData
             {
-                FilePath = validHydraulicBoundaryDatabaseFilePath,
+                FilePath = validHrdFilePath,
                 HydraulicLocationConfigurationSettings =
                 {
                     CanUsePreprocessor = true,
@@ -952,7 +952,7 @@ namespace Riskeer.Revetment.Service.Test
 
             var hydraulicBoundaryDatabaseCanUsePreprocessorFalse = new HydraulicBoundaryData
             {
-                FilePath = validHydraulicBoundaryDatabaseFilePath
+                FilePath = validHrdFilePath
             };
             HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryDatabaseCanUsePreprocessorFalse);
             yield return new TestCaseData(hydraulicBoundaryDatabaseCanUsePreprocessorFalse).SetName("CanUsePreprocessorFalse");

@@ -44,16 +44,16 @@ namespace Riskeer.Common.Data.Test.Hydraulics
         }
 
         [Test]
-        public void CreateSettings_WithHydraulicBoundaryDatabaseWithFilePath_ReturnsExpectedSettings()
+        public void CreateSettings_WithLinkedHydraulicBoundaryData_ReturnsExpectedSettings()
         {
             // Setup
-            const string hydraulicBoundaryDatabaseFilePath = "some//FilePath//HRD dutch coast south.sqlite";
+            const string hrdFilePath = "some//FilePath//HRD dutch coast south.sqlite";
             const string hlcdFilePath = "some//FilePath//HLCD dutch coast south.sqlite";
             bool usePreprocessorClosure = new Random(21).NextBoolean();
 
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = hydraulicBoundaryDatabaseFilePath
+                FilePath = hrdFilePath
             };
             hydraulicBoundaryData.HydraulicLocationConfigurationSettings.SetValues(hlcdFilePath, string.Empty, 10, string.Empty,
                                                                       usePreprocessorClosure, null, null, null, null, null, null);
@@ -62,7 +62,7 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             HydraulicBoundaryCalculationSettings settings = HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData);
 
             // Assert
-            Assert.AreEqual(hydraulicBoundaryDatabaseFilePath, settings.HrdFilePath);
+            Assert.AreEqual(hrdFilePath, settings.HrdFilePath);
             Assert.AreEqual(hlcdFilePath, settings.HlcdFilePath);
             Assert.AreEqual(usePreprocessorClosure, settings.UsePreprocessorClosure);
         }
