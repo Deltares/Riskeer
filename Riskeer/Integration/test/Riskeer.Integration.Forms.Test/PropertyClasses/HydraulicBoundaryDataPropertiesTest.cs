@@ -34,7 +34,7 @@ using Riskeer.Integration.Forms.PropertyClasses;
 namespace Riskeer.Integration.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class HydraulicBoundaryDatabasePropertiesTest
+    public class HydraulicBoundaryDataPropertiesTest
     {
         private const int hrdFilePathPropertyIndex = 0;
         private const int hlcdFilePathPropertyIndex = 1;
@@ -60,7 +60,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            void Call() => new HydraulicBoundaryDatabaseProperties(null, importHandler);
+            void Call() => new HydraulicBoundaryDataProperties(null, importHandler);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -75,7 +75,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var hydraulicBoundaryData = new HydraulicBoundaryData();
 
             // Call
-            void Call() => new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryData, null);
+            void Call() => new HydraulicBoundaryDataProperties(hydraulicBoundaryData, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -93,7 +93,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var hydraulicBoundaryData = new HydraulicBoundaryData();
 
             // Call
-            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryData, importHandler);
+            var properties = new HydraulicBoundaryDataProperties(hydraulicBoundaryData, importHandler);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<HydraulicBoundaryData>>(properties);
@@ -123,7 +123,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryData, importHandler);
+            var properties = new HydraulicBoundaryDataProperties(hydraulicBoundaryData, importHandler);
 
             // Assert
             Assert.AreEqual(usePreprocessor, properties.UsePreprocessor);
@@ -146,7 +146,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             Assert.IsFalse(hydraulicBoundaryData.IsLinked());
 
             // Call
-            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryData, importHandler);
+            var properties = new HydraulicBoundaryDataProperties(hydraulicBoundaryData, importHandler);
 
             // Assert
             Assert.IsEmpty(properties.HrdFilePath);
@@ -179,7 +179,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             Assert.IsTrue(hydraulicBoundaryData.IsLinked());
 
             // Call
-            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryData, importHandler);
+            var properties = new HydraulicBoundaryDataProperties(hydraulicBoundaryData, importHandler);
 
             // Assert
             Assert.AreEqual(hydraulicBoundaryData.FilePath, properties.HrdFilePath);
@@ -221,7 +221,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryData, importHandler);
+            var properties = new HydraulicBoundaryDataProperties(hydraulicBoundaryData, importHandler);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -338,7 +338,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var hydraulicBoundaryData = new HydraulicBoundaryData();
 
             // Call
-            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryData, importHandler);
+            var properties = new HydraulicBoundaryDataProperties(hydraulicBoundaryData, importHandler);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -446,7 +446,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                                                               : new HydraulicBoundaryData();
 
             // Call
-            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryData, importHandler);
+            var properties = new HydraulicBoundaryDataProperties(hydraulicBoundaryData, importHandler);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -565,7 +565,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                 }
             };
 
-            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryData, importHandler);
+            var properties = new HydraulicBoundaryDataProperties(hydraulicBoundaryData, importHandler);
 
             hydraulicBoundaryData.Attach(observer);
 
@@ -596,7 +596,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                 }
             };
 
-            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryData, importHandler);
+            var properties = new HydraulicBoundaryDataProperties(hydraulicBoundaryData, importHandler);
 
             // Call
             properties.PreprocessorDirectory = newPreprocessorDirectory;
@@ -619,7 +619,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                                                                                        hlcdFilePath));
             mocks.ReplayAll();
 
-            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryData, importHandler);
+            var properties = new HydraulicBoundaryDataProperties(hydraulicBoundaryData, importHandler);
 
             // Call
             properties.HlcdFilePath = hlcdFilePath;
@@ -649,7 +649,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             }
 
             // Call
-            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryData, importHandler);
+            var properties = new HydraulicBoundaryDataProperties(hydraulicBoundaryData, importHandler);
 
             // Assert
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.HrdFilePath)));
@@ -686,7 +686,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                                                               : new HydraulicBoundaryData();
 
             // Call
-            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryData, importHandler);
+            var properties = new HydraulicBoundaryDataProperties(hydraulicBoundaryData, importHandler);
 
             // Assert
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.HrdFilePath)));

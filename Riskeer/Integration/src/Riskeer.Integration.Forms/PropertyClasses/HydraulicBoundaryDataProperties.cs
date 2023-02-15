@@ -36,7 +36,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="HydraulicBoundaryData"/> for properties panel.
     /// </summary>
-    public class HydraulicBoundaryDatabaseProperties : ObjectProperties<HydraulicBoundaryData>
+    public class HydraulicBoundaryDataProperties : ObjectProperties<HydraulicBoundaryData>
     {
         private const int hrdFilePathPropertyIndex = 0;
         private const int hlcdFilePathPropertyIndex = 1;
@@ -56,12 +56,12 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         private readonly IHydraulicLocationConfigurationDatabaseImportHandler hydraulicLocationConfigurationDatabaseImportHandler;
 
         /// <summary>
-        /// Creates a new instance of <see cref="HydraulicBoundaryDatabaseProperties"/>.
+        /// Creates a new instance of <see cref="HydraulicBoundaryDataProperties"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryData">The hydraulic boundary data to show the properties for.</param>
         /// <param name="hydraulicLocationConfigurationDatabaseImportHandler">The handler to update the hydraulic location configuration settings.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public HydraulicBoundaryDatabaseProperties(HydraulicBoundaryData hydraulicBoundaryData,
+        public HydraulicBoundaryDataProperties(HydraulicBoundaryData hydraulicBoundaryData,
                                                    IHydraulicLocationConfigurationDatabaseImportHandler hydraulicLocationConfigurationDatabaseImportHandler)
         {
             if (hydraulicBoundaryData == null)
