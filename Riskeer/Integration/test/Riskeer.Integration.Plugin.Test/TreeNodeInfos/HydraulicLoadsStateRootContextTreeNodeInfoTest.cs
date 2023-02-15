@@ -239,7 +239,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             using (var treeView = new TreeViewControl())
             {
-                string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Forms, "HydraulicBoundaryDatabase");
+                string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Forms, "HydraulicBoundaryData");
                 string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
                 {

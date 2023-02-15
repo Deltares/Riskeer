@@ -55,7 +55,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
         private const int contextMenuAddTargetProbabilityIndex = 0;
         private const int contextMenuCalculateAllIndex = 4;
 
-        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Forms, "HydraulicBoundaryDatabase");
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Forms, "HydraulicBoundaryData");
         private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
         [Test]

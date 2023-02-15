@@ -209,7 +209,7 @@ namespace Riskeer.Integration.Service.Test.Comparers
             yield return new ChangePropertyData<AssessmentSection>(sec => sec.Id = "DifferentVersion",
                                                                    "Id");
             yield return new ChangePropertyData<AssessmentSection>(sec => sec.HydraulicBoundaryData.Version = "DifferentVersion",
-                                                                   "HydraulicBoundaryDataBase");
+                                                                   "HydraulicBoundaryData");
             yield return new ChangePropertyData<AssessmentSection>(sec => sec.FailureMechanismContribution.MaximumAllowableFloodingProbability -= 1e-15,
                                                                    "MaximumAllowableFloodingProbability");
             yield return new ChangePropertyData<AssessmentSection>(sec => sec.FailureMechanismContribution.SignalFloodingProbability -= 1e-15,

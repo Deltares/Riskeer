@@ -64,7 +64,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         private const int contextMenuCalculateAllIndex = 3;
         private const int contextMenuClearIllustrationPointsIndex = 5;
 
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Forms, "HydraulicBoundaryDatabase");
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Forms, "HydraulicBoundaryData");
 
         private MockRepository mocks;
 

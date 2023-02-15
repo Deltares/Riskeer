@@ -55,7 +55,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos.HydraulicLoadsState
     {
         private const int contextMenuCalculateAllIndex = 2;
 
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Forms, "HydraulicBoundaryDatabase");
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Forms, "HydraulicBoundaryData");
 
         private MockRepository mocksRepository;
         private DuneErosionPlugin plugin;
