@@ -58,7 +58,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         private const int wavePeriodColumnIndex = 8;
 
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryData));
-        private static readonly string hydraulicBoundaryDatabaseFilePath = Path.Combine(testDataPath, "complete.sqlite");
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "complete.sqlite");
         private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
 
         private Form testForm;
@@ -442,7 +442,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             // Setup
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = hydraulicBoundaryDatabaseFilePath
+                FilePath = validHrdFilePath
             };
             HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryData);
 
@@ -500,7 +500,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             // Setup
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = hydraulicBoundaryDatabaseFilePath
+                FilePath = validHrdFilePath
             };
             HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryData);
 
@@ -622,7 +622,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             const double targetProbability = 0.01;
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = hydraulicBoundaryDatabaseFilePath
+                FilePath = validHrdFilePath
             };
             HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryData);
 
@@ -686,7 +686,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             const double targetProbability = 0.01;
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = hydraulicBoundaryDatabaseFilePath,
+                FilePath = validHrdFilePath,
                 HydraulicLocationConfigurationSettings =
                 {
                     CanUsePreprocessor = true,
@@ -756,7 +756,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             const double targetProbability = 0.01;
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = hydraulicBoundaryDatabaseFilePath,
+                FilePath = validHrdFilePath,
                 HydraulicLocationConfigurationSettings =
                 {
                     CanUsePreprocessor = true,
