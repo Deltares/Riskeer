@@ -30,6 +30,7 @@ using Core.Gui.Commands;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.IO.FileImporters;
 using Riskeer.Common.IO.FileImporters.MessageProviders;
@@ -156,11 +157,11 @@ namespace Riskeer.Integration.TestUtil
         }
 
         /// <summary>
-        /// Imports the <see cref="HydraulicBoundaryDatabase"/> for the given <see cref="AssessmentSection"/>.
+        /// Imports the <see cref="HydraulicBoundaryData"/> for the given <see cref="AssessmentSection"/>.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to import on.</param>
-        /// <remarks>This will import 18 Hydraulic boundary locations.</remarks>
-        public static void ImportHydraulicBoundaryDatabase(AssessmentSection assessmentSection)
+        /// <remarks>This will import 18 hydraulic boundary locations.</remarks>
+        public static void ImportHydraulicBoundaryData(AssessmentSection assessmentSection)
         {
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(typeof(DataImportHelper).Assembly,
                                                                                    false,
@@ -170,18 +171,18 @@ namespace Riskeer.Integration.TestUtil
             {
                 string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "HRD dutch coast south.sqlite");
 
-                ImportHydraulicBoundaryDatabase(assessmentSection, filePath);
+                ImportHydraulicBoundaryData(assessmentSection, filePath);
             }
         }
 
         /// <summary>
-        /// Imports the <see cref="HydraulicBoundaryDatabase"/> for the given <see cref="AssessmentSection"/>.
+        /// Imports the <see cref="HydraulicBoundaryData"/> for the given <see cref="AssessmentSection"/>.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to import on.</param>
         /// <param name="filePath">The filePath to import from.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
         /// is <c>null</c>.</exception>
-        public static void ImportHydraulicBoundaryDatabase(AssessmentSection assessmentSection, string filePath)
+        public static void ImportHydraulicBoundaryData(AssessmentSection assessmentSection, string filePath)
         {
             if (assessmentSection == null)
             {

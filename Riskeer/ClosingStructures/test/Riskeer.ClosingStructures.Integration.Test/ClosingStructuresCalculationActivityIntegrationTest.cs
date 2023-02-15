@@ -101,7 +101,7 @@ namespace Riskeer.ClosingStructures.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            DataImportHelper.ImportHydraulicBoundaryDatabase(assessmentSection, validFilePath);
+            DataImportHelper.ImportHydraulicBoundaryData(assessmentSection, validFilePath);
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new TestClosingStructuresCalculationScenario
@@ -163,7 +163,7 @@ namespace Riskeer.ClosingStructures.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            DataImportHelper.ImportHydraulicBoundaryDatabase(assessmentSection, validFilePath);
+            DataImportHelper.ImportHydraulicBoundaryData(assessmentSection, validFilePath);
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new TestClosingStructuresCalculationScenario
@@ -206,7 +206,7 @@ namespace Riskeer.ClosingStructures.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            DataImportHelper.ImportHydraulicBoundaryDatabase(assessmentSection, validFilePath);
+            DataImportHelper.ImportHydraulicBoundaryData(assessmentSection, validFilePath);
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new TestClosingStructuresCalculationScenario
@@ -262,7 +262,7 @@ namespace Riskeer.ClosingStructures.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            DataImportHelper.ImportHydraulicBoundaryDatabase(assessmentSection, validFilePath);
+            DataImportHelper.ImportHydraulicBoundaryData(assessmentSection, validFilePath);
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new StructuresCalculation<ClosingStructuresInput>

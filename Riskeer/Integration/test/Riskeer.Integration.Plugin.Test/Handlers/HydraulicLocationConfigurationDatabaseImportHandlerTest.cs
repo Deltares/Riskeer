@@ -160,7 +160,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             string newHlcdFilePath = Path.Combine(testDataDirectory, "hlcdWithScenarioInformation.sqlite");
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            DataImportHelper.ImportHydraulicBoundaryDatabase(assessmentSection,
+            DataImportHelper.ImportHydraulicBoundaryData(assessmentSection,
                                                              Path.Combine(testDataDirectory, "complete.sqlite"));
 
             HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryData;

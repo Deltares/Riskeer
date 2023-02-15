@@ -167,7 +167,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
         {
             string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
-            DataImportHelper.ImportHydraulicBoundaryDatabase(assessmentSection, validFilePath);
+            DataImportHelper.ImportHydraulicBoundaryData(assessmentSection, validFilePath);
         }
 
         private static DikeProfile CreateDikeProfile()

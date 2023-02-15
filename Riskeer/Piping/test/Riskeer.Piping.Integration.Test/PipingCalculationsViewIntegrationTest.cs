@@ -101,7 +101,7 @@ namespace Riskeer.Piping.Integration.Test
                 Assert.AreEqual("<selecteer>", dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex].FormattedValue);
 
                 // Import hydraulic boundary locations and ensure the corresponding combobox items are updated
-                DataImportHelper.ImportHydraulicBoundaryDatabase(assessmentSection);
+                DataImportHelper.ImportHydraulicBoundaryData(assessmentSection);
                 assessmentSection.HydraulicBoundaryData.Locations.NotifyObservers();
                 Assert.AreEqual(19, ((DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[hydraulicBoundaryLocationsColumnIndex]).Items.Count);
 
