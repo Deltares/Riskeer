@@ -55,7 +55,8 @@ namespace Riskeer.Common.IO.ReferenceLines
         /// <list type="bullet">
         /// <item><paramref name="folderpath"/> points to an invalid directory.</item>
         /// <item>The path <paramref name="folderpath"/> does not contain any shape files.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         public ReferenceLineMetaImporter(string folderpath)
         {
             ValidateAndConnectTo(folderpath);
@@ -70,7 +71,8 @@ namespace Riskeer.Common.IO.ReferenceLines
         /// <list type="bullet">
         /// <item>The shape file does not contain the required attributes.</item>
         /// <item>The assessment section ids in the shape file are not unique or are missing.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         public IEnumerable<ReferenceLineMeta> GetReferenceLineMetas()
         {
             IEnumerable<ReferenceLineMeta> referenceLineMetas = ReferenceLinesMetaReader.ReadReferenceLinesMetas(shapeFilePath);

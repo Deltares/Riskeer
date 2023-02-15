@@ -48,7 +48,8 @@ namespace Riskeer.Migration.Core
         /// <item><paramref name="fromVersion"/> is not a valid project version,</item>
         /// <item><paramref name="toVersion"/> is not a valid project version,</item>
         /// <item><paramref name="query"/> is empty, <c>null</c>, or consists out of only whitespace characters.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         public ProjectUpgradeScript(string fromVersion, string toVersion, string query, string logDatabaseLocation)
             : base(fromVersion, toVersion)
         {

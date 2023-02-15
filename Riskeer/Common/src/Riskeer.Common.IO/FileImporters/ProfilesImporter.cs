@@ -252,7 +252,8 @@ namespace Riskeer.Common.IO.FileImporters
         /// <item>The shapefile misses a value for a required attribute.</item>
         /// <item>The shapefile has an attribute whose type is incorrect.</item>
         /// <item>The read <see cref="ProfileLocation"/> is outside the reference line.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         private void AddNextProfileLocation(ProfileLocationReader profileLocationReader, Collection<ProfileLocation> profileLocations)
         {
             ProfileLocation profileLocation = profileLocationReader.GetNextProfileLocation();

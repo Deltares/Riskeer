@@ -46,7 +46,8 @@ namespace Riskeer.Migration.Core
         /// <item>does not contain an invalid character,</item>
         /// <item>does not end with a directory or path separator (empty file name),</item>
         /// <item>is not writable.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         /// <remarks>Creates the file if it does not exist.</remarks>
         public ProjectDatabaseFile(string path)
         {

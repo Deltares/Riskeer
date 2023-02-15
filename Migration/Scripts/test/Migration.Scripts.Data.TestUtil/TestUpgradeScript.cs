@@ -37,7 +37,8 @@ namespace Migration.Scripts.Data.TestUtil
         /// <list type="bullet">
         /// <item><paramref name="fromVersion"/> is empty or <c>null</c>,</item>
         /// <item><paramref name="toVersion"/> is empty or <c>null</c>,</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         public TestUpgradeScript(string fromVersion, string toVersion)
             : base(fromVersion, toVersion) {}
 

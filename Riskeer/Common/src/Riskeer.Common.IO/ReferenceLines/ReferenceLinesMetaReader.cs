@@ -58,7 +58,8 @@ namespace Riskeer.Common.IO.ReferenceLines
         /// <item>The shape file does not contain the mandatory attributes.</item>
         /// <item>Has an empty <see cref="assessmentsectionIdAttributeKey"/> attribute.</item>
         /// <item>The shape file has non-line geometries in it.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         public static IEnumerable<ReferenceLineMeta> ReadReferenceLinesMetas(string shapeFilePath)
         {
             ValidateFilePath(shapeFilePath);

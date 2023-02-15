@@ -45,7 +45,8 @@ namespace Riskeer.AssemblyTool.IO.TestUtil
         /// do not match. </item>
         /// <item>The geometry of the sections are not equal.</item>
         /// <item>The id does not contain the expected value.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         public static void AssertExportableFailureMechanismSections(IEnumerable<FailureMechanismSection> expectedSections,
                                                                     IEnumerable<ExportableFailureMechanismSection> actualSections)
         {

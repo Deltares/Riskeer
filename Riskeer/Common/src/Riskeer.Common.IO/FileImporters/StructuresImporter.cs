@@ -388,12 +388,14 @@ namespace Riskeer.Common.IO.FileImporters
         /// <list type="bullet">
         /// <item>The <paramref name="structureLocationReader"/> reads multiple structures for a structure.</item>
         /// <item>A structure read from the <paramref name="structureLocationReader"/> is not on the reference line.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         /// <exception cref="LineParseException">Thrown when either:
         /// <list type="bullet">
         /// <item>The shapefile misses a value for a required attribute.</item>
         /// <item>The shapefile has an attribute whose type is incorrect.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         private void AddNextStructureLocation(StructureLocationReader structureLocationReader, Collection<StructureLocation> structureLocations)
         {
             StructureLocation structureLocation = structureLocationReader.GetNextStructureLocation();

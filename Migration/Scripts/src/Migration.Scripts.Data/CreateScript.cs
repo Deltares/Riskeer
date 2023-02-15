@@ -59,7 +59,8 @@ namespace Migration.Scripts.Data
         /// <item>consists out of only whitespace characters,</item>
         /// <item>contains an invalid character,</item>
         /// <item>ends with a directory or path separator (empty file name).</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         /// <exception cref="CriticalMigrationException">Thrown when creating <see cref="IVersionedFile"/> 
         /// failed.</exception>
         /// <remarks>Creates the file if it does not exist.</remarks>

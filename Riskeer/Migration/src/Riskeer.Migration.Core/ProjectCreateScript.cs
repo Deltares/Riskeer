@@ -44,7 +44,8 @@ namespace Riskeer.Migration.Core
         /// <list type="bullet">
         /// <item><paramref name="version"/> is not a valid project version,</item>
         /// <item><paramref name="query"/> is empty, <c>null</c>, or consist out of only whitespace characters.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         public ProjectCreateScript(string version, string query) : base(version)
         {
             ProjectVersionHelper.ValidateVersion(version);

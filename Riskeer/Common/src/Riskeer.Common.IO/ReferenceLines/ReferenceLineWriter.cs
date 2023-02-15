@@ -49,7 +49,8 @@ namespace Riskeer.Common.IO.ReferenceLines
         /// <exception cref="ArgumentException">Thrown when <list type="bullet">
         /// <item><paramref name="filePath"/> is invalid, or</item>
         /// <item><paramref name="id"/> is empty or consists of whitespace.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         /// <exception cref="CriticalFileWriteException">Thrown when the shapefile cannot be written.</exception>
         public void WriteReferenceLine(ReferenceLine referenceLine, string id, string filePath)
         {

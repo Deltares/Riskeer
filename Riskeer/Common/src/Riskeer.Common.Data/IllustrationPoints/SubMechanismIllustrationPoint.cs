@@ -44,7 +44,8 @@ namespace Riskeer.Common.Data.IllustrationPoints
         /// <item><paramref name="name"/>;</item>
         /// <item><paramref name="stochasts"/>;</item>
         /// <item><paramref name="illustrationPointResults"/>.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         /// <exception cref="ArgumentException">Thrown when the <see cref="stochasts"/> aren't unique.</exception>
         public SubMechanismIllustrationPoint(string name,
                                              double beta,

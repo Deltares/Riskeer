@@ -42,7 +42,7 @@ namespace Core.Common.Geometry
         /// <param name="pointsOfPolygonA">Points of the first polygon.</param>
         /// <param name="pointsOfPolygonB">Points of the second polygon.</param>
         /// <returns>A collection of point arrays. Each point array describes an intersecting area of the polygons.</returns>
-        /// <exception cref="InvalidPolygonException"></exception>
+        /// <exception cref="InvalidPolygonException">Thrown in case of invalid polygons.</exception>
         public static IEnumerable<Point2D[]> PolygonIntersectionWithPolygon(IEnumerable<Point2D> pointsOfPolygonA, IEnumerable<Point2D> pointsOfPolygonB)
         {
             Polygon polygonA = PointsToPolygon(pointsOfPolygonA);

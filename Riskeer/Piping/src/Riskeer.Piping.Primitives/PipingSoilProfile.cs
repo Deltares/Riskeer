@@ -172,7 +172,8 @@ namespace Riskeer.Piping.Primitives
         /// <item><paramref name="collection"/> contains no layers</item>
         /// <item><paramref name="collection"/> contains a layer with the <see cref="PipingSoilLayer.Top"/> less than
         /// <see cref="Bottom"/></item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         private void ValidateLayersCollection(IEnumerable<PipingSoilLayer> collection)
         {
             if (collection == null)

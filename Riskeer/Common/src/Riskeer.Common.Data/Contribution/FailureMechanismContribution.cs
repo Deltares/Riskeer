@@ -65,7 +65,8 @@ namespace Riskeer.Common.Data.Contribution
         /// <list type="bullet">
         /// <item>The new value is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
         /// <item>The new value is larger than the <see cref="MaximumAllowableFloodingProbability"/>.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         public double SignalFloodingProbability
         {
             get => signalFloodingProbability;
@@ -84,7 +85,8 @@ namespace Riskeer.Common.Data.Contribution
         /// <list type="bullet">
         /// <item>The new value is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
         /// <item>The new value is smaller than the <see cref="SignalFloodingProbability"/>.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         public double MaximumAllowableFloodingProbability
         {
             get => maximumAllowableFloodingProbability;

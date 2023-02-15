@@ -42,7 +42,8 @@ namespace Migration.Scripts.Data
         /// <list type="bullet">
         /// <item><paramref name="fromVersion"/> is empty or <c>null</c>,</item>
         /// <item><paramref name="toVersion"/> is empty or <c>null</c>.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         protected UpgradeScript(string fromVersion, string toVersion)
         {
             if (string.IsNullOrEmpty(fromVersion))

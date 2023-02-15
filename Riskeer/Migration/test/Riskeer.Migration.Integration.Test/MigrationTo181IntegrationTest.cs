@@ -1251,7 +1251,8 @@ namespace Riskeer.Migration.Integration.Test
             /// <list type="bullet">
             /// <item>The namespace is still present.</item>
             /// <item>The class name of the serialized data is still present.</item>
-            /// </list></exception>
+            /// </list>
+            /// </exception>
             public static void AssertSerializedMacroStabilityInwardsOutput(MigratedDatabaseReader reader)
             {
                 const string outputEntity = "MacroStabilityInwardsCalculationOutputEntity";
@@ -1283,7 +1284,8 @@ namespace Riskeer.Migration.Integration.Test
             /// <list type="bullet">
             /// <item>The namespace is still present.</item>
             /// <item>The class name of the serialized data is still present.</item>
-            /// </list></exception>
+            /// </list>
+            /// </exception>
             public static void AssertSerializedDikeProfileRoughnessPoints(MigratedDatabaseReader reader)
             {
                 string validateDikeGeometry =
@@ -1304,7 +1306,8 @@ namespace Riskeer.Migration.Integration.Test
             /// <list type="bullet">
             /// <item>The namespace is still present.</item>
             /// <item>The class name of the serialized data is still present.</item>
-            /// </list></exception>
+            /// </list>
+            /// </exception>
             public static void AssertSerializedSurfaceLine(MigratedDatabaseReader reader)
             {
                 string validateSurfaceLinePoints =
@@ -1325,7 +1328,8 @@ namespace Riskeer.Migration.Integration.Test
             /// <list type="bullet">
             /// <item>The namespace is still present.</item>
             /// <item>The class name of the serialized data is still present.</item>
-            /// </list></exception>
+            /// </list>
+            /// </exception>
             public static void AssertSerializedPoint2DCollection(MigratedDatabaseReader reader)
             {
                 reader.AssertReturnedDataIsValid(GenerateSerializedPoint2DValidationQuery("AssessmentSectionEntity", "ReferenceLinePointXml"));

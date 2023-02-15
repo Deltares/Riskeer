@@ -42,7 +42,8 @@ namespace Riskeer.Common.IO.DikeProfiles
         /// <item>The Id parameter is null.</item>
         /// <item>The Id parameter contains illegal characters.</item>
         /// <item>The Point parameter is null.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         public ProfileLocation(string id, string name, double offset, Point2D point)
         {
             if (id == null)

@@ -42,7 +42,8 @@ namespace Riskeer.Storage.Core.TestUtil.Serializers
         /// <item>have a <see cref="DataContractAttribute"/>.</item>
         /// <item>have the expected attribute name.</item>
         /// <item>have the expected attribute namespace.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         public static void AssertSerializedData(Type serializedData)
         {
             // Call

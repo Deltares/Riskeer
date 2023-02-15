@@ -195,7 +195,8 @@ namespace Riskeer.MacroStabilityInwards.Data.SoilProfile
         /// <item><paramref name="collection"/> contains no layers</item>
         /// <item><paramref name="collection"/> contains a layer with the <see cref="MacroStabilityInwardsSoilLayer1D.Top"/> less than
         /// <see cref="Bottom"/></item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         private void ValidateLayersCollection(IEnumerable<MacroStabilityInwardsSoilLayer1D> collection)
         {
             if (collection == null)

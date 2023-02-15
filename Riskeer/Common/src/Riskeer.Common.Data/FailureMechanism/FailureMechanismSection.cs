@@ -42,11 +42,14 @@ namespace Riskeer.Common.Data.FailureMechanism
         /// <param name="geometryPoints">The geometry points of the section.</param>
         /// <exception cref="ArgumentNullException">Thrown when:<list type="bullet">
         /// <item><paramref name="name"/> is <c>null</c>.</item>
-        /// <item><paramref name="geometryPoints"/> is <c>null</c>.</item> </list></exception>
+        /// <item><paramref name="geometryPoints"/> is <c>null</c>.</item>
+        /// </list>
+        /// </exception>
         /// <exception cref="ArgumentException">Thrown when:<list type="bullet">
         /// <item><paramref name="geometryPoints"/> does not have at least one geometry point.</item>
         /// <item>One or more <paramref name="geometryPoints"/> elements are <c>null</c>.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         public FailureMechanismSection(string name, IEnumerable<Point2D> geometryPoints)
         {
             if (name == null)

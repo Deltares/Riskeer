@@ -123,7 +123,8 @@ namespace Riskeer.Piping.KernelWrapper
         /// <item>surface line is <c>null</c></item>
         /// <item>soil profile is <c>null</c></item>
         /// <item>soil profile's aquifer layer is not set</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         public double CalculateEffectiveThicknessCoverageLayer()
         {
             try

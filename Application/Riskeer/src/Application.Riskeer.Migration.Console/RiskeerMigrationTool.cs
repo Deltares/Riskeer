@@ -34,7 +34,8 @@ namespace Application.Riskeer.Migration.Console
         /// <item>--help Shows help menu,</item>
         /// <item>--supported Returns if the database file is supported,</item>
         /// <item>--migrate Migrates the database file to a newer version.</item>
-        /// </list></remarks>
+        /// </list>
+        /// </remarks>
         public static void Main(string[] args)
         {
             var riskeerMigrationConsole = new RiskeerMigrationConsole();

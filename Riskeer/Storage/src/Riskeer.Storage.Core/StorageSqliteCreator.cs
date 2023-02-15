@@ -44,7 +44,8 @@ namespace Riskeer.Storage.Core
         /// <list type="bullet">
         /// <item><paramref name="databaseFilePath"/> is invalid</item>
         /// <item><paramref name="databaseFilePath"/> points to an existing file</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         /// <exception cref="StorageException">Thrown when executing <c>DatabaseStructure</c> script fails.</exception>
         public static void CreateDatabaseStructure(string databaseFilePath)
         {

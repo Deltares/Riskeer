@@ -46,7 +46,8 @@ namespace Riskeer.Storage.Core.TestUtil.IllustrationPoints
         /// <item>The values of the governing wind direction name and angles do not match.</item>
         /// <item>The count of the stochasts do not match.</item>
         /// <item>The count of the top level illustration points do not match.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         /// <remarks>This only asserts the properties of the <see cref="GeneralResultFaultTreeIllustrationPointEntity"/>
         /// that are directly associated with it, but not the values of the items it is composed of.</remarks>
         public static void AssertGeneralResultPropertyValues(GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult,
@@ -84,7 +85,8 @@ namespace Riskeer.Storage.Core.TestUtil.IllustrationPoints
         /// <item>The values of the governing wind direction name and angles do not match.</item>
         /// <item>The count of the stochasts do not match.</item>
         /// <item>The count of the top level illustration points do not match.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         /// <remarks>This only asserts the properties of the <see cref="GeneralResultSubMechanismIllustrationPointEntity"/>
         /// that are directly associated with it, but not the values of the items it is composed of.</remarks>
         public static void AssertGeneralResultPropertyValues(GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult,
