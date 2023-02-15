@@ -78,7 +78,7 @@ namespace Riskeer.Storage.Core.Create
                 NormativeProbabilityType = Convert.ToByte(contribution.NormativeProbabilityType)
             };
 
-            AddEntityForHydraulicDatabase(section.HydraulicBoundaryDatabase, entity, registry);
+            AddEntityForHydraulicBoundaryData(section.HydraulicBoundaryDatabase, entity, registry);
             AddHydraulicLocationCalculationEntities(section, entity, registry);
             AddHydraulicLocationCalculationForTargetProbabilityCollectionEntities(section, entity, registry);
             AddEntityForReferenceLine(section, entity);
@@ -123,15 +123,15 @@ namespace Riskeer.Storage.Core.Create
             }
         }
 
-        private static void AddEntityForHydraulicDatabase(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, AssessmentSectionEntity entity, PersistenceRegistry registry)
+        private static void AddEntityForHydraulicBoundaryData(HydraulicBoundaryData hydraulicBoundaryData, AssessmentSectionEntity entity, PersistenceRegistry registry)
         {
-            if (hydraulicBoundaryDatabase.IsLinked())
+            if (hydraulicBoundaryData.IsLinked())
             {
-                entity.HydraulicBoundaryDatabaseEntities.Add(hydraulicBoundaryDatabase.Create());
+                entity.HydraulicBoundaryDatabaseEntities.Add(hydraulicBoundaryData.Create());
 
-                for (var i = 0; i < hydraulicBoundaryDatabase.Locations.Count; i++)
+                for (var i = 0; i < hydraulicBoundaryData.Locations.Count; i++)
                 {
-                    HydraulicBoundaryLocation hydraulicBoundaryLocation = hydraulicBoundaryDatabase.Locations[i];
+                    HydraulicBoundaryLocation hydraulicBoundaryLocation = hydraulicBoundaryData.Locations[i];
                     entity.HydraulicLocationEntities.Add(hydraulicBoundaryLocation.Create(registry, i));
                 }
             }
