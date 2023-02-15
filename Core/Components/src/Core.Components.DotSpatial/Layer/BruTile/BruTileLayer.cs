@@ -460,7 +460,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile
         /// </summary>
         /// <param name="tileInfos">The <see cref="TileInfo"/> objects to be sorted.</param>
         /// <param name="focusPoint">The point used to order based on distance.</param>
-        /// <returns></returns>
+        /// <returns>A collection of sorted <see cref="TileInfo"/>.</returns>
         /// <remarks>Subsequent equidistant tiles are ordered to occur first.</remarks>
         private static IEnumerable<TileInfo> Sort(IEnumerable<TileInfo> tileInfos, Coordinate focusPoint)
         {

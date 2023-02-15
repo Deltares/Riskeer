@@ -36,8 +36,7 @@ namespace Riskeer.DuneErosion.Data
         /// <param name="id">Id of the <see cref="DuneLocation"/>.</param>
         /// <param name="name">Name of the <see cref="DuneLocation"/>.</param>
         /// <param name="location">The coordinate of the <see cref="DuneLocation"/>.</param>
-        /// <param name="properties">The container of the properties for the
-        /// <see cref="DuneLocation"/></param>
+        /// <param name="properties">The container of the properties for the <see cref="DuneLocation"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>
         /// or <paramref name="properties"/> is <c>null</c>.</exception>
         public DuneLocation(long id, string name, Point2D location, ConstructionProperties properties)

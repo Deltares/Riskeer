@@ -25,7 +25,7 @@ namespace Migration.Console
     /// Enumeration that defines the possible exit codes of an application.
     /// </summary>
     /// <remarks>See <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms681381(v=vs.85).aspx">
-    /// System Error Codes</a></remarks>
+    /// System Error Codes</a>.</remarks>
     public enum ErrorCode
     {
         /// <summary>

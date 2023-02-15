@@ -54,7 +54,8 @@ namespace Core.Components.Gis.IO.Readers
         /// <item>does not consist out of only whitespace characters,</item>
         /// <item>does not contain an invalid character,</item>
         /// <item>does not end with a directory or path separator (empty file name).</item>
-        /// </list></remarks>
+        /// </list>
+        /// </remarks>
         public ReadOnlyCollection<WmtsConnectionInfo> ReadWmtsConnectionInfos(string path)
         {
             IOUtils.ValidateFilePath(path);
@@ -112,7 +113,7 @@ namespace Core.Components.Gis.IO.Readers
         /// <param name="tryParseWmtsConnectionElement">Method responsible to turning an
         /// <see cref="XElement"/> into a <see cref="WmtsConnectionInfo"/>. This method may
         /// return <c>null</c> or throw any type of <see cref="Exception"/>.</param>
-        /// <returns></returns>
+        /// <returns>The collection of read <see cref="WmtsConnectionInfo"/>.</returns>
         /// <remarks>This method only throws exceptions thrown by <paramref name="tryParseWmtsConnectionElement"/>.</remarks>
         /// <exception cref="XmlException">Thrown when an error occurred while parsing the XML.</exception>
         /// <exception cref="InvalidOperationException">Thrown when an error occurred while reading the XML.</exception>

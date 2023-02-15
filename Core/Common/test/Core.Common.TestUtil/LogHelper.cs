@@ -29,10 +29,10 @@ namespace Core.Common.TestUtil
     public static class LogHelper
     {
         /// <summary>
-        /// Sets logging level for all current loggers to the level provided in arguments.
+        /// Sets logging level for all current loggers.
         /// Note: use it only when you need more control on logging, e.g. in unit tests. Otherwise use configuration files.
         /// </summary>
-        /// <param name="level"></param>
+        /// <param name="level">The logging level to set.</param>
         public static void SetLoggingLevel(Level level)
         {
             ILoggerRepository[] repositories = LogManager.GetAllRepositories();

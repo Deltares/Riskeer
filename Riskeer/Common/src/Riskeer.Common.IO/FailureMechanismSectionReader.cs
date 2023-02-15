@@ -127,7 +127,7 @@ namespace Riskeer.Common.IO
         /// <summary>
         /// Reads a new <see cref="MapLineData"/> from the file.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The read <see cref="MapLineData"/>.</returns>
         private MapLineData ReadMapLineData()
         {
             return polylineShapeFileReader.ReadFeature() as MapLineData;

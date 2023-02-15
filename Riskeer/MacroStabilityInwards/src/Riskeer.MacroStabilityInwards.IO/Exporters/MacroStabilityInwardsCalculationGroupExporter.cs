@@ -74,7 +74,8 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
         /// <item>does not consist out of only whitespace characters,</item>
         /// <item>does not contain an invalid character,</item>
         /// <item>is not too long.</item>
-        /// </list></remarks>
+        /// </list>
+        /// </remarks>
         public MacroStabilityInwardsCalculationGroupExporter(CalculationGroup calculationGroup, GeneralMacroStabilityInwardsInput generalInput,
                                                              IPersistenceFactory persistenceFactory, string filePath,
                                                              string fileExtension, Func<MacroStabilityInwardsCalculation, RoundedDouble> getNormativeAssessmentLevelFunc)

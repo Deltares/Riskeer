@@ -540,9 +540,6 @@ namespace Core.Gui.Test.PropertyBag
                 IsNameReadOnly = true;
             }
 
-            /// <summary>
-            /// Dynamic property. ReadOnly when IsNameReadOnly true.
-            /// </summary>
             [DynamicReadOnly]
             [DynamicVisible]
             [Category("General")]
@@ -557,11 +554,6 @@ namespace Core.Gui.Test.PropertyBag
             [ReadOnly(true)]
             public string Description { get; set; } // Property needs to have a setter, otherwise some tests will fail
 
-            /// <summary>
-            /// Method checks if propertyName property is read-only (setter can be used).
-            /// </summary>
-            /// <param name="propertyName"></param>
-            /// <returns></returns>
             [DynamicReadOnlyValidationMethod]
             public bool DynamicReadOnlyValidationMethod(string propertyName)
             {
