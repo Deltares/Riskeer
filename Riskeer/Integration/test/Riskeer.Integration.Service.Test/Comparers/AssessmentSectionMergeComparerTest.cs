@@ -113,7 +113,7 @@ namespace Riskeer.Integration.Service.Test.Comparers
         }
 
         [Test]
-        public void Compare_AssessmentSectionWithEquivalentHydraulicBoundaryLocationConfigurationSettings_ReturnsTrue()
+        public void Compare_AssessmentSectionWithEquivalentHydraulicLocationConfigurationSettings_ReturnsTrue()
         {
             // Setup
             AssessmentSection assessmentSection = CreateAssessmentSection();
@@ -135,7 +135,7 @@ namespace Riskeer.Integration.Service.Test.Comparers
 
         [Test]
         [TestCaseSource(nameof(GetAssessmentSectionWithNotEquivalentHydraulicLocationConfigurationSettingsTestCases))]
-        public void Compare_AssessmentSectionWithNotEquivalentHydraulicBoundaryLocationConfigurationSettings_ReturnsFalse(AssessmentSection otherAssessmentSection)
+        public void Compare_AssessmentSectionWithNotEquivalentHydraulicLocationConfigurationSettings_ReturnsFalse(AssessmentSection otherAssessmentSection)
         {
             // Setup
             AssessmentSection assessmentSection = CreateAssessmentSection();

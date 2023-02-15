@@ -80,11 +80,11 @@ namespace Riskeer.Integration.Service.Comparers
                                                                         HydraulicBoundaryData otherHydraulicBoundaryData)
         {
             return hydraulicBoundaryData.Version == otherHydraulicBoundaryData.Version
-                   && AreHydraulicBoundaryLocationConfigurationSettingsEquivalent(hydraulicBoundaryData.HydraulicLocationConfigurationSettings,
+                   && AreHydraulicLocationConfigurationSettingsEquivalent(hydraulicBoundaryData.HydraulicLocationConfigurationSettings,
                                                                                   otherHydraulicBoundaryData.HydraulicLocationConfigurationSettings);
         }
 
-        private static bool AreHydraulicBoundaryLocationConfigurationSettingsEquivalent(HydraulicLocationConfigurationSettings hydraulicLocationConfigurationSettings,
+        private static bool AreHydraulicLocationConfigurationSettingsEquivalent(HydraulicLocationConfigurationSettings hydraulicLocationConfigurationSettings,
                                                                                         HydraulicLocationConfigurationSettings otherHydraulicLocationConfigurationSettings)
         {
             return hydraulicLocationConfigurationSettings.ScenarioName == otherHydraulicLocationConfigurationSettings.ScenarioName

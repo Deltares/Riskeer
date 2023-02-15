@@ -96,7 +96,7 @@ namespace Riskeer.Storage.Core.TestUtil
                     NormativeProbabilityType = NormativeProbabilityType.SignalFloodingProbability
                 }
             };
-            SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData);
+            SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData);
 
             assessmentSection.ReferenceLine.SetGeometry(new[]
             {
@@ -235,7 +235,7 @@ namespace Riskeer.Storage.Core.TestUtil
             failureMechanism.GeneralInput.N = random.NextRoundedDouble(1, 20);
         }
 
-        private static void SetHydraulicBoundaryLocationConfigurationSettings(HydraulicBoundaryData hydraulicBoundaryData)
+        private static void SetHydraulicLocationConfigurationSettings(HydraulicBoundaryData hydraulicBoundaryData)
         {
             hydraulicBoundaryData.HydraulicLocationConfigurationSettings.SetValues("some\\Path\\ToHlcd",
                                                                                    "ScenarioName",
