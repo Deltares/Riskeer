@@ -66,8 +66,6 @@ namespace Riskeer.HydraRing.Calculation.Services
         /// <param name="temporaryWorkingDirectory">The working directory.</param>
         /// <param name="settings">The <see cref="HydraRingCalculationSettings"/>
         /// which holds all the general information to start a Hydra-Ring calculation.</param>
-        /// <remarks>Preprocessing is disabled when <see cref="HydraRingCalculationSettings.PreprocessorDirectory"/>
-        /// matches <see cref="string.Empty"/>.</remarks>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="settings"/> is <c>null</c>.</exception>
         public HydraRingInitializationService(HydraRingFailureMechanismType failureMechanismType,
                                               int sectionId,

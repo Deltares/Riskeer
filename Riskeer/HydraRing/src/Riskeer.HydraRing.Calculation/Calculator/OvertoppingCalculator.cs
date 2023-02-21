@@ -43,8 +43,6 @@ namespace Riskeer.HydraRing.Calculation.Calculator
         /// <param name="calculationSettings">The <see cref="HydraRingCalculationSettings"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationSettings"/>
         /// is <c>null</c>.</exception>
-        /// <remarks>Preprocessing is disabled when <see cref="HydraRingCalculationSettings.PreprocessorDirectory"/>
-        /// equals <see cref="string.Empty"/>.</remarks>
         internal OvertoppingCalculator(HydraRingCalculationSettings calculationSettings) : base(calculationSettings)
         {
             exceedanceProbabilityCalculationParser = new ExceedanceProbabilityCalculationParser();

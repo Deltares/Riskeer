@@ -37,8 +37,6 @@ namespace Riskeer.HydraRing.Calculation.Calculator.Factory
         /// <returns>A new <see cref="IDesignWaterLevelCalculator"/>.</returns>>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationSettings"/>
         /// is <c>null</c>.</exception>
-        /// <remarks>Preprocessing is disabled when <see cref="HydraRingCalculationSettings.PreprocessorDirectory"/>
-        /// equals <see cref="string.Empty"/>.</remarks>
         IDesignWaterLevelCalculator CreateDesignWaterLevelCalculator(HydraRingCalculationSettings calculationSettings);
 
         /// <summary>
@@ -48,8 +46,6 @@ namespace Riskeer.HydraRing.Calculation.Calculator.Factory
         /// <returns>A new <see cref="IOvertoppingCalculator"/>.</returns>>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationSettings"/>
         /// is <c>null</c>.</exception>
-        /// <remarks>Preprocessing is disabled when <see cref="HydraRingCalculationSettings.PreprocessorDirectory"/>
-        /// equals <see cref="string.Empty"/>.</remarks>
         IOvertoppingCalculator CreateOvertoppingCalculator(HydraRingCalculationSettings calculationSettings);
 
         /// <summary>
@@ -59,8 +55,6 @@ namespace Riskeer.HydraRing.Calculation.Calculator.Factory
         /// <returns>A new <see cref="IHydraulicLoadsCalculator"/>.</returns>>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationSettings"/>
         /// is <c>null</c>.</exception>
-        /// <remarks>Preprocessing is disabled when <see cref="HydraRingCalculationSettings.PreprocessorDirectory"/>
-        /// equals <see cref="string.Empty"/>.</remarks>
         IHydraulicLoadsCalculator CreateDikeHeightCalculator(HydraRingCalculationSettings calculationSettings);
 
         /// <summary>
@@ -70,8 +64,6 @@ namespace Riskeer.HydraRing.Calculation.Calculator.Factory
         /// <returns>A new <see cref="IHydraulicLoadsCalculator"/>.</returns>>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationSettings"/>
         /// is <c>null</c>.</exception>
-        /// <remarks>Preprocessing is disabled when <see cref="HydraRingCalculationSettings.PreprocessorDirectory"/>
-        /// equals <see cref="string.Empty"/>.</remarks>
         IHydraulicLoadsCalculator CreateOvertoppingRateCalculator(HydraRingCalculationSettings calculationSettings);
 
         /// <summary>
@@ -81,8 +73,6 @@ namespace Riskeer.HydraRing.Calculation.Calculator.Factory
         /// <returns>A new <see cref="IWaveConditionsCosineCalculator"/>.</returns>>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationSettings"/>
         /// is <c>null</c>.</exception>
-        /// <remarks>Preprocessing is disabled when <see cref="HydraRingCalculationSettings.PreprocessorDirectory"/>
-        /// equals <see cref="string.Empty"/>.</remarks>
         IWaveConditionsCosineCalculator CreateWaveConditionsCosineCalculator(HydraRingCalculationSettings calculationSettings);
 
         /// <summary>
@@ -92,8 +82,6 @@ namespace Riskeer.HydraRing.Calculation.Calculator.Factory
         /// <returns>A new <see cref="IWaveHeightCalculator"/>.</returns>>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationSettings"/>
         /// is <c>null</c>.</exception>
-        /// <remarks>Preprocessing is disabled when <see cref="HydraRingCalculationSettings.PreprocessorDirectory"/>
-        /// equals <see cref="string.Empty"/>.</remarks>
         IWaveHeightCalculator CreateWaveHeightCalculator(HydraRingCalculationSettings calculationSettings);
 
         /// <summary>
@@ -103,8 +91,6 @@ namespace Riskeer.HydraRing.Calculation.Calculator.Factory
         /// <returns>A new <see cref="IDunesBoundaryConditionsCalculator"/>.</returns>>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationSettings"/>
         /// is <c>null</c>.</exception>
-        /// <remarks>Preprocessing is disabled when <see cref="HydraRingCalculationSettings.PreprocessorDirectory"/>
-        /// equals <see cref="string.Empty"/>.</remarks>
         IDunesBoundaryConditionsCalculator CreateDunesBoundaryConditionsCalculator(HydraRingCalculationSettings calculationSettings);
 
         /// <summary>
@@ -115,8 +101,6 @@ namespace Riskeer.HydraRing.Calculation.Calculator.Factory
         /// <returns>A new <see cref="IStructuresCalculator{TInput}"/>.</returns>>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationSettings"/>
         /// is <c>null</c>.</exception>
-        /// <remarks>Preprocessing is disabled when <see cref="HydraRingCalculationSettings.PreprocessorDirectory"/>
-        /// equals <see cref="string.Empty"/>.</remarks>
         IStructuresCalculator<TCalculationInput> CreateStructuresCalculator<TCalculationInput>(HydraRingCalculationSettings calculationSettings)
             where TCalculationInput : ExceedanceProbabilityCalculationInput;
 
@@ -127,8 +111,6 @@ namespace Riskeer.HydraRing.Calculation.Calculator.Factory
         /// <returns>A new <see cref="IPipingCalculator"/>.</returns>>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationSettings"/>
         /// is <c>null</c>.</exception>
-        /// <remarks>Preprocessing is disabled when <see cref="HydraRingCalculationSettings.PreprocessorDirectory"/>
-        /// equals <see cref="string.Empty"/>.</remarks>
         IPipingCalculator CreatePipingCalculator(HydraRingCalculationSettings calculationSettings);
     }
 }
