@@ -29,17 +29,17 @@ using FailureMechanismSectionAssemblyResult = Riskeer.AssemblyTool.Data.FailureM
 namespace Riskeer.AssemblyTool.KernelWrapper.Creators
 {
     /// <summary>
-    /// Creates <see cref="FailureMechanismSectionAssemblyResult"/> instances.
+    /// Creates <see cref="Data.FailureMechanismSectionAssemblyResult"/> instances.
     /// </summary>
     internal static class FailureMechanismSectionAssemblyResultCreator
     {
         /// <summary>
         /// Converts a <see cref="Probability"/> combined with a <see cref="EInterpretationCategory"/>
-        /// into a <see cref="FailureMechanismSectionAssemblyResult"/>.
+        /// into a <see cref="Data.FailureMechanismSectionAssemblyResult"/>.
         /// </summary>
         /// <param name="sectionProbability">The <see cref="Probability"/> to convert.</param>
         /// <param name="category">The <see cref="EInterpretationCategory"/> to convert.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssemblyResult"/> based on <paramref name="sectionProbability"/>
+        /// <returns>A <see cref="Data.FailureMechanismSectionAssemblyResult"/> based on <paramref name="sectionProbability"/>
         /// and <paramref name="category"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="category"/>
         /// is an invalid value.</exception>
