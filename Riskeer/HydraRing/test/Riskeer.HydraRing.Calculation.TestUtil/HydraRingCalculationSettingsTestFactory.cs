@@ -30,13 +30,12 @@ namespace Riskeer.HydraRing.Calculation.TestUtil
     public static class HydraRingCalculationSettingsTestFactory
     {
         /// <summary>
-        /// Creates an instance of <see cref="HydraRingCalculationSettings"/>
-        /// with empty values.
+        /// Creates an instance of <see cref="HydraRingCalculationSettings"/> with empty values.
         /// </summary>
         /// <returns>A <see cref="HydraRingCalculationSettings"/>.</returns>
         public static HydraRingCalculationSettings CreateSettings()
         {
-            return new HydraRingCalculationSettings(string.Empty, string.Empty, false);
+            return new HydraRingCalculationSettings(string.Empty, false);
         }
     }
 }
