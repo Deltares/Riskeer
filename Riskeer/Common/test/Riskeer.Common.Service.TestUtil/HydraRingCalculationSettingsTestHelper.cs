@@ -40,7 +40,6 @@ namespace Riskeer.Common.Service.TestUtil
         /// <exception cref="AssertionException">Thrown when:
         /// <list type="bullet">
         /// <item>the hydraulic location configuration database file paths do not match;</item>
-        /// <item>the preprocessor directories do not match;</item>
         /// <item>the use preprocessor closure indicators do not match.</item>
         /// </list>
         /// </exception>
@@ -48,7 +47,6 @@ namespace Riskeer.Common.Service.TestUtil
                                                               HydraRingCalculationSettings actualSettings)
         {
             Assert.AreEqual(expectedSettings.HlcdFilePath, actualSettings.HlcdFilePath);
-            Assert.AreEqual(expectedSettings.PreprocessorDirectory, actualSettings.PreprocessorDirectory);
             Assert.AreEqual(expectedSettings.UsePreprocessorClosure, actualSettings.UsePreprocessorClosure);
         }
     }
