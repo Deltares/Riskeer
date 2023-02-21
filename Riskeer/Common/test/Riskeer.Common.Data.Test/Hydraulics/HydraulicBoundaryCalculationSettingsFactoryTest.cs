@@ -20,12 +20,9 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
-using Riskeer.Common.Data.TestUtil;
 
 namespace Riskeer.Common.Data.Test.Hydraulics
 {
@@ -55,6 +52,7 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             {
                 FilePath = hrdFilePath
             };
+
             hydraulicBoundaryData.HydraulicLocationConfigurationSettings.SetValues(hlcdFilePath, string.Empty, 10, string.Empty,
                                                                                    usePreprocessorClosure, null, null, null, null, null, null);
 
@@ -65,62 +63,6 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             Assert.AreEqual(hrdFilePath, settings.HrdFilePath);
             Assert.AreEqual(hlcdFilePath, settings.HlcdFilePath);
             Assert.AreEqual(usePreprocessorClosure, settings.UsePreprocessorClosure);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(GetPreprocessorConfigurations))]
-        public void CreateSettings_WithHydraulicBoundaryDatabaseWithVariousPreprocessorConfigurations_ReturnsExpectedSettings(
-            HydraulicBoundaryData hydraulicBoundaryData,
-            string expectedPreprocessorDirectory)
-        {
-            // Call
-            HydraulicBoundaryCalculationSettings settings = HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData);
-
-            // Assert
-            Assert.AreEqual(expectedPreprocessorDirectory, settings.PreprocessorDirectory);
-        }
-
-        private static IEnumerable<TestCaseData> GetPreprocessorConfigurations()
-        {
-            string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
-            var hydraulicBoundaryDataCanUsePreprocessorFalse = new HydraulicBoundaryData
-            {
-                FilePath = validFilePath
-            };
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryDataCanUsePreprocessorFalse);
-            yield return new TestCaseData(hydraulicBoundaryDataCanUsePreprocessorFalse,
-                                          string.Empty)
-                .SetName("CanUsePreprocessorFalse");
-
-            var hydraulicBoundaryDataUsePreprocessorFalse = new HydraulicBoundaryData
-            {
-                FilePath = validFilePath,
-                HydraulicLocationConfigurationSettings =
-                {
-                    CanUsePreprocessor = true,
-                    PreprocessorDirectory = "Directory"
-                }
-            };
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryDataUsePreprocessorFalse);
-            yield return new TestCaseData(hydraulicBoundaryDataUsePreprocessorFalse, string.Empty)
-                .SetName("UsePreprocessorFalseWithPreprocessorDirectory");
-
-            const string preprocessorDirectory = "Directory";
-            var hydraulicBoundaryDataUsePreprocessorTrue = new HydraulicBoundaryData
-            {
-                FilePath = validFilePath,
-                HydraulicLocationConfigurationSettings =
-                {
-                    CanUsePreprocessor = true,
-                    UsePreprocessor = true,
-                    PreprocessorDirectory = preprocessorDirectory
-                }
-            };
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryDataUsePreprocessorTrue);
-            yield return new TestCaseData(hydraulicBoundaryDataUsePreprocessorTrue, preprocessorDirectory)
-                .SetName("UsePreprocessorTrueWithPreprocessorDirectory");
         }
     }
 }

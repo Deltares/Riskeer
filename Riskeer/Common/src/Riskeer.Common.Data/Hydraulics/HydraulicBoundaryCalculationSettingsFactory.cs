@@ -46,8 +46,7 @@ namespace Riskeer.Common.Data.Hydraulics
 
             return new HydraulicBoundaryCalculationSettings(hydraulicBoundaryData.FilePath,
                                                             hydraulicBoundaryData.HydraulicLocationConfigurationSettings.FilePath,
-                                                            hydraulicBoundaryData.HydraulicLocationConfigurationSettings.UsePreprocessorClosure,
-                                                            string.Empty);
+                                                            hydraulicBoundaryData.HydraulicLocationConfigurationSettings.UsePreprocessorClosure);
         }
     }
 }
