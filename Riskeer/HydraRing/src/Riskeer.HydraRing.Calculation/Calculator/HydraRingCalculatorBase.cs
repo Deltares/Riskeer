@@ -115,17 +115,11 @@ namespace Riskeer.HydraRing.Calculation.Calculator
         /// <param name="uncertaintiesType">The uncertainty type used in the calculation.</param>
         /// <param name="hydraRingCalculationInput">The object containing input data.</param>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
-        /// <exception cref="InvalidOperationException">Thrown when preprocessor directory is required but not specified.</exception>
         protected void Calculate(HydraRingUncertaintiesType uncertaintiesType,
                                  HydraRingCalculationInput hydraRingCalculationInput)
         {
             try
             {
-                if (string.IsNullOrEmpty(calculationSettings.PreprocessorDirectory) && hydraRingCalculationInput.PreprocessorSetting.RunPreprocessor)
-                {
-                    throw new InvalidOperationException("Preprocessor directory required but not specified.");
-                }
-
                 int sectionId = hydraRingCalculationInput.Section.SectionId;
                 OutputDirectory = CreateWorkingDirectory();
 

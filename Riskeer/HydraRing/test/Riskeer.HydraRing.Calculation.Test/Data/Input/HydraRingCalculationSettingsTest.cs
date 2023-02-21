@@ -33,7 +33,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Input
         public void Constructor_HlcdFilePathNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new HydraRingCalculationSettings(null, string.Empty, false);
+            TestDelegate call = () => new HydraRingCalculationSettings(null, false);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -41,30 +41,17 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Input
         }
 
         [Test]
-        public void Constructor_PreprocessorDirectoryNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new HydraRingCalculationSettings(string.Empty, null, false);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("preprocessorDirectory", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_WithArguments_ExpectedValues()
         {
             // Setup
             const string hlcdFilePath = "hlcdFilePath";
-            const string preProcessorDirectory = "PreprocessorDirectory";
             bool usePreprocessorClosure = new Random(21).NextBoolean();
 
             // Call
-            var settings = new HydraRingCalculationSettings(hlcdFilePath, preProcessorDirectory, usePreprocessorClosure);
+            var settings = new HydraRingCalculationSettings(hlcdFilePath, usePreprocessorClosure);
 
             // Assert
             Assert.AreEqual(hlcdFilePath, settings.HlcdFilePath);
-            Assert.AreEqual(preProcessorDirectory, settings.PreprocessorDirectory);
             Assert.AreEqual(usePreprocessorClosure, settings.UsePreprocessorClosure);
         }
     }
