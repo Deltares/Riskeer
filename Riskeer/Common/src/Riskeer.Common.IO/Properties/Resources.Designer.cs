@@ -979,24 +979,6 @@ namespace Riskeer.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De bestandsmap waar de preprocessor bestanden opslaat is ongeldig..
-        /// </summary>
-        public static string HydraulicBoundaryDataHelper_ValidatePreprocessorDirectory_Invalid_path {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryDataHelper_ValidatePreprocessorDirectory_Invalid_path", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De bestandsmap bestaat niet..
-        /// </summary>
-        public static string HydraulicBoundaryDataHelper_ValidatePreprocessorDirectory_Path_does_not_exist {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryDataHelper_ValidatePreprocessorDirectory_Path_does_not_exist", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {0} Er zijn geen hydraulische belastingenlocaties geëxporteerd..
         /// </summary>
         public static string HydraulicBoundaryLocationsExporter_Error_Exception_0_no_HydraulicBoundaryLocations_exported {

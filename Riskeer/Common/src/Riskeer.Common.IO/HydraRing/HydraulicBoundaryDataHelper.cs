@@ -153,34 +153,6 @@ namespace Riskeer.Common.IO.HydraRing
         }
 
         /// <summary>
-        /// Checks <paramref name="preprocessorDirectory"/> for being a valid folder path.
-        /// </summary>
-        /// <param name="preprocessorDirectory">The preprocessor directory to validate.</param>
-        /// <returns>A <see cref="string"/> describing the problem with <paramref name="preprocessorDirectory"/> or <c>null</c>
-        /// when <paramref name="preprocessorDirectory"/> is a valid directory path.</returns>
-        public static string ValidatePreprocessorDirectory(string preprocessorDirectory)
-        {
-            if (preprocessorDirectory != string.Empty)
-            {
-                try
-                {
-                    IOUtils.GetFullPath(preprocessorDirectory);
-                }
-                catch (ArgumentException exception)
-                {
-                    return $"{Resources.HydraulicBoundaryDataHelper_ValidatePreprocessorDirectory_Invalid_path} {exception.Message}";
-                }
-
-                if (!Directory.Exists(preprocessorDirectory))
-                {
-                    return $"{Resources.HydraulicBoundaryDataHelper_ValidatePreprocessorDirectory_Invalid_path} {Resources.HydraulicBoundaryDataHelper_ValidatePreprocessorDirectory_Path_does_not_exist}";
-                }
-            }
-
-            return null;
-        }
-
-        /// <summary>
         /// Gets the file path of the preprocessor closure database.
         /// </summary>
         /// <param name="hlcdFilePath">The file path of the hydraulic location configuration database.</param>
