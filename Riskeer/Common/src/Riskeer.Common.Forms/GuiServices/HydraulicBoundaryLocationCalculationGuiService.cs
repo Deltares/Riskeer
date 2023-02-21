@@ -106,7 +106,7 @@ namespace Riskeer.Common.Forms.GuiServices
             string validationProblem = HydraulicBoundaryDataHelper.ValidateFilesForCalculation(
                 hydraulicBoundaryData.FilePath,
                 hydraulicBoundaryData.HydraulicLocationConfigurationSettings.FilePath,
-                hydraulicBoundaryData.EffectivePreprocessorDirectory(),
+                string.Empty,
                 hydraulicBoundaryData.HydraulicLocationConfigurationSettings.UsePreprocessorClosure);
 
             if (string.IsNullOrEmpty(validationProblem))
