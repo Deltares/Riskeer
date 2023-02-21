@@ -56,7 +56,7 @@ namespace Riskeer.Common.Data.Test.Hydraulics
                 FilePath = hrdFilePath
             };
             hydraulicBoundaryData.HydraulicLocationConfigurationSettings.SetValues(hlcdFilePath, string.Empty, 10, string.Empty,
-                                                                      usePreprocessorClosure, null, null, null, null, null, null);
+                                                                                   usePreprocessorClosure, null, null, null, null, null, null);
 
             // Call
             HydraulicBoundaryCalculationSettings settings = HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData);

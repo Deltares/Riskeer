@@ -161,7 +161,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             DataImportHelper.ImportHydraulicBoundaryData(assessmentSection,
-                                                             Path.Combine(testDataDirectory, "complete.sqlite"));
+                                                         Path.Combine(testDataDirectory, "complete.sqlite"));
 
             HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryData;
 

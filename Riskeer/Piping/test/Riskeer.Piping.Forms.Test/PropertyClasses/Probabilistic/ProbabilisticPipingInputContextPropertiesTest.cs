@@ -1605,7 +1605,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             // Assert
             IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
                 hydraulicBoundaryData.Locations.Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, null))
-                                         .OrderBy(hbl => hbl.HydraulicBoundaryLocation.Id);
+                                     .OrderBy(hbl => hbl.HydraulicBoundaryLocation.Id);
             CollectionAssert.AreEqual(expectedList, selectableHydraulicBoundaryLocations);
             mocks.VerifyAll();
         }
@@ -1657,9 +1657,9 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             // Assert
             IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
                 hydraulicBoundaryData.Locations.Select(hbl => new SelectableHydraulicBoundaryLocation(
-                                                               hbl, surfaceLine.ReferenceLineIntersectionWorldPoint))
-                                         .OrderBy(hbl => hbl.Distance)
-                                         .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Id);
+                                                           hbl, surfaceLine.ReferenceLineIntersectionWorldPoint))
+                                     .OrderBy(hbl => hbl.Distance)
+                                     .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Id);
             CollectionAssert.AreEqual(expectedList, selectableHydraulicBoundaryLocations);
             mocks.VerifyAll();
         }
@@ -1728,11 +1728,11 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
 
             IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
                 hydraulicBoundaryData.Locations
-                                         .Select(hbl =>
-                                                     new SelectableHydraulicBoundaryLocation(hbl,
-                                                                                             properties.SurfaceLine.ReferenceLineIntersectionWorldPoint))
-                                         .OrderBy(hbl => hbl.Distance)
-                                         .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Id);
+                                     .Select(hbl =>
+                                                 new SelectableHydraulicBoundaryLocation(hbl,
+                                                                                         properties.SurfaceLine.ReferenceLineIntersectionWorldPoint))
+                                     .OrderBy(hbl => hbl.Distance)
+                                     .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Id);
             CollectionAssert.AreEqual(expectedList, availableHydraulicBoundaryLocations);
             mocks.VerifyAll();
         }

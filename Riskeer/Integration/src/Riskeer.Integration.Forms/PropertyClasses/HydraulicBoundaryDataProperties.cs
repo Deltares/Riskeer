@@ -62,7 +62,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         /// <param name="hydraulicLocationConfigurationDatabaseImportHandler">The handler to update the hydraulic location configuration settings.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public HydraulicBoundaryDataProperties(HydraulicBoundaryData hydraulicBoundaryData,
-                                                   IHydraulicLocationConfigurationDatabaseImportHandler hydraulicLocationConfigurationDatabaseImportHandler)
+                                               IHydraulicLocationConfigurationDatabaseImportHandler hydraulicLocationConfigurationDatabaseImportHandler)
         {
             if (hydraulicBoundaryData == null)
             {

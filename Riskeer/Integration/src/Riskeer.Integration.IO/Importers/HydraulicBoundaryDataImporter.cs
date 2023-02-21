@@ -55,7 +55,7 @@ namespace Riskeer.Integration.IO.Importers
         /// <param name="filePath">The path of the hydraulic boundary database file to import from.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public HydraulicBoundaryDataImporter(HydraulicBoundaryData importTarget, IHydraulicBoundaryDataUpdateHandler updateHandler,
-                                                 string filePath)
+                                             string filePath)
             : base(filePath, importTarget)
         {
             if (updateHandler == null)

@@ -569,8 +569,8 @@ namespace Riskeer.Integration.Plugin
                                                               Resources.HydraulicBoundaryDatabase_file_filter_Description),
                 CreateFileImporter = (context, filePath) => new HydraulicBoundaryDataImporter(
                     context.WrappedData, new HydraulicBoundaryDataUpdateHandler(context.AssessmentSection,
-                                                                                    new DuneLocationsReplacementHandler(
-                                                                                        Gui.ViewCommands, context.AssessmentSection.DuneErosion)),
+                                                                                new DuneLocationsReplacementHandler(
+                                                                                    Gui.ViewCommands, context.AssessmentSection.DuneErosion)),
                     filePath)
             };
         }

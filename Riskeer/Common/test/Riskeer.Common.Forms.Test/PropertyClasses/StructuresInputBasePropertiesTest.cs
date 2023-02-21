@@ -512,8 +512,8 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             // Assert
             IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
                 hydraulicBoundaryData.Locations
-                                         .Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, null))
-                                         .OrderBy(hbl => hbl.HydraulicBoundaryLocation.Id);
+                                     .Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, null))
+                                     .OrderBy(hbl => hbl.HydraulicBoundaryLocation.Id);
             CollectionAssert.AreEqual(expectedList, availableHydraulicBoundaryLocations);
             mockRepository.VerifyAll();
         }
@@ -561,11 +561,11 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             // Assert
             IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
                 hydraulicBoundaryData.Locations
-                                         .Select(hbl => new SelectableHydraulicBoundaryLocation(
-                                                     hbl,
-                                                     calculation.InputParameters.Structure.Location))
-                                         .OrderBy(hbl => hbl.Distance)
-                                         .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Name);
+                                     .Select(hbl => new SelectableHydraulicBoundaryLocation(
+                                                 hbl,
+                                                 calculation.InputParameters.Structure.Location))
+                                     .OrderBy(hbl => hbl.Distance)
+                                     .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Name);
             CollectionAssert.AreEqual(expectedList, availableHydraulicBoundaryLocations);
             mockRepository.VerifyAll();
         }
@@ -626,11 +626,11 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
             IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
                 hydraulicBoundaryData.Locations
-                                         .Select(hbl => new SelectableHydraulicBoundaryLocation(
-                                                     hbl,
-                                                     properties.StructureLocation))
-                                         .OrderBy(hbl => hbl.Distance)
-                                         .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Id);
+                                     .Select(hbl => new SelectableHydraulicBoundaryLocation(
+                                                 hbl,
+                                                 properties.StructureLocation))
+                                     .OrderBy(hbl => hbl.Distance)
+                                     .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Id);
             CollectionAssert.AreEqual(expectedList, availableHydraulicBoundaryLocations);
             mockRepository.VerifyAll();
         }

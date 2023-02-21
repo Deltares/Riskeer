@@ -194,10 +194,10 @@ namespace Riskeer.Integration.TestUtil
             mocks.ReplayAll();
 
             var hydraulicBoundaryDataImporter = new HydraulicBoundaryDataImporter(assessmentSection.HydraulicBoundaryData,
-                                                                                          new HydraulicBoundaryDataUpdateHandler(
-                                                                                              assessmentSection,
-                                                                                              new DuneLocationsReplacementHandler(viewCommands, assessmentSection.DuneErosion)),
-                                                                                          filePath);
+                                                                                  new HydraulicBoundaryDataUpdateHandler(
+                                                                                      assessmentSection,
+                                                                                      new DuneLocationsReplacementHandler(viewCommands, assessmentSection.DuneErosion)),
+                                                                                  filePath);
             hydraulicBoundaryDataImporter.Import();
             mocks.VerifyAll();
         }

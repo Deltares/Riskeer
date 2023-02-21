@@ -53,7 +53,7 @@ namespace Riskeer.Integration.Plugin.Handlers
         /// <param name="duneLocationsReplacementHandler">The handler to replace dune locations.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public HydraulicBoundaryDataUpdateHandler(AssessmentSection assessmentSection,
-                                                      IDuneLocationsReplacementHandler duneLocationsReplacementHandler)
+                                                  IDuneLocationsReplacementHandler duneLocationsReplacementHandler)
         {
             if (assessmentSection == null)
             {

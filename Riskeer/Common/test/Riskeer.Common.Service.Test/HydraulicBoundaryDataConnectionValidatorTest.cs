@@ -83,7 +83,7 @@ namespace Riskeer.Common.Service.Test
             {
                 FilePath = Path.Combine(testDataPath, "invalidSettingsSchema", "complete.sqlite")
             };
-            
+
             HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryData);
 
             // Call
@@ -102,7 +102,7 @@ namespace Riskeer.Common.Service.Test
             {
                 FilePath = Path.Combine(testDataPath, "withoutPreprocessorClosure", "complete.sqlite")
             };
-            
+
             HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryData, true);
 
             // Call
@@ -124,7 +124,7 @@ namespace Riskeer.Common.Service.Test
             {
                 FilePath = Path.Combine(testDataPath, "complete.sqlite")
             };
-            
+
             HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryData, usePreprocessorClosure);
 
             // Call
