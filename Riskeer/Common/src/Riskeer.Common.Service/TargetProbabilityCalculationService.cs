@@ -50,11 +50,9 @@ namespace Riskeer.Common.Service
 
             CalculationServiceHelper.LogValidationBegin();
 
-            string preprocessorDirectory = calculationSettings.PreprocessorDirectory;
             string filesForCalculationValidationProblem = HydraulicBoundaryDataHelper.ValidateFilesForCalculation(
                 calculationSettings.HrdFilePath,
                 calculationSettings.HlcdFilePath,
-                preprocessorDirectory,
                 calculationSettings.UsePreprocessorClosure);
 
             if (!string.IsNullOrEmpty(filesForCalculationValidationProblem))

@@ -1163,7 +1163,6 @@ namespace Riskeer.Integration.Plugin
                 string validationProblem = HydraulicBoundaryDataHelper.ValidateFilesForCalculation(
                     assessmentSection.HydraulicBoundaryData.FilePath,
                     assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.FilePath,
-                    string.Empty,
                     assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.UsePreprocessorClosure);
 
                 if (validationProblem != null)

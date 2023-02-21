@@ -86,7 +86,6 @@ namespace Riskeer.DuneErosion.Forms.GuiServices
 
             string validationProblem = HydraulicBoundaryDataHelper.ValidateFilesForCalculation(hrdFilePath,
                                                                                                hydraulicLocationConfigurationSettings.FilePath,
-                                                                                               string.Empty,
                                                                                                hydraulicLocationConfigurationSettings.UsePreprocessorClosure);
 
             if (!string.IsNullOrEmpty(validationProblem))
