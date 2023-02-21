@@ -36,7 +36,7 @@ namespace Riskeer.Common.Data.Test.Hydraulics
         public void Constructor_InvalidHrdFilePath_ThrowsArgumentNullException(string invalidHrdFilePath)
         {
             // Call
-            void Call() => new HydraulicBoundaryCalculationSettings(invalidHrdFilePath, "D:\\hlcdFilePath", false, null);
+            void Call() => new HydraulicBoundaryCalculationSettings(invalidHrdFilePath, "D:\\hlcdFilePath", false);
 
             // Assert
             const string expectedMessage = "hrdFilePath is null, empty or consists of whitespaces.";
@@ -50,10 +50,7 @@ namespace Riskeer.Common.Data.Test.Hydraulics
         public void Constructor_InvalidHlcdFilePath_ThrowsArgumentNullException(string invalidHlcdFilePath)
         {
             // Call
-            TestDelegate call = () => new HydraulicBoundaryCalculationSettings("D:\\hrdFilePath",
-                                                                               invalidHlcdFilePath,
-                                                                               false,
-                                                                               null);
+            TestDelegate call = () => new HydraulicBoundaryCalculationSettings("D:\\hrdFilePath", invalidHlcdFilePath, false);
 
             // Assert
             const string expectedMessage = "hlcdFilePath is null, empty or consists of whitespaces.";
@@ -61,11 +58,7 @@ namespace Riskeer.Common.Data.Test.Hydraulics
         }
 
         [Test]
-        [TestCase(null)]
-        [TestCase("")]
-        [TestCase("   ")]
-        [TestCase("D:\\PreprocessorDirectory")]
-        public void Constructor_WithArguments_ExpectedValues(string preprocessorDirectory)
+        public void Constructor_ValidArguments_ExpectedValues()
         {
             // Setup
             const string hrdFilePath = "D:\\hrdFilePath";
@@ -73,16 +66,12 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             bool usePreprocessorClosure = new Random(21).NextBoolean();
 
             // Call
-            var settings = new HydraulicBoundaryCalculationSettings(hrdFilePath,
-                                                                    hlcdFilePath,
-                                                                    usePreprocessorClosure,
-                                                                    preprocessorDirectory);
+            var settings = new HydraulicBoundaryCalculationSettings(hrdFilePath, hlcdFilePath, usePreprocessorClosure);
 
             // Assert
             Assert.AreEqual(hrdFilePath, settings.HrdFilePath);
             Assert.AreEqual(hlcdFilePath, settings.HlcdFilePath);
             Assert.AreEqual(usePreprocessorClosure, settings.UsePreprocessorClosure);
-            Assert.AreEqual(preprocessorDirectory, settings.PreprocessorDirectory);
         }
     }
 }
