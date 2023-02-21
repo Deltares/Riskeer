@@ -728,14 +728,13 @@ namespace Riskeer.GrassCoverErosionInwards.Service
 
         private static IEnumerable<string> ValidateHydraulicBoundaryDatabase(IAssessmentSection assessmentSection)
         {
-            string preprocessorDirectory = assessmentSection.HydraulicBoundaryData.EffectivePreprocessorDirectory();
             string connectionValidationProblem = HydraulicBoundaryDataConnectionValidator.Validate(assessmentSection.HydraulicBoundaryData);
             if (!string.IsNullOrEmpty(connectionValidationProblem))
             {
                 yield return connectionValidationProblem;
             }
 
-            string preprocessorDirectoryValidationProblem = HydraulicBoundaryDataHelper.ValidatePreprocessorDirectory(preprocessorDirectory);
+            string preprocessorDirectoryValidationProblem = HydraulicBoundaryDataHelper.ValidatePreprocessorDirectory(string.Empty);
             if (!string.IsNullOrEmpty(preprocessorDirectoryValidationProblem))
             {
                 yield return preprocessorDirectoryValidationProblem;
