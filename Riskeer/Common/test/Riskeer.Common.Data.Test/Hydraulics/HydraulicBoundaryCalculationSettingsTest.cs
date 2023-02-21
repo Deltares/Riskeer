@@ -56,7 +56,7 @@ namespace Riskeer.Common.Data.Test.Hydraulics
                                                                                null);
 
             // Assert
-            const string expectedMessage = "hlcdFilePath is null, empty or consists of whitespace.";
+            const string expectedMessage = "hlcdFilePath is null, empty or consists of whitespaces.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
