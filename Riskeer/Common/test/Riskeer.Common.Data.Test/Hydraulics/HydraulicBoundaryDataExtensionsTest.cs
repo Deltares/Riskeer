@@ -39,30 +39,6 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             Assert.AreEqual("hydraulicBoundaryData", paramName);
         }
 
-        [Test]
-        public void EffectivePreprocessorDirectory_HydraulicBoundaryDataNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => HydraulicBoundaryDataExtensions.EffectivePreprocessorDirectory(null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
-            Assert.AreEqual("hydraulicBoundaryData", paramName);
-        }
-
-        [Test]
-        public void EffectivePreprocessorDirectory_CanUsePreprocessorFalse_ReturnsExpectedValue()
-        {
-            // Setup
-            var hydraulicBoundaryData = new HydraulicBoundaryData();
-
-            // Call
-            string effectivePreprocessorDirectory = hydraulicBoundaryData.EffectivePreprocessorDirectory();
-
-            // Assert
-            Assert.AreEqual("", effectivePreprocessorDirectory);
-        }
-
         [TestCase(null, false)]
         [TestCase("", false)]
         [TestCase("Test", true)]
@@ -79,30 +55,6 @@ namespace Riskeer.Common.Data.Test.Hydraulics
 
             // Assert
             Assert.AreEqual(expectedValue, isLinked);
-        }
-
-        [TestCase(false, "Test", "")]
-        [TestCase(true, "Test", "Test")]
-        public void EffectivePreprocessorDirectory_CanUsePreprocessorTrue_ReturnsExpectedValue(bool usePreprocessor,
-                                                                                               string preprocessorDirectory,
-                                                                                               string expectedEffectivePreprocessorDirectory)
-        {
-            // Setup
-            var hydraulicBoundaryData = new HydraulicBoundaryData
-            {
-                HydraulicLocationConfigurationSettings =
-                {
-                    CanUsePreprocessor = true,
-                    UsePreprocessor = usePreprocessor,
-                    PreprocessorDirectory = preprocessorDirectory
-                }
-            };
-
-            // Call
-            string effectivePreprocessorDirectory = hydraulicBoundaryData.EffectivePreprocessorDirectory();
-
-            // Assert
-            Assert.AreEqual(expectedEffectivePreprocessorDirectory, effectivePreprocessorDirectory);
         }
     }
 }
