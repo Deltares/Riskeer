@@ -35,13 +35,10 @@ namespace Riskeer.Common.IO.HydraRing
     /// </summary>
     internal class HydraRingSettingsDatabaseValidator : SqLiteDatabaseReaderBase
     {
-        private readonly bool usePreprocessor;
-
         /// <summary>
         /// Creates a new instance of <see cref="HydraRingSettingsDatabaseValidator"/>.
         /// </summary>
         /// <param name="databaseFilePath">The full path to the database file to use when reading settings.</param>
-        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
         /// <item>The <paramref name="databaseFilePath"/> contains invalid characters.</item>
@@ -49,17 +46,9 @@ namespace Riskeer.Common.IO.HydraRing
         /// <item>Unable to open database file.</item>
         /// </list>
         /// </exception>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="preprocessorDirectory"/>
-        /// is <c>null</c>.</exception>
-        public HydraRingSettingsDatabaseValidator(string databaseFilePath, string preprocessorDirectory)
+        public HydraRingSettingsDatabaseValidator(string databaseFilePath)
             : base(databaseFilePath)
         {
-            if (preprocessorDirectory == null)
-            {
-                throw new ArgumentNullException(nameof(preprocessorDirectory));
-            }
-
-            usePreprocessor = preprocessorDirectory != string.Empty;
         }
 
         /// <summary>
@@ -71,20 +60,18 @@ namespace Riskeer.Common.IO.HydraRing
             return ContainsRequiredTables(GetColumnDefinitions(Connection));
         }
 
-        private bool ContainsRequiredTables(IEnumerable<Tuple<string, string>> definitions)
+        private static bool ContainsRequiredTables(IEnumerable<Tuple<string, string>> definitions)
         {
             return GetValidSchema().All(definitions.Contains);
         }
 
-        private IEnumerable<Tuple<string, string>> GetValidSchema()
+        private static IEnumerable<Tuple<string, string>> GetValidSchema()
         {
             using (var validSchemaConnection = new SQLiteConnection("Data Source=:memory:"))
             using (SQLiteCommand command = validSchemaConnection.CreateCommand())
             {
                 validSchemaConnection.Open();
-                command.CommandText = usePreprocessor
-                                          ? Resources.settings_schema_preprocessor
-                                          : Resources.settings_schema;
+                command.CommandText = Resources.settings_schema;
                 command.ExecuteNonQuery();
                 return GetColumnDefinitions(validSchemaConnection);
             }
