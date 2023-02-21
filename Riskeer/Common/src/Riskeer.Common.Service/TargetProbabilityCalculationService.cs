@@ -68,17 +68,6 @@ namespace Riskeer.Common.Service
                 isValid = false;
             }
 
-            string preprocessorDirectoryValidationProblem = HydraulicBoundaryDataHelper.ValidatePreprocessorDirectory(preprocessorDirectory);
-            if (!string.IsNullOrEmpty(preprocessorDirectoryValidationProblem))
-            {
-                CalculationServiceHelper.LogMessagesAsError(new[]
-                {
-                    preprocessorDirectoryValidationProblem
-                });
-
-                isValid = false;
-            }
-
             CalculationServiceHelper.LogValidationEnd();
 
             return isValid;
