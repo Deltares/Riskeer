@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.IO;
 using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
@@ -37,27 +36,13 @@ namespace Riskeer.Common.IO.Test.HydraRing
             TestDataPath.Riskeer.Common.IO, testDataSubDirectory);
 
         [Test]
-        public void Constructor_PreprocessorDirectoryNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            string completeDatabasePath = Path.Combine(directoryPath, "withoutPreprocessor.config.sqlite");
-
-            // Call
-            TestDelegate call = () => new HydraRingSettingsDatabaseValidator(completeDatabasePath, null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("preprocessorDirectory", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            string completeDatabasePath = Path.Combine(directoryPath, "withoutPreprocessor.config.sqlite");
+            string completeDatabasePath = Path.Combine(directoryPath, "validSettings.config.sqlite");
 
             // Call
-            using (var validator = new HydraRingSettingsDatabaseValidator(completeDatabasePath, string.Empty))
+            using (var validator = new HydraRingSettingsDatabaseValidator(completeDatabasePath))
             {
                 // Assert
                 Assert.IsInstanceOf<SqLiteDatabaseReaderBase>(validator);
@@ -65,14 +50,12 @@ namespace Riskeer.Common.IO.Test.HydraRing
         }
 
         [Test]
-        [TestCase("withoutPreprocessor")]
-        [TestCase("withPreprocessor")]
-        public void ValidateSchema_NoPreprocessorValidDatabase_ReturnTrue(string databaseName)
+        public void ValidateSchema_ValidDatabase_ReturnTrue()
         {
             // Setup
-            string completeDatabasePath = Path.Combine(directoryPath, $"{databaseName}.config.sqlite");
+            string completeDatabasePath = Path.Combine(directoryPath, "validSettings.config.sqlite");
 
-            using (var validator = new HydraRingSettingsDatabaseValidator(completeDatabasePath, string.Empty))
+            using (var validator = new HydraRingSettingsDatabaseValidator(completeDatabasePath))
             {
                 // Call
                 bool valid = validator.ValidateSchema();
@@ -87,49 +70,12 @@ namespace Riskeer.Common.IO.Test.HydraRing
         [TestCase("invalidSettings_MissingTable")]
         [TestCase("invalidSettings_WrongColumnName")]
         [TestCase("invalidSettings_WrongTableName")]
-        public void ValidateSchema_NoPreprocessorInvalidDatabase_ReturnFalse(string databaseName)
+        public void ValidateSchema_InvalidDatabase_ReturnFalse(string databaseName)
         {
             // Setup
             string completeDatabasePath = Path.Combine(directoryPath, $"{databaseName}.config.sqlite");
 
-            using (var validator = new HydraRingSettingsDatabaseValidator(completeDatabasePath, string.Empty))
-            {
-                // Call
-                bool valid = validator.ValidateSchema();
-
-                // Assert
-                Assert.IsFalse(valid);
-            }
-        }
-
-        [Test]
-        public void ValidateSchema_PreprocessorValidDatabase_ReturnTrue()
-        {
-            // Setup
-            string completeDatabasePath = Path.Combine(directoryPath, "withPreprocessor.config.sqlite");
-
-            using (var validator = new HydraRingSettingsDatabaseValidator(completeDatabasePath, directoryPath))
-            {
-                // Call
-                bool valid = validator.ValidateSchema();
-
-                // Assert
-                Assert.IsTrue(valid);
-            }
-        }
-
-        [Test]
-        [TestCase("invalidSettings_MissingColumn")]
-        [TestCase("invalidSettings_MissingTable")]
-        [TestCase("invalidSettings_WrongColumnName")]
-        [TestCase("invalidSettings_WrongTableName")]
-        [TestCase("withoutPreprocessor")]
-        public void ValidateSchema_PreprocessorInvalidDatabase_ReturnFalse(string databaseName)
-        {
-            // Setup
-            string completeDatabasePath = Path.Combine(directoryPath, $"{databaseName}.config.sqlite");
-
-            using (var validator = new HydraRingSettingsDatabaseValidator(completeDatabasePath, directoryPath))
+            using (var validator = new HydraRingSettingsDatabaseValidator(completeDatabasePath))
             {
                 // Call
                 bool valid = validator.ValidateSchema();

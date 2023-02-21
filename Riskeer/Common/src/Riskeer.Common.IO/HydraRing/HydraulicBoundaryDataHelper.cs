@@ -86,7 +86,7 @@ namespace Riskeer.Common.IO.HydraRing
                     // Used on purpose to check the hlcdFilePath
                 }
 
-                using (var validator = new HydraRingSettingsDatabaseValidator(hbsdFilePath, preprocessorDirectory))
+                using (var validator = new HydraRingSettingsDatabaseValidator(hbsdFilePath))
                 {
                     if (!validator.ValidateSchema())
                     {
