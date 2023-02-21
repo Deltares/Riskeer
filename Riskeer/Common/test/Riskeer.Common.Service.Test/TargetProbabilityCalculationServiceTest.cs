@@ -122,32 +122,6 @@ namespace Riskeer.Common.Service.Test
         }
 
         [Test]
-        public void Validate_InvalidPreprocessorDirectory_LogsErrorAndReturnsFalse()
-        {
-            // Setup
-            const string invalidPreprocessorDirectory = "NonExistingPreprocessorDirectory";
-            var valid = true;
-            var calculationSettings = new HydraulicBoundaryCalculationSettings(validHrdFilePath,
-                                                                               validHlcdFilePath,
-                                                                               false,
-                                                                               invalidPreprocessorDirectory);
-
-            // Call
-            void Call() => valid = calculationService.Validate(calculationSettings);
-
-            // Assert
-            TestHelper.AssertLogMessages(Call, messages =>
-            {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                Assert.AreEqual("De bestandsmap waar de preprocessor bestanden opslaat is ongeldig. De bestandsmap bestaat niet.", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
-            });
-            Assert.IsFalse(valid);
-        }
-
-        [Test]
         public void Validate_UsePreprocessorClosureTrueAndWithoutPreprocessorClosure_LogsErrorAndReturnsFalse()
         {
             // Setup

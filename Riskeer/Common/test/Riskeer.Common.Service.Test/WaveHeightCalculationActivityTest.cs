@@ -133,39 +133,6 @@ namespace Riskeer.Common.Service.Test
         }
 
         [Test]
-        public void Run_InvalidPreprocessorDirectory_PerformValidationAndLogStartAndEndAndError()
-        {
-            // Setup
-            const string invalidPreprocessorDirectory = "NonExistingPreprocessorDirectory";
-            const string locationName = "locationName";
-            const string calculationIdentifier = "1/100";
-
-            var settings = new HydraulicBoundaryCalculationSettings(validHrdFilePath,
-                                                                    validHlcdFilePath,
-                                                                    false,
-                                                                    invalidPreprocessorDirectory);
-            var activity = new WaveHeightCalculationActivity(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(locationName)),
-                                                             settings,
-                                                             0.01,
-                                                             calculationIdentifier);
-
-            // Call
-            void Call() => activity.Run();
-
-            // Assert
-            TestHelper.AssertLogMessages(Call, messages =>
-            {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(4, msgs.Length);
-                Assert.AreEqual($"{GetActivityDescription(locationName, calculationIdentifier)} is gestart.", msgs[0]);
-                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
-                Assert.AreEqual("De bestandsmap waar de preprocessor bestanden opslaat is ongeldig. De bestandsmap bestaat niet.", msgs[2]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
-            });
-            Assert.AreEqual(ActivityState.Failed, activity.State);
-        }
-
-        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void Run_ValidInput_PerformCalculationWithCorrectInput(bool usePreprocessor)

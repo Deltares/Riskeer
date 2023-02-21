@@ -111,43 +111,6 @@ namespace Riskeer.Revetment.Service.Test
         }
 
         [Test]
-        public void Validate_InvalidPreprocessorDirectory_ReturnsFalseAndLogsValidationError()
-        {
-            // Setup 
-            var isValid = false;
-            const string invalidPreprocessorDirectory = "NonExistingPreprocessorDirectory";
-
-            var hydraulicBoundaryData = new HydraulicBoundaryData
-            {
-                FilePath = validHrdFilePath,
-                HydraulicLocationConfigurationSettings =
-                {
-                    CanUsePreprocessor = true,
-                    UsePreprocessor = true,
-                    PreprocessorDirectory = invalidPreprocessorDirectory
-                }
-            };
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryData);
-
-            // Call
-            void Call() => isValid = WaveConditionsCalculationServiceBase.Validate(new WaveConditionsInput(),
-                                                                                   GetValidAssessmentLevel(),
-                                                                                   hydraulicBoundaryData);
-
-            // Assert
-            TestHelper.AssertLogMessages(Call, messages =>
-            {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                Assert.AreEqual("De bestandsmap waar de preprocessor bestanden opslaat is ongeldig. De bestandsmap bestaat niet.", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
-            });
-
-            Assert.IsFalse(isValid);
-        }
-
-        [Test]
         public void Validate_ValidHydraulicBoundaryDatabaseWithoutSettings_LogsValidationMessageAndReturnFalse()
         {
             // Setup 

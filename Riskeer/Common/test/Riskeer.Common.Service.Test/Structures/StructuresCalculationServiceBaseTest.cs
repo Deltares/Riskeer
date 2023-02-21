@@ -126,42 +126,6 @@ namespace Riskeer.Common.Service.Test.Structures
         }
 
         [Test]
-        public void Validate_ValidCalculationInvalidPreprocessorDirectory_LogsErrorAndReturnsFalse()
-        {
-            // Setup
-            var mocks = new MockRepository();
-
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                new TestCalculatableFailureMechanism(), mocks, validHrdFilePath);
-
-            assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.CanUsePreprocessor = true;
-            assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.UsePreprocessor = true;
-            assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.PreprocessorDirectory = "NonExistingPreprocessorDirectory";
-
-            mocks.ReplayAll();
-
-            var calculation = new TestStructuresCalculation();
-
-            var isValid = true;
-
-            // Call
-            void Call() => isValid = TestStructuresCalculationService.Validate(calculation, assessmentSection);
-
-            // Assert
-            TestHelper.AssertLogMessages(Call, messages =>
-            {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                Assert.AreEqual("De bestandsmap waar de preprocessor bestanden opslaat is ongeldig. De bestandsmap bestaat niet.", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
-            });
-            Assert.IsFalse(isValid);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void Validate_ValidCalculationValidHydraulicBoundaryDatabaseNoSettings_LogsErrorAndReturnsFalse()
         {
             // Setup
