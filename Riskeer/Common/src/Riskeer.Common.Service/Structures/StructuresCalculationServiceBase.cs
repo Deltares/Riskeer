@@ -31,7 +31,6 @@ using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.Structures;
-using Riskeer.Common.IO.HydraRing;
 using Riskeer.Common.Service.IllustrationPoints;
 using Riskeer.Common.Service.MessageProviders;
 using Riskeer.Common.Service.Properties;
@@ -329,12 +328,6 @@ namespace Riskeer.Common.Service.Structures
             if (!string.IsNullOrEmpty(connectionValidationProblem))
             {
                 validationResults.Add(connectionValidationProblem);
-            }
-
-            string preprocessorDirectoryValidationProblem = HydraulicBoundaryDataHelper.ValidatePreprocessorDirectory(string.Empty);
-            if (!string.IsNullOrEmpty(preprocessorDirectoryValidationProblem))
-            {
-                validationResults.Add(preprocessorDirectoryValidationProblem);
             }
 
             if (validationResults.Any())

@@ -27,7 +27,6 @@ using Core.Common.Base.Data;
 using Core.Common.Base.IO;
 using log4net;
 using Riskeer.Common.Data.Hydraulics;
-using Riskeer.Common.IO.HydraRing;
 using Riskeer.Common.Service;
 using Riskeer.Common.Service.ValidationRules;
 using Riskeer.HydraRing.Calculation.Calculator;
@@ -212,12 +211,6 @@ namespace Riskeer.Revetment.Service
             if (!string.IsNullOrEmpty(connectionValidationProblem))
             {
                 validationResults.Add(connectionValidationProblem);
-            }
-
-            string preprocessorDirectoryValidationProblem = HydraulicBoundaryDataHelper.ValidatePreprocessorDirectory(string.Empty);
-            if (!string.IsNullOrEmpty(preprocessorDirectoryValidationProblem))
-            {
-                validationResults.Add(preprocessorDirectoryValidationProblem);
             }
 
             if (validationResults.Any())

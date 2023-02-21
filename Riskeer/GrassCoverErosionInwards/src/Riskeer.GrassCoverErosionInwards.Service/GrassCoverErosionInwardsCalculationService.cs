@@ -33,7 +33,6 @@ using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.IllustrationPoints;
-using Riskeer.Common.IO.HydraRing;
 using Riskeer.Common.Service;
 using Riskeer.Common.Service.IllustrationPoints;
 using Riskeer.Common.Service.ValidationRules;
@@ -732,12 +731,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service
             if (!string.IsNullOrEmpty(connectionValidationProblem))
             {
                 yield return connectionValidationProblem;
-            }
-
-            string preprocessorDirectoryValidationProblem = HydraulicBoundaryDataHelper.ValidatePreprocessorDirectory(string.Empty);
-            if (!string.IsNullOrEmpty(preprocessorDirectoryValidationProblem))
-            {
-                yield return preprocessorDirectoryValidationProblem;
             }
         }
 
