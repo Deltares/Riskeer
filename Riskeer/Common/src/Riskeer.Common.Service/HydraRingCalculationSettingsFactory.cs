@@ -47,7 +47,6 @@ namespace Riskeer.Common.Service
             }
 
             return new HydraRingCalculationSettings(hydraulicBoundaryCalculationSettings.HlcdFilePath,
-                                                    hydraulicBoundaryCalculationSettings.PreprocessorDirectory,
                                                     hydraulicBoundaryCalculationSettings.UsePreprocessorClosure);
         }
     }
