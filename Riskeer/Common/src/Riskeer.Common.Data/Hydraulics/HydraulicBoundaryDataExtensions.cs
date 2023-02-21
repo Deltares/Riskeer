@@ -43,26 +43,5 @@ namespace Riskeer.Common.Data.Hydraulics
 
             return !string.IsNullOrEmpty(hydraulicBoundaryData.FilePath);
         }
-
-        /// <summary>
-        /// Gets the preprocessor directory to be used during Hydra-Ring calculations.
-        /// </summary>
-        /// <param name="hydraulicBoundaryData">The hydraulic boundary data to get the effective preprocessor directory from.</param>
-        /// <returns>A preprocessor directory, which is <see cref="string.Empty"/> when
-        /// <see cref="HydraulicLocationConfigurationSettings.CanUsePreprocessor"/> or
-        /// <see cref="HydraulicLocationConfigurationSettings.UsePreprocessor"/> is <c>false</c>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryData"/> is <c>null</c>.</exception>
-        public static string EffectivePreprocessorDirectory(this HydraulicBoundaryData hydraulicBoundaryData)
-        {
-            if (hydraulicBoundaryData == null)
-            {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryData));
-            }
-
-            return hydraulicBoundaryData.HydraulicLocationConfigurationSettings.CanUsePreprocessor
-                   && hydraulicBoundaryData.HydraulicLocationConfigurationSettings.UsePreprocessor
-                       ? hydraulicBoundaryData.HydraulicLocationConfigurationSettings.PreprocessorDirectory
-                       : string.Empty;
-        }
     }
 }
