@@ -38,7 +38,7 @@ namespace Riskeer.Common.Service.Test
         public void AssignSettingsFromDatabase_HrdFilePathWithInvalidCharacters_ThrowsArgumentException()
         {
             // Call
-            void Call() => HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(new TestHydraRingCalculationInput(), ">", false);
+            void Call() => HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(new TestHydraRingCalculationInput(), ">");
 
             // Assert
             Assert.Throws<ArgumentException>(Call);
@@ -48,7 +48,7 @@ namespace Riskeer.Common.Service.Test
         public void AssignSettingsFromDatabase_HrdFileWithoutSettingsDatabase_ThrowsCriticalFileReadException()
         {
             // Call
-            void Call() => HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(new TestHydraRingCalculationInput(), "NoConfig.sqlite", false);
+            void Call() => HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(new TestHydraRingCalculationInput(), "NoConfig.sqlite");
 
             // Assert
             Assert.Throws<CriticalFileReadException>(Call);

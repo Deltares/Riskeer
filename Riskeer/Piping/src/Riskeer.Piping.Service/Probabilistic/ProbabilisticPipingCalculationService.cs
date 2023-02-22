@@ -448,7 +448,7 @@ namespace Riskeer.Piping.Service.Probabilistic
                     generalInput.CriticalHeaveGradient.Mean, generalInput.CriticalHeaveGradient.StandardDeviation);
             }
 
-            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(input, hrdFilePath, usePreprocessor);
+            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(input, hrdFilePath);
 
             return input;
         }

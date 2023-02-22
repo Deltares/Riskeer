@@ -68,7 +68,8 @@ namespace Riskeer.ClosingStructures.Service
                     throw new NotSupportedException();
             }
 
-            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(input, hrdFilePath, usePreprocessor);
+            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(input, hrdFilePath);
+
             return input;
         }
 
