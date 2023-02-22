@@ -50,10 +50,6 @@ namespace Riskeer.Common.IO.Test.HydraRing
             TestDataPath.Riskeer.Common.IO,
             Path.Combine(testDataSubDirectory, "7_67-invalid-value-types.config.sqlite"));
 
-        private static readonly string invalidSchemaDatabasePath = TestHelper.GetTestDataPath(
-            TestDataPath.Riskeer.Common.IO,
-            Path.Combine(testDataSubDirectory, "invalid-settings-schema.config.sqlite"));
-
         [Test]
         public void Constructor_DatabaseWithValidSchema_ReturnsNewReader()
         {
@@ -378,51 +374,6 @@ namespace Riskeer.Common.IO.Test.HydraRing
             {
                 // Call
                 IEnumerable<long> locations = reader.ReadExcludedLocations();
-
-                // Assert
-                CollectionAssert.IsEmpty(locations);
-            }
-        }
-
-        [Test]
-        public void ReadExcludedPreprocessorLocations_TableWithRows_ReturnsAllLocationIdsInTable()
-        {
-            // Setup
-            using (var reader = new HydraRingSettingsDatabaseReader(completeDatabasePath))
-            {
-                // Call
-                IEnumerable<long> locations = reader.ReadExcludedPreprocessorLocations();
-
-                // Assert
-                CollectionAssert.AreEqual(new[]
-                {
-                    700136
-                }, locations);
-            }
-        }
-
-        [Test]
-        public void ReadExcludedPreprocessorLocations_InvalidValueInReadLocation_ThrowsCriticalFileReadException()
-        {
-            // Setup
-            using (var reader = new HydraRingSettingsDatabaseReader(invalidDatabasePath))
-            {
-                // Call
-                TestDelegate test = () => reader.ReadExcludedPreprocessorLocations().ToArray();
-
-                // Assert
-                Assert.Throws<CriticalFileReadException>(test);
-            }
-        }
-
-        [Test]
-        public void ReadExcludedPreprocessorLocations_EmptyTable_ReturnsEmptyEnumerable()
-        {
-            // Setup
-            using (var reader = new HydraRingSettingsDatabaseReader(emptyDatabasePath))
-            {
-                // Call
-                IEnumerable<long> locations = reader.ReadExcludedPreprocessorLocations();
 
                 // Assert
                 CollectionAssert.IsEmpty(locations);

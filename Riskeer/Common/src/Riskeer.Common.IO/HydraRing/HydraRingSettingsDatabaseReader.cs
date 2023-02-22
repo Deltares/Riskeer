@@ -68,7 +68,6 @@ namespace Riskeer.Common.IO.HydraRing
         private readonly string designTablesSettingsForLocationAndCalculationTypeQuery;
         private readonly string numericsSettingsForLocationMechanismAndSubMechanismQuery;
         private readonly string excludedLocationsQuery;
-        private readonly string excludedPreprocessorLocationsQuery;
         private readonly string timeIntegrationSettingsForLocationAndCalculationTypeQuery;
 
         /// <summary>
@@ -109,8 +108,6 @@ namespace Riskeer.Common.IO.HydraRing
                                                                         $"AND CalculationTypeID = {calculationTypeIdParameterName}";
 
             excludedLocationsQuery = $"SELECT {locationIdColumn} FROM ExcludedLocations";
-
-            excludedPreprocessorLocationsQuery = $"SELECT {locationIdColumn} FROM ExcludedLocationsPreprocessor";
         }
 
         /// <summary>
@@ -247,30 +244,13 @@ namespace Riskeer.Common.IO.HydraRing
         }
 
         /// <summary>
-        /// Reads the excluded preprocessor locations (those for which no preprocessor calculation is possible) from the database.
-        /// </summary>
-        /// <returns>A <see cref="IEnumerable{T}"/> of ids for all the excluded locations.</returns>
-        /// <exception cref="CriticalFileReadException">Thrown when a column that is being read doesn't
-        /// contain expected type.</exception>
-        public IEnumerable<long> ReadExcludedPreprocessorLocations()
-        {
-            using (IDataReader reader = CreateExcludedPreprocessorLocationsDataReader())
-            {
-                while (MoveNext(reader))
-                {
-                    yield return TryReadLocationIdColumn(reader);
-                }
-            }
-        }
-
-        /// <summary>
         /// Tries to read the <see cref="locationIdColumn"/> from the <paramref name="reader"/>.
         /// </summary>
         /// <param name="reader">The reader to read the column's value from.</param>
         /// <returns>The id of the location that was read from the <paramref name="reader"/>.</returns>
         /// <exception cref="CriticalFileReadException">Thrown when the <see cref="locationIdColumn"/>
         /// column contains a value of unexpected type.</exception>
-        private long TryReadLocationIdColumn(IDataReader reader)
+        private static long TryReadLocationIdColumn(IDataReader reader)
         {
             try
             {
@@ -359,11 +339,6 @@ namespace Riskeer.Common.IO.HydraRing
         private IDataReader CreateExcludedLocationsDataReader()
         {
             return CreateDataReader(excludedLocationsQuery);
-        }
-
-        private IDataReader CreateExcludedPreprocessorLocationsDataReader()
-        {
-            return CreateDataReader(excludedPreprocessorLocationsQuery);
         }
     }
 }
