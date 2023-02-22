@@ -171,7 +171,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Calculator
         {
             public TestHydraRingCalculationInput() : base(12)
             {
-                PreprocessorSetting = new PreprocessorSetting();
                 DesignTablesSetting = new DesignTablesSetting(0, 0);
                 NumericsSettings = new Dictionary<int, NumericsSetting>
                 {
