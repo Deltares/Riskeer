@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints;
 using Riskeer.HydraRing.Calculation.Exceptions;
@@ -64,7 +63,6 @@ namespace Riskeer.HydraRing.Calculation.Calculator
         /// <param name="input">The <see cref="TInput"/> which contains all the necessary input
         /// for the calculation.</param>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
-        /// <exception cref="InvalidOperationException">Thrown when preprocessor directory is required but not specified.</exception>
         void Calculate(TInput input);
 
         /// <summary>
