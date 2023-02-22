@@ -44,7 +44,6 @@ namespace Riskeer.Common.Service
         /// hydraulic boundary calculation settings.</param>
         /// <param name="targetProbability">The target probability to use during the calculation.</param>
         /// <param name="calculationIdentifier">The calculation identifier to use in all messages.</param>
-        /// <remarks>Preprocessing is disabled when the preprocessor directory equals <see cref="string.Empty"/>.</remarks>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculation"/> or
         /// <paramref name="calculationSettings"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="calculationIdentifier"/> is <c>null</c> or empty.</exception>

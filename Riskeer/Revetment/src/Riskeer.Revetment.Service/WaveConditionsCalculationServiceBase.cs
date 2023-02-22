@@ -121,7 +121,6 @@ namespace Riskeer.Revetment.Service
         /// <param name="targetProbability">The target probability to use.</param>
         /// <param name="hydraulicBoundaryData">The hydraulic boundary data to perform the calculations with.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="WaveConditionsOutput"/>.</returns>
-        /// <remarks>Preprocessing is disabled when the preprocessor directory equals <see cref="string.Empty"/>.</remarks>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="waveConditionsInput"/> or
         /// <paramref name="hydraulicBoundaryData"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when the hydraulic boundary database file path
@@ -241,7 +240,6 @@ namespace Riskeer.Revetment.Service
         /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> containing all data
         /// to perform a hydraulic boundary calculation.</param>
         /// <returns>A <see cref="WaveConditionsOutput"/> if the calculation was successful; or <c>null</c> if it was canceled.</returns>
-        /// <remarks>Preprocessing is disabled when the preprocessor directory equals <see cref="string.Empty"/>.</remarks>
         /// <exception cref="ArgumentException">Thrown when the hydraulic boundary database file path
         /// contains invalid characters.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
