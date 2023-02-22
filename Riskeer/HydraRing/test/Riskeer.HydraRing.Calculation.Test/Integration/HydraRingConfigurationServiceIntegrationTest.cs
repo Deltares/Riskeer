@@ -875,7 +875,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "DELETE FROM [DesignTables];" + Environment.NewLine +
                                             "INSERT INTO [DesignTables] VALUES (1, 3, 1, 1, 8, 114, 0, 0, 0, 0, 7.7, 8.8, 3.71901648545571);" + Environment.NewLine +
                                             Environment.NewLine +
-                                            Environment.NewLine +
                                             "DELETE FROM [Numerics];" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 3, 1, 1, 5, 4, 1, 50, 0.15, 0.01, 0.01, 0.01, 2, 3, 3000, 10000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                             Environment.NewLine +
@@ -987,7 +986,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "DELETE FROM [DesignTables];" + Environment.NewLine +
                                             "INSERT INTO [DesignTables] VALUES (1, 3, 1, 1, 8, 114, 0, 0, 0, 0, 8.8, 9.9, 3.71901648545571);" + Environment.NewLine +
                                             Environment.NewLine +
-                                            Environment.NewLine +
                                             "DELETE FROM [Numerics];" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 3, 1, 1, 5, 4, 1, 50, 0.15, 0.01, 0.01, 0.01, 2, 3, 3000, 10000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                             Environment.NewLine +
@@ -1093,7 +1091,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             Environment.NewLine +
                                             "DELETE FROM [DesignTables];" + Environment.NewLine +
                                             "INSERT INTO [DesignTables] VALUES (1, 111, 1, 1, 1, 58, 0, 0, 0, 0, 0, 0, 0);" + Environment.NewLine +
-                                            Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [Numerics];" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 422, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
