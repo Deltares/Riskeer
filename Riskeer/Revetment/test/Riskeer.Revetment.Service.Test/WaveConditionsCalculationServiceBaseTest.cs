@@ -594,15 +594,9 @@ namespace Riskeer.Revetment.Service.Test
                                                                            input,
                                                                            waterLevel,
                                                                            hydraulicBoundaryData);
-
-                // Assert
-                for (var i = 0; i < nrOfCalculators; i++)
-                {
-                    Assert.AreEqual(hydraulicBoundaryData.HydraulicLocationConfigurationSettings.UsePreprocessor,
-                                    calculator.ReceivedInputs.ElementAt(i).PreprocessorSetting.RunPreprocessor);
-                }
             }
 
+            // Assert
             mockRepository.VerifyAll();
         }
 
@@ -888,37 +882,19 @@ namespace Riskeer.Revetment.Service.Test
 
         private static IEnumerable<TestCaseData> GetHydraulicBoundaryDataConfigurations()
         {
-            var hydraulicBoundaryDatabaseUsePreprocessorTrue = new HydraulicBoundaryData
-            {
-                FilePath = validHrdFilePath,
-                HydraulicLocationConfigurationSettings =
-                {
-                    CanUsePreprocessor = true,
-                    UsePreprocessor = true,
-                    PreprocessorDirectory = validPreprocessorDirectory
-                }
-            };
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryDatabaseUsePreprocessorTrue);
-            yield return new TestCaseData(hydraulicBoundaryDatabaseUsePreprocessorTrue).SetName("UsePreprocessorTrue");
-
-            var hydraulicBoundaryDatabaseUsePreprocessorFalse = new HydraulicBoundaryData
-            {
-                FilePath = validHrdFilePath,
-                HydraulicLocationConfigurationSettings =
-                {
-                    CanUsePreprocessor = true,
-                    PreprocessorDirectory = validPreprocessorDirectory
-                }
-            };
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryDatabaseUsePreprocessorFalse);
-            yield return new TestCaseData(hydraulicBoundaryDatabaseUsePreprocessorFalse).SetName("UsePreprocessorFalse");
-
-            var hydraulicBoundaryDatabaseCanUsePreprocessorFalse = new HydraulicBoundaryData
+            var hydraulicBoundaryDataWithUsePreprocessorClosureTrue = new HydraulicBoundaryData
             {
                 FilePath = validHrdFilePath
             };
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryDatabaseCanUsePreprocessorFalse);
-            yield return new TestCaseData(hydraulicBoundaryDatabaseCanUsePreprocessorFalse).SetName("CanUsePreprocessorFalse");
+            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryDataWithUsePreprocessorClosureTrue, true);
+            yield return new TestCaseData(hydraulicBoundaryDataWithUsePreprocessorClosureTrue).SetName("UsePreprocessorClosureTrue");
+
+            var hydraulicBoundaryDataWithUsePreprocessorClosureFalse = new HydraulicBoundaryData
+            {
+                FilePath = validHrdFilePath
+            };
+            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryDataWithUsePreprocessorClosureFalse);
+            yield return new TestCaseData(hydraulicBoundaryDataWithUsePreprocessorClosureFalse).SetName("UsePreprocessorClosureFalse");
         }
 
         private class TestWaveConditionsCalculationService : WaveConditionsCalculationServiceBase
