@@ -897,7 +897,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ValidateAllViaContextMenuStrip_MissingPreprocessorClosureDatabase_ValidationErrorsLogged()
+        public void ValidateAllViaContextMenuStrip_HydraulicBoundaryDataWithMissingPreprocessorClosureDatabase_ValidationErrorsLogged()
         {
             // Setup
             AssessmentSectionStub assessmentSection = CreateAssessmentSection(true);
