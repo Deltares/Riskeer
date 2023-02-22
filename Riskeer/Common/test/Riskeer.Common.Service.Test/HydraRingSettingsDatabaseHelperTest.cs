@@ -55,22 +55,19 @@ namespace Riskeer.Common.Service.Test
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void AssignSettingsFromDatabase_HrdFileWithEmptySettingsDatabase_DefaultsSettingsAdded(bool usePreprocessor)
+        public void AssignSettingsFromDatabase_HrdFileWithEmptySettingsDatabase_DefaultsSettingsAdded()
         {
             // Setup
             var input = new TestHydraRingCalculationInput();
 
             // Call
-            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(input, Path.Combine(testDataPath, "hrd.sqlite"), usePreprocessor);
+            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(input, Path.Combine(testDataPath, "hrd.sqlite"));
 
             // Assert
             Assert.NotNull(input.DesignTablesSetting);
             Assert.NotNull(input.NumericsSettings);
             Assert.NotNull(input.TimeIntegrationSetting);
             Assert.NotNull(input.PreprocessorSetting);
-            Assert.AreEqual(usePreprocessor, input.PreprocessorSetting.RunPreprocessor);
         }
     }
 
