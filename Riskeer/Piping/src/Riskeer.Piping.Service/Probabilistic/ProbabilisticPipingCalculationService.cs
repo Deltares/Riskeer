@@ -117,8 +117,7 @@ namespace Riskeer.Piping.Service.Probabilistic
         /// </summary>
         /// <param name="calculation">The <see cref="ProbabilisticPipingCalculation"/> that holds all the information required to perform the calculation.</param>
         /// <param name="generalInput">The <see cref="GeneralPipingInput"/> to derive values from during the calculation.</param>
-        /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> with the
-        /// hydraulic boundary calculation settings.</param>
+        /// <param name="calculationSettings">The hydraulic boundary calculation settings.</param>
         /// <param name="sectionLength">The length of the section the calculation belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/>, <paramref name="generalInput"/>
         /// or <paramref name="calculationSettings"/> is <c>null</c>.</exception>

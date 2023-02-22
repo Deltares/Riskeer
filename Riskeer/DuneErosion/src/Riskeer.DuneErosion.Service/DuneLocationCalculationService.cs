@@ -52,8 +52,7 @@ namespace Riskeer.DuneErosion.Service
         /// </summary>
         /// <param name="duneLocationCalculation">The <see cref="DuneLocationCalculation"/> to perform.</param>
         /// <param name="targetProbability">The target probability to use during the calculation.</param>
-        /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> with the
-        /// hydraulic boundary calculation settings.</param>
+        /// <param name="calculationSettings">The hydraulic boundary calculation settings.</param>
         /// <param name="messageProvider">The object which is used to build log messages.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="duneLocationCalculation"/>,
         /// <paramref name="calculationSettings"/> or <paramref name="messageProvider"/> is <c>null</c>.</exception>
@@ -204,8 +203,7 @@ namespace Riskeer.DuneErosion.Service
         /// </summary>
         /// <param name="duneLocation">The <see cref="DuneLocation"/> to create the input for.</param>
         /// <param name="targetProbability">The target probability to use during the calculation.</param>
-        /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> with the
-        /// hydraulic boundary calculation settings.</param>
+        /// <param name="calculationSettings">The hydraulic boundary calculation settings.</param>
         /// <returns>A <see cref="DunesBoundaryConditionsCalculationInput"/> with all needed
         /// input data.</returns>
         /// <exception cref="ArgumentException">Thrown when the hydraulic boundary database file path

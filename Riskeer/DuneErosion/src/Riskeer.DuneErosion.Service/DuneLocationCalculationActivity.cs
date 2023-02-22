@@ -42,8 +42,7 @@ namespace Riskeer.DuneErosion.Service
         /// Creates a new instance of <see cref="DuneLocationCalculationActivity"/>.
         /// </summary>
         /// <param name="duneLocationCalculation">The <see cref="DuneLocationCalculation"/> to perform.</param>
-        /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> with the
-        /// hydraulic boundary calculation settings.</param>
+        /// <param name="calculationSettings">The hydraulic boundary calculation settings.</param>
         /// <param name="targetProbability">The target probability to use during the calculation.</param>
         /// <param name="calculationIdentifier">The calculation identifier to use in all messages.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="duneLocationCalculation"/>
