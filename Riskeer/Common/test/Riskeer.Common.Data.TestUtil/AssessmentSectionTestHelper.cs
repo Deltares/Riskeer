@@ -59,12 +59,14 @@ namespace Riskeer.Common.Data.TestUtil
         /// <param name="failureMechanism">The failure mechanism to set the contribution for.</param>
         /// <param name="mockRepository">The mock repository to create the stub with.</param>
         /// <param name="filePath">The file path to the hydraulic boundary database (optional).</param>
+        /// <param name="usePreprocessorClosure">Whether or not to use preprocessor closure.</param>
         /// <returns>A stubbed <see cref="IAssessmentSection"/>.</returns>
         /// <remarks>Whether <paramref name="filePath"/> is provided or not, a dummy location with id 1300001 is added to the
         /// hydraulic boundary database.</remarks>
         public static IAssessmentSection CreateAssessmentSectionStub(IFailureMechanism failureMechanism,
                                                                      MockRepository mockRepository,
-                                                                     string filePath = null)
+                                                                     string filePath = null,
+                                                                     bool usePreprocessorClosure = false)
         {
             IFailureMechanism[] failureMechanisms = GetFailureMechanisms(failureMechanism);
 
@@ -72,7 +74,7 @@ namespace Riskeer.Common.Data.TestUtil
             assessmentSection.Stub(a => a.Id).Return("21");
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(0.1, 1.0 / 30000));
             assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(failureMechanisms);
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(GetHydraulicBoundaryData(filePath));
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(GetHydraulicBoundaryData(filePath, usePreprocessorClosure));
             assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             assessmentSection.Replay();
 
@@ -99,7 +101,7 @@ namespace Riskeer.Common.Data.TestUtil
                        };
         }
 
-        private static HydraulicBoundaryData GetHydraulicBoundaryData(string filePath)
+        private static HydraulicBoundaryData GetHydraulicBoundaryData(string filePath, bool usePreprocessorClosure)
         {
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
@@ -112,7 +114,7 @@ namespace Riskeer.Common.Data.TestUtil
 
             if (filePath != null)
             {
-                HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryData);
+                HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryData, usePreprocessorClosure);
             }
 
             return hydraulicBoundaryData;
