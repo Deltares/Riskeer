@@ -121,7 +121,6 @@ namespace Riskeer.HydraRing.Calculation.Services
                 ["Sections"] = GetSectionsConfiguration(),
                 ["SectionCalculationSchemes"] = GetSectionCalculationSchemesConfiguration(),
                 ["DesignTables"] = GetDesignTablesConfiguration(),
-                ["PreprocessorSettings"] = GetPreprocessorSettingsConfiguration(),
                 ["Numerics"] = GetNumericsConfiguration(),
                 ["VariableDatas"] = GetVariableDatasConfiguration(),
                 ["CalculationProfiles"] = GetCalculationProfilesConfiguration(),
@@ -305,34 +304,6 @@ namespace Riskeer.HydraRing.Calculation.Services
             return orderedDictionaries;
         }
 
-        private IEnumerable<OrderedDictionary> GetPreprocessorSettingsConfiguration()
-        {
-            var orderedDictionaries = new List<OrderedDictionary>();
-
-            foreach (HydraRingCalculationInput hydraRingCalculationInput in hydraRingInputs)
-            {
-                PreprocessorSetting preprocessorSetting = hydraRingCalculationInput.PreprocessorSetting;
-
-                if (preprocessorSetting.RunPreprocessor)
-                {
-                    orderedDictionaries.Add(new OrderedDictionary
-                    {
-                        {
-                            "SectionId", hydraRingCalculationInput.Section.SectionId
-                        },
-                        {
-                            "MinValueRunPreprocessor", preprocessorSetting.ValueMin
-                        },
-                        {
-                            "MaxValueRunPreprocessor", preprocessorSetting.ValueMax
-                        }
-                    });
-                }
-            }
-
-            return orderedDictionaries;
-        }
-
         private IEnumerable<OrderedDictionary> GetNumericsConfiguration()
         {
             var orderDictionaries = new List<OrderedDictionary>();
@@ -350,15 +321,6 @@ namespace Riskeer.HydraRing.Calculation.Services
                                                                subMechanismId,
                                                                hydraRingCalculationInput.IterationMethodId,
                                                                numericsSetting));
-                }
-
-                if (hydraRingCalculationInput.PreprocessorSetting.RunPreprocessor)
-                {
-                    orderDictionaries.Add(CreateNumericsRecord(hydraRingCalculationInput.Section.SectionId,
-                                                               failureMechanismDefaults.PreprocessorMechanismId,
-                                                               failureMechanismDefaults.PreprocessorSubMechanismId,
-                                                               hydraRingCalculationInput.IterationMethodId,
-                                                               hydraRingCalculationInput.PreprocessorSetting.NumericsSetting));
                 }
             }
 
@@ -653,13 +615,6 @@ namespace Riskeer.HydraRing.Calculation.Services
                 orderedDictionaries.Add(CreateFaultTreeModelsRecord(hydraRingCalculationInput.Section.SectionId,
                                                                     failureMechanismDefaults.MechanismId,
                                                                     hydraRingCalculationInput.FaultTreeModelId));
-
-                if (hydraRingCalculationInput.PreprocessorSetting.RunPreprocessor)
-                {
-                    orderedDictionaries.Add(CreateFaultTreeModelsRecord(hydraRingCalculationInput.Section.SectionId,
-                                                                        failureMechanismDefaults.PreprocessorMechanismId,
-                                                                        failureMechanismDefaults.PreprocessorFaultTreeModelId));
-                }
             }
 
             return orderedDictionaries;
