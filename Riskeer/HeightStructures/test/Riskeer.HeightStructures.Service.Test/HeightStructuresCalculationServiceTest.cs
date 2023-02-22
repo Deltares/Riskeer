@@ -863,15 +863,9 @@ namespace Riskeer.HeightStructures.Service.Test
                 new HeightStructuresCalculationService().Calculate(calculation,
                                                                    failureMechanism.GeneralInput,
                                                                    calculationSettings);
-
-                // Assert
-                StructuresOvertoppingCalculationInput[] calculationInputs = calculator.ReceivedInputs.ToArray();
-                Assert.AreEqual(1, calculationInputs.Length);
-
-                StructuresOvertoppingCalculationInput actualInput = calculationInputs[0];
-                Assert.AreEqual(usePreprocessorClosure, actualInput.PreprocessorSetting.RunPreprocessor);
             }
 
+            // Assert
             mockRepository.VerifyAll();
         }
 

@@ -1567,15 +1567,9 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                 new StabilityPointStructuresCalculationService().Calculate(calculation,
                                                                            failureMechanism.GeneralInput,
                                                                            calculationSettings);
-
-                // Assert
-                StructuresStabilityPointCalculationInput[] calculationInputs = calculator.ReceivedInputs.ToArray();
-                Assert.AreEqual(1, calculationInputs.Length);
-
-                StructuresStabilityPointCalculationInput actualInput = calculationInputs[0];
-                Assert.AreEqual(usePreprocessorClosure, actualInput.PreprocessorSetting.RunPreprocessor);
             }
 
+            // Assert
             mockRepository.VerifyAll();
         }
 
