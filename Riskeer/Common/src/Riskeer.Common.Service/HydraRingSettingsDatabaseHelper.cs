@@ -37,7 +37,6 @@ namespace Riskeer.Common.Service
         /// </summary>
         /// <param name="calculationInput">The calculation input for which the settings are updated.</param>
         /// <param name="hrdFilePath">The file path of the hydraulic boundary database.</param>
-        /// <param name="usePreprocessor">Indicator whether to use the preprocessor in the calculation.</param>
         /// <exception cref="ArgumentException">Thrown when the <paramref name="hrdFilePath"/> contains invalid characters.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
@@ -46,7 +45,7 @@ namespace Riskeer.Common.Service
         /// <item>the required data cannot be read from the hydraulic boundary settings database.</item>
         /// </list>
         /// </exception>
-        public static void AssignSettingsFromDatabase(HydraRingCalculationInput calculationInput, string hrdFilePath, bool usePreprocessor)
+        public static void AssignSettingsFromDatabase(HydraRingCalculationInput calculationInput, string hrdFilePath)
         {
             IOUtils.ValidateFilePath(hrdFilePath);
 
@@ -55,7 +54,7 @@ namespace Riskeer.Common.Service
 
             using (var preprocessorSettingsProvider = new PreprocessorSettingsProvider(hbsdFilePath))
             {
-                calculationInput.PreprocessorSetting = preprocessorSettingsProvider.GetPreprocessorSetting(locationId, usePreprocessor);
+                calculationInput.PreprocessorSetting = preprocessorSettingsProvider.GetPreprocessorSetting(locationId, false);
             }
 
             using (var designTablesSettingsProviders = new DesignTablesSettingsProvider(hbsdFilePath))

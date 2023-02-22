@@ -284,7 +284,7 @@ namespace Riskeer.Common.Service
         {
             var waveHeightCalculationInput = new WaveHeightCalculationInput(1, hydraulicBoundaryLocationId, targetProbability);
 
-            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(waveHeightCalculationInput, calculationSettings.HrdFilePath, false);
+            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(waveHeightCalculationInput, calculationSettings.HrdFilePath);
 
             return waveHeightCalculationInput;
         }
