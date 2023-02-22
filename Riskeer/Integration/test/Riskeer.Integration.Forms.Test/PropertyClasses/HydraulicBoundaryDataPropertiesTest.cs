@@ -22,7 +22,6 @@
 using System;
 using System.ComponentModel;
 using System.Drawing.Design;
-using Core.Common.Base;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
@@ -48,8 +47,6 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         private const int windDirectionPropertyIndex = 9;
         private const int windSpeedPropertyIndex = 10;
         private const int commentPropertyIndex = 11;
-        private const int usePreprocessorPropertyIndex = 12;
-        private const int preprocessorDirectoryPropertyIndex = 13;
 
         [Test]
         public void Constructor_HydraulicBoundaryDataNull_ThrowsArgumentNullException()
@@ -98,37 +95,6 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             // Assert
             Assert.IsInstanceOf<ObjectProperties<HydraulicBoundaryData>>(properties);
             Assert.AreSame(hydraulicBoundaryData, properties.Data);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GetProperties_WithHydraulicBoundaryDataWithPreprocessorData_ReturnExpectedValues()
-        {
-            // Setup
-            const bool usePreprocessor = true;
-            const string preprocessorDirectory = @"C:\preprocessor";
-
-            var mocks = new MockRepository();
-            var importHandler = mocks.Stub<IHydraulicLocationConfigurationDatabaseImportHandler>();
-            mocks.ReplayAll();
-
-            var hydraulicBoundaryData = new HydraulicBoundaryData
-            {
-                HydraulicLocationConfigurationSettings =
-                {
-                    CanUsePreprocessor = true,
-                    UsePreprocessor = usePreprocessor,
-                    PreprocessorDirectory = preprocessorDirectory
-                }
-            };
-
-            // Call
-            var properties = new HydraulicBoundaryDataProperties(hydraulicBoundaryData, importHandler);
-
-            // Assert
-            Assert.AreEqual(usePreprocessor, properties.UsePreprocessor);
-            Assert.AreEqual(preprocessorDirectory, properties.PreprocessorDirectory);
-            Assert.AreEqual(preprocessorDirectory, properties.PreprocessorDirectoryReadOnly);
             mocks.VerifyAll();
         }
 
@@ -203,238 +169,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Constructor_CanUsePreprocessorTrue_PropertiesHaveExpectedAttributesValues(bool usePreprocessor)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var importHandler = mocks.Stub<IHydraulicLocationConfigurationDatabaseImportHandler>();
-            mocks.ReplayAll();
-
-            var hydraulicBoundaryData = new HydraulicBoundaryData
-            {
-                HydraulicLocationConfigurationSettings =
-                {
-                    CanUsePreprocessor = true,
-                    UsePreprocessor = usePreprocessor,
-                    PreprocessorDirectory = "Preprocessor"
-                }
-            };
-
-            // Call
-            var properties = new HydraulicBoundaryDataProperties(hydraulicBoundaryData, importHandler);
-
-            // Assert
-            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(14, dynamicProperties.Count);
-
-            const string expectedCategory = "Algemeen";
-            PropertyDescriptor hrdFilePathProperty = dynamicProperties[hrdFilePathPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(hrdFilePathProperty,
-                                                                            expectedCategory,
-                                                                            "HRD bestandslocatie",
-                                                                            "Locatie van het HRD bestand.",
-                                                                            true);
-
-            PropertyDescriptor hlcdFilePathProperty = dynamicProperties[hlcdFilePathPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(hlcdFilePathProperty,
-                                                                            expectedCategory,
-                                                                            "HLCD bestandslocatie",
-                                                                            "Locatie van het HLCD bestand.",
-                                                                            true);
-
-            PropertyDescriptor usePreprocessorClosureProperty = dynamicProperties[usePreprocessorClosurePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(usePreprocessorClosureProperty,
-                                                                            expectedCategory,
-                                                                            "Gebruik preprocessor sluitregime database",
-                                                                            "Gebruik de preprocessor sluitregime database bij het uitvoeren van een berekening.",
-                                                                            true);
-
-            PropertyDescriptor scenarioNameProperty = dynamicProperties[scenarioNamePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(scenarioNameProperty,
-                                                                            expectedCategory,
-                                                                            "Klimaatscenario",
-                                                                            "Algemene naam van het klimaatscenario.",
-                                                                            true);
-
-            PropertyDescriptor yearProperty = dynamicProperties[yearPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(yearProperty,
-                                                                            expectedCategory,
-                                                                            "Zichtjaar",
-                                                                            "Jaartal van het jaar waarop de statistiek van toepassing is.",
-                                                                            true);
-
-            PropertyDescriptor scopeProperty = dynamicProperties[scopePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(scopeProperty,
-                                                                            expectedCategory,
-                                                                            "Toepassingskader",
-                                                                            "Projectkader waarin de statistiek bedoeld is te gebruiken.",
-                                                                            true);
-
-            PropertyDescriptor seaLevelProperty = dynamicProperties[seaLevelPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(seaLevelProperty,
-                                                                            expectedCategory,
-                                                                            "Zeewaterstand",
-                                                                            "Klimaatinformatie met betrekking tot de zeewaterstand.",
-                                                                            true);
-
-            PropertyDescriptor riverDischargeProperty = dynamicProperties[riverDischargePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(riverDischargeProperty,
-                                                                            expectedCategory,
-                                                                            "Rivierafvoer",
-                                                                            "Klimaatinformatie met betrekking tot de rivierafvoer.",
-                                                                            true);
-
-            PropertyDescriptor lakeLevelProperty = dynamicProperties[lakeLevelPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(lakeLevelProperty,
-                                                                            expectedCategory,
-                                                                            "Meerpeil",
-                                                                            "Klimaatinformatie met betrekking tot het meerpeil/de meerpeilen.",
-                                                                            true);
-
-            PropertyDescriptor windDirectionProperty = dynamicProperties[windDirectionPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(windDirectionProperty,
-                                                                            expectedCategory,
-                                                                            "Windrichting",
-                                                                            "Klimaatinformatie met betrekking tot de windrichting.",
-                                                                            true);
-
-            PropertyDescriptor windSpeedProperty = dynamicProperties[windSpeedPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(windSpeedProperty,
-                                                                            expectedCategory,
-                                                                            "Windsnelheid",
-                                                                            "Klimaatinformatie met betrekking tot de windsnelheid.",
-                                                                            true);
-
-            PropertyDescriptor commentProperty = dynamicProperties[commentPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(commentProperty,
-                                                                            expectedCategory,
-                                                                            "Overig",
-                                                                            "Overige informatie.",
-                                                                            true);
-
-            PropertyDescriptor usePreprocessorProperty = dynamicProperties[usePreprocessorPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(usePreprocessorProperty,
-                                                                            expectedCategory,
-                                                                            "Gebruik preprocessor",
-                                                                            "Gebruik de preprocessor bij het uitvoeren van een berekening.");
-
-            PropertyDescriptor preprocessorDirectoryProperty = dynamicProperties[preprocessorDirectoryPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(preprocessorDirectoryProperty,
-                                                                            expectedCategory,
-                                                                            "Locatie preprocessor bestanden",
-                                                                            "Locatie waar de preprocessor bestanden opslaat.",
-                                                                            !usePreprocessor);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_CanUsePreprocessorFalse_PropertiesHaveExpectedAttributesValues()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var importHandler = mocks.Stub<IHydraulicLocationConfigurationDatabaseImportHandler>();
-            mocks.ReplayAll();
-
-            var hydraulicBoundaryData = new HydraulicBoundaryData();
-
-            // Call
-            var properties = new HydraulicBoundaryDataProperties(hydraulicBoundaryData, importHandler);
-
-            // Assert
-            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(12, dynamicProperties.Count);
-
-            const string expectedCategory = "Algemeen";
-            PropertyDescriptor hrdFilePathProperty = dynamicProperties[hrdFilePathPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(hrdFilePathProperty,
-                                                                            expectedCategory,
-                                                                            "HRD bestandslocatie",
-                                                                            "Locatie van het HRD bestand.",
-                                                                            true);
-
-            PropertyDescriptor hlcdFilePathProperty = dynamicProperties[hlcdFilePathPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(hlcdFilePathProperty,
-                                                                            expectedCategory,
-                                                                            "HLCD bestandslocatie",
-                                                                            "Locatie van het HLCD bestand.",
-                                                                            true);
-
-            PropertyDescriptor usePreprocessorClosureProperty = dynamicProperties[usePreprocessorClosurePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(usePreprocessorClosureProperty,
-                                                                            expectedCategory,
-                                                                            "Gebruik preprocessor sluitregime database",
-                                                                            "Gebruik de preprocessor sluitregime database bij het uitvoeren van een berekening.",
-                                                                            true);
-
-            PropertyDescriptor scenarioNameProperty = dynamicProperties[scenarioNamePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(scenarioNameProperty,
-                                                                            expectedCategory,
-                                                                            "Klimaatscenario",
-                                                                            "Algemene naam van het klimaatscenario.",
-                                                                            true);
-
-            PropertyDescriptor yearProperty = dynamicProperties[yearPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(yearProperty,
-                                                                            expectedCategory,
-                                                                            "Zichtjaar",
-                                                                            "Jaartal van het jaar waarop de statistiek van toepassing is.",
-                                                                            true);
-
-            PropertyDescriptor scopeProperty = dynamicProperties[scopePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(scopeProperty,
-                                                                            expectedCategory,
-                                                                            "Toepassingskader",
-                                                                            "Projectkader waarin de statistiek bedoeld is te gebruiken.",
-                                                                            true);
-
-            PropertyDescriptor seaLevelProperty = dynamicProperties[seaLevelPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(seaLevelProperty,
-                                                                            expectedCategory,
-                                                                            "Zeewaterstand",
-                                                                            "Klimaatinformatie met betrekking tot de zeewaterstand.",
-                                                                            true);
-
-            PropertyDescriptor riverDischargeProperty = dynamicProperties[riverDischargePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(riverDischargeProperty,
-                                                                            expectedCategory,
-                                                                            "Rivierafvoer",
-                                                                            "Klimaatinformatie met betrekking tot de rivierafvoer.",
-                                                                            true);
-
-            PropertyDescriptor lakeLevelProperty = dynamicProperties[lakeLevelPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(lakeLevelProperty,
-                                                                            expectedCategory,
-                                                                            "Meerpeil",
-                                                                            "Klimaatinformatie met betrekking tot het meerpeil/de meerpeilen.",
-                                                                            true);
-
-            PropertyDescriptor windDirectionProperty = dynamicProperties[windDirectionPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(windDirectionProperty,
-                                                                            expectedCategory,
-                                                                            "Windrichting",
-                                                                            "Klimaatinformatie met betrekking tot de windrichting.",
-                                                                            true);
-
-            PropertyDescriptor windSpeedProperty = dynamicProperties[windSpeedPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(windSpeedProperty,
-                                                                            expectedCategory,
-                                                                            "Windsnelheid",
-                                                                            "Klimaatinformatie met betrekking tot de windsnelheid.",
-                                                                            true);
-
-            PropertyDescriptor commentProperty = dynamicProperties[commentPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(commentProperty,
-                                                                            expectedCategory,
-                                                                            "Overig",
-                                                                            "Overige informatie.",
-                                                                            true);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Constructor_WithLinkedDatabaseStatus_HlcdFilePathHaveExpectedAttributeValue(bool isLinked)
+        public void Constructor_WithLinkedDatabaseStatus_PropertiesHaveExpectedAttributesValues(bool isLinked)
         {
             // Setup
             var mocks = new MockRepository();
@@ -544,69 +279,6 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void UsePreprocessor_SetNewValue_ValueSetToHydraulicBoundaryDataAndObserversNotified(bool usePreprocessor)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var importHandler = mocks.Stub<IHydraulicLocationConfigurationDatabaseImportHandler>();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var hydraulicBoundaryData = new HydraulicBoundaryData
-            {
-                HydraulicLocationConfigurationSettings =
-                {
-                    CanUsePreprocessor = true,
-                    UsePreprocessor = !usePreprocessor,
-                    PreprocessorDirectory = "Preprocessor"
-                }
-            };
-
-            var properties = new HydraulicBoundaryDataProperties(hydraulicBoundaryData, importHandler);
-
-            hydraulicBoundaryData.Attach(observer);
-
-            // Call
-            properties.UsePreprocessor = usePreprocessor;
-
-            // Assert
-            Assert.AreEqual(usePreprocessor, hydraulicBoundaryData.HydraulicLocationConfigurationSettings.UsePreprocessor);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void PreprocessorDirectory_SetNewValue_ValueSetToHydraulicBoundaryData()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var importHandler = mocks.Stub<IHydraulicLocationConfigurationDatabaseImportHandler>();
-            mocks.ReplayAll();
-
-            const string newPreprocessorDirectory = @"C:/path";
-            var hydraulicBoundaryData = new HydraulicBoundaryData
-            {
-                HydraulicLocationConfigurationSettings =
-                {
-                    CanUsePreprocessor = true,
-                    UsePreprocessor = true,
-                    PreprocessorDirectory = "Preprocessor"
-                }
-            };
-
-            var properties = new HydraulicBoundaryDataProperties(hydraulicBoundaryData, importHandler);
-
-            // Call
-            properties.PreprocessorDirectory = newPreprocessorDirectory;
-
-            // Assert
-            Assert.AreEqual(newPreprocessorDirectory, hydraulicBoundaryData.HydraulicLocationConfigurationSettings.PreprocessorDirectory);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void HlcdFilePath_SetNewValue_CallsHydraulicLocationConfigurationDatabaseImportHandler()
         {
             // Setup
@@ -629,49 +301,6 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [Combinatorial]
-        public void DynamicVisibleValidationMethod_DependingOnCanUsePreprocessorAndUsePreprocessor_ReturnExpectedVisibility(
-            [Values(true, false)] bool canUsePreprocessor,
-            [Values(true, false)] bool usePreprocessor)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var importHandler = mocks.Stub<IHydraulicLocationConfigurationDatabaseImportHandler>();
-            mocks.ReplayAll();
-
-            var hydraulicBoundaryData = new HydraulicBoundaryData();
-
-            if (canUsePreprocessor)
-            {
-                hydraulicBoundaryData.HydraulicLocationConfigurationSettings.CanUsePreprocessor = true;
-                hydraulicBoundaryData.HydraulicLocationConfigurationSettings.UsePreprocessor = usePreprocessor;
-                hydraulicBoundaryData.HydraulicLocationConfigurationSettings.PreprocessorDirectory = "Preprocessor";
-            }
-
-            // Call
-            var properties = new HydraulicBoundaryDataProperties(hydraulicBoundaryData, importHandler);
-
-            // Assert
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.HrdFilePath)));
-            Assert.AreEqual(canUsePreprocessor, properties.DynamicVisibleValidationMethod(nameof(properties.UsePreprocessor)));
-            Assert.AreEqual(canUsePreprocessor && usePreprocessor, properties.DynamicVisibleValidationMethod(nameof(properties.PreprocessorDirectory)));
-            Assert.AreEqual(canUsePreprocessor && !usePreprocessor, properties.DynamicVisibleValidationMethod(nameof(properties.PreprocessorDirectoryReadOnly)));
-
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.HlcdFilePath)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.HlcdFilePathReadOnly)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.ScenarioName)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Year)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Scope)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.SeaLevel)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.RiverDischarge)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.LakeLevel)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.WindDirection)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.WindSpeed)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Comment)));
-            mocks.VerifyAll();
-        }
-
-        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void DynamicVisibleValidationMethod_DependingOnHydraulicBoundaryDataLinkStatus_ReturnsExpectedVisibility(bool isHydraulicBoundaryDataLinked)
@@ -690,10 +319,6 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.HrdFilePath)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.UsePreprocessor)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.PreprocessorDirectory)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.PreprocessorDirectoryReadOnly)));
-
             Assert.AreEqual(isHydraulicBoundaryDataLinked, properties.DynamicVisibleValidationMethod(nameof(properties.HlcdFilePath)));
             Assert.AreEqual(!isHydraulicBoundaryDataLinked, properties.DynamicVisibleValidationMethod(nameof(properties.HlcdFilePathReadOnly)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.ScenarioName)));
@@ -719,7 +344,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                                                                                    "ScenarioName",
                                                                                    10,
                                                                                    "Scope",
-                                                                                   false,
+                                                                                   true,
                                                                                    "SeaLevel",
                                                                                    "RiverDischarge",
                                                                                    "LakeLevel",
