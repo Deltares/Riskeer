@@ -85,7 +85,7 @@ namespace Riskeer.Common.Service.Test
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void CreateWaveHeightCalculationActivities_WithValidDataAndUsePreprocessorStates_ReturnsExpectedActivity(bool usePreprocessor)
+        public void CreateWaveHeightCalculationActivities_WithValidData_ReturnsExpectedActivity(bool usePreprocessorClosure)
         {
             // Setup
             const string calculationIdentifier = "1/30";
@@ -95,7 +95,7 @@ namespace Riskeer.Common.Service.Test
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             mocks.ReplayAll();
 
-            ConfigureAssessmentSection(assessmentSection, usePreprocessor);
+            ConfigureAssessmentSection(assessmentSection, usePreprocessorClosure);
 
             var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation("locationName1");
             var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation("locationName2");
@@ -161,7 +161,7 @@ namespace Riskeer.Common.Service.Test
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void CreateDesignWaterLevelCalculationActivities_WithValidDataAndUsePreprocessorStates_ReturnsExpectedActivity(bool usePreprocessor)
+        public void CreateDesignWaterLevelCalculationActivities_WithValidData_ReturnsExpectedActivity(bool usePreprocessorClosure)
         {
             // Setup
             const string calculationIdentifier = "1/30";
@@ -171,7 +171,7 @@ namespace Riskeer.Common.Service.Test
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             mocks.ReplayAll();
 
-            ConfigureAssessmentSection(assessmentSection, usePreprocessor);
+            ConfigureAssessmentSection(assessmentSection, usePreprocessorClosure);
 
             var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation("locationName1");
             var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation("locationName2");
@@ -266,13 +266,10 @@ namespace Riskeer.Common.Service.Test
             mocks.VerifyAll();
         }
 
-        private static void ConfigureAssessmentSection(IAssessmentSection assessmentSection, bool usePreprocessor)
+        private static void ConfigureAssessmentSection(IAssessmentSection assessmentSection, bool usePreprocessorClosure)
         {
-            assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.CanUsePreprocessor = true;
-            assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.UsePreprocessor = usePreprocessor;
             assessmentSection.HydraulicBoundaryData.FilePath = validFilePath;
-            assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.PreprocessorDirectory = validPreprocessorDirectory;
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData);
+            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData, usePreprocessorClosure);
         }
     }
 }
