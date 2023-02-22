@@ -41,8 +41,7 @@ namespace Riskeer.ClosingStructures.Service
 
         protected override StructuresClosureCalculationInput CreateInput(ClosingStructuresInput structureInput,
                                                                          GeneralClosingStructuresInput generalInput,
-                                                                         string hrdFilePath,
-                                                                         bool usePreprocessor)
+                                                                         string hrdFilePath)
         {
             ClosingStructureInflowModelType closingStructureInflowModelType = structureInput.InflowModelType;
             if (!Enum.IsDefined(typeof(ClosingStructureInflowModelType), closingStructureInflowModelType))

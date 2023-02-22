@@ -155,7 +155,7 @@ namespace Riskeer.Common.Service.Structures
                 throw new ArgumentNullException(nameof(calculationSettings));
             }
 
-            TCalculationInput input = CreateInput(calculation.InputParameters, generalInput, calculationSettings.HrdFilePath, false);
+            TCalculationInput input = CreateInput(calculation.InputParameters, generalInput, calculationSettings.HrdFilePath);
 
             calculator = HydraRingCalculatorFactory.Instance.CreateStructuresCalculator<TCalculationInput>(
                 HydraRingCalculationSettingsFactory.CreateSettings(calculationSettings));
@@ -219,7 +219,6 @@ namespace Riskeer.Common.Service.Structures
         /// <param name="structureInput">The structure input to create the calculation input for.</param>
         /// <param name="generalInput">The <see cref="TGeneralInput"/> that is used in the calculation.</param>
         /// <param name="hrdFilePath">The file path of the hydraulic boundary database.</param>
-        /// <param name="usePreprocessor">Indicator whether to use the preprocessor in the calculation.</param>
         /// <returns>A <see cref="TCalculationInput"/>.</returns>
         /// <exception cref="ArgumentException">Thrown when the <paramref name="hrdFilePath"/> contains invalid characters.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when an unexpected enum value is encountered.</exception>
@@ -232,8 +231,7 @@ namespace Riskeer.Common.Service.Structures
         /// </exception>
         protected abstract TCalculationInput CreateInput(TStructureInput structureInput,
                                                          TGeneralInput generalInput,
-                                                         string hrdFilePath,
-                                                         bool usePreprocessor);
+                                                         string hrdFilePath);
 
         /// <summary>
         /// Performs a structures calculation.

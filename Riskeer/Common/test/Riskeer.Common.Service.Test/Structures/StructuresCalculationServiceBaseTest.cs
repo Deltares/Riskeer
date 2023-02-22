@@ -953,8 +953,7 @@ namespace Riskeer.Common.Service.Test.Structures
 
             protected override ExceedanceProbabilityCalculationInput CreateInput(TestStructuresInput structureInput,
                                                                                  GeneralTestInput generalInput,
-                                                                                 string hrdFilePath,
-                                                                                 bool usePreprocessor)
+                                                                                 string hrdFilePath)
             {
                 return new TestExceedanceProbabilityCalculationInput(structureInput.HydraulicBoundaryLocation.Id);
             }

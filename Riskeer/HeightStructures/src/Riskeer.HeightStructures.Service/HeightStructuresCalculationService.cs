@@ -40,8 +40,7 @@ namespace Riskeer.HeightStructures.Service
 
         protected override StructuresOvertoppingCalculationInput CreateInput(HeightStructuresInput structureInput,
                                                                              GeneralHeightStructuresInput generalInput,
-                                                                             string hrdFilePath,
-                                                                             bool usePreprocessor)
+                                                                             string hrdFilePath)
         {
             var structuresOvertoppingCalculationInput = new StructuresOvertoppingCalculationInput(
                 structureInput.HydraulicBoundaryLocation.Id,

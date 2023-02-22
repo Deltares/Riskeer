@@ -45,8 +45,7 @@ namespace Riskeer.StabilityPointStructures.Service
 
         protected override StructuresStabilityPointCalculationInput CreateInput(StabilityPointStructuresInput structureInput,
                                                                                 GeneralStabilityPointStructuresInput generalInput,
-                                                                                string hrdFilePath,
-                                                                                bool usePreprocessor)
+                                                                                string hrdFilePath)
         {
             StabilityPointStructureInflowModelType inflowModelType = structureInput.InflowModelType;
             if (!Enum.IsDefined(typeof(StabilityPointStructureInflowModelType), inflowModelType))
