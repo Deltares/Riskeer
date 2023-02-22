@@ -48,7 +48,6 @@ namespace Riskeer.Revetment.Service.Test
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
         private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
-        private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
 
         [Test]
         public void Validate_InputNull_ThrowArgumentNullException()
@@ -88,12 +87,7 @@ namespace Riskeer.Revetment.Service.Test
                                                                                    GetValidAssessmentLevel(),
                                                                                    new HydraulicBoundaryData
                                                                                    {
-                                                                                       FilePath = invalidFilePath,
-                                                                                       HydraulicLocationConfigurationSettings =
-                                                                                       {
-                                                                                           CanUsePreprocessor = true,
-                                                                                           PreprocessorDirectory = validPreprocessorDirectory
-                                                                                       }
+                                                                                       FilePath = invalidFilePath
                                                                                    });
 
             // Assert
@@ -122,12 +116,7 @@ namespace Riskeer.Revetment.Service.Test
                                                                                    GetValidAssessmentLevel(),
                                                                                    new HydraulicBoundaryData
                                                                                    {
-                                                                                       FilePath = dbFilePath,
-                                                                                       HydraulicLocationConfigurationSettings =
-                                                                                       {
-                                                                                           CanUsePreprocessor = true,
-                                                                                           PreprocessorDirectory = validPreprocessorDirectory
-                                                                                       }
+                                                                                       FilePath = dbFilePath
                                                                                    });
 
             // Assert
@@ -843,12 +832,7 @@ namespace Riskeer.Revetment.Service.Test
         {
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = validHrdFilePath,
-                HydraulicLocationConfigurationSettings =
-                {
-                    CanUsePreprocessor = true,
-                    PreprocessorDirectory = validPreprocessorDirectory
-                }
+                FilePath = validHrdFilePath
             };
 
             HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryData);
