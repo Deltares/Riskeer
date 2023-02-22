@@ -64,7 +64,7 @@ namespace Riskeer.Integration.Data.Test
             CollectionAssert.IsEmpty(hydraulicBoundaryData.Locations);
             Assert.IsNull(hydraulicBoundaryData.FilePath);
             Assert.IsNull(hydraulicBoundaryData.Version);
-            Assert.IsFalse(hydraulicBoundaryData.HydraulicLocationConfigurationSettings.CanUsePreprocessor);
+            Assert.IsNotNull(hydraulicBoundaryData.HydraulicLocationConfigurationSettings);
 
             CollectionAssert.IsEmpty(assessmentSection.SpecificFailureMechanisms);
 
