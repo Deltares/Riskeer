@@ -542,7 +542,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Integration.Test
                     }
                 }
             };
-            
+
             HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData,
                                                                                       usePreprocessorClosure);
 
