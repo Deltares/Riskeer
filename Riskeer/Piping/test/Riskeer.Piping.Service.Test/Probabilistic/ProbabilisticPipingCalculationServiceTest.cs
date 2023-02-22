@@ -2084,7 +2084,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
                 failureMechanism, mocks, validHrdFilePath, usePreprocessorClosure);
-            
+
             HydraulicBoundaryCalculationSettings calculationSettings = HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData);
 
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
