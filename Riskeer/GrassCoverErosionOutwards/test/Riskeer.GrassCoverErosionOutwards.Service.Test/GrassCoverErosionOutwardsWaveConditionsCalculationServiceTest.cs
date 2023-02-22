@@ -797,96 +797,15 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
         }
 
         [Test]
-        public void Calculate_HydraulicBoundaryDatabaseWithCanUsePreprocessorFalse_ExpectedPreprocessorDirectorySetToCalculator()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Calculate_HydraulicBoundaryDataSet_ExpectedSettingsSetToCalculator(bool usePreprocessorClosure)
         {
             // Setup
-            AssessmentSectionStub assessmentSection = CreateAssessmentSection();
+            AssessmentSectionStub assessmentSection = CreateAssessmentSection(usePreprocessorClosure);
             ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
 
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection.HydraulicBoundaryData.Locations.First());
-            RoundedDouble[] waterLevels = GetWaterLevels(calculation, assessmentSection).ToArray();
-            int nrOfCalculators = waterLevels.Length * 3;
-
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
-                             .WhenCalled(invocation =>
-                             {
-                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData),
-                                     (HydraRingCalculationSettings) invocation.Arguments[0]);
-                             })
-                             .Return(new TestWaveConditionsCosineCalculator())
-                             .Repeat
-                             .Times(nrOfCalculators);
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-            {
-                // Call
-                new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(calculation,
-                                                                                          failureMechanism,
-                                                                                          assessmentSection);
-            }
-
-            // Assert
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Calculate_HydraulicBoundaryDatabaseWithUsePreprocessorTrue_ExpectedPreprocessorDirectorySetToCalculator()
-        {
-            // Setup
-            AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-            assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.CanUsePreprocessor = true;
-            assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.UsePreprocessor = true;
-            assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.PreprocessorDirectory = TestHelper.GetScratchPadPath();
-            ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
-
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection.HydraulicBoundaryData.Locations.First());
-
-            RoundedDouble[] waterLevels = GetWaterLevels(calculation, assessmentSection).ToArray();
-            int nrOfCalculators = waterLevels.Length * 3;
-
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
-                             .WhenCalled(invocation =>
-                             {
-                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData),
-                                     (HydraRingCalculationSettings) invocation.Arguments[0]);
-                             }).Return(new TestWaveConditionsCosineCalculator())
-                             .Repeat
-                             .Times(nrOfCalculators);
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-            {
-                // Call
-                new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(calculation,
-                                                                                          failureMechanism,
-                                                                                          assessmentSection);
-            }
-
-            // Assert
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Calculate_HydraulicBoundaryDatabaseWithUsePreprocessorFalse_ExpectedPreprocessorDirectorySetToCalculator()
-        {
-            // Setup
-            AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-            assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.CanUsePreprocessor = true;
-            assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.UsePreprocessor = false;
-            assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.PreprocessorDirectory = "InvalidPreprocessorDirectory";
-            ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
-
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection.HydraulicBoundaryData.Locations.First());
-
             RoundedDouble[] waterLevels = GetWaterLevels(calculation, assessmentSection).ToArray();
             int nrOfCalculators = waterLevels.Length * 3;
 
@@ -1010,7 +929,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             Assert.AreEqual($"Berekening voor {calculationType} is beëindigd.", logMessages[index]);
         }
 
-        private static AssessmentSectionStub CreateAssessmentSection()
+        private static AssessmentSectionStub CreateAssessmentSection(bool usePreprocessorClosure = false)
         {
             string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
             string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
@@ -1022,7 +941,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                     FilePath = validFilePath
                 }
             };
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData);
+
+            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData, usePreprocessorClosure);
+
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 new TestHydraulicBoundaryLocation()
