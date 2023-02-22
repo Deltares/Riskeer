@@ -166,32 +166,20 @@ namespace Riskeer.GrassCoverErosionInwards.Service
 
             try
             {
-                OvertoppingOutput overtoppingOutput = CalculateOvertopping(calculation,
-                                                                           generalInput,
-                                                                           hrdFilePath,
-                                                                           false,
-                                                                           numberOfCalculators);
+                OvertoppingOutput overtoppingOutput = CalculateOvertopping(calculation, generalInput, hrdFilePath, numberOfCalculators);
 
                 if (canceled)
                 {
                     return;
                 }
 
-                DikeHeightOutput dikeHeightOutput = CalculateDikeHeight(calculation,
-                                                                        generalInput,
-                                                                        hrdFilePath,
-                                                                        false,
-                                                                        numberOfCalculators);
+                DikeHeightOutput dikeHeightOutput = CalculateDikeHeight(calculation, generalInput, hrdFilePath, numberOfCalculators);
                 if (canceled)
                 {
                     return;
                 }
 
-                OvertoppingRateOutput overtoppingRateOutput = CalculateOvertoppingRate(calculation,
-                                                                                       generalInput,
-                                                                                       hrdFilePath,
-                                                                                       false,
-                                                                                       numberOfCalculators);
+                OvertoppingRateOutput overtoppingRateOutput = CalculateOvertoppingRate(calculation, generalInput, hrdFilePath, numberOfCalculators);
 
                 if (canceled)
                 {
@@ -243,24 +231,19 @@ namespace Riskeer.GrassCoverErosionInwards.Service
         /// <param name="calculation">The calculation containing the input for the overtopping calculation.</param>
         /// <param name="generalInput">The general grass cover erosion inwards calculation input parameters.</param>
         /// <param name="hrdFilePath">The file path of the hydraulic boundary database.</param>
-        /// <param name="usePreprocessor">Indicator whether to use the preprocessor in the calculation.</param>
         /// <param name="numberOfCalculators">The total number of calculations to perform.</param>
         /// <returns>A <see cref="OvertoppingOutput"/>.</returns>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
         private OvertoppingOutput CalculateOvertopping(GrassCoverErosionInwardsCalculation calculation,
                                                        GeneralGrassCoverErosionInwardsInput generalInput,
                                                        string hrdFilePath,
-                                                       bool usePreprocessor,
                                                        int numberOfCalculators)
         {
             NotifyProgress(string.Format(Resources.GrassCoverErosionInwardsCalculationService_Calculate_Executing_calculation_of_type_0,
                                          Resources.GrassCoverErosionInwardsCalculationService_Overtopping),
                            1, numberOfCalculators);
 
-            OvertoppingCalculationInput overtoppingCalculationInput = CreateOvertoppingInput(calculation,
-                                                                                             generalInput,
-                                                                                             hrdFilePath,
-                                                                                             usePreprocessor);
+            OvertoppingCalculationInput overtoppingCalculationInput = CreateOvertoppingInput(calculation, generalInput, hrdFilePath);
 
             PerformCalculation(() => overtoppingCalculator.Calculate(overtoppingCalculationInput),
                                () => overtoppingCalculator.LastErrorFileContent,
@@ -293,7 +276,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service
         private DikeHeightOutput CalculateDikeHeight(GrassCoverErosionInwardsCalculation calculation,
                                                      GeneralGrassCoverErosionInwardsInput generalInput,
                                                      string hrdFilePath,
-                                                     bool usePreprocessor,
                                                      int numberOfCalculators)
         {
             if (dikeHeightCalculator == null)
@@ -305,8 +287,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service
                                          Resources.GrassCoverErosionInwardsCalculationService_DikeHeight),
                            2, numberOfCalculators);
 
-            DikeHeightCalculationInput dikeHeightCalculationInput = CreateDikeHeightInput(
-                calculation, generalInput, hrdFilePath, usePreprocessor);
+            DikeHeightCalculationInput dikeHeightCalculationInput = CreateDikeHeightInput(calculation, generalInput, hrdFilePath);
 
             var dikeHeightCalculated = true;
 
@@ -339,7 +320,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service
         private OvertoppingRateOutput CalculateOvertoppingRate(GrassCoverErosionInwardsCalculation calculation,
                                                                GeneralGrassCoverErosionInwardsInput generalInput,
                                                                string hrdFilePath,
-                                                               bool usePreprocessor,
                                                                int numberOfCalculators)
         {
             if (overtoppingRateCalculator == null)
@@ -351,8 +331,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service
                                          Resources.GrassCoverErosionInwardsCalculationService_OvertoppingRate),
                            numberOfCalculators, numberOfCalculators);
 
-            OvertoppingRateCalculationInput overtoppingRateCalculationInput = CreateOvertoppingRateInput(
-                calculation, generalInput, hrdFilePath, usePreprocessor);
+            OvertoppingRateCalculationInput overtoppingRateCalculationInput = CreateOvertoppingRateInput(calculation, generalInput, hrdFilePath);
 
             var overtoppingRateCalculated = true;
 
@@ -459,7 +438,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service
         /// <param name="calculation">The calculation containing the input for the overtopping calculation.</param>
         /// <param name="generalInput">The general grass cover erosion inwards calculation input parameters.</param>
         /// <param name="hrdFilePath">The file path of the hydraulic boundary database.</param>
-        /// <param name="usePreprocessor">Indicator whether to use the preprocessor in the calculation.</param>
         /// <returns>A new <see cref="OvertoppingCalculationInput"/> instance.</returns>
         /// <exception cref="ArgumentException">Thrown when the <paramref name="hrdFilePath"/> 
         /// contains invalid characters.</exception>
@@ -472,8 +450,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service
         /// </exception>
         private static OvertoppingCalculationInput CreateOvertoppingInput(GrassCoverErosionInwardsCalculation calculation,
                                                                           GeneralGrassCoverErosionInwardsInput generalInput,
-                                                                          string hrdFilePath,
-                                                                          bool usePreprocessor)
+                                                                          string hrdFilePath)
         {
             var overtoppingCalculationInput = new OvertoppingCalculationInput(calculation.InputParameters.HydraulicBoundaryLocation.Id,
                                                                               calculation.InputParameters.Orientation,
@@ -513,7 +490,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service
         /// <param name="calculation">The calculation containing the input for the dike height calculation.</param>
         /// <param name="generalInput">The general grass cover erosion inwards calculation input parameters.</param>
         /// <param name="hrdFilePath">The file path of the hydraulic boundary database.</param>
-        /// <param name="usePreprocessor">Indicator whether to use the preprocessor in the calculation.</param>
         /// <returns>A new <see cref="DikeHeightCalculationInput"/> instance.</returns>
         /// <exception cref="ArgumentException">Thrown when the <paramref name="hrdFilePath"/> 
         /// contains invalid characters.</exception>
@@ -526,8 +502,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service
         /// </exception>
         private static DikeHeightCalculationInput CreateDikeHeightInput(GrassCoverErosionInwardsCalculation calculation,
                                                                         GeneralGrassCoverErosionInwardsInput generalInput,
-                                                                        string hrdFilePath,
-                                                                        bool usePreprocessor)
+                                                                        string hrdFilePath)
         {
             var dikeHeightCalculationInput = new DikeHeightCalculationInput(calculation.InputParameters.HydraulicBoundaryLocation.Id,
                                                                             calculation.InputParameters.DikeHeightTargetProbability,
@@ -567,7 +542,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service
         /// <param name="calculation">The calculation containing the input for the overtopping rate calculation.</param>
         /// <param name="generalInput">The general grass cover erosion inwards calculation input parameters.</param>
         /// <param name="hrdFilePath">The file path of the hydraulic boundary database.</param>
-        /// <param name="usePreprocessor">Indicator whether to use the preprocessor in the calculation.</param>
         /// <returns>A new <see cref="OvertoppingRateCalculationInput"/> instance.</returns>
         /// <exception cref="ArgumentException">Thrown when the <paramref name="hrdFilePath"/> 
         /// contains invalid characters.</exception>
@@ -580,8 +554,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service
         /// </exception>
         private static OvertoppingRateCalculationInput CreateOvertoppingRateInput(GrassCoverErosionInwardsCalculation calculation,
                                                                                   GeneralGrassCoverErosionInwardsInput generalInput,
-                                                                                  string hrdFilePath,
-                                                                                  bool usePreprocessor)
+                                                                                  string hrdFilePath)
         {
             var overtoppingRateCalculationInput = new OvertoppingRateCalculationInput(calculation.InputParameters.HydraulicBoundaryLocation.Id,
                                                                                       calculation.InputParameters.OvertoppingRateTargetProbability,
