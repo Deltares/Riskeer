@@ -51,8 +51,7 @@ namespace Riskeer.Common.Service
         /// Performs a calculation for the design water level.
         /// </summary>
         /// <param name="hydraulicBoundaryLocationCalculation">The hydraulic boundary location calculation to perform.</param>
-        /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> with the
-        /// hydraulic boundary calculation settings.</param>
+        /// <param name="calculationSettings">The hydraulic boundary calculation settings.</param>
         /// <param name="targetProbability">The target probability to use during the calculation.</param>
         /// <param name="messageProvider">The object which is used to build log messages.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculation"/>,
@@ -152,8 +151,7 @@ namespace Riskeer.Common.Service
         /// Performs a calculation for the design water level.
         /// </summary>
         /// <param name="hydraulicBoundaryLocationCalculation">The hydraulic boundary location calculation to perform.</param>
-        /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> with the
-        /// hydraulic boundary calculation settings.</param>
+        /// <param name="calculationSettings">The hydraulic boundary calculation settings.</param>
         /// <param name="targetProbability">The target probability to use during the calculation.</param>
         /// <param name="messageProvider">The object which is used to build log messages.</param>
         /// <exception cref="CriticalFileReadException">Thrown when:
@@ -267,8 +265,7 @@ namespace Riskeer.Common.Service
         /// </summary>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic boundary location.</param>
         /// <param name="targetProbability">The target probability to use during the calculation.</param>
-        /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> with the
-        /// hydraulic boundary calculation settings.</param>
+        /// <param name="calculationSettings">The hydraulic boundary calculation settings.</param>
         /// <returns>An <see cref="AssessmentLevelCalculationInput"/>.</returns>
         /// <exception cref="ArgumentException">Thrown when the hydraulic boundary database file path
         /// contains invalid characters.</exception>
