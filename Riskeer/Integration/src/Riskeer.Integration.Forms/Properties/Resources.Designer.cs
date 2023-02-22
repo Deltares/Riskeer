@@ -590,42 +590,6 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Locatie waar de preprocessor bestanden opslaat..
-        /// </summary>
-        public static string HydraulicBoundaryDatabase_PreprocessorDirectory_Description {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabase_PreprocessorDirectory_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Locatie preprocessor bestanden.
-        /// </summary>
-        public static string HydraulicBoundaryDatabase_PreprocessorDirectory_DisplayName {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabase_PreprocessorDirectory_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Gebruik de preprocessor bij het uitvoeren van een berekening..
-        /// </summary>
-        public static string HydraulicBoundaryDatabase_UsePreprocessor_Description {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabase_UsePreprocessor_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Gebruik preprocessor.
-        /// </summary>
-        public static string HydraulicBoundaryDatabase_UsePreprocessor_DisplayName {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabase_UsePreprocessor_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Overige informatie..
         /// </summary>
         public static string HydraulicLocationConfigurationSettings_Comment_Description {

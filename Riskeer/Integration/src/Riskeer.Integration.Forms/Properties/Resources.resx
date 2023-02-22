@@ -247,18 +247,6 @@
     <data name="SignalFloodingProbability_DisplayName" xml:space="preserve">
     <value>Signaleringsparameter [1/jaar]</value>
   </data>
-    <data name="HydraulicBoundaryDatabase_PreprocessorDirectory_Description" xml:space="preserve">
-    <value>Locatie waar de preprocessor bestanden opslaat.</value>
-  </data>
-    <data name="HydraulicBoundaryDatabase_PreprocessorDirectory_DisplayName" xml:space="preserve">
-    <value>Locatie preprocessor bestanden</value>
-  </data>
-    <data name="HydraulicBoundaryDatabase_UsePreprocessor_Description" xml:space="preserve">
-    <value>Gebruik de preprocessor bij het uitvoeren van een berekening.</value>
-  </data>
-    <data name="HydraulicBoundaryDatabase_UsePreprocessor_DisplayName" xml:space="preserve">
-    <value>Gebruik preprocessor</value>
-  </data>
     <data name="ReferenceLineProperties_Geometry_DisplayName" xml:space="preserve">
     <value>Coördinaten</value>
   </data>
