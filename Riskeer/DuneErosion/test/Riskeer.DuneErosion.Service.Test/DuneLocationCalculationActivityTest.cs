@@ -48,7 +48,6 @@ namespace Riskeer.DuneErosion.Service.Test
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
         private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
         private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "HLCD.sqlite");
-        private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
 
         [SetUp]
         public void SetUp()
@@ -99,10 +98,7 @@ namespace Riskeer.DuneErosion.Service.Test
             const string calculationIdentifier = "1/100";
             const string locationName = "locationName";
 
-            var settings = new HydraulicBoundaryCalculationSettings(invalidFilePath,
-                                                                    validHlcdFilePath,
-                                                                    false,
-                                                                    string.Empty);
+            var settings = new HydraulicBoundaryCalculationSettings(invalidFilePath, validHlcdFilePath, false);
             var activity = new DuneLocationCalculationActivity(new DuneLocationCalculation(new TestDuneLocation(locationName)),
                                                                settings,
                                                                0.01,
@@ -127,7 +123,7 @@ namespace Riskeer.DuneErosion.Service.Test
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Run_VariousValidInputs_PerformsCalculationWithCorrectInput(bool usePreprocessor)
+        public void Run_VariousValidInputs_PerformsCalculationWithCorrectInput(bool usePreprocessorClosure)
         {
             // Setup
             const double targetProbability = 0.01;
@@ -139,11 +135,7 @@ namespace Riskeer.DuneErosion.Service.Test
                 Converged = true
             };
 
-            string preprocessorDirectory = usePreprocessor ? validPreprocessorDirectory : string.Empty;
-            var calculationSettings = new HydraulicBoundaryCalculationSettings(validHrdFilePath,
-                                                                               validHlcdFilePath,
-                                                                               false,
-                                                                               preprocessorDirectory);
+            var calculationSettings = new HydraulicBoundaryCalculationSettings(validHrdFilePath, validHlcdFilePath, usePreprocessorClosure);
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
@@ -430,10 +422,7 @@ namespace Riskeer.DuneErosion.Service.Test
 
         private static HydraulicBoundaryCalculationSettings CreateCalculationSettings()
         {
-            return new HydraulicBoundaryCalculationSettings(validHrdFilePath,
-                                                            validHlcdFilePath,
-                                                            false,
-                                                            string.Empty);
+            return new HydraulicBoundaryCalculationSettings(validHrdFilePath, validHlcdFilePath, false);
         }
 
         private class DuneLocationCalculationActivityWithState : DuneLocationCalculationActivity
