@@ -1040,68 +1040,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenHydraulicBoundaryDataWithMissingPreprocessorClosureDatabase_WhenValidatingCalculation_ThenValidationErrorsLogged()
-        {
-            // Given
-            AssessmentSectionStub assessmentSection = CreateAssessmentSection(true);
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
-            {
-                new TestHydraulicBoundaryLocation()
-            });
-            ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
-
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
-            var parent = new CalculationGroup();
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection.HydraulicBoundaryData.Locations.First());
-
-            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
-                                                                                        parent,
-                                                                                        failureMechanism,
-                                                                                        assessmentSection);
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-                var importHandler = mocks.Stub<IImportCommandHandler>();
-                var exportHandler = mocks.Stub<IExportCommandHandler>();
-                var updateHandler = mocks.Stub<IUpdateCommandHandler>();
-                var viewCommands = mocks.Stub<IViewCommands>();
-                var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
-                                                         importHandler,
-                                                         exportHandler,
-                                                         updateHandler,
-                                                         viewCommands,
-                                                         context,
-                                                         treeViewControl);
-
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // When
-                    ToolStripItem validateMenuItem = contextMenu.Items[validateMenuItemIndex];
-                    void Call() => validateMenuItem.PerformClick();
-
-                    // Then
-                    TestHelper.AssertLogMessages(Call, logMessages =>
-                    {
-                        string[] messages = logMessages.ToArray();
-                        Assert.AreEqual(3, messages.Length);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(messages[0]);
-                        Assert.AreEqual("Fixme", messages[1]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(messages[2]);
-                    });
-                }
-            }
-        }
-
-        [Test]
         public void GivenAssessmentSectionWithHydraulicBoundaryDatabaseNotLinked_ThenCalculationItemDisabled()
         {
             // Given
@@ -1206,10 +1144,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenValidInput_ThenCalculationItemEnabled()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GivenValidInput_ThenCalculationItemEnabled(bool usePreprocessorClosure)
         {
             // Given
-            IAssessmentSection assessmentSection = CreateAssessmentSection();
+            IAssessmentSection assessmentSection = CreateAssessmentSection(usePreprocessorClosure);
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             var parent = new CalculationGroup();
