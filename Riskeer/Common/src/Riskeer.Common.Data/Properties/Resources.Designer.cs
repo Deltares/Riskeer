@@ -500,15 +500,6 @@ namespace Riskeer.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De bestandsmap waar de preprocessor bestanden opslaat moet een waarde hebben..
-        /// </summary>
-        public static string HydraulicBoundaryDatabase_PreprocessorDirectory_Path_must_have_a_value {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabase_PreprocessorDirectory_Path_must_have_a_value", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Een illustratiepunt node in de foutenboom moet 0 of 2 onderliggende nodes hebben..
         /// </summary>
         public static string IllustrationPointNode_SetChildren_Node_must_have_zero_or_two_child_nodes {
