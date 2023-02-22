@@ -50,7 +50,6 @@ namespace Riskeer.ClosingStructures.Integration.Test
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
         private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-        private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
 
         [Test]
         public void Run_CalculationInvalidInput_LogValidationStartAndEndWithError()
@@ -294,7 +293,9 @@ namespace Riskeer.ClosingStructures.Integration.Test
         }
 
         [Test]
-        public void Run_HydraulicBoundaryDatabaseWithCanUsePreprocessorFalse_ExpectedPreprocessorDirectorySetToCalculator()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Run_HydraulicBoundaryDataSet_ExpectedSettingsSetToCalculator(bool usePreprocessorClosure)
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
@@ -304,105 +305,8 @@ namespace Riskeer.ClosingStructures.Integration.Test
                     FilePath = validFilePath
                 }
             };
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData);
-
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(
-                                         Arg<HydraRingCalculationSettings>.Is.NotNull))
-                             .WhenCalled(invocation =>
-                             {
-                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData),
-                                     (HydraRingCalculationSettings) invocation.Arguments[0]);
-                             })
-                             .Return(new TestStructuresCalculator<StructuresClosureCalculationInput>());
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            var calculation = new TestClosingStructuresCalculationScenario();
-
-            CalculatableActivity activity = ClosingStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
-                                                                                                                  failureMechanism,
-                                                                                                                  assessmentSection);
-
-            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-            {
-                // Call
-                activity.Run();
-            }
-
-            // Assert
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Run_HydraulicBoundaryDatabaseWithUsePreprocessorTrue_ExpectedPreprocessorDirectorySetToCalculator()
-        {
-            // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-            {
-                HydraulicBoundaryData =
-                {
-                    FilePath = validFilePath,
-                    HydraulicLocationConfigurationSettings =
-                    {
-                        CanUsePreprocessor = true,
-                        UsePreprocessor = true,
-                        PreprocessorDirectory = validPreprocessorDirectory
-                    }
-                }
-            };
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData);
-
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(
-                                         Arg<HydraRingCalculationSettings>.Is.NotNull))
-                             .WhenCalled(invocation =>
-                             {
-                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData),
-                                     (HydraRingCalculationSettings) invocation.Arguments[0]);
-                             })
-                             .Return(new TestStructuresCalculator<StructuresClosureCalculationInput>());
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            var calculation = new TestClosingStructuresCalculationScenario();
-
-            CalculatableActivity activity = ClosingStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
-                                                                                                                  failureMechanism,
-                                                                                                                  assessmentSection);
-
-            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-            {
-                // Call
-                activity.Run();
-            }
-
-            // Assert
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Run_HydraulicBoundaryDatabaseWithUsePreprocessorFalse_ExpectedPreprocessorDirectorySetToCalculator()
-        {
-            // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-            {
-                HydraulicBoundaryData =
-                {
-                    FilePath = validFilePath,
-                    HydraulicLocationConfigurationSettings =
-                    {
-                        CanUsePreprocessor = true,
-                        UsePreprocessor = false,
-                        PreprocessorDirectory = "NonExistingPreprocessorDirectory"
-                    }
-                }
-            };
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData);
+            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData,
+                                                                                      usePreprocessorClosure);
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
