@@ -165,15 +165,10 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
             // Setup
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = validFilePath,
-                HydraulicLocationConfigurationSettings =
-                {
-                    CanUsePreprocessor = true,
-                    UsePreprocessor = true,
-                    PreprocessorDirectory = validPreprocessorDirectory
-                }
+                FilePath = validFilePath
             };
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryData);
+
+            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryData, true);
 
             const string calculationIdentifier = "1/100";
             const string duneLocationName = "duneLocationName";

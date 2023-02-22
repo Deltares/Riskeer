@@ -59,7 +59,6 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
 
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryData));
         private static readonly string validHrdFilePath = Path.Combine(testDataPath, "complete.sqlite");
-        private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
 
         private Form testForm;
         private MockRepository mocks;
@@ -616,7 +615,9 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         }
 
         [Test]
-        public void CalculateForSelectedButton_HydraulicBoundaryDatabaseWithCanUsePreprocessorFalse_CreateDunesBoundaryConditionsCalculatorCalledAsExpected()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void CalculateForSelectedButton_HydraulicBoundaryDatabaseWithCanUsePreprocessorFalse_CreateDunesBoundaryConditionsCalculatorCalledAsExpected(bool usePreprocessorClosure)
         {
             // Setup
             const double targetProbability = 0.01;
@@ -624,7 +625,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             {
                 FilePath = validHrdFilePath
             };
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryData);
+            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryData, usePreprocessorClosure);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.Id).Return("1");
@@ -656,146 +657,6 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 testForm.Controls.Add(view);
                 testForm.Show();
 
-                var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
-                DataGridViewRowCollection rows = dataGridView.Rows;
-                rows[0].Cells[calculateColumnIndex].Value = true;
-
-                var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
-
-                using (var viewParent = new TestViewParentForm())
-                using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-                {
-                    view.CalculationGuiService = new DuneLocationCalculationGuiService(viewParent);
-
-                    // Call
-                    buttonTester.Click();
-
-                    // Assert
-                    DunesBoundaryConditionsCalculationInput dunesBoundaryConditionsCalculationInput = dunesBoundaryConditionsCalculator.ReceivedInputs.First();
-
-                    Assert.AreEqual(1, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
-                    Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(targetProbability), dunesBoundaryConditionsCalculationInput.Beta);
-                }
-            }
-        }
-
-        [Test]
-        public void CalculateForSelectedButton_HydraulicBoundaryDatabaseWithUsePreprocessorTrue_CreateDunesBoundaryConditionsCalculatorCalledAsExpected()
-        {
-            // Setup
-            const double targetProbability = 0.01;
-            var hydraulicBoundaryData = new HydraulicBoundaryData
-            {
-                FilePath = validHrdFilePath,
-                HydraulicLocationConfigurationSettings =
-                {
-                    CanUsePreprocessor = true,
-                    UsePreprocessor = true,
-                    PreprocessorDirectory = validPreprocessorDirectory
-                }
-            };
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryData);
-
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.Id).Return("1");
-            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
-            assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
-            assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
-
-            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
-            var dunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator();
-            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
-                             .WhenCalled(invocation =>
-                             {
-                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData),
-                                     (HydraRingCalculationSettings) invocation.Arguments[0]);
-                             })
-                             .Return(dunesBoundaryConditionsCalculator);
-            mocks.ReplayAll();
-
-            var failureMechanism = new DuneErosionFailureMechanism();
-
-            using (var view = new DuneLocationCalculationsView(GenerateDuneLocationCalculations(),
-                                                               failureMechanism,
-                                                               assessmentSection,
-                                                               () => targetProbability,
-                                                               () => "1/100"))
-            {
-                testForm.Controls.Add(view);
-                testForm.Show();
-
-                var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
-                DataGridViewRowCollection rows = dataGridView.Rows;
-                rows[0].Cells[calculateColumnIndex].Value = true;
-
-                var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
-
-                using (var viewParent = new TestViewParentForm())
-                using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-                {
-                    view.CalculationGuiService = new DuneLocationCalculationGuiService(viewParent);
-
-                    // Call
-                    buttonTester.Click();
-
-                    // Assert
-                    DunesBoundaryConditionsCalculationInput dunesBoundaryConditionsCalculationInput = dunesBoundaryConditionsCalculator.ReceivedInputs.First();
-
-                    Assert.AreEqual(1, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
-                    Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(targetProbability), dunesBoundaryConditionsCalculationInput.Beta);
-                }
-            }
-        }
-
-        [Test]
-        public void CalculateForSelectedButton_HydraulicBoundaryDatabaseWithUsePreprocessorFalse_CreateDunesBoundaryConditionsCalculatorCalledAsExpected()
-        {
-            // Setup
-            const double targetProbability = 0.01;
-            var hydraulicBoundaryData = new HydraulicBoundaryData
-            {
-                FilePath = validHrdFilePath,
-                HydraulicLocationConfigurationSettings =
-                {
-                    CanUsePreprocessor = true,
-                    UsePreprocessor = false,
-                    PreprocessorDirectory = "InvalidPreprocessorDirectory"
-                }
-            };
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryData);
-
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.Id).Return("1");
-            assessmentSection.Stub(a => a.FailureMechanismContribution)
-                             .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
-            assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
-            assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
-
-            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
-            var dunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator();
-            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
-                             .WhenCalled(invocation =>
-                             {
-                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData),
-                                     (HydraRingCalculationSettings) invocation.Arguments[0]);
-                             })
-                             .Return(dunesBoundaryConditionsCalculator);
-            mocks.ReplayAll();
-
-            var failureMechanism = new DuneErosionFailureMechanism();
-
-            using (var view = new DuneLocationCalculationsView(GenerateDuneLocationCalculations(),
-                                                               failureMechanism,
-                                                               assessmentSection,
-                                                               () => targetProbability,
-                                                               () => "1/100"))
-            {
-                testForm.Controls.Add(view);
-                testForm.Show();
                 var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
                 DataGridViewRowCollection rows = dataGridView.Rows;
                 rows[0].Cells[calculateColumnIndex].Value = true;
