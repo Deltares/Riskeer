@@ -47,9 +47,7 @@ namespace Riskeer.Common.IO.HydraRing
         /// </list>
         /// </exception>
         public HydraRingSettingsDatabaseValidator(string databaseFilePath)
-            : base(databaseFilePath)
-        {
-        }
+            : base(databaseFilePath) {}
 
         /// <summary>
         /// Verifies that the schema of the opened settings database is valid.
