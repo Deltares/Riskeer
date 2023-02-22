@@ -385,55 +385,6 @@ namespace Riskeer.Common.IO.Test.HydraRing
         }
 
         [Test]
-        [TestCase(700131, 2, 8)]
-        [TestCase(700132, 1, 6)]
-        [TestCase(700133, 1, 6)]
-        [TestCase(700134, 1, 6)]
-        public void ReadPreprocessorSetting_ValidLocationId_ReadPreprocessorSettingWithExpectedValues(long locationId,
-                                                                                                      double valueMin,
-                                                                                                      double valueMax)
-        {
-            // Setup
-            using (var reader = new HydraRingSettingsDatabaseReader(completeDatabasePath))
-            {
-                // Call
-                ReadPreprocessorSetting preprocessorSetting = reader.ReadPreprocessorSetting(locationId);
-
-                // Assert
-                Assert.AreEqual(valueMin, preprocessorSetting.ValueMin);
-                Assert.AreEqual(valueMax, preprocessorSetting.ValueMax);
-            }
-        }
-
-        [Test]
-        public void ReadPreprocessorSetting_InvalidValueInReadLocation_ThrowsCriticalFileReadException()
-        {
-            // Setup
-            using (var reader = new HydraRingSettingsDatabaseReader(invalidDatabasePath))
-            {
-                // Call
-                TestDelegate test = () => reader.ReadPreprocessorSetting(700131);
-
-                // Assert
-                Assert.Throws<CriticalFileReadException>(test);
-            }
-        }
-
-        [Test]
-        public void ReadPreprocessorSetting_ValidLocationIdNotInDatabase_ReturnNull()
-        {
-            // Setup
-            using (var reader = new HydraRingSettingsDatabaseReader(emptyDatabasePath))
-            {
-                // Call
-                ReadPreprocessorSetting preprocessorSetting = reader.ReadPreprocessorSetting(700131);
-
-                // Assert
-                Assert.IsNull(preprocessorSetting);
-            }
-        }
-
-        [Test]
         public void ReadExcludedPreprocessorLocations_TableWithRows_ReturnsAllLocationIdsInTable()
         {
             // Setup
