@@ -52,11 +52,6 @@ namespace Riskeer.Common.Service
             long locationId = calculationInput.HydraulicBoundaryLocationId;
             string hbsdFilePath = HydraulicBoundaryDataHelper.GetHydraulicBoundarySettingsDatabaseFilePath(hrdFilePath);
 
-            using (var preprocessorSettingsProvider = new PreprocessorSettingsProvider(hbsdFilePath))
-            {
-                calculationInput.PreprocessorSetting = preprocessorSettingsProvider.GetPreprocessorSetting(locationId, false);
-            }
-
             using (var designTablesSettingsProviders = new DesignTablesSettingsProvider(hbsdFilePath))
             {
                 calculationInput.DesignTablesSetting = designTablesSettingsProviders.GetDesignTablesSetting(

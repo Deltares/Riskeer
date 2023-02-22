@@ -40,11 +40,6 @@ namespace Riskeer.HydraRing.Calculation.Data.Input
         }
 
         /// <summary>
-        /// Gets or sets the preprocessor settings.
-        /// </summary>
-        public PreprocessorSetting PreprocessorSetting { get; set; }
-
-        /// <summary>
         /// Gets or sets the design tables settings.
         /// </summary>
         public DesignTablesSetting DesignTablesSetting { get; set; }
