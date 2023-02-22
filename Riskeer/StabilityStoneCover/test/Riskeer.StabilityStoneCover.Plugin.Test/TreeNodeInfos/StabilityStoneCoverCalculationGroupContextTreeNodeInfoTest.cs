@@ -777,7 +777,9 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_AllRequiredInputSet_CalculateAllAndValidateAllEnabled()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ContextMenuStrip_AllRequiredInputSet_CalculateAllAndValidateAllEnabled(bool usePreprocessorClosure)
         {
             // Setup
             string validHydraulicBoundaryDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, Path.Combine(nameof(HydraulicBoundaryData), "complete.sqlite"));
@@ -794,7 +796,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 {
                     FilePath = validHydraulicBoundaryDatabasePath
                 };
-                HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryData);
+                HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryData, usePreprocessorClosure);
 
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
@@ -874,68 +876,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                         CalculationServiceTestHelper.AssertValidationEndMessage(messages[1]);
                         CalculationServiceTestHelper.AssertValidationStartMessage(messages[2]);
                         CalculationServiceTestHelper.AssertValidationEndMessage(messages[3]);
-                    });
-                }
-            }
-        }
-
-        [Test]
-        public void ValidateAllViaContextMenuStrip_HydraulicBoundaryDataWithMissingPreprocessorClosureDatabase_ValidationErrorsLogged()
-        {
-            // Setup
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput(true);
-
-            var calculation = new StabilityStoneCoverWaveConditionsCalculation
-            {
-                Name = "A",
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.Locations.First(),
-                    LowerBoundaryRevetment = (RoundedDouble) 1.0,
-                    UpperBoundaryRevetment = (RoundedDouble) 10.0,
-                    StepSize = WaveConditionsInputStepSize.One,
-                    LowerBoundaryWaterLevels = (RoundedDouble) 1.0,
-                    UpperBoundaryWaterLevels = (RoundedDouble) 10.0,
-                    Orientation = (RoundedDouble) 0
-                }
-            };
-
-            var group = new CalculationGroup();
-            group.Children.Add(calculation);
-
-            failureMechanism.CalculationsGroup.Children.Add(group);
-
-            var nodeData = new StabilityStoneCoverCalculationGroupContext(group,
-                                                                          failureMechanism.CalculationsGroup,
-                                                                          failureMechanism,
-                                                                          assessmentSection);
-            var parentNodeData = new StabilityStoneCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                null,
-                                                                                failureMechanism,
-                                                                                assessmentSection);
-
-            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
-                {
-                    // Call
-                    void Call() => contextMenu.Items[contextMenuValidateAllIndexNestedGroup].PerformClick();
-
-                    // Assert
-                    TestHelper.AssertLogMessages(Call, m =>
-                    {
-                        string[] messages = m.ToArray();
-                        Assert.AreEqual(3, messages.Length);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(messages[0]);
-                        Assert.AreEqual("Fixme", messages[1]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(messages[2]);
                     });
                 }
             }
