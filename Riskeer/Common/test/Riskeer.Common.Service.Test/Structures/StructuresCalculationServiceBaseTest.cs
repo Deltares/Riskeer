@@ -481,7 +481,7 @@ namespace Riskeer.Common.Service.Test.Structures
         public void Calculate_ValidInput_InputPropertiesCorrectlySentToCalculator(bool usePreprocessorClosure)
         {
             // Setup
-            var calculationSettings = new HydraulicBoundaryCalculationSettings(validHrdFilePath, validHlcdFilePath, false);
+            var calculationSettings = new HydraulicBoundaryCalculationSettings(validHrdFilePath, validHlcdFilePath, usePreprocessorClosure);
 
             var mocks = new MockRepository();
             var calculator = new TestStructuresCalculator<ExceedanceProbabilityCalculationInput>
