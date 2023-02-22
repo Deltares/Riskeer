@@ -368,9 +368,7 @@ namespace Riskeer.Revetment.Service
                 b,
                 c);
 
-            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(waveConditionsCosineCalculationInput,
-                                                                       calculationSettings.HrdFilePath,
-                                                                       !string.IsNullOrEmpty(calculationSettings.PreprocessorDirectory));
+            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(waveConditionsCosineCalculationInput, calculationSettings.HrdFilePath, false);
 
             return waveConditionsCosineCalculationInput;
         }

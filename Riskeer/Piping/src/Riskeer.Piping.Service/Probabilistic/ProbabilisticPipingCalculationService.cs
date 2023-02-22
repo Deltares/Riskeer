@@ -153,7 +153,6 @@ namespace Riskeer.Piping.Service.Probabilistic
             }
 
             string hrdFilePath = calculationSettings.HrdFilePath;
-            bool usePreprocessor = !string.IsNullOrEmpty(calculationSettings.PreprocessorDirectory);
 
             HydraRingCalculationSettings hydraRingCalculationSettings = HydraRingCalculationSettingsFactory.CreateSettings(calculationSettings);
 
@@ -167,7 +166,7 @@ namespace Riskeer.Piping.Service.Probabilistic
             try
             {
                 IPartialProbabilisticPipingOutput profileSpecificOutput = CalculateProfileSpecific(
-                    calculation, generalInput, hrdFilePath, usePreprocessor);
+                    calculation, generalInput, hrdFilePath, false);
 
                 if (canceled)
                 {
@@ -175,7 +174,7 @@ namespace Riskeer.Piping.Service.Probabilistic
                 }
 
                 IPartialProbabilisticPipingOutput sectionSpecificOutput = CalculateSectionSpecific(
-                    calculation, generalInput, sectionLength, hrdFilePath, usePreprocessor);
+                    calculation, generalInput, sectionLength, hrdFilePath, false);
 
                 if (canceled)
                 {

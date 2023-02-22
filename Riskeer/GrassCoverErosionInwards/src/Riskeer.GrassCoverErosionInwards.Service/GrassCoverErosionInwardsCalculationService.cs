@@ -161,7 +161,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service
             int numberOfCalculators = CreateCalculators(calculation, calculationSettings);
 
             string hrdFilePath = calculationSettings.HrdFilePath;
-            bool usePreprocessor = !string.IsNullOrEmpty(calculationSettings.PreprocessorDirectory);
+
             CalculationServiceHelper.LogCalculationBegin();
 
             try
@@ -169,7 +169,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service
                 OvertoppingOutput overtoppingOutput = CalculateOvertopping(calculation,
                                                                            generalInput,
                                                                            hrdFilePath,
-                                                                           usePreprocessor,
+                                                                           false,
                                                                            numberOfCalculators);
 
                 if (canceled)
@@ -180,7 +180,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service
                 DikeHeightOutput dikeHeightOutput = CalculateDikeHeight(calculation,
                                                                         generalInput,
                                                                         hrdFilePath,
-                                                                        usePreprocessor,
+                                                                        false,
                                                                         numberOfCalculators);
                 if (canceled)
                 {
@@ -190,7 +190,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service
                 OvertoppingRateOutput overtoppingRateOutput = CalculateOvertoppingRate(calculation,
                                                                                        generalInput,
                                                                                        hrdFilePath,
-                                                                                       usePreprocessor,
+                                                                                       false,
                                                                                        numberOfCalculators);
 
                 if (canceled)

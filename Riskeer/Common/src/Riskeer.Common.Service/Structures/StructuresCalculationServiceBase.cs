@@ -155,10 +155,7 @@ namespace Riskeer.Common.Service.Structures
                 throw new ArgumentNullException(nameof(calculationSettings));
             }
 
-            TCalculationInput input = CreateInput(calculation.InputParameters,
-                                                  generalInput,
-                                                  calculationSettings.HrdFilePath,
-                                                  !string.IsNullOrEmpty(calculationSettings.PreprocessorDirectory));
+            TCalculationInput input = CreateInput(calculation.InputParameters, generalInput, calculationSettings.HrdFilePath, false);
 
             calculator = HydraRingCalculatorFactory.Instance.CreateStructuresCalculator<TCalculationInput>(
                 HydraRingCalculationSettingsFactory.CreateSettings(calculationSettings));
