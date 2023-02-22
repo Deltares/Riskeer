@@ -583,7 +583,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         [TestCase(true)]
         [TestCase(false)]
         [Apartment(ApartmentState.STA)]
-        public void CalculateWaveHeightsFromContextMenu_HydraulicBoundaryDatabaseSet_SendsRightInputToCalculationService(bool usePreprocessorClosure)
+        public void CalculateWaveHeightsFromContextMenu_HydraulicBoundaryDataSet_SendsRightInputToCalculationService(bool usePreprocessorClosure)
         {
             // Setup
             const double targetProbability = 0.01;

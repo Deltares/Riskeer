@@ -45,7 +45,6 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryData));
         private static readonly string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
-        private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
 
         [Test]
         public void Constructor_ViewParentNull_ThrowArgumentNullException()
