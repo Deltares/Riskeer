@@ -156,7 +156,6 @@ namespace Riskeer.Common.Service.Test
                 WaveHeightCalculationInput actualInput = calculator.ReceivedInputs.Single();
                 AssertInput(expectedInput, actualInput);
                 Assert.IsFalse(calculator.IsCanceled);
-                Assert.AreEqual(usePreprocessorClosure, actualInput.PreprocessorSetting.RunPreprocessor);
             }
 
             mockRepository.VerifyAll();

@@ -67,7 +67,6 @@ namespace Riskeer.Common.Service.Test
             Assert.NotNull(input.DesignTablesSetting);
             Assert.NotNull(input.NumericsSettings);
             Assert.NotNull(input.TimeIntegrationSetting);
-            Assert.NotNull(input.PreprocessorSetting);
         }
     }
 
