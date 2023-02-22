@@ -580,8 +580,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
+        [TestCase(true)]
+        [TestCase(false)]
         [Apartment(ApartmentState.STA)]
-        public void CalculateWaveHeightsFromContextMenu_HydraulicBoundaryDatabaseWithCanUsePreprocessorFalse_SendsRightInputToCalculationService()
+        public void CalculateWaveHeightsFromContextMenu_HydraulicBoundaryDatabaseSet_SendsRightInputToCalculationService(bool usePreprocessorClosure)
         {
             // Setup
             const double targetProbability = 0.01;
@@ -606,186 +608,12 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     calculations
                 }
             };
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData);
+
+            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData,
+                                                                                      usePreprocessorClosure);
 
             var context = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(calculations, assessmentSection);
 
-            using (var treeViewControl = new TreeViewControl())
-            {
-                IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub(mockRepository);
-
-                IGui gui = StubFactory.CreateGuiStub(mockRepository);
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.ProjectStore).Return(mockRepository.Stub<IStoreProject>());
-                gui.Stub(g => g.DocumentViewController).Return(mockRepository.Stub<IDocumentViewController>());
-
-                var waveHeightCalculator = new TestWaveHeightCalculator();
-                var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
-                                 .WhenCalled(invocation =>
-                                 {
-                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData),
-                                         (HydraRingCalculationSettings) invocation.Arguments[0]);
-                                 })
-                                 .Return(waveHeightCalculator);
-                mockRepository.ReplayAll();
-
-                DialogBoxHandler = (name, wnd) =>
-                {
-                    // Expect an activity dialog which is automatically closed
-                };
-
-                using (var plugin = new RiskeerPlugin())
-                {
-                    TreeNodeInfo info = GetInfo(plugin);
-                    plugin.Gui = gui;
-                    plugin.Activate();
-
-                    using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
-                    using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-                    {
-                        // Call
-                        contextMenuAdapter.Items[contextMenuRunWaveHeightCalculationsIndex].PerformClick();
-
-                        // Assert
-                        WaveHeightCalculationInput waveHeightCalculationInput = waveHeightCalculator.ReceivedInputs.First();
-
-                        Assert.AreEqual(hydraulicBoundaryLocation.Id, waveHeightCalculationInput.HydraulicBoundaryLocationId);
-                        Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(targetProbability), waveHeightCalculationInput.Beta);
-                    }
-                }
-            }
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
-        public void CalculateWaveHeightsFromContextMenu_HydraulicBoundaryDatabaseWithUsePreprocessorTrue_SendsRightInputToCalculationService()
-        {
-            // Setup
-            const double targetProbability = 0.01;
-
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
-            var calculations = new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability)
-            {
-                HydraulicBoundaryLocationCalculations =
-                {
-                    new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
-                }
-            };
-
-            string preprocessorDirectory = TestHelper.GetScratchPadPath();
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-            {
-                HydraulicBoundaryData =
-                {
-                    FilePath = validFilePath,
-                    HydraulicLocationConfigurationSettings =
-                    {
-                        CanUsePreprocessor = true,
-                        UsePreprocessor = true,
-                        PreprocessorDirectory = preprocessorDirectory
-                    }
-                },
-                WaveHeightCalculationsForUserDefinedTargetProbabilities =
-                {
-                    calculations
-                }
-            };
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData);
-
-            var context = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(calculations, assessmentSection);
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub(mockRepository);
-
-                IGui gui = StubFactory.CreateGuiStub(mockRepository);
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.ProjectStore).Return(mockRepository.Stub<IStoreProject>());
-                gui.Stub(g => g.DocumentViewController).Return(mockRepository.Stub<IDocumentViewController>());
-
-                var waveHeightCalculator = new TestWaveHeightCalculator();
-                var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
-                                 .WhenCalled(invocation =>
-                                 {
-                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData),
-                                         (HydraRingCalculationSettings) invocation.Arguments[0]);
-                                 })
-                                 .Return(waveHeightCalculator);
-                mockRepository.ReplayAll();
-
-                DialogBoxHandler = (name, wnd) =>
-                {
-                    // Expect an activity dialog which is automatically closed
-                };
-
-                using (var plugin = new RiskeerPlugin())
-                {
-                    TreeNodeInfo info = GetInfo(plugin);
-                    plugin.Gui = gui;
-                    plugin.Activate();
-
-                    using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
-                    using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-                    {
-                        // Call
-                        contextMenuAdapter.Items[contextMenuRunWaveHeightCalculationsIndex].PerformClick();
-
-                        // Assert
-                        WaveHeightCalculationInput waveHeightCalculationInput = waveHeightCalculator.ReceivedInputs.First();
-
-                        Assert.AreEqual(hydraulicBoundaryLocation.Id, waveHeightCalculationInput.HydraulicBoundaryLocationId);
-                        Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(targetProbability), waveHeightCalculationInput.Beta);
-                    }
-                }
-            }
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
-        public void CalculateWaveHeightsFromContextMenu_HydraulicBoundaryDatabaseWithUsePreprocessorFalse_SendsRightInputToCalculationService()
-        {
-            // Setup
-            const double targetProbability = 0.01;
-
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
-            var calculations = new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability)
-            {
-                HydraulicBoundaryLocationCalculations =
-                {
-                    new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
-                }
-            };
-
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-            {
-                HydraulicBoundaryData =
-                {
-                    FilePath = validFilePath,
-                    HydraulicLocationConfigurationSettings =
-                    {
-                        CanUsePreprocessor = true,
-                        UsePreprocessor = false,
-                        PreprocessorDirectory = "InvalidPreprocessorDirectory"
-                    }
-                },
-                WaveHeightCalculationsForUserDefinedTargetProbabilities =
-                {
-                    calculations
-                }
-            };
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData);
-
-            var context = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(calculations, assessmentSection);
             using (var treeViewControl = new TreeViewControl())
             {
                 IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub(mockRepository);
