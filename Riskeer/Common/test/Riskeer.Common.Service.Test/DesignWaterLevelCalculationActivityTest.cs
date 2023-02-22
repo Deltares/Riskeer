@@ -107,10 +107,7 @@ namespace Riskeer.Common.Service.Test
             const string locationName = "locationName";
             const string calculationIdentifier = "1/100";
 
-            var settings = new HydraulicBoundaryCalculationSettings(invalidFilePath,
-                                                                    validHlcdFilePath,
-                                                                    false,
-                                                                    string.Empty);
+            var settings = new HydraulicBoundaryCalculationSettings(invalidFilePath, validHlcdFilePath, false);
             var activity = new DesignWaterLevelCalculationActivity(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(locationName)),
                                                                    settings,
                                                                    0.01,
@@ -135,7 +132,7 @@ namespace Riskeer.Common.Service.Test
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Run_ValidInput_PerformCalculationWithCorrectInput(bool usePreprocessor)
+        public void Run_ValidInput_PerformCalculationWithCorrectInput(bool usePreprocessorClosure)
         {
             // Setup
             const string locationName = "locationName";
@@ -147,11 +144,7 @@ namespace Riskeer.Common.Service.Test
                 Converged = true
             };
 
-            string preprocessorDirectory = usePreprocessor ? validPreprocessorDirectory : string.Empty;
-            var calculationSettings = new HydraulicBoundaryCalculationSettings(validHrdFilePath,
-                                                                               validHlcdFilePath,
-                                                                               false,
-                                                                               preprocessorDirectory);
+            var calculationSettings = new HydraulicBoundaryCalculationSettings(validHrdFilePath, validHlcdFilePath, usePreprocessorClosure);
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -444,10 +437,7 @@ namespace Riskeer.Common.Service.Test
 
         private static HydraulicBoundaryCalculationSettings CreateCalculationSettings()
         {
-            return new HydraulicBoundaryCalculationSettings(validHrdFilePath,
-                                                            validHlcdFilePath,
-                                                            false,
-                                                            string.Empty);
+            return new HydraulicBoundaryCalculationSettings(validHrdFilePath, validHlcdFilePath, false);
         }
 
         private class TestDesignWaterLevelCalculationActivity : DesignWaterLevelCalculationActivity

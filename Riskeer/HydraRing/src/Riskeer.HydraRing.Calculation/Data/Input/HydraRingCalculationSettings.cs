@@ -34,8 +34,7 @@ namespace Riskeer.HydraRing.Calculation.Data.Input
         /// <param name="hlcdFilePath">The file path of the hydraulic location configuration database.</param>
         /// <param name="usePreprocessorClosure">Indicator whether to use the preprocessor closure.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdFilePath"/> is <c>null</c>.</exception>
-        public HydraRingCalculationSettings(string hlcdFilePath,
-                                            bool usePreprocessorClosure)
+        public HydraRingCalculationSettings(string hlcdFilePath, bool usePreprocessorClosure)
         {
             if (hlcdFilePath == null)
             {
