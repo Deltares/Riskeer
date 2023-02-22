@@ -162,7 +162,6 @@ namespace Riskeer.DuneErosion.Service.Test
                 DunesBoundaryConditionsCalculationInput expectedInput = CreateInput(duneLocation, targetProbability);
                 DunesBoundaryConditionsCalculationInput actualInput = calculator.ReceivedInputs.Single();
                 AssertInput(expectedInput, actualInput);
-                Assert.AreEqual(usePreprocessorClosure, actualInput.PreprocessorSetting.RunPreprocessor);
             }
 
             mockRepository.VerifyAll();
