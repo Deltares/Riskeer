@@ -46,7 +46,6 @@ namespace Riskeer.DuneErosion.Service.Test
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
         private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-        private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
 
         [Test]
         public void CreateCalculationActivitiesForCalculations_CalculationsNull_ThrowsArgumentNullException()
@@ -85,13 +84,13 @@ namespace Riskeer.DuneErosion.Service.Test
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void CreateCalculationActivitiesForCalculations_WithValidDataAndUsePreprocessorStates_ReturnsExpectedActivities(bool usePreprocessor)
+        public void CreateCalculationActivitiesForCalculations_WithValidData_ReturnsExpectedActivities(bool usePreprocessorClosure)
         {
             // Setup
             const double targetProbability = 0.01;
             const string calculationIdentifier = "1/100";
 
-            AssessmentSectionStub assessmentSection = CreateAssessmentSection(usePreprocessor);
+            AssessmentSectionStub assessmentSection = CreateAssessmentSection(usePreprocessorClosure);
 
             var duneLocation1 = new DuneLocation(1, "locationName1", new Point2D(1, 1), new DuneLocation.ConstructionProperties());
             var duneLocation2 = new DuneLocation(2, "locationName2", new Point2D(2, 2), new DuneLocation.ConstructionProperties());
@@ -149,10 +148,10 @@ namespace Riskeer.DuneErosion.Service.Test
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void CreateCalculationActivitiesForFailureMechanism_WithValidDataAndUsePreprocessorStates_ReturnsExpectedActivities(bool usePreprocessor)
+        public void CreateCalculationActivitiesForFailureMechanism_WithValidData_ReturnsExpectedActivities(bool usePreprocessorClosure)
         {
             // Setup
-            AssessmentSectionStub assessmentSection = CreateAssessmentSection(usePreprocessor);
+            AssessmentSectionStub assessmentSection = CreateAssessmentSection(usePreprocessorClosure);
 
             var duneLocationCalculationsForTargetProbability1 = new DuneLocationCalculationsForTargetProbability(0.1);
             var duneLocationCalculationsForTargetProbability2 = new DuneLocationCalculationsForTargetProbability(0.01);
@@ -210,23 +209,17 @@ namespace Riskeer.DuneErosion.Service.Test
                                                   hydraulicBoundaryData);
         }
 
-        private static AssessmentSectionStub CreateAssessmentSection(bool usePreprocessor)
+        private static AssessmentSectionStub CreateAssessmentSection(bool usePreprocessorClosure)
         {
             var assessmentSection = new AssessmentSectionStub
             {
                 HydraulicBoundaryData =
                 {
-                    FilePath = validFilePath,
-                    HydraulicLocationConfigurationSettings =
-                    {
-                        CanUsePreprocessor = true,
-                        UsePreprocessor = usePreprocessor,
-                        PreprocessorDirectory = validPreprocessorDirectory
-                    }
+                    FilePath = validFilePath
                 }
             };
 
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData);
+            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData, usePreprocessorClosure);
 
             return assessmentSection;
         }
