@@ -872,7 +872,7 @@ namespace Riskeer.Integration.Plugin
             yield return new TreeNodeInfo<HydraulicBoundaryDatabasesContext>
             {
                 Text = context => Resources.HydraulicBoundaryDatabases_DisplayName,
-                Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
+                Image = context => RiskeerCommonFormsResources.DatabaseIcon,
                 ChildNodeObjects = HydraulicBoundaryDatabasesContextChildNodeObjects,
                 ContextMenuStrip = HydraulicBoundaryDatabasesContextMenuStrip
             };

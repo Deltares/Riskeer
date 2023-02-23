@@ -86,7 +86,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void Image_Always_ReturnsGeneralFolderIcon()
+        public void Image_Always_ReturnsDatabaseIcon()
         {
             // Setup
             using (var plugin = new RiskeerPlugin())
@@ -97,7 +97,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Image image = info.Image(null);
 
                 // Assert
-                TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.GeneralFolderIcon, image);
+                TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.DatabaseIcon, image);
             }
         }
 
