@@ -19,9 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PresentationObjects;
 
 namespace Riskeer.Integration.Forms.Test.PresentationObjects
@@ -33,14 +36,26 @@ namespace Riskeer.Integration.Forms.Test.PresentationObjects
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var hydraulicBoundaryData = new HydraulicBoundaryData();
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             // Call
-            var context = new HydraulicBoundaryDatabasesContext(hydraulicBoundaryData);
+            var context = new HydraulicBoundaryDatabasesContext(assessmentSection.HydraulicBoundaryData, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<HydraulicBoundaryData>>(context);
-            Assert.AreSame(hydraulicBoundaryData, context.WrappedData);
+            Assert.AreSame(assessmentSection.HydraulicBoundaryData, context.WrappedData);
+            Assert.AreSame(assessmentSection, context.AssessmentSection);
+        }
+
+        [Test]
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new HydraulicBoundaryDatabasesContext(new HydraulicBoundaryData(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
     }
 }

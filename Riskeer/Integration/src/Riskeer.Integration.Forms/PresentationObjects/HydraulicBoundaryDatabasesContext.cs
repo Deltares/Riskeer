@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Controls.PresentationObjects;
 using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Integration.Data;
 
 namespace Riskeer.Integration.Forms.PresentationObjects
 {
@@ -35,8 +36,22 @@ namespace Riskeer.Integration.Forms.PresentationObjects
         /// Creates a new instance of <see cref="HydraulicBoundaryDatabasesContext"/>.
         /// </summary>
         /// <param name="wrappedData">The <see cref="HydraulicBoundaryData"/> that the <see cref="HydraulicBoundaryDatabasesContext"/> belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedData"/> is <c>null</c>.</exception>
-        public HydraulicBoundaryDatabasesContext(HydraulicBoundaryData wrappedData)
-            : base(wrappedData) {}
+        /// <param name="assessmentSection">The assessment section that the <see cref="HydraulicBoundaryDatabasesContext"/> belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public HydraulicBoundaryDatabasesContext(HydraulicBoundaryData wrappedData, AssessmentSection assessmentSection)
+            : base(wrappedData)
+        {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            AssessmentSection = assessmentSection;
+        }
+
+        /// <summary>
+        /// Gets the assessment section that the context belongs to.
+        /// </summary>
+        public AssessmentSection AssessmentSection { get; }
     }
 }
