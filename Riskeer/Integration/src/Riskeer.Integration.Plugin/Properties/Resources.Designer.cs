@@ -402,6 +402,15 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to HRD bestanden.
+        /// </summary>
+        public static string HydraulicBoundaryDatabases_DisplayName {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabases_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to U heeft een ander hydraulische belastingendatabase bestand geselecteerd. Als gevolg hiervan moet de uitvoer van alle ervan afhankelijke berekeningen verwijderd worden.
         ///
         ///Wilt u doorgaan?.

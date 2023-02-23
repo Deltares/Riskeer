@@ -859,13 +859,21 @@ namespace Riskeer.Integration.Plugin
 
             yield return new TreeNodeInfo<HydraulicBoundaryDataContext>
             {
-                Text = hydraulicBoundaryDatabase => RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName,
-                Image = hydraulicBoundaryDatabase => RiskeerCommonFormsResources.GeneralFolderIcon,
+                Text = context => RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName,
+                Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
                 ForeColor = context => context.WrappedData.IsLinked()
                                            ? Color.FromKnownColor(KnownColor.ControlText)
                                            : Color.FromKnownColor(KnownColor.GrayText),
                 ChildNodeObjects = HydraulicBoundaryDataContextChildNodeObjects,
                 ContextMenuStrip = HydraulicBoundaryDataContextMenuStrip
+            };
+
+            yield return new TreeNodeInfo<HydraulicBoundaryDatabasesContext>
+            {
+                Text = context => Resources.HydraulicBoundaryDatabases_DisplayName,
+                Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
+                ChildNodeObjects = HydraulicBoundaryDatabasesContextChildNodeObjects,
+                ContextMenuStrip = HydraulicBoundaryDatabasesContextMenuStrip
             };
 
             yield return new TreeNodeInfo<WaterLevelCalculationsForNormTargetProbabilitiesGroupContext>
@@ -2373,7 +2381,7 @@ namespace Riskeer.Integration.Plugin
 
         #endregion
 
-        #region HydraulicBoundaryDatabase TreeNodeInfo
+        #region HydraulicBoundaryData TreeNodeInfo
 
         private static object[] HydraulicBoundaryDataContextChildNodeObjects(HydraulicBoundaryDataContext nodeData)
         {
@@ -2440,6 +2448,23 @@ namespace Riskeer.Integration.Plugin
                           .AddExpandAllItem()
                           .AddSeparator()
                           .AddPropertiesItem()
+                          .Build();
+        }
+
+        private static object[] HydraulicBoundaryDatabasesContextChildNodeObjects(HydraulicBoundaryDatabasesContext nodeData)
+        {
+            return nodeData.WrappedData.HydraulicBoundaryDatabases
+                           .Select(hydraulicBoundaryDatabase => new HydraulicBoundaryDatabaseContext(hydraulicBoundaryDatabase))
+                           .Cast<object>()
+                           .ToArray();
+        }
+
+        private ContextMenuStrip HydraulicBoundaryDatabasesContextMenuStrip(HydraulicBoundaryDatabasesContext nodeData, object parentData, TreeViewControl treeViewControl)
+        {
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
+
+            return builder.AddCollapseAllItem()
+                          .AddExpandAllItem()
                           .Build();
         }
 

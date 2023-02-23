@@ -99,24 +99,18 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void Text_Always_ReturnsSetName()
+        public void Text_Always_ReturnsName()
         {
             // Setup
-            const string name = "Hydraulische belastingen";
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-
-            var context = new HydraulicBoundaryDataContext(assessmentSection.HydraulicBoundaryData,
-                                                           assessmentSection);
-
             using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                string text = info.Text(context);
+                string text = info.Text(null);
 
                 // Assert
-                Assert.AreEqual(name, text);
+                Assert.AreEqual("Hydraulische belastingen", text);
             }
         }
 
@@ -137,7 +131,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
+        public void ContextMenuStrip_WithContext_CallsContextMenuBuilderMethods()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -184,7 +178,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_Always_AddImportItem()
+        public void ContextMenuStrip_WithContext_AddImportItem()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -328,7 +322,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
                 var hydraulicBoundaryDatabasesContext = (HydraulicBoundaryDatabasesContext) objects[0];
                 Assert.AreSame(assessmentSection.HydraulicBoundaryData, hydraulicBoundaryDatabasesContext.WrappedData);
-                
+
                 var waterLevelCalculationsForNormTargetProbabilitiesGroupContext = (WaterLevelCalculationsForNormTargetProbabilitiesGroupContext) objects[1];
                 Assert.AreSame(assessmentSection.HydraulicBoundaryData.Locations, waterLevelCalculationsForNormTargetProbabilitiesGroupContext.WrappedData);
                 Assert.AreSame(assessmentSection, waterLevelCalculationsForNormTargetProbabilitiesGroupContext.AssessmentSection);
