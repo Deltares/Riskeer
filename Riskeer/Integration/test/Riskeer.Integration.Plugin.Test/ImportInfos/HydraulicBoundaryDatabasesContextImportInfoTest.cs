@@ -75,7 +75,7 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
             string name = importInfo.Name;
 
             // Assert
-            Assert.AreEqual("Hydraulische belastingen", name);
+            Assert.AreEqual("HRD bestand", name);
         }
 
         [Test]
@@ -105,7 +105,7 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
             FileFilterGenerator fileFilterGenerator = importInfo.FileFilterGenerator;
 
             // Assert
-            Assert.AreEqual("Hydraulische belastingendatabase (*.sqlite)|*.sqlite", fileFilterGenerator.Filter);
+            Assert.AreEqual("HRD bestand (*.sqlite)|*.sqlite", fileFilterGenerator.Filter);
         }
 
         [Test]

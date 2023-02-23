@@ -563,7 +563,7 @@ namespace Riskeer.Integration.Plugin
 
             yield return new ImportInfo<HydraulicBoundaryDatabasesContext>
             {
-                Name = RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName,
+                Name = Resources.HydraulicBoundaryDatabase_DisplayName,
                 Image = RiskeerCommonFormsResources.DatabaseIcon,
                 Category = RiskeerCommonFormsResources.Riskeer_Category,
                 FileFilterGenerator = new FileFilterGenerator(Resources.HydraulicBoundaryDatabase_FilePath_Extension,

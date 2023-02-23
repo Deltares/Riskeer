@@ -234,7 +234,7 @@ Wilt u doorgaan?</value>
     <value>sqlite</value>
   </data>
     <data name="HydraulicBoundaryDatabase_file_filter_Description" xml:space="preserve">
-    <value>Hydraulische belastingendatabase</value>
+    <value>HRD bestand</value>
   </data>
     <data name="HydraulicLocationConfigurationDatabaseUpdateHandler_Confirm_clear_hydraulicLocationConfigurationDatabase_dependent_data"
           xml:space="preserve">
@@ -326,5 +326,8 @@ Weet u zeker dat u wilt doorgaan?</value>
     </data>
     <data name="HydraulicBoundaryDatabases_DisplayName" xml:space="preserve">
         <value>HRD bestanden</value>
+    </data>
+    <data name="HydraulicBoundaryDatabase_DisplayName" xml:space="preserve">
+        <value>HRD bestand</value>
     </data>
 </root>
