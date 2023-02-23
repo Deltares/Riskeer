@@ -143,11 +143,11 @@
             PublicKeyToken=b03f5f7f11d50a3a
         </value>
     </data>
-    <data name="HydraulicBoundaryDatabase_Connect" xml:space="preserve">
-    <value>&amp;Koppel aan database...</value>
+    <data name="HydraulicBoundaryData_Connect_To_Hlcd" xml:space="preserve">
+    <value>&amp;Selecteer HLCD bestand...</value>
   </data>
-    <data name="HydraulicBoundaryDatabase_Connect_ToolTip" xml:space="preserve">
-    <value>Koppel aan hydraulische belastingendatabase.</value>
+    <data name="HydraulicBoundaryData_Connect_To_Hlcd_ToolTip" xml:space="preserve">
+    <value>Selecteer een HLCD bestand.</value>
   </data>
     <data name="HydraulicBoundaryDatabase_FilePath_Description" xml:space="preserve">
     <value>Locatie van het HRD bestand.</value>

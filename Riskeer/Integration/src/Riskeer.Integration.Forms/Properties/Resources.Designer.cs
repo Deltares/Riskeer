@@ -554,20 +554,20 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;Koppel aan database....
+        ///   Looks up a localized string similar to &amp;Selecteer HLCD bestand....
         /// </summary>
-        public static string HydraulicBoundaryDatabase_Connect {
+        public static string HydraulicBoundaryData_Connect_To_Hlcd {
             get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabase_Connect", resourceCulture);
+                return ResourceManager.GetString("HydraulicBoundaryData_Connect_To_Hlcd", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Koppel aan hydraulische belastingendatabase..
+        ///   Looks up a localized string similar to Selecteer een HLCD bestand..
         /// </summary>
-        public static string HydraulicBoundaryDatabase_Connect_ToolTip {
+        public static string HydraulicBoundaryData_Connect_To_Hlcd_ToolTip {
             get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabase_Connect_ToolTip", resourceCulture);
+                return ResourceManager.GetString("HydraulicBoundaryData_Connect_To_Hlcd_ToolTip", resourceCulture);
             }
         }
         

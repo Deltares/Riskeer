@@ -219,8 +219,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, assessmentSection, treeViewControl))
                     {
                         TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuImportHydraulicBoundaryDatabaseIndex,
-                                                                      "&Koppel aan database...",
-                                                                      "Koppel aan hydraulische belastingendatabase.",
+                                                                      "&Selecteer HLCD bestand...",
+                                                                      "Selecteer een HLCD bestand.",
                                                                       RiskeerCommonFormsResources.DatabaseIcon);
                     }
                 }

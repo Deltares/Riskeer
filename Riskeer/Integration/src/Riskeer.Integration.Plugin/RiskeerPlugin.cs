@@ -2443,8 +2443,8 @@ namespace Riskeer.Integration.Plugin
                 () => RiskeerDataSynchronizationService.ClearIllustrationPointResultsForWaterLevelAndWaveHeightCalculations(nodeData.AssessmentSection));
 
             AssessmentSection assessmentSection = nodeData.AssessmentSection;
-            return builder.AddImportItem(RiskeerFormsResources.HydraulicBoundaryDatabase_Connect,
-                                         RiskeerFormsResources.HydraulicBoundaryDatabase_Connect_ToolTip,
+            return builder.AddImportItem(RiskeerFormsResources.HydraulicBoundaryData_Connect_To_Hlcd,
+                                         RiskeerFormsResources.HydraulicBoundaryData_Connect_To_Hlcd_ToolTip,
                                          RiskeerCommonFormsResources.DatabaseIcon)
                           .AddExportItem()
                           .AddSeparator()
