@@ -692,7 +692,7 @@ namespace Riskeer.Integration.Plugin.Test
                 Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(ReferenceLineContext)));
                 Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(FailureMechanismSectionsContext)));
                 Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(ForeshoreProfilesContext)));
-                Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(HydraulicBoundaryDataContext)));
+                Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(HydraulicBoundaryDatabasesContext)));
             }
         }
 

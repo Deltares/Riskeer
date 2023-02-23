@@ -40,7 +40,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.Integration.Plugin.Test.ImportInfos
 {
     [TestFixture]
-    public class HydraulicBoundaryDataContextImportInfoTest
+    public class HydraulicBoundaryDatabasesContextImportInfoTest
     {
         private MockRepository mocks;
         private ImportInfo importInfo;
@@ -58,7 +58,7 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
             {
                 Gui = gui
             };
-            importInfo = plugin.GetImportInfos().First(i => i.DataType == typeof(HydraulicBoundaryDataContext));
+            importInfo = plugin.GetImportInfos().First(i => i.DataType == typeof(HydraulicBoundaryDatabasesContext));
         }
 
         [TearDown]
@@ -119,7 +119,7 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
             gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
             mocks.ReplayAll();
 
-            var importTarget = new HydraulicBoundaryDataContext(new HydraulicBoundaryData(), new AssessmentSection(AssessmentSectionComposition.Dike));
+            var importTarget = new HydraulicBoundaryDatabasesContext(new HydraulicBoundaryData(), new AssessmentSection(AssessmentSectionComposition.Dike));
 
             // Call
             IFileImporter importer = importInfo.CreateFileImporter(importTarget, "");

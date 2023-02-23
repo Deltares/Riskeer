@@ -561,7 +561,7 @@ namespace Riskeer.Integration.Plugin
                 VerifyUpdates = context => VerifyForeshoreProfileUpdates(context, Resources.RiskeerPlugin_VerifyForeshoreProfileUpdates_When_importing_ForeshoreProfile_definitions_assigned_to_calculations_output_will_be_cleared_confirm)
             };
 
-            yield return new ImportInfo<HydraulicBoundaryDataContext>
+            yield return new ImportInfo<HydraulicBoundaryDatabasesContext>
             {
                 Name = RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName,
                 Image = RiskeerCommonFormsResources.DatabaseIcon,
