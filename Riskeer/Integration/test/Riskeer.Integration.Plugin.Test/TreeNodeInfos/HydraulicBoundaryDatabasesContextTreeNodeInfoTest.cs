@@ -29,8 +29,10 @@ using Core.Gui.Forms.Main;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Plugin.TestUtil;
+using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PresentationObjects;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -144,16 +146,15 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             var hydraulicBoundaryDatabase1 = new HydraulicBoundaryDatabase();
             var hydraulicBoundaryDatabase2 = new HydraulicBoundaryDatabase();
-            var hydraulicBoundaryData = new HydraulicBoundaryData
-            {
-                HydraulicBoundaryDatabases =
-                {
-                    hydraulicBoundaryDatabase1,
-                    hydraulicBoundaryDatabase2
-                }
-            };
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            var context = new HydraulicBoundaryDatabasesContext(hydraulicBoundaryData);
+            assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.AddRange(new[]
+            {
+                hydraulicBoundaryDatabase1,
+                hydraulicBoundaryDatabase2
+            });
+
+            var context = new HydraulicBoundaryDatabasesContext(assessmentSection.HydraulicBoundaryData, assessmentSection);
 
             using (var plugin = new RiskeerPlugin())
             {
