@@ -402,15 +402,6 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to sqlite.
-        /// </summary>
-        public static string HydraulicBoundaryDatabase_FilePath_Extension {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabase_FilePath_Extension", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to HRD bestanden.
         /// </summary>
         public static string HydraulicBoundaryDatabases_DisplayName {
@@ -428,6 +419,33 @@ namespace Riskeer.Integration.Plugin.Properties {
             get {
                 return ResourceManager.GetString("HydraulicBoundaryDataUpdateHandler_Confirm_clear_hydraulicBoundaryDatabase_depend" +
                         "ent_data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to sqlite.
+        /// </summary>
+        public static string HydraulicDatabase_FilePath_Extension {
+            get {
+                return ResourceManager.GetString("HydraulicDatabase_FilePath_Extension", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HLCD bestand.
+        /// </summary>
+        public static string HydraulicLocationConfigurationDatabase_DisplayName {
+            get {
+                return ResourceManager.GetString("HydraulicLocationConfigurationDatabase_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HLCD bestand.
+        /// </summary>
+        public static string HydraulicLocationConfigurationDatabase_file_filter_Description {
+            get {
+                return ResourceManager.GetString("HydraulicLocationConfigurationDatabase_file_filter_Description", resourceCulture);
             }
         }
         

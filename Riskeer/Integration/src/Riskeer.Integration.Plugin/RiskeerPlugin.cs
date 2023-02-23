@@ -561,12 +561,26 @@ namespace Riskeer.Integration.Plugin
                 VerifyUpdates = context => VerifyForeshoreProfileUpdates(context, Resources.RiskeerPlugin_VerifyForeshoreProfileUpdates_When_importing_ForeshoreProfile_definitions_assigned_to_calculations_output_will_be_cleared_confirm)
             };
 
+            yield return new ImportInfo<HydraulicBoundaryDataContext>
+            {
+                Name = Resources.HydraulicLocationConfigurationDatabase_DisplayName,
+                Image = RiskeerCommonFormsResources.DatabaseIcon,
+                Category = RiskeerCommonFormsResources.Riskeer_Category,
+                FileFilterGenerator = new FileFilterGenerator(Resources.HydraulicDatabase_FilePath_Extension,
+                                                              Resources.HydraulicLocationConfigurationDatabase_file_filter_Description),
+                CreateFileImporter = (context, filePath) => new HydraulicLocationConfigurationDatabaseImporter(
+                    context.WrappedData.HydraulicLocationConfigurationSettings,
+                    new HydraulicLocationConfigurationDatabaseUpdateHandler(context.AssessmentSection),
+                    context.WrappedData,
+                    filePath)
+            };
+
             yield return new ImportInfo<HydraulicBoundaryDatabasesContext>
             {
                 Name = Resources.HydraulicBoundaryDatabase_DisplayName,
                 Image = RiskeerCommonFormsResources.DatabaseIcon,
                 Category = RiskeerCommonFormsResources.Riskeer_Category,
-                FileFilterGenerator = new FileFilterGenerator(Resources.HydraulicBoundaryDatabase_FilePath_Extension,
+                FileFilterGenerator = new FileFilterGenerator(Resources.HydraulicDatabase_FilePath_Extension,
                                                               Resources.HydraulicBoundaryDatabase_file_filter_Description),
                 CreateFileImporter = (context, filePath) => new HydraulicBoundaryDataImporter(
                     context.WrappedData, new HydraulicBoundaryDataUpdateHandler(context.AssessmentSection,
