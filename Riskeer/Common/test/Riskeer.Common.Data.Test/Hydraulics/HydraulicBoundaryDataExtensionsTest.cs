@@ -39,22 +39,34 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             Assert.AreEqual("hydraulicBoundaryData", paramName);
         }
 
-        [TestCase(null, false)]
-        [TestCase("", false)]
-        [TestCase("Test", true)]
-        public void IsLinked_SpecificFilePath_ReturnsExpectedValue(string filePath, bool expectedValue)
+        [Test]
+        public void IsLinked_HlcdFilePathNotSet_ReturnsFalse()
         {
             // Setup
-            var hydraulicBoundaryData = new HydraulicBoundaryData
-            {
-                FilePath = filePath
-            };
+            var hydraulicBoundaryData = new HydraulicBoundaryData();
 
             // Call
             bool isLinked = hydraulicBoundaryData.IsLinked();
 
             // Assert
-            Assert.AreEqual(expectedValue, isLinked);
+            Assert.IsFalse(isLinked);
+        }
+
+        [Test]
+        public void IsLinked_HlcdFilePathSet_ReturnsTrue()
+        {
+            // Setup
+            var hydraulicBoundaryData = new HydraulicBoundaryData();
+
+            hydraulicBoundaryData.HydraulicLocationConfigurationSettings.SetValues("hlcdFilePath", "scenarioName", 0, "scope", false,
+                                                                                   "seaLevel", "riverDischarge", "lakeLevel",
+                                                                                   "windDirection", "windSpeed", "comment");
+
+            // Call
+            bool isLinked = hydraulicBoundaryData.IsLinked();
+
+            // Assert
+            Assert.IsTrue(isLinked);
         }
     }
 }

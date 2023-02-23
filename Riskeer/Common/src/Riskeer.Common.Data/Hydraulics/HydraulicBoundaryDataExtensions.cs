@@ -29,7 +29,7 @@ namespace Riskeer.Common.Data.Hydraulics
     public static class HydraulicBoundaryDataExtensions
     {
         /// <summary>
-        /// Checks whether the hydraulic boundary data is linked to a database file.
+        /// Checks whether the hydraulic boundary data is linked to a hydraulic location configuration database.
         /// </summary>
         /// <param name="hydraulicBoundaryData">The hydraulic boundary data to check for being linked.</param>
         /// <returns><c>true</c> if the hydraulic boundary data is linked; <c>false</c> otherwise.</returns>
@@ -41,7 +41,8 @@ namespace Riskeer.Common.Data.Hydraulics
                 throw new ArgumentNullException(nameof(hydraulicBoundaryData));
             }
 
-            return !string.IsNullOrEmpty(hydraulicBoundaryData.FilePath);
+            return !string.IsNullOrEmpty(hydraulicBoundaryData.HydraulicLocationConfigurationSettings.FilePath)
+                   || !string.IsNullOrEmpty(hydraulicBoundaryData.FilePath);
         }
     }
 }
