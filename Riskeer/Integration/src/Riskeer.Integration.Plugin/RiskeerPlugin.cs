@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO;
 using System.IO.Packaging;
 using System.Linq;
 using System.Windows.Forms;
@@ -874,6 +875,13 @@ namespace Riskeer.Integration.Plugin
                 Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
                 ChildNodeObjects = HydraulicBoundaryDatabasesContextChildNodeObjects,
                 ContextMenuStrip = HydraulicBoundaryDatabasesContextMenuStrip
+            };
+
+            yield return new TreeNodeInfo<HydraulicBoundaryDatabaseContext>
+            {
+                Text = context => Path.GetFileName(context.WrappedData.FilePath),
+                Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon,
+                ContextMenuStrip = HydraulicBoundaryDatabaseContextMenuStrip
             };
 
             yield return new TreeNodeInfo<WaterLevelCalculationsForNormTargetProbabilitiesGroupContext>
@@ -2465,6 +2473,14 @@ namespace Riskeer.Integration.Plugin
 
             return builder.AddCollapseAllItem()
                           .AddExpandAllItem()
+                          .Build();
+        }
+
+        private ContextMenuStrip HydraulicBoundaryDatabaseContextMenuStrip(HydraulicBoundaryDatabaseContext nodeData, object parentData, TreeViewControl treeViewControl)
+        {
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
+
+            return builder.AddPropertiesItem()
                           .Build();
         }
 
