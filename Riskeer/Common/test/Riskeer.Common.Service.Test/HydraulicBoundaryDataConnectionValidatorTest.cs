@@ -95,7 +95,7 @@ namespace Riskeer.Common.Service.Test
         }
 
         [Test]
-        public void Validate_UsePreprocessorClosureTrueWithoutPreprocessorClosureFile_ReturnsMessageWithError()
+        public void Validate_UsePreprocessorClosureTrueWithoutPreprocessorClosureDatabase_ReturnsMessageWithError()
         {
             // Setup
             var hydraulicBoundaryData = new HydraulicBoundaryData

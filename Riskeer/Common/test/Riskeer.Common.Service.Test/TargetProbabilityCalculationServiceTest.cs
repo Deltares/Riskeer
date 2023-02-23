@@ -115,11 +115,15 @@ namespace Riskeer.Common.Service.Test
         }
 
         [Test]
-        public void Validate_UsePreprocessorClosureTrueAndWithoutPreprocessorClosure_LogsErrorAndReturnsFalse()
+        public void Validate_UsePreprocessorClosureTrueAndWithoutPreprocessorClosureDatabase_LogsErrorAndReturnsFalse()
         {
             // Setup
             var valid = true;
-            var calculationSettings = new HydraulicBoundaryCalculationSettings(validHrdFilePath, validHlcdFilePath, true);
+            string folderWithoutPreprocessorClosureDatabase = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, "HydraulicBoundaryData"),
+                                                                           "withoutPreprocessorClosure");
+            var calculationSettings = new HydraulicBoundaryCalculationSettings(Path.Combine(folderWithoutPreprocessorClosureDatabase, "complete.sqlite"),
+                                                                               Path.Combine(folderWithoutPreprocessorClosureDatabase, "hlcd.sqlite"),
+                                                                               true);
 
             // Call
             void Call() => valid = calculationService.Validate(calculationSettings);
@@ -130,7 +134,11 @@ namespace Riskeer.Common.Service.Test
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt. Fout bij het lezen van bestand", msgs[1]);
+
+                string preprocessorClosureFilePath = Path.Combine(folderWithoutPreprocessorClosureDatabase, "hlcd_preprocClosure.sqlite");
+                var expectedMessage = $"Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt. Fout bij het lezen van bestand '{preprocessorClosureFilePath}': het bestand bestaat niet.";
+                Assert.AreEqual(expectedMessage, msgs[1]);
+
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(valid);

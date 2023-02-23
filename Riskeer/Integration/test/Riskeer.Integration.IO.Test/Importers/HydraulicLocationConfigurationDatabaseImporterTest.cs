@@ -286,7 +286,7 @@ namespace Riskeer.Integration.IO.Test.Importers
         }
 
         [Test]
-        public void Import_HlcdWithUsePreprocessorClosureTrueAndWithoutPreprocessorClosure_CancelImportWithErrorMessage()
+        public void Import_HlcdWithUsePreprocessorClosureTrueAndWithoutPreprocessorClosureDatabase_CancelImportWithErrorMessage()
         {
             // Setup
             string directory = Path.Combine(testDataPath, "missingPreprocessorClosure");

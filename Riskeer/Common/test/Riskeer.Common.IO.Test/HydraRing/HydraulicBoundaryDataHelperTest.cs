@@ -144,7 +144,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
         }
 
         [Test]
-        public void ValidateFileForCalculation_UsePreprocessorClosureTrueWithoutPreprocessorClosureFile_ReturnsMessageWithError()
+        public void ValidateFileForCalculation_UsePreprocessorClosureTrueWithoutPreprocessorClosureDatabase_ReturnsMessageWithError()
         {
             // Setup
             string hrdFilePath = Path.Combine(testDataPath, "withoutPreprocessorClosure", "complete.sqlite");
