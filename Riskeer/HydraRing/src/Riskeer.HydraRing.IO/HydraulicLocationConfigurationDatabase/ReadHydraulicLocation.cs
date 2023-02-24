@@ -22,29 +22,36 @@
 namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
 {
     /// <summary>
-    /// Class for holding a mapping between the hydraulic boundary location id and hydraulic location configuration id.
+    /// Class for holding read hydraulic location data.
     /// </summary>
-    public class ReadHydraulicLocationMapping
+    public class ReadHydraulicLocation
     {
         /// <summary>
-        /// Creates a new instance of <see cref="ReadHydraulicLocationMapping"/>.
+        /// Creates a new instance of <see cref="ReadHydraulicLocation"/>.
         /// </summary>
-        /// <param name="hrdLocationId">The hydraulic boundary location id.</param>
-        /// <param name="hlcdLocationId">The hydraulic location configuration id.</param>
-        internal ReadHydraulicLocationMapping(long hrdLocationId, long hlcdLocationId)
+        /// <param name="hlcdLocationId">The hydraulic location configuration database id.</param>
+        /// <param name="hrdLocationId">The hydraulic boundary database id.</param>
+        /// <param name="trackId">The track id.</param>
+        internal ReadHydraulicLocation(long hlcdLocationId, long hrdLocationId, long trackId)
         {
             HrdLocationId = hrdLocationId;
             HlcdLocationId = hlcdLocationId;
+            TrackId = trackId;
         }
 
         /// <summary>
-        /// Gets the hydraulic boundary location id.
+        /// Gets the hydraulic location configuration database id.
+        /// </summary>
+        public long HlcdLocationId { get; }
+
+        /// <summary>
+        /// Gets the hydraulic boundary database id.
         /// </summary>
         public long HrdLocationId { get; }
 
         /// <summary>
-        /// Gets the hydraulic location configuration id.
+        /// Gets the track id.
         /// </summary>
-        public long HlcdLocationId { get; }
+        public long TrackId { get; }
     }
 }

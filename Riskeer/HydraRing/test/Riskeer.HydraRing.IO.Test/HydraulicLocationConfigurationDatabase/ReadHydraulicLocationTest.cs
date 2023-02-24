@@ -26,22 +26,24 @@ using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
 {
     [TestFixture]
-    public class ReadHydraulicLocationMappingTest
+    public class ReadHydraulicLocationTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
             var random = new Random(21);
-            long hrdLocationId = random.Next();
             long hlcdLocationId = random.Next();
+            long hrdLocationId = random.Next();
+            long trackId = random.Next();
 
             // Call
-            var locationMapping = new ReadHydraulicLocationMapping(hrdLocationId, hlcdLocationId);
+            var locationMapping = new ReadHydraulicLocation(hlcdLocationId, hrdLocationId, trackId);
 
             // Assert
-            Assert.AreEqual(hrdLocationId, locationMapping.HrdLocationId);
             Assert.AreEqual(hlcdLocationId, locationMapping.HlcdLocationId);
+            Assert.AreEqual(hrdLocationId, locationMapping.HrdLocationId);
+            Assert.AreEqual(trackId, locationMapping.TrackId);
         }
     }
 }
