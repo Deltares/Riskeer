@@ -65,7 +65,7 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
                                                                   GetFromDatabase(IsScenarioInformationTablePresent)
                                                                       ? GetFromDatabase(ReadConfigurationSettings)
                                                                       : null,
-                                                                  GetUsePreprocessorClosureByTrackId(trackId));
+                                                                  GetFromDatabase(ReadTracks).First(rt => rt.TrackId == trackId).UsePreprocessorClosure);
         }
 
         /// <summary>
@@ -142,64 +142,31 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         }
 
         /// <summary>
-        /// Gets the preprocessor closure indicator from the database.
+        /// Reads the tracks from the database.
         /// </summary>
-        /// <param name="trackId">The track id to get the preprocessor closure for.</param>
-        /// <returns>The read indicator whether to use the preprocessor closure.</returns>
-        /// <exception cref="CriticalFileReadException">Thrown when the information could not be read from the database file.</exception>
-        /// <exception cref="LineParseException">Thrown when the database returned incorrect values for required properties.</exception>
-        private bool GetUsePreprocessorClosureByTrackId(long trackId)
-        {
-            try
-            {
-                return ReadUsePreprocessorClosure(new SQLiteParameter
-                {
-                    DbType = DbType.String,
-                    ParameterName = TracksTableDefinitions.TrackId,
-                    Value = trackId
-                });
-            }
-            catch (SQLiteException e)
-            {
-                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicLocationConfigurationDatabaseReader_Critical_Unexpected_Exception);
-                throw new CriticalFileReadException(message, e);
-            }
-            catch (ConversionException e)
-            {
-                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
-                throw new LineParseException(message, e);
-            }
-        }
-
-        /// <summary>
-        /// Reads the use preprocessor closure from the database.
-        /// </summary>
-        /// <param name="trackParameter">A parameter containing the track id.</param>
-        /// <returns>The read indicator whether to use the preprocessor closure.</returns>
-        /// <exception cref="CriticalFileReadException">Thrown when the information could not be read from the database file.</exception>
+        /// <returns>A collection of <see cref="ReadTrack"/> as found in the database.</returns>
         /// <exception cref="SQLiteException">Thrown when the database query failed.</exception>
         /// <exception cref="ConversionException">Thrown when the database returned incorrect values for required properties.</exception>
-        private bool ReadUsePreprocessorClosure(SQLiteParameter trackParameter)
+        private IEnumerable<ReadTrack> ReadTracks()
         {
-            string query = HydraulicLocationConfigurationDatabaseQueryBuilder.GetTracksQuery();
+            var readTracks = new Collection<ReadTrack>();
 
-            using (IDataReader dataReader = CreateDataReader(query, trackParameter))
+            using (IDataReader dataReader = CreateDataReader(HydraulicLocationConfigurationDatabaseQueryBuilder.GetTracksQuery()))
             {
-                DataTable schemaTable = dataReader.GetSchemaTable();
-                DataColumn columnName = schemaTable.Columns[schemaTable.Columns.IndexOf("ColumnName")];
-
-                if (schemaTable.Rows.Cast<DataRow>().All(row => row[columnName].ToString() != RegionsTableDefinitions.UsePreprocessorClosure))
+                while (MoveNext(dataReader))
                 {
-                    return false;
-                }
+                    DataTable schemaTable = dataReader.GetSchemaTable();
+                    DataColumn columnName = schemaTable.Columns[schemaTable.Columns.IndexOf("ColumnName")];
 
-                if (MoveNext(dataReader))
-                {
-                    return dataReader.Read<bool>(RegionsTableDefinitions.UsePreprocessorClosure);
-                }
+                    var usePreprocessorClosure = schemaTable.Rows.Cast<DataRow>().All(row => row[columnName].ToString() != RegionsTableDefinitions.UsePreprocessorClosure)
+                                                     ? false
+                                                     : dataReader.Read<bool>(RegionsTableDefinitions.UsePreprocessorClosure);
 
-                throw new CriticalFileReadException(new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicLocationConfigurationDatabaseReader_Critical_Unexpected_Exception));
+                    readTracks.Add(new ReadTrack(dataReader.Read<long>(TracksTableDefinitions.TrackId), usePreprocessorClosure));
+                }
             }
+
+            return readTracks;
         }
 
         /// <summary>
