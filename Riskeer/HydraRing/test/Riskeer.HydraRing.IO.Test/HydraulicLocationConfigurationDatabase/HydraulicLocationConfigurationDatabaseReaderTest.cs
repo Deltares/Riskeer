@@ -196,7 +196,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
                 string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
                 var exception = Assert.Throws<LineParseException>(test);
                 Assert.AreEqual(expectedMessage, exception.Message);
-                Assert.IsInstanceOf<InvalidCastException>(exception.InnerException);
+                Assert.IsInstanceOf<ConversionException>(exception.InnerException);
             }
         }
 
@@ -281,7 +281,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
                 string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
                 var exception = Assert.Throws<LineParseException>(test);
                 Assert.AreEqual(expectedMessage, exception.Message);
-                Assert.IsInstanceOf<InvalidCastException>(exception.InnerException);
+                Assert.IsInstanceOf<ConversionException>(exception.InnerException);
             }
         }
 

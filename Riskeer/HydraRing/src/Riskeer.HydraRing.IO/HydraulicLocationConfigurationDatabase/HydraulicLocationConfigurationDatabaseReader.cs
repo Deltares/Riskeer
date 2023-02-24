@@ -146,7 +146,7 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         {
             try
             {
-                return GetConfigurationSettingsFromDatabase();
+                return GetConfigurationSettingsFromDatabase().ToArray();
             }
             catch (SQLiteException exception)
             {
