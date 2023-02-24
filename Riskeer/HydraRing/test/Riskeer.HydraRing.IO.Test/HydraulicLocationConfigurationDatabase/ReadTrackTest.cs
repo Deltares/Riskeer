@@ -20,30 +20,29 @@
 // All rights reserved.
 
 using System;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 
 namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
 {
     [TestFixture]
-    public class ReadHydraulicLocationTest
+    public class ReadTrackTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
             var random = new Random(21);
-            long hlcdLocationId = random.Next();
-            long hrdLocationId = random.Next();
             long trackId = random.Next();
+            bool usePreprocessorClosure = random.NextBoolean();
 
             // Call
-            var readHydraulicLocation = new ReadHydraulicLocation(hlcdLocationId, hrdLocationId, trackId);
+            var readTrack = new ReadTrack(trackId, usePreprocessorClosure);
 
             // Assert
-            Assert.AreEqual(hlcdLocationId, readHydraulicLocation.HlcdLocationId);
-            Assert.AreEqual(hrdLocationId, readHydraulicLocation.HrdLocationId);
-            Assert.AreEqual(trackId, readHydraulicLocation.TrackId);
+            Assert.AreEqual(trackId, readTrack.TrackId);
+            Assert.AreEqual(usePreprocessorClosure, readTrack.UsePreprocessorClosure);
         }
     }
 }

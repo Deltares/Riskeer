@@ -19,31 +19,32 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using NUnit.Framework;
-using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
-
-namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
+namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
 {
-    [TestFixture]
-    public class ReadHydraulicLocationTest
+    /// <summary>
+    /// Class for holding read track data.
+    /// </summary>
+    public class ReadTrack
     {
-        [Test]
-        public void Constructor_ExpectedValues()
+        /// <summary>
+        /// Creates a new instance of <see cref="ReadTrack"/>.
+        /// </summary>
+        /// <param name="trackId">The track id.</param>
+        /// <param name="usePreprocessorClosure">Indicator whether to use preprocessor closure.</param>
+        internal ReadTrack(long trackId, bool usePreprocessorClosure)
         {
-            // Setup
-            var random = new Random(21);
-            long hlcdLocationId = random.Next();
-            long hrdLocationId = random.Next();
-            long trackId = random.Next();
-
-            // Call
-            var readHydraulicLocation = new ReadHydraulicLocation(hlcdLocationId, hrdLocationId, trackId);
-
-            // Assert
-            Assert.AreEqual(hlcdLocationId, readHydraulicLocation.HlcdLocationId);
-            Assert.AreEqual(hrdLocationId, readHydraulicLocation.HrdLocationId);
-            Assert.AreEqual(trackId, readHydraulicLocation.TrackId);
+            TrackId = trackId;
+            UsePreprocessorClosure = usePreprocessorClosure;
         }
+
+        /// <summary>
+        /// Gets the track id.
+        /// </summary>
+        public long TrackId { get; }
+
+        /// <summary>
+        /// Gets the indicator whether to use preprocessor closure.
+        /// </summary>
+        public bool UsePreprocessorClosure { get; }
     }
 }
