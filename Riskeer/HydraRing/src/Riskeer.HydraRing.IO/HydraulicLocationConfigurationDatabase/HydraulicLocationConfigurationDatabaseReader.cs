@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SQLite;
 using System.Linq;
@@ -75,15 +76,19 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// <exception cref="ConversionException">Thrown when the database returned incorrect values for required properties.</exception>
         private IEnumerable<ReadHydraulicLocation> GetLocations()
         {
+            var readHydraulicLocations = new Collection<ReadHydraulicLocation>();
+            
             using (IDataReader dataReader = CreateDataReader(HydraulicLocationConfigurationDatabaseQueryBuilder.GetLocationsQuery()))
             {
                 while (MoveNext(dataReader))
                 {
-                    yield return new ReadHydraulicLocation(dataReader.Read<long>(LocationsTableDefinitions.LocationId),
-                                                           dataReader.Read<long>(LocationsTableDefinitions.HrdLocationId),
-                                                           dataReader.Read<long>(LocationsTableDefinitions.TrackId));
+                    readHydraulicLocations.Add(new ReadHydraulicLocation(dataReader.Read<long>(LocationsTableDefinitions.LocationId),
+                                                                         dataReader.Read<long>(LocationsTableDefinitions.HrdLocationId),
+                                                                         dataReader.Read<long>(LocationsTableDefinitions.TrackId)));
                 }
             }
+
+            return readHydraulicLocations;
         }
 
         /// <summary>
@@ -123,22 +128,25 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// <exception cref="ConversionException">Thrown when the database returned incorrect values for required properties.</exception>
         private IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> GetConfigurationSettings()
         {
+            var readSettings = new Collection<ReadHydraulicLocationConfigurationDatabaseSettings>();
+            
             using (IDataReader dataReader = CreateDataReader(HydraulicLocationConfigurationDatabaseQueryBuilder.GetScenarioInformationQuery()))
             {
                 while (MoveNext(dataReader))
                 {
-                    yield return new ReadHydraulicLocationConfigurationDatabaseSettings(
-                        dataReader.Read<string>(ScenarioInformationTableDefinitions.ScenarioName),
-                        dataReader.Read<int>(ScenarioInformationTableDefinitions.Year),
-                        dataReader.Read<string>(ScenarioInformationTableDefinitions.Scope),
-                        dataReader.Read<string>(ScenarioInformationTableDefinitions.SeaLevel),
-                        dataReader.Read<string>(ScenarioInformationTableDefinitions.RiverDischarge),
-                        dataReader.Read<string>(ScenarioInformationTableDefinitions.LakeLevel),
-                        dataReader.Read<string>(ScenarioInformationTableDefinitions.WindDirection),
-                        dataReader.Read<string>(ScenarioInformationTableDefinitions.WindSpeed),
-                        dataReader.Read<string>(ScenarioInformationTableDefinitions.Comment));
+                    readSettings.Add(new ReadHydraulicLocationConfigurationDatabaseSettings(dataReader.Read<string>(ScenarioInformationTableDefinitions.ScenarioName),
+                                                                                            dataReader.Read<int>(ScenarioInformationTableDefinitions.Year),
+                                                                                            dataReader.Read<string>(ScenarioInformationTableDefinitions.Scope),
+                                                                                            dataReader.Read<string>(ScenarioInformationTableDefinitions.SeaLevel),
+                                                                                            dataReader.Read<string>(ScenarioInformationTableDefinitions.RiverDischarge),
+                                                                                            dataReader.Read<string>(ScenarioInformationTableDefinitions.LakeLevel),
+                                                                                            dataReader.Read<string>(ScenarioInformationTableDefinitions.WindDirection),
+                                                                                            dataReader.Read<string>(ScenarioInformationTableDefinitions.WindSpeed),
+                                                                                            dataReader.Read<string>(ScenarioInformationTableDefinitions.Comment)));
                 }
             }
+
+            return readSettings;
         }
 
         /// <summary>
@@ -203,28 +211,30 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         }
 
         /// <summary>
-        /// Gets data from the database.
+        /// Gets data of type <typeparamref name="T"/> from the database.
         /// </summary>
         /// <param name="readFromDatabaseFunc">The <see cref="Func{T}"/> for reading data from the database.</param>
         /// <typeparam name="T">The type of data to read from the database.</typeparam>
-        /// <returns>A collection of read <typeparamref name="T"/>.</returns>
+        /// <returns>The read data of type <typeparamref name="T"/>.</returns>
         /// <exception cref="CriticalFileReadException">Thrown when the database query failed.</exception>
         /// <exception cref="LineParseException">Thrown when the database returned incorrect values for required properties.</exception>
-        private IEnumerable<T> GetFromDatabase<T>(Func<IEnumerable<T>> readFromDatabaseFunc)
+        private T GetFromDatabase<T>(Func<T> readFromDatabaseFunc)
         {
             try
             {
-                return readFromDatabaseFunc().ToArray();
+                return readFromDatabaseFunc();
             }
             catch (SQLiteException exception)
             {
-                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicLocationConfigurationDatabaseReader_Critical_Unexpected_Exception);
-                throw new CriticalFileReadException(message, exception);
+                throw new CriticalFileReadException(
+                    new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicLocationConfigurationDatabaseReader_Critical_Unexpected_Exception),
+                    exception);
             }
             catch (ConversionException exception)
             {
-                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
-                throw new LineParseException(message, exception);
+                throw new LineParseException(
+                    new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column),
+                    exception);
             }
         }
     }
