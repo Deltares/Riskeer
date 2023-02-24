@@ -58,9 +58,15 @@ namespace Riskeer.Integration.Plugin.Handlers
 
         public bool InquireConfirmation()
         {
+            if (!assessmentSection.HydraulicBoundaryData.IsLinked())
+            {
+                return true;
+            }
+
             DialogResult result = MessageBox.Show(Resources.HydraulicLocationConfigurationDatabaseUpdateHandler_Confirm_clear_hydraulicLocationConfigurationDatabase_dependent_data,
                                                   CoreCommonBaseResources.Confirm,
                                                   MessageBoxButtons.OKCancel);
+
             return result == DialogResult.OK;
         }
 
