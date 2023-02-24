@@ -62,13 +62,13 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         {
             return new ReadHydraulicLocationConfigurationDatabase(GetFromDatabase(GetLocations).Where(rhl => rhl.TrackId == trackId),
                                                                   IsScenarioInformationTablePresent()
-                                                                      ? GetConfigurationSettings()
+                                                                      ? GetFromDatabase(GetConfigurationSettings)
                                                                       : null,
                                                                   GetUsePreprocessorClosureByTrackId(trackId));
         }
 
         /// <summary>
-        /// Gets the locations from the database.
+        /// Gets the hydraulic locations from the database.
         /// </summary>
         /// <returns>A collection of <see cref="ReadHydraulicLocation"/> as found in the database.</returns>
         /// <exception cref="SQLiteException">Thrown when the database query failed.</exception>
@@ -83,31 +83,6 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
                                                            dataReader.Read<long>(LocationsTableDefinitions.HrdLocationId),
                                                            dataReader.Read<long>(LocationsTableDefinitions.TrackId));
                 }
-            }
-        }
-
-        /// <summary>
-        /// Gets the hydraulic location configuration settings from the database.
-        /// </summary>
-        /// <returns>A collection of the read hydraulic configuration database settings.</returns>
-        /// <exception cref="CriticalFileReadException">Thrown when the database query failed.</exception>
-        /// <exception cref="LineParseException">Thrown when the database returned incorrect values for required properties.</exception>
-        private IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> GetConfigurationSettings()
-        {
-            try
-            {
-                return GetConfigurationSettingsFromDatabase().ToArray();
-            }
-            catch (SQLiteException exception)
-            {
-                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicLocationConfigurationDatabaseReader_Critical_Unexpected_Exception);
-                throw new CriticalFileReadException(message, exception);
-            }
-            catch (ConversionException e)
-            {
-                throw new LineParseException(
-                    new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column),
-                    e);
             }
         }
 
@@ -143,10 +118,10 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// <summary>
         /// Gets the hydraulic location configuration settings from the database.
         /// </summary>
-        /// <returns>A collection of the read hydraulic configuration database settings.</returns>
+        /// <returns>A collection of the read hydraulic location configuration database settings.</returns>
         /// <exception cref="SQLiteException">Thrown when the database query failed.</exception>
         /// <exception cref="ConversionException">Thrown when the database returned incorrect values for required properties.</exception>
-        private IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> GetConfigurationSettingsFromDatabase()
+        private IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> GetConfigurationSettings()
         {
             using (IDataReader dataReader = CreateDataReader(HydraulicLocationConfigurationDatabaseQueryBuilder.GetScenarioInformationQuery()))
             {
