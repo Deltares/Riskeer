@@ -153,20 +153,24 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
 
             using (IDataReader dataReader = CreateDataReader(HydraulicLocationConfigurationDatabaseQueryBuilder.GetTracksQuery()))
             {
+                bool isUsePreprocessorClosureColumnPresent = IsUsePreprocessorClosureColumnPresent(dataReader);
+
                 while (MoveNext(dataReader))
                 {
-                    DataTable schemaTable = dataReader.GetSchemaTable();
-                    DataColumn columnName = schemaTable.Columns[schemaTable.Columns.IndexOf("ColumnName")];
-
-                    var usePreprocessorClosure = schemaTable.Rows.Cast<DataRow>().All(row => row[columnName].ToString() != RegionsTableDefinitions.UsePreprocessorClosure)
-                                                     ? false
-                                                     : dataReader.Read<bool>(RegionsTableDefinitions.UsePreprocessorClosure);
-
-                    readTracks.Add(new ReadTrack(dataReader.Read<long>(TracksTableDefinitions.TrackId), usePreprocessorClosure));
+                    readTracks.Add(new ReadTrack(dataReader.Read<long>(TracksTableDefinitions.TrackId),
+                                                 isUsePreprocessorClosureColumnPresent && dataReader.Read<bool>(RegionsTableDefinitions.UsePreprocessorClosure)));
                 }
             }
 
             return readTracks;
+        }
+
+        private static bool IsUsePreprocessorClosureColumnPresent(IDataReader dataReader)
+        {
+            DataTable schemaTable = dataReader.GetSchemaTable();
+            DataColumn columnName = schemaTable.Columns[schemaTable.Columns.IndexOf("ColumnName")];
+
+            return schemaTable.Rows.Cast<DataRow>().Any(row => row[columnName].ToString() == RegionsTableDefinitions.UsePreprocessorClosure);
         }
 
         /// <summary>
