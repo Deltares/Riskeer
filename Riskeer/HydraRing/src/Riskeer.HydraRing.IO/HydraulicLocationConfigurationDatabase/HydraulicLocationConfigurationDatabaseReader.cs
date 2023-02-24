@@ -63,12 +63,12 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// <exception cref="LineParseException">Thrown when the database returned incorrect values for required properties.</exception>
         public ReadHydraulicLocationConfigurationDatabase Read(long trackId)
         {
-            return new ReadHydraulicLocationConfigurationDatabase(GetFromDatabase(() => GetLocationIdsFromDatabase(new SQLiteParameter
+            return new ReadHydraulicLocationConfigurationDatabase(GetFromDatabase(() => GetHydraulicLocationsFromDatabase(new SQLiteParameter
                                                                   {
                                                                       DbType = DbType.String,
                                                                       ParameterName = LocationsTableDefinitions.TrackId,
                                                                       Value = trackId
-                                                                  })),
+                                                                  })).Where(rhl => rhl.TrackId == trackId),
                                                                   IsScenarioInformationTablePresent()
                                                                       ? GetConfigurationSettings()
                                                                       : null,
@@ -82,31 +82,18 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// <returns>A collection of <see cref="ReadHydraulicLocation"/> as found in the database.</returns>
         /// <exception cref="SQLiteException">Thrown when the database query failed.</exception>
         /// <exception cref="ConversionException">Thrown when the database returned incorrect values for required properties.</exception>
-        private IEnumerable<ReadHydraulicLocation> GetLocationIdsFromDatabase(SQLiteParameter trackParameter)
+        private IEnumerable<ReadHydraulicLocation> GetHydraulicLocationsFromDatabase(SQLiteParameter trackParameter)
         {
-            var locationLookup = new Dictionary<long, long>();
-
             using (IDataReader dataReader = CreateDataReader(HydraulicLocationConfigurationDatabaseQueryBuilder.GetLocationIdsByTrackIdQuery(),
                                                              trackParameter))
             {
                 while (MoveNext(dataReader))
                 {
-                    var hrdLocationId = dataReader.Read<long>(LocationsTableDefinitions.HrdLocationId);
-                    var hlcdLocationId = dataReader.Read<long>(LocationsTableDefinitions.LocationId);
-
-                    // Must be unique
-                    if (locationLookup.ContainsKey(hrdLocationId))
-                    {
-                        log.Warn(Resources.HydraulicLocationConfigurationDatabaseReader_GetLocationIdFromDatabase_Ambiguous_Row_Found_Take_First);
-                    }
-                    else
-                    {
-                        locationLookup[hrdLocationId] = hlcdLocationId;
-                    }
+                    yield return new ReadHydraulicLocation(dataReader.Read<long>(LocationsTableDefinitions.LocationId),
+                                                           dataReader.Read<long>(LocationsTableDefinitions.HrdLocationId),
+                                                           1);
                 }
             }
-
-            return locationLookup.Select(lookup => new ReadHydraulicLocation(lookup.Value, lookup.Key, 1)).ToArray();
         }
 
         /// <summary>
