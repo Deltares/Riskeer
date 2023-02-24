@@ -155,6 +155,12 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
                 string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicLocationConfigurationDatabaseReader_Critical_Unexpected_Exception);
                 throw new CriticalFileReadException(message, exception);
             }
+            catch (ConversionException e)
+            {
+                throw new LineParseException(
+                    new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column),
+                    e);
+            }
         }
 
         /// <summary>
@@ -191,7 +197,7 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// </summary>
         /// <returns>A collection of the read hydraulic configuration database settings.</returns>
         /// <exception cref="SQLiteException">Thrown when the database query failed.</exception>
-        /// <exception cref="LineParseException">Thrown when the database returned incorrect values for required properties.</exception>
+        /// <exception cref="ConversionException">Thrown when the database returned incorrect values for required properties.</exception>
         private IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> GetConfigurationSettingsFromDatabase()
         {
             string query = HydraulicLocationConfigurationDatabaseQueryBuilder.GetScenarioInformationQuery();
@@ -215,27 +221,16 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// <exception cref="LineParseException">Thrown when the database returned incorrect values for required properties.</exception>
         private ReadHydraulicLocationConfigurationDatabaseSettings ReadSetting(IDataReader reader)
         {
-            try
-            {
-                var scenarioName = reader.Read<string>(ScenarioInformationTableDefinitions.ScenarioName);
-                var year = reader.Read<int>(ScenarioInformationTableDefinitions.Year);
-                var scope = reader.Read<string>(ScenarioInformationTableDefinitions.Scope);
-                var seaLevel = reader.Read<string>(ScenarioInformationTableDefinitions.SeaLevel);
-                var riverDischarge = reader.Read<string>(ScenarioInformationTableDefinitions.RiverDischarge);
-                var lakeLevel = reader.Read<string>(ScenarioInformationTableDefinitions.LakeLevel);
-                var windDirection = reader.Read<string>(ScenarioInformationTableDefinitions.WindDirection);
-                var windSpeed = reader.Read<string>(ScenarioInformationTableDefinitions.WindSpeed);
-                var comment = reader.Read<string>(ScenarioInformationTableDefinitions.Comment);
-
-                return new ReadHydraulicLocationConfigurationDatabaseSettings(scenarioName, year, scope,
-                                                                              seaLevel, riverDischarge, lakeLevel,
-                                                                              windDirection, windSpeed, comment);
-            }
-            catch (ConversionException e)
-            {
-                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
-                throw new LineParseException(message, e);
-            }
+            return new ReadHydraulicLocationConfigurationDatabaseSettings(
+                reader.Read<string>(ScenarioInformationTableDefinitions.ScenarioName),
+                reader.Read<int>(ScenarioInformationTableDefinitions.Year),
+                reader.Read<string>(ScenarioInformationTableDefinitions.Scope),
+                reader.Read<string>(ScenarioInformationTableDefinitions.SeaLevel),
+                reader.Read<string>(ScenarioInformationTableDefinitions.RiverDischarge),
+                reader.Read<string>(ScenarioInformationTableDefinitions.LakeLevel),
+                reader.Read<string>(ScenarioInformationTableDefinitions.WindDirection),
+                reader.Read<string>(ScenarioInformationTableDefinitions.WindSpeed),
+                reader.Read<string>(ScenarioInformationTableDefinitions.Comment));
         }
 
         /// <summary>
