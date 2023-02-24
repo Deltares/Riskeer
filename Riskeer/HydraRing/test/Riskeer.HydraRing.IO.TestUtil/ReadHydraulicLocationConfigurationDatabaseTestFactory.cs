@@ -87,7 +87,7 @@ namespace Riskeer.HydraRing.IO.TestUtil
         private static ReadHydraulicLocationConfigurationDatabase Create(IEnumerable<long> locationIds,
                                                                          IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> settings)
         {
-            return new ReadHydraulicLocationConfigurationDatabase(locationIds.Select(locationId => new ReadHydraulicLocationMapping(locationId, locationId + 100))
+            return new ReadHydraulicLocationConfigurationDatabase(locationIds.Select(locationId => new ReadHydraulicLocation(locationId, locationId + 100, 1))
                                                                              .ToList(),
                                                                   settings, false);
         }
