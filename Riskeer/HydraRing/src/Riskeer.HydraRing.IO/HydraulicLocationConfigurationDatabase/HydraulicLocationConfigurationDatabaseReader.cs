@@ -76,13 +76,13 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         }
 
         /// <summary>
-        /// Gets the location ids from the database, based upon <paramref name="trackParameter"/>.
+        /// Gets the hydraulic locations from the database.
         /// </summary>
         /// <param name="trackParameter">A parameter containing the track id.</param>
-        /// <returns>A collection of <see cref="ReadHydraulicLocationMapping"/> as found in the database.</returns>
+        /// <returns>A collection of <see cref="ReadHydraulicLocation"/> as found in the database.</returns>
         /// <exception cref="SQLiteException">Thrown when the database query failed.</exception>
         /// <exception cref="ConversionException">Thrown when the database returned incorrect values for required properties.</exception>
-        private IEnumerable<ReadHydraulicLocationMapping> GetLocationIdsFromDatabase(SQLiteParameter trackParameter)
+        private IEnumerable<ReadHydraulicLocation> GetLocationIdsFromDatabase(SQLiteParameter trackParameter)
         {
             var locationLookup = new Dictionary<long, long>();
 
@@ -106,7 +106,7 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
                 }
             }
 
-            return locationLookup.Select(lookup => new ReadHydraulicLocationMapping(lookup.Key, lookup.Value)).ToArray();
+            return locationLookup.Select(lookup => new ReadHydraulicLocation(lookup.Value, lookup.Key, 1)).ToArray();
         }
 
         /// <summary>
