@@ -41,14 +41,14 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         private static readonly ILog log = LogManager.GetLogger(typeof(HydraulicLocationConfigurationDatabaseReader));
 
         /// <summary>
-        /// Creates a new instance of <see cref="HydraulicLocationConfigurationDatabaseReader"/>, 
-        /// which will use the <paramref name="databaseFilePath"/> as its source.
+        /// Creates a new instance of <see cref="HydraulicLocationConfigurationDatabaseReader"/>, which will use the
+        /// <paramref name="databaseFilePath"/> as its source.
         /// </summary>
         /// <param name="databaseFilePath">The path of the database file to open.</param>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
-        /// <item>The <paramref name="databaseFilePath"/> contains invalid characters.</item>
-        /// <item>No file could be found at <paramref name="databaseFilePath"/>.</item>
+        /// <item>the <paramref name="databaseFilePath"/> contains invalid characters;</item>
+        /// <item>no file could be found at <paramref name="databaseFilePath"/>.</item>
         /// </list>
         /// </exception>
         public HydraulicLocationConfigurationDatabaseReader(string databaseFilePath) : base(databaseFilePath) {}
@@ -58,10 +58,9 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// </summary>
         /// <param name="trackId">The track id to read the location configurations for.</param>
         /// <returns>A read hydraulic location configuration database.</returns>
-        /// <exception cref="CriticalFileReadException">Thrown when hydraulic location configuration database
-        /// could not be read.</exception>
-        /// <exception cref="LineParseException">Thrown when the database returned incorrect values for 
-        /// required properties.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when the hydraulic location configuration database could not
+        /// be read.</exception>
+        /// <exception cref="LineParseException">Thrown when the database returned incorrect values for required properties.</exception>
         public ReadHydraulicLocationConfigurationDatabase Read(long trackId)
         {
             IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> configurationSettings = IsScenarioInformationTablePresent()
@@ -76,11 +75,10 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// <summary>
         /// Gets the location ids from the database, based upon <paramref name="trackId"/>.
         /// </summary>
-        /// <param name="trackId">The hydraulic boundary track id.</param>
+        /// <param name="trackId">The track id.</param>
         /// <returns>A collection of <see cref="ReadHydraulicLocationMapping"/> as found in the database.</returns>
         /// <exception cref="CriticalFileReadException">Thrown when the database query failed.</exception>
-        /// <exception cref="LineParseException">Thrown when the database returned incorrect values for 
-        /// required properties.</exception>
+        /// <exception cref="LineParseException">Thrown when the database returned incorrect values for required properties.</exception>
         private IEnumerable<ReadHydraulicLocationMapping> GetLocationIdsByTrackId(long trackId)
         {
             var trackParameter = new SQLiteParameter
@@ -109,11 +107,10 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// <summary>
         /// Gets the location ids from the database, based upon <paramref name="trackParameter"/>.
         /// </summary>
-        /// <param name="trackParameter">A parameter containing the hydraulic boundary track id.</param>
+        /// <param name="trackParameter">A parameter containing the track id.</param>
         /// <returns>A collection of <see cref="ReadHydraulicLocationMapping"/> as found in the database.</returns>
         /// <exception cref="SQLiteException">Thrown when the database query failed.</exception>
-        /// <exception cref="InvalidCastException">Thrown when the database returned incorrect values for 
-        /// required properties.</exception>
+        /// <exception cref="InvalidCastException">Thrown when the database returned incorrect values for required properties.</exception>
         private IEnumerable<ReadHydraulicLocationMapping> GetLocationIdsFromDatabase(SQLiteParameter trackParameter)
         {
             string query = HydraulicLocationConfigurationDatabaseQueryBuilder.GetLocationIdsByTrackIdQuery();
@@ -146,8 +143,7 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// </summary>
         /// <returns>A collection of the read hydraulic configuration database settings.</returns>
         /// <exception cref="CriticalFileReadException">Thrown when the database query failed.</exception>
-        /// <exception cref="LineParseException">Thrown when the database returned incorrect values for 
-        /// required properties.</exception>
+        /// <exception cref="LineParseException">Thrown when the database returned incorrect values for required properties.</exception>
         private IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> GetConfigurationSettings()
         {
             try
@@ -195,8 +191,7 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// </summary>
         /// <returns>A collection of the read hydraulic configuration database settings.</returns>
         /// <exception cref="SQLiteException">Thrown when the database query failed.</exception>
-        /// <exception cref="LineParseException">Thrown when the database returned incorrect values for 
-        /// required properties.</exception>
+        /// <exception cref="LineParseException">Thrown when the database returned incorrect values for required properties.</exception>
         private IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> GetConfigurationSettingsFromDatabase()
         {
             string query = HydraulicLocationConfigurationDatabaseQueryBuilder.GetScenarioInformationQuery();
@@ -213,12 +208,11 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         }
 
         /// <summary>
-        /// Reads the hydraulic location configuration setting from the database.
+        /// Reads the hydraulic location configuration settings from the database.
         /// </summary>
         /// <param name="reader">The <see cref="IDataReader"/> which is used to read the data.</param>
         /// <returns>The read <see cref="ReadHydraulicLocationConfigurationDatabaseSettings"/>.</returns>
-        /// <exception cref="LineParseException">Thrown when the database returned incorrect values for 
-        /// required properties.</exception>
+        /// <exception cref="LineParseException">Thrown when the database returned incorrect values for required properties.</exception>
         private ReadHydraulicLocationConfigurationDatabaseSettings ReadSetting(IDataReader reader)
         {
             try
@@ -249,10 +243,8 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// </summary>
         /// <param name="trackId">The track id to get the preprocessor closure for.</param>
         /// <returns>The read indicator whether to use the preprocessor closure.</returns>
-        /// <exception cref="CriticalFileReadException">Thrown when the information could not be read
-        /// from the database file.</exception>
-        /// <exception cref="LineParseException">Thrown when the database returned incorrect values for 
-        /// required properties.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when the information could not be read from the database file.</exception>
+        /// <exception cref="LineParseException">Thrown when the database returned incorrect values for required properties.</exception>
         private bool GetUsePreprocessorClosureByTrackId(long trackId)
         {
             var trackParameter = new SQLiteParameter
@@ -281,13 +273,11 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// <summary>
         /// Reads the use preprocessor closure from the database.
         /// </summary>
-        /// <param name="trackParameter">A parameter containing the hydraulic boundary track id.</param>
+        /// <param name="trackParameter">A parameter containing the track id.</param>
         /// <returns>The read indicator whether to use the preprocessor closure.</returns>
-        /// <exception cref="CriticalFileReadException">Thrown when the information could not be read
-        /// from the database file.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when the information could not be read from the database file.</exception>
         /// <exception cref="SQLiteException">Thrown when the database query failed.</exception>
-        /// <exception cref="InvalidCastException">Thrown when the database returned incorrect values for 
-        /// required properties.</exception>
+        /// <exception cref="InvalidCastException">Thrown when the database returned incorrect values for required properties.</exception>
         private bool ReadUsePreprocessorClosure(SQLiteParameter trackParameter)
         {
             string query = HydraulicLocationConfigurationDatabaseQueryBuilder.GetRegionByTrackIdQuery();
