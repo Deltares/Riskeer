@@ -61,23 +61,23 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// <exception cref="LineParseException">Thrown when the database returned incorrect values for required properties.</exception>
         public ReadHydraulicLocationConfigurationDatabase Read(long trackId)
         {
-            return new ReadHydraulicLocationConfigurationDatabase(GetFromDatabase(GetLocations).Where(rhl => rhl.TrackId == trackId),
-                                                                  IsScenarioInformationTablePresent()
-                                                                      ? GetFromDatabase(GetConfigurationSettings)
+            return new ReadHydraulicLocationConfigurationDatabase(GetFromDatabase(ReadLocations).Where(rhl => rhl.TrackId == trackId),
+                                                                  GetFromDatabase(IsScenarioInformationTablePresent)
+                                                                      ? GetFromDatabase(ReadConfigurationSettings)
                                                                       : null,
                                                                   GetUsePreprocessorClosureByTrackId(trackId));
         }
 
         /// <summary>
-        /// Gets the hydraulic locations from the database.
+        /// Reads the hydraulic locations from the database.
         /// </summary>
         /// <returns>A collection of <see cref="ReadHydraulicLocation"/> as found in the database.</returns>
         /// <exception cref="SQLiteException">Thrown when the database query failed.</exception>
         /// <exception cref="ConversionException">Thrown when the database returned incorrect values for required properties.</exception>
-        private IEnumerable<ReadHydraulicLocation> GetLocations()
+        private IEnumerable<ReadHydraulicLocation> ReadLocations()
         {
             var readHydraulicLocations = new Collection<ReadHydraulicLocation>();
-            
+
             using (IDataReader dataReader = CreateDataReader(HydraulicLocationConfigurationDatabaseQueryBuilder.GetLocationsQuery()))
             {
                 while (MoveNext(dataReader))
@@ -95,41 +95,33 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// Determines whether the table related to the scenario information is present in the database.
         /// </summary>
         /// <returns><c>true</c> if the table is present; <c>false</c> otherwise.</returns>
-        /// <exception cref="CriticalFileReadException">Thrown when the information could not be read from the database file.</exception>
+        /// <exception cref="SQLiteException">Thrown when the database query failed.</exception>
+        /// <exception cref="ConversionException">Thrown when the database returned incorrect values for required properties.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when the information could not be read from the database.</exception>
         private bool IsScenarioInformationTablePresent()
         {
-            string query = HydraulicLocationConfigurationDatabaseQueryBuilder.GetIsScenarioInformationPresentQuery();
-
-            try
+            using (IDataReader dataReader = CreateDataReader(HydraulicLocationConfigurationDatabaseQueryBuilder.GetIsScenarioInformationPresentQuery()))
             {
-                using (IDataReader dataReader = CreateDataReader(query))
+                if (dataReader.Read())
                 {
-                    if (dataReader.Read())
-                    {
-                        return Convert.ToBoolean(dataReader[ScenarioInformationTableDefinitions.IsScenarioInformationPresent]);
-                    }
-
-                    string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
-                    throw new CriticalFileReadException(message);
+                    return dataReader.Read<bool>(ScenarioInformationTableDefinitions.IsScenarioInformationPresent);
                 }
-            }
-            catch (SQLiteException exception)
-            {
-                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicLocationConfigurationDatabaseReader_Critical_Unexpected_Exception);
-                throw new CriticalFileReadException(message, exception);
+
+                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
+                throw new CriticalFileReadException(message);
             }
         }
 
         /// <summary>
-        /// Gets the hydraulic location configuration settings from the database.
+        /// Reads the hydraulic location configuration settings from the database.
         /// </summary>
         /// <returns>A collection of the read hydraulic location configuration database settings.</returns>
         /// <exception cref="SQLiteException">Thrown when the database query failed.</exception>
         /// <exception cref="ConversionException">Thrown when the database returned incorrect values for required properties.</exception>
-        private IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> GetConfigurationSettings()
+        private IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> ReadConfigurationSettings()
         {
             var readSettings = new Collection<ReadHydraulicLocationConfigurationDatabaseSettings>();
-            
+
             using (IDataReader dataReader = CreateDataReader(HydraulicLocationConfigurationDatabaseQueryBuilder.GetScenarioInformationQuery()))
             {
                 while (MoveNext(dataReader))
@@ -216,7 +208,7 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// <param name="readFromDatabaseFunc">The <see cref="Func{T}"/> for reading data from the database.</param>
         /// <typeparam name="T">The type of data to read from the database.</typeparam>
         /// <returns>The read data of type <typeparamref name="T"/>.</returns>
-        /// <exception cref="CriticalFileReadException">Thrown when the database query failed.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when the database query failed or the data could not be read.</exception>
         /// <exception cref="LineParseException">Thrown when the database returned incorrect values for required properties.</exception>
         private T GetFromDatabase<T>(Func<T> readFromDatabaseFunc)
         {
