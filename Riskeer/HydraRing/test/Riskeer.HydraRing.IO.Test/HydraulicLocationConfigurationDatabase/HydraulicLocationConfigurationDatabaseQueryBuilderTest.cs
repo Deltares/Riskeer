@@ -68,7 +68,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
             string query = HydraulicLocationConfigurationDatabaseQueryBuilder.GetTracksQuery();
 
             // Assert
-            const string expectedQuery = "SELECT * FROM Tracks LEFT JOIN Regions ON Tracks.RegionId = regions.RegionId;";
+            const string expectedQuery = "SELECT * FROM Tracks LEFT JOIN Regions ON Tracks.RegionId = Regions.RegionId;";
             Assert.AreEqual(expectedQuery, query);
         }
     }
