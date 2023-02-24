@@ -181,7 +181,7 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// <exception cref="ConversionException">Thrown when the database returned incorrect values for required properties.</exception>
         private bool ReadUsePreprocessorClosure(SQLiteParameter trackParameter)
         {
-            string query = HydraulicLocationConfigurationDatabaseQueryBuilder.GetRegionByTrackIdQuery();
+            string query = HydraulicLocationConfigurationDatabaseQueryBuilder.GetTracksQuery();
 
             using (IDataReader dataReader = CreateDataReader(query, trackParameter))
             {

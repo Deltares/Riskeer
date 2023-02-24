@@ -27,9 +27,9 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
     public static class HydraulicLocationConfigurationDatabaseQueryBuilder
     {
         /// <summary>
-        /// Gets the query to get locations from the database.
+        /// Gets the query to get all relevant location information from the database.
         /// </summary>
-        /// <returns>The query to get locations from the database.</returns>
+        /// <returns>The query to get all relevant location information from the database.</returns>
         public static string GetLocationsQuery()
         {
             return $"SELECT {LocationsTableDefinitions.LocationId}, {LocationsTableDefinitions.HrdLocationId}, {LocationsTableDefinitions.TrackId} " +
@@ -66,15 +66,14 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         }
 
         /// <summary>
-        /// Gets the query to get region information from the database.
+        /// Gets the query to get all relevant track information from the database.
         /// </summary>
-        /// <returns>The query to get region information from the database.</returns>
-        public static string GetRegionByTrackIdQuery()
+        /// <returns>The query to get all relevant track information from the database.</returns>
+        public static string GetTracksQuery()
         {
-            return $"SELECT * FROM {RegionsTableDefinitions.TableName} " +
-                   $"LEFT JOIN {TracksTableDefinitions.TableName} " +
-                   $"ON {RegionsTableDefinitions.TableName}.{RegionsTableDefinitions.RegionId} = {TracksTableDefinitions.TableName}.{TracksTableDefinitions.RegionId} " +
-                   $"WHERE {TracksTableDefinitions.TableName}.{TracksTableDefinitions.TrackId} = @{TracksTableDefinitions.TrackId}";
+            return $"SELECT * FROM {TracksTableDefinitions.TableName} " +
+                   $"LEFT JOIN {RegionsTableDefinitions.TableName} " +
+                   $"ON {TracksTableDefinitions.TableName}.{TracksTableDefinitions.RegionId} = {RegionsTableDefinitions.TableName}.{RegionsTableDefinitions.RegionId};";
         }
     }
 }

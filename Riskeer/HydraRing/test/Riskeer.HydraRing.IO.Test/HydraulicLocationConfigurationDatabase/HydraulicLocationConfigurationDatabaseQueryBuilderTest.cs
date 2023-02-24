@@ -45,9 +45,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
             string query = HydraulicLocationConfigurationDatabaseQueryBuilder.GetIsScenarioInformationPresentQuery();
 
             // Assert
-            const string expectedQuery = "SELECT COUNT() = 1 AS IsScenarioInformationPresent " +
-                                         "FROM sqlite_master WHERE type = 'table' " +
-                                         "AND name='ScenarioInformation';";
+            const string expectedQuery = "SELECT COUNT() = 1 AS IsScenarioInformationPresent FROM sqlite_master WHERE type = 'table' AND name='ScenarioInformation';";
             Assert.AreEqual(expectedQuery, query);
         }
 
@@ -64,13 +62,13 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
         }
 
         [Test]
-        public void GetRegionByTrackIdQuery_Always_ReturnsExpectedValue()
+        public void GetTracksQuery_Always_ReturnsExpectedValue()
         {
             // Call
-            string query = HydraulicLocationConfigurationDatabaseQueryBuilder.GetRegionByTrackIdQuery();
+            string query = HydraulicLocationConfigurationDatabaseQueryBuilder.GetTracksQuery();
 
             // Assert
-            const string expectedQuery = "SELECT * FROM Regions LEFT JOIN Tracks ON Regions.RegionId = Tracks.RegionId WHERE Tracks.TrackId = @TrackId";
+            const string expectedQuery = "SELECT * FROM Tracks LEFT JOIN Regions ON Tracks.RegionId = regions.RegionId;";
             Assert.AreEqual(expectedQuery, query);
         }
     }
