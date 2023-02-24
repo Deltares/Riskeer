@@ -28,7 +28,6 @@ using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.Util.Builders;
-using log4net;
 using Riskeer.HydraRing.IO.Properties;
 
 namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
@@ -38,8 +37,6 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
     /// </summary>
     public class HydraulicLocationConfigurationDatabaseReader : SqLiteDatabaseReaderBase
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(HydraulicLocationConfigurationDatabaseReader));
-
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicLocationConfigurationDatabaseReader"/>, which will use the
         /// <paramref name="databaseFilePath"/> as its source.
@@ -63,12 +60,7 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// <exception cref="LineParseException">Thrown when the database returned incorrect values for required properties.</exception>
         public ReadHydraulicLocationConfigurationDatabase Read(long trackId)
         {
-            return new ReadHydraulicLocationConfigurationDatabase(GetFromDatabase(() => GetHydraulicLocationsFromDatabase(new SQLiteParameter
-                                                                  {
-                                                                      DbType = DbType.String,
-                                                                      ParameterName = LocationsTableDefinitions.TrackId,
-                                                                      Value = trackId
-                                                                  })).Where(rhl => rhl.TrackId == trackId),
+            return new ReadHydraulicLocationConfigurationDatabase(GetFromDatabase(GetLocations).Where(rhl => rhl.TrackId == trackId),
                                                                   IsScenarioInformationTablePresent()
                                                                       ? GetConfigurationSettings()
                                                                       : null,
@@ -76,22 +68,20 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         }
 
         /// <summary>
-        /// Gets the hydraulic locations from the database.
+        /// Gets the locations from the database.
         /// </summary>
-        /// <param name="trackParameter">A parameter containing the track id.</param>
         /// <returns>A collection of <see cref="ReadHydraulicLocation"/> as found in the database.</returns>
         /// <exception cref="SQLiteException">Thrown when the database query failed.</exception>
         /// <exception cref="ConversionException">Thrown when the database returned incorrect values for required properties.</exception>
-        private IEnumerable<ReadHydraulicLocation> GetHydraulicLocationsFromDatabase(SQLiteParameter trackParameter)
+        private IEnumerable<ReadHydraulicLocation> GetLocations()
         {
-            using (IDataReader dataReader = CreateDataReader(HydraulicLocationConfigurationDatabaseQueryBuilder.GetLocationIdsByTrackIdQuery(),
-                                                             trackParameter))
+            using (IDataReader dataReader = CreateDataReader(HydraulicLocationConfigurationDatabaseQueryBuilder.GetLocationsQuery()))
             {
                 while (MoveNext(dataReader))
                 {
                     yield return new ReadHydraulicLocation(dataReader.Read<long>(LocationsTableDefinitions.LocationId),
                                                            dataReader.Read<long>(LocationsTableDefinitions.HrdLocationId),
-                                                           1);
+                                                           dataReader.Read<long>(LocationsTableDefinitions.TrackId));
                 }
             }
         }

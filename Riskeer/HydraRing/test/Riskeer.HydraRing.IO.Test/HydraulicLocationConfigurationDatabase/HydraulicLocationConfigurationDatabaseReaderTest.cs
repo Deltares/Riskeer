@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
@@ -237,31 +236,6 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
                 var exception = Assert.Throws<LineParseException>(test);
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<ConversionException>(exception.InnerException);
-            }
-        }
-
-        [Test]
-        public void Read_AmbiguousLocations_ReturnsFirstLocationIdAndLogsWarning()
-        {
-            // Setup
-            string dbFile = Path.Combine(testDataPath, "ambigousLocation.sqlite");
-            const int trackId = 11;
-            const int hrdLocationId = 1;
-            ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = null;
-
-            using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(dbFile))
-            {
-                // Call
-                Action call = () => readHydraulicLocationConfigurationDatabase = hydraulicBoundaryDatabaseReader.Read(trackId);
-
-                // Assert
-                const int expectedLocationId = 1800001;
-                const string expectedMessage = "Er zijn meerdere resultaten gevonden, wat niet voor zou mogen komen. Neem contact op met de leverancier. Het eerste resultaat zal worden gebruikt.";
-                TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
-                long actualLocationId = readHydraulicLocationConfigurationDatabase.LocationIdMappings.Where(m => m.HrdLocationId == hrdLocationId)
-                                                                                  .Select(m => m.HlcdLocationId)
-                                                                                  .Single();
-                Assert.AreEqual(expectedLocationId, actualLocationId);
             }
         }
 

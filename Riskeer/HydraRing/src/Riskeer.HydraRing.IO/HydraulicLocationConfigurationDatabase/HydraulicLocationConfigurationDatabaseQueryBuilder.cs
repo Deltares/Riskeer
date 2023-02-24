@@ -27,15 +27,13 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
     public static class HydraulicLocationConfigurationDatabaseQueryBuilder
     {
         /// <summary>
-        /// Gets the query to get location ids from the database.
+        /// Gets the query to get locations from the database.
         /// </summary>
-        /// <returns>The query to get location ids from the database.</returns>
-        public static string GetLocationIdsByTrackIdQuery()
+        /// <returns>The query to get locations from the database.</returns>
+        public static string GetLocationsQuery()
         {
-            return $"SELECT {LocationsTableDefinitions.LocationId}, {LocationsTableDefinitions.HrdLocationId} " +
-                   $"FROM {LocationsTableDefinitions.TableName} " +
-                   $"WHERE {LocationsTableDefinitions.TrackId} = @{LocationsTableDefinitions.TrackId} " +
-                   $"ORDER BY {LocationsTableDefinitions.HrdLocationId};";
+            return $"SELECT {LocationsTableDefinitions.LocationId}, {LocationsTableDefinitions.HrdLocationId}, {LocationsTableDefinitions.TrackId} " +
+                   $"FROM {LocationsTableDefinitions.TableName};";
         }
 
         /// <summary>
