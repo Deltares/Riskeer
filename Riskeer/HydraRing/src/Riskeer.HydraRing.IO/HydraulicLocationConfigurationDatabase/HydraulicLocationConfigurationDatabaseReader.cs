@@ -63,43 +63,16 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// <exception cref="LineParseException">Thrown when the database returned incorrect values for required properties.</exception>
         public ReadHydraulicLocationConfigurationDatabase Read(long trackId)
         {
-            IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> configurationSettings = IsScenarioInformationTablePresent()
-                                                                                                        ? GetConfigurationSettings()
-                                                                                                        : null;
-
-            return new ReadHydraulicLocationConfigurationDatabase(GetLocationIdsByTrackId(trackId),
-                                                                  configurationSettings,
+            return new ReadHydraulicLocationConfigurationDatabase(GetFromDatabase(() => GetLocationIdsFromDatabase(new SQLiteParameter
+                                                                  {
+                                                                      DbType = DbType.String,
+                                                                      ParameterName = LocationsTableDefinitions.TrackId,
+                                                                      Value = trackId
+                                                                  })),
+                                                                  IsScenarioInformationTablePresent()
+                                                                      ? GetConfigurationSettings()
+                                                                      : null,
                                                                   GetUsePreprocessorClosureByTrackId(trackId));
-        }
-
-        /// <summary>
-        /// Gets the location ids from the database, based upon <paramref name="trackId"/>.
-        /// </summary>
-        /// <param name="trackId">The track id.</param>
-        /// <returns>A collection of <see cref="ReadHydraulicLocationMapping"/> as found in the database.</returns>
-        /// <exception cref="CriticalFileReadException">Thrown when the database query failed.</exception>
-        /// <exception cref="LineParseException">Thrown when the database returned incorrect values for required properties.</exception>
-        private IEnumerable<ReadHydraulicLocationMapping> GetLocationIdsByTrackId(long trackId)
-        {
-            try
-            {
-                return GetLocationIdsFromDatabase(new SQLiteParameter
-                {
-                    DbType = DbType.String,
-                    ParameterName = LocationsTableDefinitions.TrackId,
-                    Value = trackId
-                });
-            }
-            catch (SQLiteException exception)
-            {
-                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicLocationConfigurationDatabaseReader_Critical_Unexpected_Exception);
-                throw new CriticalFileReadException(message, exception);
-            }
-            catch (ConversionException exception)
-            {
-                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
-                throw new LineParseException(message, exception);
-            }
         }
 
         /// <summary>
@@ -274,6 +247,32 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
                 }
 
                 throw new CriticalFileReadException(new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicLocationConfigurationDatabaseReader_Critical_Unexpected_Exception));
+            }
+        }
+
+        /// <summary>
+        /// Gets data from the database.
+        /// </summary>
+        /// <param name="readFromDatabaseFunc">The <see cref="Func{T}"/> for reading data from the database.</param>
+        /// <typeparam name="T">The type of data to read from the database.</typeparam>
+        /// <returns>A collection of read <typeparamref name="T"/>.</returns>
+        /// <exception cref="CriticalFileReadException">Thrown when the database query failed.</exception>
+        /// <exception cref="LineParseException">Thrown when the database returned incorrect values for required properties.</exception>
+        private IEnumerable<T> GetFromDatabase<T>(Func<IEnumerable<T>> readFromDatabaseFunc)
+        {
+            try
+            {
+                return readFromDatabaseFunc().ToArray();
+            }
+            catch (SQLiteException exception)
+            {
+                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicLocationConfigurationDatabaseReader_Critical_Unexpected_Exception);
+                throw new CriticalFileReadException(message, exception);
+            }
+            catch (ConversionException exception)
+            {
+                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
+                throw new LineParseException(message, exception);
             }
         }
     }
