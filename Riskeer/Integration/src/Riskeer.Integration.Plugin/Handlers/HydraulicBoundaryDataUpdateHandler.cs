@@ -206,7 +206,7 @@ namespace Riskeer.Integration.Plugin.Handlers
         }
 
         private static void SetLocations(HydraulicBoundaryData hydraulicBoundaryData, IEnumerable<ReadHydraulicBoundaryLocation> readLocations,
-                                         IEnumerable<ReadHydraulicLocationMapping> locationIdMappings, long[] excludedLocationIds)
+                                         IEnumerable<ReadHydraulicLocation> readHydraulicLocations, long[] excludedLocationIds)
         {
             hydraulicBoundaryData.Locations.Clear();
 
@@ -214,9 +214,9 @@ namespace Riskeer.Integration.Plugin.Handlers
 
             foreach (ReadHydraulicBoundaryLocation readLocation in readLocations)
             {
-                long locationConfigurationId = locationIdMappings.Where(m => m.HrdLocationId == readLocation.Id)
-                                                                 .Select(m => m.HlcdLocationId)
-                                                                 .SingleOrDefault();
+                long locationConfigurationId = readHydraulicLocations.Where(m => m.HrdLocationId == readLocation.Id)
+                                                                     .Select(m => m.HlcdLocationId)
+                                                                     .SingleOrDefault();
 
                 if (locationConfigurationId != 0 && ShouldInclude(excludedLocationIds, locationConfigurationId))
                 {
