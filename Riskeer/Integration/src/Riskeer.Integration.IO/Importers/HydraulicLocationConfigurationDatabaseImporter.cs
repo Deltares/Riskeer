@@ -30,7 +30,6 @@ using Core.Common.IO.Readers;
 using Core.Common.Util.Builders;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.IO.HydraRing;
-using Riskeer.HydraRing.IO.HydraulicBoundaryDatabase;
 using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 using Riskeer.Integration.IO.Handlers;
 using Riskeer.Integration.IO.Properties;
@@ -92,15 +91,6 @@ namespace Riskeer.Integration.IO.Importers
                 return false;
             }
 
-            ReadResult<long> readTrackIdResult = ReadTrackId();
-
-            if (readTrackIdResult.CriticalErrorOccurred || Canceled)
-            {
-                return false;
-            }
-
-            long trackId = readTrackIdResult.Items.Single();
-
             ReadResult<ReadHydraulicLocationConfigurationDatabase> readHydraulicLocationConfigurationDatabaseResult =
                 ReadHydraulicLocationConfigurationDatabase();
 
@@ -153,28 +143,6 @@ namespace Riskeer.Integration.IO.Importers
             foreach (IObservable changedObservable in changedObservables)
             {
                 changedObservable.NotifyObservers();
-            }
-        }
-
-        private ReadResult<long> ReadTrackId()
-        {
-            NotifyProgress(Resources.HydraulicBoundaryDataImporter_ProgressText_Reading_Hrd_file, 1, numberOfSteps);
-            try
-            {
-                using (var reader = new HydraulicBoundaryDatabaseReader(hydraulicBoundaryData.FilePath))
-                {
-                    return new ReadResult<long>(false)
-                    {
-                        Items = new[]
-                        {
-                            reader.ReadTrackId()
-                        }
-                    };
-                }
-            }
-            catch (Exception e) when (e is CriticalFileReadException || e is LineParseException)
-            {
-                return HandleCriticalFileReadError<long>(e);
             }
         }
 
