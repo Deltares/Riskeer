@@ -101,7 +101,7 @@ namespace Riskeer.Integration.IO.Importers
             long trackId = readTrackIdResult.Items.Single();
 
             ReadResult<ReadHydraulicLocationConfigurationDatabase> readHydraulicLocationConfigurationDatabaseResult =
-                ReadHydraulicLocationConfigurationDatabase(trackId);
+                ReadHydraulicLocationConfigurationDatabase();
 
             if (readHydraulicLocationConfigurationDatabaseResult.CriticalErrorOccurred || Canceled)
             {
@@ -177,7 +177,7 @@ namespace Riskeer.Integration.IO.Importers
             }
         }
 
-        private ReadResult<ReadHydraulicLocationConfigurationDatabase> ReadHydraulicLocationConfigurationDatabase(long trackId)
+        private ReadResult<ReadHydraulicLocationConfigurationDatabase> ReadHydraulicLocationConfigurationDatabase()
         {
             NotifyProgress(Resources.HydraulicBoundaryDataImporter_ProgressText_Reading_Hlcd_file, 2, numberOfSteps);
             try
@@ -188,7 +188,7 @@ namespace Riskeer.Integration.IO.Importers
                     {
                         Items = new[]
                         {
-                            reader.Read(trackId)
+                            reader.Read()
                         }
                     };
                 }
