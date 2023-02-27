@@ -42,17 +42,17 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
         public void Constructor_InvalidFile_ThrowsCriticalFileReadException()
         {
             // Setup
-            string dbFile = Path.Combine(testDataPath, "none.sqlite");
+            string hlcdFilePath = Path.Combine(testDataPath, "none.sqlite");
 
             // Call
-            TestDelegate test = () =>
+            void Call()
             {
-                using (new HydraulicLocationConfigurationDatabaseReader(dbFile)) {}
-            };
+                using (new HydraulicLocationConfigurationDatabaseReader(hlcdFilePath)) {}
+            }
 
             // Assert
-            var exception = Assert.Throws<CriticalFileReadException>(test);
-            string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build("Het bestand bestaat niet.");
+            var exception = Assert.Throws<CriticalFileReadException>(Call);
+            string expectedMessage = new FileReaderErrorMessageBuilder(hlcdFilePath).Build("Het bestand bestaat niet.");
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
@@ -60,10 +60,10 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
         public void Constructor_ValidFile_ExpectedValues()
         {
             // Setup
-            string dbFile = Path.Combine(testDataPath, "hlcdWithoutScenarioInformation.sqlite");
+            string hlcdFilePath = Path.Combine(testDataPath, "hlcdWithoutScenarioInformation.sqlite");
 
             // Call
-            using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(dbFile))
+            using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(hlcdFilePath))
             {
                 // Assert
                 Assert.IsInstanceOf<SqLiteDatabaseReaderBase>(hydraulicBoundaryDatabaseReader);
@@ -71,25 +71,34 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
         }
 
         [Test]
-        [TestCase(18169, 1000, 1801000)]
-        [TestCase(20128, 4, 2000004)]
-        public void Read_ValidFileWithoutScenarioInformation_ExpectedValues(int trackId, int hrdLocationId, int expectedLocationId)
+        public void Read_ValidFileWithoutScenarioInformation_ExpectedValues()
         {
             // Setup
-            string dbFile = Path.Combine(testDataPath, "hlcdWithoutScenarioInformation.sqlite");
+            string hlcdFilePath = Path.Combine(testDataPath, "hlcdWithoutScenarioInformation.sqlite");
 
-            using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(dbFile))
+            using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(hlcdFilePath))
             {
                 // Call
-                ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = hydraulicBoundaryDatabaseReader.Read(trackId);
+                ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = hydraulicBoundaryDatabaseReader.Read();
 
                 // Assert
-                long actualLocationId = readHydraulicLocationConfigurationDatabase.ReadHydraulicLocations.Where(m => m.HrdLocationId == hrdLocationId)
-                                                                                  .Select(m => m.HlcdLocationId)
-                                                                                  .SingleOrDefault();
-                Assert.AreEqual(expectedLocationId, actualLocationId);
-                Assert.AreEqual(290, readHydraulicLocationConfigurationDatabase.ReadTracks.Count());
+                ReadHydraulicLocation[] readHydraulicLocations = readHydraulicLocationConfigurationDatabase.ReadHydraulicLocations.ToArray();
+                Assert.AreEqual(36446, readHydraulicLocations.Length);
+                Assert.IsNotNull(readHydraulicLocations.SingleOrDefault(rhl => rhl.HlcdLocationId == 1801000
+                                                                               && rhl.HrdLocationId == 1000
+                                                                               && rhl.TrackId == 18169));
+                Assert.IsNotNull(readHydraulicLocations.SingleOrDefault(rhl => rhl.HlcdLocationId == 100008
+                                                                               && rhl.HrdLocationId == 8
+                                                                               && rhl.TrackId == 1000));
+
                 Assert.IsNull(readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings);
+
+                ReadTrack[] readTracks = readHydraulicLocationConfigurationDatabase.ReadTracks.ToArray();
+                Assert.AreEqual(290, readTracks.Length);
+                Assert.IsNotNull(readTracks.SingleOrDefault(rt => rt.TrackId == 18169
+                                                                  && !rt.UsePreprocessorClosure));
+                Assert.IsNotNull(readTracks.SingleOrDefault(rt => rt.TrackId == 1000
+                                                                  && rt.UsePreprocessorClosure));
             }
         }
 
@@ -99,9 +108,9 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
         public void Read_ValidFileWithScenarioInformation_ExpectedValues(int trackId, int hrdLocationId, int expectedLocationId)
         {
             // Setup
-            string dbFile = Path.Combine(testDataPath, "hlcdWithScenarioInformation.sqlite");
+            string hlcdFilePath = Path.Combine(testDataPath, "hlcdWithScenarioInformation.sqlite");
 
-            using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(dbFile))
+            using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(hlcdFilePath))
             {
                 // Call
                 ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = hydraulicBoundaryDatabaseReader.Read(trackId);
@@ -169,9 +178,9 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
         [TestCase(11, false)]
         public void Read_ValidFileWithUsePreprocessClosureColumn_ExpectedValues(int trackId, bool expectedUsePreprocessorClosure)
         {
-            string dbFile = Path.Combine(testDataPath, "hlcdWithPreprocessorClosureColumn.sqlite");
+            string hlcdFilePath = Path.Combine(testDataPath, "hlcdWithPreprocessorClosureColumn.sqlite");
 
-            using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(dbFile))
+            using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(hlcdFilePath))
             {
                 // Call
                 ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = hydraulicBoundaryDatabaseReader.Read(trackId);
@@ -184,15 +193,15 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
         [Test]
         public void Read_InvalidFileWithUsePreprocessClosureColumn_ThrowsLineParseException()
         {
-            string dbFile = Path.Combine(testDataPath, "hlcdWithInvalidPreprocessorClosureColumn.sqlite");
+            string hlcdFilePath = Path.Combine(testDataPath, "hlcdWithInvalidPreprocessorClosureColumn.sqlite");
 
-            using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(dbFile))
+            using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(hlcdFilePath))
             {
                 // Call
                 TestDelegate test = () => hydraulicBoundaryDatabaseReader.Read(1000);
 
                 // Assert
-                string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
+                string expectedMessage = new FileReaderErrorMessageBuilder(hlcdFilePath).Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
                 var exception = Assert.Throws<LineParseException>(test);
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<ConversionException>(exception.InnerException);
@@ -204,15 +213,15 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
         {
             // Setup
             const int trackId = 18169;
-            string dbFile = Path.Combine(testDataPath, "hlcdWithScenarioInformationMissingColumn.sqlite");
+            string hlcdFilePath = Path.Combine(testDataPath, "hlcdWithScenarioInformationMissingColumn.sqlite");
 
-            using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(dbFile))
+            using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(hlcdFilePath))
             {
                 // Call
                 TestDelegate test = () => hydraulicBoundaryDatabaseReader.Read(trackId);
 
                 // Assert
-                string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build("Het bevragen van de database is mislukt.");
+                string expectedMessage = new FileReaderErrorMessageBuilder(hlcdFilePath).Build("Het bevragen van de database is mislukt.");
                 var exception = Assert.Throws<CriticalFileReadException>(test);
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
@@ -224,15 +233,15 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
         {
             // Setup
             const int trackId = 18169;
-            string dbFile = Path.Combine(testDataPath, "hlcdWithScenarioInformationInvalidData.sqlite");
+            string hlcdFilePath = Path.Combine(testDataPath, "hlcdWithScenarioInformationInvalidData.sqlite");
 
-            using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(dbFile))
+            using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(hlcdFilePath))
             {
                 // Call
                 TestDelegate test = () => hydraulicBoundaryDatabaseReader.Read(trackId);
 
                 // Assert
-                string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
+                string expectedMessage = new FileReaderErrorMessageBuilder(hlcdFilePath).Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
                 var exception = Assert.Throws<LineParseException>(test);
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<ConversionException>(exception.InnerException);
@@ -243,16 +252,16 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
         public void Read_InvalidColumns_ThrowsLineParseException()
         {
             // Setup
-            string dbFile = Path.Combine(testDataPath, "corruptschema.sqlite");
+            string hlcdFilePath = Path.Combine(testDataPath, "corruptschema.sqlite");
             const int trackId = 1;
 
-            using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(dbFile))
+            using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(hlcdFilePath))
             {
                 // Call
                 TestDelegate test = () => hydraulicBoundaryDatabaseReader.Read(trackId);
 
                 // Assert
-                string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
+                string expectedMessage = new FileReaderErrorMessageBuilder(hlcdFilePath).Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
                 var exception = Assert.Throws<LineParseException>(test);
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<ConversionException>(exception.InnerException);
@@ -263,16 +272,16 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
         public void Read_EmptyFile_ThrowsCriticalFileReadException()
         {
             // Setup
-            string dbFile = Path.Combine(testDataPath, "empty.sqlite");
+            string hlcdFilePath = Path.Combine(testDataPath, "empty.sqlite");
             const int trackId = 1;
 
-            using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(dbFile))
+            using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(hlcdFilePath))
             {
                 // Call
                 TestDelegate test = () => hydraulicBoundaryDatabaseReader.Read(trackId);
 
                 // Assert
-                string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build("Het bevragen van de database is mislukt.");
+                string expectedMessage = new FileReaderErrorMessageBuilder(hlcdFilePath).Build("Het bevragen van de database is mislukt.");
                 var exception = Assert.Throws<CriticalFileReadException>(test);
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
