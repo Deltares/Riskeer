@@ -561,7 +561,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             Assert.IsTrue(hydraulicBoundaryData.IsLinked());
             Assert.AreEqual(hrdFilePath, hydraulicBoundaryData.FilePath);
             Assert.AreEqual(readHydraulicBoundaryDatabase.Version, hydraulicBoundaryData.Version);
-            Assert.AreEqual(hydraulicBoundaryData.HydraulicLocationConfigurationSettings.UsePreprocessorClosure, readHydraulicLocationConfigurationDatabase.UsePreprocessorClosure);
+            Assert.IsFalse(hydraulicBoundaryData.HydraulicLocationConfigurationSettings.UsePreprocessorClosure);
 
             AssertHydraulicBoundaryLocations(readHydraulicBoundaryDatabase.Locations, readHydraulicLocationConfigurationDatabase, hydraulicBoundaryData.Locations);
             AssertHydraulicBoundaryLocationsAndCalculations(hydraulicBoundaryData.Locations, assessmentSection);
@@ -692,7 +692,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             Assert.AreEqual(expectedSettings.ScenarioName, actualSettings.ScenarioName);
             Assert.AreEqual(expectedSettings.Year, actualSettings.Year);
             Assert.AreEqual(expectedSettings.Scope, actualSettings.Scope);
-            Assert.AreEqual(readHydraulicLocationConfigurationDatabase.UsePreprocessorClosure, actualSettings.UsePreprocessorClosure);
+            Assert.IsFalse(actualSettings.UsePreprocessorClosure);
             Assert.AreEqual(expectedSettings.SeaLevel, actualSettings.SeaLevel);
             Assert.AreEqual(expectedSettings.RiverDischarge, actualSettings.RiverDischarge);
             Assert.AreEqual(expectedSettings.LakeLevel, actualSettings.LakeLevel);
@@ -740,7 +740,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             Assert.AreEqual("WBI2017", actualSettings.ScenarioName);
             Assert.AreEqual(2023, actualSettings.Year);
             Assert.AreEqual("WBI2017", actualSettings.Scope);
-            Assert.AreEqual(readHydraulicLocationConfigurationDatabase.UsePreprocessorClosure, actualSettings.UsePreprocessorClosure);
+            Assert.IsFalse(actualSettings.UsePreprocessorClosure);
             Assert.AreEqual("Conform WBI2017", actualSettings.SeaLevel);
             Assert.AreEqual("Conform WBI2017", actualSettings.RiverDischarge);
             Assert.AreEqual("Conform WBI2017", actualSettings.LakeLevel);
