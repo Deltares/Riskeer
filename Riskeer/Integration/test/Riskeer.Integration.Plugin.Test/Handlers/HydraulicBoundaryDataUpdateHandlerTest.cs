@@ -248,12 +248,17 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var duneLocationsReplacementHandler = mocks.Stub<IDuneLocationsReplacementHandler>();
             mocks.ReplayAll();
 
+            ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
+
             var handler = new HydraulicBoundaryDataUpdateHandler(CreateAssessmentSection(), duneLocationsReplacementHandler);
 
             // Call
-            void Call() => handler.Update(null, ReadHydraulicBoundaryDatabaseTestFactory.Create(),
-                                          ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(),
-                                          Enumerable.Empty<long>(), "", "");
+            void Call()
+            {
+                handler.Update(null, readHydraulicBoundaryDatabase,
+                               ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(readHydraulicBoundaryDatabase.TrackId),
+                               Enumerable.Empty<long>(), "", "");
+            }
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -273,7 +278,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             // Call
             void Call() => handler.Update(new HydraulicBoundaryData(), null,
-                                          ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(),
+                                          ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(1),
                                           Enumerable.Empty<long>(), "", "");
 
             // Assert
@@ -310,11 +315,17 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var duneLocationsReplacementHandler = mocks.Stub<IDuneLocationsReplacementHandler>();
             mocks.ReplayAll();
 
+            ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
+
             var handler = new HydraulicBoundaryDataUpdateHandler(CreateAssessmentSection(), duneLocationsReplacementHandler);
 
             // Call
-            void Call() => handler.Update(new HydraulicBoundaryData(), ReadHydraulicBoundaryDatabaseTestFactory.Create(),
-                                          ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(), null, "", "");
+            void Call()
+            {
+                handler.Update(new HydraulicBoundaryData(), readHydraulicBoundaryDatabase,
+                               ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(readHydraulicBoundaryDatabase.TrackId),
+                               null, "", "");
+            }
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -329,12 +340,17 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var duneLocationsReplacementHandler = mocks.Stub<IDuneLocationsReplacementHandler>();
             mocks.ReplayAll();
 
+            ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
+
             var handler = new HydraulicBoundaryDataUpdateHandler(CreateAssessmentSection(), duneLocationsReplacementHandler);
 
             // Call
-            void Call() => handler.Update(new HydraulicBoundaryData(), ReadHydraulicBoundaryDatabaseTestFactory.Create(),
-                                          ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(), Enumerable.Empty<long>(),
-                                          null, "");
+            void Call()
+            {
+                handler.Update(new HydraulicBoundaryData(), readHydraulicBoundaryDatabase,
+                               ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(readHydraulicBoundaryDatabase.TrackId),
+                               Enumerable.Empty<long>(), null, "");
+            }
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -349,12 +365,17 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var duneLocationsReplacementHandler = mocks.Stub<IDuneLocationsReplacementHandler>();
             mocks.ReplayAll();
 
+            ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
+
             var handler = new HydraulicBoundaryDataUpdateHandler(CreateAssessmentSection(), duneLocationsReplacementHandler);
 
             // Call
-            void Call() => handler.Update(new HydraulicBoundaryData(), ReadHydraulicBoundaryDatabaseTestFactory.Create(),
-                                          ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(), Enumerable.Empty<long>(),
-                                          "", null);
+            void Call()
+            {
+                handler.Update(new HydraulicBoundaryData(), readHydraulicBoundaryDatabase,
+                               ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(readHydraulicBoundaryDatabase.TrackId),
+                               Enumerable.Empty<long>(), "", null);
+            }
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -413,7 +434,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             // Call
             IEnumerable<IObservable> changedObjects = handler.Update(hydraulicBoundaryData, readHydraulicBoundaryDatabase,
-                                                                     ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(),
+                                                                     ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(readHydraulicBoundaryDatabase.TrackId),
                                                                      Enumerable.Empty<long>(), hrdFilePath, hlcdFilePath);
 
             // Assert
@@ -455,7 +476,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             // Call
             IEnumerable<IObservable> changedObjects = handler.Update(hydraulicBoundaryData, readHydraulicBoundaryDatabase,
-                                                                     ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(),
+                                                                     ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(readHydraulicBoundaryDatabase.TrackId),
                                                                      Enumerable.Empty<long>(), newHrdFilePath, hlcdFilePath);
 
             // Assert
@@ -501,12 +522,14 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             HydraulicBoundaryLocation[] oldLocations = hydraulicBoundaryData.Locations.ToArray();
 
+            ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
+
             // Precondition
             Assert.IsTrue(hydraulicBoundaryData.IsLinked());
 
             // Call
-            handler.Update(hydraulicBoundaryData, ReadHydraulicBoundaryDatabaseTestFactory.Create(),
-                           ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(),
+            handler.Update(hydraulicBoundaryData, readHydraulicBoundaryDatabase,
+                           ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(readHydraulicBoundaryDatabase.TrackId),
                            Enumerable.Empty<long>(), hrdFilePath, hlcdFilePath);
 
             // Assert
@@ -548,7 +571,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var handler = new HydraulicBoundaryDataUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
 
             ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
-            ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = ReadHydraulicLocationConfigurationDatabaseTestFactory.Create();
+            ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase =
+                ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(readHydraulicBoundaryDatabase.TrackId);
 
             // Precondition
             Assert.IsFalse(hydraulicBoundaryData.IsLinked());
@@ -594,7 +618,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             };
             ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create(
                 readHydraulicBoundaryLocationsToInclude.Concat(readHydraulicBoundaryLocationsToExclude));
-            ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = ReadHydraulicLocationConfigurationDatabaseTestFactory.Create();
+            ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase =
+                ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(readHydraulicBoundaryDatabase.TrackId);
 
             // Precondition
             Assert.IsFalse(hydraulicBoundaryData.IsLinked());
@@ -637,7 +662,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 readHydraulicBoundaryLocationsToExclude.Concat(readHydraulicBoundaryLocationsToInclude));
 
             ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(
-                readHydraulicBoundaryLocationsToInclude.Select(l => l.Id));
+                readHydraulicBoundaryLocationsToInclude.Select(l => l.Id),
+                readHydraulicBoundaryDatabase.TrackId);
 
             // Precondition
             Assert.IsFalse(hydraulicBoundaryData.IsLinked());
@@ -666,20 +692,24 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var handler = new HydraulicBoundaryDataUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
 
+            ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
             ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase =
-                ReadHydraulicLocationConfigurationDatabaseTestFactory.CreateWithConfigurationSettings();
+                ReadHydraulicLocationConfigurationDatabaseTestFactory.CreateWithConfigurationSettings(readHydraulicBoundaryDatabase.TrackId);
 
             // Precondition
             Assert.IsNotNull(readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings);
             Assert.AreEqual(1, readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings.Count());
 
             // Call
-            void Call() => handler.Update(hydraulicBoundaryData,
-                                          ReadHydraulicBoundaryDatabaseTestFactory.Create(),
-                                          readHydraulicLocationConfigurationDatabase,
-                                          Enumerable.Empty<long>(),
-                                          hrdFilePath,
-                                          hlcdFilePath);
+            void Call()
+            {
+                handler.Update(hydraulicBoundaryData,
+                               readHydraulicBoundaryDatabase,
+                               readHydraulicLocationConfigurationDatabase,
+                               Enumerable.Empty<long>(),
+                               hrdFilePath,
+                               hlcdFilePath);
+            }
 
             // Assert
             TestHelper.AssertLogMessagesCount(Call, 0);
@@ -692,7 +722,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             Assert.AreEqual(expectedSettings.ScenarioName, actualSettings.ScenarioName);
             Assert.AreEqual(expectedSettings.Year, actualSettings.Year);
             Assert.AreEqual(expectedSettings.Scope, actualSettings.Scope);
-            Assert.IsFalse(actualSettings.UsePreprocessorClosure);
+            Assert.AreEqual(readHydraulicLocationConfigurationDatabase.ReadTracks.First().UsePreprocessorClosure, actualSettings.UsePreprocessorClosure);
             Assert.AreEqual(expectedSettings.SeaLevel, actualSettings.SeaLevel);
             Assert.AreEqual(expectedSettings.RiverDischarge, actualSettings.RiverDischarge);
             Assert.AreEqual(expectedSettings.LakeLevel, actualSettings.LakeLevel);
@@ -716,19 +746,23 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var handler = new HydraulicBoundaryDataUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
 
+            ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
             ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase =
-                ReadHydraulicLocationConfigurationDatabaseTestFactory.Create();
+                ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(readHydraulicBoundaryDatabase.TrackId);
 
             // Precondition
             Assert.IsNull(readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings);
 
             // Call
-            void Call() => handler.Update(hydraulicBoundaryData,
-                                          ReadHydraulicBoundaryDatabaseTestFactory.Create(),
-                                          readHydraulicLocationConfigurationDatabase,
-                                          Enumerable.Empty<long>(),
-                                          hrdFilePath,
-                                          hlcdFilePath);
+            void Call()
+            {
+                handler.Update(hydraulicBoundaryData,
+                               readHydraulicBoundaryDatabase,
+                               readHydraulicLocationConfigurationDatabase,
+                               Enumerable.Empty<long>(),
+                               hrdFilePath,
+                               hlcdFilePath);
+            }
 
             // Assert
             const string expectedMessage = "De tabel 'ScenarioInformation' in het HLCD bestand is niet aanwezig. Er worden standaardwaarden " +
@@ -775,14 +809,16 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 });
             }
 
+            ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
+
             var handler = new HydraulicBoundaryDataUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
 
             // Precondition
             Assert.AreEqual(isLinked, hydraulicBoundaryData.IsLinked());
 
             // When
-            IEnumerable<IObservable> changedObjects = handler.Update(hydraulicBoundaryData, ReadHydraulicBoundaryDatabaseTestFactory.Create(),
-                                                                     ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(),
+            IEnumerable<IObservable> changedObjects = handler.Update(hydraulicBoundaryData, readHydraulicBoundaryDatabase,
+                                                                     ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(readHydraulicBoundaryDatabase.TrackId),
                                                                      Enumerable.Empty<long>(), hrdFilePath, hlcdFilePath);
 
             // Then
@@ -831,11 +867,13 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                                                            .Except(calculationsWithOutput.OfType<TestPipingCalculationScenario>())
                                                            .ToArray();
 
+            ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
+
             var handler = new HydraulicBoundaryDataUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
 
             // When
-            IEnumerable<IObservable> changedObjects = handler.Update(assessmentSection.HydraulicBoundaryData, ReadHydraulicBoundaryDatabaseTestFactory.Create(),
-                                                                     ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(),
+            IEnumerable<IObservable> changedObjects = handler.Update(assessmentSection.HydraulicBoundaryData, readHydraulicBoundaryDatabase,
+                                                                     ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(readHydraulicBoundaryDatabase.TrackId),
                                                                      Enumerable.Empty<long>(), hrdFilePath, hlcdFilePath);
 
             // Then
@@ -890,7 +928,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var handler = new HydraulicBoundaryDataUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
 
             IEnumerable<IObservable> changedObjects = handler.Update(hydraulicBoundaryData, readHydraulicBoundaryDatabase,
-                                                                     ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(),
+                                                                     ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(readHydraulicBoundaryDatabase.TrackId),
                                                                      Enumerable.Empty<long>(), hrdFilePath, hlcdFilePath);
 
             // Precondition
@@ -928,10 +966,12 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 }
             };
 
+            ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
+
             var handler = new HydraulicBoundaryDataUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
 
-            IEnumerable<IObservable> changedObjects = handler.Update(hydraulicBoundaryData, ReadHydraulicBoundaryDatabaseTestFactory.Create(),
-                                                                     ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(),
+            IEnumerable<IObservable> changedObjects = handler.Update(hydraulicBoundaryData, readHydraulicBoundaryDatabase,
+                                                                     ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(readHydraulicBoundaryDatabase.TrackId),
                                                                      Enumerable.Empty<long>(), hrdFilePath, hlcdFilePath);
 
             // Precondition
@@ -989,14 +1029,14 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         private static IEnumerable<TestCaseData> GetInvalidReadHydraulicBoundaryDatabaseConfigurations()
         {
             yield return new TestCaseData(ReadHydraulicLocationConfigurationDatabaseTestFactory.CreateWithConfigurationSettings(
-                                              Enumerable.Empty<ReadHydraulicLocationConfigurationDatabaseSettings>()))
+                                              Enumerable.Empty<ReadHydraulicLocationConfigurationDatabaseSettings>(), 1))
                 .SetName("ReadHydraulicLocationConfigurationDatabaseSettingsEmpty");
             yield return new TestCaseData(ReadHydraulicLocationConfigurationDatabaseTestFactory.CreateWithConfigurationSettings(
                                               new[]
                                               {
                                                   ReadHydraulicLocationConfigurationDatabaseSettingsTestFactory.Create(),
                                                   ReadHydraulicLocationConfigurationDatabaseSettingsTestFactory.Create()
-                                              }))
+                                              }, 1))
                 .SetName("ReadHydraulicLocationConfigurationDatabaseSettingsMultipleItems");
         }
     }
