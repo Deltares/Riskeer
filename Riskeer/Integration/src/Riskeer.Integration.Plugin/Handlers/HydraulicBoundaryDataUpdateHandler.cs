@@ -143,8 +143,7 @@ namespace Riskeer.Integration.Plugin.Handlers
                 hydraulicBoundaryData.Version = readHydraulicBoundaryDatabase.Version;
 
                 SetLocations(hydraulicBoundaryData, readHydraulicBoundaryDatabase.Locations,
-                             readHydraulicLocationConfigurationDatabase.LocationIdMappings,
-                             excludedLocationIds.ToArray());
+                             readHydraulicLocationConfigurationDatabase.ReadHydraulicLocations, excludedLocationIds.ToArray());
 
                 assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryData.Locations);
 

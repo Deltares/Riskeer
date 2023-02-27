@@ -1017,7 +1017,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 ReadHydraulicBoundaryLocation readLocation = readLocations.ElementAt(i);
                 HydraulicBoundaryLocation actualLocation = actualLocations.ElementAt(i);
 
-                Assert.AreEqual(readHydraulicLocationConfigurationDatabase.LocationIdMappings
+                Assert.AreEqual(readHydraulicLocationConfigurationDatabase.ReadHydraulicLocations
                                                                           .Single(l => l.HrdLocationId == readLocation.Id)
                                                                           .HlcdLocationId, actualLocation.Id);
                 Assert.AreEqual(readLocation.Name, actualLocation.Name);
