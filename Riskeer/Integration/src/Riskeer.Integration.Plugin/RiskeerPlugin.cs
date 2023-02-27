@@ -895,7 +895,8 @@ namespace Riskeer.Integration.Plugin
             {
                 Text = context => Path.GetFileName(context.WrappedData.FilePath),
                 Image = context => RiskeerCommonFormsResources.DatabaseIcon,
-                ContextMenuStrip = HydraulicBoundaryDatabaseContextMenuStrip
+                ContextMenuStrip = HydraulicBoundaryDatabaseContextMenuStrip,
+                EnsureVisibleOnCreate = (context, o) => true
             };
 
             yield return new TreeNodeInfo<WaterLevelCalculationsForNormTargetProbabilitiesGroupContext>
