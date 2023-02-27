@@ -24,7 +24,7 @@ using System.Collections.Generic;
 namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
 {
     /// <summary>
-    /// Class for holding data that is read from a hydraulic location configuration database file.
+    /// Class for holding data that is read from a hydraulic location configuration database.
     /// </summary>
     public class ReadHydraulicLocationConfigurationDatabase
     {
@@ -33,13 +33,16 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// </summary>
         /// <param name="readHydraulicLocations">The read hydraulic locations.</param>
         /// <param name="readHydraulicLocationConfigurationDatabaseSettings">The read hydraulic location configuration settings.</param>
+        /// <param name="readTracks">The read tracks.</param>
         /// <param name="usePreprocessorClosure">Indicator whether to use the preprocessor closure.</param>
         internal ReadHydraulicLocationConfigurationDatabase(IEnumerable<ReadHydraulicLocation> readHydraulicLocations,
                                                             IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> readHydraulicLocationConfigurationDatabaseSettings,
+                                                            IEnumerable<ReadTrack> readTracks,
                                                             bool usePreprocessorClosure)
         {
             LocationIdMappings = readHydraulicLocations;
             ReadHydraulicLocationConfigurationDatabaseSettings = readHydraulicLocationConfigurationDatabaseSettings;
+            ReadTracks = readTracks;
             UsePreprocessorClosure = usePreprocessorClosure;
         }
 
@@ -53,6 +56,11 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// </summary>
         public IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> ReadHydraulicLocationConfigurationDatabaseSettings { get; }
 
+        /// <summary>
+        /// Gets the read tracks.
+        /// </summary>
+        public IEnumerable<ReadTrack> ReadTracks { get; }
+        
         /// <summary>
         /// Gets the indicator whether to use the preprocessor closure.
         /// </summary>
