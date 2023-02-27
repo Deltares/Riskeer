@@ -39,10 +39,9 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
     public class HydraulicLocationConfigurationDatabaseReader : SqLiteDatabaseReaderBase
     {
         /// <summary>
-        /// Creates a new instance of <see cref="HydraulicLocationConfigurationDatabaseReader"/>, which will use the
-        /// <paramref name="databaseFilePath"/> as its source.
+        /// Creates a new instance of <see cref="HydraulicLocationConfigurationDatabaseReader"/>.
         /// </summary>
-        /// <param name="databaseFilePath">The path of the database file to open.</param>
+        /// <param name="databaseFilePath">The file path of the hydraulic location configuration database.</param>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
         /// <item>the <paramref name="databaseFilePath"/> contains invalid characters;</item>
@@ -114,7 +113,7 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// <summary>
         /// Reads the hydraulic location configuration settings from the database.
         /// </summary>
-        /// <returns>A collection of the read hydraulic location configuration database settings.</returns>
+        /// <returns>A collection of <see cref="ReadHydraulicLocationConfigurationDatabaseSettings"/> as found in the database.</returns>
         /// <exception cref="SQLiteException">Thrown when the database query failed.</exception>
         /// <exception cref="ConversionException">Thrown when the database returned incorrect values for required properties.</exception>
         private IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> ReadConfigurationSettings()
@@ -164,14 +163,6 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
             return readTracks;
         }
 
-        private static bool IsUsePreprocessorClosureColumnPresent(IDataReader dataReader)
-        {
-            DataTable schemaTable = dataReader.GetSchemaTable();
-            DataColumn columnName = schemaTable.Columns[schemaTable.Columns.IndexOf("ColumnName")];
-
-            return schemaTable.Rows.Cast<DataRow>().Any(row => row[columnName].ToString() == RegionsTableDefinitions.UsePreprocessorClosure);
-        }
-
         /// <summary>
         /// Gets data of type <typeparamref name="T"/> from the database.
         /// </summary>
@@ -198,6 +189,14 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
                     new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column),
                     exception);
             }
+        }
+
+        private static bool IsUsePreprocessorClosureColumnPresent(IDataReader dataReader)
+        {
+            DataTable schemaTable = dataReader.GetSchemaTable();
+            DataColumn columnName = schemaTable.Columns[schemaTable.Columns.IndexOf("ColumnName")];
+
+            return schemaTable.Rows.Cast<DataRow>().Any(row => row[columnName].ToString() == RegionsTableDefinitions.UsePreprocessorClosure);
         }
     }
 }
