@@ -62,10 +62,10 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
             string hlcdFilePath = Path.Combine(testDataPath, "hlcdWithoutScenarioInformation.sqlite");
 
             // Call
-            using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(hlcdFilePath))
+            using (var hydraulicLocationConfigurationDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(hlcdFilePath))
             {
                 // Assert
-                Assert.IsInstanceOf<SqLiteDatabaseReaderBase>(hydraulicBoundaryDatabaseReader);
+                Assert.IsInstanceOf<SqLiteDatabaseReaderBase>(hydraulicLocationConfigurationDatabaseReader);
             }
         }
 
@@ -75,29 +75,15 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
             // Setup
             string hlcdFilePath = Path.Combine(testDataPath, "hlcdWithoutScenarioInformation.sqlite");
 
-            using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(hlcdFilePath))
+            using (var hydraulicLocationConfigurationDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(hlcdFilePath))
             {
                 // Call
-                ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = hydraulicBoundaryDatabaseReader.Read();
+                ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = hydraulicLocationConfigurationDatabaseReader.Read();
 
                 // Assert
-                ReadHydraulicLocation[] readHydraulicLocations = readHydraulicLocationConfigurationDatabase.ReadHydraulicLocations.ToArray();
-                Assert.AreEqual(36446, readHydraulicLocations.Length);
-                Assert.IsNotNull(readHydraulicLocations.SingleOrDefault(rhl => rhl.HlcdLocationId == 1801000
-                                                                               && rhl.HrdLocationId == 1000
-                                                                               && rhl.TrackId == 18169));
-                Assert.IsNotNull(readHydraulicLocations.SingleOrDefault(rhl => rhl.HlcdLocationId == 100008
-                                                                               && rhl.HrdLocationId == 8
-                                                                               && rhl.TrackId == 1000));
-
+                AssertReadHydraulicLocations(readHydraulicLocationConfigurationDatabase);
                 Assert.IsNull(readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings);
-
-                ReadTrack[] readTracks = readHydraulicLocationConfigurationDatabase.ReadTracks.ToArray();
-                Assert.AreEqual(290, readTracks.Length);
-                Assert.IsNotNull(readTracks.SingleOrDefault(rt => rt.TrackId == 18169
-                                                                  && !rt.UsePreprocessorClosure));
-                Assert.IsNotNull(readTracks.SingleOrDefault(rt => rt.TrackId == 1000
-                                                                  && !rt.UsePreprocessorClosure));
+                AssertReadTracks(readHydraulicLocationConfigurationDatabase);
             }
         }
 
@@ -107,77 +93,15 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
             // Setup
             string hlcdFilePath = Path.Combine(testDataPath, "hlcdWithScenarioInformation.sqlite");
 
-            using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(hlcdFilePath))
+            using (var hydraulicLocationConfigurationDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(hlcdFilePath))
             {
                 // Call
-                ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = hydraulicBoundaryDatabaseReader.Read();
+                ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = hydraulicLocationConfigurationDatabaseReader.Read();
 
                 // Assert
-                ReadHydraulicLocation[] readHydraulicLocations = readHydraulicLocationConfigurationDatabase.ReadHydraulicLocations.ToArray();
-                Assert.AreEqual(36446, readHydraulicLocations.Length);
-                Assert.IsNotNull(readHydraulicLocations.SingleOrDefault(rhl => rhl.HlcdLocationId == 1801000
-                                                                               && rhl.HrdLocationId == 1000
-                                                                               && rhl.TrackId == 18169));
-                Assert.IsNotNull(readHydraulicLocations.SingleOrDefault(rhl => rhl.HlcdLocationId == 100008
-                                                                               && rhl.HrdLocationId == 8
-                                                                               && rhl.TrackId == 1000));
-
-                ReadHydraulicLocationConfigurationDatabaseSettings[] readHydraulicLocationConfigurationDatabaseSettings =
-                    readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings.ToArray();
-                Assert.AreEqual(2, readHydraulicLocationConfigurationDatabaseSettings.Count());
-
-                CollectionAssert.AreEqual(new[]
-                {
-                    "ScenarioName WBI2017",
-                    "ScenarioName WBI2018"
-                }, readHydraulicLocationConfigurationDatabaseSettings.Select(s => s.ScenarioName));
-                CollectionAssert.AreEqual(new[]
-                {
-                    2023,
-                    2024
-                }, readHydraulicLocationConfigurationDatabaseSettings.Select(s => s.Year));
-                CollectionAssert.AreEqual(new[]
-                {
-                    "Scope WBI2017",
-                    "Scope WBI2018"
-                }, readHydraulicLocationConfigurationDatabaseSettings.Select(s => s.Scope));
-                CollectionAssert.AreEqual(new[]
-                {
-                    "SeaLevel WBI2017",
-                    "SeaLevel WBI2018"
-                }, readHydraulicLocationConfigurationDatabaseSettings.Select(s => s.SeaLevel));
-                CollectionAssert.AreEqual(new[]
-                {
-                    "RiverDischarge WBI2017",
-                    "RiverDischarge WBI2018"
-                }, readHydraulicLocationConfigurationDatabaseSettings.Select(s => s.RiverDischarge));
-                CollectionAssert.AreEqual(new[]
-                {
-                    "LakeLevel WBI2017",
-                    "LakeLevel WBI2018"
-                }, readHydraulicLocationConfigurationDatabaseSettings.Select(s => s.LakeLevel));
-                CollectionAssert.AreEqual(new[]
-                {
-                    "WindDirection WBI2017",
-                    "WindDirection WBI2018"
-                }, readHydraulicLocationConfigurationDatabaseSettings.Select(s => s.WindDirection));
-                CollectionAssert.AreEqual(new[]
-                {
-                    "WindSpeed WBI2017",
-                    "WindSpeed WBI2018"
-                }, readHydraulicLocationConfigurationDatabaseSettings.Select(s => s.WindSpeed));
-                CollectionAssert.AreEqual(new[]
-                {
-                    "Comment WBI2017",
-                    "Comment WBI2018"
-                }, readHydraulicLocationConfigurationDatabaseSettings.Select(s => s.Comment));
-
-                ReadTrack[] readTracks = readHydraulicLocationConfigurationDatabase.ReadTracks.ToArray();
-                Assert.AreEqual(290, readTracks.Length);
-                Assert.IsNotNull(readTracks.SingleOrDefault(rt => rt.TrackId == 18169
-                                                                  && !rt.UsePreprocessorClosure));
-                Assert.IsNotNull(readTracks.SingleOrDefault(rt => rt.TrackId == 1000
-                                                                  && !rt.UsePreprocessorClosure));
+                AssertReadHydraulicLocations(readHydraulicLocationConfigurationDatabase);
+                AssertReadHydraulicLocationConfigurationDatabaseSettings(readHydraulicLocationConfigurationDatabase);
+                AssertReadTracks(readHydraulicLocationConfigurationDatabase);
             }
         }
 
@@ -188,13 +112,13 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
         {
             string hlcdFilePath = Path.Combine(testDataPath, "hlcdWithPreprocessorClosureColumn.sqlite");
 
-            using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(hlcdFilePath))
+            using (var hydraulicLocationConfigurationDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(hlcdFilePath))
             {
                 // Call
-                ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = hydraulicBoundaryDatabaseReader.Read();
+                ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = hydraulicLocationConfigurationDatabaseReader.Read();
 
                 // Assert
-                Assert.AreEqual(expectedUsePreprocessorClosure, readHydraulicLocationConfigurationDatabase.ReadTracks.First(rt => rt.TrackId == trackId).UsePreprocessorClosure);
+                Assert.AreEqual(expectedUsePreprocessorClosure, readHydraulicLocationConfigurationDatabase.ReadTracks.Single(rt => rt.TrackId == trackId).UsePreprocessorClosure);
             }
         }
 
@@ -203,10 +127,10 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
         {
             string hlcdFilePath = Path.Combine(testDataPath, "hlcdWithInvalidPreprocessorClosureColumn.sqlite");
 
-            using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(hlcdFilePath))
+            using (var hydraulicLocationConfigurationDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(hlcdFilePath))
             {
                 // Call
-                void Call() => hydraulicBoundaryDatabaseReader.Read();
+                void Call() => hydraulicLocationConfigurationDatabaseReader.Read();
 
                 // Assert
                 string expectedMessage = new FileReaderErrorMessageBuilder(hlcdFilePath).Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
@@ -222,10 +146,10 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
             // Setup
             string hlcdFilePath = Path.Combine(testDataPath, "hlcdWithScenarioInformationMissingColumn.sqlite");
 
-            using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(hlcdFilePath))
+            using (var hydraulicLocationConfigurationDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(hlcdFilePath))
             {
                 // Call
-                void Call() => hydraulicBoundaryDatabaseReader.Read();
+                void Call() => hydraulicLocationConfigurationDatabaseReader.Read();
 
                 // Assert
                 string expectedMessage = new FileReaderErrorMessageBuilder(hlcdFilePath).Build("Het bevragen van de database is mislukt.");
@@ -241,10 +165,10 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
             // Setup
             string hlcdFilePath = Path.Combine(testDataPath, "hlcdWithScenarioInformationInvalidData.sqlite");
 
-            using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(hlcdFilePath))
+            using (var hydraulicLocationConfigurationDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(hlcdFilePath))
             {
                 // Call
-                void Call() => hydraulicBoundaryDatabaseReader.Read();
+                void Call() => hydraulicLocationConfigurationDatabaseReader.Read();
 
                 // Assert
                 string expectedMessage = new FileReaderErrorMessageBuilder(hlcdFilePath).Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
@@ -260,10 +184,10 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
             // Setup
             string hlcdFilePath = Path.Combine(testDataPath, "corruptschema.sqlite");
 
-            using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(hlcdFilePath))
+            using (var hydraulicLocationConfigurationDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(hlcdFilePath))
             {
                 // Call
-                void Call() => hydraulicBoundaryDatabaseReader.Read();
+                void Call() => hydraulicLocationConfigurationDatabaseReader.Read();
 
                 // Assert
                 string expectedMessage = new FileReaderErrorMessageBuilder(hlcdFilePath).Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
@@ -279,10 +203,10 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
             // Setup
             string hlcdFilePath = Path.Combine(testDataPath, "empty.sqlite");
 
-            using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(hlcdFilePath))
+            using (var hydraulicLocationConfigurationDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(hlcdFilePath))
             {
                 // Call
-                void Call() => hydraulicBoundaryDatabaseReader.Read();
+                void Call() => hydraulicLocationConfigurationDatabaseReader.Read();
 
                 // Assert
                 string expectedMessage = new FileReaderErrorMessageBuilder(hlcdFilePath).Build("Het bevragen van de database is mislukt.");
@@ -290,6 +214,81 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
             }
+        }
+
+        private static void AssertReadHydraulicLocations(ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase)
+        {
+            ReadHydraulicLocation[] readHydraulicLocations = readHydraulicLocationConfigurationDatabase.ReadHydraulicLocations.ToArray();
+            Assert.AreEqual(36446, readHydraulicLocations.Length);
+            Assert.IsNotNull(readHydraulicLocations.SingleOrDefault(rhl => rhl.HlcdLocationId == 1801000
+                                                                           && rhl.HrdLocationId == 1000
+                                                                           && rhl.TrackId == 18169));
+            Assert.IsNotNull(readHydraulicLocations.SingleOrDefault(rhl => rhl.HlcdLocationId == 100008
+                                                                           && rhl.HrdLocationId == 8
+                                                                           && rhl.TrackId == 1000));
+        }
+
+        private static void AssertReadHydraulicLocationConfigurationDatabaseSettings(ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase)
+        {
+            ReadHydraulicLocationConfigurationDatabaseSettings[] readHydraulicLocationConfigurationDatabaseSettings =
+                readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings.ToArray();
+            Assert.AreEqual(2, readHydraulicLocationConfigurationDatabaseSettings.Length);
+
+            CollectionAssert.AreEqual(new[]
+            {
+                "ScenarioName WBI2017",
+                "ScenarioName WBI2018"
+            }, readHydraulicLocationConfigurationDatabaseSettings.Select(s => s.ScenarioName));
+            CollectionAssert.AreEqual(new[]
+            {
+                2023,
+                2024
+            }, readHydraulicLocationConfigurationDatabaseSettings.Select(s => s.Year));
+            CollectionAssert.AreEqual(new[]
+            {
+                "Scope WBI2017",
+                "Scope WBI2018"
+            }, readHydraulicLocationConfigurationDatabaseSettings.Select(s => s.Scope));
+            CollectionAssert.AreEqual(new[]
+            {
+                "SeaLevel WBI2017",
+                "SeaLevel WBI2018"
+            }, readHydraulicLocationConfigurationDatabaseSettings.Select(s => s.SeaLevel));
+            CollectionAssert.AreEqual(new[]
+            {
+                "RiverDischarge WBI2017",
+                "RiverDischarge WBI2018"
+            }, readHydraulicLocationConfigurationDatabaseSettings.Select(s => s.RiverDischarge));
+            CollectionAssert.AreEqual(new[]
+            {
+                "LakeLevel WBI2017",
+                "LakeLevel WBI2018"
+            }, readHydraulicLocationConfigurationDatabaseSettings.Select(s => s.LakeLevel));
+            CollectionAssert.AreEqual(new[]
+            {
+                "WindDirection WBI2017",
+                "WindDirection WBI2018"
+            }, readHydraulicLocationConfigurationDatabaseSettings.Select(s => s.WindDirection));
+            CollectionAssert.AreEqual(new[]
+            {
+                "WindSpeed WBI2017",
+                "WindSpeed WBI2018"
+            }, readHydraulicLocationConfigurationDatabaseSettings.Select(s => s.WindSpeed));
+            CollectionAssert.AreEqual(new[]
+            {
+                "Comment WBI2017",
+                "Comment WBI2018"
+            }, readHydraulicLocationConfigurationDatabaseSettings.Select(s => s.Comment));
+        }
+
+        private static void AssertReadTracks(ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase)
+        {
+            ReadTrack[] readTracks = readHydraulicLocationConfigurationDatabase.ReadTracks.ToArray();
+            Assert.AreEqual(290, readTracks.Length);
+            Assert.IsNotNull(readTracks.SingleOrDefault(rt => rt.TrackId == 18169
+                                                              && !rt.UsePreprocessorClosure));
+            Assert.IsNotNull(readTracks.SingleOrDefault(rt => rt.TrackId == 1000
+                                                              && !rt.UsePreprocessorClosure));
         }
     }
 }
