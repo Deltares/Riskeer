@@ -38,7 +38,7 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
                                                             IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> readHydraulicLocationConfigurationDatabaseSettings,
                                                             IEnumerable<ReadTrack> readTracks)
         {
-            LocationIdMappings = readHydraulicLocations;
+            ReadHydraulicLocations = readHydraulicLocations;
             ReadHydraulicLocationConfigurationDatabaseSettings = readHydraulicLocationConfigurationDatabaseSettings;
             ReadTracks = readTracks;
         }
@@ -46,7 +46,7 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// <summary>
         /// Gets the read hydraulic locations.
         /// </summary>
-        public IEnumerable<ReadHydraulicLocation> LocationIdMappings { get; }
+        public IEnumerable<ReadHydraulicLocation> ReadHydraulicLocations { get; }
 
         /// <summary>
         /// Gets the read hydraulic location configuration settings.

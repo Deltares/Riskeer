@@ -44,7 +44,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
                                                                                                             readTracks);
 
             // Assert
-            Assert.AreSame(readHydraulicLocations, readHydraulicLocationConfigurationDatabase.LocationIdMappings);
+            Assert.AreSame(readHydraulicLocations, readHydraulicLocationConfigurationDatabase.ReadHydraulicLocations);
             Assert.AreSame(readHydraulicLocationConfigurationDatabaseSettings, readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings);
             Assert.AreSame(readTracks, readHydraulicLocationConfigurationDatabase.ReadTracks);
         }
