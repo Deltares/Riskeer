@@ -42,7 +42,7 @@ namespace Riskeer.Integration.IO.Importers
     /// </summary>
     public class HydraulicLocationConfigurationDatabaseImporter : FileImporterBase<HydraulicLocationConfigurationSettings>
     {
-        private const int numberOfSteps = 3;
+        private const int numberOfSteps = 2;
         private readonly List<IObservable> changedObservables = new List<IObservable>();
         private readonly IHydraulicLocationConfigurationDatabaseUpdateHandler updateHandler;
         private readonly HydraulicBoundaryData hydraulicBoundaryData;
@@ -148,7 +148,7 @@ namespace Riskeer.Integration.IO.Importers
 
         private ReadResult<ReadHydraulicLocationConfigurationDatabase> ReadHydraulicLocationConfigurationDatabase()
         {
-            NotifyProgress(Resources.HydraulicBoundaryDataImporter_ProgressText_Reading_Hlcd_file, 2, numberOfSteps);
+            NotifyProgress(Resources.HydraulicBoundaryDataImporter_ProgressText_Reading_Hlcd_file, 1, numberOfSteps);
             try
             {
                 using (var reader = new HydraulicLocationConfigurationDatabaseReader(FilePath))
@@ -179,7 +179,7 @@ namespace Riskeer.Integration.IO.Importers
         private void AddHydraulicLocationConfigurationSettingsToDataModel(ReadHydraulicLocationConfigurationDatabaseSettings readHydraulicLocationConfigurationDatabaseSettings,
                                                                           bool usePrepocessorClosure)
         {
-            NotifyProgress(RiskeerCommonIOResources.Importer_ProgressText_Adding_imported_data_to_AssessmentSection, 3, numberOfSteps);
+            NotifyProgress(RiskeerCommonIOResources.Importer_ProgressText_Adding_imported_data_to_AssessmentSection, 2, numberOfSteps);
             changedObservables.AddRange(updateHandler.Update(hydraulicBoundaryData, readHydraulicLocationConfigurationDatabaseSettings, usePrepocessorClosure, FilePath));
         }
 

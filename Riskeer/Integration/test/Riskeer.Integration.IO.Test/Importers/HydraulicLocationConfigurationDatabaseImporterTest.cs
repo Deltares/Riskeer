@@ -43,7 +43,7 @@ namespace Riskeer.Integration.IO.Test.Importers
     [TestFixture]
     public class HydraulicLocationConfigurationDatabaseImporterTest
     {
-        private const int totalNumberOfSteps = 3;
+        private const int totalNumberOfSteps = 2;
 
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.IO,
                                                                                  nameof(HydraulicLocationConfigurationDatabaseImporter));
@@ -284,9 +284,8 @@ namespace Riskeer.Integration.IO.Test.Importers
             Assert.IsTrue(importResult);
             var expectedProgressNotifications = new[]
             {
-                new ProgressNotification("Inlezen van het hydraulische belastingen bestand.", 1, totalNumberOfSteps),
-                new ProgressNotification("Inlezen van het hydraulische locatie configuratie bestand.", 2, totalNumberOfSteps),
-                new ProgressNotification("Geïmporteerde data toevoegen aan het traject.", 3, totalNumberOfSteps)
+                new ProgressNotification("Inlezen van het hydraulische locatie configuratie bestand.", 1, totalNumberOfSteps),
+                new ProgressNotification("Geïmporteerde data toevoegen aan het traject.", 2, totalNumberOfSteps)
             };
             ProgressNotificationTestHelper.AssertProgressNotificationsAreEqual(expectedProgressNotifications, progressChangeNotifications);
             mocks.VerifyAll();
