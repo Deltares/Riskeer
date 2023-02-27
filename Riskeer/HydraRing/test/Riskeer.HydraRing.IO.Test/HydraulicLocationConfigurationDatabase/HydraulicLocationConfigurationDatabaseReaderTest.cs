@@ -72,7 +72,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
 
         [Test]
         [TestCase(18169, 1000, 1801000)]
-        [TestCase(6, 1000, 0)]
+        [TestCase(20128, 4, 2000004)]
         public void Read_ValidFileWithoutScenarioInformation_ExpectedValues(int trackId, int hrdLocationId, int expectedLocationId)
         {
             // Setup
@@ -95,7 +95,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
 
         [Test]
         [TestCase(18169, 1000, 1801000)]
-        [TestCase(6, 1000, 0)]
+        [TestCase(20128, 4, 2000004)]
         public void Read_ValidFileWithScenarioInformation_ExpectedValues(int trackId, int hrdLocationId, int expectedLocationId)
         {
             // Setup
