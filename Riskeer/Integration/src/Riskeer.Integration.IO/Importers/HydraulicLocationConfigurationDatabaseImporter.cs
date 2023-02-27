@@ -125,9 +125,7 @@ namespace Riskeer.Integration.IO.Importers
             }
 
             IEnumerable<long> locationIds = hydraulicBoundaryData.Locations.Select(l => l.Id);
-            long[] intersect = locationIds.Intersect(readHydraulicLocationConfigurationDatabase.ReadHydraulicLocations
-                                                                                               .Where(rhl => rhl.TrackId == trackId)
-                                                                                               .Select(l => l.HlcdLocationId))
+            long[] intersect = locationIds.Intersect(readHydraulicLocationConfigurationDatabase.ReadHydraulicLocations.Select(l => l.HlcdLocationId))
                                           .ToArray();
 
             if (intersect.Length != locationIds.Count())

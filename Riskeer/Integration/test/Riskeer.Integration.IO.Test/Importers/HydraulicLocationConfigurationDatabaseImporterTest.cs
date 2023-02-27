@@ -298,8 +298,8 @@ namespace Riskeer.Integration.IO.Test.Importers
             handler.Expect(h => h.InquireConfirmation()).Return(true);
             mocks.ReplayAll();
 
-            var importer = new HydraulicLocationConfigurationDatabaseImporter(hydraulicBoundaryData.HydraulicLocationConfigurationSettings, handler,
-                                                                              hydraulicBoundaryData, filePath);
+            var importer = new HydraulicLocationConfigurationDatabaseImporter(hydraulicBoundaryData.HydraulicLocationConfigurationSettings,
+                                                                              handler, hydraulicBoundaryData, filePath);
 
             // Call
             var importSuccessful = true;
