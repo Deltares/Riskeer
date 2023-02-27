@@ -99,7 +99,7 @@ namespace Riskeer.Integration.IO.Test.Importers
         }
 
         [Test]
-        public void Import_HlcdInDifferentDirectoryThanHydraulicBoundaryDatabase_CancelImportWithErrorMessage()
+        public void Import_HlcdInDifferentDirectoryThanHydraulicBoundaryDatabases_CancelImportWithErrorMessage()
         {
             // Setup
             var mocks = new MockRepository();
@@ -107,20 +107,20 @@ namespace Riskeer.Integration.IO.Test.Importers
             handler.Stub(h => h.InquireConfirmation()).Return(true);
             mocks.ReplayAll();
 
-            string hydraulicBoundaryDatabasePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.IO,
-                                                                                           nameof(HydraulicBoundaryDataImporter)), "complete.sqlite");
+            HydraulicBoundaryData hydraulicBoundaryData = CreateHydraulicBoundaryData(validHlcdFilePath);
 
-            HydraulicBoundaryData hydraulicBoundaryData = CreateHydraulicBoundaryData(hydraulicBoundaryDatabasePath);
+            string pathToHlcdInDifferentDirectory = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.IO,
+                                                                                            nameof(HydraulicBoundaryDataImporter)), "HLCD.sqlite");
 
             var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), handler,
-                                                                              hydraulicBoundaryData, validHlcdFilePath);
+                                                                              hydraulicBoundaryData, pathToHlcdInDifferentDirectory);
 
             // Call
             var importSuccessful = true;
             void Call() => importSuccessful = importer.Import();
 
             // Assert
-            var expectedMessage = $"Fout bij het lezen van bestand '{validHlcdFilePath}': het HLCD bestand is niet gevonden in dezelfde map als het HRD bestand.";
+            var expectedMessage = $"Fout bij het lezen van bestand '{pathToHlcdInDifferentDirectory}': het HLCD bestand moet zich in dezelfde map bevinden als de gekoppelde HRD bestanden.";
             AssertImportFailed(Call, expectedMessage, ref importSuccessful);
             mocks.VerifyAll();
         }
@@ -547,10 +547,17 @@ namespace Riskeer.Integration.IO.Test.Importers
 
         private static HydraulicBoundaryData CreateHydraulicBoundaryData(string filePath)
         {
-            return new HydraulicBoundaryData
+            var hydraulicBoundaryData = new HydraulicBoundaryData
             {
+                HydraulicBoundaryDatabases = { new HydraulicBoundaryDatabase() },
                 FilePath = filePath
             };
+
+            hydraulicBoundaryData.HydraulicLocationConfigurationSettings.SetValues(filePath, "scenarioName", 2022, "scope", false,
+                                                                                   "seaLevel", "riverDischarge", "lakeLevel",
+                                                                                   "windDirection", "windSpeed", "comment");
+            
+            return hydraulicBoundaryData;
         }
 
         private static void AssertImportFailed(Action call, string errorMessage, ref bool importSuccessful)

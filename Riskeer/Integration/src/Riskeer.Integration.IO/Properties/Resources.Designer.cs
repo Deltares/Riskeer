@@ -304,7 +304,7 @@ namespace Riskeer.Integration.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het HLCD bestand is niet gevonden in dezelfde map als het HRD bestand..
+        ///   Looks up a localized string similar to Het HLCD bestand moet zich in dezelfde map bevinden als de gekoppelde HRD bestanden..
         /// </summary>
         public static string HydraulicLocationConfigurationDatabaseImporter_Hlcd_not_in_same_folder_as_Hrd {
             get {
