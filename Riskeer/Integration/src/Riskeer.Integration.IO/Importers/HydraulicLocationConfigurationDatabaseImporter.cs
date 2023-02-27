@@ -98,8 +98,10 @@ namespace Riskeer.Integration.IO.Importers
                 return false;
             }
 
-            ReadResult<ReadHydraulicLocationConfigurationDatabase> readHydraulicLocationConfigurationDatabaseResult = ReadHydraulicLocationConfigurationDatabase(
-                readTrackIdResult.Items.Single());
+            long trackId = readTrackIdResult.Items.Single();
+
+            ReadResult<ReadHydraulicLocationConfigurationDatabase> readHydraulicLocationConfigurationDatabaseResult =
+                ReadHydraulicLocationConfigurationDatabase(trackId);
 
             if (readHydraulicLocationConfigurationDatabaseResult.CriticalErrorOccurred || Canceled)
             {
@@ -114,8 +116,8 @@ namespace Riskeer.Integration.IO.Importers
                 return false;
             }
 
-            if (readHydraulicLocationConfigurationDatabase.UsePreprocessorClosure
-                && !File.Exists(HydraulicBoundaryDataHelper.GetPreprocessorClosureFilePath(FilePath)))
+            bool usePreprocessorClosure = readHydraulicLocationConfigurationDatabase.ReadTracks.First(rt => rt.TrackId == trackId).UsePreprocessorClosure;
+            if (usePreprocessorClosure && !File.Exists(HydraulicBoundaryDataHelper.GetPreprocessorClosureFilePath(FilePath)))
             {
                 Log.Error(BuildErrorMessage(FilePath, Resources.HydraulicBoundaryDataImporter_PreprocessorClosure_sqlite_Not_Found));
                 return false;
@@ -133,7 +135,7 @@ namespace Riskeer.Integration.IO.Importers
 
             AddHydraulicLocationConfigurationSettingsToDataModel(
                 readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings?.Single(),
-                readHydraulicLocationConfigurationDatabase.UsePreprocessorClosure);
+                usePreprocessorClosure);
 
             return true;
         }
