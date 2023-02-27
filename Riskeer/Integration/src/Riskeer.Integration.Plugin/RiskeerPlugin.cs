@@ -886,7 +886,7 @@ namespace Riskeer.Integration.Plugin
             yield return new TreeNodeInfo<HydraulicBoundaryDatabasesContext>
             {
                 Text = context => Resources.HydraulicBoundaryDatabases_DisplayName,
-                Image = context => RiskeerCommonFormsResources.DatabaseIcon,
+                Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
                 ChildNodeObjects = HydraulicBoundaryDatabasesContextChildNodeObjects,
                 ContextMenuStrip = HydraulicBoundaryDatabasesContextMenuStrip
             };
@@ -894,7 +894,7 @@ namespace Riskeer.Integration.Plugin
             yield return new TreeNodeInfo<HydraulicBoundaryDatabaseContext>
             {
                 Text = context => Path.GetFileName(context.WrappedData.FilePath),
-                Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon,
+                Image = context => RiskeerCommonFormsResources.DatabaseIcon,
                 ContextMenuStrip = HydraulicBoundaryDatabaseContextMenuStrip
             };
 
