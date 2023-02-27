@@ -88,7 +88,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
                                                                                   .Select(m => m.HlcdLocationId)
                                                                                   .SingleOrDefault();
                 Assert.AreEqual(expectedLocationId, actualLocationId);
-                Assert.IsFalse(readHydraulicLocationConfigurationDatabase.UsePreprocessorClosure);
+                Assert.AreEqual(290, readHydraulicLocationConfigurationDatabase.ReadTracks.Count());
                 Assert.IsNull(readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings);
             }
         }
@@ -111,7 +111,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
                                                                                   .Select(m => m.HlcdLocationId)
                                                                                   .SingleOrDefault();
                 Assert.AreEqual(expectedLocationId, actualLocationId);
-                Assert.IsFalse(readHydraulicLocationConfigurationDatabase.UsePreprocessorClosure);
+                Assert.AreEqual(290, readHydraulicLocationConfigurationDatabase.ReadTracks.Count());
                 IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> readHydraulicLocationConfigurationDatabaseSettings =
                     readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings;
                 Assert.AreEqual(2, readHydraulicLocationConfigurationDatabaseSettings.Count());
@@ -177,7 +177,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
                 ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = hydraulicBoundaryDatabaseReader.Read(trackId);
 
                 // Assert
-                Assert.AreEqual(expectedUsePreprocessorClosure, readHydraulicLocationConfigurationDatabase.UsePreprocessorClosure);
+                Assert.AreEqual(expectedUsePreprocessorClosure, readHydraulicLocationConfigurationDatabase.ReadTracks.First(rt => rt.TrackId == trackId).UsePreprocessorClosure);
             }
         }
 
