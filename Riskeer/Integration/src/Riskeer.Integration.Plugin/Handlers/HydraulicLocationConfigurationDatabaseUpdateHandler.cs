@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Riskeer.Common.Data.Hydraulics;
@@ -58,12 +59,12 @@ namespace Riskeer.Integration.Plugin.Handlers
 
         public bool InquireConfirmation()
         {
-            if (!assessmentSection.HydraulicBoundaryData.IsLinked())
+            if (!assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Any())
             {
                 return true;
             }
 
-            DialogResult result = MessageBox.Show(Resources.HydraulicLocationConfigurationDatabaseUpdateHandler_Confirm_clear_hydraulicLocationConfigurationDatabase_dependent_data,
+            DialogResult result = MessageBox.Show(Resources.HydraulicLocationConfigurationDatabaseUpdateHandler_Confirm_clear_hydraulic_location_configuration_database_dependent_data,
                                                   CoreCommonBaseResources.Confirm,
                                                   MessageBoxButtons.OKCancel);
 

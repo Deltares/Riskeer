@@ -61,14 +61,14 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         public void Constructor_ExpectedValues()
         {
             // Call
-            var handler = new HydraulicLocationConfigurationDatabaseUpdateHandler(CreateAssessmentSectionWithLinkedHydraulicBoundaryData());
+            var handler = new HydraulicLocationConfigurationDatabaseUpdateHandler(CreateAssessmentSectionWithHydraulicBoundaryDatabases());
 
             // Assert
             Assert.IsInstanceOf<IHydraulicLocationConfigurationDatabaseUpdateHandler>(handler);
         }
 
         [Test]
-        public void InquireConfirmation_HydraulicBoundaryDataNotLinked_ReturnsTrue()
+        public void InquireConfirmation_WithoutHydraulicBoundaryDatabases_ReturnsTrue()
         {
             // Setup
             var handler = new HydraulicLocationConfigurationDatabaseUpdateHandler(new AssessmentSection(AssessmentSectionComposition.Dike));
@@ -83,7 +83,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void InquireConfirmation_HydraulicBoundaryDataLinkedAndClickDialog_ReturnsExpectedResult(bool clickOk)
+        public void InquireConfirmation_WithHydraulicBoundaryDatabasesAndClickDialog_ReturnsExpectedResult(bool clickOk)
         {
             // Setup
             string dialogTitle = null, dialogMessage = null;
@@ -102,7 +102,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 }
             };
 
-            var handler = new HydraulicLocationConfigurationDatabaseUpdateHandler(CreateAssessmentSectionWithLinkedHydraulicBoundaryData());
+            var handler = new HydraulicLocationConfigurationDatabaseUpdateHandler(CreateAssessmentSectionWithHydraulicBoundaryDatabases());
 
             // Call
             bool result = handler.InquireConfirmation();
@@ -122,7 +122,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         public void Update_HydraulicBoundaryDataNull_ThrowsArgumentNullException()
         {
             // Setup
-            var handler = new HydraulicLocationConfigurationDatabaseUpdateHandler(CreateAssessmentSectionWithLinkedHydraulicBoundaryData());
+            var handler = new HydraulicLocationConfigurationDatabaseUpdateHandler(CreateAssessmentSectionWithHydraulicBoundaryDatabases());
 
             // Call
             void Call() => handler.Update(null, ReadHydraulicLocationConfigurationDatabaseSettingsTestFactory.Create(), false, "");
@@ -136,7 +136,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         public void Update_HlcdFilePathNull_ThrowsArgumentNullException()
         {
             // Setup
-            var handler = new HydraulicLocationConfigurationDatabaseUpdateHandler(CreateAssessmentSectionWithLinkedHydraulicBoundaryData());
+            var handler = new HydraulicLocationConfigurationDatabaseUpdateHandler(CreateAssessmentSectionWithHydraulicBoundaryDatabases());
 
             // Call
             void Call() => handler.Update(new HydraulicBoundaryData(), ReadHydraulicLocationConfigurationDatabaseSettingsTestFactory.Create(), false, null);
@@ -151,7 +151,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         {
             // Setup
             const string hlcdFilePath = "some/file/path";
-            var handler = new HydraulicLocationConfigurationDatabaseUpdateHandler(CreateAssessmentSectionWithLinkedHydraulicBoundaryData());
+            var handler = new HydraulicLocationConfigurationDatabaseUpdateHandler(CreateAssessmentSectionWithHydraulicBoundaryDatabases());
             var hydraulicBoundaryData = new HydraulicBoundaryData();
             bool usePreprocessorClosure = new Random(21).NextBoolean();
 
@@ -182,7 +182,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         {
             // Setup
             const string hlcdFilePath = "some/file/path";
-            var handler = new HydraulicLocationConfigurationDatabaseUpdateHandler(CreateAssessmentSectionWithLinkedHydraulicBoundaryData());
+            var handler = new HydraulicLocationConfigurationDatabaseUpdateHandler(CreateAssessmentSectionWithHydraulicBoundaryDatabases());
             var hydraulicBoundaryData = new HydraulicBoundaryData();
             ReadHydraulicLocationConfigurationDatabaseSettings readSettings = ReadHydraulicLocationConfigurationDatabaseSettingsTestFactory.Create();
             bool usePreprocessorClosure = new Random(21).NextBoolean();
@@ -211,7 +211,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         public void Update_DataUpdated_ReturnsChangedObjects()
         {
             // Setup
-            var handler = new HydraulicLocationConfigurationDatabaseUpdateHandler(CreateAssessmentSectionWithLinkedHydraulicBoundaryData());
+            var handler = new HydraulicLocationConfigurationDatabaseUpdateHandler(CreateAssessmentSectionWithHydraulicBoundaryDatabases());
             var hydraulicBoundaryData = new HydraulicBoundaryData();
 
             // Call
@@ -266,23 +266,18 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             CollectionAssert.AreEquivalent(expectedChangedObjects, changedObjects);
         }
 
-        private static AssessmentSection CreateAssessmentSectionWithLinkedHydraulicBoundaryData()
+        private static AssessmentSection CreateAssessmentSectionWithHydraulicBoundaryDatabases()
         {
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-
-            assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.SetValues("FilePath",
-                                                                                                     "ScenarioName",
-                                                                                                     10,
-                                                                                                     "Scope",
-                                                                                                     true,
-                                                                                                     "SeaLevel",
-                                                                                                     "RiverDischarge",
-                                                                                                     "LakeLevel",
-                                                                                                     "WindDirection",
-                                                                                                     "WindSpeed",
-                                                                                                     "Comment");
-            
-            return assessmentSection;
+            return new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                HydraulicBoundaryData =
+                {
+                    HydraulicBoundaryDatabases =
+                    {
+                        new HydraulicBoundaryDatabase()
+                    }
+                }
+            };
         }
 
         private static IEnumerable<HydraulicBoundaryLocationCalculation> GetLocationCalculations(AssessmentSection assessmentSection)

@@ -464,10 +464,10 @@ namespace Riskeer.Integration.Plugin.Properties {
         ///
         ///Wilt u doorgaan?.
         /// </summary>
-        public static string HydraulicLocationConfigurationDatabaseUpdateHandler_Confirm_clear_hydraulicLocationConfigurationDatabase_dependent_data {
+        public static string HydraulicLocationConfigurationDatabaseUpdateHandler_Confirm_clear_hydraulic_location_configuration_database_dependent_data {
             get {
-                return ResourceManager.GetString("HydraulicLocationConfigurationDatabaseUpdateHandler_Confirm_clear_hydraulicLocati" +
-                        "onConfigurationDatabase_dependent_data", resourceCulture);
+                return ResourceManager.GetString("HydraulicLocationConfigurationDatabaseUpdateHandler_Confirm_clear_hydraulic_locat" +
+                        "ion_configuration_database_dependent_data", resourceCulture);
             }
         }
         
