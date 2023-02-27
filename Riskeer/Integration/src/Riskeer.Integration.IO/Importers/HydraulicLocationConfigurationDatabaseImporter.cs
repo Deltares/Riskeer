@@ -54,7 +54,7 @@ namespace Riskeer.Integration.IO.Importers
         /// <param name="importTarget">The hydraulic location configuration settings to import to.</param>
         /// <param name="updateHandler">The handler responsible for updating the <see cref="HydraulicLocationConfigurationSettings"/>.</param>
         /// <param name="hydraulicBoundaryData">The hydraulic boundary data the settings belong to.</param>
-        /// <param name="filePath">The path of the hydraulic location configuration settings file to import from.</param>
+        /// <param name="filePath">The file path of the hydraulic location configuration database to import from.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public HydraulicLocationConfigurationDatabaseImporter(HydraulicLocationConfigurationSettings importTarget,
                                                               IHydraulicLocationConfigurationDatabaseUpdateHandler updateHandler,
