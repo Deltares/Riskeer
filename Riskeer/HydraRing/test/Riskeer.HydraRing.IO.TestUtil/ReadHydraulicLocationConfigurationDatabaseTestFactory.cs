@@ -95,8 +95,7 @@ namespace Riskeer.HydraRing.IO.TestUtil
                                                                   new[]
                                                                   {
                                                                       readTrack
-                                                                  },
-                                                                  false);
+                                                                  });
         }
     }
 }
