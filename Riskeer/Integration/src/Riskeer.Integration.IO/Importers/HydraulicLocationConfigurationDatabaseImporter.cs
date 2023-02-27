@@ -107,8 +107,8 @@ namespace Riskeer.Integration.IO.Importers
                 return false;
             }
 
-            if (readHydraulicLocationConfigurationDatabase.ReadTracks.Any(rt => rt.UsePreprocessorClosure)
-                && !File.Exists(HydraulicBoundaryDataHelper.GetPreprocessorClosureFilePath(FilePath)))
+            bool usePreprocessorClosure = readHydraulicLocationConfigurationDatabase.ReadTracks.Any(rt => rt.UsePreprocessorClosure);
+            if (usePreprocessorClosure && !File.Exists(HydraulicBoundaryDataHelper.GetPreprocessorClosureFilePath(FilePath)))
             {
                 Log.Error(BuildErrorMessage(FilePath, Resources.HydraulicBoundaryDataImporter_PreprocessorClosure_sqlite_Not_Found));
                 return false;
@@ -126,7 +126,7 @@ namespace Riskeer.Integration.IO.Importers
 
             AddHydraulicLocationConfigurationSettingsToDataModel(
                 readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings?.Single(),
-                false);
+                usePreprocessorClosure);
 
             return true;
         }

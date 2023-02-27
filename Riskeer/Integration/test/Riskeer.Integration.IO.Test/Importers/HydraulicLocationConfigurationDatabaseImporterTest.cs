@@ -292,9 +292,7 @@ namespace Riskeer.Integration.IO.Test.Importers
         }
 
         [Test]
-        [TestCase(1)]
-        [TestCase(2)]
-        public void Import_CancelOfImportWhilePerformingStep_CancelsImportAndLogs(int stepNumber)
+        public void Import_CancelOfImportWhilePerformingStep_CancelsImportAndLogs()
         {
             // Setup
             var mocks = new MockRepository();
@@ -307,11 +305,8 @@ namespace Riskeer.Integration.IO.Test.Importers
             var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), handler,
                                                                               hydraulicBoundaryData, validHlcdFilePath);
             importer.SetProgressChanged((description, currentStep, steps) =>
-            {
-                if (currentStep == stepNumber)
-                {
-                    importer.Cancel();
-                }
+            { 
+                importer.Cancel();
             });
 
             // Call
