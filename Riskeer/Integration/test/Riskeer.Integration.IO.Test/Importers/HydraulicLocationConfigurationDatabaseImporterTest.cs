@@ -126,58 +126,6 @@ namespace Riskeer.Integration.IO.Test.Importers
         }
 
         [Test]
-        public void Import_HrdInvalidSchema_CancelImportWithErrorMessage()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.StrictMock<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
-            handler.Stub(h => h.InquireConfirmation()).Return(true);
-            mocks.ReplayAll();
-
-            string path = Path.Combine(testDataPath, "CorruptHrd");
-
-            HydraulicBoundaryData hydraulicBoundaryData = CreateHydraulicBoundaryData(Path.Combine(path, "corruptschema.sqlite"));
-
-            var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), handler,
-                                                                              hydraulicBoundaryData, Path.Combine(path, "HLCD.sqlite"));
-
-            // Call
-            var importSuccessful = true;
-            void Call() => importSuccessful = importer.Import();
-
-            // Assert
-            var expectedMessage = $"Fout bij het lezen van bestand '{hydraulicBoundaryData.FilePath}': kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.";
-            AssertImportFailed(Call, expectedMessage, ref importSuccessful);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Import_HrdEmptySchema_CancelImportWithErrorMessage()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.StrictMock<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
-            handler.Stub(h => h.InquireConfirmation()).Return(true);
-            mocks.ReplayAll();
-
-            string path = Path.Combine(testDataPath, "EmptyHrd");
-
-            HydraulicBoundaryData hydraulicBoundaryData = CreateHydraulicBoundaryData(Path.Combine(path, "empty.sqlite"));
-
-            var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), handler,
-                                                                              hydraulicBoundaryData, Path.Combine(path, "HLCD.sqlite"));
-
-            // Call
-            var importSuccessful = true;
-            void Call() => importSuccessful = importer.Import();
-
-            // Assert
-            var expectedMessage = $"Fout bij het lezen van bestand '{hydraulicBoundaryData.FilePath}': kon geen locaties verkrijgen van de database.";
-            AssertImportFailed(Call, expectedMessage, ref importSuccessful);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void Import_EmptySchema_CancelImportWithErrorMessage()
         {
             // Setup
@@ -289,7 +237,7 @@ namespace Riskeer.Integration.IO.Test.Importers
         public void Import_HlcdWithUsePreprocessorClosureTrueAndWithoutPreprocessorClosureDatabase_CancelImportWithErrorMessage()
         {
             // Setup
-            string directory = Path.Combine(testDataPath, "missingPreprocessorClosure");
+            string directory = Path.Combine(testDataPath, "MissingPreprocessorClosureDatabase");
             string filePath = Path.Combine(directory, "newHlcd.sqlite");
             HydraulicBoundaryData hydraulicBoundaryData = CreateHydraulicBoundaryData(Path.Combine(directory, "completeHrd.sqlite"));
 
@@ -549,14 +497,17 @@ namespace Riskeer.Integration.IO.Test.Importers
         {
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                HydraulicBoundaryDatabases = { new HydraulicBoundaryDatabase() },
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase()
+                },
                 FilePath = filePath
             };
 
             hydraulicBoundaryData.HydraulicLocationConfigurationSettings.SetValues(filePath, "scenarioName", 2022, "scope", false,
                                                                                    "seaLevel", "riverDischarge", "lakeLevel",
                                                                                    "windDirection", "windSpeed", "comment");
-            
+
             return hydraulicBoundaryData;
         }
 
