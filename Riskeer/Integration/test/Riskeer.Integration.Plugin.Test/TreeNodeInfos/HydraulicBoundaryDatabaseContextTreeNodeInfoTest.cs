@@ -19,8 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Drawing;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Gui;
@@ -57,8 +59,9 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Assert.IsNull(info.ChildNodeObjects);
                 Assert.IsNull(info.CanRename);
                 Assert.IsNull(info.OnNodeRenamed);
-                Assert.IsNull(info.CanRemove);
-                Assert.IsNull(info.OnNodeRemoved);
+                Assert.IsNotNull(info.CanRemove);
+                Assert.IsNotNull(info.OnNodeRemoved);
+                Assert.IsNotNull(info.OnRemoveConfirmationText);
                 Assert.IsNull(info.CanCheck);
                 Assert.IsNull(info.CheckedState);
                 Assert.IsNull(info.OnNodeChecked);
@@ -160,6 +163,83 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             }
         }
         
+        [Test]
+        public void CanRemove_Always_ReturnsTrue()
+        {
+            // Setup
+            using (var plugin = new RiskeerPlugin())
+            {
+                TreeNodeInfo info = GetInfo(plugin);
+
+                // Call
+                bool canRemove = info.CanRemove(null, null);
+
+                // Assert
+                Assert.IsTrue(canRemove);
+            }
+        }
+        
+        [Test]
+        public void OnRemoveConfirmationText_Always_ReturnsConfirmationMessage()
+        {
+            // Setup
+            using (var plugin = new RiskeerPlugin())
+            {
+                TreeNodeInfo info = GetInfo(plugin);
+
+                // Call
+                string onRemoveConfirmationText = info.OnRemoveConfirmationText(null);
+
+                // Assert
+                string expectedText = "Als u dit HRD bestand verwijdert, dan wordt de uitvoer van alle ervan afhankelijke berekeningen verwijderd. Ook worden alle referenties naar de bijbehorende hydraulische belastingenlocaties verwijderd uit de invoer van de sterkteberekeningen."
+                                      + Environment.NewLine
+                                      + Environment.NewLine
+                                      + "Weet u zeker dat u wilt doorgaan?";
+                Assert.AreEqual(expectedText, onRemoveConfirmationText);
+            }
+        }
+        
+        [Test]
+        public void OnNodeRemoved_WithContext_RemovesItemAndNotifiesObservers()
+        {
+            // Setup
+            var hydraulicBoundaryDatabase1 = new HydraulicBoundaryDatabase();
+            var hydraulicBoundaryDatabase2 = new HydraulicBoundaryDatabase();
+            var hydraulicBoundaryDatabase3 = new HydraulicBoundaryDatabase();
+            var hydraulicBoundaryData = new HydraulicBoundaryData
+            {
+                HydraulicBoundaryDatabases =
+                {
+                    hydraulicBoundaryDatabase1,
+                    hydraulicBoundaryDatabase2,
+                    hydraulicBoundaryDatabase3
+                }
+            };
+
+            var mockRepository = new MockRepository();
+            var observer = mockRepository.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            hydraulicBoundaryData.Attach(observer);
+
+            mockRepository.ReplayAll();
+
+            var context = new HydraulicBoundaryDatabaseContext(hydraulicBoundaryDatabase2, hydraulicBoundaryData);
+
+            using (var plugin = new RiskeerPlugin())
+            {
+                TreeNodeInfo info = GetInfo(plugin);
+
+                // Call
+                info.OnNodeRemoved(context, null);
+
+                // Assert
+                Assert.AreEqual(2, hydraulicBoundaryData.HydraulicBoundaryDatabases.Count);
+                CollectionAssert.DoesNotContain(hydraulicBoundaryData.HydraulicBoundaryDatabases, hydraulicBoundaryDatabase2);
+            }
+
+            mockRepository.VerifyAll();
+        }
+
         private static TreeNodeInfo GetInfo(RiskeerPlugin plugin)
         {
             return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(HydraulicBoundaryDatabaseContext));

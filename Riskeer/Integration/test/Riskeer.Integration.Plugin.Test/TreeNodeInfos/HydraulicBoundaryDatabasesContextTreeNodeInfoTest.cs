@@ -203,9 +203,9 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var context = new HydraulicBoundaryDatabasesContext(hydraulicBoundaryData, assessmentSection);
 
             var mockRepository = new MockRepository();
-            var hydraulicBoundaryDataObserver = mockRepository.StrictMock<IObserver>();
-            hydraulicBoundaryDataObserver.Expect(o => o.UpdateObserver());
-            hydraulicBoundaryData.Attach(hydraulicBoundaryDataObserver);
+            var observer = mockRepository.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            hydraulicBoundaryData.Attach(observer);
 
             using (var treeViewControl = new TreeViewControl())
             {

@@ -577,6 +577,17 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Als u dit HRD bestand verwijdert, dan wordt de uitvoer van alle ervan afhankelijke berekeningen verwijderd. Ook worden alle referenties naar de bijbehorende hydraulische belastingenlocaties verwijderd uit de invoer van de sterkteberekeningen.
+        ///
+        ///Weet u zeker dat u wilt doorgaan?.
+        /// </summary>
+        public static string RiskeerPlugin_GetTreeNodeInfos_Confirm_remove_HydraulicBoundaryDatabase {
+            get {
+                return ResourceManager.GetString("RiskeerPlugin_GetTreeNodeInfos_Confirm_remove_HydraulicBoundaryDatabase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Als u deze doelkansen verwijdert, dan wordt de uitvoer van alle ervan afhankelijke berekeningen verwijderd.
         ///
         ///Weet u zeker dat u wilt doorgaan?.

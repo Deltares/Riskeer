@@ -896,7 +896,10 @@ namespace Riskeer.Integration.Plugin
                 Text = context => Path.GetFileName(context.WrappedData.FilePath),
                 Image = context => RiskeerCommonFormsResources.DatabaseIcon,
                 ContextMenuStrip = HydraulicBoundaryDatabaseContextMenuStrip,
-                EnsureVisibleOnCreate = (context, o) => true
+                EnsureVisibleOnCreate = (context, o) => true,
+                CanRemove = (context, o) => true,
+                OnRemoveConfirmationText = context => Resources.RiskeerPlugin_GetTreeNodeInfos_Confirm_remove_HydraulicBoundaryDatabase,
+                OnNodeRemoved = HydraulicBoundaryDatabaseContextOnNodeRemoved
             };
 
             yield return new TreeNodeInfo<WaterLevelCalculationsForNormTargetProbabilitiesGroupContext>
@@ -1087,7 +1090,7 @@ namespace Riskeer.Integration.Plugin
                                                                                  .Build()
             };
         }
-
+        
         private ExportInfo<T> CreateHydraulicBoundaryLocationCalculationsForTargetProbabilityExportInfo<T>(
             HydraulicBoundaryLocationCalculationsType calculationsType, string displayName)
             where T : HydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilityContext
@@ -2512,8 +2515,16 @@ namespace Riskeer.Integration.Plugin
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
-            return builder.AddPropertiesItem()
+            return builder.AddDeleteItem()
+                          .AddSeparator()
+                          .AddPropertiesItem()
                           .Build();
+        }
+        
+        private static void HydraulicBoundaryDatabaseContextOnNodeRemoved(HydraulicBoundaryDatabaseContext nodeData, object parentNodeData)
+        {
+            nodeData.HydraulicBoundaryData.HydraulicBoundaryDatabases.Remove(nodeData.WrappedData);
+            nodeData.HydraulicBoundaryData.NotifyObservers();
         }
 
         private ContextMenuStrip WaterLevelCalculationsForNormTargetProbabilitiesGroupContextMenuStrip(WaterLevelCalculationsForNormTargetProbabilitiesGroupContext nodeData, object parentData, TreeViewControl treeViewControl)
