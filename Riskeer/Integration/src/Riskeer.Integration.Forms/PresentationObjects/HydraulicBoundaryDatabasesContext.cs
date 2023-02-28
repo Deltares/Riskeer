@@ -35,7 +35,7 @@ namespace Riskeer.Integration.Forms.PresentationObjects
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryDatabasesContext"/>.
         /// </summary>
-        /// <param name="wrappedData">The <see cref="HydraulicBoundaryData"/> that the <see cref="HydraulicBoundaryDatabasesContext"/> belongs to.</param>
+        /// <param name="wrappedData">The hydraulic boundary data that the <see cref="HydraulicBoundaryDatabasesContext"/> belongs to.</param>
         /// <param name="assessmentSection">The assessment section that the <see cref="HydraulicBoundaryDatabasesContext"/> belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public HydraulicBoundaryDatabasesContext(HydraulicBoundaryData wrappedData, AssessmentSection assessmentSection)

@@ -70,7 +70,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void Text_WithContext_ReturnsExpectedName()
+        public void Text_WithValidData_ReturnsExpectedName()
         {
             // Setup
             const string fileName = "hrdFile.sqlite";
@@ -78,7 +78,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var context = new HydraulicBoundaryDatabaseContext(new HydraulicBoundaryDatabase
             {
                 FilePath = $@"path\to\{fileName}"
-            });
+            }, new HydraulicBoundaryData());
 
             using (var plugin = new RiskeerPlugin())
             {

@@ -2477,7 +2477,8 @@ namespace Riskeer.Integration.Plugin
         private static object[] HydraulicBoundaryDatabasesContextChildNodeObjects(HydraulicBoundaryDatabasesContext nodeData)
         {
             return nodeData.WrappedData.HydraulicBoundaryDatabases
-                           .Select(hydraulicBoundaryDatabase => new HydraulicBoundaryDatabaseContext(hydraulicBoundaryDatabase))
+                           .Select(hydraulicBoundaryDatabase => new HydraulicBoundaryDatabaseContext(hydraulicBoundaryDatabase,
+                                                                                                     nodeData.WrappedData))
                            .Cast<object>()
                            .ToArray();
         }

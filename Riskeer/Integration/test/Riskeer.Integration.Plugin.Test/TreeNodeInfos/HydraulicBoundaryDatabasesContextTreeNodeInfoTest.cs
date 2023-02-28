@@ -156,7 +156,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             var mockRepository = new MockRepository();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-            
+
             using (var treeViewControl = new TreeViewControl())
             {
                 IGui gui = StubFactory.CreateGuiStub(mockRepository);
@@ -186,7 +186,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             mockRepository.VerifyAll();
         }
-        
+
         [Test]
         public void ContextMenuStrip_ClickOnAddHydraulicBoundaryDatabaseItem_HydraulicBoundaryDatabaseAddedAndObserversNotified()
         {
@@ -194,12 +194,12 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryData;
-            
+
             hydraulicBoundaryData.HydraulicLocationConfigurationSettings.SetValues("some/path/hlcd.sqlite", "scenarioName", 0,
                                                                                    "scope", false, "seaLevel", "riverDischarge",
                                                                                    "lakeLevel", "windDirection", "windSpeed",
                                                                                    "comment");
-            
+
             var context = new HydraulicBoundaryDatabasesContext(hydraulicBoundaryData, assessmentSection);
 
             var mockRepository = new MockRepository();
@@ -267,9 +267,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
                 var hydraulicBoundaryDatabaseContext1 = (HydraulicBoundaryDatabaseContext) objects[0];
                 Assert.AreSame(hydraulicBoundaryDatabase1, hydraulicBoundaryDatabaseContext1.WrappedData);
+                Assert.AreSame(assessmentSection.HydraulicBoundaryData, hydraulicBoundaryDatabaseContext1.HydraulicBoundaryData);
 
                 var hydraulicBoundaryDatabaseContext2 = (HydraulicBoundaryDatabaseContext) objects[1];
-                Assert.AreSame(hydraulicBoundaryDatabase2, hydraulicBoundaryDatabaseContext2.WrappedData);
+                Assert.AreSame(assessmentSection.HydraulicBoundaryData, hydraulicBoundaryDatabaseContext2.HydraulicBoundaryData);
             }
         }
 

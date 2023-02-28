@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
@@ -33,14 +34,27 @@ namespace Riskeer.Integration.Forms.Test.PresentationObjects
         public void Constructor_ExpectedValues()
         {
             // Setup
+            var hydraulicBoundaryData = new HydraulicBoundaryData();
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
             // Call
-            var context = new HydraulicBoundaryDatabaseContext(hydraulicBoundaryDatabase);
+            var context = new HydraulicBoundaryDatabaseContext(hydraulicBoundaryDatabase, hydraulicBoundaryData);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<HydraulicBoundaryDatabase>>(context);
             Assert.AreSame(hydraulicBoundaryDatabase, context.WrappedData);
+            Assert.AreSame(hydraulicBoundaryData, context.HydraulicBoundaryData);
+        }
+
+        [Test]
+        public void Constructor_HydraulicBoundaryDataNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new HydraulicBoundaryDatabaseContext(new HydraulicBoundaryDatabase(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("hydraulicBoundaryData", exception.ParamName);
         }
     }
 }

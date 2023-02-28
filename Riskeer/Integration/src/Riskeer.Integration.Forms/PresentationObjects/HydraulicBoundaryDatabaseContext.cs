@@ -33,9 +33,23 @@ namespace Riskeer.Integration.Forms.PresentationObjects
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryDatabaseContext"/>.
         /// </summary>
-        /// <param name="wrappedData">The <see cref="HydraulicBoundaryDatabase"/> that the <see cref="HydraulicBoundaryDatabaseContext"/> belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedData"/> is <c>null</c>.</exception>
-        public HydraulicBoundaryDatabaseContext(HydraulicBoundaryDatabase wrappedData)
-            : base(wrappedData) {}
+        /// <param name="wrappedData">The hydraulic boundary database that the <see cref="HydraulicBoundaryDatabaseContext"/> belongs to.</param>
+        /// <param name="hydraulicBoundaryData">The hydraulic boundary data that the <see cref="HydraulicBoundaryDatabaseContext"/> belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        public HydraulicBoundaryDatabaseContext(HydraulicBoundaryDatabase wrappedData, HydraulicBoundaryData hydraulicBoundaryData)
+            : base(wrappedData)
+        {
+            if (hydraulicBoundaryData == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryData));
+            }
+
+            HydraulicBoundaryData = hydraulicBoundaryData;
+        }
+
+        /// <summary>
+        /// Gets the hydraulic boundary data that the context belongs to.
+        /// </summary>
+        public HydraulicBoundaryData HydraulicBoundaryData { get; }
     }
 }
