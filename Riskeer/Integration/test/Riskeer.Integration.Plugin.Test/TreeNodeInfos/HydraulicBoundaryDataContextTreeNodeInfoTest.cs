@@ -61,8 +61,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
     public class HydraulicBoundaryDataContextTreeNodeInfoTest : NUnitFormTest
     {
         private const int contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
-        private const int contextMenuCalculateAllIndex = 3;
-        private const int contextMenuClearIllustrationPointsIndex = 5;
+        private const int contextMenuCalculateAllIndex = 4;
+        private const int contextMenuClearIllustrationPointsIndex = 6;
 
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Forms, "HydraulicBoundaryData");
 
@@ -142,6 +142,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             using (mocks.Ordered())
             {
                 menuBuilder.Expect(mb => mb.AddImportItem(null, null, null)).IgnoreArguments().Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddExportItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);

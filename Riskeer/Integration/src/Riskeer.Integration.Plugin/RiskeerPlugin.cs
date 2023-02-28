@@ -2465,6 +2465,7 @@ namespace Riskeer.Integration.Plugin
             return builder.AddImportItem(RiskeerFormsResources.HydraulicBoundaryData_Connect_To_Hlcd,
                                          RiskeerFormsResources.HydraulicBoundaryData_Connect_To_Hlcd_ToolTip,
                                          RiskeerCommonFormsResources.DatabaseIcon)
+                          .AddSeparator()
                           .AddExportItem()
                           .AddSeparator()
                           .AddCustomItem(calculateAllItem)

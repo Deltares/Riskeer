@@ -121,6 +121,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             using (mocks.Ordered())
             {
+                menuBuilder.Expect(mb => mb.AddDeleteItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.Build()).Return(null);
             }
