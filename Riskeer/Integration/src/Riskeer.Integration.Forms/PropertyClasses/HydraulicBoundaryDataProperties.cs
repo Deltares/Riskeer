@@ -37,18 +37,16 @@ namespace Riskeer.Integration.Forms.PropertyClasses
     /// </summary>
     public class HydraulicBoundaryDataProperties : ObjectProperties<HydraulicBoundaryData>
     {
-        private const int hrdFilePathPropertyIndex = 0;
-        private const int hlcdFilePathPropertyIndex = 1;
-        private const int usePreprocessorClosurePropertyIndex = 2;
-        private const int scenarioNamePropertyIndex = 3;
-        private const int yearPropertyIndex = 4;
-        private const int scopePropertyIndex = 5;
-        private const int seaLevelPropertyIndex = 6;
-        private const int riverDischargePropertyIndex = 7;
-        private const int lakeLevelPropertyIndex = 8;
-        private const int windDirectionPropertyIndex = 9;
-        private const int windSpeedPropertyIndex = 10;
-        private const int commentPropertyIndex = 11;
+        private const int hlcdFilePathPropertyIndex = 0;
+        private const int scenarioNamePropertyIndex = 1;
+        private const int yearPropertyIndex = 2;
+        private const int scopePropertyIndex = 3;
+        private const int seaLevelPropertyIndex = 4;
+        private const int riverDischargePropertyIndex = 5;
+        private const int lakeLevelPropertyIndex = 6;
+        private const int windDirectionPropertyIndex = 7;
+        private const int windSpeedPropertyIndex = 8;
+        private const int commentPropertyIndex = 9;
 
         private readonly IHydraulicLocationConfigurationDatabaseImportHandler hydraulicLocationConfigurationDatabaseImportHandler;
 
@@ -73,18 +71,6 @@ namespace Riskeer.Integration.Forms.PropertyClasses
 
             this.hydraulicLocationConfigurationDatabaseImportHandler = hydraulicLocationConfigurationDatabaseImportHandler;
             Data = hydraulicBoundaryData;
-        }
-
-        [PropertyOrder(hrdFilePathPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_FilePath_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_FilePath_Description))]
-        public string HrdFilePath
-        {
-            get
-            {
-                return data.IsLinked() ? data.FilePath : string.Empty;
-            }
         }
 
         [PropertyOrder(hlcdFilePathPropertyIndex)]
@@ -116,18 +102,6 @@ namespace Riskeer.Integration.Forms.PropertyClasses
             get
             {
                 return data.IsLinked() ? data.HydraulicLocationConfigurationSettings.FilePath : string.Empty;
-            }
-        }
-
-        [PropertyOrder(usePreprocessorClosurePropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_UsePreprocessorClosure_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_UsePreprocessorClosure_Description))]
-        public bool UsePreprocessorClosure
-        {
-            get
-            {
-                return data.HydraulicLocationConfigurationSettings.UsePreprocessorClosure;
             }
         }
 
