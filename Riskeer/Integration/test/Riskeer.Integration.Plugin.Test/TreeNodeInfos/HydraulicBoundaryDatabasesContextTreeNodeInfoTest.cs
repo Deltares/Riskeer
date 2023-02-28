@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -69,6 +70,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Assert.IsNull(info.OnNodeRenamed);
                 Assert.IsNull(info.CanRemove);
                 Assert.IsNull(info.OnNodeRemoved);
+                Assert.IsNull(info.OnRemoveConfirmationText);
+                Assert.IsNotNull(info.OnRemoveChildNodesConfirmationText);
                 Assert.IsNull(info.CanCheck);
                 Assert.IsNull(info.CheckedState);
                 Assert.IsNull(info.OnNodeChecked);
@@ -122,6 +125,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             {
                 menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddDeleteChildrenItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.Build()).Return(null);
@@ -174,7 +179,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     using (ContextMenuStrip menu = info.ContextMenuStrip(null, null, treeViewControl))
                     {
                         // Assert
-                        Assert.AreEqual(4, menu.Items.Count);
+                        Assert.AreEqual(6, menu.Items.Count);
 
                         TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddHydraulicBoundaryDatabaseIndex,
                                                                       "HRD bestand toevoegen",
@@ -271,6 +276,26 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
                 var hydraulicBoundaryDatabaseContext2 = (HydraulicBoundaryDatabaseContext) objects[1];
                 Assert.AreSame(assessmentSection.HydraulicBoundaryData, hydraulicBoundaryDatabaseContext2.HydraulicBoundaryData);
+            }
+        }
+
+        [Test]
+        public void OnRemoveChildNodesConfirmationText_Always_ReturnsConfirmationMessage()
+        {
+            // Setup
+            using (var plugin = new RiskeerPlugin())
+            {
+                TreeNodeInfo info = GetInfo(plugin);
+
+                // Call
+                string onRemoveConfirmationText = info.OnRemoveChildNodesConfirmationText(null);
+
+                // Assert
+                string expectedText = "Als u deze HRD bestanden verwijdert, dan wordt de uitvoer van alle ervan afhankelijke berekeningen verwijderd. Ook worden alle referenties naar de bijbehorende hydraulische belastingenlocaties verwijderd uit de invoer van de sterkteberekeningen."
+                                      + Environment.NewLine
+                                      + Environment.NewLine
+                                      + "Weet u zeker dat u wilt doorgaan?";
+                Assert.AreEqual(expectedText, onRemoveConfirmationText);
             }
         }
 

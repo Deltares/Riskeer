@@ -888,7 +888,8 @@ namespace Riskeer.Integration.Plugin
                 Text = context => Resources.HydraulicBoundaryDatabases_DisplayName,
                 Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
                 ChildNodeObjects = HydraulicBoundaryDatabasesContextChildNodeObjects,
-                ContextMenuStrip = HydraulicBoundaryDatabasesContextMenuStrip
+                ContextMenuStrip = HydraulicBoundaryDatabasesContextMenuStrip,
+                OnRemoveChildNodesConfirmationText = context => Resources.RiskeerPlugin_GetTreeNodeInfos_Confirm_remove_HydraulicBoundaryDatabases
             };
 
             yield return new TreeNodeInfo<HydraulicBoundaryDatabaseContext>
@@ -2505,6 +2506,8 @@ namespace Riskeer.Integration.Plugin
                 });
 
             return builder.AddCustomItem(addHydraulicBoundaryDatabaseItem)
+                          .AddSeparator()
+                          .AddRemoveAllChildrenItem()
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()

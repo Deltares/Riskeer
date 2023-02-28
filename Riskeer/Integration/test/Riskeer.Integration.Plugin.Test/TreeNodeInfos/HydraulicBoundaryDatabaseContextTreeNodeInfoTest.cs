@@ -62,6 +62,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Assert.IsNotNull(info.CanRemove);
                 Assert.IsNotNull(info.OnNodeRemoved);
                 Assert.IsNotNull(info.OnRemoveConfirmationText);
+                Assert.IsNull(info.OnRemoveChildNodesConfirmationText);
                 Assert.IsNull(info.CanCheck);
                 Assert.IsNull(info.CheckedState);
                 Assert.IsNull(info.OnNodeChecked);
@@ -162,7 +163,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Assert.IsTrue(ensureVisibleOnCreate);
             }
         }
-        
+
         [Test]
         public void CanRemove_Always_ReturnsTrue()
         {
@@ -178,7 +179,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Assert.IsTrue(canRemove);
             }
         }
-        
+
         [Test]
         public void OnRemoveConfirmationText_Always_ReturnsConfirmationMessage()
         {
@@ -198,7 +199,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Assert.AreEqual(expectedText, onRemoveConfirmationText);
             }
         }
-        
+
         [Test]
         public void OnNodeRemoved_WithContext_RemovesItemAndNotifiesObservers()
         {
