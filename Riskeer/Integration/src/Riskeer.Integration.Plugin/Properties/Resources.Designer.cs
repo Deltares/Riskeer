@@ -300,6 +300,24 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to HRD bestand toevoegen.
+        /// </summary>
+        public static string ContextMenuStrip_Add_HydraulicBoundaryDatabase {
+            get {
+                return ResourceManager.GetString("ContextMenuStrip_Add_HydraulicBoundaryDatabase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Voeg een nieuw HRD bestand toe aan deze map..
+        /// </summary>
+        public static string ContextMenuStrip_Add_HydraulicBoundaryDatabase_ToolTip {
+            get {
+                return ResourceManager.GetString("ContextMenuStrip_Add_HydraulicBoundaryDatabase_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De resultaten van {0} semi-probabilistische berekeningen zonder handmatige waterstand zijn verwijderd..
         /// </summary>
         public static string FailureMechanismContributionNormChangeHandler_ClearAllNormDependentSemiProbabilisticCalculationOutput_Results_of_NumberOfCalculations_0_calculations_cleared {

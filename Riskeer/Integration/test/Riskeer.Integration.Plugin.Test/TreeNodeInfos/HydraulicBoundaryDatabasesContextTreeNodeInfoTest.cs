@@ -21,11 +21,17 @@
 
 using System.Drawing;
 using System.Linq;
+using System.Windows.Forms;
+using Core.Common.Base;
+using Core.Common.Base.Storage;
 using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
 using Core.Gui.Forms.Main;
+using Core.Gui.Forms.ViewHost;
+using Core.Gui.TestUtil;
+using Core.Gui.TestUtil.ContextMenu;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -41,6 +47,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class HydraulicBoundaryDatabasesContextTreeNodeInfoTest : NUnitFormTest
     {
+        private const int contextMenuAddHydraulicBoundaryDatabaseIndex = 0;
+
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
@@ -112,6 +120,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             using (mocks.Ordered())
             {
+                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.Build()).Return(null);
@@ -138,6 +148,95 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             // Assert
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ContextMenuStrip_Always_AddCustomItems()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            
+            using (var treeViewControl = new TreeViewControl())
+            {
+                IGui gui = StubFactory.CreateGuiStub(mockRepository);
+                gui.Stub(cmp => cmp.Get(null, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.MainWindow).Return(mockRepository.Stub<IMainWindow>());
+                mockRepository.ReplayAll();
+
+                using (var plugin = new RiskeerPlugin())
+                {
+                    TreeNodeInfo info = GetInfo(plugin);
+
+                    plugin.Gui = gui;
+
+                    // Call
+                    using (ContextMenuStrip menu = info.ContextMenuStrip(null, null, treeViewControl))
+                    {
+                        // Assert
+                        Assert.AreEqual(4, menu.Items.Count);
+
+                        TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddHydraulicBoundaryDatabaseIndex,
+                                                                      "HRD bestand toevoegen",
+                                                                      "Voeg een nieuw HRD bestand toe aan deze map.",
+                                                                      RiskeerCommonFormsResources.DatabaseIcon);
+                    }
+                }
+            }
+
+            mockRepository.VerifyAll();
+        }
+        
+        [Test]
+        public void ContextMenuStrip_ClickOnAddHydraulicBoundaryDatabaseItem_HydraulicBoundaryDatabaseAddedAndObserversNotified()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryData;
+            
+            hydraulicBoundaryData.HydraulicLocationConfigurationSettings.SetValues("some/path/hlcd.sqlite", "scenarioName", 0,
+                                                                                   "scope", false, "seaLevel", "riverDischarge",
+                                                                                   "lakeLevel", "windDirection", "windSpeed",
+                                                                                   "comment");
+            
+            var context = new HydraulicBoundaryDatabasesContext(hydraulicBoundaryData, assessmentSection);
+
+            var mockRepository = new MockRepository();
+            var hydraulicBoundaryDataObserver = mockRepository.StrictMock<IObserver>();
+            hydraulicBoundaryDataObserver.Expect(o => o.UpdateObserver());
+            hydraulicBoundaryData.Attach(hydraulicBoundaryDataObserver);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub(mockRepository);
+
+                IGui gui = StubFactory.CreateGuiStub(mockRepository);
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.ProjectStore).Return(mockRepository.Stub<IStoreProject>());
+                gui.Stub(g => g.DocumentViewController).Return(mockRepository.Stub<IDocumentViewController>());
+
+                mockRepository.ReplayAll();
+
+                using (var plugin = new RiskeerPlugin())
+                {
+                    TreeNodeInfo info = GetInfo(plugin);
+                    plugin.Gui = gui;
+                    plugin.Activate();
+
+                    using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
+                    {
+                        // Call
+                        contextMenuAdapter.Items[contextMenuAddHydraulicBoundaryDatabaseIndex].PerformClick();
+
+                        // Assert
+                        Assert.AreEqual(1, hydraulicBoundaryData.HydraulicBoundaryDatabases.Count);
+                    }
+                }
+            }
+
+            mockRepository.VerifyAll();
         }
 
         [Test]
