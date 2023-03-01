@@ -489,20 +489,28 @@ namespace Riskeer.Integration.IO.Test.Importers
 
         private static HydraulicBoundaryData CreateHydraulicBoundaryData(string filePath)
         {
-            var hydraulicBoundaryData = new HydraulicBoundaryData
+            return new HydraulicBoundaryData
             {
+                FilePath = filePath,
+                HydraulicLocationConfigurationSettings =
+                {
+                    FilePath = filePath,
+                    ScenarioName = "ScenarioName",
+                    Year = 2022,
+                    Scope = "Scope",
+                    SeaLevel = "SeaLevel",
+                    RiverDischarge = "RiverDischarge",
+                    LakeLevel = "LakeLevel",
+                    WindDirection = "WindDirection",
+                    WindSpeed = "WindSpeed",
+                    Comment = "Comment",
+                    UsePreprocessorClosure = false
+                },
                 HydraulicBoundaryDatabases =
                 {
                     new HydraulicBoundaryDatabase()
-                },
-                FilePath = filePath
+                }
             };
-
-            hydraulicBoundaryData.HydraulicLocationConfigurationSettings.SetValues(filePath, "scenarioName", 2022, "scope", false,
-                                                                                   "seaLevel", "riverDischarge", "lakeLevel",
-                                                                                   "windDirection", "windSpeed", "comment");
-
-            return hydraulicBoundaryData;
         }
 
         private static void AssertImportFailed(Action call, string errorMessage, ref bool importSuccessful)
