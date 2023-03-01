@@ -28,7 +28,7 @@ using Riskeer.Integration.Plugin.Properties;
 namespace Riskeer.Integration.Plugin.Helpers
 {
     /// <summary>
-    /// Helper class for dealing with updating <see cref="HydraulicLocationConfigurationSettings"/>
+    /// Helper class for updating <see cref="HydraulicLocationConfigurationSettings"/>.
     /// </summary>
     public static class HydraulicLocationConfigurationSettingsUpdateHelper
     {
@@ -37,8 +37,8 @@ namespace Riskeer.Integration.Plugin.Helpers
         /// <summary>
         /// Sets the hydraulic location configuration settings.
         /// </summary>
-        /// <param name="hydraulicLocationConfigurationSettings">The hydraulic location configuration settings to set on.</param>
-        /// <param name="readHydraulicLocationConfigurationDatabaseSettings">The read settings to set.</param>
+        /// <param name="hydraulicLocationConfigurationSettings">The hydraulic location configuration settings to update.</param>
+        /// <param name="readHydraulicLocationConfigurationDatabaseSettings">The read hydraulic location configuration settings.</param>
         /// <param name="usePreprocessorClosure">Indicator whether to use the preprocessor closure.</param>
         /// <param name="hlcdFilePath">The file path of the hydraulic location configuration database.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicLocationConfigurationSettings"/>
@@ -60,35 +60,33 @@ namespace Riskeer.Integration.Plugin.Helpers
 
             if (readHydraulicLocationConfigurationDatabaseSettings != null)
             {
-                hydraulicLocationConfigurationSettings.SetValues(
-                    hlcdFilePath,
-                    readHydraulicLocationConfigurationDatabaseSettings.ScenarioName,
-                    readHydraulicLocationConfigurationDatabaseSettings.Year,
-                    readHydraulicLocationConfigurationDatabaseSettings.Scope,
-                    usePreprocessorClosure,
-                    readHydraulicLocationConfigurationDatabaseSettings.SeaLevel,
-                    readHydraulicLocationConfigurationDatabaseSettings.RiverDischarge,
-                    readHydraulicLocationConfigurationDatabaseSettings.LakeLevel,
-                    readHydraulicLocationConfigurationDatabaseSettings.WindDirection,
-                    readHydraulicLocationConfigurationDatabaseSettings.WindSpeed,
-                    readHydraulicLocationConfigurationDatabaseSettings.Comment);
+                hydraulicLocationConfigurationSettings.FilePath = hlcdFilePath;
+                hydraulicLocationConfigurationSettings.ScenarioName = readHydraulicLocationConfigurationDatabaseSettings.ScenarioName;
+                hydraulicLocationConfigurationSettings.Year = readHydraulicLocationConfigurationDatabaseSettings.Year;
+                hydraulicLocationConfigurationSettings.Scope = readHydraulicLocationConfigurationDatabaseSettings.Scope;
+                hydraulicLocationConfigurationSettings.SeaLevel = readHydraulicLocationConfigurationDatabaseSettings.SeaLevel;
+                hydraulicLocationConfigurationSettings.RiverDischarge = readHydraulicLocationConfigurationDatabaseSettings.RiverDischarge;
+                hydraulicLocationConfigurationSettings.LakeLevel = readHydraulicLocationConfigurationDatabaseSettings.LakeLevel;
+                hydraulicLocationConfigurationSettings.WindDirection = readHydraulicLocationConfigurationDatabaseSettings.WindDirection;
+                hydraulicLocationConfigurationSettings.WindSpeed = readHydraulicLocationConfigurationDatabaseSettings.WindSpeed;
+                hydraulicLocationConfigurationSettings.Comment = readHydraulicLocationConfigurationDatabaseSettings.Comment;
+                hydraulicLocationConfigurationSettings.UsePreprocessorClosure = usePreprocessorClosure;
             }
             else
             {
                 log.Warn(Resources.HydraulicLocationConfigurationSettingsUpdateHelper_ReadHydraulicLocationConfigurationDatabaseSettings_No_ScenarioInformation_entries_present);
 
-                hydraulicLocationConfigurationSettings.SetValues(
-                    hlcdFilePath,
-                    HydraulicLocationConfigurationSettingsConstants.MandatoryConfigurationPropertyDefaultValue,
-                    HydraulicLocationConfigurationSettingsConstants.YearDefaultValue,
-                    HydraulicLocationConfigurationSettingsConstants.MandatoryConfigurationPropertyDefaultValue,
-                    usePreprocessorClosure,
-                    HydraulicLocationConfigurationSettingsConstants.OptionalConfigurationPropertyDefaultValue,
-                    HydraulicLocationConfigurationSettingsConstants.OptionalConfigurationPropertyDefaultValue,
-                    HydraulicLocationConfigurationSettingsConstants.OptionalConfigurationPropertyDefaultValue,
-                    HydraulicLocationConfigurationSettingsConstants.OptionalConfigurationPropertyDefaultValue,
-                    HydraulicLocationConfigurationSettingsConstants.OptionalConfigurationPropertyDefaultValue,
-                    HydraulicLocationConfigurationSettingsConstants.AdditionalInformationConfigurationPropertyValue);
+                hydraulicLocationConfigurationSettings.FilePath = hlcdFilePath;
+                hydraulicLocationConfigurationSettings.ScenarioName = HydraulicLocationConfigurationSettingsConstants.MandatoryConfigurationPropertyDefaultValue;
+                hydraulicLocationConfigurationSettings.Year = HydraulicLocationConfigurationSettingsConstants.YearDefaultValue;
+                hydraulicLocationConfigurationSettings.Scope = HydraulicLocationConfigurationSettingsConstants.MandatoryConfigurationPropertyDefaultValue;
+                hydraulicLocationConfigurationSettings.SeaLevel = HydraulicLocationConfigurationSettingsConstants.OptionalConfigurationPropertyDefaultValue;
+                hydraulicLocationConfigurationSettings.RiverDischarge = HydraulicLocationConfigurationSettingsConstants.OptionalConfigurationPropertyDefaultValue;
+                hydraulicLocationConfigurationSettings.LakeLevel = HydraulicLocationConfigurationSettingsConstants.OptionalConfigurationPropertyDefaultValue;
+                hydraulicLocationConfigurationSettings.WindDirection = HydraulicLocationConfigurationSettingsConstants.OptionalConfigurationPropertyDefaultValue;
+                hydraulicLocationConfigurationSettings.WindSpeed = HydraulicLocationConfigurationSettingsConstants.OptionalConfigurationPropertyDefaultValue;
+                hydraulicLocationConfigurationSettings.Comment = HydraulicLocationConfigurationSettingsConstants.AdditionalInformationConfigurationPropertyValue;
+                hydraulicLocationConfigurationSettings.UsePreprocessorClosure = usePreprocessorClosure;
             }
         }
     }
