@@ -142,7 +142,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             if (hydraulicBoundaryDataLinked)
             {
-                LinkHydraulicBoundaryData(assessmentSection.HydraulicBoundaryData);
+                assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.FilePath = "hlcd.sqlite";
             }
 
             var context = new HydraulicBoundaryDataContext(assessmentSection.HydraulicBoundaryData, assessmentSection);
@@ -202,7 +202,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             if (hydraulicBoundaryDataLinked)
             {
-                LinkHydraulicBoundaryData(assessmentSection.HydraulicBoundaryData);
+                assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.FilePath = "hlcd.sqlite";
             }
 
             var context = new HydraulicBoundaryDataContext(assessmentSection.HydraulicBoundaryData,
@@ -263,7 +263,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            LinkHydraulicBoundaryData(assessmentSection.HydraulicBoundaryData);
+            assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.FilePath = "hlcd.sqlite";
 
             var context = new HydraulicBoundaryDataContext(assessmentSection.HydraulicBoundaryData, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
@@ -922,14 +922,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         private static TreeNodeInfo GetInfo(RiskeerPlugin plugin)
         {
             return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(HydraulicBoundaryDataContext));
-        }
-
-        private static void LinkHydraulicBoundaryData(HydraulicBoundaryData hydraulicBoundaryData)
-        {
-            hydraulicBoundaryData.HydraulicLocationConfigurationSettings.SetValues("hlcdFilePath", "scenarioName", 0, "scope",
-                                                                                   false, "seaLevel", "riverDischarge",
-                                                                                   "lakeLevel", "windDirection", "windSpeed",
-                                                                                   "comment");
         }
     }
 }

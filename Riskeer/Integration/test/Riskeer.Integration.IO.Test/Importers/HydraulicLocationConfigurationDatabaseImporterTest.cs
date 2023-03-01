@@ -305,7 +305,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), handler,
                                                                               hydraulicBoundaryData, validHlcdFilePath);
             importer.SetProgressChanged((description, currentStep, steps) =>
-            { 
+            {
                 importer.Cancel();
             });
 
