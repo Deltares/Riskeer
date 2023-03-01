@@ -50,7 +50,8 @@ namespace Riskeer.StabilityStoneCover.Integration.Test
     public class StabilityStoneCoverWaveConditionsCalculationActivityIntegrationTest
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
-        private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
 
         [Test]
         public void Run_CalculationWithInvalidHrdFilePath_DoesNotPerformCalculationAndLogsError()
@@ -623,16 +624,18 @@ namespace Riskeer.StabilityStoneCover.Integration.Test
             {
                 HydraulicBoundaryData =
                 {
-                    FilePath = validFilePath,
+                    FilePath = validHrdFilePath,
+                    HydraulicLocationConfigurationSettings =
+                    {
+                        FilePath = validHlcdFilePath,
+                        UsePreprocessorClosure = usePreprocessorClosure
+                    },
                     Locations =
                     {
                         hydraulicBoundaryLocation
                     }
                 }
             };
-
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData,
-                                                                                      usePreprocessorClosure);
 
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
