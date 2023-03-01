@@ -86,7 +86,9 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         private StabilityStoneCoverPlugin plugin;
         private TreeNodeInfo info;
 
-        private readonly string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, Path.Combine("HydraRingCalculation", "HRD ijsselmeer.sqlite"));
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
+        private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -782,8 +784,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_AllRequiredInputSet_CalculateAllAndValidateAllEnabled(bool usePreprocessorClosure)
         {
             // Setup
-            string validHydraulicBoundaryDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, Path.Combine(nameof(HydraulicBoundaryData), "complete.sqlite"));
-
             using (var treeViewControl = new TreeViewControl())
             {
                 var group = new CalculationGroup();
@@ -794,9 +794,13 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
                 var hydraulicBoundaryData = new HydraulicBoundaryData
                 {
-                    FilePath = validHydraulicBoundaryDatabasePath
+                    FilePath = validHrdFilePath,
+                    HydraulicLocationConfigurationSettings =
+                    {
+                        FilePath = validHlcdFilePath,
+                        UsePreprocessorClosure = usePreprocessorClosure
+                    }
                 };
-                HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryData, usePreprocessorClosure);
 
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
@@ -970,7 +974,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             failureMechanism.CalculationsGroup.Children.Add(group);
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validFilePath);
+                failureMechanism, mocks, validHrdFilePath);
 
             var nodeData = new StabilityStoneCoverCalculationGroupContext(group,
                                                                           failureMechanism.CalculationsGroup,
@@ -1012,7 +1016,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validFilePath);
+                failureMechanism, mocks, validHrdFilePath);
 
             var group = new CalculationGroup();
             StabilityStoneCoverWaveConditionsCalculation calculationA = GetValidCalculation(assessmentSection.HydraulicBoundaryData.Locations.First());
@@ -1059,7 +1063,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             // Setup
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validFilePath);
+                failureMechanism, mocks, validHrdFilePath);
 
             var observerA = mocks.StrictMock<IObserver>();
             var observerB = mocks.StrictMock<IObserver>();
@@ -1644,7 +1648,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             base.TearDown();
         }
 
-        private IAssessmentSection CreateAssessmentSectionWithHydraulicBoundaryOutput(bool usePreprocessorClosure = false)
+        private static IAssessmentSection CreateAssessmentSectionWithHydraulicBoundaryOutput(bool usePreprocessorClosure = false)
         {
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0);
 
@@ -1652,17 +1656,19 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             {
                 HydraulicBoundaryData =
                 {
-                    FilePath = validFilePath,
+                    FilePath = validHrdFilePath,
+                    HydraulicLocationConfigurationSettings =
+                    {
+                        FilePath = validHlcdFilePath,
+                        UsePreprocessorClosure = usePreprocessorClosure
+                    },
                     Locations =
                     {
                         hydraulicBoundaryLocation
                     }
                 }
             };
-
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData,
-                                                                                      usePreprocessorClosure);
-
+            
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
