@@ -210,24 +210,13 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
         private static HydraulicBoundaryData CreateLinkedHydraulicBoundaryData()
         {
-            var hydraulicBoundaryData = new HydraulicBoundaryData
+            return new HydraulicBoundaryData
             {
-                FilePath = @"C:\file.sqlite"
+                HydraulicLocationConfigurationSettings =
+                {
+                    FilePath = "hlcd.sqlite"
+                }
             };
-
-            hydraulicBoundaryData.HydraulicLocationConfigurationSettings.SetValues("FilePath",
-                                                                                   "ScenarioName",
-                                                                                   10,
-                                                                                   "Scope",
-                                                                                   true,
-                                                                                   "SeaLevel",
-                                                                                   "RiverDischarge",
-                                                                                   "LakeLevel",
-                                                                                   "WindDirection",
-                                                                                   "WindSpeed",
-                                                                                   "Comment");
-
-            return hydraulicBoundaryData;
         }
     }
 }
