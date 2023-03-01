@@ -41,17 +41,19 @@ namespace Riskeer.Common.Data.TestUtil
         {
             string hlcdFilePath = Path.Combine(Path.GetDirectoryName(hydraulicBoundaryData.FilePath), "hlcd.sqlite");
 
-            hydraulicBoundaryData.HydraulicLocationConfigurationSettings.SetValues(hlcdFilePath,
-                                                                                   "ScenarioName",
-                                                                                   1337,
-                                                                                   "Scope",
-                                                                                   usePreprocessorClosure,
-                                                                                   "SeaLevel",
-                                                                                   "RiverDischarge",
-                                                                                   "LakeLevel",
-                                                                                   "WindDirection",
-                                                                                   "WindSpeed",
-                                                                                   "Comment");
+            HydraulicLocationConfigurationSettings hydraulicLocationConfigurationSettings = hydraulicBoundaryData.HydraulicLocationConfigurationSettings;
+
+            hydraulicLocationConfigurationSettings.FilePath = hlcdFilePath;
+            hydraulicLocationConfigurationSettings.ScenarioName = "ScenarioName";
+            hydraulicLocationConfigurationSettings.Year = 1337;
+            hydraulicLocationConfigurationSettings.Scope = "Scope";
+            hydraulicLocationConfigurationSettings.SeaLevel = "SeaLevel";
+            hydraulicLocationConfigurationSettings.RiverDischarge = "RiverDischarge";
+            hydraulicLocationConfigurationSettings.LakeLevel = "LakeLevel";
+            hydraulicLocationConfigurationSettings.WindDirection = "WindDirection";
+            hydraulicLocationConfigurationSettings.WindSpeed = "WindSpeed";
+            hydraulicLocationConfigurationSettings.Comment = "Comment";
+            hydraulicLocationConfigurationSettings.UsePreprocessorClosure = usePreprocessorClosure;
         }
     }
 }
