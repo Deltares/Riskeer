@@ -20,13 +20,10 @@
 // All rights reserved.
 
 using System;
-using System.ComponentModel;
-using System.Drawing.Design;
 using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
 using Core.Gui.PropertyBag;
 using Riskeer.Common.Data.Hydraulics;
-using Riskeer.Integration.Forms.Editors;
 using Riskeer.Integration.Forms.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -64,25 +61,10 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         }
 
         [PropertyOrder(hlcdFilePathPropertyIndex)]
-        [DynamicVisible]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_FilePath_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_FilePath_Description))]
-        [Editor(typeof(HlcdFileNameEditor), typeof(UITypeEditor))]
         public string HlcdFilePath
-        {
-            get
-            {
-                return data.IsLinked() ? data.HydraulicLocationConfigurationSettings.FilePath : string.Empty;
-            }
-        }
-
-        [PropertyOrder(hlcdFilePathPropertyIndex)]
-        [DynamicVisible]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_FilePath_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_FilePath_Description))]
-        public string HlcdFilePathReadOnly
         {
             get
             {
@@ -202,22 +184,6 @@ namespace Riskeer.Integration.Forms.PropertyClasses
                 string comment = data.HydraulicLocationConfigurationSettings.Comment;
                 return data.IsLinked() && comment != null ? comment : string.Empty;
             }
-        }
-
-        [DynamicVisibleValidationMethod]
-        public bool DynamicVisibleValidationMethod(string propertyName)
-        {
-            if (propertyName.Equals(nameof(HlcdFilePath)) && !data.IsLinked())
-            {
-                return false;
-            }
-
-            if (propertyName.Equals(nameof(HlcdFilePathReadOnly)) && data.IsLinked())
-            {
-                return false;
-            }
-
-            return true;
         }
     }
 }

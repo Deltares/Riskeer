@@ -21,12 +21,10 @@
 
 using System;
 using System.ComponentModel;
-using System.Drawing.Design;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
-using Riskeer.Integration.Forms.Editors;
 using Riskeer.Integration.Forms.PropertyClasses;
 
 namespace Riskeer.Integration.Forms.Test.PropertyClasses
@@ -84,7 +82,6 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsEmpty(properties.HlcdFilePath);
-            Assert.IsEmpty(properties.HlcdFilePathReadOnly);
             Assert.IsEmpty(properties.ScenarioName);
             Assert.IsEmpty(properties.Year);
             Assert.IsEmpty(properties.Scope);
@@ -111,7 +108,6 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             // Assert
             HydraulicLocationConfigurationSettings configurationSettings = hydraulicBoundaryData.HydraulicLocationConfigurationSettings;
             Assert.AreEqual(configurationSettings.FilePath, properties.HlcdFilePath);
-            Assert.AreEqual(configurationSettings.FilePath, properties.HlcdFilePathReadOnly);
             Assert.AreEqual(configurationSettings.ScenarioName, properties.ScenarioName);
             Assert.AreEqual(configurationSettings.Year.ToString(), properties.Year);
             Assert.AreEqual(configurationSettings.Scope, properties.Scope);
@@ -124,14 +120,10 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Constructor_WithLinkedDatabaseStatus_PropertiesHaveExpectedAttributesValues(bool isLinked)
+        public void Constructor_WithHydraulicBoundaryData_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            HydraulicBoundaryData hydraulicBoundaryData = isLinked
-                                                              ? CreateLinkedHydraulicBoundaryData()
-                                                              : new HydraulicBoundaryData();
+            var hydraulicBoundaryData = new HydraulicBoundaryData();
 
             // Call
             var properties = new HydraulicBoundaryDataProperties(hydraulicBoundaryData);
@@ -146,12 +138,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                                                                             expectedCategory,
                                                                             "HLCD bestandslocatie",
                                                                             "Locatie van het HLCD bestand.",
-                                                                            !isLinked);
-            if (isLinked)
-            {
-                object hlcdFilePathEditor = hlcdFilePathProperty.GetEditor(typeof(UITypeEditor));
-                Assert.IsInstanceOf<HlcdFileNameEditor>(hlcdFilePathEditor);
-            }
+                                                                            true);
 
             PropertyDescriptor scenarioNameProperty = dynamicProperties[scenarioNamePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(scenarioNameProperty,
@@ -215,33 +202,6 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                                                                             "Overig",
                                                                             "Overige informatie.",
                                                                             true);
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void DynamicVisibleValidationMethod_DependingOnHydraulicBoundaryDataLinkStatus_ReturnsExpectedVisibility(bool isHydraulicBoundaryDataLinked)
-        {
-            // Setup
-            HydraulicBoundaryData hydraulicBoundaryData = isHydraulicBoundaryDataLinked
-                                                              ? CreateLinkedHydraulicBoundaryData()
-                                                              : new HydraulicBoundaryData();
-
-            // Call
-            var properties = new HydraulicBoundaryDataProperties(hydraulicBoundaryData);
-
-            // Assert
-            Assert.AreEqual(isHydraulicBoundaryDataLinked, properties.DynamicVisibleValidationMethod(nameof(properties.HlcdFilePath)));
-            Assert.AreEqual(!isHydraulicBoundaryDataLinked, properties.DynamicVisibleValidationMethod(nameof(properties.HlcdFilePathReadOnly)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.ScenarioName)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Year)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Scope)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.SeaLevel)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.RiverDischarge)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.LakeLevel)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.WindDirection)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.WindSpeed)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Comment)));
         }
 
         private static HydraulicBoundaryData CreateLinkedHydraulicBoundaryData()
