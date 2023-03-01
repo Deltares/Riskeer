@@ -545,6 +545,15 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Selecteer andere bestandsmap.
+        /// </summary>
+        public static string FolderBrowserDialog_Select_Different_Folder {
+            get {
+                return ResourceManager.GetString("FolderBrowserDialog_Select_Different_Folder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to HLCD bestand|*.sqlite.
         /// </summary>
         public static string HlcdFileNameEditor_InitializeDialog_FileFilter {

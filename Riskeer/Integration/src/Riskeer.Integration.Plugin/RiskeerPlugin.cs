@@ -2471,7 +2471,17 @@ namespace Riskeer.Integration.Plugin
                     RiskeerCommonFormsResources.GeneralFolderIcon,
                     (sender, args) =>
                     {
-                        
+                        using (var dialog = new FolderBrowserDialog
+                        {
+                            ShowNewFolderButton = false,
+                            Description = RiskeerFormsResources.FolderBrowserDialog_Select_Different_Folder
+                        })
+                        {
+                            if (dialog.ShowDialog(Gui.MainWindow) == DialogResult.OK)
+                            {
+                                nodeData.WrappedData.HydraulicBoundaryDatabases.ForEachElementDo(hbd => hbd.FilePath = GetNewFolderPath(hbd.FilePath, dialog.SelectedPath));
+                            }
+                        }
                     });
                 
                 builder.AddImportItem(RiskeerFormsResources.HydraulicBoundaryData_Connect_To_Different_Hlcd,
@@ -2498,6 +2508,11 @@ namespace Riskeer.Integration.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+        
+        private string GetNewFolderPath(string filePath, string newFolderPath)
+        {
+            return Path.Combine(newFolderPath, Path.GetFileName(filePath));
         }
 
         private static object[] HydraulicBoundaryDatabasesContextChildNodeObjects(HydraulicBoundaryDatabasesContext nodeData)
