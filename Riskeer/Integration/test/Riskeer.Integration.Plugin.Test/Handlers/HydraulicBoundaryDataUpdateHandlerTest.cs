@@ -725,13 +725,13 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             Assert.AreEqual(expectedSettings.ScenarioName, actualSettings.ScenarioName);
             Assert.AreEqual(expectedSettings.Year, actualSettings.Year);
             Assert.AreEqual(expectedSettings.Scope, actualSettings.Scope);
-            Assert.AreEqual(readHydraulicLocationConfigurationDatabase.ReadTracks.First().UsePreprocessorClosure, actualSettings.UsePreprocessorClosure);
             Assert.AreEqual(expectedSettings.SeaLevel, actualSettings.SeaLevel);
             Assert.AreEqual(expectedSettings.RiverDischarge, actualSettings.RiverDischarge);
             Assert.AreEqual(expectedSettings.LakeLevel, actualSettings.LakeLevel);
             Assert.AreEqual(expectedSettings.WindDirection, actualSettings.WindDirection);
             Assert.AreEqual(expectedSettings.WindSpeed, actualSettings.WindSpeed);
             Assert.AreEqual(expectedSettings.Comment, actualSettings.Comment);
+            Assert.AreEqual(readHydraulicLocationConfigurationDatabase.ReadTracks.First().UsePreprocessorClosure, actualSettings.UsePreprocessorClosure);
         }
 
         [Test]
@@ -777,13 +777,13 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             Assert.AreEqual("WBI2017", actualSettings.ScenarioName);
             Assert.AreEqual(2023, actualSettings.Year);
             Assert.AreEqual("WBI2017", actualSettings.Scope);
-            Assert.IsFalse(actualSettings.UsePreprocessorClosure);
             Assert.AreEqual("Conform WBI2017", actualSettings.SeaLevel);
             Assert.AreEqual("Conform WBI2017", actualSettings.RiverDischarge);
             Assert.AreEqual("Conform WBI2017", actualSettings.LakeLevel);
             Assert.AreEqual("Conform WBI2017", actualSettings.WindDirection);
             Assert.AreEqual("Conform WBI2017", actualSettings.WindSpeed);
             Assert.AreEqual("Gegenereerd door Riskeer (conform WBI2017)", actualSettings.Comment);
+            Assert.IsFalse(actualSettings.UsePreprocessorClosure);
         }
 
         [Test]

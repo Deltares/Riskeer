@@ -90,13 +90,13 @@ namespace Riskeer.Integration.Service.Comparers
             return hydraulicLocationConfigurationSettings.ScenarioName == otherHydraulicLocationConfigurationSettings.ScenarioName
                    && hydraulicLocationConfigurationSettings.Year == otherHydraulicLocationConfigurationSettings.Year
                    && hydraulicLocationConfigurationSettings.Scope == otherHydraulicLocationConfigurationSettings.Scope
-                   && hydraulicLocationConfigurationSettings.UsePreprocessorClosure == otherHydraulicLocationConfigurationSettings.UsePreprocessorClosure
                    && hydraulicLocationConfigurationSettings.SeaLevel == otherHydraulicLocationConfigurationSettings.SeaLevel
                    && hydraulicLocationConfigurationSettings.RiverDischarge == otherHydraulicLocationConfigurationSettings.RiverDischarge
                    && hydraulicLocationConfigurationSettings.LakeLevel == otherHydraulicLocationConfigurationSettings.LakeLevel
                    && hydraulicLocationConfigurationSettings.WindDirection == otherHydraulicLocationConfigurationSettings.WindDirection
                    && hydraulicLocationConfigurationSettings.WindSpeed == otherHydraulicLocationConfigurationSettings.WindSpeed
-                   && hydraulicLocationConfigurationSettings.Comment == otherHydraulicLocationConfigurationSettings.Comment;
+                   && hydraulicLocationConfigurationSettings.Comment == otherHydraulicLocationConfigurationSettings.Comment
+                   && hydraulicLocationConfigurationSettings.UsePreprocessorClosure == otherHydraulicLocationConfigurationSettings.UsePreprocessorClosure;
         }
 
         private static bool AreFailureMechanismContributionsEquivalent(FailureMechanismContribution failureMechanismContribution,

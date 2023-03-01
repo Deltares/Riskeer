@@ -53,7 +53,6 @@ namespace Riskeer.Storage.Core.Create
                 FilePath = hydraulicBoundaryData.FilePath.DeepClone(),
                 Version = hydraulicBoundaryData.Version.DeepClone(),
                 HydraulicLocationConfigurationSettingsFilePath = settings.FilePath.DeepClone(),
-                HydraulicLocationConfigurationSettingsUsePreprocessorClosure = Convert.ToByte(settings.UsePreprocessorClosure),
                 HydraulicLocationConfigurationSettingsScenarioName = settings.ScenarioName.DeepClone(),
                 HydraulicLocationConfigurationSettingsYear = settings.Year,
                 HydraulicLocationConfigurationSettingsScope = settings.Scope.DeepClone(),
@@ -62,7 +61,8 @@ namespace Riskeer.Storage.Core.Create
                 HydraulicLocationConfigurationSettingsLakeLevel = settings.LakeLevel.DeepClone(),
                 HydraulicLocationConfigurationSettingsWindDirection = settings.WindDirection.DeepClone(),
                 HydraulicLocationConfigurationSettingsWindSpeed = settings.WindSpeed.DeepClone(),
-                HydraulicLocationConfigurationSettingsComment = settings.Comment.DeepClone()
+                HydraulicLocationConfigurationSettingsComment = settings.Comment.DeepClone(),
+                HydraulicLocationConfigurationSettingsUsePreprocessorClosure = Convert.ToByte(settings.UsePreprocessorClosure)
             };
         }
     }

@@ -76,7 +76,6 @@ namespace Riskeer.Storage.Core.Test.Create
 
             HydraulicLocationConfigurationSettings settings = hydraulicBoundaryData.HydraulicLocationConfigurationSettings;
             TestHelper.AssertAreEqualButNotSame(settings.FilePath, entity.HydraulicLocationConfigurationSettingsFilePath);
-            Assert.AreEqual(Convert.ToByte(settings.UsePreprocessorClosure), entity.HydraulicLocationConfigurationSettingsUsePreprocessorClosure);
             TestHelper.AssertAreEqualButNotSame(settings.ScenarioName, entity.HydraulicLocationConfigurationSettingsScenarioName);
             TestHelper.AssertAreEqualButNotSame(settings.Year, entity.HydraulicLocationConfigurationSettingsYear);
             TestHelper.AssertAreEqualButNotSame(settings.Scope, entity.HydraulicLocationConfigurationSettingsScope);
@@ -86,6 +85,7 @@ namespace Riskeer.Storage.Core.Test.Create
             TestHelper.AssertAreEqualButNotSame(settings.WindDirection, entity.HydraulicLocationConfigurationSettingsWindDirection);
             TestHelper.AssertAreEqualButNotSame(settings.WindSpeed, entity.HydraulicLocationConfigurationSettingsWindSpeed);
             TestHelper.AssertAreEqualButNotSame(settings.Comment, entity.HydraulicLocationConfigurationSettingsComment);
+            Assert.AreEqual(Convert.ToByte(settings.UsePreprocessorClosure), entity.HydraulicLocationConfigurationSettingsUsePreprocessorClosure);
         }
     }
 }

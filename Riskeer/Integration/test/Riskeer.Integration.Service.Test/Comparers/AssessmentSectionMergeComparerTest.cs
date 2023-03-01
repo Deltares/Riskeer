@@ -169,13 +169,13 @@ namespace Riskeer.Integration.Service.Test.Comparers
             settings.ScenarioName = "ScenarioName";
             settings.Year = 2017;
             settings.Scope = "Scope";
-            settings.UsePreprocessorClosure = false;
             settings.SeaLevel = "SeaLevel";
             settings.RiverDischarge = "RiverDischarge";
             settings.LakeLevel = "LakeLevel";
             settings.WindDirection = "WindDirection";
             settings.WindSpeed = "WindSpeed";
             settings.Comment = "Comment";
+            settings.UsePreprocessorClosure = false;
         }
 
         private static IEnumerable<TestCaseData> GetUnequivalentAssessmentSectionWithoutHydraulicLocationConfigurationSettingsTestCases()

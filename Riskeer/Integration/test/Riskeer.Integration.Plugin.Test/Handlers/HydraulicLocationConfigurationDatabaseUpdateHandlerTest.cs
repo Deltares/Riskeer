@@ -168,13 +168,13 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             Assert.AreEqual("WBI2017", settings.ScenarioName);
             Assert.AreEqual(2023, settings.Year);
             Assert.AreEqual("WBI2017", settings.Scope);
-            Assert.AreEqual(usePreprocessorClosure, settings.UsePreprocessorClosure);
             Assert.AreEqual("Conform WBI2017", settings.SeaLevel);
             Assert.AreEqual("Conform WBI2017", settings.RiverDischarge);
             Assert.AreEqual("Conform WBI2017", settings.LakeLevel);
             Assert.AreEqual("Conform WBI2017", settings.WindDirection);
             Assert.AreEqual("Conform WBI2017", settings.WindSpeed);
             Assert.AreEqual("Gegenereerd door Riskeer (conform WBI2017)", settings.Comment);
+            Assert.AreEqual(usePreprocessorClosure, settings.UsePreprocessorClosure);
         }
 
         [Test]
@@ -198,13 +198,13 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             Assert.AreEqual(readSettings.ScenarioName, settings.ScenarioName);
             Assert.AreEqual(readSettings.Year, settings.Year);
             Assert.AreEqual(readSettings.Scope, settings.Scope);
-            Assert.AreEqual(usePreprocessorClosure, settings.UsePreprocessorClosure);
             Assert.AreEqual(readSettings.SeaLevel, settings.SeaLevel);
             Assert.AreEqual(readSettings.RiverDischarge, settings.RiverDischarge);
             Assert.AreEqual(readSettings.LakeLevel, settings.LakeLevel);
             Assert.AreEqual(readSettings.WindDirection, settings.WindDirection);
             Assert.AreEqual(readSettings.WindSpeed, settings.WindSpeed);
             Assert.AreEqual(readSettings.Comment, settings.Comment);
+            Assert.AreEqual(usePreprocessorClosure, settings.UsePreprocessorClosure);
         }
 
         [Test]
