@@ -1091,7 +1091,7 @@ namespace Riskeer.Integration.Plugin
                                                                                  .Build()
             };
         }
-        
+
         private ExportInfo<T> CreateHydraulicBoundaryLocationCalculationsForTargetProbabilityExportInfo<T>(
             HydraulicBoundaryLocationCalculationsType calculationsType, string displayName)
             where T : HydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilityContext
@@ -2524,7 +2524,7 @@ namespace Riskeer.Integration.Plugin
                           .AddPropertiesItem()
                           .Build();
         }
-        
+
         private static void HydraulicBoundaryDatabaseContextOnNodeRemoved(HydraulicBoundaryDatabaseContext nodeData, object parentNodeData)
         {
             nodeData.HydraulicBoundaryData.HydraulicBoundaryDatabases.Remove(nodeData.WrappedData);
