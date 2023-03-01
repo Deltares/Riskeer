@@ -196,14 +196,18 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_ClickOnAddHydraulicBoundaryDatabaseItem_HydraulicBoundaryDatabaseAddedAndObserversNotified()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                HydraulicBoundaryData =
+                {
+                    HydraulicLocationConfigurationSettings =
+                    {
+                        FilePath = "hlcd.sqlite"
+                    }
+                }
+            };
 
             HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryData;
-
-            hydraulicBoundaryData.HydraulicLocationConfigurationSettings.SetValues("some/path/hlcd.sqlite", "scenarioName", 0,
-                                                                                   "scope", false, "seaLevel", "riverDischarge",
-                                                                                   "lakeLevel", "windDirection", "windSpeed",
-                                                                                   "comment");
 
             var context = new HydraulicBoundaryDatabasesContext(hydraulicBoundaryData, assessmentSection);
 
