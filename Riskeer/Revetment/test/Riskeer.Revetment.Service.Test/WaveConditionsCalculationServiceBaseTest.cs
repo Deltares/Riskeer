@@ -48,6 +48,7 @@ namespace Riskeer.Revetment.Service.Test
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
         private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
+        private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
 
         [Test]
         public void Validate_InputNull_ThrowArgumentNullException()
@@ -830,14 +831,14 @@ namespace Riskeer.Revetment.Service.Test
 
         private static HydraulicBoundaryData GetValidHydraulicBoundaryData()
         {
-            var hydraulicBoundaryData = new HydraulicBoundaryData
+            return new HydraulicBoundaryData
             {
-                FilePath = validHrdFilePath
+                FilePath = validHrdFilePath,
+                HydraulicLocationConfigurationSettings =
+                {
+                    FilePath = validHlcdFilePath
+                }
             };
-
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryData);
-
-            return hydraulicBoundaryData;
         }
 
         private static WaveConditionsCosineCalculationInput CreateInput(double waterLevel, double a, double b, double c, double targetProbability,
@@ -868,16 +869,23 @@ namespace Riskeer.Revetment.Service.Test
         {
             var hydraulicBoundaryDataWithUsePreprocessorClosureTrue = new HydraulicBoundaryData
             {
-                FilePath = validHrdFilePath
+                FilePath = validHrdFilePath,
+                HydraulicLocationConfigurationSettings =
+                {
+                    FilePath = validHlcdFilePath,
+                    UsePreprocessorClosure = true
+                }
             };
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryDataWithUsePreprocessorClosureTrue, true);
             yield return new TestCaseData(hydraulicBoundaryDataWithUsePreprocessorClosureTrue).SetName("UsePreprocessorClosureTrue");
 
             var hydraulicBoundaryDataWithUsePreprocessorClosureFalse = new HydraulicBoundaryData
             {
-                FilePath = validHrdFilePath
+                FilePath = validHrdFilePath,
+                HydraulicLocationConfigurationSettings =
+                {
+                    FilePath = validHlcdFilePath
+                }
             };
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryDataWithUsePreprocessorClosureFalse);
             yield return new TestCaseData(hydraulicBoundaryDataWithUsePreprocessorClosureFalse).SetName("UsePreprocessorClosureFalse");
         }
 
