@@ -69,7 +69,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GetProperties_WithUnlinkedHydraulicBoundaryDatabase_ReturnsExpectedValues()
+        public void GetProperties_WithUnlinkedHydraulicBoundaryData_ReturnsExpectedValues()
         {
             // Setup
             var hydraulicBoundaryData = new HydraulicBoundaryData();
@@ -94,7 +94,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GetProperties_WithLinkedHydraulicBoundaryDatabase_ReturnsExpectedValues()
+        public void GetProperties_WithLinkedHydraulicBoundaryData_ReturnsExpectedValues()
         {
             // Setup
             HydraulicBoundaryData hydraulicBoundaryData = CreateLinkedHydraulicBoundaryData();
@@ -120,10 +120,14 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_WithHydraulicBoundaryData_PropertiesHaveExpectedAttributesValues()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Constructor_WithHydraulicBoundaryData_PropertiesHaveExpectedAttributesValues(bool useLinkedHydraulicBoundaryData)
         {
             // Setup
-            var hydraulicBoundaryData = new HydraulicBoundaryData();
+            HydraulicBoundaryData hydraulicBoundaryData = useLinkedHydraulicBoundaryData
+                                                              ? CreateLinkedHydraulicBoundaryData()
+                                                              : new HydraulicBoundaryData();
 
             // Call
             var properties = new HydraulicBoundaryDataProperties(hydraulicBoundaryData);
