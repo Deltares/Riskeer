@@ -61,6 +61,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
     public class HydraulicBoundaryDataContextTreeNodeInfoTest : NUnitFormTest
     {
         private const int contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
+        private const int contextMenuSelectDifferentFolderIndex = 1;
         private const int contextMenuCalculateAllIndexForNotLinkedHydraulicBoundaryData = 4;
         private const int contextMenuCalculateAllIndexForLinkedHydraulicBoundaryData = 5;
         private const int contextMenuClearIllustrationPointsIndexForNotLinkedHydraulicBoundaryData = 6;
@@ -254,6 +255,44 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             // Assert
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ContextMenuStrip_WithLinkedHydraulicBoundaryData_ContextMenuItemSelectDifferentFolder()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            LinkHydraulicBoundaryData(assessmentSection.HydraulicBoundaryData);
+
+            var context = new HydraulicBoundaryDataContext(assessmentSection.HydraulicBoundaryData, assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                IGui gui = StubFactory.CreateGuiStub(mocks);
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
+
+                using (var plugin = new RiskeerPlugin())
+                {
+                    TreeNodeInfo info = GetInfo(plugin);
+
+                    plugin.Gui = gui;
+
+                    // Call
+                    using (ContextMenuStrip menu = info.ContextMenuStrip(context, null, treeViewControl))
+                    {
+                        Assert.AreEqual(13, menu.Items.Count);
+
+                        TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuSelectDifferentFolderIndex,
+                                                                      "Selecteer andere bestandsmap...",
+                                                                      "Selecteer een andere bestandsmap.",
+                                                                      RiskeerCommonFormsResources.GeneralFolderIcon);
+                    }
+                }
+            }
         }
 
         [Test]

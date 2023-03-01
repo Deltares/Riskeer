@@ -418,6 +418,6 @@ Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau 
       <value>Selecteer andere bestandsmap...</value>
     </data>
     <data name="HydraulicBoundaryData_Select_Different_Folder_ToolTip" xml:space="preserve">
-      <value>Selecteer een andere bestandsmap</value>
+      <value>Selecteer een andere bestandsmap.</value>
     </data>
 </root>

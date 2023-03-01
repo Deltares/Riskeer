@@ -599,7 +599,7 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Selecteer een andere bestandsmap.
+        ///   Looks up a localized string similar to Selecteer een andere bestandsmap..
         /// </summary>
         public static string HydraulicBoundaryData_Select_Different_Folder_ToolTip {
             get {
