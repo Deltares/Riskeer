@@ -53,17 +53,19 @@ namespace Riskeer.Storage.Core.Read
             hydraulicBoundaryData.FilePath = entity.FilePath;
             hydraulicBoundaryData.Version = entity.Version;
 
-            hydraulicBoundaryData.HydraulicLocationConfigurationSettings.FilePath = entity.HydraulicLocationConfigurationSettingsFilePath;
-            hydraulicBoundaryData.HydraulicLocationConfigurationSettings.ScenarioName = entity.HydraulicLocationConfigurationSettingsScenarioName;
-            hydraulicBoundaryData.HydraulicLocationConfigurationSettings.Year = entity.HydraulicLocationConfigurationSettingsYear;
-            hydraulicBoundaryData.HydraulicLocationConfigurationSettings.Scope = entity.HydraulicLocationConfigurationSettingsScope;
-            hydraulicBoundaryData.HydraulicLocationConfigurationSettings.SeaLevel = entity.HydraulicLocationConfigurationSettingsSeaLevel;
-            hydraulicBoundaryData.HydraulicLocationConfigurationSettings.RiverDischarge = entity.HydraulicLocationConfigurationSettingsRiverDischarge;
-            hydraulicBoundaryData.HydraulicLocationConfigurationSettings.LakeLevel = entity.HydraulicLocationConfigurationSettingsLakeLevel;
-            hydraulicBoundaryData.HydraulicLocationConfigurationSettings.WindDirection = entity.HydraulicLocationConfigurationSettingsWindDirection;
-            hydraulicBoundaryData.HydraulicLocationConfigurationSettings.WindSpeed = entity.HydraulicLocationConfigurationSettingsWindSpeed;
-            hydraulicBoundaryData.HydraulicLocationConfigurationSettings.Comment = entity.HydraulicLocationConfigurationSettingsComment;
-            hydraulicBoundaryData.HydraulicLocationConfigurationSettings.UsePreprocessorClosure = Convert.ToBoolean(entity.HydraulicLocationConfigurationSettingsUsePreprocessorClosure);
+            HydraulicLocationConfigurationSettings hydraulicLocationConfigurationSettings = hydraulicBoundaryData.HydraulicLocationConfigurationSettings;
+
+            hydraulicLocationConfigurationSettings.FilePath = entity.HydraulicLocationConfigurationSettingsFilePath;
+            hydraulicLocationConfigurationSettings.ScenarioName = entity.HydraulicLocationConfigurationSettingsScenarioName;
+            hydraulicLocationConfigurationSettings.Year = entity.HydraulicLocationConfigurationSettingsYear;
+            hydraulicLocationConfigurationSettings.Scope = entity.HydraulicLocationConfigurationSettingsScope;
+            hydraulicLocationConfigurationSettings.SeaLevel = entity.HydraulicLocationConfigurationSettingsSeaLevel;
+            hydraulicLocationConfigurationSettings.RiverDischarge = entity.HydraulicLocationConfigurationSettingsRiverDischarge;
+            hydraulicLocationConfigurationSettings.LakeLevel = entity.HydraulicLocationConfigurationSettingsLakeLevel;
+            hydraulicLocationConfigurationSettings.WindDirection = entity.HydraulicLocationConfigurationSettingsWindDirection;
+            hydraulicLocationConfigurationSettings.WindSpeed = entity.HydraulicLocationConfigurationSettingsWindSpeed;
+            hydraulicLocationConfigurationSettings.Comment = entity.HydraulicLocationConfigurationSettingsComment;
+            hydraulicLocationConfigurationSettings.UsePreprocessorClosure = Convert.ToBoolean(entity.HydraulicLocationConfigurationSettingsUsePreprocessorClosure);
         }
     }
 }
