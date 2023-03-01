@@ -59,7 +59,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryData));
             }
-            
+
             Data = hydraulicBoundaryData;
         }
 
