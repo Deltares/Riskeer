@@ -932,17 +932,21 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
         private static AssessmentSectionStub CreateAssessmentSection(bool usePreprocessorClosure = false)
         {
             string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            string validHrdFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            string validHlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
 
             var assessmentSection = new AssessmentSectionStub
             {
                 HydraulicBoundaryData =
                 {
-                    FilePath = validFilePath
+                    FilePath = validHrdFilePath,
+                    HydraulicLocationConfigurationSettings =
+                    {
+                        FilePath = validHlcdFilePath,
+                        UsePreprocessorClosure = usePreprocessorClosure
+                    }
                 }
             };
-
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData, usePreprocessorClosure);
 
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
