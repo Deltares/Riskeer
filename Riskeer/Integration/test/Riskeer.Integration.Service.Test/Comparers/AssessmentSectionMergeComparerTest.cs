@@ -165,20 +165,17 @@ namespace Riskeer.Integration.Service.Test.Comparers
         private static void SetHydraulicLocationConfigurationValues(HydraulicLocationConfigurationSettings settings,
                                                                     string hlcdFilePath = "filePath")
         {
-            const string scenarioName = "ScenarioName";
-            const int year = 2017;
-            const string scope = "Scope";
-            const bool usePreprocessorClosure = false;
-            const string seaLevel = "SeaLevel";
-            const string riverDischarge = "RiverDischarge";
-            const string lakeLevel = "LakeLevel";
-            const string windDirection = "WindDirection";
-            const string windSpeed = "WindSpeed";
-            const string comment = "Comment";
-
-            settings.SetValues(hlcdFilePath, scenarioName, year, scope,
-                               usePreprocessorClosure, seaLevel, riverDischarge,
-                               lakeLevel, windDirection, windSpeed, comment);
+            settings.FilePath = hlcdFilePath;
+            settings.ScenarioName = "ScenarioName";
+            settings.Year = 2017;
+            settings.Scope = "Scope";
+            settings.UsePreprocessorClosure = false;
+            settings.SeaLevel = "SeaLevel";
+            settings.RiverDischarge = "RiverDischarge";
+            settings.LakeLevel = "LakeLevel";
+            settings.WindDirection = "WindDirection";
+            settings.WindSpeed = "WindSpeed";
+            settings.Comment = "Comment";
         }
 
         private static IEnumerable<TestCaseData> GetUnequivalentAssessmentSectionWithoutHydraulicLocationConfigurationSettingsTestCases()
