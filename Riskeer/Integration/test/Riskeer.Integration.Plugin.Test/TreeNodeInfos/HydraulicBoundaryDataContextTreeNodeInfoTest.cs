@@ -131,17 +131,28 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_WithContext_CallsContextMenuBuilderMethods()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ContextMenuStrip_WithContext_CallsContextMenuBuilderMethods(bool hydraulicBoundaryDataLinked)
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            var context = new HydraulicBoundaryDataContext(assessmentSection.HydraulicBoundaryData,
-                                                           assessmentSection);
+
+            if (hydraulicBoundaryDataLinked)
+            {
+                LinkHydraulicBoundaryData(assessmentSection.HydraulicBoundaryData);
+            }
+            
+            var context = new HydraulicBoundaryDataContext(assessmentSection.HydraulicBoundaryData, assessmentSection);
 
             var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
             using (mocks.Ordered())
             {
                 menuBuilder.Expect(mb => mb.AddImportItem(null, null, null)).IgnoreArguments().Return(menuBuilder);
+                if (hydraulicBoundaryDataLinked)
+                {
+                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                }
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddExportItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
@@ -858,6 +869,14 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         private static TreeNodeInfo GetInfo(RiskeerPlugin plugin)
         {
             return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(HydraulicBoundaryDataContext));
+        }
+        
+        private static void LinkHydraulicBoundaryData(HydraulicBoundaryData hydraulicBoundaryData)
+        {
+            hydraulicBoundaryData.HydraulicLocationConfigurationSettings.SetValues("hlcdFilePath", "scenarioName", 0, "scope",
+                                                                                   false, "seaLevel", "riverDischarge",
+                                                                                   "lakeLevel", "windDirection", "windSpeed",
+                                                                                   "comment");
         }
     }
 }
