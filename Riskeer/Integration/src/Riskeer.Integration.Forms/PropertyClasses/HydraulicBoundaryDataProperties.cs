@@ -48,28 +48,18 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         private const int windSpeedPropertyIndex = 8;
         private const int commentPropertyIndex = 9;
 
-        private readonly IHydraulicLocationConfigurationDatabaseImportHandler hydraulicLocationConfigurationDatabaseImportHandler;
-
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryDataProperties"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryData">The hydraulic boundary data to show the properties for.</param>
-        /// <param name="hydraulicLocationConfigurationDatabaseImportHandler">The handler to update the hydraulic location configuration settings.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public HydraulicBoundaryDataProperties(HydraulicBoundaryData hydraulicBoundaryData,
-                                               IHydraulicLocationConfigurationDatabaseImportHandler hydraulicLocationConfigurationDatabaseImportHandler)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryData"/> is <c>null</c>.</exception>
+        public HydraulicBoundaryDataProperties(HydraulicBoundaryData hydraulicBoundaryData)
         {
             if (hydraulicBoundaryData == null)
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryData));
             }
-
-            if (hydraulicLocationConfigurationDatabaseImportHandler == null)
-            {
-                throw new ArgumentNullException(nameof(hydraulicLocationConfigurationDatabaseImportHandler));
-            }
-
-            this.hydraulicLocationConfigurationDatabaseImportHandler = hydraulicLocationConfigurationDatabaseImportHandler;
+            
             Data = hydraulicBoundaryData;
         }
 
@@ -84,11 +74,6 @@ namespace Riskeer.Integration.Forms.PropertyClasses
             get
             {
                 return data.IsLinked() ? data.HydraulicLocationConfigurationSettings.FilePath : string.Empty;
-            }
-            set
-            {
-                hydraulicLocationConfigurationDatabaseImportHandler.ImportHydraulicLocationConfigurationSettings(
-                    data.HydraulicLocationConfigurationSettings, value);
             }
         }
 
