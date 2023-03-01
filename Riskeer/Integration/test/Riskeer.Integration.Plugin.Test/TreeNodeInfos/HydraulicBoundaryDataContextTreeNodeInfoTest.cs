@@ -61,8 +61,9 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
     public class HydraulicBoundaryDataContextTreeNodeInfoTest : NUnitFormTest
     {
         private const int contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
-        private const int contextMenuCalculateAllIndex = 4;
-        private const int contextMenuClearIllustrationPointsIndex = 6;
+        private const int contextMenuCalculateAllIndexForNotLinkedHydraulicBoundaryData = 4;
+        private const int contextMenuCalculateAllIndexForLinkedHydraulicBoundaryData = 5;
+        private const int contextMenuClearIllustrationPointsIndexForNotLinkedHydraulicBoundaryData = 6;
 
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Forms, "HydraulicBoundaryData");
 
@@ -142,7 +143,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             {
                 LinkHydraulicBoundaryData(assessmentSection.HydraulicBoundaryData);
             }
-            
+
             var context = new HydraulicBoundaryDataContext(assessmentSection.HydraulicBoundaryData, assessmentSection);
 
             var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
@@ -153,6 +154,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 {
                     menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                 }
+
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddExportItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
@@ -190,10 +192,18 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_WithContext_AddImportItem()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ContextMenuStrip_WithContext_AddImportItem(bool hydraulicBoundaryDataLinked)
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            if (hydraulicBoundaryDataLinked)
+            {
+                LinkHydraulicBoundaryData(assessmentSection.HydraulicBoundaryData);
+            }
+
             var context = new HydraulicBoundaryDataContext(assessmentSection.HydraulicBoundaryData,
                                                            assessmentSection);
 
@@ -231,8 +241,12 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, assessmentSection, treeViewControl))
                     {
                         TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuImportHydraulicBoundaryDatabaseIndex,
-                                                                      "&Selecteer HLCD bestand...",
-                                                                      "Selecteer een HLCD bestand.",
+                                                                      hydraulicBoundaryDataLinked
+                                                                          ? "&Selecteer ander HLCD bestand..."
+                                                                          : "&Selecteer HLCD bestand...",
+                                                                      hydraulicBoundaryDataLinked
+                                                                          ? "Selecteer een ander HLCD bestand."
+                                                                          : "Selecteer een HLCD bestand.",
                                                                       RiskeerCommonFormsResources.DatabaseIcon);
                     }
                 }
@@ -380,7 +394,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                     {
                         // Assert
-                        ToolStripItem contextMenuItem = contextMenu.Items[contextMenuCalculateAllIndex];
+                        ToolStripItem contextMenuItem = contextMenu.Items[contextMenuCalculateAllIndexForNotLinkedHydraulicBoundaryData];
 
                         Assert.AreEqual("Alles be&rekenen", contextMenuItem.Text);
                         StringAssert.Contains("Er is geen hydraulische belastingendatabase geïmporteerd.", contextMenuItem.ToolTipText);
@@ -430,7 +444,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                     {
                         // Assert
-                        ToolStripItem contextMenuItem = contextMenu.Items[contextMenuCalculateAllIndex];
+                        ToolStripItem contextMenuItem = contextMenu.Items[contextMenuCalculateAllIndexForLinkedHydraulicBoundaryData];
 
                         Assert.AreEqual("Alles be&rekenen", contextMenuItem.Text);
                         StringAssert.Contains("Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt.", contextMenuItem.ToolTipText);
@@ -482,7 +496,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                     {
                         // Assert
-                        ToolStripItem contextMenuItem = contextMenu.Items[contextMenuClearIllustrationPointsIndex];
+                        ToolStripItem contextMenuItem = contextMenu.Items[contextMenuClearIllustrationPointsIndexForNotLinkedHydraulicBoundaryData];
 
                         Assert.AreEqual("Wis alle illustratiepunten...", contextMenuItem.Text);
                         Assert.AreEqual("Wis alle berekende illustratiepunten.", contextMenuItem.ToolTipText);
@@ -525,7 +539,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                     {
                         // Assert
-                        ToolStripItem contextMenuItem = contextMenu.Items[contextMenuClearIllustrationPointsIndex];
+                        ToolStripItem contextMenuItem = contextMenu.Items[contextMenuClearIllustrationPointsIndexForNotLinkedHydraulicBoundaryData];
                         Assert.IsFalse(contextMenuItem.Enabled);
                     }
                 }
@@ -615,7 +629,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                 {
                     // When
-                    void Call() => contextMenuAdapter.Items[contextMenuCalculateAllIndex].PerformClick();
+                    void Call() => contextMenuAdapter.Items[contextMenuCalculateAllIndexForLinkedHydraulicBoundaryData].PerformClick();
 
                     // Then
                     TestHelper.AssertLogMessages(Call, messages =>
@@ -706,7 +720,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
                     {
                         // When
-                        contextMenuAdapter.Items[contextMenuClearIllustrationPointsIndex].PerformClick();
+                        contextMenuAdapter.Items[contextMenuClearIllustrationPointsIndexForNotLinkedHydraulicBoundaryData].PerformClick();
 
                         // Then
                         const string expectedMessage = "Weet u zeker dat u alle berekende illustratiepunten bij 'Hydraulische belastingen' wilt wissen?";
@@ -770,7 +784,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
                     {
                         // When
-                        contextMenuAdapter.Items[contextMenuClearIllustrationPointsIndex].PerformClick();
+                        contextMenuAdapter.Items[contextMenuClearIllustrationPointsIndexForNotLinkedHydraulicBoundaryData].PerformClick();
 
                         // Then
                         const string expectedMessage = "Weet u zeker dat u alle berekende illustratiepunten bij 'Hydraulische belastingen' wilt wissen?";
@@ -870,7 +884,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         {
             return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(HydraulicBoundaryDataContext));
         }
-        
+
         private static void LinkHydraulicBoundaryData(HydraulicBoundaryData hydraulicBoundaryData)
         {
             hydraulicBoundaryData.HydraulicLocationConfigurationSettings.SetValues("hlcdFilePath", "scenarioName", 0, "scope",
