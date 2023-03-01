@@ -65,7 +65,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         private const int clearOutputMenuItemIndex = 10;
 
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryData));
-        private static readonly string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "complete.sqlite");
+        private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
 
         private MockRepository mocks;
         private WaveImpactAsphaltCoverPlugin plugin;
@@ -481,7 +482,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             // Setup
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = validFilePath,
+                FilePath = validHrdFilePath,
                 Version = "random"
             };
             HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryData);
@@ -654,7 +655,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = validFilePath
+                FilePath = validHrdFilePath
             };
             HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryData);
 
@@ -1151,7 +1152,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = validFilePath
+                FilePath = validHrdFilePath
             };
             HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryData, usePreprocessorClosure);
 
@@ -1476,7 +1477,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             {
                 HydraulicBoundaryData =
                 {
-                    FilePath = validFilePath,
+                    FilePath = validHrdFilePath,
                     Locations =
                     {
                         hydraulicBoundaryLocation

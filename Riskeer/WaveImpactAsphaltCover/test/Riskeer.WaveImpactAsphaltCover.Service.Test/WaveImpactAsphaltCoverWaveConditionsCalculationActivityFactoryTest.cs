@@ -47,7 +47,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
     public class WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactoryTest
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
-        private static readonly string validFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
+        private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
 
         [Test]
         public void CreateCalculationActivitiesForFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
@@ -291,7 +292,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
             {
                 HydraulicBoundaryData =
                 {
-                    FilePath = validFilePath
+                    FilePath = validHrdFilePath
                 }
             };
             HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData);

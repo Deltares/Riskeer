@@ -895,7 +895,8 @@ namespace Riskeer.StabilityStoneCover.Service.Test
         private static IAssessmentSection CreateAssessmentSectionWithHydraulicBoundaryOutput(bool usePreprocessorClosure = false)
         {
             string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            string validHrdFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            string validHlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0);
 
@@ -903,16 +904,18 @@ namespace Riskeer.StabilityStoneCover.Service.Test
             {
                 HydraulicBoundaryData =
                 {
-                    FilePath = validFilePath,
+                    FilePath = validHrdFilePath,
+                    HydraulicLocationConfigurationSettings =
+                    {
+                        FilePath = validHlcdFilePath,
+                        UsePreprocessorClosure = usePreprocessorClosure
+                    },
                     Locations =
                     {
                         hydraulicBoundaryLocation
                     }
                 }
             };
-
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData,
-                                                                                      usePreprocessorClosure);
 
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
