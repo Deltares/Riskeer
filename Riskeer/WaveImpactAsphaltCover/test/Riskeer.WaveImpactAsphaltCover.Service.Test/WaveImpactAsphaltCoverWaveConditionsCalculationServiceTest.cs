@@ -657,15 +657,17 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
                 HydraulicBoundaryData =
                 {
                     FilePath = validHrdFilePath,
+                    HydraulicLocationConfigurationSettings =
+                    {
+                        FilePath = validHlcdFilePath,
+                        UsePreprocessorClosure = usePreprocessorClosure
+                    },
                     Locations =
                     {
                         hydraulicBoundaryLocation
                     }
                 }
             };
-
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData,
-                                                                                      usePreprocessorClosure);
 
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {

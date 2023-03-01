@@ -288,16 +288,17 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
 
         private static AssessmentSectionStub CreateAssessmentSection()
         {
-            var assessmentSection = new AssessmentSectionStub
+            return new AssessmentSectionStub
             {
                 HydraulicBoundaryData =
                 {
-                    FilePath = validHrdFilePath
+                    FilePath = validHrdFilePath,
+                    HydraulicLocationConfigurationSettings =
+                    {
+                        FilePath = validHlcdFilePath
+                    }
                 }
             };
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData);
-
-            return assessmentSection;
         }
 
         private static WaveImpactAsphaltCoverWaveConditionsCalculation CreateValidCalculation(HydraulicBoundaryLocation hydraulicBoundaryLocation)
