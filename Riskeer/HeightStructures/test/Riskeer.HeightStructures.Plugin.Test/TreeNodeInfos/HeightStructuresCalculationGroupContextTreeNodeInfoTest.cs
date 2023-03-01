@@ -79,7 +79,10 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
         private const int contextMenuCalculateAllIndexNestedGroup = 13;
         private const int contextMenuClearAllIndexNestedGroup = 15;
         private const int contextMenuClearIllustrationPointsIndexNestedGroup = 16;
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryData));
+        
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryData));
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
 
         private IGui gui;
         private TreeNodeInfo info;
@@ -578,17 +581,18 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                 }
             };
 
-            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
-
             var failureMechanism = new HeightStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculationScenario<HeightStructuresInput>());
 
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = validFilePath,
+                FilePath = validHrdFilePath,
+                HydraulicLocationConfigurationSettings =
+                {
+                    FilePath = validHlcdFilePath
+                },
                 Version = "1.0"
             };
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryData);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
@@ -720,17 +724,18 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                 }
             };
 
-            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
-
             var failureMechanism = new HeightStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculationScenario<HeightStructuresInput>());
 
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = validFilePath,
+                FilePath = validHrdFilePath,
+                HydraulicLocationConfigurationSettings =
+                {
+                    FilePath = validHlcdFilePath
+                },
                 Version = "1.0"
             };
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryData);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
@@ -1113,9 +1118,12 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = Path.Combine(testDataPath, "complete.sqlite")
+                FilePath = validHrdFilePath,
+                HydraulicLocationConfigurationSettings =
+                {
+                    FilePath = validHlcdFilePath
+                }
             };
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryData);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.Id).Return(string.Empty);
@@ -1208,13 +1216,14 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                 }
             });
 
-            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
-
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = validFilePath
+                FilePath = validHrdFilePath,
+                HydraulicLocationConfigurationSettings =
+                {
+                    FilePath = validHlcdFilePath
+                }
             };
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryData);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);

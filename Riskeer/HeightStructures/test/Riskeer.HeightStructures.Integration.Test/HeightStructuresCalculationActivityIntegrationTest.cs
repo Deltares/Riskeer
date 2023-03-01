@@ -30,7 +30,6 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Structures;
-using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Service;
 using Riskeer.Common.Service.TestUtil;
 using Riskeer.HeightStructures.Data;
@@ -49,7 +48,8 @@ namespace Riskeer.HeightStructures.Integration.Test
     public class HeightStructuresCalculationActivityIntegrationTest
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
-        private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
 
         [Test]
         public void Run_CalculationInvalidInput_LogValidationStartAndEndWithError()
@@ -100,7 +100,7 @@ namespace Riskeer.HeightStructures.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            DataImportHelper.ImportHydraulicBoundaryData(assessmentSection, validFilePath);
+            DataImportHelper.ImportHydraulicBoundaryData(assessmentSection, validHrdFilePath);
 
             var failureMechanism = new HeightStructuresFailureMechanism();
             var calculation = new TestHeightStructuresCalculationScenario
@@ -161,7 +161,7 @@ namespace Riskeer.HeightStructures.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            DataImportHelper.ImportHydraulicBoundaryData(assessmentSection, validFilePath);
+            DataImportHelper.ImportHydraulicBoundaryData(assessmentSection, validHrdFilePath);
 
             var failureMechanism = new HeightStructuresFailureMechanism();
             var calculation = new TestHeightStructuresCalculationScenario
@@ -203,7 +203,7 @@ namespace Riskeer.HeightStructures.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            DataImportHelper.ImportHydraulicBoundaryData(assessmentSection, validFilePath);
+            DataImportHelper.ImportHydraulicBoundaryData(assessmentSection, validHrdFilePath);
 
             var failureMechanism = new HeightStructuresFailureMechanism();
             var calculation = new TestHeightStructuresCalculationScenario
@@ -257,7 +257,7 @@ namespace Riskeer.HeightStructures.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            DataImportHelper.ImportHydraulicBoundaryData(assessmentSection, validFilePath);
+            DataImportHelper.ImportHydraulicBoundaryData(assessmentSection, validHrdFilePath);
 
             var failureMechanism = new HeightStructuresFailureMechanism();
             var calculation = new StructuresCalculation<HeightStructuresInput>
@@ -297,15 +297,18 @@ namespace Riskeer.HeightStructures.Integration.Test
             {
                 HydraulicBoundaryData =
                 {
-                    FilePath = validFilePath,
+                    FilePath = validHrdFilePath,
+                    HydraulicLocationConfigurationSettings =
+                    {
+                        FilePath = validHlcdFilePath,
+                        UsePreprocessorClosure = usePreprocessorClosure
+                    },
                     Locations =
                     {
                         new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
                     }
                 }
             };
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData,
-                                                                                      usePreprocessorClosure);
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
