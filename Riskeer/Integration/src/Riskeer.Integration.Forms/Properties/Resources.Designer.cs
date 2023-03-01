@@ -554,6 +554,24 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &amp;Selecteer ander HLCD bestand....
+        /// </summary>
+        public static string HydraulicBoundaryData_Connect_To_Different_Hlcd {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryData_Connect_To_Different_Hlcd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selecteer een ander HLCD bestand..
+        /// </summary>
+        public static string HydraulicBoundaryData_Connect_To_Different_Hlcd_ToolTip {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryData_Connect_To_Different_Hlcd_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &amp;Selecteer HLCD bestand....
         /// </summary>
         public static string HydraulicBoundaryData_Connect_To_Hlcd {
@@ -568,6 +586,24 @@ namespace Riskeer.Integration.Forms.Properties {
         public static string HydraulicBoundaryData_Connect_To_Hlcd_ToolTip {
             get {
                 return ResourceManager.GetString("HydraulicBoundaryData_Connect_To_Hlcd_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selecteer andere bestandsmap....
+        /// </summary>
+        public static string HydraulicBoundaryData_Select_Different_Folder {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryData_Select_Different_Folder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selecteer een andere bestandsmap.
+        /// </summary>
+        public static string HydraulicBoundaryData_Select_Different_Folder_ToolTip {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryData_Select_Different_Folder_ToolTip", resourceCulture);
             }
         }
         

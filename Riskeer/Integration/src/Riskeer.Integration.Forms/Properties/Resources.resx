@@ -408,4 +408,16 @@ Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau 
     <data name="Worst_AssemblyResult_per_section_DisplayName" xml:space="preserve">
     <value>Slechtste duidingsklasse per deelvak</value>
   </data>
+    <data name="HydraulicBoundaryData_Connect_To_Different_Hlcd" xml:space="preserve">
+      <value>&amp;Selecteer ander HLCD bestand...</value>
+    </data>
+    <data name="HydraulicBoundaryData_Connect_To_Different_Hlcd_ToolTip" xml:space="preserve">
+      <value>Selecteer een ander HLCD bestand.</value>
+    </data>
+    <data name="HydraulicBoundaryData_Select_Different_Folder" xml:space="preserve">
+      <value>Selecteer andere bestandsmap...</value>
+    </data>
+    <data name="HydraulicBoundaryData_Select_Different_Folder_ToolTip" xml:space="preserve">
+      <value>Selecteer een andere bestandsmap</value>
+    </data>
 </root>

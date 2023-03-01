@@ -2462,10 +2462,31 @@ namespace Riskeer.Integration.Plugin
                 () => RiskeerDataSynchronizationService.ClearIllustrationPointResultsForWaterLevelAndWaveHeightCalculations(nodeData.AssessmentSection));
 
             AssessmentSection assessmentSection = nodeData.AssessmentSection;
-            return builder.AddImportItem(RiskeerFormsResources.HydraulicBoundaryData_Connect_To_Hlcd,
-                                         RiskeerFormsResources.HydraulicBoundaryData_Connect_To_Hlcd_ToolTip,
-                                         RiskeerCommonFormsResources.DatabaseIcon)
-                          .AddSeparator()
+
+            if (nodeData.WrappedData.IsLinked())
+            {
+                var selectDirectoryItem = new StrictContextMenuItem(
+                    RiskeerFormsResources.HydraulicBoundaryData_Select_Different_Folder,
+                    RiskeerFormsResources.HydraulicBoundaryData_Select_Different_Folder_ToolTip,
+                    RiskeerCommonFormsResources.GeneralFolderIcon,
+                    (sender, args) =>
+                    {
+                        
+                    });
+                
+                builder.AddImportItem(RiskeerFormsResources.HydraulicBoundaryData_Connect_To_Different_Hlcd,
+                                      RiskeerFormsResources.HydraulicBoundaryData_Connect_To_Different_Hlcd_ToolTip,
+                                      RiskeerCommonFormsResources.DatabaseIcon)
+                       .AddCustomItem(selectDirectoryItem);
+            }
+            else
+            {
+                builder.AddImportItem(RiskeerFormsResources.HydraulicBoundaryData_Connect_To_Hlcd,
+                                      RiskeerFormsResources.HydraulicBoundaryData_Connect_To_Hlcd_ToolTip,
+                                      RiskeerCommonFormsResources.DatabaseIcon);
+            }
+
+            return builder.AddSeparator()
                           .AddExportItem()
                           .AddSeparator()
                           .AddCustomItem(calculateAllItem)
