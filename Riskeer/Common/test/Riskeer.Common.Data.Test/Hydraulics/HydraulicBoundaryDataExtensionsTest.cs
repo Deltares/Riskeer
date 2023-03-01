@@ -56,11 +56,13 @@ namespace Riskeer.Common.Data.Test.Hydraulics
         public void IsLinked_HlcdFilePathSet_ReturnsTrue()
         {
             // Setup
-            var hydraulicBoundaryData = new HydraulicBoundaryData();
-
-            hydraulicBoundaryData.HydraulicLocationConfigurationSettings.SetValues("hlcdFilePath", "scenarioName", 0, "scope", false,
-                                                                                   "seaLevel", "riverDischarge", "lakeLevel",
-                                                                                   "windDirection", "windSpeed", "comment");
+            var hydraulicBoundaryData = new HydraulicBoundaryData
+            {
+                HydraulicLocationConfigurationSettings =
+                {
+                    FilePath = "hlcd.sqlite"
+                }
+            };
 
             // Call
             bool isLinked = hydraulicBoundaryData.IsLinked();
