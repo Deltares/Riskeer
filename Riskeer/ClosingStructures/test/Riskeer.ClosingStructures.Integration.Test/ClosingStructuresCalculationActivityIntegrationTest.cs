@@ -305,7 +305,8 @@ namespace Riskeer.ClosingStructures.Integration.Test
                     FilePath = validHrdFilePath,
                     HydraulicLocationConfigurationSettings =
                     {
-                        FilePath = validHlcdFilePath
+                        FilePath = validHlcdFilePath,
+                        UsePreprocessorClosure = usePreprocessorClosure
                     }
                 }
             };
