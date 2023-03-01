@@ -50,20 +50,22 @@ namespace Riskeer.Storage.Core.Test.Create
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 FilePath = "hrdFilePath",
-                Version = "Version"
+                Version = "Version",
+                HydraulicLocationConfigurationSettings =
+                {
+                    FilePath = "hlcdFilePath",
+                    ScenarioName = "ScenarioName",
+                    Year = random.Next(),
+                    Scope = "Scope",
+                    SeaLevel = "SeaLevel",
+                    RiverDischarge = "RiverDischarge",
+                    LakeLevel = "LakeLevel",
+                    WindDirection = "WindDirection",
+                    WindSpeed = "WindSpeed",
+                    Comment = "Comment",
+                    UsePreprocessorClosure = random.NextBoolean()
+                }
             };
-
-            hydraulicBoundaryData.HydraulicLocationConfigurationSettings.SetValues("hlcdFilePath",
-                                                                                   "ScenarioName",
-                                                                                   random.Next(),
-                                                                                   "Scope",
-                                                                                   random.NextBoolean(),
-                                                                                   "SeaLevel",
-                                                                                   "RiverDischarge",
-                                                                                   "LakeLevel",
-                                                                                   "WindDirection",
-                                                                                   "WindSpeed",
-                                                                                   "Comment");
 
             // Call
             HydraulicBoundaryDatabaseEntity entity = hydraulicBoundaryData.Create();
