@@ -35,18 +35,16 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
     [TestFixture]
     public class HydraulicBoundaryDataPropertiesTest
     {
-        private const int hrdFilePathPropertyIndex = 0;
-        private const int hlcdFilePathPropertyIndex = 1;
-        private const int usePreprocessorClosurePropertyIndex = 2;
-        private const int scenarioNamePropertyIndex = 3;
-        private const int yearPropertyIndex = 4;
-        private const int scopePropertyIndex = 5;
-        private const int seaLevelPropertyIndex = 6;
-        private const int riverDischargePropertyIndex = 7;
-        private const int lakeLevelPropertyIndex = 8;
-        private const int windDirectionPropertyIndex = 9;
-        private const int windSpeedPropertyIndex = 10;
-        private const int commentPropertyIndex = 11;
+        private const int hlcdFilePathPropertyIndex = 0;
+        private const int scenarioNamePropertyIndex = 1;
+        private const int yearPropertyIndex = 2;
+        private const int scopePropertyIndex = 3;
+        private const int seaLevelPropertyIndex = 4;
+        private const int riverDischargePropertyIndex = 5;
+        private const int lakeLevelPropertyIndex = 6;
+        private const int windDirectionPropertyIndex = 7;
+        private const int windSpeedPropertyIndex = 8;
+        private const int commentPropertyIndex = 9;
 
         [Test]
         public void Constructor_HydraulicBoundaryDataNull_ThrowsArgumentNullException()
@@ -115,10 +113,8 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var properties = new HydraulicBoundaryDataProperties(hydraulicBoundaryData, importHandler);
 
             // Assert
-            Assert.IsEmpty(properties.HrdFilePath);
             Assert.IsEmpty(properties.HlcdFilePath);
             Assert.IsEmpty(properties.HlcdFilePathReadOnly);
-            Assert.IsFalse(properties.UsePreprocessorClosure);
             Assert.IsEmpty(properties.ScenarioName);
             Assert.IsEmpty(properties.Year);
             Assert.IsEmpty(properties.Scope);
@@ -148,12 +144,9 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var properties = new HydraulicBoundaryDataProperties(hydraulicBoundaryData, importHandler);
 
             // Assert
-            Assert.AreEqual(hydraulicBoundaryData.FilePath, properties.HrdFilePath);
-
             HydraulicLocationConfigurationSettings configurationSettings = hydraulicBoundaryData.HydraulicLocationConfigurationSettings;
             Assert.AreEqual(configurationSettings.FilePath, properties.HlcdFilePath);
             Assert.AreEqual(configurationSettings.FilePath, properties.HlcdFilePathReadOnly);
-            Assert.AreEqual(configurationSettings.UsePreprocessorClosure, properties.UsePreprocessorClosure);
             Assert.AreEqual(configurationSettings.ScenarioName, properties.ScenarioName);
             Assert.AreEqual(configurationSettings.Year.ToString(), properties.Year);
             Assert.AreEqual(configurationSettings.Scope, properties.Scope);
@@ -185,16 +178,9 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(12, dynamicProperties.Count);
+            Assert.AreEqual(10, dynamicProperties.Count);
 
             const string expectedCategory = "Algemeen";
-            PropertyDescriptor hrdFilePathProperty = dynamicProperties[hrdFilePathPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(hrdFilePathProperty,
-                                                                            expectedCategory,
-                                                                            "HRD bestandslocatie",
-                                                                            "Locatie van het HRD bestand.",
-                                                                            true);
-
             PropertyDescriptor hlcdFilePathProperty = dynamicProperties[hlcdFilePathPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(hlcdFilePathProperty,
                                                                             expectedCategory,
@@ -206,13 +192,6 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                 object hlcdFilePathEditor = hlcdFilePathProperty.GetEditor(typeof(UITypeEditor));
                 Assert.IsInstanceOf<HlcdFileNameEditor>(hlcdFilePathEditor);
             }
-
-            PropertyDescriptor usePreprocessorClosureProperty = dynamicProperties[usePreprocessorClosurePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(usePreprocessorClosureProperty,
-                                                                            expectedCategory,
-                                                                            "Gebruik preprocessor sluitregime database",
-                                                                            "Gebruik de preprocessor sluitregime database bij het uitvoeren van een berekening.",
-                                                                            true);
 
             PropertyDescriptor scenarioNameProperty = dynamicProperties[scenarioNamePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(scenarioNameProperty,
@@ -318,7 +297,6 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var properties = new HydraulicBoundaryDataProperties(hydraulicBoundaryData, importHandler);
 
             // Assert
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.HrdFilePath)));
             Assert.AreEqual(isHydraulicBoundaryDataLinked, properties.DynamicVisibleValidationMethod(nameof(properties.HlcdFilePath)));
             Assert.AreEqual(!isHydraulicBoundaryDataLinked, properties.DynamicVisibleValidationMethod(nameof(properties.HlcdFilePathReadOnly)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.ScenarioName)));
