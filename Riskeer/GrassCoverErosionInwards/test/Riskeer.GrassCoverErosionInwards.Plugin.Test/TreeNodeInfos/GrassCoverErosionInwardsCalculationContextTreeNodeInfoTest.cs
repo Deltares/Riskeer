@@ -65,7 +65,9 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         private const int contextMenuClearIndex = 10;
         private const int contextMenuClearIllustrationPointsIndex = 11;
 
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryData));
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryData));
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "complete.sqlite");
+        private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
 
         private MockRepository mocks;
         private GrassCoverErosionInwardsPlugin plugin;
@@ -202,14 +204,15 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_AddCustomItems()
         {
             // Setup
-            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
-
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = validFilePath,
+                FilePath = validHrdFilePath,
+                HydraulicLocationConfigurationSettings =
+                {
+                    FilePath = validHlcdFilePath
+                },
                 Version = "random"
             };
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryData);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
@@ -636,14 +639,15 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_AllRequiredInputSet_ContextMenuItemPerformCalculationEnabled()
         {
             // Setup
-            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
-
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = validFilePath,
+                FilePath = validHrdFilePath,
+                HydraulicLocationConfigurationSettings =
+                {
+                    FilePath = validHlcdFilePath
+                },
                 Version = "1.0"
             };
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryData);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
@@ -743,13 +747,15 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_AllRequiredInputSet_ContextMenuItemValidateCalculationEnabled()
         {
             // Setup
-            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = validFilePath,
+                FilePath = validHrdFilePath,
+                HydraulicLocationConfigurationSettings =
+                {
+                    FilePath = validHlcdFilePath
+                },
                 Version = "1.0"
             };
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryData);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
@@ -791,19 +797,20 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
-
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = validFilePath,
+                FilePath = validHrdFilePath,
+                HydraulicLocationConfigurationSettings =
+                {
+                    FilePath = validHlcdFilePath
+                },
                 Version = "random",
                 Locations =
                 {
                     hydraulicBoundaryLocation
                 }
             };
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryData);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.Id).Return(string.Empty);
@@ -881,19 +888,20 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
-
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = validFilePath,
+                FilePath = validHrdFilePath,
+                HydraulicLocationConfigurationSettings =
+                {
+                    FilePath = validHlcdFilePath
+                },
                 Version = "random",
                 Locations =
                 {
                     hydraulicBoundaryLocation
                 }
             };
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryData);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
