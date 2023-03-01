@@ -468,16 +468,6 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Importeren van het HLCD bestand.
-        /// </summary>
-        public static string HydraulicLocationConfigurationDatabaseImportHandler_ImportHydraulicLocationConfigurationSettings_Description {
-            get {
-                return ResourceManager.GetString("HydraulicLocationConfigurationDatabaseImportHandler_ImportHydraulicLocationConfig" +
-                        "urationSettings_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Als u het gekoppelde HLCD bestand wijzigt, zal de uitvoer van alle ervan afhankelijke berekeningen verwijderd worden.
         ///
         ///Wilt u doorgaan?.
