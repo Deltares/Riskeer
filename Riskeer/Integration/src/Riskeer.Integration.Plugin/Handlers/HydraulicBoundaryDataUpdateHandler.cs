@@ -129,7 +129,7 @@ namespace Riskeer.Integration.Plugin.Handlers
             if (!IsValidReadHydraulicLocationConfigurationDatabase(readHydraulicLocationConfigurationDatabase))
             {
                 string errorMessage = $"{nameof(readHydraulicLocationConfigurationDatabase)} must be null or contain exactly one item for " +
-                                      "the collection of hydraulic location configuration database settings.";
+                                      "the collection of read hydraulic location configuration settings.";
                 throw new ArgumentException(errorMessage);
             }
 

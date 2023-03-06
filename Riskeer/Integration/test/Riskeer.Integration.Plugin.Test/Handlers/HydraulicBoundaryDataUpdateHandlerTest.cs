@@ -400,7 +400,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             // Assert
             const string expectedMessage = "readHydraulicLocationConfigurationDatabase must be null or contain " +
-                                           "exactly one item for the collection of hydraulic location configuration database settings.";
+                                           "exactly one item for the collection of read hydraulic location configuration settings.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
         }
 
