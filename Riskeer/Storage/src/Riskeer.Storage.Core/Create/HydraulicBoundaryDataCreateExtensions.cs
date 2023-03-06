@@ -47,22 +47,23 @@ namespace Riskeer.Storage.Core.Create
                 throw new ArgumentNullException(nameof(hydraulicBoundaryData));
             }
 
-            HydraulicLocationConfigurationSettings settings = hydraulicBoundaryData.HydraulicLocationConfigurationSettings;
+            HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase = hydraulicBoundaryData.HydraulicLocationConfigurationSettings;
+            
             return new HydraulicBoundaryDatabaseEntity
             {
                 FilePath = hydraulicBoundaryData.FilePath.DeepClone(),
                 Version = hydraulicBoundaryData.Version.DeepClone(),
-                HydraulicLocationConfigurationSettingsFilePath = settings.FilePath.DeepClone(),
-                HydraulicLocationConfigurationSettingsScenarioName = settings.ScenarioName.DeepClone(),
-                HydraulicLocationConfigurationSettingsYear = settings.Year,
-                HydraulicLocationConfigurationSettingsScope = settings.Scope.DeepClone(),
-                HydraulicLocationConfigurationSettingsSeaLevel = settings.SeaLevel.DeepClone(),
-                HydraulicLocationConfigurationSettingsRiverDischarge = settings.RiverDischarge.DeepClone(),
-                HydraulicLocationConfigurationSettingsLakeLevel = settings.LakeLevel.DeepClone(),
-                HydraulicLocationConfigurationSettingsWindDirection = settings.WindDirection.DeepClone(),
-                HydraulicLocationConfigurationSettingsWindSpeed = settings.WindSpeed.DeepClone(),
-                HydraulicLocationConfigurationSettingsComment = settings.Comment.DeepClone(),
-                HydraulicLocationConfigurationSettingsUsePreprocessorClosure = Convert.ToByte(settings.UsePreprocessorClosure)
+                HydraulicLocationConfigurationSettingsFilePath = hydraulicLocationConfigurationDatabase.FilePath.DeepClone(),
+                HydraulicLocationConfigurationSettingsScenarioName = hydraulicLocationConfigurationDatabase.ScenarioName.DeepClone(),
+                HydraulicLocationConfigurationSettingsYear = hydraulicLocationConfigurationDatabase.Year,
+                HydraulicLocationConfigurationSettingsScope = hydraulicLocationConfigurationDatabase.Scope.DeepClone(),
+                HydraulicLocationConfigurationSettingsSeaLevel = hydraulicLocationConfigurationDatabase.SeaLevel.DeepClone(),
+                HydraulicLocationConfigurationSettingsRiverDischarge = hydraulicLocationConfigurationDatabase.RiverDischarge.DeepClone(),
+                HydraulicLocationConfigurationSettingsLakeLevel = hydraulicLocationConfigurationDatabase.LakeLevel.DeepClone(),
+                HydraulicLocationConfigurationSettingsWindDirection = hydraulicLocationConfigurationDatabase.WindDirection.DeepClone(),
+                HydraulicLocationConfigurationSettingsWindSpeed = hydraulicLocationConfigurationDatabase.WindSpeed.DeepClone(),
+                HydraulicLocationConfigurationSettingsComment = hydraulicLocationConfigurationDatabase.Comment.DeepClone(),
+                HydraulicLocationConfigurationSettingsUsePreprocessorClosure = Convert.ToByte(hydraulicLocationConfigurationDatabase.UsePreprocessorClosure)
             };
         }
     }

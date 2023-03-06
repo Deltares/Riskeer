@@ -74,18 +74,18 @@ namespace Riskeer.Storage.Core.Test.Create
             TestHelper.AssertAreEqualButNotSame(hydraulicBoundaryData.FilePath, entity.FilePath);
             TestHelper.AssertAreEqualButNotSame(hydraulicBoundaryData.Version, entity.Version);
 
-            HydraulicLocationConfigurationSettings settings = hydraulicBoundaryData.HydraulicLocationConfigurationSettings;
-            TestHelper.AssertAreEqualButNotSame(settings.FilePath, entity.HydraulicLocationConfigurationSettingsFilePath);
-            TestHelper.AssertAreEqualButNotSame(settings.ScenarioName, entity.HydraulicLocationConfigurationSettingsScenarioName);
-            TestHelper.AssertAreEqualButNotSame(settings.Year, entity.HydraulicLocationConfigurationSettingsYear);
-            TestHelper.AssertAreEqualButNotSame(settings.Scope, entity.HydraulicLocationConfigurationSettingsScope);
-            TestHelper.AssertAreEqualButNotSame(settings.SeaLevel, entity.HydraulicLocationConfigurationSettingsSeaLevel);
-            TestHelper.AssertAreEqualButNotSame(settings.RiverDischarge, entity.HydraulicLocationConfigurationSettingsRiverDischarge);
-            TestHelper.AssertAreEqualButNotSame(settings.LakeLevel, entity.HydraulicLocationConfigurationSettingsLakeLevel);
-            TestHelper.AssertAreEqualButNotSame(settings.WindDirection, entity.HydraulicLocationConfigurationSettingsWindDirection);
-            TestHelper.AssertAreEqualButNotSame(settings.WindSpeed, entity.HydraulicLocationConfigurationSettingsWindSpeed);
-            TestHelper.AssertAreEqualButNotSame(settings.Comment, entity.HydraulicLocationConfigurationSettingsComment);
-            Assert.AreEqual(Convert.ToByte(settings.UsePreprocessorClosure), entity.HydraulicLocationConfigurationSettingsUsePreprocessorClosure);
+            HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase = hydraulicBoundaryData.HydraulicLocationConfigurationSettings;
+            TestHelper.AssertAreEqualButNotSame(hydraulicLocationConfigurationDatabase.FilePath, entity.HydraulicLocationConfigurationSettingsFilePath);
+            TestHelper.AssertAreEqualButNotSame(hydraulicLocationConfigurationDatabase.ScenarioName, entity.HydraulicLocationConfigurationSettingsScenarioName);
+            TestHelper.AssertAreEqualButNotSame(hydraulicLocationConfigurationDatabase.Year, entity.HydraulicLocationConfigurationSettingsYear);
+            TestHelper.AssertAreEqualButNotSame(hydraulicLocationConfigurationDatabase.Scope, entity.HydraulicLocationConfigurationSettingsScope);
+            TestHelper.AssertAreEqualButNotSame(hydraulicLocationConfigurationDatabase.SeaLevel, entity.HydraulicLocationConfigurationSettingsSeaLevel);
+            TestHelper.AssertAreEqualButNotSame(hydraulicLocationConfigurationDatabase.RiverDischarge, entity.HydraulicLocationConfigurationSettingsRiverDischarge);
+            TestHelper.AssertAreEqualButNotSame(hydraulicLocationConfigurationDatabase.LakeLevel, entity.HydraulicLocationConfigurationSettingsLakeLevel);
+            TestHelper.AssertAreEqualButNotSame(hydraulicLocationConfigurationDatabase.WindDirection, entity.HydraulicLocationConfigurationSettingsWindDirection);
+            TestHelper.AssertAreEqualButNotSame(hydraulicLocationConfigurationDatabase.WindSpeed, entity.HydraulicLocationConfigurationSettingsWindSpeed);
+            TestHelper.AssertAreEqualButNotSame(hydraulicLocationConfigurationDatabase.Comment, entity.HydraulicLocationConfigurationSettingsComment);
+            Assert.AreEqual(Convert.ToByte(hydraulicLocationConfigurationDatabase.UsePreprocessorClosure), entity.HydraulicLocationConfigurationSettingsUsePreprocessorClosure);
         }
     }
 }
