@@ -106,17 +106,17 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.IsNull(hydraulicBoundaryData.FilePath);
             Assert.IsNull(hydraulicBoundaryData.Version);
 
-            HydraulicLocationConfigurationSettings settings = hydraulicBoundaryData.HydraulicLocationConfigurationSettings;
-            Assert.IsNull(settings.FilePath);
-            Assert.IsNull(settings.ScenarioName);
-            Assert.AreEqual(0, settings.Year);
-            Assert.IsNull(settings.Scope);
-            Assert.IsNull(settings.SeaLevel);
-            Assert.IsNull(settings.RiverDischarge);
-            Assert.IsNull(settings.LakeLevel);
-            Assert.IsNull(settings.WindDirection);
-            Assert.IsNull(settings.WindSpeed);
-            Assert.IsNull(settings.Comment);
+            HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase = hydraulicBoundaryData.HydraulicLocationConfigurationSettings;
+            Assert.IsNull(hydraulicLocationConfigurationDatabase.FilePath);
+            Assert.IsNull(hydraulicLocationConfigurationDatabase.ScenarioName);
+            Assert.AreEqual(0, hydraulicLocationConfigurationDatabase.Year);
+            Assert.IsNull(hydraulicLocationConfigurationDatabase.Scope);
+            Assert.IsNull(hydraulicLocationConfigurationDatabase.SeaLevel);
+            Assert.IsNull(hydraulicLocationConfigurationDatabase.RiverDischarge);
+            Assert.IsNull(hydraulicLocationConfigurationDatabase.LakeLevel);
+            Assert.IsNull(hydraulicLocationConfigurationDatabase.WindDirection);
+            Assert.IsNull(hydraulicLocationConfigurationDatabase.WindSpeed);
+            Assert.IsNull(hydraulicLocationConfigurationDatabase.Comment);
         }
 
         [Test]
@@ -350,17 +350,17 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(hydraulicBoundaryDatabaseEntity.FilePath, hydraulicBoundaryData.FilePath);
             Assert.AreEqual(hydraulicBoundaryDatabaseEntity.Version, hydraulicBoundaryData.Version);
 
-            HydraulicLocationConfigurationSettings settings = hydraulicBoundaryData.HydraulicLocationConfigurationSettings;
-            Assert.AreEqual(hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsFilePath, settings.FilePath);
-            Assert.AreEqual(hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsScenarioName, settings.ScenarioName);
-            Assert.AreEqual(hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsYear, settings.Year);
-            Assert.AreEqual(hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsScope, settings.Scope);
-            Assert.AreEqual(hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsSeaLevel, settings.SeaLevel);
-            Assert.AreEqual(hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsRiverDischarge, settings.RiverDischarge);
-            Assert.AreEqual(hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsLakeLevel, settings.LakeLevel);
-            Assert.AreEqual(hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsWindDirection, settings.WindDirection);
-            Assert.AreEqual(hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsWindSpeed, settings.WindSpeed);
-            Assert.AreEqual(hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsComment, settings.Comment);
+            HydraulicLocationConfigurationDatabase database = hydraulicBoundaryData.HydraulicLocationConfigurationSettings;
+            Assert.AreEqual(hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsFilePath, database.FilePath);
+            Assert.AreEqual(hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsScenarioName, database.ScenarioName);
+            Assert.AreEqual(hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsYear, database.Year);
+            Assert.AreEqual(hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsScope, database.Scope);
+            Assert.AreEqual(hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsSeaLevel, database.SeaLevel);
+            Assert.AreEqual(hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsRiverDischarge, database.RiverDischarge);
+            Assert.AreEqual(hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsLakeLevel, database.LakeLevel);
+            Assert.AreEqual(hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsWindDirection, database.WindDirection);
+            Assert.AreEqual(hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsWindSpeed, database.WindSpeed);
+            Assert.AreEqual(hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsComment, database.Comment);
         }
 
         [Test]

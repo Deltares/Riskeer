@@ -721,21 +721,21 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             // Assert
             TestHelper.AssertLogMessagesCount(Call, 0);
 
-            ReadHydraulicLocationConfigurationDatabaseSettings expectedSettings = readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings
-                                                                                                                            .Single();
-            HydraulicLocationConfigurationSettings actualSettings = hydraulicBoundaryData.HydraulicLocationConfigurationSettings;
+            HydraulicLocationConfigurationDatabase actualDatabase = hydraulicBoundaryData.HydraulicLocationConfigurationSettings;
+            ReadHydraulicLocationConfigurationDatabaseSettings readDatabase = readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings
+                                                                                                                        .Single();
 
-            Assert.AreEqual(hlcdFilePath, actualSettings.FilePath);
-            Assert.AreEqual(expectedSettings.ScenarioName, actualSettings.ScenarioName);
-            Assert.AreEqual(expectedSettings.Year, actualSettings.Year);
-            Assert.AreEqual(expectedSettings.Scope, actualSettings.Scope);
-            Assert.AreEqual(expectedSettings.SeaLevel, actualSettings.SeaLevel);
-            Assert.AreEqual(expectedSettings.RiverDischarge, actualSettings.RiverDischarge);
-            Assert.AreEqual(expectedSettings.LakeLevel, actualSettings.LakeLevel);
-            Assert.AreEqual(expectedSettings.WindDirection, actualSettings.WindDirection);
-            Assert.AreEqual(expectedSettings.WindSpeed, actualSettings.WindSpeed);
-            Assert.AreEqual(expectedSettings.Comment, actualSettings.Comment);
-            Assert.AreEqual(readHydraulicLocationConfigurationDatabase.ReadTracks.First().UsePreprocessorClosure, actualSettings.UsePreprocessorClosure);
+            Assert.AreEqual(hlcdFilePath, actualDatabase.FilePath);
+            Assert.AreEqual(readDatabase.ScenarioName, actualDatabase.ScenarioName);
+            Assert.AreEqual(readDatabase.Year, actualDatabase.Year);
+            Assert.AreEqual(readDatabase.Scope, actualDatabase.Scope);
+            Assert.AreEqual(readDatabase.SeaLevel, actualDatabase.SeaLevel);
+            Assert.AreEqual(readDatabase.RiverDischarge, actualDatabase.RiverDischarge);
+            Assert.AreEqual(readDatabase.LakeLevel, actualDatabase.LakeLevel);
+            Assert.AreEqual(readDatabase.WindDirection, actualDatabase.WindDirection);
+            Assert.AreEqual(readDatabase.WindSpeed, actualDatabase.WindSpeed);
+            Assert.AreEqual(readDatabase.Comment, actualDatabase.Comment);
+            Assert.AreEqual(readHydraulicLocationConfigurationDatabase.ReadTracks.First().UsePreprocessorClosure, actualDatabase.UsePreprocessorClosure);
         }
 
         [Test]
@@ -776,18 +776,18 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                                            "conform WBI2017 gebruikt voor de HLCD bestandsinformatie.";
             TestHelper.AssertLogMessageWithLevelIsGenerated(Call, Tuple.Create(expectedMessage, LogLevelConstant.Warn), 1);
 
-            HydraulicLocationConfigurationSettings actualSettings = hydraulicBoundaryData.HydraulicLocationConfigurationSettings;
-            Assert.AreEqual(hlcdFilePath, actualSettings.FilePath);
-            Assert.AreEqual("WBI2017", actualSettings.ScenarioName);
-            Assert.AreEqual(2023, actualSettings.Year);
-            Assert.AreEqual("WBI2017", actualSettings.Scope);
-            Assert.AreEqual("Conform WBI2017", actualSettings.SeaLevel);
-            Assert.AreEqual("Conform WBI2017", actualSettings.RiverDischarge);
-            Assert.AreEqual("Conform WBI2017", actualSettings.LakeLevel);
-            Assert.AreEqual("Conform WBI2017", actualSettings.WindDirection);
-            Assert.AreEqual("Conform WBI2017", actualSettings.WindSpeed);
-            Assert.AreEqual("Gegenereerd door Riskeer (conform WBI2017)", actualSettings.Comment);
-            Assert.IsFalse(actualSettings.UsePreprocessorClosure);
+            HydraulicLocationConfigurationDatabase actualDatabase = hydraulicBoundaryData.HydraulicLocationConfigurationSettings;
+            Assert.AreEqual(hlcdFilePath, actualDatabase.FilePath);
+            Assert.AreEqual("WBI2017", actualDatabase.ScenarioName);
+            Assert.AreEqual(2023, actualDatabase.Year);
+            Assert.AreEqual("WBI2017", actualDatabase.Scope);
+            Assert.AreEqual("Conform WBI2017", actualDatabase.SeaLevel);
+            Assert.AreEqual("Conform WBI2017", actualDatabase.RiverDischarge);
+            Assert.AreEqual("Conform WBI2017", actualDatabase.LakeLevel);
+            Assert.AreEqual("Conform WBI2017", actualDatabase.WindDirection);
+            Assert.AreEqual("Conform WBI2017", actualDatabase.WindSpeed);
+            Assert.AreEqual("Gegenereerd door Riskeer (conform WBI2017)", actualDatabase.Comment);
+            Assert.IsFalse(actualDatabase.UsePreprocessorClosure);
         }
 
         [Test]
