@@ -97,7 +97,7 @@ namespace Riskeer.Storage.Core.TestUtil
                 }
             };
 
-            SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings);
+            ConfigureHydraulicLocationConfigurationDatabase(assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings);
 
             assessmentSection.ReferenceLine.SetGeometry(new[]
             {
@@ -236,19 +236,19 @@ namespace Riskeer.Storage.Core.TestUtil
             failureMechanism.GeneralInput.N = random.NextRoundedDouble(1, 20);
         }
 
-        private static void SetHydraulicLocationConfigurationSettings(HydraulicLocationConfigurationSettings hydraulicLocationConfigurationSettings)
+        private static void ConfigureHydraulicLocationConfigurationDatabase(HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase)
         {
-            hydraulicLocationConfigurationSettings.FilePath = "some\\Path\\ToHlcd";
-            hydraulicLocationConfigurationSettings.ScenarioName = "ScenarioName";
-            hydraulicLocationConfigurationSettings.Year = 1337;
-            hydraulicLocationConfigurationSettings.Scope = "Scope";
-            hydraulicLocationConfigurationSettings.SeaLevel = "SeaLevel";
-            hydraulicLocationConfigurationSettings.RiverDischarge = "RiverDischarge";
-            hydraulicLocationConfigurationSettings.LakeLevel = "LakeLevel";
-            hydraulicLocationConfigurationSettings.WindDirection = "WindDirection";
-            hydraulicLocationConfigurationSettings.WindSpeed = "WindSpeed";
-            hydraulicLocationConfigurationSettings.Comment = "Comment";
-            hydraulicLocationConfigurationSettings.UsePreprocessorClosure = false;
+            hydraulicLocationConfigurationDatabase.FilePath = "some\\Path\\ToHlcd";
+            hydraulicLocationConfigurationDatabase.ScenarioName = "ScenarioName";
+            hydraulicLocationConfigurationDatabase.Year = 1337;
+            hydraulicLocationConfigurationDatabase.Scope = "Scope";
+            hydraulicLocationConfigurationDatabase.SeaLevel = "SeaLevel";
+            hydraulicLocationConfigurationDatabase.RiverDischarge = "RiverDischarge";
+            hydraulicLocationConfigurationDatabase.LakeLevel = "LakeLevel";
+            hydraulicLocationConfigurationDatabase.WindDirection = "WindDirection";
+            hydraulicLocationConfigurationDatabase.WindSpeed = "WindSpeed";
+            hydraulicLocationConfigurationDatabase.Comment = "Comment";
+            hydraulicLocationConfigurationDatabase.UsePreprocessorClosure = false;
         }
 
         private static void SetSections(IFailureMechanism failureMechanism)
