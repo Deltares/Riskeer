@@ -117,12 +117,12 @@ namespace Riskeer.Integration.Service.Test.Comparers
         {
             // Setup
             AssessmentSection assessmentSection = CreateAssessmentSection();
-            SetHydraulicLocationConfigurationValues(assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings,
-                                                    "FilePath1");
+            ConfigureHydraulicLocationConfigurationDatabase(assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings,
+                                                            "FilePath1");
 
             AssessmentSection otherAssessmentSection = CreateAssessmentSection();
-            SetHydraulicLocationConfigurationValues(otherAssessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings,
-                                                    "FilePath2");
+            ConfigureHydraulicLocationConfigurationDatabase(otherAssessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings,
+                                                            "FilePath2");
 
             var comparer = new AssessmentSectionMergeComparer();
 
@@ -139,7 +139,7 @@ namespace Riskeer.Integration.Service.Test.Comparers
         {
             // Setup
             AssessmentSection assessmentSection = CreateAssessmentSection();
-            SetHydraulicLocationConfigurationValues(assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings);
+            ConfigureHydraulicLocationConfigurationDatabase(assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings);
 
             var comparer = new AssessmentSectionMergeComparer();
 
@@ -162,20 +162,20 @@ namespace Riskeer.Integration.Service.Test.Comparers
             return assessmentSection;
         }
 
-        private static void SetHydraulicLocationConfigurationValues(HydraulicLocationConfigurationSettings settings,
-                                                                    string hlcdFilePath = "filePath")
+        private static void ConfigureHydraulicLocationConfigurationDatabase(HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase,
+                                                                            string hlcdFilePath = "filePath")
         {
-            settings.FilePath = hlcdFilePath;
-            settings.ScenarioName = "ScenarioName";
-            settings.Year = 2017;
-            settings.Scope = "Scope";
-            settings.SeaLevel = "SeaLevel";
-            settings.RiverDischarge = "RiverDischarge";
-            settings.LakeLevel = "LakeLevel";
-            settings.WindDirection = "WindDirection";
-            settings.WindSpeed = "WindSpeed";
-            settings.Comment = "Comment";
-            settings.UsePreprocessorClosure = false;
+            hydraulicLocationConfigurationDatabase.FilePath = hlcdFilePath;
+            hydraulicLocationConfigurationDatabase.ScenarioName = "ScenarioName";
+            hydraulicLocationConfigurationDatabase.Year = 2017;
+            hydraulicLocationConfigurationDatabase.Scope = "Scope";
+            hydraulicLocationConfigurationDatabase.SeaLevel = "SeaLevel";
+            hydraulicLocationConfigurationDatabase.RiverDischarge = "RiverDischarge";
+            hydraulicLocationConfigurationDatabase.LakeLevel = "LakeLevel";
+            hydraulicLocationConfigurationDatabase.WindDirection = "WindDirection";
+            hydraulicLocationConfigurationDatabase.WindSpeed = "WindSpeed";
+            hydraulicLocationConfigurationDatabase.Comment = "Comment";
+            hydraulicLocationConfigurationDatabase.UsePreprocessorClosure = false;
         }
 
         private static IEnumerable<TestCaseData> GetUnequivalentAssessmentSectionWithoutHydraulicLocationConfigurationSettingsTestCases()
@@ -221,7 +221,7 @@ namespace Riskeer.Integration.Service.Test.Comparers
 
         private static IEnumerable<TestCaseData> GetAssessmentSectionWithNotEquivalentHydraulicLocationConfigurationSettingsTestCases()
         {
-            foreach (ChangePropertyData<HydraulicLocationConfigurationSettings> changeSingleDataProperty in ChangeSingleDataOfHydraulicLocationConfigurationSettings())
+            foreach (ChangePropertyData<HydraulicLocationConfigurationDatabase> changeSingleDataProperty in ChangeSingleDataOfHydraulicLocationConfigurationSettings())
             {
                 AssessmentSection assessmentSection = CreateAssessmentSection();
                 changeSingleDataProperty.ActionToChangeProperty(assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings);
@@ -229,76 +229,76 @@ namespace Riskeer.Integration.Service.Test.Comparers
             }
         }
 
-        private static IEnumerable<ChangePropertyData<HydraulicLocationConfigurationSettings>> ChangeSingleDataOfHydraulicLocationConfigurationSettings()
+        private static IEnumerable<ChangePropertyData<HydraulicLocationConfigurationDatabase>> ChangeSingleDataOfHydraulicLocationConfigurationSettings()
         {
-            yield return new ChangePropertyData<HydraulicLocationConfigurationSettings>(settings =>
+            yield return new ChangePropertyData<HydraulicLocationConfigurationDatabase>(hydraulicLocationConfigurationDatabase =>
                                                                                         {
-                                                                                            SetHydraulicLocationConfigurationValues(settings);
+                                                                                            ConfigureHydraulicLocationConfigurationDatabase(hydraulicLocationConfigurationDatabase);
 
-                                                                                            settings.ScenarioName = "Other ScenarioName";
+                                                                                            hydraulicLocationConfigurationDatabase.ScenarioName = "Other ScenarioName";
                                                                                         },
                                                                                         "Different ScenarioName");
-            yield return new ChangePropertyData<HydraulicLocationConfigurationSettings>(settings =>
+            yield return new ChangePropertyData<HydraulicLocationConfigurationDatabase>(hydraulicLocationConfigurationDatabase =>
                                                                                         {
-                                                                                            SetHydraulicLocationConfigurationValues(settings);
+                                                                                            ConfigureHydraulicLocationConfigurationDatabase(hydraulicLocationConfigurationDatabase);
 
-                                                                                            settings.Year = 2023;
+                                                                                            hydraulicLocationConfigurationDatabase.Year = 2023;
                                                                                         },
                                                                                         "Different Year");
-            yield return new ChangePropertyData<HydraulicLocationConfigurationSettings>(settings =>
+            yield return new ChangePropertyData<HydraulicLocationConfigurationDatabase>(hydraulicLocationConfigurationDatabase =>
                                                                                         {
-                                                                                            SetHydraulicLocationConfigurationValues(settings);
+                                                                                            ConfigureHydraulicLocationConfigurationDatabase(hydraulicLocationConfigurationDatabase);
 
-                                                                                            settings.Scope = "Other Scope";
+                                                                                            hydraulicLocationConfigurationDatabase.Scope = "Other Scope";
                                                                                         },
                                                                                         "Different Scope");
-            yield return new ChangePropertyData<HydraulicLocationConfigurationSettings>(settings =>
+            yield return new ChangePropertyData<HydraulicLocationConfigurationDatabase>(hydraulicLocationConfigurationDatabase =>
                                                                                         {
-                                                                                            SetHydraulicLocationConfigurationValues(settings);
+                                                                                            ConfigureHydraulicLocationConfigurationDatabase(hydraulicLocationConfigurationDatabase);
 
-                                                                                            settings.SeaLevel = "Other SeaLevel";
+                                                                                            hydraulicLocationConfigurationDatabase.SeaLevel = "Other SeaLevel";
                                                                                         },
                                                                                         "Different SeaLevel");
-            yield return new ChangePropertyData<HydraulicLocationConfigurationSettings>(settings =>
+            yield return new ChangePropertyData<HydraulicLocationConfigurationDatabase>(hydraulicLocationConfigurationDatabase =>
                                                                                         {
-                                                                                            SetHydraulicLocationConfigurationValues(settings);
+                                                                                            ConfigureHydraulicLocationConfigurationDatabase(hydraulicLocationConfigurationDatabase);
 
-                                                                                            settings.RiverDischarge = "Other RiverDischarge";
+                                                                                            hydraulicLocationConfigurationDatabase.RiverDischarge = "Other RiverDischarge";
                                                                                         },
                                                                                         "Different RiverDischarge");
-            yield return new ChangePropertyData<HydraulicLocationConfigurationSettings>(settings =>
+            yield return new ChangePropertyData<HydraulicLocationConfigurationDatabase>(hydraulicLocationConfigurationDatabase =>
                                                                                         {
-                                                                                            SetHydraulicLocationConfigurationValues(settings);
+                                                                                            ConfigureHydraulicLocationConfigurationDatabase(hydraulicLocationConfigurationDatabase);
 
-                                                                                            settings.LakeLevel = "Other LakeLevel";
+                                                                                            hydraulicLocationConfigurationDatabase.LakeLevel = "Other LakeLevel";
                                                                                         },
                                                                                         "Different LakeLevel");
-            yield return new ChangePropertyData<HydraulicLocationConfigurationSettings>(settings =>
+            yield return new ChangePropertyData<HydraulicLocationConfigurationDatabase>(hydraulicLocationConfigurationDatabase =>
                                                                                         {
-                                                                                            SetHydraulicLocationConfigurationValues(settings);
+                                                                                            ConfigureHydraulicLocationConfigurationDatabase(hydraulicLocationConfigurationDatabase);
 
-                                                                                            settings.WindDirection = "Other WindDirection";
+                                                                                            hydraulicLocationConfigurationDatabase.WindDirection = "Other WindDirection";
                                                                                         },
                                                                                         "Different WindDirection");
-            yield return new ChangePropertyData<HydraulicLocationConfigurationSettings>(settings =>
+            yield return new ChangePropertyData<HydraulicLocationConfigurationDatabase>(hydraulicLocationConfigurationDatabase =>
                                                                                         {
-                                                                                            SetHydraulicLocationConfigurationValues(settings);
+                                                                                            ConfigureHydraulicLocationConfigurationDatabase(hydraulicLocationConfigurationDatabase);
 
-                                                                                            settings.WindSpeed = "Other Windspeed";
+                                                                                            hydraulicLocationConfigurationDatabase.WindSpeed = "Other Windspeed";
                                                                                         },
                                                                                         "Different WindSpeed");
-            yield return new ChangePropertyData<HydraulicLocationConfigurationSettings>(settings =>
+            yield return new ChangePropertyData<HydraulicLocationConfigurationDatabase>(hydraulicLocationConfigurationDatabase =>
                                                                                         {
-                                                                                            SetHydraulicLocationConfigurationValues(settings);
+                                                                                            ConfigureHydraulicLocationConfigurationDatabase(hydraulicLocationConfigurationDatabase);
 
-                                                                                            settings.Comment = "Other Comment";
+                                                                                            hydraulicLocationConfigurationDatabase.Comment = "Other Comment";
                                                                                         },
                                                                                         "Different Comment");
-            yield return new ChangePropertyData<HydraulicLocationConfigurationSettings>(settings =>
+            yield return new ChangePropertyData<HydraulicLocationConfigurationDatabase>(hydraulicLocationConfigurationDatabase =>
                                                                                         {
-                                                                                            SetHydraulicLocationConfigurationValues(settings);
+                                                                                            ConfigureHydraulicLocationConfigurationDatabase(hydraulicLocationConfigurationDatabase);
 
-                                                                                            settings.UsePreprocessorClosure = true;
+                                                                                            hydraulicLocationConfigurationDatabase.UsePreprocessorClosure = true;
                                                                                         },
                                                                                         "Different UsePreprocessorClosure");
         }
