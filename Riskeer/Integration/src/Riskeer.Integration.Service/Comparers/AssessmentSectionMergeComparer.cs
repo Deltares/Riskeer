@@ -80,23 +80,23 @@ namespace Riskeer.Integration.Service.Comparers
                                                                         HydraulicBoundaryData otherHydraulicBoundaryData)
         {
             return hydraulicBoundaryData.Version == otherHydraulicBoundaryData.Version
-                   && AreHydraulicLocationConfigurationSettingsEquivalent(hydraulicBoundaryData.HydraulicLocationConfigurationSettings,
-                                                                          otherHydraulicBoundaryData.HydraulicLocationConfigurationSettings);
+                   && AreHydraulicLocationConfigurationDatabasesEquivalent(hydraulicBoundaryData.HydraulicLocationConfigurationSettings,
+                                                                           otherHydraulicBoundaryData.HydraulicLocationConfigurationSettings);
         }
 
-        private static bool AreHydraulicLocationConfigurationSettingsEquivalent(HydraulicLocationConfigurationSettings hydraulicLocationConfigurationSettings,
-                                                                                HydraulicLocationConfigurationSettings otherHydraulicLocationConfigurationSettings)
+        private static bool AreHydraulicLocationConfigurationDatabasesEquivalent(HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase,
+                                                                                 HydraulicLocationConfigurationDatabase otherHydraulicLocationConfigurationDatabase)
         {
-            return hydraulicLocationConfigurationSettings.ScenarioName == otherHydraulicLocationConfigurationSettings.ScenarioName
-                   && hydraulicLocationConfigurationSettings.Year == otherHydraulicLocationConfigurationSettings.Year
-                   && hydraulicLocationConfigurationSettings.Scope == otherHydraulicLocationConfigurationSettings.Scope
-                   && hydraulicLocationConfigurationSettings.SeaLevel == otherHydraulicLocationConfigurationSettings.SeaLevel
-                   && hydraulicLocationConfigurationSettings.RiverDischarge == otherHydraulicLocationConfigurationSettings.RiverDischarge
-                   && hydraulicLocationConfigurationSettings.LakeLevel == otherHydraulicLocationConfigurationSettings.LakeLevel
-                   && hydraulicLocationConfigurationSettings.WindDirection == otherHydraulicLocationConfigurationSettings.WindDirection
-                   && hydraulicLocationConfigurationSettings.WindSpeed == otherHydraulicLocationConfigurationSettings.WindSpeed
-                   && hydraulicLocationConfigurationSettings.Comment == otherHydraulicLocationConfigurationSettings.Comment
-                   && hydraulicLocationConfigurationSettings.UsePreprocessorClosure == otherHydraulicLocationConfigurationSettings.UsePreprocessorClosure;
+            return hydraulicLocationConfigurationDatabase.ScenarioName == otherHydraulicLocationConfigurationDatabase.ScenarioName
+                   && hydraulicLocationConfigurationDatabase.Year == otherHydraulicLocationConfigurationDatabase.Year
+                   && hydraulicLocationConfigurationDatabase.Scope == otherHydraulicLocationConfigurationDatabase.Scope
+                   && hydraulicLocationConfigurationDatabase.SeaLevel == otherHydraulicLocationConfigurationDatabase.SeaLevel
+                   && hydraulicLocationConfigurationDatabase.RiverDischarge == otherHydraulicLocationConfigurationDatabase.RiverDischarge
+                   && hydraulicLocationConfigurationDatabase.LakeLevel == otherHydraulicLocationConfigurationDatabase.LakeLevel
+                   && hydraulicLocationConfigurationDatabase.WindDirection == otherHydraulicLocationConfigurationDatabase.WindDirection
+                   && hydraulicLocationConfigurationDatabase.WindSpeed == otherHydraulicLocationConfigurationDatabase.WindSpeed
+                   && hydraulicLocationConfigurationDatabase.Comment == otherHydraulicLocationConfigurationDatabase.Comment
+                   && hydraulicLocationConfigurationDatabase.UsePreprocessorClosure == otherHydraulicLocationConfigurationDatabase.UsePreprocessorClosure;
         }
 
         private static bool AreFailureMechanismContributionsEquivalent(FailureMechanismContribution failureMechanismContribution,

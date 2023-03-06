@@ -24,7 +24,7 @@ using Riskeer.Common.Data.Hydraulics;
 namespace Riskeer.Integration.Plugin.Helpers
 {
     /// <summary>
-    /// Constants for dealing with <see cref="HydraulicLocationConfigurationSettings"/>.
+    /// Constants for dealing with <see cref="HydraulicLocationConfigurationDatabase"/>.
     /// </summary>
     internal static class HydraulicLocationConfigurationSettingsConstants
     {
