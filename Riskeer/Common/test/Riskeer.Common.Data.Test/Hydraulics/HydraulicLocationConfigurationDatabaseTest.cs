@@ -25,26 +25,26 @@ using Riskeer.Common.Data.Hydraulics;
 namespace Riskeer.Common.Data.Test.Hydraulics
 {
     [TestFixture]
-    public class HydraulicLocationConfigurationSettingsTest
+    public class HydraulicLocationConfigurationDatabaseTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var settings = new HydraulicLocationConfigurationSettings();
+            var hydraulicLocationConfigurationDatabase = new HydraulicLocationConfigurationDatabase();
 
             // Assert
-            Assert.IsNull(settings.FilePath);
-            Assert.IsNull(settings.ScenarioName);
-            Assert.AreEqual(0, settings.Year);
-            Assert.IsNull(settings.Scope);
-            Assert.IsNull(settings.SeaLevel);
-            Assert.IsNull(settings.RiverDischarge);
-            Assert.IsNull(settings.LakeLevel);
-            Assert.IsNull(settings.WindDirection);
-            Assert.IsNull(settings.WindSpeed);
-            Assert.IsNull(settings.Comment);
-            Assert.IsFalse(settings.UsePreprocessorClosure);
+            Assert.IsNull(hydraulicLocationConfigurationDatabase.FilePath);
+            Assert.IsNull(hydraulicLocationConfigurationDatabase.ScenarioName);
+            Assert.AreEqual(0, hydraulicLocationConfigurationDatabase.Year);
+            Assert.IsNull(hydraulicLocationConfigurationDatabase.Scope);
+            Assert.IsNull(hydraulicLocationConfigurationDatabase.SeaLevel);
+            Assert.IsNull(hydraulicLocationConfigurationDatabase.RiverDischarge);
+            Assert.IsNull(hydraulicLocationConfigurationDatabase.LakeLevel);
+            Assert.IsNull(hydraulicLocationConfigurationDatabase.WindDirection);
+            Assert.IsNull(hydraulicLocationConfigurationDatabase.WindSpeed);
+            Assert.IsNull(hydraulicLocationConfigurationDatabase.Comment);
+            Assert.IsFalse(hydraulicLocationConfigurationDatabase.UsePreprocessorClosure);
         }
     }
 }

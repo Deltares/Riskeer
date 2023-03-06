@@ -24,7 +24,7 @@ namespace Riskeer.Common.Data.Hydraulics
     /// <summary>
     /// Class which holds information about a hydraulic location configuration database.
     /// </summary>
-    public class HydraulicLocationConfigurationSettings
+    public class HydraulicLocationConfigurationDatabase
     {
         /// <summary>
         /// Gets or sets the file path.
