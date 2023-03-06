@@ -443,7 +443,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 FilePath = validHrdFilePath,
-                HydraulicLocationConfigurationSettings =
+                HydraulicLocationConfigurationDatabase =
                 {
                     FilePath = validHlcdFilePath
                 }
@@ -504,7 +504,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 FilePath = validHrdFilePath,
-                HydraulicLocationConfigurationSettings =
+                HydraulicLocationConfigurationDatabase =
                 {
                     FilePath = validHlcdFilePath
                 }
@@ -631,7 +631,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 FilePath = validHrdFilePath,
-                HydraulicLocationConfigurationSettings =
+                HydraulicLocationConfigurationDatabase =
                 {
                     FilePath = validHlcdFilePath,
                     UsePreprocessorClosure = usePreprocessorClosure

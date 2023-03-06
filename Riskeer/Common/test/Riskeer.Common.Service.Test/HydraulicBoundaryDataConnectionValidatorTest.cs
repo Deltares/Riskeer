@@ -82,7 +82,7 @@ namespace Riskeer.Common.Service.Test
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 FilePath = Path.Combine(invalidSettingsSchemaPath, "complete.sqlite"),
-                HydraulicLocationConfigurationSettings =
+                HydraulicLocationConfigurationDatabase =
                 {
                     FilePath = Path.Combine(invalidSettingsSchemaPath, "hlcd.sqlite")
                 }
@@ -104,7 +104,7 @@ namespace Riskeer.Common.Service.Test
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 FilePath = Path.Combine(withoutPreprocessorClosurePath, "complete.sqlite"),
-                HydraulicLocationConfigurationSettings =
+                HydraulicLocationConfigurationDatabase =
                 {
                     FilePath = Path.Combine(withoutPreprocessorClosurePath, "hlcd.sqlite"),
                     UsePreprocessorClosure = true
@@ -129,7 +129,7 @@ namespace Riskeer.Common.Service.Test
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 FilePath = Path.Combine(testDataPath, "complete.sqlite"),
-                HydraulicLocationConfigurationSettings =
+                HydraulicLocationConfigurationDatabase =
                 {
                     FilePath = Path.Combine(testDataPath, "hlcd.sqlite"),
                     UsePreprocessorClosure = usePreprocessorClosure

@@ -352,7 +352,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos.CalculationsState
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 FilePath = validHrdFilePath,
-                HydraulicLocationConfigurationSettings =
+                HydraulicLocationConfigurationDatabase =
                 {
                     FilePath = validHlcdFilePath
                 },
@@ -419,7 +419,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos.CalculationsState
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 FilePath = validHrdFilePath,
-                HydraulicLocationConfigurationSettings =
+                HydraulicLocationConfigurationDatabase =
                 {
                     FilePath = validHlcdFilePath
                 }
@@ -515,7 +515,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos.CalculationsState
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 FilePath = validHrdFilePath,
-                HydraulicLocationConfigurationSettings =
+                HydraulicLocationConfigurationDatabase =
                 {
                     FilePath = validHlcdFilePath
                 }

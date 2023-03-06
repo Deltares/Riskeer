@@ -940,7 +940,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                 HydraulicBoundaryData =
                 {
                     FilePath = validHrdFilePath,
-                    HydraulicLocationConfigurationSettings =
+                    HydraulicLocationConfigurationDatabase =
                     {
                         FilePath = validHlcdFilePath,
                         UsePreprocessorClosure = usePreprocessorClosure

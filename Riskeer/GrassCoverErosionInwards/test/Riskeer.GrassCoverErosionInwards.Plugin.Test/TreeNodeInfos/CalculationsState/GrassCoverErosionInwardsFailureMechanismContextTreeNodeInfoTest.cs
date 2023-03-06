@@ -333,7 +333,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos.Calculation
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 FilePath = validHrdFilePath,
-                HydraulicLocationConfigurationSettings =
+                HydraulicLocationConfigurationDatabase =
                 {
                     FilePath = validHlcdFilePath
                 },
@@ -446,7 +446,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos.Calculation
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 FilePath = validHrdFilePath,
-                HydraulicLocationConfigurationSettings =
+                HydraulicLocationConfigurationDatabase =
                 {
                     FilePath = validHlcdFilePath
                 },
@@ -510,7 +510,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos.Calculation
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 FilePath = validHrdFilePath,
-                HydraulicLocationConfigurationSettings =
+                HydraulicLocationConfigurationDatabase =
                 {
                     FilePath = validHlcdFilePath
                 }
@@ -611,7 +611,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos.Calculation
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 FilePath = validHrdFilePath,
-                HydraulicLocationConfigurationSettings =
+                HydraulicLocationConfigurationDatabase =
                 {
                     FilePath = validHlcdFilePath
                 }

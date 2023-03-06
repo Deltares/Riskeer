@@ -41,7 +41,7 @@ namespace Riskeer.Common.Data.Hydraulics
                 throw new ArgumentNullException(nameof(hydraulicBoundaryData));
             }
 
-            return !string.IsNullOrEmpty(hydraulicBoundaryData.HydraulicLocationConfigurationSettings.FilePath)
+            return !string.IsNullOrEmpty(hydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath)
                    || !string.IsNullOrEmpty(hydraulicBoundaryData.FilePath);
         }
     }

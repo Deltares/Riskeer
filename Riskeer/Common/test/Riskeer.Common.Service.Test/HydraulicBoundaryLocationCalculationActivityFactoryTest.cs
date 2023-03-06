@@ -270,7 +270,7 @@ namespace Riskeer.Common.Service.Test
         {
             assessmentSection.HydraulicBoundaryData.FilePath = validHrdFilePath;
 
-            HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase = assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings;
+            HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase = assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase;
             hydraulicLocationConfigurationDatabase.FilePath = validHlcdFilePath;
             hydraulicLocationConfigurationDatabase.UsePreprocessorClosure = usePreprocessorClosure;
         }

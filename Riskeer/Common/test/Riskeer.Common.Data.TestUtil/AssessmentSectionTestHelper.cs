@@ -115,7 +115,7 @@ namespace Riskeer.Common.Data.TestUtil
 
             if (filePath != null)
             {
-                HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase = hydraulicBoundaryData.HydraulicLocationConfigurationSettings;
+                HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase = hydraulicBoundaryData.HydraulicLocationConfigurationDatabase;
                 hydraulicLocationConfigurationDatabase.FilePath = Path.Combine(Path.GetDirectoryName(filePath), "hlcd.sqlite");
                 hydraulicLocationConfigurationDatabase.UsePreprocessorClosure = usePreprocessorClosure;
             }

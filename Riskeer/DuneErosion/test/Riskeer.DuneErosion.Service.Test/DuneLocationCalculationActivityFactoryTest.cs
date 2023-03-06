@@ -217,7 +217,7 @@ namespace Riskeer.DuneErosion.Service.Test
                 HydraulicBoundaryData =
                 {
                     FilePath = validHrdFilePath,
-                    HydraulicLocationConfigurationSettings =
+                    HydraulicLocationConfigurationDatabase =
                     {
                         FilePath = validHlcdFilePath,
                         UsePreprocessorClosure = usePreprocessorClosure

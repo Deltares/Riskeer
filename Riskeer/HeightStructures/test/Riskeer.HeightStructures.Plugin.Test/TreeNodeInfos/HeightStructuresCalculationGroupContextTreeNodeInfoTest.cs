@@ -587,7 +587,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 FilePath = validHrdFilePath,
-                HydraulicLocationConfigurationSettings =
+                HydraulicLocationConfigurationDatabase =
                 {
                     FilePath = validHlcdFilePath
                 },
@@ -730,7 +730,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 FilePath = validHrdFilePath,
-                HydraulicLocationConfigurationSettings =
+                HydraulicLocationConfigurationDatabase =
                 {
                     FilePath = validHlcdFilePath
                 },

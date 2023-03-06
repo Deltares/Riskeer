@@ -58,7 +58,7 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             // Setup
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                HydraulicLocationConfigurationSettings =
+                HydraulicLocationConfigurationDatabase =
                 {
                     FilePath = "hlcd.sqlite"
                 }

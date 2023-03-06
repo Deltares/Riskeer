@@ -122,7 +122,7 @@ namespace Riskeer.Common.Forms.Test.GuiServices
             mocks.ReplayAll();
 
             assessmentSection.HydraulicBoundaryData.FilePath = "Does not exist";
-            assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.FilePath = "Does not exist";
+            assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath = "Does not exist";
 
             var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
@@ -149,7 +149,7 @@ namespace Riskeer.Common.Forms.Test.GuiServices
             mocks.ReplayAll();
 
             assessmentSection.HydraulicBoundaryData.FilePath = validHrdFilePath;
-            assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.FilePath = validHlcdFilePath;
+            assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath = validHlcdFilePath;
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -192,7 +192,7 @@ namespace Riskeer.Common.Forms.Test.GuiServices
             mocks.ReplayAll();
 
             assessmentSection.HydraulicBoundaryData.FilePath = validHrdFilePath;
-            assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.FilePath = validHlcdFilePath;
+            assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath = validHlcdFilePath;
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -280,7 +280,7 @@ namespace Riskeer.Common.Forms.Test.GuiServices
             mocks.ReplayAll();
 
             assessmentSection.HydraulicBoundaryData.FilePath = "Does not exist";
-            assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.FilePath = "Does not exist";
+            assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath = "Does not exist";
 
             var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
@@ -306,7 +306,7 @@ namespace Riskeer.Common.Forms.Test.GuiServices
             mocks.ReplayAll();
 
             assessmentSection.HydraulicBoundaryData.FilePath = validHrdFilePath;
-            assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.FilePath = validHlcdFilePath;
+            assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath = validHlcdFilePath;
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -349,7 +349,7 @@ namespace Riskeer.Common.Forms.Test.GuiServices
             mocks.ReplayAll();
 
             assessmentSection.HydraulicBoundaryData.FilePath = validHrdFilePath;
-            assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.FilePath = validHlcdFilePath;
+            assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath = validHlcdFilePath;
 
             DialogBoxHandler = (name, wnd) =>
             {

@@ -298,7 +298,7 @@ namespace Riskeer.HeightStructures.Integration.Test
                 HydraulicBoundaryData =
                 {
                     FilePath = validHrdFilePath,
-                    HydraulicLocationConfigurationSettings =
+                    HydraulicLocationConfigurationDatabase =
                     {
                         FilePath = validHlcdFilePath,
                         UsePreprocessorClosure = usePreprocessorClosure

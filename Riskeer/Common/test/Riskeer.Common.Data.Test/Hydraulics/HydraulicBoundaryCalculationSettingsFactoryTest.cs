@@ -51,7 +51,7 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 FilePath = hrdFilePath,
-                HydraulicLocationConfigurationSettings =
+                HydraulicLocationConfigurationDatabase =
                 {
                     FilePath = hlcdFilePath,
                     UsePreprocessorClosure = usePreprocessorClosure

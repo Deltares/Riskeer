@@ -340,7 +340,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             {
                 FilePath = validHrdFilePath,
                 Version = "1.0",
-                HydraulicLocationConfigurationSettings =
+                HydraulicLocationConfigurationDatabase =
                 {
                     FilePath = validHlcdFilePath
                 }
@@ -412,7 +412,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                 var hydraulicBoundaryData = new HydraulicBoundaryData
                 {
                     FilePath = validHrdFilePath,
-                    HydraulicLocationConfigurationSettings =
+                    HydraulicLocationConfigurationDatabase =
                     {
                         FilePath = validHlcdFilePath
                     }
@@ -516,7 +516,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 FilePath = validHrdFilePath,
-                HydraulicLocationConfigurationSettings =
+                HydraulicLocationConfigurationDatabase =
                 {
                     FilePath = validHlcdFilePath,
                     UsePreprocessorClosure = usePreprocessorClosure
