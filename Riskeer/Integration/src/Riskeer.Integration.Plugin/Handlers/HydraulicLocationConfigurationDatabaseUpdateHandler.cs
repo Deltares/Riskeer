@@ -86,7 +86,7 @@ namespace Riskeer.Integration.Plugin.Handlers
                 throw new ArgumentNullException(nameof(hlcdFilePath));
             }
 
-            HydraulicLocationConfigurationSettingsUpdateHelper.SetHydraulicLocationConfigurationSettings(
+            HydraulicLocationConfigurationSettingsUpdateHelper.UpdateHydraulicLocationConfigurationDatabase(
                 hydraulicBoundaryData.HydraulicLocationConfigurationDatabase,
                 readHydraulicLocationConfigurationDatabaseSettings, usePreprocessorClosure, hlcdFilePath);
 

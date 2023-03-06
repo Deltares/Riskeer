@@ -43,7 +43,7 @@ namespace Riskeer.Integration.Plugin.Helpers
         /// <param name="hlcdFilePath">The file path of the hydraulic location configuration database.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicLocationConfigurationDatabase"/> or
         /// <paramref name="hlcdFilePath"/> is <c>null</c>.</exception>
-        public static void SetHydraulicLocationConfigurationSettings(HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase,
+        public static void UpdateHydraulicLocationConfigurationDatabase(HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase,
                                                                      ReadHydraulicLocationConfigurationDatabaseSettings readHydraulicLocationConfigurationDatabase,
                                                                      bool usePreprocessorClosure,
                                                                      string hlcdFilePath)
