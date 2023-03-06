@@ -100,8 +100,8 @@ namespace Riskeer.Integration.IO.Importers
             }
 
             ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = readHydraulicLocationConfigurationDatabaseResult.Items.Single();
-            if (readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings != null
-                && readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings.Count() != 1)
+            if (readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationSettings != null
+                && readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationSettings.Count() != 1)
             {
                 Log.Error(BuildErrorMessage(FilePath, Resources.HydraulicLocationConfigurationDatabaseImporter_Invalid_number_of_ScenarioInformation_entries));
                 return false;
@@ -124,8 +124,8 @@ namespace Riskeer.Integration.IO.Importers
                 return false;
             }
 
-            SetReadHydraulicLocationConfigurationDatabaseToDataModel(
-                readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings?.Single(),
+            SetReadHydraulicLocationConfigurationSettingsToDataModel(
+                readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationSettings?.Single(),
                 usePreprocessorClosure);
 
             return true;
@@ -176,11 +176,11 @@ namespace Riskeer.Integration.IO.Importers
             }
         }
 
-        private void SetReadHydraulicLocationConfigurationDatabaseToDataModel(ReadHydraulicLocationConfigurationDatabaseSettings readHydraulicLocationConfigurationDatabaseSettings,
+        private void SetReadHydraulicLocationConfigurationSettingsToDataModel(ReadHydraulicLocationConfigurationSettings readHydraulicLocationConfigurationSettings,
                                                                               bool usePrepocessorClosure)
         {
             NotifyProgress(RiskeerCommonIOResources.Importer_ProgressText_Adding_imported_data_to_AssessmentSection, 2, numberOfSteps);
-            changedObservables.AddRange(updateHandler.Update(hydraulicBoundaryData, readHydraulicLocationConfigurationDatabaseSettings, usePrepocessorClosure, FilePath));
+            changedObservables.AddRange(updateHandler.Update(hydraulicBoundaryData, readHydraulicLocationConfigurationSettings, usePrepocessorClosure, FilePath));
         }
 
         private ReadResult<T> HandleCriticalFileReadError<T>(Exception e)

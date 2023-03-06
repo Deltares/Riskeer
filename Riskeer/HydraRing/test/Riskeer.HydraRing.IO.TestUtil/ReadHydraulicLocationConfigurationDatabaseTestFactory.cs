@@ -65,9 +65,9 @@ namespace Riskeer.HydraRing.IO.TestUtil
         /// database settings.</returns>
         public static ReadHydraulicLocationConfigurationDatabase CreateWithConfigurationSettings(long trackId)
         {
-            ReadHydraulicLocationConfigurationDatabaseSettings[] settings =
+            ReadHydraulicLocationConfigurationSettings[] settings =
             {
-                ReadHydraulicLocationConfigurationDatabaseSettingsTestFactory.Create()
+                ReadHydraulicLocationConfigurationSettingsTestFactory.Create()
             };
 
             return CreateWithConfigurationSettings(settings, trackId);
@@ -77,11 +77,11 @@ namespace Riskeer.HydraRing.IO.TestUtil
         /// Create a valid instance of <see cref="ReadHydraulicLocationConfigurationDatabase"/> with hydraulic location
         /// configuration database settings.
         /// </summary>
-        /// <param name="settings">The <see cref="ReadHydraulicLocationConfigurationDatabaseSettings"/> to set.</param>
+        /// <param name="settings">The <see cref="ReadHydraulicLocationConfigurationSettings"/> to set.</param>
         /// <param name="trackId">The id of the track that should be part of the read tracks.</param>
         /// <returns>The created <see cref="ReadHydraulicLocationConfigurationDatabase"/> with hydraulic location configuration
         /// database settings.</returns>
-        public static ReadHydraulicLocationConfigurationDatabase CreateWithConfigurationSettings(IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> settings,
+        public static ReadHydraulicLocationConfigurationDatabase CreateWithConfigurationSettings(IEnumerable<ReadHydraulicLocationConfigurationSettings> settings,
                                                                                                  long trackId)
         {
             return Create(new long[]
@@ -92,7 +92,7 @@ namespace Riskeer.HydraRing.IO.TestUtil
         }
 
         private static ReadHydraulicLocationConfigurationDatabase Create(IEnumerable<long> locationIds,
-                                                                         IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> settings,
+                                                                         IEnumerable<ReadHydraulicLocationConfigurationSettings> settings,
                                                                          long trackId)
         {
             return new ReadHydraulicLocationConfigurationDatabase(locationIds.Select(locationId => new ReadHydraulicLocation(locationId + 100, locationId, trackId)),

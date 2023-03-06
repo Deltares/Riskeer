@@ -25,10 +25,10 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
     /// Class for holding configuration settings that are read from a hydraulic location
     /// configuration database file.
     /// </summary>
-    public class ReadHydraulicLocationConfigurationDatabaseSettings
+    public class ReadHydraulicLocationConfigurationSettings
     {
         /// <summary>
-        /// Creates a new instance of <see cref="ReadHydraulicLocationConfigurationDatabaseSettings"/>.
+        /// Creates a new instance of <see cref="ReadHydraulicLocationConfigurationSettings"/>.
         /// </summary>
         /// <param name="scenarioName">The name of the scenario.</param>
         /// <param name="year">The year.</param>
@@ -39,9 +39,9 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// <param name="windDirection">The wind direction.</param>
         /// <param name="windSpeed">The wind speed.</param>
         /// <param name="comment">The comment.</param>
-        internal ReadHydraulicLocationConfigurationDatabaseSettings(string scenarioName, int year, string scope,
-                                                                    string seaLevel, string riverDischarge, string lakeLevel,
-                                                                    string windDirection, string windSpeed, string comment)
+        internal ReadHydraulicLocationConfigurationSettings(string scenarioName, int year, string scope,
+                                                            string seaLevel, string riverDischarge, string lakeLevel,
+                                                            string windDirection, string windSpeed, string comment)
         {
             ScenarioName = scenarioName;
             Year = year;

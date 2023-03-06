@@ -34,18 +34,18 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
         {
             // Setup
             IEnumerable<ReadHydraulicLocation> readHydraulicLocations = Enumerable.Empty<ReadHydraulicLocation>();
-            IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> readHydraulicLocationConfigurationDatabaseSettings =
-                Enumerable.Empty<ReadHydraulicLocationConfigurationDatabaseSettings>();
+            IEnumerable<ReadHydraulicLocationConfigurationSettings> readHydraulicLocationConfigurationSettings =
+                Enumerable.Empty<ReadHydraulicLocationConfigurationSettings>();
             IEnumerable<ReadTrack> readTracks = Enumerable.Empty<ReadTrack>();
 
             // Call
             var readHydraulicLocationConfigurationDatabase = new ReadHydraulicLocationConfigurationDatabase(readHydraulicLocations,
-                                                                                                            readHydraulicLocationConfigurationDatabaseSettings,
+                                                                                                            readHydraulicLocationConfigurationSettings,
                                                                                                             readTracks);
 
             // Assert
             Assert.AreSame(readHydraulicLocations, readHydraulicLocationConfigurationDatabase.ReadHydraulicLocations);
-            Assert.AreSame(readHydraulicLocationConfigurationDatabaseSettings, readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings);
+            Assert.AreSame(readHydraulicLocationConfigurationSettings, readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationSettings);
             Assert.AreSame(readTracks, readHydraulicLocationConfigurationDatabase.ReadTracks);
         }
     }

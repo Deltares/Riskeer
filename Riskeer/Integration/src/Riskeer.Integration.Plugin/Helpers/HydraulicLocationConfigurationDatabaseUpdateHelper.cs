@@ -38,15 +38,15 @@ namespace Riskeer.Integration.Plugin.Helpers
         /// Updates the hydraulic location configuration database.
         /// </summary>
         /// <param name="hydraulicLocationConfigurationDatabase">The hydraulic location configuration database to update.</param>
-        /// <param name="readHydraulicLocationConfigurationDatabase">The read hydraulic location configuration database.</param>
+        /// <param name="readHydraulicLocationConfigurationSettings">The read hydraulic location configuration settings.</param>
         /// <param name="usePreprocessorClosure">Indicator whether to use the preprocessor closure.</param>
         /// <param name="hlcdFilePath">The file path of the hydraulic location configuration database.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicLocationConfigurationDatabase"/> or
         /// <paramref name="hlcdFilePath"/> is <c>null</c>.</exception>
         public static void UpdateHydraulicLocationConfigurationDatabase(HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase,
-                                                                     ReadHydraulicLocationConfigurationDatabaseSettings readHydraulicLocationConfigurationDatabase,
-                                                                     bool usePreprocessorClosure,
-                                                                     string hlcdFilePath)
+                                                                        ReadHydraulicLocationConfigurationSettings readHydraulicLocationConfigurationSettings,
+                                                                        bool usePreprocessorClosure,
+                                                                        string hlcdFilePath)
         {
             if (hydraulicLocationConfigurationDatabase == null)
             {
@@ -58,18 +58,18 @@ namespace Riskeer.Integration.Plugin.Helpers
                 throw new ArgumentNullException(nameof(hlcdFilePath));
             }
 
-            if (readHydraulicLocationConfigurationDatabase != null)
+            if (readHydraulicLocationConfigurationSettings != null)
             {
                 hydraulicLocationConfigurationDatabase.FilePath = hlcdFilePath;
-                hydraulicLocationConfigurationDatabase.ScenarioName = readHydraulicLocationConfigurationDatabase.ScenarioName;
-                hydraulicLocationConfigurationDatabase.Year = readHydraulicLocationConfigurationDatabase.Year;
-                hydraulicLocationConfigurationDatabase.Scope = readHydraulicLocationConfigurationDatabase.Scope;
-                hydraulicLocationConfigurationDatabase.SeaLevel = readHydraulicLocationConfigurationDatabase.SeaLevel;
-                hydraulicLocationConfigurationDatabase.RiverDischarge = readHydraulicLocationConfigurationDatabase.RiverDischarge;
-                hydraulicLocationConfigurationDatabase.LakeLevel = readHydraulicLocationConfigurationDatabase.LakeLevel;
-                hydraulicLocationConfigurationDatabase.WindDirection = readHydraulicLocationConfigurationDatabase.WindDirection;
-                hydraulicLocationConfigurationDatabase.WindSpeed = readHydraulicLocationConfigurationDatabase.WindSpeed;
-                hydraulicLocationConfigurationDatabase.Comment = readHydraulicLocationConfigurationDatabase.Comment;
+                hydraulicLocationConfigurationDatabase.ScenarioName = readHydraulicLocationConfigurationSettings.ScenarioName;
+                hydraulicLocationConfigurationDatabase.Year = readHydraulicLocationConfigurationSettings.Year;
+                hydraulicLocationConfigurationDatabase.Scope = readHydraulicLocationConfigurationSettings.Scope;
+                hydraulicLocationConfigurationDatabase.SeaLevel = readHydraulicLocationConfigurationSettings.SeaLevel;
+                hydraulicLocationConfigurationDatabase.RiverDischarge = readHydraulicLocationConfigurationSettings.RiverDischarge;
+                hydraulicLocationConfigurationDatabase.LakeLevel = readHydraulicLocationConfigurationSettings.LakeLevel;
+                hydraulicLocationConfigurationDatabase.WindDirection = readHydraulicLocationConfigurationSettings.WindDirection;
+                hydraulicLocationConfigurationDatabase.WindSpeed = readHydraulicLocationConfigurationSettings.WindSpeed;
+                hydraulicLocationConfigurationDatabase.Comment = readHydraulicLocationConfigurationSettings.Comment;
                 hydraulicLocationConfigurationDatabase.UsePreprocessorClosure = usePreprocessorClosure;
             }
             else

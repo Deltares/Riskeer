@@ -484,7 +484,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 }
             };
             assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Add(calculations);
-            
+
             var nodeData = new WaterLevelCalculationsForUserDefinedTargetProbabilityContext(calculations, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
@@ -653,7 +653,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     calculations
                 }
             };
-            
+
             var context = new WaterLevelCalculationsForUserDefinedTargetProbabilityContext(calculations, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())

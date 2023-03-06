@@ -32,14 +32,14 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// Creates a new instance of <see cref="ReadHydraulicLocationConfigurationDatabase"/>.
         /// </summary>
         /// <param name="readHydraulicLocations">The read hydraulic locations.</param>
-        /// <param name="readHydraulicLocationConfigurationDatabaseSettings">The read hydraulic location configuration settings.</param>
+        /// <param name="readHydraulicLocationConfigurationSettings">The read hydraulic location configuration settings.</param>
         /// <param name="readTracks">The read tracks.</param>
         internal ReadHydraulicLocationConfigurationDatabase(IEnumerable<ReadHydraulicLocation> readHydraulicLocations,
-                                                            IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> readHydraulicLocationConfigurationDatabaseSettings,
+                                                            IEnumerable<ReadHydraulicLocationConfigurationSettings> readHydraulicLocationConfigurationSettings,
                                                             IEnumerable<ReadTrack> readTracks)
         {
             ReadHydraulicLocations = readHydraulicLocations;
-            ReadHydraulicLocationConfigurationDatabaseSettings = readHydraulicLocationConfigurationDatabaseSettings;
+            ReadHydraulicLocationConfigurationSettings = readHydraulicLocationConfigurationSettings;
             ReadTracks = readTracks;
         }
 
@@ -51,7 +51,7 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// <summary>
         /// Gets the read hydraulic location configuration settings.
         /// </summary>
-        public IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> ReadHydraulicLocationConfigurationDatabaseSettings { get; }
+        public IEnumerable<ReadHydraulicLocationConfigurationSettings> ReadHydraulicLocationConfigurationSettings { get; }
 
         /// <summary>
         /// Gets the read tracks.

@@ -82,7 +82,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
 
                 // Assert
                 AssertReadHydraulicLocations(readHydraulicLocationConfigurationDatabase);
-                Assert.IsNull(readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings);
+                Assert.IsNull(readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationSettings);
                 AssertReadTracks(readHydraulicLocationConfigurationDatabase);
             }
         }
@@ -100,7 +100,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
 
                 // Assert
                 AssertReadHydraulicLocations(readHydraulicLocationConfigurationDatabase);
-                AssertReadHydraulicLocationConfigurationDatabaseSettings(readHydraulicLocationConfigurationDatabase);
+                AssertReadHydraulicLocationConfigurationSettings(readHydraulicLocationConfigurationDatabase);
                 AssertReadTracks(readHydraulicLocationConfigurationDatabase);
             }
         }
@@ -228,57 +228,57 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
                                                                            && rhl.TrackId == 1000));
         }
 
-        private static void AssertReadHydraulicLocationConfigurationDatabaseSettings(ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase)
+        private static void AssertReadHydraulicLocationConfigurationSettings(ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase)
         {
-            ReadHydraulicLocationConfigurationDatabaseSettings[] readHydraulicLocationConfigurationDatabaseSettings =
-                readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings.ToArray();
-            Assert.AreEqual(2, readHydraulicLocationConfigurationDatabaseSettings.Length);
+            ReadHydraulicLocationConfigurationSettings[] readHydraulicLocationConfigurationSettings =
+                readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationSettings.ToArray();
+            Assert.AreEqual(2, readHydraulicLocationConfigurationSettings.Length);
 
             CollectionAssert.AreEqual(new[]
             {
                 "ScenarioName WBI2017",
                 "ScenarioName WBI2018"
-            }, readHydraulicLocationConfigurationDatabaseSettings.Select(s => s.ScenarioName));
+            }, readHydraulicLocationConfigurationSettings.Select(s => s.ScenarioName));
             CollectionAssert.AreEqual(new[]
             {
                 2023,
                 2024
-            }, readHydraulicLocationConfigurationDatabaseSettings.Select(s => s.Year));
+            }, readHydraulicLocationConfigurationSettings.Select(s => s.Year));
             CollectionAssert.AreEqual(new[]
             {
                 "Scope WBI2017",
                 "Scope WBI2018"
-            }, readHydraulicLocationConfigurationDatabaseSettings.Select(s => s.Scope));
+            }, readHydraulicLocationConfigurationSettings.Select(s => s.Scope));
             CollectionAssert.AreEqual(new[]
             {
                 "SeaLevel WBI2017",
                 "SeaLevel WBI2018"
-            }, readHydraulicLocationConfigurationDatabaseSettings.Select(s => s.SeaLevel));
+            }, readHydraulicLocationConfigurationSettings.Select(s => s.SeaLevel));
             CollectionAssert.AreEqual(new[]
             {
                 "RiverDischarge WBI2017",
                 "RiverDischarge WBI2018"
-            }, readHydraulicLocationConfigurationDatabaseSettings.Select(s => s.RiverDischarge));
+            }, readHydraulicLocationConfigurationSettings.Select(s => s.RiverDischarge));
             CollectionAssert.AreEqual(new[]
             {
                 "LakeLevel WBI2017",
                 "LakeLevel WBI2018"
-            }, readHydraulicLocationConfigurationDatabaseSettings.Select(s => s.LakeLevel));
+            }, readHydraulicLocationConfigurationSettings.Select(s => s.LakeLevel));
             CollectionAssert.AreEqual(new[]
             {
                 "WindDirection WBI2017",
                 "WindDirection WBI2018"
-            }, readHydraulicLocationConfigurationDatabaseSettings.Select(s => s.WindDirection));
+            }, readHydraulicLocationConfigurationSettings.Select(s => s.WindDirection));
             CollectionAssert.AreEqual(new[]
             {
                 "WindSpeed WBI2017",
                 "WindSpeed WBI2018"
-            }, readHydraulicLocationConfigurationDatabaseSettings.Select(s => s.WindSpeed));
+            }, readHydraulicLocationConfigurationSettings.Select(s => s.WindSpeed));
             CollectionAssert.AreEqual(new[]
             {
                 "Comment WBI2017",
                 "Comment WBI2018"
-            }, readHydraulicLocationConfigurationDatabaseSettings.Select(s => s.Comment));
+            }, readHydraulicLocationConfigurationSettings.Select(s => s.Comment));
         }
 
         private static void AssertReadTracks(ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase)

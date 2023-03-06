@@ -397,7 +397,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             var handler = mocks.StrictMock<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
             handler.Expect(h => h.InquireConfirmation()).Return(true);
             handler.Expect(h => h.Update(Arg<HydraulicBoundaryData>.Is.Same(hydraulicBoundaryData),
-                                         Arg<ReadHydraulicLocationConfigurationDatabaseSettings>.Is.Null,
+                                         Arg<ReadHydraulicLocationConfigurationSettings>.Is.Null,
                                          Arg<bool>.Is.Equal(usePreprocessorClosure),
                                          Arg<string>.Is.Equal(filePath)))
                    .Return(Enumerable.Empty<IObservable>());
@@ -430,7 +430,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             var handler = mocks.StrictMock<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
             handler.Expect(h => h.InquireConfirmation()).Return(true);
             handler.Expect(h => h.Update(Arg<HydraulicBoundaryData>.Is.Same(hydraulicBoundaryData),
-                                         Arg<ReadHydraulicLocationConfigurationDatabaseSettings>.Is.NotNull,
+                                         Arg<ReadHydraulicLocationConfigurationSettings>.Is.NotNull,
                                          Arg<bool>.Is.Equal(false),
                                          Arg<string>.Is.Equal(filePath)))
                    .Return(Enumerable.Empty<IObservable>());
@@ -464,7 +464,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             var handler = mocks.StrictMock<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
             handler.Expect(h => h.InquireConfirmation()).Return(true);
             handler.Expect(h => h.Update(Arg<HydraulicBoundaryData>.Is.NotNull,
-                                         Arg<ReadHydraulicLocationConfigurationDatabaseSettings>.Is.Null,
+                                         Arg<ReadHydraulicLocationConfigurationSettings>.Is.Null,
                                          Arg<bool>.Is.Equal(false),
                                          Arg<string>.Is.NotNull))
                    .Return(new[]

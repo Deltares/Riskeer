@@ -24,20 +24,20 @@ using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 namespace Riskeer.HydraRing.IO.TestUtil
 {
     /// <summary>
-    /// Factory that creates simple <see cref="ReadHydraulicLocationConfigurationDatabaseSettings"/> instances
+    /// Factory that creates simple <see cref="ReadHydraulicLocationConfigurationSettings"/> instances
     /// that can be used for testing.
     /// </summary>
-    public static class ReadHydraulicLocationConfigurationDatabaseSettingsTestFactory
+    public static class ReadHydraulicLocationConfigurationSettingsTestFactory
     {
         /// <summary>
-        /// Creates a <see cref="ReadHydraulicLocationConfigurationDatabaseSettings"/>.
+        /// Creates a <see cref="ReadHydraulicLocationConfigurationSettings"/>.
         /// </summary>
-        /// <returns>The created <see cref="ReadHydraulicLocationConfigurationDatabaseSettings"/>.</returns>
-        public static ReadHydraulicLocationConfigurationDatabaseSettings Create()
+        /// <returns>The created <see cref="ReadHydraulicLocationConfigurationSettings"/>.</returns>
+        public static ReadHydraulicLocationConfigurationSettings Create()
         {
-            return new ReadHydraulicLocationConfigurationDatabaseSettings("scenarioName", 1337, "scope", "seaLevel",
-                                                                          "riverDischarge", "lakeLevel", "windDirection",
-                                                                          "windSpeed", "comment");
+            return new ReadHydraulicLocationConfigurationSettings("scenarioName", 1337, "scope", "seaLevel",
+                                                                  "riverDischarge", "lakeLevel", "windDirection",
+                                                                  "windSpeed", "comment");
         }
     }
 }

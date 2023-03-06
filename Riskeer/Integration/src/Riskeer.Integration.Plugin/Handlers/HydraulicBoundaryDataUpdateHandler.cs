@@ -163,7 +163,7 @@ namespace Riskeer.Integration.Plugin.Handlers
 
             HydraulicLocationConfigurationDatabaseUpdateHelper.UpdateHydraulicLocationConfigurationDatabase(
                 hydraulicBoundaryData.HydraulicLocationConfigurationDatabase,
-                readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings?.Single(),
+                readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationSettings?.Single(),
                 readHydraulicLocationConfigurationDatabase.ReadTracks.First(rt => rt.TrackId == readHydraulicBoundaryDatabase.TrackId).UsePreprocessorClosure,
                 hlcdFilePath);
 
@@ -180,8 +180,8 @@ namespace Riskeer.Integration.Plugin.Handlers
 
         private static bool IsValidReadHydraulicLocationConfigurationDatabase(ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase)
         {
-            return readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings == null
-                   || readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings.Count() == 1;
+            return readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationSettings == null
+                   || readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationSettings.Count() == 1;
         }
 
         private IEnumerable<IObservable> GetLocationsAndCalculationsObservables(HydraulicBoundaryData hydraulicBoundaryData)

@@ -28,30 +28,31 @@ using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 namespace Riskeer.Integration.IO.Handlers
 {
     /// <summary>
-    /// Interface for an object that can properly update <see cref="HydraulicLocationConfigurationSettings"/>.
+    /// Interface for an object that can properly update <see cref="HydraulicLocationConfigurationDatabase"/>.
     /// </summary>
     public interface IHydraulicLocationConfigurationDatabaseUpdateHandler
     {
         /// <summary>
-        /// Gets confirmation for updating the <see cref="HydraulicLocationConfigurationSettings"/>.
+        /// Gets confirmation for updating the <see cref="HydraulicLocationConfigurationDatabase"/>.
         /// </summary>
         /// <returns><c>true</c> when confirmation is given; <c>false</c> otherwise.</returns>
         bool InquireConfirmation();
 
         /// <summary>
-        /// Updates the <see cref="HydraulicBoundaryData.HydraulicLocationConfigurationSettings"/> and its dependent data with the
-        /// <paramref name="readHydraulicLocationConfigurationDatabaseSettings"/>.
+        /// Updates the <see cref="HydraulicBoundaryData.HydraulicLocationConfigurationDatabase"/> and its dependent data with the
+        /// <paramref name="readHydraulicLocationConfigurationSettings"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryData">The hydraulic boundary data to update the settings for.</param>
-        /// <param name="readHydraulicLocationConfigurationDatabaseSettings">The read hydraulic location configuration database
-        /// settings to update with.</param>
+        /// <param name="hydraulicBoundaryData">The hydraulic boundary data to update the hydraulic location configuration
+        /// database for.</param>
+        /// <param name="readHydraulicLocationConfigurationSettings">The read hydraulic location configuration settings to
+        /// update with.</param>
         /// <param name="usePreprocessorClosure">Indicator whether to use the preprocessor closure.</param>
         /// <param name="hlcdFilePath">The file path of the hydraulic location configuration database.</param>
         /// <returns>All objects that have been affected by the update.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryData"/> or
         /// <paramref name="hlcdFilePath"/> is <c>null</c>.</exception>
         IEnumerable<IObservable> Update(HydraulicBoundaryData hydraulicBoundaryData,
-                                        ReadHydraulicLocationConfigurationDatabaseSettings readHydraulicLocationConfigurationDatabaseSettings,
+                                        ReadHydraulicLocationConfigurationSettings readHydraulicLocationConfigurationSettings,
                                         bool usePreprocessorClosure,
                                         string hlcdFilePath);
     }

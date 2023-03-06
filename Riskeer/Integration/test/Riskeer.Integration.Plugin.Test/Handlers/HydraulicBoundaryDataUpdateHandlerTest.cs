@@ -704,8 +704,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 ReadHydraulicLocationConfigurationDatabaseTestFactory.CreateWithConfigurationSettings(readHydraulicBoundaryDatabase.TrackId);
 
             // Precondition
-            Assert.IsNotNull(readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings);
-            Assert.AreEqual(1, readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings.Count());
+            Assert.IsNotNull(readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationSettings);
+            Assert.AreEqual(1, readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationSettings.Count());
 
             // Call
             void Call()
@@ -722,19 +722,18 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             TestHelper.AssertLogMessagesCount(Call, 0);
 
             HydraulicLocationConfigurationDatabase actualDatabase = hydraulicBoundaryData.HydraulicLocationConfigurationDatabase;
-            ReadHydraulicLocationConfigurationDatabaseSettings readDatabase = readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings
-                                                                                                                        .Single();
+            ReadHydraulicLocationConfigurationSettings readSettings = readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationSettings.Single();
 
             Assert.AreEqual(hlcdFilePath, actualDatabase.FilePath);
-            Assert.AreEqual(readDatabase.ScenarioName, actualDatabase.ScenarioName);
-            Assert.AreEqual(readDatabase.Year, actualDatabase.Year);
-            Assert.AreEqual(readDatabase.Scope, actualDatabase.Scope);
-            Assert.AreEqual(readDatabase.SeaLevel, actualDatabase.SeaLevel);
-            Assert.AreEqual(readDatabase.RiverDischarge, actualDatabase.RiverDischarge);
-            Assert.AreEqual(readDatabase.LakeLevel, actualDatabase.LakeLevel);
-            Assert.AreEqual(readDatabase.WindDirection, actualDatabase.WindDirection);
-            Assert.AreEqual(readDatabase.WindSpeed, actualDatabase.WindSpeed);
-            Assert.AreEqual(readDatabase.Comment, actualDatabase.Comment);
+            Assert.AreEqual(readSettings.ScenarioName, actualDatabase.ScenarioName);
+            Assert.AreEqual(readSettings.Year, actualDatabase.Year);
+            Assert.AreEqual(readSettings.Scope, actualDatabase.Scope);
+            Assert.AreEqual(readSettings.SeaLevel, actualDatabase.SeaLevel);
+            Assert.AreEqual(readSettings.RiverDischarge, actualDatabase.RiverDischarge);
+            Assert.AreEqual(readSettings.LakeLevel, actualDatabase.LakeLevel);
+            Assert.AreEqual(readSettings.WindDirection, actualDatabase.WindDirection);
+            Assert.AreEqual(readSettings.WindSpeed, actualDatabase.WindSpeed);
+            Assert.AreEqual(readSettings.Comment, actualDatabase.Comment);
             Assert.AreEqual(readHydraulicLocationConfigurationDatabase.ReadTracks.First().UsePreprocessorClosure, actualDatabase.UsePreprocessorClosure);
         }
 
@@ -758,7 +757,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(readHydraulicBoundaryDatabase.TrackId);
 
             // Precondition
-            Assert.IsNull(readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings);
+            Assert.IsNull(readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationSettings);
 
             // Call
             void Call()
@@ -1038,13 +1037,13 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         private static IEnumerable<TestCaseData> GetInvalidReadHydraulicBoundaryDatabaseConfigurations()
         {
             yield return new TestCaseData(ReadHydraulicLocationConfigurationDatabaseTestFactory.CreateWithConfigurationSettings(
-                                              Enumerable.Empty<ReadHydraulicLocationConfigurationDatabaseSettings>(), 1))
+                                              Enumerable.Empty<ReadHydraulicLocationConfigurationSettings>(), 1))
                 .SetName("ReadHydraulicLocationConfigurationDatabaseSettingsEmpty");
             yield return new TestCaseData(ReadHydraulicLocationConfigurationDatabaseTestFactory.CreateWithConfigurationSettings(
                                               new[]
                                               {
-                                                  ReadHydraulicLocationConfigurationDatabaseSettingsTestFactory.Create(),
-                                                  ReadHydraulicLocationConfigurationDatabaseSettingsTestFactory.Create()
+                                                  ReadHydraulicLocationConfigurationSettingsTestFactory.Create(),
+                                                  ReadHydraulicLocationConfigurationSettingsTestFactory.Create()
                                               }, 1))
                 .SetName("ReadHydraulicLocationConfigurationDatabaseSettingsMultipleItems");
         }

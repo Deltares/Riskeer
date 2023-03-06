@@ -26,7 +26,7 @@ using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
 {
     [TestFixture]
-    public class ReadHydraulicLocationConfigurationDatabaseSettingsTest
+    public class ReadHydraulicLocationConfigurationSettingsTest
     {
         [Test]
         public void Constructor_WithArgumentsNull_ExpectedValues()
@@ -36,8 +36,8 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
             int year = random.Next();
 
             // Call
-            var settings = new ReadHydraulicLocationConfigurationDatabaseSettings(null, year, null, null, null,
-                                                                                  null, null, null, null);
+            var settings = new ReadHydraulicLocationConfigurationSettings(null, year, null, null, null,
+                                                                          null, null, null, null);
 
             // Assert
             Assert.IsNull(settings.ScenarioName);
@@ -67,9 +67,9 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
             const string comment = "Comment";
 
             // Call
-            var settings = new ReadHydraulicLocationConfigurationDatabaseSettings(scenarioName, year, scope,
-                                                                                  seaLevel, riverDischarge, lakeLevel,
-                                                                                  windDirection, windSpeed, comment);
+            var settings = new ReadHydraulicLocationConfigurationSettings(scenarioName, year, scope,
+                                                                          seaLevel, riverDischarge, lakeLevel,
+                                                                          windDirection, windSpeed, comment);
 
             // Assert
             Assert.AreEqual(scenarioName, settings.ScenarioName);

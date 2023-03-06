@@ -94,9 +94,9 @@ namespace Riskeer.Integration.IO.Importers
             }
 
             ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = readHydraulicLocationConfigurationDatabaseResult.Items.Single();
-            IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> hydraulicLocationConfigurationDatabaseSettings =
-                readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings;
-            if (hydraulicLocationConfigurationDatabaseSettings != null && hydraulicLocationConfigurationDatabaseSettings.Count() != 1)
+            IEnumerable<ReadHydraulicLocationConfigurationSettings> readHydraulicLocationConfigurationSettings =
+                readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationSettings;
+            if (readHydraulicLocationConfigurationSettings != null && readHydraulicLocationConfigurationSettings.Count() != 1)
             {
                 Log.Error(BuildErrorMessage(hlcdFilePath, Resources.HydraulicBoundaryDataImporter_Hlcd_Invalid_number_of_ScenarioInformation_entries));
                 return false;

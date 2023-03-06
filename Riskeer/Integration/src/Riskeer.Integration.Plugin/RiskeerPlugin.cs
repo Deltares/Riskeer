@@ -2483,7 +2483,7 @@ namespace Riskeer.Integration.Plugin
                             }
                         }
                     });
-                
+
                 builder.AddImportItem(RiskeerFormsResources.HydraulicBoundaryData_Connect_To_Different_Hlcd,
                                       RiskeerFormsResources.HydraulicBoundaryData_Connect_To_Different_Hlcd_ToolTip,
                                       RiskeerCommonFormsResources.DatabaseIcon)
@@ -2509,7 +2509,7 @@ namespace Riskeer.Integration.Plugin
                           .AddPropertiesItem()
                           .Build();
         }
-        
+
         private string GetNewFolderPath(string filePath, string newFolderPath)
         {
             return Path.Combine(newFolderPath, Path.GetFileName(filePath));

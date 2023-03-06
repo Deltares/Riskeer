@@ -125,7 +125,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var handler = new HydraulicLocationConfigurationDatabaseUpdateHandler(CreateAssessmentSectionWithHydraulicBoundaryDatabases());
 
             // Call
-            void Call() => handler.Update(null, ReadHydraulicLocationConfigurationDatabaseSettingsTestFactory.Create(), false, "");
+            void Call() => handler.Update(null, ReadHydraulicLocationConfigurationSettingsTestFactory.Create(), false, "");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -139,7 +139,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var handler = new HydraulicLocationConfigurationDatabaseUpdateHandler(CreateAssessmentSectionWithHydraulicBoundaryDatabases());
 
             // Call
-            void Call() => handler.Update(new HydraulicBoundaryData(), ReadHydraulicLocationConfigurationDatabaseSettingsTestFactory.Create(), false, null);
+            void Call() => handler.Update(new HydraulicBoundaryData(), ReadHydraulicLocationConfigurationSettingsTestFactory.Create(), false, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -184,7 +184,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             const string hlcdFilePath = "some/file/path";
             var handler = new HydraulicLocationConfigurationDatabaseUpdateHandler(CreateAssessmentSectionWithHydraulicBoundaryDatabases());
             var hydraulicBoundaryData = new HydraulicBoundaryData();
-            ReadHydraulicLocationConfigurationDatabaseSettings readSettings = ReadHydraulicLocationConfigurationDatabaseSettingsTestFactory.Create();
+            ReadHydraulicLocationConfigurationSettings readSettings = ReadHydraulicLocationConfigurationSettingsTestFactory.Create();
             bool usePreprocessorClosure = new Random(21).NextBoolean();
 
             // Call

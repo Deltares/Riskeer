@@ -113,26 +113,26 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// <summary>
         /// Reads the hydraulic location configuration settings from the database.
         /// </summary>
-        /// <returns>A collection of <see cref="ReadHydraulicLocationConfigurationDatabaseSettings"/> as found in the database.</returns>
+        /// <returns>A collection of <see cref="ReadHydraulicLocationConfigurationSettings"/> as found in the database.</returns>
         /// <exception cref="SQLiteException">Thrown when the database query failed.</exception>
         /// <exception cref="ConversionException">Thrown when the database returned incorrect values for required properties.</exception>
-        private IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> ReadConfigurationSettings()
+        private IEnumerable<ReadHydraulicLocationConfigurationSettings> ReadConfigurationSettings()
         {
-            var readSettings = new Collection<ReadHydraulicLocationConfigurationDatabaseSettings>();
+            var readSettings = new Collection<ReadHydraulicLocationConfigurationSettings>();
 
             using (IDataReader dataReader = CreateDataReader(HydraulicLocationConfigurationDatabaseQueryBuilder.GetScenarioInformationQuery()))
             {
                 while (MoveNext(dataReader))
                 {
-                    readSettings.Add(new ReadHydraulicLocationConfigurationDatabaseSettings(dataReader.Read<string>(ScenarioInformationTableDefinitions.ScenarioName),
-                                                                                            dataReader.Read<int>(ScenarioInformationTableDefinitions.Year),
-                                                                                            dataReader.Read<string>(ScenarioInformationTableDefinitions.Scope),
-                                                                                            dataReader.Read<string>(ScenarioInformationTableDefinitions.SeaLevel),
-                                                                                            dataReader.Read<string>(ScenarioInformationTableDefinitions.RiverDischarge),
-                                                                                            dataReader.Read<string>(ScenarioInformationTableDefinitions.LakeLevel),
-                                                                                            dataReader.Read<string>(ScenarioInformationTableDefinitions.WindDirection),
-                                                                                            dataReader.Read<string>(ScenarioInformationTableDefinitions.WindSpeed),
-                                                                                            dataReader.Read<string>(ScenarioInformationTableDefinitions.Comment)));
+                    readSettings.Add(new ReadHydraulicLocationConfigurationSettings(dataReader.Read<string>(ScenarioInformationTableDefinitions.ScenarioName),
+                                                                                    dataReader.Read<int>(ScenarioInformationTableDefinitions.Year),
+                                                                                    dataReader.Read<string>(ScenarioInformationTableDefinitions.Scope),
+                                                                                    dataReader.Read<string>(ScenarioInformationTableDefinitions.SeaLevel),
+                                                                                    dataReader.Read<string>(ScenarioInformationTableDefinitions.RiverDischarge),
+                                                                                    dataReader.Read<string>(ScenarioInformationTableDefinitions.LakeLevel),
+                                                                                    dataReader.Read<string>(ScenarioInformationTableDefinitions.WindDirection),
+                                                                                    dataReader.Read<string>(ScenarioInformationTableDefinitions.WindSpeed),
+                                                                                    dataReader.Read<string>(ScenarioInformationTableDefinitions.Comment)));
                 }
             }
 

@@ -37,7 +37,7 @@ namespace Riskeer.Integration.Plugin.Test.Helpers
         {
             // Call
             TestDelegate call = () => HydraulicLocationConfigurationDatabaseUpdateHelper.UpdateHydraulicLocationConfigurationDatabase(
-                null, ReadHydraulicLocationConfigurationDatabaseSettingsTestFactory.Create(), false, "");
+                null, ReadHydraulicLocationConfigurationSettingsTestFactory.Create(), false, "");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -49,7 +49,7 @@ namespace Riskeer.Integration.Plugin.Test.Helpers
         {
             // Call
             TestDelegate call = () => HydraulicLocationConfigurationDatabaseUpdateHelper.UpdateHydraulicLocationConfigurationDatabase(
-                new HydraulicLocationConfigurationDatabase(), ReadHydraulicLocationConfigurationDatabaseSettingsTestFactory.Create(), false, null);
+                new HydraulicLocationConfigurationDatabase(), ReadHydraulicLocationConfigurationSettingsTestFactory.Create(), false, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -92,26 +92,26 @@ namespace Riskeer.Integration.Plugin.Test.Helpers
             // Setup
             const string filePath = "some/file/path";
             var hydraulicLocationConfigurationDatabase = new HydraulicLocationConfigurationDatabase();
-            ReadHydraulicLocationConfigurationDatabaseSettings readDatabase = ReadHydraulicLocationConfigurationDatabaseSettingsTestFactory.Create();
+            ReadHydraulicLocationConfigurationSettings readSettings = ReadHydraulicLocationConfigurationSettingsTestFactory.Create();
             bool usePreprocessorClosure = new Random(21).NextBoolean();
 
             // Call
             Action call = () => HydraulicLocationConfigurationDatabaseUpdateHelper.UpdateHydraulicLocationConfigurationDatabase(
-                hydraulicLocationConfigurationDatabase, readDatabase, usePreprocessorClosure, filePath);
+                hydraulicLocationConfigurationDatabase, readSettings, usePreprocessorClosure, filePath);
 
             // Assert
             TestHelper.AssertLogMessagesCount(call, 0);
 
             Assert.AreEqual(filePath, hydraulicLocationConfigurationDatabase.FilePath);
-            Assert.AreEqual(readDatabase.ScenarioName, hydraulicLocationConfigurationDatabase.ScenarioName);
-            Assert.AreEqual(readDatabase.Year, hydraulicLocationConfigurationDatabase.Year);
-            Assert.AreEqual(readDatabase.Scope, hydraulicLocationConfigurationDatabase.Scope);
-            Assert.AreEqual(readDatabase.SeaLevel, hydraulicLocationConfigurationDatabase.SeaLevel);
-            Assert.AreEqual(readDatabase.RiverDischarge, hydraulicLocationConfigurationDatabase.RiverDischarge);
-            Assert.AreEqual(readDatabase.LakeLevel, hydraulicLocationConfigurationDatabase.LakeLevel);
-            Assert.AreEqual(readDatabase.WindDirection, hydraulicLocationConfigurationDatabase.WindDirection);
-            Assert.AreEqual(readDatabase.WindSpeed, hydraulicLocationConfigurationDatabase.WindSpeed);
-            Assert.AreEqual(readDatabase.Comment, hydraulicLocationConfigurationDatabase.Comment);
+            Assert.AreEqual(readSettings.ScenarioName, hydraulicLocationConfigurationDatabase.ScenarioName);
+            Assert.AreEqual(readSettings.Year, hydraulicLocationConfigurationDatabase.Year);
+            Assert.AreEqual(readSettings.Scope, hydraulicLocationConfigurationDatabase.Scope);
+            Assert.AreEqual(readSettings.SeaLevel, hydraulicLocationConfigurationDatabase.SeaLevel);
+            Assert.AreEqual(readSettings.RiverDischarge, hydraulicLocationConfigurationDatabase.RiverDischarge);
+            Assert.AreEqual(readSettings.LakeLevel, hydraulicLocationConfigurationDatabase.LakeLevel);
+            Assert.AreEqual(readSettings.WindDirection, hydraulicLocationConfigurationDatabase.WindDirection);
+            Assert.AreEqual(readSettings.WindSpeed, hydraulicLocationConfigurationDatabase.WindSpeed);
+            Assert.AreEqual(readSettings.Comment, hydraulicLocationConfigurationDatabase.Comment);
             Assert.AreEqual(usePreprocessorClosure, hydraulicLocationConfigurationDatabase.UsePreprocessorClosure);
         }
     }
