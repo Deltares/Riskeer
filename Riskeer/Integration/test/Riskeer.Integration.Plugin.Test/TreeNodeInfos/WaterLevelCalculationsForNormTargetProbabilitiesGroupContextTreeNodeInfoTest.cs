@@ -59,7 +59,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
     {
         private const int contextMenuRunWaterLevelCalculationsIndex = 2;
         private const int contextMenuClearIllustrationPointsIndex = 4;
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
+
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
+        private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -348,8 +351,9 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         {
             // Setup
             IAssessmentSection assessmentSection = new AssessmentSectionStub();
-            assessmentSection.HydraulicBoundaryData.FilePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryData)), "complete.sqlite");
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData);
+
+            assessmentSection.HydraulicBoundaryData.FilePath = validHrdFilePath;
+            assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.FilePath = validHlcdFilePath;
 
             var nodeData = new WaterLevelCalculationsForNormTargetProbabilitiesGroupContext(new ObservableList<HydraulicBoundaryLocation>(),
                                                                                             assessmentSection);
@@ -476,7 +480,11 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             {
                 HydraulicBoundaryData =
                 {
-                    FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite")
+                    FilePath = validHrdFilePath,
+                    HydraulicLocationConfigurationSettings =
+                    {
+                        FilePath = validHlcdFilePath
+                    }
                 },
                 FailureMechanismContribution =
                 {
@@ -484,8 +492,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     SignalFloodingProbability = signalFloodingProbability
                 }
             };
-
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData);
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
