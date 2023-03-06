@@ -24,7 +24,6 @@ using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
-using Riskeer.Common.Data.TestUtil;
 
 namespace Riskeer.Common.Service.Test
 {
@@ -79,12 +78,15 @@ namespace Riskeer.Common.Service.Test
         public void Validate_HydraulicBoundaryDataLinkedToExistingDatabaseFileWithoutSettings_ReturnsErrorMessage()
         {
             // Setup
+            string invalidSettingsSchemaPath = Path.Combine(testDataPath, "invalidSettingsSchema");
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = Path.Combine(testDataPath, "invalidSettingsSchema", "complete.sqlite")
+                FilePath = Path.Combine(invalidSettingsSchemaPath, "complete.sqlite"),
+                HydraulicLocationConfigurationSettings =
+                {
+                    FilePath = Path.Combine(invalidSettingsSchemaPath, "hlcd.sqlite")
+                }
             };
-
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryData);
 
             // Call
             string message = HydraulicBoundaryDataConnectionValidator.Validate(hydraulicBoundaryData);
@@ -98,12 +100,16 @@ namespace Riskeer.Common.Service.Test
         public void Validate_UsePreprocessorClosureTrueWithoutPreprocessorClosureDatabase_ReturnsMessageWithError()
         {
             // Setup
+            string withoutPreprocessorClosurePath = Path.Combine(testDataPath, "withoutPreprocessorClosure");
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = Path.Combine(testDataPath, "withoutPreprocessorClosure", "complete.sqlite")
+                FilePath = Path.Combine(withoutPreprocessorClosurePath, "complete.sqlite"),
+                HydraulicLocationConfigurationSettings =
+                {
+                    FilePath = Path.Combine(withoutPreprocessorClosurePath, "hlcd.sqlite"),
+                    UsePreprocessorClosure = true
+                }
             };
-
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryData, true);
 
             // Call
             string message = HydraulicBoundaryDataConnectionValidator.Validate(hydraulicBoundaryData);
@@ -122,10 +128,13 @@ namespace Riskeer.Common.Service.Test
             // Setup
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = Path.Combine(testDataPath, "complete.sqlite")
+                FilePath = Path.Combine(testDataPath, "complete.sqlite"),
+                HydraulicLocationConfigurationSettings =
+                {
+                    FilePath = Path.Combine(testDataPath, "hlcd.sqlite"),
+                    UsePreprocessorClosure = usePreprocessorClosure
+                }
             };
-
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryData, usePreprocessorClosure);
 
             // Call
             string message = HydraulicBoundaryDataConnectionValidator.Validate(hydraulicBoundaryData);
