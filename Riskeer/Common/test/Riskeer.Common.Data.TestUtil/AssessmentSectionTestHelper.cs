@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.IO;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
@@ -114,7 +115,10 @@ namespace Riskeer.Common.Data.TestUtil
 
             if (filePath != null)
             {
-                HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryData, usePreprocessorClosure);
+                HydraulicLocationConfigurationSettings hydraulicLocationConfigurationSettings = hydraulicBoundaryData.HydraulicLocationConfigurationSettings;
+
+                hydraulicLocationConfigurationSettings.FilePath = Path.Combine(Path.GetDirectoryName(filePath), "hlcd.sqlite");
+                hydraulicLocationConfigurationSettings.UsePreprocessorClosure = usePreprocessorClosure;
             }
 
             return hydraulicBoundaryData;

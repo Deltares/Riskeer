@@ -43,7 +43,8 @@ namespace Riskeer.Common.Forms.Test.GuiServices
     public class HydraulicBoundaryLocationCalculationGuiServiceTest : NUnitFormTest
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
-        private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
 
         [Test]
         public void Constructor_ViewParentNull_ThrowsArgumentNullException()
@@ -121,7 +122,7 @@ namespace Riskeer.Common.Forms.Test.GuiServices
             mocks.ReplayAll();
 
             assessmentSection.HydraulicBoundaryData.FilePath = "Does not exist";
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData);
+            assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.FilePath = "Does not exist";
 
             var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
@@ -147,8 +148,8 @@ namespace Riskeer.Common.Forms.Test.GuiServices
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             mocks.ReplayAll();
 
-            assessmentSection.HydraulicBoundaryData.FilePath = validFilePath;
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData);
+            assessmentSection.HydraulicBoundaryData.FilePath = validHrdFilePath;
+            assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.FilePath = validHlcdFilePath;
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -190,8 +191,8 @@ namespace Riskeer.Common.Forms.Test.GuiServices
                              .Return(new TestDesignWaterLevelCalculator());
             mocks.ReplayAll();
 
-            assessmentSection.HydraulicBoundaryData.FilePath = validFilePath;
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData);
+            assessmentSection.HydraulicBoundaryData.FilePath = validHrdFilePath;
+            assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.FilePath = validHlcdFilePath;
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -279,7 +280,7 @@ namespace Riskeer.Common.Forms.Test.GuiServices
             mocks.ReplayAll();
 
             assessmentSection.HydraulicBoundaryData.FilePath = "Does not exist";
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData);
+            assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.FilePath = "Does not exist";
 
             var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
@@ -304,8 +305,8 @@ namespace Riskeer.Common.Forms.Test.GuiServices
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             mocks.ReplayAll();
 
-            assessmentSection.HydraulicBoundaryData.FilePath = validFilePath;
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData);
+            assessmentSection.HydraulicBoundaryData.FilePath = validHrdFilePath;
+            assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.FilePath = validHlcdFilePath;
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -347,8 +348,8 @@ namespace Riskeer.Common.Forms.Test.GuiServices
                              .Return(new TestWaveHeightCalculator());
             mocks.ReplayAll();
 
-            assessmentSection.HydraulicBoundaryData.FilePath = validFilePath;
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData);
+            assessmentSection.HydraulicBoundaryData.FilePath = validHrdFilePath;
+            assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.FilePath = validHlcdFilePath;
 
             DialogBoxHandler = (name, wnd) =>
             {
