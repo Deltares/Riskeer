@@ -25,15 +25,15 @@ using Riskeer.Integration.Plugin.Helpers;
 namespace Riskeer.Integration.Plugin.Test.Helpers
 {
     [TestFixture]
-    public class HydraulicLocationConfigurationSettingsConstantsTest
+    public class HydraulicLocationConfigurationDatabaseConstantsTest
     {
         [Test]
         public void Constants_ExpectedValues()
         {
-            Assert.AreEqual("WBI2017", HydraulicLocationConfigurationSettingsConstants.MandatoryConfigurationPropertyDefaultValue);
-            Assert.AreEqual(2023, HydraulicLocationConfigurationSettingsConstants.YearDefaultValue);
-            Assert.AreEqual("Conform WBI2017", HydraulicLocationConfigurationSettingsConstants.OptionalConfigurationPropertyDefaultValue);
-            Assert.AreEqual("Gegenereerd door Riskeer (conform WBI2017)", HydraulicLocationConfigurationSettingsConstants.AdditionalInformationConfigurationPropertyValue);
+            Assert.AreEqual("WBI2017", HydraulicLocationConfigurationDatabaseConstants.MandatoryConfigurationPropertyDefaultValue);
+            Assert.AreEqual(2023, HydraulicLocationConfigurationDatabaseConstants.YearDefaultValue);
+            Assert.AreEqual("Conform WBI2017", HydraulicLocationConfigurationDatabaseConstants.OptionalConfigurationPropertyDefaultValue);
+            Assert.AreEqual("Gegenereerd door Riskeer (conform WBI2017)", HydraulicLocationConfigurationDatabaseConstants.AdditionalInformationConfigurationPropertyValue);
         }
     }
 }

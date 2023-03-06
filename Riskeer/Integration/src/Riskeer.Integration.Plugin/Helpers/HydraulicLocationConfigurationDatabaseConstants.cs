@@ -26,7 +26,7 @@ namespace Riskeer.Integration.Plugin.Helpers
     /// <summary>
     /// Constants for dealing with <see cref="HydraulicLocationConfigurationDatabase"/>.
     /// </summary>
-    internal static class HydraulicLocationConfigurationSettingsConstants
+    internal static class HydraulicLocationConfigurationDatabaseConstants
     {
         internal const string MandatoryConfigurationPropertyDefaultValue = "WBI2017";
         internal const int YearDefaultValue = 2023;
