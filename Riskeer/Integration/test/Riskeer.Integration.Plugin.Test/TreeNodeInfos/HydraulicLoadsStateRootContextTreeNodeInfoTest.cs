@@ -240,19 +240,21 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             using (var treeView = new TreeViewControl())
             {
                 string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Forms, "HydraulicBoundaryData");
-                string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
                 {
                     HydraulicBoundaryData =
                     {
-                        FilePath = validFilePath
+                        FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite"),
+                        HydraulicLocationConfigurationSettings =
+                        {
+                            FilePath = Path.Combine(testDataPath, "hlcd.sqlite")
+                        }
                     }
                 };
                 assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
                 {
                     new TestHydraulicBoundaryLocation()
                 });
-                HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData);
 
                 var context = new HydraulicLoadsStateRootContext(assessmentSection);
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();

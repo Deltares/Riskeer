@@ -593,15 +593,17 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void GivenValidCalculations_WhenCalculatingAllFromContextMenu_ThenAllCalculationsScheduled()
         {
             // Given
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 HydraulicBoundaryData =
                 {
-                    FilePath = validFilePath
+                    FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite"),
+                    HydraulicLocationConfigurationSettings =
+                    {
+                        FilePath = Path.Combine(testDataPath, "hlcd.sqlite")
+                    }
                 }
             };
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData);
 
             SetHydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilities(assessmentSection);
 
