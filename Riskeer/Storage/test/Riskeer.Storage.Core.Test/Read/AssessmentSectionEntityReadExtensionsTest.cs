@@ -106,7 +106,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.IsNull(hydraulicBoundaryData.FilePath);
             Assert.IsNull(hydraulicBoundaryData.Version);
 
-            HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase = hydraulicBoundaryData.HydraulicLocationConfigurationSettings;
+            HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase = hydraulicBoundaryData.HydraulicLocationConfigurationDatabase;
             Assert.IsNull(hydraulicLocationConfigurationDatabase.FilePath);
             Assert.IsNull(hydraulicLocationConfigurationDatabase.ScenarioName);
             Assert.AreEqual(0, hydraulicLocationConfigurationDatabase.Year);
@@ -350,7 +350,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(hydraulicBoundaryDatabaseEntity.FilePath, hydraulicBoundaryData.FilePath);
             Assert.AreEqual(hydraulicBoundaryDatabaseEntity.Version, hydraulicBoundaryData.Version);
 
-            HydraulicLocationConfigurationDatabase database = hydraulicBoundaryData.HydraulicLocationConfigurationSettings;
+            HydraulicLocationConfigurationDatabase database = hydraulicBoundaryData.HydraulicLocationConfigurationDatabase;
             Assert.AreEqual(hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsFilePath, database.FilePath);
             Assert.AreEqual(hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsScenarioName, database.ScenarioName);
             Assert.AreEqual(hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsYear, database.Year);

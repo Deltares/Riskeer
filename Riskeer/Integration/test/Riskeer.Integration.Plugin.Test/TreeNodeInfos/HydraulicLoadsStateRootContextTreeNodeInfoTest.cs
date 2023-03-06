@@ -245,7 +245,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     HydraulicBoundaryData =
                     {
                         FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite"),
-                        HydraulicLocationConfigurationSettings =
+                        HydraulicLocationConfigurationDatabase =
                         {
                             FilePath = Path.Combine(testDataPath, "hlcd.sqlite")
                         }

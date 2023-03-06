@@ -80,8 +80,8 @@ namespace Riskeer.Integration.Service.Comparers
                                                                         HydraulicBoundaryData otherHydraulicBoundaryData)
         {
             return hydraulicBoundaryData.Version == otherHydraulicBoundaryData.Version
-                   && AreHydraulicLocationConfigurationDatabasesEquivalent(hydraulicBoundaryData.HydraulicLocationConfigurationSettings,
-                                                                           otherHydraulicBoundaryData.HydraulicLocationConfigurationSettings);
+                   && AreHydraulicLocationConfigurationDatabasesEquivalent(hydraulicBoundaryData.HydraulicLocationConfigurationDatabase,
+                                                                           otherHydraulicBoundaryData.HydraulicLocationConfigurationDatabase);
         }
 
         private static bool AreHydraulicLocationConfigurationDatabasesEquivalent(HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase,

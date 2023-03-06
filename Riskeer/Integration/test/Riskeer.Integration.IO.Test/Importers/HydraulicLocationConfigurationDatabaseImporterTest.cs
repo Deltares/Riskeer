@@ -220,7 +220,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             handler.Stub(h => h.InquireConfirmation()).Return(true);
             mocks.ReplayAll();
 
-            var importer = new HydraulicLocationConfigurationDatabaseImporter(hydraulicBoundaryData.HydraulicLocationConfigurationSettings, handler,
+            var importer = new HydraulicLocationConfigurationDatabaseImporter(hydraulicBoundaryData.HydraulicLocationConfigurationDatabase, handler,
                                                                               hydraulicBoundaryData, validHlcdFilePath);
 
             // Call
@@ -246,7 +246,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             handler.Expect(h => h.InquireConfirmation()).Return(true);
             mocks.ReplayAll();
 
-            var importer = new HydraulicLocationConfigurationDatabaseImporter(hydraulicBoundaryData.HydraulicLocationConfigurationSettings,
+            var importer = new HydraulicLocationConfigurationDatabaseImporter(hydraulicBoundaryData.HydraulicLocationConfigurationDatabase,
                                                                               handler, hydraulicBoundaryData, filePath);
 
             // Call
@@ -403,7 +403,7 @@ namespace Riskeer.Integration.IO.Test.Importers
                    .Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
-            var importer = new HydraulicLocationConfigurationDatabaseImporter(hydraulicBoundaryData.HydraulicLocationConfigurationSettings, handler,
+            var importer = new HydraulicLocationConfigurationDatabaseImporter(hydraulicBoundaryData.HydraulicLocationConfigurationDatabase, handler,
                                                                               hydraulicBoundaryData, filePath);
 
             // Call
@@ -436,7 +436,7 @@ namespace Riskeer.Integration.IO.Test.Importers
                    .Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
-            var importer = new HydraulicLocationConfigurationDatabaseImporter(hydraulicBoundaryData.HydraulicLocationConfigurationSettings, handler,
+            var importer = new HydraulicLocationConfigurationDatabaseImporter(hydraulicBoundaryData.HydraulicLocationConfigurationDatabase, handler,
                                                                               hydraulicBoundaryData, filePath);
 
             // Call
@@ -474,7 +474,7 @@ namespace Riskeer.Integration.IO.Test.Importers
                    });
             mocks.ReplayAll();
 
-            var importer = new HydraulicLocationConfigurationDatabaseImporter(hydraulicBoundaryData.HydraulicLocationConfigurationSettings, handler,
+            var importer = new HydraulicLocationConfigurationDatabaseImporter(hydraulicBoundaryData.HydraulicLocationConfigurationDatabase, handler,
                                                                               hydraulicBoundaryData, validHlcdFilePath);
 
             // Precondition
@@ -492,7 +492,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             return new HydraulicBoundaryData
             {
                 FilePath = filePath,
-                HydraulicLocationConfigurationSettings =
+                HydraulicLocationConfigurationDatabase =
                 {
                     FilePath = filePath,
                     ScenarioName = "ScenarioName",

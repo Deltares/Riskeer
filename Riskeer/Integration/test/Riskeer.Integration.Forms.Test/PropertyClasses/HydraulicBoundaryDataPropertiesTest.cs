@@ -106,7 +106,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var properties = new HydraulicBoundaryDataProperties(hydraulicBoundaryData);
 
             // Assert
-            HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase = hydraulicBoundaryData.HydraulicLocationConfigurationSettings;
+            HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase = hydraulicBoundaryData.HydraulicLocationConfigurationDatabase;
             Assert.AreEqual(hydraulicLocationConfigurationDatabase.FilePath, properties.HlcdFilePath);
             Assert.AreEqual(hydraulicLocationConfigurationDatabase.ScenarioName, properties.ScenarioName);
             Assert.AreEqual(hydraulicLocationConfigurationDatabase.Year.ToString(), properties.Year);
@@ -212,7 +212,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         {
             return new HydraulicBoundaryData
             {
-                HydraulicLocationConfigurationSettings =
+                HydraulicLocationConfigurationDatabase =
                 {
                     FilePath = "hlcd.sqlite"
                 }

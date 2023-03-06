@@ -85,7 +85,7 @@ namespace Riskeer.Integration.IO.Importers
             }
 
             if (hydraulicBoundaryData.HydraulicBoundaryDatabases.Any()
-                && Path.GetDirectoryName(hydraulicBoundaryData.HydraulicLocationConfigurationSettings.FilePath) != Path.GetDirectoryName(FilePath))
+                && Path.GetDirectoryName(hydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath) != Path.GetDirectoryName(FilePath))
             {
                 Log.Error(BuildErrorMessage(FilePath, Resources.HydraulicLocationConfigurationDatabaseImporter_Hlcd_not_in_same_folder_as_Hrd));
                 return false;

@@ -117,11 +117,11 @@ namespace Riskeer.Integration.Service.Test.Comparers
         {
             // Setup
             AssessmentSection assessmentSection = CreateAssessmentSection();
-            ConfigureHydraulicLocationConfigurationDatabase(assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings,
+            ConfigureHydraulicLocationConfigurationDatabase(assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase,
                                                             "FilePath1");
 
             AssessmentSection otherAssessmentSection = CreateAssessmentSection();
-            ConfigureHydraulicLocationConfigurationDatabase(otherAssessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings,
+            ConfigureHydraulicLocationConfigurationDatabase(otherAssessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase,
                                                             "FilePath2");
 
             var comparer = new AssessmentSectionMergeComparer();
@@ -139,7 +139,7 @@ namespace Riskeer.Integration.Service.Test.Comparers
         {
             // Setup
             AssessmentSection assessmentSection = CreateAssessmentSection();
-            ConfigureHydraulicLocationConfigurationDatabase(assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings);
+            ConfigureHydraulicLocationConfigurationDatabase(assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase);
 
             var comparer = new AssessmentSectionMergeComparer();
 
@@ -224,7 +224,7 @@ namespace Riskeer.Integration.Service.Test.Comparers
             foreach (ChangePropertyData<HydraulicLocationConfigurationDatabase> changeSingleDataProperty in ChangeSingleDataOfHydraulicLocationConfigurationSettings())
             {
                 AssessmentSection assessmentSection = CreateAssessmentSection();
-                changeSingleDataProperty.ActionToChangeProperty(assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings);
+                changeSingleDataProperty.ActionToChangeProperty(assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase);
                 yield return new TestCaseData(assessmentSection).SetName(changeSingleDataProperty.PropertyName);
             }
         }

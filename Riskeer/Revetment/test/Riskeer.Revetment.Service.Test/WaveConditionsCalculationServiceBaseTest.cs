@@ -834,7 +834,7 @@ namespace Riskeer.Revetment.Service.Test
             return new HydraulicBoundaryData
             {
                 FilePath = validHrdFilePath,
-                HydraulicLocationConfigurationSettings =
+                HydraulicLocationConfigurationDatabase =
                 {
                     FilePath = validHlcdFilePath
                 }
@@ -870,7 +870,7 @@ namespace Riskeer.Revetment.Service.Test
             var hydraulicBoundaryDataWithUsePreprocessorClosureTrue = new HydraulicBoundaryData
             {
                 FilePath = validHrdFilePath,
-                HydraulicLocationConfigurationSettings =
+                HydraulicLocationConfigurationDatabase =
                 {
                     FilePath = validHlcdFilePath,
                     UsePreprocessorClosure = true
@@ -881,7 +881,7 @@ namespace Riskeer.Revetment.Service.Test
             var hydraulicBoundaryDataWithUsePreprocessorClosureFalse = new HydraulicBoundaryData
             {
                 FilePath = validHrdFilePath,
-                HydraulicLocationConfigurationSettings =
+                HydraulicLocationConfigurationDatabase =
                 {
                     FilePath = validHlcdFilePath
                 }

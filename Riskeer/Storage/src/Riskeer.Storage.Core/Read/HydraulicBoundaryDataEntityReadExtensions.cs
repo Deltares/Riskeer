@@ -53,7 +53,7 @@ namespace Riskeer.Storage.Core.Read
             hydraulicBoundaryData.FilePath = entity.FilePath;
             hydraulicBoundaryData.Version = entity.Version;
 
-            HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase = hydraulicBoundaryData.HydraulicLocationConfigurationSettings;
+            HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase = hydraulicBoundaryData.HydraulicLocationConfigurationDatabase;
 
             hydraulicLocationConfigurationDatabase.FilePath = entity.HydraulicLocationConfigurationSettingsFilePath;
             hydraulicLocationConfigurationDatabase.ScenarioName = entity.HydraulicLocationConfigurationSettingsScenarioName;

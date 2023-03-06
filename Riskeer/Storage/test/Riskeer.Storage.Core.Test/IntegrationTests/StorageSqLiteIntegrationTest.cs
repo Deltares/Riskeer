@@ -1858,8 +1858,8 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             Assert.AreEqual(expectedHydraulicBoundaryData.Version, actualHydraulicBoundaryData.Version);
             Assert.AreEqual(expectedHydraulicBoundaryData.FilePath, actualHydraulicBoundaryData.FilePath);
 
-            AssertHydraulicLocationConfigurationDatabase(expectedHydraulicBoundaryData.HydraulicLocationConfigurationSettings,
-                                                         actualHydraulicBoundaryData.HydraulicLocationConfigurationSettings);
+            AssertHydraulicLocationConfigurationDatabase(expectedHydraulicBoundaryData.HydraulicLocationConfigurationDatabase,
+                                                         actualHydraulicBoundaryData.HydraulicLocationConfigurationDatabase);
 
             Assert.AreEqual(expectedHydraulicBoundaryData.Locations.Count, actualHydraulicBoundaryData.Locations.Count);
 

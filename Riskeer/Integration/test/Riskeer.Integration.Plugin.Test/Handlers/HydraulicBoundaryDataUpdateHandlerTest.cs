@@ -468,7 +468,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                     new TestHydraulicBoundaryLocation("old location 2"),
                     new TestHydraulicBoundaryLocation("old location 3")
                 },
-                HydraulicLocationConfigurationSettings =
+                HydraulicLocationConfigurationDatabase =
                 {
                     FilePath = hlcdFilePath
                 }
@@ -486,7 +486,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             // Assert
             CollectionAssert.IsEmpty(changedObjects);
             Assert.AreEqual(newHrdFilePath, hydraulicBoundaryData.FilePath);
-            Assert.AreEqual(hlcdFilePath, hydraulicBoundaryData.HydraulicLocationConfigurationSettings.FilePath);
+            Assert.AreEqual(hlcdFilePath, hydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath);
             Assert.AreEqual(readHydraulicBoundaryDatabase.Version, hydraulicBoundaryData.Version);
             AssertHydraulicBoundaryLocationsAndCalculations(locations, assessmentSection);
             mocks.VerifyAll();
@@ -589,7 +589,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             Assert.IsTrue(hydraulicBoundaryData.IsLinked());
             Assert.AreEqual(hrdFilePath, hydraulicBoundaryData.FilePath);
             Assert.AreEqual(readHydraulicBoundaryDatabase.Version, hydraulicBoundaryData.Version);
-            Assert.IsFalse(hydraulicBoundaryData.HydraulicLocationConfigurationSettings.UsePreprocessorClosure);
+            Assert.IsFalse(hydraulicBoundaryData.HydraulicLocationConfigurationDatabase.UsePreprocessorClosure);
 
             AssertHydraulicBoundaryLocations(readHydraulicBoundaryDatabase.Locations, readHydraulicLocationConfigurationDatabase,
                                              hydraulicBoundaryData.Locations, readHydraulicBoundaryDatabase.TrackId);
@@ -721,7 +721,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             // Assert
             TestHelper.AssertLogMessagesCount(Call, 0);
 
-            HydraulicLocationConfigurationDatabase actualDatabase = hydraulicBoundaryData.HydraulicLocationConfigurationSettings;
+            HydraulicLocationConfigurationDatabase actualDatabase = hydraulicBoundaryData.HydraulicLocationConfigurationDatabase;
             ReadHydraulicLocationConfigurationDatabaseSettings readDatabase = readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings
                                                                                                                         .Single();
 
@@ -776,7 +776,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                                            "conform WBI2017 gebruikt voor de HLCD bestandsinformatie.";
             TestHelper.AssertLogMessageWithLevelIsGenerated(Call, Tuple.Create(expectedMessage, LogLevelConstant.Warn), 1);
 
-            HydraulicLocationConfigurationDatabase actualDatabase = hydraulicBoundaryData.HydraulicLocationConfigurationSettings;
+            HydraulicLocationConfigurationDatabase actualDatabase = hydraulicBoundaryData.HydraulicLocationConfigurationDatabase;
             Assert.AreEqual(hlcdFilePath, actualDatabase.FilePath);
             Assert.AreEqual("WBI2017", actualDatabase.ScenarioName);
             Assert.AreEqual(2023, actualDatabase.Year);

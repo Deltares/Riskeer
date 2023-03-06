@@ -346,7 +346,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 HydraulicBoundaryData =
                 {
                     FilePath = "invalidFilePath",
-                    HydraulicLocationConfigurationSettings =
+                    HydraulicLocationConfigurationDatabase =
                     {
                         FilePath = "invalidFilePath"
                     }
@@ -401,7 +401,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 HydraulicBoundaryData =
                 {
                     FilePath = validHrdFilePath,
-                    HydraulicLocationConfigurationSettings =
+                    HydraulicLocationConfigurationDatabase =
                     {
                         FilePath = validHlcdFilePath
                     }
@@ -567,7 +567,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 HydraulicBoundaryData =
                 {
                     FilePath = validHrdFilePath,
-                    HydraulicLocationConfigurationSettings =
+                    HydraulicLocationConfigurationDatabase =
                     {
                         FilePath = validHlcdFilePath
                     }
@@ -650,7 +650,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 HydraulicBoundaryData =
                 {
                     FilePath = validHrdFilePath,
-                    HydraulicLocationConfigurationSettings =
+                    HydraulicLocationConfigurationDatabase =
                     {
                         FilePath = validHlcdFilePath,
                         UsePreprocessorClosure = true
@@ -738,7 +738,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 HydraulicBoundaryData =
                 {
                     FilePath = validHrdFilePath,
-                    HydraulicLocationConfigurationSettings =
+                    HydraulicLocationConfigurationDatabase =
                     {
                         FilePath = validHlcdFilePath
                     }

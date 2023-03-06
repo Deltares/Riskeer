@@ -97,7 +97,7 @@ namespace Riskeer.Storage.Core.TestUtil
                 }
             };
 
-            ConfigureHydraulicLocationConfigurationDatabase(assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings);
+            ConfigureHydraulicLocationConfigurationDatabase(assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase);
 
             assessmentSection.ReferenceLine.SetGeometry(new[]
             {

@@ -200,7 +200,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             {
                 HydraulicBoundaryData =
                 {
-                    HydraulicLocationConfigurationSettings =
+                    HydraulicLocationConfigurationDatabase =
                     {
                         FilePath = "hlcd.sqlite"
                     }

@@ -87,7 +87,7 @@ namespace Riskeer.Integration.Plugin.Handlers
             }
 
             HydraulicLocationConfigurationSettingsUpdateHelper.SetHydraulicLocationConfigurationSettings(
-                hydraulicBoundaryData.HydraulicLocationConfigurationSettings,
+                hydraulicBoundaryData.HydraulicLocationConfigurationDatabase,
                 readHydraulicLocationConfigurationDatabaseSettings, usePreprocessorClosure, hlcdFilePath);
 
             var changedObjects = new List<IObservable>

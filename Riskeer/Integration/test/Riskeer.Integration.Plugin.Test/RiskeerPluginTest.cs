@@ -131,7 +131,7 @@ namespace Riskeer.Integration.Plugin.Test
                     HydraulicBoundaryData =
                     {
                         FilePath = hrdFilePath,
-                        HydraulicLocationConfigurationSettings =
+                        HydraulicLocationConfigurationDatabase =
                         {
                             FilePath = hlcdFilePath
                         }

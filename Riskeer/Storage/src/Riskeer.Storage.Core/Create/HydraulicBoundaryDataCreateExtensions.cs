@@ -47,7 +47,7 @@ namespace Riskeer.Storage.Core.Create
                 throw new ArgumentNullException(nameof(hydraulicBoundaryData));
             }
 
-            HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase = hydraulicBoundaryData.HydraulicLocationConfigurationSettings;
+            HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase = hydraulicBoundaryData.HydraulicLocationConfigurationDatabase;
             
             return new HydraulicBoundaryDatabaseEntity
             {

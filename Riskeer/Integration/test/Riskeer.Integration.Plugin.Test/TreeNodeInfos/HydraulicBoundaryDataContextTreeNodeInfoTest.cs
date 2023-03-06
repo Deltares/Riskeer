@@ -142,7 +142,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             if (hydraulicBoundaryDataLinked)
             {
-                assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.FilePath = "hlcd.sqlite";
+                assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath = "hlcd.sqlite";
             }
 
             var context = new HydraulicBoundaryDataContext(assessmentSection.HydraulicBoundaryData, assessmentSection);
@@ -202,7 +202,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             if (hydraulicBoundaryDataLinked)
             {
-                assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.FilePath = "hlcd.sqlite";
+                assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath = "hlcd.sqlite";
             }
 
             var context = new HydraulicBoundaryDataContext(assessmentSection.HydraulicBoundaryData,
@@ -263,7 +263,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.FilePath = "hlcd.sqlite";
+            assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath = "hlcd.sqlite";
 
             var context = new HydraulicBoundaryDataContext(assessmentSection.HydraulicBoundaryData, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
@@ -598,7 +598,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 HydraulicBoundaryData =
                 {
                     FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite"),
-                    HydraulicLocationConfigurationSettings =
+                    HydraulicLocationConfigurationDatabase =
                     {
                         FilePath = Path.Combine(testDataPath, "hlcd.sqlite")
                     }

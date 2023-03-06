@@ -163,7 +163,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                                            "conform WBI2017 gebruikt voor de HLCD bestandsinformatie.";
             TestHelper.AssertLogMessageWithLevelIsGenerated(Call, Tuple.Create(expectedMessage, LogLevelConstant.Warn), 1);
 
-            HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase = hydraulicBoundaryData.HydraulicLocationConfigurationSettings;
+            HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase = hydraulicBoundaryData.HydraulicLocationConfigurationDatabase;
             Assert.AreEqual(hlcdFilePath, hydraulicLocationConfigurationDatabase.FilePath);
             Assert.AreEqual("WBI2017", hydraulicLocationConfigurationDatabase.ScenarioName);
             Assert.AreEqual(2023, hydraulicLocationConfigurationDatabase.Year);
@@ -193,7 +193,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             // Assert
             TestHelper.AssertLogMessagesCount(Call, 0);
 
-            HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase = hydraulicBoundaryData.HydraulicLocationConfigurationSettings;
+            HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase = hydraulicBoundaryData.HydraulicLocationConfigurationDatabase;
             Assert.AreEqual(hlcdFilePath, hydraulicLocationConfigurationDatabase.FilePath);
             Assert.AreEqual(readSettings.ScenarioName, hydraulicLocationConfigurationDatabase.ScenarioName);
             Assert.AreEqual(readSettings.Year, hydraulicLocationConfigurationDatabase.Year);

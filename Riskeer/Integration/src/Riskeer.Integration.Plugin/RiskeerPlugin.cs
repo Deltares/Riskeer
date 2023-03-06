@@ -569,7 +569,7 @@ namespace Riskeer.Integration.Plugin
                 FileFilterGenerator = new FileFilterGenerator(Resources.HydraulicDatabase_FilePath_Extension,
                                                               Resources.HydraulicLocationConfigurationDatabase_file_filter_Description),
                 CreateFileImporter = (context, filePath) => new HydraulicLocationConfigurationDatabaseImporter(
-                    context.WrappedData.HydraulicLocationConfigurationSettings,
+                    context.WrappedData.HydraulicLocationConfigurationDatabase,
                     new HydraulicLocationConfigurationDatabaseUpdateHandler(context.AssessmentSection),
                     context.WrappedData,
                     filePath)
@@ -1197,8 +1197,8 @@ namespace Riskeer.Integration.Plugin
             {
                 string validationProblem = HydraulicBoundaryDataHelper.ValidateFilesForCalculation(
                     assessmentSection.HydraulicBoundaryData.FilePath,
-                    assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.FilePath,
-                    assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings.UsePreprocessorClosure);
+                    assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath,
+                    assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase.UsePreprocessorClosure);
 
                 if (validationProblem != null)
                 {
@@ -2536,7 +2536,7 @@ namespace Riskeer.Integration.Plugin
                 {
                     nodeData.WrappedData.HydraulicBoundaryDatabases.Add(new HydraulicBoundaryDatabase
                     {
-                        FilePath = Path.Combine(Path.GetDirectoryName(nodeData.WrappedData.HydraulicLocationConfigurationSettings.FilePath), "Test.sqlite")
+                        FilePath = Path.Combine(Path.GetDirectoryName(nodeData.WrappedData.HydraulicLocationConfigurationDatabase.FilePath), "Test.sqlite")
                     });
 
                     nodeData.WrappedData.NotifyObservers();
