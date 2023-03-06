@@ -59,6 +59,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
 
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryData));
         private static readonly string validHrdFilePath = Path.Combine(testDataPath, "complete.sqlite");
+        private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
 
         private Form testForm;
         private MockRepository mocks;
@@ -441,9 +442,12 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             // Setup
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = validHrdFilePath
+                FilePath = validHrdFilePath,
+                HydraulicLocationConfigurationSettings =
+                {
+                    FilePath = validHlcdFilePath
+                }
             };
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryData);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.Id).Return("1");
@@ -499,9 +503,12 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             // Setup
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = validHrdFilePath
+                FilePath = validHrdFilePath,
+                HydraulicLocationConfigurationSettings =
+                {
+                    FilePath = validHlcdFilePath
+                }
             };
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryData);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.Id).Return("1");
@@ -623,9 +630,13 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             const double targetProbability = 0.01;
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = validHrdFilePath
+                FilePath = validHrdFilePath,
+                HydraulicLocationConfigurationSettings =
+                {
+                    FilePath = validHlcdFilePath,
+                    UsePreprocessorClosure = usePreprocessorClosure
+                }
             };
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryData, usePreprocessorClosure);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.Id).Return("1");

@@ -56,7 +56,8 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
         private const int contextMenuCalculateAllIndex = 4;
 
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Forms, "HydraulicBoundaryData");
-        private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -361,10 +362,13 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             {
                 HydraulicBoundaryData =
                 {
-                    FilePath = validFilePath
+                    FilePath = validHrdFilePath,
+                    HydraulicLocationConfigurationSettings =
+                    {
+                        FilePath = validHlcdFilePath
+                    }
                 }
             };
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData);
 
             var groupContext = new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(new ObservableList<DuneLocationCalculationsForTargetProbability>(),
                                                                                                          failureMechanism,
@@ -504,10 +508,13 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             {
                 HydraulicBoundaryData =
                 {
-                    FilePath = validFilePath
+                    FilePath = validHrdFilePath,
+                    HydraulicLocationConfigurationSettings =
+                    {
+                        FilePath = validHlcdFilePath
+                    }
                 }
             };
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData);
 
             var groupContext = new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(new ObservableList<DuneLocationCalculationsForTargetProbability>(),
                                                                                                          failureMechanism,
@@ -550,10 +557,13 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             {
                 HydraulicBoundaryData =
                 {
-                    FilePath = validFilePath
+                    FilePath = validHrdFilePath,
+                    HydraulicLocationConfigurationSettings =
+                    {
+                        FilePath = validHlcdFilePath
+                    }
                 }
             };
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData);
 
             var failureMechanism = new DuneErosionFailureMechanism
             {

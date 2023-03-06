@@ -63,7 +63,8 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
         private TreeNodeInfo info;
 
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryData));
-        private static readonly string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "complete.sqlite");
+        private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
 
         [SetUp]
         public void SetUp()
@@ -337,10 +338,13 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             // Setup
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = validFilePath,
-                Version = "1.0"
+                FilePath = validHrdFilePath,
+                Version = "1.0",
+                HydraulicLocationConfigurationSettings =
+                {
+                    FilePath = validHlcdFilePath
+                }
             };
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryData);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
@@ -407,9 +411,12 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
 
                 var hydraulicBoundaryData = new HydraulicBoundaryData
                 {
-                    FilePath = validFilePath
+                    FilePath = validHrdFilePath,
+                    HydraulicLocationConfigurationSettings =
+                    {
+                        FilePath = validHlcdFilePath
+                    }
                 };
-                HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryData);
 
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
@@ -508,9 +515,13 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
 
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = validFilePath
+                FilePath = validHrdFilePath,
+                HydraulicLocationConfigurationSettings =
+                {
+                    FilePath = validHlcdFilePath,
+                    UsePreprocessorClosure = usePreprocessorClosure
+                }
             };
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryData, usePreprocessorClosure);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
