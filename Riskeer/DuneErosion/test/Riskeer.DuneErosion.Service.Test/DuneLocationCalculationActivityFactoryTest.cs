@@ -45,7 +45,8 @@ namespace Riskeer.DuneErosion.Service.Test
     public class DuneLocationCalculationActivityFactoryTest
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
-        private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
 
         [Test]
         public void CreateCalculationActivitiesForCalculations_CalculationsNull_ThrowsArgumentNullException()
@@ -211,17 +212,18 @@ namespace Riskeer.DuneErosion.Service.Test
 
         private static AssessmentSectionStub CreateAssessmentSection(bool usePreprocessorClosure)
         {
-            var assessmentSection = new AssessmentSectionStub
+            return new AssessmentSectionStub
             {
                 HydraulicBoundaryData =
                 {
-                    FilePath = validFilePath
+                    FilePath = validHrdFilePath,
+                    HydraulicLocationConfigurationSettings =
+                    {
+                        FilePath = validHlcdFilePath,
+                        UsePreprocessorClosure = usePreprocessorClosure
+                    }
                 }
             };
-
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData, usePreprocessorClosure);
-
-            return assessmentSection;
         }
 
         private static void AssertDuneLocationCalculationActivity(Activity activity,
