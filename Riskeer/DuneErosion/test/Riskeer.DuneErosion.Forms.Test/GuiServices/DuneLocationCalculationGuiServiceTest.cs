@@ -29,7 +29,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
-using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Service.TestUtil;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Data.TestUtil;
@@ -44,7 +43,8 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
     public class DuneLocationCalculationGuiServiceTest
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryData));
-        private static readonly string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "complete.sqlite");
+        private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
 
         [Test]
         public void Constructor_ViewParentNull_ThrowArgumentNullException()
@@ -134,9 +134,12 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
             // Setup
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = validFilePath
+                FilePath = validHrdFilePath,
+                HydraulicLocationConfigurationSettings =
+                {
+                    FilePath = validHlcdFilePath
+                }
             };
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryData);
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -164,10 +167,13 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
             // Setup
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = validFilePath
+                FilePath = validHrdFilePath,
+                HydraulicLocationConfigurationSettings =
+                {
+                    FilePath = validHlcdFilePath,
+                    UsePreprocessorClosure = true
+                }
             };
-
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryData, true);
 
             const string calculationIdentifier = "1/100";
             const string duneLocationName = "duneLocationName";

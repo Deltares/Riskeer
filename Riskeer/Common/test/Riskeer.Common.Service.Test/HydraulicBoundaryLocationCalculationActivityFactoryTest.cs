@@ -43,7 +43,8 @@ namespace Riskeer.Common.Service.Test
     public class HydraulicBoundaryLocationCalculationActivityFactoryTest
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
-        private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
 
         [Test]
         public void CreateWaveHeightCalculationActivities_CalculationsNull_ThrowsArgumentNullException()
@@ -267,8 +268,11 @@ namespace Riskeer.Common.Service.Test
 
         private static void ConfigureAssessmentSection(IAssessmentSection assessmentSection, bool usePreprocessorClosure)
         {
-            assessmentSection.HydraulicBoundaryData.FilePath = validFilePath;
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData, usePreprocessorClosure);
+            assessmentSection.HydraulicBoundaryData.FilePath = validHrdFilePath;
+
+            HydraulicLocationConfigurationSettings hydraulicLocationConfigurationSettings = assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationSettings;
+            hydraulicLocationConfigurationSettings.FilePath = validHlcdFilePath;
+            hydraulicLocationConfigurationSettings.UsePreprocessorClosure = usePreprocessorClosure;
         }
     }
 }
