@@ -1038,14 +1038,14 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         {
             yield return new TestCaseData(ReadHydraulicLocationConfigurationDatabaseTestFactory.CreateWithConfigurationSettings(
                                               Enumerable.Empty<ReadHydraulicLocationConfigurationSettings>(), 1))
-                .SetName("ReadHydraulicLocationConfigurationDatabaseSettingsEmpty");
+                .SetName("ReadHydraulicLocationConfigurationSettingsEmpty");
             yield return new TestCaseData(ReadHydraulicLocationConfigurationDatabaseTestFactory.CreateWithConfigurationSettings(
                                               new[]
                                               {
                                                   ReadHydraulicLocationConfigurationSettingsTestFactory.Create(),
                                                   ReadHydraulicLocationConfigurationSettingsTestFactory.Create()
                                               }, 1))
-                .SetName("ReadHydraulicLocationConfigurationDatabaseSettingsMultipleItems");
+                .SetName("ReadHydraulicLocationConfigurationSettingsMultipleItems");
         }
     }
 }

@@ -99,8 +99,8 @@ namespace Riskeer.Integration.Service.Test.Comparers
         }
 
         [Test]
-        [TestCaseSource(nameof(GetUnequivalentAssessmentSectionWithoutHydraulicLocationConfigurationSettingsTestCases))]
-        public void Compare_AssessmentSectionsNotEquivalentAndWithoutHydraulicLocationConfigurationSettings_ReturnsFalse(AssessmentSection otherAssessmentSection)
+        [TestCaseSource(nameof(GetUnequivalentAssessmentSectionWithoutHydraulicLocationConfigurationDatabaseTestCases))]
+        public void Compare_AssessmentSectionsNotEquivalentAndWithoutHydraulicLocationConfigurationDatabase_ReturnsFalse(AssessmentSection otherAssessmentSection)
         {
             // Setup
             var comparer = new AssessmentSectionMergeComparer();
@@ -113,7 +113,7 @@ namespace Riskeer.Integration.Service.Test.Comparers
         }
 
         [Test]
-        public void Compare_AssessmentSectionWithEquivalentHydraulicLocationConfigurationSettings_ReturnsTrue()
+        public void Compare_AssessmentSectionWithEquivalentHydraulicLocationConfigurationDatabase_ReturnsTrue()
         {
             // Setup
             AssessmentSection assessmentSection = CreateAssessmentSection();
@@ -134,8 +134,8 @@ namespace Riskeer.Integration.Service.Test.Comparers
         }
 
         [Test]
-        [TestCaseSource(nameof(GetAssessmentSectionWithNotEquivalentHydraulicLocationConfigurationSettingsTestCases))]
-        public void Compare_AssessmentSectionWithNotEquivalentHydraulicLocationConfigurationSettings_ReturnsFalse(AssessmentSection otherAssessmentSection)
+        [TestCaseSource(nameof(GetAssessmentSectionWithNotEquivalentHydraulicLocationConfigurationDatabaseTestCases))]
+        public void Compare_AssessmentSectionWithNotEquivalentHydraulicLocationConfigurationDatabase_ReturnsFalse(AssessmentSection otherAssessmentSection)
         {
             // Setup
             AssessmentSection assessmentSection = CreateAssessmentSection();
@@ -178,7 +178,7 @@ namespace Riskeer.Integration.Service.Test.Comparers
             hydraulicLocationConfigurationDatabase.UsePreprocessorClosure = false;
         }
 
-        private static IEnumerable<TestCaseData> GetUnequivalentAssessmentSectionWithoutHydraulicLocationConfigurationSettingsTestCases()
+        private static IEnumerable<TestCaseData> GetUnequivalentAssessmentSectionWithoutHydraulicLocationConfigurationDatabaseTestCases()
         {
             foreach (ChangePropertyData<AssessmentSection> changeSingleDataProperty in ChangeSingleDataPropertiesOfAssessmentSection())
             {
@@ -219,9 +219,9 @@ namespace Riskeer.Integration.Service.Test.Comparers
                                                                    "Composition");
         }
 
-        private static IEnumerable<TestCaseData> GetAssessmentSectionWithNotEquivalentHydraulicLocationConfigurationSettingsTestCases()
+        private static IEnumerable<TestCaseData> GetAssessmentSectionWithNotEquivalentHydraulicLocationConfigurationDatabaseTestCases()
         {
-            foreach (ChangePropertyData<HydraulicLocationConfigurationDatabase> changeSingleDataProperty in ChangeSingleDataOfHydraulicLocationConfigurationSettings())
+            foreach (ChangePropertyData<HydraulicLocationConfigurationDatabase> changeSingleDataProperty in ChangeSingleDataOfHydraulicLocationConfigurationDatabase())
             {
                 AssessmentSection assessmentSection = CreateAssessmentSection();
                 changeSingleDataProperty.ActionToChangeProperty(assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase);
@@ -229,7 +229,7 @@ namespace Riskeer.Integration.Service.Test.Comparers
             }
         }
 
-        private static IEnumerable<ChangePropertyData<HydraulicLocationConfigurationDatabase>> ChangeSingleDataOfHydraulicLocationConfigurationSettings()
+        private static IEnumerable<ChangePropertyData<HydraulicLocationConfigurationDatabase>> ChangeSingleDataOfHydraulicLocationConfigurationDatabase()
         {
             yield return new ChangePropertyData<HydraulicLocationConfigurationDatabase>(hydraulicLocationConfigurationDatabase =>
                                                                                         {

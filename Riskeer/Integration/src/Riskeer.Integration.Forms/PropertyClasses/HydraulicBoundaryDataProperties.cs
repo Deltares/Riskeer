@@ -62,8 +62,8 @@ namespace Riskeer.Integration.Forms.PropertyClasses
 
         [PropertyOrder(hlcdFilePathPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_FilePath_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_FilePath_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationDatabase_FilePath_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationDatabase_FilePath_Description))]
         public string HlcdFilePath
         {
             get
@@ -74,8 +74,8 @@ namespace Riskeer.Integration.Forms.PropertyClasses
 
         [PropertyOrder(scenarioNamePropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_ScenarioName_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_ScenarioName_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationDatabase_ScenarioName_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationDatabase_ScenarioName_Description))]
         public string ScenarioName
         {
             get
@@ -86,8 +86,8 @@ namespace Riskeer.Integration.Forms.PropertyClasses
 
         [PropertyOrder(yearPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_Year_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_Year_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationDatabase_Year_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationDatabase_Year_Description))]
         public string Year
         {
             get
@@ -98,8 +98,8 @@ namespace Riskeer.Integration.Forms.PropertyClasses
 
         [PropertyOrder(scopePropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_Scope_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_Scope_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationDatabase_Scope_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationDatabase_Scope_Description))]
         public string Scope
         {
             get
@@ -110,8 +110,8 @@ namespace Riskeer.Integration.Forms.PropertyClasses
 
         [PropertyOrder(seaLevelPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_SeaLevel_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_SeaLevel_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationDatabase_SeaLevel_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationDatabase_SeaLevel_Description))]
         public string SeaLevel
         {
             get
@@ -123,8 +123,8 @@ namespace Riskeer.Integration.Forms.PropertyClasses
 
         [PropertyOrder(riverDischargePropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_RiverDischarge_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_RiverDischarge_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationDatabase_RiverDischarge_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationDatabase_RiverDischarge_Description))]
         public string RiverDischarge
         {
             get
@@ -136,8 +136,8 @@ namespace Riskeer.Integration.Forms.PropertyClasses
 
         [PropertyOrder(lakeLevelPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_LakeLevel_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_LakeLevel_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationDatabase_LakeLevel_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationDatabase_LakeLevel_Description))]
         public string LakeLevel
         {
             get
@@ -149,8 +149,8 @@ namespace Riskeer.Integration.Forms.PropertyClasses
 
         [PropertyOrder(windDirectionPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_WindDirection_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_WindDirection_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationDatabase_WindDirection_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationDatabase_WindDirection_Description))]
         public string WindDirection
         {
             get
@@ -162,8 +162,8 @@ namespace Riskeer.Integration.Forms.PropertyClasses
 
         [PropertyOrder(windSpeedPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_WindSpeed_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_WindSpeed_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationDatabase_WindSpeed_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationDatabase_WindSpeed_Description))]
         public string WindSpeed
         {
             get
@@ -175,8 +175,8 @@ namespace Riskeer.Integration.Forms.PropertyClasses
 
         [PropertyOrder(commentPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_Comment_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_Comment_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationDatabase_Comment_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationDatabase_Comment_Description))]
         public string Comment
         {
             get
