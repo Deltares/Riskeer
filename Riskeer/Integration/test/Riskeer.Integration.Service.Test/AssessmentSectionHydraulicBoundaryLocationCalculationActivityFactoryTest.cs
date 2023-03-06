@@ -43,7 +43,8 @@ namespace Riskeer.Integration.Service.Test
     public class AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactoryTest
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
-        private static readonly string validFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
+        private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
 
         [Test]
         public void CreateHydraulicBoundaryLocationCalculationActivities_AssessmentSectionNull_ThrowsArgumentNullException()
@@ -390,14 +391,18 @@ namespace Riskeer.Integration.Service.Test
 
         private static AssessmentSectionStub CreateAssessmentSection(bool usePreprocessorClosure)
         {
-            var assessmentSection = new AssessmentSectionStub();
-
-            assessmentSection.HydraulicBoundaryData.FilePath = validFilePath;
-
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData,
-                                                                                      usePreprocessorClosure);
-
-            return assessmentSection;
+            return new AssessmentSectionStub
+            {
+                HydraulicBoundaryData =
+                {
+                    FilePath = validHrdFilePath,
+                    HydraulicLocationConfigurationSettings =
+                    {
+                        FilePath = validHlcdFilePath,
+                        UsePreprocessorClosure = usePreprocessorClosure
+                    }
+                }
+            };
         }
 
         private static void AssertDesignWaterLevelCalculationActivity(Activity activity,

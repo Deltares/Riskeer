@@ -292,16 +292,17 @@ namespace Riskeer.Integration.Service.Test
 
         private static AssessmentSection CreateAssessmentSection()
         {
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.DikeAndDune)
+            return new AssessmentSection(AssessmentSectionComposition.DikeAndDune)
             {
                 HydraulicBoundaryData =
                 {
-                    FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite")
+                    FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite"),
+                    HydraulicLocationConfigurationSettings =
+                    {
+                        FilePath = Path.Combine(testDataPath, "hlcd.sqlite")
+                    }
                 }
             };
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData);
-
-            return assessmentSection;
         }
 
         private static void AddSemiProbabilisticPipingCalculationScenario(AssessmentSection assessmentSection,
