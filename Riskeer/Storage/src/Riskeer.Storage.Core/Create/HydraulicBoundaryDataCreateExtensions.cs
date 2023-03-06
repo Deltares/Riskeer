@@ -48,7 +48,7 @@ namespace Riskeer.Storage.Core.Create
             }
 
             HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase = hydraulicBoundaryData.HydraulicLocationConfigurationDatabase;
-            
+
             return new HydraulicBoundaryDatabaseEntity
             {
                 FilePath = hydraulicBoundaryData.FilePath.DeepClone(),

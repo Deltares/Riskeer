@@ -65,7 +65,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
         private const int contextMenuCalculateIndex = 9;
         private const int contextMenuClearIndex = 11;
         private const int contextMenuClearIllustrationPointsIndex = 12;
-        
+
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryData));
         private static readonly string validHrdFilePath = Path.Combine(testDataPath, "complete.sqlite");
         private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
