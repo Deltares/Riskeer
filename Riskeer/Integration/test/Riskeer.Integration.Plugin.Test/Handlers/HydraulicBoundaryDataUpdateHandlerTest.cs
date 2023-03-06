@@ -453,23 +453,27 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var duneLocationsReplacementHandler = mocks.StrictMock<IDuneLocationsReplacementHandler>();
             mocks.ReplayAll();
 
-            const string newHrdFilePath = "some/file/path";
-            const string hlcdFilePath = "some/hlcd/FilePath";
+            const string newHrdFilePath = "hrdFileNew.sqlite";
+            const string hlcdFilePath = "hlcd.sqlite";
             AssessmentSection assessmentSection = CreateAssessmentSection();
             var handler = new HydraulicBoundaryDataUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
             ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = "old/file/path",
+                FilePath = "hrdFileCurrent.sqlite",
                 Version = readHydraulicBoundaryDatabase.Version,
                 Locations =
                 {
                     new TestHydraulicBoundaryLocation("old location 1"),
                     new TestHydraulicBoundaryLocation("old location 2"),
                     new TestHydraulicBoundaryLocation("old location 3")
+                },
+                HydraulicLocationConfigurationSettings =
+                {
+                    FilePath = hlcdFilePath
                 }
             };
-            HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryData);
+
             assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryData.Locations);
 
             HydraulicBoundaryLocation[] locations = hydraulicBoundaryData.Locations.ToArray();

@@ -50,7 +50,6 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.Structures;
-using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.Views;
@@ -119,7 +118,8 @@ namespace Riskeer.Integration.Plugin.Test
             mocks.ReplayAll();
 
             string testDataDir = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryData));
-            string testFilePath = Path.Combine(testDataDir, "complete.sqlite");
+            string hrdFilePath = Path.Combine(testDataDir, "complete.sqlite");
+            string hlcdFilePath = Path.Combine(testDataDir, "hlcd.sqlite");
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
             {
@@ -130,10 +130,14 @@ namespace Riskeer.Integration.Plugin.Test
                 {
                     HydraulicBoundaryData =
                     {
-                        FilePath = testFilePath
+                        FilePath = hrdFilePath,
+                        HydraulicLocationConfigurationSettings =
+                        {
+                            FilePath = hlcdFilePath
+                        }
                     }
                 };
-                HydraulicBoundaryDataTestHelper.SetHydraulicLocationConfigurationSettings(assessmentSection.HydraulicBoundaryData);
+
                 var project = new RiskeerProject(assessmentSection);
 
                 // When
