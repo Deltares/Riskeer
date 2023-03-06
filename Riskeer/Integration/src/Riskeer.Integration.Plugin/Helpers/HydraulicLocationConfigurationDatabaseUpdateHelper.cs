@@ -30,9 +30,9 @@ namespace Riskeer.Integration.Plugin.Helpers
     /// <summary>
     /// Helper class for updating <see cref="HydraulicLocationConfigurationDatabase"/> instances.
     /// </summary>
-    public static class HydraulicLocationConfigurationSettingsUpdateHelper
+    public static class HydraulicLocationConfigurationDatabaseUpdateHelper
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(HydraulicLocationConfigurationSettingsUpdateHelper));
+        private static readonly ILog log = LogManager.GetLogger(typeof(HydraulicLocationConfigurationDatabaseUpdateHelper));
 
         /// <summary>
         /// Updates the hydraulic location configuration database.
@@ -74,7 +74,7 @@ namespace Riskeer.Integration.Plugin.Helpers
             }
             else
             {
-                log.Warn(Resources.HydraulicLocationConfigurationSettingsUpdateHelper_ReadHydraulicLocationConfigurationDatabaseSettings_No_ScenarioInformation_entries_present);
+                log.Warn(Resources.HydraulicLocationConfigurationDatabaseUpdateHelper_ReadHydraulicLocationConfigurationDatabase_No_ScenarioInformation_entries_present);
 
                 hydraulicLocationConfigurationDatabase.FilePath = hlcdFilePath;
                 hydraulicLocationConfigurationDatabase.ScenarioName = HydraulicLocationConfigurationDatabaseConstants.MandatoryConfigurationPropertyDefaultValue;

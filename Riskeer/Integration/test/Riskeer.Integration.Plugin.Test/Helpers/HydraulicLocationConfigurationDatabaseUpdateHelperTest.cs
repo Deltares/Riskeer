@@ -30,13 +30,13 @@ using Riskeer.Integration.Plugin.Helpers;
 namespace Riskeer.Integration.Plugin.Test.Helpers
 {
     [TestFixture]
-    public class HydraulicLocationConfigurationSettingsUpdateHelperTest
+    public class HydraulicLocationConfigurationDatabaseUpdateHelperTest
     {
         [Test]
         public void UpdateHydraulicLocationConfigurationDatabase_HydraulicLocationConfigurationDatabaseNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => HydraulicLocationConfigurationSettingsUpdateHelper.UpdateHydraulicLocationConfigurationDatabase(
+            TestDelegate call = () => HydraulicLocationConfigurationDatabaseUpdateHelper.UpdateHydraulicLocationConfigurationDatabase(
                 null, ReadHydraulicLocationConfigurationDatabaseSettingsTestFactory.Create(), false, "");
 
             // Assert
@@ -48,7 +48,7 @@ namespace Riskeer.Integration.Plugin.Test.Helpers
         public void UpdateHydraulicLocationConfigurationDatabase_HlcdFilePathNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => HydraulicLocationConfigurationSettingsUpdateHelper.UpdateHydraulicLocationConfigurationDatabase(
+            TestDelegate call = () => HydraulicLocationConfigurationDatabaseUpdateHelper.UpdateHydraulicLocationConfigurationDatabase(
                 new HydraulicLocationConfigurationDatabase(), ReadHydraulicLocationConfigurationDatabaseSettingsTestFactory.Create(), false, null);
 
             // Assert
@@ -65,7 +65,7 @@ namespace Riskeer.Integration.Plugin.Test.Helpers
             bool usePreprocessorClosure = new Random(21).NextBoolean();
 
             // Call
-            Action call = () => HydraulicLocationConfigurationSettingsUpdateHelper.UpdateHydraulicLocationConfigurationDatabase(
+            Action call = () => HydraulicLocationConfigurationDatabaseUpdateHelper.UpdateHydraulicLocationConfigurationDatabase(
                 hydraulicLocationConfigurationDatabase, null, usePreprocessorClosure, filePath);
 
             // Assert
@@ -96,7 +96,7 @@ namespace Riskeer.Integration.Plugin.Test.Helpers
             bool usePreprocessorClosure = new Random(21).NextBoolean();
 
             // Call
-            Action call = () => HydraulicLocationConfigurationSettingsUpdateHelper.UpdateHydraulicLocationConfigurationDatabase(
+            Action call = () => HydraulicLocationConfigurationDatabaseUpdateHelper.UpdateHydraulicLocationConfigurationDatabase(
                 hydraulicLocationConfigurationDatabase, readDatabase, usePreprocessorClosure, filePath);
 
             // Assert

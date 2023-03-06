@@ -482,10 +482,10 @@ namespace Riskeer.Integration.Plugin.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De tabel &apos;ScenarioInformation&apos; in het HLCD bestand is niet aanwezig. Er worden standaardwaarden conform WBI2017 gebruikt voor de HLCD bestandsinformatie..
         /// </summary>
-        public static string HydraulicLocationConfigurationSettingsUpdateHelper_ReadHydraulicLocationConfigurationDatabaseSettings_No_ScenarioInformation_entries_present {
+        public static string HydraulicLocationConfigurationDatabaseUpdateHelper_ReadHydraulicLocationConfigurationDatabase_No_ScenarioInformation_entries_present {
             get {
-                return ResourceManager.GetString("HydraulicLocationConfigurationSettingsUpdateHelper_ReadHydraulicLocationConfigura" +
-                        "tionDatabaseSettings_No_ScenarioInformation_entries_present", resourceCulture);
+                return ResourceManager.GetString("HydraulicLocationConfigurationDatabaseUpdateHelper_ReadHydraulicLocationConfigura" +
+                        "tionDatabase_No_ScenarioInformation_entries_present", resourceCulture);
             }
         }
         
