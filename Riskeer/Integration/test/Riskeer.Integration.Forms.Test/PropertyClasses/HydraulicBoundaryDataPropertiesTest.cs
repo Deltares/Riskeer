@@ -106,17 +106,17 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var properties = new HydraulicBoundaryDataProperties(hydraulicBoundaryData);
 
             // Assert
-            HydraulicLocationConfigurationSettings configurationSettings = hydraulicBoundaryData.HydraulicLocationConfigurationSettings;
-            Assert.AreEqual(configurationSettings.FilePath, properties.HlcdFilePath);
-            Assert.AreEqual(configurationSettings.ScenarioName, properties.ScenarioName);
-            Assert.AreEqual(configurationSettings.Year.ToString(), properties.Year);
-            Assert.AreEqual(configurationSettings.Scope, properties.Scope);
-            Assert.AreEqual(configurationSettings.SeaLevel, properties.SeaLevel);
-            Assert.AreEqual(configurationSettings.RiverDischarge, properties.RiverDischarge);
-            Assert.AreEqual(configurationSettings.LakeLevel, properties.LakeLevel);
-            Assert.AreEqual(configurationSettings.WindDirection, properties.WindDirection);
-            Assert.AreEqual(configurationSettings.WindSpeed, properties.WindSpeed);
-            Assert.AreEqual(configurationSettings.Comment, properties.Comment);
+            HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase = hydraulicBoundaryData.HydraulicLocationConfigurationSettings;
+            Assert.AreEqual(hydraulicLocationConfigurationDatabase.FilePath, properties.HlcdFilePath);
+            Assert.AreEqual(hydraulicLocationConfigurationDatabase.ScenarioName, properties.ScenarioName);
+            Assert.AreEqual(hydraulicLocationConfigurationDatabase.Year.ToString(), properties.Year);
+            Assert.AreEqual(hydraulicLocationConfigurationDatabase.Scope, properties.Scope);
+            Assert.AreEqual(hydraulicLocationConfigurationDatabase.SeaLevel, properties.SeaLevel);
+            Assert.AreEqual(hydraulicLocationConfigurationDatabase.RiverDischarge, properties.RiverDischarge);
+            Assert.AreEqual(hydraulicLocationConfigurationDatabase.LakeLevel, properties.LakeLevel);
+            Assert.AreEqual(hydraulicLocationConfigurationDatabase.WindDirection, properties.WindDirection);
+            Assert.AreEqual(hydraulicLocationConfigurationDatabase.WindSpeed, properties.WindSpeed);
+            Assert.AreEqual(hydraulicLocationConfigurationDatabase.Comment, properties.Comment);
         }
 
         [Test]

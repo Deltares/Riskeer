@@ -40,7 +40,7 @@ namespace Riskeer.Integration.IO.Importers
     /// <summary>
     /// Importer for hydraulic location configuration database files.
     /// </summary>
-    public class HydraulicLocationConfigurationDatabaseImporter : FileImporterBase<HydraulicLocationConfigurationSettings>
+    public class HydraulicLocationConfigurationDatabaseImporter : FileImporterBase<HydraulicLocationConfigurationDatabase>
     {
         private const int numberOfSteps = 2;
         private readonly List<IObservable> changedObservables = new List<IObservable>();
@@ -50,12 +50,12 @@ namespace Riskeer.Integration.IO.Importers
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicLocationConfigurationDatabaseImporter"/>.
         /// </summary>
-        /// <param name="importTarget">The hydraulic location configuration settings to import to.</param>
-        /// <param name="updateHandler">The handler responsible for updating the <see cref="HydraulicLocationConfigurationSettings"/>.</param>
-        /// <param name="hydraulicBoundaryData">The hydraulic boundary data the settings belong to.</param>
+        /// <param name="importTarget">The hydraulic location configuration database to import to.</param>
+        /// <param name="updateHandler">The handler responsible for updating the <see cref="HydraulicLocationConfigurationDatabase"/>.</param>
+        /// <param name="hydraulicBoundaryData">The hydraulic boundary data the hydraulic location configuration database belongs to.</param>
         /// <param name="filePath">The file path of the hydraulic location configuration database to import from.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public HydraulicLocationConfigurationDatabaseImporter(HydraulicLocationConfigurationSettings importTarget,
+        public HydraulicLocationConfigurationDatabaseImporter(HydraulicLocationConfigurationDatabase importTarget,
                                                               IHydraulicLocationConfigurationDatabaseUpdateHandler updateHandler,
                                                               HydraulicBoundaryData hydraulicBoundaryData,
                                                               string filePath)

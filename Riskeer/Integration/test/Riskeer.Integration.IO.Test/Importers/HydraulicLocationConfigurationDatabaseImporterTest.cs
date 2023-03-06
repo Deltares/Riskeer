@@ -55,7 +55,7 @@ namespace Riskeer.Integration.IO.Test.Importers
         public void Constructor_UpdateHandlerNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(),
+            void Call() => new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationDatabase(),
                                                                               null, new HydraulicBoundaryData(),
                                                                               validHlcdFilePath);
 
@@ -73,7 +73,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             mocks.ReplayAll();
 
             // Call
-            void Call() => new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(),
+            void Call() => new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationDatabase(),
                                                                               handler, null, validHlcdFilePath);
 
             // Assert
@@ -90,11 +90,11 @@ namespace Riskeer.Integration.IO.Test.Importers
             mocks.ReplayAll();
 
             // Call
-            var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), handler,
+            var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationDatabase(), handler,
                                                                               new HydraulicBoundaryData(), validHlcdFilePath);
 
             // Assert
-            Assert.IsInstanceOf<FileImporterBase<HydraulicLocationConfigurationSettings>>(importer);
+            Assert.IsInstanceOf<FileImporterBase<HydraulicLocationConfigurationDatabase>>(importer);
             mocks.VerifyAll();
         }
 
@@ -112,7 +112,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             string pathToHlcdInDifferentDirectory = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.IO,
                                                                                             nameof(HydraulicBoundaryDataImporter)), "HLCD.sqlite");
 
-            var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), handler,
+            var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationDatabase(), handler,
                                                                               hydraulicBoundaryData, pathToHlcdInDifferentDirectory);
 
             // Call
@@ -138,7 +138,7 @@ namespace Riskeer.Integration.IO.Test.Importers
 
             HydraulicBoundaryData hydraulicBoundaryData = CreateHydraulicBoundaryData(validHrdFilePath);
 
-            var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), handler,
+            var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationDatabase(), handler,
                                                                               hydraulicBoundaryData, path);
 
             // Call
@@ -164,7 +164,7 @@ namespace Riskeer.Integration.IO.Test.Importers
 
             HydraulicBoundaryData hydraulicBoundaryData = CreateHydraulicBoundaryData(validHrdFilePath);
 
-            var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), handler,
+            var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationDatabase(), handler,
                                                                               hydraulicBoundaryData, path);
 
             // Call
@@ -192,7 +192,7 @@ namespace Riskeer.Integration.IO.Test.Importers
 
             HydraulicBoundaryData hydraulicBoundaryData = CreateHydraulicBoundaryData(validHrdFilePath);
 
-            var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), handler,
+            var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationDatabase(), handler,
                                                                               hydraulicBoundaryData, path);
 
             // Call
@@ -273,7 +273,7 @@ namespace Riskeer.Integration.IO.Test.Importers
 
             HydraulicBoundaryData hydraulicBoundaryData = CreateHydraulicBoundaryData(validHrdFilePath);
 
-            var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), handler,
+            var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationDatabase(), handler,
                                                                               hydraulicBoundaryData, validHlcdFilePath);
             importer.SetProgressChanged((description, step, steps) => progressChangeNotifications.Add(new ProgressNotification(description, step, steps)));
 
@@ -302,7 +302,7 @@ namespace Riskeer.Integration.IO.Test.Importers
 
             HydraulicBoundaryData hydraulicBoundaryData = CreateHydraulicBoundaryData(validHrdFilePath);
 
-            var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), handler,
+            var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationDatabase(), handler,
                                                                               hydraulicBoundaryData, validHlcdFilePath);
             importer.SetProgressChanged((description, currentStep, steps) =>
             {
@@ -332,7 +332,7 @@ namespace Riskeer.Integration.IO.Test.Importers
 
             HydraulicBoundaryData hydraulicBoundaryData = CreateHydraulicBoundaryData(validHrdFilePath);
 
-            var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), handler,
+            var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationDatabase(), handler,
                                                                               hydraulicBoundaryData, validHlcdFilePath);
             importer.SetProgressChanged((description, step, steps) =>
             {
@@ -366,7 +366,7 @@ namespace Riskeer.Integration.IO.Test.Importers
 
             HydraulicBoundaryData hydraulicBoundaryData = CreateHydraulicBoundaryData(validHrdFilePath);
 
-            var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), handler,
+            var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationDatabase(), handler,
                                                                               hydraulicBoundaryData, validHlcdFilePath);
 
             var importResult = true;
