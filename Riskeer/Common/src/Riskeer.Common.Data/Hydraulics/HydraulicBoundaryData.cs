@@ -33,7 +33,7 @@ namespace Riskeer.Common.Data.Hydraulics
         /// </summary>
         public HydraulicBoundaryData()
         {
-            HydraulicLocationConfigurationSettings = new HydraulicLocationConfigurationDatabase();
+            HydraulicLocationConfigurationDatabase = new HydraulicLocationConfigurationDatabase();
             HydraulicBoundaryDatabases = new ObservableList<HydraulicBoundaryDatabase>();
             Locations = new ObservableList<HydraulicBoundaryLocation>();
         }
@@ -51,7 +51,7 @@ namespace Riskeer.Common.Data.Hydraulics
         /// <summary>
         /// Gets the hydraulic location configuration database.
         /// </summary>
-        public HydraulicLocationConfigurationDatabase HydraulicLocationConfigurationSettings { get; }
+        public HydraulicLocationConfigurationDatabase HydraulicLocationConfigurationDatabase { get; }
 
         /// <summary>
         /// Gets the hydraulic boundary databases.
