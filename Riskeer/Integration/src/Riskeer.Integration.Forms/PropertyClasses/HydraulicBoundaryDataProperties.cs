@@ -68,7 +68,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.IsLinked() ? data.HydraulicLocationConfigurationDatabase.FilePath : string.Empty;
+                return data.HydraulicLocationConfigurationDatabase.FilePath ?? string.Empty;
             }
         }
 
@@ -80,7 +80,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.IsLinked() ? data.HydraulicLocationConfigurationDatabase.ScenarioName : string.Empty;
+                return data.HydraulicLocationConfigurationDatabase.ScenarioName ?? string.Empty;
             }
         }
 
@@ -104,7 +104,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.IsLinked() ? data.HydraulicLocationConfigurationDatabase.Scope : string.Empty;
+                return data.HydraulicLocationConfigurationDatabase.Scope ?? string.Empty;
             }
         }
 
@@ -116,8 +116,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         {
             get
             {
-                string seaLevel = data.HydraulicLocationConfigurationDatabase.SeaLevel;
-                return data.IsLinked() && seaLevel != null ? seaLevel : string.Empty;
+                return data.HydraulicLocationConfigurationDatabase.SeaLevel ?? string.Empty;
             }
         }
 
@@ -129,8 +128,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         {
             get
             {
-                string riverDischarge = data.HydraulicLocationConfigurationDatabase.RiverDischarge;
-                return data.IsLinked() && riverDischarge != null ? riverDischarge : string.Empty;
+                return data.HydraulicLocationConfigurationDatabase.RiverDischarge ?? string.Empty;
             }
         }
 
@@ -142,8 +140,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         {
             get
             {
-                string lakeLevel = data.HydraulicLocationConfigurationDatabase.LakeLevel;
-                return data.IsLinked() && lakeLevel != null ? lakeLevel : string.Empty;
+                return data.HydraulicLocationConfigurationDatabase.LakeLevel ?? string.Empty;
             }
         }
 
@@ -155,8 +152,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         {
             get
             {
-                string windDirection = data.HydraulicLocationConfigurationDatabase.WindDirection;
-                return data.IsLinked() && windDirection != null ? windDirection : string.Empty;
+                return data.HydraulicLocationConfigurationDatabase.WindDirection ?? string.Empty;
             }
         }
 
@@ -168,8 +164,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         {
             get
             {
-                string windSpeed = data.HydraulicLocationConfigurationDatabase.WindSpeed;
-                return data.IsLinked() && windSpeed != null ? windSpeed : string.Empty;
+                return data.HydraulicLocationConfigurationDatabase.WindSpeed ?? string.Empty;
             }
         }
 
@@ -181,8 +176,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         {
             get
             {
-                string comment = data.HydraulicLocationConfigurationDatabase.Comment;
-                return data.IsLinked() && comment != null ? comment : string.Empty;
+                return data.HydraulicLocationConfigurationDatabase.Comment ?? string.Empty;
             }
         }
     }
