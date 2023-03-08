@@ -258,7 +258,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_WithLinkedHydraulicBoundaryData_ContextMenuItemSelectDifferentFolder()
+        public void ContextMenuStrip_WithLinkedHydraulicBoundaryData_AddItemSelectDifferentFolder()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
