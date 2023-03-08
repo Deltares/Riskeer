@@ -74,9 +74,6 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             // Setup
             var hydraulicBoundaryData = new HydraulicBoundaryData();
 
-            // Precondition
-            Assert.IsFalse(hydraulicBoundaryData.IsLinked());
-
             // Call
             var properties = new HydraulicBoundaryDataProperties(hydraulicBoundaryData);
 
@@ -214,7 +211,17 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             {
                 HydraulicLocationConfigurationDatabase =
                 {
-                    FilePath = "hlcd.sqlite"
+                    FilePath = "hlcd.sqlite",
+                    ScenarioName = "ScenarioName",
+                    Year = 1337,
+                    Scope = "Scope",
+                    SeaLevel = "SeaLevel",
+                    RiverDischarge = "RiverDischarge",
+                    LakeLevel = "LakeLevel",
+                    WindDirection = "WindDirection",
+                    WindSpeed = "WindSpeed",
+                    Comment = "Comment",
+                    UsePreprocessorClosure = true
                 }
             };
         }
