@@ -70,5 +70,30 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             // Assert
             Assert.IsTrue(isLinked);
         }
+
+        [Test]
+        public void SetNewFolderPath_HydraulicBoundaryDataNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => HydraulicBoundaryDataExtensions.SetNewFolderPath(null, string.Empty);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
+            Assert.AreEqual("hydraulicBoundaryData", paramName);
+        }
+
+        [Test]
+        public void SetNewFolderPath_NewFolderPathNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var hydraulicBoundaryData = new HydraulicBoundaryData();
+
+            // Call
+            void Call() => hydraulicBoundaryData.SetNewFolderPath(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
+            Assert.AreEqual("newFolderPath", paramName);
+        }
     }
 }

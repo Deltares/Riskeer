@@ -52,12 +52,17 @@ namespace Riskeer.Common.Data.Hydraulics
         /// </summary>
         /// <param name="hydraulicBoundaryData">The hydraulic boundary data to set the new folder path for.</param>
         /// <param name="newFolderPath">The new folder path to set.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryData"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static void SetNewFolderPath(this HydraulicBoundaryData hydraulicBoundaryData, string newFolderPath)
         {
             if (hydraulicBoundaryData == null)
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryData));
+            }
+
+            if (newFolderPath == null)
+            {
+                throw new ArgumentNullException(nameof(newFolderPath));
             }
 
             hydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath
