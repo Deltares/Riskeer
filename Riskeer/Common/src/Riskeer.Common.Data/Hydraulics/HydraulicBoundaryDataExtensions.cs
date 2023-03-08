@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.IO;
+using Core.Common.Util.Extensions;
 
 namespace Riskeer.Common.Data.Hydraulics
 {
@@ -43,6 +45,32 @@ namespace Riskeer.Common.Data.Hydraulics
 
             return !string.IsNullOrEmpty(hydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath)
                    || !string.IsNullOrEmpty(hydraulicBoundaryData.FilePath);
+        }
+
+        /// <summary>
+        /// Set a new folder path for the provided <paramref name="hydraulicBoundaryData"/>.
+        /// </summary>
+        /// <param name="hydraulicBoundaryData">The hydraulic boundary data to set the new folder path for.</param>
+        /// <param name="newFolderPath">The new folder path to set.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryData"/> is <c>null</c>.</exception>
+        public static void SetNewFolderPath(this HydraulicBoundaryData hydraulicBoundaryData, string newFolderPath)
+        {
+            if (hydraulicBoundaryData == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryData));
+            }
+
+            hydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath
+                = GetNewFilePath(hydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath, newFolderPath);
+            hydraulicBoundaryData.HydraulicBoundaryDatabases
+                                 .ForEachElementDo(hbd => hbd.FilePath = GetNewFilePath(hbd.FilePath, newFolderPath));
+
+            hydraulicBoundaryData.NotifyObservers();
+        }
+        
+        private static string GetNewFilePath(string filePath, string newFolderPath)
+        {
+            return Path.Combine(newFolderPath, Path.GetFileName(filePath));
         }
     }
 }

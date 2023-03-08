@@ -2479,12 +2479,7 @@ namespace Riskeer.Integration.Plugin
                         {
                             if (dialog.ShowDialog(Gui.MainWindow) == DialogResult.OK)
                             {
-                                nodeData.WrappedData.HydraulicLocationConfigurationDatabase.FilePath
-                                    = GetNewFolderPath(nodeData.WrappedData.HydraulicLocationConfigurationDatabase.FilePath, dialog.SelectedPath);
-                                nodeData.WrappedData.HydraulicBoundaryDatabases
-                                        .ForEachElementDo(hbd => hbd.FilePath = GetNewFolderPath(hbd.FilePath, dialog.SelectedPath));
-
-                                nodeData.WrappedData.NotifyObservers();
+                                nodeData.WrappedData.SetNewFolderPath(dialog.SelectedPath);
                             }
                         }
                     });
@@ -2513,11 +2508,6 @@ namespace Riskeer.Integration.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
-        }
-
-        private string GetNewFolderPath(string filePath, string newFolderPath)
-        {
-            return Path.Combine(newFolderPath, Path.GetFileName(filePath));
         }
 
         private static object[] HydraulicBoundaryDatabasesContextChildNodeObjects(HydraulicBoundaryDatabasesContext nodeData)
