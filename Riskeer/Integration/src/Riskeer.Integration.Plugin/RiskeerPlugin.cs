@@ -2479,7 +2479,12 @@ namespace Riskeer.Integration.Plugin
                         {
                             if (dialog.ShowDialog(Gui.MainWindow) == DialogResult.OK)
                             {
-                                nodeData.WrappedData.HydraulicBoundaryDatabases.ForEachElementDo(hbd => hbd.FilePath = GetNewFolderPath(hbd.FilePath, dialog.SelectedPath));
+                                nodeData.WrappedData.HydraulicLocationConfigurationDatabase.FilePath
+                                    = GetNewFolderPath(nodeData.WrappedData.HydraulicLocationConfigurationDatabase.FilePath, dialog.SelectedPath);
+                                nodeData.WrappedData.HydraulicBoundaryDatabases
+                                        .ForEachElementDo(hbd => hbd.FilePath = GetNewFolderPath(hbd.FilePath, dialog.SelectedPath));
+
+                                nodeData.WrappedData.NotifyObservers();
                             }
                         }
                     });
