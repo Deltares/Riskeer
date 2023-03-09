@@ -33,24 +33,30 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Riskeer.Storage.Core.DbContext
 {
-    public class HydraulicBoundaryDatabaseEntity
+    public class HydraulicBoundaryDataEntity
     {
         [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public HydraulicBoundaryDatabaseEntity()
+        public HydraulicBoundaryDataEntity()
         {
-            HydraulicLocationEntities = new HashSet<HydraulicLocationEntity>();
+            HydraulicBoundaryDatabaseEntities = new HashSet<HydraulicBoundaryDatabaseEntity>();
         }
 
-        public long HydraulicBoundaryDatabaseEntityId { get; set; }
         public long HydraulicBoundaryDataEntityId { get; set; }
-        public string Version { get; set; }
-        public string FilePath { get; set; }
-        public byte UsePreprocessorClosure { get; set; }
-        public int Order { get; set; }
+        public long AssessmentSectionEntityId { get; set; }
+        public string HydraulicLocationConfigurationDatabaseFilePath { get; set; }
+        public string HydraulicLocationConfigurationDatabaseScenarioName { get; set; }
+        public int HydraulicLocationConfigurationDatabaseYear { get; set; }
+        public string HydraulicLocationConfigurationDatabaseScope { get; set; }
+        public string HydraulicLocationConfigurationDatabaseSeaLevel { get; set; }
+        public string HydraulicLocationConfigurationDatabaseRiverDischarge { get; set; }
+        public string HydraulicLocationConfigurationDatabaseLakeLevel { get; set; }
+        public string HydraulicLocationConfigurationDatabaseWindDirection { get; set; }
+        public string HydraulicLocationConfigurationDatabaseWindSpeed { get; set; }
+        public string HydraulicLocationConfigurationDatabaseComment { get; set; }
 
-        public virtual HydraulicBoundaryDataEntity HydraulicBoundaryDataEntity { get; set; }
+        public virtual AssessmentSectionEntity AssessmentSectionEntity { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HydraulicLocationEntity> HydraulicLocationEntities { get; set; }
+        public virtual ICollection<HydraulicBoundaryDatabaseEntity> HydraulicBoundaryDatabaseEntities { get; set; }
     }
 }
