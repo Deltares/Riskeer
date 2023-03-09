@@ -39,22 +39,38 @@ namespace Riskeer.Storage.Core.Create
         /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryDatabase"/> to create a
         /// <see cref="HydraulicBoundaryDatabaseEntity"/> for.</param>
         /// <param name="order">Index at which this instance resides inside its parent container.</param>
+        /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="HydraulicBoundaryDatabaseEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryDatabase"/> is <c>null</c>.</exception>
-        internal static HydraulicBoundaryDatabaseEntity Create(this HydraulicBoundaryDatabase hydraulicBoundaryDatabase, int order)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryDatabase"/>
+        /// or <paramref name="registry"/> is <c>null</c>.</exception>
+        internal static HydraulicBoundaryDatabaseEntity Create(this HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
+                                                               PersistenceRegistry registry, int order)
         {
             if (hydraulicBoundaryDatabase == null)
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
             }
 
-            return new HydraulicBoundaryDatabaseEntity
+            if (registry == null)
+            {
+                throw new ArgumentNullException(nameof(registry));
+            }
+
+            var entity = new HydraulicBoundaryDatabaseEntity
             {
                 FilePath = hydraulicBoundaryDatabase.FilePath.DeepClone(),
                 Version = hydraulicBoundaryDatabase.Version.DeepClone(),
                 UsePreprocessorClosure = Convert.ToByte(hydraulicBoundaryDatabase.UsePreprocessorClosure),
                 Order = order
             };
+
+            for (var i = 0; i < hydraulicBoundaryDatabase.Locations.Count; i++)
+            {
+                HydraulicBoundaryLocation location = hydraulicBoundaryDatabase.Locations[i];
+                entity.HydraulicLocationEntities.Add(location.Create(registry, i));
+            }
+
+            return entity;
         }
     }
 }

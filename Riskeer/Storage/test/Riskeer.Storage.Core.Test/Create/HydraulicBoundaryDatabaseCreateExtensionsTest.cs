@@ -35,35 +35,56 @@ namespace Riskeer.Storage.Core.Test.Create
         public void Create_HydraulicBoundaryDatabaseNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => HydraulicBoundaryDatabaseCreateExtensions.Create(null, 0);
+            void Call() => ((HydraulicBoundaryDatabase) null).Create(new PersistenceRegistry(), 0);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("hydraulicBoundaryDatabase", exception.ParamName);
         }
-        
+
+        [Test]
+        public void Create_RegistryNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+
+            // Call
+            void Call() => hydraulicBoundaryDatabase.Create(null, 0);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("registry", exception.ParamName);
+        }
+
         [Test]
         public void Create_ValidHydraulicBoundaryDatabase_ReturnsHydraulicBoundaryDatabaseEntity()
         {
             // Setup
             var random = new Random(21);
             int order = random.Next();
-            
+
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 FilePath = "hrdFilePath",
                 Version = "version",
-                UsePreprocessorClosure = random.NextBoolean()
+                UsePreprocessorClosure = random.NextBoolean(),
+                Locations =
+                {
+                    new HydraulicBoundaryLocation(-1, "name", 1, 2)
+                }
             };
 
             // Call
-            HydraulicBoundaryDatabaseEntity entity = hydraulicBoundaryDatabase.Create(order);
-            
+            HydraulicBoundaryDatabaseEntity entity = hydraulicBoundaryDatabase.Create(new PersistenceRegistry(), order);
+
             // Assert
             TestHelper.AssertAreEqualButNotSame(hydraulicBoundaryDatabase.FilePath, entity.FilePath);
             TestHelper.AssertAreEqualButNotSame(hydraulicBoundaryDatabase.Version, entity.Version);
             TestHelper.AssertAreEqualButNotSame(Convert.ToByte(hydraulicBoundaryDatabase.UsePreprocessorClosure), entity.UsePreprocessorClosure);
             TestHelper.AssertAreEqualButNotSame(order, entity.Order);
+
+            int expectedNrOfHydraulicBoundaryLocations = hydraulicBoundaryDatabase.Locations.Count;
+            Assert.AreEqual(expectedNrOfHydraulicBoundaryLocations, entity.HydraulicLocationEntities.Count);
         }
     }
 }
