@@ -195,8 +195,7 @@ namespace Riskeer.Storage.Core.Test.Create
             AssessmentSectionEntity entity = assessmentSection.Create(registry);
 
             // Assert
-            CollectionAssert.IsEmpty(entity.HydraulicBoundaryDatabaseEntities);
-            CollectionAssert.IsEmpty(entity.HydraulicLocationEntities);
+            CollectionAssert.IsEmpty(entity.HydraulicBoundaryDataEntities);
 
             AssertHydraulicLocationCalculationCollectionEntities(assessmentSection, entity);
         }
@@ -206,18 +205,29 @@ namespace Riskeer.Storage.Core.Test.Create
         {
             // Setup
             var random = new Random(21);
-            const string testFilePath = "path";
+            const string testFilePath1 = "path1";
+            const string testFilePath2 = "path2";
             const string testVersion = "1";
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 HydraulicBoundaryData =
                 {
-                    FilePath = testFilePath,
-                    Version = testVersion,
-                    Locations =
+                    HydraulicLocationConfigurationDatabase =
                     {
-                        new HydraulicBoundaryLocation(-1, "name", 1, 2)
+                        FilePath = testFilePath1
+                    },
+                    HydraulicBoundaryDatabases =
+                    {
+                        new HydraulicBoundaryDatabase
+                        {
+                            FilePath = testFilePath2,
+                            Version = testVersion,
+                            Locations =
+                            {
+                                new HydraulicBoundaryLocation(-1, "name", 1, 2)
+                            }
+                        }
                     }
                 },
                 WaveHeightCalculationsForUserDefinedTargetProbabilities =
@@ -241,26 +251,31 @@ namespace Riskeer.Storage.Core.Test.Create
             AssessmentSectionEntity entity = assessmentSection.Create(registry);
 
             // Assert
-            HydraulicBoundaryDatabaseEntity hydraulicBoundaryDatabaseEntity = entity.HydraulicBoundaryDatabaseEntities.Single();
+            HydraulicBoundaryDataEntity hydraulicBoundaryDataEntity = entity.HydraulicBoundaryDataEntities.Single();
 
             HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryData;
-            Assert.AreEqual(hydraulicBoundaryData.FilePath, hydraulicBoundaryDatabaseEntity.FilePath);
-            Assert.AreEqual(hydraulicBoundaryData.Version, hydraulicBoundaryDatabaseEntity.Version);
-
             HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase = hydraulicBoundaryData.HydraulicLocationConfigurationDatabase;
-            Assert.AreEqual(hydraulicLocationConfigurationDatabase.FilePath, hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsFilePath);
-            Assert.AreEqual(hydraulicLocationConfigurationDatabase.ScenarioName, hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsScenarioName);
-            Assert.AreEqual(hydraulicLocationConfigurationDatabase.Year, hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsYear);
-            Assert.AreEqual(hydraulicLocationConfigurationDatabase.Scope, hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsScope);
-            Assert.AreEqual(hydraulicLocationConfigurationDatabase.SeaLevel, hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsSeaLevel);
-            Assert.AreEqual(hydraulicLocationConfigurationDatabase.RiverDischarge, hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsRiverDischarge);
-            Assert.AreEqual(hydraulicLocationConfigurationDatabase.LakeLevel, hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsLakeLevel);
-            Assert.AreEqual(hydraulicLocationConfigurationDatabase.WindDirection, hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsWindDirection);
-            Assert.AreEqual(hydraulicLocationConfigurationDatabase.WindSpeed, hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsWindSpeed);
-            Assert.AreEqual(hydraulicLocationConfigurationDatabase.Comment, hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsComment);
+            Assert.AreEqual(hydraulicLocationConfigurationDatabase.FilePath, hydraulicBoundaryDataEntity.HydraulicLocationConfigurationDatabaseFilePath);
+            Assert.AreEqual(hydraulicLocationConfigurationDatabase.ScenarioName, hydraulicBoundaryDataEntity.HydraulicLocationConfigurationDatabaseScenarioName);
+            Assert.AreEqual(hydraulicLocationConfigurationDatabase.Year, hydraulicBoundaryDataEntity.HydraulicLocationConfigurationDatabaseYear);
+            Assert.AreEqual(hydraulicLocationConfigurationDatabase.Scope, hydraulicBoundaryDataEntity.HydraulicLocationConfigurationDatabaseScope);
+            Assert.AreEqual(hydraulicLocationConfigurationDatabase.SeaLevel, hydraulicBoundaryDataEntity.HydraulicLocationConfigurationDatabaseSeaLevel);
+            Assert.AreEqual(hydraulicLocationConfigurationDatabase.RiverDischarge, hydraulicBoundaryDataEntity.HydraulicLocationConfigurationDatabaseRiverDischarge);
+            Assert.AreEqual(hydraulicLocationConfigurationDatabase.LakeLevel, hydraulicBoundaryDataEntity.HydraulicLocationConfigurationDatabaseLakeLevel);
+            Assert.AreEqual(hydraulicLocationConfigurationDatabase.WindDirection, hydraulicBoundaryDataEntity.HydraulicLocationConfigurationDatabaseWindDirection);
+            Assert.AreEqual(hydraulicLocationConfigurationDatabase.WindSpeed, hydraulicBoundaryDataEntity.HydraulicLocationConfigurationDatabaseWindSpeed);
+            Assert.AreEqual(hydraulicLocationConfigurationDatabase.Comment, hydraulicBoundaryDataEntity.HydraulicLocationConfigurationDatabaseComment);
 
-            int expectedNrOfHydraulicBoundaryLocations = hydraulicBoundaryData.Locations.Count;
-            Assert.AreEqual(expectedNrOfHydraulicBoundaryLocations, entity.HydraulicLocationEntities.Count);
+            int expectedNrOfHydraulicBoundaryDatabases = hydraulicBoundaryData.HydraulicBoundaryDatabases.Count;
+            Assert.AreEqual(expectedNrOfHydraulicBoundaryDatabases, hydraulicBoundaryDataEntity.HydraulicBoundaryDatabaseEntities.Count);
+
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = hydraulicBoundaryData.HydraulicBoundaryDatabases.Single();
+            HydraulicBoundaryDatabaseEntity hydraulicBoundaryDatabaseEntity = hydraulicBoundaryDataEntity.HydraulicBoundaryDatabaseEntities.Single();
+            Assert.AreEqual(hydraulicBoundaryDatabase.FilePath, hydraulicBoundaryDatabaseEntity.FilePath);
+            Assert.AreEqual(hydraulicBoundaryDatabase.Version, hydraulicBoundaryDatabaseEntity.Version);
+
+            int expectedNrOfHydraulicBoundaryLocations = hydraulicBoundaryDatabase.Locations.Count;
+            Assert.AreEqual(expectedNrOfHydraulicBoundaryLocations, hydraulicBoundaryDatabaseEntity.HydraulicLocationEntities.Count);
 
             AssertHydraulicLocationCalculationCollectionEntities(assessmentSection, entity);
         }
