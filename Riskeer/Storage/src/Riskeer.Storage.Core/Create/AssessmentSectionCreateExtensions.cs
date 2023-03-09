@@ -127,13 +127,13 @@ namespace Riskeer.Storage.Core.Create
         {
             if (hydraulicBoundaryData.IsLinked())
             {
-                entity.HydraulicBoundaryDatabaseEntities.Add(hydraulicBoundaryData.Create());
+                entity.HydraulicBoundaryDataEntities.Add(hydraulicBoundaryData.Create());
 
-                for (var i = 0; i < hydraulicBoundaryData.Locations.Count; i++)
-                {
-                    HydraulicBoundaryLocation hydraulicBoundaryLocation = hydraulicBoundaryData.Locations[i];
-                    entity.HydraulicLocationEntities.Add(hydraulicBoundaryLocation.Create(registry, i));
-                }
+                // for (var i = 0; i < hydraulicBoundaryData.Locations.Count; i++)
+                // {
+                //     HydraulicBoundaryLocation hydraulicBoundaryLocation = hydraulicBoundaryData.Locations[i];
+                //     entity.HydraulicLocationEntities.Add(hydraulicBoundaryLocation.Create(registry, i));
+                // }
             }
         }
 
