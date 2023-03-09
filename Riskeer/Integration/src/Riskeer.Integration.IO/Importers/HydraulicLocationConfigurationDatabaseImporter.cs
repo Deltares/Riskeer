@@ -106,18 +106,9 @@ namespace Riskeer.Integration.IO.Importers
                 return false;
             }
 
-            bool usePreprocessorClosure = readHydraulicLocationConfigurationDatabase.ReadTracks.Any(rt => rt.UsePreprocessorClosure);
-            if (usePreprocessorClosure && !File.Exists(HydraulicBoundaryDataHelper.GetPreprocessorClosureFilePath(FilePath)))
-            {
-                Log.Error(BuildErrorMessage(FilePath, Resources.HydraulicBoundaryDataImporter_PreprocessorClosure_sqlite_Not_Found));
-                return false;
-            }
-
-            IEnumerable<long> locationIds = hydraulicBoundaryData.Locations.Select(l => l.Id);
-            long[] intersect = locationIds.Intersect(readHydraulicLocationConfigurationDatabase.ReadHydraulicLocations.Select(l => l.HlcdLocationId))
-                                          .ToArray();
-
-            if (intersect.Length != locationIds.Count())
+            IEnumerable<long> currentLocationIds = hydraulicBoundaryData.Locations.Select(l => l.Id).ToArray();
+            IEnumerable<long> readLocationIds = readHydraulicLocationConfigurationDatabase.ReadHydraulicLocations.Select(l => l.HlcdLocationId);
+            if (currentLocationIds.Intersect(readLocationIds).Count() != currentLocationIds.Count())
             {
                 Log.Error(BuildErrorMessage(FilePath, Resources.HydraulicLocationConfigurationDatabaseImporter_Invalid_locationIds));
                 return false;
@@ -125,7 +116,7 @@ namespace Riskeer.Integration.IO.Importers
 
             SetReadHydraulicLocationConfigurationSettingsToDataModel(
                 readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationSettings?.Single(),
-                usePreprocessorClosure);
+                false);
 
             return true;
         }
