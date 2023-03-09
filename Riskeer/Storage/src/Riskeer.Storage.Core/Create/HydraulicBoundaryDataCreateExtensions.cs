@@ -30,7 +30,7 @@ namespace Riskeer.Storage.Core.Create
     /// Extension methods for <see cref="HydraulicBoundaryData"/> related to creating a
     /// <see cref="HydraulicBoundaryDataEntity"/>.
     /// </summary>
-    public static class HydraulicBoundaryDataCreateExtensions
+    internal static class HydraulicBoundaryDataCreateExtensions
     {
         /// <summary>
         /// Creates a <see cref="HydraulicBoundaryDataEntity"/> based on the information of the
@@ -42,7 +42,7 @@ namespace Riskeer.Storage.Core.Create
         /// <returns>A new <see cref="HydraulicBoundaryDataEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryData"/>
         /// or <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static HydraulicBoundaryDataEntity Create(this HydraulicBoundaryData hydraulicBoundaryData, PersistenceRegistry registry)
+        public static HydraulicBoundaryDataEntity Create(this HydraulicBoundaryData hydraulicBoundaryData, PersistenceRegistry registry)
         {
             if (hydraulicBoundaryData == null)
             {
