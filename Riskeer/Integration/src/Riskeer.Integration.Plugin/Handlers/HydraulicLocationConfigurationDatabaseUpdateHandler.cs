@@ -36,7 +36,7 @@ using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 namespace Riskeer.Integration.Plugin.Handlers
 {
     /// <summary>
-    /// Class that can properly update <see cref="HydraulicLocationConfigurationSettings"/>.
+    /// Class that can properly update <see cref="HydraulicLocationConfigurationDatabase"/> instances.
     /// </summary>
     public class HydraulicLocationConfigurationDatabaseUpdateHandler : IHydraulicLocationConfigurationDatabaseUpdateHandler
     {

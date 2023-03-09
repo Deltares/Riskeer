@@ -43,15 +43,16 @@ namespace Riskeer.Integration.IO.Importers
     public class HydraulicLocationConfigurationDatabaseImporter : FileImporterBase<HydraulicLocationConfigurationDatabase>
     {
         private const int numberOfSteps = 2;
+        
+        private readonly HydraulicBoundaryData hydraulicBoundaryData;
         private readonly List<IObservable> changedObservables = new List<IObservable>();
         private readonly IHydraulicLocationConfigurationDatabaseUpdateHandler updateHandler;
-        private readonly HydraulicBoundaryData hydraulicBoundaryData;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicLocationConfigurationDatabaseImporter"/>.
         /// </summary>
         /// <param name="importTarget">The hydraulic location configuration database to import to.</param>
-        /// <param name="updateHandler">The handler responsible for updating the <see cref="HydraulicLocationConfigurationDatabase"/>.</param>
+        /// <param name="updateHandler">The handler responsible for updating the hydraulic location configuration database.</param>
         /// <param name="hydraulicBoundaryData">The hydraulic boundary data the hydraulic location configuration database belongs to.</param>
         /// <param name="filePath">The file path of the hydraulic location configuration database to import from.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>

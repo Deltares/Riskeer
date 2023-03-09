@@ -28,7 +28,7 @@ using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 namespace Riskeer.Integration.IO.Handlers
 {
     /// <summary>
-    /// Interface for an object that can properly update <see cref="HydraulicLocationConfigurationDatabase"/>.
+    /// Interface for an object that can properly update <see cref="HydraulicLocationConfigurationDatabase"/> instances.
     /// </summary>
     public interface IHydraulicLocationConfigurationDatabaseUpdateHandler
     {
