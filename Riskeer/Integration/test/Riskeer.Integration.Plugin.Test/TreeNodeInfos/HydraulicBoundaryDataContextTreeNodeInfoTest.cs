@@ -45,7 +45,6 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
-using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.Common.Service.TestUtil;
 using Riskeer.HydraRing.Calculation.Calculator.Factory;
@@ -62,9 +61,9 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
     {
         private const int contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
         private const int contextMenuSelectDifferentFolderIndex = 1;
-        private const int contextMenuCalculateAllIndexForNotLinkedHydraulicBoundaryData = 4;
-        private const int contextMenuCalculateAllIndexForLinkedHydraulicBoundaryData = 5;
-        private const int contextMenuClearIllustrationPointsIndexForNotLinkedHydraulicBoundaryData = 6;
+        private const int contextMenuCalculateAllIndexForNotLinkedHydraulicBoundaryData = 2;
+        private const int contextMenuCalculateAllIndexForLinkedHydraulicBoundaryData = 3;
+        private const int contextMenuClearIllustrationPointsIndexForNotLinkedHydraulicBoundaryData = 4;
 
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Forms, "HydraulicBoundaryData");
 
@@ -156,8 +155,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                 }
 
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddExportItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
@@ -284,7 +281,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     // Call
                     using (ContextMenuStrip menu = info.ContextMenuStrip(context, null, treeViewControl))
                     {
-                        Assert.AreEqual(13, menu.Items.Count);
+                        Assert.AreEqual(11, menu.Items.Count);
 
                         TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuSelectDifferentFolderIndex,
                                                                       "Selecteer andere bestandsmap...",

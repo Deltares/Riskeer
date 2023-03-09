@@ -602,16 +602,6 @@ namespace Riskeer.Integration.Plugin
                                                                                                            RiskeerCommonIOResources.Shape_file_filter_Description))
             };
 
-            yield return new ExportInfo<HydraulicBoundaryDataContext>
-            {
-                Name = context => RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName,
-                Extension = RiskeerCommonIOResources.Zip_file_filter_Extension,
-                CreateFileExporter = (context, filePath) => new HydraulicBoundaryLocationCalculationsExporter(context.AssessmentSection, filePath),
-                IsEnabled = context => context.WrappedData.IsLinked(),
-                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonIOResources.Zip_file_filter_Extension,
-                                                                                                           RiskeerCommonIOResources.Zip_file_filter_Description))
-            };
-
             yield return new ExportInfo<AssemblyResultsContext>
             {
                 Name = context => Resources.AssemblyResults_DisplayName,
@@ -2494,8 +2484,6 @@ namespace Riskeer.Integration.Plugin
             }
 
             return builder.AddSeparator()
-                          .AddExportItem()
-                          .AddSeparator()
                           .AddCustomItem(calculateAllItem)
                           .AddSeparator()
                           .AddClearIllustrationPointsOfCalculationsItem(() => HasIllustrationPoints(assessmentSection), changeHandler)
