@@ -136,7 +136,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             HydraulicBoundaryData hydraulicBoundaryData = CreateLinkedHydraulicBoundaryData();
 
             string hlcdFilePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.IO,
-                                                                          nameof(HydraulicBoundaryDataImporter)), "HLCD.sqlite");
+                                                                          nameof(HydraulicBoundaryDatabaseImporter)), "HLCD.sqlite");
 
             var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationDatabase(), handler,
                                                                               hydraulicBoundaryData, hlcdFilePath);

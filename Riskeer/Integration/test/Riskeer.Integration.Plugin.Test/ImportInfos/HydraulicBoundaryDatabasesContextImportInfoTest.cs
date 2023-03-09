@@ -125,7 +125,7 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
             IFileImporter importer = importInfo.CreateFileImporter(importTarget, "");
 
             // Assert
-            Assert.IsInstanceOf<HydraulicBoundaryDataImporter>(importer);
+            Assert.IsInstanceOf<HydraulicBoundaryDatabaseImporter>(importer);
             mocks.VerifyAll();
         }
     }
