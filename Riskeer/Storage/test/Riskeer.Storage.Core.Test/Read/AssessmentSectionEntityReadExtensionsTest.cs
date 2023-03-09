@@ -225,7 +225,9 @@ namespace Riskeer.Storage.Core.Test.Read
             AssessmentSection section = entity.Read(collector);
 
             // Assert
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = section.HydraulicBoundaryData.Locations.Single();
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = section.HydraulicBoundaryData
+                                                                         .HydraulicBoundaryDatabases.Single()
+                                                                         .Locations.Single();
 
             HydraulicBoundaryLocationCalculation calculation = section.WaterLevelCalculationsForSignalFloodingProbability.Single();
             HydraulicLocationCalculationEntity hydraulicLocationCalculationEntity = entity.HydraulicLocationCalculationCollectionEntity1
@@ -309,7 +311,8 @@ namespace Riskeer.Storage.Core.Test.Read
             AssessmentSection section = entity.Read(collector);
 
             // Assert
-            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations = section.HydraulicBoundaryData.Locations;
+            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations = section.HydraulicBoundaryData.HydraulicBoundaryDatabases
+                                                                                       .SelectMany(hbd => hbd.Locations);
             Assert.AreEqual(2, hydraulicBoundaryLocations.Count());
             CollectionAssert.AreEqual(new[]
             {
@@ -359,8 +362,10 @@ namespace Riskeer.Storage.Core.Test.Read
 
             // Assert
             HydraulicBoundaryData hydraulicBoundaryData = section.HydraulicBoundaryData;
-            Assert.AreEqual(hydraulicBoundaryDatabaseEntity.FilePath, hydraulicBoundaryData.FilePath);
-            Assert.AreEqual(hydraulicBoundaryDatabaseEntity.Version, hydraulicBoundaryData.Version);
+
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = hydraulicBoundaryData.HydraulicBoundaryDatabases.Single();
+            Assert.AreEqual(hydraulicBoundaryDatabaseEntity.FilePath, hydraulicBoundaryDatabase.FilePath);
+            Assert.AreEqual(hydraulicBoundaryDatabaseEntity.Version, hydraulicBoundaryDatabase.Version);
 
             HydraulicLocationConfigurationDatabase database = hydraulicBoundaryData.HydraulicLocationConfigurationDatabase;
             Assert.AreEqual(hydraulicBoundaryDataEntity.HydraulicLocationConfigurationDatabaseFilePath, database.FilePath);
