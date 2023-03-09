@@ -26,19 +26,19 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Read
 {
     /// <summary>
-    /// This class defines extension methods for read operations for a <see cref="HydraulicBoundaryDatabaseEntity"/>.
+    /// This class defines extension methods for read operations for a <see cref="HydraulicBoundaryDataEntity"/>.
     /// </summary>
     internal static class HydraulicBoundaryDataEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="HydraulicBoundaryDatabaseEntity"/> and uses the information to update a
+        /// Reads the <see cref="HydraulicBoundaryDataEntity"/> and uses the information to update a
         /// <see cref="HydraulicBoundaryData"/> instance.
         /// </summary>
-        /// <param name="entity">The <see cref="HydraulicBoundaryDatabaseEntity"/> to update the
+        /// <param name="entity">The <see cref="HydraulicBoundaryDataEntity"/> to update the
         /// <see cref="HydraulicBoundaryData"/>.</param>
         /// <param name="hydraulicBoundaryData">The <see cref="HydraulicBoundaryData"/> to update.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        internal static void Read(this HydraulicBoundaryDatabaseEntity entity, HydraulicBoundaryData hydraulicBoundaryData)
+        public static void Read(this HydraulicBoundaryDataEntity entity, HydraulicBoundaryData hydraulicBoundaryData)
         {
             if (entity == null)
             {
@@ -50,22 +50,18 @@ namespace Riskeer.Storage.Core.Read
                 throw new ArgumentNullException(nameof(hydraulicBoundaryData));
             }
 
-            hydraulicBoundaryData.FilePath = entity.FilePath;
-            hydraulicBoundaryData.Version = entity.Version;
-
             HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase = hydraulicBoundaryData.HydraulicLocationConfigurationDatabase;
 
-            hydraulicLocationConfigurationDatabase.FilePath = entity.HydraulicLocationConfigurationSettingsFilePath;
-            hydraulicLocationConfigurationDatabase.ScenarioName = entity.HydraulicLocationConfigurationSettingsScenarioName;
-            hydraulicLocationConfigurationDatabase.Year = entity.HydraulicLocationConfigurationSettingsYear;
-            hydraulicLocationConfigurationDatabase.Scope = entity.HydraulicLocationConfigurationSettingsScope;
-            hydraulicLocationConfigurationDatabase.SeaLevel = entity.HydraulicLocationConfigurationSettingsSeaLevel;
-            hydraulicLocationConfigurationDatabase.RiverDischarge = entity.HydraulicLocationConfigurationSettingsRiverDischarge;
-            hydraulicLocationConfigurationDatabase.LakeLevel = entity.HydraulicLocationConfigurationSettingsLakeLevel;
-            hydraulicLocationConfigurationDatabase.WindDirection = entity.HydraulicLocationConfigurationSettingsWindDirection;
-            hydraulicLocationConfigurationDatabase.WindSpeed = entity.HydraulicLocationConfigurationSettingsWindSpeed;
-            hydraulicLocationConfigurationDatabase.Comment = entity.HydraulicLocationConfigurationSettingsComment;
-            hydraulicLocationConfigurationDatabase.UsePreprocessorClosure = Convert.ToBoolean(entity.HydraulicLocationConfigurationSettingsUsePreprocessorClosure);
+            hydraulicLocationConfigurationDatabase.FilePath = entity.HydraulicLocationConfigurationDatabaseFilePath;
+            hydraulicLocationConfigurationDatabase.ScenarioName = entity.HydraulicLocationConfigurationDatabaseScenarioName;
+            hydraulicLocationConfigurationDatabase.Year = entity.HydraulicLocationConfigurationDatabaseYear;
+            hydraulicLocationConfigurationDatabase.Scope = entity.HydraulicLocationConfigurationDatabaseScope;
+            hydraulicLocationConfigurationDatabase.SeaLevel = entity.HydraulicLocationConfigurationDatabaseSeaLevel;
+            hydraulicLocationConfigurationDatabase.RiverDischarge = entity.HydraulicLocationConfigurationDatabaseRiverDischarge;
+            hydraulicLocationConfigurationDatabase.LakeLevel = entity.HydraulicLocationConfigurationDatabaseLakeLevel;
+            hydraulicLocationConfigurationDatabase.WindDirection = entity.HydraulicLocationConfigurationDatabaseWindDirection;
+            hydraulicLocationConfigurationDatabase.WindSpeed = entity.HydraulicLocationConfigurationDatabaseWindSpeed;
+            hydraulicLocationConfigurationDatabase.Comment = entity.HydraulicLocationConfigurationDatabaseComment;
         }
     }
 }
