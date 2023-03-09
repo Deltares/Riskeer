@@ -121,13 +121,11 @@ namespace Riskeer.Storage.Core.Read
             if (hydraulicBoundaryDataEntity != null)
             {
                 HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryData;
-                hydraulicBoundaryDataEntity.Read(hydraulicBoundaryData);
+                hydraulicBoundaryDataEntity.Read(hydraulicBoundaryData, collector);
 
-                HydraulicBoundaryLocation[] readHydraulicBoundaryLocations = entity.HydraulicLocationEntities
-                                                                                   .OrderBy(hl => hl.Order)
-                                                                                   .Select(hle => hle.Read(collector))
-                                                                                   .ToArray();
-                hydraulicBoundaryData.Locations.AddRange(readHydraulicBoundaryLocations);
+                IEnumerable<HydraulicBoundaryLocation> readHydraulicBoundaryLocations = hydraulicBoundaryData.HydraulicBoundaryDatabases
+                                                                                                             .SelectMany(hbd => hbd.Locations);
+
                 assessmentSection.SetHydraulicBoundaryLocationCalculations(readHydraulicBoundaryLocations);
 
                 entity.ReadHydraulicBoundaryLocationCalculations(assessmentSection, collector);
