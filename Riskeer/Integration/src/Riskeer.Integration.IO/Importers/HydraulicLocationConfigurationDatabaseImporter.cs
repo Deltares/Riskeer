@@ -167,7 +167,7 @@ namespace Riskeer.Integration.IO.Importers
         private void SetReadHydraulicLocationConfigurationSettingsToDataModel(ReadHydraulicLocationConfigurationSettings readHydraulicLocationConfigurationSettings)
         {
             NotifyProgress(RiskeerCommonIOResources.Importer_ProgressText_Adding_imported_data_to_AssessmentSection, 2, numberOfSteps);
-            changedObservables.AddRange(updateHandler.Update(hydraulicBoundaryData, readHydraulicLocationConfigurationSettings, false, FilePath));
+            changedObservables.AddRange(updateHandler.Update(hydraulicBoundaryData, readHydraulicLocationConfigurationSettings, FilePath));
         }
 
         private ReadResult<T> HandleCriticalFileReadError<T>(Exception e)
