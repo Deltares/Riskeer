@@ -92,9 +92,7 @@ namespace Riskeer.Integration.IO.Importers
                 return false;
             }
 
-            ReadResult<ReadHydraulicLocationConfigurationDatabase> readHydraulicLocationConfigurationDatabaseResult =
-                ReadHydraulicLocationConfigurationDatabase();
-
+            ReadResult<ReadHydraulicLocationConfigurationDatabase> readHydraulicLocationConfigurationDatabaseResult = ReadHydraulicLocationConfigurationDatabase();
             if (readHydraulicLocationConfigurationDatabaseResult.CriticalErrorOccurred || Canceled)
             {
                 return false;
