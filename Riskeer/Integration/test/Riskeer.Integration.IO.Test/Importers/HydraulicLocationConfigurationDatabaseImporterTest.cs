@@ -240,7 +240,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             var mocks = new MockRepository();
             var handler = mocks.Stub<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
             handler.Stub(h => h.InquireConfirmation()).Return(true);
-            handler.Stub(h => h.Update(null, null, false, null)).IgnoreArguments().Return(Enumerable.Empty<IObservable>());
+            handler.Stub(h => h.Update(null, null, null)).IgnoreArguments().Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
             var progressChangeNotifications = new List<ProgressNotification>();
@@ -282,7 +282,6 @@ namespace Riskeer.Integration.IO.Test.Importers
             handler.Expect(h => h.InquireConfirmation()).Return(true);
             handler.Expect(h => h.Update(Arg<HydraulicBoundaryData>.Is.Same(hydraulicBoundaryData),
                                          Arg<ReadHydraulicLocationConfigurationSettings>.Is.Null,
-                                         Arg<bool>.Is.Equal(false),
                                          Arg<string>.Is.Equal(hlcdFilePath)))
                    .Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
@@ -315,7 +314,6 @@ namespace Riskeer.Integration.IO.Test.Importers
             handler.Expect(h => h.InquireConfirmation()).Return(true);
             handler.Expect(h => h.Update(Arg<HydraulicBoundaryData>.Is.Same(hydraulicBoundaryData),
                                          Arg<ReadHydraulicLocationConfigurationSettings>.Is.NotNull,
-                                         Arg<bool>.Is.Equal(false),
                                          Arg<string>.Is.Equal(filePath)))
                    .Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
@@ -349,7 +347,6 @@ namespace Riskeer.Integration.IO.Test.Importers
             handler.Expect(h => h.InquireConfirmation()).Return(true);
             handler.Expect(h => h.Update(Arg<HydraulicBoundaryData>.Is.NotNull,
                                          Arg<ReadHydraulicLocationConfigurationSettings>.Is.Null,
-                                         Arg<bool>.Is.Equal(false),
                                          Arg<string>.Is.NotNull))
                    .Return(new[]
                    {
@@ -407,7 +404,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             var mocks = new MockRepository();
             var handler = mocks.Stub<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
             handler.Stub(h => h.InquireConfirmation()).Return(true);
-            handler.Stub(h => h.Update(null, null, false, null)).IgnoreArguments().Return(Enumerable.Empty<IObservable>());
+            handler.Stub(h => h.Update(null, null, null)).IgnoreArguments().Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
             HydraulicBoundaryData hydraulicBoundaryData = CreateLinkedHydraulicBoundaryData();
