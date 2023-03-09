@@ -123,10 +123,7 @@ namespace Riskeer.Storage.Core.Read
                 HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryData;
                 hydraulicBoundaryDataEntity.Read(hydraulicBoundaryData, collector);
 
-                IEnumerable<HydraulicBoundaryLocation> readHydraulicBoundaryLocations = hydraulicBoundaryData.HydraulicBoundaryDatabases
-                                                                                                             .SelectMany(hbd => hbd.Locations);
-
-                assessmentSection.SetHydraulicBoundaryLocationCalculations(readHydraulicBoundaryLocations);
+                assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryData.GetLocations());
 
                 entity.ReadHydraulicBoundaryLocationCalculations(assessmentSection, collector);
             }

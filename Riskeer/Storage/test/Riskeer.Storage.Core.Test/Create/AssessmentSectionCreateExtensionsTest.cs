@@ -187,7 +187,6 @@ namespace Riskeer.Storage.Core.Test.Create
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(assessmentSection.HydraulicBoundaryData.Locations);
 
             var registry = new PersistenceRegistry();
 
@@ -242,7 +241,7 @@ namespace Riskeer.Storage.Core.Test.Create
                     new HydraulicBoundaryLocationCalculationsForTargetProbability(random.NextDouble(0, 0.1))
                 }
             };
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(assessmentSection.HydraulicBoundaryData.Locations);
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(assessmentSection.HydraulicBoundaryData.GetLocations());
             SetHydraulicBoundaryLocationCalculationInputsOfAssessmentSection(assessmentSection);
 
             var registry = new PersistenceRegistry();
