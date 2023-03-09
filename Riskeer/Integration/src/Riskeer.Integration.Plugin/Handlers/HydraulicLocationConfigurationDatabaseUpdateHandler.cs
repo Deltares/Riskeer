@@ -73,7 +73,6 @@ namespace Riskeer.Integration.Plugin.Handlers
 
         public IEnumerable<IObservable> Update(HydraulicBoundaryData hydraulicBoundaryData,
                                                ReadHydraulicLocationConfigurationSettings readHydraulicLocationConfigurationSettings,
-                                               bool usePreprocessorClosure,
                                                string hlcdFilePath)
         {
             if (hydraulicBoundaryData == null)

@@ -46,14 +46,12 @@ namespace Riskeer.Integration.IO.Handlers
         /// database for.</param>
         /// <param name="readHydraulicLocationConfigurationSettings">The read hydraulic location configuration settings to
         /// update with.</param>
-        /// <param name="usePreprocessorClosure">Indicator whether to use the preprocessor closure.</param>
         /// <param name="hlcdFilePath">The file path of the hydraulic location configuration database.</param>
         /// <returns>All objects that have been affected by the update.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryData"/> or
         /// <paramref name="hlcdFilePath"/> is <c>null</c>.</exception>
         IEnumerable<IObservable> Update(HydraulicBoundaryData hydraulicBoundaryData,
                                         ReadHydraulicLocationConfigurationSettings readHydraulicLocationConfigurationSettings,
-                                        bool usePreprocessorClosure,
                                         string hlcdFilePath);
     }
 }
