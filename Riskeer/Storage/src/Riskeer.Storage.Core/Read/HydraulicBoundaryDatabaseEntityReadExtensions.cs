@@ -32,25 +32,19 @@ namespace Riskeer.Storage.Core.Read
     internal static class HydraulicBoundaryDatabaseEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="HydraulicBoundaryDatabaseEntity"/> and uses the information to update a
-        /// <see cref="HydraulicBoundaryDatabase"/> instance.
+        /// Reads the <see cref="HydraulicBoundaryDatabaseEntity"/> and uses the information to construct a
+        /// <see cref="HydraulicBoundaryDatabase"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="HydraulicBoundaryDatabaseEntity"/> to update the
-        /// <see cref="HydraulicBoundaryDatabase"/>.</param>
+        /// <param name="entity">The <see cref="HydraulicBoundaryDatabaseEntity"/> to create the
+        /// <see cref="HydraulicBoundaryDatabase"/> for.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
-        /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryDatabase"/> to update.</param>
+        /// <returns>A new <see cref="HydraulicBoundaryDatabase"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static void Read(this HydraulicBoundaryDatabaseEntity entity, HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
-                                ReadConversionCollector collector)
+        public static HydraulicBoundaryDatabase Read(this HydraulicBoundaryDatabaseEntity entity, ReadConversionCollector collector)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException(nameof(entity));
-            }
-
-            if (hydraulicBoundaryDatabase == null)
-            {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
             }
 
             if (collector == null)
@@ -58,15 +52,20 @@ namespace Riskeer.Storage.Core.Read
                 throw new ArgumentNullException(nameof(collector));
             }
 
-            hydraulicBoundaryDatabase.FilePath = entity.FilePath;
-            hydraulicBoundaryDatabase.Version = entity.Version;
-            hydraulicBoundaryDatabase.UsePreprocessorClosure = Convert.ToBoolean(entity.UsePreprocessorClosure);
-            
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = entity.FilePath,
+                Version = entity.Version,
+                UsePreprocessorClosure = Convert.ToBoolean(entity.UsePreprocessorClosure)
+            };
+
             HydraulicBoundaryLocation[] readHydraulicBoundaryLocations = entity.HydraulicLocationEntities
                                                                                .OrderBy(hl => hl.Order)
                                                                                .Select(hle => hle.Read(collector))
                                                                                .ToArray();
             hydraulicBoundaryDatabase.Locations.AddRange(readHydraulicBoundaryLocations);
+
+            return hydraulicBoundaryDatabase;
         }
     }
 }

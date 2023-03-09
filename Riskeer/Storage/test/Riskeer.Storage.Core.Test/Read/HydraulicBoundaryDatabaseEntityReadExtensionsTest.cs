@@ -36,25 +36,11 @@ namespace Riskeer.Storage.Core.Test.Read
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => ((HydraulicBoundaryDatabaseEntity) null).Read(new HydraulicBoundaryDatabase(), new ReadConversionCollector());
+            void Call() => ((HydraulicBoundaryDatabaseEntity) null).Read(new ReadConversionCollector());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("entity", exception.ParamName);
-        }
-
-        [Test]
-        public void Read_HydraulicBoundaryDatabaseNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var entity = new HydraulicBoundaryDatabaseEntity();
-
-            // Call
-            void Call() => entity.Read(null, new ReadConversionCollector());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("hydraulicBoundaryData", exception.ParamName);
         }
 
         [Test]
@@ -64,7 +50,7 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new HydraulicBoundaryDatabaseEntity();
 
             // Call
-            void Call() => entity.Read(new HydraulicBoundaryDatabase(), null);
+            void Call() => entity.Read(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -88,10 +74,8 @@ namespace Riskeer.Storage.Core.Test.Read
                 }
             };
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-
             // Call
-            entity.Read(hydraulicBoundaryDatabase, new ReadConversionCollector());
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = entity.Read(new ReadConversionCollector());
 
             // Assert
             Assert.AreEqual(entity.FilePath, hydraulicBoundaryDatabase.FilePath);
