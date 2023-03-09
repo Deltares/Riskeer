@@ -164,7 +164,6 @@ namespace Riskeer.Integration.Plugin.Handlers
             HydraulicLocationConfigurationDatabaseUpdateHelper.UpdateHydraulicLocationConfigurationDatabase(
                 hydraulicBoundaryData.HydraulicLocationConfigurationDatabase,
                 readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationSettings?.Single(),
-                readHydraulicLocationConfigurationDatabase.ReadTracks.First(rt => rt.TrackId == readHydraulicBoundaryDatabase.TrackId).UsePreprocessorClosure,
                 hlcdFilePath);
 
             return changedObjects;

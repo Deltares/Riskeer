@@ -39,13 +39,11 @@ namespace Riskeer.Integration.Plugin.Helpers
         /// </summary>
         /// <param name="hydraulicLocationConfigurationDatabase">The hydraulic location configuration database to update.</param>
         /// <param name="readHydraulicLocationConfigurationSettings">The read hydraulic location configuration settings.</param>
-        /// <param name="usePreprocessorClosure">Indicator whether to use the preprocessor closure.</param>
         /// <param name="hlcdFilePath">The file path of the hydraulic location configuration database.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicLocationConfigurationDatabase"/> or
         /// <paramref name="hlcdFilePath"/> is <c>null</c>.</exception>
         public static void UpdateHydraulicLocationConfigurationDatabase(HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase,
                                                                         ReadHydraulicLocationConfigurationSettings readHydraulicLocationConfigurationSettings,
-                                                                        bool usePreprocessorClosure,
                                                                         string hlcdFilePath)
         {
             if (hydraulicLocationConfigurationDatabase == null)
@@ -70,7 +68,6 @@ namespace Riskeer.Integration.Plugin.Helpers
                 hydraulicLocationConfigurationDatabase.WindDirection = readHydraulicLocationConfigurationSettings.WindDirection;
                 hydraulicLocationConfigurationDatabase.WindSpeed = readHydraulicLocationConfigurationSettings.WindSpeed;
                 hydraulicLocationConfigurationDatabase.Comment = readHydraulicLocationConfigurationSettings.Comment;
-                hydraulicLocationConfigurationDatabase.UsePreprocessorClosure = usePreprocessorClosure;
             }
             else
             {
@@ -86,7 +83,6 @@ namespace Riskeer.Integration.Plugin.Helpers
                 hydraulicLocationConfigurationDatabase.WindDirection = HydraulicLocationConfigurationDatabaseConstants.OptionalConfigurationPropertyDefaultValue;
                 hydraulicLocationConfigurationDatabase.WindSpeed = HydraulicLocationConfigurationDatabaseConstants.OptionalConfigurationPropertyDefaultValue;
                 hydraulicLocationConfigurationDatabase.Comment = HydraulicLocationConfigurationDatabaseConstants.AdditionalInformationConfigurationPropertyValue;
-                hydraulicLocationConfigurationDatabase.UsePreprocessorClosure = usePreprocessorClosure;
             }
         }
     }
