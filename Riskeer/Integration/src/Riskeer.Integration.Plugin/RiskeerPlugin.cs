@@ -2471,16 +2471,13 @@ namespace Riskeer.Integration.Plugin
                     RiskeerCommonFormsResources.GeneralFolderIcon,
                     (sender, args) =>
                     {
-                        using (var dialog = new FolderBrowserDialog
+                        IInquiryHelper inquiryHelper = GetInquiryHelper();
+
+                        string newFolderPath = inquiryHelper.GetTargetFolderLocation();
+
+                        if (newFolderPath != null)
                         {
-                            ShowNewFolderButton = false,
-                            Description = RiskeerFormsResources.FolderBrowserDialog_Select_Different_Folder
-                        })
-                        {
-                            if (dialog.ShowDialog(Gui.MainWindow) == DialogResult.OK)
-                            {
-                                nodeData.WrappedData.SetNewFolderPath(dialog.SelectedPath);
-                            }
+                            nodeData.WrappedData.SetNewFolderPath(newFolderPath);
                         }
                     });
 
