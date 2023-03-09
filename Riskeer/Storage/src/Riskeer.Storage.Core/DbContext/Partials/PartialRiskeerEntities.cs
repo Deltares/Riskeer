@@ -78,6 +78,7 @@ namespace Riskeer.Storage.Core.DbContext
             HeightStructuresCalculationEntities.Load();
             HeightStructuresFailureMechanismMetaEntities.Load();
             HeightStructuresOutputEntities.Load();
+            HydraulicBoundaryDataEntities.Load();
             HydraulicBoundaryDatabaseEntities.Load();
             HydraulicLocationEntities.Load();
             HydraulicLocationCalculationCollectionEntities.Include(e => e.HydraulicLocationCalculationEntities)
