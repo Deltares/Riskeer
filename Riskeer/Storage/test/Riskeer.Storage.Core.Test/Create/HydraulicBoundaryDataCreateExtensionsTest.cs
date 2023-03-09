@@ -35,11 +35,25 @@ namespace Riskeer.Storage.Core.Test.Create
         public void Create_HydraulicBoundaryDataNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => ((HydraulicBoundaryData) null).Create();
+            void Call() => ((HydraulicBoundaryData) null).Create(new PersistenceRegistry());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("hydraulicBoundaryData", exception.ParamName);
+        }
+
+        [Test]
+        public void Create_RegistryNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var hydraulicBoundaryData = new HydraulicBoundaryData();
+
+            // Call
+            void Call() => hydraulicBoundaryData.Create(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("registry", exception.ParamName);
         }
 
         [Test]
@@ -61,11 +75,15 @@ namespace Riskeer.Storage.Core.Test.Create
                     WindDirection = "WindDirection",
                     WindSpeed = "WindSpeed",
                     Comment = "Comment"
+                },
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase()
                 }
             };
 
             // Call
-            HydraulicBoundaryDataEntity entity = hydraulicBoundaryData.Create();
+            HydraulicBoundaryDataEntity entity = hydraulicBoundaryData.Create(new PersistenceRegistry());
 
             // Assert
             HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase = hydraulicBoundaryData.HydraulicLocationConfigurationDatabase;
@@ -79,6 +97,9 @@ namespace Riskeer.Storage.Core.Test.Create
             TestHelper.AssertAreEqualButNotSame(hydraulicLocationConfigurationDatabase.WindDirection, entity.HydraulicLocationConfigurationDatabaseWindDirection);
             TestHelper.AssertAreEqualButNotSame(hydraulicLocationConfigurationDatabase.WindSpeed, entity.HydraulicLocationConfigurationDatabaseWindSpeed);
             TestHelper.AssertAreEqualButNotSame(hydraulicLocationConfigurationDatabase.Comment, entity.HydraulicLocationConfigurationDatabaseComment);
+
+            int expectedNrOfHydraulicBoundaryLocations = hydraulicBoundaryData.HydraulicBoundaryDatabases.Count;
+            Assert.AreEqual(expectedNrOfHydraulicBoundaryLocations, entity.HydraulicBoundaryDatabaseEntities.Count);
         }
     }
 }

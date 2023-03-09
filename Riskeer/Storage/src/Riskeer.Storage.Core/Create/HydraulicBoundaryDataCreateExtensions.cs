@@ -38,18 +38,25 @@ namespace Riskeer.Storage.Core.Create
         /// </summary>
         /// <param name="hydraulicBoundaryData">The <see cref="HydraulicBoundaryData"/> to create a
         /// <see cref="HydraulicBoundaryDataEntity"/> for.</param>
+        /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="HydraulicBoundaryDataEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryData"/> is <c>null</c>.</exception>
-        internal static HydraulicBoundaryDataEntity Create(this HydraulicBoundaryData hydraulicBoundaryData)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryData"/>
+        /// or <paramref name="registry"/> is <c>null</c>.</exception>
+        internal static HydraulicBoundaryDataEntity Create(this HydraulicBoundaryData hydraulicBoundaryData, PersistenceRegistry registry)
         {
             if (hydraulicBoundaryData == null)
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryData));
             }
 
+            if (registry == null)
+            {
+                throw new ArgumentNullException(nameof(registry));
+            }
+
             HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase = hydraulicBoundaryData.HydraulicLocationConfigurationDatabase;
 
-            return new HydraulicBoundaryDataEntity
+            var entity = new HydraulicBoundaryDataEntity
             {
                 HydraulicLocationConfigurationDatabaseFilePath = hydraulicLocationConfigurationDatabase.FilePath.DeepClone(),
                 HydraulicLocationConfigurationDatabaseScenarioName = hydraulicLocationConfigurationDatabase.ScenarioName.DeepClone(),
@@ -60,8 +67,16 @@ namespace Riskeer.Storage.Core.Create
                 HydraulicLocationConfigurationDatabaseLakeLevel = hydraulicLocationConfigurationDatabase.LakeLevel.DeepClone(),
                 HydraulicLocationConfigurationDatabaseWindDirection = hydraulicLocationConfigurationDatabase.WindDirection.DeepClone(),
                 HydraulicLocationConfigurationDatabaseWindSpeed = hydraulicLocationConfigurationDatabase.WindSpeed.DeepClone(),
-                HydraulicLocationConfigurationDatabaseComment = hydraulicLocationConfigurationDatabase.Comment.DeepClone() 
+                HydraulicLocationConfigurationDatabaseComment = hydraulicLocationConfigurationDatabase.Comment.DeepClone()
             };
+
+            for (var i = 0; i < hydraulicBoundaryData.HydraulicBoundaryDatabases.Count; i++)
+            {
+                HydraulicBoundaryDatabase hydraulicBoundaryDatabase = hydraulicBoundaryData.HydraulicBoundaryDatabases[i];
+                entity.HydraulicBoundaryDatabaseEntities.Add(hydraulicBoundaryDatabase.Create(registry, i));
+            }
+
+            return entity;
         }
     }
 }
