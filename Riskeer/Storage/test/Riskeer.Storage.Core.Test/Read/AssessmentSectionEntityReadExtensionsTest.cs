@@ -102,9 +102,8 @@ namespace Riskeer.Storage.Core.Test.Read
 
             HydraulicBoundaryData hydraulicBoundaryData = section.HydraulicBoundaryData;
             Assert.IsNotNull(hydraulicBoundaryData);
-            CollectionAssert.IsEmpty(hydraulicBoundaryData.Locations);
-            Assert.IsNull(hydraulicBoundaryData.FilePath);
-            Assert.IsNull(hydraulicBoundaryData.Version);
+            CollectionAssert.IsEmpty(hydraulicBoundaryData.GetLocations());
+            CollectionAssert.IsEmpty(hydraulicBoundaryData.HydraulicBoundaryDatabases);
 
             HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase = hydraulicBoundaryData.HydraulicLocationConfigurationDatabase;
             Assert.IsNull(hydraulicLocationConfigurationDatabase.FilePath);
@@ -271,9 +270,8 @@ namespace Riskeer.Storage.Core.Test.Read
 
             // Assert
             HydraulicBoundaryData hydraulicBoundaryData = section.HydraulicBoundaryData;
-            CollectionAssert.IsEmpty(hydraulicBoundaryData.Locations);
-            Assert.IsNull(hydraulicBoundaryData.FilePath);
-            Assert.IsNull(hydraulicBoundaryData.Version);
+            CollectionAssert.IsEmpty(hydraulicBoundaryData.GetLocations());
+            CollectionAssert.IsEmpty(hydraulicBoundaryData.HydraulicBoundaryDatabases);
 
             CollectionAssert.IsEmpty(section.WaterLevelCalculationsForSignalFloodingProbability);
             CollectionAssert.IsEmpty(section.WaterLevelCalculationsForMaximumAllowableFloodingProbability);

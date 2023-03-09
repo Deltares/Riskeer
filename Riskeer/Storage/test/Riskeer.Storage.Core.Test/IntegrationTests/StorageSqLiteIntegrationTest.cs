@@ -1855,15 +1855,30 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                                                         HydraulicBoundaryData actualHydraulicBoundaryData)
         {
             Assert.IsNotNull(expectedHydraulicBoundaryData);
-            Assert.AreEqual(expectedHydraulicBoundaryData.Version, actualHydraulicBoundaryData.Version);
-            Assert.AreEqual(expectedHydraulicBoundaryData.FilePath, actualHydraulicBoundaryData.FilePath);
+
+            AssertCollectionAndItems(expectedHydraulicBoundaryData.HydraulicBoundaryDatabases,
+                                     actualHydraulicBoundaryData.HydraulicBoundaryDatabases,
+                                     AssertHydraulicBoundaryDatabase);
 
             AssertHydraulicLocationConfigurationDatabase(expectedHydraulicBoundaryData.HydraulicLocationConfigurationDatabase,
                                                          actualHydraulicBoundaryData.HydraulicLocationConfigurationDatabase);
+        }
 
-            Assert.AreEqual(expectedHydraulicBoundaryData.Locations.Count, actualHydraulicBoundaryData.Locations.Count);
+        private static void AssertHydraulicBoundaryDatabase(HydraulicBoundaryDatabase expectedDatabase, HydraulicBoundaryDatabase actualDatabase)
+        {
+            Assert.AreEqual(expectedDatabase.FilePath, actualDatabase.FilePath);
+            Assert.AreEqual(expectedDatabase.Version, actualDatabase.Version);
+            Assert.AreEqual(expectedDatabase.UsePreprocessorClosure, actualDatabase.UsePreprocessorClosure);
 
-            AssertHydraulicBoundaryLocations(expectedHydraulicBoundaryData.Locations, actualHydraulicBoundaryData.Locations);
+            AssertCollectionAndItems(expectedDatabase.Locations, actualDatabase.Locations, AssertHydraulicBoundaryLocation);
+        }
+
+        private static void AssertHydraulicBoundaryLocation(HydraulicBoundaryLocation expectedBoundaryLocation,
+                                                            HydraulicBoundaryLocation actualBoundaryLocation)
+        {
+            Assert.AreEqual(expectedBoundaryLocation.Id, actualBoundaryLocation.Id);
+            Assert.AreEqual(expectedBoundaryLocation.Name, actualBoundaryLocation.Name);
+            Assert.AreEqual(expectedBoundaryLocation.Location, actualBoundaryLocation.Location);
         }
 
         private static void AssertHydraulicLocationConfigurationDatabase(HydraulicLocationConfigurationDatabase expectedDatabase,
@@ -1879,22 +1894,6 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             Assert.AreEqual(expectedDatabase.WindDirection, actualDatabase.WindDirection);
             Assert.AreEqual(expectedDatabase.WindSpeed, actualDatabase.WindSpeed);
             Assert.AreEqual(expectedDatabase.Comment, actualDatabase.Comment);
-        }
-
-        private static void AssertHydraulicBoundaryLocations(IEnumerable<HydraulicBoundaryLocation> expectedHydraulicBoundaryLocations,
-                                                             IEnumerable<HydraulicBoundaryLocation> actualHydraulicBoundaryLocations)
-        {
-            AssertCollectionAndItems(expectedHydraulicBoundaryLocations,
-                                     actualHydraulicBoundaryLocations,
-                                     AssertHydraulicBoundaryLocation);
-        }
-
-        private static void AssertHydraulicBoundaryLocation(HydraulicBoundaryLocation expectedBoundaryLocation,
-                                                            HydraulicBoundaryLocation actualBoundaryLocation)
-        {
-            Assert.AreEqual(expectedBoundaryLocation.Id, actualBoundaryLocation.Id);
-            Assert.AreEqual(expectedBoundaryLocation.Name, actualBoundaryLocation.Name);
-            Assert.AreEqual(expectedBoundaryLocation.Location, actualBoundaryLocation.Location);
         }
 
         #endregion

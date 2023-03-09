@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2022. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
@@ -85,8 +84,10 @@ namespace Riskeer.Storage.Core.TestUtil
                 Name = "assessmentSection",
                 HydraulicBoundaryData =
                 {
-                    FilePath = "/temp/test",
-                    Version = "1.0"
+                    HydraulicBoundaryDatabases =
+                    {
+                        new HydraulicBoundaryDatabase()
+                    }
                 },
                 Id = "12-2",
                 FailureMechanismContribution =
@@ -98,6 +99,7 @@ namespace Riskeer.Storage.Core.TestUtil
             };
 
             ConfigureHydraulicLocationConfigurationDatabase(assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase);
+            ConfigureHydraulicBoundaryDatabase(assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Single());
 
             assessmentSection.ReferenceLine.SetGeometry(new[]
             {
@@ -106,9 +108,6 @@ namespace Riskeer.Storage.Core.TestUtil
                 new Point2D(5, 8),
                 new Point2D(-3, 2)
             });
-
-            ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryData.Locations;
-            hydraulicBoundaryLocations.AddRange(GetHydraulicBoundaryLocations());
 
             var random = new Random(21);
             assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.AddRange(new[]
@@ -124,7 +123,7 @@ namespace Riskeer.Storage.Core.TestUtil
                 new HydraulicBoundaryLocationCalculationsForTargetProbability(random.NextDouble(0, 0.1))
             });
 
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(assessmentSection.HydraulicBoundaryData.GetLocations());
             ConfigureHydraulicBoundaryLocationCalculations(assessmentSection);
 
             MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism = assessmentSection.MacroStabilityInwards;
@@ -248,7 +247,14 @@ namespace Riskeer.Storage.Core.TestUtil
             hydraulicLocationConfigurationDatabase.WindDirection = "WindDirection";
             hydraulicLocationConfigurationDatabase.WindSpeed = "WindSpeed";
             hydraulicLocationConfigurationDatabase.Comment = "Comment";
-            hydraulicLocationConfigurationDatabase.UsePreprocessorClosure = false;
+        }
+        
+        private static void ConfigureHydraulicBoundaryDatabase(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+        {
+            hydraulicBoundaryDatabase.FilePath = "/temp/test";
+            hydraulicBoundaryDatabase.Version = "1.0";
+            hydraulicBoundaryDatabase.UsePreprocessorClosure = false;
+            hydraulicBoundaryDatabase.Locations.AddRange(GetHydraulicBoundaryLocations());
         }
 
         private static void SetSections(IFailureMechanism failureMechanism)
@@ -316,7 +322,7 @@ namespace Riskeer.Storage.Core.TestUtil
             ConfigureCalculationsWithOutput(assessmentSection, hydraulicLocationWithoutIllustrationPoints);
 
             HydraulicBoundaryLocation hydraulicLocationWithIllustrationPoints = hydraulicBoundaryLocations.ElementAt(1);
-            ConfigureCalculationsWithOutput(assessmentSection, hydraulicLocationWithIllustrationPoints);
+            ConfigureCalculationsWithOutput(assessmentSection, hydraulicLocationWithIllustrationPoints);    
         }
 
         private static void ConfigureCalculationsWithOutput(AssessmentSection assessmentSection,
