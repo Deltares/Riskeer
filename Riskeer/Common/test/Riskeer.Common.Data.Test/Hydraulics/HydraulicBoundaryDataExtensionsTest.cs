@@ -20,7 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.IO;
+using Core.Common.Base;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Riskeer.Common.Data.Hydraulics;
 
 namespace Riskeer.Common.Data.Test.Hydraulics
@@ -94,6 +97,57 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("newFolderPath", paramName);
+        }
+
+        [Test]
+        public void SetNewFolderPath_ValidParameters_SetsNewFolderPathAndNotifiesObservers()
+        {
+            // Setup
+            const string hlcdFileName = "hlcd.sqlite";
+            const string hrdFileName1 = "hrdFile1.sqlite";
+            const string hrdFileName2 = "hrdFile2.sqlite";
+            const string currentFolderPath = "some/random/folder";
+            const string newFolderPath = "new/folder/to/set";
+
+            var hydraulicBoundaryDatabase1 = new HydraulicBoundaryDatabase
+            {
+                FilePath = Path.Combine(currentFolderPath, hrdFileName1)
+            };
+
+            var hydraulicBoundaryDatabase2 = new HydraulicBoundaryDatabase
+            {
+                FilePath = Path.Combine(currentFolderPath, hrdFileName2)
+            };
+
+            var hydraulicBoundaryData = new HydraulicBoundaryData
+            {
+                HydraulicLocationConfigurationDatabase =
+                {
+                    FilePath = Path.Combine(currentFolderPath, hlcdFileName)
+                },
+                HydraulicBoundaryDatabases =
+                {
+                    hydraulicBoundaryDatabase1,
+                    hydraulicBoundaryDatabase2
+                }
+            };
+
+            var mockRepository = new MockRepository();
+            var observer = mockRepository.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            hydraulicBoundaryData.Attach(observer);
+
+            mockRepository.ReplayAll();
+
+            // Call
+            hydraulicBoundaryData.SetNewFolderPath(newFolderPath);
+
+            // Assert
+            Assert.AreEqual(Path.Combine(newFolderPath, hlcdFileName), hydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath);
+            Assert.AreEqual(Path.Combine(newFolderPath, hrdFileName1), hydraulicBoundaryDatabase1.FilePath);
+            Assert.AreEqual(Path.Combine(newFolderPath, hrdFileName2), hydraulicBoundaryDatabase2.FilePath);
+
+            mockRepository.VerifyAll();
         }
     }
 }
