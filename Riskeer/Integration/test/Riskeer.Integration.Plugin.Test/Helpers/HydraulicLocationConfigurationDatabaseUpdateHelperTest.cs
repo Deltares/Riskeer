@@ -37,7 +37,7 @@ namespace Riskeer.Integration.Plugin.Test.Helpers
         {
             // Call
             TestDelegate call = () => HydraulicLocationConfigurationDatabaseUpdateHelper.UpdateHydraulicLocationConfigurationDatabase(
-                null, ReadHydraulicLocationConfigurationSettingsTestFactory.Create(), false, "");
+                null, ReadHydraulicLocationConfigurationSettingsTestFactory.Create(), "");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -49,7 +49,7 @@ namespace Riskeer.Integration.Plugin.Test.Helpers
         {
             // Call
             TestDelegate call = () => HydraulicLocationConfigurationDatabaseUpdateHelper.UpdateHydraulicLocationConfigurationDatabase(
-                new HydraulicLocationConfigurationDatabase(), ReadHydraulicLocationConfigurationSettingsTestFactory.Create(), false, null);
+                new HydraulicLocationConfigurationDatabase(), ReadHydraulicLocationConfigurationSettingsTestFactory.Create(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -62,11 +62,10 @@ namespace Riskeer.Integration.Plugin.Test.Helpers
             // Setup
             const string filePath = "some/file/path";
             var hydraulicLocationConfigurationDatabase = new HydraulicLocationConfigurationDatabase();
-            bool usePreprocessorClosure = new Random(21).NextBoolean();
 
             // Call
             Action call = () => HydraulicLocationConfigurationDatabaseUpdateHelper.UpdateHydraulicLocationConfigurationDatabase(
-                hydraulicLocationConfigurationDatabase, null, usePreprocessorClosure, filePath);
+                hydraulicLocationConfigurationDatabase, null, filePath);
 
             // Assert
             const string expectedMessage = "De tabel 'ScenarioInformation' in het HLCD bestand is niet aanwezig. Er worden standaardwaarden " +
@@ -83,7 +82,6 @@ namespace Riskeer.Integration.Plugin.Test.Helpers
             Assert.AreEqual("Conform WBI2017", hydraulicLocationConfigurationDatabase.WindDirection);
             Assert.AreEqual("Conform WBI2017", hydraulicLocationConfigurationDatabase.WindSpeed);
             Assert.AreEqual("Gegenereerd door Riskeer (conform WBI2017)", hydraulicLocationConfigurationDatabase.Comment);
-            Assert.AreEqual(usePreprocessorClosure, hydraulicLocationConfigurationDatabase.UsePreprocessorClosure);
         }
 
         [Test]
@@ -93,11 +91,10 @@ namespace Riskeer.Integration.Plugin.Test.Helpers
             const string filePath = "some/file/path";
             var hydraulicLocationConfigurationDatabase = new HydraulicLocationConfigurationDatabase();
             ReadHydraulicLocationConfigurationSettings readSettings = ReadHydraulicLocationConfigurationSettingsTestFactory.Create();
-            bool usePreprocessorClosure = new Random(21).NextBoolean();
 
             // Call
             Action call = () => HydraulicLocationConfigurationDatabaseUpdateHelper.UpdateHydraulicLocationConfigurationDatabase(
-                hydraulicLocationConfigurationDatabase, readSettings, usePreprocessorClosure, filePath);
+                hydraulicLocationConfigurationDatabase, readSettings, filePath);
 
             // Assert
             TestHelper.AssertLogMessagesCount(call, 0);
@@ -112,7 +109,6 @@ namespace Riskeer.Integration.Plugin.Test.Helpers
             Assert.AreEqual(readSettings.WindDirection, hydraulicLocationConfigurationDatabase.WindDirection);
             Assert.AreEqual(readSettings.WindSpeed, hydraulicLocationConfigurationDatabase.WindSpeed);
             Assert.AreEqual(readSettings.Comment, hydraulicLocationConfigurationDatabase.Comment);
-            Assert.AreEqual(usePreprocessorClosure, hydraulicLocationConfigurationDatabase.UsePreprocessorClosure);
         }
     }
 }
