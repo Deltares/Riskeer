@@ -33,6 +33,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.DuneErosion.Forms.PresentationObjects.HydraulicLoadsState;
 using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects.HydraulicLoadsState;
@@ -165,25 +166,37 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 object[] objects = info.ChildNodeObjects(context).ToArray();
 
                 // Assert
-                Assert.AreEqual(5, objects.Length);
+                Assert.AreEqual(8, objects.Length);
 
                 var hydraulicBoundaryDataContext = (HydraulicBoundaryDataContext) objects[0];
                 Assert.AreSame(assessmentSection.HydraulicBoundaryData, hydraulicBoundaryDataContext.WrappedData);
                 Assert.AreSame(assessmentSection, hydraulicBoundaryDataContext.AssessmentSection);
 
-                var stabilityStoneCoverFailureMechanismContext = (StabilityStoneCoverFailureMechanismContext) objects[1];
+                var waterLevelCalculationsForNormTargetProbabilitiesGroupContext = (WaterLevelCalculationsForNormTargetProbabilitiesGroupContext) objects[1];
+                Assert.AreSame(assessmentSection.HydraulicBoundaryData.Locations, waterLevelCalculationsForNormTargetProbabilitiesGroupContext.WrappedData);
+                Assert.AreSame(assessmentSection, waterLevelCalculationsForNormTargetProbabilitiesGroupContext.AssessmentSection);
+
+                var waterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext = (WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext) objects[2];
+                Assert.AreSame(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities, waterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext.WrappedData);
+                Assert.AreSame(assessmentSection, waterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext.AssessmentSection);
+
+                var waveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext = (WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext) objects[3];
+                Assert.AreSame(assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities, waveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext.WrappedData);
+                Assert.AreSame(assessmentSection, waveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext.AssessmentSection);
+
+                var stabilityStoneCoverFailureMechanismContext = (StabilityStoneCoverFailureMechanismContext) objects[4];
                 Assert.AreSame(assessmentSection.StabilityStoneCover, stabilityStoneCoverFailureMechanismContext.WrappedData);
                 Assert.AreSame(assessmentSection, stabilityStoneCoverFailureMechanismContext.Parent);
 
-                var waveImpactAsphaltCoverFailureMechanismContext = (WaveImpactAsphaltCoverFailureMechanismContext) objects[2];
+                var waveImpactAsphaltCoverFailureMechanismContext = (WaveImpactAsphaltCoverFailureMechanismContext) objects[5];
                 Assert.AreSame(assessmentSection.WaveImpactAsphaltCover, waveImpactAsphaltCoverFailureMechanismContext.WrappedData);
                 Assert.AreSame(assessmentSection, waveImpactAsphaltCoverFailureMechanismContext.Parent);
 
-                var grassCoverErosionOutwardsFailureMechanismContext = (GrassCoverErosionOutwardsFailureMechanismContext) objects[3];
+                var grassCoverErosionOutwardsFailureMechanismContext = (GrassCoverErosionOutwardsFailureMechanismContext) objects[6];
                 Assert.AreSame(assessmentSection.GrassCoverErosionOutwards, grassCoverErosionOutwardsFailureMechanismContext.WrappedData);
                 Assert.AreSame(assessmentSection, grassCoverErosionOutwardsFailureMechanismContext.Parent);
 
-                var duneErosionFailureMechanismContext = (DuneErosionFailureMechanismContext) objects[4];
+                var duneErosionFailureMechanismContext = (DuneErosionFailureMechanismContext) objects[7];
                 Assert.AreSame(assessmentSection.DuneErosion, duneErosionFailureMechanismContext.WrappedData);
                 Assert.AreSame(assessmentSection, duneErosionFailureMechanismContext.Parent);
             }

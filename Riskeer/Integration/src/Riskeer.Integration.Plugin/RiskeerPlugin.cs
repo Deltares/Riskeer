@@ -1777,6 +1777,12 @@ namespace Riskeer.Integration.Plugin
             return new object[]
             {
                 new HydraulicBoundaryDataContext(assessmentSection.HydraulicBoundaryData, assessmentSection),
+                new WaterLevelCalculationsForNormTargetProbabilitiesGroupContext(nodeData.WrappedData.HydraulicBoundaryData.Locations,
+                                                                                 nodeData.WrappedData),
+                new WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext(nodeData.WrappedData.WaterLevelCalculationsForUserDefinedTargetProbabilities,
+                                                                                        nodeData.WrappedData),
+                new WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext(nodeData.WrappedData.WaveHeightCalculationsForUserDefinedTargetProbabilities,
+                                                                                        nodeData.WrappedData),
                 new StabilityStoneCoverHydraulicLoadsStateFailureMechanismContext(assessmentSection.StabilityStoneCover, assessmentSection),
                 new WaveImpactAsphaltCoverHydraulicLoadsStateFailureMechanismContext(assessmentSection.WaveImpactAsphaltCover, assessmentSection),
                 new GrassCoverErosionOutwardsHydraulicLoadsStateFailureMechanismContext(assessmentSection.GrassCoverErosionOutwards, assessmentSection),
@@ -2417,12 +2423,6 @@ namespace Riskeer.Integration.Plugin
                 return new object[]
                 {
                     new HydraulicBoundaryDatabasesContext(nodeData.WrappedData, nodeData.AssessmentSection),
-                    new WaterLevelCalculationsForNormTargetProbabilitiesGroupContext(nodeData.WrappedData.Locations,
-                                                                                     nodeData.AssessmentSection),
-                    new WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext(nodeData.AssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities,
-                                                                                            nodeData.AssessmentSection),
-                    new WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext(nodeData.AssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities,
-                                                                                            nodeData.AssessmentSection)
                 };
             }
 
