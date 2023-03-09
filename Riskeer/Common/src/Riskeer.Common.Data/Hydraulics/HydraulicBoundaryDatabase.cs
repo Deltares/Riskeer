@@ -29,6 +29,14 @@ namespace Riskeer.Common.Data.Hydraulics
     public class HydraulicBoundaryDatabase : Observable
     {
         /// <summary>
+        /// Creates a new instance of <see cref="HydraulicBoundaryDatabase"/>.
+        /// </summary>
+        public HydraulicBoundaryDatabase()
+        {
+            Locations = new ObservableList<HydraulicBoundaryLocation>();
+        }
+
+        /// <summary>
         /// Gets or sets the file path.
         /// </summary>
         public string FilePath { get; set; }
@@ -42,5 +50,10 @@ namespace Riskeer.Common.Data.Hydraulics
         /// Gets the indicator whether to use the preprocessor closure.
         /// </summary>
         public bool UsePreprocessorClosure { get; set; }
+
+        /// <summary>
+        /// Gets the hydraulic boundary locations.
+        /// </summary>
+        public ObservableList<HydraulicBoundaryLocation> Locations { get; }
     }
 }

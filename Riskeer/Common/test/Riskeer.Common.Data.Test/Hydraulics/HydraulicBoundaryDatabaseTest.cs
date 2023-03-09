@@ -39,6 +39,7 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             Assert.IsNull(hydraulicBoundaryDatabase.FilePath);
             Assert.IsNull(hydraulicBoundaryDatabase.Version);
             Assert.IsFalse(hydraulicBoundaryDatabase.UsePreprocessorClosure);
+            CollectionAssert.IsEmpty(hydraulicBoundaryDatabase.Locations);
         }
     }
 }
