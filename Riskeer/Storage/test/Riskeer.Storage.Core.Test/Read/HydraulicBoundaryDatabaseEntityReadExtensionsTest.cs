@@ -25,6 +25,7 @@ using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read;
+using Riskeer.Storage.Core.TestUtil.Hydraulics;
 
 namespace Riskeer.Storage.Core.Test.Read
 {
@@ -35,7 +36,7 @@ namespace Riskeer.Storage.Core.Test.Read
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => ((HydraulicBoundaryDatabaseEntity) null).Read(new HydraulicBoundaryDatabase());
+            void Call() => ((HydraulicBoundaryDatabaseEntity) null).Read(new HydraulicBoundaryDatabase(), new ReadConversionCollector());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -49,11 +50,25 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new HydraulicBoundaryDatabaseEntity();
 
             // Call
-            void Call() => entity.Read(null);
+            void Call() => entity.Read(null, new ReadConversionCollector());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("hydraulicBoundaryData", exception.ParamName);
+        }
+
+        [Test]
+        public void Read_CollectorNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new HydraulicBoundaryDatabaseEntity();
+
+            // Call
+            void Call() => entity.Read(new HydraulicBoundaryDatabase(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
         }
 
         [Test]
@@ -66,18 +81,25 @@ namespace Riskeer.Storage.Core.Test.Read
             {
                 FilePath = "hrdFilePath",
                 Version = "1.0",
-                UsePreprocessorClosure = Convert.ToByte(usePreprocessorClosure)
+                UsePreprocessorClosure = Convert.ToByte(usePreprocessorClosure),
+                HydraulicLocationEntities =
+                {
+                    HydraulicLocationEntityTestFactory.CreateHydraulicLocationEntity()
+                }
             };
 
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
             // Call
-            entity.Read(hydraulicBoundaryDatabase);
+            entity.Read(hydraulicBoundaryDatabase, new ReadConversionCollector());
 
             // Assert
             Assert.AreEqual(entity.FilePath, hydraulicBoundaryDatabase.FilePath);
             Assert.AreEqual(entity.Version, hydraulicBoundaryDatabase.Version);
             Assert.AreEqual(usePreprocessorClosure, hydraulicBoundaryDatabase.UsePreprocessorClosure);
+
+            int expectedNrOfHydraulicBoundaryLocations = entity.HydraulicLocationEntities.Count;
+            Assert.AreEqual(expectedNrOfHydraulicBoundaryLocations, hydraulicBoundaryDatabase.Locations.Count);
         }
     }
 }

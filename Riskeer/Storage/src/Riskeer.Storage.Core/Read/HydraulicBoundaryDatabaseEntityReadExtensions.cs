@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Storage.Core.DbContext;
 
@@ -36,9 +37,11 @@ namespace Riskeer.Storage.Core.Read
         /// </summary>
         /// <param name="entity">The <see cref="HydraulicBoundaryDatabaseEntity"/> to update the
         /// <see cref="HydraulicBoundaryDatabase"/>.</param>
+        /// <param name="collector">The object keeping track of read operations.</param>
         /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryDatabase"/> to update.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static void Read(this HydraulicBoundaryDatabaseEntity entity, HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+        public static void Read(this HydraulicBoundaryDatabaseEntity entity, HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
+                                ReadConversionCollector collector)
         {
             if (entity == null)
             {
@@ -50,9 +53,20 @@ namespace Riskeer.Storage.Core.Read
                 throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
             }
 
+            if (collector == null)
+            {
+                throw new ArgumentNullException(nameof(collector));
+            }
+
             hydraulicBoundaryDatabase.FilePath = entity.FilePath;
             hydraulicBoundaryDatabase.Version = entity.Version;
             hydraulicBoundaryDatabase.UsePreprocessorClosure = Convert.ToBoolean(entity.UsePreprocessorClosure);
+            
+            HydraulicBoundaryLocation[] readHydraulicBoundaryLocations = entity.HydraulicLocationEntities
+                                                                               .OrderBy(hl => hl.Order)
+                                                                               .Select(hle => hle.Read(collector))
+                                                                               .ToArray();
+            hydraulicBoundaryDatabase.Locations.AddRange(readHydraulicBoundaryLocations);
         }
     }
 }
