@@ -34,7 +34,7 @@ namespace Riskeer.Storage.Core.Test.Read
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => ((HydraulicBoundaryDataEntity) null).Read(new HydraulicBoundaryData());
+            void Call() => ((HydraulicBoundaryDataEntity) null).Read(new HydraulicBoundaryData(), new ReadConversionCollector());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -48,11 +48,25 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new HydraulicBoundaryDataEntity();
 
             // Call
-            void Call() => entity.Read(null);
+            void Call() => entity.Read(null, new ReadConversionCollector());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("hydraulicBoundaryData", exception.ParamName);
+        }
+
+        [Test]
+        public void Read_CollectorNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new HydraulicBoundaryDataEntity();
+
+            // Call
+            void Call() => entity.Read(new HydraulicBoundaryData(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
         }
 
         [Test]
@@ -71,13 +85,17 @@ namespace Riskeer.Storage.Core.Test.Read
                 HydraulicLocationConfigurationDatabaseLakeLevel = "LakeLevel",
                 HydraulicLocationConfigurationDatabaseWindDirection = "WindDirection",
                 HydraulicLocationConfigurationDatabaseWindSpeed = "WindSpeed",
-                HydraulicLocationConfigurationDatabaseComment = "Comment"
+                HydraulicLocationConfigurationDatabaseComment = "Comment",
+                HydraulicBoundaryDatabaseEntities =
+                {
+                    new HydraulicBoundaryDatabaseEntity()
+                }
             };
 
             var hydraulicBoundaryData = new HydraulicBoundaryData();
 
             // Call
-            entity.Read(hydraulicBoundaryData);
+            entity.Read(hydraulicBoundaryData, new ReadConversionCollector());
 
             // Assert
             HydraulicLocationConfigurationDatabase database = hydraulicBoundaryData.HydraulicLocationConfigurationDatabase;
@@ -91,6 +109,9 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.HydraulicLocationConfigurationDatabaseWindDirection, database.WindDirection);
             Assert.AreEqual(entity.HydraulicLocationConfigurationDatabaseWindSpeed, database.WindSpeed);
             Assert.AreEqual(entity.HydraulicLocationConfigurationDatabaseComment, database.Comment);
+
+            int expectedNrOfHydraulicBoundaryDatabases = entity.HydraulicBoundaryDatabaseEntities.Count;
+            Assert.AreEqual(expectedNrOfHydraulicBoundaryDatabases, hydraulicBoundaryData.HydraulicBoundaryDatabases.Count);
         }
     }
 }

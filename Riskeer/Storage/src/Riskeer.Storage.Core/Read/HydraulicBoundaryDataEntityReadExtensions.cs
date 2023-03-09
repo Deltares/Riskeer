@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Storage.Core.DbContext;
 
@@ -37,8 +38,9 @@ namespace Riskeer.Storage.Core.Read
         /// <param name="entity">The <see cref="HydraulicBoundaryDataEntity"/> to update the
         /// <see cref="HydraulicBoundaryData"/>.</param>
         /// <param name="hydraulicBoundaryData">The <see cref="HydraulicBoundaryData"/> to update.</param>
+        /// <param name="collector">The object keeping track of read operations.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static void Read(this HydraulicBoundaryDataEntity entity, HydraulicBoundaryData hydraulicBoundaryData)
+        public static void Read(this HydraulicBoundaryDataEntity entity, HydraulicBoundaryData hydraulicBoundaryData, ReadConversionCollector collector)
         {
             if (entity == null)
             {
@@ -48,6 +50,11 @@ namespace Riskeer.Storage.Core.Read
             if (hydraulicBoundaryData == null)
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryData));
+            }
+
+            if (collector == null)
+            {
+                throw new ArgumentNullException(nameof(collector));
             }
 
             HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase = hydraulicBoundaryData.HydraulicLocationConfigurationDatabase;
@@ -62,6 +69,13 @@ namespace Riskeer.Storage.Core.Read
             hydraulicLocationConfigurationDatabase.WindDirection = entity.HydraulicLocationConfigurationDatabaseWindDirection;
             hydraulicLocationConfigurationDatabase.WindSpeed = entity.HydraulicLocationConfigurationDatabaseWindSpeed;
             hydraulicLocationConfigurationDatabase.Comment = entity.HydraulicLocationConfigurationDatabaseComment;
+
+            HydraulicBoundaryDatabase[] readHydraulicBoundaryDatabases = entity.HydraulicBoundaryDatabaseEntities
+                                                                               .OrderBy(hbd => hbd.Order)
+                                                                               .Select(hbde => hbde.Read(collector))
+                                                                               .ToArray();
+
+            hydraulicBoundaryData.HydraulicBoundaryDatabases.AddRange(readHydraulicBoundaryDatabases);
         }
     }
 }
