@@ -873,6 +873,12 @@ namespace Riskeer.Integration.Plugin
                 ContextMenuStrip = HydraulicBoundaryDataContextMenuStrip
             };
 
+            yield return new TreeNodeInfo<HydraulicLocationConfigurationDatabaseContext>
+            {
+                Text = context => Path.GetFileName(context.WrappedData.HydraulicLocationConfigurationDatabase.FilePath),
+                Image = context => RiskeerCommonFormsResources.DatabaseIcon
+            };
+            
             yield return new TreeNodeInfo<HydraulicBoundaryDatabasesContext>
             {
                 Text = context => Resources.HydraulicBoundaryDatabases_DisplayName,
