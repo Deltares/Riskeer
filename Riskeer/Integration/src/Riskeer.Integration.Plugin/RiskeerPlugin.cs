@@ -2418,7 +2418,8 @@ namespace Riskeer.Integration.Plugin
             {
                 return new object[]
                 {
-                    new HydraulicBoundaryDatabasesContext(nodeData.WrappedData, nodeData.AssessmentSection),
+                    new HydraulicLocationConfigurationDatabaseContext(nodeData.WrappedData, nodeData.AssessmentSection),
+                    new HydraulicBoundaryDatabasesContext(nodeData.WrappedData, nodeData.AssessmentSection)
                 };
             }
 

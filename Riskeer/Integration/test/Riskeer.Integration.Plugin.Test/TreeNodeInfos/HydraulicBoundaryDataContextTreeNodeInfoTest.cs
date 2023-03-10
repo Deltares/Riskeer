@@ -136,8 +136,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 }
 
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
@@ -259,7 +257,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     // Call
                     using (ContextMenuStrip menu = info.ContextMenuStrip(context, null, treeViewControl))
                     {
-                        Assert.AreEqual(9, menu.Items.Count);
+                        Assert.AreEqual(7, menu.Items.Count);
 
                         TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuSelectDifferentFolderIndex,
                                                                       "Selecteer andere bestandsmap...",
@@ -358,10 +356,15 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 object[] objects = info.ChildNodeObjects(hydraulicBoundaryDataContext).ToArray();
 
                 // Assert
-                Assert.AreEqual(1, objects.Length);
+                Assert.AreEqual(2, objects.Length);
 
-                var hydraulicBoundaryDatabasesContext = (HydraulicBoundaryDatabasesContext) objects[0];
+                var hydraulicLocationConfigurationDatabaseContext = (HydraulicLocationConfigurationDatabaseContext) objects[0];
+                Assert.AreSame(assessmentSection.HydraulicBoundaryData, hydraulicLocationConfigurationDatabaseContext.WrappedData);
+                Assert.AreSame(assessmentSection, hydraulicLocationConfigurationDatabaseContext.AssessmentSection);
+
+                var hydraulicBoundaryDatabasesContext = (HydraulicBoundaryDatabasesContext) objects[1];
                 Assert.AreSame(assessmentSection.HydraulicBoundaryData, hydraulicBoundaryDatabasesContext.WrappedData);
+                Assert.AreSame(assessmentSection, hydraulicBoundaryDatabasesContext.AssessmentSection);
             }
         }
 
