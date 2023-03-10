@@ -2267,15 +2267,6 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hydraulische belastingen.
-        /// </summary>
-        public static string HydraulicLoads_DisplayName {
-            get {
-                return ResourceManager.GetString("HydraulicLoads_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to ID.
         /// </summary>
         public static string Id_DisplayName {

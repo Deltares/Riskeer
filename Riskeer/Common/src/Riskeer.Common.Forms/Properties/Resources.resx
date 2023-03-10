@@ -1414,9 +1414,6 @@ berekende kans
             PublicKeyToken=b03f5f7f11d50a3a
         </value>
     </data>
-    <data name="HydraulicLoads_DisplayName" xml:space="preserve">
-    <value>Hydraulische belastingen</value>
-  </data>
     <data name="CreateClearIllustrationPointsOfCalculationItem_ClearIllustrationPoints_DisplayName"
           xml:space="preserve">
     <value>Wis illustratiepunten...</value>

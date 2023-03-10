@@ -2432,12 +2432,6 @@ namespace Riskeer.Integration.Plugin
         private ContextMenuStrip HydraulicBoundaryDataContextMenuStrip(HydraulicBoundaryDataContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
-            var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
-                GetInquiryHelper(),
-                RiskeerCommonFormsResources.HydraulicLoads_DisplayName,
-                () => RiskeerDataSynchronizationService.ClearIllustrationPointResultsForWaterLevelAndWaveHeightCalculations(nodeData.AssessmentSection));
-
-            AssessmentSection assessmentSection = nodeData.AssessmentSection;
 
             if (nodeData.WrappedData.IsLinked())
             {
@@ -2470,8 +2464,6 @@ namespace Riskeer.Integration.Plugin
             }
 
             return builder.AddSeparator()
-                          .AddClearIllustrationPointsOfCalculationsItem(() => HasIllustrationPoints(assessmentSection), changeHandler)
-                          .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
                           .AddSeparator()
