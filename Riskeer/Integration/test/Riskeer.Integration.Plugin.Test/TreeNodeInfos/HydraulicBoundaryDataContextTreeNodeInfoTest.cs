@@ -22,21 +22,17 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Base.Storage;
 using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.Commands;
 using Core.Gui.ContextMenu;
 using Core.Gui.Forms.Main;
-using Core.Gui.Forms.ViewHost;
 using Core.Gui.Plugin;
-using Core.Gui.TestUtil;
 using Core.Gui.TestUtil.ContextMenu;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -46,10 +42,6 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Common.Plugin.TestUtil;
-using Riskeer.Common.Service.TestUtil;
-using Riskeer.HydraRing.Calculation.Calculator.Factory;
-using Riskeer.HydraRing.Calculation.Data.Input;
-using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PresentationObjects;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
@@ -61,11 +53,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
     {
         private const int contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
         private const int contextMenuSelectDifferentFolderIndex = 1;
-        private const int contextMenuCalculateAllIndexForNotLinkedHydraulicBoundaryData = 2;
-        private const int contextMenuCalculateAllIndexForLinkedHydraulicBoundaryData = 3;
-        private const int contextMenuClearIllustrationPointsIndexForNotLinkedHydraulicBoundaryData = 4;
-
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Forms, "HydraulicBoundaryData");
+        private const int contextMenuClearIllustrationPointsIndexForNotLinkedHydraulicBoundaryData = 2;
 
         private MockRepository mocks;
 
@@ -155,8 +143,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                 }
 
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
@@ -281,7 +267,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     // Call
                     using (ContextMenuStrip menu = info.ContextMenuStrip(context, null, treeViewControl))
                     {
-                        Assert.AreEqual(11, menu.Items.Count);
+                        Assert.AreEqual(9, menu.Items.Count);
 
                         TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuSelectDifferentFolderIndex,
                                                                       "Selecteer andere bestandsmap...",
@@ -388,100 +374,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_HydraulicBoundaryDatabaseNotLinked_ContextMenuItemCalculateAllDisabledAndTooltipSet()
-        {
-            // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
-            {
-                hydraulicBoundaryLocation
-            });
-
-            var nodeData = new HydraulicBoundaryDataContext(assessmentSection.HydraulicBoundaryData, assessmentSection);
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                IGui gui = StubFactory.CreateGuiStub(mocks);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                mocks.ReplayAll();
-
-                using (var plugin = new RiskeerPlugin())
-                {
-                    TreeNodeInfo info = GetInfo(plugin);
-
-                    plugin.Gui = gui;
-
-                    // Call
-                    using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                    {
-                        // Assert
-                        ToolStripItem contextMenuItem = contextMenu.Items[contextMenuCalculateAllIndexForNotLinkedHydraulicBoundaryData];
-
-                        Assert.AreEqual("Alles be&rekenen", contextMenuItem.Text);
-                        StringAssert.Contains("Er is geen hydraulische belastingendatabase geïmporteerd.", contextMenuItem.ToolTipText);
-                        TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.CalculateAllIcon, contextMenuItem.Image);
-                        Assert.IsFalse(contextMenuItem.Enabled);
-                    }
-                }
-            }
-
-            mocks.VerifyAll(); // Expect no calls on arguments
-        }
-
-        [Test]
-        public void ContextMenuStrip_HydraulicBoundaryDatabaseLinkedToInvalidFile_ContextMenuItemCalculateAllDisabledAndTooltipSet()
-        {
-            // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-            {
-                HydraulicBoundaryData =
-                {
-                    FilePath = "invalidFilePath"
-                }
-            };
-
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
-            {
-                hydraulicBoundaryLocation
-            });
-
-            var nodeData = new HydraulicBoundaryDataContext(assessmentSection.HydraulicBoundaryData, assessmentSection);
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                IGui gui = StubFactory.CreateGuiStub(mocks);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                mocks.ReplayAll();
-
-                using (var plugin = new RiskeerPlugin())
-                {
-                    TreeNodeInfo info = GetInfo(plugin);
-
-                    plugin.Gui = gui;
-
-                    // Call
-                    using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                    {
-                        // Assert
-                        ToolStripItem contextMenuItem = contextMenu.Items[contextMenuCalculateAllIndexForLinkedHydraulicBoundaryData];
-
-                        Assert.AreEqual("Alles be&rekenen", contextMenuItem.Text);
-                        StringAssert.Contains("Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt.", contextMenuItem.ToolTipText);
-                        TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.CalculateAllIcon, contextMenuItem.Image);
-                        Assert.IsFalse(contextMenuItem.Enabled);
-                    }
-                }
-            }
-
-            mocks.VerifyAll(); // Expect no calls on arguments
-        }
-
-        [Test]
         [TestCaseSource(nameof(GetHydraulicBoundaryLocationCalculations))]
         public void ContextMenuStrip_HydraulicBoundaryLocationCalculationsWithIllustrationPoints_ContextMenuItemClearAllIllustrationPointsEnabledAndTooltipSet(
             Func<IAssessmentSection, HydraulicBoundaryLocationCalculation> getHydraulicBoundaryLocationCalculationFunc)
@@ -570,135 +462,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             }
 
             mockRepository.VerifyAll(); // Expect no calls on arguments
-        }
-
-        [Test]
-        [SetCulture("nl-NL")]
-        [Apartment(ApartmentState.STA)]
-        public void GivenValidCalculations_WhenCalculatingAllFromContextMenu_ThenAllCalculationsScheduled()
-        {
-            // Given
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-            {
-                HydraulicBoundaryData =
-                {
-                    FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite"),
-                    HydraulicLocationConfigurationDatabase =
-                    {
-                        FilePath = Path.Combine(testDataPath, "hlcd.sqlite")
-                    }
-                }
-            };
-
-            SetHydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilities(assessmentSection);
-
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
-            {
-                hydraulicBoundaryLocation
-            });
-
-            var context = new HydraulicBoundaryDataContext(assessmentSection.HydraulicBoundaryData, assessmentSection);
-
-            using (var treeViewControl = new TreeViewControl())
-            using (var plugin = new RiskeerPlugin())
-            {
-                IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub(mocks);
-
-                IGui gui = StubFactory.CreateGuiStub(mocks);
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.DocumentViewController).Return(mocks.Stub<IDocumentViewController>());
-                gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
-                gui.Stub(g => g.ProjectStore).Return(mocks.Stub<IStoreProject>());
-
-                var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
-                var designWaterLevelCalculator = new TestDesignWaterLevelCalculator
-                {
-                    Converged = false
-                };
-                var waveHeightCalculator = new TestWaveHeightCalculator
-                {
-                    Converged = false
-                };
-
-                HydraulicBoundaryCalculationSettings expectedSettings = HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData);
-                calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
-                                 .WhenCalled(invocation =>
-                                 {
-                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                         expectedSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
-                                 })
-                                 .Return(designWaterLevelCalculator)
-                                 .Repeat
-                                 .Times(4);
-                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
-                                 .WhenCalled(invocation =>
-                                 {
-                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                         expectedSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
-                                 }).Return(waveHeightCalculator)
-                                 .Repeat
-                                 .Times(2);
-                mocks.ReplayAll();
-
-                TreeNodeInfo info = GetInfo(plugin);
-                plugin.Gui = gui;
-                plugin.Activate();
-
-                DialogBoxHandler = (name, wnd) =>
-                {
-                    // Expect an activity dialog which is automatically closed
-                };
-
-                using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
-                using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-                {
-                    // When
-                    void Call() => contextMenuAdapter.Items[contextMenuCalculateAllIndexForLinkedHydraulicBoundaryData].PerformClick();
-
-                    // Then
-                    TestHelper.AssertLogMessages(Call, messages =>
-                    {
-                        string[] msgs = messages.ToArray();
-                        Assert.AreEqual(48, msgs.Length);
-
-                        const string designWaterLevelCalculationTypeDisplayName = "Waterstand";
-                        const string designWaterLevelCalculationDisplayName = "Waterstand berekening";
-
-                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            hydraulicBoundaryLocation.Name, designWaterLevelCalculationTypeDisplayName, designWaterLevelCalculationDisplayName,
-                            "1/30.000",
-                            msgs, 0);
-                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            hydraulicBoundaryLocation.Name, designWaterLevelCalculationTypeDisplayName, designWaterLevelCalculationDisplayName,
-                            "1/30.000 (1)",
-                            msgs, 8);
-                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            hydraulicBoundaryLocation.Name, designWaterLevelCalculationTypeDisplayName, designWaterLevelCalculationDisplayName,
-                            "1/10",
-                            msgs, 16);
-                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            hydraulicBoundaryLocation.Name, designWaterLevelCalculationTypeDisplayName, designWaterLevelCalculationDisplayName,
-                            "1/100",
-                            msgs, 24);
-
-                        const string waveHeightCalculationTypeDisplayName = "Golfhoogte";
-                        const string waveHeightCalculationDisplayName = "Golfhoogte berekening";
-
-                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            hydraulicBoundaryLocation.Name, waveHeightCalculationTypeDisplayName, waveHeightCalculationDisplayName,
-                            "1/40",
-                            msgs, 32);
-                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            hydraulicBoundaryLocation.Name, waveHeightCalculationTypeDisplayName, waveHeightCalculationDisplayName,
-                            "1/400",
-                            msgs, 40);
-                    });
-                }
-            }
-
-            mocks.VerifyAll();
         }
 
         [Test]

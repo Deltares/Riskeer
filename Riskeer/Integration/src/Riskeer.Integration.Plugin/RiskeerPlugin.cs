@@ -2431,20 +2431,6 @@ namespace Riskeer.Integration.Plugin
 
         private ContextMenuStrip HydraulicBoundaryDataContextMenuStrip(HydraulicBoundaryDataContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
-            var calculateAllItem = new StrictContextMenuItem(
-                RiskeerCommonFormsResources.Calculate_All,
-                RiskeerCommonFormsResources.HydraulicLoads_Calculate_All_ToolTip,
-                RiskeerCommonFormsResources.CalculateAllIcon,
-                (sender, args) =>
-                {
-                    ActivityProgressDialogRunner.Run(
-                        Gui.MainWindow,
-                        AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.CreateHydraulicBoundaryLocationCalculationActivities(nodeData.AssessmentSection));
-                });
-
-            SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection,
-                                                        calculateAllItem);
-
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
                 GetInquiryHelper(),
@@ -2484,8 +2470,6 @@ namespace Riskeer.Integration.Plugin
             }
 
             return builder.AddSeparator()
-                          .AddCustomItem(calculateAllItem)
-                          .AddSeparator()
                           .AddClearIllustrationPointsOfCalculationsItem(() => HasIllustrationPoints(assessmentSection), changeHandler)
                           .AddSeparator()
                           .AddCollapseAllItem()
