@@ -606,7 +606,7 @@
           <Key>
             <PropertyRef Name="HydraulicBoundaryDatabaseEntityId" />
           </Key>
-          <Property Name="HydraulicBoundaryDatabaseEntityId" Type="integer" Nullable="false" />
+          <Property Name="HydraulicBoundaryDatabaseEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="HydraulicBoundaryDataEntityId" Type="integer" Nullable="false" />
           <Property Name="Version" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="FilePath" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
@@ -5275,7 +5275,7 @@
           <Key>
             <PropertyRef Name="HydraulicBoundaryDatabaseEntityId" />
           </Key>
-          <Property Name="HydraulicBoundaryDatabaseEntityId" Type="Int64" Nullable="false" />
+          <Property Name="HydraulicBoundaryDatabaseEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="HydraulicBoundaryDataEntityId" Type="Int64" Nullable="false" />
           <Property Name="Version" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="FilePath" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
