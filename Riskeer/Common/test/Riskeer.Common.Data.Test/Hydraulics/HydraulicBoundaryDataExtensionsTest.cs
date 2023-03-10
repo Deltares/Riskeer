@@ -20,11 +20,13 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Core.Common.Base;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.TestUtil;
 
 namespace Riskeer.Common.Data.Test.Hydraulics
 {
@@ -148,6 +150,72 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             Assert.AreEqual(Path.Combine(newFolderPath, hrdFileName2), hydraulicBoundaryDatabase2.FilePath);
 
             mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void GetLocations_HydraulicBoundaryDataNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => HydraulicBoundaryDataExtensions.GetLocations(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("hydraulicBoundaryData", exception.ParamName);
+        }
+
+        [Test]
+        public void GetLocations_HydraulicBoundaryDatabasesEmpty_ReturnsEmptyList()
+        {
+            // Setup
+            var hydraulicBoundaryData = new HydraulicBoundaryData();
+
+            // Call
+            IEnumerable<HydraulicBoundaryLocation> locations = hydraulicBoundaryData.GetLocations();
+
+            // Assert
+            CollectionAssert.IsEmpty(locations);
+        }
+
+        [Test]
+        public void GetLocations_MultipleHydraulicBoundaryDatabases_ReturnsAllLocations()
+        {
+            // Setup
+            var location1 = new TestHydraulicBoundaryLocation();
+            var location2 = new TestHydraulicBoundaryLocation();
+            var location3 = new TestHydraulicBoundaryLocation();
+
+            var hydraulicBoundaryData = new HydraulicBoundaryData
+            {
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        Locations =
+                        {
+                            location1
+                        }
+                    },
+                    new HydraulicBoundaryDatabase
+                    {
+                        Locations =
+                        {
+                            location2,
+                            location3
+                        }
+                    }
+                }
+            };
+
+            // Call
+            IEnumerable<HydraulicBoundaryLocation> locations = hydraulicBoundaryData.GetLocations();
+
+            // Assert
+            CollectionAssert.AreEqual(new[]
+            {
+                location1,
+                location2,
+                location3
+            }, locations);
         }
     }
 }

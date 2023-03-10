@@ -40,9 +40,8 @@ namespace Riskeer.Storage.Core.DbContext
         {
             BackgroundDataEntities = new HashSet<BackgroundDataEntity>();
             FailureMechanismEntities = new HashSet<FailureMechanismEntity>();
-            HydraulicBoundaryDatabaseEntities = new HashSet<HydraulicBoundaryDatabaseEntity>();
+            HydraulicBoundaryDataEntities = new HashSet<HydraulicBoundaryDataEntity>();
             HydraulicLocationCalculationForTargetProbabilityCollectionEntities = new HashSet<HydraulicLocationCalculationForTargetProbabilityCollectionEntity>();
-            HydraulicLocationEntities = new HashSet<HydraulicLocationEntity>();
             SpecificFailureMechanismEntities = new HashSet<SpecificFailureMechanismEntity>();
         }
 
@@ -70,13 +69,10 @@ namespace Riskeer.Storage.Core.DbContext
         public virtual ICollection<FailureMechanismEntity> FailureMechanismEntities { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HydraulicBoundaryDatabaseEntity> HydraulicBoundaryDatabaseEntities { get; set; }
+        public virtual ICollection<HydraulicBoundaryDataEntity> HydraulicBoundaryDataEntities { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HydraulicLocationCalculationForTargetProbabilityCollectionEntity> HydraulicLocationCalculationForTargetProbabilityCollectionEntities { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HydraulicLocationEntity> HydraulicLocationEntities { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SpecificFailureMechanismEntity> SpecificFailureMechanismEntities { get; set; }

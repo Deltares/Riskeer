@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Core.Common.Util.Extensions;
 
 namespace Riskeer.Common.Data.Hydraulics
@@ -72,7 +74,24 @@ namespace Riskeer.Common.Data.Hydraulics
 
             hydraulicBoundaryData.NotifyObservers();
         }
-        
+
+        /// <summary>
+        /// Gets the locations from all <see cref="HydraulicBoundaryDatabase"/> instances. 
+        /// </summary>
+        /// <param name="hydraulicBoundaryData">The <see cref="HydraulicBoundaryData"/> to get the locations from.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="HydraulicBoundaryLocation"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryData"/>
+        /// is <c>null</c>.</exception>
+        public static IEnumerable<HydraulicBoundaryLocation> GetLocations(this HydraulicBoundaryData hydraulicBoundaryData)
+        {
+            if (hydraulicBoundaryData == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryData));
+            }
+
+            return hydraulicBoundaryData.HydraulicBoundaryDatabases.SelectMany(hbd => hbd.Locations);
+        }
+
         private static string GetNewFilePath(string filePath, string newFolderPath)
         {
             return Path.Combine(newFolderPath, Path.GetFileName(filePath));

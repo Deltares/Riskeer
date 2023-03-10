@@ -46,8 +46,6 @@ namespace Riskeer.Storage.Core.DbContext
         }
 
         public long GeneralResultSubMechanismIllustrationPointEntityId { get; set; }
-        public string GoverningWindDirectionName { get; set; }
-        public double GoverningWindDirectionAngle { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HydraulicLocationOutputEntity> HydraulicLocationOutputEntities { get; set; }
@@ -60,6 +58,9 @@ namespace Riskeer.Storage.Core.DbContext
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TopLevelSubMechanismIllustrationPointEntity> TopLevelSubMechanismIllustrationPointEntities { get; set; }
+
+        public string GoverningWindDirectionName { get; set; }
+        public double GoverningWindDirectionAngle { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StochastEntity> StochastEntities { get; set; }

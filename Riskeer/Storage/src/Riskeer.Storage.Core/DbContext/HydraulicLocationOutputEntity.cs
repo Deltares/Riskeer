@@ -33,7 +33,7 @@ namespace Riskeer.Storage.Core.DbContext
     public class HydraulicLocationOutputEntity
     {
         public long HydraulicLocationOutputEntityId { get; set; }
-        public long? HydraulicLocationCalculationEntityId { get; set; }
+        public long HydraulicLocationCalculationEntityId { get; set; }
         public long? GeneralResultSubMechanismIllustrationPointEntityId { get; set; }
         public double? Result { get; set; }
         public double? TargetProbability { get; set; }

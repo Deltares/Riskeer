@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Storage.Core.DbContext;
@@ -35,7 +34,7 @@ namespace Riskeer.Storage.Core.Test.Read
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => ((HydraulicBoundaryDatabaseEntity) null).Read(new HydraulicBoundaryData());
+            void Call() => ((HydraulicBoundaryDataEntity) null).Read(new HydraulicBoundaryData(), new ReadConversionCollector());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -46,10 +45,10 @@ namespace Riskeer.Storage.Core.Test.Read
         public void Read_HydraulicBoundaryDataNull_ThrowsArgumentNullException()
         {
             // Setup
-            var entity = new HydraulicBoundaryDatabaseEntity();
+            var entity = new HydraulicBoundaryDataEntity();
 
             // Call
-            void Call() => entity.Read(null);
+            void Call() => entity.Read(null, new ReadConversionCollector());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -57,49 +56,62 @@ namespace Riskeer.Storage.Core.Test.Read
         }
 
         [Test]
-        public void Read_WithValidEntity_UpdatesHydraulicBoundaryDatabase()
+        public void Read_CollectorNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new HydraulicBoundaryDataEntity();
+
+            // Call
+            void Call() => entity.Read(new HydraulicBoundaryData(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
+        }
+
+        [Test]
+        public void Read_WithValidEntity_UpdatesHydraulicBoundaryData()
         {
             // Setup
             var random = new Random(21);
-            bool usePreprocessorClosure = random.NextBoolean();
-            var entity = new HydraulicBoundaryDatabaseEntity
+            var entity = new HydraulicBoundaryDataEntity
             {
-                FilePath = "hrdFilePath",
-                Version = "1.0",
-                HydraulicLocationConfigurationSettingsFilePath = "hlcdFilePath",
-                HydraulicLocationConfigurationSettingsUsePreprocessorClosure = Convert.ToByte(usePreprocessorClosure),
-                HydraulicLocationConfigurationSettingsScenarioName = "ScenarioName",
-                HydraulicLocationConfigurationSettingsYear = random.Next(),
-                HydraulicLocationConfigurationSettingsScope = "Scope",
-                HydraulicLocationConfigurationSettingsSeaLevel = "SeaLevel",
-                HydraulicLocationConfigurationSettingsRiverDischarge = "RiverDischarge",
-                HydraulicLocationConfigurationSettingsLakeLevel = "LakeLevel",
-                HydraulicLocationConfigurationSettingsWindDirection = "WindDirection",
-                HydraulicLocationConfigurationSettingsWindSpeed = "WindSpeed",
-                HydraulicLocationConfigurationSettingsComment = "Comment"
+                HydraulicLocationConfigurationDatabaseFilePath = "hlcdFilePath",
+                HydraulicLocationConfigurationDatabaseScenarioName = "ScenarioName",
+                HydraulicLocationConfigurationDatabaseYear = random.Next(),
+                HydraulicLocationConfigurationDatabaseScope = "Scope",
+                HydraulicLocationConfigurationDatabaseSeaLevel = "SeaLevel",
+                HydraulicLocationConfigurationDatabaseRiverDischarge = "RiverDischarge",
+                HydraulicLocationConfigurationDatabaseLakeLevel = "LakeLevel",
+                HydraulicLocationConfigurationDatabaseWindDirection = "WindDirection",
+                HydraulicLocationConfigurationDatabaseWindSpeed = "WindSpeed",
+                HydraulicLocationConfigurationDatabaseComment = "Comment",
+                HydraulicBoundaryDatabaseEntities =
+                {
+                    new HydraulicBoundaryDatabaseEntity()
+                }
             };
 
             var hydraulicBoundaryData = new HydraulicBoundaryData();
 
             // Call
-            entity.Read(hydraulicBoundaryData);
+            entity.Read(hydraulicBoundaryData, new ReadConversionCollector());
 
             // Assert
-            Assert.AreEqual(entity.FilePath, hydraulicBoundaryData.FilePath);
-            Assert.AreEqual(entity.Version, hydraulicBoundaryData.Version);
-
             HydraulicLocationConfigurationDatabase database = hydraulicBoundaryData.HydraulicLocationConfigurationDatabase;
-            Assert.AreEqual(entity.HydraulicLocationConfigurationSettingsFilePath, database.FilePath);
-            Assert.AreEqual(entity.HydraulicLocationConfigurationSettingsScenarioName, database.ScenarioName);
-            Assert.AreEqual(entity.HydraulicLocationConfigurationSettingsYear, database.Year);
-            Assert.AreEqual(entity.HydraulicLocationConfigurationSettingsScope, database.Scope);
-            Assert.AreEqual(entity.HydraulicLocationConfigurationSettingsSeaLevel, database.SeaLevel);
-            Assert.AreEqual(entity.HydraulicLocationConfigurationSettingsRiverDischarge, database.RiverDischarge);
-            Assert.AreEqual(entity.HydraulicLocationConfigurationSettingsLakeLevel, database.LakeLevel);
-            Assert.AreEqual(entity.HydraulicLocationConfigurationSettingsWindDirection, database.WindDirection);
-            Assert.AreEqual(entity.HydraulicLocationConfigurationSettingsWindSpeed, database.WindSpeed);
-            Assert.AreEqual(entity.HydraulicLocationConfigurationSettingsComment, database.Comment);
-            Assert.AreEqual(usePreprocessorClosure, database.UsePreprocessorClosure);
+            Assert.AreEqual(entity.HydraulicLocationConfigurationDatabaseFilePath, database.FilePath);
+            Assert.AreEqual(entity.HydraulicLocationConfigurationDatabaseScenarioName, database.ScenarioName);
+            Assert.AreEqual(entity.HydraulicLocationConfigurationDatabaseYear, database.Year);
+            Assert.AreEqual(entity.HydraulicLocationConfigurationDatabaseScope, database.Scope);
+            Assert.AreEqual(entity.HydraulicLocationConfigurationDatabaseSeaLevel, database.SeaLevel);
+            Assert.AreEqual(entity.HydraulicLocationConfigurationDatabaseRiverDischarge, database.RiverDischarge);
+            Assert.AreEqual(entity.HydraulicLocationConfigurationDatabaseLakeLevel, database.LakeLevel);
+            Assert.AreEqual(entity.HydraulicLocationConfigurationDatabaseWindDirection, database.WindDirection);
+            Assert.AreEqual(entity.HydraulicLocationConfigurationDatabaseWindSpeed, database.WindSpeed);
+            Assert.AreEqual(entity.HydraulicLocationConfigurationDatabaseComment, database.Comment);
+
+            int expectedNrOfHydraulicBoundaryDatabases = entity.HydraulicBoundaryDatabaseEntities.Count;
+            Assert.AreEqual(expectedNrOfHydraulicBoundaryDatabases, hydraulicBoundaryData.HydraulicBoundaryDatabases.Count);
         }
     }
 }

@@ -28,43 +28,55 @@ namespace Riskeer.Storage.Core.Create
 {
     /// <summary>
     /// Extension methods for <see cref="HydraulicBoundaryData"/> related to creating a
-    /// <see cref="HydraulicBoundaryDatabaseEntity"/>.
+    /// <see cref="HydraulicBoundaryDataEntity"/>.
     /// </summary>
-    public static class HydraulicBoundaryDataCreateExtensions
+    internal static class HydraulicBoundaryDataCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="HydraulicBoundaryDatabaseEntity"/> based on the information of the
+        /// Creates a <see cref="HydraulicBoundaryDataEntity"/> based on the information of the
         /// <see cref="HydraulicBoundaryData"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryData">The <see cref="HydraulicBoundaryData"/> to create a
-        /// <see cref="HydraulicBoundaryDatabaseEntity"/> for.</param>
-        /// <returns>A new <see cref="HydraulicBoundaryDatabaseEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryData"/> is <c>null</c>.</exception>
-        internal static HydraulicBoundaryDatabaseEntity Create(this HydraulicBoundaryData hydraulicBoundaryData)
+        /// <see cref="HydraulicBoundaryDataEntity"/> for.</param>
+        /// <param name="registry">The object keeping track of create operations.</param>
+        /// <returns>A new <see cref="HydraulicBoundaryDataEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryData"/>
+        /// or <paramref name="registry"/> is <c>null</c>.</exception>
+        public static HydraulicBoundaryDataEntity Create(this HydraulicBoundaryData hydraulicBoundaryData, PersistenceRegistry registry)
         {
             if (hydraulicBoundaryData == null)
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryData));
             }
 
+            if (registry == null)
+            {
+                throw new ArgumentNullException(nameof(registry));
+            }
+
             HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase = hydraulicBoundaryData.HydraulicLocationConfigurationDatabase;
 
-            return new HydraulicBoundaryDatabaseEntity
+            var entity = new HydraulicBoundaryDataEntity
             {
-                FilePath = hydraulicBoundaryData.FilePath.DeepClone(),
-                Version = hydraulicBoundaryData.Version.DeepClone(),
-                HydraulicLocationConfigurationSettingsFilePath = hydraulicLocationConfigurationDatabase.FilePath.DeepClone(),
-                HydraulicLocationConfigurationSettingsScenarioName = hydraulicLocationConfigurationDatabase.ScenarioName.DeepClone(),
-                HydraulicLocationConfigurationSettingsYear = hydraulicLocationConfigurationDatabase.Year,
-                HydraulicLocationConfigurationSettingsScope = hydraulicLocationConfigurationDatabase.Scope.DeepClone(),
-                HydraulicLocationConfigurationSettingsSeaLevel = hydraulicLocationConfigurationDatabase.SeaLevel.DeepClone(),
-                HydraulicLocationConfigurationSettingsRiverDischarge = hydraulicLocationConfigurationDatabase.RiverDischarge.DeepClone(),
-                HydraulicLocationConfigurationSettingsLakeLevel = hydraulicLocationConfigurationDatabase.LakeLevel.DeepClone(),
-                HydraulicLocationConfigurationSettingsWindDirection = hydraulicLocationConfigurationDatabase.WindDirection.DeepClone(),
-                HydraulicLocationConfigurationSettingsWindSpeed = hydraulicLocationConfigurationDatabase.WindSpeed.DeepClone(),
-                HydraulicLocationConfigurationSettingsComment = hydraulicLocationConfigurationDatabase.Comment.DeepClone(),
-                HydraulicLocationConfigurationSettingsUsePreprocessorClosure = Convert.ToByte(hydraulicLocationConfigurationDatabase.UsePreprocessorClosure)
+                HydraulicLocationConfigurationDatabaseFilePath = hydraulicLocationConfigurationDatabase.FilePath.DeepClone(),
+                HydraulicLocationConfigurationDatabaseScenarioName = hydraulicLocationConfigurationDatabase.ScenarioName.DeepClone(),
+                HydraulicLocationConfigurationDatabaseYear = hydraulicLocationConfigurationDatabase.Year,
+                HydraulicLocationConfigurationDatabaseScope = hydraulicLocationConfigurationDatabase.Scope.DeepClone(),
+                HydraulicLocationConfigurationDatabaseSeaLevel = hydraulicLocationConfigurationDatabase.SeaLevel.DeepClone(),
+                HydraulicLocationConfigurationDatabaseRiverDischarge = hydraulicLocationConfigurationDatabase.RiverDischarge.DeepClone(),
+                HydraulicLocationConfigurationDatabaseLakeLevel = hydraulicLocationConfigurationDatabase.LakeLevel.DeepClone(),
+                HydraulicLocationConfigurationDatabaseWindDirection = hydraulicLocationConfigurationDatabase.WindDirection.DeepClone(),
+                HydraulicLocationConfigurationDatabaseWindSpeed = hydraulicLocationConfigurationDatabase.WindSpeed.DeepClone(),
+                HydraulicLocationConfigurationDatabaseComment = hydraulicLocationConfigurationDatabase.Comment.DeepClone()
             };
+
+            for (var i = 0; i < hydraulicBoundaryData.HydraulicBoundaryDatabases.Count; i++)
+            {
+                HydraulicBoundaryDatabase hydraulicBoundaryDatabase = hydraulicBoundaryData.HydraulicBoundaryDatabases[i];
+                entity.HydraulicBoundaryDatabaseEntities.Add(hydraulicBoundaryDatabase.Create(registry, i));
+            }
+
+            return entity;
         }
     }
 }
