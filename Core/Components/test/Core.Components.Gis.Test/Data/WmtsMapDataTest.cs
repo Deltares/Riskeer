@@ -30,8 +30,8 @@ namespace Core.Components.Gis.Test.Data
     [TestFixture]
     public class WmtsMapDataTest
     {
-        private const string url = "https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0?request=getcapabilities&service=wmts";
-        private const string capabilityIdentifier = "standaard";
+        private const string url = "https://geodata.nationaalgeoregister.nl/wmts/top10nlv2?VERSION=1.0.0&request=GetCapabilities";
+        private const string capabilityIdentifier = "brtachtergrondkaart";
         private const string imageFormat = "image/png";
 
         [Test]
