@@ -39,18 +39,18 @@ namespace Core.Components.DotSpatial.Forms.Test
             get
             {
                 yield return new TestCaseData(new WmtsMapData("case 1",
-                                                              "https://geodata.nationaalgeoregister.nl/wmts/top10nlv1?VERSION=1.1.0&request=GetCapabilities",
-                                                              "brtachtergrondkaart(EPSG:28992)",
+                                                              "https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0?request=getcapabilities&service=wmts",
+                                                              "standaard(EPSG:28992)",
                                                               "image/png"))
                     .SetName("HasSameConfiguration_ForCase1_ReturnFalse");
                 yield return new TestCaseData(new WmtsMapData("case 2",
-                                                              "https://geodata.nationaalgeoregister.nl/wmts/top10nlv1?VERSION=1.1.0&request=GetCapabilities",
-                                                              "brtachtergrondkaart(EPSG:12345)",
+                                                              "https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0?request=getcapabilities&service=wmts",
+                                                              "standaard(EPSG:25831)",
                                                               "image/png"))
                     .SetName("HasSameConfiguration_ForCase2_ReturnFalse");
                 yield return new TestCaseData(new WmtsMapData("case 3",
-                                                              "https://geodata.nationaalgeoregister.nl/wmts/top10nlv1?VERSION=1.1.0&request=GetCapabilities",
-                                                              "brtachtergrondkaart(EPSG:28992)",
+                                                              "https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0?request=getcapabilities&service=wmts",
+                                                              "standaard(EPSG:28992)",
                                                               "image/jpeg"))
                     .SetName("HasSameConfiguration_ForCase3_ReturnFalse");
             }
