@@ -265,7 +265,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             // Assert
             Assert.AreEqual(2, readConnectionInfos.Count);
             var firstExpected = new WmtsConnectionInfo(@"ESRI luchtfoto", @"http://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/WMTS?");
-            var secondExpected = new WmtsConnectionInfo(@"PDOK", @"https://geodata.nationaalgeoregister.nl/tiles/service/wmts/ahn2?request=GetCapabilities");
+            var secondExpected = new WmtsConnectionInfo(@"PDOK BRT-A", @"https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0?request=getcapabilities&service=wmts");
 
             AssertAreEqual(firstExpected, readConnectionInfos[0]);
             AssertAreEqual(secondExpected, readConnectionInfos[1]);

@@ -29,26 +29,26 @@ namespace Core.Components.Gis.TestUtil
     public static class WmtsMapDataTestHelper
     {
         /// <summary>
-        /// Creates a new instance of <see cref="WmtsMapData"/> configured to the 'top25raster' tile service
-        /// of PDOK in RD-new coordinate system.
+        /// Creates an instance of <see cref="WmtsMapData"/> configured to the "standaard(EPSG:28992)" map layer of the "BRT-A"
+        /// tile service of PDOK.
         /// </summary>
         public static WmtsMapData CreateDefaultPdokMapData()
         {
-            return new WmtsMapData("PDOK top25raster",
-                                   "https://geodata.nationaalgeoregister.nl/tiles/service/wmts/ahn2?request=GetCapabilities",
-                                   "top25raster(EPSG:28992)",
+            return new WmtsMapData("PDOK BRT-A",
+                                   "https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0?request=getcapabilities&service=wmts",
+                                   "standaard(EPSG:28992)",
                                    "image/png");
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="WmtsMapData"/> configured to the 'brtachtergrondkaart'
-        /// of PDOK in a ETRS89 / UTM zone 31 N coordinate system.
+        /// Creates an instance of <see cref="WmtsMapData"/> configured to the "grijs(EPSG:25831)" map layer of the "BRT-A"
+        /// tile service of PDOK.
         /// </summary>
         public static WmtsMapData CreateAlternativePdokMapData()
         {
-            return new WmtsMapData("PDOK achtergrondkaart",
-                                   "https://geodata.nationaalgeoregister.nl/wmts/top10nlv2?VERSION=1.0.0&request=GetCapabilities",
-                                   "brtachtergrondkaart(EPSG:25831:RWS)",
+            return new WmtsMapData("PDOK BRT-A",
+                                   "https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0?request=getcapabilities&service=wmts",
+                                   "grijs(EPSG:25831)",
                                    "image/png");
         }
 
