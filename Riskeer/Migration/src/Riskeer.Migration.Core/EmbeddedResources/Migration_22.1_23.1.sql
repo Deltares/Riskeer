@@ -1,7 +1,7 @@
 /*
 Migration script for migrating Riskeer databases.
 SourceProject version: 22.1
-TargetProject version: 22.2
+TargetProject version: 23.1
 */
 
 PRAGMA foreign_keys = OFF;
@@ -109,7 +109,7 @@ INSERT INTO VersionEntity (
     [FingerPrint])
 SELECT
     [VersionId],
-    "22.2",
+    "23.1",
     [Timestamp],
     [FingerPrint]
 FROM [SOURCEPROJECT].VersionEntity;
@@ -133,14 +133,14 @@ INSERT INTO [LOGDATABASE].MigrationLogEntity (
     [FromVersion],
     [ToVersion],
     [LogMessage])
-VALUES ("22.1", "22.2", "Gevolgen van de migratie van versie 22.1 naar versie 22.2:");
+VALUES ("22.1", "23.1", "Gevolgen van de migratie van versie 22.1 naar versie 23.1:");
 
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
     [FromVersion],
     [ToVersion],
     [LogMessage])
 SELECT "22.1",
-       "22.2",
+       "23.1",
        "* Geen aanpassingen."
     WHERE (
 		SELECT COUNT() FROM [LOGDATABASE].MigrationLogEntity
