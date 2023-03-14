@@ -191,9 +191,9 @@ namespace Core.Components.Gis.Forms.Test.Views
 
                     cells = rows[1].Cells;
                     Assert.AreEqual(4, cells.Count);
-                    Assert.AreEqual("brtachtergrondkaart(EPSG:28992)", cells[mapLayerIdColumnIndex].FormattedValue);
-                    Assert.AreEqual("image/png8", cells[mapLayerFormatColumnIndex].FormattedValue);
-                    Assert.AreEqual("brtachtergrondkaart", cells[mapLayerTitleColumnIndex].FormattedValue);
+                    Assert.AreEqual("standaard(EPSG:28992)", cells[mapLayerIdColumnIndex].FormattedValue);
+                    Assert.AreEqual("image/png", cells[mapLayerFormatColumnIndex].FormattedValue);
+                    Assert.AreEqual("standaard", cells[mapLayerTitleColumnIndex].FormattedValue);
                     Assert.AreEqual("EPSG:28992", cells[mapLayerCoordinateSystemColumnIndex].FormattedValue);
                 }
             }
@@ -286,11 +286,11 @@ namespace Core.Components.Gis.Forms.Test.Views
 
                 // Assert
                 Assert.IsNotNull(selectedMapData);
-                Assert.AreEqual("PDOK achtergrondkaart", selectedMapData.Name);
-                Assert.AreEqual("brtachtergrondkaart(EPSG:28992)", selectedMapData.SelectedCapabilityIdentifier);
-                Assert.AreEqual("https://geodata.nationaalgeoregister.nl/tiles/service/wmts/ahn2?request=GetCapabilities",
+                Assert.AreEqual("PDOK BRT-A", selectedMapData.Name);
+                Assert.AreEqual("standaard(EPSG:28992)", selectedMapData.SelectedCapabilityIdentifier);
+                Assert.AreEqual("https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0?request=getcapabilities&service=wmts",
                                 selectedMapData.SourceCapabilitiesUrl);
-                Assert.AreEqual("image/png8", selectedMapData.PreferredFormat);
+                Assert.AreEqual("image/png", selectedMapData.PreferredFormat);
             }
         }
 
@@ -772,7 +772,7 @@ namespace Core.Components.Gis.Forms.Test.Views
 
                 DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(4, cells.Count);
-                Assert.AreEqual("top25raster(EPSG:28992)", cells[mapLayerIdColumnIndex].FormattedValue);
+                Assert.AreEqual("standaard(EPSG:28992)", cells[mapLayerIdColumnIndex].FormattedValue);
                 Assert.AreEqual("image/png", cells[mapLayerFormatColumnIndex].FormattedValue);
                 Assert.AreEqual("Stub schema", cells[mapLayerTitleColumnIndex].FormattedValue);
                 Assert.AreEqual("EPSG:28992", cells[mapLayerCoordinateSystemColumnIndex].FormattedValue);
@@ -808,7 +808,7 @@ namespace Core.Components.Gis.Forms.Test.Views
 
                 // Then
                 Assert.AreEqual("Fout", messageBoxTitle);
-                Assert.AreEqual("Gegevens ophalen van de locatie (URL) 'PDOK achtergrondkaart' is mislukt.", messageBoxText);
+                Assert.AreEqual("Gegevens ophalen van de locatie (URL) 'PDOK BRT-A' is mislukt.", messageBoxText);
             }
         }
 
@@ -925,7 +925,7 @@ namespace Core.Components.Gis.Forms.Test.Views
             var capabilities = new[]
             {
                 new WmtsCapability("-", "image/png", "-", "-"),
-                new WmtsCapability("brtachtergrondkaart(EPSG:28992)", "image/png8", "brtachtergrondkaart", "EPSG:28992")
+                new WmtsCapability("standaard(EPSG:28992)", "image/png", "standaard", "EPSG:28992")
             };
 
             DataGridViewControl dataGridViewControl = form.Controls.Find("dataGridViewControl", true).OfType<DataGridViewControl>().First();
@@ -942,7 +942,7 @@ namespace Core.Components.Gis.Forms.Test.Views
             ComboBox urlLocations = form.Controls.Find("urlLocationComboBox", true).OfType<ComboBox>().First();
             urlLocations.DataSource = new List<WmtsConnectionInfo>
             {
-                new WmtsConnectionInfo("PDOK achtergrondkaart", "https://geodata.nationaalgeoregister.nl/tiles/service/wmts/ahn2?request=GetCapabilities")
+                new WmtsConnectionInfo("PDOK BRT-A", "https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0?request=getcapabilities&service=wmts")
             };
 
             var connectToButton = (Button) new ButtonTester("connectToButton", form).TheObject;

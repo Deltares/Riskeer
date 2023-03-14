@@ -1,2 +1,0 @@
-Remove-Item .\Riskeer_src_*.zip
-git archive --output ('.\Riskeer_src_' + (get-date -Format yyyyMMdd) + '.zip') --prefix=Riskeer_src/ HEAD: Application build/DatabaseStructure.sql Core Migration Riskeer

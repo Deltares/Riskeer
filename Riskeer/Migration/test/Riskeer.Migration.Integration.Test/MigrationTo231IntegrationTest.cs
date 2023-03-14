@@ -29,18 +29,18 @@ namespace Riskeer.Migration.Integration.Test
 {
     public class MigrationTo222IntegrationTest
     {
-        private const string newVersion = "22.2";
+        private const string newVersion = "23.1";
 
         [Test]
-        public void Given221Project_WhenUpgradedTo222_ThenProjectAsExpected()
+        public void Given221Project_WhenUpgradedTo231_ThenProjectAsExpected()
         {
             // Given
             string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Migration.Core,
                                                                "MigrationTestProject221.risk");
             var fromVersionedFile = new ProjectVersionedFile(sourceFilePath);
 
-            string targetFilePath = TestHelper.GetScratchPadPath(nameof(Given221Project_WhenUpgradedTo222_ThenProjectAsExpected));
-            string logFilePath = TestHelper.GetScratchPadPath(string.Concat(nameof(Given221Project_WhenUpgradedTo222_ThenProjectAsExpected), ".log"));
+            string targetFilePath = TestHelper.GetScratchPadPath(nameof(Given221Project_WhenUpgradedTo231_ThenProjectAsExpected));
+            string logFilePath = TestHelper.GetScratchPadPath(string.Concat(nameof(Given221Project_WhenUpgradedTo231_ThenProjectAsExpected), ".log"));
             var migrator = new ProjectFileMigrator
             {
                 LogPath = logFilePath
@@ -264,7 +264,7 @@ namespace Riskeer.Migration.Integration.Test
                 Assert.AreEqual(2, messages.Count);
                 var i = 0;
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("22.1", newVersion, "Gevolgen van de migratie van versie 22.1 naar versie 22.2:"),
+                    new MigrationLogMessage("22.1", newVersion, "Gevolgen van de migratie van versie 22.1 naar versie 23.1:"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("22.1", newVersion, "* Geen aanpassingen."),
@@ -277,7 +277,7 @@ namespace Riskeer.Migration.Integration.Test
             const string validateVersion =
                 "SELECT COUNT() = 1 " +
                 "FROM [VersionEntity] " +
-                "WHERE [Version] = \"22.2\";";
+                "WHERE [Version] = \"23.1\";";
             reader.AssertReturnedDataIsValid(validateVersion);
         }
 
