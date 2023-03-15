@@ -29,18 +29,18 @@ namespace Riskeer.Migration.Integration.Test
 {
     public class MigrationTo222IntegrationTest
     {
-        private const string newVersion = "22.2";
+        private const string newVersion = "23.1";
 
         [Test]
-        public void Given221Project_WhenUpgradedTo222_ThenProjectAsExpected()
+        public void Given221Project_WhenUpgradedTo231_ThenProjectAsExpected()
         {
             // Given
             string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Migration.Core,
                                                                "MigrationTestProject221.risk");
             var fromVersionedFile = new ProjectVersionedFile(sourceFilePath);
 
-            string targetFilePath = TestHelper.GetScratchPadPath(nameof(Given221Project_WhenUpgradedTo222_ThenProjectAsExpected));
-            string logFilePath = TestHelper.GetScratchPadPath(string.Concat(nameof(Given221Project_WhenUpgradedTo222_ThenProjectAsExpected), ".log"));
+            string targetFilePath = TestHelper.GetScratchPadPath(nameof(Given221Project_WhenUpgradedTo231_ThenProjectAsExpected));
+            string logFilePath = TestHelper.GetScratchPadPath(string.Concat(nameof(Given221Project_WhenUpgradedTo231_ThenProjectAsExpected), ".log"));
             var migrator = new ProjectFileMigrator
             {
                 LogPath = logFilePath
@@ -59,10 +59,88 @@ namespace Riskeer.Migration.Integration.Test
 
                     AssertVersions(reader);
                     AssertDatabase(reader);
+
+                    AssertHydraulicBoundaryData(reader, sourceFilePath);
+                    AssertHydraulicBoundaryDatabase(reader, sourceFilePath);
+                    AssertHydraulicLocation(reader, sourceFilePath);
                 }
 
                 AssertLogDatabase(logFilePath);
             }
+        }
+
+        private static void AssertHydraulicBoundaryData(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateHydraulicBoundaryData =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.HydraulicBoundaryDatabaseEntity " +
+                ") " +
+                "FROM HydraulicBoundaryDataEntity NEW " +
+                "JOIN SOURCEPROJECT.HydraulicBoundaryDatabaseEntity OLD ON NEW.HydraulicBoundaryDataEntityId = OLD.HydraulicBoundaryDatabaseEntity " +
+                "WHERE NEW.[AssessmentSectionEntityId] = OLD.[AssessmentSectionEntityId] " +
+                "AND NEW.[HydraulicLocationConfigurationDatabaseFilePath] = OLD.[HydraulicLocationConfigurationSettingsFilePath]" +
+                "AND NEW.[HydraulicLocationConfigurationDatabaseScenarioName] = OLD.[HydraulicLocationConfigurationSettingsScenarioName] " +
+                "AND NEW.[HydraulicLocationConfigurationDatabaseYear] = OLD.[HydraulicLocationConfigurationSettingsYear] " +
+                "AND NEW.[HydraulicLocationConfigurationDatabaseScope] = OLD.[HydraulicLocationConfigurationSettingsScope] " +
+                "AND NEW.[HydraulicLocationConfigurationDatabaseSeaLevel] IS OLD.[HydraulicLocationConfigurationSettingsSeaLevel] " +
+                "AND NEW.[HydraulicLocationConfigurationDatabaseRiverDischarge] IS OLD.[HydraulicLocationConfigurationSettingsRiverDischarge] " +
+                "AND NEW.[HydraulicLocationConfigurationDatabaseLakeLevel] IS OLD.[HydraulicLocationConfigurationSettingsLakeLevel] " +
+                "AND NEW.[HydraulicLocationConfigurationDatabaseWindDirection] IS OLD.[HydraulicLocationConfigurationSettingsWindDirection] " +
+                "AND NEW.[HydraulicLocationConfigurationDatabaseWindSpeed] IS OLD.[HydraulicLocationConfigurationSettingsWindSpeed] " +
+                "AND NEW.[HydraulicLocationConfigurationDatabaseComment] IS OLD.[HydraulicLocationConfigurationSettingsComment]; " +
+                "DETACH SOURCEPROJECT";
+
+            reader.AssertReturnedDataIsValid(validateHydraulicBoundaryData);
+        }
+
+        private static void AssertHydraulicBoundaryDatabase(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateHydraulicBoundaryDatabase =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.HydraulicBoundaryDatabaseEntity " +
+                ") " +
+                "FROM HydraulicBoundaryDatabaseEntity NEW " +
+                "JOIN SOURCEPROJECT.HydraulicBoundaryDatabaseEntity OLD ON NEW.HydraulicBoundaryDataEntityId = OLD.HydraulicBoundaryDatabaseEntity " +
+                "WHERE NEW.[Version] = OLD.[Version] " +
+                "AND NEW.[FilePath] = OLD.[FilePath] " +
+                "AND NEW.[UsePreprocessorClosure] = OLD.[HydraulicLocationConfigurationSettingsUsePreprocessorClosure] " +
+                "AND NEW.\"Order\" = 0; " +
+                "DETACH SOURCEPROJECT";
+
+            reader.AssertReturnedDataIsValid(validateHydraulicBoundaryDatabase);
+        }
+
+        private static void AssertHydraulicLocation(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateHydraulicLocation =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.HydraulicLocationEntity " +
+                ") " +
+                "FROM HydraulicLocationEntity NEW " +
+                "JOIN ( " +
+                "SELECT " +
+                "[HydraulicBoundaryDatabaseEntityId] AS HBDId " +
+                "FROM HydraulicBoundaryDatabaseEntity" +
+                ") " +
+                "ON NEW.HydraulicBoundaryDatabaseEntityId = HBDId " +
+                "JOIN SOURCEPROJECT.HydraulicLocationEntity OLD USING(HydraulicLocationEntityId) " +
+                "WHERE NEW.[LocationId] = OLD.[LocationId] " +
+                "AND NEW.[Name] = OLD.[Name] " +
+                "AND NEW.[LocationX] IS OLD.[LocationX] " +
+                "AND NEW.[LocationY] IS OLD.[LocationY] " +
+                "AND NEW.\"Order\" = OLD.\"Order\"; " +
+                "DETACH SOURCEPROJECT";
+
+            reader.AssertReturnedDataIsValid(validateHydraulicLocation);
         }
 
         private static void AssertTablesContentMigrated(MigratedDatabaseReader reader, string sourceFilePath)
@@ -74,7 +152,6 @@ namespace Riskeer.Migration.Integration.Test
                 "FailureMechanismEntity",
                 "ClosingStructuresFailureMechanismMetaEntity",
                 "CalculationGroupEntity",
-                "HydraulicLocationEntity",
                 "GrassCoverErosionInwardsFailureMechanismMetaEntity",
                 "SemiProbabilisticPipingCalculationEntity",
                 "GrassCoverErosionInwardsCalculationEntity",
@@ -121,7 +198,6 @@ namespace Riskeer.Migration.Integration.Test
                 "HeightStructuresCalculationEntity",
                 "HeightStructuresFailureMechanismMetaEntity",
                 "HeightStructuresOutputEntity",
-                "HydraulicBoundaryDatabaseEntity",
                 "HydraulicLocationCalculationCollectionEntity",
                 "HydraulicLocationCalculationCollectionHydraulicLocationCalculationEntity",
                 "HydraulicLocationCalculationEntity",
@@ -188,7 +264,7 @@ namespace Riskeer.Migration.Integration.Test
                 Assert.AreEqual(2, messages.Count);
                 var i = 0;
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("22.1", newVersion, "Gevolgen van de migratie van versie 22.1 naar versie 22.2:"),
+                    new MigrationLogMessage("22.1", newVersion, "Gevolgen van de migratie van versie 22.1 naar versie 23.1:"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("22.1", newVersion, "* Geen aanpassingen."),
@@ -201,7 +277,7 @@ namespace Riskeer.Migration.Integration.Test
             const string validateVersion =
                 "SELECT COUNT() = 1 " +
                 "FROM [VersionEntity] " +
-                "WHERE [Version] = \"22.2\";";
+                "WHERE [Version] = \"23.1\";";
             reader.AssertReturnedDataIsValid(validateVersion);
         }
 

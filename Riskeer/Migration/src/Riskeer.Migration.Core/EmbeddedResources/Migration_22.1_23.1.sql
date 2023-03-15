@@ -1,7 +1,7 @@
 /*
 Migration script for migrating Riskeer databases.
 SourceProject version: 22.1
-TargetProject version: 22.2
+TargetProject version: 23.1
 */
 
 PRAGMA foreign_keys = OFF;
@@ -13,7 +13,6 @@ INSERT INTO FailureMechanismSectionEntity SELECT * FROM [SOURCEPROJECT].FailureM
 INSERT INTO FailureMechanismEntity SELECT * FROM [SOURCEPROJECT].FailureMechanismEntity;
 INSERT INTO ClosingStructuresFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].ClosingStructuresFailureMechanismMetaEntity;
 INSERT INTO CalculationGroupEntity SELECT * FROM [SOURCEPROJECT].CalculationGroupEntity;
-INSERT INTO HydraulicLocationEntity SELECT * FROM [SOURCEPROJECT].HydraulicLocationEntity;
 INSERT INTO GrassCoverErosionInwardsFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsFailureMechanismMetaEntity;
 INSERT INTO SemiProbabilisticPipingCalculationEntity SELECT * FROM [SOURCEPROJECT].SemiProbabilisticPipingCalculationEntity;
 INSERT INTO GrassCoverErosionInwardsCalculationEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsCalculationEntity;
@@ -60,7 +59,69 @@ INSERT INTO HeightStructureEntity SELECT * FROM [SOURCEPROJECT].HeightStructureE
 INSERT INTO HeightStructuresCalculationEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresCalculationEntity;
 INSERT INTO HeightStructuresFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresFailureMechanismMetaEntity;
 INSERT INTO HeightStructuresOutputEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresOutputEntity;
-INSERT INTO HydraulicBoundaryDatabaseEntity SELECT * FROM [SOURCEPROJECT].HydraulicBoundaryDatabaseEntity;
+INSERT INTO HydraulicBoundaryDataEntity (
+    [HydraulicBoundaryDataEntityId],
+    [AssessmentSectionEntityId],
+    [HydraulicLocationConfigurationDatabaseFilePath],
+    [HydraulicLocationConfigurationDatabaseScenarioName],
+    [HydraulicLocationConfigurationDatabaseYear],
+    [HydraulicLocationConfigurationDatabaseScope],
+    [HydraulicLocationConfigurationDatabaseSeaLevel],
+    [HydraulicLocationConfigurationDatabaseRiverDischarge],
+    [HydraulicLocationConfigurationDatabaseLakeLevel],
+    [HydraulicLocationConfigurationDatabaseWindDirection],
+    [HydraulicLocationConfigurationDatabaseWindSpeed],
+    [HydraulicLocationConfigurationDatabaseComment]
+)
+SELECT
+    [HydraulicBoundaryDatabaseEntity],
+    [AssessmentSectionEntityId],
+    [HydraulicLocationConfigurationSettingsFilePath],
+    [HydraulicLocationConfigurationSettingsScenarioName],
+    [HydraulicLocationConfigurationSettingsYear],
+    [HydraulicLocationConfigurationSettingsScope],
+    [HydraulicLocationConfigurationSettingsSeaLevel],
+    [HydraulicLocationConfigurationSettingsRiverDischarge],
+    [HydraulicLocationConfigurationSettingsLakeLevel],
+    [HydraulicLocationConfigurationSettingsWindDirection],
+    [HydraulicLocationConfigurationSettingsWindSpeed],
+    [HydraulicLocationConfigurationSettingsComment]
+FROM [SOURCEPROJECT].HydraulicBoundaryDatabaseEntity;
+INSERT INTO HydraulicBoundaryDatabaseEntity (
+    [HydraulicBoundaryDataEntityId],
+    [Version],
+    [FilePath],
+    [UsePreprocessorClosure],
+    [Order]
+)
+SELECT
+    [HydraulicBoundaryDatabaseEntity],
+    [Version],
+    [FilePath],
+    [HydraulicLocationConfigurationSettingsUsePreprocessorClosure],
+    0
+FROM [SOURCEPROJECT].HydraulicBoundaryDatabaseEntity;
+INSERT INTO HydraulicLocationEntity (
+    [HydraulicLocationEntityId],
+    [HydraulicBoundaryDatabaseEntityId],
+    [LocationId],
+    [Name],
+    [LocationX],
+    [LocationY],
+    [Order]
+)
+SELECT
+    [HydraulicLocationEntityId],
+    [HydraulicBoundaryDatabaseEntityId],
+    [LocationId],
+    [Name],
+    [LocationX],
+    [LocationY],
+    [Order]
+FROM [SOURCEPROJECT].HydraulicLocationEntity
+JOIN (
+    SELECT HydraulicBoundaryDatabaseEntityId FROM HydraulicBoundaryDatabaseEntity LIMIT 1
+);
 INSERT INTO HydraulicLocationCalculationCollectionEntity SELECT * FROM [SOURCEPROJECT].HydraulicLocationCalculationCollectionEntity;
 INSERT INTO HydraulicLocationCalculationCollectionHydraulicLocationCalculationEntity SELECT * FROM [SOURCEPROJECT].HydraulicLocationCalculationCollectionHydraulicLocationCalculationEntity;
 INSERT INTO HydraulicLocationCalculationEntity SELECT * FROM [SOURCEPROJECT].HydraulicLocationCalculationEntity;
@@ -109,7 +170,7 @@ INSERT INTO VersionEntity (
     [FingerPrint])
 SELECT
     [VersionId],
-    "22.2",
+    "23.1",
     [Timestamp],
     [FingerPrint]
 FROM [SOURCEPROJECT].VersionEntity;
@@ -133,14 +194,14 @@ INSERT INTO [LOGDATABASE].MigrationLogEntity (
     [FromVersion],
     [ToVersion],
     [LogMessage])
-VALUES ("22.1", "22.2", "Gevolgen van de migratie van versie 22.1 naar versie 22.2:");
+VALUES ("22.1", "23.1", "Gevolgen van de migratie van versie 22.1 naar versie 23.1:");
 
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
     [FromVersion],
     [ToVersion],
     [LogMessage])
 SELECT "22.1",
-       "22.2",
+       "23.1",
        "* Geen aanpassingen."
     WHERE (
 		SELECT COUNT() FROM [LOGDATABASE].MigrationLogEntity
