@@ -21,12 +21,20 @@
 
 using System.Drawing;
 using System.Linq;
+using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
+using Core.Gui;
+using Core.Gui.Commands;
+using Core.Gui.ContextMenu;
+using Core.Gui.Forms.Main;
+using Core.Gui.Plugin;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PresentationObjects;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
@@ -36,6 +44,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class HydraulicLocationConfigurationDatabaseContextTreeNodeInfoTest : NUnitFormTest
     {
+        private readonly int contextMenuImportHydraulicLocationConfigurationDatabaseIndex = 0;
+
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
@@ -48,7 +58,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Assert.IsNotNull(info.Text);
                 Assert.IsNull(info.ForeColor);
                 Assert.IsNotNull(info.Image);
-                Assert.IsNull(info.ContextMenuStrip);
+                Assert.IsNotNull(info.ContextMenuStrip);
                 Assert.IsNotNull(info.EnsureVisibleOnCreate);
                 Assert.IsNull(info.ExpandOnCreate);
                 Assert.IsNull(info.ChildNodeObjects);
@@ -124,6 +134,101 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 // Assert
                 Assert.IsTrue(ensureVisibleOnCreate);
             }
+        }
+
+        [Test]
+        public void ContextMenuStrip_WithContext_CallsContextMenuBuilderMethods()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var context = new HydraulicLocationConfigurationDatabaseContext(assessmentSection.HydraulicBoundaryData, assessmentSection);
+
+            var mocks = new MockRepository();
+            var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
+
+            using (mocks.Ordered())
+            {
+                menuBuilder.Expect(mb => mb.AddImportItem(null, null, null)).IgnoreArguments().Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.Build()).Return(null);
+            }
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                IGui gui = StubFactory.CreateGuiStub(mocks);
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
+
+                using (var plugin = new RiskeerPlugin())
+                {
+                    TreeNodeInfo info = GetInfo(plugin);
+
+                    plugin.Gui = gui;
+
+                    // Call
+                    info.ContextMenuStrip(context, null, treeViewControl);
+                }
+            }
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ContextMenuStrip_WithContext_AddImportItem()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var context = new HydraulicLocationConfigurationDatabaseContext(assessmentSection.HydraulicBoundaryData, assessmentSection);
+
+            var mocks = new MockRepository();
+            var applicationFeatureCommands = mocks.Stub<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.Stub<IImportCommandHandler>();
+            importCommandHandler.Stub(ich => ich.GetSupportedImportInfos(null)).IgnoreArguments().Return(new[]
+            {
+                new ImportInfo()
+            });
+            var exportCommandHandler = mocks.Stub<IExportCommandHandler>();
+            var updateCommandHandler = mocks.Stub<IUpdateCommandHandler>();
+            var viewCommands = mocks.Stub<IViewCommands>();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var builder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                     importCommandHandler,
+                                                     exportCommandHandler,
+                                                     updateCommandHandler,
+                                                     viewCommands,
+                                                     context,
+                                                     treeViewControl);
+
+                IGui gui = StubFactory.CreateGuiStub(mocks);
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(builder);
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
+
+                using (var plugin = new RiskeerPlugin())
+                {
+                    TreeNodeInfo info = GetInfo(plugin);
+                    plugin.Gui = gui;
+
+                    // Call
+                    using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(context, assessmentSection, treeViewControl))
+                    {
+                        Assert.AreEqual(3, contextMenuStrip.Items.Count);
+
+                        TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip, contextMenuImportHydraulicLocationConfigurationDatabaseIndex,
+                                                                      "&Selecteer ander HLCD bestand...",
+                                                                      "Selecteer een ander HLCD bestand.",
+                                                                      RiskeerCommonFormsResources.DatabaseIcon);
+                    }
+                }
+            }
+
+            // Assert
+            mocks.VerifyAll();
         }
 
         private static TreeNodeInfo GetInfo(RiskeerPlugin plugin)

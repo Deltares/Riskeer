@@ -45,7 +45,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
     public class HydraulicBoundaryDataContextTreeNodeInfoTest : NUnitFormTest
     {
         private const int contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
-        private const int contextMenuSelectDifferentFolderIndex = 1;
+        private const int contextMenuSelectDifferentFolderIndex = 0;
 
         private MockRepository mocks;
 
