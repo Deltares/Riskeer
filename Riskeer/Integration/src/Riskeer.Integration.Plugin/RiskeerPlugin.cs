@@ -877,9 +877,10 @@ namespace Riskeer.Integration.Plugin
             {
                 Text = context => Path.GetFileName(context.WrappedData.HydraulicLocationConfigurationDatabase.FilePath),
                 Image = context => RiskeerCommonFormsResources.DatabaseIcon,
-                EnsureVisibleOnCreate = (context, o) => true
+                EnsureVisibleOnCreate = (context, o) => true,
+                ContextMenuStrip = HydraulicLocationConfigurationDatabaseContextMenuStrip
             };
-            
+
             yield return new TreeNodeInfo<HydraulicBoundaryDatabasesContext>
             {
                 Text = context => Resources.HydraulicBoundaryDatabases_DisplayName,
@@ -2439,7 +2440,7 @@ namespace Riskeer.Integration.Plugin
 
         private ContextMenuStrip HydraulicBoundaryDataContextMenuStrip(HydraulicBoundaryDataContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
+            IContextMenuBuilder builder = Gui.Get(nodeData, treeViewControl);
 
             if (nodeData.WrappedData.IsLinked())
             {
@@ -2477,6 +2478,17 @@ namespace Riskeer.Integration.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+
+        private ContextMenuStrip HydraulicLocationConfigurationDatabaseContextMenuStrip(HydraulicLocationConfigurationDatabaseContext nodeData, object parentData, TreeViewControl treeViewControl)
+        {
+            return Gui.Get(nodeData, treeViewControl)
+                      .AddImportItem(RiskeerFormsResources.HydraulicBoundaryData_Connect_To_Different_Hlcd,
+                                     RiskeerFormsResources.HydraulicBoundaryData_Connect_To_Different_Hlcd_ToolTip,
+                                     RiskeerCommonFormsResources.DatabaseIcon)
+                      .AddSeparator()
+                      .AddPropertiesItem()
+                      .Build();
         }
 
         private static object[] HydraulicBoundaryDatabasesContextChildNodeObjects(HydraulicBoundaryDatabasesContext nodeData)
@@ -2517,12 +2529,11 @@ namespace Riskeer.Integration.Plugin
 
         private ContextMenuStrip HydraulicBoundaryDatabaseContextMenuStrip(HydraulicBoundaryDatabaseContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
-
-            return builder.AddDeleteItem()
-                          .AddSeparator()
-                          .AddPropertiesItem()
-                          .Build();
+            return Gui.Get(nodeData, treeViewControl)
+                      .AddDeleteItem()
+                      .AddSeparator()
+                      .AddPropertiesItem()
+                      .Build();
         }
 
         private static void HydraulicBoundaryDatabaseContextOnNodeRemoved(HydraulicBoundaryDatabaseContext nodeData, object parentNodeData)
