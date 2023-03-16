@@ -129,8 +129,11 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
             using (mocks.Ordered())
             {
-                menuBuilder.Expect(mb => mb.AddImportItem(null, null, null)).IgnoreArguments().Return(menuBuilder);
-                if (hydraulicBoundaryDataLinked)
+                if (!hydraulicBoundaryDataLinked)
+                {
+                    menuBuilder.Expect(mb => mb.AddImportItem(null, null, null)).IgnoreArguments().Return(menuBuilder);
+                }
+                else
                 {
                     menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                 }
@@ -166,20 +169,11 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void ContextMenuStrip_WithContext_AddImportItem(bool hydraulicBoundaryDataLinked)
+        public void ContextMenuStrip_WithNotLinkedHydraulicBoundaryData_AddImportItem()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-
-            if (hydraulicBoundaryDataLinked)
-            {
-                assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath = "hlcd.sqlite";
-            }
-
-            var context = new HydraulicBoundaryDataContext(assessmentSection.HydraulicBoundaryData,
-                                                           assessmentSection);
+            var context = new HydraulicBoundaryDataContext(assessmentSection.HydraulicBoundaryData, assessmentSection);
 
             var applicationFeatureCommands = mocks.Stub<IApplicationFeatureCommands>();
             var importCommandHandler = mocks.Stub<IImportCommandHandler>();
@@ -212,15 +206,13 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     plugin.Gui = gui;
 
                     // Call
-                    using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, assessmentSection, treeViewControl))
+                    using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(context, assessmentSection, treeViewControl))
                     {
-                        TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuImportHydraulicBoundaryDatabaseIndex,
-                                                                      hydraulicBoundaryDataLinked
-                                                                          ? "&Selecteer ander HLCD bestand..."
-                                                                          : "&Selecteer HLCD bestand...",
-                                                                      hydraulicBoundaryDataLinked
-                                                                          ? "Selecteer een ander HLCD bestand."
-                                                                          : "Selecteer een HLCD bestand.",
+                        Assert.AreEqual(6, contextMenuStrip.Items.Count);
+
+                        TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip, contextMenuImportHydraulicBoundaryDatabaseIndex,
+                                                                      "&Selecteer HLCD bestand...",
+                                                                      "Selecteer een HLCD bestand.",
                                                                       RiskeerCommonFormsResources.DatabaseIcon);
                     }
                 }
@@ -255,11 +247,11 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     plugin.Gui = gui;
 
                     // Call
-                    using (ContextMenuStrip menu = info.ContextMenuStrip(context, null, treeViewControl))
+                    using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(context, null, treeViewControl))
                     {
-                        Assert.AreEqual(7, menu.Items.Count);
+                        Assert.AreEqual(6, contextMenuStrip.Items.Count);
 
-                        TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuSelectDifferentFolderIndex,
+                        TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip, contextMenuSelectDifferentFolderIndex,
                                                                       "Selecteer andere bestandsmap...",
                                                                       "Selecteer een andere bestandsmap.",
                                                                       RiskeerCommonFormsResources.GeneralFolderIcon);

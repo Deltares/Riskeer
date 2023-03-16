@@ -2442,34 +2442,29 @@ namespace Riskeer.Integration.Plugin
         {
             IContextMenuBuilder builder = Gui.Get(nodeData, treeViewControl);
 
-            if (nodeData.WrappedData.IsLinked())
-            {
-                var selectDirectoryItem = new StrictContextMenuItem(
-                    RiskeerFormsResources.HydraulicBoundaryData_Select_Different_Folder,
-                    RiskeerFormsResources.HydraulicBoundaryData_Select_Different_Folder_ToolTip,
-                    RiskeerCommonFormsResources.GeneralFolderIcon,
-                    (sender, args) =>
-                    {
-                        IInquiryHelper inquiryHelper = GetInquiryHelper();
-
-                        string newFolderPath = inquiryHelper.GetTargetFolderLocation();
-
-                        if (newFolderPath != null)
-                        {
-                            nodeData.WrappedData.SetNewFolderPath(newFolderPath);
-                        }
-                    });
-
-                builder.AddImportItem(RiskeerFormsResources.HydraulicBoundaryData_Connect_To_Different_Hlcd,
-                                      RiskeerFormsResources.HydraulicBoundaryData_Connect_To_Different_Hlcd_ToolTip,
-                                      RiskeerCommonFormsResources.DatabaseIcon)
-                       .AddCustomItem(selectDirectoryItem);
-            }
-            else
+            if (!nodeData.WrappedData.IsLinked())
             {
                 builder.AddImportItem(RiskeerFormsResources.HydraulicBoundaryData_Connect_To_Hlcd,
                                       RiskeerFormsResources.HydraulicBoundaryData_Connect_To_Hlcd_ToolTip,
                                       RiskeerCommonFormsResources.DatabaseIcon);
+            }
+            else
+            {
+                builder.AddCustomItem(new StrictContextMenuItem(
+                                          RiskeerFormsResources.HydraulicBoundaryData_Select_Different_Folder,
+                                          RiskeerFormsResources.HydraulicBoundaryData_Select_Different_Folder_ToolTip,
+                                          RiskeerCommonFormsResources.GeneralFolderIcon,
+                                          (sender, args) =>
+                                          {
+                                              IInquiryHelper inquiryHelper1 = GetInquiryHelper();
+
+                                              string newFolderPath = inquiryHelper1.GetTargetFolderLocation();
+
+                                              if (newFolderPath != null)
+                                              {
+                                                  nodeData.WrappedData.SetNewFolderPath(newFolderPath);
+                                              }
+                                          }));
             }
 
             return builder.AddSeparator()
