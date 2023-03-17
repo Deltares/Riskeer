@@ -575,6 +575,20 @@ namespace Riskeer.Integration.Plugin
                     filePath)
             };
 
+            yield return new ImportInfo<HydraulicLocationConfigurationDatabaseContext>
+            {
+                Name = Resources.HydraulicLocationConfigurationDatabase_DisplayName,
+                Image = RiskeerCommonFormsResources.DatabaseIcon,
+                Category = RiskeerCommonFormsResources.Riskeer_Category,
+                FileFilterGenerator = new FileFilterGenerator(Resources.HydraulicDatabase_FilePath_Extension,
+                                                              Resources.HydraulicLocationConfigurationDatabase_file_filter_Description),
+                CreateFileImporter = (context, filePath) => new HydraulicLocationConfigurationDatabaseImporter(
+                    context.WrappedData.HydraulicLocationConfigurationDatabase,
+                    new HydraulicLocationConfigurationDatabaseUpdateHandler(context.AssessmentSection),
+                    context.WrappedData,
+                    filePath)
+            };
+
             yield return new ImportInfo<HydraulicBoundaryDatabasesContext>
             {
                 Name = Resources.HydraulicBoundaryDatabase_DisplayName,

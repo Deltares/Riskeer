@@ -697,11 +697,12 @@ namespace Riskeer.Integration.Plugin.Test
                 ImportInfo[] importInfos = plugin.GetImportInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(5, importInfos.Length);
+                Assert.AreEqual(6, importInfos.Length);
                 Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(ReferenceLineContext)));
                 Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(FailureMechanismSectionsContext)));
                 Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(ForeshoreProfilesContext)));
                 Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(HydraulicBoundaryDataContext)));
+                Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(HydraulicLocationConfigurationDatabaseContext)));
                 Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(HydraulicBoundaryDatabasesContext)));
             }
         }
