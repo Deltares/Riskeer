@@ -257,7 +257,7 @@ namespace Riskeer.Integration.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hydraulische belastingen database koppelen afgebroken. Geen gegevens gewijzigd..
+        ///   Looks up a localized string similar to Hydraulische belastingen database toevoegen afgebroken. Geen gegevens gewijzigd..
         /// </summary>
         public static string HydraulicBoundaryDatabaseImporter_ProgressText_Import_canceled_No_data_changed {
             get {
@@ -324,7 +324,7 @@ namespace Riskeer.Integration.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het HLCD bestand moet zich in dezelfde map bevinden als de gekoppelde HRD bestanden..
+        ///   Looks up a localized string similar to Het HLCD bestand moet zich in dezelfde map bevinden als de toegevoegde HRD bestanden..
         /// </summary>
         public static string HydraulicLocationConfigurationDatabaseImporter_Hlcd_not_in_same_folder_as_Hrd {
             get {

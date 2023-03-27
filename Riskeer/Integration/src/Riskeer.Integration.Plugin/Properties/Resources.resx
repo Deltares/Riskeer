@@ -235,7 +235,7 @@ Weet u zeker dat u wilt doorgaan?</value>
   </data>
     <data name="HydraulicLocationConfigurationDatabaseUpdateHandler_Confirm_clear_hydraulic_location_configuration_database_dependent_data"
           xml:space="preserve">
-    <value>Als u het gekoppelde HLCD bestand wijzigt, zal de uitvoer van alle ervan afhankelijke berekeningen verwijderd worden.
+    <value>Als u het geselecteerde HLCD bestand wijzigt, zal de uitvoer van alle ervan afhankelijke berekeningen verwijderd worden.
 
 Wilt u doorgaan?</value>
   </data>

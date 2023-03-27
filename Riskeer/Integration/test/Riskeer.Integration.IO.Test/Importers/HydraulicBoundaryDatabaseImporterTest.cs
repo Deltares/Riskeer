@@ -495,7 +495,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             void Call() => importResult = importer.Import();
 
             // Assert
-            const string expectedMessage = "Hydraulische belastingen database koppelen afgebroken. Geen gegevens gewijzigd.";
+            const string expectedMessage = "Hydraulische belastingen database toevoegen afgebroken. Geen gegevens gewijzigd.";
             TestHelper.AssertLogMessageWithLevelIsGenerated(Call, Tuple.Create(expectedMessage, LogLevelConstant.Info), 1);
             Assert.IsFalse(importResult);
             mocks.VerifyAll();

@@ -146,7 +146,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             void Call() => importSuccessful = importer.Import();
 
             // Assert
-            var expectedMessage = $"Fout bij het lezen van bestand '{hlcdFilePath}': het HLCD bestand moet zich in dezelfde map bevinden als de gekoppelde HRD bestanden.";
+            var expectedMessage = $"Fout bij het lezen van bestand '{hlcdFilePath}': het HLCD bestand moet zich in dezelfde map bevinden als de toegevoegde HRD bestanden.";
             AssertImportFailed(Call, expectedMessage, ref importSuccessful);
             mocks.VerifyAll();
         }

@@ -146,7 +146,7 @@
 Er is geen hydraulische belastingen database toegevoegd.</value>
   </data>
   <data name="HydraulicBoundaryDatabaseImporter_ProgressText_Import_canceled_No_data_changed" xml:space="preserve">
-    <value>Hydraulische belastingen database koppelen afgebroken. Geen gegevens gewijzigd.</value>
+    <value>Hydraulische belastingen database toevoegen afgebroken. Geen gegevens gewijzigd.</value>
   </data>
   <data name="HydraulicBoundaryDataImporter_ProgressText_Reading_Hlcd_file" xml:space="preserve">
     <value>Inlezen van het hydraulische locatie configuratie bestand.</value>
@@ -168,7 +168,7 @@ Er is geen hydraulische belastingen database toegevoegd.</value>
 Er is geen HLCD geïmporteerd.</value>
   </data>
   <data name="HydraulicLocationConfigurationDatabaseImporter_Hlcd_not_in_same_folder_as_Hrd" xml:space="preserve">
-    <value>Het HLCD bestand moet zich in dezelfde map bevinden als de gekoppelde HRD bestanden.</value>
+    <value>Het HLCD bestand moet zich in dezelfde map bevinden als de toegevoegde HRD bestanden.</value>
   </data>
   <data name="HydraulicLocationConfigurationDatabaseImporter_Invalid_number_of_ScenarioInformation_entries" xml:space="preserve">
     <value>De tabel 'ScenarioInformation' moet exact 1 rij bevatten.</value>
