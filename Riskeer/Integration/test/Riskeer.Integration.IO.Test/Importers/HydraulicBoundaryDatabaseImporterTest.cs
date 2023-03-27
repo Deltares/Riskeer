@@ -468,36 +468,6 @@ namespace Riskeer.Integration.IO.Test.Importers
         }
 
         [Test]
-        public void Import_CancelImportDuringDialogInteraction_GenerateCanceledLogMessageAndReturnsFalse()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.StrictMock<IHydraulicBoundaryDataUpdateHandler>();
-            handler.Expect(h => h.IsConfirmationRequired(Arg<HydraulicBoundaryData>.Is.NotNull,
-                                                         Arg<ReadHydraulicBoundaryDatabase>.Is.NotNull))
-                   .WhenCalled(invocation =>
-                   {
-                       AssertReadHydraulicBoundaryDatabase((ReadHydraulicBoundaryDatabase) invocation.Arguments[1]);
-                   })
-                   .Return(true);
-            handler.Expect(h => h.InquireConfirmation()).Return(false);
-            mocks.ReplayAll();
-
-            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryData(), handler, validHrdFilePath);
-
-            var importResult = true;
-
-            // Call
-            void Call() => importResult = importer.Import();
-
-            // Assert
-            const string expectedMessage = "Hydraulische belastingen database koppelen afgebroken. Geen gegevens gewijzigd.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(Call, Tuple.Create(expectedMessage, LogLevelConstant.Info), 1);
-            Assert.IsFalse(importResult);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         [TestCase(1)]
         [TestCase(2)]
         [TestCase(3)]
@@ -506,7 +476,6 @@ namespace Riskeer.Integration.IO.Test.Importers
             // Setup
             var mocks = new MockRepository();
             var handler = mocks.StrictMock<IHydraulicBoundaryDataUpdateHandler>();
-            handler.Stub(h => h.IsConfirmationRequired(null, null)).IgnoreArguments().Return(false);
             mocks.ReplayAll();
 
             var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryData(), handler, validHrdFilePath);
@@ -538,7 +507,6 @@ namespace Riskeer.Integration.IO.Test.Importers
             // Setup
             var mocks = new MockRepository();
             var handler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
-            handler.Stub(h => h.IsConfirmationRequired(null, null)).IgnoreArguments().Return(false);
             handler.Stub(h => h.Update(null, null, null, null, null, null)).IgnoreArguments().Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
@@ -565,7 +533,7 @@ namespace Riskeer.Integration.IO.Test.Importers
         }
 
         [Test]
-        public void DoPostImportUpdates_HydraulicBoundaryDatabaseIsSetAndAnswerDialogToContinue_NotifyObserversOfTargetAndClearedObjects()
+        public void DoPostImportUpdates_HydraulicBoundaryDatabaseIsSet_NotifyObserversOfTargetAndClearedObjects()
         {
             // Setup
             var hydraulicBoundaryData = new HydraulicBoundaryData();
@@ -580,7 +548,6 @@ namespace Riskeer.Integration.IO.Test.Importers
             observable2.Expect(o => o.NotifyObservers());
 
             var handler = mocks.StrictMock<IHydraulicBoundaryDataUpdateHandler>();
-            handler.Expect(h => h.IsConfirmationRequired(null, null)).IgnoreArguments().Return(false);
             handler.Expect(h => h.Update(Arg<HydraulicBoundaryData>.Is.NotNull,
                                          Arg<ReadHydraulicBoundaryDatabase>.Is.NotNull,
                                          Arg<ReadHydraulicLocationConfigurationDatabase>.Is.NotNull,
@@ -619,9 +586,14 @@ namespace Riskeer.Integration.IO.Test.Importers
             var observer = mocks.StrictMock<IObserver>();
             var handler = mocks.StrictMock<IHydraulicBoundaryDataUpdateHandler>();
             var importer = new HydraulicBoundaryDatabaseImporter(hydraulicBoundaryData, handler, validHrdFilePath);
-            handler.Expect(h => h.IsConfirmationRequired(null, null)).IgnoreArguments()
-                   .WhenCalled(invocation => importer.Cancel())
-                   .Return(false);
+
+            importer.SetProgressChanged((description, step, steps) =>
+            {
+                if (step == totalNumberOfSteps - 1)
+                {
+                    importer.Cancel();
+                }
+            });
 
             mocks.ReplayAll();
 
