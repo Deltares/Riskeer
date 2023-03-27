@@ -107,7 +107,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             {
                 FilePath = validHrdFilePath
             });
-            
+
             var importer = new HydraulicBoundaryDatabaseImporter(hydraulicBoundaryData, handler, validHrdFilePath);
 
             // Call
@@ -119,7 +119,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             AssertImportFailed(Call, expectedMessage, ref importSuccessful);
             mocks.VerifyAll();
         }
-        
+
         [Test]
         public void Import_FileDoesNotExist_CancelImportWithErrorMessage()
         {
@@ -128,9 +128,9 @@ namespace Riskeer.Integration.IO.Test.Importers
             var handler = mocks.StrictMock<IHydraulicBoundaryDataUpdateHandler>();
             mocks.ReplayAll();
 
-            string path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.IO, "I_dont_exist");
+            string path = Path.Combine(testDataPath, "I_dont_exist.sqlite");
 
-            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryData(), handler, path);
+            var importer = new HydraulicBoundaryDatabaseImporter(CreateLinkedHydraulicBoundaryData(), handler, path);
 
             // Call
             var importSuccessful = true;
@@ -152,7 +152,7 @@ namespace Riskeer.Integration.IO.Test.Importers
 
             string path = Path.Combine(testDataPath, "corruptschema.sqlite");
 
-            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryData(), handler, path);
+            var importer = new HydraulicBoundaryDatabaseImporter(CreateLinkedHydraulicBoundaryData(), handler, path);
 
             // Call
             var importSuccessful = true;
@@ -174,7 +174,7 @@ namespace Riskeer.Integration.IO.Test.Importers
 
             string path = Path.Combine(testDataPath, "empty.sqlite");
 
-            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryData(), handler, path);
+            var importer = new HydraulicBoundaryDatabaseImporter(CreateLinkedHydraulicBoundaryData(), handler, path);
 
             // Call
             var importSuccessful = true;
@@ -705,7 +705,7 @@ namespace Riskeer.Integration.IO.Test.Importers
                 }
             };
         }
-        
+
         private static IEnumerable<TestCaseData> GetValidFiles()
         {
             return new[]
