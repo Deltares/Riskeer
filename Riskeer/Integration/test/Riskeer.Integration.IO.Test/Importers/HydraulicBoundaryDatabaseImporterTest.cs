@@ -219,7 +219,15 @@ namespace Riskeer.Integration.IO.Test.Importers
             string path = Path.Combine(testDataPath, "EmptyHLCDSchema", "complete.sqlite");
             string hlcdFilePath = Path.Combine(Path.GetDirectoryName(path), "hlcd.sqlite");
 
-            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryData(), handler, path);
+            var hydraulicBoundaryData = new HydraulicBoundaryData
+            {
+                HydraulicLocationConfigurationDatabase =
+                {
+                    FilePath = hlcdFilePath
+                }
+            };
+            
+            var importer = new HydraulicBoundaryDatabaseImporter(hydraulicBoundaryData, handler, path);
 
             // Call
             var importSuccessful = true;
@@ -242,7 +250,15 @@ namespace Riskeer.Integration.IO.Test.Importers
             string path = Path.Combine(testDataPath, "InvalidHLCDSchema", "complete.sqlite");
             string hlcdFilePath = Path.Combine(Path.GetDirectoryName(path), "hlcd.sqlite");
 
-            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryData(), handler, path);
+            var hydraulicBoundaryData = new HydraulicBoundaryData
+            {
+                HydraulicLocationConfigurationDatabase =
+                {
+                    FilePath = hlcdFilePath
+                }
+            };
+            
+            var importer = new HydraulicBoundaryDatabaseImporter(hydraulicBoundaryData, handler, path);
 
             // Call
             var importSuccessful = true;
@@ -267,7 +283,15 @@ namespace Riskeer.Integration.IO.Test.Importers
             string path = Path.Combine(testDataPath, testFolder, "complete.sqlite");
             string hlcdFilePath = Path.Combine(Path.GetDirectoryName(path), "hlcd.sqlite");
 
-            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryData(), handler, path);
+            var hydraulicBoundaryData = new HydraulicBoundaryData
+            {
+                HydraulicLocationConfigurationDatabase =
+                {
+                    FilePath = hlcdFilePath
+                }
+            };
+                
+            var importer = new HydraulicBoundaryDatabaseImporter(hydraulicBoundaryData, handler, path);
 
             // Call
             var importSuccessful = true;
@@ -335,7 +359,15 @@ namespace Riskeer.Integration.IO.Test.Importers
             string path = Path.Combine(testDataPath, "missingPreprocessorClosure", "complete.sqlite");
             string hlcdFilePath = Path.Combine(Path.GetDirectoryName(path), "hlcd.sqlite");
 
-            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryData(), handler, path);
+            var hydraulicBoundaryData = new HydraulicBoundaryData
+            {
+                HydraulicLocationConfigurationDatabase =
+                {
+                    FilePath = hlcdFilePath
+                }
+            };
+            
+            var importer = new HydraulicBoundaryDatabaseImporter(hydraulicBoundaryData, handler, path);
 
             // Call
             var importSuccessful = true;
