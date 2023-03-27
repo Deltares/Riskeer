@@ -878,7 +878,7 @@ namespace Riskeer.Integration.Plugin
 
             yield return new TreeNodeInfo<HydraulicBoundaryDataContext>
             {
-                Text = context => RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName,
+                Text = context => Resources.HydraulicBoundaryData_DisplayName,
                 Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
                 ForeColor = context => context.WrappedData.IsLinked()
                                            ? Color.FromKnownColor(KnownColor.ControlText)

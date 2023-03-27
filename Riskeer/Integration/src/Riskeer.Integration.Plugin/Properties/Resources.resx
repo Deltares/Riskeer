@@ -348,4 +348,7 @@ Weet u zeker dat u wilt doorgaan?</value>
     <data name="ContextMenuStrip_Add_HydraulicBoundaryDatabase_ToolTip" xml:space="preserve">
         <value>Voeg een nieuw HRD bestand toe aan deze map.</value>
     </data>
+    <data name="HydraulicBoundaryData_DisplayName" xml:space="preserve">
+        <value>Databases</value>
+    </data>
 </root>
