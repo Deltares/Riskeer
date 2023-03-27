@@ -48,7 +48,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class HydraulicBoundaryDatabasesContextTreeNodeInfoTest : NUnitFormTest
     {
-        private const int contextMenuAddHydraulicBoundaryDatabaseIndex = 0;
+        private const int contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -181,7 +181,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                         // Assert
                         Assert.AreEqual(6, menu.Items.Count);
 
-                        TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddHydraulicBoundaryDatabaseIndex,
+                        TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuImportHydraulicBoundaryDatabaseIndex,
                                                                       "HRD bestand toevoegen",
                                                                       "Voeg een nieuw HRD bestand toe aan deze map.",
                                                                       RiskeerCommonFormsResources.DatabaseIcon);
@@ -237,7 +237,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
                     {
                         // Call
-                        contextMenuAdapter.Items[contextMenuAddHydraulicBoundaryDatabaseIndex].PerformClick();
+                        contextMenuAdapter.Items[contextMenuImportHydraulicBoundaryDatabaseIndex].PerformClick();
 
                         // Assert
                         Assert.AreEqual(1, hydraulicBoundaryData.HydraulicBoundaryDatabases.Count);

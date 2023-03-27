@@ -44,8 +44,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class HydraulicBoundaryDataContextTreeNodeInfoTest : NUnitFormTest
     {
-        private const int contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
         private const int contextMenuSelectDifferentFolderIndex = 0;
+        private const int contextMenuImportHydraulicLocationConfigurationDatabaseIndex = 0;
 
         private MockRepository mocks;
 
@@ -210,7 +210,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     {
                         Assert.AreEqual(6, contextMenuStrip.Items.Count);
 
-                        TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip, contextMenuImportHydraulicBoundaryDatabaseIndex,
+                        TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip,
+                                                                      contextMenuImportHydraulicLocationConfigurationDatabaseIndex,
                                                                       "&Selecteer HLCD bestand...",
                                                                       "Selecteer een HLCD bestand.",
                                                                       RiskeerCommonFormsResources.DatabaseIcon);
