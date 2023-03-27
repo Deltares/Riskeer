@@ -62,8 +62,8 @@ namespace Riskeer.Integration.Forms.PropertyClasses
 
         [PropertyOrder(filePathPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationDatabase_FilePath_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationDatabase_FilePath_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicDatabase_FilePath_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicDatabase_FilePath_Description))]
         public string FilePath
         {
             get

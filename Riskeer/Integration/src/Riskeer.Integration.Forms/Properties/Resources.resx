@@ -149,12 +149,6 @@
     <data name="HydraulicBoundaryData_Connect_To_Hlcd_ToolTip" xml:space="preserve">
     <value>Selecteer een HLCD bestand.</value>
   </data>
-    <data name="HydraulicBoundaryDatabase_FilePath_Description" xml:space="preserve">
-    <value>Locatie van het HRD bestand.</value>
-  </data>
-    <data name="HydraulicBoundaryDatabase_FilePath_DisplayName" xml:space="preserve">
-    <value>HRD bestandslocatie</value>
-  </data>
     <data name="CalculationGroupContextProperties_DisplayName" xml:space="preserve">
     <value>Map met berekeningen</value>
   </data>
@@ -294,11 +288,11 @@ Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau 
     <data name="HydraulicLocationConfigurationDatabase_Comment_DisplayName" xml:space="preserve">
     <value>Overig</value>
   </data>
-    <data name="HydraulicLocationConfigurationDatabase_FilePath_Description" xml:space="preserve">
-    <value>Locatie van het HLCD bestand.</value>
+    <data name="HydraulicDatabase_FilePath_Description" xml:space="preserve">
+    <value>Locatie van het bestand.</value>
   </data>
-    <data name="HydraulicLocationConfigurationDatabase_FilePath_DisplayName" xml:space="preserve">
-    <value>HLCD bestandslocatie</value>
+    <data name="HydraulicDatabase_FilePath_DisplayName" xml:space="preserve">
+    <value>Bestandslocatie</value>
   </data>
     <data name="HydraulicLocationConfigurationDatabase_LakeLevel_Description" xml:space="preserve">
     <value>Klimaatinformatie met betrekking tot het meerpeil/de meerpeilen.</value>

@@ -608,24 +608,6 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Locatie van het HRD bestand..
-        /// </summary>
-        public static string HydraulicBoundaryDatabase_FilePath_Description {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabase_FilePath_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to HRD bestandslocatie.
-        /// </summary>
-        public static string HydraulicBoundaryDatabase_FilePath_DisplayName {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabase_FilePath_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Gebruik de preprocessor sluitregime database bij het uitvoeren van een berekening..
         /// </summary>
         public static string HydraulicBoundaryDatabase_UsePreprocessorClosure_Description {
@@ -644,6 +626,24 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Locatie van het bestand..
+        /// </summary>
+        public static string HydraulicDatabase_FilePath_Description {
+            get {
+                return ResourceManager.GetString("HydraulicDatabase_FilePath_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bestandslocatie.
+        /// </summary>
+        public static string HydraulicDatabase_FilePath_DisplayName {
+            get {
+                return ResourceManager.GetString("HydraulicDatabase_FilePath_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Overige informatie..
         /// </summary>
         public static string HydraulicLocationConfigurationDatabase_Comment_Description {
@@ -658,24 +658,6 @@ namespace Riskeer.Integration.Forms.Properties {
         public static string HydraulicLocationConfigurationDatabase_Comment_DisplayName {
             get {
                 return ResourceManager.GetString("HydraulicLocationConfigurationDatabase_Comment_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Locatie van het HLCD bestand..
-        /// </summary>
-        public static string HydraulicLocationConfigurationDatabase_FilePath_Description {
-            get {
-                return ResourceManager.GetString("HydraulicLocationConfigurationDatabase_FilePath_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to HLCD bestandslocatie.
-        /// </summary>
-        public static string HydraulicLocationConfigurationDatabase_FilePath_DisplayName {
-            get {
-                return ResourceManager.GetString("HydraulicLocationConfigurationDatabase_FilePath_DisplayName", resourceCulture);
             }
         }
         

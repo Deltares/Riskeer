@@ -133,8 +133,8 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             PropertyDescriptor filePathProperty = dynamicProperties[filePathPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(filePathProperty,
                                                                             expectedCategory,
-                                                                            "HLCD bestandslocatie",
-                                                                            "Locatie van het HLCD bestand.",
+                                                                            "Bestandslocatie",
+                                                                            "Locatie van het bestand.",
                                                                             true);
 
             PropertyDescriptor scenarioNameProperty = dynamicProperties[scenarioNamePropertyIndex];

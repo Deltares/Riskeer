@@ -94,8 +94,8 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             PropertyDescriptor filePathProperty = dynamicProperties[filePathPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(filePathProperty,
                                                                             expectedCategory,
-                                                                            "HRD bestandslocatie",
-                                                                            "Locatie van het HRD bestand.",
+                                                                            "Bestandslocatie",
+                                                                            "Locatie van het bestand.",
                                                                             true);
 
             PropertyDescriptor usePreprocessorClosureProperty = dynamicProperties[usePreprocessorClosurePropertyIndex];
