@@ -44,7 +44,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
         public void SetUp()
         {
             plugin = new RiskeerPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(HydraulicBoundaryDataProperties));
+            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(HydraulicLocationConfigurationDatabaseProperties));
         }
 
         [TearDown]
@@ -61,7 +61,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
         }
 
         [Test]
-        public void CreateInstance_WithContext_ReturnHydraulicBoundaryDataProperties()
+        public void CreateInstance_WithContext_ReturnHydraulicLocationConfigurationDatabaseProperties()
         {
             // Setup
             var mocks = new MockRepository();
@@ -79,7 +79,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
             IObjectProperties objectProperties = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<HydraulicBoundaryDataProperties>(objectProperties);
+            Assert.IsInstanceOf<HydraulicLocationConfigurationDatabaseProperties>(objectProperties);
             Assert.AreSame(context.WrappedData, objectProperties.Data);
         }
     }

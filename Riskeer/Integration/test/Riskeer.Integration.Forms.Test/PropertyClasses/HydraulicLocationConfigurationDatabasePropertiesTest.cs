@@ -30,7 +30,7 @@ using Riskeer.Integration.Forms.PropertyClasses;
 namespace Riskeer.Integration.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class HydraulicBoundaryDataPropertiesTest
+    public class HydraulicLocationConfigurationDatabasePropertiesTest
     {
         private const int hlcdFilePathPropertyIndex = 0;
         private const int scenarioNamePropertyIndex = 1;
@@ -47,7 +47,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         public void Constructor_HydraulicBoundaryDataNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new HydraulicBoundaryDataProperties(null);
+            void Call() => new HydraulicLocationConfigurationDatabaseProperties(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -61,7 +61,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var hydraulicBoundaryData = new HydraulicBoundaryData();
 
             // Call
-            var properties = new HydraulicBoundaryDataProperties(hydraulicBoundaryData);
+            var properties = new HydraulicLocationConfigurationDatabaseProperties(hydraulicBoundaryData);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<HydraulicBoundaryData>>(properties);
@@ -75,12 +75,12 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var hydraulicBoundaryData = new HydraulicBoundaryData();
 
             // Call
-            var properties = new HydraulicBoundaryDataProperties(hydraulicBoundaryData);
+            var properties = new HydraulicLocationConfigurationDatabaseProperties(hydraulicBoundaryData);
 
             // Assert
             Assert.IsEmpty(properties.HlcdFilePath);
             Assert.IsEmpty(properties.ScenarioName);
-            Assert.IsEmpty(properties.Year);
+            Assert.AreEqual(0, properties.Year);
             Assert.IsEmpty(properties.Scope);
             Assert.IsEmpty(properties.SeaLevel);
             Assert.IsEmpty(properties.RiverDischarge);
@@ -100,7 +100,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             Assert.IsTrue(hydraulicBoundaryData.IsLinked());
 
             // Call
-            var properties = new HydraulicBoundaryDataProperties(hydraulicBoundaryData);
+            var properties = new HydraulicLocationConfigurationDatabaseProperties(hydraulicBoundaryData);
 
             // Assert
             HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase = hydraulicBoundaryData.HydraulicLocationConfigurationDatabase;
@@ -127,7 +127,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                                                               : new HydraulicBoundaryData();
 
             // Call
-            var properties = new HydraulicBoundaryDataProperties(hydraulicBoundaryData);
+            var properties = new HydraulicLocationConfigurationDatabaseProperties(hydraulicBoundaryData);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);

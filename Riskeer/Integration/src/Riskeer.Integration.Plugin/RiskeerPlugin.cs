@@ -238,9 +238,9 @@ namespace Riskeer.Integration.Plugin
             {
                 CreateInstance = data => new BackgroundDataProperties(data)
             };
-            yield return new PropertyInfo<HydraulicLocationConfigurationDatabaseContext, HydraulicBoundaryDataProperties>
+            yield return new PropertyInfo<HydraulicLocationConfigurationDatabaseContext, HydraulicLocationConfigurationDatabaseProperties>
             {
-                CreateInstance = context => new HydraulicBoundaryDataProperties(context.WrappedData)
+                CreateInstance = context => new HydraulicLocationConfigurationDatabaseProperties(context.WrappedData)
             };
             yield return new PropertyInfo<HydraulicBoundaryDatabaseContext, HydraulicBoundaryDatabaseProperties>
             {

@@ -32,7 +32,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="HydraulicBoundaryData"/> for properties panel.
     /// </summary>
-    public class HydraulicBoundaryDataProperties : ObjectProperties<HydraulicBoundaryData>
+    public class HydraulicLocationConfigurationDatabaseProperties : ObjectProperties<HydraulicBoundaryData>
     {
         private const int hlcdFilePathPropertyIndex = 0;
         private const int scenarioNamePropertyIndex = 1;
@@ -46,11 +46,11 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         private const int commentPropertyIndex = 9;
 
         /// <summary>
-        /// Creates a new instance of <see cref="HydraulicBoundaryDataProperties"/>.
+        /// Creates a new instance of <see cref="HydraulicLocationConfigurationDatabaseProperties"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryData">The hydraulic boundary data to show the properties for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryData"/> is <c>null</c>.</exception>
-        public HydraulicBoundaryDataProperties(HydraulicBoundaryData hydraulicBoundaryData)
+        public HydraulicLocationConfigurationDatabaseProperties(HydraulicBoundaryData hydraulicBoundaryData)
         {
             if (hydraulicBoundaryData == null)
             {
@@ -92,7 +92,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.IsLinked() ? data.HydraulicLocationConfigurationDatabase.Year.ToString() : string.Empty;
+                return data.HydraulicLocationConfigurationDatabase.Year.ToString();
             }
         }
 
