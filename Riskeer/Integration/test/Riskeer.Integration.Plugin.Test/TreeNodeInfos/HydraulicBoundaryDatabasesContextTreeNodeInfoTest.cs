@@ -26,9 +26,10 @@ using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Gui;
+using Core.Gui.Commands;
 using Core.Gui.ContextMenu;
 using Core.Gui.Forms.Main;
-using Core.Gui.TestUtil.ContextMenu;
+using Core.Gui.Plugin;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -152,32 +153,49 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_Always_AddCustomItems()
+        public void ContextMenuStrip_WithContext_AddImportItem()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var context = new HydraulicBoundaryDatabasesContext(assessmentSection.HydraulicBoundaryData, assessmentSection);
+
+            var mocks = new MockRepository();
+            var applicationFeatureCommands = mocks.Stub<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.Stub<IImportCommandHandler>();
+            importCommandHandler.Stub(ich => ich.GetSupportedImportInfos(null)).IgnoreArguments().Return(new[]
+            {
+                new ImportInfo()
+            });
+            var exportCommandHandler = mocks.Stub<IExportCommandHandler>();
+            var updateCommandHandler = mocks.Stub<IUpdateCommandHandler>();
+            var viewCommands = mocks.Stub<IViewCommands>();
 
             using (var treeViewControl = new TreeViewControl())
             {
-                IGui gui = StubFactory.CreateGuiStub(mockRepository);
-                gui.Stub(cmp => cmp.Get(null, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mockRepository.Stub<IMainWindow>());
-                mockRepository.ReplayAll();
+                var builder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                     importCommandHandler,
+                                                     exportCommandHandler,
+                                                     updateCommandHandler,
+                                                     viewCommands,
+                                                     context,
+                                                     treeViewControl);
+
+                IGui gui = StubFactory.CreateGuiStub(mocks);
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(builder);
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
 
                 using (var plugin = new RiskeerPlugin())
                 {
                     TreeNodeInfo info = GetInfo(plugin);
-
                     plugin.Gui = gui;
 
                     // Call
-                    using (ContextMenuStrip menu = info.ContextMenuStrip(null, null, treeViewControl))
+                    using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(context, assessmentSection, treeViewControl))
                     {
-                        // Assert
-                        Assert.AreEqual(6, menu.Items.Count);
+                        Assert.AreEqual(6, contextMenuStrip.Items.Count);
 
-                        TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuImportHydraulicBoundaryDatabaseIndex,
+                        TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip, contextMenuImportHydraulicBoundaryDatabaseIndex,
                                                                       "HRD bestand toevoegen",
                                                                       "Voeg een nieuw HRD bestand toe aan deze map.",
                                                                       RiskeerCommonFormsResources.DatabaseIcon);
@@ -185,7 +203,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 }
             }
 
-            mockRepository.VerifyAll();
+            // Assert
+            mocks.VerifyAll();
         }
 
         [Test]
