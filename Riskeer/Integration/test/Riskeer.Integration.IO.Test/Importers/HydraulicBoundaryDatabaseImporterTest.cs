@@ -348,50 +348,6 @@ namespace Riskeer.Integration.IO.Test.Importers
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Import_WithValidFileAndConfirmationRequired_InquiresAndUpdatesHydraulicBoundaryDatabase(bool confirmationRequired)
-        {
-            // Setup
-            var hydraulicBoundaryData = new HydraulicBoundaryData();
-
-            var mocks = new MockRepository();
-            var handler = mocks.StrictMock<IHydraulicBoundaryDataUpdateHandler>();
-            handler.Expect(h => h.IsConfirmationRequired(Arg<HydraulicBoundaryData>.Is.Same(hydraulicBoundaryData),
-                                                         Arg<ReadHydraulicBoundaryDatabase>.Is.NotNull))
-                   .WhenCalled(invocation =>
-                   {
-                       AssertReadHydraulicBoundaryDatabase((ReadHydraulicBoundaryDatabase) invocation.Arguments[1]);
-                   })
-                   .Return(confirmationRequired);
-
-            if (confirmationRequired)
-            {
-                handler.Expect(h => h.InquireConfirmation()).Return(true);
-            }
-
-            handler.Expect(h => h.Update(Arg<HydraulicBoundaryData>.Is.NotNull,
-                                         Arg<ReadHydraulicBoundaryDatabase>.Is.NotNull,
-                                         Arg<ReadHydraulicLocationConfigurationDatabase>.Is.NotNull,
-                                         Arg<IEnumerable<long>>.Is.NotNull,
-                                         Arg<string>.Is.NotNull,
-                                         Arg<string>.Is.NotNull))
-                   .Return(Enumerable.Empty<IObservable>());
-            mocks.ReplayAll();
-
-            var importer = new HydraulicBoundaryDatabaseImporter(hydraulicBoundaryData, handler, validHrdFilePath);
-
-            // Call
-            var importResult = false;
-            void Call() => importResult = importer.Import();
-
-            // Assert
-            TestHelper.AssertLogMessageIsGenerated(Call, $"Gegevens zijn geïmporteerd vanuit bestand '{validHrdFilePath}'.", 1);
-            Assert.IsTrue(importResult);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         [TestCaseSource(nameof(GetValidFiles))]
         public void Import_WithValidFileAndHlcdWithoutScenarioInformation_UpdatesHydraulicBoundaryDatabaseWithImportedData(
             string filePath, bool usePreprocessorClosure)
