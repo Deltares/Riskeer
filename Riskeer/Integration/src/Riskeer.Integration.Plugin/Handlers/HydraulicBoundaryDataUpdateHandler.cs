@@ -38,7 +38,7 @@ using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 namespace Riskeer.Integration.Plugin.Handlers
 {
     /// <summary>
-    /// Class that can properly update <see cref="HydraulicBoundaryData"/>.
+    /// Class that can properly update the hydraulic boundary databases within a <see cref="HydraulicBoundaryData"/> instance.
     /// </summary>
     public class HydraulicBoundaryDataUpdateHandler : IHydraulicBoundaryDataUpdateHandler
     {
@@ -67,29 +67,6 @@ namespace Riskeer.Integration.Plugin.Handlers
 
             this.assessmentSection = assessmentSection;
             this.duneLocationsReplacementHandler = duneLocationsReplacementHandler;
-        }
-
-        public bool IsConfirmationRequired(HydraulicBoundaryData hydraulicBoundaryData, ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase)
-        {
-            if (hydraulicBoundaryData == null)
-            {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryData));
-            }
-
-            if (readHydraulicBoundaryDatabase == null)
-            {
-                throw new ArgumentNullException(nameof(readHydraulicBoundaryDatabase));
-            }
-
-            return hydraulicBoundaryData.IsLinked() && hydraulicBoundaryData.Version != readHydraulicBoundaryDatabase.Version;
-        }
-
-        public bool InquireConfirmation()
-        {
-            DialogResult result = MessageBox.Show(Resources.HydraulicBoundaryDataUpdateHandler_Confirm_clear_hydraulicBoundaryDatabase_dependent_data,
-                                                  CoreCommonBaseResources.Confirm,
-                                                  MessageBoxButtons.OKCancel);
-            return result == DialogResult.OK;
         }
 
         public IEnumerable<IObservable> Update(HydraulicBoundaryData hydraulicBoundaryData, ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase,

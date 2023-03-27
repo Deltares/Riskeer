@@ -29,25 +29,11 @@ using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 namespace Riskeer.Integration.IO.Handlers
 {
     /// <summary>
-    /// Interface for an object that can properly update <see cref="HydraulicBoundaryData"/>.
+    /// Interface for an object that can properly update the hydraulic boundary databases within a
+    /// <see cref="HydraulicBoundaryData"/> instance.
     /// </summary>
     public interface IHydraulicBoundaryDataUpdateHandler
     {
-        /// <summary>
-        /// Checks whether confirmation is required before updating the <see cref="HydraulicBoundaryData"/>.
-        /// </summary>
-        /// <param name="hydraulicBoundaryData">The hydraulic boundary data.</param>
-        /// <param name="readHydraulicBoundaryDatabase">The read hydraulic boundary database.</param>
-        /// <returns><c>true</c> when confirmation is required; <c>false</c> otherwise.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        bool IsConfirmationRequired(HydraulicBoundaryData hydraulicBoundaryData, ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase);
-
-        /// <summary>
-        /// Gets confirmation for updating the <see cref="HydraulicBoundaryData"/>.
-        /// </summary>
-        /// <returns><c>true</c> when confirmation is given; <c>false</c> otherwise.</returns>
-        bool InquireConfirmation();
-
         /// <summary>
         /// Updates the <paramref name="hydraulicBoundaryData"/> and its dependent data with the
         /// <paramref name="readHydraulicBoundaryDatabase"/> and the <paramref name="readHydraulicLocationConfigurationDatabase"/>.

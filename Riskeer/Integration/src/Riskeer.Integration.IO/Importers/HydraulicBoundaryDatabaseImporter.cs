@@ -88,8 +88,6 @@ namespace Riskeer.Integration.IO.Importers
 
             ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = readHydraulicBoundaryDatabaseResult.Items.Single();
 
-            InquireConfirmation(readHydraulicBoundaryDatabase);
-
             if (Canceled)
             {
                 return false;
@@ -148,15 +146,6 @@ namespace Riskeer.Integration.IO.Importers
             foreach (IObservable changedObservable in changedObservables)
             {
                 changedObservable.NotifyObservers();
-            }
-        }
-
-        private void InquireConfirmation(ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase)
-        {
-            if (updateHandler.IsConfirmationRequired(ImportTarget, readHydraulicBoundaryDatabase)
-                && !updateHandler.InquireConfirmation())
-            {
-                Cancel();
             }
         }
 

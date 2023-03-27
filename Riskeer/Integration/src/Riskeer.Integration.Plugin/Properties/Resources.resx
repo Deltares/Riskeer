@@ -224,12 +224,6 @@ Weet u zeker dat u wilt doorgaan?</value>
             Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a
         </value>
     </data>
-    <data name="HydraulicBoundaryDataUpdateHandler_Confirm_clear_hydraulicBoundaryDatabase_dependent_data"
-          xml:space="preserve">
-    <value>U heeft een ander hydraulische belastingendatabase bestand geselecteerd. Als gevolg hiervan moet de uitvoer van alle ervan afhankelijke berekeningen verwijderd worden.
-
-Wilt u doorgaan?</value>
-  </data>
     <data name="HydraulicDatabase_FilePath_Extension" xml:space="preserve">
     <value>sqlite</value>
   </data>

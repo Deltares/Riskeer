@@ -438,18 +438,6 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to U heeft een ander hydraulische belastingendatabase bestand geselecteerd. Als gevolg hiervan moet de uitvoer van alle ervan afhankelijke berekeningen verwijderd worden.
-        ///
-        ///Wilt u doorgaan?.
-        /// </summary>
-        public static string HydraulicBoundaryDataUpdateHandler_Confirm_clear_hydraulicBoundaryDatabase_dependent_data {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryDataUpdateHandler_Confirm_clear_hydraulicBoundaryDatabase_depend" +
-                        "ent_data", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to sqlite.
         /// </summary>
         public static string HydraulicDatabase_FilePath_Extension {
