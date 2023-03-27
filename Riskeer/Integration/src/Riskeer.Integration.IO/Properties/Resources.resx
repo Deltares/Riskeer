@@ -143,7 +143,7 @@
   </data>
   <data name="HydraulicBoundaryDatabaseImporter_HandleCriticalFileReadError_Error_0_No_HydraulicBoundaryDatabase_imported" xml:space="preserve">
     <value>{0}
-Er is geen hydraulische belastingen database gekoppeld.</value>
+Er is geen hydraulische belastingen database toegevoegd.</value>
   </data>
   <data name="HydraulicBoundaryDatabaseImporter_ProgressText_Import_canceled_No_data_changed" xml:space="preserve">
     <value>Hydraulische belastingen database koppelen afgebroken. Geen gegevens gewijzigd.</value>
@@ -208,5 +208,11 @@ Er is geen HLCD geïmporteerd.</value>
   </data>
   <data name="ExportableCombinedSectionAssembly_IdPrefix" xml:space="preserve">
     <value>Gf</value>
+  </data>
+  <data name="HydraulicBoundaryDatabaseImporter_Hrd_file_not_in_same_folder_as_hlcd_file" xml:space="preserve">
+    <value>Het HRD bestand moet zich in dezelfde bestandsmap bevinden als het HLCD bestand.</value>
+  </data>
+  <data name="HydraulicBoundaryDatabaseImporter_Hrd_file_already_added" xml:space="preserve">
+    <value>Het HRD bestand is reeds toegevoegd.</value>
   </data>
 </root>

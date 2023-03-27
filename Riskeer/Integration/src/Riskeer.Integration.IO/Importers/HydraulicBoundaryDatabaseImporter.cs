@@ -68,6 +68,18 @@ namespace Riskeer.Integration.IO.Importers
 
         protected override bool OnImport()
         {
+            if (Path.GetDirectoryName(ImportTarget.HydraulicLocationConfigurationDatabase.FilePath) != Path.GetDirectoryName(FilePath))
+            {
+                Log.Error(BuildErrorMessage(FilePath, Resources.HydraulicBoundaryDatabaseImporter_Hrd_file_not_in_same_folder_as_hlcd_file));
+                return false;
+            }
+
+            if (ImportTarget.HydraulicBoundaryDatabases.Any(hbd => hbd.FilePath == FilePath))
+            {
+                Log.Error(BuildErrorMessage(FilePath, Resources.HydraulicBoundaryDatabaseImporter_Hrd_file_already_added));
+                return false;
+            }
+
             ReadResult<ReadHydraulicBoundaryDatabase> readHydraulicBoundaryDatabaseResult = ReadHydraulicBoundaryDatabase();
             if (readHydraulicBoundaryDatabaseResult.CriticalErrorOccurred || Canceled)
             {

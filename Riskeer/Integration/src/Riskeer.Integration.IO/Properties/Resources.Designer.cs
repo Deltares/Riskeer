@@ -201,7 +201,7 @@ namespace Riskeer.Integration.IO.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to {0}
-        ///Er is geen hydraulische belastingen database gekoppeld..
+        ///Er is geen hydraulische belastingen database toegevoegd..
         /// </summary>
         public static string HydraulicBoundaryDatabaseImporter_HandleCriticalFileReadError_Error_0_No_HydraulicBoundaryDatabase_imported {
             get {
@@ -226,6 +226,24 @@ namespace Riskeer.Integration.IO.Properties {
         public static string HydraulicBoundaryDatabaseImporter_Hlcd_sqlite_not_found {
             get {
                 return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_Hlcd_sqlite_not_found", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het HRD bestand is reeds toegevoegd..
+        /// </summary>
+        public static string HydraulicBoundaryDatabaseImporter_Hrd_file_already_added {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_Hrd_file_already_added", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het HRD bestand moet zich in dezelfde bestandsmap bevinden als het HLCD bestand..
+        /// </summary>
+        public static string HydraulicBoundaryDatabaseImporter_Hrd_file_not_in_same_folder_as_hlcd_file {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_Hrd_file_not_in_same_folder_as_hlcd_file", resourceCulture);
             }
         }
         
