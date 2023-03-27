@@ -80,7 +80,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
 
             // Assert
             Assert.IsInstanceOf<HydraulicLocationConfigurationDatabaseProperties>(objectProperties);
-            Assert.AreSame(context.WrappedData, objectProperties.Data);
+            Assert.AreSame(context.WrappedData.HydraulicLocationConfigurationDatabase, objectProperties.Data);
         }
     }
 }

@@ -32,7 +32,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
     [TestFixture]
     public class HydraulicLocationConfigurationDatabasePropertiesTest
     {
-        private const int hlcdFilePathPropertyIndex = 0;
+        private const int filePathPropertyIndex = 0;
         private const int scenarioNamePropertyIndex = 1;
         private const int yearPropertyIndex = 2;
         private const int scopePropertyIndex = 3;
@@ -44,41 +44,41 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         private const int commentPropertyIndex = 9;
 
         [Test]
-        public void Constructor_HydraulicBoundaryDataNull_ThrowsArgumentNullException()
+        public void Constructor_HydraulicLocationConfigurationDatabaseNull_ThrowsArgumentNullException()
         {
             // Call
             void Call() => new HydraulicLocationConfigurationDatabaseProperties(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("hydraulicBoundaryData", exception.ParamName);
+            Assert.AreEqual("hydraulicLocationConfigurationDatabase", exception.ParamName);
         }
 
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var hydraulicBoundaryData = new HydraulicBoundaryData();
+            var hydraulicLocationConfigurationDatabase = new HydraulicLocationConfigurationDatabase();
 
             // Call
-            var properties = new HydraulicLocationConfigurationDatabaseProperties(hydraulicBoundaryData);
+            var properties = new HydraulicLocationConfigurationDatabaseProperties(hydraulicLocationConfigurationDatabase);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<HydraulicBoundaryData>>(properties);
-            Assert.AreSame(hydraulicBoundaryData, properties.Data);
+            Assert.IsInstanceOf<ObjectProperties<HydraulicLocationConfigurationDatabase>>(properties);
+            Assert.AreSame(hydraulicLocationConfigurationDatabase, properties.Data);
         }
 
         [Test]
-        public void GetProperties_WithUnlinkedHydraulicBoundaryData_ReturnsExpectedValues()
+        public void GetProperties_WithUnlinkedHydraulicLocationConfigurationDatabase_ReturnsExpectedValues()
         {
             // Setup
-            var hydraulicBoundaryData = new HydraulicBoundaryData();
+            var hydraulicLocationConfigurationDatabase = new HydraulicLocationConfigurationDatabase();
 
             // Call
-            var properties = new HydraulicLocationConfigurationDatabaseProperties(hydraulicBoundaryData);
+            var properties = new HydraulicLocationConfigurationDatabaseProperties(hydraulicLocationConfigurationDatabase);
 
             // Assert
-            Assert.IsEmpty(properties.HlcdFilePath);
+            Assert.IsEmpty(properties.FilePath);
             Assert.IsEmpty(properties.ScenarioName);
             Assert.AreEqual(0, properties.Year);
             Assert.IsEmpty(properties.Scope);
@@ -91,20 +91,16 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GetProperties_WithLinkedHydraulicBoundaryData_ReturnsExpectedValues()
+        public void GetProperties_WithLinkedHydraulicLocationConfigurationDatabase_ReturnsExpectedValues()
         {
             // Setup
-            HydraulicBoundaryData hydraulicBoundaryData = CreateLinkedHydraulicBoundaryData();
-
-            // Precondition
-            Assert.IsTrue(hydraulicBoundaryData.IsLinked());
+            HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase = CreateLinkedHydraulicLocationConfigurationDatabase();
 
             // Call
-            var properties = new HydraulicLocationConfigurationDatabaseProperties(hydraulicBoundaryData);
+            var properties = new HydraulicLocationConfigurationDatabaseProperties(hydraulicLocationConfigurationDatabase);
 
             // Assert
-            HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase = hydraulicBoundaryData.HydraulicLocationConfigurationDatabase;
-            Assert.AreEqual(hydraulicLocationConfigurationDatabase.FilePath, properties.HlcdFilePath);
+            Assert.AreEqual(hydraulicLocationConfigurationDatabase.FilePath, properties.FilePath);
             Assert.AreEqual(hydraulicLocationConfigurationDatabase.ScenarioName, properties.ScenarioName);
             Assert.AreEqual(hydraulicLocationConfigurationDatabase.Year.ToString(), properties.Year);
             Assert.AreEqual(hydraulicLocationConfigurationDatabase.Scope, properties.Scope);
@@ -119,23 +115,23 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Constructor_WithHydraulicBoundaryData_PropertiesHaveExpectedAttributesValues(bool useLinkedHydraulicBoundaryData)
+        public void Constructor_WithHydraulicLocationConfigurationDatabase_PropertiesHaveExpectedAttributesValues(bool useLinkedHydraulicLocationConfigurationDatabase)
         {
             // Setup
-            HydraulicBoundaryData hydraulicBoundaryData = useLinkedHydraulicBoundaryData
-                                                              ? CreateLinkedHydraulicBoundaryData()
-                                                              : new HydraulicBoundaryData();
+            HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase = useLinkedHydraulicLocationConfigurationDatabase
+                                                                                                ? CreateLinkedHydraulicLocationConfigurationDatabase()
+                                                                                                : new HydraulicLocationConfigurationDatabase();
 
             // Call
-            var properties = new HydraulicLocationConfigurationDatabaseProperties(hydraulicBoundaryData);
+            var properties = new HydraulicLocationConfigurationDatabaseProperties(hydraulicLocationConfigurationDatabase);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(10, dynamicProperties.Count);
 
             const string expectedCategory = "Algemeen";
-            PropertyDescriptor hlcdFilePathProperty = dynamicProperties[hlcdFilePathPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(hlcdFilePathProperty,
+            PropertyDescriptor filePathProperty = dynamicProperties[filePathPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(filePathProperty,
                                                                             expectedCategory,
                                                                             "HLCD bestandslocatie",
                                                                             "Locatie van het HLCD bestand.",
@@ -205,24 +201,21 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                                                                             true);
         }
 
-        private static HydraulicBoundaryData CreateLinkedHydraulicBoundaryData()
+        private static HydraulicLocationConfigurationDatabase CreateLinkedHydraulicLocationConfigurationDatabase()
         {
-            return new HydraulicBoundaryData
+            return new HydraulicLocationConfigurationDatabase
             {
-                HydraulicLocationConfigurationDatabase =
-                {
-                    FilePath = "hlcd.sqlite",
-                    ScenarioName = "ScenarioName",
-                    Year = 1337,
-                    Scope = "Scope",
-                    SeaLevel = "SeaLevel",
-                    RiverDischarge = "RiverDischarge",
-                    LakeLevel = "LakeLevel",
-                    WindDirection = "WindDirection",
-                    WindSpeed = "WindSpeed",
-                    Comment = "Comment",
-                    UsePreprocessorClosure = true
-                }
+                FilePath = "hlcd.sqlite",
+                ScenarioName = "ScenarioName",
+                Year = 1337,
+                Scope = "Scope",
+                SeaLevel = "SeaLevel",
+                RiverDischarge = "RiverDischarge",
+                LakeLevel = "LakeLevel",
+                WindDirection = "WindDirection",
+                WindSpeed = "WindSpeed",
+                Comment = "Comment",
+                UsePreprocessorClosure = true
             };
         }
     }

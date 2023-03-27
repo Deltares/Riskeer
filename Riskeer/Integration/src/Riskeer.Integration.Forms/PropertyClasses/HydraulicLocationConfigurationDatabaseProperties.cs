@@ -30,11 +30,11 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.Integration.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="HydraulicBoundaryData"/> for properties panel.
+    /// ViewModel of <see cref="HydraulicLocationConfigurationDatabase"/> for properties panel.
     /// </summary>
-    public class HydraulicLocationConfigurationDatabaseProperties : ObjectProperties<HydraulicBoundaryData>
+    public class HydraulicLocationConfigurationDatabaseProperties : ObjectProperties<HydraulicLocationConfigurationDatabase>
     {
-        private const int hlcdFilePathPropertyIndex = 0;
+        private const int filePathPropertyIndex = 0;
         private const int scenarioNamePropertyIndex = 1;
         private const int yearPropertyIndex = 2;
         private const int scopePropertyIndex = 3;
@@ -48,27 +48,27 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicLocationConfigurationDatabaseProperties"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryData">The hydraulic boundary data to show the properties for.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryData"/> is <c>null</c>.</exception>
-        public HydraulicLocationConfigurationDatabaseProperties(HydraulicBoundaryData hydraulicBoundaryData)
+        /// <param name="hydraulicLocationConfigurationDatabase">The hydraulic location configuration database to show the properties for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicLocationConfigurationDatabase"/> is <c>null</c>.</exception>
+        public HydraulicLocationConfigurationDatabaseProperties(HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase)
         {
-            if (hydraulicBoundaryData == null)
+            if (hydraulicLocationConfigurationDatabase == null)
             {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryData));
+                throw new ArgumentNullException(nameof(hydraulicLocationConfigurationDatabase));
             }
 
-            Data = hydraulicBoundaryData;
+            Data = hydraulicLocationConfigurationDatabase;
         }
 
-        [PropertyOrder(hlcdFilePathPropertyIndex)]
+        [PropertyOrder(filePathPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationDatabase_FilePath_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationDatabase_FilePath_Description))]
-        public string HlcdFilePath
+        public string FilePath
         {
             get
             {
-                return data.HydraulicLocationConfigurationDatabase.FilePath ?? string.Empty;
+                return data.FilePath ?? string.Empty;
             }
         }
 
@@ -80,7 +80,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.HydraulicLocationConfigurationDatabase.ScenarioName ?? string.Empty;
+                return data.ScenarioName ?? string.Empty;
             }
         }
 
@@ -92,7 +92,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.HydraulicLocationConfigurationDatabase.Year.ToString();
+                return data.Year.ToString();
             }
         }
 
@@ -104,7 +104,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.HydraulicLocationConfigurationDatabase.Scope ?? string.Empty;
+                return data.Scope ?? string.Empty;
             }
         }
 
@@ -116,7 +116,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.HydraulicLocationConfigurationDatabase.SeaLevel ?? string.Empty;
+                return data.SeaLevel ?? string.Empty;
             }
         }
 
@@ -128,7 +128,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.HydraulicLocationConfigurationDatabase.RiverDischarge ?? string.Empty;
+                return data.RiverDischarge ?? string.Empty;
             }
         }
 
@@ -140,7 +140,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.HydraulicLocationConfigurationDatabase.LakeLevel ?? string.Empty;
+                return data.LakeLevel ?? string.Empty;
             }
         }
 
@@ -152,7 +152,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.HydraulicLocationConfigurationDatabase.WindDirection ?? string.Empty;
+                return data.WindDirection ?? string.Empty;
             }
         }
 
@@ -164,7 +164,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.HydraulicLocationConfigurationDatabase.WindSpeed ?? string.Empty;
+                return data.WindSpeed ?? string.Empty;
             }
         }
 
@@ -176,7 +176,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.HydraulicLocationConfigurationDatabase.Comment ?? string.Empty;
+                return data.Comment ?? string.Empty;
             }
         }
     }
