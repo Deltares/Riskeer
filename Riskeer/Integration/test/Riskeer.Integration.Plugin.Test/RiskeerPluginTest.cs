@@ -238,7 +238,7 @@ namespace Riskeer.Integration.Plugin.Test
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(HydraulicBoundaryDataContext),
+                    typeof(HydraulicLocationConfigurationDatabaseContext),
                     typeof(HydraulicBoundaryDataProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(

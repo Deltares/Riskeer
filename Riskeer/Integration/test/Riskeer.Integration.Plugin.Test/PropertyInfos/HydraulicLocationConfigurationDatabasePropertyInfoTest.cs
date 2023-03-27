@@ -35,7 +35,7 @@ using Riskeer.Integration.Forms.PropertyClasses;
 namespace Riskeer.Integration.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class HydraulicBoundaryDataPropertyInfoTest
+    public class HydraulicLocationConfigurationDatabasePropertyInfoTest
     {
         private RiskeerPlugin plugin;
         private PropertyInfo info;
@@ -57,7 +57,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(HydraulicBoundaryDataContext), info.DataType);
+            Assert.AreEqual(typeof(HydraulicLocationConfigurationDatabaseContext), info.DataType);
         }
 
         [Test]
@@ -73,7 +73,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
             plugin.Gui = gui;
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            var context = new HydraulicBoundaryDataContext(assessmentSection.HydraulicBoundaryData, assessmentSection);
+            var context = new HydraulicLocationConfigurationDatabaseContext(assessmentSection.HydraulicBoundaryData, assessmentSection);
 
             // Call
             IObjectProperties objectProperties = info.CreateInstance(context);
