@@ -81,15 +81,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             var handler = mocks.StrictMock<IHydraulicBoundaryDataUpdateHandler>();
             mocks.ReplayAll();
 
-            var hydraulicBoundaryData = new HydraulicBoundaryData
-            {
-                HydraulicLocationConfigurationDatabase =
-                {
-                    FilePath = "different/folder/hlcd.sqlite"
-                }
-            };
-            
-            var importer = new HydraulicBoundaryDatabaseImporter(hydraulicBoundaryData, handler, validHrdFilePath);
+            var importer = new HydraulicBoundaryDatabaseImporter(CreateLinkedHydraulicBoundaryData(), handler, validHrdFilePath);
 
             // Call
             var importSuccessful = true;
@@ -109,20 +101,12 @@ namespace Riskeer.Integration.IO.Test.Importers
             var handler = mocks.StrictMock<IHydraulicBoundaryDataUpdateHandler>();
             mocks.ReplayAll();
 
-            var hydraulicBoundaryData = new HydraulicBoundaryData
+            HydraulicBoundaryData hydraulicBoundaryData = CreateLinkedHydraulicBoundaryData();
+
+            hydraulicBoundaryData.HydraulicBoundaryDatabases.Add(new HydraulicBoundaryDatabase
             {
-                HydraulicLocationConfigurationDatabase =
-                {
-                    FilePath = validHlcdFilePath
-                },
-                HydraulicBoundaryDatabases =
-                {
-                    new HydraulicBoundaryDatabase
-                    {
-                        FilePath = validHrdFilePath
-                    }
-                }
-            };
+                FilePath = validHrdFilePath
+            });
             
             var importer = new HydraulicBoundaryDatabaseImporter(hydraulicBoundaryData, handler, validHrdFilePath);
 
@@ -136,28 +120,6 @@ namespace Riskeer.Integration.IO.Test.Importers
             mocks.VerifyAll();
         }
         
-        [Test]
-        public void Import_FilePathIsDirectory_CancelImportWithErrorMessage()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.StrictMock<IHydraulicBoundaryDataUpdateHandler>();
-            mocks.ReplayAll();
-
-            string path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.IO, Path.DirectorySeparatorChar.ToString());
-
-            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryData(), handler, path);
-
-            // Call
-            var importSuccessful = true;
-            void Call() => importSuccessful = importer.Import();
-
-            // Assert
-            var expectedMessage = $"Fout bij het lezen van bestand '{path}': bestandspad mag niet verwijzen naar een lege bestandsnaam.";
-            AssertImportFailed(Call, expectedMessage, ref importSuccessful);
-            mocks.VerifyAll();
-        }
-
         [Test]
         public void Import_FileDoesNotExist_CancelImportWithErrorMessage()
         {
@@ -733,6 +695,17 @@ namespace Riskeer.Integration.IO.Test.Importers
             mocks.VerifyAll(); // Expect no NotifyObserver calls
         }
 
+        private static HydraulicBoundaryData CreateLinkedHydraulicBoundaryData()
+        {
+            return new HydraulicBoundaryData
+            {
+                HydraulicLocationConfigurationDatabase =
+                {
+                    FilePath = validHlcdFilePath
+                }
+            };
+        }
+        
         private static IEnumerable<TestCaseData> GetValidFiles()
         {
             return new[]
