@@ -358,9 +358,6 @@ namespace Riskeer.Integration.IO.Test.Importers
 
             var mocks = new MockRepository();
             var handler = mocks.StrictMock<IHydraulicBoundaryDataUpdateHandler>();
-            handler.Expect(h => h.IsConfirmationRequired(null, null))
-                   .IgnoreArguments()
-                   .Return(false);
 
             handler.Expect(h => h.Update(Arg<HydraulicBoundaryData>.Is.Same(hydraulicBoundaryData),
                                          Arg<ReadHydraulicBoundaryDatabase>.Is.NotNull,
@@ -407,9 +404,6 @@ namespace Riskeer.Integration.IO.Test.Importers
 
             var mocks = new MockRepository();
             var handler = mocks.StrictMock<IHydraulicBoundaryDataUpdateHandler>();
-            handler.Expect(h => h.IsConfirmationRequired(null, null))
-                   .IgnoreArguments()
-                   .Return(false);
 
             handler.Expect(h => h.Update(Arg<HydraulicBoundaryData>.Is.Same(hydraulicBoundaryData),
                                          Arg<ReadHydraulicBoundaryDatabase>.Is.NotNull,
@@ -449,7 +443,6 @@ namespace Riskeer.Integration.IO.Test.Importers
             // Setup
             var mocks = new MockRepository();
             var handler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
-            handler.Stub(h => h.IsConfirmationRequired(null, null)).IgnoreArguments().Return(false);
             handler.Stub(h => h.Update(null, null, null, null, null, null)).IgnoreArguments().Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
