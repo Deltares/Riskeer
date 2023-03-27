@@ -2513,21 +2513,9 @@ namespace Riskeer.Integration.Plugin
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
-            var addHydraulicBoundaryDatabaseItem = new StrictContextMenuItem(
-                Resources.ContextMenuStrip_Add_HydraulicBoundaryDatabase,
-                Resources.ContextMenuStrip_Add_HydraulicBoundaryDatabase_ToolTip,
-                RiskeerCommonFormsResources.DatabaseIcon,
-                (sender, args) =>
-                {
-                    nodeData.WrappedData.HydraulicBoundaryDatabases.Add(new HydraulicBoundaryDatabase
-                    {
-                        FilePath = Path.Combine(Path.GetDirectoryName(nodeData.WrappedData.HydraulicLocationConfigurationDatabase.FilePath), "Test.sqlite")
-                    });
-
-                    nodeData.WrappedData.NotifyObservers();
-                });
-
-            return builder.AddCustomItem(addHydraulicBoundaryDatabaseItem)
+            return builder.AddImportItem(Resources.ContextMenuStrip_Add_HydraulicBoundaryDatabase,
+                                         Resources.ContextMenuStrip_Add_HydraulicBoundaryDatabase_ToolTip,
+                                         RiskeerCommonFormsResources.DatabaseIcon)
                           .AddSeparator()
                           .AddRemoveAllChildrenItem()
                           .AddSeparator()
