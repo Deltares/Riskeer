@@ -478,7 +478,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             var handler = mocks.StrictMock<IHydraulicBoundaryDataUpdateHandler>();
             mocks.ReplayAll();
 
-            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryData(), handler, validHrdFilePath);
+            var importer = new HydraulicBoundaryDatabaseImporter(CreateLinkedHydraulicBoundaryData(), handler, validHrdFilePath);
             importer.SetProgressChanged((description, currentStep, steps) =>
             {
                 if (currentStep == stepNumber)
@@ -510,7 +510,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             handler.Stub(h => h.Update(null, null, null, null, null, null)).IgnoreArguments().Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
-            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryData(), handler, validHrdFilePath);
+            var importer = new HydraulicBoundaryDatabaseImporter(CreateLinkedHydraulicBoundaryData(), handler, validHrdFilePath);
             importer.SetProgressChanged((description, step, steps) =>
             {
                 if (step == totalNumberOfSteps)
@@ -536,7 +536,7 @@ namespace Riskeer.Integration.IO.Test.Importers
         public void DoPostImportUpdates_HydraulicBoundaryDatabaseIsSet_NotifyObserversOfTargetAndClearedObjects()
         {
             // Setup
-            var hydraulicBoundaryData = new HydraulicBoundaryData();
+            HydraulicBoundaryData hydraulicBoundaryData = CreateLinkedHydraulicBoundaryData();
 
             var mocks = new MockRepository();
             var hydraulicBoundaryDatabaseObserver = mocks.Stub<IObserver>();
@@ -580,7 +580,7 @@ namespace Riskeer.Integration.IO.Test.Importers
         public void DoPostImportUpdates_CancelingImport_DoNotNotifyObserversAndNotDoPostReplacementUpdates()
         {
             // Setup
-            var hydraulicBoundaryData = new HydraulicBoundaryData();
+            HydraulicBoundaryData hydraulicBoundaryData = CreateLinkedHydraulicBoundaryData();
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
