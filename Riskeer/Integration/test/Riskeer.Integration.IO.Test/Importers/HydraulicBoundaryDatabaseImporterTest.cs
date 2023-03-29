@@ -354,37 +354,6 @@ namespace Riskeer.Integration.IO.Test.Importers
         }
 
         [Test]
-        public void Import_ExistingFileAndHlcdWithUsePreprocessorClosureTrueAndWithoutPreprocessorClosureDatabase_CancelImportWithErrorMessage()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.StrictMock<IHydraulicBoundaryDataUpdateHandler>();
-            mocks.ReplayAll();
-
-            string path = Path.Combine(testDataPath, "missingPreprocessorClosure", "complete.sqlite");
-            string hlcdFilePath = Path.Combine(Path.GetDirectoryName(path), "hlcd.sqlite");
-
-            var hydraulicBoundaryData = new HydraulicBoundaryData
-            {
-                HydraulicLocationConfigurationDatabase =
-                {
-                    FilePath = hlcdFilePath
-                }
-            };
-
-            var importer = new HydraulicBoundaryDatabaseImporter(hydraulicBoundaryData, handler, path);
-
-            // Call
-            var importSuccessful = true;
-            void Call() => importSuccessful = importer.Import();
-
-            // Assert
-            var expectedMessage = $"Fout bij het lezen van bestand '{hlcdFilePath}': het bijbehorende preprocessor closure bestand is niet gevonden in dezelfde map als het HLCD bestand.";
-            AssertImportFailed(Call, expectedMessage, ref importSuccessful);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         [TestCaseSource(nameof(GetValidFiles))]
         public void Import_WithValidFileAndHlcdWithoutScenarioInformation_UpdatesHydraulicBoundaryDatabaseWithImportedData(
             string filePath, bool usePreprocessorClosure)
