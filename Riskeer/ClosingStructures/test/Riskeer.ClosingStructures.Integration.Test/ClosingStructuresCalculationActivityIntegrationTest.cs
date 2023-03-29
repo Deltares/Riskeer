@@ -100,7 +100,7 @@ namespace Riskeer.ClosingStructures.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            DataImportHelper.ImportHydraulicBoundaryData(assessmentSection, validHrdFilePath);
+            DataImportHelper.ImportHydraulicBoundaryData(assessmentSection, validHlcdFilePath, validHrdFilePath);
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new TestClosingStructuresCalculationScenario
@@ -162,7 +162,7 @@ namespace Riskeer.ClosingStructures.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            DataImportHelper.ImportHydraulicBoundaryData(assessmentSection, validHrdFilePath);
+            DataImportHelper.ImportHydraulicBoundaryData(assessmentSection, validHlcdFilePath, validHrdFilePath);
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new TestClosingStructuresCalculationScenario
@@ -205,7 +205,7 @@ namespace Riskeer.ClosingStructures.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            DataImportHelper.ImportHydraulicBoundaryData(assessmentSection, validHrdFilePath);
+            DataImportHelper.ImportHydraulicBoundaryData(assessmentSection, validHlcdFilePath, validHrdFilePath);
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new TestClosingStructuresCalculationScenario
@@ -261,7 +261,7 @@ namespace Riskeer.ClosingStructures.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            DataImportHelper.ImportHydraulicBoundaryData(assessmentSection, validHrdFilePath);
+            DataImportHelper.ImportHydraulicBoundaryData(assessmentSection, validHlcdFilePath, validHrdFilePath);
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new StructuresCalculation<ClosingStructuresInput>

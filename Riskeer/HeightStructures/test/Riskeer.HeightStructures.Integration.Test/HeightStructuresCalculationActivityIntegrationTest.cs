@@ -100,7 +100,7 @@ namespace Riskeer.HeightStructures.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            DataImportHelper.ImportHydraulicBoundaryData(assessmentSection, validHrdFilePath);
+            DataImportHelper.ImportHydraulicBoundaryData(assessmentSection, validHlcdFilePath, validHrdFilePath);
 
             var failureMechanism = new HeightStructuresFailureMechanism();
             var calculation = new TestHeightStructuresCalculationScenario
@@ -161,7 +161,7 @@ namespace Riskeer.HeightStructures.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            DataImportHelper.ImportHydraulicBoundaryData(assessmentSection, validHrdFilePath);
+            DataImportHelper.ImportHydraulicBoundaryData(assessmentSection, validHlcdFilePath, validHrdFilePath);
 
             var failureMechanism = new HeightStructuresFailureMechanism();
             var calculation = new TestHeightStructuresCalculationScenario
@@ -203,7 +203,7 @@ namespace Riskeer.HeightStructures.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            DataImportHelper.ImportHydraulicBoundaryData(assessmentSection, validHrdFilePath);
+            DataImportHelper.ImportHydraulicBoundaryData(assessmentSection, validHlcdFilePath, validHrdFilePath);
 
             var failureMechanism = new HeightStructuresFailureMechanism();
             var calculation = new TestHeightStructuresCalculationScenario
@@ -257,7 +257,7 @@ namespace Riskeer.HeightStructures.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            DataImportHelper.ImportHydraulicBoundaryData(assessmentSection, validHrdFilePath);
+            DataImportHelper.ImportHydraulicBoundaryData(assessmentSection, validHlcdFilePath, validHrdFilePath);
 
             var failureMechanism = new HeightStructuresFailureMechanism();
             var calculation = new StructuresCalculation<HeightStructuresInput>

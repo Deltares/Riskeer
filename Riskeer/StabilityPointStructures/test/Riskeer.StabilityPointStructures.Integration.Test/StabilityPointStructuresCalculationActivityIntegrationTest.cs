@@ -99,7 +99,7 @@ namespace Riskeer.StabilityPointStructures.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            DataImportHelper.ImportHydraulicBoundaryData(assessmentSection, validHrdFilePath);
+            DataImportHelper.ImportHydraulicBoundaryData(assessmentSection, validHlcdFilePath, validHrdFilePath);
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var calculation = new TestStabilityPointStructuresCalculationScenario
@@ -162,7 +162,7 @@ namespace Riskeer.StabilityPointStructures.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            DataImportHelper.ImportHydraulicBoundaryData(assessmentSection, validHrdFilePath);
+            DataImportHelper.ImportHydraulicBoundaryData(assessmentSection, validHlcdFilePath, validHrdFilePath);
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var calculation = new TestStabilityPointStructuresCalculationScenario
@@ -207,7 +207,7 @@ namespace Riskeer.StabilityPointStructures.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            DataImportHelper.ImportHydraulicBoundaryData(assessmentSection, validHrdFilePath);
+            DataImportHelper.ImportHydraulicBoundaryData(assessmentSection, validHlcdFilePath, validHrdFilePath);
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var calculation = new TestStabilityPointStructuresCalculationScenario
@@ -264,7 +264,7 @@ namespace Riskeer.StabilityPointStructures.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            DataImportHelper.ImportHydraulicBoundaryData(assessmentSection, validHrdFilePath);
+            DataImportHelper.ImportHydraulicBoundaryData(assessmentSection, validHlcdFilePath, validHrdFilePath);
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>

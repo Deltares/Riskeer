@@ -272,7 +272,7 @@ namespace Riskeer.Integration.IO.Test.Importers
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            DataImportHelper.ImportHydraulicBoundaryData(assessmentSection, validHrdFilePath);
+            DataImportHelper.ImportHydraulicBoundaryData(assessmentSection, validHlcdFilePath, validHrdFilePath);
             HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryData;
 
             string hlcdFilePath = Path.Combine(testDataPath, "hlcdWithoutScenarioInformation.sqlite");
@@ -304,7 +304,7 @@ namespace Riskeer.Integration.IO.Test.Importers
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            DataImportHelper.ImportHydraulicBoundaryData(assessmentSection, validHrdFilePath);
+            DataImportHelper.ImportHydraulicBoundaryData(assessmentSection, validHlcdFilePath, validHrdFilePath);
             HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryData;
 
             string filePath = Path.Combine(testDataPath, "hlcdWithValidScenarioInformation.sqlite");
