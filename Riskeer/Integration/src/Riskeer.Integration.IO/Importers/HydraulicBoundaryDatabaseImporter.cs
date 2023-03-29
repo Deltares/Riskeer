@@ -153,25 +153,15 @@ namespace Riskeer.Integration.IO.Importers
 
         private ReadHydraulicBoundaryDatabase TryReadHydraulicBoundaryDatabase()
         {
-            ReadResult<ReadHydraulicBoundaryDatabase> readHydraulicBoundaryDatabaseResult = ReadHydraulicBoundaryDatabase();
-            
-            if (readHydraulicBoundaryDatabaseResult.CriticalErrorOccurred || Canceled)
-            {
-                return null;
-            }
-
-            return readHydraulicBoundaryDatabaseResult.Items.Single();
-        }
-
-        private ReadResult<ReadHydraulicBoundaryDatabase> ReadHydraulicBoundaryDatabase()
-        {
             NotifyProgress(Resources.HydraulicBoundaryDatabaseImporter_ProgressText_Reading_Hrd_file, 1, numberOfSteps);
-            
+         
+            ReadResult<ReadHydraulicBoundaryDatabase> readHydraulicBoundaryDatabaseResult;
+
             try
             {
                 using (var reader = new HydraulicBoundaryDatabaseReader(FilePath))
                 {
-                    return new ReadResult<ReadHydraulicBoundaryDatabase>(false)
+                    readHydraulicBoundaryDatabaseResult = new ReadResult<ReadHydraulicBoundaryDatabase>(false)
                     {
                         Items = new[]
                         {
@@ -182,8 +172,15 @@ namespace Riskeer.Integration.IO.Importers
             }
             catch (Exception e) when (e is CriticalFileReadException || e is LineParseException)
             {
-                return HandleCriticalFileReadError<ReadHydraulicBoundaryDatabase>(e);
+                readHydraulicBoundaryDatabaseResult = HandleCriticalFileReadError<ReadHydraulicBoundaryDatabase>(e);
             }
+            
+            if (readHydraulicBoundaryDatabaseResult.CriticalErrorOccurred || Canceled)
+            {
+                return null;
+            }
+
+            return readHydraulicBoundaryDatabaseResult.Items.Single();
         }
 
         private ReadResult<ReadHydraulicLocationConfigurationDatabase> ReadHydraulicLocationConfigurationDatabase(string hlcdFilePath)
