@@ -80,10 +80,7 @@ namespace Riskeer.Integration.IO.Importers
                 return false;
             }
 
-            string hlcdFilePath = ImportTarget.HydraulicLocationConfigurationDatabase.FilePath;
-
-            ReadResult<ReadHydraulicLocationConfigurationDatabase> readHydraulicLocationConfigurationDatabaseResult = ReadHydraulicLocationConfigurationDatabase(
-                hlcdFilePath);
+            ReadResult<ReadHydraulicLocationConfigurationDatabase> readHydraulicLocationConfigurationDatabaseResult = ReadHydraulicLocationConfigurationDatabase();
 
             if (readHydraulicLocationConfigurationDatabaseResult.CriticalErrorOccurred || Canceled)
             {
@@ -176,12 +173,12 @@ namespace Riskeer.Integration.IO.Importers
             return readHydraulicBoundaryDatabaseResult.Items.Single();
         }
 
-        private ReadResult<ReadHydraulicLocationConfigurationDatabase> ReadHydraulicLocationConfigurationDatabase(string hlcdFilePath)
+        private ReadResult<ReadHydraulicLocationConfigurationDatabase> ReadHydraulicLocationConfigurationDatabase()
         {
             NotifyProgress(Resources.HydraulicBoundaryDataImporter_ProgressText_Reading_Hlcd_file, 2, numberOfSteps);
             try
             {
-                using (var reader = new HydraulicLocationConfigurationDatabaseReader(hlcdFilePath))
+                using (var reader = new HydraulicLocationConfigurationDatabaseReader(ImportTarget.HydraulicLocationConfigurationDatabase.FilePath))
                 {
                     return ReadHydraulicLocationConfigurationDatabase(reader);
                 }
