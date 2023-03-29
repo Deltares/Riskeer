@@ -106,14 +106,6 @@ namespace Riskeer.Integration.IO.Importers
 
             ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = readHydraulicLocationConfigurationDatabaseResult.Items.Single();
             
-            IEnumerable<ReadHydraulicLocationConfigurationSettings> readHydraulicLocationConfigurationSettings =
-                readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationSettings;
-            if (readHydraulicLocationConfigurationSettings != null && readHydraulicLocationConfigurationSettings.Count() != 1)
-            {
-                Log.Error(BuildErrorMessage(hlcdFilePath, Resources.HydraulicBoundaryDatabaseImporter_Hlcd_Invalid_number_of_ScenarioInformation_entries));
-                return false;
-            }
-
             bool usePreprocessorClosure = readHydraulicLocationConfigurationDatabase.ReadTracks.First(rt => rt.TrackId == readHydraulicBoundaryDatabase.TrackId).UsePreprocessorClosure;
             if (usePreprocessorClosure && !File.Exists(HydraulicBoundaryDataHelper.GetPreprocessorClosureFilePath(hlcdFilePath)))
             {

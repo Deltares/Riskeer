@@ -211,16 +211,6 @@ namespace Riskeer.Integration.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De tabel &apos;ScenarioInformation&apos; in het HLCD bestand moet exact 1 rij bevatten..
-        /// </summary>
-        public static string HydraulicBoundaryDatabaseImporter_Hlcd_Invalid_number_of_ScenarioInformation_entries {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_Hlcd_Invalid_number_of_ScenarioInformation_entr" +
-                        "ies", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Het bijbehorende HLCD bestand is niet gevonden in dezelfde map als het HRD bestand..
         /// </summary>
         public static string HydraulicBoundaryDatabaseImporter_Hlcd_sqlite_not_found {
