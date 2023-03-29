@@ -179,10 +179,11 @@ namespace Riskeer.Integration.TestUtil
         /// Imports the <see cref="HydraulicBoundaryData"/> for the given <see cref="AssessmentSection"/>.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to import on.</param>
-        /// <param name="filePath">The filePath to import from.</param>
+        /// <param name="hlcdFilePath">The HLCD file to import from.</param>
+        /// <param name="hrdFilePath">The HRD file to import from.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
         /// is <c>null</c>.</exception>
-        public static void ImportHydraulicBoundaryData(AssessmentSection assessmentSection, string filePath)
+        public static void ImportHydraulicBoundaryData(AssessmentSection assessmentSection, string hlcdFilePath, string hrdFilePath)
         {
             if (assessmentSection == null)
             {
@@ -197,7 +198,7 @@ namespace Riskeer.Integration.TestUtil
                 assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase,
                 new HydraulicLocationConfigurationDatabaseUpdateHandler(assessmentSection),
                 assessmentSection.HydraulicBoundaryData,
-                Path.Combine(Path.GetDirectoryName(filePath), "HLCD.sqlite"));
+                hlcdFilePath);
             hydraulicLocationConfigurationDatabaseImporter.Import();
 
             var hydraulicBoundaryDatabaseImporter = new HydraulicBoundaryDatabaseImporter(
@@ -205,7 +206,7 @@ namespace Riskeer.Integration.TestUtil
                 new HydraulicBoundaryDataUpdateHandler(
                     assessmentSection,
                     new DuneLocationsReplacementHandler(viewCommands, assessmentSection.DuneErosion)),
-                filePath);
+                hrdFilePath);
             hydraulicBoundaryDatabaseImporter.Import();
             
             mocks.VerifyAll();
