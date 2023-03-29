@@ -94,7 +94,7 @@ namespace Riskeer.Integration.IO.Importers
                 return false;
             }
 
-            string hlcdFilePath = GetHlcdFilePath();
+            string hlcdFilePath = ImportTarget.HydraulicLocationConfigurationDatabase.FilePath;
 
             ReadResult<ReadHydraulicLocationConfigurationDatabase> readHydraulicLocationConfigurationDatabaseResult = ReadHydraulicLocationConfigurationDatabase(
                 hlcdFilePath);
@@ -105,6 +105,7 @@ namespace Riskeer.Integration.IO.Importers
             }
 
             ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = readHydraulicLocationConfigurationDatabaseResult.Items.Single();
+            
             IEnumerable<ReadHydraulicLocationConfigurationSettings> readHydraulicLocationConfigurationSettings =
                 readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationSettings;
             if (readHydraulicLocationConfigurationSettings != null && readHydraulicLocationConfigurationSettings.Count() != 1)
@@ -128,7 +129,7 @@ namespace Riskeer.Integration.IO.Importers
             }
 
             AddHydraulicBoundaryDatabaseToDataModel(readHydraulicBoundaryDatabase, readHydraulicLocationConfigurationDatabase,
-                                                    readExcludedLocationsResult.Items.Single());
+                                                    readExcludedLocationsResult.Items.Single(), hlcdFilePath);
 
             return true;
         }
@@ -244,11 +245,12 @@ namespace Riskeer.Integration.IO.Importers
 
         private void AddHydraulicBoundaryDatabaseToDataModel(ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase,
                                                              ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase,
-                                                             IEnumerable<long> excludedLocationIds)
+                                                             IEnumerable<long> excludedLocationIds,
+                                                             string hlcdFilePath)
         {
             NotifyProgress(RiskeerCommonIOResources.Importer_ProgressText_Adding_imported_data_to_AssessmentSection, 4, numberOfSteps);
             changedObservables.AddRange(updateHandler.Update(ImportTarget, readHydraulicBoundaryDatabase, readHydraulicLocationConfigurationDatabase,
-                                                             excludedLocationIds, FilePath, GetHlcdFilePath()));
+                                                             excludedLocationIds, FilePath, hlcdFilePath));
         }
 
         private ReadResult<T> HandleCriticalFileReadError<T>(Exception e)
@@ -269,11 +271,6 @@ namespace Riskeer.Integration.IO.Importers
         {
             string errorMessage = BuildErrorMessage(message);
             Log.Error(errorMessage);
-        }
-
-        private string GetHlcdFilePath()
-        {
-            return Path.Combine(Path.GetDirectoryName(FilePath), "hlcd.sqlite");
         }
 
         private string BuildErrorMessage(string message)
