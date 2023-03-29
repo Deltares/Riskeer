@@ -193,12 +193,21 @@ namespace Riskeer.Integration.TestUtil
             var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
-            var hydraulicBoundaryDatabaseImporter = new HydraulicBoundaryDatabaseImporter(assessmentSection.HydraulicBoundaryData,
-                                                                                          new HydraulicBoundaryDataUpdateHandler(
-                                                                                              assessmentSection,
-                                                                                              new DuneLocationsReplacementHandler(viewCommands, assessmentSection.DuneErosion)),
-                                                                                          filePath);
+            var hydraulicLocationConfigurationDatabaseImporter = new HydraulicLocationConfigurationDatabaseImporter(
+                assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase,
+                new HydraulicLocationConfigurationDatabaseUpdateHandler(assessmentSection),
+                assessmentSection.HydraulicBoundaryData,
+                Path.Combine(Path.GetDirectoryName(filePath), "HLCD.sqlite"));
+            hydraulicLocationConfigurationDatabaseImporter.Import();
+
+            var hydraulicBoundaryDatabaseImporter = new HydraulicBoundaryDatabaseImporter(
+                assessmentSection.HydraulicBoundaryData,
+                new HydraulicBoundaryDataUpdateHandler(
+                    assessmentSection,
+                    new DuneLocationsReplacementHandler(viewCommands, assessmentSection.DuneErosion)),
+                filePath);
             hydraulicBoundaryDatabaseImporter.Import();
+            
             mocks.VerifyAll();
         }
 
