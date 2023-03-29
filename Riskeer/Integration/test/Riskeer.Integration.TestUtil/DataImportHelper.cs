@@ -169,9 +169,9 @@ namespace Riskeer.Integration.TestUtil
                                                                                    "HLCD.sqlite",
                                                                                    "HRD dutch coast south.config.sqlite"))
             {
-                string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "HRD dutch coast south.sqlite");
-
-                ImportHydraulicBoundaryData(assessmentSection, filePath);
+                ImportHydraulicBoundaryData(assessmentSection,
+                                            Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "HLCD.sqlite"),
+                                            Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "HRD dutch coast south.sqlite"));
             }
         }
 
@@ -208,7 +208,7 @@ namespace Riskeer.Integration.TestUtil
                     new DuneLocationsReplacementHandler(viewCommands, assessmentSection.DuneErosion)),
                 hrdFilePath);
             hydraulicBoundaryDatabaseImporter.Import();
-            
+
             mocks.VerifyAll();
         }
 
