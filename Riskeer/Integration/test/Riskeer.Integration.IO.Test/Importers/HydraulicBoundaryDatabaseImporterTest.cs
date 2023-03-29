@@ -42,7 +42,10 @@ namespace Riskeer.Integration.IO.Test.Importers
     public class HydraulicBoundaryDatabaseImporterTest
     {
         private const int totalNumberOfSteps = 4;
-        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.IO, nameof(HydraulicBoundaryDatabaseImporter));
+
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.IO,
+                                                                                 nameof(HydraulicBoundaryDatabaseImporter));
+
         private static readonly string validHrdFilePath = Path.Combine(testDataPath, "complete.sqlite");
         private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
 
@@ -283,39 +286,6 @@ namespace Riskeer.Integration.IO.Test.Importers
 
             // Assert
             var expectedMessage = $"Fout bij het lezen van bestand '{hlcdFilePath}': kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.";
-            AssertImportFailed(Call, expectedMessage, ref importSuccessful);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [TestCase("hlcdWithScenarioInformationNoEntries")]
-        [TestCase("hlcdWithScenarioInformationMultipleEntries")]
-        public void Import_ExistingFileAndHlcdWithInvalidNumberOfScenarioInformationEntries_CancelImportWithErrorMessage(string testFolder)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.StrictMock<IHydraulicBoundaryDataUpdateHandler>();
-            mocks.ReplayAll();
-
-            string path = Path.Combine(testDataPath, testFolder, "complete.sqlite");
-            string hlcdFilePath = Path.Combine(Path.GetDirectoryName(path), "hlcd.sqlite");
-
-            var hydraulicBoundaryData = new HydraulicBoundaryData
-            {
-                HydraulicLocationConfigurationDatabase =
-                {
-                    FilePath = hlcdFilePath
-                }
-            };
-
-            var importer = new HydraulicBoundaryDatabaseImporter(hydraulicBoundaryData, handler, path);
-
-            // Call
-            var importSuccessful = true;
-            void Call() => importSuccessful = importer.Import();
-
-            // Assert
-            var expectedMessage = $"Fout bij het lezen van bestand '{hlcdFilePath}': de tabel 'ScenarioInformation' in het HLCD bestand moet exact 1 rij bevatten.";
             AssertImportFailed(Call, expectedMessage, ref importSuccessful);
             mocks.VerifyAll();
         }
