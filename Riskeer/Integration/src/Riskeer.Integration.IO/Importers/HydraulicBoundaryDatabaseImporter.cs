@@ -89,11 +89,6 @@ namespace Riskeer.Integration.IO.Importers
 
             ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = readHydraulicBoundaryDatabaseResult.Items.Single();
 
-            if (Canceled)
-            {
-                return false;
-            }
-
             string hlcdFilePath = ImportTarget.HydraulicLocationConfigurationDatabase.FilePath;
 
             ReadResult<ReadHydraulicLocationConfigurationDatabase> readHydraulicLocationConfigurationDatabaseResult = ReadHydraulicLocationConfigurationDatabase(
@@ -121,7 +116,7 @@ namespace Riskeer.Integration.IO.Importers
             }
 
             AddHydraulicBoundaryDatabaseToDataModel(readHydraulicBoundaryDatabase, readHydraulicLocationConfigurationDatabase,
-                                                    readExcludedLocationsResult.Items.Single(), hlcdFilePath);
+                                                    readExcludedLocationsResult.Items.Single());
 
             return true;
         }
@@ -237,12 +232,11 @@ namespace Riskeer.Integration.IO.Importers
 
         private void AddHydraulicBoundaryDatabaseToDataModel(ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase,
                                                              ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase,
-                                                             IEnumerable<long> excludedLocationIds,
-                                                             string hlcdFilePath)
+                                                             IEnumerable<long> excludedLocationIds)
         {
             NotifyProgress(RiskeerCommonIOResources.Importer_ProgressText_Adding_imported_data_to_AssessmentSection, 4, numberOfSteps);
             changedObservables.AddRange(updateHandler.Update(ImportTarget, readHydraulicBoundaryDatabase, readHydraulicLocationConfigurationDatabase,
-                                                             excludedLocationIds, FilePath, hlcdFilePath));
+                                                             excludedLocationIds, FilePath, ImportTarget.HydraulicLocationConfigurationDatabase.FilePath));
         }
 
         private ReadResult<T> HandleCriticalFileReadError<T>(Exception e)
