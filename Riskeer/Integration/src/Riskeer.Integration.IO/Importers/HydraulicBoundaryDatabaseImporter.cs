@@ -69,25 +69,16 @@ namespace Riskeer.Integration.IO.Importers
 
         protected override bool OnImport()
         {
-            if (Path.GetDirectoryName(ImportTarget.HydraulicLocationConfigurationDatabase.FilePath) != Path.GetDirectoryName(FilePath))
-            {
-                Log.Error(BuildErrorMessage(FilePath, Resources.HydraulicBoundaryDatabaseImporter_Hrd_file_not_in_same_folder_as_hlcd_file));
-                return false;
-            }
-
-            if (ImportTarget.HydraulicBoundaryDatabases.Any(hbd => hbd.FilePath == FilePath))
-            {
-                Log.Error(BuildErrorMessage(FilePath, Resources.HydraulicBoundaryDatabaseImporter_Hrd_file_already_added));
-                return false;
-            }
-
-            ReadResult<ReadHydraulicBoundaryDatabase> readHydraulicBoundaryDatabaseResult = ReadHydraulicBoundaryDatabase();
-            if (readHydraulicBoundaryDatabaseResult.CriticalErrorOccurred || Canceled)
+            if (!IsHrdFileInSameFolderAsHlcdFile() || !IsNewHrdFile())
             {
                 return false;
             }
 
-            ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = readHydraulicBoundaryDatabaseResult.Items.Single();
+            ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = TryReadHydraulicBoundaryDatabase();
+            if (readHydraulicBoundaryDatabase == null)
+            {
+                return false;
+            }
 
             string hlcdFilePath = ImportTarget.HydraulicLocationConfigurationDatabase.FilePath;
 
@@ -100,7 +91,7 @@ namespace Riskeer.Integration.IO.Importers
             }
 
             ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = readHydraulicLocationConfigurationDatabaseResult.Items.Single();
-            
+
             bool usePreprocessorClosure = readHydraulicLocationConfigurationDatabase.ReadTracks.First(rt => rt.TrackId == readHydraulicBoundaryDatabase.TrackId).UsePreprocessorClosure;
             if (usePreprocessorClosure && !File.Exists(HydraulicBoundaryDataHelper.GetPreprocessorClosureFilePath(hlcdFilePath)))
             {
@@ -120,7 +111,7 @@ namespace Riskeer.Integration.IO.Importers
 
             return true;
         }
-
+        
         protected override void LogImportCanceledMessage()
         {
             Log.Info(Resources.HydraulicBoundaryDatabaseImporter_ProgressText_Import_canceled_No_data_changed);
@@ -138,9 +129,44 @@ namespace Riskeer.Integration.IO.Importers
             }
         }
 
+        private bool IsHrdFileInSameFolderAsHlcdFile()
+        {
+            if (Path.GetDirectoryName(ImportTarget.HydraulicLocationConfigurationDatabase.FilePath) == Path.GetDirectoryName(FilePath))
+            {
+                return true;
+            }
+
+            Log.Error(BuildErrorMessage(FilePath, Resources.HydraulicBoundaryDatabaseImporter_Hrd_file_not_in_same_folder_as_hlcd_file));
+            return false;
+        }
+
+        private bool IsNewHrdFile()
+        {
+            if (ImportTarget.HydraulicBoundaryDatabases.All(hbd => hbd.FilePath != FilePath))
+            {
+                return true;
+            }
+
+            Log.Error(BuildErrorMessage(FilePath, Resources.HydraulicBoundaryDatabaseImporter_Hrd_file_already_added));
+            return false;
+        }
+
+        private ReadHydraulicBoundaryDatabase TryReadHydraulicBoundaryDatabase()
+        {
+            ReadResult<ReadHydraulicBoundaryDatabase> readHydraulicBoundaryDatabaseResult = ReadHydraulicBoundaryDatabase();
+            
+            if (readHydraulicBoundaryDatabaseResult.CriticalErrorOccurred || Canceled)
+            {
+                return null;
+            }
+
+            return readHydraulicBoundaryDatabaseResult.Items.Single();
+        }
+
         private ReadResult<ReadHydraulicBoundaryDatabase> ReadHydraulicBoundaryDatabase()
         {
             NotifyProgress(Resources.HydraulicBoundaryDatabaseImporter_ProgressText_Reading_Hrd_file, 1, numberOfSteps);
+            
             try
             {
                 using (var reader = new HydraulicBoundaryDatabaseReader(FilePath))
