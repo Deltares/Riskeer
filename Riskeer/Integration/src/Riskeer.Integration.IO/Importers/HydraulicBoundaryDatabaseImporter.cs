@@ -260,22 +260,17 @@ namespace Riskeer.Integration.IO.Importers
 
         private ReadResult<T> HandleCriticalFileReadError<T>(Exception e)
         {
-            string errorMessage = string.Format(Resources.HydraulicBoundaryDatabaseImporter_HandleCriticalFileReadError_Error_0_No_HydraulicBoundaryDatabase_imported,
-                                                e.Message);
-            Log.Error(errorMessage);
+            Log.Error(string.Format(Resources.HydraulicBoundaryDatabaseImporter_HandleCriticalFileReadError_Error_0_No_HydraulicBoundaryDatabase_imported,
+                                    e.Message));
+
             return new ReadResult<T>(true);
         }
 
         private ReadResult<T> HandleCriticalFileReadError<T>(string message)
         {
-            HandleCriticalFileReadError(message);
-            return new ReadResult<T>(true);
-        }
+            Log.Error(BuildErrorMessage(message));
 
-        private void HandleCriticalFileReadError(string message)
-        {
-            string errorMessage = BuildErrorMessage(message);
-            Log.Error(errorMessage);
+            return new ReadResult<T>(true);
         }
 
         private string BuildErrorMessage(string message)
