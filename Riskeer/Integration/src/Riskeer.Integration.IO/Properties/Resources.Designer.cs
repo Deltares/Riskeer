@@ -229,6 +229,16 @@ namespace Riskeer.Integration.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het HRD bestand bevat een of meerdere locaties met een id dat reeds voorkomt..
+        /// </summary>
+        public static string HydraulicBoundaryDatabaseImporter_Hrd_file_contains_one_or_more_locations_with_existing_id {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_Hrd_file_contains_one_or_more_locations_with_ex" +
+                        "isting_id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Het HRD bestand moet zich in dezelfde bestandsmap bevinden als het HLCD bestand..
         /// </summary>
         public static string HydraulicBoundaryDatabaseImporter_Hrd_file_not_in_same_folder_as_hlcd_file {

@@ -285,7 +285,7 @@ namespace Riskeer.Integration.IO.Importers
                 return true;
             }
 
-            Log.Error(BuildErrorMessage("Het HRD bestand bevat een of meerdere locaties met een id dat reeds voorkomt."));
+            Log.Error(BuildErrorMessage(Resources.HydraulicBoundaryDatabaseImporter_Hrd_file_contains_one_or_more_locations_with_existing_id));
             return false;
         }
 
