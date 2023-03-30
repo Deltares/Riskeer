@@ -96,6 +96,11 @@ namespace Riskeer.Integration.IO.Importers
             IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocationsToAdd = GetHydraulicBoundaryLocationsToAdd(
                 readHydraulicBoundaryDatabase, readHydraulicLocationConfigurationDatabase, readExcludedLocationIds.ToArray());
 
+            if (!HydraulicBoundaryLocationsHaveNonExistingId(hydraulicBoundaryLocationsToAdd))
+            {
+                return false;
+            }
+
             AddHydraulicBoundaryDatabaseToDataModel(readHydraulicBoundaryDatabase, readHydraulicLocationConfigurationDatabase, readExcludedLocationIds);
 
             return true;
@@ -268,6 +273,20 @@ namespace Riskeer.Integration.IO.Importers
                                                                readHydraulicBoundaryLocation.CoordinateX, readHydraulicBoundaryLocation.CoordinateY);
                 }
             }
+        }
+
+        private bool HydraulicBoundaryLocationsHaveNonExistingId(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocationsToValidate)
+        {
+            long[] existingHydraulicBoundaryLocationIds = ImportTarget.Locations.Select(hbl => hbl.Id).ToArray();
+            long[] hydraulicBoundaryLocationIdsToValidate = hydraulicBoundaryLocationsToValidate.Select(hbl => hbl.Id).ToArray();
+
+            if (hydraulicBoundaryLocationIdsToValidate.Except(existingHydraulicBoundaryLocationIds).Count() == hydraulicBoundaryLocationIdsToValidate.Length)
+            {
+                return true;
+            }
+
+            Log.Error(BuildErrorMessage("Het HRD bestand bevat een of meerdere locaties met een id dat reeds voorkomt."));
+            return false;
         }
 
         private void AddHydraulicBoundaryDatabaseToDataModel(ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase,
