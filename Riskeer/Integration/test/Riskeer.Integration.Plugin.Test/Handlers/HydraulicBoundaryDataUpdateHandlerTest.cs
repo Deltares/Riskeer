@@ -224,7 +224,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             // Call
             void Call() => handler.Update(new HydraulicBoundaryData(), ReadHydraulicBoundaryDatabaseTestFactory.Create(),
-                                          configurationDatabase, Enumerable.Empty<long>(), "", "");
+                                          configurationDatabase, Enumerable.Empty<long>(), "");
 
             // Assert
             const string expectedMessage = "readHydraulicLocationConfigurationDatabase must be null or contain " +
@@ -247,6 +247,10 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
+                HydraulicLocationConfigurationDatabase =
+                {
+                    FilePath = hlcdFilePath
+                },
                 FilePath = hrdFilePath,
                 Version = readHydraulicBoundaryDatabase.Version,
                 Locations =
@@ -263,7 +267,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             // Call
             IEnumerable<IObservable> changedObjects = handler.Update(hydraulicBoundaryData, readHydraulicBoundaryDatabase,
                                                                      ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(readHydraulicBoundaryDatabase.TrackId),
-                                                                     Enumerable.Empty<long>(), hrdFilePath, hlcdFilePath);
+                                                                     Enumerable.Empty<long>(), hrdFilePath);
 
             // Assert
             CollectionAssert.IsEmpty(changedObjects);
@@ -288,6 +292,10 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
+                HydraulicLocationConfigurationDatabase =
+                {
+                    FilePath = hlcdFilePath
+                },
                 FilePath = "hrdFileCurrent.sqlite",
                 Version = readHydraulicBoundaryDatabase.Version,
                 Locations =
@@ -295,10 +303,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                     new TestHydraulicBoundaryLocation("old location 1"),
                     new TestHydraulicBoundaryLocation("old location 2"),
                     new TestHydraulicBoundaryLocation("old location 3")
-                },
-                HydraulicLocationConfigurationDatabase =
-                {
-                    FilePath = hlcdFilePath
                 }
             };
 
@@ -309,7 +313,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             // Call
             IEnumerable<IObservable> changedObjects = handler.Update(hydraulicBoundaryData, readHydraulicBoundaryDatabase,
                                                                      ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(readHydraulicBoundaryDatabase.TrackId),
-                                                                     Enumerable.Empty<long>(), newHrdFilePath, hlcdFilePath);
+                                                                     Enumerable.Empty<long>(), newHrdFilePath);
 
             // Assert
             CollectionAssert.IsEmpty(changedObjects);
@@ -328,6 +332,10 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             const string hlcdFilePath = "some/hlcd/FilePath";
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
+                HydraulicLocationConfigurationDatabase =
+                {
+                    FilePath = hlcdFilePath
+                },
                 FilePath = hrdFilePath,
                 Version = "1",
                 Locations =
@@ -362,7 +370,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             // Call
             handler.Update(hydraulicBoundaryData, readHydraulicBoundaryDatabase,
                            ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(readHydraulicBoundaryDatabase.TrackId),
-                           Enumerable.Empty<long>(), hrdFilePath, hlcdFilePath);
+                           Enumerable.Empty<long>(), hrdFilePath);
 
             // Assert
             CollectionAssert.IsNotSubsetOf(oldLocations, hydraulicBoundaryData.Locations);
