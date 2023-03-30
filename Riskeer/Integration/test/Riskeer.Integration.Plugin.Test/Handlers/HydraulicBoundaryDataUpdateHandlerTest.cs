@@ -419,7 +419,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             // Call
             handler.Update(hydraulicBoundaryData, readHydraulicBoundaryDatabase, readHydraulicLocationConfigurationDatabase,
-                           Enumerable.Empty<long>(), hrdFilePath, hlcdFilePath);
+                           Enumerable.Empty<long>(), hrdFilePath);
 
             // Assert
             Assert.IsTrue(hydraulicBoundaryData.IsLinked());
@@ -467,7 +467,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             // Call
             handler.Update(hydraulicBoundaryData, readHydraulicBoundaryDatabase, readHydraulicLocationConfigurationDatabase,
-                           Enumerable.Empty<long>(), hrdFilePath, hlcdFilePath);
+                           Enumerable.Empty<long>(), hrdFilePath);
 
             // Assert
             AssertHydraulicBoundaryLocations(readHydraulicBoundaryLocationsToInclude, readHydraulicLocationConfigurationDatabase,
@@ -512,7 +512,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             // Call
             handler.Update(hydraulicBoundaryData, readHydraulicBoundaryDatabase, readHydraulicLocationConfigurationDatabase,
-                           readHydraulicBoundaryLocationsToExclude.Select(l => l.Id), hrdFilePath, hlcdFilePath);
+                           readHydraulicBoundaryLocationsToExclude.Select(l => l.Id), hrdFilePath);
 
             // Assert
             AssertHydraulicBoundaryLocations(readHydraulicBoundaryLocationsToInclude, readHydraulicLocationConfigurationDatabase,
@@ -550,8 +550,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                                readHydraulicBoundaryDatabase,
                                readHydraulicLocationConfigurationDatabase,
                                Enumerable.Empty<long>(),
-                               hrdFilePath,
-                               hlcdFilePath);
+                               hrdFilePath);
             }
 
             // Assert
@@ -602,8 +601,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                                readHydraulicBoundaryDatabase,
                                readHydraulicLocationConfigurationDatabase,
                                Enumerable.Empty<long>(),
-                               hrdFilePath,
-                               hlcdFilePath);
+                               hrdFilePath);
             }
 
             // Assert
@@ -661,7 +659,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             // When
             IEnumerable<IObservable> changedObjects = handler.Update(hydraulicBoundaryData, readHydraulicBoundaryDatabase,
                                                                      ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(readHydraulicBoundaryDatabase.TrackId),
-                                                                     Enumerable.Empty<long>(), hrdFilePath, hlcdFilePath);
+                                                                     Enumerable.Empty<long>(), hrdFilePath);
 
             // Then
             var observables = new List<IObservable>
@@ -716,7 +714,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             // When
             IEnumerable<IObservable> changedObjects = handler.Update(assessmentSection.HydraulicBoundaryData, readHydraulicBoundaryDatabase,
                                                                      ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(readHydraulicBoundaryDatabase.TrackId),
-                                                                     Enumerable.Empty<long>(), hrdFilePath, hlcdFilePath);
+                                                                     Enumerable.Empty<long>(), hrdFilePath);
 
             // Then
             Assert.IsTrue(calculationsWithOutput.All(c => !c.HasOutput));
@@ -771,7 +769,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             IEnumerable<IObservable> changedObjects = handler.Update(hydraulicBoundaryData, readHydraulicBoundaryDatabase,
                                                                      ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(readHydraulicBoundaryDatabase.TrackId),
-                                                                     Enumerable.Empty<long>(), hrdFilePath, hlcdFilePath);
+                                                                     Enumerable.Empty<long>(), hrdFilePath);
 
             // Precondition
             CollectionAssert.IsEmpty(changedObjects);
@@ -814,7 +812,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             IEnumerable<IObservable> changedObjects = handler.Update(hydraulicBoundaryData, readHydraulicBoundaryDatabase,
                                                                      ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(readHydraulicBoundaryDatabase.TrackId),
-                                                                     Enumerable.Empty<long>(), hrdFilePath, hlcdFilePath);
+                                                                     Enumerable.Empty<long>(), hrdFilePath);
 
             // Precondition
             CollectionAssert.IsNotEmpty(changedObjects);
