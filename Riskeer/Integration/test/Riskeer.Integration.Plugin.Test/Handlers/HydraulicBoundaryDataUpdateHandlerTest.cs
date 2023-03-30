@@ -110,7 +110,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             {
                 handler.Update(null, readHydraulicBoundaryDatabase,
                                ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(readHydraulicBoundaryDatabase.TrackId),
-                               Enumerable.Empty<long>(), "", "");
+                               Enumerable.Empty<long>(), "");
             }
 
             // Assert
@@ -132,7 +132,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             // Call
             void Call() => handler.Update(new HydraulicBoundaryData(), null,
                                           ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(1),
-                                          Enumerable.Empty<long>(), "", "");
+                                          Enumerable.Empty<long>(), "");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -152,7 +152,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             // Call
             void Call() => handler.Update(new HydraulicBoundaryData(), ReadHydraulicBoundaryDatabaseTestFactory.Create(),
-                                          null, Enumerable.Empty<long>(), "", "");
+                                          null, Enumerable.Empty<long>(), "");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -177,7 +177,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             {
                 handler.Update(new HydraulicBoundaryData(), readHydraulicBoundaryDatabase,
                                ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(readHydraulicBoundaryDatabase.TrackId),
-                               null, "", "");
+                               null, "");
             }
 
             // Assert
@@ -202,37 +202,12 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             {
                 handler.Update(new HydraulicBoundaryData(), readHydraulicBoundaryDatabase,
                                ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(readHydraulicBoundaryDatabase.TrackId),
-                               Enumerable.Empty<long>(), null, "");
+                               Enumerable.Empty<long>(), null);
             }
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("hrdFilePath", exception.ParamName);
-        }
-
-        [Test]
-        public void Update_HlcdFilePathNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var duneLocationsReplacementHandler = mocks.Stub<IDuneLocationsReplacementHandler>();
-            mocks.ReplayAll();
-
-            ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
-
-            var handler = new HydraulicBoundaryDataUpdateHandler(CreateAssessmentSection(), duneLocationsReplacementHandler);
-
-            // Call
-            void Call()
-            {
-                handler.Update(new HydraulicBoundaryData(), readHydraulicBoundaryDatabase,
-                               ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(readHydraulicBoundaryDatabase.TrackId),
-                               Enumerable.Empty<long>(), "", null);
-            }
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("hlcdFilePath", exception.ParamName);
         }
 
         [Test]

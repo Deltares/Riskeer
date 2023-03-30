@@ -360,7 +360,7 @@ namespace Riskeer.Integration.IO.Test.Importers
         {
             // Setup
             string hlcdFilePath = Path.Combine(Path.GetDirectoryName(filePath), "hlcd.sqlite");
-            
+
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 HydraulicLocationConfigurationDatabase =
