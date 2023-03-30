@@ -93,6 +93,9 @@ namespace Riskeer.Integration.IO.Importers
                 return false;
             }
 
+            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocationsToAdd = GetHydraulicBoundaryLocationsToAdd(
+                readHydraulicBoundaryDatabase, readHydraulicLocationConfigurationDatabase, readExcludedLocationIds.ToArray());
+
             AddHydraulicBoundaryDatabaseToDataModel(readHydraulicBoundaryDatabase, readHydraulicLocationConfigurationDatabase, readExcludedLocationIds);
 
             return true;
@@ -246,6 +249,25 @@ namespace Riskeer.Integration.IO.Importers
             }
 
             return readExcludedLocationIdsResult.Items.Single();
+        }
+
+        private static IEnumerable<HydraulicBoundaryLocation> GetHydraulicBoundaryLocationsToAdd(ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase,
+                                                                                                 ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase,
+                                                                                                 long[] readExcludedLocationIds)
+        {
+            foreach (ReadHydraulicBoundaryLocation readHydraulicBoundaryLocation in readHydraulicBoundaryDatabase.Locations)
+            {
+                long hydraulicBoundaryLocationId = readHydraulicLocationConfigurationDatabase.ReadHydraulicLocations
+                                                                                             .Where(m => m.HrdLocationId == readHydraulicBoundaryLocation.Id)
+                                                                                             .Select(m => m.HlcdLocationId)
+                                                                                             .FirstOrDefault();
+
+                if (hydraulicBoundaryLocationId != 0 && !readExcludedLocationIds.Contains(hydraulicBoundaryLocationId))
+                {
+                    yield return new HydraulicBoundaryLocation(hydraulicBoundaryLocationId, readHydraulicBoundaryLocation.Name,
+                                                               readHydraulicBoundaryLocation.CoordinateX, readHydraulicBoundaryLocation.CoordinateY);
+                }
+            }
         }
 
         private void AddHydraulicBoundaryDatabaseToDataModel(ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase,
