@@ -360,6 +360,7 @@ namespace Riskeer.Integration.IO.Test.Importers
         {
             // Setup
             string hlcdFilePath = Path.Combine(Path.GetDirectoryName(filePath), "hlcd.sqlite");
+            
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 HydraulicLocationConfigurationDatabase =
@@ -375,8 +376,7 @@ namespace Riskeer.Integration.IO.Test.Importers
                                          Arg<ReadHydraulicBoundaryDatabase>.Is.NotNull,
                                          Arg<ReadHydraulicLocationConfigurationDatabase>.Is.NotNull,
                                          Arg<IEnumerable<long>>.Is.NotNull,
-                                         Arg<string>.Is.Equal(filePath),
-                                         Arg<string>.Is.Equal(hlcdFilePath)))
+                                         Arg<string>.Is.Equal(filePath)))
                    .WhenCalled(invocation =>
                    {
                        var readHydraulicBoundaryDatabase = (ReadHydraulicBoundaryDatabase) invocation.Arguments[1];
@@ -428,8 +428,7 @@ namespace Riskeer.Integration.IO.Test.Importers
                                          Arg<ReadHydraulicBoundaryDatabase>.Is.NotNull,
                                          Arg<ReadHydraulicLocationConfigurationDatabase>.Is.NotNull,
                                          Arg<IEnumerable<long>>.Is.NotNull,
-                                         Arg<string>.Is.Equal(hrdFilePath),
-                                         Arg<string>.Is.Equal(hlcdFilePath)))
+                                         Arg<string>.Is.Equal(hrdFilePath)))
                    .WhenCalled(invocation =>
                    {
                        AssertReadHydraulicBoundaryDatabase((ReadHydraulicBoundaryDatabase) invocation.Arguments[1]);
@@ -462,7 +461,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             // Setup
             var mocks = new MockRepository();
             var handler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
-            handler.Stub(h => h.Update(null, null, null, null, null, null)).IgnoreArguments().Return(Enumerable.Empty<IObservable>());
+            handler.Stub(h => h.Update(null, null, null, null, null)).IgnoreArguments().Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
             var progressChangeNotifications = new List<ProgressNotification>();
@@ -526,7 +525,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             // Setup
             var mocks = new MockRepository();
             var handler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
-            handler.Stub(h => h.Update(null, null, null, null, null, null)).IgnoreArguments().Return(Enumerable.Empty<IObservable>());
+            handler.Stub(h => h.Update(null, null, null, null, null)).IgnoreArguments().Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
             var importer = new HydraulicBoundaryDatabaseImporter(CreateLinkedHydraulicBoundaryData(), handler, validHrdFilePath);
@@ -571,7 +570,6 @@ namespace Riskeer.Integration.IO.Test.Importers
                                          Arg<ReadHydraulicBoundaryDatabase>.Is.NotNull,
                                          Arg<ReadHydraulicLocationConfigurationDatabase>.Is.NotNull,
                                          Arg<IEnumerable<long>>.Is.NotNull,
-                                         Arg<string>.Is.NotNull,
                                          Arg<string>.Is.NotNull))
                    .Return(new[]
                    {
