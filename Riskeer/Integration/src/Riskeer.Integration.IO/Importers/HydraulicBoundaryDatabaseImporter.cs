@@ -87,14 +87,11 @@ namespace Riskeer.Integration.IO.Importers
                 return false;
             }
 
-            ReadResult<IEnumerable<long>> readExcludedLocationIdsResult = ReadExcludedLocationIds();
-
-            if (readExcludedLocationIdsResult.CriticalErrorOccurred || Canceled)
+            IEnumerable<long> readExcludedLocationIds = TryReadExcludedLocationIds();
+            if (readExcludedLocationIds == null)
             {
                 return false;
             }
-
-            IEnumerable<long> readExcludedLocationIds = readExcludedLocationIdsResult.Items.Single();
 
             AddHydraulicBoundaryDatabaseToDataModel(readHydraulicBoundaryDatabase, readHydraulicLocationConfigurationDatabase, readExcludedLocationIds);
 
@@ -211,40 +208,44 @@ namespace Riskeer.Integration.IO.Importers
             return readHydraulicLocationConfigurationDatabaseResult.Items.Single();
         }
 
-        private ReadResult<IEnumerable<long>> ReadExcludedLocationIds()
+        private IEnumerable<long> TryReadExcludedLocationIds()
         {
             NotifyProgress(Resources.HydraulicBoundaryDatabaseImporter_ProgressText_Reading_Hrd_settings_file, 3, numberOfSteps);
-            
+
+            ReadResult<IEnumerable<long>> readExcludedLocationIdsResult;
+
             try
             {
                 using (var reader = new HydraRingSettingsDatabaseReader(HydraulicBoundaryDataHelper.GetHydraulicBoundarySettingsDatabaseFilePath(FilePath)))
                 {
-                    return ReadExcludedLocationIds(reader);
+                    try
+                    {
+                        readExcludedLocationIdsResult = new ReadResult<IEnumerable<long>>(false)
+                        {
+                            Items = new[]
+                            {
+                                reader.ReadExcludedLocations().ToArray()
+                            }
+                        };
+                    }
+                    catch (CriticalFileReadException e)
+                    {
+                        readExcludedLocationIdsResult = HandleCriticalFileReadError<IEnumerable<long>>(e.Message);
+                    }
                 }
             }
             catch (CriticalFileReadException e)
             {
-                return HandleCriticalFileReadError<IEnumerable<long>>(
+                readExcludedLocationIdsResult = HandleCriticalFileReadError<IEnumerable<long>>(
                     string.Format(Resources.HydraulicBoundaryDatabaseImporter_Cannot_open_hydraulic_calculation_settings_file_0_, e.Message));
             }
-        }
 
-        private ReadResult<IEnumerable<long>> ReadExcludedLocationIds(HydraRingSettingsDatabaseReader reader)
-        {
-            try
+            if (readExcludedLocationIdsResult.CriticalErrorOccurred || Canceled)
             {
-                return new ReadResult<IEnumerable<long>>(false)
-                {
-                    Items = new[]
-                    {
-                        reader.ReadExcludedLocations().ToArray()
-                    }
-                };
+                return null;
             }
-            catch (CriticalFileReadException e)
-            {
-                return HandleCriticalFileReadError<IEnumerable<long>>(e.Message);
-            }
+
+            return readExcludedLocationIdsResult.Items.Single();
         }
 
         private void AddHydraulicBoundaryDatabaseToDataModel(ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase,
@@ -252,6 +253,7 @@ namespace Riskeer.Integration.IO.Importers
                                                              IEnumerable<long> excludedLocationIds)
         {
             NotifyProgress(RiskeerCommonIOResources.Importer_ProgressText_Adding_imported_data_to_AssessmentSection, 4, numberOfSteps);
+
             changedObservables.AddRange(updateHandler.Update(ImportTarget, readHydraulicBoundaryDatabase, readHydraulicLocationConfigurationDatabase,
                                                              excludedLocationIds, FilePath, ImportTarget.HydraulicLocationConfigurationDatabase.FilePath));
         }
