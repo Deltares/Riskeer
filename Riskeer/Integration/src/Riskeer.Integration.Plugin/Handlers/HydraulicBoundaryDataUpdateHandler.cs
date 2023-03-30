@@ -95,12 +95,19 @@ namespace Riskeer.Integration.Plugin.Handlers
                 throw new ArgumentNullException(nameof(hrdFilePath));
             }
 
-            var changedObjects = new List<IObservable>();
+            var changedObjects = new List<IObservable>
+            {
+                hydraulicBoundaryData.HydraulicBoundaryDatabases
+            };
 
-            
-            
-            hydraulicBoundaryData.FilePath = hrdFilePath;
-            hydraulicBoundaryData.Version = readHydraulicBoundaryDatabase.Version;
+            hydraulicBoundaryData.HydraulicBoundaryDatabases.Add(new HydraulicBoundaryDatabase
+            {
+                FilePath = hrdFilePath,
+                Version = readHydraulicBoundaryDatabase.Version,
+                UsePreprocessorClosure = readHydraulicLocationConfigurationDatabase.ReadTracks
+                                                                                   .FirstOrDefault(rt => rt.TrackId == readHydraulicBoundaryDatabase.TrackId)?
+                                                                                   .UsePreprocessorClosure ?? false
+            });
 
             SetLocations(hydraulicBoundaryData, readHydraulicBoundaryDatabase.Locations,
                          readHydraulicLocationConfigurationDatabase.ReadHydraulicLocations.Where(rhl => rhl.TrackId == readHydraulicBoundaryDatabase.TrackId),
