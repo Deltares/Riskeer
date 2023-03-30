@@ -260,12 +260,15 @@ namespace Riskeer.Integration.IO.Importers
                                                                                                  ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase,
                                                                                                  long[] readExcludedLocationIds)
         {
+            ReadHydraulicLocation[] readHydraulicLocations = readHydraulicLocationConfigurationDatabase.ReadHydraulicLocations
+                                                                                                       .Where(rhl => rhl.TrackId == readHydraulicBoundaryDatabase.TrackId)
+                                                                                                       .ToArray();
+
             foreach (ReadHydraulicBoundaryLocation readHydraulicBoundaryLocation in readHydraulicBoundaryDatabase.Locations)
             {
-                long hydraulicBoundaryLocationId = readHydraulicLocationConfigurationDatabase.ReadHydraulicLocations
-                                                                                             .Where(m => m.HrdLocationId == readHydraulicBoundaryLocation.Id)
-                                                                                             .Select(m => m.HlcdLocationId)
-                                                                                             .FirstOrDefault();
+                long hydraulicBoundaryLocationId = readHydraulicLocations.Where(m => m.HrdLocationId == readHydraulicBoundaryLocation.Id)
+                                                                         .Select(m => m.HlcdLocationId)
+                                                                         .FirstOrDefault();
 
                 if (hydraulicBoundaryLocationId != 0 && !readExcludedLocationIds.Contains(hydraulicBoundaryLocationId))
                 {

@@ -363,7 +363,7 @@ namespace Riskeer.Integration.IO.Test.Importers
 
             HydraulicBoundaryData hydraulicBoundaryData = CreateLinkedHydraulicBoundaryData();
 
-            hydraulicBoundaryData.Locations.Add(new HydraulicBoundaryLocation(100001, "Test", 2, 3));
+            hydraulicBoundaryData.Locations.Add(new HydraulicBoundaryLocation(1300001, "Test", 2, 3));
 
             var importer = new HydraulicBoundaryDatabaseImporter(hydraulicBoundaryData, handler, validHrdFilePath);
 
