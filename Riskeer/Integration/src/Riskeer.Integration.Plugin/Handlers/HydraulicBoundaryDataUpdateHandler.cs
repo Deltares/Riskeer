@@ -97,32 +97,24 @@ namespace Riskeer.Integration.Plugin.Handlers
 
             var changedObjects = new List<IObservable>();
 
-            updateLocations = !hydraulicBoundaryData.IsLinked() || hydraulicBoundaryData.Version != readHydraulicBoundaryDatabase.Version;
+            
+            
+            hydraulicBoundaryData.FilePath = hrdFilePath;
+            hydraulicBoundaryData.Version = readHydraulicBoundaryDatabase.Version;
 
-            if (updateLocations)
-            {
-                hydraulicBoundaryData.FilePath = hrdFilePath;
-                hydraulicBoundaryData.Version = readHydraulicBoundaryDatabase.Version;
+            SetLocations(hydraulicBoundaryData, readHydraulicBoundaryDatabase.Locations,
+                         readHydraulicLocationConfigurationDatabase.ReadHydraulicLocations.Where(rhl => rhl.TrackId == readHydraulicBoundaryDatabase.TrackId),
+                         excludedLocationIds.ToArray());
 
-                SetLocations(hydraulicBoundaryData, readHydraulicBoundaryDatabase.Locations,
-                             readHydraulicLocationConfigurationDatabase.ReadHydraulicLocations.Where(rhl => rhl.TrackId == readHydraulicBoundaryDatabase.TrackId),
-                             excludedLocationIds.ToArray());
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryData.Locations);
 
-                assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryData.Locations);
+            duneLocationsReplacementHandler.Replace(hydraulicBoundaryData.Locations);
 
-                duneLocationsReplacementHandler.Replace(hydraulicBoundaryData.Locations);
+            changedObjects.AddRange(GetLocationsAndCalculationsObservables(hydraulicBoundaryData));
+            changedObjects.AddRange(RiskeerDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(assessmentSection));
 
-                changedObjects.AddRange(GetLocationsAndCalculationsObservables(hydraulicBoundaryData));
-                changedObjects.AddRange(RiskeerDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(assessmentSection));
-            }
-            else
-            {
-                if (hydraulicBoundaryData.FilePath != hrdFilePath)
-                {
-                    hydraulicBoundaryData.FilePath = hrdFilePath;
-                }
-            }
-
+            
+            
             return changedObjects;
         }
 
