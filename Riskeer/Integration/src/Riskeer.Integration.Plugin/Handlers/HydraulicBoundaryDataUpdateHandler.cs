@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
 using Core.Common.Base;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.DuneErosion.Plugin.Handlers;
@@ -31,7 +30,6 @@ using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.IO.Handlers;
 using Riskeer.Integration.Plugin.Helpers;
-using Riskeer.Integration.Plugin.Properties;
 using Riskeer.Integration.Service;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 
@@ -71,7 +69,7 @@ namespace Riskeer.Integration.Plugin.Handlers
 
         public IEnumerable<IObservable> Update(HydraulicBoundaryData hydraulicBoundaryData, ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase,
                                                ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase,
-                                               IEnumerable<long> excludedLocationIds, string hrdFilePath, string hlcdFilePath)
+                                               IEnumerable<long> excludedLocationIds, string hrdFilePath)
         {
             if (hydraulicBoundaryData == null)
             {
@@ -96,11 +94,6 @@ namespace Riskeer.Integration.Plugin.Handlers
             if (hrdFilePath == null)
             {
                 throw new ArgumentNullException(nameof(hrdFilePath));
-            }
-
-            if (hlcdFilePath == null)
-            {
-                throw new ArgumentNullException(nameof(hlcdFilePath));
             }
 
             if (!IsValidReadHydraulicLocationConfigurationDatabase(readHydraulicLocationConfigurationDatabase))
@@ -141,7 +134,7 @@ namespace Riskeer.Integration.Plugin.Handlers
             HydraulicLocationConfigurationDatabaseUpdateHelper.UpdateHydraulicLocationConfigurationDatabase(
                 hydraulicBoundaryData.HydraulicLocationConfigurationDatabase,
                 readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationSettings?.Single(),
-                hlcdFilePath);
+                hydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath);
 
             return changedObjects;
         }
