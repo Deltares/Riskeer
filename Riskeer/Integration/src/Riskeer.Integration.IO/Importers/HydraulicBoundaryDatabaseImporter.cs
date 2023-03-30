@@ -96,7 +96,7 @@ namespace Riskeer.Integration.IO.Importers
             IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocationsToAdd = GetHydraulicBoundaryLocationsToAdd(
                 readHydraulicBoundaryDatabase, readHydraulicLocationConfigurationDatabase, readExcludedLocationIds.ToArray());
 
-            if (!HydraulicBoundaryLocationsHaveNonExistingId(hydraulicBoundaryLocationsToAdd))
+            if (!HydraulicBoundaryLocationsToAddHaveNonExistingId(hydraulicBoundaryLocationsToAdd))
             {
                 return false;
             }
@@ -275,12 +275,12 @@ namespace Riskeer.Integration.IO.Importers
             }
         }
 
-        private bool HydraulicBoundaryLocationsHaveNonExistingId(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocationsToValidate)
+        private bool HydraulicBoundaryLocationsToAddHaveNonExistingId(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocationsToAdd)
         {
             long[] existingHydraulicBoundaryLocationIds = ImportTarget.Locations.Select(hbl => hbl.Id).ToArray();
-            long[] hydraulicBoundaryLocationIdsToValidate = hydraulicBoundaryLocationsToValidate.Select(hbl => hbl.Id).ToArray();
+            long[] newHydraulicBoundaryLocationIds = hydraulicBoundaryLocationsToAdd.Select(hbl => hbl.Id).ToArray();
 
-            if (hydraulicBoundaryLocationIdsToValidate.Except(existingHydraulicBoundaryLocationIds).Count() == hydraulicBoundaryLocationIdsToValidate.Length)
+            if (newHydraulicBoundaryLocationIds.Except(existingHydraulicBoundaryLocationIds).Count() == newHydraulicBoundaryLocationIds.Length)
             {
                 return true;
             }
