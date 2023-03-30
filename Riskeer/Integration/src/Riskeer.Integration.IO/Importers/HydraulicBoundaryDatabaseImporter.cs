@@ -81,14 +81,11 @@ namespace Riskeer.Integration.IO.Importers
                 return false;
             }
 
-            ReadResult<ReadHydraulicLocationConfigurationDatabase> readHydraulicLocationConfigurationDatabaseResult = ReadHydraulicLocationConfigurationDatabase();
-
-            if (readHydraulicLocationConfigurationDatabaseResult.CriticalErrorOccurred || Canceled)
+            ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = TryReadHydraulicLocationConfigurationDatabase();
+            if (readHydraulicLocationConfigurationDatabase == null)
             {
                 return false;
             }
-
-            ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = readHydraulicLocationConfigurationDatabaseResult.Items.Single();
 
             ReadResult<IEnumerable<long>> readExcludedLocationIdsResult = ReadExcludedLocationIds();
 
@@ -175,47 +172,52 @@ namespace Riskeer.Integration.IO.Importers
             return readHydraulicBoundaryDatabaseResult.Items.Single();
         }
 
-        private ReadResult<ReadHydraulicLocationConfigurationDatabase> ReadHydraulicLocationConfigurationDatabase()
+        private ReadHydraulicLocationConfigurationDatabase TryReadHydraulicLocationConfigurationDatabase()
         {
             NotifyProgress(Resources.HydraulicBoundaryDataImporter_ProgressText_Reading_Hlcd_file, 2, numberOfSteps);
+
+            ReadResult<ReadHydraulicLocationConfigurationDatabase> readHydraulicLocationConfigurationDatabaseResult;
+
             try
             {
                 using (var reader = new HydraulicLocationConfigurationDatabaseReader(ImportTarget.HydraulicLocationConfigurationDatabase.FilePath))
                 {
-                    return ReadHydraulicLocationConfigurationDatabase(reader);
+                    try
+                    {
+                        readHydraulicLocationConfigurationDatabaseResult = new ReadResult<ReadHydraulicLocationConfigurationDatabase>(false)
+                        {
+                            Items = new[]
+                            {
+                                reader.Read()
+                            }
+                        };
+                    }
+                    catch (Exception e) when (e is CriticalFileReadException || e is LineParseException)
+                    {
+                        readHydraulicLocationConfigurationDatabaseResult = HandleCriticalFileReadError<ReadHydraulicLocationConfigurationDatabase>(e);
+                    }
                 }
             }
             catch (CriticalFileReadException)
             {
-                return HandleCriticalFileReadError<ReadHydraulicLocationConfigurationDatabase>(Resources.HydraulicBoundaryDatabaseImporter_Hlcd_sqlite_not_found);
+                readHydraulicLocationConfigurationDatabaseResult = HandleCriticalFileReadError<ReadHydraulicLocationConfigurationDatabase>(Resources.HydraulicBoundaryDatabaseImporter_Hlcd_sqlite_not_found);
             }
-        }
 
-        private ReadResult<ReadHydraulicLocationConfigurationDatabase> ReadHydraulicLocationConfigurationDatabase(HydraulicLocationConfigurationDatabaseReader reader)
-        {
-            try
+            if (readHydraulicLocationConfigurationDatabaseResult.CriticalErrorOccurred || Canceled)
             {
-                return new ReadResult<ReadHydraulicLocationConfigurationDatabase>(false)
-                {
-                    Items = new[]
-                    {
-                        reader.Read()
-                    }
-                };
+                return null;
             }
-            catch (Exception e) when (e is CriticalFileReadException || e is LineParseException)
-            {
-                return HandleCriticalFileReadError<ReadHydraulicLocationConfigurationDatabase>(e);
-            }
+
+            return readHydraulicLocationConfigurationDatabaseResult.Items.Single();
         }
 
         private ReadResult<IEnumerable<long>> ReadExcludedLocationIds()
         {
             NotifyProgress(Resources.HydraulicBoundaryDatabaseImporter_ProgressText_Reading_Hrd_settings_file, 3, numberOfSteps);
-            string hbsdFilePath = HydraulicBoundaryDataHelper.GetHydraulicBoundarySettingsDatabaseFilePath(FilePath);
+            
             try
             {
-                using (var reader = new HydraRingSettingsDatabaseReader(hbsdFilePath))
+                using (var reader = new HydraRingSettingsDatabaseReader(HydraulicBoundaryDataHelper.GetHydraulicBoundarySettingsDatabaseFilePath(FilePath)))
                 {
                     return ReadExcludedLocationIds(reader);
                 }
