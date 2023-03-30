@@ -354,6 +354,30 @@ namespace Riskeer.Integration.IO.Test.Importers
         }
 
         [Test]
+        public void Import_FileContainsExistingLocationIds_CancelImportWithErrorMessage()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var handler = mocks.StrictMock<IHydraulicBoundaryDataUpdateHandler>();
+            mocks.ReplayAll();
+
+            HydraulicBoundaryData hydraulicBoundaryData = CreateLinkedHydraulicBoundaryData();
+
+            hydraulicBoundaryData.Locations.Add(new HydraulicBoundaryLocation(100001, "Test", 2, 3));
+
+            var importer = new HydraulicBoundaryDatabaseImporter(hydraulicBoundaryData, handler, validHrdFilePath);
+
+            // Call
+            var importSuccessful = true;
+            void Call() => importSuccessful = importer.Import();
+
+            // Assert
+            var expectedMessage = $"Fout bij het lezen van bestand '{validHrdFilePath}': het HRD bestand bevat een of meerdere locaties met een id dat reeds voorkomt.";
+            AssertImportFailed(Call, expectedMessage, ref importSuccessful);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         [TestCaseSource(nameof(GetValidFiles))]
         public void Import_WithValidFileAndHlcdWithoutScenarioInformation_UpdatesHydraulicBoundaryDataWithImportedData(
             string filePath, bool usePreprocessorClosure)
