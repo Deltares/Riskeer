@@ -41,7 +41,6 @@ namespace Riskeer.Integration.Plugin.Handlers
     {
         private readonly AssessmentSection assessmentSection;
         private readonly IDuneLocationsReplacementHandler duneLocationsReplacementHandler;
-        private bool updateLocations;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryDataUpdateHandler"/>.
@@ -95,48 +94,48 @@ namespace Riskeer.Integration.Plugin.Handlers
                 throw new ArgumentNullException(nameof(hrdFilePath));
             }
 
-            var changedObjects = new List<IObservable>
-            {
-                hydraulicBoundaryData.HydraulicBoundaryDatabases
-            };
+            IEnumerable<HydraulicBoundaryLocation> newHydraulicBoundaryLocations = CreateHydraulicBoundaryLocations(
+                readHydraulicBoundaryDatabase.Locations,
+                readHydraulicLocationConfigurationDatabase.ReadHydraulicLocations
+                                                          .Where(rhl => rhl.TrackId == readHydraulicBoundaryDatabase.TrackId),
+                excludedLocationIds.ToArray());
 
-            hydraulicBoundaryData.HydraulicBoundaryDatabases.Add(new HydraulicBoundaryDatabase
+            var newHydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 FilePath = hrdFilePath,
                 Version = readHydraulicBoundaryDatabase.Version,
                 UsePreprocessorClosure = readHydraulicLocationConfigurationDatabase.ReadTracks
                                                                                    .FirstOrDefault(rt => rt.TrackId == readHydraulicBoundaryDatabase.TrackId)?
                                                                                    .UsePreprocessorClosure ?? false
-            });
+            };
 
-            SetLocations(hydraulicBoundaryData, readHydraulicBoundaryDatabase.Locations,
-                         readHydraulicLocationConfigurationDatabase.ReadHydraulicLocations.Where(rhl => rhl.TrackId == readHydraulicBoundaryDatabase.TrackId),
-                         excludedLocationIds.ToArray());
+            newHydraulicBoundaryDatabase.Locations.AddRange(newHydraulicBoundaryLocations);
+
+            hydraulicBoundaryData.HydraulicBoundaryDatabases.Add(newHydraulicBoundaryDatabase);
+
+            hydraulicBoundaryData.Locations.AddRange(newHydraulicBoundaryLocations);
 
             assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryData.Locations);
-
             duneLocationsReplacementHandler.Replace(hydraulicBoundaryData.Locations);
+
+            var changedObjects = new List<IObservable>();
 
             changedObjects.AddRange(GetLocationsAndCalculationsObservables(hydraulicBoundaryData));
             changedObjects.AddRange(RiskeerDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(assessmentSection));
 
-            
-            
             return changedObjects;
         }
 
         public void DoPostUpdateActions()
         {
-            if (updateLocations)
-            {
-                duneLocationsReplacementHandler.DoPostReplacementUpdates();
-            }
+            duneLocationsReplacementHandler.DoPostReplacementUpdates();
         }
 
         private IEnumerable<IObservable> GetLocationsAndCalculationsObservables(HydraulicBoundaryData hydraulicBoundaryData)
         {
             var locationsAndCalculationsObservables = new List<IObservable>
             {
+                hydraulicBoundaryData.HydraulicBoundaryDatabases,
                 hydraulicBoundaryData.Locations,
                 assessmentSection.WaterLevelCalculationsForSignalFloodingProbability,
                 assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability,
@@ -154,11 +153,10 @@ namespace Riskeer.Integration.Plugin.Handlers
             return locationsAndCalculationsObservables;
         }
 
-        private static void SetLocations(HydraulicBoundaryData hydraulicBoundaryData, IEnumerable<ReadHydraulicBoundaryLocation> readLocations,
-                                         IEnumerable<ReadHydraulicLocation> readHydraulicLocations, long[] excludedLocationIds)
+        private static IEnumerable<HydraulicBoundaryLocation> CreateHydraulicBoundaryLocations(IEnumerable<ReadHydraulicBoundaryLocation> readLocations,
+                                                                                               IEnumerable<ReadHydraulicLocation> readHydraulicLocations,
+                                                                                               long[] excludedLocationIds)
         {
-            hydraulicBoundaryData.Locations.Clear();
-
             Array.Sort(excludedLocationIds);
 
             foreach (ReadHydraulicBoundaryLocation readLocation in readLocations)
@@ -169,16 +167,15 @@ namespace Riskeer.Integration.Plugin.Handlers
 
                 if (locationConfigurationId != 0 && ShouldInclude(excludedLocationIds, locationConfigurationId))
                 {
-                    hydraulicBoundaryData.Locations.Add(new HydraulicBoundaryLocation(locationConfigurationId, readLocation.Name,
-                                                                                      readLocation.CoordinateX, readLocation.CoordinateY));
+                    yield return new HydraulicBoundaryLocation(locationConfigurationId, readLocation.Name,
+                                                               readLocation.CoordinateX, readLocation.CoordinateY);
                 }
             }
         }
 
         private static bool ShouldInclude(long[] excludedLocationIds, long locationId)
         {
-            int matchingIndex = Array.BinarySearch(excludedLocationIds, locationId);
-            return matchingIndex < 0;
+            return Array.BinarySearch(excludedLocationIds, locationId) < 0;
         }
     }
 }
