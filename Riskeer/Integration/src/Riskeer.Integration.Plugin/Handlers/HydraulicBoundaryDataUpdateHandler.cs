@@ -29,7 +29,6 @@ using Riskeer.HydraRing.IO.HydraulicBoundaryDatabase;
 using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.IO.Handlers;
-using Riskeer.Integration.Plugin.Helpers;
 using Riskeer.Integration.Service;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 
@@ -96,13 +95,6 @@ namespace Riskeer.Integration.Plugin.Handlers
                 throw new ArgumentNullException(nameof(hrdFilePath));
             }
 
-            if (!IsValidReadHydraulicLocationConfigurationDatabase(readHydraulicLocationConfigurationDatabase))
-            {
-                string errorMessage = $"{nameof(readHydraulicLocationConfigurationDatabase)} must be null or contain exactly one item for " +
-                                      "the collection of read hydraulic location configuration settings.";
-                throw new ArgumentException(errorMessage);
-            }
-
             var changedObjects = new List<IObservable>();
 
             updateLocations = !hydraulicBoundaryData.IsLinked() || hydraulicBoundaryData.Version != readHydraulicBoundaryDatabase.Version;
@@ -131,11 +123,6 @@ namespace Riskeer.Integration.Plugin.Handlers
                 }
             }
 
-            HydraulicLocationConfigurationDatabaseUpdateHelper.UpdateHydraulicLocationConfigurationDatabase(
-                hydraulicBoundaryData.HydraulicLocationConfigurationDatabase,
-                readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationSettings?.Single(),
-                hydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath);
-
             return changedObjects;
         }
 
@@ -145,12 +132,6 @@ namespace Riskeer.Integration.Plugin.Handlers
             {
                 duneLocationsReplacementHandler.DoPostReplacementUpdates();
             }
-        }
-
-        private static bool IsValidReadHydraulicLocationConfigurationDatabase(ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase)
-        {
-            return readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationSettings == null
-                   || readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationSettings.Count() == 1;
         }
 
         private IEnumerable<IObservable> GetLocationsAndCalculationsObservables(HydraulicBoundaryData hydraulicBoundaryData)
