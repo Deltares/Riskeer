@@ -355,7 +355,7 @@ namespace Riskeer.Integration.IO.Test.Importers
 
         [Test]
         [TestCaseSource(nameof(GetValidFiles))]
-        public void Import_WithValidFileAndHlcdWithoutScenarioInformation_UpdatesHydraulicBoundaryDatabaseWithImportedData(
+        public void Import_WithValidFileAndHlcdWithoutScenarioInformation_UpdatesHydraulicBoundaryDataWithImportedData(
             string filePath, bool usePreprocessorClosure)
         {
             // Setup
@@ -407,7 +407,7 @@ namespace Riskeer.Integration.IO.Test.Importers
         }
 
         [Test]
-        public void Import_WithValidFileAndHlcdWithValidScenarioInformation_UpdatesHydraulicBoundaryDatabaseWithImportedData()
+        public void Import_WithValidFileAndHlcdWithValidScenarioInformation_UpdatesHydraulicBoundaryDataWithImportedData()
         {
             // Setup
             string hrdFilePath = Path.Combine(testDataPath, "hlcdWithValidScenarioInformation", "complete.sqlite");
@@ -520,7 +520,7 @@ namespace Riskeer.Integration.IO.Test.Importers
         }
 
         [Test]
-        public void Import_CancelImportDuringAddReadDataToDataModel_ContinuesImportAndLogs()
+        public void Import_CancelImportDuringUpdateOfDataModel_ContinuesImportAndLogs()
         {
             // Setup
             var mocks = new MockRepository();
