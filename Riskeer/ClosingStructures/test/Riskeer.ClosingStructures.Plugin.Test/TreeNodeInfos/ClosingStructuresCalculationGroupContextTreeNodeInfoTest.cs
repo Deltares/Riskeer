@@ -971,30 +971,50 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub(mocks);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new TestClosingStructuresCalculationScenario
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+            var failureMechanism = new ClosingStructuresFailureMechanism
             {
-                Name = "A",
-                InputParameters =
+                CalculationsGroup =
                 {
-                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+                    Children =
+                    {
+                        new TestClosingStructuresCalculationScenario
+                        {
+                            Name = "A",
+                            InputParameters =
+                            {
+                                HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                            }
+                        },
+                        new TestClosingStructuresCalculationScenario
+                        {
+                            Name = "B",
+                            InputParameters =
+                            {
+                                HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                            }
+                        }
+                    }
                 }
-            });
-            failureMechanism.CalculationsGroup.Children.Add(new TestClosingStructuresCalculationScenario
-            {
-                Name = "B",
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
-                }
-            });
+            };
 
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = validHrdFilePath,
                 HydraulicLocationConfigurationDatabase =
                 {
                     FilePath = validHlcdFilePath
+                },
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        FilePath = validHrdFilePath,
+                        Locations =
+                        {
+                            hydraulicBoundaryLocation
+                        }
+                    }
                 }
             };
 
@@ -1022,7 +1042,8 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                                  .WhenCalled(invocation =>
                                  {
                                      HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData),
+                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData,
+                                                                                                    hydraulicBoundaryLocation),
                                          (HydraRingCalculationSettings) invocation.Arguments[0]);
                                  })
                                  .Return(new TestStructuresCalculator<StructuresClosureCalculationInput>())
