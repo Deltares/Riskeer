@@ -30,18 +30,27 @@ namespace Riskeer.Common.Data.Hydraulics
     {
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryCalculationSettings"/> based on the provided
-        /// <paramref name="hydraulicBoundaryData"/>.
+        /// <paramref name="hydraulicBoundaryData"/> and <paramref name="hydraulicBoundaryLocation"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryData">The <see cref="HydraulicBoundaryData"/> to create the
         /// <see cref="HydraulicBoundaryCalculationSettings"/> for.</param>
+        /// <param name="hydraulicBoundaryLocation">The <see cref="HydraulicBoundaryLocation"/> to create the
+        /// <see cref="HydraulicBoundaryCalculationSettings"/> for.</param>
         /// <returns>A <see cref="HydraulicBoundaryCalculationSettings"/> instance.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when either the hydraulic boundary database file path or the hydraulic
         /// location configuration database file path is <c>null</c>, is empty or consists of whitespaces.</exception>
-        public static HydraulicBoundaryCalculationSettings CreateSettings(HydraulicBoundaryData hydraulicBoundaryData)
+        public static HydraulicBoundaryCalculationSettings CreateSettings(HydraulicBoundaryData hydraulicBoundaryData,
+                                                                          HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             if (hydraulicBoundaryData == null)
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryData));
+            }
+
+            if (hydraulicBoundaryLocation == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryLocation));
             }
 
             return new HydraulicBoundaryCalculationSettings(hydraulicBoundaryData.FilePath,

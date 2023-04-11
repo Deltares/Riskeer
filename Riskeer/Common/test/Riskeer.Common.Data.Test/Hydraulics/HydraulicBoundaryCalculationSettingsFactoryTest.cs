@@ -23,6 +23,7 @@ using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.TestUtil;
 
 namespace Riskeer.Common.Data.Test.Hydraulics
 {
@@ -33,11 +34,22 @@ namespace Riskeer.Common.Data.Test.Hydraulics
         public void CreateSettings_HydraulicBoundaryDataNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => HydraulicBoundaryCalculationSettingsFactory.CreateSettings(null);
+            void Call() => HydraulicBoundaryCalculationSettingsFactory.CreateSettings(null, new TestHydraulicBoundaryLocation());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("hydraulicBoundaryData", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateSettings_HydraulicBoundaryLocationNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => HydraulicBoundaryCalculationSettingsFactory.CreateSettings(new HydraulicBoundaryData(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("hydraulicBoundaryLocation", exception.ParamName);
         }
 
         [Test]
