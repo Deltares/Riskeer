@@ -924,17 +924,24 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             observer.Expect(o => o.UpdateObserver());
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = validHrdFilePath,
                 HydraulicLocationConfigurationDatabase =
                 {
                     FilePath = validHlcdFilePath
                 },
                 Version = "random",
-                Locations =
+                HydraulicBoundaryDatabases =
                 {
-                    hydraulicBoundaryLocation
+                    new HydraulicBoundaryDatabase
+                    {
+                        FilePath = validHrdFilePath,
+                        Locations =
+                        {
+                            hydraulicBoundaryLocation
+                        }
+                    }
                 }
             };
 
@@ -972,7 +979,8 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                                  .WhenCalled(invocation =>
                                  {
                                      HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData),
+                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData,
+                                                                                                    hydraulicBoundaryLocation),
                                          (HydraRingCalculationSettings) invocation.Arguments[0]);
                                  })
                                  .Return(new TestStructuresCalculator<StructuresStabilityPointCalculationInput>());
