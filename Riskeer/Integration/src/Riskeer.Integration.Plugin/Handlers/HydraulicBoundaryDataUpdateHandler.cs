@@ -111,6 +111,7 @@ namespace Riskeer.Integration.Plugin.Handlers
 
             newHydraulicBoundaryDatabase.Locations.AddRange(newHydraulicBoundaryLocations);
 
+            hydraulicBoundaryData.FilePath = hrdFilePath;
             hydraulicBoundaryData.HydraulicBoundaryDatabases.Add(newHydraulicBoundaryDatabase);
 
             hydraulicBoundaryData.Locations.AddRange(newHydraulicBoundaryLocations);
