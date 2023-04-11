@@ -402,7 +402,7 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Databases.
+        ///   Looks up a localized string similar to Hydraulische databases.
         /// </summary>
         public static string HydraulicBoundaryData_DisplayName {
             get {

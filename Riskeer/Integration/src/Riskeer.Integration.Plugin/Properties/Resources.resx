@@ -343,6 +343,6 @@ Weet u zeker dat u wilt doorgaan?</value>
         <value>Voeg een nieuw HRD bestand toe aan deze map.</value>
     </data>
     <data name="HydraulicBoundaryData_DisplayName" xml:space="preserve">
-        <value>Databases</value>
+        <value>Hydraulische databases</value>
     </data>
 </root>

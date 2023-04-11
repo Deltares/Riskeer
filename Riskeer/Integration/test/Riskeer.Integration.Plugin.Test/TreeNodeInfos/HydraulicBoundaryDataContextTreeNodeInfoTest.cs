@@ -91,7 +91,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 string text = info.Text(null);
 
                 // Assert
-                Assert.AreEqual("Databases", text);
+                Assert.AreEqual("Hydraulische databases", text);
             }
         }
 
