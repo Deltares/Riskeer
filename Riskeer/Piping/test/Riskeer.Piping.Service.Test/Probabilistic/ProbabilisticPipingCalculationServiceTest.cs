@@ -2085,7 +2085,10 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
                 failureMechanism, mocks, validHrdFilePath, usePreprocessorClosure);
 
-            HydraulicBoundaryCalculationSettings calculationSettings = HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData);
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.Locations.First(hl => hl.Id == 1300001);
+
+            HydraulicBoundaryCalculationSettings calculationSettings = HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                assessmentSection.HydraulicBoundaryData, hydraulicBoundaryLocation);
 
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreatePipingCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
@@ -2098,7 +2101,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
                              .Repeat.Twice();
             mocks.ReplayAll();
 
-            calculation.InputParameters.HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.Locations.First(hl => hl.Id == 1300001);
+            calculation.InputParameters.HydraulicBoundaryLocation = hydraulicBoundaryLocation;
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
