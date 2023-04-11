@@ -174,8 +174,7 @@ namespace Riskeer.Storage.Core.TestUtil
             SetSectionResults(closingStructuresFailureMechanism.SectionResults);
 
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.DuneErosion;
-            ConfigureDuneErosionFailureMechanism(duneErosionFailureMechanism, assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases
-                                                                                               .Single().Locations);
+            ConfigureDuneErosionFailureMechanism(duneErosionFailureMechanism, assessmentSection.HydraulicBoundaryData.GetLocations());
             SetSections(duneErosionFailureMechanism);
             SetSectionResults(duneErosionFailureMechanism.SectionResults);
 
@@ -1345,7 +1344,7 @@ namespace Riskeer.Storage.Core.TestUtil
         #region DuneErosion FailureMechanism
 
         private static void ConfigureDuneErosionFailureMechanism(DuneErosionFailureMechanism failureMechanism,
-                                                                 ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
+                                                                 IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
         {
             failureMechanism.CalculationsInputComments.Body = $"Calculations input comment: {failureMechanism.Name}";
 
@@ -1363,7 +1362,7 @@ namespace Riskeer.Storage.Core.TestUtil
         }
 
         private static void SetDuneLocations(DuneErosionFailureMechanism failureMechanism,
-                                             ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
+                                             IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
         {
             var locationOne = new DuneLocation("DuneLocation", hydraulicBoundaryLocations.ElementAt(0),
                                                new DuneLocation.ConstructionProperties());
