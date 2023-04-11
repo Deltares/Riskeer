@@ -84,6 +84,7 @@ namespace Riskeer.DuneErosion.Data.Test
                                                 });
 
             // Assert
+            Assert.AreSame(hydraulicBoundaryLocation, duneLocation.HydraulicBoundaryLocation);
             Assert.AreEqual(hydraulicBoundaryLocation.Id, duneLocation.Id);
             Assert.AreEqual(name, duneLocation.Name);
             Assert.AreSame(hydraulicBoundaryLocation.Location, duneLocation.Location);
