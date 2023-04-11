@@ -39,7 +39,33 @@ INSERT INTO DuneErosionFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].
 INSERT INTO DuneLocationCalculationEntity SELECT * FROM [SOURCEPROJECT].DuneLocationCalculationEntity;
 INSERT INTO DuneLocationCalculationForTargetProbabilityCollectionEntity SELECT * FROM [SOURCEPROJECT].DuneLocationCalculationForTargetProbabilityCollectionEntity;
 INSERT INTO DuneLocationCalculationOutputEntity SELECT * FROM [SOURCEPROJECT].DuneLocationCalculationOutputEntity;
-INSERT INTO DuneLocationEntity SELECT * FROM [SOURCEPROJECT].DuneLocationEntity;
+INSERT INTO DuneLocationEntity (
+    [DuneLocationEntityId],
+    [HydraulicLocationEntityId],
+    [FailureMechanismEntityId],
+    [Name],
+    [CoastalAreaId],
+    [Offset],
+    [Orientation],
+    [D50],
+    [Order]
+)
+SELECT
+    [DuneLocationEntityId],
+    [HydraulicLocationEntityId],
+    [FailureMechanismEntityId],
+    [Name],
+    [CoastalAreaId],
+    [Offset],
+    [Orientation],
+    [D50],
+    [Order]
+FROM [SOURCEPROJECT].DuneLocationEntity
+JOIN (
+    SELECT HydraulicLocationEntityId, LocationId
+    FROM [SOURCEPROJECT].HydraulicLocationEntity
+)
+USING(LocationId);
 INSERT INTO FailureMechanismFailureMechanismSectionEntity SELECT * FROM [SOURCEPROJECT].FailureMechanismFailureMechanismSectionEntity;
 INSERT INTO FaultTreeIllustrationPointEntity SELECT * FROM [SOURCEPROJECT].FaultTreeIllustrationPointEntity;
 INSERT INTO FaultTreeIllustrationPointStochastEntity SELECT * FROM [SOURCEPROJECT].FaultTreeIllustrationPointStochastEntity;

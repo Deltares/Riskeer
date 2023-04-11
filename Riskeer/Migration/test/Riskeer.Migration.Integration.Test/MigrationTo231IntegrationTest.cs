@@ -60,6 +60,8 @@ namespace Riskeer.Migration.Integration.Test
                     AssertVersions(reader);
                     AssertDatabase(reader);
 
+                    AssertDuneLocation(reader, sourceFilePath);
+
                     AssertHydraulicBoundaryData(reader, sourceFilePath);
                     AssertHydraulicBoundaryDatabase(reader, sourceFilePath);
                     AssertHydraulicLocation(reader, sourceFilePath);
@@ -67,6 +69,35 @@ namespace Riskeer.Migration.Integration.Test
 
                 AssertLogDatabase(logFilePath);
             }
+        }
+
+        private static void AssertDuneLocation(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateDuneLocation =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.DuneLocationEntity " +
+                ") " +
+                "FROM DuneLocationEntity NEW " +
+                "JOIN SOURCEPROJECT.DuneLocationEntity OLD USING(DuneLocationEntityId) " +
+                "JOIN (" +
+                "SELECT HydraulicLocationEntityId, LocationId " +
+                "FROM SOURCEPROJECT.HydraulicLocationEntity " +
+                ") HYDRAULICLOCATION " +
+                "USING(LocationId) " +
+                "WHERE NEW.[FailureMechanismEntityId] = OLD.[FailureMechanismEntityId] " +
+                "AND NEW.[HydraulicLocationEntityId] = HYDRAULICLOCATION.[HydraulicLocationEntityId] " +
+                "AND NEW.[Name] = OLD.[Name]" +
+                "AND NEW.[CoastalAreaId] = OLD.[CoastalAreaId] " +
+                "AND NEW.[Offset] IS OLD.[Offset] " +
+                "AND NEW.[Orientation] IS OLD.[Orientation] " +
+                "AND NEW.[D50] IS OLD.[D50] " +
+                "AND NEW.\"Order\" = OLD.\"Order\"; " +
+                "DETACH SOURCEPROJECT";
+
+            reader.AssertReturnedDataIsValid(validateDuneLocation);
         }
 
         private static void AssertHydraulicBoundaryData(MigratedDatabaseReader reader, string sourceFilePath)
@@ -178,7 +209,6 @@ namespace Riskeer.Migration.Integration.Test
                 "DuneLocationCalculationEntity",
                 "DuneLocationCalculationForTargetProbabilityCollectionEntity",
                 "DuneLocationCalculationOutputEntity",
-                "DuneLocationEntity",
                 "FailureMechanismFailureMechanismSectionEntity",
                 "FaultTreeIllustrationPointEntity",
                 "FaultTreeIllustrationPointStochastEntity",
