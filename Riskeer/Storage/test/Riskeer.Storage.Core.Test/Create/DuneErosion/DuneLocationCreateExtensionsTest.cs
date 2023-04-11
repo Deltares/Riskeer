@@ -65,13 +65,14 @@ namespace Riskeer.Storage.Core.Test.Create.DuneErosion
             // Setup
             const string testName = "testName";
             var random = new Random(21);
+            int id = random.Next(0, 150);
             double coordinateX = random.NextDouble();
             double coordinateY = random.NextDouble();
-            int id = random.Next(0, 150);
-            int order = random.Next();
-            var registry = new PersistenceRegistry();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, string.Empty, coordinateX, coordinateY);
 
-            var location = new DuneLocation(testName, new HydraulicBoundaryLocation(id, string.Empty, coordinateX, coordinateY),
+            int order = random.Next();
+
+            var location = new DuneLocation(testName, hydraulicBoundaryLocation,
                                             new DuneLocation.ConstructionProperties
                                             {
                                                 CoastalAreaId = random.Next(),
@@ -80,15 +81,16 @@ namespace Riskeer.Storage.Core.Test.Create.DuneErosion
                                                 D50 = random.NextDouble()
                                             });
 
+            var registry = new PersistenceRegistry();
+            var hydraulicLocationEntity = new HydraulicLocationEntity();
+            registry.Register(hydraulicLocationEntity, hydraulicBoundaryLocation);
+
             // Call
             DuneLocationEntity entity = location.Create(registry, order);
 
             // Assert
             Assert.IsNotNull(entity);
-            Assert.AreEqual(id, entity.LocationId);
             Assert.AreEqual(testName, entity.Name);
-            Assert.AreEqual(coordinateX, entity.LocationX);
-            Assert.AreEqual(coordinateY, entity.LocationY);
             Assert.AreEqual(location.CoastalAreaId, entity.CoastalAreaId);
             Assert.AreEqual(location.Offset, entity.Offset, location.Offset.GetAccuracy());
             Assert.AreEqual(location.Orientation, entity.Orientation, location.Orientation.GetAccuracy());
@@ -102,10 +104,11 @@ namespace Riskeer.Storage.Core.Test.Create.DuneErosion
             // Setup
             var random = new Random(28);
             int id = random.Next(0, 150);
-            int order = random.Next();
-            var registry = new PersistenceRegistry();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, string.Empty, double.NaN, double.NaN);
 
-            var location = new DuneLocation(string.Empty, new HydraulicBoundaryLocation(id, string.Empty, double.NaN, double.NaN),
+            int order = random.Next();
+
+            var location = new DuneLocation(string.Empty, hydraulicBoundaryLocation,
                                             new DuneLocation.ConstructionProperties
                                             {
                                                 Offset = double.NaN,
@@ -113,15 +116,16 @@ namespace Riskeer.Storage.Core.Test.Create.DuneErosion
                                                 D50 = double.NaN
                                             });
 
+            var registry = new PersistenceRegistry();
+            var hydraulicLocationEntity = new HydraulicLocationEntity();
+            registry.Register(hydraulicLocationEntity, hydraulicBoundaryLocation);
+
             // Call
             DuneLocationEntity entity = location.Create(registry, order);
 
             // Assert
             Assert.IsNotNull(entity);
-            Assert.AreEqual(id, entity.LocationId);
             Assert.IsEmpty(entity.Name);
-            Assert.IsNull(entity.LocationX);
-            Assert.IsNull(entity.LocationY);
             Assert.IsNull(entity.Offset);
             Assert.IsNull(entity.Orientation);
             Assert.IsNull(entity.D50);
@@ -129,13 +133,36 @@ namespace Riskeer.Storage.Core.Test.Create.DuneErosion
         }
 
         [Test]
+        public void Create_DuneLocationWithAlreadyRegisteredHydraulicLocation_ReturnsEntityWithHydraulicLocationEntity()
+        {
+            // Setup
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            var duneLocation = new DuneLocation(string.Empty, hydraulicBoundaryLocation, new DuneLocation.ConstructionProperties());
+
+            var registry = new PersistenceRegistry();
+            var hydraulicLocationEntity = new HydraulicLocationEntity();
+            registry.Register(hydraulicLocationEntity, hydraulicBoundaryLocation);
+
+            // Call
+            DuneLocationEntity entity = duneLocation.Create(registry, 0);
+
+            // Assert
+            Assert.IsNotNull(entity);
+            Assert.AreSame(hydraulicLocationEntity, entity.HydraulicLocationEntity);
+        }
+
+        [Test]
         public void Create_StringPropertiesDoNotShareReferences()
         {
             // Setup
             const string testName = "original name";
-            var location = new DuneLocation(testName, new HydraulicBoundaryLocation(1, string.Empty, 0, 0),
-                                            new DuneLocation.ConstructionProperties());
+            
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
+            var location = new DuneLocation(testName, hydraulicBoundaryLocation, new DuneLocation.ConstructionProperties());
+            
             var registry = new PersistenceRegistry();
+            var hydraulicLocationEntity = new HydraulicLocationEntity();
+            registry.Register(hydraulicLocationEntity, hydraulicBoundaryLocation);
 
             // Call
             DuneLocationEntity entity = location.Create(registry, 0);
@@ -151,9 +178,12 @@ namespace Riskeer.Storage.Core.Test.Create.DuneErosion
         public void Create_DuneLocationSavedMultipleTimes_ReturnSameEntity()
         {
             // Setup
-            var location = new TestDuneLocation();
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            var location = new DuneLocation(string.Empty, hydraulicBoundaryLocation, new DuneLocation.ConstructionProperties());
 
             var registry = new PersistenceRegistry();
+            var hydraulicLocationEntity = new HydraulicLocationEntity();
+            registry.Register(hydraulicLocationEntity, hydraulicBoundaryLocation);
 
             // Call
             DuneLocationEntity entity1 = location.Create(registry, 0);

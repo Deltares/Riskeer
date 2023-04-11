@@ -58,10 +58,8 @@ namespace Riskeer.Storage.Core.Create.DuneErosion
 
             var entity = new DuneLocationEntity
             {
-                LocationId = location.Id,
+                HydraulicLocationEntity = registry.Get(location.HydraulicBoundaryLocation),
                 Name = location.Name.DeepClone(),
-                LocationX = location.Location.X.ToNaNAsNull(),
-                LocationY = location.Location.Y.ToNaNAsNull(),
                 CoastalAreaId = location.CoastalAreaId,
                 Offset = location.Offset.ToNaNAsNull(),
                 Orientation = location.Orientation.ToNaNAsNull(),

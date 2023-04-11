@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
@@ -173,7 +174,8 @@ namespace Riskeer.Storage.Core.TestUtil
             SetSectionResults(closingStructuresFailureMechanism.SectionResults);
 
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.DuneErosion;
-            ConfigureDuneErosionFailureMechanism(duneErosionFailureMechanism);
+            ConfigureDuneErosionFailureMechanism(duneErosionFailureMechanism, assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases
+                                                                                               .Single().Locations);
             SetSections(duneErosionFailureMechanism);
             SetSectionResults(duneErosionFailureMechanism.SectionResults);
 
@@ -1342,7 +1344,8 @@ namespace Riskeer.Storage.Core.TestUtil
 
         #region DuneErosion FailureMechanism
 
-        private static void ConfigureDuneErosionFailureMechanism(DuneErosionFailureMechanism failureMechanism)
+        private static void ConfigureDuneErosionFailureMechanism(DuneErosionFailureMechanism failureMechanism,
+                                                                 ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
         {
             failureMechanism.CalculationsInputComments.Body = $"Calculations input comment: {failureMechanism.Name}";
 
@@ -1356,14 +1359,15 @@ namespace Riskeer.Storage.Core.TestUtil
                 new DuneLocationCalculationsForTargetProbability(random.NextDouble(0, 0.1))
             });
 
-            SetDuneLocations(failureMechanism);
+            SetDuneLocations(failureMechanism, hydraulicBoundaryLocations);
         }
 
-        private static void SetDuneLocations(DuneErosionFailureMechanism failureMechanism)
+        private static void SetDuneLocations(DuneErosionFailureMechanism failureMechanism,
+                                             ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
         {
-            var locationOne = new DuneLocation("DuneLocation", new HydraulicBoundaryLocation(12, string.Empty, 790, 456),
+            var locationOne = new DuneLocation("DuneLocation", hydraulicBoundaryLocations.ElementAt(0),
                                                new DuneLocation.ConstructionProperties());
-            var locationTwo = new DuneLocation("DuneLocation", new HydraulicBoundaryLocation(13, string.Empty, 791, 457),
+            var locationTwo = new DuneLocation("DuneLocation", hydraulicBoundaryLocations.ElementAt(1),
                                                new DuneLocation.ConstructionProperties());
             failureMechanism.SetDuneLocations(new[]
             {
