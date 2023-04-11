@@ -81,7 +81,8 @@ namespace Riskeer.StabilityPointStructures.Service
 
             calculationService.Calculate(calculation,
                                          failureMechanism.GeneralInput,
-                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData));
+                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData,
+                                                                                                    calculation.InputParameters.HydraulicBoundaryLocation));
         }
 
         protected override void OnCancel()

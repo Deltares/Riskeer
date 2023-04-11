@@ -157,7 +157,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service
             }
 
             HydraulicBoundaryCalculationSettings calculationSettings =
-                HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData);
+                HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData,
+                                                                           calculation.InputParameters.HydraulicBoundaryLocation);
             int numberOfCalculators = CreateCalculators(calculation, calculationSettings);
 
             string hrdFilePath = calculationSettings.HrdFilePath;
