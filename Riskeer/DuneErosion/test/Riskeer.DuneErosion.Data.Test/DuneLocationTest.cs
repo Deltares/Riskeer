@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 
 namespace Riskeer.DuneErosion.Data.Test
@@ -33,21 +33,32 @@ namespace Riskeer.DuneErosion.Data.Test
         public void Constructor_NameNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new DuneLocation(0, null, new Point2D(0.0, 0.0), new DuneLocation.ConstructionProperties());
+            void Call() => new DuneLocation(null, new TestHydraulicBoundaryLocation(), new DuneLocation.ConstructionProperties());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("name", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_HydraulicBoundaryLocationNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new DuneLocation(string.Empty, null, new DuneLocation.ConstructionProperties());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("hydraulicBoundaryLocation", exception.ParamName);
         }
 
         [Test]
         public void Constructor_PropertiesNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new DuneLocation(0, string.Empty, new Point2D(0.0, 0.0), null);
+            void Call() => new DuneLocation(string.Empty, new TestHydraulicBoundaryLocation(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("properties", exception.ParamName);
         }
 
@@ -55,16 +66,15 @@ namespace Riskeer.DuneErosion.Data.Test
         public void Constructor_ExpectedValues()
         {
             // Setup
-            const long id = 0;
             const string name = "Dune location";
-            var location = new Point2D(10.0, 12.0);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "hydraulic boundary location", 10.0, 12.0);
             const int coastalAreaId = 3;
             const double offset = 4.2;
             const double orientation = 4.2;
             const double d50 = 0.123456;
 
             // Call
-            var duneLocation = new DuneLocation(id, name, location,
+            var duneLocation = new DuneLocation(name, hydraulicBoundaryLocation,
                                                 new DuneLocation.ConstructionProperties
                                                 {
                                                     CoastalAreaId = coastalAreaId,
@@ -74,9 +84,9 @@ namespace Riskeer.DuneErosion.Data.Test
                                                 });
 
             // Assert
-            Assert.AreEqual(id, duneLocation.Id);
+            Assert.AreEqual(hydraulicBoundaryLocation.Id, duneLocation.Id);
             Assert.AreEqual(name, duneLocation.Name);
-            Assert.AreSame(location, duneLocation.Location);
+            Assert.AreSame(hydraulicBoundaryLocation.Location, duneLocation.Location);
             Assert.AreEqual(coastalAreaId, duneLocation.CoastalAreaId);
             Assert.AreEqual(offset, duneLocation.Offset.Value);
             Assert.AreEqual(orientation, duneLocation.Orientation.Value);
@@ -87,7 +97,7 @@ namespace Riskeer.DuneErosion.Data.Test
         public void Constructor_WithOffset_OffsetRounded()
         {
             // Call
-            var duneLocation = new DuneLocation(0, "dune", new Point2D(0.0, 0.0),
+            var duneLocation = new DuneLocation("dune", new TestHydraulicBoundaryLocation(),
                                                 new DuneLocation.ConstructionProperties
                                                 {
                                                     Offset = 4.298
@@ -102,7 +112,7 @@ namespace Riskeer.DuneErosion.Data.Test
         public void Constructor_WithOrientation_OrientationRounded()
         {
             // Call
-            var duneLocation = new DuneLocation(0, "dune", new Point2D(0.0, 0.0),
+            var duneLocation = new DuneLocation("dune", new TestHydraulicBoundaryLocation(),
                                                 new DuneLocation.ConstructionProperties
                                                 {
                                                     Orientation = 8.214
@@ -117,7 +127,7 @@ namespace Riskeer.DuneErosion.Data.Test
         public void Constructor_WithD50_D50Rounded()
         {
             // Call
-            var duneLocation = new DuneLocation(0, "dune", new Point2D(0.0, 0.0),
+            var duneLocation = new DuneLocation("dune", new TestHydraulicBoundaryLocation(),
                                                 new DuneLocation.ConstructionProperties
                                                 {
                                                     D50 = 0.1234567
