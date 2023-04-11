@@ -23,11 +23,11 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Security.AccessControl;
-using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.DuneErosion.Data;
 
 namespace Riskeer.DuneErosion.IO.Test
@@ -164,7 +164,7 @@ namespace Riskeer.DuneErosion.IO.Test
 
         private static DuneLocation CreateDuneLocationForExport(int coastalAreaId, double offset, double d50)
         {
-            return new DuneLocation(0, string.Empty, new Point2D(0.0, 0.0), new DuneLocation.ConstructionProperties
+            return new DuneLocation(string.Empty, new TestHydraulicBoundaryLocation(), new DuneLocation.ConstructionProperties
             {
                 CoastalAreaId = coastalAreaId,
                 Offset = offset,
