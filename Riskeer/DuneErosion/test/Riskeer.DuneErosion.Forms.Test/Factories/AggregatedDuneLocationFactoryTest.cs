@@ -23,8 +23,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
-using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Data.TestUtil;
 using Riskeer.DuneErosion.Forms.Factories;
@@ -64,8 +64,8 @@ namespace Riskeer.DuneErosion.Forms.Test.Factories
             var random = new Random(21);
             var duneLocations = new[]
             {
-                new DuneLocation(1, "location1", new Point2D(1, 1), new DuneLocation.ConstructionProperties()),
-                new DuneLocation(2, "location2", new Point2D(2, 2), new DuneLocation.ConstructionProperties())
+                new DuneLocation("location1", new HydraulicBoundaryLocation(1, string.Empty, 1, 1), new DuneLocation.ConstructionProperties()),
+                new DuneLocation("location2", new HydraulicBoundaryLocation(2, string.Empty, 2, 2), new DuneLocation.ConstructionProperties())
             };
 
             var targetProbabilities = new[]
