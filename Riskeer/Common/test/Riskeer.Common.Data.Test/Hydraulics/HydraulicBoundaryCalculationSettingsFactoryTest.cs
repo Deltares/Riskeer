@@ -53,28 +53,49 @@ namespace Riskeer.Common.Data.Test.Hydraulics
         }
 
         [Test]
-        public void CreateSettings_WithLinkedHydraulicBoundaryData_ReturnsExpectedSettings()
+        public void CreateSettings_WithLinkedHydraulicBoundaryDataAndValidHydraulicBoundaryLocation_ReturnsExpectedSettings()
         {
             // Setup
-            const string hrdFilePath = "some//FilePath//HRD dutch coast south.sqlite";
-            const string hlcdFilePath = "some//FilePath//HLCD dutch coast south.sqlite";
+            var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
+            var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation();
+            const string hrdFilePath1 = "some//FilePath//HRD dutch coast south.sqlite";
+            const string hrdFilePath2 = "some//FilePath//HRD dutch coast north.sqlite";
+            const string hlcdFilePath = "some//FilePath//HLCD.sqlite";
             bool usePreprocessorClosure = new Random(21).NextBoolean();
 
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = hrdFilePath,
                 HydraulicLocationConfigurationDatabase =
                 {
                     FilePath = hlcdFilePath,
                     UsePreprocessorClosure = usePreprocessorClosure
+                },
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        FilePath = hrdFilePath1,
+                        Locations =
+                        {
+                            hydraulicBoundaryLocation1
+                        }
+                    },
+                    new HydraulicBoundaryDatabase
+                    {
+                        FilePath = hrdFilePath2,
+                        Locations =
+                        {
+                            hydraulicBoundaryLocation2
+                        }
+                    }
                 }
             };
 
             // Call
-            HydraulicBoundaryCalculationSettings settings = HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData);
+            HydraulicBoundaryCalculationSettings settings = HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData, hydraulicBoundaryLocation2);
 
             // Assert
-            Assert.AreEqual(hrdFilePath, settings.HrdFilePath);
+            Assert.AreEqual(hrdFilePath2, settings.HrdFilePath);
             Assert.AreEqual(hlcdFilePath, settings.HlcdFilePath);
             Assert.AreEqual(usePreprocessorClosure, settings.UsePreprocessorClosure);
         }

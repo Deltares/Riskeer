@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 
 namespace Riskeer.Common.Data.Hydraulics
 {
@@ -53,7 +54,13 @@ namespace Riskeer.Common.Data.Hydraulics
                 throw new ArgumentNullException(nameof(hydraulicBoundaryLocation));
             }
 
-            return new HydraulicBoundaryCalculationSettings(hydraulicBoundaryData.FilePath,
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = hydraulicBoundaryData.HydraulicBoundaryDatabases.FirstOrDefault(hbd => hbd.Locations.Contains(hydraulicBoundaryLocation));
+            if (hydraulicBoundaryDatabase == null)
+            {
+                throw new ArgumentException($"'{nameof(hydraulicBoundaryLocation)}' is not part of '{nameof(hydraulicBoundaryData)}'.");
+            }
+
+            return new HydraulicBoundaryCalculationSettings(hydraulicBoundaryDatabase.FilePath,
                                                             hydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath,
                                                             hydraulicBoundaryData.HydraulicLocationConfigurationDatabase.UsePreprocessorClosure);
         }
