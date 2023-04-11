@@ -27,7 +27,7 @@ using Riskeer.Migration.Core.TestUtil;
 
 namespace Riskeer.Migration.Integration.Test
 {
-    public class MigrationTo222IntegrationTest
+    public class MigrationTo231IntegrationTest
     {
         private const string newVersion = "23.1";
 
