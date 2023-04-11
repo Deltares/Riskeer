@@ -33,6 +33,7 @@ using Riskeer.ClosingStructures.Service;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Structures;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Service;
 using Riskeer.Common.Service.TestUtil;
 using Riskeer.HydraRing.Calculation.Calculator.Factory;
@@ -298,7 +299,14 @@ namespace Riskeer.ClosingStructures.Integration.Test
         public void Run_HydraulicBoundaryDataSet_ExpectedSettingsSetToCalculator(bool usePreprocessorClosure)
         {
             // Setup
-            var calculation = new TestClosingStructuresCalculationScenario();
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            var calculation = new TestClosingStructuresCalculationScenario
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            };
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
@@ -316,7 +324,7 @@ namespace Riskeer.ClosingStructures.Integration.Test
                             FilePath = validHrdFilePath,
                             Locations =
                             {
-                                calculation.InputParameters.HydraulicBoundaryLocation
+                                hydraulicBoundaryLocation
                             }
                         }
                     }
@@ -332,7 +340,7 @@ namespace Riskeer.ClosingStructures.Integration.Test
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
                                      HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
                                          assessmentSection.HydraulicBoundaryData,
-                                         calculation.InputParameters.HydraulicBoundaryLocation),
+                                         hydraulicBoundaryLocation),
                                      (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(new TestStructuresCalculator<StructuresClosureCalculationInput>());
