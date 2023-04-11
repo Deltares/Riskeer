@@ -300,13 +300,6 @@ namespace Riskeer.ClosingStructures.Integration.Test
         {
             // Setup
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            var calculation = new TestClosingStructuresCalculationScenario
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            };
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
@@ -347,6 +340,13 @@ namespace Riskeer.ClosingStructures.Integration.Test
             mockRepository.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
+            var calculation = new TestClosingStructuresCalculationScenario
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            };
 
             CalculatableActivity activity = ClosingStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
                                                                                                                   failureMechanism,
