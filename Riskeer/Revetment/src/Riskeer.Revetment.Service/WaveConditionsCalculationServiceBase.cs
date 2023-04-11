@@ -169,7 +169,9 @@ namespace Riskeer.Revetment.Service
                     WaveConditionsOutput output = CalculateWaterLevel(waterLevel,
                                                                       a, b, c, targetProbability,
                                                                       waveConditionsInput,
-                                                                      HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData));
+                                                                      HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                                                                          hydraulicBoundaryData,
+                                                                          waveConditionsInput.HydraulicBoundaryLocation));
 
                     if (output != null)
                     {
