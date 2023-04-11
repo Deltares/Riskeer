@@ -42,11 +42,9 @@ namespace Riskeer.Storage.Core.DbContext
         }
 
         public long DuneLocationEntityId { get; set; }
+        public long HydraulicLocationEntityId { get; set; }
         public long FailureMechanismEntityId { get; set; }
-        public long LocationId { get; set; }
         public string Name { get; set; }
-        public double? LocationX { get; set; }
-        public double? LocationY { get; set; }
         public int CoastalAreaId { get; set; }
         public double? Offset { get; set; }
         public double? Orientation { get; set; }
@@ -56,6 +54,7 @@ namespace Riskeer.Storage.Core.DbContext
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DuneLocationCalculationEntity> DuneLocationCalculationEntities { get; set; }
 
+        public virtual HydraulicLocationEntity HydraulicLocationEntity { get; set; }
         public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
     }
 }

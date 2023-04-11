@@ -39,6 +39,7 @@ namespace Riskeer.Storage.Core.DbContext
         public HydraulicLocationEntity()
         {
             ClosingStructuresCalculationEntities = new HashSet<ClosingStructuresCalculationEntity>();
+            DuneLocationEntities = new HashSet<DuneLocationEntity>();
             GrassCoverErosionInwardsCalculationEntities = new HashSet<GrassCoverErosionInwardsCalculationEntity>();
             GrassCoverErosionOutwardsWaveConditionsCalculationEntities = new HashSet<GrassCoverErosionOutwardsWaveConditionsCalculationEntity>();
             HeightStructuresCalculationEntities = new HashSet<HeightStructuresCalculationEntity>();
@@ -61,6 +62,9 @@ namespace Riskeer.Storage.Core.DbContext
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ClosingStructuresCalculationEntity> ClosingStructuresCalculationEntities { get; set; }
+
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DuneLocationEntity> DuneLocationEntities { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GrassCoverErosionInwardsCalculationEntity> GrassCoverErosionInwardsCalculationEntities { get; set; }
