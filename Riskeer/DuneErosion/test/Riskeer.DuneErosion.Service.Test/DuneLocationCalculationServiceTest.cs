@@ -22,7 +22,6 @@
 using System;
 using System.IO;
 using System.Linq;
-using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using NUnit.Framework;
@@ -141,7 +140,7 @@ namespace Riskeer.DuneErosion.Service.Test
             var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
 
-            var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0),
+            var duneLocation = new DuneLocation("test", new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0),
                                                 new DuneLocation.ConstructionProperties
                                                 {
                                                     CoastalAreaId = 0,

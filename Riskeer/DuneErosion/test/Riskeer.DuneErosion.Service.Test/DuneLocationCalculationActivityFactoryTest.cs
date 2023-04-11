@@ -22,7 +22,6 @@
 using System;
 using System.IO;
 using System.Linq;
-using Core.Common.Base.Geometry;
 using Core.Common.Base.Service;
 using Core.Common.TestUtil;
 using Core.Common.Util;
@@ -93,8 +92,8 @@ namespace Riskeer.DuneErosion.Service.Test
 
             AssessmentSectionStub assessmentSection = CreateAssessmentSection(usePreprocessorClosure);
 
-            var duneLocation1 = new DuneLocation(1, "locationName1", new Point2D(1, 1), new DuneLocation.ConstructionProperties());
-            var duneLocation2 = new DuneLocation(2, "locationName2", new Point2D(2, 2), new DuneLocation.ConstructionProperties());
+            var duneLocation1 = new DuneLocation("locationName1", new HydraulicBoundaryLocation(1, string.Empty, 1, 1), new DuneLocation.ConstructionProperties());
+            var duneLocation2 = new DuneLocation("locationName2", new HydraulicBoundaryLocation(2, string.Empty, 2, 2), new DuneLocation.ConstructionProperties());
 
             // Call
             CalculatableActivity[] activities = DuneLocationCalculationActivityFactory.CreateCalculationActivities(
@@ -166,8 +165,8 @@ namespace Riskeer.DuneErosion.Service.Test
                 }
             };
 
-            var duneLocation1 = new DuneLocation(1, "locationName1", new Point2D(1, 1), new DuneLocation.ConstructionProperties());
-            var duneLocation2 = new DuneLocation(2, "locationName2", new Point2D(2, 2), new DuneLocation.ConstructionProperties());
+            var duneLocation1 = new DuneLocation("locationName1", new HydraulicBoundaryLocation(1, string.Empty, 1, 1), new DuneLocation.ConstructionProperties());
+            var duneLocation2 = new DuneLocation("locationName2", new HydraulicBoundaryLocation(2, string.Empty, 2, 2), new DuneLocation.ConstructionProperties());
 
             failureMechanism.SetDuneLocations(new[]
             {

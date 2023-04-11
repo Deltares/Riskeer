@@ -25,7 +25,6 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Common.Util;
@@ -389,14 +388,14 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                 {
                     DuneLocationCalculations =
                     {
-                        new DuneLocationCalculation(new DuneLocation(1300001, locationName1, new Point2D(0, 0), new DuneLocation.ConstructionProperties
+                        new DuneLocationCalculation(new DuneLocation(locationName1, new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0), new DuneLocation.ConstructionProperties
                         {
                             CoastalAreaId = 0,
                             Offset = 0,
                             Orientation = 0,
                             D50 = 0.000007
                         })),
-                        new DuneLocationCalculation(new DuneLocation(1300002, locationName2, new Point2D(0, 0), new DuneLocation.ConstructionProperties
+                        new DuneLocationCalculation(new DuneLocation(locationName2, new HydraulicBoundaryLocation(1300002, string.Empty, 0, 0), new DuneLocation.ConstructionProperties
                         {
                             CoastalAreaId = 0,
                             Offset = 0,
@@ -500,7 +499,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             {
                 DuneLocationCalculations =
                 {
-                    new DuneLocationCalculation(new DuneLocation(1300001, "A", new Point2D(0, 0), new DuneLocation.ConstructionProperties
+                    new DuneLocationCalculation(new DuneLocation("A", new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0), new DuneLocation.ConstructionProperties
                     {
                         CoastalAreaId = 0,
                         Offset = 0,
