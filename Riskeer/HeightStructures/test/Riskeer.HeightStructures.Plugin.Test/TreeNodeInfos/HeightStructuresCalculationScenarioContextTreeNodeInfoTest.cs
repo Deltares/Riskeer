@@ -1066,17 +1066,24 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = validHrdFilePath,
                 HydraulicLocationConfigurationDatabase =
                 {
                     FilePath = validHlcdFilePath
                 },
                 Version = "random",
-                Locations =
+                HydraulicBoundaryDatabases =
                 {
-                    hydraulicBoundaryLocation
+                    new HydraulicBoundaryDatabase
+                    {
+                        FilePath = validHrdFilePath,
+                        Locations =
+                        {
+                            hydraulicBoundaryLocation
+                        }
+                    }
                 }
             };
 
@@ -1111,7 +1118,9 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                                  .WhenCalled(invocation =>
                                  {
                                      HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData),
+                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                                             assessmentSection.HydraulicBoundaryData,
+                                             hydraulicBoundaryLocation),
                                          (HydraRingCalculationSettings) invocation.Arguments[0]);
                                  })
                                  .Return(new TestStructuresCalculator<StructuresOvertoppingCalculationInput>());
