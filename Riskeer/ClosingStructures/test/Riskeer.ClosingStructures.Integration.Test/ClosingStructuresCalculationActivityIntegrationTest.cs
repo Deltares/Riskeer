@@ -298,15 +298,27 @@ namespace Riskeer.ClosingStructures.Integration.Test
         public void Run_HydraulicBoundaryDataSet_ExpectedSettingsSetToCalculator(bool usePreprocessorClosure)
         {
             // Setup
+            var calculation = new TestClosingStructuresCalculationScenario();
+
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 HydraulicBoundaryData =
                 {
-                    FilePath = validHrdFilePath,
                     HydraulicLocationConfigurationDatabase =
                     {
                         FilePath = validHlcdFilePath,
                         UsePreprocessorClosure = usePreprocessorClosure
+                    },
+                    HydraulicBoundaryDatabases =
+                    {
+                        new HydraulicBoundaryDatabase
+                        {
+                            FilePath = validHrdFilePath,
+                            Locations =
+                            {
+                                calculation.InputParameters.HydraulicBoundaryLocation
+                            }
+                        }
                     }
                 }
             };
@@ -318,14 +330,15 @@ namespace Riskeer.ClosingStructures.Integration.Test
                              .WhenCalled(invocation =>
                              {
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData),
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                                         assessmentSection.HydraulicBoundaryData,
+                                         calculation.InputParameters.HydraulicBoundaryLocation),
                                      (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(new TestStructuresCalculator<StructuresClosureCalculationInput>());
             mockRepository.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var calculation = new TestClosingStructuresCalculationScenario();
 
             CalculatableActivity activity = ClosingStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
                                                                                                                   failureMechanism,
