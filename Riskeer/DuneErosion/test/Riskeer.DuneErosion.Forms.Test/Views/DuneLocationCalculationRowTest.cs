@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System.Globalization;
-using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Forms.Views;
 using Riskeer.DuneErosion.Data;
@@ -41,7 +41,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         public void Constructor_DuneLocationCalculationWithOutput_ExpectedValues(double offSet)
         {
             // Setup
-            var duneLocation = new DuneLocation(1, "test location", new Point2D(3.3, 4.4), new DuneLocation.ConstructionProperties
+            var duneLocation = new DuneLocation("test location", new TestHydraulicBoundaryLocation(), new DuneLocation.ConstructionProperties
             {
                 CoastalAreaId = 2,
                 Offset = offSet,
