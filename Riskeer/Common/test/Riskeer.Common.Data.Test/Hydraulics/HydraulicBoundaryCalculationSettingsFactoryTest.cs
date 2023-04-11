@@ -53,6 +53,44 @@ namespace Riskeer.Common.Data.Test.Hydraulics
         }
 
         [Test]
+        public void CreateSettings_WithLinkedHydraulicBoundaryDataAndInvalidHydraulicBoundaryLocation_ThrowsArgumentException()
+        {
+            // Setup
+            var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
+            var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation();
+            const string hrdFilePath = "some//FilePath//HRD dutch coast south.sqlite";
+            const string hlcdFilePath = "some//FilePath//HLCD.sqlite";
+            bool usePreprocessorClosure = new Random(21).NextBoolean();
+
+            var hydraulicBoundaryData = new HydraulicBoundaryData
+            {
+                HydraulicLocationConfigurationDatabase =
+                {
+                    FilePath = hlcdFilePath,
+                    UsePreprocessorClosure = usePreprocessorClosure
+                },
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        FilePath = hrdFilePath,
+                        Locations =
+                        {
+                            hydraulicBoundaryLocation1
+                        }
+                    }
+                }
+            };
+
+            // Call
+            void Call() => HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData, hydraulicBoundaryLocation2);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(Call);
+            Assert.AreEqual("'hydraulicBoundaryLocation' is not part of 'hydraulicBoundaryData'.", exception.Message);
+        }
+
+        [Test]
         public void CreateSettings_WithLinkedHydraulicBoundaryDataAndValidHydraulicBoundaryLocation_ReturnsExpectedSettings()
         {
             // Setup

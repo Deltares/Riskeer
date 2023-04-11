@@ -39,8 +39,13 @@ namespace Riskeer.Common.Data.Hydraulics
         /// <see cref="HydraulicBoundaryCalculationSettings"/> for.</param>
         /// <returns>A <see cref="HydraulicBoundaryCalculationSettings"/> instance.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when either the hydraulic boundary database file path or the hydraulic
-        /// location configuration database file path is <c>null</c>, is empty or consists of whitespaces.</exception>
+        /// <exception cref="ArgumentException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="hydraulicBoundaryLocation"/> is not part of <paramref name="hydraulicBoundaryData"/>;</item>
+        /// <item>the hydraulic boundary database file path is <c>null</c>, is empty or consists of whitespaces;</item>
+        /// <item>the location configuration database file path is <c>null</c>, is empty or consists of whitespaces.</item>
+        /// </list>
+        /// </exception>
         public static HydraulicBoundaryCalculationSettings CreateSettings(HydraulicBoundaryData hydraulicBoundaryData,
                                                                           HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
