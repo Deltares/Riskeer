@@ -83,9 +83,8 @@ namespace Riskeer.DuneErosion.Service
                     .FirstOrDefault(hbl => DoesHydraulicBoundaryLocationMatchWithDuneLocation(hbl, readDuneLocation));
                 if (correspondingHydraulicBoundaryLocation != null)
                 {
-                    var duneLocation = new DuneLocation(correspondingHydraulicBoundaryLocation.Id,
-                                                        readDuneLocation.Name,
-                                                        readDuneLocation.Location,
+                    var duneLocation = new DuneLocation(readDuneLocation.Name,
+                                                        correspondingHydraulicBoundaryLocation,
                                                         new DuneLocation.ConstructionProperties
                                                         {
                                                             CoastalAreaId = readDuneLocation.CoastalAreaId,
