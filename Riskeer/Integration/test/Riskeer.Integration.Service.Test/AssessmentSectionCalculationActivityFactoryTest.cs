@@ -221,7 +221,7 @@ namespace Riskeer.Integration.Service.Test
             AddStabilityStoneCoverCalculation(assessmentSection, hydraulicBoundaryLocation);
             AddWaveImpactAsphaltCoverCalculation(assessmentSection, hydraulicBoundaryLocation);
             AddGrassCoverErosionOutwardsCalculation(assessmentSection, hydraulicBoundaryLocation);
-            AddDuneLocationCalculation(assessmentSection);
+            AddDuneLocationCalculation(assessmentSection, hydraulicBoundaryLocation);
 
             var mocks = new MockRepository();
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
@@ -464,14 +464,14 @@ namespace Riskeer.Integration.Service.Test
             });
         }
 
-        private static void AddDuneLocationCalculation(AssessmentSection assessmentSection)
+        private static void AddDuneLocationCalculation(AssessmentSection assessmentSection, HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             assessmentSection.DuneErosion.DuneLocationCalculationsForUserDefinedTargetProbabilities.Add(
                 new DuneLocationCalculationsForTargetProbability(0.1));
 
             assessmentSection.DuneErosion.SetDuneLocations(new[]
             {
-                new TestDuneLocation()
+                new DuneLocation("test", hydraulicBoundaryLocation, new DuneLocation.ConstructionProperties())
             });
         }
     }
