@@ -96,7 +96,7 @@ namespace Riskeer.Integration.Plugin.Handlers
                 readHydraulicBoundaryDatabase.Locations,
                 readHydraulicLocationConfigurationDatabase.ReadHydraulicLocations
                                                           .Where(rhl => rhl.TrackId == readHydraulicBoundaryDatabase.TrackId),
-                excludedLocationIds.ToArray());
+                excludedLocationIds.ToArray()).ToArray();
 
             var newHydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
