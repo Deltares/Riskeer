@@ -31,8 +31,10 @@ using Core.Gui.Forms.Main;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Plugin.TestUtil;
+using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PresentationObjects;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -79,10 +81,13 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             const string fileName = "hrdFile.sqlite";
 
-            var context = new HydraulicBoundaryDatabaseContext(new HydraulicBoundaryDatabase
-            {
-                FilePath = $@"path\to\{fileName}"
-            }, new HydraulicBoundaryData());
+            var context = new HydraulicBoundaryDatabaseContext(
+                new HydraulicBoundaryDatabase
+                {
+                    FilePath = $@"path\to\{fileName}"
+                },
+                new HydraulicBoundaryData(),
+                new AssessmentSection(AssessmentSectionComposition.Dike));
 
             using (var plugin = new RiskeerPlugin())
             {
@@ -226,7 +231,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             mockRepository.ReplayAll();
 
-            var context = new HydraulicBoundaryDatabaseContext(hydraulicBoundaryDatabase2, hydraulicBoundaryData);
+            var context = new HydraulicBoundaryDatabaseContext(hydraulicBoundaryDatabase2, hydraulicBoundaryData,
+                                                               new AssessmentSection(AssessmentSectionComposition.Dike));
 
             using (var plugin = new RiskeerPlugin())
             {

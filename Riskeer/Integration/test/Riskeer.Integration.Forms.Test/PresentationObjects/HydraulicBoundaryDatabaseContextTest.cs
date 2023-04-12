@@ -22,7 +22,9 @@
 using System;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PresentationObjects;
 
 namespace Riskeer.Integration.Forms.Test.PresentationObjects
@@ -34,27 +36,43 @@ namespace Riskeer.Integration.Forms.Test.PresentationObjects
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var hydraulicBoundaryData = new HydraulicBoundaryData();
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            var hydraulicBoundaryData = new HydraulicBoundaryData();
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             // Call
-            var context = new HydraulicBoundaryDatabaseContext(hydraulicBoundaryDatabase, hydraulicBoundaryData);
+            var context = new HydraulicBoundaryDatabaseContext(hydraulicBoundaryDatabase, hydraulicBoundaryData, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<HydraulicBoundaryDatabase>>(context);
             Assert.AreSame(hydraulicBoundaryDatabase, context.WrappedData);
             Assert.AreSame(hydraulicBoundaryData, context.HydraulicBoundaryData);
+            Assert.AreSame(assessmentSection, context.AssessmentSection);
         }
 
         [Test]
         public void Constructor_HydraulicBoundaryDataNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
             // Call
-            void Call() => new HydraulicBoundaryDatabaseContext(new HydraulicBoundaryDatabase(), null);
+            void Call() => new HydraulicBoundaryDatabaseContext(new HydraulicBoundaryDatabase(), null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("hydraulicBoundaryData", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new HydraulicBoundaryDatabaseContext(new HydraulicBoundaryDatabase(), new HydraulicBoundaryData(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
     }
 }

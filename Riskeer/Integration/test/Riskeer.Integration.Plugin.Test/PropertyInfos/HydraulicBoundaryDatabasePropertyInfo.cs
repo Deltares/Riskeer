@@ -23,7 +23,9 @@ using System.Linq;
 using Core.Gui.Plugin;
 using Core.Gui.PropertyBag;
 using NUnit.Framework;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PresentationObjects;
 using Riskeer.Integration.Forms.PropertyClasses;
 
@@ -60,7 +62,8 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
         {
             // Setup
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            var context = new HydraulicBoundaryDatabaseContext(hydraulicBoundaryDatabase, new HydraulicBoundaryData());
+            var context = new HydraulicBoundaryDatabaseContext(hydraulicBoundaryDatabase, new HydraulicBoundaryData(),
+                                                               new AssessmentSection(AssessmentSectionComposition.Dike));
 
             // Call
             IObjectProperties objectProperties = info.CreateInstance(context);

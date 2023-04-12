@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Controls.PresentationObjects;
 using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Integration.Data;
 
 namespace Riskeer.Integration.Forms.PresentationObjects
 {
@@ -35,8 +36,10 @@ namespace Riskeer.Integration.Forms.PresentationObjects
         /// </summary>
         /// <param name="wrappedData">The hydraulic boundary database that the <see cref="HydraulicBoundaryDatabaseContext"/> belongs to.</param>
         /// <param name="hydraulicBoundaryData">The hydraulic boundary data that the <see cref="HydraulicBoundaryDatabaseContext"/> belongs to.</param>
+        /// <param name="assessmentSection">The assessment section that the <see cref="HydraulicBoundaryDatabaseContext"/> belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public HydraulicBoundaryDatabaseContext(HydraulicBoundaryDatabase wrappedData, HydraulicBoundaryData hydraulicBoundaryData)
+        public HydraulicBoundaryDatabaseContext(HydraulicBoundaryDatabase wrappedData, HydraulicBoundaryData hydraulicBoundaryData,
+                                                AssessmentSection assessmentSection)
             : base(wrappedData)
         {
             if (hydraulicBoundaryData == null)
@@ -44,12 +47,23 @@ namespace Riskeer.Integration.Forms.PresentationObjects
                 throw new ArgumentNullException(nameof(hydraulicBoundaryData));
             }
 
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
             HydraulicBoundaryData = hydraulicBoundaryData;
+            AssessmentSection = assessmentSection;
         }
 
         /// <summary>
         /// Gets the hydraulic boundary data that the context belongs to.
         /// </summary>
         public HydraulicBoundaryData HydraulicBoundaryData { get; }
+
+        /// <summary>
+        /// Gets the assessment section that the context belongs to.
+        /// </summary>
+        public AssessmentSection AssessmentSection { get; }
     }
 }

@@ -236,9 +236,11 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 var hydraulicBoundaryDatabaseContext1 = (HydraulicBoundaryDatabaseContext) objects[0];
                 Assert.AreSame(hydraulicBoundaryDatabase1, hydraulicBoundaryDatabaseContext1.WrappedData);
                 Assert.AreSame(assessmentSection.HydraulicBoundaryData, hydraulicBoundaryDatabaseContext1.HydraulicBoundaryData);
+                Assert.AreSame(assessmentSection, hydraulicBoundaryDatabaseContext1.AssessmentSection);
 
                 var hydraulicBoundaryDatabaseContext2 = (HydraulicBoundaryDatabaseContext) objects[1];
                 Assert.AreSame(assessmentSection.HydraulicBoundaryData, hydraulicBoundaryDatabaseContext2.HydraulicBoundaryData);
+                Assert.AreSame(assessmentSection, hydraulicBoundaryDatabaseContext2.AssessmentSection);
             }
         }
 

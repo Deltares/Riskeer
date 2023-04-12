@@ -2502,7 +2502,8 @@ namespace Riskeer.Integration.Plugin
         {
             return nodeData.WrappedData.HydraulicBoundaryDatabases
                            .Select(hydraulicBoundaryDatabase => new HydraulicBoundaryDatabaseContext(hydraulicBoundaryDatabase,
-                                                                                                     nodeData.WrappedData))
+                                                                                                     nodeData.WrappedData,
+                                                                                                     nodeData.AssessmentSection))
                            .Cast<object>()
                            .ToArray();
         }
