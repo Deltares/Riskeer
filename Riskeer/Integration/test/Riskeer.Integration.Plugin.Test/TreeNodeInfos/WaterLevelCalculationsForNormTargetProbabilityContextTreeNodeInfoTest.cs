@@ -570,6 +570,17 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     HydraulicLocationConfigurationDatabase =
                     {
                         FilePath = validHlcdFilePath
+                    },
+                    HydraulicBoundaryDatabases =
+                    {
+                        new HydraulicBoundaryDatabase
+                        {
+                            FilePath = validHrdFilePath,
+                            Locations =
+                            {
+                                hydraulicBoundaryLocation
+                            }
+                        }
                     }
                 }
             };
@@ -656,6 +667,17 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     {
                         FilePath = validHlcdFilePath,
                         UsePreprocessorClosure = true
+                    },
+                    HydraulicBoundaryDatabases =
+                    {
+                        new HydraulicBoundaryDatabase
+                        {
+                            FilePath = validHrdFilePath,
+                            Locations =
+                            {
+                                hydraulicBoundaryLocation
+                            }
+                        }
                     }
                 }
             };
@@ -732,6 +754,9 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         {
             // Given
             const string locationName = "locationName";
+            
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
+
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 FailureMechanismContribution =
@@ -745,12 +770,24 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     HydraulicLocationConfigurationDatabase =
                     {
                         FilePath = validHlcdFilePath
+                    },
+                    HydraulicBoundaryDatabases =
+                    {
+                        new HydraulicBoundaryDatabase
+                        {
+                            FilePath = validHrdFilePath,
+                            Locations =
+                            {
+                                hydraulicBoundaryLocation
+                            }
+                        }
                     }
                 }
             };
+            
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
-                new TestHydraulicBoundaryLocation("locationName")
+                hydraulicBoundaryLocation
             });
 
             IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations = getCalculationsFunc(assessmentSection);
