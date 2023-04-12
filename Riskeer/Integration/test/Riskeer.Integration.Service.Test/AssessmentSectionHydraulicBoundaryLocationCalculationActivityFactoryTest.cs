@@ -64,10 +64,16 @@ namespace Riskeer.Integration.Service.Test
         public void CreateHydraulicBoundaryLocationCalculationActivities_WithValidData_ExpectedInputSetToActivities(bool usePreprocessorClosure)
         {
             // Setup
-            AssessmentSectionStub assessmentSection = CreateAssessmentSection(usePreprocessorClosure);
-
             var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation("locationName 1");
             var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation("locationName 2");
+
+            AssessmentSectionStub assessmentSection = CreateAssessmentSection(usePreprocessorClosure,
+                                                                              new[]
+                                                                              {
+                                                                                  hydraulicBoundaryLocation1,
+                                                                                  hydraulicBoundaryLocation2
+                                                                              });
+
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation1,
@@ -183,10 +189,16 @@ namespace Riskeer.Integration.Service.Test
         public void CreateWaterLevelCalculationActivitiesForNormTargetProbabilities_WithValidData_ExpectedInputSetToActivities(bool usePreprocessorClosure)
         {
             // Setup
-            AssessmentSectionStub assessmentSection = CreateAssessmentSection(usePreprocessorClosure);
-
             var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation("locationName 1");
             var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation("locationName 2");
+
+            AssessmentSectionStub assessmentSection = CreateAssessmentSection(usePreprocessorClosure,
+                                                                              new[]
+                                                                              {
+                                                                                  hydraulicBoundaryLocation1,
+                                                                                  hydraulicBoundaryLocation2
+                                                                              });
+
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation1,
@@ -249,11 +261,18 @@ namespace Riskeer.Integration.Service.Test
         public void CreateWaterLevelCalculationActivitiesForUserDefinedTargetProbabilities_WithValidData_ExpectedInputSetToActivities(bool usePreprocessorClosure)
         {
             // Setup
-            AssessmentSectionStub assessmentSection = CreateAssessmentSection(usePreprocessorClosure);
-            assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Add(new HydraulicBoundaryLocationCalculationsForTargetProbability(0.00001));
-
             var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation("locationName 1");
             var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation("locationName 2");
+
+            AssessmentSectionStub assessmentSection = CreateAssessmentSection(usePreprocessorClosure,
+                                                                              new[]
+                                                                              {
+                                                                                  hydraulicBoundaryLocation1,
+                                                                                  hydraulicBoundaryLocation2
+                                                                              });
+
+            assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Add(new HydraulicBoundaryLocationCalculationsForTargetProbability(0.00001));
+
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation1,
@@ -328,11 +347,18 @@ namespace Riskeer.Integration.Service.Test
         public void CreateWaveHeightCalculationActivitiesForUserDefinedTargetProbabilities_WithValidData_ExpectedInputSetToActivities(bool usePreprocessorClosure)
         {
             // Setup
-            AssessmentSectionStub assessmentSection = CreateAssessmentSection(usePreprocessorClosure);
-            assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Add(new HydraulicBoundaryLocationCalculationsForTargetProbability(0.000025));
-
             var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation("locationName 1");
             var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation("locationName 2");
+
+            AssessmentSectionStub assessmentSection = CreateAssessmentSection(usePreprocessorClosure,
+                                                                              new[]
+                                                                              {
+                                                                                  hydraulicBoundaryLocation1,
+                                                                                  hydraulicBoundaryLocation2
+                                                                              });
+            
+            assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Add(new HydraulicBoundaryLocationCalculationsForTargetProbability(0.000025));
+
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation1,
@@ -389,8 +415,15 @@ namespace Riskeer.Integration.Service.Test
                                                 hydraulicBoundaryData);
         }
 
-        private static AssessmentSectionStub CreateAssessmentSection(bool usePreprocessorClosure)
+        private static AssessmentSectionStub CreateAssessmentSection(bool usePreprocessorClosure, IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
         {
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validHrdFilePath
+            };
+
+            hydraulicBoundaryDatabase.Locations.AddRange(hydraulicBoundaryLocations);
+
             return new AssessmentSectionStub
             {
                 HydraulicBoundaryData =
@@ -400,6 +433,10 @@ namespace Riskeer.Integration.Service.Test
                     {
                         FilePath = validHlcdFilePath,
                         UsePreprocessorClosure = usePreprocessorClosure
+                    },
+                    HydraulicBoundaryDatabases =
+                    {
+                        hydraulicBoundaryDatabase
                     }
                 }
             };
