@@ -55,7 +55,7 @@ namespace Riskeer.Revetment.Service.Test
         {
             // Call
             void Call() => WaveConditionsCalculationServiceBase.Validate(null, GetValidAssessmentLevel(),
-                                                                         GetValidHydraulicBoundaryData());
+                                                                         GetValidHydraulicBoundaryData(new TestHydraulicBoundaryLocation()));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -168,7 +168,7 @@ namespace Riskeer.Revetment.Service.Test
 
             // Call
             void Call() => isValid = WaveConditionsCalculationServiceBase.Validate(input, GetValidAssessmentLevel(),
-                                                                                   GetValidHydraulicBoundaryData());
+                                                                                   GetValidHydraulicBoundaryData(new TestHydraulicBoundaryLocation()));
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -189,14 +189,16 @@ namespace Riskeer.Revetment.Service.Test
             // Setup
             var isValid = false;
 
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
+
             var input = new WaveConditionsInput
             {
-                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
+                HydraulicBoundaryLocation = hydraulicBoundaryLocation
             };
 
             // Call
             void Call() => isValid = WaveConditionsCalculationServiceBase.Validate(input, RoundedDouble.NaN,
-                                                                                   GetValidHydraulicBoundaryData());
+                                                                                   GetValidHydraulicBoundaryData(hydraulicBoundaryLocation));
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -221,9 +223,11 @@ namespace Riskeer.Revetment.Service.Test
             // Setup
             var isValid = false;
 
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
             var input = new WaveConditionsInput
             {
-                HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
+                HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                 Orientation = (RoundedDouble) 0,
                 LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetments,
                 UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetments,
@@ -234,7 +238,7 @@ namespace Riskeer.Revetment.Service.Test
 
             // Call
             void Call() => isValid = WaveConditionsCalculationServiceBase.Validate(input, (RoundedDouble) assessmentLevel,
-                                                                                   GetValidHydraulicBoundaryData());
+                                                                                   GetValidHydraulicBoundaryData(hydraulicBoundaryLocation));
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -264,7 +268,7 @@ namespace Riskeer.Revetment.Service.Test
 
             // Call
             void Call() => isValid = WaveConditionsCalculationServiceBase.Validate(input, GetValidAssessmentLevel(),
-                                                                                   GetValidHydraulicBoundaryData());
+                                                                                   GetValidHydraulicBoundaryData(input.HydraulicBoundaryLocation));
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -294,7 +298,7 @@ namespace Riskeer.Revetment.Service.Test
 
             // Call
             void Call() => isValid = WaveConditionsCalculationServiceBase.Validate(input, GetValidAssessmentLevel(),
-                                                                                   GetValidHydraulicBoundaryData());
+                                                                                   GetValidHydraulicBoundaryData(input.HydraulicBoundaryLocation));
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -337,7 +341,7 @@ namespace Riskeer.Revetment.Service.Test
 
             // Call
             void Call() => isValid = WaveConditionsCalculationServiceBase.Validate(input, GetValidAssessmentLevel(),
-                                                                                   GetValidHydraulicBoundaryData());
+                                                                                   GetValidHydraulicBoundaryData(input.HydraulicBoundaryLocation));
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -362,7 +366,7 @@ namespace Riskeer.Revetment.Service.Test
 
             // Call
             void Call() => isValid = WaveConditionsCalculationServiceBase.Validate(input, GetValidAssessmentLevel(),
-                                                                                   GetValidHydraulicBoundaryData());
+                                                                                   GetValidHydraulicBoundaryData(input.HydraulicBoundaryLocation));
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -389,7 +393,7 @@ namespace Riskeer.Revetment.Service.Test
             // Call
             void Call() => new TestWaveConditionsCalculationService().PublicCalculate(a, b, c, targetProbability, null,
                                                                                       GetValidAssessmentLevel(),
-                                                                                      GetValidHydraulicBoundaryData());
+                                                                                      GetValidHydraulicBoundaryData(new TestHydraulicBoundaryLocation()));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -425,9 +429,10 @@ namespace Riskeer.Revetment.Service.Test
             var b = (RoundedDouble) 0.8;
             var c = (RoundedDouble) 0.4;
             const double targetProbability = 0.2;
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var input = new WaveConditionsInput
             {
-                HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
+                HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                 ForeshoreProfile = new TestForeshoreProfile(true),
                 UpperBoundaryRevetment = (RoundedDouble) 4,
                 LowerBoundaryRevetment = (RoundedDouble) 3,
@@ -459,7 +464,7 @@ namespace Riskeer.Revetment.Service.Test
                                                                            targetProbability,
                                                                            input,
                                                                            waterLevel,
-                                                                           GetValidHydraulicBoundaryData());
+                                                                           GetValidHydraulicBoundaryData(hydraulicBoundaryLocation));
 
                 // Assert
                 for (var i = 0; i < nrOfCalculators; i++)
@@ -484,9 +489,10 @@ namespace Riskeer.Revetment.Service.Test
             var b = (RoundedDouble) 0.8;
             var c = (RoundedDouble) 0.4;
             const double targetProbability = 0.2;
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var input = new WaveConditionsInput
             {
-                HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
+                HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                 ForeshoreProfile = new TestForeshoreProfile(true),
                 UpperBoundaryRevetment = (RoundedDouble) 4,
                 LowerBoundaryRevetment = (RoundedDouble) 3,
@@ -523,7 +529,7 @@ namespace Riskeer.Revetment.Service.Test
                                                                            targetProbability,
                                                                            input,
                                                                            waterLevel,
-                                                                           GetValidHydraulicBoundaryData());
+                                                                           GetValidHydraulicBoundaryData(hydraulicBoundaryLocation));
 
                 // Assert
                 for (var i = 0; i < nrOfCalculators; i++)
@@ -607,9 +613,11 @@ namespace Riskeer.Revetment.Service.Test
             var waterLevelUpperBoundaryRevetment = new RoundedDouble(2, 4.00);
             var waterLevelLowerBoundaryRevetment = new RoundedDouble(2, 3.00);
 
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
             var input = new WaveConditionsInput
             {
-                HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
+                HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                 ForeshoreProfile = new TestForeshoreProfile(),
                 UpperBoundaryRevetment = waterLevelUpperBoundaryRevetment,
                 LowerBoundaryRevetment = waterLevelLowerBoundaryRevetment
@@ -647,7 +655,7 @@ namespace Riskeer.Revetment.Service.Test
                     try
                     {
                         new TestWaveConditionsCalculationService().PublicCalculate(a, b, c, targetProbability, input, waterLevel,
-                                                                                   GetValidHydraulicBoundaryData());
+                                                                                   GetValidHydraulicBoundaryData(hydraulicBoundaryLocation));
                     }
                     catch (HydraRingCalculationException e)
                     {
@@ -721,9 +729,10 @@ namespace Riskeer.Revetment.Service.Test
             var b = (RoundedDouble) 0.8;
             var c = (RoundedDouble) 0.4;
             const double targetProbability = 0.2;
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var input = new WaveConditionsInput
             {
-                HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
+                HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                 ForeshoreProfile = new TestForeshoreProfile(),
                 UpperBoundaryRevetment = waterLevelUpperBoundary,
                 LowerBoundaryRevetment = waterLevelLowerBoundary
@@ -734,7 +743,8 @@ namespace Riskeer.Revetment.Service.Test
                 var service = new TestWaveConditionsCalculationService();
 
                 // Call
-                void Call() => service.PublicCalculate(a, b, c, targetProbability, input, waterLevel, GetValidHydraulicBoundaryData());
+                void Call() => service.PublicCalculate(a, b, c, targetProbability, input, waterLevel,
+                                                       GetValidHydraulicBoundaryData(hydraulicBoundaryLocation));
 
                 // Assert
                 TestHelper.AssertLogMessages(Call, messages =>
@@ -778,9 +788,10 @@ namespace Riskeer.Revetment.Service.Test
             var b = (RoundedDouble) 0.8;
             var c = (RoundedDouble) 0.4;
             const double targetProbability = 0.2;
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var input = new WaveConditionsInput
             {
-                HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
+                HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                 ForeshoreProfile = new TestForeshoreProfile(),
                 UpperBoundaryRevetment = waterLevel,
                 LowerBoundaryRevetment = (RoundedDouble) 3
@@ -805,7 +816,7 @@ namespace Riskeer.Revetment.Service.Test
                                         targetProbability,
                                         input,
                                         waterLevel,
-                                        GetValidHydraulicBoundaryData());
+                                        GetValidHydraulicBoundaryData(hydraulicBoundaryLocation));
 
                 // Assert
                 Assert.IsTrue(calculator.IsCanceled);
@@ -832,7 +843,7 @@ namespace Riskeer.Revetment.Service.Test
             return input;
         }
 
-        private static HydraulicBoundaryData GetValidHydraulicBoundaryData()
+        private static HydraulicBoundaryData GetValidHydraulicBoundaryData(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             return new HydraulicBoundaryData
             {
@@ -840,6 +851,17 @@ namespace Riskeer.Revetment.Service.Test
                 HydraulicLocationConfigurationDatabase =
                 {
                     FilePath = validHlcdFilePath
+                },
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        FilePath = validHrdFilePath,
+                        Locations =
+                        {
+                            hydraulicBoundaryLocation
+                        }
+                    }
                 }
             };
         }

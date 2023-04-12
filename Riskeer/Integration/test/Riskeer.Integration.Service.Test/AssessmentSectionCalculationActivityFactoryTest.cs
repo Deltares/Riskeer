@@ -37,7 +37,6 @@ using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Service;
 using Riskeer.Common.Service.TestUtil;
 using Riskeer.DuneErosion.Data;
-using Riskeer.DuneErosion.Data.TestUtil;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.HeightStructures.Data.TestUtil;
