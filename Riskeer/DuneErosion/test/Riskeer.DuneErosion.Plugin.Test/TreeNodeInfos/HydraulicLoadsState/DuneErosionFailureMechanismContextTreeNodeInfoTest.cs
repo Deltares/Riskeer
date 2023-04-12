@@ -269,6 +269,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos.HydraulicLoadsState
             {
                 HydraulicBoundaryData =
                 {
+                    FilePath = validHrdFilePath,
                     HydraulicLocationConfigurationDatabase =
                     {
                         FilePath = validHlcdFilePath

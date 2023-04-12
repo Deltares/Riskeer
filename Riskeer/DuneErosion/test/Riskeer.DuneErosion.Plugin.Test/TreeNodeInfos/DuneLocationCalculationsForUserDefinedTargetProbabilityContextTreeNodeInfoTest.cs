@@ -384,18 +384,20 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
+                var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0);
+                
                 var duneLocationCalculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability(0.01)
                 {
                     DuneLocationCalculations =
                     {
-                        new DuneLocationCalculation(new DuneLocation(locationName1, new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0), new DuneLocation.ConstructionProperties
+                        new DuneLocationCalculation(new DuneLocation(locationName1, hydraulicBoundaryLocation, new DuneLocation.ConstructionProperties
                         {
                             CoastalAreaId = 0,
                             Offset = 0,
                             Orientation = 0,
                             D50 = 0.000007
                         })),
-                        new DuneLocationCalculation(new DuneLocation(locationName2, new HydraulicBoundaryLocation(1300002, string.Empty, 0, 0), new DuneLocation.ConstructionProperties
+                        new DuneLocationCalculation(new DuneLocation(locationName2, hydraulicBoundaryLocation, new DuneLocation.ConstructionProperties
                         {
                             CoastalAreaId = 0,
                             Offset = 0,
@@ -414,6 +416,17 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                     HydraulicLocationConfigurationDatabase =
                     {
                         FilePath = validHlcdFilePath
+                    },
+                    HydraulicBoundaryDatabases =
+                    {
+                        new HydraulicBoundaryDatabase
+                        {
+                            FilePath = validHrdFilePath,
+                            Locations =
+                            {
+                                hydraulicBoundaryLocation
+                            }
+                        }
                     }
                 };
 
@@ -516,6 +529,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
 
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
+                FilePath = validHrdFilePath,
                 HydraulicLocationConfigurationDatabase =
                 {
                     FilePath = validHlcdFilePath,
