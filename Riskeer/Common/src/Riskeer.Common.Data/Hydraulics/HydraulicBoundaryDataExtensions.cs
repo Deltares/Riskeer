@@ -93,16 +93,17 @@ namespace Riskeer.Common.Data.Hydraulics
         }
 
         /// <summary>
-        /// Gets the hydraulic boundary database that owns the provided <paramref name="hydraulicBoundaryLocation"/>. 
+        /// Gets the hydraulic boundary database that contains the provided <paramref name="hydraulicBoundaryLocation"/>. 
         /// </summary>
         /// <param name="hydraulicBoundaryData">The <see cref="HydraulicBoundaryData"/> to get the hydraulic boundary
         /// database from.</param>
         /// <param name="hydraulicBoundaryLocation">The <see cref="HydraulicBoundaryLocation"/> to get the hydraulic boundary
         /// database for.</param>
-        /// <returns>An <see cref="HydraulicBoundaryDatabase"/>.</returns>
+        /// <returns>The <see cref="HydraulicBoundaryDatabase"/> that contains the provided
+        /// <paramref name="hydraulicBoundaryLocation"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="hydraulicBoundaryLocation"/> is not part of
-        /// <paramref name="hydraulicBoundaryData"/></exception>
+        /// <paramref name="hydraulicBoundaryData"/>.</exception>
         public static HydraulicBoundaryDatabase GetHydraulicBoundaryDatabaseForLocation(this HydraulicBoundaryData hydraulicBoundaryData,
                                                                                         HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
