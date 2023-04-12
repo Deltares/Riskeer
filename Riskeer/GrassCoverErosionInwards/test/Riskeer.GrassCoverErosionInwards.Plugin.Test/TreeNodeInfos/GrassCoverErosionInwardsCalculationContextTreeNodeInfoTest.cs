@@ -800,6 +800,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
+                FilePath = validHrdFilePath,
                 HydraulicLocationConfigurationDatabase =
                 {
                     FilePath = validHlcdFilePath

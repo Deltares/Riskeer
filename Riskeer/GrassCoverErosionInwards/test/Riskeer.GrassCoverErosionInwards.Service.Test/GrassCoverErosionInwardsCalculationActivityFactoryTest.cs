@@ -113,7 +113,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
             mocks.ReplayAll();
 
-            GrassCoverErosionInwardsCalculation calculation = CreateValidCalculation();
+            GrassCoverErosionInwardsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryData.GetLocations().First());
 
             // Call
             CalculatableActivity activity = GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivity(calculation,
@@ -190,8 +190,10 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
             mocks.ReplayAll();
 
-            GrassCoverErosionInwardsCalculation calculation1 = CreateValidCalculation();
-            GrassCoverErosionInwardsCalculation calculation2 = CreateValidCalculation();
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First();
+
+            GrassCoverErosionInwardsCalculation calculation1 = CreateValidCalculation(hydraulicBoundaryLocation);
+            GrassCoverErosionInwardsCalculation calculation2 = CreateValidCalculation(hydraulicBoundaryLocation);
 
             var calculations = new CalculationGroup
             {
@@ -257,8 +259,10 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
             mocks.ReplayAll();
 
-            GrassCoverErosionInwardsCalculation calculation1 = CreateValidCalculation();
-            GrassCoverErosionInwardsCalculation calculation2 = CreateValidCalculation();
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First();
+
+            GrassCoverErosionInwardsCalculation calculation1 = CreateValidCalculation(hydraulicBoundaryLocation);
+            GrassCoverErosionInwardsCalculation calculation2 = CreateValidCalculation(hydraulicBoundaryLocation);
 
             failureMechanism.CalculationsGroup.Children.AddRange(new[]
             {
@@ -280,13 +284,13 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             mocks.VerifyAll();
         }
 
-        private static GrassCoverErosionInwardsCalculation CreateValidCalculation()
+        private static GrassCoverErosionInwardsCalculation CreateValidCalculation(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             return new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     DikeProfile = new DikeProfile(new Point2D(0, 0),
                                                   new RoughnessPoint[0],
                                                   new Point2D[0],
