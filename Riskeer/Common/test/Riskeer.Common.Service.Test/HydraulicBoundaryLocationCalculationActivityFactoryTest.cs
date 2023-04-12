@@ -95,10 +95,14 @@ namespace Riskeer.Common.Service.Test
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             mocks.ReplayAll();
 
-            ConfigureAssessmentSection(assessmentSection, usePreprocessorClosure);
-
             var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation("locationName1");
             var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation("locationName2");
+
+            ConfigureAssessmentSection(assessmentSection, usePreprocessorClosure, new[]
+            {
+                hydraulicBoundaryLocation1,
+                hydraulicBoundaryLocation2
+            });
 
             // Call
             IEnumerable<CalculatableActivity> activities = HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
@@ -171,10 +175,14 @@ namespace Riskeer.Common.Service.Test
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             mocks.ReplayAll();
 
-            ConfigureAssessmentSection(assessmentSection, usePreprocessorClosure);
-
             var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation("locationName1");
             var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation("locationName2");
+
+            ConfigureAssessmentSection(assessmentSection, usePreprocessorClosure, new[]
+            {
+                hydraulicBoundaryLocation1,
+                hydraulicBoundaryLocation2
+            });
 
             // Call
             IEnumerable<CalculatableActivity> activities = HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
@@ -268,13 +276,24 @@ namespace Riskeer.Common.Service.Test
             mocks.VerifyAll();
         }
 
-        private static void ConfigureAssessmentSection(IAssessmentSection assessmentSection, bool usePreprocessorClosure)
+        private static void ConfigureAssessmentSection(IAssessmentSection assessmentSection, bool usePreprocessorClosure, IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
         {
-            assessmentSection.HydraulicBoundaryData.FilePath = validHrdFilePath;
+            HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryData;
 
-            HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase = assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase;
+            hydraulicBoundaryData.FilePath = validHrdFilePath;
+
+            HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase = hydraulicBoundaryData.HydraulicLocationConfigurationDatabase;
             hydraulicLocationConfigurationDatabase.FilePath = validHlcdFilePath;
             hydraulicLocationConfigurationDatabase.UsePreprocessorClosure = usePreprocessorClosure;
+
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validHrdFilePath
+            };
+
+            hydraulicBoundaryDatabase.Locations.AddRange(hydraulicBoundaryLocations);
+
+            hydraulicBoundaryData.HydraulicBoundaryDatabases.Add(hydraulicBoundaryDatabase);
         }
     }
 }
