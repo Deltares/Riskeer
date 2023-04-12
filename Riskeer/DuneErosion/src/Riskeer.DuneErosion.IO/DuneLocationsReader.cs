@@ -66,7 +66,7 @@ namespace Riskeer.DuneErosion.IO
                     readDuneLocations.AddRange(CreateDuneLocations(locationsData));
                 }
 
-                return readDuneLocations;
+                return readDuneLocations.ToArray();
             }
         }
 
