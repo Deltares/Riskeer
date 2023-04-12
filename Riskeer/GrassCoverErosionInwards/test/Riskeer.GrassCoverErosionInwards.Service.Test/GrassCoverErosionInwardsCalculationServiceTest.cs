@@ -48,7 +48,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
     public class GrassCoverErosionInwardsCalculationServiceTest
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
-        private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
         [Test]
         public void Validate_NoHydraulicBoundaryLocation_LogsMessageAndReturnsFalse()
@@ -56,7 +56,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             // Setup
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                new GrassCoverErosionInwardsFailureMechanism(), mockRepository, validFilePath);
+                new GrassCoverErosionInwardsFailureMechanism(), mockRepository, validHrdFilePath);
             mockRepository.ReplayAll();
 
             var calculation = new GrassCoverErosionInwardsCalculation
@@ -205,7 +205,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             // Setup
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                new GrassCoverErosionInwardsFailureMechanism(), mockRepository, validFilePath);
+                new GrassCoverErosionInwardsFailureMechanism(), mockRepository, validHrdFilePath);
             mockRepository.ReplayAll();
 
             var calculation = new GrassCoverErosionInwardsCalculation
@@ -245,7 +245,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new GrassCoverErosionInwardsFailureMechanism(),
                                                                                                            mockRepository,
-                                                                                                           validFilePath);
+                                                                                                           validHrdFilePath);
             mockRepository.ReplayAll();
 
             GrassCoverErosionInwardsCalculation calculation = GetCalculationWithBreakWater(breakWaterHeight);
@@ -276,7 +276,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new GrassCoverErosionInwardsFailureMechanism(),
                                                                                                            mockRepository,
-                                                                                                           validFilePath);
+                                                                                                           validHrdFilePath);
             mockRepository.ReplayAll();
 
             var calculation = new GrassCoverErosionInwardsCalculation
@@ -321,7 +321,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new GrassCoverErosionInwardsFailureMechanism(),
                                                                                                            mockRepository,
-                                                                                                           validFilePath);
+                                                                                                           validHrdFilePath);
             mockRepository.ReplayAll();
 
             var calculation = new GrassCoverErosionInwardsCalculation
@@ -368,7 +368,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new GrassCoverErosionInwardsFailureMechanism(),
                                                                                                            mockRepository,
-                                                                                                           validFilePath);
+                                                                                                           validHrdFilePath);
             mockRepository.ReplayAll();
 
             GrassCoverErosionInwardsCalculation calculation = GetCalculationWithBreakWater(breakWaterHeight);
@@ -455,7 +455,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mockRepository,
-                                                                                                           validFilePath);
+                                                                                                           validHrdFilePath);
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
                              .IgnoreArguments()
@@ -560,7 +560,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mockRepository,
-                                                                                                           validFilePath);
+                                                                                                           validHrdFilePath);
 
             var dikeHeightCalculator = new TestHydraulicLoadsCalculator
             {
@@ -632,7 +632,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mockRepository,
-                                                                                                           validFilePath);
+                                                                                                           validHrdFilePath);
             var overtoppingRateCalculator = new TestHydraulicLoadsCalculator
             {
                 EndInFailure = true
@@ -703,7 +703,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
                                                                                                            mockRepository,
-                                                                                                           validFilePath);
+                                                                                                           validHrdFilePath);
             var overtoppingCalculator = new TestOvertoppingCalculator();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
@@ -751,7 +751,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mockRepository,
-                                                                                                           validFilePath);
+                                                                                                           validHrdFilePath);
             var overtoppingCalculator = new TestOvertoppingCalculator();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
@@ -813,7 +813,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mockRepository,
-                                                                                                           validFilePath);
+                                                                                                           validHrdFilePath);
             var overtoppingCalculator = new TestOvertoppingCalculator();
             var overtoppingRateCalculator = new TestHydraulicLoadsCalculator();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -876,7 +876,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mockRepository,
-                                                                                                           validFilePath);
+                                                                                                           validHrdFilePath);
             var overtoppingCalculator = new TestOvertoppingCalculator
             {
                 LastErrorFileContent = "An error occurred",
@@ -949,7 +949,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mockRepository,
-                                                                                                           validFilePath);
+                                                                                                           validHrdFilePath);
             var overtoppingCalculator = new TestOvertoppingCalculator
             {
                 EndInFailure = true
@@ -1021,7 +1021,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mockRepository,
-                                                                                                           validFilePath);
+                                                                                                           validHrdFilePath);
             var overtoppingCalculator = new TestOvertoppingCalculator
             {
                 LastErrorFileContent = "An error occurred",
@@ -1095,7 +1095,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mockRepository,
-                                                                                                           validFilePath);
+                                                                                                           validHrdFilePath);
             var dikeHeightCalculator = new TestHydraulicLoadsCalculator
             {
                 LastErrorFileContent = "An error occurred",
@@ -1166,7 +1166,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository,
-                                                                                                           validFilePath);
+                                                                                                           validHrdFilePath);
 
             var dikeHeightCalculator = new TestHydraulicLoadsCalculator
             {
@@ -1238,7 +1238,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mockRepository,
-                                                                                                           validFilePath);
+                                                                                                           validHrdFilePath);
             var dikeHeightCalculator = new TestHydraulicLoadsCalculator
             {
                 LastErrorFileContent = "An error occurred",
@@ -1310,7 +1310,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mockRepository,
-                                                                                                           validFilePath);
+                                                                                                           validHrdFilePath);
             var overtoppingRateCalculator = new TestHydraulicLoadsCalculator
             {
                 LastErrorFileContent = "An error occurred",
@@ -1381,7 +1381,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository,
-                                                                                                           validFilePath);
+                                                                                                           validHrdFilePath);
 
             var overtoppingRateCalculator = new TestHydraulicLoadsCalculator
             {
@@ -1453,7 +1453,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mockRepository,
-                                                                                                           validFilePath);
+                                                                                                           validHrdFilePath);
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             var overtoppingCalculator = new TestOvertoppingCalculator();
             calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
@@ -1526,7 +1526,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mockRepository,
-                                                                                                           validFilePath);
+                                                                                                           validHrdFilePath);
             var overtoppingCalculator = new TestOvertoppingCalculator
             {
                 IllustrationPointsParserErrorMessage = parserError
@@ -1610,7 +1610,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mockRepository,
-                                                                                                           validFilePath);
+                                                                                                           validHrdFilePath);
             var overtoppingCalculator = new TestOvertoppingCalculator
             {
                 IllustrationPointsParserErrorMessage = parserError
@@ -1694,7 +1694,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mockRepository,
-                                                                                                           validFilePath);
+                                                                                                           validHrdFilePath);
             var overtoppingCalculator = new TestOvertoppingCalculator
             {
                 IllustrationPointsResult = new TestGeneralResult()
@@ -1778,7 +1778,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mockRepository,
-                                                                                                           validFilePath);
+                                                                                                           validHrdFilePath);
             var overtoppingCalculator = new TestOvertoppingCalculator
             {
                 IllustrationPointsResult = new TestGeneralResult()
@@ -1862,7 +1862,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mockRepository,
-                                                                                                           validFilePath);
+                                                                                                           validHrdFilePath);
             var overtoppingCalculator = new TestOvertoppingCalculator
             {
                 IllustrationPointsResult = new TestGeneralResult()
@@ -1946,7 +1946,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mockRepository,
-                                                                                                           validFilePath);
+                                                                                                           validHrdFilePath);
             var overtoppingCalculator = new TestOvertoppingCalculator
             {
                 IllustrationPointsResult = new TestGeneralResult()
@@ -2029,7 +2029,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mockRepository,
-                                                                                                           validFilePath);
+                                                                                                           validHrdFilePath);
             var overtoppingCalculator = new TestOvertoppingCalculator
             {
                 IllustrationPointsResult = TestGeneralResult.CreateGeneralResultWithSubMechanismIllustrationPoints()
@@ -2114,7 +2114,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mockRepository,
-                                                                                                           validFilePath);
+                                                                                                           validHrdFilePath);
             var overtoppingCalculator = new TestOvertoppingCalculator
             {
                 IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultWithDuplicateStochasts()
@@ -2201,7 +2201,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mockRepository,
-                                                                                                           validFilePath);
+                                                                                                           validHrdFilePath);
             var overtoppingCalculator = new TestOvertoppingCalculator
             {
                 IllustrationPointsResult = new TestGeneralResult()
@@ -2286,7 +2286,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mockRepository,
-                                                                                                           validFilePath);
+                                                                                                           validHrdFilePath);
             var overtoppingCalculator = new TestOvertoppingCalculator
             {
                 IllustrationPointsResult = new TestGeneralResult()
@@ -2373,7 +2373,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mockRepository,
-                                                                                                           validFilePath);
+                                                                                                           validHrdFilePath);
             var overtoppingCalculator = new TestOvertoppingCalculator
             {
                 IllustrationPointsResult = new TestGeneralResult()
@@ -2458,7 +2458,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mockRepository,
-                                                                                                           validFilePath);
+                                                                                                           validHrdFilePath);
             var overtoppingCalculator = new TestOvertoppingCalculator
             {
                 IllustrationPointsResult = new TestGeneralResult()
@@ -2547,7 +2547,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mockRepository,
-                                                                                                           validFilePath,
+                                                                                                           validHrdFilePath,
                                                                                                            usePreprocessorClosure);
 
             HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.Locations.First(hl => hl.Id == 1300001);

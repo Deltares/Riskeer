@@ -47,7 +47,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
     public class GrassCoverErosionOutwardsCalculationActivityFactoryTest
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
-        private static readonly string validFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
 
         [Test]
         public void CreateCalculationActivity_CalculationNull_ThrowsArgumentNullException()
@@ -109,7 +109,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             GrassCoverErosionOutwardsFailureMechanism failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var assessmentSection = new AssessmentSectionStub();
             HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryData;
-            hydraulicBoundaryData.FilePath = validFilePath;
+            hydraulicBoundaryData.FilePath = validHrdFilePath;
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName 1");
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
@@ -187,7 +187,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             GrassCoverErosionOutwardsFailureMechanism failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var assessmentSection = new AssessmentSectionStub();
             HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryData;
-            hydraulicBoundaryData.FilePath = validFilePath;
+            hydraulicBoundaryData.FilePath = validHrdFilePath;
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName 1");
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]

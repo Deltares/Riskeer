@@ -46,7 +46,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
     public class GrassCoverErosionInwardsCalculationActivityFactoryTest
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
-        private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
         [Test]
         public void CreateCalculationActivity_CalculationNull_ThrowsArgumentNullException()
@@ -109,7 +109,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mocks,
-                                                                                                           validFilePath);
+                                                                                                           validHrdFilePath);
 
             mocks.ReplayAll();
 
@@ -186,7 +186,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mocks,
-                                                                                                           validFilePath);
+                                                                                                           validHrdFilePath);
 
             mocks.ReplayAll();
 
@@ -253,7 +253,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mocks,
-                                                                                                           validFilePath);
+                                                                                                           validHrdFilePath);
 
             mocks.ReplayAll();
 
