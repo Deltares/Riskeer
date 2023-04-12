@@ -336,6 +336,65 @@ namespace Riskeer.Integration.Data.Test
             Assert.AreEqual(2, waveHeightCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations.Count);
         }
 
+        [Test]
+        public void RemoveHydraulicBoundaryLocationCalculations_HydraulicBoundaryLocationsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var random = new Random(21);
+            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
+
+            // Call
+            void Call() => assessmentSection.RemoveHydraulicBoundaryLocationCalculations(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("hydraulicBoundaryLocations", exception.ParamName);
+        }
+
+        [Test]
+        public void RemoveHydraulicBoundaryLocationCalculations_MultipleHydraulicBoundaryLocations_RemovesExpectedCalculations()
+        {
+            // Setup
+            var random = new Random(21);
+            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
+
+            var waterLevelCalculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
+            assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Add(waterLevelCalculationsForTargetProbability);
+
+            var waveHeightCalculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01);
+            assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Add(waveHeightCalculationsForTargetProbability);
+
+            var location1 = new TestHydraulicBoundaryLocation();
+            var location2 = new TestHydraulicBoundaryLocation();
+            var location3 = new TestHydraulicBoundaryLocation();
+
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new HydraulicBoundaryLocation[]
+            {
+                location1,
+                location2,
+                location3
+            });
+
+            // Precondition
+            Assert.AreEqual(3, assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.Count());
+            Assert.AreEqual(3, assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability.Count());
+            Assert.AreEqual(3, waterLevelCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations.Count);
+            Assert.AreEqual(3, waveHeightCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations.Count);
+
+            // Call
+            assessmentSection.RemoveHydraulicBoundaryLocationCalculations(new[]
+            {
+                location2,
+                location3
+            });
+
+            // Assert
+            Assert.AreSame(location1, assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.Single().HydraulicBoundaryLocation);
+            Assert.AreSame(location1, assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability.Single().HydraulicBoundaryLocation);
+            Assert.AreSame(location1, waterLevelCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations.Single().HydraulicBoundaryLocation);
+            Assert.AreSame(location1, waveHeightCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations.Single().HydraulicBoundaryLocation);
+        }
+
         private static IEnumerable<TestCaseData> GetFailureMechanismInAssemblyStates()
         {
             yield return new TestCaseData(AssessmentSectionComposition.Dike, new[]
