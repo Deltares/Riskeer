@@ -165,18 +165,30 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
         public void Calculate_ValidPathOneCalculation_LogsMessages()
         {
             // Setup
+            const string calculationIdentifier = "1/100";
+            const string duneLocationName = "duneLocationName";
+
+            var duneLocation = new TestDuneLocation(duneLocationName);
+
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = validHrdFilePath,
                 HydraulicLocationConfigurationDatabase =
                 {
                     FilePath = validHlcdFilePath,
                     UsePreprocessorClosure = true
+                },
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        FilePath = validHrdFilePath,
+                        Locations =
+                        {
+                            duneLocation.HydraulicBoundaryLocation
+                        }
+                    }
                 }
             };
-
-            const string calculationIdentifier = "1/100";
-            const string duneLocationName = "duneLocationName";
 
             var mocks = new MockRepository();
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
@@ -184,7 +196,9 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
                              .WhenCalled(invocation =>
                              {
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData),
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                                         hydraulicBoundaryData,
+                                         duneLocation.HydraulicBoundaryLocation),
                                      (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(new TestDunesBoundaryConditionsCalculator());
@@ -199,11 +213,13 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
                 var guiService = new DuneLocationCalculationGuiService(viewParent);
 
                 // Call
-                void Call() =>
+                void Call()
+                {
                     guiService.Calculate(new[]
                     {
-                        new DuneLocationCalculation(new TestDuneLocation(duneLocationName))
+                        new DuneLocationCalculation(duneLocation)
                     }, assessmentSection, 0.01, calculationIdentifier);
+                }
 
                 // Assert
                 TestHelper.AssertLogMessages(Call, messages =>

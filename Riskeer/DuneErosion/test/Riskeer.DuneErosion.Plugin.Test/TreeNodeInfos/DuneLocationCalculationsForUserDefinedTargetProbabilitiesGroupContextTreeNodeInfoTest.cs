@@ -553,14 +553,26 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
         public void GivenValidCalculations_WhenCalculatingAllFromContextMenu_ThenAllCalculationsScheduled()
         {
             // Given
+            var duneLocation = new TestDuneLocation("Test");
+
             var assessmentSection = new AssessmentSectionStub
             {
                 HydraulicBoundaryData =
                 {
-                    FilePath = validHrdFilePath,
                     HydraulicLocationConfigurationDatabase =
                     {
                         FilePath = validHlcdFilePath
+                    },
+                    HydraulicBoundaryDatabases =
+                    {
+                        new HydraulicBoundaryDatabase
+                        {
+                            FilePath = validHrdFilePath,
+                            Locations =
+                            {
+                                duneLocation.HydraulicBoundaryLocation
+                            }
+                        }
                     }
                 }
             };
@@ -574,7 +586,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                 }
             };
 
-            var duneLocation = new TestDuneLocation("Test");
             failureMechanism.SetDuneLocations(new[]
             {
                 duneLocation
@@ -606,7 +617,9 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                                  .WhenCalled(invocation =>
                                  {
                                      HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData),
+                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                                             assessmentSection.HydraulicBoundaryData,
+                                             duneLocation.HydraulicBoundaryLocation),
                                          (HydraRingCalculationSettings) invocation.Arguments[0]);
                                  })
                                  .Return(dunesBoundaryConditionsCalculator).Repeat.Times(2);

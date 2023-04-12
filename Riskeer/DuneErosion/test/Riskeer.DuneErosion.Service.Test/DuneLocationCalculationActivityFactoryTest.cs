@@ -92,8 +92,12 @@ namespace Riskeer.DuneErosion.Service.Test
 
             AssessmentSectionStub assessmentSection = CreateAssessmentSection(usePreprocessorClosure);
 
-            var duneLocation1 = new DuneLocation("locationName1", new HydraulicBoundaryLocation(1, string.Empty, 1, 1), new DuneLocation.ConstructionProperties());
-            var duneLocation2 = new DuneLocation("locationName2", new HydraulicBoundaryLocation(2, string.Empty, 2, 2), new DuneLocation.ConstructionProperties());
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 1, 1);
+
+            assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.First().Locations.Add(hydraulicBoundaryLocation);
+
+            var duneLocation1 = new DuneLocation("locationName1", hydraulicBoundaryLocation, new DuneLocation.ConstructionProperties());
+            var duneLocation2 = new DuneLocation("locationName2", hydraulicBoundaryLocation, new DuneLocation.ConstructionProperties());
 
             // Call
             CalculatableActivity[] activities = DuneLocationCalculationActivityFactory.CreateCalculationActivities(
@@ -165,8 +169,12 @@ namespace Riskeer.DuneErosion.Service.Test
                 }
             };
 
-            var duneLocation1 = new DuneLocation("locationName1", new HydraulicBoundaryLocation(1, string.Empty, 1, 1), new DuneLocation.ConstructionProperties());
-            var duneLocation2 = new DuneLocation("locationName2", new HydraulicBoundaryLocation(2, string.Empty, 2, 2), new DuneLocation.ConstructionProperties());
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 1, 1);
+
+            assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.First().Locations.Add(hydraulicBoundaryLocation);
+
+            var duneLocation1 = new DuneLocation("locationName1", hydraulicBoundaryLocation, new DuneLocation.ConstructionProperties());
+            var duneLocation2 = new DuneLocation("locationName2", hydraulicBoundaryLocation, new DuneLocation.ConstructionProperties());
 
             failureMechanism.SetDuneLocations(new[]
             {
@@ -215,11 +223,17 @@ namespace Riskeer.DuneErosion.Service.Test
             {
                 HydraulicBoundaryData =
                 {
-                    FilePath = validHrdFilePath,
                     HydraulicLocationConfigurationDatabase =
                     {
                         FilePath = validHlcdFilePath,
                         UsePreprocessorClosure = usePreprocessorClosure
+                    },
+                    HydraulicBoundaryDatabases =
+                    {
+                        new HydraulicBoundaryDatabase
+                        {
+                            FilePath = validHrdFilePath
+                        }
                     }
                 }
             };
@@ -241,7 +255,9 @@ namespace Riskeer.DuneErosion.Service.Test
                              .WhenCalled(invocation =>
                              {
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData),
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                                         hydraulicBoundaryData,
+                                         hydraulicBoundaryData.HydraulicBoundaryDatabases.First().Locations.First()),
                                      (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(calculator);
