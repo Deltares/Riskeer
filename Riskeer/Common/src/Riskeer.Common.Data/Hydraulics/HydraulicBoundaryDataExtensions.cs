@@ -92,6 +92,40 @@ namespace Riskeer.Common.Data.Hydraulics
             return hydraulicBoundaryData.HydraulicBoundaryDatabases.SelectMany(hbd => hbd.Locations);
         }
 
+        /// <summary>
+        /// Gets the hydraulic boundary database that owns the provided <paramref name="hydraulicBoundaryLocation"/>. 
+        /// </summary>
+        /// <param name="hydraulicBoundaryData">The <see cref="HydraulicBoundaryData"/> to get the hydraulic boundary
+        /// database from.</param>
+        /// <param name="hydraulicBoundaryLocation">The <see cref="HydraulicBoundaryLocation"/> to get the hydraulic boundary
+        /// database for.</param>
+        /// <returns>An <see cref="HydraulicBoundaryDatabase"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="hydraulicBoundaryLocation"/> is not part of
+        /// <paramref name="hydraulicBoundaryData"/></exception>
+        public static HydraulicBoundaryDatabase GetHydraulicBoundaryDatabaseForLocation(this HydraulicBoundaryData hydraulicBoundaryData,
+                                                                                        HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            if (hydraulicBoundaryData == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryData));
+            }
+
+            if (hydraulicBoundaryLocation == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryLocation));
+            }
+
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = hydraulicBoundaryData.HydraulicBoundaryDatabases.FirstOrDefault(hbd => hbd.Locations.Contains(hydraulicBoundaryLocation));
+
+            if (hydraulicBoundaryDatabase == null)
+            {
+                throw new ArgumentException($"'{nameof(hydraulicBoundaryLocation)}' is not part of '{nameof(hydraulicBoundaryData)}'.");
+            }
+
+            return hydraulicBoundaryDatabase;
+        }
+
         private static string GetNewFilePath(string filePath, string newFolderPath)
         {
             return Path.Combine(newFolderPath, Path.GetFileName(filePath));
