@@ -115,7 +115,7 @@ namespace Riskeer.Integration.Plugin.Handlers
             hydraulicBoundaryData.Locations.AddRange(newHydraulicBoundaryLocations);
 
             assessmentSection.SetHydraulicBoundaryLocationCalculations(newHydraulicBoundaryDatabase.Locations);
-            duneLocationsReplacementHandler.Replace(hydraulicBoundaryData.Locations);
+            duneLocationsReplacementHandler.Replace(newHydraulicBoundaryDatabase.Locations);
 
             return GetLocationsAndCalculationsObservables(hydraulicBoundaryData);
         }

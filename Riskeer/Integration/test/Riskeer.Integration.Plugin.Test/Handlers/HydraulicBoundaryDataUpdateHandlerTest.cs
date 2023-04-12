@@ -214,7 +214,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             duneLocationsReplacementHandler.Expect(h => h.Replace(Arg<IEnumerable<HydraulicBoundaryLocation>>.Is.NotNull))
                                            .WhenCalled(invocation =>
                                            {
-                                               Assert.AreSame(hydraulicBoundaryData.Locations, invocation.Arguments[0]);
+                                               Assert.AreSame(hydraulicBoundaryData.HydraulicBoundaryDatabases.First().Locations, invocation.Arguments[0]);
                                            });
             mocks.ReplayAll();
 
