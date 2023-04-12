@@ -242,5 +242,77 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("hydraulicBoundaryLocation", exception.ParamName);
         }
+
+        [Test]
+        public void GetHydraulicBoundaryDatabaseForLocation_LocationNotPartOfHydraulicBoundaryData_ThrowsArgumentException()
+        {
+            // Setup
+            var hydraulicBoundaryData = new HydraulicBoundaryData
+            {
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        Locations =
+                        {
+                            new TestHydraulicBoundaryLocation()
+                        }
+                    },
+                    new HydraulicBoundaryDatabase
+                    {
+                        Locations =
+                        {
+                            new TestHydraulicBoundaryLocation()
+                        }
+                    }
+                }
+            };
+
+            // Call
+            void Call() => hydraulicBoundaryData.GetHydraulicBoundaryDatabaseForLocation(new TestHydraulicBoundaryLocation());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(Call);
+            Assert.AreEqual("'hydraulicBoundaryLocation' is not part of 'hydraulicBoundaryData'.", exception.Message);
+        }
+
+        [Test]
+        public void GetHydraulicBoundaryDatabaseForLocation_LocationPartOfHydraulicBoundaryData_ReturnsExpectedHydraulicBoundaryDatabase()
+        {
+            // Setup
+            var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
+            var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation();
+
+            var hydraulicBoundaryDatabase1 = new HydraulicBoundaryDatabase
+            {
+                Locations =
+                {
+                    hydraulicBoundaryLocation1
+                }
+            };
+
+            var hydraulicBoundaryDatabase2 = new HydraulicBoundaryDatabase
+            {
+                Locations =
+                {
+                    hydraulicBoundaryLocation2
+                }
+            };
+
+            var hydraulicBoundaryData = new HydraulicBoundaryData
+            {
+                HydraulicBoundaryDatabases =
+                {
+                    hydraulicBoundaryDatabase1,
+                    hydraulicBoundaryDatabase2
+                }
+            };
+
+            // Call
+            HydraulicBoundaryDatabase result = hydraulicBoundaryData.GetHydraulicBoundaryDatabaseForLocation(hydraulicBoundaryLocation2);
+
+            // Assert
+            Assert.AreSame(hydraulicBoundaryDatabase2, result);
+        }
     }
 }
