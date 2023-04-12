@@ -542,6 +542,8 @@ namespace Riskeer.Revetment.Service.Test
             HydraulicBoundaryData hydraulicBoundaryData)
         {
             // Setup
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = hydraulicBoundaryData.HydraulicBoundaryDatabases.First().Locations.First();
+
             var waterLevel = (RoundedDouble) 4.20;
             var a = (RoundedDouble) 1.0;
             var b = (RoundedDouble) 0.8;
@@ -549,7 +551,7 @@ namespace Riskeer.Revetment.Service.Test
             const double targetProbability = 0.2;
             var input = new WaveConditionsInput
             {
-                HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
+                HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                 ForeshoreProfile = new TestForeshoreProfile(true),
                 UpperBoundaryRevetment = (RoundedDouble) 4,
                 LowerBoundaryRevetment = (RoundedDouble) 3,
@@ -566,7 +568,8 @@ namespace Riskeer.Revetment.Service.Test
                              .WhenCalled(invocation =>
                              {
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData),
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData,
+                                                                                                hydraulicBoundaryLocation),
                                      (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(calculator)
@@ -869,21 +872,41 @@ namespace Riskeer.Revetment.Service.Test
         {
             var hydraulicBoundaryDataWithUsePreprocessorClosureTrue = new HydraulicBoundaryData
             {
-                FilePath = validHrdFilePath,
                 HydraulicLocationConfigurationDatabase =
                 {
                     FilePath = validHlcdFilePath,
                     UsePreprocessorClosure = true
+                },
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        FilePath = validHrdFilePath,
+                        Locations =
+                        {
+                            new TestHydraulicBoundaryLocation()
+                        }
+                    }
                 }
             };
             yield return new TestCaseData(hydraulicBoundaryDataWithUsePreprocessorClosureTrue).SetName("UsePreprocessorClosureTrue");
 
             var hydraulicBoundaryDataWithUsePreprocessorClosureFalse = new HydraulicBoundaryData
             {
-                FilePath = validHrdFilePath,
                 HydraulicLocationConfigurationDatabase =
                 {
                     FilePath = validHlcdFilePath
+                },
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        FilePath = validHrdFilePath,
+                        Locations =
+                        {
+                            new TestHydraulicBoundaryLocation()
+                        }
+                    }
                 }
             };
             yield return new TestCaseData(hydraulicBoundaryDataWithUsePreprocessorClosureFalse).SetName("UsePreprocessorClosureFalse");
