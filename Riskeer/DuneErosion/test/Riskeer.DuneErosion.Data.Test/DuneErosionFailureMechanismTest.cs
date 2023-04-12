@@ -139,5 +139,63 @@ namespace Riskeer.DuneErosion.Data.Test
             Assert.AreEqual(2, calculationsForTargetProbability1.DuneLocationCalculations.Count);
             Assert.AreEqual(2, calculationsForTargetProbability2.DuneLocationCalculations.Count);
         }
+
+        [Test]
+        public void RemoveDuneLocations_DuneLocationsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var failureMechanism = new DuneErosionFailureMechanism();
+
+            // Call
+            void Call() => failureMechanism.RemoveDuneLocations(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("duneLocations", exception.ParamName);
+        }
+
+        [Test]
+        public void RemoveDuneLocations_MultipleDuneLocations_RemovesExpectedLocationsAndCalculations()
+        {
+            // Setup
+            var calculationsForTargetProbability1 = new DuneLocationCalculationsForTargetProbability(0.1);
+            var calculationsForTargetProbability2 = new DuneLocationCalculationsForTargetProbability(0.01);
+            var failureMechanism = new DuneErosionFailureMechanism
+            {
+                DuneLocationCalculationsForUserDefinedTargetProbabilities =
+                {
+                    calculationsForTargetProbability1,
+                    calculationsForTargetProbability2
+                }
+            };
+
+            var duneLocation1 = new TestDuneLocation();
+            var duneLocation2 = new TestDuneLocation();
+            var duneLocation3 = new TestDuneLocation();
+
+            failureMechanism.SetDuneLocations(new[]
+            {
+                duneLocation1,
+                duneLocation2,
+                duneLocation3
+            });
+
+            // Precondition
+            Assert.AreEqual(3, failureMechanism.DuneLocations.Count());
+            Assert.AreEqual(3, calculationsForTargetProbability1.DuneLocationCalculations.Count);
+            Assert.AreEqual(3, calculationsForTargetProbability2.DuneLocationCalculations.Count);
+
+            // Call
+            failureMechanism.RemoveDuneLocations(new[]
+            {
+                duneLocation1,
+                duneLocation3
+            });
+
+            // Assert
+            Assert.AreSame(duneLocation2, failureMechanism.DuneLocations.Single());
+            Assert.AreSame(duneLocation2, calculationsForTargetProbability1.DuneLocationCalculations.Single().DuneLocation);
+            Assert.AreSame(duneLocation2, calculationsForTargetProbability2.DuneLocationCalculations.Single().DuneLocation);
+        }
     }
 }
