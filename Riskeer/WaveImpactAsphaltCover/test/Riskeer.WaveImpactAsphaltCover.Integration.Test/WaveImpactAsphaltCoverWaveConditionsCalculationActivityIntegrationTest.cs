@@ -549,9 +549,16 @@ namespace Riskeer.WaveImpactAsphaltCover.Integration.Test
                         FilePath = validHlcdFilePath,
                         UsePreprocessorClosure = usePreprocessorClosure
                     },
-                    Locations =
+                    HydraulicBoundaryDatabases =
                     {
-                        hydraulicBoundaryLocation
+                        new HydraulicBoundaryDatabase
+                        {
+                            FilePath = validHrdFilePath,
+                            Locations =
+                            {
+                                hydraulicBoundaryLocation
+                            }
+                        }
                     }
                 }
             };
