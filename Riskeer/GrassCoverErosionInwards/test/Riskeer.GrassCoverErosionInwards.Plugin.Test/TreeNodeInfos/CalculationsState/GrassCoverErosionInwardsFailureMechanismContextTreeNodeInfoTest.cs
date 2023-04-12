@@ -488,12 +488,15 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos.Calculation
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            
             failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation
             {
                 Name = "A",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     DikeProfile = DikeProfileTestFactory.CreateDikeProfile()
                 }
             });
@@ -502,17 +505,27 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos.Calculation
                 Name = "B",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     DikeProfile = DikeProfileTestFactory.CreateDikeProfile()
                 }
             });
 
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = validHrdFilePath,
                 HydraulicLocationConfigurationDatabase =
                 {
                     FilePath = validHlcdFilePath
+                },
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        FilePath = validHrdFilePath,
+                        Locations =
+                        {
+                            hydraulicBoundaryLocation
+                        }
+                    }
                 }
             };
 
@@ -537,7 +550,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos.Calculation
                                  .WhenCalled(invocation =>
                                  {
                                      HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData),
+                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData,
+                                                                                                    hydraulicBoundaryLocation),
                                          (HydraRingCalculationSettings) invocation.Arguments[0]);
                                  })
                                  .Return(new TestOvertoppingCalculator())
