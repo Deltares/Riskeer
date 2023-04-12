@@ -172,6 +172,7 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
 
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
+                FilePath = validHrdFilePath,
                 HydraulicLocationConfigurationDatabase =
                 {
                     FilePath = validHlcdFilePath,

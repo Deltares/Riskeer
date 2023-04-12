@@ -247,12 +247,36 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         [Test]
         public void DuneLocationCalculationsView_DataSet_DataGridViewCorrectlyInitialized()
         {
-            // Setup 
+            // Setup
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+            var hydraulicBoundaryData = new HydraulicBoundaryData
+            {
+                FilePath = validHrdFilePath,
+                HydraulicLocationConfigurationDatabase =
+                {
+                    FilePath = validHlcdFilePath
+                },
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        FilePath = validHrdFilePath,
+                        Locations =
+                        {
+                            hydraulicBoundaryLocation
+                        }
+                    }
+                }
+            };
+
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
             mocks.ReplayAll();
 
             // Call
-            using (DuneLocationCalculationsView view = ShowFullyConfiguredDuneLocationCalculationsView(assessmentSection))
+            using (DuneLocationCalculationsView view = ShowFullyConfiguredDuneLocationCalculationsView(assessmentSection,
+                                                                                                       hydraulicBoundaryLocation))
             {
                 // Assert
                 var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
@@ -263,8 +287,8 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 {
                     false,
                     "1",
-                    "1",
-                    new Point2D(1, 1).ToString(),
+                    "0",
+                    new Point2D(0, 0).ToString(),
                     "50",
                     "320",
                     "-",
@@ -278,8 +302,8 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 {
                     false,
                     "2",
-                    "2",
-                    new Point2D(2, 2).ToString(),
+                    "0",
+                    new Point2D(0, 0).ToString(),
                     "60",
                     "230",
                     1.23.ToString(CultureInfo.CurrentCulture),
@@ -317,7 +341,8 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            using (DuneLocationCalculationsView view = ShowFullyConfiguredDuneLocationCalculationsView(assessmentSection))
+            using (DuneLocationCalculationsView view = ShowFullyConfiguredDuneLocationCalculationsView(assessmentSection,
+                                                                                                       new TestHydraulicBoundaryLocation()))
             {
                 var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
                 DataGridViewRow selectedCalculationRow = dataGridView.Rows[0];
@@ -400,10 +425,12 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         public void GivenFullyConfiguredDuneLocationCalculationsView_WhenEachDuneLocationCalculationOutputClearedAndNotified_ThenDataGridViewRowsRefreshedWithNewValues()
         {
             // Given
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            IObservableEnumerable<DuneLocationCalculation> calculations = GenerateDuneLocationCalculations();
+            IObservableEnumerable<DuneLocationCalculation> calculations = GenerateDuneLocationCalculations(hydraulicBoundaryLocation);
             using (DuneLocationCalculationsView view = ShowDuneLocationCalculationsView(calculations,
                                                                                         new DuneErosionFailureMechanism(),
                                                                                         assessmentSection))
@@ -444,12 +471,25 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         public void CalculateForSelectedButton_OneCalculationSelected_CalculateForSelectedCalculationAndKeepOriginalSelection()
         {
             // Setup
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 FilePath = validHrdFilePath,
                 HydraulicLocationConfigurationDatabase =
                 {
                     FilePath = validHlcdFilePath
+                },
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        FilePath = validHrdFilePath,
+                        Locations =
+                        {
+                            hydraulicBoundaryLocation
+                        }
+                    }
                 }
             };
 
@@ -468,7 +508,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                              .Return(new TestDunesBoundaryConditionsCalculator());
             mocks.ReplayAll();
 
-            IObservableEnumerable<DuneLocationCalculation> calculations = GenerateDuneLocationCalculations();
+            IObservableEnumerable<DuneLocationCalculation> calculations = GenerateDuneLocationCalculations(hydraulicBoundaryLocation);
             var failureMechanism = new DuneErosionFailureMechanism();
 
             using (DuneLocationCalculationsView view = ShowDuneLocationCalculationsView(calculations,
@@ -505,12 +545,25 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         public void CalculateForSelectedButton_OneCalculationSelected_CalculateForSelectedCalculationAndLogsMessages()
         {
             // Setup
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 FilePath = validHrdFilePath,
                 HydraulicLocationConfigurationDatabase =
                 {
                     FilePath = validHlcdFilePath
+                },
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        FilePath = validHrdFilePath,
+                        Locations =
+                        {
+                            hydraulicBoundaryLocation
+                        }
+                    }
                 }
             };
 
@@ -529,7 +582,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                              .Return(new TestDunesBoundaryConditionsCalculator());
             mocks.ReplayAll();
 
-            IObservableEnumerable<DuneLocationCalculation> calculations = GenerateDuneLocationCalculations();
+            IObservableEnumerable<DuneLocationCalculation> calculations = GenerateDuneLocationCalculations(hydraulicBoundaryLocation);
             var failureMechanism = new DuneErosionFailureMechanism();
 
             using (DuneLocationCalculationsView view = ShowDuneLocationCalculationsView(calculations,
@@ -582,7 +635,8 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            using (DuneLocationCalculationsView view = ShowFullyConfiguredDuneLocationCalculationsView(assessmentSection))
+            using (DuneLocationCalculationsView view = ShowFullyConfiguredDuneLocationCalculationsView(assessmentSection,
+                                                                                                       new TestHydraulicBoundaryLocation()))
             {
                 var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
                 DataGridViewRowCollection rows = dataGridView.Rows;
@@ -607,7 +661,8 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            using (DuneLocationCalculationsView view = ShowFullyConfiguredDuneLocationCalculationsView(assessmentSection))
+            using (DuneLocationCalculationsView view = ShowFullyConfiguredDuneLocationCalculationsView(assessmentSection,
+                                                                                                       new TestHydraulicBoundaryLocation()))
             {
                 // When
                 if (rowSelected)
@@ -633,12 +688,13 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             // Setup
             const double targetProbability = 0.01;
 
-            IObservableEnumerable<DuneLocationCalculation> duneLocationCalculations = GenerateDuneLocationCalculations();
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = duneLocationCalculations.First().DuneLocation.HydraulicBoundaryLocation;
+            IObservableEnumerable<DuneLocationCalculation> duneLocationCalculations = GenerateDuneLocationCalculations(hydraulicBoundaryLocation);
 
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
+                FilePath = validHrdFilePath,
                 HydraulicLocationConfigurationDatabase =
                 {
                     FilePath = validHlcdFilePath,
@@ -705,17 +761,18 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                     // Assert
                     DunesBoundaryConditionsCalculationInput dunesBoundaryConditionsCalculationInput = dunesBoundaryConditionsCalculator.ReceivedInputs.First();
 
-                    Assert.AreEqual(1, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
+                    Assert.AreEqual(0, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
                     Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(targetProbability), dunesBoundaryConditionsCalculationInput.Beta);
                 }
             }
         }
 
-        private DuneLocationCalculationsView ShowFullyConfiguredDuneLocationCalculationsView(IAssessmentSection assessmentSection)
+        private DuneLocationCalculationsView ShowFullyConfiguredDuneLocationCalculationsView(IAssessmentSection assessmentSection,
+                                                                                             HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             var failureMechanism = new DuneErosionFailureMechanism();
 
-            return ShowDuneLocationCalculationsView(GenerateDuneLocationCalculations(),
+            return ShowDuneLocationCalculationsView(GenerateDuneLocationCalculations(hydraulicBoundaryLocation),
                                                     failureMechanism,
                                                     assessmentSection);
         }
@@ -736,10 +793,8 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             return view;
         }
 
-        private static IObservableEnumerable<DuneLocationCalculation> GenerateDuneLocationCalculations()
+        private static IObservableEnumerable<DuneLocationCalculation> GenerateDuneLocationCalculations(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 1.0, 1.0);
-
             return new ObservableList<DuneLocationCalculation>
             {
                 new DuneLocationCalculation(new DuneLocation("1", hydraulicBoundaryLocation, new DuneLocation.ConstructionProperties
