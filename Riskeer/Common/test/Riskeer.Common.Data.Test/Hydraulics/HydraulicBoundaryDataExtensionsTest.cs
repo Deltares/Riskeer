@@ -217,5 +217,30 @@ namespace Riskeer.Common.Data.Test.Hydraulics
                 location3
             }, locations);
         }
+
+        [Test]
+        public void GetHydraulicBoundaryDatabaseForLocation_HydraulicBoundaryDataNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => HydraulicBoundaryDataExtensions.GetHydraulicBoundaryDatabaseForLocation(null, new TestHydraulicBoundaryLocation());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("hydraulicBoundaryData", exception.ParamName);
+        }
+
+        [Test]
+        public void GetHydraulicBoundaryDatabaseForLocation_HydraulicBoundaryLocationNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var hydraulicBoundaryData = new HydraulicBoundaryData();
+
+            // Call
+            void Call() => hydraulicBoundaryData.GetHydraulicBoundaryDatabaseForLocation(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("hydraulicBoundaryLocation", exception.ParamName);
+        }
     }
 }
