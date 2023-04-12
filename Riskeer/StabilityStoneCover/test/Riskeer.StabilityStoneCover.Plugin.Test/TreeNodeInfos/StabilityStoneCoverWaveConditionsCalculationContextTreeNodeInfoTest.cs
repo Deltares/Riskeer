@@ -1553,9 +1553,16 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                         FilePath = validHlcdFilePath,
                         UsePreprocessorClosure = usePreprocessorClosure
                     },
-                    Locations =
+                    HydraulicBoundaryDatabases =
                     {
-                        hydraulicBoundaryLocation
+                        new HydraulicBoundaryDatabase
+                        {
+                            FilePath = validHrdFilePath,
+                            Locations =
+                            {
+                                hydraulicBoundaryLocation
+                            }
+                        }
                     }
                 }
             };

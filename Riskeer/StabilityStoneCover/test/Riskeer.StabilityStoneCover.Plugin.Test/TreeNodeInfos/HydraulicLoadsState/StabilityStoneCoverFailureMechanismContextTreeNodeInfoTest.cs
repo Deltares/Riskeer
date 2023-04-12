@@ -363,9 +363,16 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos.HydraulicLoadsSt
                     {
                         FilePath = validHlcdFilePath
                     },
-                    Locations =
+                    HydraulicBoundaryDatabases =
                     {
-                        hydraulicBoundaryLocation
+                        new HydraulicBoundaryDatabase
+                        {
+                            FilePath = validHrdFilePath,
+                            Locations =
+                            {
+                                hydraulicBoundaryLocation
+                            }
+                        }
                     }
                 }
             };
