@@ -110,6 +110,16 @@ namespace Riskeer.Piping.Service.Test
 
             assessmentSection.HydraulicBoundaryData.FilePath = validHrdFilePath;
             assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath = validHlcdFilePath;
+            assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(
+                new HydraulicBoundaryDatabase
+                {
+                    FilePath = validHrdFilePath,
+                    Locations =
+                    {
+                        hydraulicBoundaryLocation1,
+                        hydraulicBoundaryLocation2
+                    }
+                });
 
             var random = new Random(39);
 
@@ -263,6 +273,16 @@ namespace Riskeer.Piping.Service.Test
 
             assessmentSection.HydraulicBoundaryData.FilePath = validHrdFilePath;
             assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath = validHlcdFilePath;
+            assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(
+                new HydraulicBoundaryDatabase
+                {
+                    FilePath = validHrdFilePath,
+                    Locations =
+                    {
+                        hydraulicBoundaryLocation1,
+                        hydraulicBoundaryLocation2
+                    }
+                });
 
             var random = new Random(39);
 
@@ -504,6 +524,15 @@ namespace Riskeer.Piping.Service.Test
 
             assessmentSection.HydraulicBoundaryData.FilePath = validHrdFilePath;
             assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath = validHlcdFilePath;
+            assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(
+                new HydraulicBoundaryDatabase
+                {
+                    FilePath = validHrdFilePath,
+                    Locations =
+                    {
+                        hydraulicBoundaryLocation
+                    }
+                });
 
             var calculation = ProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<TestProbabilisticPipingCalculation>(
                 hydraulicBoundaryLocation);

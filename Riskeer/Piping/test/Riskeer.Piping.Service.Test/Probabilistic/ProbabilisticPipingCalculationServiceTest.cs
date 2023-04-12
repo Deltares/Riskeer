@@ -2085,7 +2085,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
                 failureMechanism, mocks, validHrdFilePath, usePreprocessorClosure);
 
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.Locations.First(hl => hl.Id == 1300001);
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hl => hl.Id == 1300001);
 
             HydraulicBoundaryCalculationSettings calculationSettings = HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
                 assessmentSection.HydraulicBoundaryData, hydraulicBoundaryLocation);
