@@ -96,34 +96,6 @@ namespace Riskeer.DuneErosion.Service.Test
         }
 
         [Test]
-        public void SetDuneLocations_Always_PreviousDuneLocationsCleared()
-        {
-            // Setup
-            var duneLocation = new TestDuneLocation();
-
-            var failureMechanism = new DuneErosionFailureMechanism();
-            failureMechanism.SetDuneLocations(new[]
-            {
-                duneLocation
-            });
-
-            // Precondition
-            CollectionAssert.AreEqual(
-                new[]
-                {
-                    duneLocation
-                }, failureMechanism.DuneLocations);
-
-            // Call
-            DuneErosionDataSynchronizationService.SetDuneLocations(failureMechanism,
-                                                                   new HydraulicBoundaryLocation[0],
-                                                                   new ReadDuneLocation[0]);
-
-            // Assert
-            CollectionAssert.IsEmpty(failureMechanism.DuneLocations);
-        }
-
-        [Test]
         public void SetDuneLocations_DuneLocationOffsetMatchesWithHydraulicBoundaryLocationName_DuneLocationAddedToFailureMechanism()
         {
             // Setup
@@ -194,8 +166,8 @@ namespace Riskeer.DuneErosion.Service.Test
 
         [Test]
         [TestCaseSource(nameof(Locations))]
-        public void SetDuneLocation_DuneLocationNoMatchWithHydraulicBoundaryLocation_DuneLocationNotAddedToFailureMechanism(ReadDuneLocation readDuneLocation,
-                                                                                                                            HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        public void SetDuneLocation_DuneLocationNoMatchWithHydraulicBoundaryLocation_DuneLocationNotAddedToFailureMechanism(
+            ReadDuneLocation readDuneLocation, HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();

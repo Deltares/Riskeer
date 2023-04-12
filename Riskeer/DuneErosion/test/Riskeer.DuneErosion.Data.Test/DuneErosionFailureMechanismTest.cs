@@ -65,40 +65,6 @@ namespace Riskeer.DuneErosion.Data.Test
         }
 
         [Test]
-        public void SetDuneLocations_Always_PreviousLocationsAndCalculationsCleared()
-        {
-            // Setup
-            var calculationsForTargetProbability1 = new DuneLocationCalculationsForTargetProbability(0.1);
-            var calculationsForTargetProbability2 = new DuneLocationCalculationsForTargetProbability(0.01);
-            var failureMechanism = new DuneErosionFailureMechanism
-            {
-                DuneLocationCalculationsForUserDefinedTargetProbabilities =
-                {
-                    calculationsForTargetProbability1,
-                    calculationsForTargetProbability2
-                }
-            };
-
-            failureMechanism.SetDuneLocations(new DuneLocation[]
-            {
-                new TestDuneLocation()
-            });
-
-            // Precondition
-            CollectionAssert.IsNotEmpty(failureMechanism.DuneLocations);
-            CollectionAssert.IsNotEmpty(calculationsForTargetProbability1.DuneLocationCalculations);
-            CollectionAssert.IsNotEmpty(calculationsForTargetProbability2.DuneLocationCalculations);
-
-            // Call
-            failureMechanism.SetDuneLocations(Enumerable.Empty<DuneLocation>());
-
-            // Assert
-            CollectionAssert.IsEmpty(failureMechanism.DuneLocations);
-            CollectionAssert.IsEmpty(calculationsForTargetProbability1.DuneLocationCalculations);
-            CollectionAssert.IsEmpty(calculationsForTargetProbability2.DuneLocationCalculations);
-        }
-
-        [Test]
         public void SetDuneLocations_MultipleDuneLocations_SetsExpectedLocationsAndCalculations()
         {
             // Setup
@@ -135,6 +101,43 @@ namespace Riskeer.DuneErosion.Data.Test
             Assert.AreEqual(2, calculationsForTargetProbability2.DuneLocationCalculations.Count);
             Assert.AreSame(duneLocation1, calculationsForTargetProbability2.DuneLocationCalculations[0].DuneLocation);
             Assert.AreSame(duneLocation2, calculationsForTargetProbability2.DuneLocationCalculations[1].DuneLocation);
+        }
+
+        [Test]
+        public void GivenFailureMechanismWithDuneLocationCalculations_WhenSetDuneLocations_ThenLocationsAndCalculationsAdded()
+        {
+            // Setup
+            var calculationsForTargetProbability1 = new DuneLocationCalculationsForTargetProbability(0.1);
+            var calculationsForTargetProbability2 = new DuneLocationCalculationsForTargetProbability(0.01);
+            var failureMechanism = new DuneErosionFailureMechanism
+            {
+                DuneLocationCalculationsForUserDefinedTargetProbabilities =
+                {
+                    calculationsForTargetProbability1,
+                    calculationsForTargetProbability2
+                }
+            };
+
+            failureMechanism.SetDuneLocations(new DuneLocation[]
+            {
+                new TestDuneLocation()
+            });
+
+            // Precondition
+            Assert.AreEqual(1, failureMechanism.DuneLocations.Count());
+            Assert.AreEqual(1, calculationsForTargetProbability1.DuneLocationCalculations.Count);
+            Assert.AreEqual(1, calculationsForTargetProbability2.DuneLocationCalculations.Count);
+
+            // Call
+            failureMechanism.SetDuneLocations(new DuneLocation[]
+            {
+                new TestDuneLocation()
+            });
+
+            // Assert
+            Assert.AreEqual(2, failureMechanism.DuneLocations.Count());
+            Assert.AreEqual(2, calculationsForTargetProbability1.DuneLocationCalculations.Count);
+            Assert.AreEqual(2, calculationsForTargetProbability2.DuneLocationCalculations.Count);
         }
     }
 }

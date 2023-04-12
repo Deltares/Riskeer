@@ -79,10 +79,10 @@ namespace Riskeer.DuneErosion.IO
                 object nameValue = locationData.MetaData[nameKey];
                 string name = nameValue?.ToString() ?? string.Empty;
 
-                int coastalAreaId = Convert.ToInt32(locationData.MetaData[coastalAreaIdKey]);
-                double offset = Convert.ToDouble(locationData.MetaData[offsetKey]);
-                double orientation = Convert.ToDouble(locationData.MetaData[orientationKey]);
-                double d50 = Convert.ToDouble(locationData.MetaData[d50Key]);
+                var coastalAreaId = Convert.ToInt32(locationData.MetaData[coastalAreaIdKey]);
+                var offset = Convert.ToDouble(locationData.MetaData[offsetKey]);
+                var orientation = Convert.ToDouble(locationData.MetaData[orientationKey]);
+                var d50 = Convert.ToDouble(locationData.MetaData[d50Key]);
 
                 yield return new ReadDuneLocation(name, location, coastalAreaId, offset, orientation, d50);
             }

@@ -72,7 +72,6 @@ namespace Riskeer.DuneErosion.Service
 
             if (!hydraulicBoundaryLocations.Any() || !duneLocations.Any())
             {
-                failureMechanism.SetDuneLocations(Enumerable.Empty<DuneLocation>());
                 return;
             }
 

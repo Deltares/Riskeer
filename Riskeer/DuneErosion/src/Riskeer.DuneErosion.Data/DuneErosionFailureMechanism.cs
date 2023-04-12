@@ -80,12 +80,10 @@ namespace Riskeer.DuneErosion.Data
                 throw new ArgumentNullException(nameof(duneLocations));
             }
 
-            duneLocationCollection.Clear();
             duneLocationCollection.AddRange(duneLocations);
 
             DuneLocationCalculationsForUserDefinedTargetProbabilities.ForEach(dlc =>
             {
-                dlc.DuneLocationCalculations.Clear();
                 dlc.DuneLocationCalculations.AddRange(duneLocations.Select(dl => new DuneLocationCalculation(dl)));
             });
         }

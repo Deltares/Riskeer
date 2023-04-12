@@ -22,13 +22,11 @@
 using System;
 using System.Linq;
 using Core.Common.Base;
-using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Gui.Commands;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.Hydraulics;
-using Riskeer.Common.Data.TestUtil;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Data.TestUtil;
 using Riskeer.DuneErosion.Plugin.Handlers;
@@ -106,7 +104,52 @@ namespace Riskeer.DuneErosion.Plugin.Test.Handlers
         }
 
         [Test]
-        public void Replace_FailureMechanismHasDuneLocations_LocationsAndCalculationsCleared()
+        public void Replace_NewLocationsIsDune_LocationAndCalculationsAdded()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+
+            var random = new Random(21);
+            var failureMechanism = new DuneErosionFailureMechanism
+            {
+                DuneLocationCalculationsForUserDefinedTargetProbabilities =
+                {
+                    new DuneLocationCalculationsForTargetProbability(random.NextDouble(0, 0.01)),
+                    new DuneLocationCalculationsForTargetProbability(random.NextDouble(0, 0.01))
+                }
+            };
+
+            var handler = new DuneLocationsReplacementHandler(viewCommands, failureMechanism);
+
+            // Precondition
+            CollectionAssert.IsEmpty(failureMechanism.DuneLocations);
+
+            ObservableList<DuneLocationCalculationsForTargetProbability> calculationsForTargetProbabilities =
+                failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities;
+            CollectionAssert.IsEmpty(calculationsForTargetProbabilities[0].DuneLocationCalculations);
+            CollectionAssert.IsEmpty(calculationsForTargetProbabilities[1].DuneLocationCalculations);
+
+            // Call
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test_1_100", 205354, 609735);
+            handler.Replace(new[]
+            {
+                hydraulicBoundaryLocation
+            });
+
+            // Assert
+            Assert.AreEqual(1, failureMechanism.DuneLocations.Count());
+
+            DuneLocation duneLocation = failureMechanism.DuneLocations.Single();
+            Assert.AreSame(hydraulicBoundaryLocation, duneLocation.HydraulicBoundaryLocation);
+            AssertDuneLocationCalculations(duneLocation, failureMechanism);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Replace_FailureMechanismHasDuneLocations_LocationsAndCalculationsAdded()
         {
             // Setup
             var mocks = new MockRepository();
@@ -141,64 +184,18 @@ namespace Riskeer.DuneErosion.Plugin.Test.Handlers
             Assert.AreEqual(2, calculationsForTargetProbabilities[1].DuneLocationCalculations.Count);
 
             // Call
-            handler.Replace(new HydraulicBoundaryLocation[]
-            {
-                new TestHydraulicBoundaryLocation()
-            });
-
-            // Assert
-            CollectionAssert.IsEmpty(failureMechanism.DuneLocations);
-            CollectionAssert.IsEmpty(calculationsForTargetProbabilities[0].DuneLocationCalculations);
-            CollectionAssert.IsEmpty(calculationsForTargetProbabilities[1].DuneLocationCalculations);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Replace_NewLocationsIsDune_LocationAndCalculationsAdded()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var viewCommands = mocks.Stub<IViewCommands>();
-            mocks.ReplayAll();
-
-            var random = new Random(21);
-            var failureMechanism = new DuneErosionFailureMechanism
-            {
-                DuneLocationCalculationsForUserDefinedTargetProbabilities =
-                {
-                    new DuneLocationCalculationsForTargetProbability(random.NextDouble(0, 0.01)),
-                    new DuneLocationCalculationsForTargetProbability(random.NextDouble(0, 0.01))
-                }
-            };
-            failureMechanism.SetDuneLocations(new[]
-            {
-                new TestDuneLocation(),
-                new TestDuneLocation()
-            });
-
-            var handler = new DuneLocationsReplacementHandler(viewCommands, failureMechanism);
-
-            // Precondition
-            Assert.AreEqual(2, failureMechanism.DuneLocations.Count());
-
-            ObservableList<DuneLocationCalculationsForTargetProbability> calculationsForTargetProbabilities =
-                failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities;
-            Assert.AreEqual(2, calculationsForTargetProbabilities[0].DuneLocationCalculations.Count);
-            Assert.AreEqual(2, calculationsForTargetProbabilities[1].DuneLocationCalculations.Count);
-
-            // Call
             handler.Replace(new[]
             {
                 new HydraulicBoundaryLocation(1, "test_1_100", 205354, 609735)
             });
 
             // Assert
-            Assert.AreEqual(1, failureMechanism.DuneLocations.Count());
+            Assert.AreEqual(3, failureMechanism.DuneLocations.Count());
 
-            DuneLocation duneLocation = failureMechanism.DuneLocations.First();
-            Assert.AreEqual(1, duneLocation.Id);
-            Assert.AreEqual(new Point2D(205354, 609735), duneLocation.Location);
-            AssertDuneLocationCalculations(duneLocation, failureMechanism);
+            foreach (DuneLocation duneLocation in failureMechanism.DuneLocations)
+            {
+                AssertDuneLocationCalculations(duneLocation, failureMechanism);
+            }
 
             mocks.VerifyAll();
         }
@@ -208,11 +205,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.Handlers
         {
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
-            failureMechanism.SetDuneLocations(new[]
-            {
-                new TestDuneLocation(),
-                new TestDuneLocation()
-            });
 
             var mocks = new MockRepository();
             var viewCommands = mocks.StrictMock<IViewCommands>();
@@ -220,11 +212,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.Handlers
             mocks.ReplayAll();
 
             var handler = new DuneLocationsReplacementHandler(viewCommands, failureMechanism);
-
-            handler.Replace(new HydraulicBoundaryLocation[]
-            {
-                new TestHydraulicBoundaryLocation()
-            });
 
             // Precondition
             CollectionAssert.IsEmpty(failureMechanism.DuneLocations);
@@ -245,13 +232,8 @@ namespace Riskeer.DuneErosion.Plugin.Test.Handlers
             mocks.ReplayAll();
 
             var failureMechanism = new DuneErosionFailureMechanism();
-            failureMechanism.SetDuneLocations(new[]
-            {
-                new TestDuneLocation(),
-                new TestDuneLocation()
-            });
-            var handler = new DuneLocationsReplacementHandler(viewCommands, failureMechanism);
 
+            var handler = new DuneLocationsReplacementHandler(viewCommands, failureMechanism);
             handler.Replace(new[]
             {
                 new HydraulicBoundaryLocation(1, "Locatie_1_100", 205354, 609735)
@@ -271,16 +253,14 @@ namespace Riskeer.DuneErosion.Plugin.Test.Handlers
         {
             ObservableList<DuneLocationCalculationsForTargetProbability> userDefinedTargetProbabilities =
                 failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities;
-            foreach (DuneLocationCalculationsForTargetProbability userDefinedTargetProbability in userDefinedTargetProbabilities)
-            {
-                AssertDefaultDuneLocationCalculation(expectedDuneLocation, userDefinedTargetProbability.DuneLocationCalculations.Single());
-            }
-        }
 
-        private static void AssertDefaultDuneLocationCalculation(DuneLocation expectedDuneLocation, DuneLocationCalculation calculation)
-        {
-            Assert.AreSame(expectedDuneLocation, calculation.DuneLocation);
-            Assert.IsNull(calculation.Output);
+            foreach (DuneLocationCalculation duneLocationCalculation in userDefinedTargetProbabilities.Select(
+                         userDefinedTargetProbability => userDefinedTargetProbability.DuneLocationCalculations.SingleOrDefault(
+                             c => c.DuneLocation == expectedDuneLocation)))
+            {
+                Assert.IsNotNull(duneLocationCalculation);
+                Assert.IsNull(duneLocationCalculation.Output);
+            }
         }
     }
 }
