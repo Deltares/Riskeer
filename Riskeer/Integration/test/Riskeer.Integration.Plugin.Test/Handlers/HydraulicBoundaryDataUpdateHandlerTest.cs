@@ -211,187 +211,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        [TestCaseSource(nameof(GetInvalidReadHydraulicBoundaryDatabaseConfigurations))]
-        public void Update_ReadHydraulicLocationConfigurationDatabaseHasUnequalToOneSettings_ThrowsArgumentException(
-            ReadHydraulicLocationConfigurationDatabase configurationDatabase)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var duneLocationsReplacementHandler = mocks.Stub<IDuneLocationsReplacementHandler>();
-            mocks.ReplayAll();
-
-            var handler = new HydraulicBoundaryDataUpdateHandler(CreateAssessmentSection(), duneLocationsReplacementHandler);
-
-            // Call
-            void Call() => handler.Update(new HydraulicBoundaryData(), ReadHydraulicBoundaryDatabaseTestFactory.Create(),
-                                          configurationDatabase, Enumerable.Empty<long>(), "");
-
-            // Assert
-            const string expectedMessage = "readHydraulicLocationConfigurationDatabase must be null or contain " +
-                                           "exactly one item for the collection of read hydraulic location configuration settings.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
-        }
-
-        [Test]
-        public void Update_HrdFilePathAndVersionSame_NothingUpdatesAndReturnsEmptyCollection()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var duneLocationsReplacementHandler = mocks.StrictMock<IDuneLocationsReplacementHandler>();
-            mocks.ReplayAll();
-
-            const string hrdFilePath = "some/file/path";
-            const string hlcdFilePath = "some/hlcd/FilePath";
-            AssessmentSection assessmentSection = CreateAssessmentSection();
-            var handler = new HydraulicBoundaryDataUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
-            ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
-            var hydraulicBoundaryData = new HydraulicBoundaryData
-            {
-                HydraulicLocationConfigurationDatabase =
-                {
-                    FilePath = hlcdFilePath
-                },
-                FilePath = hrdFilePath,
-                Version = readHydraulicBoundaryDatabase.Version,
-                Locations =
-                {
-                    new TestHydraulicBoundaryLocation("old location 1"),
-                    new TestHydraulicBoundaryLocation("old location 2"),
-                    new TestHydraulicBoundaryLocation("old location 3")
-                }
-            };
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryData.Locations);
-
-            HydraulicBoundaryLocation[] locations = hydraulicBoundaryData.Locations.ToArray();
-
-            // Call
-            IEnumerable<IObservable> changedObjects = handler.Update(hydraulicBoundaryData, readHydraulicBoundaryDatabase,
-                                                                     ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(readHydraulicBoundaryDatabase.TrackId),
-                                                                     Enumerable.Empty<long>(), hrdFilePath);
-
-            // Assert
-            CollectionAssert.IsEmpty(changedObjects);
-            Assert.AreEqual(hrdFilePath, hydraulicBoundaryData.FilePath);
-            Assert.AreEqual(readHydraulicBoundaryDatabase.Version, hydraulicBoundaryData.Version);
-            AssertHydraulicBoundaryLocationsAndCalculations(locations, assessmentSection);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Update_VersionSameAndHrdFilePathNotSame_UpdatesFilePathAndReturnsEmptyCollection()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var duneLocationsReplacementHandler = mocks.StrictMock<IDuneLocationsReplacementHandler>();
-            mocks.ReplayAll();
-
-            const string newHrdFilePath = "hrdFileNew.sqlite";
-            const string hlcdFilePath = "hlcd.sqlite";
-            AssessmentSection assessmentSection = CreateAssessmentSection();
-            var handler = new HydraulicBoundaryDataUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
-            ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
-            var hydraulicBoundaryData = new HydraulicBoundaryData
-            {
-                HydraulicLocationConfigurationDatabase =
-                {
-                    FilePath = hlcdFilePath
-                },
-                FilePath = "hrdFileCurrent.sqlite",
-                Version = readHydraulicBoundaryDatabase.Version,
-                Locations =
-                {
-                    new TestHydraulicBoundaryLocation("old location 1"),
-                    new TestHydraulicBoundaryLocation("old location 2"),
-                    new TestHydraulicBoundaryLocation("old location 3")
-                }
-            };
-
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryData.Locations);
-
-            HydraulicBoundaryLocation[] locations = hydraulicBoundaryData.Locations.ToArray();
-
-            // Call
-            IEnumerable<IObservable> changedObjects = handler.Update(hydraulicBoundaryData, readHydraulicBoundaryDatabase,
-                                                                     ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(readHydraulicBoundaryDatabase.TrackId),
-                                                                     Enumerable.Empty<long>(), newHrdFilePath);
-
-            // Assert
-            CollectionAssert.IsEmpty(changedObjects);
-            Assert.AreEqual(newHrdFilePath, hydraulicBoundaryData.FilePath);
-            Assert.AreEqual(hlcdFilePath, hydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath);
-            Assert.AreEqual(readHydraulicBoundaryDatabase.Version, hydraulicBoundaryData.Version);
-            AssertHydraulicBoundaryLocationsAndCalculations(locations, assessmentSection);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Update_HydraulicBoundaryDataLinkedAndVersionNotSame_RemovesOldLocationsAndCalculations()
-        {
-            // Setup
-            const string hrdFilePath = "some/file/path";
-            const string hlcdFilePath = "some/hlcd/FilePath";
-            var hydraulicBoundaryData = new HydraulicBoundaryData
-            {
-                HydraulicLocationConfigurationDatabase =
-                {
-                    FilePath = hlcdFilePath
-                },
-                FilePath = hrdFilePath,
-                Version = "1",
-                Locations =
-                {
-                    new TestHydraulicBoundaryLocation("old location 1"),
-                    new TestHydraulicBoundaryLocation("old location 2"),
-                    new TestHydraulicBoundaryLocation("old location 3")
-                }
-            };
-
-            var mocks = new MockRepository();
-            var duneLocationsReplacementHandler = mocks.StrictMock<IDuneLocationsReplacementHandler>();
-            duneLocationsReplacementHandler.Expect(h => h.Replace(Arg<IEnumerable<HydraulicBoundaryLocation>>.Is.NotNull))
-                                           .WhenCalled(invocation =>
-                                           {
-                                               Assert.AreSame(hydraulicBoundaryData.Locations, invocation.Arguments[0]);
-                                           });
-            mocks.ReplayAll();
-
-            AssessmentSection assessmentSection = CreateAssessmentSection();
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryData.Locations);
-
-            var handler = new HydraulicBoundaryDataUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
-
-            HydraulicBoundaryLocation[] oldLocations = hydraulicBoundaryData.Locations.ToArray();
-
-            ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
-
-            // Precondition
-            Assert.IsTrue(hydraulicBoundaryData.IsLinked());
-
-            // Call
-            handler.Update(hydraulicBoundaryData, readHydraulicBoundaryDatabase,
-                           ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(readHydraulicBoundaryDatabase.TrackId),
-                           Enumerable.Empty<long>(), hrdFilePath);
-
-            // Assert
-            CollectionAssert.IsNotSubsetOf(oldLocations, hydraulicBoundaryData.Locations);
-            CollectionAssert.IsNotSubsetOf(oldLocations, assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.Select(hblc => hblc.HydraulicBoundaryLocation));
-            CollectionAssert.IsNotSubsetOf(oldLocations, assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability.Select(hblc => hblc.HydraulicBoundaryLocation));
-
-            foreach (HydraulicBoundaryLocationCalculationsForTargetProbability targetProbability in assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities)
-            {
-                CollectionAssert.IsNotSubsetOf(oldLocations, targetProbability.HydraulicBoundaryLocationCalculations.Select(hblc => hblc.HydraulicBoundaryLocation));
-            }
-
-            foreach (HydraulicBoundaryLocationCalculationsForTargetProbability targetProbability in assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities)
-            {
-                CollectionAssert.IsNotSubsetOf(oldLocations, targetProbability.HydraulicBoundaryLocationCalculations.Select(hblc => hblc.HydraulicBoundaryLocation));
-            }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Update_HydraulicBoundaryDataNotLinked_SetsAllData()
+        public void Update_ValidData_SetsAllData()
         {
             // Setup
             var hydraulicBoundaryData = new HydraulicBoundaryData();
@@ -406,7 +226,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             mocks.ReplayAll();
 
             const string hrdFilePath = "some/file/path";
-            const string hlcdFilePath = "some/hlcd/FilePath";
             AssessmentSection assessmentSection = CreateAssessmentSection();
             var handler = new HydraulicBoundaryDataUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
 
@@ -423,13 +242,17 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             // Assert
             Assert.IsTrue(hydraulicBoundaryData.IsLinked());
-            Assert.AreEqual(hrdFilePath, hydraulicBoundaryData.FilePath);
-            Assert.AreEqual(readHydraulicBoundaryDatabase.Version, hydraulicBoundaryData.Version);
-            Assert.IsFalse(hydraulicBoundaryData.HydraulicLocationConfigurationDatabase.UsePreprocessorClosure);
+            Assert.AreEqual(1, hydraulicBoundaryData.HydraulicBoundaryDatabases.Count);
+
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = hydraulicBoundaryData.HydraulicBoundaryDatabases.First();
+            
+            Assert.AreEqual(hrdFilePath, hydraulicBoundaryDatabase.FilePath);
+            Assert.AreEqual(readHydraulicBoundaryDatabase.Version, hydraulicBoundaryDatabase.Version);
+            Assert.IsFalse(hydraulicBoundaryDatabase.UsePreprocessorClosure);
 
             AssertHydraulicBoundaryLocations(readHydraulicBoundaryDatabase.Locations, readHydraulicLocationConfigurationDatabase,
-                                             hydraulicBoundaryData.Locations, readHydraulicBoundaryDatabase.TrackId);
-            AssertHydraulicBoundaryLocationsAndCalculations(hydraulicBoundaryData.Locations, assessmentSection);
+                                             hydraulicBoundaryDatabase.Locations, readHydraulicBoundaryDatabase.TrackId);
+            AssertHydraulicBoundaryLocationsAndCalculations(hydraulicBoundaryDatabase.Locations, assessmentSection);
             mocks.VerifyAll();
         }
 
@@ -443,7 +266,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             mocks.ReplayAll();
 
             const string hrdFilePath = "some/file/path";
-            const string hlcdFilePath = "some/hlcd/FilePath";
             AssessmentSection assessmentSection = CreateAssessmentSection();
             var handler = new HydraulicBoundaryDataUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
 
@@ -485,7 +307,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             mocks.ReplayAll();
 
             const string hrdFilePath = "some/file/path";
-            const string hlcdFilePath = "some/hlcd/FilePath";
             AssessmentSection assessmentSection = CreateAssessmentSection();
             var handler = new HydraulicBoundaryDataUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
 
@@ -521,109 +342,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void Update_ReadHydraulicLocationConfigurationDatabaseWithScenarioInformation_SetsHydraulicLocationConfigurationSettingsAndDoesNotLog()
-        {
-            // Setup
-            var hydraulicBoundaryData = new HydraulicBoundaryData();
-
-            var mocks = new MockRepository();
-            var duneLocationsReplacementHandler = mocks.Stub<IDuneLocationsReplacementHandler>();
-            mocks.ReplayAll();
-
-            const string hrdFilePath = "some/file/path";
-            const string hlcdFilePath = "some/hlcd/FilePath";
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            var handler = new HydraulicBoundaryDataUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
-
-            ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
-            ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase =
-                ReadHydraulicLocationConfigurationDatabaseTestFactory.CreateWithConfigurationSettings(readHydraulicBoundaryDatabase.TrackId);
-
-            // Precondition
-            Assert.IsNotNull(readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationSettings);
-            Assert.AreEqual(1, readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationSettings.Count());
-
-            // Call
-            void Call()
-            {
-                handler.Update(hydraulicBoundaryData,
-                               readHydraulicBoundaryDatabase,
-                               readHydraulicLocationConfigurationDatabase,
-                               Enumerable.Empty<long>(),
-                               hrdFilePath);
-            }
-
-            // Assert
-            TestHelper.AssertLogMessagesCount(Call, 0);
-
-            HydraulicLocationConfigurationDatabase actualDatabase = hydraulicBoundaryData.HydraulicLocationConfigurationDatabase;
-            ReadHydraulicLocationConfigurationSettings readSettings = readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationSettings.Single();
-
-            Assert.AreEqual(hlcdFilePath, actualDatabase.FilePath);
-            Assert.AreEqual(readSettings.ScenarioName, actualDatabase.ScenarioName);
-            Assert.AreEqual(readSettings.Year, actualDatabase.Year);
-            Assert.AreEqual(readSettings.Scope, actualDatabase.Scope);
-            Assert.AreEqual(readSettings.SeaLevel, actualDatabase.SeaLevel);
-            Assert.AreEqual(readSettings.RiverDischarge, actualDatabase.RiverDischarge);
-            Assert.AreEqual(readSettings.LakeLevel, actualDatabase.LakeLevel);
-            Assert.AreEqual(readSettings.WindDirection, actualDatabase.WindDirection);
-            Assert.AreEqual(readSettings.WindSpeed, actualDatabase.WindSpeed);
-            Assert.AreEqual(readSettings.Comment, actualDatabase.Comment);
-            Assert.AreEqual(readHydraulicLocationConfigurationDatabase.ReadTracks.First().UsePreprocessorClosure, actualDatabase.UsePreprocessorClosure);
-        }
-
-        [Test]
-        public void Update_ReadHydraulicLocationConfigurationDatabaseWithoutScenarioInformation_SetsDefaultHydraulicLocationConfigurationSettingsAndLogsWarning()
-        {
-            // Setup
-            var hydraulicBoundaryData = new HydraulicBoundaryData();
-
-            var mocks = new MockRepository();
-            var duneLocationsReplacementHandler = mocks.Stub<IDuneLocationsReplacementHandler>();
-            mocks.ReplayAll();
-
-            const string hrdFilePath = "some/file/path";
-            const string hlcdFilePath = "some/hlcd/FilePath";
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            var handler = new HydraulicBoundaryDataUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
-
-            ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
-            ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase =
-                ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(readHydraulicBoundaryDatabase.TrackId);
-
-            // Precondition
-            Assert.IsNull(readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationSettings);
-
-            // Call
-            void Call()
-            {
-                handler.Update(hydraulicBoundaryData,
-                               readHydraulicBoundaryDatabase,
-                               readHydraulicLocationConfigurationDatabase,
-                               Enumerable.Empty<long>(),
-                               hrdFilePath);
-            }
-
-            // Assert
-            const string expectedMessage = "De tabel 'ScenarioInformation' in het HLCD bestand is niet aanwezig. Er worden standaardwaarden " +
-                                           "conform WBI2017 gebruikt voor de HLCD bestandsinformatie.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(Call, Tuple.Create(expectedMessage, LogLevelConstant.Warn), 1);
-
-            HydraulicLocationConfigurationDatabase actualDatabase = hydraulicBoundaryData.HydraulicLocationConfigurationDatabase;
-            Assert.AreEqual(hlcdFilePath, actualDatabase.FilePath);
-            Assert.AreEqual("WBI2017", actualDatabase.ScenarioName);
-            Assert.AreEqual(2023, actualDatabase.Year);
-            Assert.AreEqual("WBI2017", actualDatabase.Scope);
-            Assert.AreEqual("Conform WBI2017", actualDatabase.SeaLevel);
-            Assert.AreEqual("Conform WBI2017", actualDatabase.RiverDischarge);
-            Assert.AreEqual("Conform WBI2017", actualDatabase.LakeLevel);
-            Assert.AreEqual("Conform WBI2017", actualDatabase.WindDirection);
-            Assert.AreEqual("Conform WBI2017", actualDatabase.WindSpeed);
-            Assert.AreEqual("Gegenereerd door Riskeer (conform WBI2017)", actualDatabase.Comment);
-            Assert.IsFalse(actualDatabase.UsePreprocessorClosure);
-        }
-
-        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void GivenDatabase_WhenUpdatingDataWithNewLocations_ThenChangedObjectsReturned(bool isLinked)
@@ -634,7 +352,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             mocks.ReplayAll();
 
             const string hrdFilePath = "some/file/path";
-            const string hlcdFilePath = "some/hlcd/FilePath";
             AssessmentSection assessmentSection = CreateAssessmentSection();
             var hydraulicBoundaryData = new HydraulicBoundaryData();
             if (isLinked)
@@ -664,6 +381,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             // Then
             var observables = new List<IObservable>
             {
+                hydraulicBoundaryData.HydraulicBoundaryDatabases,
                 hydraulicBoundaryData.Locations,
                 assessmentSection.WaterLevelCalculationsForSignalFloodingProbability,
                 assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability,
@@ -723,66 +441,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void DoPostUpdateActions_NoUpdateCalled_DoNothing()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var duneLocationsReplacementHandler = mocks.StrictMock<IDuneLocationsReplacementHandler>();
-            mocks.ReplayAll();
-
-            AssessmentSection assessmentSection = CreateAssessmentSection();
-
-            var handler = new HydraulicBoundaryDataUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
-
-            // Call
-            handler.DoPostUpdateActions();
-
-            // Assert
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void DoPostUpdateActions_AfterUpdateCalledAndNoLocationsUpdated_DoNothing()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var duneLocationsReplacementHandler = mocks.StrictMock<IDuneLocationsReplacementHandler>();
-            mocks.ReplayAll();
-
-            const string hrdFilePath = "some/file/path";
-            const string hlcdFilePath = "some/hlcd/FilePath";
-            AssessmentSection assessmentSection = CreateAssessmentSection();
-            ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
-            var hydraulicBoundaryData = new HydraulicBoundaryData
-            {
-                FilePath = hrdFilePath,
-                Version = readHydraulicBoundaryDatabase.Version,
-                Locations =
-                {
-                    new TestHydraulicBoundaryLocation("old location 1"),
-                    new TestHydraulicBoundaryLocation("old location 2"),
-                    new TestHydraulicBoundaryLocation("old location 3")
-                }
-            };
-
-            var handler = new HydraulicBoundaryDataUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
-
-            IEnumerable<IObservable> changedObjects = handler.Update(hydraulicBoundaryData, readHydraulicBoundaryDatabase,
-                                                                     ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(readHydraulicBoundaryDatabase.TrackId),
-                                                                     Enumerable.Empty<long>(), hrdFilePath);
-
-            // Precondition
-            CollectionAssert.IsEmpty(changedObjects);
-
-            // Call
-            handler.DoPostUpdateActions();
-
-            // Assert
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void DoPostUpdateActions_AfterUpdateCalledAndLocationsUpdated_Perform()
+        public void DoPostUpdateActions_Always_Perform()
         {
             // Setup
             var mocks = new MockRepository();
@@ -792,7 +451,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             mocks.ReplayAll();
 
             const string hrdFilePath = "old/file/path";
-            const string hlcdFilePath = "some/hlcd/FilePath";
             AssessmentSection assessmentSection = CreateAssessmentSection();
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
@@ -866,20 +524,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 Assert.AreEqual(readLocation.CoordinateX, actualLocation.Location.X);
                 Assert.AreEqual(readLocation.CoordinateY, actualLocation.Location.Y);
             }
-        }
-
-        private static IEnumerable<TestCaseData> GetInvalidReadHydraulicBoundaryDatabaseConfigurations()
-        {
-            yield return new TestCaseData(ReadHydraulicLocationConfigurationDatabaseTestFactory.CreateWithConfigurationSettings(
-                                              Enumerable.Empty<ReadHydraulicLocationConfigurationSettings>(), 1))
-                .SetName("ReadHydraulicLocationConfigurationSettingsEmpty");
-            yield return new TestCaseData(ReadHydraulicLocationConfigurationDatabaseTestFactory.CreateWithConfigurationSettings(
-                                              new[]
-                                              {
-                                                  ReadHydraulicLocationConfigurationSettingsTestFactory.Create(),
-                                                  ReadHydraulicLocationConfigurationSettingsTestFactory.Create()
-                                              }, 1))
-                .SetName("ReadHydraulicLocationConfigurationSettingsMultipleItems");
         }
     }
 }
