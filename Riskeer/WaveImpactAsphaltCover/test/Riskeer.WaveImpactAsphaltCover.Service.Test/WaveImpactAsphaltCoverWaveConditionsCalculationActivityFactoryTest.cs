@@ -82,10 +82,12 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
         public void CreateCalculationActivitiesForFailureMechanism_WithValidData_ExpectedInputSetToActivities()
         {
             // Setup
-            AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-            WaveImpactAsphaltCoverFailureMechanism failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName 1");
+
+            AssessmentSectionStub assessmentSection = CreateAssessmentSection(hydraulicBoundaryLocation);
+
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+
             SetHydraulicBoundaryLocationToAssessmentSection(assessmentSection, hydraulicBoundaryLocation);
 
             WaveImpactAsphaltCoverWaveConditionsCalculation calculation1 = CreateValidCalculation(hydraulicBoundaryLocation);
@@ -169,10 +171,12 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
         public void CreateCalculationActivity_WithValidCalculation_ReturnsWaveImpactAsphaltCoverWaveConditionsCalculationActivityWithParametersSet()
         {
             // Setup
-            WaveImpactAsphaltCoverFailureMechanism failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+            AssessmentSectionStub assessmentSection = CreateAssessmentSection(hydraulicBoundaryLocation);
+
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+
             SetHydraulicBoundaryLocationToAssessmentSection(assessmentSection, hydraulicBoundaryLocation);
 
             WaveImpactAsphaltCoverWaveConditionsCalculation calculation = CreateValidCalculation(hydraulicBoundaryLocation);
@@ -245,11 +249,14 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
         public void CreateCalculationActivitiesForCalculationGroup_WithValidCalculations_ReturnsWaveImpactAsphaltCoverWaveConditionsCalculationActivitiesWithParametersSet()
         {
             // Setup
-            WaveImpactAsphaltCoverFailureMechanism failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+            AssessmentSectionStub assessmentSection = CreateAssessmentSection(hydraulicBoundaryLocation);
+
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+
             SetHydraulicBoundaryLocationToAssessmentSection(assessmentSection, hydraulicBoundaryLocation);
+
             WaveImpactAsphaltCoverWaveConditionsCalculation calculation1 = CreateValidCalculation(hydraulicBoundaryLocation);
             WaveImpactAsphaltCoverWaveConditionsCalculation calculation2 = CreateValidCalculation(hydraulicBoundaryLocation);
 
@@ -286,7 +293,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
             assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.Single().Output = new TestHydraulicBoundaryLocationCalculationOutput(2.0);
         }
 
-        private static AssessmentSectionStub CreateAssessmentSection()
+        private static AssessmentSectionStub CreateAssessmentSection(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             return new AssessmentSectionStub
             {
@@ -296,6 +303,17 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
                     HydraulicLocationConfigurationDatabase =
                     {
                         FilePath = validHlcdFilePath
+                    },
+                    HydraulicBoundaryDatabases =
+                    {
+                        new HydraulicBoundaryDatabase
+                        {
+                            FilePath = validHrdFilePath,
+                            Locations =
+                            {
+                                hydraulicBoundaryLocation
+                            }
+                        }
                     }
                 }
             };
