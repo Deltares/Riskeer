@@ -114,7 +114,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                                                                                                            validHrdFilePath);
             mocks.ReplayAll();
 
-            StructuresCalculation<StabilityPointStructuresInput> calculation = CreateValidCalculation();
+            StructuresCalculation<StabilityPointStructuresInput> calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryData.GetLocations().First());
 
             // Call
             CalculatableActivity activity = StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
@@ -190,8 +190,10 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                                                                                                            validHrdFilePath);
             mocks.ReplayAll();
 
-            StructuresCalculation<StabilityPointStructuresInput> calculation1 = CreateValidCalculation();
-            StructuresCalculation<StabilityPointStructuresInput> calculation2 = CreateValidCalculation();
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First();
+
+            StructuresCalculation<StabilityPointStructuresInput> calculation1 = CreateValidCalculation(hydraulicBoundaryLocation);
+            StructuresCalculation<StabilityPointStructuresInput> calculation2 = CreateValidCalculation(hydraulicBoundaryLocation);
 
             var calculations = new CalculationGroup
             {
@@ -256,8 +258,10 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                                                                                                            validHrdFilePath);
             mocks.ReplayAll();
 
-            StructuresCalculation<StabilityPointStructuresInput> calculation1 = CreateValidCalculation();
-            StructuresCalculation<StabilityPointStructuresInput> calculation2 = CreateValidCalculation();
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First();
+
+            StructuresCalculation<StabilityPointStructuresInput> calculation1 = CreateValidCalculation(hydraulicBoundaryLocation);
+            StructuresCalculation<StabilityPointStructuresInput> calculation2 = CreateValidCalculation(hydraulicBoundaryLocation);
 
             failureMechanism.CalculationsGroup.Children.AddRange(new[]
             {
@@ -279,13 +283,13 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             mocks.VerifyAll();
         }
 
-        private static StructuresCalculation<StabilityPointStructuresInput> CreateValidCalculation()
+        private static StructuresCalculation<StabilityPointStructuresInput> CreateValidCalculation(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             return new TestStabilityPointStructuresCalculationScenario
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     FailureProbabilityStructureWithErosion = new Random(39).NextDouble()
                 }
             };
