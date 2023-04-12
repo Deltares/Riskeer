@@ -570,6 +570,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void GivenValidCalculations_WhenCalculatingAllFromContextMenu_ThenLogMessagesAddedOutputSet()
         {
             // Given
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
+
             var mockRepository = new MockRepository();
             var assessmentSection = new AssessmentSectionStub
             {
@@ -579,11 +581,21 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     HydraulicLocationConfigurationDatabase =
                     {
                         FilePath = validHlcdFilePath
+                    },
+                    HydraulicBoundaryDatabases =
+                    {
+                        new HydraulicBoundaryDatabase
+                        {
+                            FilePath = validHrdFilePath,
+                            Locations =
+                            {
+                                hydraulicBoundaryLocation
+                            }
+                        }
                     }
                 }
             };
 
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation

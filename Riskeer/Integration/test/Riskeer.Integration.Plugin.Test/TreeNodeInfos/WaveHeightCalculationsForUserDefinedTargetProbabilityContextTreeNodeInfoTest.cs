@@ -604,6 +604,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             {
                 HydraulicBoundaryData =
                 {
+                    FilePath = validHrdFilePath,
                     HydraulicLocationConfigurationDatabase =
                     {
                         FilePath = validHlcdFilePath,
@@ -690,7 +691,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             const double targetProbability = 0.01;
             const string locationName = "locationName";
 
-            var calculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(locationName));
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(locationName);
+            var calculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation);
             var calculations = new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability)
             {
                 HydraulicBoundaryLocationCalculations =
@@ -707,6 +709,17 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     HydraulicLocationConfigurationDatabase =
                     {
                         FilePath = validHlcdFilePath
+                    },
+                    HydraulicBoundaryDatabases =
+                    {
+                        new HydraulicBoundaryDatabase
+                        {
+                            FilePath = validHrdFilePath,
+                            Locations =
+                            {
+                                hydraulicBoundaryLocation
+                            }
+                        }
                     }
                 },
                 WaveHeightCalculationsForUserDefinedTargetProbabilities =
