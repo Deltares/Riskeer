@@ -114,7 +114,7 @@ namespace Riskeer.HeightStructures.Service.Test
                                                                                                            validHrdFilePath);
             mocks.ReplayAll();
 
-            StructuresCalculation<HeightStructuresInput> calculation = CreateValidCalculation();
+            StructuresCalculation<HeightStructuresInput> calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryData.GetLocations().First());
 
             // Call
             CalculatableActivity activity = HeightStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
@@ -190,8 +190,10 @@ namespace Riskeer.HeightStructures.Service.Test
                                                                                                            validHrdFilePath);
             mocks.ReplayAll();
 
-            StructuresCalculation<HeightStructuresInput> calculation1 = CreateValidCalculation();
-            StructuresCalculation<HeightStructuresInput> calculation2 = CreateValidCalculation();
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First();
+            
+            StructuresCalculation<HeightStructuresInput> calculation1 = CreateValidCalculation(hydraulicBoundaryLocation);
+            StructuresCalculation<HeightStructuresInput> calculation2 = CreateValidCalculation(hydraulicBoundaryLocation);
 
             var calculations = new CalculationGroup
             {
@@ -256,8 +258,10 @@ namespace Riskeer.HeightStructures.Service.Test
                                                                                                            validHrdFilePath);
             mocks.ReplayAll();
 
-            StructuresCalculation<HeightStructuresInput> calculation1 = CreateValidCalculation();
-            StructuresCalculation<HeightStructuresInput> calculation2 = CreateValidCalculation();
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First();
+            
+            StructuresCalculation<HeightStructuresInput> calculation1 = CreateValidCalculation(hydraulicBoundaryLocation);
+            StructuresCalculation<HeightStructuresInput> calculation2 = CreateValidCalculation(hydraulicBoundaryLocation);
 
             failureMechanism.CalculationsGroup.Children.AddRange(new[]
             {
@@ -279,13 +283,13 @@ namespace Riskeer.HeightStructures.Service.Test
             mocks.VerifyAll();
         }
 
-        private static StructuresCalculation<HeightStructuresInput> CreateValidCalculation()
+        private static StructuresCalculation<HeightStructuresInput> CreateValidCalculation(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             return new TestHeightStructuresCalculationScenario
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     FailureProbabilityStructureWithErosion = new Random(39).NextDouble()
                 }
             };
