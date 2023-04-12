@@ -576,7 +576,14 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                 }
             });
 
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            
+            hydraulicBoundaryDatabase.Locations.AddRange(locations);
+            
+            assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(hydraulicBoundaryDatabase);
+            
             assessmentSection.HydraulicBoundaryData.Locations.AddRange(locations);
+            
             assessmentSection.SetHydraulicBoundaryLocationCalculations(locations);
 
             return assessmentSection;
