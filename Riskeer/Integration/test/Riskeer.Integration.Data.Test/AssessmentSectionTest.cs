@@ -273,40 +273,6 @@ namespace Riskeer.Integration.Data.Test
         }
 
         [Test]
-        public void SetHydraulicBoundaryLocationCalculations_Always_PreviousCalculationsCleared()
-        {
-            // Setup
-            var random = new Random(21);
-            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
-
-            var waterLevelCalculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
-            assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Add(waterLevelCalculationsForTargetProbability);
-
-            var waveHeightCalculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01);
-            assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Add(waveHeightCalculationsForTargetProbability);
-
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new HydraulicBoundaryLocation[]
-            {
-                new TestHydraulicBoundaryLocation()
-            });
-
-            // Precondition
-            CollectionAssert.IsNotEmpty(assessmentSection.WaterLevelCalculationsForSignalFloodingProbability);
-            CollectionAssert.IsNotEmpty(assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability);
-            CollectionAssert.IsNotEmpty(waterLevelCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations);
-            CollectionAssert.IsNotEmpty(waveHeightCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations);
-
-            // Call
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(Enumerable.Empty<HydraulicBoundaryLocation>());
-
-            // Assert
-            CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForSignalFloodingProbability);
-            CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability);
-            CollectionAssert.IsEmpty(waterLevelCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations);
-            CollectionAssert.IsEmpty(waveHeightCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations);
-        }
-
-        [Test]
         public void SetHydraulicBoundaryLocationCalculations_MultipleHydraulicBoundaryLocations_SetsExpectedCalculations()
         {
             // Setup
@@ -331,6 +297,43 @@ namespace Riskeer.Integration.Data.Test
             AssertNumberOfHydraulicBoundaryLocationCalculations(assessmentSection, 2);
             AssertDefaultHydraulicBoundaryLocationCalculations(assessmentSection, 0, hydraulicBoundaryLocation1);
             AssertDefaultHydraulicBoundaryLocationCalculations(assessmentSection, 1, hydraulicBoundaryLocation2);
+        }
+
+        [Test]
+        public void GivenAssessmentSectionWithHydraulicBoundaryLocationCalculations_WhenSetHydraulicBoundaryLocationCalculations_ThenCalculationsAdded()
+        {
+            // Given
+            var random = new Random(21);
+            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
+
+            var waterLevelCalculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
+            assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Add(waterLevelCalculationsForTargetProbability);
+
+            var waveHeightCalculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01);
+            assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Add(waveHeightCalculationsForTargetProbability);
+
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new HydraulicBoundaryLocation[]
+            {
+                new TestHydraulicBoundaryLocation()
+            });
+
+            // Precondition
+            Assert.AreEqual(1, assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.Count());
+            Assert.AreEqual(1, assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability.Count());
+            Assert.AreEqual(1, waterLevelCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations.Count);
+            Assert.AreEqual(1, waveHeightCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations.Count);
+
+            // When
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new HydraulicBoundaryLocation[]
+            {
+                new TestHydraulicBoundaryLocation()
+            });
+
+            // Then
+            Assert.AreEqual(2, assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.Count());
+            Assert.AreEqual(2, assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability.Count());
+            Assert.AreEqual(2, waterLevelCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations.Count);
+            Assert.AreEqual(2, waveHeightCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations.Count);
         }
 
         private static IEnumerable<TestCaseData> GetFailureMechanismInAssemblyStates()

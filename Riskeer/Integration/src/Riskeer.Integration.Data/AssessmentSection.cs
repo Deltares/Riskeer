@@ -227,8 +227,6 @@ namespace Riskeer.Integration.Data
                 throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
             }
 
-            ClearHydraulicBoundaryLocationCalculations();
-
             foreach (HydraulicBoundaryLocation hydraulicBoundaryLocation in hydraulicBoundaryLocations)
             {
                 AddHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocation);
