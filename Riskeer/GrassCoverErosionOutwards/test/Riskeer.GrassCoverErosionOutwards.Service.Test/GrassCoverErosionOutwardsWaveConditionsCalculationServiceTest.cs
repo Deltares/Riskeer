@@ -161,7 +161,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
             ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
 
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultCalculation(assessmentSection.HydraulicBoundaryData.Locations.First());
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultCalculation(assessmentSection.HydraulicBoundaryData.GetLocations().First());
             calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile(new BreakWater(BreakWaterType.Dam,
                                                                                                    breakWaterHeight));
             calculation.InputParameters.UseBreakWater = false;
@@ -218,7 +218,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultCalculation(assessmentSection.HydraulicBoundaryData.Locations.First());
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultCalculation(assessmentSection.HydraulicBoundaryData.GetLocations().First());
             RoundedDouble[] waterLevels = GetWaterLevels(calculation, assessmentSection).ToArray();
             int nrOfCalculators = waterLevels.Length * 3;
 
@@ -289,7 +289,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultCalculation(assessmentSection.HydraulicBoundaryData.Locations.First());
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultCalculation(assessmentSection.HydraulicBoundaryData.GetLocations().First());
             calculation.InputParameters.CalculationType = calculationType;
 
             var mockRepository = new MockRepository();
@@ -375,7 +375,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
             ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
 
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.Locations.First();
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First();
 
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation(hydraulicBoundaryLocation);
             calculation.InputParameters.BreakWater.Type = breakWaterType;
@@ -517,7 +517,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
             ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
 
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultCalculation(assessmentSection.HydraulicBoundaryData.Locations.First());
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultCalculation(assessmentSection.HydraulicBoundaryData.GetLocations().First());
 
             var waveConditionsCosineCalculator = new TestWaveConditionsCosineCalculator();
 
@@ -561,7 +561,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
             ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
 
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection.HydraulicBoundaryData.Locations.First());
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection.HydraulicBoundaryData.GetLocations().First());
             calculation.InputParameters.CalculationType = calculationType;
 
             RoundedDouble[] waterLevels = GetWaterLevels(calculation, assessmentSection).ToArray();
@@ -623,7 +623,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
             ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
 
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection.HydraulicBoundaryData.Locations.First());
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection.HydraulicBoundaryData.GetLocations().First());
 
             var calculatorThatFails = new TestWaveConditionsCosineCalculator
             {
@@ -713,7 +713,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
             ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
 
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection.HydraulicBoundaryData.Locations.First());
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection.HydraulicBoundaryData.GetLocations().First());
             var calculatorThatFails = new TestWaveConditionsCosineCalculator
             {
                 EndInFailure = endInFailure,
@@ -809,7 +809,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             AssessmentSectionStub assessmentSection = CreateAssessmentSection(usePreprocessorClosure);
             ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
 
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.Locations.First();
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First();
 
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation(hydraulicBoundaryLocation);
             RoundedDouble[] waterLevels = GetWaterLevels(calculation, assessmentSection).ToArray();
@@ -857,7 +857,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
             ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
 
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection.HydraulicBoundaryData.Locations.First());
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection.HydraulicBoundaryData.GetLocations().First());
             calculation.InputParameters.CalculationType = calculationType;
 
             var mockRepository = new MockRepository();
@@ -943,6 +943,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             string validHrdFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
             string validHlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
 
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
             var assessmentSection = new AssessmentSectionStub
             {
                 HydraulicBoundaryData =
@@ -952,13 +954,24 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                     {
                         FilePath = validHlcdFilePath,
                         UsePreprocessorClosure = usePreprocessorClosure
+                    },
+                    HydraulicBoundaryDatabases =
+                    {
+                        new HydraulicBoundaryDatabase
+                        {
+                            FilePath = validHrdFilePath,
+                            Locations =
+                            {
+                                hydraulicBoundaryLocation
+                            }
+                        }
                     }
                 }
             };
 
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
-                new TestHydraulicBoundaryLocation()
+                hydraulicBoundaryLocation
             });
 
             return assessmentSection;
