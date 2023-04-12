@@ -102,21 +102,25 @@ namespace Riskeer.Common.Data.TestUtil
                        };
         }
 
-        private static HydraulicBoundaryData GetHydraulicBoundaryData(string filePath, bool usePreprocessorClosure)
+        private static HydraulicBoundaryData GetHydraulicBoundaryData(string hrdFilePath, bool usePreprocessorClosure)
         {
-            var hydraulicBoundaryData = new HydraulicBoundaryData
-            {
-                FilePath = filePath,
-                Locations =
-                {
-                    new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
-                }
-            };
+            var hydraulicBoundaryData = new HydraulicBoundaryData();
 
-            if (filePath != null)
+            if (hrdFilePath != null)
             {
+                hydraulicBoundaryData.FilePath = hrdFilePath;
+                hydraulicBoundaryData.HydraulicBoundaryDatabases.Add(new HydraulicBoundaryDatabase
+                {
+                    FilePath = hrdFilePath,
+                    Locations =
+                    {
+                        new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
+                    },
+                    UsePreprocessorClosure = usePreprocessorClosure
+                });
+
                 HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase = hydraulicBoundaryData.HydraulicLocationConfigurationDatabase;
-                hydraulicLocationConfigurationDatabase.FilePath = Path.Combine(Path.GetDirectoryName(filePath), "hlcd.sqlite");
+                hydraulicLocationConfigurationDatabase.FilePath = Path.Combine(Path.GetDirectoryName(hrdFilePath), "hlcd.sqlite");
                 hydraulicLocationConfigurationDatabase.UsePreprocessorClosure = usePreprocessorClosure;
             }
 

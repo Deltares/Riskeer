@@ -944,6 +944,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
+                FilePath = validHrdFilePath,
                 HydraulicLocationConfigurationDatabase =
                 {
                     FilePath = validHlcdFilePath

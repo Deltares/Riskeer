@@ -305,6 +305,7 @@ namespace Riskeer.ClosingStructures.Integration.Test
             {
                 HydraulicBoundaryData =
                 {
+                    FilePath = validHrdFilePath,
                     HydraulicLocationConfigurationDatabase =
                     {
                         FilePath = validHlcdFilePath,
