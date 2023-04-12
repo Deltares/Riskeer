@@ -2549,7 +2549,11 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                                                                                                            mockRepository,
                                                                                                            validFilePath,
                                                                                                            usePreprocessorClosure);
-            HydraulicBoundaryCalculationSettings calculationSettings = HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData);
+
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.Locations.First(hl => hl.Id == 1300001);
+
+            HydraulicBoundaryCalculationSettings calculationSettings = HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                assessmentSection.HydraulicBoundaryData, hydraulicBoundaryLocation);
 
             var overtoppingCalculator = new TestOvertoppingCalculator();
             var dikeHeightCalculator = new TestHydraulicLoadsCalculator();
@@ -2583,7 +2587,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     DikeProfile = GetDikeProfile(),
                     ShouldDikeHeightBeCalculated = true,
                     ShouldOvertoppingRateBeCalculated = true
