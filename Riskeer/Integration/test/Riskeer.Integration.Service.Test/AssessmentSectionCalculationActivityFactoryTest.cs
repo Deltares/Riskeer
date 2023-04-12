@@ -83,14 +83,14 @@ namespace Riskeer.Integration.Service.Test
         public void CreateCalculationActivities_WithValidDataAndAllFailureMechanismsRelevant_ExpectedActivitiesCreated()
         {
             // Setup
-            AssessmentSection assessmentSection = CreateAssessmentSection();
-
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations = new[]
+
+            AssessmentSection assessmentSection = CreateAssessmentSection(hydraulicBoundaryLocation);
+
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
-            };
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
+            });
 
             AddSemiProbabilisticPipingCalculationScenario(assessmentSection, hydraulicBoundaryLocation);
             AddProbabilisticPipingCalculationScenario(assessmentSection, hydraulicBoundaryLocation);
@@ -195,13 +195,9 @@ namespace Riskeer.Integration.Service.Test
         public void CreateHydraulicLoadCalculationActivities_WithValidDataAndAllFailureMechanismsRelevant_ExpectedActivitiesCreated()
         {
             // Setup
-            AssessmentSection assessmentSection = CreateAssessmentSection();
-
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations = new[]
-            {
-                hydraulicBoundaryLocation
-            };
+
+            AssessmentSection assessmentSection = CreateAssessmentSection(hydraulicBoundaryLocation);
 
             assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.AddRange(
                 new[]
@@ -217,7 +213,10 @@ namespace Riskeer.Integration.Service.Test
                     new HydraulicBoundaryLocationCalculationsForTargetProbability(0.0025)
                 });
 
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation
+            });
 
             AddStabilityStoneCoverCalculation(assessmentSection, hydraulicBoundaryLocation);
             AddWaveImpactAsphaltCoverCalculation(assessmentSection, hydraulicBoundaryLocation);
@@ -292,7 +291,7 @@ namespace Riskeer.Integration.Service.Test
             mocks.VerifyAll();
         }
 
-        private static AssessmentSection CreateAssessmentSection()
+        private static AssessmentSection CreateAssessmentSection(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             return new AssessmentSection(AssessmentSectionComposition.DikeAndDune)
             {
@@ -302,6 +301,17 @@ namespace Riskeer.Integration.Service.Test
                     HydraulicLocationConfigurationDatabase =
                     {
                         FilePath = Path.Combine(testDataPath, "hlcd.sqlite")
+                    },
+                    HydraulicBoundaryDatabases =
+                    {
+                        new HydraulicBoundaryDatabase
+                        {
+                            FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite"),
+                            Locations =
+                            {
+                                hydraulicBoundaryLocation
+                            }
+                        }
                     }
                 }
             };
