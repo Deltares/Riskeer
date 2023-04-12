@@ -257,7 +257,7 @@ namespace Riskeer.DuneErosion.Service.Test
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
                                      HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
                                          hydraulicBoundaryData,
-                                         hydraulicBoundaryData.HydraulicBoundaryDatabases.First().Locations.First()),
+                                         hydraulicBoundaryData.GetLocations().First()),
                                      (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(calculator);

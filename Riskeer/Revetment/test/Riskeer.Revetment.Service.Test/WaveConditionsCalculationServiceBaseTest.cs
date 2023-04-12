@@ -542,7 +542,7 @@ namespace Riskeer.Revetment.Service.Test
             HydraulicBoundaryData hydraulicBoundaryData)
         {
             // Setup
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = hydraulicBoundaryData.HydraulicBoundaryDatabases.First().Locations.First();
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = hydraulicBoundaryData.GetLocations().First();
 
             var waterLevel = (RoundedDouble) 4.20;
             var a = (RoundedDouble) 1.0;
