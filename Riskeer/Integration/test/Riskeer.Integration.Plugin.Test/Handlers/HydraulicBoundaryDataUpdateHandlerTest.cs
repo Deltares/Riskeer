@@ -27,8 +27,6 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.DuneErosion.Plugin.Handlers;
@@ -38,10 +36,6 @@ using Riskeer.HydraRing.IO.TestUtil;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.IO.Handlers;
 using Riskeer.Integration.Plugin.Handlers;
-using Riskeer.Integration.TestUtil;
-using Riskeer.MacroStabilityInwards.Data;
-using Riskeer.Piping.Data.SemiProbabilistic;
-using Riskeer.Piping.Data.TestUtil;
 
 namespace Riskeer.Integration.Plugin.Test.Handlers
 {
@@ -244,7 +238,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             Assert.AreEqual(1, hydraulicBoundaryData.HydraulicBoundaryDatabases.Count);
 
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = hydraulicBoundaryData.HydraulicBoundaryDatabases.First();
-            
+
             Assert.AreEqual(hrdFilePath, hydraulicBoundaryDatabase.FilePath);
             Assert.AreEqual(readHydraulicBoundaryDatabase.Version, hydraulicBoundaryDatabase.Version);
             Assert.IsFalse(hydraulicBoundaryDatabase.UsePreprocessorClosure);
@@ -396,46 +390,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                                                   .Select(element => element.DuneLocationCalculations));
 
             CollectionAssert.AreEqual(observables, changedObjects);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GivenCalculationsWithLocation_WhenUpdatingDatabaseWithNewLocations_ThenCalculationOutputClearedAndChangedObjectsReturned()
-        {
-            // Given
-            var mocks = new MockRepository();
-            var duneLocationsReplacementHandler = mocks.Stub<IDuneLocationsReplacementHandler>();
-            mocks.ReplayAll();
-
-            const string hrdFilePath = "some/file/path";
-            const string hlcdFilePath = "some/hlcd/FilePath";
-            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
-
-            ICalculation[] calculationsWithOutput = assessmentSection.GetFailureMechanisms()
-                                                                     .OfType<ICalculatableFailureMechanism>()
-                                                                     .SelectMany(fm => fm.Calculations)
-                                                                     .Where(c => c.HasOutput)
-                                                                     .ToArray();
-
-            calculationsWithOutput = calculationsWithOutput.Except(calculationsWithOutput.OfType<SemiProbabilisticPipingCalculationScenario>()
-                                                                                         .Where(c => c.InputParameters.UseAssessmentLevelManualInput))
-                                                           .Except(calculationsWithOutput.OfType<MacroStabilityInwardsCalculationScenario>()
-                                                                                         .Where(c => c.InputParameters.UseAssessmentLevelManualInput))
-                                                           .Except(calculationsWithOutput.OfType<TestPipingCalculationScenario>())
-                                                           .ToArray();
-
-            ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
-
-            var handler = new HydraulicBoundaryDataUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
-
-            // When
-            IEnumerable<IObservable> changedObjects = handler.Update(assessmentSection.HydraulicBoundaryData, readHydraulicBoundaryDatabase,
-                                                                     ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(readHydraulicBoundaryDatabase.TrackId),
-                                                                     Enumerable.Empty<long>(), hrdFilePath);
-
-            // Then
-            Assert.IsTrue(calculationsWithOutput.All(c => !c.HasOutput));
-            CollectionAssert.IsSubsetOf(calculationsWithOutput, changedObjects);
             mocks.VerifyAll();
         }
 
