@@ -2534,11 +2534,11 @@ namespace Riskeer.Integration.Plugin
 
         private void HydraulicBoundaryDatabaseContextOnNodeRemoved(HydraulicBoundaryDatabaseContext nodeData, object parentNodeData)
         {
-            var handler = new HydraulicBoundaryDatabaseRemoveHandler(
+            var handler = new HydraulicBoundaryDataUpdateHandler(
                 nodeData.AssessmentSection, new DuneLocationsUpdateHandler(Gui.ViewCommands, nodeData.AssessmentSection.DuneErosion));
             
             IEnumerable<IObservable> changedObjects = handler.RemoveHydraulicBoundaryDatabase(nodeData.WrappedData);
-            handler.DoPostRemoveActions();
+            handler.DoPostUpdateActions();
 
             changedObjects.ForEachElementDo(o => o.NotifyObservers());
         }

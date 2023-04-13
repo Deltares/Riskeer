@@ -64,9 +64,9 @@ namespace Riskeer.Integration.Plugin.Handlers
             this.duneLocationsUpdateHandler = duneLocationsUpdateHandler;
         }
 
-        public IEnumerable<IObservable> Update(HydraulicBoundaryData hydraulicBoundaryData, ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase,
-                                               ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase,
-                                               IEnumerable<long> excludedLocationIds, string hrdFilePath)
+        public IEnumerable<IObservable> AddHydraulicBoundaryDatabase(HydraulicBoundaryData hydraulicBoundaryData, ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase,
+                                                                     ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase,
+                                                                     IEnumerable<long> excludedLocationIds, string hrdFilePath)
         {
             if (hydraulicBoundaryData == null)
             {

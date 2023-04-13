@@ -298,8 +298,8 @@ namespace Riskeer.Integration.IO.Importers
         {
             NotifyProgress(RiskeerCommonIOResources.Importer_ProgressText_Adding_imported_data_to_AssessmentSection, 4, numberOfSteps);
 
-            changedObservables.AddRange(updateHandler.Update(ImportTarget, readHydraulicBoundaryDatabase, readHydraulicLocationConfigurationDatabase,
-                                                             excludedLocationIds, FilePath));
+            changedObservables.AddRange(updateHandler.AddHydraulicBoundaryDatabase(ImportTarget, readHydraulicBoundaryDatabase, readHydraulicLocationConfigurationDatabase,
+                                                                                   excludedLocationIds, FilePath));
         }
 
         private ReadResult<T> HandleCriticalFileReadError<T>(Exception e)

@@ -35,10 +35,10 @@ namespace Riskeer.Integration.IO.Handlers
     public interface IHydraulicBoundaryDataUpdateHandler
     {
         /// <summary>
-        /// Updates the <paramref name="hydraulicBoundaryData"/> and its dependent data with the
-        /// <paramref name="readHydraulicBoundaryDatabase"/> and the <paramref name="readHydraulicLocationConfigurationDatabase"/>.
+        /// Adds the <paramref name="readHydraulicBoundaryDatabase"/> and the <paramref name="readHydraulicLocationConfigurationDatabase"/>
+        /// to the <paramref name="hydraulicBoundaryData"/> and its dependent data.
         /// </summary>
-        /// <param name="hydraulicBoundaryData">The hydraulic boundary data to update.</param>
+        /// <param name="hydraulicBoundaryData">The hydraulic boundary data to add the hydraulic boundary database to.</param>
         /// <param name="readHydraulicBoundaryDatabase">The read hydraulic boundary database to update with.</param>
         /// <param name="readHydraulicLocationConfigurationDatabase">The read hydraulic location configuration database to
         /// update with.</param>
@@ -48,11 +48,11 @@ namespace Riskeer.Integration.IO.Handlers
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when the <paramref name="hydraulicBoundaryData"/> cannot be updated with
         /// <paramref name="readHydraulicLocationConfigurationDatabase"/>.</exception>
-        IEnumerable<IObservable> Update(HydraulicBoundaryData hydraulicBoundaryData,
-                                        ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase,
-                                        ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase,
-                                        IEnumerable<long> excludedLocationIds,
-                                        string hrdFilePath);
+        IEnumerable<IObservable> AddHydraulicBoundaryDatabase(HydraulicBoundaryData hydraulicBoundaryData,
+                                                              ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase,
+                                                              ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase,
+                                                              IEnumerable<long> excludedLocationIds,
+                                                              string hrdFilePath);
 
         /// <summary>
         /// Removes the hydraulic boundary database.
