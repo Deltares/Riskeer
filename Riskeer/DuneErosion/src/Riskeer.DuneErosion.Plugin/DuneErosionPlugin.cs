@@ -619,14 +619,6 @@ namespace Riskeer.DuneErosion.Plugin
                                                                                                                                                    probability => probability.TargetProbability));
                 });
 
-            string validationText = HydraulicBoundaryDataConnectionValidator.Validate(context.AssessmentSection.HydraulicBoundaryData);
-
-            if (!string.IsNullOrEmpty(validationText))
-            {
-                calculateAllItem.Enabled = false;
-                calculateAllItem.ToolTipText = validationText;
-            }
-
             return Gui.Get(context, treeViewControl)
                       .AddOpenItem()
                       .AddSeparator()
