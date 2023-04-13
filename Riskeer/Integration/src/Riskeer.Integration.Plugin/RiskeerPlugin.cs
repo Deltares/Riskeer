@@ -2532,10 +2532,15 @@ namespace Riskeer.Integration.Plugin
                       .Build();
         }
 
-        private static void HydraulicBoundaryDatabaseContextOnNodeRemoved(HydraulicBoundaryDatabaseContext nodeData, object parentNodeData)
+        private void HydraulicBoundaryDatabaseContextOnNodeRemoved(HydraulicBoundaryDatabaseContext nodeData, object parentNodeData)
         {
-            nodeData.HydraulicBoundaryData.HydraulicBoundaryDatabases.Remove(nodeData.WrappedData);
-            nodeData.HydraulicBoundaryData.NotifyObservers();
+            var handler = new HydraulicBoundaryDatabaseRemoveHandler(
+                nodeData.AssessmentSection, new DuneLocationsRemoveHandler(nodeData.AssessmentSection.DuneErosion, Gui.ViewCommands));
+            
+            IEnumerable<IObservable> changedObjects = handler.RemoveHydraulicBoundaryDatabase(nodeData.WrappedData);
+            handler.DoPostRemoveActions();
+
+            changedObjects.ForEachElementDo(o => o.NotifyObservers());
         }
 
         private ContextMenuStrip WaterLevelCalculationsForNormTargetProbabilitiesGroupContextMenuStrip(WaterLevelCalculationsForNormTargetProbabilitiesGroupContext nodeData, object parentData, TreeViewControl treeViewControl)

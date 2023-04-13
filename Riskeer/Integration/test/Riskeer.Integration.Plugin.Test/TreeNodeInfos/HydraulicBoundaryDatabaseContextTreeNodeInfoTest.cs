@@ -26,6 +26,7 @@ using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Gui;
+using Core.Gui.Commands;
 using Core.Gui.ContextMenu;
 using Core.Gui.Forms.Main;
 using NUnit.Extensions.Forms;
@@ -214,28 +215,30 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var hydraulicBoundaryDatabase1 = new HydraulicBoundaryDatabase();
             var hydraulicBoundaryDatabase2 = new HydraulicBoundaryDatabase();
             var hydraulicBoundaryDatabase3 = new HydraulicBoundaryDatabase();
-            var hydraulicBoundaryData = new HydraulicBoundaryData
+
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryData;
+            hydraulicBoundaryData.HydraulicBoundaryDatabases.AddRange(new[]
             {
-                HydraulicBoundaryDatabases =
-                {
-                    hydraulicBoundaryDatabase1,
-                    hydraulicBoundaryDatabase2,
-                    hydraulicBoundaryDatabase3
-                }
-            };
+                hydraulicBoundaryDatabase1,
+                hydraulicBoundaryDatabase2,
+                hydraulicBoundaryDatabase3
+            });
 
             var mockRepository = new MockRepository();
+            IGui gui = StubFactory.CreateGuiStub(mockRepository);
+            gui.Stub(g => g.ViewCommands).Return(mockRepository.Stub<IViewCommands>());
             var observer = mockRepository.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             hydraulicBoundaryData.Attach(observer);
-
             mockRepository.ReplayAll();
 
-            var context = new HydraulicBoundaryDatabaseContext(hydraulicBoundaryDatabase2, hydraulicBoundaryData,
-                                                               new AssessmentSection(AssessmentSectionComposition.Dike));
+            var context = new HydraulicBoundaryDatabaseContext(hydraulicBoundaryDatabase2, hydraulicBoundaryData, assessmentSection);
 
             using (var plugin = new RiskeerPlugin())
             {
+                plugin.Gui = gui;
+
                 TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
