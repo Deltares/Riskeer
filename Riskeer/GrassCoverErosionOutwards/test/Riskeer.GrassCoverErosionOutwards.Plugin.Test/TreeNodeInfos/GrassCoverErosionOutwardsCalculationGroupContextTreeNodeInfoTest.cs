@@ -1046,9 +1046,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 failureMechanism, mocks, validHrdFilePath);
 
             HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryData;
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = hydraulicBoundaryData.GetLocations().First();
+
             var group = new CalculationGroup();
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculationA = GetValidCalculation(hydraulicBoundaryData.Locations.First());
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculationB = GetValidCalculation(hydraulicBoundaryData.Locations.First());
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculationA = GetValidCalculation(hydraulicBoundaryLocation);
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculationB = GetValidCalculation(hydraulicBoundaryLocation);
             group.Children.Add(calculationA);
             group.Children.Add(calculationB);
 
@@ -1105,10 +1107,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 observerB.Expect(o => o.UpdateObserver());
             }
 
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First();
+
             var group = new CalculationGroup();
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculationA = GetValidCalculation(assessmentSection.HydraulicBoundaryData.Locations.First());
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculationA = GetValidCalculation(hydraulicBoundaryLocation);
             calculationA.Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create();
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculationB = GetValidCalculation(assessmentSection.HydraulicBoundaryData.Locations.First());
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculationB = GetValidCalculation(hydraulicBoundaryLocation);
             calculationB.Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create();
             group.Children.Add(calculationA);
             group.Children.Add(calculationB);
