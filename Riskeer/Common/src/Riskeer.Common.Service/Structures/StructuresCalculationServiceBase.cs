@@ -324,8 +324,7 @@ namespace Riskeer.Common.Service.Structures
             }
 
             string connectionValidationProblem = HydraulicBoundaryDataConnectionValidator.Validate(
-                assessmentSection.HydraulicBoundaryData,
-                input.HydraulicBoundaryLocation);
+                assessmentSection.HydraulicBoundaryData, input.HydraulicBoundaryLocation);
 
             if (!string.IsNullOrEmpty(connectionValidationProblem))
             {
