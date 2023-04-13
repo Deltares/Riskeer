@@ -559,31 +559,26 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
         private static AssessmentSection CreateAssessmentSection(HydraulicBoundaryLocation[] locations, double targetProbability = 0.1)
         {
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Add(new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability)
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryLocationCalculations =
+                WaterLevelCalculationsForUserDefinedTargetProbabilities =
                 {
-                    new HydraulicBoundaryLocationCalculation(locations[0])
-                }
-            });
-
-            assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Add(new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability)
-            {
-                HydraulicBoundaryLocationCalculations =
+                    new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability)
+                },
+                WaveHeightCalculationsForUserDefinedTargetProbabilities =
                 {
-                    new HydraulicBoundaryLocationCalculation(locations[0])
+                    new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability)
                 }
-            });
+            };
 
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            
+
             hydraulicBoundaryDatabase.Locations.AddRange(locations);
-            
+
             assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(hydraulicBoundaryDatabase);
-            
+
             assessmentSection.HydraulicBoundaryData.Locations.AddRange(locations);
-            
+
             assessmentSection.SetHydraulicBoundaryLocationCalculations(locations);
 
             return assessmentSection;
