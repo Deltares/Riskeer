@@ -31,21 +31,21 @@ using Riskeer.DuneErosion.Service;
 namespace Riskeer.DuneErosion.Plugin.Handlers
 {
     /// <summary>
-    /// Class responsible for replacing dune locations of a <see cref="DuneErosionFailureMechanism"/>.
+    /// Class responsible for updating dune locations of a <see cref="DuneErosionFailureMechanism"/>.
     /// </summary>
-    public class DuneLocationsReplacementHandler : IDuneLocationsReplacementHandler
+    public class DuneLocationsUpdateHandler : IDuneLocationsUpdateHandler
     {
         private readonly IViewCommands viewCommands;
         private readonly DuneErosionFailureMechanism failureMechanism;
         private readonly DuneLocationsReader duneLocationsReader;
 
         /// <summary>
-        /// Creates a new instance of <see cref="DuneLocationsReplacementHandler"/>.
+        /// Creates a new instance of <see cref="DuneLocationsUpdateHandler"/>.
         /// </summary>
         /// <param name="viewCommands">The view commands used to close views for removed data.</param>
         /// <param name="failureMechanism">The failure mechanism to update.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public DuneLocationsReplacementHandler(IViewCommands viewCommands, DuneErosionFailureMechanism failureMechanism)
+        public DuneLocationsUpdateHandler(IViewCommands viewCommands, DuneErosionFailureMechanism failureMechanism)
         {
             if (viewCommands == null)
             {
@@ -63,7 +63,7 @@ namespace Riskeer.DuneErosion.Plugin.Handlers
             duneLocationsReader = new DuneLocationsReader();
         }
 
-        public void Replace(IEnumerable<HydraulicBoundaryLocation> newHydraulicBoundaryLocations)
+        public void AddLocations(IEnumerable<HydraulicBoundaryLocation> newHydraulicBoundaryLocations)
         {
             IEnumerable<ReadDuneLocation> newDuneLocations = duneLocationsReader.ReadDuneLocations();
 
@@ -85,7 +85,7 @@ namespace Riskeer.DuneErosion.Plugin.Handlers
             failureMechanism.RemoveDuneLocations(locationsToRemove);
         }
 
-        public void DoPostReplacementUpdates()
+        public void DoPostUpdateActions()
         {
             if (!failureMechanism.DuneLocations.Any())
             {

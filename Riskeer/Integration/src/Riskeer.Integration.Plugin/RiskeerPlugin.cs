@@ -598,7 +598,7 @@ namespace Riskeer.Integration.Plugin
                                                               Resources.HydraulicBoundaryDatabase_file_filter_Description),
                 CreateFileImporter = (context, filePath) => new HydraulicBoundaryDatabaseImporter(
                     context.WrappedData, new HydraulicBoundaryDataUpdateHandler(context.AssessmentSection,
-                                                                                new DuneLocationsReplacementHandler(
+                                                                                new DuneLocationsUpdateHandler(
                                                                                     Gui.ViewCommands, context.AssessmentSection.DuneErosion)),
                     filePath)
             };
@@ -2535,7 +2535,7 @@ namespace Riskeer.Integration.Plugin
         private void HydraulicBoundaryDatabaseContextOnNodeRemoved(HydraulicBoundaryDatabaseContext nodeData, object parentNodeData)
         {
             var handler = new HydraulicBoundaryDatabaseRemoveHandler(
-                nodeData.AssessmentSection, new DuneLocationsReplacementHandler(Gui.ViewCommands, nodeData.AssessmentSection.DuneErosion));
+                nodeData.AssessmentSection, new DuneLocationsUpdateHandler(Gui.ViewCommands, nodeData.AssessmentSection.DuneErosion));
             
             IEnumerable<IObservable> changedObjects = handler.RemoveHydraulicBoundaryDatabase(nodeData.WrappedData);
             handler.DoPostRemoveActions();

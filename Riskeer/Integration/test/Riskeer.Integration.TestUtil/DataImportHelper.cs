@@ -205,7 +205,7 @@ namespace Riskeer.Integration.TestUtil
                 assessmentSection.HydraulicBoundaryData,
                 new HydraulicBoundaryDataUpdateHandler(
                     assessmentSection,
-                    new DuneLocationsReplacementHandler(viewCommands, assessmentSection.DuneErosion)),
+                    new DuneLocationsUpdateHandler(viewCommands, assessmentSection.DuneErosion)),
                 hrdFilePath);
             hydraulicBoundaryDatabaseImporter.Import();
 

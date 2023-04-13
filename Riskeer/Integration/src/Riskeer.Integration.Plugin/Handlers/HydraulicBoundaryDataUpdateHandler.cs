@@ -38,29 +38,29 @@ namespace Riskeer.Integration.Plugin.Handlers
     public class HydraulicBoundaryDataUpdateHandler : IHydraulicBoundaryDataUpdateHandler
     {
         private readonly AssessmentSection assessmentSection;
-        private readonly IDuneLocationsReplacementHandler duneLocationsReplacementHandler;
+        private readonly IDuneLocationsUpdateHandler duneLocationsUpdateHandler;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryDataUpdateHandler"/>.
         /// </summary>
         /// <param name="assessmentSection">The assessment section to update for.</param>
-        /// <param name="duneLocationsReplacementHandler">The handler to replace dune locations.</param>
+        /// <param name="duneLocationsUpdateHandler">The handler for adding dune locations.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public HydraulicBoundaryDataUpdateHandler(AssessmentSection assessmentSection,
-                                                  IDuneLocationsReplacementHandler duneLocationsReplacementHandler)
+                                                  IDuneLocationsUpdateHandler duneLocationsUpdateHandler)
         {
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            if (duneLocationsReplacementHandler == null)
+            if (duneLocationsUpdateHandler == null)
             {
-                throw new ArgumentNullException(nameof(duneLocationsReplacementHandler));
+                throw new ArgumentNullException(nameof(duneLocationsUpdateHandler));
             }
 
             this.assessmentSection = assessmentSection;
-            this.duneLocationsReplacementHandler = duneLocationsReplacementHandler;
+            this.duneLocationsUpdateHandler = duneLocationsUpdateHandler;
         }
 
         public IEnumerable<IObservable> Update(HydraulicBoundaryData hydraulicBoundaryData, ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase,
@@ -115,14 +115,14 @@ namespace Riskeer.Integration.Plugin.Handlers
             hydraulicBoundaryData.Locations.AddRange(newHydraulicBoundaryLocations);
 
             assessmentSection.SetHydraulicBoundaryLocationCalculations(newHydraulicBoundaryDatabase.Locations);
-            duneLocationsReplacementHandler.Replace(newHydraulicBoundaryDatabase.Locations);
+            duneLocationsUpdateHandler.AddLocations(newHydraulicBoundaryDatabase.Locations);
 
             return GetLocationsAndCalculationsObservables(hydraulicBoundaryData);
         }
 
         public void DoPostUpdateActions()
         {
-            duneLocationsReplacementHandler.DoPostReplacementUpdates();
+            duneLocationsUpdateHandler.DoPostUpdateActions();
         }
 
         private IEnumerable<IObservable> GetLocationsAndCalculationsObservables(HydraulicBoundaryData hydraulicBoundaryData)

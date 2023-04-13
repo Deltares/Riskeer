@@ -27,21 +27,20 @@ using Riskeer.DuneErosion.Data;
 namespace Riskeer.DuneErosion.Plugin.Handlers
 {
     /// <summary>
-    /// Interface for replacing dune locations of a <see cref="DuneErosionFailureMechanism"/>.
+    /// Interface for updating dune locations of a <see cref="DuneErosionFailureMechanism"/>.
     /// </summary>
-    public interface IDuneLocationsReplacementHandler
+    public interface IDuneLocationsUpdateHandler
     {
         /// <summary>
-        /// Replaces the dune locations of the <see cref="DuneErosionFailureMechanism"/>.
+        /// Adds dune locations to the <see cref="DuneErosionFailureMechanism"/>.
         /// </summary>
-        /// <param name="newHydraulicBoundaryLocations">The new hydraulic boundary locations
-        /// to update the dune locations for.</param>
+        /// <param name="newHydraulicBoundaryLocations">The hydraulic boundary locations to add the dune locations for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="newHydraulicBoundaryLocations"/>
         /// is <c>null</c>.</exception>
-        void Replace(IEnumerable<HydraulicBoundaryLocation> newHydraulicBoundaryLocations);
+        void AddLocations(IEnumerable<HydraulicBoundaryLocation> newHydraulicBoundaryLocations);
 
         /// <summary>
-        /// Removes the dune locations of the <see cref="DuneErosionFailureMechanism"/>.
+        /// Removes dune locations from the <see cref="DuneErosionFailureMechanism"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations to remove the dune locations for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocations"/>
@@ -49,8 +48,8 @@ namespace Riskeer.DuneErosion.Plugin.Handlers
         void RemoveLocations(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations);
 
         /// <summary>
-        /// Performs post-replacement updates.
+        /// Performs post-update actions.
         /// </summary>
-        void DoPostReplacementUpdates();
+        void DoPostUpdateActions();
     }
 }
