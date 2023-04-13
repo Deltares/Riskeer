@@ -44,7 +44,6 @@ using Riskeer.Common.Forms.UpdateInfos;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Common.Plugin;
 using Riskeer.Common.Plugin.FileImporters;
-using Riskeer.Common.Service;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Forms.GuiServices;
 using Riskeer.DuneErosion.Forms.PresentationObjects;
@@ -646,17 +645,10 @@ namespace Riskeer.DuneErosion.Plugin
                                                      DuneLocationCalculationActivityFactory.CreateCalculationActivities(failureMechanism, assessmentSection));
                 });
 
-            string validationText = HydraulicBoundaryDataConnectionValidator.Validate(assessmentSection.HydraulicBoundaryData);
-
-            if (string.IsNullOrEmpty(validationText) && !failureMechanism.DuneLocations.Any())
-            {
-                validationText = Resources.DuneErosionPlugin_CreateCalculateAllItem_No_calculatable_locations_present;
-            }
-
-            if (!string.IsNullOrEmpty(validationText))
+            if (!failureMechanism.DuneLocations.Any())
             {
                 calculateAllItem.Enabled = false;
-                calculateAllItem.ToolTipText = validationText;
+                calculateAllItem.ToolTipText = Resources.DuneErosionPlugin_CreateCalculateAllItem_No_calculatable_locations_present;
             }
 
             return calculateAllItem;
