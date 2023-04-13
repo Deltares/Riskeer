@@ -128,8 +128,10 @@ namespace Riskeer.Integration.Plugin.Handlers
                 throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
             }
 
-            assessmentSection.RemoveHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
-            duneLocationsUpdateHandler.RemoveLocations(hydraulicBoundaryDatabase.Locations);
+            HydraulicBoundaryLocation[] locationsToRemove = hydraulicBoundaryDatabase.Locations.ToArray();
+            
+            assessmentSection.RemoveHydraulicBoundaryLocationCalculations(locationsToRemove);
+            duneLocationsUpdateHandler.RemoveLocations(locationsToRemove);
             assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Remove(hydraulicBoundaryDatabase);
 
             var changedObjects = new List<IObservable>
@@ -137,7 +139,7 @@ namespace Riskeer.Integration.Plugin.Handlers
                 assessmentSection.HydraulicBoundaryData
             };
             changedObjects.AddRange(GetLocationsAndCalculationsObservables(assessmentSection.HydraulicBoundaryData));
-            changedObjects.AddRange(RiskeerDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(assessmentSection));
+            changedObjects.AddRange(RiskeerDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(assessmentSection, locationsToRemove));
             return changedObjects;
         }
 

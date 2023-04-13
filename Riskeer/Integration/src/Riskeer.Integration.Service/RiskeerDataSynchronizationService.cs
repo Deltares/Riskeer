@@ -66,14 +66,21 @@ namespace Riskeer.Integration.Service
         /// Clears all the output data and hydraulic boundary locations within the <see cref="IAssessmentSection"/>.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to clear the data for.</param>
+        /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations to clear the data for.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by
         /// removing data.</returns>
-        /// /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> ClearAllCalculationOutputAndHydraulicBoundaryLocations(IAssessmentSection assessmentSection)
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> ClearAllCalculationOutputAndHydraulicBoundaryLocations(
+            IAssessmentSection assessmentSection, IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
         {
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            if (hydraulicBoundaryLocations == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
             }
 
             var changedObservables = new List<IObservable>();
