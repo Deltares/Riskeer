@@ -74,9 +74,15 @@ namespace Riskeer.Integration.TestUtil
             {
                 HydraulicBoundaryData =
                 {
-                    Locations =
+                    HydraulicBoundaryDatabases =
                     {
-                        hydraulicBoundaryLocation
+                        new HydraulicBoundaryDatabase
+                        {
+                            Locations =
+                            {
+                                hydraulicBoundaryLocation
+                            }
+                        }
                     }
                 }
             };
