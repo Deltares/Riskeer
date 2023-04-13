@@ -29,6 +29,7 @@ using Riskeer.HydraRing.IO.HydraulicBoundaryDatabase;
 using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.IO.Handlers;
+using Riskeer.Integration.Service;
 
 namespace Riskeer.Integration.Plugin.Handlers
 {
@@ -118,6 +119,26 @@ namespace Riskeer.Integration.Plugin.Handlers
             duneLocationsUpdateHandler.AddLocations(newHydraulicBoundaryDatabase.Locations);
 
             return GetLocationsAndCalculationsObservables(hydraulicBoundaryData);
+        }
+
+        public IEnumerable<IObservable> RemoveHydraulicBoundaryDatabase(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+        {
+            if (hydraulicBoundaryDatabase == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
+            }
+
+            assessmentSection.RemoveHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
+            duneLocationsUpdateHandler.RemoveLocations(hydraulicBoundaryDatabase.Locations);
+            assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Remove(hydraulicBoundaryDatabase);
+
+            var changedObjects = new List<IObservable>
+            {
+                assessmentSection.HydraulicBoundaryData
+            };
+            changedObjects.AddRange(GetLocationsAndCalculationsObservables(assessmentSection.HydraulicBoundaryData));
+            changedObjects.AddRange(RiskeerDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(assessmentSection));
+            return changedObjects;
         }
 
         public void DoPostUpdateActions()

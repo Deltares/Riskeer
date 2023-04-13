@@ -55,6 +55,15 @@ namespace Riskeer.Integration.IO.Handlers
                                         string hrdFilePath);
 
         /// <summary>
+        /// Removes the hydraulic boundary database.
+        /// </summary>
+        /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database to remove.</param>
+        /// <returns>All objects that have been affected by the remove.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryDatabase"/>
+        /// is <c>null</c>.</exception>
+        IEnumerable<IObservable> RemoveHydraulicBoundaryDatabase(HydraulicBoundaryDatabase hydraulicBoundaryDatabase);
+
+        /// <summary>
         /// Perform post-update actions.
         /// </summary>
         void DoPostUpdateActions();

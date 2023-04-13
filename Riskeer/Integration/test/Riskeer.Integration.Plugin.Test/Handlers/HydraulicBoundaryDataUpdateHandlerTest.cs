@@ -23,10 +23,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.DuneErosion.Plugin.Handlers;
@@ -36,6 +39,10 @@ using Riskeer.HydraRing.IO.TestUtil;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.IO.Handlers;
 using Riskeer.Integration.Plugin.Handlers;
+using Riskeer.Integration.TestUtil;
+using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.Piping.Data.SemiProbabilistic;
+using Riskeer.Piping.Data.TestUtil;
 
 namespace Riskeer.Integration.Plugin.Test.Handlers
 {
@@ -212,10 +219,10 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var mocks = new MockRepository();
             var duneLocationsUpdateHandler = mocks.StrictMock<IDuneLocationsUpdateHandler>();
             duneLocationsUpdateHandler.Expect(h => h.AddLocations(Arg<IEnumerable<HydraulicBoundaryLocation>>.Is.NotNull))
-                                           .WhenCalled(invocation =>
-                                           {
-                                               Assert.AreSame(hydraulicBoundaryData.HydraulicBoundaryDatabases.First().Locations, invocation.Arguments[0]);
-                                           });
+                                      .WhenCalled(invocation =>
+                                      {
+                                          Assert.AreSame(hydraulicBoundaryData.HydraulicBoundaryDatabases.First().Locations, invocation.Arguments[0]);
+                                      });
             mocks.ReplayAll();
 
             const string hrdFilePath = "some/file/path";
@@ -390,6 +397,189 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                                                   .Select(element => element.DuneLocationCalculations));
 
             CollectionAssert.AreEqual(observables, changedObjects);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void RemoveHydraulicBoundaryDatabase_HydraulicBoundaryDatabaseNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var duneLocationsUpdateHandler = mocks.Stub<IDuneLocationsUpdateHandler>();
+            mocks.ReplayAll();
+
+            var random = new Random(21);
+            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
+
+            var handler = new HydraulicBoundaryDataUpdateHandler(assessmentSection, duneLocationsUpdateHandler);
+
+            // Call
+            void Call() => handler.RemoveHydraulicBoundaryDatabase(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("hydraulicBoundaryDatabase", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenAssessmentSectionWithDatabase_WhenRemoving_ThenDatabaseRemoved()
+        {
+            // Given
+            var location1 = new TestHydraulicBoundaryLocation();
+            var location2 = new TestHydraulicBoundaryLocation();
+
+            var mocks = new MockRepository();
+            var duneLocationsUpdateHandler = mocks.Stub<IDuneLocationsUpdateHandler>();
+            duneLocationsUpdateHandler.Expect(dlrh => dlrh.RemoveLocations(new[]
+            {
+                location1,
+                location2
+            }));
+            mocks.ReplayAll();
+
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                Locations =
+                {
+                    location1,
+                    location2
+                }
+            };
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                HydraulicBoundaryData =
+                {
+                    HydraulicBoundaryDatabases =
+                    {
+                        hydraulicBoundaryDatabase
+                    }
+                }
+            };
+
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                location1,
+                location2
+            });
+
+            var handler = new HydraulicBoundaryDataUpdateHandler(assessmentSection, duneLocationsUpdateHandler);
+
+            // Precondition
+            Assert.AreEqual(1, assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Count);
+            Assert.AreEqual(2, assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.Count());
+            Assert.AreEqual(2, assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability.Count());
+
+            foreach (HydraulicBoundaryLocationCalculationsForTargetProbability element in assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities)
+            {
+                Assert.AreEqual(2, element.HydraulicBoundaryLocationCalculations);
+            }
+
+            foreach (HydraulicBoundaryLocationCalculationsForTargetProbability element in assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities)
+            {
+                Assert.AreEqual(2, element.HydraulicBoundaryLocationCalculations);
+            }
+
+            // When
+            IEnumerable<IObservable> changedObjects = handler.RemoveHydraulicBoundaryDatabase(hydraulicBoundaryDatabase);
+
+            // Then
+            CollectionAssert.IsEmpty(assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases);
+            CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForSignalFloodingProbability);
+            CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability);
+
+            foreach (HydraulicBoundaryLocationCalculationsForTargetProbability element in assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities)
+            {
+                CollectionAssert.IsEmpty(element.HydraulicBoundaryLocationCalculations);
+            }
+
+            foreach (HydraulicBoundaryLocationCalculationsForTargetProbability element in assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities)
+            {
+                CollectionAssert.IsEmpty(element.HydraulicBoundaryLocationCalculations);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenAssessmentSectionWithDatabase_WhenRemoving_ThenChangedObjectsReturned()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var duneLocationsUpdateHandler = mocks.Stub<IDuneLocationsUpdateHandler>();
+            mocks.ReplayAll();
+
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                HydraulicBoundaryData =
+                {
+                    HydraulicBoundaryDatabases =
+                    {
+                        hydraulicBoundaryDatabase
+                    }
+                }
+            };
+
+            var handler = new HydraulicBoundaryDataUpdateHandler(assessmentSection, duneLocationsUpdateHandler);
+
+            // When
+            IEnumerable<IObservable> changedObjects = handler.RemoveHydraulicBoundaryDatabase(hydraulicBoundaryDatabase);
+
+            // Then
+            var observables = new List<IObservable>
+            {
+                assessmentSection.HydraulicBoundaryData,
+                assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases,
+                assessmentSection.HydraulicBoundaryData.Locations,
+                assessmentSection.WaterLevelCalculationsForSignalFloodingProbability,
+                assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability,
+                assessmentSection.DuneErosion.DuneLocations,
+                assessmentSection.DuneErosion.DuneLocationCalculationsForUserDefinedTargetProbabilities
+            };
+
+            observables.AddRange(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities
+                                                  .Select(element => element.HydraulicBoundaryLocationCalculations));
+            observables.AddRange(assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities
+                                                  .Select(element => element.HydraulicBoundaryLocationCalculations));
+            observables.AddRange(assessmentSection.DuneErosion.DuneLocationCalculationsForUserDefinedTargetProbabilities
+                                                  .Select(element => element.DuneLocationCalculations));
+
+            CollectionAssert.AreEqual(observables, changedObjects);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenCalculationsWithLocation_WhenRemovingHydraulicBoundaryDatabase_ThenCalculationOutputClearedAndChangedObjectsReturned()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var duneLocationsUpdateHandler = mocks.Stub<IDuneLocationsUpdateHandler>();
+            mocks.ReplayAll();
+
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
+
+            ICalculation[] calculationsWithOutput = assessmentSection.GetFailureMechanisms()
+                                                                     .OfType<ICalculatableFailureMechanism>()
+                                                                     .SelectMany(fm => fm.Calculations)
+                                                                     .Where(c => c.HasOutput)
+                                                                     .ToArray();
+
+            calculationsWithOutput = calculationsWithOutput.Except(calculationsWithOutput.OfType<SemiProbabilisticPipingCalculationScenario>()
+                                                                                         .Where(c => c.InputParameters.UseAssessmentLevelManualInput))
+                                                           .Except(calculationsWithOutput.OfType<MacroStabilityInwardsCalculationScenario>()
+                                                                                         .Where(c => c.InputParameters.UseAssessmentLevelManualInput))
+                                                           .Except(calculationsWithOutput.OfType<TestPipingCalculationScenario>())
+                                                           .ToArray();
+
+            var handler = new HydraulicBoundaryDataUpdateHandler(assessmentSection, duneLocationsUpdateHandler);
+
+            // When
+            IEnumerable<IObservable> changedObjects = handler.RemoveHydraulicBoundaryDatabase(assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.First());
+
+            // Then
+            Assert.IsTrue(calculationsWithOutput.All(c => !c.HasOutput));
+            CollectionAssert.IsSubsetOf(calculationsWithOutput, changedObjects);
             mocks.VerifyAll();
         }
 
