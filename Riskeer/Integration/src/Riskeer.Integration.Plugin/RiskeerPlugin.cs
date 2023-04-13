@@ -2535,7 +2535,7 @@ namespace Riskeer.Integration.Plugin
         private void HydraulicBoundaryDatabaseContextOnNodeRemoved(HydraulicBoundaryDatabaseContext nodeData, object parentNodeData)
         {
             var handler = new HydraulicBoundaryDatabaseRemoveHandler(
-                nodeData.AssessmentSection, new DuneLocationsRemoveHandler(nodeData.AssessmentSection.DuneErosion, Gui.ViewCommands));
+                nodeData.AssessmentSection, new DuneLocationsReplacementHandler(Gui.ViewCommands, nodeData.AssessmentSection.DuneErosion));
             
             IEnumerable<IObservable> changedObjects = handler.RemoveHydraulicBoundaryDatabase(nodeData.WrappedData);
             handler.DoPostRemoveActions();

@@ -36,29 +36,29 @@ namespace Riskeer.Integration.Plugin.Handlers
     public class HydraulicBoundaryDatabaseRemoveHandler
     {
         private readonly AssessmentSection assessmentSection;
-        private readonly IDuneLocationsRemoveHandler duneLocationsRemoveHandler;
+        private readonly IDuneLocationsReplacementHandler duneLocationsReplacementHandler;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryDatabaseRemoveHandler"/>.
         /// </summary>
         /// <param name="assessmentSection">The assessment section to update.</param>
-        /// <param name="duneLocationsRemoveHandler">The handler to remove dune locations.</param>
+        /// <param name="duneLocationsReplacementHandler">The handler to remove dune locations.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public HydraulicBoundaryDatabaseRemoveHandler(AssessmentSection assessmentSection,
-                                                      IDuneLocationsRemoveHandler duneLocationsRemoveHandler)
+                                                      IDuneLocationsReplacementHandler duneLocationsReplacementHandler)
         {
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            if (duneLocationsRemoveHandler == null)
+            if (duneLocationsReplacementHandler == null)
             {
-                throw new ArgumentNullException(nameof(duneLocationsRemoveHandler));
+                throw new ArgumentNullException(nameof(duneLocationsReplacementHandler));
             }
 
             this.assessmentSection = assessmentSection;
-            this.duneLocationsRemoveHandler = duneLocationsRemoveHandler;
+            this.duneLocationsReplacementHandler = duneLocationsReplacementHandler;
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace Riskeer.Integration.Plugin.Handlers
             }
 
             assessmentSection.RemoveHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
-            duneLocationsRemoveHandler.RemoveLocations(hydraulicBoundaryDatabase.Locations);
+            duneLocationsReplacementHandler.RemoveLocations(hydraulicBoundaryDatabase.Locations);
             assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Remove(hydraulicBoundaryDatabase);
 
             var changedObjects = new List<IObservable>();
@@ -90,7 +90,7 @@ namespace Riskeer.Integration.Plugin.Handlers
         /// </summary>
         public void DoPostRemoveActions()
         {
-            duneLocationsRemoveHandler.DoPostRemoveActions();
+            duneLocationsReplacementHandler.DoPostReplacementUpdates();
         }
 
         private IEnumerable<IObservable> GetLocationsAndCalculationsObservables(HydraulicBoundaryData hydraulicBoundaryData)

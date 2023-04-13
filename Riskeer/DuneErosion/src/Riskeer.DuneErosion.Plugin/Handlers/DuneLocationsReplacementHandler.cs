@@ -72,6 +72,19 @@ namespace Riskeer.DuneErosion.Plugin.Handlers
                                                                    newDuneLocations);
         }
 
+        public void RemoveLocations(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
+        {
+            if (hydraulicBoundaryLocations == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
+            }
+
+            DuneLocation[] locationsToRemove = failureMechanism.DuneLocations.Where(
+                dl => hydraulicBoundaryLocations.Contains(dl.HydraulicBoundaryLocation)).ToArray();
+
+            failureMechanism.RemoveDuneLocations(locationsToRemove);
+        }
+
         public void DoPostReplacementUpdates()
         {
             if (!failureMechanism.DuneLocations.Any())

@@ -49,11 +49,11 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         {
             // Setup
             var mocks = new MockRepository();
-            var duneLocationsRemoveHandler = mocks.Stub<IDuneLocationsRemoveHandler>();
+            var duneLocationsReplacementHandler = mocks.Stub<IDuneLocationsReplacementHandler>();
             mocks.ReplayAll();
 
             // Call
-            void Call() => new HydraulicBoundaryDatabaseRemoveHandler(null, duneLocationsRemoveHandler);
+            void Call() => new HydraulicBoundaryDatabaseRemoveHandler(null, duneLocationsReplacementHandler);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -62,7 +62,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void Constructor_DuneLocationsRemoveHandlerNull_ThrowsArgumentNullException()
+        public void Constructor_DuneLocationsReplacementHandlerNull_ThrowsArgumentNullException()
         {
             // Setup
             var random = new Random(21);
@@ -73,7 +73,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("duneLocationsRemoveHandler", exception.ParamName);
+            Assert.AreEqual("duneLocationsReplacementHandler", exception.ParamName);
         }
 
         [Test]
@@ -81,13 +81,13 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         {
             // Setup
             var mocks = new MockRepository();
-            var duneLocationsRemoveHandler = mocks.Stub<IDuneLocationsRemoveHandler>();
+            var duneLocationsReplacementHandler = mocks.Stub<IDuneLocationsReplacementHandler>();
             mocks.ReplayAll();
 
             var random = new Random(21);
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
 
-            var handler = new HydraulicBoundaryDatabaseRemoveHandler(assessmentSection, duneLocationsRemoveHandler);
+            var handler = new HydraulicBoundaryDatabaseRemoveHandler(assessmentSection, duneLocationsReplacementHandler);
 
             // Call
             void Call() => handler.RemoveHydraulicBoundaryDatabase(null);
@@ -106,8 +106,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var location2 = new TestHydraulicBoundaryLocation();
 
             var mocks = new MockRepository();
-            var duneLocationsRemoveHandler = mocks.StrictMock<IDuneLocationsRemoveHandler>();
-            duneLocationsRemoveHandler.Expect(dlrh => dlrh.RemoveLocations(new[]
+            var duneLocationsReplacementHandler = mocks.Stub<IDuneLocationsReplacementHandler>();
+            duneLocationsReplacementHandler.Expect(dlrh => dlrh.RemoveLocations(new[]
             {
                 location1,
                 location2
@@ -139,7 +139,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 location2
             });
 
-            var handler = new HydraulicBoundaryDatabaseRemoveHandler(assessmentSection, duneLocationsRemoveHandler);
+            var handler = new HydraulicBoundaryDatabaseRemoveHandler(assessmentSection, duneLocationsReplacementHandler);
 
             // Precondition
             Assert.AreEqual(1, assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Count);
@@ -182,7 +182,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         {
             // Given
             var mocks = new MockRepository();
-            var duneLocationsRemoveHandler = mocks.Stub<IDuneLocationsRemoveHandler>();
+            var duneLocationsReplacementHandler = mocks.Stub<IDuneLocationsReplacementHandler>();
             mocks.ReplayAll();
 
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
@@ -197,7 +197,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 }
             };
 
-            var handler = new HydraulicBoundaryDatabaseRemoveHandler(assessmentSection, duneLocationsRemoveHandler);
+            var handler = new HydraulicBoundaryDatabaseRemoveHandler(assessmentSection, duneLocationsReplacementHandler);
 
             // When
             IEnumerable<IObservable> changedObjects = handler.RemoveHydraulicBoundaryDatabase(hydraulicBoundaryDatabase);
@@ -230,7 +230,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         {
             // Given
             var mocks = new MockRepository();
-            var duneLocationsRemoveHandler = mocks.Stub<IDuneLocationsRemoveHandler>();
+            var duneLocationsReplacementHandler = mocks.Stub<IDuneLocationsReplacementHandler>();
             mocks.ReplayAll();
 
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
@@ -248,7 +248,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                                                            .Except(calculationsWithOutput.OfType<TestPipingCalculationScenario>())
                                                            .ToArray();
 
-            var handler = new HydraulicBoundaryDatabaseRemoveHandler(assessmentSection, duneLocationsRemoveHandler);
+            var handler = new HydraulicBoundaryDatabaseRemoveHandler(assessmentSection, duneLocationsReplacementHandler);
 
             // When
             IEnumerable<IObservable> changedObjects = handler.RemoveHydraulicBoundaryDatabase(assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.First());
@@ -264,14 +264,14 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         {
             // Setup
             var mocks = new MockRepository();
-            var duneLocationsRemoveHandler = mocks.StrictMock<IDuneLocationsRemoveHandler>();
-            duneLocationsRemoveHandler.Expect(dlrh => dlrh.DoPostRemoveActions());
+            var duneLocationsReplacementHandler = mocks.StrictMock<IDuneLocationsReplacementHandler>();
+            duneLocationsReplacementHandler.Expect(dlrh => dlrh.DoPostReplacementUpdates());
             mocks.ReplayAll();
 
             var random = new Random(21);
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
 
-            var handler = new HydraulicBoundaryDatabaseRemoveHandler(assessmentSection, duneLocationsRemoveHandler);
+            var handler = new HydraulicBoundaryDatabaseRemoveHandler(assessmentSection, duneLocationsReplacementHandler);
 
             // Call
             handler.DoPostRemoveActions();

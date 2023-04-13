@@ -27,6 +27,7 @@ using Core.Gui.Commands;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Data.TestUtil;
 using Riskeer.DuneErosion.Plugin.Handlers;
@@ -197,6 +198,67 @@ namespace Riskeer.DuneErosion.Plugin.Test.Handlers
                 AssertDuneLocationCalculations(duneLocation, failureMechanism);
             }
 
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void RemoveLocations_HydraulicBoundaryLocationsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+
+            var handler = new DuneLocationsReplacementHandler(viewCommands, new DuneErosionFailureMechanism());
+
+            // Call
+            void Call() => handler.RemoveLocations(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("hydraulicBoundaryLocations", exception.ParamName);
+        }
+
+        [Test]
+        public void GivenFailureMechanismWithLocationsAndCalculations_WhenRemoveLocations_ThenExpectedLocationsRemoved()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+            var failureMechanism = new DuneErosionFailureMechanism
+            {
+                DuneLocationCalculationsForUserDefinedTargetProbabilities =
+                {
+                    new DuneLocationCalculationsForTargetProbability(0.1)
+                }
+            };
+
+            failureMechanism.SetDuneLocations(new[]
+            {
+                new DuneLocation(string.Empty, hydraulicBoundaryLocation, new DuneLocation.ConstructionProperties())
+            });
+
+            DuneLocationCalculationsForTargetProbability duneLocationCalculationsForTargetProbability =
+                failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.First();
+
+            // Precondition
+            Assert.AreEqual(1, failureMechanism.DuneLocations.Count());
+            Assert.AreEqual(1, duneLocationCalculationsForTargetProbability.DuneLocationCalculations.Count);
+
+            // When
+            var handler = new DuneLocationsReplacementHandler(viewCommands, failureMechanism);
+            handler.RemoveLocations(new[]
+            {
+                hydraulicBoundaryLocation
+            });
+
+            // Then
+            CollectionAssert.IsEmpty(failureMechanism.DuneLocations);
+            CollectionAssert.IsEmpty(duneLocationCalculationsForTargetProbability.DuneLocationCalculations);
             mocks.VerifyAll();
         }
 

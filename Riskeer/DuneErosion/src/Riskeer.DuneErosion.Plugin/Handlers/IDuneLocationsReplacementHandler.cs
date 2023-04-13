@@ -41,6 +41,14 @@ namespace Riskeer.DuneErosion.Plugin.Handlers
         void Replace(IEnumerable<HydraulicBoundaryLocation> newHydraulicBoundaryLocations);
 
         /// <summary>
+        /// Removes the dune locations of the <see cref="DuneErosionFailureMechanism"/>.
+        /// </summary>
+        /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations to remove the dune locations for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocations"/>
+        /// is <c>null</c>.</exception>
+        void RemoveLocations(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations);
+
+        /// <summary>
         /// Performs post-replacement updates.
         /// </summary>
         void DoPostReplacementUpdates();
