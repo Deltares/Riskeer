@@ -32,16 +32,23 @@ namespace Riskeer.Common.Service
     public static class HydraulicBoundaryDataConnectionValidator
     {
         /// <summary>
-        /// Validates the connection of the provided hydraulic boundary data.
+        /// Validates the connection of the provided <paramref name="hydraulicBoundaryData"/> in relation to the provided
+        /// <paramref name="hydraulicBoundaryLocation"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryData">The hydraulic boundary data to validate.</param>
+        /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location to validate for.</param>
         /// <returns>An error message if a problem was found; <c>null</c> in case no problems were found.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryData"/> is <c>null</c>.</exception>
-        public static string Validate(HydraulicBoundaryData hydraulicBoundaryData)
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static string Validate(HydraulicBoundaryData hydraulicBoundaryData, HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             if (hydraulicBoundaryData == null)
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryData));
+            }
+
+            if (hydraulicBoundaryLocation == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryLocation));
             }
 
             if (!hydraulicBoundaryData.IsLinked())
