@@ -90,7 +90,8 @@ namespace Riskeer.Integration.Service
                 switch (failureMechanism)
                 {
                     case PipingFailureMechanism pipingFailureMechanism:
-                        changedObservables.AddRange(PipingDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(pipingFailureMechanism));
+                        changedObservables.AddRange(PipingDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(
+                                                        pipingFailureMechanism, hydraulicBoundaryLocations));
                         break;
                     case GrassCoverErosionInwardsFailureMechanism grassCoverErosionInwardsFailureMechanism:
                         changedObservables.AddRange(GrassCoverErosionInwardsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(grassCoverErosionInwardsFailureMechanism));

@@ -25,6 +25,9 @@ using System.Linq;
 using Core.Common.Base;
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Common.Service;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
@@ -151,7 +154,7 @@ namespace Riskeer.Piping.Service.Test
         public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => PipingDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(null);
+            void Call() => PipingDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(null, Enumerable.Empty<HydraulicBoundaryLocation>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -159,34 +162,77 @@ namespace Riskeer.Piping.Service.Test
         }
 
         [Test]
+        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_HydraulicBoundaryLocationsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => PipingDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(new PipingFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("hydraulicBoundaryLocations", exception.ParamName);
+        }
+
+        [Test]
         public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_WithVariousCalculations_ClearsHydraulicBoundaryLocationAndCalculationsAndReturnsAffectedObjects()
         {
             // Setup
-            PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetPipingFailureMechanismWithAllCalculationConfigurations();
+            var failureMechanism = new PipingFailureMechanism();
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            PipingTestDataGenerator.ConfigureFailureMechanismWithAllCalculationConfigurations(failureMechanism, hydraulicBoundaryLocation);
+            failureMechanism.CalculationsGroup.Children.AddRange(new IPipingCalculationScenario<PipingInput>[]
+            {
+                new SemiProbabilisticPipingCalculationScenario
+                {
+                    InputParameters =
+                    {
+                        UseAssessmentLevelManualInput = false,
+                        HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+                    },
+                    Output = new SemiProbabilisticPipingOutput(new SemiProbabilisticPipingOutput.ConstructionProperties())
+                },
+                new ProbabilisticPipingCalculationScenario
+                {
+                    InputParameters =
+                    {
+                        HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+                    },
+                    Output = new ProbabilisticPipingOutput(new TestPartialProbabilisticPipingOutput(0, new TestGeneralResult<TestTopLevelIllustrationPoint>()),
+                                                           new TestPartialProbabilisticPipingOutput(0, new TestGeneralResult<TestTopLevelIllustrationPoint>()))
+                },
+                new TestPipingCalculationScenario(new TestPipingInput
+                {
+                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+                })
+            });
+
             IPipingCalculationScenario<PipingInput>[] calculations = failureMechanism.Calculations.Cast<IPipingCalculationScenario<PipingInput>>()
                                                                                      .ToArray();
 
-            var expectedAffectedItems = new List<IObservable>();
-            expectedAffectedItems.AddRange(calculations.OfType<SemiProbabilisticPipingCalculationScenario>()
-                                                       .Where(c => !c.InputParameters.UseAssessmentLevelManualInput
-                                                                   && c.HasOutput));
-            expectedAffectedItems.AddRange(calculations.OfType<ProbabilisticPipingCalculationScenario>()
-                                                       .Where(c => c.HasOutput));
+            var expectedAffectedCalculations = new List<IPipingCalculationScenario<PipingInput>>();
+            expectedAffectedCalculations.AddRange(calculations.OfType<SemiProbabilisticPipingCalculationScenario>()
+                                                              .Where(c => !c.InputParameters.UseAssessmentLevelManualInput
+                                                                          && c.InputParameters.HydraulicBoundaryLocation == hydraulicBoundaryLocation
+                                                                          && c.HasOutput));
+            expectedAffectedCalculations.AddRange(calculations.OfType<ProbabilisticPipingCalculationScenario>()
+                                                              .Where(c => c.InputParameters.HydraulicBoundaryLocation == hydraulicBoundaryLocation
+                                                                          && c.HasOutput));
+
+            var expectedAffectedItems = new List<IObservable>(expectedAffectedCalculations);
             expectedAffectedItems.AddRange(calculations.Select(c => c.InputParameters)
-                                                       .Where(i => i.HydraulicBoundaryLocation != null));
+                                                       .Where(i => i.HydraulicBoundaryLocation == hydraulicBoundaryLocation));
 
             // Call
-            IEnumerable<IObservable> affectedItems = PipingDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
+            IEnumerable<IObservable> affectedItems = PipingDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(
+                failureMechanism, new[]
+                {
+                    hydraulicBoundaryLocation
+                });
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
-            Assert.IsTrue(calculations.OfType<SemiProbabilisticPipingCalculationScenario>()
-                                      .Where(c => !c.InputParameters.UseAssessmentLevelManualInput)
-                                      .All(c => !c.HasOutput));
-            Assert.IsTrue(calculations.OfType<ProbabilisticPipingCalculationScenario>()
-                                      .All(c => !c.HasOutput));
-            Assert.IsTrue(calculations.All(c => c.InputParameters.HydraulicBoundaryLocation == null));
+            Assert.IsTrue(expectedAffectedCalculations.All(c => !c.HasOutput));
+            Assert.IsTrue(calculations.All(c => c.InputParameters.HydraulicBoundaryLocation != hydraulicBoundaryLocation));
 
             CollectionAssert.AreEquivalent(expectedAffectedItems, affectedItems);
         }
