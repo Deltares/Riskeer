@@ -33,7 +33,6 @@ using Core.Gui;
 using Core.Gui.Commands;
 using Core.Gui.ContextMenu;
 using Core.Gui.Forms.Main;
-using Core.Gui.Plugin;
 using Core.Gui.TestUtil;
 using Core.Gui.TestUtil.ContextMenu;
 using NUnit.Extensions.Forms;
@@ -423,61 +422,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                                                                   "Wis alle illustratiepunten...",
                                                                   "Er zijn geen berekeningen met illustratiepunten om te wissen.",
                                                                   RiskeerCommonFormsResources.ClearIllustrationPointsIcon,
-                                                                  false);
-                }
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_HydraulicBoundaryDatabaseNotLinked_ContextMenuItemCalculateAllDisabledAndTooltipSet()
-        {
-            // Setup
-            var group = new CalculationGroup
-            {
-                Children =
-                {
-                    new GrassCoverErosionInwardsCalculation()
-                }
-            };
-
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation());
-
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-            var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
-                                                                               null,
-                                                                               failureMechanism,
-                                                                               assessmentSection);
-
-            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-            var importHandler = mocks.Stub<IImportCommandHandler>();
-            importHandler.Stub(ih => ih.GetSupportedImportInfos(nodeData)).Return(Array.Empty<ImportInfo>());
-            var exportHandler = mocks.Stub<IExportCommandHandler>();
-            var updateHandler = mocks.Stub<IUpdateCommandHandler>();
-            var viewCommandsHandler = mocks.Stub<IViewCommands>();
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
-                                                         importHandler,
-                                                         exportHandler,
-                                                         updateHandler,
-                                                         viewCommandsHandler,
-                                                         nodeData,
-                                                         treeViewControl);
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateAllIndexRootGroup,
-                                                                  "Alles be&rekenen",
-                                                                  "Er is geen hydraulische belastingendatabase geïmporteerd.",
-                                                                  RiskeerCommonFormsResources.CalculateAllIcon,
                                                                   false);
                 }
             }
@@ -938,62 +882,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_HydraulicBoundaryDatabaseLinkedToInvalidFile_ContextMenuItemCalculateAllDisabledAndTooltipSet()
-        {
-            // Setup
-            var group = new CalculationGroup
-            {
-                Children =
-                {
-                    new GrassCoverErosionInwardsCalculation()
-                }
-            };
-
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation());
-
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
-
-            var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
-                                                                               null,
-                                                                               failureMechanism,
-                                                                               assessmentSection);
-
-            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-            var importHandler = mocks.Stub<IImportCommandHandler>();
-            importHandler.Stub(ih => ih.GetSupportedImportInfos(nodeData)).Return(Array.Empty<ImportInfo>());
-            var exportHandler = mocks.Stub<IExportCommandHandler>();
-            var updateHandler = mocks.Stub<IUpdateCommandHandler>();
-            var viewCommandsHandler = mocks.Stub<IViewCommands>();
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
-                                                         importHandler,
-                                                         exportHandler,
-                                                         updateHandler,
-                                                         viewCommandsHandler,
-                                                         nodeData,
-                                                         treeViewControl);
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    ToolStripItem calculateContextMenuItem = contextMenu.Items[contextMenuCalculateAllIndexRootGroup];
-                    Assert.AreEqual("Alles be&rekenen", calculateContextMenuItem.Text);
-                    StringAssert.Contains("Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt", calculateContextMenuItem.ToolTipText);
-                    TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.CalculateAllIcon, calculateContextMenuItem.Image);
-                    Assert.IsFalse(calculateContextMenuItem.Enabled);
-                }
-            }
-        }
-
-        [Test]
         public void ContextMenuStrip_AllRequiredInputSet_ContextMenuItemCalculateAllEnabled()
         {
             // Setup
@@ -1042,118 +930,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                                                                   "Alles be&rekenen",
                                                                   "Voer alle berekeningen binnen deze map met berekeningen uit.",
                                                                   RiskeerCommonFormsResources.CalculateAllIcon);
-                }
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_HydraulicBoundaryDatabaseNotLinked_ContextMenuItemValidateAllDisabledAndTooltipSet()
-        {
-            // Setup
-            var group = new CalculationGroup
-            {
-                Children =
-                {
-                    new GrassCoverErosionInwardsCalculation()
-                }
-            };
-
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation());
-
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-            var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
-                                                                               null,
-                                                                               failureMechanism,
-                                                                               assessmentSection);
-
-            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-            var importHandler = mocks.Stub<IImportCommandHandler>();
-            importHandler.Stub(ih => ih.GetSupportedImportInfos(nodeData)).Return(Array.Empty<ImportInfo>());
-            var exportHandler = mocks.Stub<IExportCommandHandler>();
-            var updateHandler = mocks.Stub<IUpdateCommandHandler>();
-            var viewCommandsHandler = mocks.Stub<IViewCommands>();
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
-                                                         importHandler,
-                                                         exportHandler,
-                                                         updateHandler,
-                                                         viewCommandsHandler,
-                                                         nodeData,
-                                                         treeViewControl);
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateAllIndexRootGroup,
-                                                                  "Alles &valideren",
-                                                                  "Er is geen hydraulische belastingendatabase geïmporteerd.",
-                                                                  RiskeerCommonFormsResources.ValidateAllIcon,
-                                                                  false);
-                }
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_HydraulicBoundaryDatabaseLinkedToInvalidFile_ContextMenuItemValidateAllDisabledAndTooltipSet()
-        {
-            // Setup
-            var group = new CalculationGroup
-            {
-                Children =
-                {
-                    new GrassCoverErosionInwardsCalculation()
-                }
-            };
-
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation());
-
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
-
-            var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
-                                                                               null,
-                                                                               failureMechanism,
-                                                                               assessmentSection);
-
-            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-            var importHandler = mocks.Stub<IImportCommandHandler>();
-            importHandler.Stub(ih => ih.GetSupportedImportInfos(nodeData)).Return(Array.Empty<ImportInfo>());
-            var exportHandler = mocks.Stub<IExportCommandHandler>();
-            var updateHandler = mocks.Stub<IUpdateCommandHandler>();
-            var viewCommandsHandler = mocks.Stub<IViewCommands>();
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
-                                                         importHandler,
-                                                         exportHandler,
-                                                         updateHandler,
-                                                         viewCommandsHandler,
-                                                         nodeData,
-                                                         treeViewControl);
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    ToolStripItem contextMenuItem = contextMenu.Items[contextMenuValidateAllIndexRootGroup];
-
-                    Assert.AreEqual("Alles &valideren", contextMenuItem.Text);
-                    StringAssert.Contains("Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt.", contextMenuItem.ToolTipText);
-                    TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.ValidateAllIcon, contextMenuItem.Image);
-                    Assert.IsFalse(contextMenuItem.Enabled);
                 }
             }
         }
