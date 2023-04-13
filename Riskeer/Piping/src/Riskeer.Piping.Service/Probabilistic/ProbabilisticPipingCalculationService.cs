@@ -498,7 +498,12 @@ namespace Riskeer.Piping.Service.Probabilistic
                                          PipingFailureMechanism failureMechanism,
                                          IAssessmentSection assessmentSection)
         {
-            string[] messages = ValidateHydraulicBoundaryDatabase(assessmentSection).ToArray();
+            string[] messages = ValidateHydraulicBoundaryLocation(calculation.InputParameters.HydraulicBoundaryLocation).ToArray();
+
+            if (messages.Length == 0)
+            {
+                messages = ValidateHydraulicBoundaryDatabase(assessmentSection, calculation.InputParameters.HydraulicBoundaryLocation).ToArray();
+            }
 
             if (messages.Length == 0)
             {
@@ -524,9 +529,19 @@ namespace Riskeer.Piping.Service.Probabilistic
             return false;
         }
 
-        private static IEnumerable<string> ValidateHydraulicBoundaryDatabase(IAssessmentSection assessmentSection)
+        private static IEnumerable<string> ValidateHydraulicBoundaryLocation(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            string connectionValidationProblem = HydraulicBoundaryDataConnectionValidator.Validate(assessmentSection.HydraulicBoundaryData);
+            if (hydraulicBoundaryLocation == null)
+            {
+                yield return RiskeerCommonServiceResources.CalculationService_ValidateInput_No_hydraulic_boundary_location_selected;
+            }
+        }
+
+        private static IEnumerable<string> ValidateHydraulicBoundaryDatabase(IAssessmentSection assessmentSection, HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            string connectionValidationProblem = HydraulicBoundaryDataConnectionValidator.Validate(
+                assessmentSection.HydraulicBoundaryData, hydraulicBoundaryLocation);
+
             if (!string.IsNullOrEmpty(connectionValidationProblem))
             {
                 yield return connectionValidationProblem;
@@ -544,11 +559,6 @@ namespace Riskeer.Piping.Service.Probabilistic
         private static IEnumerable<string> ValidateInput(ProbabilisticPipingInput input, GeneralPipingInput generalInput)
         {
             var validationResults = new List<string>();
-
-            if (input.HydraulicBoundaryLocation == null)
-            {
-                validationResults.Add(RiskeerCommonServiceResources.CalculationService_ValidateInput_No_hydraulic_boundary_location_selected);
-            }
 
             validationResults.AddRange(PipingCalculationValidationHelper.GetValidationErrors(input));
 
