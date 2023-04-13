@@ -408,12 +408,10 @@ namespace Riskeer.HeightStructures.Plugin
                           .AddSeparator()
                           .AddValidateAllCalculationsInFailureMechanismItem(
                               context,
-                              ValidateAllInFailureMechanism,
-                              EnableValidateAndCalculateMenuItemForFailureMechanism)
+                              ValidateAllInFailureMechanism)
                           .AddPerformAllCalculationsInFailureMechanismItem(
                               context,
-                              CalculateAllInFailureMechanism,
-                              EnableValidateAndCalculateMenuItemForFailureMechanism)
+                              CalculateAllInFailureMechanism)
                           .AddSeparator()
                           .AddClearAllCalculationOutputInFailureMechanismItem(context.WrappedData)
                           .AddClearIllustrationPointsOfCalculationsInFailureMechanismItem(() => IllustrationPointsHelper.HasIllustrationPoints(calculations),
@@ -424,11 +422,6 @@ namespace Riskeer.HeightStructures.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
-        }
-
-        private static string EnableValidateAndCalculateMenuItemForFailureMechanism(CalculationsStateFailureMechanismContext context)
-        {
-            return EnableValidateAndCalculateMenuItem(context.Parent);
         }
 
         private static void ValidateAllInFailureMechanism(CalculationsStateFailureMechanismContext context)
@@ -610,12 +603,10 @@ namespace Riskeer.HeightStructures.Plugin
                    .AddSeparator()
                    .AddValidateAllCalculationsInGroupItem(
                        context,
-                       ValidateAllInCalculationGroup,
-                       EnableValidateAndCalculateMenuItemForCalculationGroup)
+                       ValidateAllInCalculationGroup)
                    .AddPerformAllCalculationsInGroupItem(
                        context,
-                       CalculateAllInCalculationGroup,
-                       EnableValidateAndCalculateMenuItemForCalculationGroup)
+                       CalculateAllInCalculationGroup)
                    .AddSeparator()
                    .AddClearAllCalculationOutputInGroupItem(group)
                    .AddClearIllustrationPointsOfCalculationsInGroupItem(() => IllustrationPointsHelper.HasIllustrationPoints(calculations),
@@ -727,11 +718,6 @@ namespace Riskeer.HeightStructures.Plugin
             parentGroupContext.NotifyObservers();
         }
 
-        private static string EnableValidateAndCalculateMenuItemForCalculationGroup(HeightStructuresCalculationGroupContext context)
-        {
-            return EnableValidateAndCalculateMenuItem(context.AssessmentSection);
-        }
-
         private static void ValidateAllInCalculationGroup(HeightStructuresCalculationGroupContext context)
         {
             ValidateAll(context.WrappedData.GetCalculations().OfType<StructuresCalculation<HeightStructuresInput>>(), context.AssessmentSection);
@@ -784,12 +770,10 @@ namespace Riskeer.HeightStructures.Plugin
                           .AddSeparator()
                           .AddValidateCalculationItem(
                               context,
-                              Validate,
-                              EnableValidateAndCalculateMenuItemForCalculation)
+                              Validate)
                           .AddPerformCalculationItem<StructuresCalculationScenario<HeightStructuresInput>, HeightStructuresCalculationScenarioContext>(
                               context,
-                              Calculate,
-                              EnableValidateAndCalculateMenuItemForCalculation)
+                              Calculate)
                           .AddSeparator()
                           .AddClearCalculationOutputItem(calculation)
                           .AddClearIllustrationPointsOfCalculationItem(() => IllustrationPointsHelper.HasIllustrationPoints(calculation), changeHandler)
@@ -800,11 +784,6 @@ namespace Riskeer.HeightStructures.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
-        }
-
-        private static string EnableValidateAndCalculateMenuItemForCalculation(HeightStructuresCalculationScenarioContext context)
-        {
-            return EnableValidateAndCalculateMenuItem(context.AssessmentSection);
         }
 
         private static void Validate(HeightStructuresCalculationScenarioContext context)
@@ -905,11 +884,6 @@ namespace Riskeer.HeightStructures.Plugin
             {
                 HeightStructuresCalculationService.Validate(calculation, assessmentSection);
             }
-        }
-
-        private static string EnableValidateAndCalculateMenuItem(IAssessmentSection assessmentSection)
-        {
-            return HydraulicBoundaryDataConnectionValidator.Validate(assessmentSection.HydraulicBoundaryData);
         }
 
         #endregion
