@@ -600,7 +600,6 @@ namespace Riskeer.Integration.IO.Test.Importers
                        observable1,
                        observable2
                    });
-            handler.Expect(h => h.DoPostUpdateActions());
             mocks.ReplayAll();
 
             hydraulicBoundaryData.Attach(hydraulicBoundaryDatabaseObserver);
@@ -618,7 +617,7 @@ namespace Riskeer.Integration.IO.Test.Importers
         }
 
         [Test]
-        public void DoPostImportUpdates_CancelingImport_DoNotNotifyObserversAndNotDoPostReplacementUpdates()
+        public void DoPostImportUpdates_CancelingImport_DoNotNotifyObservers()
         {
             // Setup
             HydraulicBoundaryData hydraulicBoundaryData = CreateLinkedHydraulicBoundaryData();

@@ -113,8 +113,6 @@ namespace Riskeer.Integration.IO.Importers
 
         protected override void DoPostImportUpdates()
         {
-            updateHandler.DoPostUpdateActions();
-
             base.DoPostImportUpdates();
 
             foreach (IObservable changedObservable in changedObservables)

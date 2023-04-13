@@ -300,8 +300,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         [Test]
         public void AddHydraulicBoundaryDatabase_HrdLocationIdsInExcludedLocationIds_LocationsNotAdded()
         {
-            var hydraulicBoundaryData = new HydraulicBoundaryData();
-
+            // Setup
             var mocks = new MockRepository();
             var duneLocationsUpdateHandler = mocks.Stub<IDuneLocationsUpdateHandler>();
             mocks.ReplayAll();
@@ -327,6 +326,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(
                 readHydraulicBoundaryLocationsToInclude.Select(l => l.Id),
                 readHydraulicBoundaryDatabase.TrackId);
+
+            var hydraulicBoundaryData = new HydraulicBoundaryData();
 
             // Precondition
             Assert.IsFalse(hydraulicBoundaryData.IsLinked());
@@ -574,34 +575,12 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             // Setup
             var mocks = new MockRepository();
             var duneLocationsUpdateHandler = mocks.StrictMock<IDuneLocationsUpdateHandler>();
-            duneLocationsUpdateHandler.Stub(h => h.AddLocations(null)).IgnoreArguments();
             duneLocationsUpdateHandler.Expect(h => h.DoPostUpdateActions());
             mocks.ReplayAll();
 
-            const string hrdFilePath = "old/file/path";
             AssessmentSection assessmentSection = CreateAssessmentSection();
-            var hydraulicBoundaryData = new HydraulicBoundaryData
-            {
-                FilePath = hrdFilePath,
-                Version = "1",
-                Locations =
-                {
-                    new TestHydraulicBoundaryLocation("old location 1"),
-                    new TestHydraulicBoundaryLocation("old location 2"),
-                    new TestHydraulicBoundaryLocation("old location 3")
-                }
-            };
-
-            ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
 
             var handler = new HydraulicBoundaryDataUpdateHandler(assessmentSection, duneLocationsUpdateHandler);
-
-            IEnumerable<IObservable> changedObjects = handler.AddHydraulicBoundaryDatabase(hydraulicBoundaryData, readHydraulicBoundaryDatabase,
-                                                                                           ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(readHydraulicBoundaryDatabase.TrackId),
-                                                                                           Enumerable.Empty<long>(), hrdFilePath);
-
-            // Precondition
-            CollectionAssert.IsNotEmpty(changedObjects);
 
             // Call
             handler.DoPostUpdateActions();
