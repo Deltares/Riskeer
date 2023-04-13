@@ -78,11 +78,30 @@ namespace Riskeer.GrassCoverErosionInwards.Service
         {
             CalculationServiceHelper.LogValidationBegin();
 
-            string[] hydraulicBoundaryDatabaseMessages = ValidateHydraulicBoundaryDatabase(assessmentSection).ToArray();
-            CalculationServiceHelper.LogMessagesAsError(hydraulicBoundaryDatabaseMessages);
-            if (hydraulicBoundaryDatabaseMessages.Any())
+            if (calculation.InputParameters.HydraulicBoundaryLocation == null)
             {
+                CalculationServiceHelper.LogMessagesAsError(new[]
+                {
+                    RiskeerCommonServiceResources.CalculationService_ValidateInput_No_hydraulic_boundary_location_selected
+                });
+
                 CalculationServiceHelper.LogValidationEnd();
+
+                return false;
+            }
+
+            string connectionValidationProblem = HydraulicBoundaryDataConnectionValidator.Validate(
+                assessmentSection.HydraulicBoundaryData, calculation.InputParameters.HydraulicBoundaryLocation);
+
+            if (!string.IsNullOrEmpty(connectionValidationProblem))
+            {
+                CalculationServiceHelper.LogMessagesAsError(new[]
+                {
+                    connectionValidationProblem
+                });
+
+                CalculationServiceHelper.LogValidationEnd();
+
                 return false;
             }
 
@@ -699,23 +718,9 @@ namespace Riskeer.GrassCoverErosionInwards.Service
                                                                                                       roughnessPoint.Roughness)).ToArray();
         }
 
-        private static IEnumerable<string> ValidateHydraulicBoundaryDatabase(IAssessmentSection assessmentSection)
-        {
-            string connectionValidationProblem = HydraulicBoundaryDataConnectionValidator.Validate(assessmentSection.HydraulicBoundaryData);
-            if (!string.IsNullOrEmpty(connectionValidationProblem))
-            {
-                yield return connectionValidationProblem;
-            }
-        }
-
         private static IEnumerable<string> ValidateInput(GrassCoverErosionInwardsInput inputParameters)
         {
             var validationResults = new List<string>();
-
-            if (inputParameters.HydraulicBoundaryLocation == null)
-            {
-                validationResults.Add(RiskeerCommonServiceResources.CalculationService_ValidateInput_No_hydraulic_boundary_location_selected);
-            }
 
             if (inputParameters.DikeProfile == null)
             {
