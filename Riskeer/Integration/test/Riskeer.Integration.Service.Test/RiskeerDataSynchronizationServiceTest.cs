@@ -68,6 +68,139 @@ namespace Riskeer.Integration.Service.Test
     public class RiskeerDataSynchronizationServiceTest
     {
         [Test]
+        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => RiskeerDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(null, Enumerable.Empty<HydraulicBoundaryLocation>());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_HydraulicBoundaryLocationsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
+
+            // Call
+            void Call() => RiskeerDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(assessmentSection, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("hydraulicBoundaryLocations", exception.ParamName);
+        }
+
+        [Test]
+        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_VariousCalculations_ClearsHydraulicBoundaryLocationAndCalculationsAndReturnsAffectedObjects()
+        {
+            // Setup
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
+            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryData.GetLocations();
+
+            var expectedAffectedItems = new List<IObservable>();
+            expectedAffectedItems.AddRange(assessmentSection.ClosingStructures.Calculations
+                                                            .Cast<StructuresCalculation<ClosingStructuresInput>>()
+                                                            .Where(c => c.HasOutput));
+            expectedAffectedItems.AddRange(assessmentSection.ClosingStructures.Calculations
+                                                            .Cast<StructuresCalculation<ClosingStructuresInput>>()
+                                                            .Select(c => c.InputParameters)
+                                                            .Where(i => i.HydraulicBoundaryLocation != null));
+            expectedAffectedItems.AddRange(assessmentSection.GrassCoverErosionInwards.Calculations
+                                                            .Cast<GrassCoverErosionInwardsCalculation>()
+                                                            .Where(c => c.HasOutput));
+            expectedAffectedItems.AddRange(assessmentSection.GrassCoverErosionInwards.Calculations
+                                                            .Cast<GrassCoverErosionInwardsCalculation>()
+                                                            .Select(c => c.InputParameters)
+                                                            .Where(i => i.HydraulicBoundaryLocation != null));
+            expectedAffectedItems.AddRange(assessmentSection.GrassCoverErosionOutwards.Calculations
+                                                            .Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
+                                                            .Where(c => c.HasOutput));
+            expectedAffectedItems.AddRange(assessmentSection.GrassCoverErosionOutwards.Calculations
+                                                            .Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
+                                                            .Select(c => c.InputParameters)
+                                                            .Where(i => i.HydraulicBoundaryLocation != null));
+            expectedAffectedItems.AddRange(assessmentSection.HeightStructures.Calculations
+                                                            .Cast<StructuresCalculation<HeightStructuresInput>>()
+                                                            .Where(c => c.HasOutput));
+            expectedAffectedItems.AddRange(assessmentSection.HeightStructures.Calculations
+                                                            .Cast<StructuresCalculation<HeightStructuresInput>>()
+                                                            .Select(c => c.InputParameters)
+                                                            .Where(i => i.HydraulicBoundaryLocation != null));
+            expectedAffectedItems.AddRange(assessmentSection.Piping.Calculations
+                                                            .OfType<SemiProbabilisticPipingCalculationScenario>()
+                                                            .Where(c => !c.InputParameters.UseAssessmentLevelManualInput && c.HasOutput));
+            expectedAffectedItems.AddRange(assessmentSection.Piping.Calculations
+                                                            .OfType<ProbabilisticPipingCalculationScenario>()
+                                                            .Where(c => c.HasOutput));
+            expectedAffectedItems.AddRange(assessmentSection.Piping.Calculations
+                                                            .Cast<IPipingCalculationScenario<PipingInput>>()
+                                                            .Select(c => c.InputParameters)
+                                                            .Where(i => i.HydraulicBoundaryLocation != null));
+            expectedAffectedItems.AddRange(assessmentSection.StabilityPointStructures.Calculations
+                                                            .Cast<StructuresCalculation<StabilityPointStructuresInput>>()
+                                                            .Where(c => c.HasOutput));
+            expectedAffectedItems.AddRange(assessmentSection.StabilityPointStructures.Calculations
+                                                            .Cast<StructuresCalculation<StabilityPointStructuresInput>>()
+                                                            .Select(c => c.InputParameters)
+                                                            .Where(i => i.HydraulicBoundaryLocation != null));
+            expectedAffectedItems.AddRange(assessmentSection.StabilityStoneCover.Calculations
+                                                            .Cast<StabilityStoneCoverWaveConditionsCalculation>()
+                                                            .Where(c => c.HasOutput));
+            expectedAffectedItems.AddRange(assessmentSection.StabilityStoneCover.Calculations
+                                                            .Cast<StabilityStoneCoverWaveConditionsCalculation>()
+                                                            .Select(c => c.InputParameters)
+                                                            .Where(i => i.HydraulicBoundaryLocation != null));
+            expectedAffectedItems.AddRange(assessmentSection.WaveImpactAsphaltCover.Calculations
+                                                            .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
+                                                            .Where(c => c.HasOutput));
+            expectedAffectedItems.AddRange(assessmentSection.WaveImpactAsphaltCover.Calculations
+                                                            .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
+                                                            .Select(c => c.InputParameters)
+                                                            .Where(i => i.HydraulicBoundaryLocation != null));
+            expectedAffectedItems.AddRange(assessmentSection.MacroStabilityInwards.Calculations
+                                                            .Cast<MacroStabilityInwardsCalculation>()
+                                                            .Where(c => c.HasOutput));
+            expectedAffectedItems.AddRange(assessmentSection.MacroStabilityInwards.Calculations
+                                                            .Cast<MacroStabilityInwardsCalculation>()
+                                                            .Select(c => c.InputParameters)
+                                                            .Where(i => i.HydraulicBoundaryLocation != null));
+
+            // Call
+            IEnumerable<IObservable> affectedItems = RiskeerDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(
+                assessmentSection, hydraulicBoundaryLocations);
+
+            // Assert
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should be called before these assertions:
+            Assert.IsTrue(assessmentSection.ClosingStructures.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>()
+                                           .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
+            Assert.IsTrue(assessmentSection.GrassCoverErosionInwards.Calculations.Cast<GrassCoverErosionInwardsCalculation>()
+                                           .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
+            Assert.IsTrue(assessmentSection.GrassCoverErosionOutwards.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
+                                           .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
+            Assert.IsTrue(assessmentSection.HeightStructures.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>()
+                                           .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
+            Assert.IsTrue(assessmentSection.Piping.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>()
+                                           .Where(c => !c.InputParameters.UseAssessmentLevelManualInput)
+                                           .All(c => !c.HasOutput));
+            Assert.IsTrue(assessmentSection.Piping.Calculations.OfType<ProbabilisticPipingCalculationScenario>()
+                                           .All(c => !c.HasOutput));
+            Assert.IsTrue(assessmentSection.Piping.Calculations.Cast<IPipingCalculationScenario<PipingInput>>()
+                                           .All(c => c.InputParameters.HydraulicBoundaryLocation == null));
+            Assert.IsTrue(assessmentSection.StabilityPointStructures.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>()
+                                           .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
+            Assert.IsTrue(assessmentSection.StabilityStoneCover.Calculations.Cast<StabilityStoneCoverWaveConditionsCalculation>()
+                                           .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
+            Assert.IsTrue(assessmentSection.WaveImpactAsphaltCover.Calculations.Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
+                                           .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
+            Assert.IsTrue(assessmentSection.MacroStabilityInwards.Calculations.Cast<MacroStabilityInwardsCalculation>()
+                                           .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
+            CollectionAssert.AreEquivalent(expectedAffectedItems, affectedItems);
+        }
+
+        [Test]
         public void ClearFailureMechanismCalculationOutputs_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
@@ -243,139 +376,6 @@ namespace Riskeer.Integration.Service.Test
             CollectionAssert.AreEquivalent(expectedAffectedPipingCalculations.Concat<ICalculationScenario>(expectedAffectedMacroStabilityInwardsCalculations),
                                            affectedItems);
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => RiskeerDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(null, Enumerable.Empty<HydraulicBoundaryLocation>());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_HydraulicBoundaryLocationsNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
-            
-            // Call
-            void Call() => RiskeerDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(assessmentSection, null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("hydraulicBoundaryLocations", exception.ParamName);
-        }
-
-        [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_VariousCalculations_ClearsHydraulicBoundaryLocationAndCalculationsAndReturnsAffectedObjects()
-        {
-            // Setup
-            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
-            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryData.GetLocations();
-            
-            var expectedAffectedItems = new List<IObservable>();
-            expectedAffectedItems.AddRange(assessmentSection.ClosingStructures.Calculations
-                                                            .Cast<StructuresCalculation<ClosingStructuresInput>>()
-                                                            .Where(c => c.HasOutput));
-            expectedAffectedItems.AddRange(assessmentSection.ClosingStructures.Calculations
-                                                            .Cast<StructuresCalculation<ClosingStructuresInput>>()
-                                                            .Select(c => c.InputParameters)
-                                                            .Where(i => i.HydraulicBoundaryLocation != null));
-            expectedAffectedItems.AddRange(assessmentSection.GrassCoverErosionInwards.Calculations
-                                                            .Cast<GrassCoverErosionInwardsCalculation>()
-                                                            .Where(c => c.HasOutput));
-            expectedAffectedItems.AddRange(assessmentSection.GrassCoverErosionInwards.Calculations
-                                                            .Cast<GrassCoverErosionInwardsCalculation>()
-                                                            .Select(c => c.InputParameters)
-                                                            .Where(i => i.HydraulicBoundaryLocation != null));
-            expectedAffectedItems.AddRange(assessmentSection.GrassCoverErosionOutwards.Calculations
-                                                            .Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
-                                                            .Where(c => c.HasOutput));
-            expectedAffectedItems.AddRange(assessmentSection.GrassCoverErosionOutwards.Calculations
-                                                            .Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
-                                                            .Select(c => c.InputParameters)
-                                                            .Where(i => i.HydraulicBoundaryLocation != null));
-            expectedAffectedItems.AddRange(assessmentSection.HeightStructures.Calculations
-                                                            .Cast<StructuresCalculation<HeightStructuresInput>>()
-                                                            .Where(c => c.HasOutput));
-            expectedAffectedItems.AddRange(assessmentSection.HeightStructures.Calculations
-                                                            .Cast<StructuresCalculation<HeightStructuresInput>>()
-                                                            .Select(c => c.InputParameters)
-                                                            .Where(i => i.HydraulicBoundaryLocation != null));
-            expectedAffectedItems.AddRange(assessmentSection.Piping.Calculations
-                                                            .OfType<SemiProbabilisticPipingCalculationScenario>()
-                                                            .Where(c => !c.InputParameters.UseAssessmentLevelManualInput && c.HasOutput));
-            expectedAffectedItems.AddRange(assessmentSection.Piping.Calculations
-                                                            .OfType<ProbabilisticPipingCalculationScenario>()
-                                                            .Where(c => c.HasOutput));
-            expectedAffectedItems.AddRange(assessmentSection.Piping.Calculations
-                                                            .Cast<IPipingCalculationScenario<PipingInput>>()
-                                                            .Select(c => c.InputParameters)
-                                                            .Where(i => i.HydraulicBoundaryLocation != null));
-            expectedAffectedItems.AddRange(assessmentSection.StabilityPointStructures.Calculations
-                                                            .Cast<StructuresCalculation<StabilityPointStructuresInput>>()
-                                                            .Where(c => c.HasOutput));
-            expectedAffectedItems.AddRange(assessmentSection.StabilityPointStructures.Calculations
-                                                            .Cast<StructuresCalculation<StabilityPointStructuresInput>>()
-                                                            .Select(c => c.InputParameters)
-                                                            .Where(i => i.HydraulicBoundaryLocation != null));
-            expectedAffectedItems.AddRange(assessmentSection.StabilityStoneCover.Calculations
-                                                            .Cast<StabilityStoneCoverWaveConditionsCalculation>()
-                                                            .Where(c => c.HasOutput));
-            expectedAffectedItems.AddRange(assessmentSection.StabilityStoneCover.Calculations
-                                                            .Cast<StabilityStoneCoverWaveConditionsCalculation>()
-                                                            .Select(c => c.InputParameters)
-                                                            .Where(i => i.HydraulicBoundaryLocation != null));
-            expectedAffectedItems.AddRange(assessmentSection.WaveImpactAsphaltCover.Calculations
-                                                            .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
-                                                            .Where(c => c.HasOutput));
-            expectedAffectedItems.AddRange(assessmentSection.WaveImpactAsphaltCover.Calculations
-                                                            .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
-                                                            .Select(c => c.InputParameters)
-                                                            .Where(i => i.HydraulicBoundaryLocation != null));
-            expectedAffectedItems.AddRange(assessmentSection.MacroStabilityInwards.Calculations
-                                                            .Cast<MacroStabilityInwardsCalculation>()
-                                                            .Where(c => c.HasOutput));
-            expectedAffectedItems.AddRange(assessmentSection.MacroStabilityInwards.Calculations
-                                                            .Cast<MacroStabilityInwardsCalculation>()
-                                                            .Select(c => c.InputParameters)
-                                                            .Where(i => i.HydraulicBoundaryLocation != null));
-
-            // Call
-            IEnumerable<IObservable> affectedItems = RiskeerDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(
-                assessmentSection, hydraulicBoundaryLocations);
-
-            // Assert
-            // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should be called before these assertions:
-            Assert.IsTrue(assessmentSection.ClosingStructures.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>()
-                                           .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
-            Assert.IsTrue(assessmentSection.GrassCoverErosionInwards.Calculations.Cast<GrassCoverErosionInwardsCalculation>()
-                                           .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
-            Assert.IsTrue(assessmentSection.GrassCoverErosionOutwards.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
-                                           .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
-            Assert.IsTrue(assessmentSection.HeightStructures.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>()
-                                           .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
-            Assert.IsTrue(assessmentSection.Piping.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>()
-                                           .Where(c => !c.InputParameters.UseAssessmentLevelManualInput)
-                                           .All(c => !c.HasOutput));
-            Assert.IsTrue(assessmentSection.Piping.Calculations.OfType<ProbabilisticPipingCalculationScenario>()
-                                           .All(c => !c.HasOutput));
-            Assert.IsTrue(assessmentSection.Piping.Calculations.Cast<IPipingCalculationScenario<PipingInput>>()
-                                           .All(c => c.InputParameters.HydraulicBoundaryLocation == null));
-            Assert.IsTrue(assessmentSection.StabilityPointStructures.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>()
-                                           .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
-            Assert.IsTrue(assessmentSection.StabilityStoneCover.Calculations.Cast<StabilityStoneCoverWaveConditionsCalculation>()
-                                           .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
-            Assert.IsTrue(assessmentSection.WaveImpactAsphaltCover.Calculations.Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
-                                           .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
-            Assert.IsTrue(assessmentSection.MacroStabilityInwards.Calculations.Cast<MacroStabilityInwardsCalculation>()
-                                           .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
-            CollectionAssert.AreEquivalent(expectedAffectedItems, affectedItems);
         }
 
         [Test]
@@ -889,7 +889,7 @@ namespace Riskeer.Integration.Service.Test
         }
 
         [Test]
-        public void ClearReferenceLine_AssessmentSectionNull_ThrowArgumentNullException()
+        public void ClearReferenceLineDependentData_AssessmentSectionNull_ThrowArgumentNullException()
         {
             // Call
             void Call() => RiskeerDataSynchronizationService.ClearReferenceLineDependentData(null);
@@ -900,7 +900,7 @@ namespace Riskeer.Integration.Service.Test
         }
 
         [Test]
-        public void ClearReferenceLine_FullyConfiguredAssessmentSection_AllReferenceLineDependentDataCleared()
+        public void ClearReferenceLineDependentData_FullyConfiguredAssessmentSection_AllReferenceLineDependentDataCleared()
         {
             // Setup
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
@@ -1000,7 +1000,7 @@ namespace Riskeer.Integration.Service.Test
         }
 
         [Test]
-        public void ClearReferenceLine_FullyConfiguredAssessmentSection_ClearResultsContainAllAffectedObjectsAndAllRemovedObjects()
+        public void ClearReferenceLineDependentData_FullyConfiguredAssessmentSection_ClearResultsContainAllAffectedObjectsAndAllRemovedObjects()
         {
             // Setup
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
@@ -1015,227 +1015,6 @@ namespace Riskeer.Integration.Service.Test
 
             CollectionAssert.AreEquivalent(expectedRemovedObjects, results.RemovedObjects);
             CollectionAssert.DoesNotContain(results.RemovedObjects, null);
-        }
-
-        [Test]
-        public void RemoveForeshoreProfile_StabilityStoneCoverFailureMechanismNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            ForeshoreProfile profile = new TestForeshoreProfile();
-
-            // Call
-            void Call() => RiskeerDataSynchronizationService.RemoveForeshoreProfile((StabilityStoneCoverFailureMechanism) null, profile);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
-            Assert.AreEqual("failureMechanism", paramName);
-        }
-
-        [Test]
-        public void RemoveForeshoreProfile_StabilityStoneCoverFailureMechanismProfileNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-
-            // Call
-            void Call() => RiskeerDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
-            Assert.AreEqual("profile", paramName);
-        }
-
-        [Test]
-        public void RemoveForeshoreProfile_FullyConfiguredStabilityStoneCoverFailureMechanism_RemoveProfileAndClearDependentData()
-        {
-            // Setup
-            StabilityStoneCoverFailureMechanism failureMechanism = TestDataGenerator.GetStabilityStoneCoverFailureMechanismWithAllCalculationConfigurations();
-            ForeshoreProfile profile = failureMechanism.ForeshoreProfiles[0];
-            StabilityStoneCoverWaveConditionsCalculation[] calculationsWithForeshoreProfile =
-                failureMechanism.Calculations
-                                .Cast<StabilityStoneCoverWaveConditionsCalculation>()
-                                .Where(c => ReferenceEquals(c.InputParameters.ForeshoreProfile, profile))
-                                .ToArray();
-
-            StabilityStoneCoverWaveConditionsCalculation[] calculationsWithOutput = calculationsWithForeshoreProfile.Where(c => c.HasOutput).ToArray();
-
-            // Precondition
-            CollectionAssert.IsNotEmpty(calculationsWithForeshoreProfile);
-
-            // Call
-            IEnumerable<IObservable> observables = RiskeerDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, profile);
-
-            // Assert
-            // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should be called before these assertions:
-            CollectionAssert.DoesNotContain(failureMechanism.ForeshoreProfiles, profile);
-            foreach (StabilityStoneCoverWaveConditionsCalculation calculation in calculationsWithForeshoreProfile)
-            {
-                Assert.IsNull(calculation.InputParameters.ForeshoreProfile);
-            }
-
-            IObservable[] array = observables.ToArray();
-            int expectedAffectedObjectCount = 1 + calculationsWithOutput.Length + calculationsWithForeshoreProfile.Length;
-            Assert.AreEqual(expectedAffectedObjectCount, array.Length);
-            CollectionAssert.Contains(array, failureMechanism.ForeshoreProfiles);
-            foreach (StabilityStoneCoverWaveConditionsCalculation calculation in calculationsWithForeshoreProfile)
-            {
-                Assert.IsNull(calculation.InputParameters.ForeshoreProfile);
-                CollectionAssert.Contains(array, calculation.InputParameters);
-            }
-
-            foreach (ICalculation calculation in calculationsWithOutput)
-            {
-                Assert.IsFalse(calculation.HasOutput);
-                CollectionAssert.Contains(array, calculation);
-            }
-        }
-
-        [Test]
-        public void RemoveForeshoreProfile_WaveImpactAsphaltCoverFailureMechanismNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            ForeshoreProfile profile = new TestForeshoreProfile();
-
-            // Call
-            void Call() => RiskeerDataSynchronizationService.RemoveForeshoreProfile((WaveImpactAsphaltCoverFailureMechanism) null, profile);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
-            Assert.AreEqual("failureMechanism", paramName);
-        }
-
-        [Test]
-        public void RemoveForeshoreProfile_WaveImpactAsphaltCoverFailureMechanismProfileNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-
-            // Call
-            void Call() => RiskeerDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
-            Assert.AreEqual("profile", paramName);
-        }
-
-        [Test]
-        public void RemoveForeshoreProfile_FullyConfiguredWaveImpactAsphaltCoverFailureMechanism_RemoveProfileAndClearDependentData()
-        {
-            // Setup
-            WaveImpactAsphaltCoverFailureMechanism failureMechanism = TestDataGenerator.GetWaveImpactAsphaltCoverFailureMechanismWithAllCalculationConfigurations();
-            ForeshoreProfile profile = failureMechanism.ForeshoreProfiles[0];
-            WaveImpactAsphaltCoverWaveConditionsCalculation[] calculationsWithForeshoreProfile =
-                failureMechanism.Calculations
-                                .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
-                                .Where(c => ReferenceEquals(c.InputParameters.ForeshoreProfile, profile))
-                                .ToArray();
-
-            WaveImpactAsphaltCoverWaveConditionsCalculation[] calculationsWithOutput = calculationsWithForeshoreProfile.Where(c => c.HasOutput).ToArray();
-
-            // Precondition
-            CollectionAssert.IsNotEmpty(calculationsWithForeshoreProfile);
-
-            // Call
-            IEnumerable<IObservable> observables = RiskeerDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, profile);
-
-            // Assert
-            // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should be called before these assertions:
-            CollectionAssert.DoesNotContain(failureMechanism.ForeshoreProfiles, profile);
-            foreach (WaveImpactAsphaltCoverWaveConditionsCalculation calculation in calculationsWithForeshoreProfile)
-            {
-                Assert.IsNull(calculation.InputParameters.ForeshoreProfile);
-            }
-
-            IObservable[] array = observables.ToArray();
-            int expectedAffectedObjectCount = 1 + calculationsWithOutput.Length + calculationsWithForeshoreProfile.Length;
-            Assert.AreEqual(expectedAffectedObjectCount, array.Length);
-            CollectionAssert.Contains(array, failureMechanism.ForeshoreProfiles);
-            foreach (WaveImpactAsphaltCoverWaveConditionsCalculation calculation in calculationsWithForeshoreProfile)
-            {
-                Assert.IsNull(calculation.InputParameters.ForeshoreProfile);
-                CollectionAssert.Contains(array, calculation.InputParameters);
-            }
-
-            foreach (ICalculation calculation in calculationsWithOutput)
-            {
-                Assert.IsFalse(calculation.HasOutput);
-                CollectionAssert.Contains(array, calculation);
-            }
-        }
-
-        [Test]
-        public void RemoveForeshoreProfile_GrassCoverErosionOutwardsFailureMechanismNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            ForeshoreProfile profile = new TestForeshoreProfile();
-
-            // Call
-            void Call() => RiskeerDataSynchronizationService.RemoveForeshoreProfile((GrassCoverErosionOutwardsFailureMechanism) null, profile);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
-            Assert.AreEqual("failureMechanism", paramName);
-        }
-
-        [Test]
-        public void RemoveForeshoreProfile_GrassCoverErosionOutwardsFailureMechanismProfileNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
-            // Call
-            void Call() => RiskeerDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
-            Assert.AreEqual("profile", paramName);
-        }
-
-        [Test]
-        public void RemoveForeshoreProfile_FullyConfiguredGrassCoverErosionOutwardsFailureMechanism_RemoveProfileAndClearDependentData()
-        {
-            // Setup
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = TestDataGenerator.GetGrassCoverErosionOutwardsFailureMechanismWithAllCalculationConfigurations();
-            ForeshoreProfile profile = failureMechanism.ForeshoreProfiles[0];
-            GrassCoverErosionOutwardsWaveConditionsCalculation[] calculationsWithForeshoreProfile =
-                failureMechanism.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
-                                .Where(c => ReferenceEquals(c.InputParameters.ForeshoreProfile, profile))
-                                .ToArray();
-
-            GrassCoverErosionOutwardsWaveConditionsCalculation[] calculationsWithOutput = calculationsWithForeshoreProfile.Where(c => c.HasOutput).ToArray();
-
-            // Precondition
-            CollectionAssert.IsNotEmpty(calculationsWithForeshoreProfile);
-
-            // Call
-            IEnumerable<IObservable> observables = RiskeerDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, profile);
-
-            // Assert
-            // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should be called before these assertions:
-            CollectionAssert.DoesNotContain(failureMechanism.ForeshoreProfiles, profile);
-            foreach (GrassCoverErosionOutwardsWaveConditionsCalculation calculation in calculationsWithForeshoreProfile)
-            {
-                Assert.IsNull(calculation.InputParameters.ForeshoreProfile);
-            }
-
-            IObservable[] array = observables.ToArray();
-            int expectedAffectedObjectCount = 1 + calculationsWithOutput.Length + calculationsWithForeshoreProfile.Length;
-            Assert.AreEqual(expectedAffectedObjectCount, array.Length);
-            CollectionAssert.Contains(array, failureMechanism.ForeshoreProfiles);
-            foreach (GrassCoverErosionOutwardsWaveConditionsCalculation calculation in calculationsWithForeshoreProfile)
-            {
-                Assert.IsNull(calculation.InputParameters.ForeshoreProfile);
-                CollectionAssert.Contains(array, calculation.InputParameters);
-            }
-
-            foreach (ICalculation calculation in calculationsWithOutput)
-            {
-                Assert.IsFalse(calculation.HasOutput);
-                CollectionAssert.Contains(array, calculation);
-            }
         }
 
         [Test]
@@ -1461,6 +1240,291 @@ namespace Riskeer.Integration.Service.Test
         }
 
         [Test]
+        public void RemoveForeshoreProfile_StabilityStoneCoverFailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            ForeshoreProfile profile = new TestForeshoreProfile();
+
+            // Call
+            void Call() => RiskeerDataSynchronizationService.RemoveForeshoreProfile((StabilityStoneCoverFailureMechanism) null, profile);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
+            Assert.AreEqual("failureMechanism", paramName);
+        }
+
+        [Test]
+        public void RemoveForeshoreProfile_StabilityStoneCoverFailureMechanismProfileNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+
+            // Call
+            void Call() => RiskeerDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
+            Assert.AreEqual("profile", paramName);
+        }
+
+        [Test]
+        public void RemoveForeshoreProfile_FullyConfiguredStabilityStoneCoverFailureMechanism_RemoveProfileAndClearDependentData()
+        {
+            // Setup
+            StabilityStoneCoverFailureMechanism failureMechanism = TestDataGenerator.GetStabilityStoneCoverFailureMechanismWithAllCalculationConfigurations();
+            ForeshoreProfile profile = failureMechanism.ForeshoreProfiles[0];
+            StabilityStoneCoverWaveConditionsCalculation[] calculationsWithForeshoreProfile =
+                failureMechanism.Calculations
+                                .Cast<StabilityStoneCoverWaveConditionsCalculation>()
+                                .Where(c => ReferenceEquals(c.InputParameters.ForeshoreProfile, profile))
+                                .ToArray();
+
+            StabilityStoneCoverWaveConditionsCalculation[] calculationsWithOutput = calculationsWithForeshoreProfile.Where(c => c.HasOutput).ToArray();
+
+            // Precondition
+            CollectionAssert.IsNotEmpty(calculationsWithForeshoreProfile);
+
+            // Call
+            IEnumerable<IObservable> observables = RiskeerDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, profile);
+
+            // Assert
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should be called before these assertions:
+            CollectionAssert.DoesNotContain(failureMechanism.ForeshoreProfiles, profile);
+            foreach (StabilityStoneCoverWaveConditionsCalculation calculation in calculationsWithForeshoreProfile)
+            {
+                Assert.IsNull(calculation.InputParameters.ForeshoreProfile);
+            }
+
+            IObservable[] array = observables.ToArray();
+            int expectedAffectedObjectCount = 1 + calculationsWithOutput.Length + calculationsWithForeshoreProfile.Length;
+            Assert.AreEqual(expectedAffectedObjectCount, array.Length);
+            CollectionAssert.Contains(array, failureMechanism.ForeshoreProfiles);
+            foreach (StabilityStoneCoverWaveConditionsCalculation calculation in calculationsWithForeshoreProfile)
+            {
+                Assert.IsNull(calculation.InputParameters.ForeshoreProfile);
+                CollectionAssert.Contains(array, calculation.InputParameters);
+            }
+
+            foreach (ICalculation calculation in calculationsWithOutput)
+            {
+                Assert.IsFalse(calculation.HasOutput);
+                CollectionAssert.Contains(array, calculation);
+            }
+        }
+
+        [Test]
+        public void RemoveForeshoreProfile_WaveImpactAsphaltCoverFailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            ForeshoreProfile profile = new TestForeshoreProfile();
+
+            // Call
+            void Call() => RiskeerDataSynchronizationService.RemoveForeshoreProfile((WaveImpactAsphaltCoverFailureMechanism) null, profile);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
+            Assert.AreEqual("failureMechanism", paramName);
+        }
+
+        [Test]
+        public void RemoveForeshoreProfile_WaveImpactAsphaltCoverFailureMechanismProfileNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+
+            // Call
+            void Call() => RiskeerDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
+            Assert.AreEqual("profile", paramName);
+        }
+
+        [Test]
+        public void RemoveForeshoreProfile_FullyConfiguredWaveImpactAsphaltCoverFailureMechanism_RemoveProfileAndClearDependentData()
+        {
+            // Setup
+            WaveImpactAsphaltCoverFailureMechanism failureMechanism = TestDataGenerator.GetWaveImpactAsphaltCoverFailureMechanismWithAllCalculationConfigurations();
+            ForeshoreProfile profile = failureMechanism.ForeshoreProfiles[0];
+            WaveImpactAsphaltCoverWaveConditionsCalculation[] calculationsWithForeshoreProfile =
+                failureMechanism.Calculations
+                                .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
+                                .Where(c => ReferenceEquals(c.InputParameters.ForeshoreProfile, profile))
+                                .ToArray();
+
+            WaveImpactAsphaltCoverWaveConditionsCalculation[] calculationsWithOutput = calculationsWithForeshoreProfile.Where(c => c.HasOutput).ToArray();
+
+            // Precondition
+            CollectionAssert.IsNotEmpty(calculationsWithForeshoreProfile);
+
+            // Call
+            IEnumerable<IObservable> observables = RiskeerDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, profile);
+
+            // Assert
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should be called before these assertions:
+            CollectionAssert.DoesNotContain(failureMechanism.ForeshoreProfiles, profile);
+            foreach (WaveImpactAsphaltCoverWaveConditionsCalculation calculation in calculationsWithForeshoreProfile)
+            {
+                Assert.IsNull(calculation.InputParameters.ForeshoreProfile);
+            }
+
+            IObservable[] array = observables.ToArray();
+            int expectedAffectedObjectCount = 1 + calculationsWithOutput.Length + calculationsWithForeshoreProfile.Length;
+            Assert.AreEqual(expectedAffectedObjectCount, array.Length);
+            CollectionAssert.Contains(array, failureMechanism.ForeshoreProfiles);
+            foreach (WaveImpactAsphaltCoverWaveConditionsCalculation calculation in calculationsWithForeshoreProfile)
+            {
+                Assert.IsNull(calculation.InputParameters.ForeshoreProfile);
+                CollectionAssert.Contains(array, calculation.InputParameters);
+            }
+
+            foreach (ICalculation calculation in calculationsWithOutput)
+            {
+                Assert.IsFalse(calculation.HasOutput);
+                CollectionAssert.Contains(array, calculation);
+            }
+        }
+
+        [Test]
+        public void RemoveForeshoreProfile_GrassCoverErosionOutwardsFailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            ForeshoreProfile profile = new TestForeshoreProfile();
+
+            // Call
+            void Call() => RiskeerDataSynchronizationService.RemoveForeshoreProfile((GrassCoverErosionOutwardsFailureMechanism) null, profile);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
+            Assert.AreEqual("failureMechanism", paramName);
+        }
+
+        [Test]
+        public void RemoveForeshoreProfile_GrassCoverErosionOutwardsFailureMechanismProfileNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
+            // Call
+            void Call() => RiskeerDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
+            Assert.AreEqual("profile", paramName);
+        }
+
+        [Test]
+        public void RemoveForeshoreProfile_FullyConfiguredGrassCoverErosionOutwardsFailureMechanism_RemoveProfileAndClearDependentData()
+        {
+            // Setup
+            GrassCoverErosionOutwardsFailureMechanism failureMechanism = TestDataGenerator.GetGrassCoverErosionOutwardsFailureMechanismWithAllCalculationConfigurations();
+            ForeshoreProfile profile = failureMechanism.ForeshoreProfiles[0];
+            GrassCoverErosionOutwardsWaveConditionsCalculation[] calculationsWithForeshoreProfile =
+                failureMechanism.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
+                                .Where(c => ReferenceEquals(c.InputParameters.ForeshoreProfile, profile))
+                                .ToArray();
+
+            GrassCoverErosionOutwardsWaveConditionsCalculation[] calculationsWithOutput = calculationsWithForeshoreProfile.Where(c => c.HasOutput).ToArray();
+
+            // Precondition
+            CollectionAssert.IsNotEmpty(calculationsWithForeshoreProfile);
+
+            // Call
+            IEnumerable<IObservable> observables = RiskeerDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, profile);
+
+            // Assert
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should be called before these assertions:
+            CollectionAssert.DoesNotContain(failureMechanism.ForeshoreProfiles, profile);
+            foreach (GrassCoverErosionOutwardsWaveConditionsCalculation calculation in calculationsWithForeshoreProfile)
+            {
+                Assert.IsNull(calculation.InputParameters.ForeshoreProfile);
+            }
+
+            IObservable[] array = observables.ToArray();
+            int expectedAffectedObjectCount = 1 + calculationsWithOutput.Length + calculationsWithForeshoreProfile.Length;
+            Assert.AreEqual(expectedAffectedObjectCount, array.Length);
+            CollectionAssert.Contains(array, failureMechanism.ForeshoreProfiles);
+            foreach (GrassCoverErosionOutwardsWaveConditionsCalculation calculation in calculationsWithForeshoreProfile)
+            {
+                Assert.IsNull(calculation.InputParameters.ForeshoreProfile);
+                CollectionAssert.Contains(array, calculation.InputParameters);
+            }
+
+            foreach (ICalculation calculation in calculationsWithOutput)
+            {
+                Assert.IsFalse(calculation.HasOutput);
+                CollectionAssert.Contains(array, calculation);
+            }
+        }
+
+        [Test]
+        public void RemoveDikeProfile_GrassCoverErosionInwardsFailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            DikeProfile profile = DikeProfileTestFactory.CreateDikeProfile();
+
+            // Call
+            void Call() => RiskeerDataSynchronizationService.RemoveDikeProfile(null, profile);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
+            Assert.AreEqual("failureMechanism", paramName);
+        }
+
+        [Test]
+        public void RemoveDikeProfile_GrassCoverErosionInwardsFailureMechanismProfileNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            // Call
+            void Call() => RiskeerDataSynchronizationService.RemoveDikeProfile(failureMechanism, null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
+            Assert.AreEqual("profile", paramName);
+        }
+
+        [Test]
+        public void RemoveDikeProfile_FullyConfiguredGrassCoverErosionInwardsFailureMechanism_RemoveProfileAndClearDependentData()
+        {
+            // Setup
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = TestDataGenerator.GetGrassCoverErosionInwardsFailureMechanismWithAllCalculationConfigurations();
+            DikeProfile profile = failureMechanism.DikeProfiles[0];
+            GrassCoverErosionInwardsCalculation[] calculations = failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>()
+                                                                                 .Where(c => ReferenceEquals(c.InputParameters.DikeProfile, profile))
+                                                                                 .ToArray();
+
+            // Precondition
+            CollectionAssert.IsNotEmpty(calculations);
+
+            // Call
+            IEnumerable<IObservable> observables = RiskeerDataSynchronizationService.RemoveDikeProfile(failureMechanism, profile);
+
+            // Assert
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should be called before these assertions:
+            CollectionAssert.DoesNotContain(failureMechanism.DikeProfiles, profile);
+            foreach (GrassCoverErosionInwardsCalculation calculation in calculations)
+            {
+                Assert.IsNull(calculation.InputParameters.DikeProfile);
+            }
+
+            IObservable[] array = observables.ToArray();
+            Assert.AreEqual(1 + (calculations.Length * 2), array.Length);
+            CollectionAssert.Contains(array, failureMechanism.DikeProfiles);
+            foreach (GrassCoverErosionInwardsCalculation calculation in calculations)
+            {
+                CollectionAssert.Contains(array, calculation);
+                CollectionAssert.Contains(array, calculation.InputParameters);
+                Assert.IsFalse(calculation.HasOutput);
+            }
+        }
+
+        [Test]
         public void RemoveAllForeshoreProfiles_CalculationsNull_ThrowsArgumentNullException()
         {
             // Call
@@ -1531,70 +1595,6 @@ namespace Riskeer.Integration.Service.Test
                                                     calculationWithForeshoreProfileAndOutput
                                                 });
             CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
-        }
-
-        [Test]
-        public void RemoveDikeProfile_GrassCoverErosionInwardsFailureMechanismNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            DikeProfile profile = DikeProfileTestFactory.CreateDikeProfile();
-
-            // Call
-            void Call() => RiskeerDataSynchronizationService.RemoveDikeProfile(null, profile);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
-            Assert.AreEqual("failureMechanism", paramName);
-        }
-
-        [Test]
-        public void RemoveDikeProfile_GrassCoverErosionInwardsFailureMechanismProfileNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            // Call
-            void Call() => RiskeerDataSynchronizationService.RemoveDikeProfile(failureMechanism, null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
-            Assert.AreEqual("profile", paramName);
-        }
-
-        [Test]
-        public void RemoveDikeProfile_FullyConfiguredGrassCoverErosionInwardsFailureMechanism_RemoveProfileAndClearDependentData()
-        {
-            // Setup
-            GrassCoverErosionInwardsFailureMechanism failureMechanism = TestDataGenerator.GetGrassCoverErosionInwardsFailureMechanismWithAllCalculationConfigurations();
-            DikeProfile profile = failureMechanism.DikeProfiles[0];
-            GrassCoverErosionInwardsCalculation[] calculations = failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>()
-                                                                                 .Where(c => ReferenceEquals(c.InputParameters.DikeProfile, profile))
-                                                                                 .ToArray();
-
-            // Precondition
-            CollectionAssert.IsNotEmpty(calculations);
-
-            // Call
-            IEnumerable<IObservable> observables = RiskeerDataSynchronizationService.RemoveDikeProfile(failureMechanism, profile);
-
-            // Assert
-            // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should be called before these assertions:
-            CollectionAssert.DoesNotContain(failureMechanism.DikeProfiles, profile);
-            foreach (GrassCoverErosionInwardsCalculation calculation in calculations)
-            {
-                Assert.IsNull(calculation.InputParameters.DikeProfile);
-            }
-
-            IObservable[] array = observables.ToArray();
-            Assert.AreEqual(1 + (calculations.Length * 2), array.Length);
-            CollectionAssert.Contains(array, failureMechanism.DikeProfiles);
-            foreach (GrassCoverErosionInwardsCalculation calculation in calculations)
-            {
-                CollectionAssert.Contains(array, calculation);
-                CollectionAssert.Contains(array, calculation.InputParameters);
-                Assert.IsFalse(calculation.HasOutput);
-            }
         }
 
         private static IEnumerable<HydraulicBoundaryLocationCalculation> GetWaterLevelCalculationsForNormTargetProbabilitiesWithOutput(IAssessmentSection assessmentSection)
