@@ -352,19 +352,13 @@ namespace Riskeer.StabilityStoneCover.Plugin
                           .AddSeparator()
                           .AddPerformAllCalculationsInFailureMechanismItem(
                               context,
-                              CalculateAllInFailureMechanism,
-                              EnableValidateAndCalculateMenuItemForFailureMechanism)
+                              CalculateAllInFailureMechanism)
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
-        }
-
-        private static string EnableValidateAndCalculateMenuItemForFailureMechanism(HydraulicLoadsStateFailureMechanismContext context)
-        {
-            return EnableValidateAndCalculateMenuItem(context.Parent);
         }
 
         private void CalculateAllInFailureMechanism(HydraulicLoadsStateFailureMechanismContext context)
@@ -532,11 +526,9 @@ namespace Riskeer.StabilityStoneCover.Plugin
                                                                 SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
                    .AddSeparator()
                    .AddValidateAllCalculationsInGroupItem(nodeData,
-                                                          ValidateAllInCalculationGroup,
-                                                          EnableValidateAndCalculateMenuItemForCalculationGroup)
+                                                          ValidateAllInCalculationGroup)
                    .AddPerformAllCalculationsInGroupItem(nodeData,
-                                                         CalculateAllInCalculationGroup,
-                                                         EnableValidateAndCalculateMenuItemForCalculationGroup)
+                                                         CalculateAllInCalculationGroup)
                    .AddSeparator()
                    .AddClearAllCalculationOutputInGroupItem(group);
 
@@ -624,11 +616,6 @@ namespace Riskeer.StabilityStoneCover.Plugin
             parentGroupContext.NotifyObservers();
         }
 
-        private static string EnableValidateAndCalculateMenuItemForCalculationGroup(StabilityStoneCoverCalculationGroupContext context)
-        {
-            return EnableValidateAndCalculateMenuItem(context.AssessmentSection);
-        }
-
         private static void ValidateAllInCalculationGroup(StabilityStoneCoverCalculationGroupContext context)
         {
             foreach (StabilityStoneCoverWaveConditionsCalculation calculation in context.WrappedData.GetCalculations().OfType<StabilityStoneCoverWaveConditionsCalculation>())
@@ -694,10 +681,9 @@ namespace Riskeer.StabilityStoneCover.Plugin
                                                                SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
                    .AddSeparator()
                    .AddValidateCalculationItem(nodeData,
-                                               Validate,
-                                               EnableValidateAndCalculateMenuItemForCalculation)
-                   .AddPerformCalculationItem<StabilityStoneCoverWaveConditionsCalculation, StabilityStoneCoverWaveConditionsCalculationContext>(
-                       nodeData, Calculate, EnableValidateAndCalculateMenuItemForCalculation)
+                                               Validate)
+                   .AddPerformCalculationItem<StabilityStoneCoverWaveConditionsCalculation, StabilityStoneCoverWaveConditionsCalculationContext>(nodeData,
+                                                                                                                                                 Calculate)
                    .AddSeparator()
                    .AddClearCalculationOutputItem(calculation)
                    .AddDeleteItem()
@@ -707,11 +693,6 @@ namespace Riskeer.StabilityStoneCover.Plugin
                    .AddSeparator()
                    .AddPropertiesItem()
                    .Build();
-        }
-
-        private static string EnableValidateAndCalculateMenuItemForCalculation(StabilityStoneCoverWaveConditionsCalculationContext context)
-        {
-            return EnableValidateAndCalculateMenuItem(context.AssessmentSection);
         }
 
         private static void Validate(StabilityStoneCoverWaveConditionsCalculationContext context)
@@ -746,11 +727,6 @@ namespace Riskeer.StabilityStoneCover.Plugin
         }
 
         #endregion
-
-        private static string EnableValidateAndCalculateMenuItem(IAssessmentSection assessmentSection)
-        {
-            return HydraulicBoundaryDataConnectionValidator.Validate(assessmentSection.HydraulicBoundaryData);
-        }
 
         #endregion
     }
