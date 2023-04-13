@@ -315,23 +315,27 @@ namespace Riskeer.Common.Service.Structures
         /// enum value is encountered.</exception>
         private static string[] ValidateInput(TStructureInput input, IAssessmentSection assessmentSection)
         {
-            var validationResults = new List<string>();
-
-            string connectionValidationProblem = HydraulicBoundaryDataConnectionValidator.Validate(assessmentSection.HydraulicBoundaryData);
-            if (!string.IsNullOrEmpty(connectionValidationProblem))
-            {
-                validationResults.Add(connectionValidationProblem);
-            }
-
-            if (validationResults.Any())
-            {
-                return validationResults.ToArray();
-            }
-
             if (input.HydraulicBoundaryLocation == null)
             {
-                validationResults.Add(Resources.CalculationService_ValidateInput_No_hydraulic_boundary_location_selected);
+                return new[]
+                {
+                    Resources.CalculationService_ValidateInput_No_hydraulic_boundary_location_selected
+                };
             }
+
+            string connectionValidationProblem = HydraulicBoundaryDataConnectionValidator.Validate(
+                assessmentSection.HydraulicBoundaryData,
+                input.HydraulicBoundaryLocation);
+
+            if (!string.IsNullOrEmpty(connectionValidationProblem))
+            {
+                return new[]
+                {
+                    connectionValidationProblem
+                };
+            }
+
+            var validationResults = new List<string>();
 
             if (input.Structure == null)
             {
