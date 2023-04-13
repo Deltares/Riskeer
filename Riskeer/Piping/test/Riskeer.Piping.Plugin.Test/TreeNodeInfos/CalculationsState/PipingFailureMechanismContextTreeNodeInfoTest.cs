@@ -640,15 +640,15 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.CalculationsState
                     TestHelper.AssertLogMessages(Call, messages =>
                     {
                         string[] msgs = messages.ToArray();
-                        Assert.AreEqual(18, msgs.Length);
+                        Assert.AreEqual(14, msgs.Length);
                         CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                         CalculationServiceTestHelper.AssertValidationEndMessage(msgs[1]);
                         CalculationServiceTestHelper.AssertValidationStartMessage(msgs[2]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[8]);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[9]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[10]);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[11]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[17]);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[4]);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[5]);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[6]);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[7]);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[13]);
                     });
                 }
             }

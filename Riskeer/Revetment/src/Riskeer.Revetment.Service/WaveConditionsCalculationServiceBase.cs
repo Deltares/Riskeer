@@ -206,22 +206,26 @@ namespace Riskeer.Revetment.Service
                                               WaveConditionsInput input,
                                               RoundedDouble assessmentLevel)
         {
-            var validationResults = new List<string>();
+            if (input.HydraulicBoundaryLocation == null)
+            {
+                return new[]
+                {
+                    RiskeerCommonServiceResources.CalculationService_ValidateInput_No_hydraulic_boundary_location_selected
+                };
+            }
 
-            string connectionValidationProblem = HydraulicBoundaryDataConnectionValidator.Validate(hydraulicBoundaryData);
+            string connectionValidationProblem = HydraulicBoundaryDataConnectionValidator.Validate(
+                hydraulicBoundaryData, input.HydraulicBoundaryLocation);
+
             if (!string.IsNullOrEmpty(connectionValidationProblem))
             {
-                validationResults.Add(connectionValidationProblem);
+                return new[]
+                {
+                    connectionValidationProblem
+                };
             }
 
-            if (validationResults.Any())
-            {
-                return validationResults.ToArray();
-            }
-
-            validationResults.AddRange(ValidateWaveConditionsInput(input, assessmentLevel));
-
-            return validationResults.ToArray();
+            return ValidateWaveConditionsInput(input, assessmentLevel).ToArray();
         }
 
         private void NotifyProgress(RoundedDouble waterLevel, int currentStepNumber, int totalStepsNumber)
@@ -378,11 +382,7 @@ namespace Riskeer.Revetment.Service
         {
             var messages = new List<string>();
 
-            if (input.HydraulicBoundaryLocation == null)
-            {
-                messages.Add(RiskeerCommonServiceResources.CalculationService_ValidateInput_No_hydraulic_boundary_location_selected);
-            }
-            else if (double.IsNaN(assessmentLevel))
+            if (double.IsNaN(assessmentLevel))
             {
                 messages.Add(Resources.WaveConditionsCalculationService_ValidateInput_No_AssessmentLevel_calculated);
             }

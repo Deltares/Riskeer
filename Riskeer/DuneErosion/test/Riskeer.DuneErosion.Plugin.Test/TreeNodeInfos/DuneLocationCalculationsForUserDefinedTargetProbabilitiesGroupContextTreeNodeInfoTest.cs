@@ -266,7 +266,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
 
                         TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
                                                                       "Alles be&rekenen",
-                                                                      "Er is geen hydraulische belastingendatabase geïmporteerd.",
+                                                                      "Geen van de locaties is geschikt voor een hydraulische belastingenberekening.",
                                                                       RiskeerCommonFormsResources.CalculateAllIcon,
                                                                       false);
                     }
@@ -451,52 +451,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             }
 
             mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void ContextMenuStrip_HydraulicBoundaryDatabaseNotLinked_ContextMenuItemCalculateAllDisabledAndTooltipSet()
-        {
-            // Setup
-            var duneLocation = new TestDuneLocation("Test");
-            var failureMechanism = new DuneErosionFailureMechanism();
-            var assessmentSection = new AssessmentSectionStub();
-
-            failureMechanism.SetDuneLocations(new[]
-            {
-                duneLocation
-            });
-
-            var groupContext = new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(new ObservableList<DuneLocationCalculationsForTargetProbability>(),
-                                                                                                         failureMechanism,
-                                                                                                         assessmentSection);
-
-            var mocks = new MockRepository();
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(groupContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.ViewHost).Return(mocks.Stub<IViewHost>());
-                mocks.ReplayAll();
-
-                using (var plugin = new DuneErosionPlugin())
-                {
-                    TreeNodeInfo info = GetInfo(plugin);
-                    plugin.Gui = gui;
-
-                    // Call
-                    using (ContextMenuStrip contextMenu = info.ContextMenuStrip(groupContext, null, treeViewControl))
-                    {
-                        // Assert
-                        ToolStripItem contextMenuItem = contextMenu.Items[contextMenuCalculateAllIndex];
-
-                        StringAssert.Contains("Er is geen hydraulische belastingendatabase geïmporteerd.", contextMenuItem.ToolTipText);
-                        Assert.IsFalse(contextMenuItem.Enabled);
-                    }
-                }
-            }
-
-            mocks.VerifyAll();
         }
 
         [Test]

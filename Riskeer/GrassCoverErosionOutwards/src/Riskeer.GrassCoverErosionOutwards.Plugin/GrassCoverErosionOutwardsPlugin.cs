@@ -365,9 +365,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                                                                        assessmentSection));
                 });
 
-            SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection,
-                                                        calculateAllItem);
-
             return builder.AddOpenItem()
                           .AddSeparator()
                           .AddCustomItem(calculateAllItem)
@@ -538,12 +535,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                    .AddSeparator()
                    .AddValidateAllCalculationsInGroupItem(
                        nodeData,
-                       ValidateAllInCalculationGroup,
-                       EnableValidateAndCalculateMenuItemForCalculationGroup)
+                       ValidateAllInCalculationGroup)
                    .AddPerformAllCalculationsInGroupItem(
                        nodeData,
-                       CalculateAllInCalculationGroup,
-                       EnableValidateAndCalculateMenuItemForCalculationGroup)
+                       CalculateAllInCalculationGroup)
                    .AddSeparator()
                    .AddClearAllCalculationOutputInGroupItem(group);
 
@@ -631,11 +626,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             parentGroupContext.NotifyObservers();
         }
 
-        private static string EnableValidateAndCalculateMenuItemForCalculationGroup(GrassCoverErosionOutwardsCalculationGroupContext context)
-        {
-            return EnableValidateAndCalculateMenuItem(context.AssessmentSection);
-        }
-
         private static void ValidateAllInCalculationGroup(GrassCoverErosionOutwardsCalculationGroupContext context)
         {
             CalculationGroup calculationGroup = context.WrappedData;
@@ -707,12 +697,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                    .AddSeparator()
                    .AddValidateCalculationItem(
                        nodeData,
-                       Validate,
-                       EnableValidateAndCalculateMenuItemForCalculation)
+                       Validate)
                    .AddPerformCalculationItem<GrassCoverErosionOutwardsWaveConditionsCalculation, GrassCoverErosionOutwardsWaveConditionsCalculationContext>(
                        nodeData,
-                       Calculate,
-                       EnableValidateAndCalculateMenuItemForCalculation)
+                       Calculate)
                    .AddSeparator()
                    .AddClearCalculationOutputItem(calculation)
                    .AddDeleteItem()
@@ -722,11 +710,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                    .AddSeparator()
                    .AddPropertiesItem()
                    .Build();
-        }
-
-        private static string EnableValidateAndCalculateMenuItemForCalculation(GrassCoverErosionOutwardsWaveConditionsCalculationContext context)
-        {
-            return EnableValidateAndCalculateMenuItem(context.AssessmentSection);
         }
 
         private static void Validate(GrassCoverErosionOutwardsWaveConditionsCalculationContext context)
@@ -761,22 +744,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
         }
 
         #endregion
-
-        private static void SetHydraulicsMenuItemEnabledStateAndTooltip(IAssessmentSection assessmentSection,
-                                                                        StrictContextMenuItem menuItem)
-        {
-            string validationText = EnableValidateAndCalculateMenuItem(assessmentSection);
-            if (!string.IsNullOrEmpty(validationText))
-            {
-                menuItem.Enabled = false;
-                menuItem.ToolTipText = validationText;
-            }
-        }
-
-        private static string EnableValidateAndCalculateMenuItem(IAssessmentSection assessmentSection)
-        {
-            return HydraulicBoundaryDataConnectionValidator.Validate(assessmentSection.HydraulicBoundaryData);
-        }
 
         #endregion
     }

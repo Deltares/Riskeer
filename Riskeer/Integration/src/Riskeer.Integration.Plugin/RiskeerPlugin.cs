@@ -1816,8 +1816,6 @@ namespace Riskeer.Integration.Plugin
                         AssessmentSectionCalculationActivityFactory.CreateHydraulicLoadCalculationActivities(nodeData.WrappedData));
                 });
 
-            SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.WrappedData, calculateAllItem);
-
             return Gui.Get(nodeData, treeViewControl)
                       .AddOpenItem()
                       .AddSeparator()
@@ -2442,16 +2440,6 @@ namespace Riskeer.Integration.Plugin
             return new object[0];
         }
 
-        private static void SetHydraulicsMenuItemEnabledStateAndTooltip(IAssessmentSection assessmentSection, StrictContextMenuItem menuItem)
-        {
-            string validationText = HydraulicBoundaryDataConnectionValidator.Validate(assessmentSection.HydraulicBoundaryData);
-            if (!string.IsNullOrEmpty(validationText))
-            {
-                menuItem.Enabled = false;
-                menuItem.ToolTipText = validationText;
-            }
-        }
-
         private ContextMenuStrip HydraulicBoundaryDataContextMenuStrip(HydraulicBoundaryDataContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             IContextMenuBuilder builder = Gui.Get(nodeData, treeViewControl);
@@ -2536,7 +2524,7 @@ namespace Riskeer.Integration.Plugin
         {
             var handler = new HydraulicBoundaryDataUpdateHandler(
                 nodeData.AssessmentSection, new DuneLocationsUpdateHandler(Gui.ViewCommands, nodeData.AssessmentSection.DuneErosion));
-            
+
             IEnumerable<IObservable> changedObjects = handler.RemoveHydraulicBoundaryDatabase(nodeData.WrappedData);
             handler.DoPostUpdateActions();
 
@@ -2558,8 +2546,6 @@ namespace Riskeer.Integration.Plugin
                         guiMainWindow,
                         AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.CreateWaterLevelCalculationActivitiesForNormTargetProbabilities(assessmentSection));
                 });
-
-            SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, waterLevelCalculationItem);
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
@@ -2611,8 +2597,6 @@ namespace Riskeer.Integration.Plugin
                                                                                               TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(nodeData.WrappedData, assessmentSection));
                 });
 
-            SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection, waterLevelCalculationItem);
-
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
                 GetInquiryHelper(),
@@ -2658,8 +2642,6 @@ namespace Riskeer.Integration.Plugin
                         guiMainWindow,
                         AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.CreateWaterLevelCalculationActivitiesForUserDefinedTargetProbabilities(assessmentSection));
                 });
-
-            SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, waterLevelCalculationItem);
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
@@ -2719,8 +2701,6 @@ namespace Riskeer.Integration.Plugin
 
                     calculationAction(nodeData.WrappedData, nodeData.AssessmentSection);
                 });
-
-            SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection, calculationItem);
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
@@ -2788,8 +2768,6 @@ namespace Riskeer.Integration.Plugin
                         AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivitiesForUserDefinedTargetProbabilities(assessmentSection));
                 });
 
-            SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, waveHeightCalculationItem);
-
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
                 GetInquiryHelper(),
@@ -2830,13 +2808,6 @@ namespace Riskeer.Integration.Plugin
                         displayNameForWaveHeightCalculations),
                 displayNameForWaveHeightCalculations,
                 RiskeerCommonFormsResources.WaveHeight_Calculate_All_ToolTip);
-        }
-
-        private static bool HasIllustrationPoints(IAssessmentSection assessmentSection)
-        {
-            return WaterLevelCalculationsForNormTargetProbabilitiesHaveIllustrationPoints(assessmentSection)
-                   || WaterLevelCalculationsForUserDefinedTargetProbabilitiesHaveIllustrationPoints(assessmentSection)
-                   || WaveHeightCalculationsForUserDefinedTargetProbabilitiesHaveIllustrationPoints(assessmentSection);
         }
 
         private static bool WaterLevelCalculationsForNormTargetProbabilitiesHaveIllustrationPoints(IAssessmentSection assessmentSection)

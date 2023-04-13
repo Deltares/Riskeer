@@ -353,19 +353,13 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                           .AddSeparator()
                           .AddPerformAllCalculationsInFailureMechanismItem(
                               context,
-                              CalculateAllInFailureMechanism,
-                              EnableValidateAndCalculateMenuItemForFailureMechanism)
+                              CalculateAllInFailureMechanism)
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
-        }
-
-        private static string EnableValidateAndCalculateMenuItemForFailureMechanism(HydraulicLoadsStateFailureMechanismContext context)
-        {
-            return EnableValidateAndCalculateMenuItem(context.Parent);
         }
 
         private void CalculateAllInFailureMechanism(HydraulicLoadsStateFailureMechanismContext context)
@@ -534,11 +528,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                                                                 SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
                    .AddSeparator()
                    .AddValidateAllCalculationsInGroupItem(nodeData,
-                                                          ValidateAllInCalculationGroup,
-                                                          EnableValidateAndCalculateMenuItemForCalculationGroup)
+                                                          ValidateAllInCalculationGroup)
                    .AddPerformAllCalculationsInGroupItem(nodeData,
-                                                         CalculateAllInCalculationGroup,
-                                                         EnableValidateAndCalculateMenuItemForCalculationGroup)
+                                                         CalculateAllInCalculationGroup)
                    .AddSeparator()
                    .AddClearAllCalculationOutputInGroupItem(group);
 
@@ -625,11 +617,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
             parentGroupContext.NotifyObservers();
         }
 
-        private static string EnableValidateAndCalculateMenuItemForCalculationGroup(WaveImpactAsphaltCoverCalculationGroupContext context)
-        {
-            return EnableValidateAndCalculateMenuItem(context.AssessmentSection);
-        }
-
         private static void ValidateAllInCalculationGroup(WaveImpactAsphaltCoverCalculationGroupContext context)
         {
             foreach (WaveImpactAsphaltCoverWaveConditionsCalculation calculation in context.WrappedData.GetCalculations().OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>())
@@ -694,10 +681,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                                                                       SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
                           .AddSeparator()
                           .AddValidateCalculationItem(nodeData,
-                                                      Validate,
-                                                      EnableValidateAndCalculateMenuItemForCalculation)
-                          .AddPerformCalculationItem<WaveImpactAsphaltCoverWaveConditionsCalculation, WaveImpactAsphaltCoverWaveConditionsCalculationContext>(
-                              nodeData, Calculate, EnableValidateAndCalculateMenuItemForCalculation)
+                                                      Validate)
+                          .AddPerformCalculationItem<WaveImpactAsphaltCoverWaveConditionsCalculation, WaveImpactAsphaltCoverWaveConditionsCalculationContext>(nodeData,
+                                                                                                                                                              Calculate)
                           .AddSeparator()
                           .AddClearCalculationOutputItem(calculation)
                           .AddDeleteItem()
@@ -707,11 +693,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
-        }
-
-        private static string EnableValidateAndCalculateMenuItemForCalculation(WaveImpactAsphaltCoverWaveConditionsCalculationContext context)
-        {
-            return EnableValidateAndCalculateMenuItem(context.AssessmentSection);
         }
 
         private static void Validate(WaveImpactAsphaltCoverWaveConditionsCalculationContext context)
@@ -745,11 +726,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
         }
 
         #endregion
-
-        private static string EnableValidateAndCalculateMenuItem(IAssessmentSection assessmentSection)
-        {
-            return HydraulicBoundaryDataConnectionValidator.Validate(assessmentSection.HydraulicBoundaryData);
-        }
 
         #endregion
     }

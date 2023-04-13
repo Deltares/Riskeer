@@ -24,6 +24,7 @@ using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.TestUtil;
 
 namespace Riskeer.Common.Service.Test
 {
@@ -36,11 +37,22 @@ namespace Riskeer.Common.Service.Test
         public void Validate_HydraulicBoundaryDataNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => HydraulicBoundaryDataConnectionValidator.Validate(null);
+            void Call() => HydraulicBoundaryDataConnectionValidator.Validate(null, new TestHydraulicBoundaryLocation());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("hydraulicBoundaryData", paramName);
+        }
+
+        [Test]
+        public void Validate_HydraulicBoundaryLocationNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => HydraulicBoundaryDataConnectionValidator.Validate(new HydraulicBoundaryData(), null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
+            Assert.AreEqual("hydraulicBoundaryLocation", paramName);
         }
 
         [Test]
@@ -50,7 +62,7 @@ namespace Riskeer.Common.Service.Test
             var hydraulicBoundaryData = new HydraulicBoundaryData();
 
             // Call
-            string message = HydraulicBoundaryDataConnectionValidator.Validate(hydraulicBoundaryData);
+            string message = HydraulicBoundaryDataConnectionValidator.Validate(hydraulicBoundaryData, new TestHydraulicBoundaryLocation());
 
             // Assert
             const string expectedMessage = "Er is geen hydraulische belastingendatabase geïmporteerd.";
@@ -67,7 +79,7 @@ namespace Riskeer.Common.Service.Test
             };
 
             // Call
-            string message = HydraulicBoundaryDataConnectionValidator.Validate(hydraulicBoundaryData);
+            string message = HydraulicBoundaryDataConnectionValidator.Validate(hydraulicBoundaryData, new TestHydraulicBoundaryLocation());
 
             // Assert
             const string expectedMessage = "Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt. Fout bij het lezen van bestand 'I_do_not_exist.sqlite': het bestand bestaat niet.";
@@ -89,7 +101,7 @@ namespace Riskeer.Common.Service.Test
             };
 
             // Call
-            string message = HydraulicBoundaryDataConnectionValidator.Validate(hydraulicBoundaryData);
+            string message = HydraulicBoundaryDataConnectionValidator.Validate(hydraulicBoundaryData, new TestHydraulicBoundaryLocation());
 
             // Assert
             const string expectedMessage = "Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt. De rekeninstellingen database heeft niet het juiste schema.";
@@ -112,7 +124,7 @@ namespace Riskeer.Common.Service.Test
             };
 
             // Call
-            string message = HydraulicBoundaryDataConnectionValidator.Validate(hydraulicBoundaryData);
+            string message = HydraulicBoundaryDataConnectionValidator.Validate(hydraulicBoundaryData, new TestHydraulicBoundaryLocation());
 
             // Assert
             string preprocessorClosureFilePath = Path.Combine(testDataPath, "withoutPreprocessorClosure", "hlcd_preprocClosure.sqlite");
@@ -137,7 +149,7 @@ namespace Riskeer.Common.Service.Test
             };
 
             // Call
-            string message = HydraulicBoundaryDataConnectionValidator.Validate(hydraulicBoundaryData);
+            string message = HydraulicBoundaryDataConnectionValidator.Validate(hydraulicBoundaryData, new TestHydraulicBoundaryLocation());
 
             // Assert
             Assert.IsNull(message);

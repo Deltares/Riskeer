@@ -402,12 +402,10 @@ namespace Riskeer.StabilityPointStructures.Plugin
                           .AddSeparator()
                           .AddValidateAllCalculationsInFailureMechanismItem(
                               context,
-                              ValidateAllInFailureMechanism,
-                              EnableValidateAndCalculateMenuItemForFailureMechanism)
+                              ValidateAllInFailureMechanism)
                           .AddPerformAllCalculationsInFailureMechanismItem(
                               context,
-                              CalculateAllInFailureMechanism,
-                              EnableValidateAndCalculateMenuItemForFailureMechanism)
+                              CalculateAllInFailureMechanism)
                           .AddSeparator()
                           .AddClearAllCalculationOutputInFailureMechanismItem(context.WrappedData)
                           .AddClearIllustrationPointsOfCalculationsInFailureMechanismItem(() => IllustrationPointsHelper.HasIllustrationPoints(calculations),
@@ -418,11 +416,6 @@ namespace Riskeer.StabilityPointStructures.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
-        }
-
-        private static string EnableValidateAndCalculateMenuItemForFailureMechanism(CalculationsStateFailureMechanismContext context)
-        {
-            return EnableValidateAndCalculateMenu(context.Parent);
         }
 
         private static void ValidateAllInFailureMechanism(CalculationsStateFailureMechanismContext context)
@@ -604,12 +597,10 @@ namespace Riskeer.StabilityPointStructures.Plugin
                    .AddSeparator()
                    .AddValidateAllCalculationsInGroupItem(
                        context,
-                       ValidateAllInCalculationGroup,
-                       EnableValidateAndCalculateMenuItemForCalculationGroup)
+                       ValidateAllInCalculationGroup)
                    .AddPerformAllCalculationsInGroupItem(
                        context,
-                       CalculateAllInCalculationGroup,
-                       EnableValidateAndCalculateMenuItemForCalculationGroup)
+                       CalculateAllInCalculationGroup)
                    .AddSeparator()
                    .AddClearAllCalculationOutputInGroupItem(group)
                    .AddClearIllustrationPointsOfCalculationsInGroupItem(() => IllustrationPointsHelper.HasIllustrationPoints(calculations),
@@ -721,11 +712,6 @@ namespace Riskeer.StabilityPointStructures.Plugin
             parentGroupContext.NotifyObservers();
         }
 
-        private static string EnableValidateAndCalculateMenuItemForCalculationGroup(StabilityPointStructuresCalculationGroupContext context)
-        {
-            return EnableValidateAndCalculateMenu(context.AssessmentSection);
-        }
-
         private static void ValidateAllInCalculationGroup(StabilityPointStructuresCalculationGroupContext context)
         {
             ValidateAll(context.WrappedData.GetCalculations().OfType<StructuresCalculation<StabilityPointStructuresInput>>(),
@@ -779,12 +765,10 @@ namespace Riskeer.StabilityPointStructures.Plugin
                           .AddSeparator()
                           .AddValidateCalculationItem(
                               context,
-                              Validate,
-                              EnableValidateAndCalculateMenuItemForCalculation)
+                              Validate)
                           .AddPerformCalculationItem<StructuresCalculationScenario<StabilityPointStructuresInput>, StabilityPointStructuresCalculationScenarioContext>(
                               context,
-                              Calculate,
-                              EnableValidateAndCalculateMenuItemForCalculation)
+                              Calculate)
                           .AddSeparator()
                           .AddClearCalculationOutputItem(calculation)
                           .AddClearIllustrationPointsOfCalculationItem(() => IllustrationPointsHelper.HasIllustrationPoints(calculation), changeHandler)
@@ -795,11 +779,6 @@ namespace Riskeer.StabilityPointStructures.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
-        }
-
-        private static string EnableValidateAndCalculateMenuItemForCalculation(StabilityPointStructuresCalculationScenarioContext context)
-        {
-            return EnableValidateAndCalculateMenu(context.AssessmentSection);
         }
 
         private static void Validate(StabilityPointStructuresCalculationScenarioContext context)
@@ -890,11 +869,6 @@ namespace Riskeer.StabilityPointStructures.Plugin
             IInquiryHelper inquiryHelper, IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> calculations)
         {
             return new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler(inquiryHelper, calculations);
-        }
-
-        private static string EnableValidateAndCalculateMenu(IAssessmentSection assessmentSection)
-        {
-            return HydraulicBoundaryDataConnectionValidator.Validate(assessmentSection.HydraulicBoundaryData);
         }
 
         private static void ValidateAll(IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> calculations, IAssessmentSection assessmentSection)
