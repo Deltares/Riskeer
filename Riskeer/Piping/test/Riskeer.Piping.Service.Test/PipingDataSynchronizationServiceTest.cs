@@ -151,10 +151,10 @@ namespace Riskeer.Piping.Service.Test
         }
 
         [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_FailureMechanismNull_ThrowsArgumentNullException()
+        public void ClearCalculationOutputAndHydraulicBoundaryLocations_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => PipingDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(null, Enumerable.Empty<HydraulicBoundaryLocation>());
+            void Call() => PipingDataSynchronizationService.ClearCalculationOutputAndHydraulicBoundaryLocations(null, Enumerable.Empty<HydraulicBoundaryLocation>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -162,10 +162,10 @@ namespace Riskeer.Piping.Service.Test
         }
 
         [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_HydraulicBoundaryLocationsNull_ThrowsArgumentNullException()
+        public void ClearCalculationOutputAndHydraulicBoundaryLocations_HydraulicBoundaryLocationsNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => PipingDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(new PipingFailureMechanism(), null);
+            void Call() => PipingDataSynchronizationService.ClearCalculationOutputAndHydraulicBoundaryLocations(new PipingFailureMechanism(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -173,7 +173,7 @@ namespace Riskeer.Piping.Service.Test
         }
 
         [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_WithVariousCalculations_ClearsHydraulicBoundaryLocationAndCalculationsAndReturnsAffectedObjects()
+        public void ClearCalculationOutputAndHydraulicBoundaryLocations_WithVariousCalculations_ClearsHydraulicBoundaryLocationAndCalculationsAndReturnsAffectedObjects()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -222,7 +222,7 @@ namespace Riskeer.Piping.Service.Test
                                                        .Where(i => i.HydraulicBoundaryLocation == hydraulicBoundaryLocation));
 
             // Call
-            IEnumerable<IObservable> affectedItems = PipingDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(
+            IEnumerable<IObservable> affectedItems = PipingDataSynchronizationService.ClearCalculationOutputAndHydraulicBoundaryLocations(
                 failureMechanism, new[]
                 {
                     hydraulicBoundaryLocation
