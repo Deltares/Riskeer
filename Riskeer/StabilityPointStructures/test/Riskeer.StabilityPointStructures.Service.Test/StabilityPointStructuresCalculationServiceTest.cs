@@ -602,7 +602,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     InflowModelType = StabilityPointStructureInflowModelType.LowSill,
                     LoadSchematizationType = LoadSchematizationType.Linear
                 }
@@ -722,7 +722,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     InflowModelType = StabilityPointStructureInflowModelType.LowSill,
                     LoadSchematizationType = LoadSchematizationType.Linear,
                     ForeshoreProfile = new TestForeshoreProfile(true)
@@ -843,7 +843,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     InflowModelType = StabilityPointStructureInflowModelType.LowSill,
                     LoadSchematizationType = LoadSchematizationType.Quadratic
                 }
@@ -963,7 +963,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     InflowModelType = StabilityPointStructureInflowModelType.LowSill,
                     LoadSchematizationType = LoadSchematizationType.Quadratic,
                     ForeshoreProfile = new TestForeshoreProfile(true)
@@ -1084,7 +1084,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     InflowModelType = StabilityPointStructureInflowModelType.FloodedCulvert,
                     LoadSchematizationType = LoadSchematizationType.Linear
                 }
@@ -1206,7 +1206,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     InflowModelType = StabilityPointStructureInflowModelType.FloodedCulvert,
                     LoadSchematizationType = LoadSchematizationType.Linear,
                     ForeshoreProfile = new TestForeshoreProfile(true)
@@ -1329,7 +1329,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     InflowModelType = StabilityPointStructureInflowModelType.FloodedCulvert,
                     LoadSchematizationType = LoadSchematizationType.Quadratic
                 }
@@ -1451,7 +1451,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     InflowModelType = StabilityPointStructureInflowModelType.FloodedCulvert,
                     LoadSchematizationType = LoadSchematizationType.Quadratic,
                     ForeshoreProfile = new TestForeshoreProfile(true)
@@ -1580,7 +1580,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hl => hl.Id == 1300001)
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001)
                 }
             };
 
@@ -1624,7 +1624,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     InflowModelType = inflowModelType,
                     LoadSchematizationType = loadSchematizationType,
                     ForeshoreProfile = new TestForeshoreProfile(true),
@@ -1695,7 +1695,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     LoadSchematizationType = LoadSchematizationType.Linear
                 }
             };
@@ -1759,7 +1759,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     LoadSchematizationType = LoadSchematizationType.Linear
                 }
             };
@@ -1823,7 +1823,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     LoadSchematizationType = LoadSchematizationType.Linear
                 }
             };

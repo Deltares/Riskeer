@@ -108,7 +108,7 @@ namespace Riskeer.HeightStructures.Integration.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.Locations.First(hl => hl.Id == 1300001)
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.Locations.First(hbl => hbl.Id == 1300001)
                 }
             };
 
@@ -211,7 +211,7 @@ namespace Riskeer.HeightStructures.Integration.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.Locations.First(hl => hl.Id == 1300001)
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.Locations.First(hbl => hbl.Id == 1300001)
                 }
             };
 
