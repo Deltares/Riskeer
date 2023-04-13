@@ -545,12 +545,10 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                    .AddSeparator()
                    .AddValidateAllCalculationsInFailureMechanismItem(
                        context,
-                       ValidateAllInFailureMechanism,
-                       EnableValidateAndCalculateMenuItemForFailureMechanism)
+                       ValidateAllInFailureMechanism)
                    .AddPerformAllCalculationsInFailureMechanismItem(
                        context,
-                       CalculateAllInFailureMechanism,
-                       EnableValidateAndCalculateMenuItemForFailureMechanism)
+                       CalculateAllInFailureMechanism)
                    .AddSeparator()
                    .AddClearAllCalculationOutputInFailureMechanismItem(context.WrappedData)
                    .AddClearIllustrationPointsOfCalculationsInFailureMechanismItem(
@@ -562,11 +560,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                    .AddSeparator()
                    .AddPropertiesItem()
                    .Build();
-        }
-
-        private static string EnableValidateAndCalculateMenuItemForFailureMechanism(CalculationsStateFailureMechanismContext context)
-        {
-            return EnableValidateAndCalculateMenuItem(context.Parent);
         }
 
         private static void ValidateAllInFailureMechanism(CalculationsStateFailureMechanismContext context)
@@ -750,12 +743,10 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                    .AddSeparator()
                    .AddValidateAllCalculationsInGroupItem(
                        context,
-                       ValidateAllInCalculationGroup,
-                       EnableValidateAndCalculateMenuItemForCalculationGroup)
+                       ValidateAllInCalculationGroup)
                    .AddPerformAllCalculationsInGroupItem(
                        context,
-                       CalculateAllInCalculationGroup,
-                       EnableValidateAndCalculateMenuItemForCalculationGroup)
+                       CalculateAllInCalculationGroup)
                    .AddSeparator()
                    .AddClearAllCalculationOutputInGroupItem(group)
                    .AddClearIllustrationPointsOfCalculationsInGroupItem(() => GrassCoverErosionInwardsIllustrationPointsHelper.HasIllustrationPoints(calculations),
@@ -874,11 +865,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             parentGroupContext.NotifyObservers();
         }
 
-        private static string EnableValidateAndCalculateMenuItemForCalculationGroup(GrassCoverErosionInwardsCalculationGroupContext context)
-        {
-            return EnableValidateAndCalculateMenuItem(context.AssessmentSection);
-        }
-
         private static void ValidateAllInCalculationGroup(GrassCoverErosionInwardsCalculationGroupContext context)
         {
             ValidateAll(context.WrappedData.GetCalculations().OfType<GrassCoverErosionInwardsCalculation>(),
@@ -931,12 +917,10 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                           .AddSeparator()
                           .AddValidateCalculationItem(
                               context,
-                              Validate,
-                              EnableValidateAndCalculateMenuItemForCalculation)
+                              Validate)
                           .AddPerformCalculationItem<GrassCoverErosionInwardsCalculationScenario, GrassCoverErosionInwardsCalculationScenarioContext>(
                               context,
-                              Calculate,
-                              EnableValidateAndCalculateMenuItemForCalculation)
+                              Calculate)
                           .AddSeparator()
                           .AddClearCalculationOutputItem(calculation)
                           .AddClearIllustrationPointsOfCalculationItem(() => GrassCoverErosionInwardsIllustrationPointsHelper.HasIllustrationPoints(calculation),
@@ -948,11 +932,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
-        }
-
-        private static string EnableValidateAndCalculateMenuItemForCalculation(GrassCoverErosionInwardsCalculationScenarioContext context)
-        {
-            return EnableValidateAndCalculateMenuItem(context.AssessmentSection);
         }
 
         private static void Validate(GrassCoverErosionInwardsCalculationScenarioContext context)
@@ -1068,11 +1047,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             {
                 GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
             }
-        }
-
-        private static string EnableValidateAndCalculateMenuItem(IAssessmentSection assessmentSection)
-        {
-            return HydraulicBoundaryDataConnectionValidator.Validate(assessmentSection.HydraulicBoundaryData);
         }
 
         #endregion
