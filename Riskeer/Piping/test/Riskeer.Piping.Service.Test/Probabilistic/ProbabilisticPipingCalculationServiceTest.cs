@@ -2288,7 +2288,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
         private static HydraulicBoundaryCalculationSettings CreateCalculationSettings()
         {
-            return new HydraulicBoundaryCalculationSettings(validHrdFilePath, validHlcdFilePath, false);
+            return new HydraulicBoundaryCalculationSettings(validHlcdFilePath, validHrdFilePath, false);
         }
 
         private static void AddSoilProfile(ProbabilisticPipingCalculation calculation, bool withCoverageLayer)

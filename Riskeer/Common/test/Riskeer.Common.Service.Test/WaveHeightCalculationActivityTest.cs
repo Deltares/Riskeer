@@ -102,11 +102,11 @@ namespace Riskeer.Common.Service.Test
         public void Run_InvalidHydraulicBoundaryDatabase_PerformValidationAndLogStartAndEndAndError()
         {
             // Setup
-            string invalidFilePath = Path.Combine(testDataPath, "notexisting.sqlite");
+            string invalidHrdFilePath = Path.Combine(testDataPath, "notexisting.sqlite");
             const string locationName = "locationName";
             const string calculationIdentifier = "1/100";
 
-            var settings = new HydraulicBoundaryCalculationSettings(invalidFilePath, validHlcdFilePath, false);
+            var settings = new HydraulicBoundaryCalculationSettings(validHlcdFilePath, invalidHrdFilePath, false);
             var activity = new WaveHeightCalculationActivity(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(locationName)),
                                                              settings,
                                                              0.01,
@@ -143,7 +143,7 @@ namespace Riskeer.Common.Service.Test
                 Converged = true
             };
 
-            var calculationSettings = new HydraulicBoundaryCalculationSettings(validHrdFilePath, validHlcdFilePath, usePreprocessorClosure);
+            var calculationSettings = new HydraulicBoundaryCalculationSettings(validHlcdFilePath, validHrdFilePath, usePreprocessorClosure);
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -435,7 +435,7 @@ namespace Riskeer.Common.Service.Test
 
         private static HydraulicBoundaryCalculationSettings CreateCalculationSettings()
         {
-            return new HydraulicBoundaryCalculationSettings(validHrdFilePath, validHlcdFilePath, false);
+            return new HydraulicBoundaryCalculationSettings(validHlcdFilePath, validHrdFilePath, false);
         }
 
         private class TestWaveHeightCalculationActivity : WaveHeightCalculationActivity

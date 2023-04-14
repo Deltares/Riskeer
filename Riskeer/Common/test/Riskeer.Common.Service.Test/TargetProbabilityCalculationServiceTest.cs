@@ -73,7 +73,7 @@ namespace Riskeer.Common.Service.Test
         {
             // Setup
             string invalidHrdFilePath = Path.Combine(testDataPath, "notexisting.sqlite");
-            var calculationSettings = new HydraulicBoundaryCalculationSettings(invalidHrdFilePath, validHlcdFilePath, false);
+            var calculationSettings = new HydraulicBoundaryCalculationSettings(validHlcdFilePath, invalidHrdFilePath, false);
             var valid = true;
 
             // Call
@@ -97,7 +97,7 @@ namespace Riskeer.Common.Service.Test
             // Setup
             string invalidHrdFilePath = Path.Combine(testDataPath, "HRD nosettings.sqlite");
             var valid = false;
-            var calculationSettings = new HydraulicBoundaryCalculationSettings(invalidHrdFilePath, validHlcdFilePath, false);
+            var calculationSettings = new HydraulicBoundaryCalculationSettings(validHlcdFilePath, invalidHrdFilePath, false);
 
             // Call
             void Call() => valid = calculationService.Validate(calculationSettings);
@@ -121,8 +121,8 @@ namespace Riskeer.Common.Service.Test
             var valid = true;
             string folderWithoutPreprocessorClosureDatabase = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, "HydraulicBoundaryData"),
                                                                            "withoutPreprocessorClosure");
-            var calculationSettings = new HydraulicBoundaryCalculationSettings(Path.Combine(folderWithoutPreprocessorClosureDatabase, "complete.sqlite"),
-                                                                               Path.Combine(folderWithoutPreprocessorClosureDatabase, "hlcd.sqlite"),
+            var calculationSettings = new HydraulicBoundaryCalculationSettings(Path.Combine(folderWithoutPreprocessorClosureDatabase, "hlcd.sqlite"),
+                                                                               Path.Combine(folderWithoutPreprocessorClosureDatabase, "complete.sqlite"),
                                                                                true);
 
             // Call
@@ -146,7 +146,7 @@ namespace Riskeer.Common.Service.Test
 
         private static HydraulicBoundaryCalculationSettings CreateValidCalculationSettings()
         {
-            return new HydraulicBoundaryCalculationSettings(validHrdFilePath, validHlcdFilePath, false);
+            return new HydraulicBoundaryCalculationSettings(validHlcdFilePath, validHrdFilePath, false);
         }
 
         private class TestTargetProbabilityCalculationService : TargetProbabilityCalculationService {}

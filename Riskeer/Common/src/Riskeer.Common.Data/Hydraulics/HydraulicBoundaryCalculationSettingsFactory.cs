@@ -65,8 +65,8 @@ namespace Riskeer.Common.Data.Hydraulics
                 throw new ArgumentException($"'{nameof(hydraulicBoundaryLocation)}' is not part of '{nameof(hydraulicBoundaryData)}'.");
             }
 
-            return new HydraulicBoundaryCalculationSettings(hydraulicBoundaryDatabase.FilePath,
-                                                            hydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath,
+            return new HydraulicBoundaryCalculationSettings(hydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath,
+                                                            hydraulicBoundaryDatabase.FilePath,
                                                             hydraulicBoundaryDatabase.UsePreprocessorClosure);
         }
     }

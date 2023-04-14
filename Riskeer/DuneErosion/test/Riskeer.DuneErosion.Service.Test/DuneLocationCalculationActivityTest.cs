@@ -93,12 +93,12 @@ namespace Riskeer.DuneErosion.Service.Test
         public void Run_InvalidHydraulicBoundaryDatabase_PerformValidationAndLogStartAndEndAndError()
         {
             // Setup
-            string invalidFilePath = Path.Combine(testDataPath, "notexisting.sqlite");
+            string invalidHrdFilePath = Path.Combine(testDataPath, "notexisting.sqlite");
 
             const string calculationIdentifier = "1/100";
             const string locationName = "locationName";
 
-            var settings = new HydraulicBoundaryCalculationSettings(invalidFilePath, validHlcdFilePath, false);
+            var settings = new HydraulicBoundaryCalculationSettings(validHlcdFilePath, invalidHrdFilePath, false);
             var activity = new DuneLocationCalculationActivity(new DuneLocationCalculation(new TestDuneLocation(locationName)),
                                                                settings,
                                                                0.01,
@@ -135,7 +135,7 @@ namespace Riskeer.DuneErosion.Service.Test
                 Converged = true
             };
 
-            var calculationSettings = new HydraulicBoundaryCalculationSettings(validHrdFilePath, validHlcdFilePath, usePreprocessorClosure);
+            var calculationSettings = new HydraulicBoundaryCalculationSettings(validHlcdFilePath, validHrdFilePath, usePreprocessorClosure);
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
@@ -422,7 +422,7 @@ namespace Riskeer.DuneErosion.Service.Test
 
         private static HydraulicBoundaryCalculationSettings CreateCalculationSettings()
         {
-            return new HydraulicBoundaryCalculationSettings(validHrdFilePath, validHlcdFilePath, false);
+            return new HydraulicBoundaryCalculationSettings(validHlcdFilePath, validHrdFilePath, false);
         }
 
         private class DuneLocationCalculationActivityWithState : DuneLocationCalculationActivity
