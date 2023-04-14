@@ -529,49 +529,8 @@ namespace Riskeer.HeightStructures.Service.Test
             var structure1 = new TestHeightStructure(new Point2D(1, 0), "Id 1,0");
             var structure2 = new TestHeightStructure(new Point2D(3, 0), "Id 3,0");
             var profile = new TestForeshoreProfile();
-            StructuresCalculation<HeightStructuresInput> calculation1 = new TestHeightStructuresCalculationScenario
-            {
-                InputParameters =
-                {
-                    ForeshoreProfile = profile,
-                    Structure = structure1
-                },
-                Output = new TestStructuresOutput()
-            };
-            StructuresCalculation<HeightStructuresInput> calculation2 = new TestHeightStructuresCalculationScenario
-            {
-                InputParameters =
-                {
-                    ForeshoreProfile = profile,
-                    Structure = structure2
-                }
-            };
-            StructuresCalculation<HeightStructuresInput> calculation3 = new TestHeightStructuresCalculationScenario
-            {
-                InputParameters =
-                {
-                    ForeshoreProfile = profile,
-                    Structure = structure1
-                }
-            };
-            var failureMechanism = new HeightStructuresFailureMechanism
-            {
-                CalculationsGroup =
-                {
-                    Children =
-                    {
-                        calculation1,
-                        new CalculationGroup
-                        {
-                            Children =
-                            {
-                                calculation2
-                            }
-                        },
-                        calculation3
-                    }
-                }
-            };
+            
+            var failureMechanism = new HeightStructuresFailureMechanism();
             failureMechanism.ForeshoreProfiles.AddRange(new[]
             {
                 profile
@@ -587,6 +546,149 @@ namespace Riskeer.HeightStructures.Service.Test
             {
                 section1,
                 section2
+            });
+            
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+            var calculation = new StructuresCalculationScenario<HeightStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = structure1
+                }
+            };
+            var calculationWithOutput = new StructuresCalculationScenario<HeightStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = structure1
+                },
+                Output = new TestStructuresOutput()
+            };
+            var calculationWithOutputAndHydraulicBoundaryLocation = new StructuresCalculationScenario<HeightStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = structure2,
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                },
+                Output = new TestStructuresOutput()
+            };
+            var calculationWithHydraulicBoundaryLocation = new StructuresCalculationScenario<HeightStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = structure1,
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            };
+            var calculationWithHydraulicBoundaryLocationAndForeshoreProfile = new StructuresCalculationScenario<HeightStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = structure2,
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    ForeshoreProfile = profile
+                }
+            };
+            var calculationWithForeshoreProfile = new StructuresCalculationScenario<HeightStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = structure1,
+                    ForeshoreProfile = profile
+                }
+            };
+            var calculationWithOutputHydraulicBoundaryLocationAndForeshoreProfile = new StructuresCalculationScenario<HeightStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = structure1,
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    ForeshoreProfile = profile
+                },
+                Output = new TestStructuresOutput()
+            };
+
+            var subCalculation = new StructuresCalculationScenario<HeightStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = structure2
+                }
+            };
+            var subCalculationWithOutput = new StructuresCalculationScenario<HeightStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = structure2
+                },
+                Output = new TestStructuresOutput()
+            };
+            var subCalculationWithOutputAndHydraulicBoundaryLocation = new StructuresCalculationScenario<HeightStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = structure1,
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                },
+                Output = new TestStructuresOutput()
+            };
+            var subCalculationWithHydraulicBoundaryLocation = new StructuresCalculationScenario<HeightStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = structure1,
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            };
+            var subCalculationWithHydraulicBoundaryLocationAndForeshoreProfile = new StructuresCalculationScenario<HeightStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = structure1,
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    ForeshoreProfile = profile
+                }
+            };
+            var subCalculationWithForeshoreProfile = new StructuresCalculationScenario<HeightStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = structure2,
+                    ForeshoreProfile = profile
+                }
+            };
+            var subCalculationWithOutputHydraulicBoundaryLocationAndForeshoreProfile = new StructuresCalculationScenario<HeightStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = structure2,
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    ForeshoreProfile = profile
+                },
+                Output = new TestStructuresOutput()
+            };
+            
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithOutput);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithForeshoreProfile);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithHydraulicBoundaryLocationAndForeshoreProfile);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithOutputHydraulicBoundaryLocationAndForeshoreProfile);
+            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
+            {
+                Children =
+                {
+                    subCalculation,
+                    subCalculationWithOutput,
+                    subCalculationWithOutputAndHydraulicBoundaryLocation,
+                    subCalculationWithHydraulicBoundaryLocation,
+                    subCalculationWithForeshoreProfile,
+                    subCalculationWithHydraulicBoundaryLocationAndForeshoreProfile,
+                    subCalculationWithOutputHydraulicBoundaryLocationAndForeshoreProfile
+                }
             });
 
             return failureMechanism;
