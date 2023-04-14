@@ -102,7 +102,8 @@ namespace Riskeer.Integration.Service
                                                         (stabilityStoneCoverFailureMechanism, hydraulicBoundaryLocations));
                         break;
                     case WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCoverFailureMechanism:
-                        changedObservables.AddRange(WaveImpactAsphaltCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(waveImpactAsphaltCoverFailureMechanism));
+                        changedObservables.AddRange(WaveImpactAsphaltCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(
+                                                        waveImpactAsphaltCoverFailureMechanism, hydraulicBoundaryLocations));
                         break;
                     case GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism:
                         changedObservables.AddRange(GrassCoverErosionOutwardsDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(grassCoverErosionOutwardsFailureMechanism));
