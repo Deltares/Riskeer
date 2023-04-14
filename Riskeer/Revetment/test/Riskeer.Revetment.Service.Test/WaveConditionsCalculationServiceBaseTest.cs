@@ -77,14 +77,48 @@ namespace Riskeer.Revetment.Service.Test
         }
 
         [Test]
-        public void Validate_InvalidHydraulicBoundaryDatabaseFileLocation_ReturnsFalseAndLogsValidationError()
+        public void Validate_NoHydraulicBoundaryDatabase_LogsValidationMessageAndReturnFalse()
+        {
+            // Setup 
+            var isValid = false;
+
+            var waveConditionsInput = new WaveConditionsInput
+            {
+                HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+            };
+
+            // Call
+            void Call() => isValid = WaveConditionsCalculationServiceBase.Validate(waveConditionsInput,
+                                                                                   GetValidAssessmentLevel(),
+                                                                                   new HydraulicBoundaryData());
+
+            // Assert
+            TestHelper.AssertLogMessages(Call, messages =>
+            {
+                string[] msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                Assert.AreEqual("Er is geen hydraulische belastingendatabase geïmporteerd.", msgs[1]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+            });
+
+            Assert.IsFalse(isValid);
+        }
+
+        [Test]
+        public void Validate_InvalidHydraulicBoundaryDatabase_ReturnsFalseAndLogsValidationError()
         {
             // Setup 
             var isValid = false;
             string invalidFilePath = Path.Combine(testDataPath, "NonExisting.sqlite");
+            
+            var waveConditionsInput = new WaveConditionsInput
+            {
+                HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+            };
 
             // Call
-            void Call() => isValid = WaveConditionsCalculationServiceBase.Validate(new WaveConditionsInput(),
+            void Call() => isValid = WaveConditionsCalculationServiceBase.Validate(waveConditionsInput,
                                                                                    GetValidAssessmentLevel(),
                                                                                    new HydraulicBoundaryData
                                                                                    {
@@ -106,14 +140,19 @@ namespace Riskeer.Revetment.Service.Test
         }
 
         [Test]
-        public void Validate_ValidHydraulicBoundaryDatabaseWithoutSettings_LogsValidationMessageAndReturnFalse()
+        public void Validate_HydraulicBoundaryDatabaseWithoutSettings_LogsValidationMessageAndReturnFalse()
         {
             // Setup 
             var isValid = false;
             string dbFilePath = Path.Combine(testDataPath, "HRD nosettings.sqlite");
 
+            var waveConditionsInput = new WaveConditionsInput
+            {
+                HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+            };
+
             // Call
-            void Call() => isValid = WaveConditionsCalculationServiceBase.Validate(new WaveConditionsInput(),
+            void Call() => isValid = WaveConditionsCalculationServiceBase.Validate(waveConditionsInput,
                                                                                    GetValidAssessmentLevel(),
                                                                                    new HydraulicBoundaryData
                                                                                    {
@@ -133,31 +172,7 @@ namespace Riskeer.Revetment.Service.Test
 
             Assert.IsFalse(isValid);
         }
-
-        [Test]
-        public void Validate_WithoutImportedHydraulicBoundaryDatabase_LogsValidationMessageAndReturnFalse()
-        {
-            // Setup 
-            var isValid = false;
-
-            // Call
-            void Call() => isValid = WaveConditionsCalculationServiceBase.Validate(new WaveConditionsInput(),
-                                                                                   GetValidAssessmentLevel(),
-                                                                                   new HydraulicBoundaryData());
-
-            // Assert
-            TestHelper.AssertLogMessages(Call, messages =>
-            {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                Assert.AreEqual("Er is geen hydraulische belastingendatabase geïmporteerd.", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
-            });
-
-            Assert.IsFalse(isValid);
-        }
-
+        
         [Test]
         public void Validate_NoHydraulicBoundaryLocation_ReturnsFalseAndLogsValidationError()
         {
