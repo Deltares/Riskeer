@@ -764,14 +764,17 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
+            
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First();
+            
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
-                new TestHydraulicBoundaryLocation()
+                hydraulicBoundaryLocation
             });
             ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
 
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculationA = GetValidCalculation(assessmentSection.HydraulicBoundaryData.Locations.First());
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculationB = GetValidCalculation(assessmentSection.HydraulicBoundaryData.Locations.First());
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculationA = GetValidCalculation(hydraulicBoundaryLocation);
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculationB = GetValidCalculation(hydraulicBoundaryLocation);
 
             var group = new CalculationGroup();
             group.Children.Add(calculationA);
