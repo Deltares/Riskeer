@@ -59,15 +59,30 @@ namespace Riskeer.StabilityStoneCover.Integration.Test
             // Setup
             string invalidFilePath = Path.Combine(testDataPath, "NonExisting.sqlite");
 
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
             var assessmentSection = new AssessmentSectionStub
             {
                 HydraulicBoundaryData =
                 {
-                    FilePath = invalidFilePath
+                    HydraulicLocationConfigurationDatabase =
+                    {
+                        FilePath = validHlcdFilePath
+                    },
+                    HydraulicBoundaryDatabases =
+                    {
+                        new HydraulicBoundaryDatabase
+                        {
+                            FilePath = invalidFilePath,
+                            Locations =
+                            {
+                                hydraulicBoundaryLocation
+                            }
+                        }
+                    }
                 }
             };
 
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation

@@ -60,10 +60,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
             string invalidFilePath = Path.Combine(testDataPath, "NonExisting.sqlite");
 
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-            assessmentSection.HydraulicBoundaryData.FilePath = invalidFilePath;
+            assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.First().FilePath = invalidFilePath;
             ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
 
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryData.Locations.First());
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryData.GetLocations().First());
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
