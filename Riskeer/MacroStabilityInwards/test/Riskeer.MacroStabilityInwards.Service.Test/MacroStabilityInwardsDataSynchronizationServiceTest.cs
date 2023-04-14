@@ -26,6 +26,7 @@ using Core.Common.Base;
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Service;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
@@ -118,36 +119,55 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
         public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_WithVariousCalculations_ClearsHydraulicBoundaryLocationAndCalculationsAndReturnsAffectedObjects()
         {
             // Setup
-            MacroStabilityInwardsFailureMechanism failureMechanism = MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsFailureMechanismWithAllCalculationConfigurations();
-            failureMechanism.CalculationsGroup.Children.Add(new MacroStabilityInwardsCalculationScenario
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            MacroStabilityInwardsTestDataGenerator.ConfigureFailureMechanismWithAllCalculationConfigurations(failureMechanism, hydraulicBoundaryLocation);
+
+            failureMechanism.CalculationsGroup.Children.AddRange(new[]
             {
-                InputParameters =
+                new MacroStabilityInwardsCalculationScenario
                 {
-                    UseAssessmentLevelManualInput = true
+                    InputParameters =
+                    {
+                        UseAssessmentLevelManualInput = true
+                    },
+                    Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
                 },
-                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
+                new MacroStabilityInwardsCalculationScenario
+                {
+                    InputParameters =
+                    {
+                        UseAssessmentLevelManualInput = false,
+                        HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+                    },
+                    Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput()
+                }
             });
 
-            MacroStabilityInwardsCalculation[] calculations = failureMechanism.Calculations
-                                                                              .Cast<MacroStabilityInwardsCalculation>()
+            MacroStabilityInwardsCalculation[] calculations = failureMechanism.Calculations.Cast<MacroStabilityInwardsCalculation>()
                                                                               .ToArray();
 
-            var expectedAffectedItems = new List<IObservable>();
-            expectedAffectedItems.AddRange(calculations.Where(c => !c.InputParameters.UseAssessmentLevelManualInput
-                                                                   && c.HasOutput));
+            IEnumerable<MacroStabilityInwardsCalculation> expectedAffectedCalculations = calculations.Where(
+                c => !c.InputParameters.UseAssessmentLevelManualInput
+                     && c.InputParameters.HydraulicBoundaryLocation == hydraulicBoundaryLocation
+                     && c.HasOutput).ToArray();
+
+            var expectedAffectedItems = new List<IObservable>(expectedAffectedCalculations);
             expectedAffectedItems.AddRange(calculations.Select(c => c.InputParameters)
-                                                       .Where(i => i.HydraulicBoundaryLocation != null));
+                                                       .Where(i => i.HydraulicBoundaryLocation == hydraulicBoundaryLocation));
 
             // Call
             IEnumerable<IObservable> affectedItems = MacroStabilityInwardsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(
-                failureMechanism, Enumerable.Empty<HydraulicBoundaryLocation>());
+                failureMechanism, new[]
+                {
+                    hydraulicBoundaryLocation
+                });
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
-            Assert.IsTrue(calculations.Where(c => !c.InputParameters.UseAssessmentLevelManualInput)
-                                      .All(c => c.InputParameters.HydraulicBoundaryLocation == null
-                                                && !c.HasOutput));
+            Assert.IsTrue(expectedAffectedCalculations.All(c => !c.HasOutput));
+            Assert.IsTrue(calculations.All(c => c.InputParameters.HydraulicBoundaryLocation != hydraulicBoundaryLocation));
 
             CollectionAssert.AreEquivalent(expectedAffectedItems, affectedItems);
         }

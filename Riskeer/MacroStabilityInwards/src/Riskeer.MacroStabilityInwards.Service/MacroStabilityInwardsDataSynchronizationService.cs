@@ -86,10 +86,16 @@ namespace Riskeer.MacroStabilityInwards.Service
                 throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
             }
 
-            var affectedItems = new List<IObservable>();
-            foreach (MacroStabilityInwardsCalculation calculation in failureMechanism.Calculations.Cast<MacroStabilityInwardsCalculation>())
+            List<IObservable> affectedItems = failureMechanism.Calculations.Cast<MacroStabilityInwardsCalculation>()
+                                                              .Where(c => !c.InputParameters.UseAssessmentLevelManualInput
+                                                                          && hydraulicBoundaryLocations.Contains(c.InputParameters.HydraulicBoundaryLocation))
+                                                              .SelectMany(RiskeerCommonDataSynchronizationService.ClearCalculationOutput)
+                                                              .ToList();
+            
+            foreach (MacroStabilityInwardsCalculation calculation in failureMechanism.Calculations.Cast<MacroStabilityInwardsCalculation>()
+                                                                                     .Where(c => hydraulicBoundaryLocations.Contains(
+                                                                                                c.InputParameters.HydraulicBoundaryLocation)))
             {
-                affectedItems.AddRange(ClearAllCalculationOutputWithoutManualAssessmentLevel(failureMechanism));
                 affectedItems.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocation(calculation.InputParameters));
             }
 
