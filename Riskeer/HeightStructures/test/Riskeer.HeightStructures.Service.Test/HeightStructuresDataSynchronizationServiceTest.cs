@@ -298,173 +298,57 @@ namespace Riskeer.HeightStructures.Service.Test
         }
 
         [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithHydraulicBoundaryLocationAndOutput_ClearsHydraulicBoundaryLocationAndCalculationsAndReturnsAffectedObjects()
+        public void ClearCalculationOutputAndHydraulicBoundaryLocations_WithVariousCalculations_ClearsHydraulicBoundaryLocationAndCalculationsAndReturnsAffectedObjects()
         {
             // Setup
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
+            var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
+            var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation();
 
-            var calculation1 = new StructuresCalculation<HeightStructuresInput>
+            HeightStructuresFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism(hydraulicBoundaryLocation1);
+            failureMechanism.CalculationsGroup.Children.AddRange(new[]
             {
-                InputParameters =
+                new StructuresCalculationScenario<HeightStructuresInput>
                 {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                    InputParameters =
+                    {
+                        HydraulicBoundaryLocation = hydraulicBoundaryLocation2
+                    }
                 },
-                Output = new TestStructuresOutput()
-            };
-
-            var calculation2 = new StructuresCalculation<HeightStructuresInput>
-            {
-                InputParameters =
+                new StructuresCalculationScenario<HeightStructuresInput>
                 {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                },
-                Output = new TestStructuresOutput()
-            };
+                    InputParameters =
+                    {
+                        HydraulicBoundaryLocation = hydraulicBoundaryLocation2
+                    },
+                    Output = new TestStructuresOutput()
+                }
+            });
 
-            var calculation3 = new StructuresCalculation<HeightStructuresInput>();
+            IEnumerable<StructuresCalculationScenario<HeightStructuresInput>> calculations = failureMechanism.Calculations.Cast<StructuresCalculationScenario<HeightStructuresInput>>()
+                                                                                                             .ToArray();
 
-            failureMechanism.CalculationsGroup.Children.Add(calculation1);
-            failureMechanism.CalculationsGroup.Children.Add(calculation2);
-            failureMechanism.CalculationsGroup.Children.Add(calculation3);
+            IEnumerable<StructuresCalculationScenario<HeightStructuresInput>> expectedAffectedCalculations = calculations.Where(
+                c => c.InputParameters.HydraulicBoundaryLocation == hydraulicBoundaryLocation1
+                     && c.HasOutput).ToArray();
+
+            var expectedAffectedItems = new List<IObservable>(expectedAffectedCalculations);
+            expectedAffectedItems.AddRange(calculations.Select(c => c.InputParameters)
+                                                       .Where(i => i.HydraulicBoundaryLocation == hydraulicBoundaryLocation1));
 
             // Call
             IEnumerable<IObservable> affectedItems = HeightStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(
                 failureMechanism, new[]
                 {
-                    hydraulicBoundaryLocation
+                    hydraulicBoundaryLocation1
                 });
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
-            foreach (StructuresCalculation<HeightStructuresInput> calculation in failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>())
-            {
-                Assert.IsNull(calculation.InputParameters.HydraulicBoundaryLocation);
-                Assert.IsNull(calculation.Output);
-            }
+            Assert.IsTrue(expectedAffectedCalculations.All(c => !c.HasOutput));
+            Assert.IsTrue(calculations.All(c => c.InputParameters.HydraulicBoundaryLocation != hydraulicBoundaryLocation1));
 
-            CollectionAssert.AreEquivalent(new IObservable[]
-            {
-                calculation1,
-                calculation1.InputParameters,
-                calculation2,
-                calculation2.InputParameters
-            }, affectedItems);
-        }
-
-        [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithHydraulicBoundaryLocationNoOutput_ClearsHydraulicBoundaryLocationAndReturnsAffectedInputs()
-        {
-            // Setup
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
-
-            var calculation1 = new StructuresCalculation<HeightStructuresInput>
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            };
-
-            var calculation2 = new StructuresCalculation<HeightStructuresInput>
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            };
-
-            var calculation3 = new StructuresCalculation<HeightStructuresInput>();
-
-            failureMechanism.CalculationsGroup.Children.Add(calculation1);
-            failureMechanism.CalculationsGroup.Children.Add(calculation2);
-            failureMechanism.CalculationsGroup.Children.Add(calculation3);
-
-            // Call
-            IEnumerable<IObservable> affectedItems = HeightStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(
-                failureMechanism, new[]
-                {
-                    hydraulicBoundaryLocation
-                });
-
-            // Assert
-            // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should be called before these assertions:
-            foreach (StructuresCalculation<HeightStructuresInput> calculation in failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>())
-            {
-                Assert.IsNull(calculation.InputParameters.HydraulicBoundaryLocation);
-            }
-
-            CollectionAssert.AreEqual(new[]
-            {
-                calculation1.InputParameters,
-                calculation2.InputParameters
-            }, affectedItems);
-        }
-
-        [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithOutputAndNoHydraulicBoundaryLocation_ClearsOutputAndReturnsAffectedCalculations()
-        {
-            // Setup
-            var failureMechanism = new HeightStructuresFailureMechanism();
-
-            var calculation1 = new StructuresCalculation<HeightStructuresInput>
-            {
-                Output = new TestStructuresOutput()
-            };
-
-            var calculation2 = new StructuresCalculation<HeightStructuresInput>
-            {
-                Output = new TestStructuresOutput()
-            };
-
-            var calculation3 = new StructuresCalculation<HeightStructuresInput>();
-
-            failureMechanism.CalculationsGroup.Children.Add(calculation1);
-            failureMechanism.CalculationsGroup.Children.Add(calculation2);
-            failureMechanism.CalculationsGroup.Children.Add(calculation3);
-
-            // Call
-            IEnumerable<IObservable> affectedItems = HeightStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(
-                failureMechanism, Enumerable.Empty<HydraulicBoundaryLocation>());
-
-            // Assert
-            // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should be called before these assertions:
-            foreach (ICalculation calculation in failureMechanism.Calculations)
-            {
-                Assert.IsFalse(calculation.HasOutput);
-            }
-
-            CollectionAssert.AreEqual(new[]
-            {
-                calculation1,
-                calculation2
-            }, affectedItems);
-        }
-
-        [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationWithoutOutputAndHydraulicBoundaryLocation_ReturnNoAffectedCalculations()
-        {
-            // Setup
-            var failureMechanism = new HeightStructuresFailureMechanism();
-
-            var calculation1 = new StructuresCalculation<HeightStructuresInput>();
-            var calculation2 = new StructuresCalculation<HeightStructuresInput>();
-            var calculation3 = new StructuresCalculation<HeightStructuresInput>();
-
-            failureMechanism.CalculationsGroup.Children.Add(calculation1);
-            failureMechanism.CalculationsGroup.Children.Add(calculation2);
-            failureMechanism.CalculationsGroup.Children.Add(calculation3);
-
-            // Call
-            IEnumerable<IObservable> affectedItems = HeightStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(
-                failureMechanism, Enumerable.Empty<HydraulicBoundaryLocation>());
-
-            // Assert
-            CollectionAssert.IsEmpty(affectedItems);
+            CollectionAssert.AreEquivalent(expectedAffectedItems, affectedItems);
         }
 
         [Test]
@@ -514,7 +398,7 @@ namespace Riskeer.HeightStructures.Service.Test
             CollectionAssert.AreEquivalent(expectedRemovedObjects, results.RemovedObjects);
         }
 
-        private HeightStructuresFailureMechanism CreateFullyConfiguredFailureMechanism()
+        private HeightStructuresFailureMechanism CreateFullyConfiguredFailureMechanism(HydraulicBoundaryLocation hydraulicBoundaryLocation = null)
         {
             var section1 = new FailureMechanismSection("A", new[]
             {
@@ -529,7 +413,7 @@ namespace Riskeer.HeightStructures.Service.Test
             var structure1 = new TestHeightStructure(new Point2D(1, 0), "Id 1,0");
             var structure2 = new TestHeightStructure(new Point2D(3, 0), "Id 3,0");
             var profile = new TestForeshoreProfile();
-            
+
             var failureMechanism = new HeightStructuresFailureMechanism();
             failureMechanism.ForeshoreProfiles.AddRange(new[]
             {
@@ -547,8 +431,11 @@ namespace Riskeer.HeightStructures.Service.Test
                 section1,
                 section2
             });
-            
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+            if (hydraulicBoundaryLocation == null)
+            {
+                hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            }
 
             var calculation = new StructuresCalculationScenario<HeightStructuresInput>
             {
@@ -669,7 +556,7 @@ namespace Riskeer.HeightStructures.Service.Test
                 },
                 Output = new TestStructuresOutput()
             };
-            
+
             failureMechanism.CalculationsGroup.Children.Add(calculation);
             failureMechanism.CalculationsGroup.Children.Add(calculationWithOutput);
             failureMechanism.CalculationsGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);

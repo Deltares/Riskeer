@@ -150,7 +150,9 @@ namespace Riskeer.HeightStructures.Service
             }
 
             var affectedItems = new List<IObservable>();
-            foreach (StructuresCalculation<HeightStructuresInput> calculation in failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>())
+            foreach (StructuresCalculation<HeightStructuresInput> calculation in failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>()
+                                                                                                 .Where(c => hydraulicBoundaryLocations.Contains(
+                                                                                                            c.InputParameters.HydraulicBoundaryLocation)))
             {
                 affectedItems.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation));
                 affectedItems.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocation(calculation.InputParameters));
