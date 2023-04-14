@@ -182,17 +182,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos.HydraulicLoadsState
         {
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
-            var assessmentSection = new AssessmentSectionStub
-            {
-                HydraulicBoundaryData =
-                {
-                    FilePath = validHrdFilePath,
-                    HydraulicLocationConfigurationDatabase =
-                    {
-                        FilePath = validHlcdFilePath
-                    }
-                }
-            };
+            var assessmentSection = new AssessmentSectionStub();
 
             var context = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -232,7 +222,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos.HydraulicLoadsState
             {
                 HydraulicBoundaryData =
                 {
-                    FilePath = validHrdFilePath,
                     HydraulicLocationConfigurationDatabase =
                     {
                         FilePath = validHlcdFilePath

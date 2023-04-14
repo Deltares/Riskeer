@@ -358,17 +358,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
-            var assessmentSection = new AssessmentSectionStub
-            {
-                HydraulicBoundaryData =
-                {
-                    FilePath = validHrdFilePath,
-                    HydraulicLocationConfigurationDatabase =
-                    {
-                        FilePath = validHlcdFilePath
-                    }
-                }
-            };
+            var assessmentSection = new AssessmentSectionStub();
 
             var groupContext = new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(new ObservableList<DuneLocationCalculationsForTargetProbability>(),
                                                                                                          failureMechanism,
@@ -458,17 +448,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
-            var assessmentSection = new AssessmentSectionStub
-            {
-                HydraulicBoundaryData =
-                {
-                    FilePath = validHrdFilePath,
-                    HydraulicLocationConfigurationDatabase =
-                    {
-                        FilePath = validHlcdFilePath
-                    }
-                }
-            };
+            var assessmentSection = new AssessmentSectionStub();
 
             var groupContext = new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(new ObservableList<DuneLocationCalculationsForTargetProbability>(),
                                                                                                          failureMechanism,
@@ -513,7 +493,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             {
                 HydraulicBoundaryData =
                 {
-                    FilePath = validHrdFilePath,
                     HydraulicLocationConfigurationDatabase =
                     {
                         FilePath = validHlcdFilePath
