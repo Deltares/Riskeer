@@ -185,28 +185,54 @@ namespace Riskeer.StabilityPointStructures.Service.Test
         public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_WithVariousCalculations_ClearsCalculationsOutputAndReturnsAffectedObjects()
         {
             // Setup
-            StabilityPointStructuresFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
-            StructuresCalculation<StabilityPointStructuresInput>[] calculations = failureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>().ToArray();
-            IObservable[] expectedAffectedCalculations = calculations.Where(c => c.HasOutput)
-                                                                     .Cast<IObservable>()
-                                                                     .ToArray();
-            IObservable[] expectedAffectedCalculationInputs = calculations.Select(c => c.InputParameters)
-                                                                          .Where(i => i.HydraulicBoundaryLocation != null)
-                                                                          .Cast<IObservable>()
-                                                                          .ToArray();
+            var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
+            var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation();
+            
+            StabilityPointStructuresFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism(hydraulicBoundaryLocation1);
+            failureMechanism.CalculationsGroup.Children.AddRange(new[]
+            {
+                new StructuresCalculationScenario<StabilityPointStructuresInput>
+                {
+                    InputParameters =
+                    {
+                        HydraulicBoundaryLocation = hydraulicBoundaryLocation2
+                    }
+                },
+                new StructuresCalculationScenario<StabilityPointStructuresInput>
+                {
+                    InputParameters =
+                    {
+                        HydraulicBoundaryLocation = hydraulicBoundaryLocation2
+                    },
+                    Output = new TestStructuresOutput()
+                }
+            });
+            
+            StructuresCalculation<StabilityPointStructuresInput>[] calculations = failureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>()
+                                                                                                  .ToArray();
+            
+            StructuresCalculation<StabilityPointStructuresInput>[] expectedAffectedCalculations = calculations.Where(
+                c => c.InputParameters.HydraulicBoundaryLocation == hydraulicBoundaryLocation1
+                     && c.HasOutput).ToArray();
+
+            var expectedAffectedItems = new List<IObservable>(expectedAffectedCalculations);
+            expectedAffectedItems.AddRange(calculations.Select(c => c.InputParameters)
+                                                       .Where(i => i.HydraulicBoundaryLocation == hydraulicBoundaryLocation1));
 
             // Call
             IEnumerable<IObservable> affectedItems = StabilityPointStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(
-                failureMechanism, Enumerable.Empty<HydraulicBoundaryLocation>());
+                failureMechanism, new[]
+                {
+                    hydraulicBoundaryLocation1
+                });
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
-            Assert.IsTrue(failureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>()
-                                          .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
+            Assert.IsTrue(expectedAffectedCalculations.All(c => !c.HasOutput));
+            Assert.IsTrue(calculations.All(c => c.InputParameters.HydraulicBoundaryLocation != hydraulicBoundaryLocation1));
 
-            CollectionAssert.AreEquivalent(expectedAffectedCalculations.Concat(expectedAffectedCalculationInputs),
-                                           affectedItems);
+            CollectionAssert.AreEquivalent(expectedAffectedItems, affectedItems);
         }
 
         [Test]
@@ -326,7 +352,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             }
         }
 
-        private StabilityPointStructuresFailureMechanism CreateFullyConfiguredFailureMechanism()
+        private StabilityPointStructuresFailureMechanism CreateFullyConfiguredFailureMechanism(HydraulicBoundaryLocation hydraulicBoundaryLocation = null)
         {
             var section1 = new FailureMechanismSection("A", new[]
             {
@@ -360,7 +386,10 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                 section2
             });
 
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            if (hydraulicBoundaryLocation == null)
+            {
+                hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            }
 
             var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
             {

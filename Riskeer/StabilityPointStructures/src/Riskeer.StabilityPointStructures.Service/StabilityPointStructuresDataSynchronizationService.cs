@@ -149,7 +149,9 @@ namespace Riskeer.StabilityPointStructures.Service
             }
 
             var affectedItems = new List<IObservable>();
-            foreach (StructuresCalculation<StabilityPointStructuresInput> calculation in failureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>())
+            foreach (StructuresCalculation<StabilityPointStructuresInput> calculation in failureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>()
+                                                                                                         .Where(c => hydraulicBoundaryLocations.Contains(
+                                                                                                                    c.InputParameters.HydraulicBoundaryLocation)))
             {
                 affectedItems.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation));
                 affectedItems.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocation(calculation.InputParameters));
