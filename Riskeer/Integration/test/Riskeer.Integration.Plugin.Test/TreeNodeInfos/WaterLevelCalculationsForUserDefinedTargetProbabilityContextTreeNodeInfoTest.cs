@@ -385,17 +385,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var calculations = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
-            IAssessmentSection assessmentSection = new AssessmentSectionStub
-            {
-                HydraulicBoundaryData =
-                {
-                    FilePath = validHrdFilePath,
-                    HydraulicLocationConfigurationDatabase =
-                    {
-                        FilePath = validHlcdFilePath
-                    }
-                }
-            };
+            IAssessmentSection assessmentSection = new AssessmentSectionStub();
             assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Add(calculations);
 
             var nodeData = new WaterLevelCalculationsForUserDefinedTargetProbabilityContext(calculations, assessmentSection);
@@ -554,7 +544,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             {
                 HydraulicBoundaryData =
                 {
-                    FilePath = validHrdFilePath,
                     HydraulicLocationConfigurationDatabase =
                     {
                         FilePath = validHlcdFilePath,
@@ -655,7 +644,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             {
                 HydraulicBoundaryData =
                 {
-                    FilePath = validHrdFilePath,
                     HydraulicLocationConfigurationDatabase =
                     {
                         FilePath = validHlcdFilePath

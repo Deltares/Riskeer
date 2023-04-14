@@ -296,7 +296,6 @@ namespace Riskeer.Integration.Service.Test
             {
                 HydraulicBoundaryData =
                 {
-                    FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite"),
                     HydraulicLocationConfigurationDatabase =
                     {
                         FilePath = Path.Combine(testDataPath, "hlcd.sqlite")

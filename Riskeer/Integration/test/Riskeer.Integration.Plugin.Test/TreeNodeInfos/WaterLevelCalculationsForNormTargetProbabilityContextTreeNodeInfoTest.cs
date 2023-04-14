@@ -296,17 +296,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
         {
             // Setup
-            var assessmentSection = new AssessmentSectionStub
-            {
-                HydraulicBoundaryData =
-                {
-                    FilePath = validHrdFilePath,
-                    HydraulicLocationConfigurationDatabase =
-                    {
-                        FilePath = validHlcdFilePath
-                    }
-                }
-            };
+            var assessmentSection = new AssessmentSectionStub();
 
             var nodeData = new WaterLevelCalculationsForNormTargetProbabilityContext(getCalculationsFunc(assessmentSection),
                                                                                      assessmentSection,
@@ -466,7 +456,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             {
                 HydraulicBoundaryData =
                 {
-                    FilePath = validHrdFilePath,
                     HydraulicLocationConfigurationDatabase =
                     {
                         FilePath = validHlcdFilePath
@@ -562,7 +551,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             {
                 HydraulicBoundaryData =
                 {
-                    FilePath = validHrdFilePath,
                     HydraulicLocationConfigurationDatabase =
                     {
                         FilePath = validHlcdFilePath,
@@ -666,7 +654,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 },
                 HydraulicBoundaryData =
                 {
-                    FilePath = validHrdFilePath,
                     HydraulicLocationConfigurationDatabase =
                     {
                         FilePath = validHlcdFilePath
