@@ -137,7 +137,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(),
                     DikeProfile = DikeProfileTestFactory.CreateDikeProfile()
                 }
             };
@@ -176,7 +176,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(),
                     DikeProfile = DikeProfileTestFactory.CreateDikeProfile()
                 }
             };
@@ -212,7 +212,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(),
                     Orientation = (RoundedDouble) 0
                 }
             };
@@ -248,7 +248,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                                                                                                            validHrdFilePath);
             mockRepository.ReplayAll();
 
-            GrassCoverErosionInwardsCalculation calculation = GetCalculationWithBreakWater(breakWaterHeight);
+            GrassCoverErosionInwardsCalculation calculation = GetCalculationWithBreakWater(
+                breakWaterHeight, assessmentSection.HydraulicBoundaryData.GetLocations().First());
             calculation.InputParameters.UseBreakWater = true;
 
             // Call
@@ -283,7 +284,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(),
                     DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
                                                   null, new DikeProfile.ConstructionProperties
                                                   {
@@ -328,7 +329,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(),
                     DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
                                                   null, new DikeProfile.ConstructionProperties
                                                   {
@@ -371,7 +372,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                                                                                                            validHrdFilePath);
             mockRepository.ReplayAll();
 
-            GrassCoverErosionInwardsCalculation calculation = GetCalculationWithBreakWater(breakWaterHeight);
+            GrassCoverErosionInwardsCalculation calculation = GetCalculationWithBreakWater(
+                breakWaterHeight, assessmentSection.HydraulicBoundaryData.GetLocations().First());
             calculation.InputParameters.UseBreakWater = useBreakWater;
 
             // Call
@@ -2642,13 +2644,13 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 });
         }
 
-        private static GrassCoverErosionInwardsCalculation GetCalculationWithBreakWater(double breakWaterHeight)
+        private static GrassCoverErosionInwardsCalculation GetCalculationWithBreakWater(double breakWaterHeight, HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             return new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     DikeProfile = new DikeProfile(new Point2D(0, 0),
                                                   new RoughnessPoint[0],
                                                   new Point2D[0],
