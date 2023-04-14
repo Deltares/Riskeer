@@ -178,7 +178,7 @@ namespace Riskeer.Common.Service.Test.Structures
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First()
                 }
             };
 
@@ -216,7 +216,7 @@ namespace Riskeer.Common.Service.Test.Structures
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First()
                 }
             };
 
@@ -255,7 +255,7 @@ namespace Riskeer.Common.Service.Test.Structures
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First()
                 }
             };
 
@@ -294,7 +294,7 @@ namespace Riskeer.Common.Service.Test.Structures
                 InputParameters =
                 {
                     Structure = new TestStructure(),
-                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(),
                     IsValid = false
                 }
             };

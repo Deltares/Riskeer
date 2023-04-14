@@ -137,18 +137,36 @@ namespace Riskeer.Revetment.Service.Test
             var isValid = false;
             string invalidFilePath = Path.Combine(testDataPath, "NonExisting.sqlite");
 
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+            var hydraulicBoundaryData = new HydraulicBoundaryData
+            {
+                HydraulicLocationConfigurationDatabase =
+                {
+                    FilePath = Path.Combine(testDataPath, "hlcd.sqlite")
+                },
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        FilePath = invalidFilePath,
+                        Locations =
+                        {
+                            hydraulicBoundaryLocation
+                        }
+                    }
+                }
+            };
+
             var waveConditionsInput = new WaveConditionsInput
             {
-                HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+                HydraulicBoundaryLocation = hydraulicBoundaryLocation
             };
 
             // Call
             void Call() => isValid = WaveConditionsCalculationServiceBase.Validate(waveConditionsInput,
                                                                                    GetValidAssessmentLevel(),
-                                                                                   new HydraulicBoundaryData
-                                                                                   {
-                                                                                       FilePath = invalidFilePath
-                                                                                   });
+                                                                                   hydraulicBoundaryData);
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -169,20 +187,38 @@ namespace Riskeer.Revetment.Service.Test
         {
             // Setup 
             var isValid = false;
-            string dbFilePath = Path.Combine(testDataPath, "HRD nosettings.sqlite");
+            string hrdFilePath = Path.Combine(testDataPath, "HRD nosettings.sqlite");
+
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+            var hydraulicBoundaryData = new HydraulicBoundaryData
+            {
+                HydraulicLocationConfigurationDatabase =
+                {
+                    FilePath = Path.Combine(testDataPath, "hlcd.sqlite")
+                },
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        FilePath = hrdFilePath,
+                        Locations =
+                        {
+                            hydraulicBoundaryLocation
+                        }
+                    }
+                }
+            };
 
             var waveConditionsInput = new WaveConditionsInput
             {
-                HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+                HydraulicBoundaryLocation = hydraulicBoundaryLocation
             };
 
             // Call
             void Call() => isValid = WaveConditionsCalculationServiceBase.Validate(waveConditionsInput,
                                                                                    GetValidAssessmentLevel(),
-                                                                                   new HydraulicBoundaryData
-                                                                                   {
-                                                                                       FilePath = dbFilePath
-                                                                                   });
+                                                                                   hydraulicBoundaryData);
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
