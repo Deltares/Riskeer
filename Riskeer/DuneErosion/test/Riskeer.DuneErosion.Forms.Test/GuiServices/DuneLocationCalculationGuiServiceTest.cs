@@ -131,14 +131,14 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
             {
                 HydraulicLocationConfigurationDatabase =
                 {
-                    FilePath = validHlcdFilePath,
-                    UsePreprocessorClosure = true
+                    FilePath = validHlcdFilePath
                 },
                 HydraulicBoundaryDatabases =
                 {
                     new HydraulicBoundaryDatabase
                     {
                         FilePath = validHrdFilePath,
+                        UsePreprocessorClosure = true,
                         Locations =
                         {
                             duneLocation.HydraulicBoundaryLocation

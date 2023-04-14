@@ -282,11 +282,11 @@ namespace Riskeer.Common.Service.Test
 
             HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase = hydraulicBoundaryData.HydraulicLocationConfigurationDatabase;
             hydraulicLocationConfigurationDatabase.FilePath = validHlcdFilePath;
-            hydraulicLocationConfigurationDatabase.UsePreprocessorClosure = usePreprocessorClosure;
 
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                FilePath = validHrdFilePath
+                FilePath = validHrdFilePath,
+                UsePreprocessorClosure = usePreprocessorClosure
             };
 
             hydraulicBoundaryDatabase.Locations.AddRange(hydraulicBoundaryLocations);
