@@ -113,15 +113,12 @@ namespace Riskeer.Common.Forms.Test.GuiServices
         }
 
         [Test]
-        public void CalculateDesignWaterLevels_ValidPathEmptyCalculationList_NoLog()
+        public void CalculateDesignWaterLevels_EmptyCalculationList_NoLog()
         {
             // Setup
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             mocks.ReplayAll();
-
-            assessmentSection.HydraulicBoundaryData.FilePath = validHrdFilePath;
-            assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath = validHlcdFilePath;
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -143,7 +140,7 @@ namespace Riskeer.Common.Forms.Test.GuiServices
         }
 
         [Test]
-        public void CalculateDesignWaterLevels_ValidPathOneCalculation_LogsMessages()
+        public void CalculateDesignWaterLevels_ValidHydraulicBoundaryDataOneCalculation_LogsMessages()
         {
             // Setup
             const string hydraulicLocationName = "name";
@@ -167,7 +164,6 @@ namespace Riskeer.Common.Forms.Test.GuiServices
                              .Return(new TestDesignWaterLevelCalculator());
             mocks.ReplayAll();
 
-            assessmentSection.HydraulicBoundaryData.FilePath = validHrdFilePath;
             assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath = validHlcdFilePath;
             assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(new HydraulicBoundaryDatabase
             {
@@ -257,15 +253,12 @@ namespace Riskeer.Common.Forms.Test.GuiServices
         }
 
         [Test]
-        public void CalculateWaveHeights_ValidPathEmptyCalculationList_NoLog()
+        public void CalculateWaveHeights_EmptyCalculationList_NoLog()
         {
             // Setup
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             mocks.ReplayAll();
-
-            assessmentSection.HydraulicBoundaryData.FilePath = validHrdFilePath;
-            assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath = validHlcdFilePath;
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -287,7 +280,7 @@ namespace Riskeer.Common.Forms.Test.GuiServices
         }
 
         [Test]
-        public void CalculateWaveHeights_ValidPathOneCalculation_LogsMessages()
+        public void CalculateWaveHeights_ValidHydraulicBoundaryDataOneCalculation_LogsMessages()
         {
             // Setup
             const string hydraulicLocationName = "name";
@@ -311,7 +304,6 @@ namespace Riskeer.Common.Forms.Test.GuiServices
                              .Return(new TestWaveHeightCalculator());
             mocks.ReplayAll();
 
-            assessmentSection.HydraulicBoundaryData.FilePath = validHrdFilePath;
             assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath = validHlcdFilePath;
             assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(new HydraulicBoundaryDatabase
             {

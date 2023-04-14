@@ -108,7 +108,6 @@ namespace Riskeer.Common.Data.TestUtil
 
             if (hrdFilePath != null)
             {
-                hydraulicBoundaryData.FilePath = hrdFilePath;
                 hydraulicBoundaryData.HydraulicBoundaryDatabases.Add(new HydraulicBoundaryDatabase
                 {
                     FilePath = hrdFilePath,
