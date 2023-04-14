@@ -46,7 +46,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
         /// <returns>An <see cref="IEnumerable{T}"/> of objects which are affected by removal of data.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(
+        public static IEnumerable<IObservable> ClearWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(
             GrassCoverErosionOutwardsFailureMechanism failureMechanism,
             IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
         {

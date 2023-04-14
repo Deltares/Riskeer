@@ -39,10 +39,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
     public class GrassCoverErosionOutwardsDataSynchronizationServiceTest
     {
         [Test]
-        public void ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations_FailureMechanismNull_ThrowsArgumentNullException()
+        public void ClearWaveConditionsCalculationOutputAndHydraulicBoundaryLocations_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => GrassCoverErosionOutwardsDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(
+            void Call() => GrassCoverErosionOutwardsDataSynchronizationService.ClearWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(
                 null, Enumerable.Empty<HydraulicBoundaryLocation>());
 
             // Assert
@@ -51,10 +51,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
         }
 
         [Test]
-        public void ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations_HydraulicBoundaryLocationsNull_ThrowsArgumentNullException()
+        public void ClearWaveConditionsCalculationOutputAndHydraulicBoundaryLocations_HydraulicBoundaryLocationsNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => GrassCoverErosionOutwardsDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(
+            void Call() => GrassCoverErosionOutwardsDataSynchronizationService.ClearWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(
                 new GrassCoverErosionOutwardsFailureMechanism(), null);
 
             // Assert
@@ -63,7 +63,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
         }
 
         [Test]
-        public void ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations_WithVariousCalculations_ClearsOutputAndReturnsAffectedObjects()
+        public void ClearWaveConditionsCalculationOutputAndHydraulicBoundaryLocations_WithVariousCalculations_ClearsOutputAndReturnsAffectedObjects()
         {
             // Setup
             var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
@@ -101,7 +101,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                                                        .Where(i => i.HydraulicBoundaryLocation == hydraulicBoundaryLocation1));
 
             // Call
-            IEnumerable<IObservable> affectedItems = GrassCoverErosionOutwardsDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(
+            IEnumerable<IObservable> affectedItems = GrassCoverErosionOutwardsDataSynchronizationService.ClearWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(
                 failureMechanism, new[]
                 {
                     hydraulicBoundaryLocation1
