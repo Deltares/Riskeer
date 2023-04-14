@@ -76,7 +76,13 @@ namespace Riskeer.ClosingStructures.Service.Test
                                                                                                            validHrdFilePath);
             mockRepository.ReplayAll();
 
-            var calculation = new TestClosingStructuresCalculationScenario();
+            var calculation = new TestClosingStructuresCalculationScenario
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First()
+                }
+            };
 
             SetInvalidInputParameters(calculation.InputParameters, (RoundedDouble) value);
 
@@ -133,7 +139,8 @@ namespace Riskeer.ClosingStructures.Service.Test
             {
                 InputParameters =
                 {
-                    InflowModelType = ClosingStructureInflowModelType.LowSill
+                    InflowModelType = ClosingStructureInflowModelType.LowSill,
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First()
                 }
             };
             SetInvalidInputParameters(calculation.InputParameters, (RoundedDouble) value);
@@ -192,7 +199,8 @@ namespace Riskeer.ClosingStructures.Service.Test
             {
                 InputParameters =
                 {
-                    InflowModelType = ClosingStructureInflowModelType.FloodedCulvert
+                    InflowModelType = ClosingStructureInflowModelType.FloodedCulvert,
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First()
                 }
             };
             SetInvalidInputParameters(calculation.InputParameters, (RoundedDouble) value);
@@ -246,7 +254,8 @@ namespace Riskeer.ClosingStructures.Service.Test
             {
                 InputParameters =
                 {
-                    InflowModelType = (ClosingStructureInflowModelType) 9001
+                    InflowModelType = (ClosingStructureInflowModelType) 9001,
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First()
                 }
             };
 
@@ -283,7 +292,7 @@ namespace Riskeer.ClosingStructures.Service.Test
                 InputParameters =
                 {
                     InflowModelType = inflowModelType,
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(),
                     ForeshoreProfile = new TestForeshoreProfile(new BreakWater(BreakWaterType.Dam, breakWaterHeight)),
                     UseBreakWater = true
                 }
