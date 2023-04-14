@@ -717,6 +717,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             failureMechanism.CalculationsGroup.Children.Add(group);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData());
 
             var nodeData = new GrassCoverErosionOutwardsCalculationGroupContext(group,
                                                                                 failureMechanism.CalculationsGroup,

@@ -241,7 +241,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                                                  Enumerable.Empty<long>(), hrdFilePath);
 
             // Assert
-            Assert.IsTrue(hydraulicBoundaryData.IsLinked());
             Assert.AreEqual(1, hydraulicBoundaryData.HydraulicBoundaryDatabases.Count);
 
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = hydraulicBoundaryData.HydraulicBoundaryDatabases.First();
