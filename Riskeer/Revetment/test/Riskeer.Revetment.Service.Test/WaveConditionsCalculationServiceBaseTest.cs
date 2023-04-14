@@ -946,14 +946,14 @@ namespace Riskeer.Revetment.Service.Test
             {
                 HydraulicLocationConfigurationDatabase =
                 {
-                    FilePath = validHlcdFilePath,
-                    UsePreprocessorClosure = true
+                    FilePath = validHlcdFilePath
                 },
                 HydraulicBoundaryDatabases =
                 {
                     new HydraulicBoundaryDatabase
                     {
                         FilePath = validHrdFilePath,
+                        UsePreprocessorClosure = true,
                         Locations =
                         {
                             new TestHydraulicBoundaryLocation()

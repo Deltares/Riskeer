@@ -911,14 +911,14 @@ namespace Riskeer.StabilityStoneCover.Service.Test
                 {
                     HydraulicLocationConfigurationDatabase =
                     {
-                        FilePath = validHlcdFilePath,
-                        UsePreprocessorClosure = usePreprocessorClosure
+                        FilePath = validHlcdFilePath
                     },
                     HydraulicBoundaryDatabases =
                     {
                         new HydraulicBoundaryDatabase
                         {
                             FilePath = validHrdFilePath,
+                            UsePreprocessorClosure = usePreprocessorClosure,
                             Locations =
                             {
                                 hydraulicBoundaryLocation
