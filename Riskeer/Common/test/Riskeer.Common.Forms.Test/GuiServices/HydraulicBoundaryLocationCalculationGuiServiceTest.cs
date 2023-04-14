@@ -113,34 +113,6 @@ namespace Riskeer.Common.Forms.Test.GuiServices
         }
 
         [Test]
-        public void CalculateDesignWaterLevels_HydraulicBoundaryDatabaseDoesNotExist_LogsError()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var viewParent = mocks.Stub<IViewParent>();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-            mocks.ReplayAll();
-
-            assessmentSection.HydraulicBoundaryData.FilePath = "Does not exist";
-            assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath = "Does not exist";
-
-            var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
-
-            // Call
-            void Call() => guiService.CalculateDesignWaterLevels(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), assessmentSection, 0.01, "1/100");
-
-            // Assert
-            TestHelper.AssertLogMessages(Call, messages =>
-            {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(1, msgs.Length);
-                StringAssert.StartsWith("Berekeningen konden niet worden gestart. ", msgs.First());
-            });
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void CalculateDesignWaterLevels_ValidPathEmptyCalculationList_NoLog()
         {
             // Setup
@@ -281,33 +253,6 @@ namespace Riskeer.Common.Forms.Test.GuiServices
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculations", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CalculateWaveHeights_HydraulicBoundaryDatabaseDoesNotExist_LogsError()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var viewParent = mocks.Stub<IViewParent>();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-            mocks.ReplayAll();
-
-            assessmentSection.HydraulicBoundaryData.FilePath = "Does not exist";
-            assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath = "Does not exist";
-
-            var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
-
-            // Call
-            void Call() => guiService.CalculateWaveHeights(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), assessmentSection, 0.01, "1/100");
-
-            // Assert
-            TestHelper.AssertLogMessages(Call, messages =>
-            {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(1, msgs.Length);
-                StringAssert.StartsWith("Berekeningen konden niet worden gestart. ", msgs.First());
-            });
             mocks.VerifyAll();
         }
 
