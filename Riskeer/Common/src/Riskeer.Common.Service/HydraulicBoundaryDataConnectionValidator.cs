@@ -58,10 +58,12 @@ namespace Riskeer.Common.Service
                 return Resources.HydraulicBoundaryDataConnectionValidator_No_hydraulic_boundary_database_imported;
             }
 
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = hydraulicBoundaryData.GetHydraulicBoundaryDatabaseForLocation(hydraulicBoundaryLocation);
+            
             string validationProblem = HydraulicBoundaryDataHelper.ValidateFilesForCalculation(
-                hydraulicBoundaryData.GetHydraulicBoundaryDatabaseForLocation(hydraulicBoundaryLocation).FilePath,
+                hydraulicBoundaryDatabase.FilePath,
                 hydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath,
-                hydraulicBoundaryData.HydraulicLocationConfigurationDatabase.UsePreprocessorClosure);
+                hydraulicBoundaryDatabase.UsePreprocessorClosure);
 
             if (!string.IsNullOrEmpty(validationProblem))
             {
