@@ -70,16 +70,52 @@ namespace Riskeer.Common.Service.Test
         }
 
         [Test]
-        public void Validate_HydraulicBoundaryDataLinkedToNotExistingDatabaseFile_ReturnsErrorMessage()
+        public void Validate_HydraulicBoundaryLocationNotPartOfLinkedHydraulicBoundaryData_ThrowsArgumentException()
         {
             // Setup
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = "I_do_not_exist.sqlite"
+                HydraulicLocationConfigurationDatabase =
+                {
+                    FilePath = Path.Combine(testDataPath, "hlcd.sqlite")
+                }
             };
 
             // Call
-            string message = HydraulicBoundaryDataConnectionValidator.Validate(hydraulicBoundaryData, new TestHydraulicBoundaryLocation());
+            void Call() => HydraulicBoundaryDataConnectionValidator.Validate(hydraulicBoundaryData, new TestHydraulicBoundaryLocation());
+
+            // Assert
+            string message = Assert.Throws<ArgumentException>(Call).Message;
+            Assert.AreEqual("'hydraulicBoundaryLocation' is not part of 'hydraulicBoundaryData'.", message);
+        }
+
+        [Test]
+        public void Validate_HydraulicBoundaryDataLinkedToNotExistingDatabaseFile_ReturnsErrorMessage()
+        {
+            // Setup
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+            var hydraulicBoundaryData = new HydraulicBoundaryData
+            {
+                HydraulicLocationConfigurationDatabase =
+                {
+                    FilePath = Path.Combine(testDataPath, "hlcd.sqlite")
+                },
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        FilePath = "I_do_not_exist.sqlite",
+                        Locations =
+                        {
+                            hydraulicBoundaryLocation
+                        }
+                    }
+                }
+            };
+
+            // Call
+            string message = HydraulicBoundaryDataConnectionValidator.Validate(hydraulicBoundaryData, hydraulicBoundaryLocation);
 
             // Assert
             const string expectedMessage = "Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt. Fout bij het lezen van bestand 'I_do_not_exist.sqlite': het bestand bestaat niet.";
@@ -90,18 +126,30 @@ namespace Riskeer.Common.Service.Test
         public void Validate_HydraulicBoundaryDataLinkedToExistingDatabaseFileWithoutSettings_ReturnsErrorMessage()
         {
             // Setup
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
             string invalidSettingsSchemaPath = Path.Combine(testDataPath, "invalidSettingsSchema");
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = Path.Combine(invalidSettingsSchemaPath, "complete.sqlite"),
                 HydraulicLocationConfigurationDatabase =
                 {
                     FilePath = Path.Combine(invalidSettingsSchemaPath, "hlcd.sqlite")
+                },
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        FilePath = Path.Combine(invalidSettingsSchemaPath, "complete.sqlite"),
+                        Locations =
+                        {
+                            hydraulicBoundaryLocation
+                        }
+                    }
                 }
             };
 
             // Call
-            string message = HydraulicBoundaryDataConnectionValidator.Validate(hydraulicBoundaryData, new TestHydraulicBoundaryLocation());
+            string message = HydraulicBoundaryDataConnectionValidator.Validate(hydraulicBoundaryData, hydraulicBoundaryLocation);
 
             // Assert
             const string expectedMessage = "Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt. De rekeninstellingen database heeft niet het juiste schema.";
@@ -112,19 +160,31 @@ namespace Riskeer.Common.Service.Test
         public void Validate_UsePreprocessorClosureTrueWithoutPreprocessorClosureDatabase_ReturnsMessageWithError()
         {
             // Setup
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
             string withoutPreprocessorClosurePath = Path.Combine(testDataPath, "withoutPreprocessorClosure");
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = Path.Combine(withoutPreprocessorClosurePath, "complete.sqlite"),
                 HydraulicLocationConfigurationDatabase =
                 {
                     FilePath = Path.Combine(withoutPreprocessorClosurePath, "hlcd.sqlite"),
                     UsePreprocessorClosure = true
+                },
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        FilePath = Path.Combine(withoutPreprocessorClosurePath, "complete.sqlite"),
+                        Locations =
+                        {
+                            hydraulicBoundaryLocation
+                        }
+                    }
                 }
             };
 
             // Call
-            string message = HydraulicBoundaryDataConnectionValidator.Validate(hydraulicBoundaryData, new TestHydraulicBoundaryLocation());
+            string message = HydraulicBoundaryDataConnectionValidator.Validate(hydraulicBoundaryData, hydraulicBoundaryLocation);
 
             // Assert
             string preprocessorClosureFilePath = Path.Combine(testDataPath, "withoutPreprocessorClosure", "hlcd_preprocClosure.sqlite");
@@ -138,18 +198,30 @@ namespace Riskeer.Common.Service.Test
         public void Validate_HydraulicBoundaryDataLinkedToValidDatabaseFile_ReturnsNull(bool usePreprocessorClosure)
         {
             // Setup
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = Path.Combine(testDataPath, "complete.sqlite"),
                 HydraulicLocationConfigurationDatabase =
                 {
                     FilePath = Path.Combine(testDataPath, "hlcd.sqlite"),
                     UsePreprocessorClosure = usePreprocessorClosure
+                },
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        FilePath = Path.Combine(testDataPath, "complete.sqlite"),
+                        Locations =
+                        {
+                            hydraulicBoundaryLocation
+                        }
+                    }
                 }
             };
 
             // Call
-            string message = HydraulicBoundaryDataConnectionValidator.Validate(hydraulicBoundaryData, new TestHydraulicBoundaryLocation());
+            string message = HydraulicBoundaryDataConnectionValidator.Validate(hydraulicBoundaryData, hydraulicBoundaryLocation);
 
             // Assert
             Assert.IsNull(message);

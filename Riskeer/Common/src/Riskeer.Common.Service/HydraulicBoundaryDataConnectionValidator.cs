@@ -39,6 +39,8 @@ namespace Riskeer.Common.Service
         /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location to validate for.</param>
         /// <returns>An error message if a problem was found; <c>null</c> in case no problems were found.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="hydraulicBoundaryLocation"/> is not part of
+        /// <paramref name="hydraulicBoundaryData"/>.</exception>
         public static string Validate(HydraulicBoundaryData hydraulicBoundaryData, HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             if (hydraulicBoundaryData == null)
@@ -57,7 +59,7 @@ namespace Riskeer.Common.Service
             }
 
             string validationProblem = HydraulicBoundaryDataHelper.ValidateFilesForCalculation(
-                hydraulicBoundaryData.FilePath,
+                hydraulicBoundaryData.GetHydraulicBoundaryDatabaseForLocation(hydraulicBoundaryLocation).FilePath,
                 hydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath,
                 hydraulicBoundaryData.HydraulicLocationConfigurationDatabase.UsePreprocessorClosure);
 
