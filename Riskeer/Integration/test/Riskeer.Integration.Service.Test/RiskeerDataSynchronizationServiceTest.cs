@@ -98,105 +98,125 @@ namespace Riskeer.Integration.Service.Test
             // Setup
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
             IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryData.GetLocations();
+            HydraulicBoundaryLocation locationToRemove = hydraulicBoundaryLocations.First();
 
-            var expectedAffectedItems = new List<IObservable>();
+            var expectedAffectedCalculations = new List<ICalculation<ICalculationInput>>();
+            expectedAffectedCalculations.AddRange(assessmentSection.ClosingStructures.Calculations
+                                                                   .Cast<StructuresCalculation<ClosingStructuresInput>>()
+                                                                   .Where(c => c.InputParameters.HydraulicBoundaryLocation == locationToRemove
+                                                                               && c.HasOutput));
+            expectedAffectedCalculations.AddRange(assessmentSection.GrassCoverErosionInwards.Calculations
+                                                                   .Cast<GrassCoverErosionInwardsCalculation>()
+                                                                   .Where(c => c.InputParameters.HydraulicBoundaryLocation == locationToRemove
+                                                                               && c.HasOutput));
+            expectedAffectedCalculations.AddRange(assessmentSection.GrassCoverErosionOutwards.Calculations
+                                                                   .Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
+                                                                   .Where(c => c.InputParameters.HydraulicBoundaryLocation == locationToRemove
+                                                                               && c.HasOutput));
+            expectedAffectedCalculations.AddRange(assessmentSection.HeightStructures.Calculations
+                                                                   .Cast<StructuresCalculation<HeightStructuresInput>>()
+                                                                   .Where(c => c.InputParameters.HydraulicBoundaryLocation == locationToRemove
+                                                                               && c.HasOutput));
+            expectedAffectedCalculations.AddRange(assessmentSection.Piping.Calculations
+                                                                   .OfType<SemiProbabilisticPipingCalculationScenario>()
+                                                                   .Where(c => !c.InputParameters.UseAssessmentLevelManualInput
+                                                                               && c.InputParameters.HydraulicBoundaryLocation == locationToRemove
+                                                                               && c.HasOutput));
+            expectedAffectedCalculations.AddRange(assessmentSection.Piping.Calculations
+                                                                   .OfType<ProbabilisticPipingCalculationScenario>()
+                                                                   .Where(c => c.InputParameters.HydraulicBoundaryLocation == locationToRemove
+                                                                               && c.HasOutput));
+            expectedAffectedCalculations.AddRange(assessmentSection.StabilityPointStructures.Calculations
+                                                                   .Cast<StructuresCalculation<StabilityPointStructuresInput>>()
+                                                                   .Where(c => c.InputParameters.HydraulicBoundaryLocation == locationToRemove
+                                                                               && c.HasOutput));
+            expectedAffectedCalculations.AddRange(assessmentSection.StabilityStoneCover.Calculations
+                                                                   .Cast<StabilityStoneCoverWaveConditionsCalculation>()
+                                                                   .Where(c => c.InputParameters.HydraulicBoundaryLocation == locationToRemove
+                                                                               && c.HasOutput));
+            expectedAffectedCalculations.AddRange(assessmentSection.WaveImpactAsphaltCover.Calculations
+                                                                   .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
+                                                                   .Where(c => c.InputParameters.HydraulicBoundaryLocation == locationToRemove
+                                                                               && c.HasOutput));
+            expectedAffectedCalculations.AddRange(assessmentSection.MacroStabilityInwards.Calculations
+                                                                   .Cast<MacroStabilityInwardsCalculation>()
+                                                                   .Where(c => c.InputParameters.HydraulicBoundaryLocation == locationToRemove
+                                                                               && c.HasOutput));
+
+            var expectedAffectedItems = new List<IObservable>(expectedAffectedCalculations);
             expectedAffectedItems.AddRange(assessmentSection.ClosingStructures.Calculations
                                                             .Cast<StructuresCalculation<ClosingStructuresInput>>()
-                                                            .Where(c => c.HasOutput));
-            expectedAffectedItems.AddRange(assessmentSection.ClosingStructures.Calculations
-                                                            .Cast<StructuresCalculation<ClosingStructuresInput>>()
                                                             .Select(c => c.InputParameters)
-                                                            .Where(i => i.HydraulicBoundaryLocation != null));
-            expectedAffectedItems.AddRange(assessmentSection.GrassCoverErosionInwards.Calculations
-                                                            .Cast<GrassCoverErosionInwardsCalculation>()
-                                                            .Where(c => c.HasOutput));
+                                                            .Where(i => i.HydraulicBoundaryLocation == locationToRemove));
             expectedAffectedItems.AddRange(assessmentSection.GrassCoverErosionInwards.Calculations
                                                             .Cast<GrassCoverErosionInwardsCalculation>()
                                                             .Select(c => c.InputParameters)
-                                                            .Where(i => i.HydraulicBoundaryLocation != null));
-            expectedAffectedItems.AddRange(assessmentSection.GrassCoverErosionOutwards.Calculations
-                                                            .Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
-                                                            .Where(c => c.HasOutput));
+                                                            .Where(i => i.HydraulicBoundaryLocation == locationToRemove));
             expectedAffectedItems.AddRange(assessmentSection.GrassCoverErosionOutwards.Calculations
                                                             .Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
                                                             .Select(c => c.InputParameters)
-                                                            .Where(i => i.HydraulicBoundaryLocation != null));
-            expectedAffectedItems.AddRange(assessmentSection.HeightStructures.Calculations
-                                                            .Cast<StructuresCalculation<HeightStructuresInput>>()
-                                                            .Where(c => c.HasOutput));
+                                                            .Where(i => i.HydraulicBoundaryLocation == locationToRemove));
             expectedAffectedItems.AddRange(assessmentSection.HeightStructures.Calculations
                                                             .Cast<StructuresCalculation<HeightStructuresInput>>()
                                                             .Select(c => c.InputParameters)
-                                                            .Where(i => i.HydraulicBoundaryLocation != null));
-            expectedAffectedItems.AddRange(assessmentSection.Piping.Calculations
-                                                            .OfType<SemiProbabilisticPipingCalculationScenario>()
-                                                            .Where(c => !c.InputParameters.UseAssessmentLevelManualInput && c.HasOutput));
-            expectedAffectedItems.AddRange(assessmentSection.Piping.Calculations
-                                                            .OfType<ProbabilisticPipingCalculationScenario>()
-                                                            .Where(c => c.HasOutput));
+                                                            .Where(i => i.HydraulicBoundaryLocation == locationToRemove));
             expectedAffectedItems.AddRange(assessmentSection.Piping.Calculations
                                                             .Cast<IPipingCalculationScenario<PipingInput>>()
                                                             .Select(c => c.InputParameters)
-                                                            .Where(i => i.HydraulicBoundaryLocation != null));
-            expectedAffectedItems.AddRange(assessmentSection.StabilityPointStructures.Calculations
-                                                            .Cast<StructuresCalculation<StabilityPointStructuresInput>>()
-                                                            .Where(c => c.HasOutput));
+                                                            .Where(i => i.HydraulicBoundaryLocation == locationToRemove));
             expectedAffectedItems.AddRange(assessmentSection.StabilityPointStructures.Calculations
                                                             .Cast<StructuresCalculation<StabilityPointStructuresInput>>()
                                                             .Select(c => c.InputParameters)
-                                                            .Where(i => i.HydraulicBoundaryLocation != null));
-            expectedAffectedItems.AddRange(assessmentSection.StabilityStoneCover.Calculations
-                                                            .Cast<StabilityStoneCoverWaveConditionsCalculation>()
-                                                            .Where(c => c.HasOutput));
+                                                            .Where(i => i.HydraulicBoundaryLocation == locationToRemove));
             expectedAffectedItems.AddRange(assessmentSection.StabilityStoneCover.Calculations
                                                             .Cast<StabilityStoneCoverWaveConditionsCalculation>()
                                                             .Select(c => c.InputParameters)
-                                                            .Where(i => i.HydraulicBoundaryLocation != null));
-            expectedAffectedItems.AddRange(assessmentSection.WaveImpactAsphaltCover.Calculations
-                                                            .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
-                                                            .Where(c => c.HasOutput));
+                                                            .Where(i => i.HydraulicBoundaryLocation == locationToRemove));
             expectedAffectedItems.AddRange(assessmentSection.WaveImpactAsphaltCover.Calculations
                                                             .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
                                                             .Select(c => c.InputParameters)
-                                                            .Where(i => i.HydraulicBoundaryLocation != null));
-            expectedAffectedItems.AddRange(assessmentSection.MacroStabilityInwards.Calculations
-                                                            .Cast<MacroStabilityInwardsCalculation>()
-                                                            .Where(c => c.HasOutput));
+                                                            .Where(i => i.HydraulicBoundaryLocation == locationToRemove));
             expectedAffectedItems.AddRange(assessmentSection.MacroStabilityInwards.Calculations
                                                             .Cast<MacroStabilityInwardsCalculation>()
                                                             .Select(c => c.InputParameters)
-                                                            .Where(i => i.HydraulicBoundaryLocation != null));
+                                                            .Where(i => i.HydraulicBoundaryLocation == locationToRemove));
 
             // Call
             IEnumerable<IObservable> affectedItems = RiskeerDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(
-                assessmentSection, hydraulicBoundaryLocations);
+                assessmentSection, new[]
+                {
+                    locationToRemove
+                });
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
+            Assert.IsTrue(expectedAffectedCalculations.All(c => !c.HasOutput));
+
             Assert.IsTrue(assessmentSection.ClosingStructures.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>()
-                                           .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
+                                           .All(c => c.InputParameters.HydraulicBoundaryLocation != locationToRemove));
             Assert.IsTrue(assessmentSection.GrassCoverErosionInwards.Calculations.Cast<GrassCoverErosionInwardsCalculation>()
-                                           .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
+                                           .All(c => c.InputParameters.HydraulicBoundaryLocation != locationToRemove));
             Assert.IsTrue(assessmentSection.GrassCoverErosionOutwards.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
-                                           .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
+                                           .All(c => c.InputParameters.HydraulicBoundaryLocation != locationToRemove));
             Assert.IsTrue(assessmentSection.HeightStructures.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>()
-                                           .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
+                                           .All(c => c.InputParameters.HydraulicBoundaryLocation != locationToRemove));
             Assert.IsTrue(assessmentSection.Piping.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>()
                                            .Where(c => !c.InputParameters.UseAssessmentLevelManualInput)
-                                           .All(c => !c.HasOutput));
+                                           .All(c => c.InputParameters.HydraulicBoundaryLocation != locationToRemove));
             Assert.IsTrue(assessmentSection.Piping.Calculations.OfType<ProbabilisticPipingCalculationScenario>()
-                                           .All(c => !c.HasOutput));
+                                           .All(c => c.InputParameters.HydraulicBoundaryLocation != locationToRemove));
             Assert.IsTrue(assessmentSection.Piping.Calculations.Cast<IPipingCalculationScenario<PipingInput>>()
-                                           .All(c => c.InputParameters.HydraulicBoundaryLocation == null));
+                                           .All(c => c.InputParameters.HydraulicBoundaryLocation != locationToRemove));
             Assert.IsTrue(assessmentSection.StabilityPointStructures.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>()
-                                           .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
+                                           .All(c => c.InputParameters.HydraulicBoundaryLocation != locationToRemove));
             Assert.IsTrue(assessmentSection.StabilityStoneCover.Calculations.Cast<StabilityStoneCoverWaveConditionsCalculation>()
-                                           .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
+                                           .All(c => c.InputParameters.HydraulicBoundaryLocation != locationToRemove));
             Assert.IsTrue(assessmentSection.WaveImpactAsphaltCover.Calculations.Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
-                                           .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
+                                           .All(c => c.InputParameters.HydraulicBoundaryLocation != locationToRemove));
             Assert.IsTrue(assessmentSection.MacroStabilityInwards.Calculations.Cast<MacroStabilityInwardsCalculation>()
-                                           .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
+                                           .All(c => c.InputParameters.HydraulicBoundaryLocation != locationToRemove));
+
             CollectionAssert.AreEquivalent(expectedAffectedItems, affectedItems);
         }
 

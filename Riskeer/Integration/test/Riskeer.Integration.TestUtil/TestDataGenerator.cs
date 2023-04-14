@@ -69,7 +69,8 @@ namespace Riskeer.Integration.TestUtil
             AssessmentSectionComposition composition = AssessmentSectionComposition.Dike)
         {
             var random = new Random(21);
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
+            var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation();
             var assessmentSection = new AssessmentSection(composition)
             {
                 HydraulicBoundaryData =
@@ -80,7 +81,8 @@ namespace Riskeer.Integration.TestUtil
                         {
                             Locations =
                             {
-                                hydraulicBoundaryLocation
+                                hydraulicBoundaryLocation1,
+                                hydraulicBoundaryLocation2
                             }
                         }
                     }
@@ -92,7 +94,8 @@ namespace Riskeer.Integration.TestUtil
 
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
-                hydraulicBoundaryLocation
+                hydraulicBoundaryLocation1,
+                hydraulicBoundaryLocation2
             });
 
             assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
@@ -103,15 +106,15 @@ namespace Riskeer.Integration.TestUtil
             assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.First()
                              .HydraulicBoundaryLocationCalculations.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
 
-            SetFullyConfiguredFailureMechanism(assessmentSection.ClosingStructures, hydraulicBoundaryLocation);
-            SetFullyConfiguredFailureMechanism(assessmentSection.GrassCoverErosionInwards, hydraulicBoundaryLocation);
-            MacroStabilityInwardsTestDataGenerator.ConfigureFailureMechanismWithAllCalculationConfigurations(assessmentSection.MacroStabilityInwards, hydraulicBoundaryLocation);
-            SetFullyConfiguredFailureMechanism(assessmentSection.GrassCoverErosionOutwards, hydraulicBoundaryLocation);
-            SetFullyConfiguredFailureMechanism(assessmentSection.HeightStructures, hydraulicBoundaryLocation);
-            PipingTestDataGenerator.ConfigureFailureMechanismWithAllCalculationConfigurations(assessmentSection.Piping, hydraulicBoundaryLocation);
-            SetFullyConfiguredFailureMechanism(assessmentSection.StabilityPointStructures, hydraulicBoundaryLocation);
-            SetFullyConfiguredFailureMechanism(assessmentSection.StabilityStoneCover, hydraulicBoundaryLocation);
-            SetFullyConfiguredFailureMechanism(assessmentSection.WaveImpactAsphaltCover, hydraulicBoundaryLocation);
+            SetFullyConfiguredFailureMechanism(assessmentSection.ClosingStructures, hydraulicBoundaryLocation1);
+            SetFullyConfiguredFailureMechanism(assessmentSection.GrassCoverErosionInwards, hydraulicBoundaryLocation2);
+            MacroStabilityInwardsTestDataGenerator.ConfigureFailureMechanismWithAllCalculationConfigurations(assessmentSection.MacroStabilityInwards, hydraulicBoundaryLocation2);
+            SetFullyConfiguredFailureMechanism(assessmentSection.GrassCoverErosionOutwards, hydraulicBoundaryLocation1);
+            SetFullyConfiguredFailureMechanism(assessmentSection.HeightStructures, hydraulicBoundaryLocation1);
+            PipingTestDataGenerator.ConfigureFailureMechanismWithAllCalculationConfigurations(assessmentSection.Piping, hydraulicBoundaryLocation2);
+            SetFullyConfiguredFailureMechanism(assessmentSection.StabilityPointStructures, hydraulicBoundaryLocation1);
+            SetFullyConfiguredFailureMechanism(assessmentSection.StabilityStoneCover, hydraulicBoundaryLocation1);
+            SetFullyConfiguredFailureMechanism(assessmentSection.WaveImpactAsphaltCover, hydraulicBoundaryLocation1);
             SetFullyConfiguredFailureMechanism(assessmentSection.DuneErosion);
             SetFullyConfiguredFailureMechanism(assessmentSection.GrassCoverSlipOffInwards);
             SetFullyConfiguredFailureMechanism(assessmentSection.GrassCoverSlipOffOutwards);
