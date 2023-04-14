@@ -985,7 +985,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
                 var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
                 PipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
 
-                assessmentSection.HydraulicBoundaryData.FilePath = validHrdFilePath;
                 assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath = validHlcdFilePath;
                 assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(
                     new HydraulicBoundaryDatabase

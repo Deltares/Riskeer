@@ -108,7 +108,6 @@ namespace Riskeer.Piping.Service.Test
                 hydraulicBoundaryLocation2
             });
 
-            assessmentSection.HydraulicBoundaryData.FilePath = validHrdFilePath;
             assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath = validHlcdFilePath;
             assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(
                 new HydraulicBoundaryDatabase
@@ -271,7 +270,6 @@ namespace Riskeer.Piping.Service.Test
                 hydraulicBoundaryLocation2
             });
 
-            assessmentSection.HydraulicBoundaryData.FilePath = validHrdFilePath;
             assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath = validHlcdFilePath;
             assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(
                 new HydraulicBoundaryDatabase
@@ -522,7 +520,6 @@ namespace Riskeer.Piping.Service.Test
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             TestPipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
 
-            assessmentSection.HydraulicBoundaryData.FilePath = validHrdFilePath;
             assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath = validHlcdFilePath;
             assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(
                 new HydraulicBoundaryDatabase

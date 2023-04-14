@@ -898,7 +898,6 @@ namespace Riskeer.Revetment.Service.Test
         {
             return new HydraulicBoundaryData
             {
-                FilePath = validHrdFilePath,
                 HydraulicLocationConfigurationDatabase =
                 {
                     FilePath = validHlcdFilePath
