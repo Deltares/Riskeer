@@ -135,7 +135,7 @@ namespace Riskeer.HeightStructures.Service
         /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations to clear for.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of objects which are affected by removing data.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> ClearAllCalculationOutputAndHydraulicBoundaryLocations(
+        public static IEnumerable<IObservable> ClearCalculationOutputAndHydraulicBoundaryLocations(
             HeightStructuresFailureMechanism failureMechanism,
             IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
         {

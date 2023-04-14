@@ -110,7 +110,7 @@ namespace Riskeer.Integration.Service
                                                         grassCoverErosionOutwardsFailureMechanism, hydraulicBoundaryLocations));
                         break;
                     case HeightStructuresFailureMechanism heightStructuresFailureMechanism:
-                        changedObservables.AddRange(HeightStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(
+                        changedObservables.AddRange(HeightStructuresDataSynchronizationService.ClearCalculationOutputAndHydraulicBoundaryLocations(
                                                         heightStructuresFailureMechanism, hydraulicBoundaryLocations));
                         break;
                     case ClosingStructuresFailureMechanism closingStructuresFailureMechanism:

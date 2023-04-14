@@ -274,10 +274,10 @@ namespace Riskeer.HeightStructures.Service.Test
         }
 
         [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_FailureMechanismNull_ThrowsArgumentNullException()
+        public void ClearCalculationOutputAndHydraulicBoundaryLocations_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => HeightStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(
+            void Call() => HeightStructuresDataSynchronizationService.ClearCalculationOutputAndHydraulicBoundaryLocations(
                 null, Enumerable.Empty<HydraulicBoundaryLocation>());
 
             // Assert
@@ -286,10 +286,10 @@ namespace Riskeer.HeightStructures.Service.Test
         }
 
         [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_HydraulicBoundaryLocationsNull_ThrowsArgumentNullException()
+        public void ClearCalculationOutputAndHydraulicBoundaryLocations_HydraulicBoundaryLocationsNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => HeightStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(
+            void Call() => HeightStructuresDataSynchronizationService.ClearCalculationOutputAndHydraulicBoundaryLocations(
                 new HeightStructuresFailureMechanism(), null);
 
             // Assert
@@ -336,7 +336,7 @@ namespace Riskeer.HeightStructures.Service.Test
                                                        .Where(i => i.HydraulicBoundaryLocation == hydraulicBoundaryLocation1));
 
             // Call
-            IEnumerable<IObservable> affectedItems = HeightStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(
+            IEnumerable<IObservable> affectedItems = HeightStructuresDataSynchronizationService.ClearCalculationOutputAndHydraulicBoundaryLocations(
                 failureMechanism, new[]
                 {
                     hydraulicBoundaryLocation1
