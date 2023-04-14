@@ -167,7 +167,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_WithNotLinkedHydraulicBoundaryData_AddImportItem()
+        public void ContextMenuStrip_HydraulicBoundaryDataNotLinked_AddImportItem()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -222,7 +222,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_WithLinkedHydraulicBoundaryData_AddItemSelectDifferentFolder()
+        public void ContextMenuStrip_HydraulicBoundaryDataLinked_AddItemSelectDifferentFolder()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -260,7 +260,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ForeColor_HydraulicBoundaryDatabaseNotLinked_ReturnDisabledColor()
+        public void ForeColor_HydraulicBoundaryDataNotLinked_ReturnDisabledColor()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -280,7 +280,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ForeColor_HydraulicBoundaryDatabaseLinked_ReturnEnabledColor()
+        public void ForeColor_HydraulicBoundaryDataLinked_ReturnEnabledColor()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
@@ -310,7 +310,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_HydraulicBoundaryDatabaseNotLinked_ReturnsEmpty()
+        public void ChildNodeObjects_HydraulicBoundaryDataNotLinked_ReturnsEmpty()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -330,7 +330,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_HydraulicBoundaryDatabaseLinked_ReturnsChildrenOfData()
+        public void ChildNodeObjects_HydraulicBoundaryDataLinked_ReturnsChildrenOfData()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)

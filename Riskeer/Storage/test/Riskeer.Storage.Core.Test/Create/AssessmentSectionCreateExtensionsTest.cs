@@ -183,7 +183,7 @@ namespace Riskeer.Storage.Core.Test.Create
         }
 
         [Test]
-        public void Create_HydraulicBoundaryDatabaseNotLinked_SetsExpectedPropertiesToEntity()
+        public void Create_HydraulicBoundaryDataNotLinked_SetsExpectedPropertiesToEntity()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -200,7 +200,7 @@ namespace Riskeer.Storage.Core.Test.Create
         }
 
         [Test]
-        public void Create_HydraulicBoundaryDatabaseLinked_SetsExpectedPropertiesToEntity()
+        public void Create_HydraulicBoundaryDataLinked_SetsExpectedPropertiesToEntity()
         {
             // Setup
             var random = new Random(21);

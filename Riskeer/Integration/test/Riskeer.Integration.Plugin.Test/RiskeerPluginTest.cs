@@ -24,12 +24,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Windows.Media;
-using System.Windows.Threading;
 using Core.Common.Base;
 using Core.Common.Base.Storage;
 using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
-using Core.Common.TestUtil;
 using Core.Common.Util.Extensions;
 using Core.Gui;
 using Core.Gui.Forms.Main;
@@ -76,34 +74,6 @@ namespace Riskeer.Integration.Plugin.Test
                 // Assert
                 Assert.IsInstanceOf<PluginBase>(plugin);
             }
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
-        public void GivenPluginWithGuiSet_WhenProjectOnGuiChangesToProjectWithHydraulicBoundaryDatabaseNotLinked_ThenNoWarning()
-        {
-            // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            mocks.ReplayAll();
-
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
-            {
-                SetPlugins(gui);
-                gui.Run();
-
-                var project = new RiskeerProject(new AssessmentSection(AssessmentSectionComposition.Dike));
-
-                // When
-                void Action() => gui.SetProject(project, null);
-
-                // Then
-                TestHelper.AssertLogMessagesCount(Action, 0);
-            }
-
-            mocks.VerifyAll();
-            Dispatcher.CurrentDispatcher.InvokeShutdown();
         }
 
         [Test]

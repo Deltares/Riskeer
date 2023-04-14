@@ -233,9 +233,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase =
                 ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(readHydraulicBoundaryDatabase.TrackId);
 
-            // Precondition
-            Assert.IsFalse(hydraulicBoundaryData.IsLinked());
-
             // Call
             handler.AddHydraulicBoundaryDatabase(hydraulicBoundaryData, readHydraulicBoundaryDatabase, readHydraulicLocationConfigurationDatabase,
                                                  Enumerable.Empty<long>(), hrdFilePath);
@@ -283,9 +280,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase =
                 ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(readHydraulicBoundaryDatabase.TrackId);
 
-            // Precondition
-            Assert.IsFalse(hydraulicBoundaryData.IsLinked());
-
             // Call
             handler.AddHydraulicBoundaryDatabase(hydraulicBoundaryData, readHydraulicBoundaryDatabase, readHydraulicLocationConfigurationDatabase,
                                                  Enumerable.Empty<long>(), hrdFilePath);
@@ -327,9 +321,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 readHydraulicBoundaryDatabase.TrackId);
 
             var hydraulicBoundaryData = new HydraulicBoundaryData();
-
-            // Precondition
-            Assert.IsFalse(hydraulicBoundaryData.IsLinked());
 
             // Call
             handler.AddHydraulicBoundaryDatabase(hydraulicBoundaryData, readHydraulicBoundaryDatabase, readHydraulicLocationConfigurationDatabase,
