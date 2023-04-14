@@ -92,10 +92,10 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
         }
 
         [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_FailureMechanismNull_ThrowsArgumentNullException()
+        public void ClearCalculationOutputAndHydraulicBoundaryLocations_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => MacroStabilityInwardsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(
+            void Call() => MacroStabilityInwardsDataSynchronizationService.ClearCalculationOutputAndHydraulicBoundaryLocations(
                 null, Enumerable.Empty<HydraulicBoundaryLocation>());
 
             // Assert
@@ -104,10 +104,10 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
         }
 
         [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_HydraulicBoundaryLocationsNull_ThrowsArgumentNullException()
+        public void ClearCalculationOutputAndHydraulicBoundaryLocations_HydraulicBoundaryLocationsNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => MacroStabilityInwardsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(
+            void Call() => MacroStabilityInwardsDataSynchronizationService.ClearCalculationOutputAndHydraulicBoundaryLocations(
                 new MacroStabilityInwardsFailureMechanism(), null);
 
             // Assert
@@ -116,7 +116,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
         }
 
         [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_WithVariousCalculations_ClearsHydraulicBoundaryLocationAndCalculationsAndReturnsAffectedObjects()
+        public void ClearCalculationOutputAndHydraulicBoundaryLocations_WithVariousCalculations_ClearsHydraulicBoundaryLocationAndCalculationsAndReturnsAffectedObjects()
         {
             // Setup
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
@@ -157,7 +157,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
                                                        .Where(i => i.HydraulicBoundaryLocation == hydraulicBoundaryLocation));
 
             // Call
-            IEnumerable<IObservable> affectedItems = MacroStabilityInwardsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(
+            IEnumerable<IObservable> affectedItems = MacroStabilityInwardsDataSynchronizationService.ClearCalculationOutputAndHydraulicBoundaryLocations(
                 failureMechanism, new[]
                 {
                     hydraulicBoundaryLocation

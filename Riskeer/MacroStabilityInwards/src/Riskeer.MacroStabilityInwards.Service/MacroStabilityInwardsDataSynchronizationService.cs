@@ -62,7 +62,7 @@ namespace Riskeer.MacroStabilityInwards.Service
         /// <summary>
         /// Clears:
         /// <list type="bullet">
-        /// <item>The <see cref="HydraulicBoundaryLocation"/> for all the calculations in the <see cref="MacroStabilityInwardsFailureMechanism"/>
+        /// <item>The <see cref="HydraulicBoundaryLocation"/> for the calculations in the <see cref="MacroStabilityInwardsFailureMechanism"/>
         /// that uses an <see cref="HydraulicBoundaryLocation"/> from <paramref name="hydraulicBoundaryLocations"/>;</item>
         /// <item>The output for all these calculations in the <see cref="MacroStabilityInwardsFailureMechanism"/>,
         /// except where <see cref="MacroStabilityInwardsInput.UseAssessmentLevelManualInput"/> is <c>true</c>.</item>
@@ -72,7 +72,7 @@ namespace Riskeer.MacroStabilityInwards.Service
         /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations to clear for.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of objects which are affected by removing data.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> ClearAllCalculationOutputAndHydraulicBoundaryLocations(
+        public static IEnumerable<IObservable> ClearCalculationOutputAndHydraulicBoundaryLocations(
             MacroStabilityInwardsFailureMechanism failureMechanism,
             IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
         {
@@ -91,7 +91,7 @@ namespace Riskeer.MacroStabilityInwards.Service
                                                                           && hydraulicBoundaryLocations.Contains(c.InputParameters.HydraulicBoundaryLocation))
                                                               .SelectMany(RiskeerCommonDataSynchronizationService.ClearCalculationOutput)
                                                               .ToList();
-            
+
             foreach (MacroStabilityInwardsCalculation calculation in failureMechanism.Calculations.Cast<MacroStabilityInwardsCalculation>()
                                                                                      .Where(c => hydraulicBoundaryLocations.Contains(
                                                                                                 c.InputParameters.HydraulicBoundaryLocation)))
