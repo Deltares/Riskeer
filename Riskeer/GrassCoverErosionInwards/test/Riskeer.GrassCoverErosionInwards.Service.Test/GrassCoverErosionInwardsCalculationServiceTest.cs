@@ -56,7 +56,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             // Setup
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                new GrassCoverErosionInwardsFailureMechanism(), mockRepository, validHrdFilePath);
+                new GrassCoverErosionInwardsFailureMechanism(), mockRepository);
             mockRepository.ReplayAll();
 
             var calculation = new GrassCoverErosionInwardsCalculation
@@ -78,6 +78,42 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 Assert.AreEqual(3, msgs.Length);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 StringAssert.StartsWith("Er is geen hydraulische belastingenlocatie geselecteerd.", msgs[1]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+            });
+            Assert.IsFalse(isValid);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Validate_NoHydraulicBoundaryDatabase_LogsMessageAndReturnsFalse()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new GrassCoverErosionInwardsFailureMechanism(),
+                                                                                                           mockRepository);
+            mockRepository.ReplayAll();
+
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    DikeProfile = DikeProfileTestFactory.CreateDikeProfile()
+                }
+            };
+
+            // Call
+            var isValid = false;
+            void Call() => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
+
+            // Assert
+            TestHelper.AssertLogMessages(Call, messages =>
+            {
+                string[] msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                Assert.AreEqual("Er is geen hydraulische belastingendatabase geïmporteerd.", msgs[1]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
@@ -125,7 +161,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        public void Validate_ValidHydraulicBoundaryDatabaseWithoutSettings_LogsMessageAndReturnsFalse()
+        public void Validate_HydraulicBoundaryDatabaseWithoutSettings_LogsMessageAndReturnsFalse()
         {
             // Setup
             string invalidFilePath = Path.Combine(testDataPath, "HRD nosettings.sqlite");
@@ -156,42 +192,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 Assert.AreEqual(3, msgs.Length);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt. Fout bij het lezen van bestand", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
-            });
-            Assert.IsFalse(isValid);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Validate_WithoutImportedHydraulicBoundaryDatabase_LogsMessageAndReturnsFalse()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new GrassCoverErosionInwardsFailureMechanism(),
-                                                                                                           mockRepository);
-            mockRepository.ReplayAll();
-
-            var calculation = new GrassCoverErosionInwardsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
-                    DikeProfile = DikeProfileTestFactory.CreateDikeProfile()
-                }
-            };
-
-            // Call
-            var isValid = false;
-            void Call() => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
-
-            // Assert
-            TestHelper.AssertLogMessages(Call, messages =>
-            {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                Assert.AreEqual("Er is geen hydraulische belastingendatabase geïmporteerd.", msgs[1]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
