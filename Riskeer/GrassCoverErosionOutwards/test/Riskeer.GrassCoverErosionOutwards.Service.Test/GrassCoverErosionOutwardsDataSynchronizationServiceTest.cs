@@ -28,6 +28,7 @@ using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Service;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data.TestUtil;
@@ -65,29 +66,54 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
         public void ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations_WithVariousCalculations_ClearsOutputAndReturnsAffectedObjects()
         {
             // Setup
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
-            GrassCoverErosionOutwardsWaveConditionsCalculation[] calculations = failureMechanism.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>().ToArray();
-            IObservable[] expectedAffectedCalculations = calculations.Where(c => c.HasOutput)
-                                                                     .Cast<IObservable>()
-                                                                     .ToArray();
-            IObservable[] expectedAffectedCalculationInputs = calculations.Select(c => c.InputParameters)
-                                                                          .Where(i => i.HydraulicBoundaryLocation != null)
-                                                                          .Cast<IObservable>()
-                                                                          .ToArray();
+            var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
+            var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation();
+
+            GrassCoverErosionOutwardsFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism(hydraulicBoundaryLocation1);
+            failureMechanism.CalculationsGroup.Children.AddRange(new[]
+            {
+                new GrassCoverErosionOutwardsWaveConditionsCalculation
+                {
+                    InputParameters =
+                    {
+                        HydraulicBoundaryLocation = hydraulicBoundaryLocation2
+                    }
+                },
+                new GrassCoverErosionOutwardsWaveConditionsCalculation
+                {
+                    InputParameters =
+                    {
+                        HydraulicBoundaryLocation = hydraulicBoundaryLocation2
+                    },
+                    Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create()
+                }
+            });
+
+            GrassCoverErosionOutwardsWaveConditionsCalculation[] calculations = failureMechanism.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
+                                                                                                .ToArray();
+
+            IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> expectedAffectedCalculations = calculations.Where(
+                c => c.InputParameters.HydraulicBoundaryLocation == hydraulicBoundaryLocation1
+                     && c.HasOutput).ToArray();
+
+            var expectedAffectedItems = new List<IObservable>(expectedAffectedCalculations);
+            expectedAffectedItems.AddRange(calculations.Select(c => c.InputParameters)
+                                                       .Where(i => i.HydraulicBoundaryLocation == hydraulicBoundaryLocation1));
 
             // Call
             IEnumerable<IObservable> affectedItems = GrassCoverErosionOutwardsDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(
-                failureMechanism, Enumerable.Empty<HydraulicBoundaryLocation>());
+                failureMechanism, new[]
+                {
+                    hydraulicBoundaryLocation1
+                });
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
-            Assert.IsTrue(failureMechanism.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
-                                          .All(c => c.InputParameters.HydraulicBoundaryLocation == null
-                                                    && !c.HasOutput));
+            Assert.IsTrue(expectedAffectedCalculations.All(c => !c.HasOutput));
+            Assert.IsTrue(calculations.All(c => c.InputParameters.HydraulicBoundaryLocation != hydraulicBoundaryLocation1));
 
-            CollectionAssert.AreEquivalent(expectedAffectedCalculations.Concat(expectedAffectedCalculationInputs),
-                                           affectedItems);
+            CollectionAssert.AreEquivalent(expectedAffectedItems, affectedItems);
         }
 
         [Test]
@@ -164,7 +190,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             CollectionAssert.AreEquivalent(expectedRemovedObjects, results.RemovedObjects);
         }
 
-        private static GrassCoverErosionOutwardsFailureMechanism CreateFullyConfiguredFailureMechanism()
+        private static GrassCoverErosionOutwardsFailureMechanism CreateFullyConfiguredFailureMechanism(HydraulicBoundaryLocation hydraulicBoundaryLocation = null)
         {
             var section1 = new FailureMechanismSection("A", new[]
             {
@@ -184,7 +210,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                 section2
             }, "some/path/to/sections");
 
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
+            if (hydraulicBoundaryLocation == null)
+            {
+                hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            }
 
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
             var calculationWithOutput = new GrassCoverErosionOutwardsWaveConditionsCalculation

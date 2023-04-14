@@ -61,7 +61,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
             }
 
             var affectedItems = new List<IObservable>();
-            foreach (GrassCoverErosionOutwardsWaveConditionsCalculation calculation in failureMechanism.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>())
+            foreach (GrassCoverErosionOutwardsWaveConditionsCalculation calculation in failureMechanism.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
+                                                                                                       .Where(c => hydraulicBoundaryLocations.Contains(
+                                                                                                                  c.InputParameters.HydraulicBoundaryLocation)))
             {
                 affectedItems.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation));
                 affectedItems.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocation(calculation.InputParameters));
