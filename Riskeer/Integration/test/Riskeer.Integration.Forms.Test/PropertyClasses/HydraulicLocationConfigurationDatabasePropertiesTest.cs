@@ -214,8 +214,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                 LakeLevel = "LakeLevel",
                 WindDirection = "WindDirection",
                 WindSpeed = "WindSpeed",
-                Comment = "Comment",
-                UsePreprocessorClosure = true
+                Comment = "Comment"
             };
         }
     }

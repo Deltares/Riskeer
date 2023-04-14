@@ -95,8 +95,7 @@ namespace Riskeer.Integration.Service.Comparers
                    && hydraulicLocationConfigurationDatabase.LakeLevel == otherHydraulicLocationConfigurationDatabase.LakeLevel
                    && hydraulicLocationConfigurationDatabase.WindDirection == otherHydraulicLocationConfigurationDatabase.WindDirection
                    && hydraulicLocationConfigurationDatabase.WindSpeed == otherHydraulicLocationConfigurationDatabase.WindSpeed
-                   && hydraulicLocationConfigurationDatabase.Comment == otherHydraulicLocationConfigurationDatabase.Comment
-                   && hydraulicLocationConfigurationDatabase.UsePreprocessorClosure == otherHydraulicLocationConfigurationDatabase.UsePreprocessorClosure;
+                   && hydraulicLocationConfigurationDatabase.Comment == otherHydraulicLocationConfigurationDatabase.Comment;
         }
 
         private static bool AreFailureMechanismContributionsEquivalent(FailureMechanismContribution failureMechanismContribution,
