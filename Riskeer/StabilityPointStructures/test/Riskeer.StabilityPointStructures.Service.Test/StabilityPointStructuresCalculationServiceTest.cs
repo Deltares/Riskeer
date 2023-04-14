@@ -93,7 +93,8 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                     LoadSchematizationType = loadSchematizationType,
                     ForeshoreProfile = new TestForeshoreProfile(new BreakWater(BreakWaterType.Dam, breakWaterHeight)),
                     UseBreakWater = true,
-                    UseForeshore = true
+                    UseForeshore = true,
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First()
                 }
             };
 
@@ -134,7 +135,8 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                 InputParameters =
                 {
                     InflowModelType = StabilityPointStructureInflowModelType.LowSill,
-                    LoadSchematizationType = LoadSchematizationType.Linear
+                    LoadSchematizationType = LoadSchematizationType.Linear,
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First()
                 }
             };
 
@@ -213,7 +215,8 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                 InputParameters =
                 {
                     InflowModelType = StabilityPointStructureInflowModelType.LowSill,
-                    LoadSchematizationType = LoadSchematizationType.Quadratic
+                    LoadSchematizationType = LoadSchematizationType.Quadratic,
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First()
                 }
             };
 
@@ -292,7 +295,8 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                 InputParameters =
                 {
                     InflowModelType = StabilityPointStructureInflowModelType.FloodedCulvert,
-                    LoadSchematizationType = LoadSchematizationType.Linear
+                    LoadSchematizationType = LoadSchematizationType.Linear,
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First()
                 }
             };
 
@@ -373,7 +377,8 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                 InputParameters =
                 {
                     InflowModelType = StabilityPointStructureInflowModelType.FloodedCulvert,
-                    LoadSchematizationType = LoadSchematizationType.Quadratic
+                    LoadSchematizationType = LoadSchematizationType.Quadratic,
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First()
                 }
             };
 
@@ -452,7 +457,8 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             {
                 InputParameters =
                 {
-                    InflowModelType = (StabilityPointStructureInflowModelType) 100
+                    InflowModelType = (StabilityPointStructureInflowModelType) 100,
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First()
                 }
             };
 
@@ -486,7 +492,8 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                 InputParameters =
                 {
                     InflowModelType = inflowModelType,
-                    LoadSchematizationType = (LoadSchematizationType) 100
+                    LoadSchematizationType = (LoadSchematizationType) 100,
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First()
                 }
             };
 
