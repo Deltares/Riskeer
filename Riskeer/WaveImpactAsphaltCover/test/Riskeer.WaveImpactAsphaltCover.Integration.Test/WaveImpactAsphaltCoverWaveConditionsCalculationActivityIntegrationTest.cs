@@ -558,7 +558,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Integration.Test
             {
                 HydraulicBoundaryData =
                 {
-                    FilePath = validHrdFilePath,
                     HydraulicLocationConfigurationDatabase =
                     {
                         FilePath = validHlcdFilePath,

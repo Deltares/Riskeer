@@ -39,11 +39,6 @@ namespace Riskeer.Common.Data.Hydraulics
         }
 
         /// <summary>
-        /// Gets or sets the file path of the hydraulic boundary database.
-        /// </summary>
-        public string FilePath { get; set; }
-
-        /// <summary>
         /// Gets or sets the version of the hydraulic boundary database.
         /// </summary>
         public string Version { get; set; }

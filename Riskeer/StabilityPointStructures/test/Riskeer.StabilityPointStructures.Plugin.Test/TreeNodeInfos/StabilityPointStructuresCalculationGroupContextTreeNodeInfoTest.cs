@@ -354,18 +354,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculationScenario<StabilityPointStructuresInput>());
 
-            var hydraulicBoundaryData = new HydraulicBoundaryData
-            {
-                FilePath = validHrdFilePath,
-                HydraulicLocationConfigurationDatabase =
-                {
-                    FilePath = validHlcdFilePath
-                },
-                Version = "1.0"
-            };
-
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
 
             var nodeData = new StabilityPointStructuresCalculationGroupContext(group,
                                                                                null,
@@ -1404,7 +1393,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = validHrdFilePath,
                 HydraulicLocationConfigurationDatabase =
                 {
                     FilePath = validHlcdFilePath

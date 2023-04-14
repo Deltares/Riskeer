@@ -706,18 +706,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 group.Children.Add(new StabilityStoneCoverWaveConditionsCalculation());
                 failureMechanism.CalculationsGroup.Children.Add(group);
 
-                var hydraulicBoundaryData = new HydraulicBoundaryData
-                {
-                    FilePath = validHrdFilePath,
-                    HydraulicLocationConfigurationDatabase =
-                    {
-                        FilePath = validHlcdFilePath,
-                        UsePreprocessorClosure = usePreprocessorClosure
-                    }
-                };
-
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
 
                 var nodeData = new StabilityStoneCoverCalculationGroupContext(group,
                                                                               failureMechanism.CalculationsGroup,
@@ -1578,7 +1567,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             {
                 HydraulicBoundaryData =
                 {
-                    FilePath = validHrdFilePath,
                     HydraulicLocationConfigurationDatabase =
                     {
                         FilePath = validHlcdFilePath,

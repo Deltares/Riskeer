@@ -484,19 +484,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_AddCustomItems()
         {
             // Setup
-            var hydraulicBoundaryData = new HydraulicBoundaryData
-            {
-                FilePath = validHrdFilePath,
-                HydraulicLocationConfigurationDatabase =
-                {
-                    FilePath = validHlcdFilePath
-                },
-                Version = "random"
-            };
-
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
-
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var parent = new CalculationGroup();
             var calculation = new StabilityStoneCoverWaveConditionsCalculation();
@@ -558,18 +546,8 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             // Given
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
-            var hydraulicBoundaryData = new HydraulicBoundaryData
-            {
-                FilePath = validHrdFilePath,
-                HydraulicLocationConfigurationDatabase =
-                {
-                    FilePath = validHlcdFilePath
-                }
-            };
-
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
-
+            
             var parent = new CalculationGroup();
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
@@ -956,18 +934,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             // Given
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
-            var hydraulicBoundaryData = new HydraulicBoundaryData
-            {
-                FilePath = validHrdFilePath,
-                HydraulicLocationConfigurationDatabase =
-                {
-                    FilePath = validHlcdFilePath,
-                    UsePreprocessorClosure = usePreprocessorClosure
-                }
-            };
-
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
 
             var parent = new CalculationGroup();
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
@@ -1285,7 +1252,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             {
                 HydraulicBoundaryData =
                 {
-                    FilePath = validHrdFilePath,
                     HydraulicLocationConfigurationDatabase =
                     {
                         FilePath = validHlcdFilePath,

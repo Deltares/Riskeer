@@ -298,7 +298,6 @@ namespace Riskeer.StabilityStoneCover.Service.Test
             {
                 HydraulicBoundaryData =
                 {
-                    FilePath = validHrdFilePath,
                     HydraulicLocationConfigurationDatabase =
                     {
                         FilePath = validHlcdFilePath

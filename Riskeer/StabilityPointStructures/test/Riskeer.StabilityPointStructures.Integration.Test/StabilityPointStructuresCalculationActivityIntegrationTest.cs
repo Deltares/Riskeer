@@ -56,13 +56,7 @@ namespace Riskeer.StabilityPointStructures.Integration.Test
         public void Run_CalculationInvalidInput_LogValidationStartAndEndWithError()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-            {
-                HydraulicBoundaryData =
-                {
-                    FilePath = Path.Combine(testDataPath, "notexisting.sqlite")
-                }
-            };
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
@@ -308,7 +302,6 @@ namespace Riskeer.StabilityPointStructures.Integration.Test
             {
                 HydraulicBoundaryData =
                 {
-                    FilePath = validHrdFilePath,
                     HydraulicLocationConfigurationDatabase =
                     {
                         FilePath = validHlcdFilePath,

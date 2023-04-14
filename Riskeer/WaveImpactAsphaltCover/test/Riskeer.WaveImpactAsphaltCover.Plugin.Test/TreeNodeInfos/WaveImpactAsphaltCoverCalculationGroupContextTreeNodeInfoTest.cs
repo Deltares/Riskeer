@@ -717,19 +717,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_AllRequiredInputSet_CalculateAllAndValidateAllEnabled(bool usePreprocessorClosure)
         {
             // Setup
-            var hydraulicBoundaryData = new HydraulicBoundaryData
-            {
-                FilePath = validHrdFilePath,
-                HydraulicLocationConfigurationDatabase =
-                {
-                    FilePath = validHlcdFilePath,
-                    UsePreprocessorClosure = usePreprocessorClosure
-                }
-            };
-
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
-
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var group = new CalculationGroup();
             group.Children.Add(new WaveImpactAsphaltCoverWaveConditionsCalculation());
@@ -1598,7 +1586,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             {
                 HydraulicBoundaryData =
                 {
-                    FilePath = validHrdFilePath,
                     HydraulicLocationConfigurationDatabase =
                     {
                         FilePath = validHlcdFilePath,
