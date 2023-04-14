@@ -111,16 +111,15 @@ namespace Riskeer.Common.Data.TestUtil
                 hydraulicBoundaryData.HydraulicBoundaryDatabases.Add(new HydraulicBoundaryDatabase
                 {
                     FilePath = hrdFilePath,
+                    UsePreprocessorClosure = usePreprocessorClosure,
                     Locations =
                     {
                         new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
                     },
-                    UsePreprocessorClosure = usePreprocessorClosure
                 });
 
                 HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase = hydraulicBoundaryData.HydraulicLocationConfigurationDatabase;
                 hydraulicLocationConfigurationDatabase.FilePath = Path.Combine(Path.GetDirectoryName(hrdFilePath), "hlcd.sqlite");
-                hydraulicLocationConfigurationDatabase.UsePreprocessorClosure = usePreprocessorClosure;
             }
 
             return hydraulicBoundaryData;

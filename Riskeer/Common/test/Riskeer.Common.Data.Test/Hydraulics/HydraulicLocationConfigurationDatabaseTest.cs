@@ -44,7 +44,6 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             Assert.IsNull(hydraulicLocationConfigurationDatabase.WindDirection);
             Assert.IsNull(hydraulicLocationConfigurationDatabase.WindSpeed);
             Assert.IsNull(hydraulicLocationConfigurationDatabase.Comment);
-            Assert.IsFalse(hydraulicLocationConfigurationDatabase.UsePreprocessorClosure);
         }
     }
 }
