@@ -354,15 +354,6 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekeningen konden niet worden gestart. {0}.
-        /// </summary>
-        public static string CalculateHydraulicBoundaryLocation_Start_calculation_failed_0_ {
-            get {
-                return ResourceManager.GetString("CalculateHydraulicBoundaryLocation_Start_calculation_failed_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap CalculateIcon {

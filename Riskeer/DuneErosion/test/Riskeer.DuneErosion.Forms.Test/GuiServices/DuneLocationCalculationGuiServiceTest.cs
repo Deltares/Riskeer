@@ -97,38 +97,6 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
         }
 
         [Test]
-        public void Calculate_HydraulicBoundaryDatabaseDoesNotExist_LogsError()
-        {
-            // Setup
-            var hydraulicBoundaryData = new HydraulicBoundaryData
-            {
-                FilePath = "Does not exist"
-            };
-
-            var mocks = new MockRepository();
-            var viewParent = mocks.Stub<IViewParent>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryData)
-                             .Return(hydraulicBoundaryData);
-            mocks.ReplayAll();
-
-            var guiService = new DuneLocationCalculationGuiService(viewParent);
-
-            // Call
-            void Call() => guiService.Calculate(Enumerable.Empty<DuneLocationCalculation>(), assessmentSection, 0.01, "1/100");
-
-            // Assert
-            TestHelper.AssertLogMessages(Call, messages =>
-            {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(1, msgs.Length);
-                StringAssert.StartsWith("Berekeningen konden niet worden gestart. ", msgs.First());
-            });
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void Calculate_ValidPathEmptyCalculationList_NoLog()
         {
             // Setup

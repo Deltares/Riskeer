@@ -23,10 +23,7 @@ using System;
 using System.Collections.Generic;
 using Core.Gui.Forms;
 using Core.Gui.Forms.ProgressDialog;
-using log4net;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.Hydraulics;
-using Riskeer.Common.IO.HydraRing;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Service;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
@@ -38,7 +35,6 @@ namespace Riskeer.DuneErosion.Forms.GuiServices
     /// </summary>
     public class DuneLocationCalculationGuiService
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(DuneLocationCalculationGuiService));
         private readonly IViewParent viewParent;
 
         /// <summary>
@@ -81,25 +77,8 @@ namespace Riskeer.DuneErosion.Forms.GuiServices
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            string hrdFilePath = assessmentSection.HydraulicBoundaryData.FilePath;
-            HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase = assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase;
-
-            string validationProblem = HydraulicBoundaryDataHelper.ValidateFilesForCalculation(hrdFilePath,
-                                                                                               hydraulicLocationConfigurationDatabase.FilePath,
-                                                                                               hydraulicLocationConfigurationDatabase.UsePreprocessorClosure);
-
-            if (!string.IsNullOrEmpty(validationProblem))
-            {
-                log.ErrorFormat(RiskeerCommonFormsResources.CalculateHydraulicBoundaryLocation_Start_calculation_failed_0_,
-                                validationProblem);
-                return;
-            }
-
-            ActivityProgressDialogRunner.Run(viewParent,
-                                             DuneLocationCalculationActivityFactory.CreateCalculationActivities(calculations,
-                                                                                                                assessmentSection,
-                                                                                                                targetProbability,
-                                                                                                                calculationIdentifier));
+            ActivityProgressDialogRunner.Run(viewParent, DuneLocationCalculationActivityFactory.CreateCalculationActivities(
+                                                 calculations, assessmentSection, targetProbability, calculationIdentifier));
         }
     }
 }
