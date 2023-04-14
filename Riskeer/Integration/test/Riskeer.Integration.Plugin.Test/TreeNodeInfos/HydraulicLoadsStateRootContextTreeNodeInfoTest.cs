@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -32,7 +31,6 @@ using Core.Gui.TestUtil.ContextMenu;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.DuneErosion.Forms.PresentationObjects.HydraulicLoadsState;
@@ -247,28 +245,12 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_HydraulicBoundaryDatabaseLinked_ContextMenuItemCalculateAllEnabled()
+        public void ContextMenuStrip_Always_AddCustomItems()
         {
             // Setup
             using (var treeView = new TreeViewControl())
             {
-                string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Forms, "HydraulicBoundaryData");
-                var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-                {
-                    HydraulicBoundaryData =
-                    {
-                        FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite"),
-                        HydraulicLocationConfigurationDatabase =
-                        {
-                            FilePath = Path.Combine(testDataPath, "hlcd.sqlite")
-                        }
-                    }
-                };
-                assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
-                {
-                    new TestHydraulicBoundaryLocation()
-                });
-
+                var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
                 var context = new HydraulicLoadsStateRootContext(assessmentSection);
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
