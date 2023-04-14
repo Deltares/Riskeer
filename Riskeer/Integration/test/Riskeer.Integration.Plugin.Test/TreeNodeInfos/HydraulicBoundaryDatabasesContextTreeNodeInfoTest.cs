@@ -196,7 +196,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                         Assert.AreEqual(6, contextMenuStrip.Items.Count);
 
                         TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip, contextMenuImportHydraulicBoundaryDatabaseIndex,
-                                                                      "HRD bestand toevoegen",
+                                                                      "HRD bestand toevoegen...",
                                                                       "Voeg een nieuw HRD bestand toe aan deze map.",
                                                                       RiskeerCommonFormsResources.DatabaseIcon);
                     }

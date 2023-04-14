@@ -337,7 +337,7 @@ Weet u zeker dat u wilt doorgaan?</value>
         <value>HLCD bestand</value>
     </data>
     <data name="ContextMenuStrip_Add_HydraulicBoundaryDatabase" xml:space="preserve">
-        <value>HRD bestand toevoegen</value>
+        <value>HRD bestand toevoegen...</value>
     </data>
     <data name="ContextMenuStrip_Add_HydraulicBoundaryDatabase_ToolTip" xml:space="preserve">
         <value>Voeg een nieuw HRD bestand toe aan deze map.</value>
