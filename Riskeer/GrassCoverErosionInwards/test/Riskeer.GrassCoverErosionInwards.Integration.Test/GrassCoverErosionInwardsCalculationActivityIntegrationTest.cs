@@ -54,16 +54,10 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
 
         [Test]
-        public void Run_InvalidHydraulicBoundaryDatabase_LogValidationStartAndEndWithError()
+        public void Run_CalculationInvalidInput_LogValidationStartAndEndWithError()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-            {
-                HydraulicBoundaryData =
-                {
-                    FilePath = Path.Combine(testDataPath, "notexisting.sqlite")
-                }
-            };
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {
