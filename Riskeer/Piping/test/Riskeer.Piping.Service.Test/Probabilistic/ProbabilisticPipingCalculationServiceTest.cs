@@ -159,7 +159,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validHrdFilePath);
+                failureMechanism, mocks);
             mocks.ReplayAll();
 
             calculation.InputParameters.HydraulicBoundaryLocation = null;
@@ -178,6 +178,39 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
                 Assert.AreEqual(3, msgs.Length);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 StringAssert.StartsWith("Er is geen hydraulische belastingenlocatie geselecteerd.", msgs[1]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+            });
+            Assert.IsFalse(isValid);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Validate_NoHydraulicBoundaryDatabase_LogsMessageAndReturnsFalse()
+        {
+            // Setup
+            var failureMechanism = new PipingFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
+                failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            calculation.InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2);
+
+            // Call
+            var isValid = false;
+
+            void Call() => isValid = ProbabilisticPipingCalculationService.Validate(calculation,
+                                                                                    failureMechanism,
+                                                                                    assessmentSection);
+
+            // Assert
+            TestHelper.AssertLogMessages(Call, messages =>
+            {
+                string[] msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                Assert.AreEqual("Er is geen hydraulische belastingendatabase geïmporteerd.", msgs[1]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
@@ -220,7 +253,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         }
 
         [Test]
-        public void Validate_ValidHydraulicBoundaryDatabaseWithoutSettings_LogsMessageAndReturnsFalse()
+        public void Validate_HydraulicBoundaryDatabaseWithoutSettings_LogsMessageAndReturnsFalse()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -255,39 +288,6 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         }
 
         [Test]
-        public void Validate_WithoutImportedHydraulicBoundaryDatabase_LogsMessageAndReturnsFalse()
-        {
-            // Setup
-            var failureMechanism = new PipingFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks);
-            mocks.ReplayAll();
-
-            calculation.InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2);
-
-            // Call
-            var isValid = false;
-
-            void Call() => isValid = ProbabilisticPipingCalculationService.Validate(calculation,
-                                                                                    failureMechanism,
-                                                                                    assessmentSection);
-
-            // Assert
-            TestHelper.AssertLogMessages(Call, messages =>
-            {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                Assert.AreEqual("Er is geen hydraulische belastingendatabase geïmporteerd.", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
-            });
-            Assert.IsFalse(isValid);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void Validate_InvalidCalculationInput_LogsMessagesAndReturnsFalse()
         {
             // Setup
@@ -301,7 +301,15 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             // Call
             var isValid = false;
 
-            void Call() => isValid = ProbabilisticPipingCalculationService.Validate(new TestProbabilisticPipingCalculation(),
+            var probabilisticPipingCalculation = new TestProbabilisticPipingCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+                }
+            };
+
+            void Call() => isValid = ProbabilisticPipingCalculationService.Validate(probabilisticPipingCalculation,
                                                                                     failureMechanism,
                                                                                     assessmentSection);
 
@@ -309,14 +317,13 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             TestHelper.AssertLogMessages(Call, messages =>
             {
                 string[] msgs = messages.ToArray();
-                Assert.AreEqual(7, msgs.Length);
+                Assert.AreEqual(6, msgs.Length);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                Assert.AreEqual("Er is geen hydraulische belastingenlocatie geselecteerd.", msgs[1]);
-                Assert.AreEqual("Er is geen profielschematisatie geselecteerd.", msgs[2]);
-                Assert.AreEqual("Er is geen ondergrondschematisatie geselecteerd.", msgs[3]);
-                Assert.AreEqual("De waarde voor 'uittredepunt' moet een concreet getal zijn.", msgs[4]);
-                Assert.AreEqual("De waarde voor 'intredepunt' moet een concreet getal zijn.", msgs[5]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[6]);
+                Assert.AreEqual("Er is geen profielschematisatie geselecteerd.", msgs[1]);
+                Assert.AreEqual("Er is geen ondergrondschematisatie geselecteerd.", msgs[2]);
+                Assert.AreEqual("De waarde voor 'uittredepunt' moet een concreet getal zijn.", msgs[3]);
+                Assert.AreEqual("De waarde voor 'intredepunt' moet een concreet getal zijn.", msgs[4]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[5]);
             });
             Assert.IsFalse(isValid);
             mocks.VerifyAll();
