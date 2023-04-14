@@ -70,7 +70,7 @@ namespace Riskeer.Common.Service.Test
         }
 
         [Test]
-        public void Validate_HydraulicBoundaryLocationNotPartOfLinkedHydraulicBoundaryData_ThrowsArgumentException()
+        public void Validate_HydraulicBoundaryLocationNotPartOfHydraulicBoundaryData_ThrowsArgumentException()
         {
             // Setup
             var hydraulicBoundaryData = new HydraulicBoundaryData
@@ -90,7 +90,7 @@ namespace Riskeer.Common.Service.Test
         }
 
         [Test]
-        public void Validate_HydraulicBoundaryDataLinkedToNotExistingDatabaseFile_ReturnsErrorMessage()
+        public void Validate_HydraulicBoundaryDatabaseNotExisting_ReturnsErrorMessage()
         {
             // Setup
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
@@ -123,7 +123,7 @@ namespace Riskeer.Common.Service.Test
         }
 
         [Test]
-        public void Validate_HydraulicBoundaryDataLinkedToExistingDatabaseFileWithoutSettings_ReturnsErrorMessage()
+        public void Validate_HydraulicBoundaryDatabaseWithoutSettings_ReturnsErrorMessage()
         {
             // Setup
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
@@ -195,7 +195,7 @@ namespace Riskeer.Common.Service.Test
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Validate_HydraulicBoundaryDataLinkedToValidDatabaseFile_ReturnsNull(bool usePreprocessorClosure)
+        public void Validate_ValidHydraulicBoundaryData_ReturnsNull(bool usePreprocessorClosure)
         {
             // Setup
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
