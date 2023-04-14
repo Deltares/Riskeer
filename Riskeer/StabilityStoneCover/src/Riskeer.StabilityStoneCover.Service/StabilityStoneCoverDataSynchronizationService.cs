@@ -60,7 +60,9 @@ namespace Riskeer.StabilityStoneCover.Service
             }
 
             var affectedItems = new List<IObservable>();
-            foreach (StabilityStoneCoverWaveConditionsCalculation calculation in failureMechanism.Calculations.Cast<StabilityStoneCoverWaveConditionsCalculation>())
+            foreach (StabilityStoneCoverWaveConditionsCalculation calculation in failureMechanism.Calculations.Cast<StabilityStoneCoverWaveConditionsCalculation>()
+                                                                                                 .Where(c => hydraulicBoundaryLocations.Contains(
+                                                                                                            c.InputParameters.HydraulicBoundaryLocation)))
             {
                 affectedItems.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation));
                 affectedItems.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocation(calculation.InputParameters));

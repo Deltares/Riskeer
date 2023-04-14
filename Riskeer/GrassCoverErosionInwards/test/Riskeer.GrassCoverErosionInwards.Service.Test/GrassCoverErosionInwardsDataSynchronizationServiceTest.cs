@@ -99,6 +99,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             // Setup
             var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
             var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation();
+            
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism(hydraulicBoundaryLocation1);
             failureMechanism.CalculationsGroup.Children.AddRange(new[]
             {
