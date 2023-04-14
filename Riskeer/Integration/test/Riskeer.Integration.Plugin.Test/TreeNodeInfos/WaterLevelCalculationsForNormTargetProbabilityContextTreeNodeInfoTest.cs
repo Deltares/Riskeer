@@ -553,14 +553,14 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 {
                     HydraulicLocationConfigurationDatabase =
                     {
-                        FilePath = validHlcdFilePath,
-                        UsePreprocessorClosure = true
+                        FilePath = validHlcdFilePath
                     },
                     HydraulicBoundaryDatabases =
                     {
                         new HydraulicBoundaryDatabase
                         {
                             FilePath = validHrdFilePath,
+                            UsePreprocessorClosure = true,
                             Locations =
                             {
                                 hydraulicBoundaryLocation

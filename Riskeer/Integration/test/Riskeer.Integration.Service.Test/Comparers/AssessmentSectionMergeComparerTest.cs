@@ -175,7 +175,6 @@ namespace Riskeer.Integration.Service.Test.Comparers
             hydraulicLocationConfigurationDatabase.WindDirection = "WindDirection";
             hydraulicLocationConfigurationDatabase.WindSpeed = "WindSpeed";
             hydraulicLocationConfigurationDatabase.Comment = "Comment";
-            hydraulicLocationConfigurationDatabase.UsePreprocessorClosure = false;
         }
 
         private static IEnumerable<TestCaseData> GetUnequivalentAssessmentSectionWithoutHydraulicLocationConfigurationDatabaseTestCases()
@@ -294,13 +293,6 @@ namespace Riskeer.Integration.Service.Test.Comparers
                                                                                             hydraulicLocationConfigurationDatabase.Comment = "Other Comment";
                                                                                         },
                                                                                         "Different Comment");
-            yield return new ChangePropertyData<HydraulicLocationConfigurationDatabase>(hydraulicLocationConfigurationDatabase =>
-                                                                                        {
-                                                                                            ConfigureHydraulicLocationConfigurationDatabase(hydraulicLocationConfigurationDatabase);
-
-                                                                                            hydraulicLocationConfigurationDatabase.UsePreprocessorClosure = true;
-                                                                                        },
-                                                                                        "Different UsePreprocessorClosure");
         }
     }
 }

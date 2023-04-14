@@ -447,14 +447,14 @@ namespace Riskeer.Integration.IO.Test.Importers
                     LakeLevel = "LakeLevel",
                     WindDirection = "WindDirection",
                     WindSpeed = "WindSpeed",
-                    Comment = "Comment",
-                    UsePreprocessorClosure = false
+                    Comment = "Comment"
                 },
                 HydraulicBoundaryDatabases =
                 {
                     new HydraulicBoundaryDatabase
                     {
-                        FilePath = validHrdFilePath
+                        FilePath = validHrdFilePath,
+                        UsePreprocessorClosure = false
                     }
                 }
             };

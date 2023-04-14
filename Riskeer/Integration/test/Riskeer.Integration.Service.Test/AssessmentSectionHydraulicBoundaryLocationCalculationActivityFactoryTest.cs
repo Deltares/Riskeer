@@ -419,7 +419,8 @@ namespace Riskeer.Integration.Service.Test
         {
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                FilePath = validHrdFilePath
+                FilePath = validHrdFilePath,
+                UsePreprocessorClosure = usePreprocessorClosure
             };
 
             hydraulicBoundaryDatabase.Locations.AddRange(hydraulicBoundaryLocations);
@@ -430,8 +431,7 @@ namespace Riskeer.Integration.Service.Test
                 {
                     HydraulicLocationConfigurationDatabase =
                     {
-                        FilePath = validHlcdFilePath,
-                        UsePreprocessorClosure = usePreprocessorClosure
+                        FilePath = validHlcdFilePath
                     },
                     HydraulicBoundaryDatabases =
                     {
