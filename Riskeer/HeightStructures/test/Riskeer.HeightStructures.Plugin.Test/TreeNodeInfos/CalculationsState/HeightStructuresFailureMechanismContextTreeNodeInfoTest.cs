@@ -475,30 +475,50 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos.CalculationsState
         public void ContextMenuStrip_ClickOnValidateAllItem_ValidateAllChildCalculations()
         {
             // Setup
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new TestHeightStructuresCalculationScenario
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+            var failureMechanism = new HeightStructuresFailureMechanism
             {
-                Name = "A",
-                InputParameters =
+                CalculationsGroup =
                 {
-                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+                    Children =
+                    {
+                        new TestHeightStructuresCalculationScenario
+                        {
+                            Name = "A",
+                            InputParameters =
+                            {
+                                HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                            }
+                        },
+                        new TestHeightStructuresCalculationScenario
+                        {
+                            Name = "B",
+                            InputParameters =
+                            {
+                                HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                            }
+                        }
+                    }
                 }
-            });
-            failureMechanism.CalculationsGroup.Children.Add(new TestHeightStructuresCalculationScenario
-            {
-                Name = "B",
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
-                }
-            });
+            };
 
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = validHrdFilePath,
                 HydraulicLocationConfigurationDatabase =
                 {
                     FilePath = validHlcdFilePath
+                },
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        FilePath = validHrdFilePath,
+                        Locations =
+                        {
+                            hydraulicBoundaryLocation
+                        }
+                    }
                 }
             };
 

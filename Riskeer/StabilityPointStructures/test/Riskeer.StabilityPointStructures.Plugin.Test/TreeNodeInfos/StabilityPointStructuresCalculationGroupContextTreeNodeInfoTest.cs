@@ -1500,34 +1500,54 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             // Setup
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new TestStabilityPointStructuresCalculationScenario
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism
             {
-                Name = "A",
-                InputParameters =
+                CalculationsGroup =
                 {
-                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
-                    InflowModelType = StabilityPointStructureInflowModelType.LowSill,
-                    LoadSchematizationType = LoadSchematizationType.Linear
+                    Children =
+                    {
+                        new TestStabilityPointStructuresCalculationScenario
+                        {
+                            Name = "A",
+                            InputParameters =
+                            {
+                                HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                                InflowModelType = StabilityPointStructureInflowModelType.LowSill,
+                                LoadSchematizationType = LoadSchematizationType.Linear
+                            }
+                        },
+                        new TestStabilityPointStructuresCalculationScenario
+                        {
+                            Name = "B",
+                            InputParameters =
+                            {
+                                HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                                InflowModelType = StabilityPointStructureInflowModelType.LowSill,
+                                LoadSchematizationType = LoadSchematizationType.Linear
+                            }
+                        }
+                    }
                 }
-            });
-            failureMechanism.CalculationsGroup.Children.Add(new TestStabilityPointStructuresCalculationScenario
-            {
-                Name = "B",
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
-                    InflowModelType = StabilityPointStructureInflowModelType.LowSill,
-                    LoadSchematizationType = LoadSchematizationType.Linear
-                }
-            });
+            };
 
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = validHrdFilePath,
                 HydraulicLocationConfigurationDatabase =
                 {
                     FilePath = validHlcdFilePath
+                },
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        FilePath = validHrdFilePath,
+                        Locations =
+                        {
+                            hydraulicBoundaryLocation
+                        }
+                    }
                 }
             };
 
