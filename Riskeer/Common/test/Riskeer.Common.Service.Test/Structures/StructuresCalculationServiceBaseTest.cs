@@ -102,7 +102,13 @@ namespace Riskeer.Common.Service.Test.Structures
                                                                                                            Path.Combine(testDataPath, "notexisting.sqlite"));
             mocks.ReplayAll();
 
-            var calculation = new TestStructuresCalculation();
+            var calculation = new TestStructuresCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+                }
+            };
 
             var isValid = true;
 
@@ -134,7 +140,13 @@ namespace Riskeer.Common.Service.Test.Structures
                                                                                                            Path.Combine(testDataPath, "HRD nosettings.sqlite"));
             mocks.ReplayAll();
 
-            var calculation = new TestStructuresCalculation();
+            var calculation = new TestStructuresCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+                }
+            };
 
             var isValid = false;
 
@@ -165,10 +177,18 @@ namespace Riskeer.Common.Service.Test.Structures
                                                                                                            mocks);
             mocks.ReplayAll();
 
+            var calculation = new TestStructuresCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+                }
+            };
+
             var isValid = false;
 
             // Call
-            void Call() => isValid = TestStructuresCalculationService.Validate(new TestStructuresCalculation(), assessmentSection);
+            void Call() => isValid = TestStructuresCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
