@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
@@ -68,7 +67,6 @@ namespace Riskeer.Integration.TestUtil
         public static AssessmentSection GetAssessmentSectionWithAllCalculationConfigurations(
             AssessmentSectionComposition composition = AssessmentSectionComposition.Dike)
         {
-            var random = new Random(21);
             var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
             var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation();
             var assessmentSection = new AssessmentSection(composition)
@@ -98,13 +96,10 @@ namespace Riskeer.Integration.TestUtil
                 hydraulicBoundaryLocation2
             });
 
-            assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
-            assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
-
-            assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.First()
-                             .HydraulicBoundaryLocationCalculations.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
-            assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.First()
-                             .HydraulicBoundaryLocationCalculations.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
+            SetHydraulicBoundaryLocationCalculationsOutput(assessmentSection.WaterLevelCalculationsForSignalFloodingProbability);
+            SetHydraulicBoundaryLocationCalculationsOutput(assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability);
+            SetHydraulicBoundaryLocationCalculationsOutput(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.SelectMany(p => p.HydraulicBoundaryLocationCalculations));
+            SetHydraulicBoundaryLocationCalculationsOutput(assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.SelectMany(p => p.HydraulicBoundaryLocationCalculations));
 
             SetFullyConfiguredFailureMechanism(assessmentSection.ClosingStructures, hydraulicBoundaryLocation1);
             SetFullyConfiguredFailureMechanism(assessmentSection.GrassCoverErosionInwards, hydraulicBoundaryLocation2);
@@ -313,6 +308,14 @@ namespace Riskeer.Integration.TestUtil
             }
 
             return assessmentSection;
+        }
+
+        private static void SetHydraulicBoundaryLocationCalculationsOutput(IEnumerable<HydraulicBoundaryLocationCalculation> locationCalculations)
+        {
+            foreach (HydraulicBoundaryLocationCalculation calculation in locationCalculations)
+            {
+                calculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(0);
+            }
         }
 
         private static void SetFullyConfiguredFailureMechanism(GrassCoverErosionInwardsFailureMechanism failureMechanism,
