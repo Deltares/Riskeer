@@ -126,19 +126,27 @@ namespace Riskeer.HeightStructures.Service
         }
 
         /// <summary>
-        /// Clears the <see cref="HydraulicBoundaryLocation"/> and output for all the calculations
-        /// in the <see cref="HeightStructuresFailureMechanism"/>.
+        /// Clears the <see cref="HydraulicBoundaryLocation"/> and output for the calculations in the
+        /// <see cref="HeightStructuresFailureMechanism"/> that uses an <see cref="HydraulicBoundaryLocation"/>
+        /// from <paramref name="hydraulicBoundaryLocations"/>.
         /// </summary>
         /// <param name="failureMechanism">The <see cref="HeightStructuresFailureMechanism"/>
         /// which contains the calculations.</param>
+        /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations to clear for.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of objects which are affected by removing data.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
-        /// is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> ClearAllCalculationOutputAndHydraulicBoundaryLocations(HeightStructuresFailureMechanism failureMechanism)
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> ClearAllCalculationOutputAndHydraulicBoundaryLocations(
+            HeightStructuresFailureMechanism failureMechanism,
+            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
         {
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (hydraulicBoundaryLocations == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
             }
 
             var affectedItems = new List<IObservable>();
