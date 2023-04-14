@@ -60,8 +60,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service
         }
 
         /// <summary>
-        /// Clears the <see cref="HydraulicBoundaryLocation"/> and output for all the calculations
-        /// in the <see cref="GrassCoverErosionInwardsFailureMechanism"/> that uses an <see cref="HydraulicBoundaryLocation"/>
+        /// Clears the <see cref="HydraulicBoundaryLocation"/> and output for the calculations in the
+        /// <see cref="GrassCoverErosionInwardsFailureMechanism"/> that uses an <see cref="HydraulicBoundaryLocation"/>
         /// from <paramref name="hydraulicBoundaryLocations"/>.
         /// </summary>
         /// <param name="failureMechanism">The <see cref="GrassCoverErosionInwardsFailureMechanism"/>
@@ -69,8 +69,9 @@ namespace Riskeer.GrassCoverErosionInwards.Service
         /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations to clear for.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of objects which are affected by removal of data.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> ClearAllCalculationOutputAndHydraulicBoundaryLocations(GrassCoverErosionInwardsFailureMechanism failureMechanism,
-                                                                                                      IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
+        public static IEnumerable<IObservable> ClearCalculationOutputAndHydraulicBoundaryLocations(
+            GrassCoverErosionInwardsFailureMechanism failureMechanism,
+            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
         {
             if (failureMechanism == null)
             {
