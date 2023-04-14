@@ -122,7 +122,8 @@ namespace Riskeer.Integration.Service
                                                         stabilityPointStructuresFailureMechanism, hydraulicBoundaryLocations));
                         break;
                     case MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism:
-                        changedObservables.AddRange(MacroStabilityInwardsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(macroStabilityInwardsFailureMechanism));
+                        changedObservables.AddRange(MacroStabilityInwardsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(
+                                                        macroStabilityInwardsFailureMechanism, hydraulicBoundaryLocations));
                         break;
                 }
             }
