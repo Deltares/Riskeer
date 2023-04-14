@@ -88,8 +88,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service
                                                                                         .Where(c => hydraulicBoundaryLocations.Contains(
                                                                                                    c.InputParameters.HydraulicBoundaryLocation)))
             {
-                affectedItems.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation)
-                                                                              .Concat(ClearHydraulicBoundaryLocation(calculation.InputParameters)));
+                affectedItems.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation));
+                affectedItems.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocation(calculation.InputParameters));
             }
 
             return affectedItems;
@@ -254,20 +254,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service
                 return new[]
                 {
                     inputParameters
-                };
-            }
-
-            return Enumerable.Empty<IObservable>();
-        }
-
-        private static IEnumerable<IObservable> ClearHydraulicBoundaryLocation(GrassCoverErosionInwardsInput input)
-        {
-            if (input.HydraulicBoundaryLocation != null)
-            {
-                input.HydraulicBoundaryLocation = null;
-                return new[]
-                {
-                    input
                 };
             }
 
