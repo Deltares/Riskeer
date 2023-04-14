@@ -112,7 +112,7 @@ namespace Riskeer.Common.Data.Test.Hydraulics
                     new HydraulicBoundaryDatabase
                     {
                         FilePath = hrdFilePath1,
-                        UsePreprocessorClosure = usePreprocessorClosure,
+                        UsePreprocessorClosure = !usePreprocessorClosure,
                         Locations =
                         {
                             hydraulicBoundaryLocation1
@@ -121,6 +121,7 @@ namespace Riskeer.Common.Data.Test.Hydraulics
                     new HydraulicBoundaryDatabase
                     {
                         FilePath = hrdFilePath2,
+                        UsePreprocessorClosure = usePreprocessorClosure,
                         Locations =
                         {
                             hydraulicBoundaryLocation2
