@@ -47,7 +47,7 @@ namespace Riskeer.Common.Data.Hydraulics
         public string Version { get; set; }
 
         /// <summary>
-        /// Gets the indicator whether to use the preprocessor closure.
+        /// Gets or sets the indicator whether to use the preprocessor closure.
         /// </summary>
         public bool UsePreprocessorClosure { get; set; }
 

@@ -75,10 +75,5 @@ namespace Riskeer.Common.Data.Hydraulics
         /// Gets or sets the comment.
         /// </summary>
         public string Comment { get; set; }
-
-        /// <summary>
-        /// Gets or sets the indicator whether to use the preprocessor closure.
-        /// </summary>
-        public bool UsePreprocessorClosure { get; set; }
     }
 }
