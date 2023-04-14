@@ -61,22 +61,31 @@ namespace Riskeer.GrassCoverErosionInwards.Service
 
         /// <summary>
         /// Clears the <see cref="HydraulicBoundaryLocation"/> and output for all the calculations
-        /// in the <see cref="GrassCoverErosionInwardsFailureMechanism"/>.
+        /// in the <see cref="GrassCoverErosionInwardsFailureMechanism"/> that uses an <see cref="HydraulicBoundaryLocation"/>
+        /// from <paramref name="hydraulicBoundaryLocations"/>.
         /// </summary>
         /// <param name="failureMechanism">The <see cref="GrassCoverErosionInwardsFailureMechanism"/>
         /// which contains the calculations.</param>
+        /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations to clear for.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of objects which are affected by removal of data.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
-        /// is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> ClearAllCalculationOutputAndHydraulicBoundaryLocations(GrassCoverErosionInwardsFailureMechanism failureMechanism)
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> ClearAllCalculationOutputAndHydraulicBoundaryLocations(GrassCoverErosionInwardsFailureMechanism failureMechanism,
+                                                                                                      IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
         {
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
+            if (hydraulicBoundaryLocations == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
+            }
+
             var affectedItems = new List<IObservable>();
-            foreach (GrassCoverErosionInwardsCalculation calculation in failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>())
+            foreach (GrassCoverErosionInwardsCalculation calculation in failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>()
+                                                                                        .Where(c => hydraulicBoundaryLocations.Contains(
+                                                                                                   c.InputParameters.HydraulicBoundaryLocation)))
             {
                 affectedItems.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation)
                                                                               .Concat(ClearHydraulicBoundaryLocation(calculation.InputParameters)));
