@@ -36,20 +36,28 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
     public static class GrassCoverErosionOutwardsDataSynchronizationService
     {
         /// <summary>
-        /// Clears the <see cref="HydraulicBoundaryLocation"/> and output for all the wave conditions calculations
-        /// in the <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
+        /// Clears the <see cref="HydraulicBoundaryLocation"/> and output for the wave conditions calculations
+        /// in the <see cref="GrassCoverErosionOutwardsFailureMechanism"/> that uses an <see cref="HydraulicBoundaryLocation"/>
+        /// from <paramref name="hydraulicBoundaryLocations"/>.
         /// </summary>
         /// <param name="failureMechanism">The <see cref="GrassCoverErosionOutwardsFailureMechanism"/>
         /// which contains the calculations.</param>
+        /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations to clear for.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of objects which are affected by removal of data.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// is <c>null</c>.</exception>
         public static IEnumerable<IObservable> ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+            GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
         {
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (hydraulicBoundaryLocations == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
             }
 
             var affectedItems = new List<IObservable>();
