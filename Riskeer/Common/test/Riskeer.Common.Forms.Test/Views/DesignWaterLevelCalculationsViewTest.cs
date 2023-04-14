@@ -369,16 +369,10 @@ namespace Riskeer.Common.Forms.Test.Views
         public void CalculateForSelectedButton_Always_CalculateDesignWaterLevelsCalledAsExpected()
         {
             // Setup
-            const string databaseFilePath = "DatabaseFilePath";
             const double targetProbability = 0.01;
             const string calculationIdentifier = "1/100";
 
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            var hydraulicBoundaryData = new HydraulicBoundaryData
-            {
-                FilePath = databaseFilePath
-            };
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
             assessmentSection.Stub(a => a.Id).Return(string.Empty);
             assessmentSection.Stub(a => a.FailureMechanismContribution)
                              .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());

@@ -280,8 +280,6 @@ namespace Riskeer.Common.Service.Test
         {
             HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryData;
 
-            hydraulicBoundaryData.FilePath = validHrdFilePath;
-
             HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase = hydraulicBoundaryData.HydraulicLocationConfigurationDatabase;
             hydraulicLocationConfigurationDatabase.FilePath = validHlcdFilePath;
             hydraulicLocationConfigurationDatabase.UsePreprocessorClosure = usePreprocessorClosure;

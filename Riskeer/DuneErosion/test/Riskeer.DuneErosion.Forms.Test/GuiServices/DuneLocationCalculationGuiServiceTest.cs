@@ -100,19 +100,8 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
         public void Calculate_ValidPathEmptyCalculationList_NoLog()
         {
             // Setup
-            var hydraulicBoundaryData = new HydraulicBoundaryData
-            {
-                FilePath = validHrdFilePath,
-                HydraulicLocationConfigurationDatabase =
-                {
-                    FilePath = validHlcdFilePath
-                }
-            };
-
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryData)
-                             .Return(hydraulicBoundaryData);
             mocks.ReplayAll();
 
             using (var viewParent = new TestViewParentForm())
@@ -140,7 +129,6 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
 
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = validHrdFilePath,
                 HydraulicLocationConfigurationDatabase =
                 {
                     FilePath = validHlcdFilePath,
