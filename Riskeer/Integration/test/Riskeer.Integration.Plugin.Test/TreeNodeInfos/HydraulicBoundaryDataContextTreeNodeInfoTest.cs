@@ -287,9 +287,13 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             {
                 HydraulicBoundaryData =
                 {
-                    FilePath = "databaseFile"
+                    HydraulicLocationConfigurationDatabase =
+                    {
+                        FilePath = "databaseFile"
+                    }
                 }
             };
+
             var hydraulicBoundaryDataContext = new HydraulicBoundaryDataContext(assessmentSection.HydraulicBoundaryData,
                                                                                 assessmentSection);
 
@@ -333,9 +337,13 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             {
                 HydraulicBoundaryData =
                 {
-                    FilePath = "databaseFile"
+                    HydraulicLocationConfigurationDatabase =
+                    {
+                        FilePath = "databaseFile"
+                    }
                 }
             };
+
             var hydraulicBoundaryDataContext = new HydraulicBoundaryDataContext(assessmentSection.HydraulicBoundaryData,
                                                                                 assessmentSection);
 
