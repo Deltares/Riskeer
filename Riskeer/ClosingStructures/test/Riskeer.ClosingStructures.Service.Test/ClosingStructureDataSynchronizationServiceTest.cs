@@ -274,10 +274,10 @@ namespace Riskeer.ClosingStructures.Service.Test
         }
 
         [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_FailureMechanismNull_ThrowsArgumentNullException()
+        public void ClearCalculationOutputAndHydraulicBoundaryLocations_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => ClosingStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(
+            void Call() => ClosingStructuresDataSynchronizationService.ClearCalculationOutputAndHydraulicBoundaryLocations(
                 null, Enumerable.Empty<HydraulicBoundaryLocation>());
 
             // Assert
@@ -286,10 +286,10 @@ namespace Riskeer.ClosingStructures.Service.Test
         }
 
         [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_HydraulicBoundaryLocationsNull_ThrowsArgumentNullException()
+        public void ClearCalculationOutputAndHydraulicBoundaryLocations_HydraulicBoundaryLocationsNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => ClosingStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(
+            void Call() => ClosingStructuresDataSynchronizationService.ClearCalculationOutputAndHydraulicBoundaryLocations(
                 new ClosingStructuresFailureMechanism(), null);
 
             // Assert
@@ -298,7 +298,7 @@ namespace Riskeer.ClosingStructures.Service.Test
         }
 
         [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_WithVariousCalculations_ClearsHydraulicBoundaryLocationAndCalculationsAndReturnsAffectedObjects()
+        public void ClearCalculationOutputAndHydraulicBoundaryLocations_WithVariousCalculations_ClearsHydraulicBoundaryLocationAndCalculationsAndReturnsAffectedObjects()
         {
             // Setup
             var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
@@ -336,7 +336,7 @@ namespace Riskeer.ClosingStructures.Service.Test
                                                        .Where(i => i.HydraulicBoundaryLocation == hydraulicBoundaryLocation1));
 
             // Call
-            IEnumerable<IObservable> affectedItems = ClosingStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(
+            IEnumerable<IObservable> affectedItems = ClosingStructuresDataSynchronizationService.ClearCalculationOutputAndHydraulicBoundaryLocations(
                 failureMechanism, new[]
                 {
                     hydraulicBoundaryLocation1
