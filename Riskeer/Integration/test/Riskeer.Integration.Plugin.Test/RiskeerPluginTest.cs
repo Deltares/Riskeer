@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Media;
@@ -101,90 +100,6 @@ namespace Riskeer.Integration.Plugin.Test
 
                 // Then
                 TestHelper.AssertLogMessagesCount(Action, 0);
-            }
-
-            mocks.VerifyAll();
-            Dispatcher.CurrentDispatcher.InvokeShutdown();
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
-        public void GivenPluginWithGuiSet_WhenProjectOnGuiChangesToProjectWithHydraulicBoundaryDatabaseLinkedToExistingLocation_ThenNoWarning()
-        {
-            // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            mocks.ReplayAll();
-
-            string testDataDir = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryData));
-            string hrdFilePath = Path.Combine(testDataDir, "complete.sqlite");
-            string hlcdFilePath = Path.Combine(testDataDir, "hlcd.sqlite");
-
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
-            {
-                SetPlugins(gui);
-                gui.Run();
-
-                var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-                {
-                    HydraulicBoundaryData =
-                    {
-                        FilePath = hrdFilePath,
-                        HydraulicLocationConfigurationDatabase =
-                        {
-                            FilePath = hlcdFilePath
-                        }
-                    }
-                };
-
-                var project = new RiskeerProject(assessmentSection);
-
-                // When
-                void Action() => gui.SetProject(project, null);
-
-                // Then
-                TestHelper.AssertLogMessagesCount(Action, 0);
-            }
-
-            mocks.VerifyAll();
-            Dispatcher.CurrentDispatcher.InvokeShutdown();
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
-        public void GivenPluginWithGuiSet_WhenProjectOnGuiChangesToProjectWithHydraulicBoundaryDatabaseLinkedToNonExistingLocation_ThenWarning()
-        {
-            // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            mocks.ReplayAll();
-
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
-            {
-                SetPlugins(gui);
-                gui.Run();
-
-                const string nonExistingFile = "not_existing_file";
-                var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-                {
-                    HydraulicBoundaryData =
-                    {
-                        FilePath = nonExistingFile
-                    }
-                };
-                var project = new RiskeerProject(assessmentSection);
-
-                // When
-                void Action() => gui.SetProject(project, null);
-
-                // Then
-                var fileMissingMessage = $"Fout bij het lezen van bestand '{nonExistingFile}': het bestand bestaat niet.";
-                string message = string.Format(
-                    RiskeerCommonServiceResources.Hydraulic_boundary_database_connection_failed_0_,
-                    fileMissingMessage);
-                TestHelper.AssertLogMessageWithLevelIsGenerated(Action, Tuple.Create(message, LogLevelConstant.Warn));
             }
 
             mocks.VerifyAll();

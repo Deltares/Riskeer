@@ -28,7 +28,6 @@ using System.IO.Packaging;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
 using Core.Common.Util;
@@ -41,7 +40,6 @@ using Core.Gui.Forms.ProgressDialog;
 using Core.Gui.Forms.ViewHost;
 using Core.Gui.Helpers;
 using Core.Gui.Plugin;
-using log4net;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssemblyTool;
@@ -63,7 +61,6 @@ using Riskeer.Common.Forms.UpdateInfos;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Common.IO.FileImporters;
 using Riskeer.Common.IO.FileImporters.MessageProviders;
-using Riskeer.Common.IO.HydraRing;
 using Riskeer.Common.IO.ReferenceLines;
 using Riskeer.Common.Plugin;
 using Riskeer.Common.Plugin.FileImporters;
@@ -129,8 +126,6 @@ namespace Riskeer.Integration.Plugin
     /// </summary>
     public class RiskeerPlugin : PluginBase
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(PluginBase));
-
         private static readonly FontFamily fontFamily = new FontFamily(
             new Uri($"{PackUriHelper.UriSchemePack}://application:,,,/Riskeer.Integration.Plugin;component/Resources/"),
             "./#Symbols");
@@ -147,7 +142,6 @@ namespace Riskeer.Integration.Plugin
             {
                 if (base.Gui != null)
                 {
-                    base.Gui.ProjectOpened -= VerifyHydraulicBoundaryDatabasePath;
                     base.Gui.ViewHost.ViewOpened -= OnViewOpened;
                     base.Gui.ViewHost.ViewClosed -= OnViewClosed;
                 }
@@ -156,7 +150,6 @@ namespace Riskeer.Integration.Plugin
 
                 if (value != null)
                 {
-                    value.ProjectOpened += VerifyHydraulicBoundaryDatabasePath;
                     base.Gui.ViewHost.ViewOpened += OnViewOpened;
                     base.Gui.ViewHost.ViewClosed += OnViewClosed;
                 }
@@ -1194,31 +1187,6 @@ namespace Riskeer.Integration.Plugin
                                                                                  .AddOpenItem()
                                                                                  .Build()
             };
-        }
-
-        private static void VerifyHydraulicBoundaryDatabasePath(IProject project)
-        {
-            var riskeerProject = project as RiskeerProject;
-            if (riskeerProject == null)
-            {
-                return;
-            }
-
-            AssessmentSection assessmentSection = riskeerProject.AssessmentSection;
-            if (assessmentSection.HydraulicBoundaryData.IsLinked())
-            {
-                string validationProblem = HydraulicBoundaryDataHelper.ValidateFilesForCalculation(
-                    assessmentSection.HydraulicBoundaryData.FilePath,
-                    assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath,
-                    assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase.UsePreprocessorClosure);
-
-                if (validationProblem != null)
-                {
-                    log.WarnFormat(
-                        RiskeerCommonServiceResources.Hydraulic_boundary_database_connection_failed_0_,
-                        validationProblem);
-                }
-            }
         }
 
         private void OnViewOpened(object sender, ViewChangeEventArgs e)
