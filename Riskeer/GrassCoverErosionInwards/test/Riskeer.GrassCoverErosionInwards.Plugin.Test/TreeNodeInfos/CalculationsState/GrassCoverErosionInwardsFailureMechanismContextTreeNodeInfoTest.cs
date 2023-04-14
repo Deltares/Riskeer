@@ -466,32 +466,52 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos.Calculation
             // Setup
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
             {
-                Name = "A",
-                InputParameters =
+                CalculationsGroup =
                 {
-                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
-                    DikeProfile = DikeProfileTestFactory.CreateDikeProfile()
+                    Children =
+                    {
+                        new GrassCoverErosionInwardsCalculation
+                        {
+                            Name = "A",
+                            InputParameters =
+                            {
+                                HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                                DikeProfile = DikeProfileTestFactory.CreateDikeProfile()
+                            }
+                        },
+                        new GrassCoverErosionInwardsCalculation
+                        {
+                            Name = "B",
+                            InputParameters =
+                            {
+                                HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                                DikeProfile = DikeProfileTestFactory.CreateDikeProfile()
+                            }
+                        }
+                    }
                 }
-            });
-            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation
-            {
-                Name = "B",
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
-                    DikeProfile = DikeProfileTestFactory.CreateDikeProfile()
-                }
-            });
+            };
 
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = validHrdFilePath,
                 HydraulicLocationConfigurationDatabase =
                 {
                     FilePath = validHlcdFilePath
+                },
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        FilePath = validHrdFilePath,
+                        Locations =
+                        {
+                            hydraulicBoundaryLocation
+                        }
+                    }
                 }
             };
 
