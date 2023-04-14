@@ -594,11 +594,22 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.CalculationsState
             using (var treeViewControl = new TreeViewControl())
             {
                 var assessmentSection = new AssessmentSectionStub();
+
                 var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
                 TestPipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
 
-                assessmentSection.HydraulicBoundaryData.FilePath = validHrdFilePath;
                 assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath = validHlcdFilePath;
+
+                assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(new HydraulicBoundaryDatabase
+                {
+                    FilePath = validHrdFilePath,
+                    Locations =
+                    {
+                        hydraulicBoundaryLocation
+                    }
+                });
+
                 assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
                 {
                     hydraulicBoundaryLocation

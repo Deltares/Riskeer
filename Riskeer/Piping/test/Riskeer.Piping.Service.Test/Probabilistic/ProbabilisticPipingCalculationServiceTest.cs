@@ -61,7 +61,6 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
         private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "Hlcd.sqlite");
 
-        private double testSurfaceLineTopLevel;
         private ProbabilisticPipingCalculation calculation;
 
         [SetUp]
@@ -69,7 +68,6 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         {
             calculation = ProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<TestProbabilisticPipingCalculation>(
                 new TestHydraulicBoundaryLocation());
-            testSurfaceLineTopLevel = calculation.InputParameters.SurfaceLine.Points.Max(p => p.Z);
         }
 
         #region Validate
@@ -504,7 +502,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             const int belowPhreaticLevelShift = 10;
             const double belowPhreaticLevelMeanBase = 15.0;
 
-            var topCoverageLayer = new PipingSoilLayer(testSurfaceLineTopLevel)
+            var topCoverageLayer = new PipingSoilLayer(GetSurfaceLineTopLevel(calculation))
             {
                 IsAquifer = false,
                 BelowPhreaticLevel = new LogNormalDistribution
@@ -604,7 +602,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
                 }
             };
 
-            var completeLayer = new PipingSoilLayer(testSurfaceLineTopLevel)
+            var completeLayer = new PipingSoilLayer(GetSurfaceLineTopLevel(calculation))
             {
                 IsAquifer = false,
                 BelowPhreaticLevel = new LogNormalDistribution
@@ -679,7 +677,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
                 }
             };
 
-            var completeLayer = new PipingSoilLayer(testSurfaceLineTopLevel)
+            var completeLayer = new PipingSoilLayer(GetSurfaceLineTopLevel(calculation))
             {
                 IsAquifer = false,
                 BelowPhreaticLevel = new LogNormalDistribution
@@ -736,7 +734,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             mocks.ReplayAll();
 
             var random = new Random(21);
-            var incompletePipingSoilLayer = new PipingSoilLayer(testSurfaceLineTopLevel)
+            var incompletePipingSoilLayer = new PipingSoilLayer(GetSurfaceLineTopLevel(calculation))
             {
                 IsAquifer = false,
                 BelowPhreaticLevel = new LogNormalDistribution
@@ -809,7 +807,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
                 failureMechanism, mocks, validHrdFilePath);
             mocks.ReplayAll();
 
-            var topCoverageLayer = new PipingSoilLayer(testSurfaceLineTopLevel)
+            var topCoverageLayer = new PipingSoilLayer(GetSurfaceLineTopLevel(calculation))
             {
                 IsAquifer = false,
                 BelowPhreaticLevel = new LogNormalDistribution
@@ -885,7 +883,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
                 failureMechanism, mocks, validHrdFilePath);
             mocks.ReplayAll();
 
-            var coverageLayerInvalidSaturatedVolumicWeight = new PipingSoilLayer(testSurfaceLineTopLevel)
+            var coverageLayerInvalidSaturatedVolumicWeight = new PipingSoilLayer(GetSurfaceLineTopLevel(calculation))
             {
                 IsAquifer = false,
                 BelowPhreaticLevel = new LogNormalDistribution
@@ -1025,6 +1023,11 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             }, "path/to/sections");
 
             return failureMechanism;
+        }
+
+        private static double GetSurfaceLineTopLevel(ProbabilisticPipingCalculation calculation)
+        {
+            return calculation.InputParameters.SurfaceLine.Points.Max(p => p.Z);
         }
 
         #endregion
