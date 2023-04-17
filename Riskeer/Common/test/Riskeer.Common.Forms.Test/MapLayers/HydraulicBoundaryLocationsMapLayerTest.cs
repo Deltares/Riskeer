@@ -73,7 +73,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
         }
 
         [Test]
-        public void GivenMapLayerWithHydraulicBoundaryLocations_WhenChangingHydraulicBoundaryLocationsDataAndObserversNotified_ThenMapDataUpdated()
+        public void GivenMapLayerWithHydraulicBoundaryLocations_WhenChangingHydraulicBoundaryDatabaseAndObserversNotified_ThenMapDataUpdated()
         {
             // Given
             var mocks = new MockRepository();
@@ -82,9 +82,18 @@ namespace Riskeer.Common.Forms.Test.MapLayers
             mocks.ReplayAll();
 
             var assessmentSection = new AssessmentSectionStub();
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            ObservableList<HydraulicBoundaryDatabase> hydraulicBoundaryDatabases = assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases;
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
+            hydraulicBoundaryDatabases.Add(new HydraulicBoundaryDatabase
             {
-                new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0)
+                Locations =
+                {
+                    hydraulicBoundaryLocation
+                }
+            });
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new []
+            {
+                hydraulicBoundaryLocation
             });
 
             using (var mapLayer = new HydraulicBoundaryLocationsMapLayer(assessmentSection))
@@ -95,11 +104,21 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
 
                 // When
-                assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+                hydraulicBoundaryDatabases.Clear();
+                var newHydraulicBoundaryLocation = new HydraulicBoundaryLocation(2, "test2", 2.0, 3.0);
+                hydraulicBoundaryDatabases.Add(new HydraulicBoundaryDatabase
                 {
-                    new HydraulicBoundaryLocation(2, "test2", 2.0, 3.0)
+                    Locations =
+                    {
+                        newHydraulicBoundaryLocation
+                    }
                 });
-                assessmentSection.HydraulicBoundaryData.Locations.NotifyObservers();
+                assessmentSection.SetHydraulicBoundaryLocationCalculations(new []
+                {
+                    newHydraulicBoundaryLocation
+                });
+                
+                hydraulicBoundaryDatabases.NotifyObservers();
 
                 // Then
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
@@ -117,10 +136,26 @@ namespace Riskeer.Common.Forms.Test.MapLayers
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var assessmentSection = new AssessmentSectionStub();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
+            var assessmentSection = new AssessmentSectionStub
+            {
+                HydraulicBoundaryData =
+                {
+                    HydraulicBoundaryDatabases =
+                    {
+                        new HydraulicBoundaryDatabase
+                        {
+                            Locations =
+                            {
+                                hydraulicBoundaryLocation
+                            }
+                        }
+                    }
+                }
+            };
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
-                new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0)
+                hydraulicBoundaryLocation
             });
 
             using (var mapLayer = new HydraulicBoundaryLocationsMapLayer(assessmentSection))
@@ -156,7 +191,22 @@ namespace Riskeer.Common.Forms.Test.MapLayers
             mocks.ReplayAll();
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
-            var assessmentSection = new AssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub
+            {
+                HydraulicBoundaryData =
+                {
+                    HydraulicBoundaryDatabases =
+                    {
+                        new HydraulicBoundaryDatabase
+                        {
+                            Locations =
+                            {
+                                hydraulicBoundaryLocation
+                            }
+                        }
+                    }
+                }
+            };
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
@@ -193,7 +243,22 @@ namespace Riskeer.Common.Forms.Test.MapLayers
             mocks.ReplayAll();
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
-            var assessmentSection = new AssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub
+            {
+                HydraulicBoundaryData =
+                {
+                    HydraulicBoundaryDatabases =
+                    {
+                        new HydraulicBoundaryDatabase
+                        {
+                            Locations =
+                            {
+                                hydraulicBoundaryLocation
+                            }
+                        }
+                    }
+                }
+            };
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
@@ -209,7 +274,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 // When
                 ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> targetProbabilities = getTargetProbabilitiesFunc(assessmentSection);
                 var newTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
-                newTargetProbability.HydraulicBoundaryLocationCalculations.AddRange(assessmentSection.HydraulicBoundaryData.Locations
+                newTargetProbability.HydraulicBoundaryLocationCalculations.AddRange(assessmentSection.HydraulicBoundaryData.GetLocations()
                                                                                                      .Select(l => new HydraulicBoundaryLocationCalculation(l)));
                 targetProbabilities.Add(newTargetProbability);
                 targetProbabilities.NotifyObservers();
@@ -233,7 +298,22 @@ namespace Riskeer.Common.Forms.Test.MapLayers
             mocks.ReplayAll();
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
-            var assessmentSection = new AssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub
+            {
+                HydraulicBoundaryData =
+                {
+                    HydraulicBoundaryDatabases =
+                    {
+                        new HydraulicBoundaryDatabase
+                        {
+                            Locations =
+                            {
+                                hydraulicBoundaryLocation
+                            }
+                        }
+                    }
+                }
+            };
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
@@ -270,7 +350,22 @@ namespace Riskeer.Common.Forms.Test.MapLayers
             mocks.ReplayAll();
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
-            var assessmentSection = new AssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub
+            {
+                HydraulicBoundaryData =
+                {
+                    HydraulicBoundaryDatabases =
+                    {
+                        new HydraulicBoundaryDatabase
+                        {
+                            Locations =
+                            {
+                                hydraulicBoundaryLocation
+                            }
+                        }
+                    }
+                }
+            };
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
@@ -280,7 +375,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
             {
                 ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> targetProbabilities = getTargetProbabilitiesFunc(assessmentSection);
                 var newTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
-                newTargetProbability.HydraulicBoundaryLocationCalculations.AddRange(assessmentSection.HydraulicBoundaryData.Locations
+                newTargetProbability.HydraulicBoundaryLocationCalculations.AddRange(assessmentSection.HydraulicBoundaryData.GetLocations()
                                                                                                      .Select(l => new HydraulicBoundaryLocationCalculation(l))
                                                                                                      .ToArray());
                 targetProbabilities.Add(newTargetProbability);
@@ -314,7 +409,22 @@ namespace Riskeer.Common.Forms.Test.MapLayers
             mocks.ReplayAll();
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
-            var assessmentSection = new AssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub
+            {
+                HydraulicBoundaryData =
+                {
+                    HydraulicBoundaryDatabases =
+                    {
+                        new HydraulicBoundaryDatabase
+                        {
+                            Locations =
+                            {
+                                hydraulicBoundaryLocation
+                            }
+                        }
+                    }
+                }
+            };
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
@@ -356,7 +466,22 @@ namespace Riskeer.Common.Forms.Test.MapLayers
             mocks.ReplayAll();
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
-            var assessmentSection = new AssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub
+            {
+                HydraulicBoundaryData =
+                {
+                    HydraulicBoundaryDatabases =
+                    {
+                        new HydraulicBoundaryDatabase
+                        {
+                            Locations =
+                            {
+                                hydraulicBoundaryLocation
+                            }
+                        }
+                    }
+                }
+            };
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
@@ -398,7 +523,22 @@ namespace Riskeer.Common.Forms.Test.MapLayers
             mocks.ReplayAll();
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
-            var assessmentSection = new AssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub
+            {
+                HydraulicBoundaryData =
+                {
+                    HydraulicBoundaryDatabases =
+                    {
+                        new HydraulicBoundaryDatabase
+                        {
+                            Locations =
+                            {
+                                hydraulicBoundaryLocation
+                            }
+                        }
+                    }
+                }
+            };
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
@@ -442,7 +582,22 @@ namespace Riskeer.Common.Forms.Test.MapLayers
             mocks.ReplayAll();
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
-            var assessmentSection = new AssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub
+            {
+                HydraulicBoundaryData =
+                {
+                    HydraulicBoundaryDatabases =
+                    {
+                        new HydraulicBoundaryDatabase
+                        {
+                            Locations =
+                            {
+                                hydraulicBoundaryLocation
+                            }
+                        }
+                    }
+                }
+            };
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
@@ -485,7 +640,23 @@ namespace Riskeer.Common.Forms.Test.MapLayers
             mocks.ReplayAll();
 
             const double targetProbability = 0.001;
-            var assessmentSection = new AssessmentSectionStub();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
+            var assessmentSection = new AssessmentSectionStub
+            {
+                HydraulicBoundaryData =
+                {
+                    HydraulicBoundaryDatabases =
+                    {
+                        new HydraulicBoundaryDatabase
+                        {
+                            Locations =
+                            {
+                                hydraulicBoundaryLocation
+                            }
+                        }
+                    }
+                }
+            };
             assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Clear();
             assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.AddRange(new[]
             {
@@ -494,7 +665,6 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability)
             });
 
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
@@ -542,7 +712,23 @@ namespace Riskeer.Common.Forms.Test.MapLayers
             mocks.ReplayAll();
 
             const double targetProbability = 0.001;
-            var assessmentSection = new AssessmentSectionStub();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
+            var assessmentSection = new AssessmentSectionStub
+            {
+                HydraulicBoundaryData =
+                {
+                    HydraulicBoundaryDatabases =
+                    {
+                        new HydraulicBoundaryDatabase
+                        {
+                            Locations =
+                            {
+                                hydraulicBoundaryLocation
+                            }
+                        }
+                    }
+                }
+            };
             assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Clear();
             assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.AddRange(new[]
             {
@@ -551,7 +737,6 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability)
             });
 
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation

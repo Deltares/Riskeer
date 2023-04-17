@@ -156,11 +156,29 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateHydraulicBoundaryLocationFeatures_WithLocations_ReturnsLocationFeaturesCollection(bool setOutput)
         {
             // Setup
-            var assessmentSection = new AssessmentSectionStub();
+            var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(1, "location1", 1, 1);
+            var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(2, "location2", 2, 2);
+            var assessmentSection = new AssessmentSectionStub
+            {
+                HydraulicBoundaryData =
+                {
+                    HydraulicBoundaryDatabases =
+                    {
+                        new HydraulicBoundaryDatabase
+                        {
+                            Locations =
+                            {
+                                hydraulicBoundaryLocation1,
+                                hydraulicBoundaryLocation2
+                            }
+                        }
+                    }
+                }
+            };
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
-                new HydraulicBoundaryLocation(1, "location1", 1, 1),
-                new HydraulicBoundaryLocation(2, "location2", 2, 2)
+                hydraulicBoundaryLocation1,
+                hydraulicBoundaryLocation2
             }, setOutput);
 
             Dictionary<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, string> waterLevels =
