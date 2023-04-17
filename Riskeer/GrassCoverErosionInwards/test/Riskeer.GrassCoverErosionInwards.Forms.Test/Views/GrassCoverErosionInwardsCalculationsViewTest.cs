@@ -766,10 +766,16 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         {
             assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
             {
-                Locations =
+                HydraulicBoundaryDatabases =
                 {
-                    new HydraulicBoundaryLocation(1, "Location 1", 1.1, 2.2),
-                    new HydraulicBoundaryLocation(2, "Location 2", 3.3, 4.4)
+                    new HydraulicBoundaryDatabase
+                    {
+                        Locations =
+                        {
+                            new HydraulicBoundaryLocation(1, "Location 1", 1.1, 2.2),
+                            new HydraulicBoundaryLocation(2, "Location 2", 3.3, 4.4)
+                        }
+                    }
                 }
             });
         }
@@ -791,7 +797,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                         InputParameters =
                         {
                             DikeProfile = failureMechanism.DikeProfiles.FirstOrDefault(),
-                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.Locations.First(),
+                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(),
                             DikeHeight = (RoundedDouble) 1.1,
                             Orientation = (RoundedDouble) 2.2,
                             BreakWater =
@@ -826,7 +832,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                         InputParameters =
                         {
                             DikeProfile = failureMechanism.DikeProfiles.LastOrDefault(),
-                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.Locations.Last(),
+                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().Last(),
                             DikeHeight = (RoundedDouble) 1.1,
                             Orientation = (RoundedDouble) 2.2,
                             BreakWater =
