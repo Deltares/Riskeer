@@ -293,10 +293,16 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             {
                 HydraulicBoundaryData =
                 {
-                    Locations =
+                    HydraulicBoundaryDatabases =
                     {
-                        new TestHydraulicBoundaryLocation("Location 1"),
-                        new TestHydraulicBoundaryLocation("Location 2")
+                        new HydraulicBoundaryDatabase
+                        {
+                            Locations =
+                            {
+                                new TestHydraulicBoundaryLocation("Location 1"),
+                                new TestHydraulicBoundaryLocation("Location 2")
+                            }
+                        }
                     }
                 }
             };

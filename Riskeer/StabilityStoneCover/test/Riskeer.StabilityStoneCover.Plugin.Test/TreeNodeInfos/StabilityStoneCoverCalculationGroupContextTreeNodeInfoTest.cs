@@ -558,9 +558,15 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
             {
-                Locations =
+                HydraulicBoundaryDatabases =
                 {
-                    new TestHydraulicBoundaryLocation()
+                    new HydraulicBoundaryDatabase
+                    {
+                        Locations =
+                        {
+                            new TestHydraulicBoundaryLocation()
+                        }
+                    }
                 }
             });
 
@@ -1188,13 +1194,22 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                     FailureMechanismContribution =
                     {
                         NormativeProbabilityType = normativeProbabilityType
+                    },
+                    HydraulicBoundaryData =
+                    {
+                        HydraulicBoundaryDatabases =
+                        {
+                            new HydraulicBoundaryDatabase
+                            {
+                                Locations =
+                                {
+                                    hydraulicBoundaryLocation1,
+                                    hydraulicBoundaryLocation2
+                                }
+                            }
+                        }
                     }
                 };
-                assessmentSection.HydraulicBoundaryData.Locations.AddRange(new[]
-                {
-                    hydraulicBoundaryLocation1,
-                    hydraulicBoundaryLocation2
-                });
 
                 var observer = mocks.StrictMock<IObserver>();
                 observer.Expect(o => o.UpdateObserver());
@@ -1264,9 +1279,15 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
                 {
-                    Locations =
+                    HydraulicBoundaryDatabases =
                     {
-                        new TestHydraulicBoundaryLocation()
+                        new HydraulicBoundaryDatabase
+                        {
+                            Locations =
+                            {
+                                new TestHydraulicBoundaryLocation()
+                            }
+                        }
                     }
                 });
 

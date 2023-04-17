@@ -34,6 +34,7 @@ using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms;
 using Riskeer.Common.Forms.ChangeHandlers;
@@ -245,7 +246,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
                 (context, filePath) => new StabilityPointStructuresCalculationConfigurationImporter(
                     filePath,
                     context.WrappedData,
-                    context.AssessmentSection.HydraulicBoundaryData.Locations,
+                    context.AssessmentSection.HydraulicBoundaryData.GetLocations(),
                     context.AvailableForeshoreProfiles,
                     context.AvailableStructures));
         }

@@ -2801,7 +2801,7 @@ namespace Riskeer.Integration.Plugin
             var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01);
 
             calculationsForTargetProbability.HydraulicBoundaryLocationCalculations.AddRange(
-                assessmentSection.HydraulicBoundaryData.Locations.Select(hbl => new HydraulicBoundaryLocationCalculation(hbl)));
+                assessmentSection.HydraulicBoundaryData.GetLocations().Select(hbl => new HydraulicBoundaryLocationCalculation(hbl)));
 
             return calculationsForTargetProbability;
         }

@@ -219,7 +219,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
                     new StabilityStoneCoverWaveConditionsCalculationConfigurationImporter(
                         filePath,
                         context.WrappedData,
-                        context.AssessmentSection.HydraulicBoundaryData.Locations,
+                        context.AssessmentSection.HydraulicBoundaryData.GetLocations(),
                         context.ForeshoreProfiles,
                         context.AssessmentSection.FailureMechanismContribution,
                         context.AssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities));
@@ -551,7 +551,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
 
         private StrictContextMenuItem CreateGenerateWaveConditionsCalculationsItem(StabilityStoneCoverCalculationGroupContext nodeData)
         {
-            bool locationsAvailable = nodeData.AssessmentSection.HydraulicBoundaryData.Locations.Any();
+            bool locationsAvailable = nodeData.AssessmentSection.HydraulicBoundaryData.GetLocations().Any();
 
             string calculationGroupContextToolTip = locationsAvailable
                                                         ? RiskeerCommonFormsResources.CalculationGroup_CreateGenerateHydraulicBoundaryCalculationsItem_ToolTip
@@ -568,7 +568,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
 
         private void ShowHydraulicBoundaryLocationSelectionDialog(StabilityStoneCoverCalculationGroupContext nodeData)
         {
-            using (var dialog = new HydraulicBoundaryLocationSelectionDialog(Gui.MainWindow, nodeData.AssessmentSection.HydraulicBoundaryData.Locations))
+            using (var dialog = new HydraulicBoundaryLocationSelectionDialog(Gui.MainWindow, nodeData.AssessmentSection.HydraulicBoundaryData.GetLocations()))
             {
                 dialog.ShowDialog();
 

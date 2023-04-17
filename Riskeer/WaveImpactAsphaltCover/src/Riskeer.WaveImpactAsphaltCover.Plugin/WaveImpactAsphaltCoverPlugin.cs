@@ -154,7 +154,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                     new WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationImporter(
                         filePath,
                         context.WrappedData,
-                        context.AssessmentSection.HydraulicBoundaryData.Locations,
+                        context.AssessmentSection.HydraulicBoundaryData.GetLocations(),
                         context.ForeshoreProfiles,
                         context.AssessmentSection.FailureMechanismContribution,
                         context.AssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities));
@@ -553,7 +553,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
         private StrictContextMenuItem CreateGenerateWaveConditionsCalculationsItem(WaveImpactAsphaltCoverCalculationGroupContext nodeData)
         {
-            bool locationsAvailable = nodeData.AssessmentSection.HydraulicBoundaryData.Locations.Any();
+            bool locationsAvailable = nodeData.AssessmentSection.HydraulicBoundaryData.GetLocations().Any();
 
             string calculationGroupContextToolTip = locationsAvailable
                                                         ? RiskeerCommonFormsResources.CalculationGroup_CreateGenerateHydraulicBoundaryCalculationsItem_ToolTip
@@ -570,7 +570,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
         private void ShowHydraulicBoundaryLocationSelectionDialog(WaveImpactAsphaltCoverCalculationGroupContext nodeData)
         {
-            using (var dialog = new HydraulicBoundaryLocationSelectionDialog(Gui.MainWindow, nodeData.AssessmentSection.HydraulicBoundaryData.Locations))
+            using (var dialog = new HydraulicBoundaryLocationSelectionDialog(Gui.MainWindow, nodeData.AssessmentSection.HydraulicBoundaryData.GetLocations()))
             {
                 dialog.ShowDialog();
 

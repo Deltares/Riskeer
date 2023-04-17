@@ -570,9 +570,15 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
             {
-                Locations =
+                HydraulicBoundaryDatabases =
                 {
-                    new TestHydraulicBoundaryLocation()
+                    new HydraulicBoundaryDatabase
+                    {
+                        Locations =
+                        {
+                            new TestHydraulicBoundaryLocation()
+                        }
+                    }
                 }
             });
 
@@ -754,9 +760,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-            
+
             HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First();
-            
+
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
@@ -1453,6 +1459,20 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     FailureMechanismContribution =
                     {
                         NormativeProbabilityType = normativeProbabilityType
+                    },
+                    HydraulicBoundaryData =
+                    {
+                        HydraulicBoundaryDatabases =
+                        {
+                            new HydraulicBoundaryDatabase
+                            {
+                                Locations =
+                                {
+                                    hydraulicBoundaryLocation1,
+                                    hydraulicBoundaryLocation2
+                                }
+                            }
+                        }
                     }
                 };
                 assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
@@ -1527,7 +1547,23 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
                 var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation();
                 var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-                var assessmentSection = new AssessmentSectionStub();
+                var assessmentSection = new AssessmentSectionStub
+                {
+                    HydraulicBoundaryData =
+                    {
+                        HydraulicBoundaryDatabases =
+                        {
+                            new HydraulicBoundaryDatabase
+                            {
+                                Locations =
+                                {
+                                    hydraulicBoundaryLocation1,
+                                    hydraulicBoundaryLocation2
+                                }
+                            }
+                        }
+                    }
+                };
                 assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
                 {
                     hydraulicBoundaryLocation1,

@@ -34,6 +34,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.ExportInfos;
 using Riskeer.Common.Forms.ImportInfos;
@@ -120,7 +121,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                     filePath,
                     context.WrappedData,
                     context.AssessmentSection.FailureMechanismContribution,
-                    context.AssessmentSection.HydraulicBoundaryData.Locations,
+                    context.AssessmentSection.HydraulicBoundaryData.GetLocations(),
                     context.AvailableDikeProfiles));
 
             yield return new ImportInfo<DikeProfilesContext>
