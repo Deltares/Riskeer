@@ -375,9 +375,15 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
             {
-                Locations =
+                HydraulicBoundaryDatabases =
                 {
-                    hydraulicBoundaryLocation
+                    new HydraulicBoundaryDatabase
+                    {
+                        Locations =
+                        {
+                            hydraulicBoundaryLocation
+                        }
+                    }
                 }
             });
 
@@ -454,9 +460,15 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
             {
-                Locations =
+                HydraulicBoundaryDatabases =
                 {
-                    hydraulicBoundaryLocation
+                    new HydraulicBoundaryDatabase
+                    {
+                        Locations =
+                        {
+                            hydraulicBoundaryLocation
+                        }
+                    }
                 }
             });
 
@@ -491,12 +503,18 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Setup
             assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
             {
-                Locations =
+                HydraulicBoundaryDatabases =
                 {
-                    new HydraulicBoundaryLocation(1, "A", 0, 1),
-                    new HydraulicBoundaryLocation(4, "C", 0, 2),
-                    new HydraulicBoundaryLocation(3, "D", 0, 3),
-                    new HydraulicBoundaryLocation(2, "B", 0, 4)
+                    new HydraulicBoundaryDatabase
+                    {
+                        Locations =
+                        {
+                            new HydraulicBoundaryLocation(1, "A", 0, 1),
+                            new HydraulicBoundaryLocation(4, "C", 0, 2),
+                            new HydraulicBoundaryLocation(3, "D", 0, 3),
+                            new HydraulicBoundaryLocation(2, "B", 0, 4)
+                        }
+                    }
                 }
             });
 
@@ -514,7 +532,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             // Assert
             IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
-                assessmentSection.HydraulicBoundaryData.Locations
+                assessmentSection.HydraulicBoundaryData.GetLocations()
                                  .Select(location =>
                                              new SelectableHydraulicBoundaryLocation(location, null))
                                  .OrderBy(hbl => hbl.HydraulicBoundaryLocation.Id);
@@ -528,14 +546,20 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Setup
             assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
             {
-                Locations =
+                HydraulicBoundaryDatabases =
                 {
-                    new HydraulicBoundaryLocation(1, "A", 0, 10),
-                    new HydraulicBoundaryLocation(4, "E", 0, 500),
-                    new HydraulicBoundaryLocation(6, "F", 0, 100),
-                    new HydraulicBoundaryLocation(5, "D", 0, 200),
-                    new HydraulicBoundaryLocation(3, "C", 0, 200),
-                    new HydraulicBoundaryLocation(2, "B", 0, 200)
+                    new HydraulicBoundaryDatabase
+                    {
+                        Locations =
+                        {
+                            new HydraulicBoundaryLocation(1, "A", 0, 10),
+                            new HydraulicBoundaryLocation(4, "E", 0, 500),
+                            new HydraulicBoundaryLocation(6, "F", 0, 100),
+                            new HydraulicBoundaryLocation(5, "D", 0, 200),
+                            new HydraulicBoundaryLocation(3, "C", 0, 200),
+                            new HydraulicBoundaryLocation(2, "B", 0, 200)
+                        }
+                    }
                 }
             });
 
@@ -556,7 +580,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             // Assert
             IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
-                assessmentSection.HydraulicBoundaryData.Locations
+                assessmentSection.HydraulicBoundaryData.GetLocations()
                                  .Select(location =>
                                              new SelectableHydraulicBoundaryLocation(
                                                  location, input.DikeProfile.WorldReferencePoint))
@@ -572,14 +596,20 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Given
             assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
             {
-                Locations =
+                HydraulicBoundaryDatabases =
                 {
-                    new HydraulicBoundaryLocation(1, "A", 0, 10),
-                    new HydraulicBoundaryLocation(4, "E", 0, 500),
-                    new HydraulicBoundaryLocation(6, "F", 0, 100),
-                    new HydraulicBoundaryLocation(5, "D", 0, 200),
-                    new HydraulicBoundaryLocation(3, "C", 0, 200),
-                    new HydraulicBoundaryLocation(2, "B", 0, 200)
+                    new HydraulicBoundaryDatabase
+                    {
+                        Locations =
+                        {
+                            new HydraulicBoundaryLocation(1, "A", 0, 10),
+                            new HydraulicBoundaryLocation(4, "E", 0, 500),
+                            new HydraulicBoundaryLocation(6, "F", 0, 100),
+                            new HydraulicBoundaryLocation(5, "D", 0, 200),
+                            new HydraulicBoundaryLocation(3, "C", 0, 200),
+                            new HydraulicBoundaryLocation(2, "B", 0, 200)
+                        }
+                    }
                 }
             });
 
@@ -610,7 +640,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             CollectionAssert.AreNotEqual(originalList, availableHydraulicBoundaryLocations);
 
             IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
-                assessmentSection.HydraulicBoundaryData.Locations
+                assessmentSection.HydraulicBoundaryData.GetLocations()
                                  .Select(hbl =>
                                              new SelectableHydraulicBoundaryLocation(hbl,
                                                                                      properties.DikeProfile.WorldReferencePoint))
