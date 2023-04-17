@@ -332,7 +332,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
         [TestCase(1, allowedLevelIncreaseStorageColumnIndex)]
         [TestCase(1e+6, allowedLevelIncreaseStorageColumnIndex)]
         [TestCase(14.3, allowedLevelIncreaseStorageColumnIndex)]
-        public void FailureMechanismResultView_EditValueValid_DoNotShowErrorToolTipAndEditValue(double newValue, int cellIndex)
+        public void CalculationsView_EditValueValid_DoNotShowErrorToolTipAndEditValue(double newValue, int cellIndex)
         {
             // Setup
             var mocks = new MockRepository();

@@ -330,7 +330,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         [TestCase(1e-6, standardDeviationCriticalFlowRateColumnIndex)]
         [TestCase(1e+6, standardDeviationCriticalFlowRateColumnIndex)]
         [TestCase(14.3, standardDeviationCriticalFlowRateColumnIndex)]
-        public void FailureMechanismResultView_EditValueValid_DoNotShowErrorToolTipAndEditValue(double newValue, int cellIndex)
+        public void CalculationsView_EditValueValid_DoNotShowErrorToolTipAndEditValue(double newValue, int cellIndex)
         {
             // Setup
             var mocks = new MockRepository();
