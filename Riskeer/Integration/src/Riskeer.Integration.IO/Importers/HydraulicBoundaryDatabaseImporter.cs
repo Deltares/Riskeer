@@ -278,7 +278,7 @@ namespace Riskeer.Integration.IO.Importers
 
         private bool HydraulicBoundaryLocationsToAddHaveNonExistingId(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocationsToAdd)
         {
-            long[] existingHydraulicBoundaryLocationIds = ImportTarget.Locations.Select(hbl => hbl.Id).ToArray();
+            long[] existingHydraulicBoundaryLocationIds = ImportTarget.GetLocations().Select(hbl => hbl.Id).ToArray();
             long[] newHydraulicBoundaryLocationIds = hydraulicBoundaryLocationsToAdd.Select(hbl => hbl.Id).ToArray();
 
             if (newHydraulicBoundaryLocationIds.Except(existingHydraulicBoundaryLocationIds).Count() == newHydraulicBoundaryLocationIds.Length)
