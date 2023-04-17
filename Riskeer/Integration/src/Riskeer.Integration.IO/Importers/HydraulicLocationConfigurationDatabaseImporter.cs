@@ -29,7 +29,6 @@ using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.Util.Builders;
 using Riskeer.Common.Data.Hydraulics;
-using Riskeer.Common.IO.HydraRing;
 using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 using Riskeer.Integration.IO.Handlers;
 using Riskeer.Integration.IO.Properties;

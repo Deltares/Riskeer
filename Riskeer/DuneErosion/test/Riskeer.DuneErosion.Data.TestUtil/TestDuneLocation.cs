@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Base.Geometry;
 using Riskeer.Common.Data.TestUtil;
 
 namespace Riskeer.DuneErosion.Data.TestUtil

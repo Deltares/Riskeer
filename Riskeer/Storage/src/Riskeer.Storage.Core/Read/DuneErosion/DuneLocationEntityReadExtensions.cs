@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Geometry;
-using Riskeer.Common.Data.Hydraulics;
 using Riskeer.DuneErosion.Data;
 using Riskeer.Storage.Core.DbContext;
 
