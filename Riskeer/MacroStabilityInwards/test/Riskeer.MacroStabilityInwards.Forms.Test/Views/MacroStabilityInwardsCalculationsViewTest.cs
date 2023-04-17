@@ -740,10 +740,16 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         {
             assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
             {
-                Locations =
+                HydraulicBoundaryDatabases =
                 {
-                    new HydraulicBoundaryLocation(1, "Location 1", 1.1, 2.2),
-                    new HydraulicBoundaryLocation(2, "Location 2", 3.3, 4.4)
+                    new HydraulicBoundaryDatabase
+                    {
+                        Locations =
+                        {
+                            new HydraulicBoundaryLocation(1, "Location 1", 1.1, 2.2),
+                            new HydraulicBoundaryLocation(2, "Location 2", 3.3, 4.4)
+                        }
+                    }
                 }
             });
         }
@@ -821,7 +827,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                         {
                             SurfaceLine = failureMechanism.SurfaceLines.First(),
                             StochasticSoilModel = failureMechanism.StochasticSoilModels.First(),
-                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.Locations.First()
+                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First()
                         }
                     },
                     new MacroStabilityInwardsCalculationScenario
@@ -832,7 +838,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                             SurfaceLine = failureMechanism.SurfaceLines.Last(),
                             StochasticSoilModel = stochasticSoilModelForCalculation2,
                             StochasticSoilProfile = stochasticSoilModelForCalculation2.StochasticSoilProfiles.First(),
-                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.Locations.Last()
+                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().Last()
                         }
                     }
                 }
