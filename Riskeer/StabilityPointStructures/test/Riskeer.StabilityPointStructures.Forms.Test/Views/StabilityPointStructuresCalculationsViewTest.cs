@@ -348,7 +348,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
         [TestCase(1, evaluationLevelModelColumnIndex)]
         [TestCase(1e+6, evaluationLevelModelColumnIndex)]
         [TestCase(14.3, evaluationLevelModelColumnIndex)]
-        public void FailureMechanismResultView_EditValueValid_DoNotShowErrorToolTipAndEditValue(double newValue, int cellIndex)
+        public void CalculationsView_EditValueValid_DoNotShowErrorToolTipAndEditValue(double newValue, int cellIndex)
         {
             // Setup
             var mocks = new MockRepository();
@@ -720,10 +720,16 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
         {
             assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
             {
-                Locations =
+                HydraulicBoundaryDatabases =
                 {
-                    new HydraulicBoundaryLocation(1, "Location 1", 1.1, 2.2),
-                    new HydraulicBoundaryLocation(2, "Location 2", 3.3, 4.4)
+                    new HydraulicBoundaryDatabase
+                    {
+                        Locations =
+                        {
+                            new HydraulicBoundaryLocation(1, "Location 1", 1.1, 2.2),
+                            new HydraulicBoundaryLocation(2, "Location 2", 3.3, 4.4)
+                        }
+                    }
                 }
             });
         }
@@ -764,7 +770,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
                             },
                             EvaluationLevel = (RoundedDouble) 10.00,
                             ForeshoreProfile = failureMechanism.ForeshoreProfiles.FirstOrDefault(),
-                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.Locations.First(),
+                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(),
                             BreakWater =
                             {
                                 Height = (RoundedDouble) 3.3,
@@ -804,7 +810,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
                             },
                             EvaluationLevel = (RoundedDouble) 10.00,
                             ForeshoreProfile = failureMechanism.ForeshoreProfiles.LastOrDefault(),
-                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.Locations.Last(),
+                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().Last(),
                             BreakWater =
                             {
                                 Height = (RoundedDouble) 3.3,
