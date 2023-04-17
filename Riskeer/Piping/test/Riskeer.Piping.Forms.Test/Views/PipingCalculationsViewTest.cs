@@ -272,13 +272,13 @@ namespace Riskeer.Piping.Forms.Test.Views
         [TestCase(1e-6, phreaticLevelExitMeanColumnIndex)]
         [TestCase(1e+6, phreaticLevelExitMeanColumnIndex)]
         [TestCase(14.3, phreaticLevelExitMeanColumnIndex)]
-        [TestCase(2.2, entryPointLColumnIndex, TestName = "FailureMechanismResultView_EditValueValid_DoNotShowErrorToolTipAndEditValue(2.2)")]
-        [TestCase(0.022e+2, entryPointLColumnIndex, TestName = "FailureMechanismResultView_EditValueValid_DoNotShowErrorToolTipAndEditValue(0.022e+2)")]
-        [TestCase(220e-2, entryPointLColumnIndex, TestName = "FailureMechanismResultView_EditValueValid_DoNotShowErrorToolTipAndEditValue(220e-2)")]
-        [TestCase(5.5, exitPointLColumnIndex, TestName = "FailureMechanismResultView_EditValueValid_DoNotShowErrorToolTipAndEditValue(5.5)")]
-        [TestCase(0.055e+2, exitPointLColumnIndex, TestName = "FailureMechanismResultView_EditValueValid_DoNotShowErrorToolTipAndEditValue(0.055e+2)")]
-        [TestCase(550e-2, exitPointLColumnIndex, TestName = "FailureMechanismResultView_EditValueValid_DoNotShowErrorToolTipAndEditValue(550e-2)")]
-        public void FailureMechanismResultView_EditValueValid_DoNotShowErrorToolTipAndEditValue(double newValue, int cellIndex)
+        [TestCase(2.2, entryPointLColumnIndex, TestName = "CalculationsView_EditValueValid_DoNotShowErrorToolTipAndEditValue(2.2)")]
+        [TestCase(0.022e+2, entryPointLColumnIndex, TestName = "CalculationsView_EditValueValid_DoNotShowErrorToolTipAndEditValue(0.022e+2)")]
+        [TestCase(220e-2, entryPointLColumnIndex, TestName = "CalculationsView_EditValueValid_DoNotShowErrorToolTipAndEditValue(220e-2)")]
+        [TestCase(5.5, exitPointLColumnIndex, TestName = "CalculationsView_EditValueValid_DoNotShowErrorToolTipAndEditValue(5.5)")]
+        [TestCase(0.055e+2, exitPointLColumnIndex, TestName = "CalculationsView_EditValueValid_DoNotShowErrorToolTipAndEditValue(0.055e+2)")]
+        [TestCase(550e-2, exitPointLColumnIndex, TestName = "CalculationsView_EditValueValid_DoNotShowErrorToolTipAndEditValue(550e-2)")]
+        public void CalculationsView_EditValueValid_DoNotShowErrorToolTipAndEditValue(double newValue, int cellIndex)
         {
             // Setup
             var mocks = new MockRepository();
@@ -1045,10 +1045,16 @@ namespace Riskeer.Piping.Forms.Test.Views
         {
             assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
             {
-                Locations =
+                HydraulicBoundaryDatabases =
                 {
-                    new HydraulicBoundaryLocation(1, "Location 1", 1.1, 2.2),
-                    new HydraulicBoundaryLocation(2, "Location 2", 3.3, 4.4)
+                    new HydraulicBoundaryDatabase
+                    {
+                        Locations =
+                        {
+                            new HydraulicBoundaryLocation(1, "Location 1", 1.1, 2.2),
+                            new HydraulicBoundaryLocation(2, "Location 2", 3.3, 4.4)
+                        }
+                    }
                 }
             });
         }
@@ -1130,7 +1136,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                         {
                             SurfaceLine = failureMechanism.SurfaceLines.First(),
                             StochasticSoilModel = failureMechanism.StochasticSoilModels.First(),
-                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.Locations.First(),
+                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(),
                             DampingFactorExit =
                             {
                                 Mean = (RoundedDouble) 1.1111
@@ -1151,7 +1157,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                             SurfaceLine = failureMechanism.SurfaceLines.Last(),
                             StochasticSoilModel = stochasticSoilModelForCalculation2,
                             StochasticSoilProfile = stochasticSoilModelForCalculation2.StochasticSoilProfiles.First(),
-                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.Locations.Last(),
+                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().Last(),
                             DampingFactorExit =
                             {
                                 Mean = (RoundedDouble) 5.5555
