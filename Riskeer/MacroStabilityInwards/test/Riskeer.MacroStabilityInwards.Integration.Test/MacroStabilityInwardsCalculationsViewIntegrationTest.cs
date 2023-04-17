@@ -99,7 +99,7 @@ namespace Riskeer.MacroStabilityInwards.Integration.Test
 
                 // Import hydraulic boundary locations and ensure the corresponding combobox items are updated
                 DataImportHelper.ImportHydraulicBoundaryData(assessmentSection);
-                assessmentSection.HydraulicBoundaryData.Locations.NotifyObservers();
+                assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.NotifyObservers();
                 Assert.AreEqual(19, ((DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[hydraulicBoundaryLocationsColumnIndex]).Items.Count);
 
                 // Add group and ensure the data grid view is not changed
