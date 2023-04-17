@@ -724,10 +724,16 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
         {
             assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
             {
-                Locations =
+                HydraulicBoundaryDatabases =
                 {
-                    new HydraulicBoundaryLocation(1, "Location 1", 1.1, 2.2),
-                    new HydraulicBoundaryLocation(2, "Location 2", 3.3, 4.4)
+                    new HydraulicBoundaryDatabase
+                    {
+                        Locations =
+                        {
+                            new HydraulicBoundaryLocation(1, "Location 1", 1.1, 2.2),
+                            new HydraulicBoundaryLocation(2, "Location 2", 3.3, 4.4)
+                        }
+                    }
                 }
             });
         }
@@ -763,7 +769,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
                             },
                             InflowModelType = random.NextEnumValue<ClosingStructureInflowModelType>(),
                             ForeshoreProfile = failureMechanism.ForeshoreProfiles.FirstOrDefault(),
-                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.Locations.First(),
+                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(),
                             BreakWater =
                             {
                                 Height = (RoundedDouble) 3.3,
@@ -798,7 +804,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
                             },
                             InflowModelType = random.NextEnumValue<ClosingStructureInflowModelType>(),
                             ForeshoreProfile = failureMechanism.ForeshoreProfiles.LastOrDefault(),
-                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.Locations.Last(),
+                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().Last(),
                             BreakWater =
                             {
                                 Height = (RoundedDouble) 3.3,
