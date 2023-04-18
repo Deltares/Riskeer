@@ -142,8 +142,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 }
             };
 
-            var locations = new ObservableList<HydraulicBoundaryLocation>();
-            var calculationsGroupContext = new WaterLevelCalculationsForNormTargetProbabilitiesGroupContext(locations, assessmentSection);
+            var databases = new ObservableList<HydraulicBoundaryDatabase>();
+            var calculationsGroupContext = new WaterLevelCalculationsForNormTargetProbabilitiesGroupContext(databases, assessmentSection);
 
             using (var plugin = new RiskeerPlugin())
             {
@@ -189,7 +189,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 menuBuilder.Expect(mb => mb.Build()).Return(null);
             }
 
-            var nodeData = new WaterLevelCalculationsForNormTargetProbabilitiesGroupContext(new ObservableList<HydraulicBoundaryLocation>(),
+            var nodeData = new WaterLevelCalculationsForNormTargetProbabilitiesGroupContext(new ObservableList<HydraulicBoundaryDatabase>(),
                                                                                             assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
@@ -220,7 +220,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             IAssessmentSection assessmentSection = new AssessmentSectionStub();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-            var nodeData = new WaterLevelCalculationsForNormTargetProbabilitiesGroupContext(new ObservableList<HydraulicBoundaryLocation>(),
+            var nodeData = new WaterLevelCalculationsForNormTargetProbabilitiesGroupContext(new ObservableList<HydraulicBoundaryDatabase>(),
                                                                                             assessmentSection);
 
             var mockRepository = new MockRepository();
@@ -268,7 +268,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             IAssessmentSection assessmentSection = new AssessmentSectionStub();
 
-            var nodeData = new WaterLevelCalculationsForNormTargetProbabilitiesGroupContext(new ObservableList<HydraulicBoundaryLocation>(),
+            var nodeData = new WaterLevelCalculationsForNormTargetProbabilitiesGroupContext(new ObservableList<HydraulicBoundaryDatabase>(),
                                                                                             assessmentSection);
 
             var mockRepository = new MockRepository();
@@ -312,7 +312,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             HydraulicBoundaryLocationCalculation calculation = getHydraulicLocationCalculationFunc(assessmentSection);
             calculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble(), new TestGeneralResultSubMechanismIllustrationPoint());
 
-            var nodeData = new WaterLevelCalculationsForNormTargetProbabilitiesGroupContext(new ObservableList<HydraulicBoundaryLocation>(), assessmentSection);
+            var nodeData = new WaterLevelCalculationsForNormTargetProbabilitiesGroupContext(new ObservableList<HydraulicBoundaryDatabase>(), assessmentSection);
 
             var mockRepository = new MockRepository();
             using (var treeViewControl = new TreeViewControl())
@@ -351,7 +351,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             IAssessmentSection assessmentSection = GetConfiguredAssessmentSectionWithHydraulicBoundaryLocationCalculations();
 
-            var nodeData = new WaterLevelCalculationsForNormTargetProbabilitiesGroupContext(new ObservableList<HydraulicBoundaryLocation>(), assessmentSection);
+            var nodeData = new WaterLevelCalculationsForNormTargetProbabilitiesGroupContext(new ObservableList<HydraulicBoundaryDatabase>(), assessmentSection);
 
             var mockRepository = new MockRepository();
             using (var treeViewControl = new TreeViewControl())
@@ -423,7 +423,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 hydraulicBoundaryLocation
             });
 
-            var context = new WaterLevelCalculationsForNormTargetProbabilitiesGroupContext(new ObservableList<HydraulicBoundaryLocation>(),
+            var context = new WaterLevelCalculationsForNormTargetProbabilitiesGroupContext(new ObservableList<HydraulicBoundaryDatabase>(),
                                                                                            assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
@@ -519,7 +519,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 helper.ClickCancel();
             };
 
-            var context = new WaterLevelCalculationsForNormTargetProbabilitiesGroupContext(new ObservableList<HydraulicBoundaryLocation>(), assessmentSection);
+            var context = new WaterLevelCalculationsForNormTargetProbabilitiesGroupContext(new ObservableList<HydraulicBoundaryDatabase>(), assessmentSection);
 
             var mockRepository = new MockRepository();
             using (var treeViewControl = new TreeViewControl())
@@ -579,7 +579,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 helper.ClickOk();
             };
 
-            var context = new WaterLevelCalculationsForNormTargetProbabilitiesGroupContext(new ObservableList<HydraulicBoundaryLocation>(), assessmentSection);
+            var context = new WaterLevelCalculationsForNormTargetProbabilitiesGroupContext(new ObservableList<HydraulicBoundaryDatabase>(), assessmentSection);
 
             var mockRepository = new MockRepository();
             using (var treeViewControl = new TreeViewControl())

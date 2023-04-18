@@ -30,15 +30,15 @@ namespace Riskeer.Common.Forms.PresentationObjects
     /// <summary>
     /// Presentation object for all water level calculations based on norm target probabilities.
     /// </summary>
-    public class WaterLevelCalculationsForNormTargetProbabilitiesGroupContext : ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocation>>
+    public class WaterLevelCalculationsForNormTargetProbabilitiesGroupContext : ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryDatabase>>
     {
         /// <summary>
         /// Creates a new instance of <see cref="WaterLevelCalculationsForNormTargetProbabilitiesGroupContext"/>.
         /// </summary>
-        /// <param name="wrappedData">The locations that the <see cref="WaterLevelCalculationsForNormTargetProbabilitiesGroupContext"/> belongs to.</param>
+        /// <param name="wrappedData">The databases that the <see cref="WaterLevelCalculationsForNormTargetProbabilitiesGroupContext"/> belongs to.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that the <see cref="WaterLevelCalculationsForNormTargetProbabilitiesGroupContext"/> belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public WaterLevelCalculationsForNormTargetProbabilitiesGroupContext(ObservableList<HydraulicBoundaryLocation> wrappedData,
+        public WaterLevelCalculationsForNormTargetProbabilitiesGroupContext(ObservableList<HydraulicBoundaryDatabase> wrappedData,
                                                                             IAssessmentSection assessmentSection)
             : base(wrappedData)
         {

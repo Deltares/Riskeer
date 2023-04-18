@@ -1757,7 +1757,7 @@ namespace Riskeer.Integration.Plugin
             return new object[]
             {
                 new HydraulicBoundaryDataContext(assessmentSection.HydraulicBoundaryData, assessmentSection),
-                new WaterLevelCalculationsForNormTargetProbabilitiesGroupContext(nodeData.WrappedData.HydraulicBoundaryData.Locations,
+                new WaterLevelCalculationsForNormTargetProbabilitiesGroupContext(nodeData.WrappedData.HydraulicBoundaryData.HydraulicBoundaryDatabases,
                                                                                  nodeData.WrappedData),
                 new WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext(nodeData.WrappedData.WaterLevelCalculationsForUserDefinedTargetProbabilities,
                                                                                         nodeData.WrappedData),

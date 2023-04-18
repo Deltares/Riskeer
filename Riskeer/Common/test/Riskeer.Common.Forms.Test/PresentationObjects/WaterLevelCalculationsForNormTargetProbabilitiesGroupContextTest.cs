@@ -37,7 +37,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new WaterLevelCalculationsForNormTargetProbabilitiesGroupContext(new ObservableList<HydraulicBoundaryLocation>(), null);
+            void Call() => new WaterLevelCalculationsForNormTargetProbabilitiesGroupContext(new ObservableList<HydraulicBoundaryDatabase>(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -52,14 +52,14 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
-            var locations = new ObservableList<HydraulicBoundaryLocation>();
+            var databases = new ObservableList<HydraulicBoundaryDatabase>();
 
             // Call
-            var context = new WaterLevelCalculationsForNormTargetProbabilitiesGroupContext(locations, assessmentSection);
+            var context = new WaterLevelCalculationsForNormTargetProbabilitiesGroupContext(databases, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocation>>>(context);
-            Assert.AreSame(locations, context.WrappedData);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryDatabase>>>(context);
+            Assert.AreSame(databases, context.WrappedData);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
             mockRepository.VerifyAll();
         }

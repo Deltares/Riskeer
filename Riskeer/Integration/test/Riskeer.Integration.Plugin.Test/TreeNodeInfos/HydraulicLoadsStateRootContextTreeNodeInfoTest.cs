@@ -171,7 +171,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Assert.AreSame(assessmentSection, hydraulicBoundaryDataContext.AssessmentSection);
 
                 var waterLevelCalculationsForNormTargetProbabilitiesGroupContext = (WaterLevelCalculationsForNormTargetProbabilitiesGroupContext) objects[1];
-                Assert.AreSame(assessmentSection.HydraulicBoundaryData.Locations, waterLevelCalculationsForNormTargetProbabilitiesGroupContext.WrappedData);
+                Assert.AreSame(assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases, waterLevelCalculationsForNormTargetProbabilitiesGroupContext.WrappedData);
                 Assert.AreSame(assessmentSection, waterLevelCalculationsForNormTargetProbabilitiesGroupContext.AssessmentSection);
 
                 var waterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext = (WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext) objects[2];
