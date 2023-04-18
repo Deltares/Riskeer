@@ -26,7 +26,7 @@ namespace Riskeer.Common.Data.Hydraulics
     /// <summary>
     /// Class which holds information about a hydraulic boundary database.
     /// </summary>
-    public class HydraulicBoundaryDatabase : Observable
+    public class HydraulicBoundaryDatabase
     {
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryDatabase"/>.

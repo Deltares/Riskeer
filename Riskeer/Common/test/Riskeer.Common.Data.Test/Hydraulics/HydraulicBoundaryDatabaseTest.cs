@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Base;
 using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
 
@@ -35,7 +34,6 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
             // Assert
-            Assert.IsInstanceOf<Observable>(hydraulicBoundaryDatabase);
             Assert.IsNull(hydraulicBoundaryDatabase.FilePath);
             Assert.IsNull(hydraulicBoundaryDatabase.Version);
             Assert.IsFalse(hydraulicBoundaryDatabase.UsePreprocessorClosure);
