@@ -315,14 +315,22 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         public void ChildNodeObjects_CalculationWithoutOutput_ReturnChildrenWithEmptyOutput()
         {
             // Setup
-            mocks.ReplayAll();
-
-            var location = new TestHydraulicBoundaryLocation();
-            var assessmentSection = new AssessmentSectionStub();
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                location
-            });
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        Locations =
+                        {
+                            new TestHydraulicBoundaryLocation()
+                        }
+                    }
+                }
+            };
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
+            mocks.ReplayAll();
 
             var parent = new CalculationGroup();
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
@@ -359,10 +367,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             {
                 foreshoreProfile
             }, inputContext.ForeshoreProfiles);
-            CollectionAssert.AreEqual(new[]
-            {
-                location
-            }, inputContext.HydraulicBoundaryLocations);
+            CollectionAssert.AreEqual(assessmentSection.HydraulicBoundaryData.GetLocations(), inputContext.HydraulicBoundaryLocations);
 
             Assert.IsInstanceOf<EmptyGrassCoverErosionOutwardsOutput>(children[2]);
         }
@@ -371,14 +376,22 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         public void ChildNodeObjects_CalculationWithOutput_ReturnChildrenWithOutput()
         {
             // Setup
-            mocks.ReplayAll();
-
-            var location = new TestHydraulicBoundaryLocation();
-            var assessmentSection = new AssessmentSectionStub();
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                location
-            });
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        Locations =
+                        {
+                            new TestHydraulicBoundaryLocation()
+                        }
+                    }
+                }
+            };
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
+            mocks.ReplayAll();
 
             var parent = new CalculationGroup();
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
@@ -415,10 +428,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             {
                 foreshoreProfile
             }, inputContext.ForeshoreProfiles);
-            CollectionAssert.AreEqual(new[]
-            {
-                location
-            }, inputContext.HydraulicBoundaryLocations);
+            CollectionAssert.AreEqual(assessmentSection.HydraulicBoundaryData.GetLocations(), inputContext.HydraulicBoundaryLocations);
 
             var outputContext = (GrassCoverErosionOutwardsWaveConditionsOutputContext) children[2];
             Assert.AreSame(calculation.Output, outputContext.WrappedData);
