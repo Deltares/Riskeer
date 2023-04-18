@@ -233,27 +233,6 @@ namespace Riskeer.Common.IO.Test.HydraRing
             Assert.IsFalse(isEqual);
         }
 
-        [Test]
-        public void GetPreprocessorClosureFilePath_HlcdFilePathNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => HydraulicBoundaryDataHelper.GetPreprocessorClosureFilePath(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("hlcdFilePath", exception.ParamName);
-        }
-
-        [Test]
-        public void GetPreprocessorClosureFilePath_WithHlcdFilePath_ReturnsPreprocessorClosureFilePath()
-        {
-            // Call
-            string preprocessorClosureFilePath = HydraulicBoundaryDataHelper.GetPreprocessorClosureFilePath(validHlcdFilePath);
-
-            // Assert
-            Assert.AreEqual(Path.Combine(testDataPath, "HLCD_preprocClosure.sqlite"), preprocessorClosureFilePath);
-        }
-
         private static string GetFolderPathThatIsTooLong()
         {
             var stringBuilder = new StringBuilder();
