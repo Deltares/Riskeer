@@ -122,7 +122,7 @@ namespace Riskeer.Integration.Service.Test.Comparers
 
             AssessmentSection otherAssessmentSection = CreateAssessmentSection();
             ConfigureHydraulicLocationConfigurationDatabase(otherAssessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase,
-                                                            "FilePath2");
+                                                            "FilePath1");
 
             var comparer = new AssessmentSectionMergeComparer();
 
@@ -236,6 +236,14 @@ namespace Riskeer.Integration.Service.Test.Comparers
 
         private static IEnumerable<ChangePropertyData<HydraulicLocationConfigurationDatabase>> ChangeSingleDataOfHydraulicLocationConfigurationDatabase()
         {
+            yield return new ChangePropertyData<HydraulicLocationConfigurationDatabase>(
+                hydraulicLocationConfigurationDatabase =>
+                {
+                    ConfigureHydraulicLocationConfigurationDatabase(hydraulicLocationConfigurationDatabase);
+
+                    hydraulicLocationConfigurationDatabase.FilePath = "Other FilePath";
+                },
+                "Different FileName");
             yield return new ChangePropertyData<HydraulicLocationConfigurationDatabase>(
                 hydraulicLocationConfigurationDatabase =>
                 {

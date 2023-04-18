@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Riskeer.Common.Data.AssessmentSection;
@@ -87,7 +88,8 @@ namespace Riskeer.Integration.Service.Comparers
         private static bool AreHydraulicLocationConfigurationDatabasesEquivalent(HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase,
                                                                                  HydraulicLocationConfigurationDatabase otherHydraulicLocationConfigurationDatabase)
         {
-            return hydraulicLocationConfigurationDatabase.ScenarioName == otherHydraulicLocationConfigurationDatabase.ScenarioName
+            return Path.GetFileNameWithoutExtension(hydraulicLocationConfigurationDatabase.FilePath) == Path.GetFileNameWithoutExtension(otherHydraulicLocationConfigurationDatabase.FilePath)
+                   && hydraulicLocationConfigurationDatabase.ScenarioName == otherHydraulicLocationConfigurationDatabase.ScenarioName
                    && hydraulicLocationConfigurationDatabase.Year == otherHydraulicLocationConfigurationDatabase.Year
                    && hydraulicLocationConfigurationDatabase.Scope == otherHydraulicLocationConfigurationDatabase.Scope
                    && hydraulicLocationConfigurationDatabase.SeaLevel == otherHydraulicLocationConfigurationDatabase.SeaLevel
