@@ -29,6 +29,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Service;
 using Riskeer.Common.Service.TestUtil;
@@ -99,7 +100,7 @@ namespace Riskeer.Piping.Integration.Test
 
             TestPipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
             var calculation = ProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<TestProbabilisticPipingCalculation>(
-                assessmentSection.HydraulicBoundaryData.Locations.First(hbl => hbl.Id == 1300001));
+                assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001));
 
             CalculatableActivity activity = PipingCalculationActivityFactory.CreateProbabilisticPipingCalculationActivity(
                 calculation, failureMechanism, assessmentSection);
@@ -148,7 +149,7 @@ namespace Riskeer.Piping.Integration.Test
 
             TestPipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
             var calculation = ProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<TestProbabilisticPipingCalculation>(
-                assessmentSection.HydraulicBoundaryData.Locations.First(hbl => hbl.Id == 1300001));
+                assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001));
 
             calculation.Attach(observer);
 
@@ -186,7 +187,7 @@ namespace Riskeer.Piping.Integration.Test
 
             TestPipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
             var calculation = ProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<TestProbabilisticPipingCalculation>(
-                assessmentSection.HydraulicBoundaryData.Locations.First(hbl => hbl.Id == 1300001));
+                assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001));
 
             CalculatableActivity activity = PipingCalculationActivityFactory.CreateProbabilisticPipingCalculationActivity(
                 calculation, failureMechanism, assessmentSection);
@@ -244,7 +245,7 @@ namespace Riskeer.Piping.Integration.Test
 
             TestPipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
             var calculation = ProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<TestProbabilisticPipingCalculation>(
-                assessmentSection.HydraulicBoundaryData.Locations.First(hbl => hbl.Id == 1300001));
+                assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001));
 
             calculation.Attach(observer);
 
@@ -314,7 +315,7 @@ namespace Riskeer.Piping.Integration.Test
 
             TestPipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
             var calculation = ProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<TestProbabilisticPipingCalculation>(
-                assessmentSection.HydraulicBoundaryData.Locations.First(hbl => hbl.Id == 1300001));
+                assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001));
 
             calculation.Attach(observer);
 
@@ -373,10 +374,11 @@ namespace Riskeer.Piping.Integration.Test
             DataImportHelper.ImportHydraulicBoundaryData(assessmentSection, validHlcdFilePath, validHrdFilePath);
 
             TestPipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001);
             var calculation = ProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<TestProbabilisticPipingCalculation>(
-                assessmentSection.HydraulicBoundaryData.Locations.First(hbl => hbl.Id == 1300001));
+                hydraulicBoundaryLocation);
 
-            calculation.InputParameters.HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.Locations.First(hbl => hbl.Id == 1300001);
+            calculation.InputParameters.HydraulicBoundaryLocation = hydraulicBoundaryLocation;
 
             CalculatableActivity activity = PipingCalculationActivityFactory.CreateProbabilisticPipingCalculationActivity(
                 calculation, failureMechanism, assessmentSection);
