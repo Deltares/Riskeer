@@ -155,17 +155,20 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         public void ChildNodeObjects_CalculationWithoutOutput_ReturnChildrenWithEmptyOutput()
         {
             // Setup
-            var location = new TestHydraulicBoundaryLocation();
-
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
             {
-                Locations =
+                HydraulicBoundaryDatabases =
                 {
-                    location
+                    new HydraulicBoundaryDatabase
+                    {
+                        Locations =
+                        {
+                            new TestHydraulicBoundaryLocation()
+                        }
+                    }
                 }
             });
-
             mocks.ReplayAll();
 
             var parent = new CalculationGroup();
@@ -203,10 +206,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             {
                 foreshoreProfile
             }, inputContext.ForeshoreProfiles);
-            CollectionAssert.AreEqual(new[]
-            {
-                location
-            }, inputContext.HydraulicBoundaryLocations);
+            CollectionAssert.AreEqual(assessmentSection.HydraulicBoundaryData.GetLocations(), inputContext.HydraulicBoundaryLocations);
 
             Assert.IsInstanceOf<EmptyStabilityStoneCoverOutput>(children[2]);
         }
@@ -215,17 +215,20 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         public void ChildNodeObjects_CalculationWithOutput_ReturnChildrenWithOutput()
         {
             // Setup
-            var location = new TestHydraulicBoundaryLocation();
-
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
             {
-                Locations =
+                HydraulicBoundaryDatabases =
                 {
-                    location
+                    new HydraulicBoundaryDatabase
+                    {
+                        Locations =
+                        {
+                            new TestHydraulicBoundaryLocation()
+                        }
+                    }
                 }
             });
-
             mocks.ReplayAll();
 
             var parent = new CalculationGroup();
@@ -263,10 +266,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             {
                 foreshoreProfile
             }, inputContext.ForeshoreProfiles);
-            CollectionAssert.AreEqual(new[]
-            {
-                location
-            }, inputContext.HydraulicBoundaryLocations);
+            CollectionAssert.AreEqual(assessmentSection.HydraulicBoundaryData.GetLocations(), inputContext.HydraulicBoundaryLocations);
 
             var outputContext = (StabilityStoneCoverWaveConditionsOutputContext) children[2];
             Assert.AreSame(calculation.Output, outputContext.WrappedData);
@@ -547,7 +547,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            
+
             var parent = new CalculationGroup();
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
