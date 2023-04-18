@@ -528,7 +528,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
             ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
 
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryData.Locations.First());
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryData.GetLocations().First());
             calculation.Attach(observer);
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
