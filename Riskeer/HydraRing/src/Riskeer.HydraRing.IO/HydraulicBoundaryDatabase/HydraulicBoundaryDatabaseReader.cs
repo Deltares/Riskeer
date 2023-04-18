@@ -62,43 +62,6 @@ namespace Riskeer.HydraRing.IO.HydraulicBoundaryDatabase
         }
 
         /// <summary>
-        /// Reads the track Id from the hydraulic boundary database.
-        /// </summary>
-        /// <returns>The track Id found in the database.</returns>
-        /// <exception cref="LineParseException">Thrown when the database contains incorrect values for required properties.</exception>
-        /// <exception cref="CriticalFileReadException">Thrown when the track Id cannot be read.</exception>
-        public long ReadTrackId()
-        {
-            try
-            {
-                using (IDataReader reader = CreateDataReader(HydraulicBoundaryDatabaseQueryBuilder.GetTrackIdQuery(),
-                                                             new SQLiteParameter
-                                                             {
-                                                                 DbType = DbType.String
-                                                             }))
-                {
-                    if (reader.Read())
-                    {
-                        return Convert.ToInt64(reader[GeneralTableDefinitions.TrackId]);
-                    }
-
-                    throw new CriticalFileReadException(new FileReaderErrorMessageBuilder(Path)
-                                                            .Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column));
-                }
-            }
-            catch (InvalidCastException exception)
-            {
-                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
-                throw new LineParseException(message, exception);
-            }
-            catch (SQLiteException exception)
-            {
-                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.Error_HydraulicBoundaryLocation_read_from_database);
-                throw new CriticalFileReadException(message, exception);
-            }
-        }
-
-        /// <summary>
         /// Gets the version of the hydraulic boundary database.
         /// </summary>
         /// <returns>The version found in the database, or <see cref="string.Empty"/> if the version cannot be found.</returns>
@@ -127,6 +90,43 @@ namespace Riskeer.HydraRing.IO.HydraulicBoundaryDatabase
             {
                 string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.Error_HydraulicBoundaryLocation_read_from_database);
                 throw new CriticalFileReadException(message, e);
+            }
+        }
+
+        /// <summary>
+        /// Reads the track Id from the hydraulic boundary database.
+        /// </summary>
+        /// <returns>The track Id found in the database.</returns>
+        /// <exception cref="LineParseException">Thrown when the database contains incorrect values for required properties.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when the track Id cannot be read.</exception>
+        private long ReadTrackId()
+        {
+            try
+            {
+                using (IDataReader reader = CreateDataReader(HydraulicBoundaryDatabaseQueryBuilder.GetTrackIdQuery(),
+                                                             new SQLiteParameter
+                                                             {
+                                                                 DbType = DbType.String
+                                                             }))
+                {
+                    if (reader.Read())
+                    {
+                        return Convert.ToInt64(reader[GeneralTableDefinitions.TrackId]);
+                    }
+
+                    throw new CriticalFileReadException(new FileReaderErrorMessageBuilder(Path)
+                                                            .Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column));
+                }
+            }
+            catch (InvalidCastException exception)
+            {
+                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
+                throw new LineParseException(message, exception);
+            }
+            catch (SQLiteException exception)
+            {
+                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.Error_HydraulicBoundaryLocation_read_from_database);
+                throw new CriticalFileReadException(message, exception);
             }
         }
 
