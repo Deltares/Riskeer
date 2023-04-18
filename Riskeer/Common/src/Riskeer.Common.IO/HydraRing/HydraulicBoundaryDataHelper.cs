@@ -71,21 +71,19 @@ namespace Riskeer.Common.IO.HydraRing
                                      hrdFilePath);
             }
 
-            string hbsdFilePath = GetHydraulicBoundarySettingsDatabaseFilePath(hrdFilePath);
-
             try
             {
                 using (new HydraulicBoundaryDatabaseReader(hrdFilePath))
                 {
-                    // Used on purpose to check the filePath
+                    // Used on purpose to check the hydraulic boundary database file
                 }
 
                 using (new HydraulicLocationConfigurationDatabaseReader(hlcdFilePath))
                 {
-                    // Used on purpose to check the hlcdFilePath
+                    // Used on purpose to check the hydraulic location configuration database file
                 }
 
-                using (var validator = new HydraRingSettingsDatabaseValidator(hbsdFilePath))
+                using (var validator = new HydraRingSettingsDatabaseValidator(GetHydraulicBoundarySettingsDatabaseFilePath(hrdFilePath)))
                 {
                     if (!validator.ValidateSchema())
                     {
