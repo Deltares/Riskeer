@@ -418,17 +418,7 @@ namespace Riskeer.Integration.Service.Test
             var duneLocation1 = new TestDuneLocation();
             var duneLocation2 = new TestDuneLocation();
 
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-            {
-                HydraulicBoundaryData =
-                {
-                    Locations =
-                    {
-                        hydraulicBoundaryLocation1,
-                        hydraulicBoundaryLocation2
-                    }
-                }
-            };
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             var waterLevelCalculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
             var waveHeightCalculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01);
