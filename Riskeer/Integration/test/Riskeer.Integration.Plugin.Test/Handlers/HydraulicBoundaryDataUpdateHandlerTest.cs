@@ -286,7 +286,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             // Assert
             AssertHydraulicBoundaryLocations(readHydraulicBoundaryLocationsToInclude, readHydraulicLocationConfigurationDatabase,
-                                             hydraulicBoundaryData.Locations, readHydraulicBoundaryDatabase.TrackId);
+                                             hydraulicBoundaryData.GetLocations(), readHydraulicBoundaryDatabase.TrackId);
             mocks.VerifyAll();
         }
 
@@ -328,7 +328,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             // Assert
             AssertHydraulicBoundaryLocations(readHydraulicBoundaryLocationsToInclude, readHydraulicLocationConfigurationDatabase,
-                                             hydraulicBoundaryData.Locations, readHydraulicBoundaryDatabase.TrackId);
+                                             hydraulicBoundaryData.GetLocations(), readHydraulicBoundaryDatabase.TrackId);
             mocks.VerifyAll();
         }
 
@@ -358,7 +358,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var observables = new List<IObservable>
             {
                 hydraulicBoundaryData.HydraulicBoundaryDatabases,
-                hydraulicBoundaryData.Locations,
                 assessmentSection.WaterLevelCalculationsForSignalFloodingProbability,
                 assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability,
                 assessmentSection.DuneErosion.DuneLocations,
@@ -507,7 +506,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             {
                 assessmentSection.HydraulicBoundaryData,
                 assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases,
-                assessmentSection.HydraulicBoundaryData.Locations,
                 assessmentSection.WaterLevelCalculationsForSignalFloodingProbability,
                 assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability,
                 assessmentSection.DuneErosion.DuneLocations,

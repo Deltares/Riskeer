@@ -105,7 +105,7 @@ namespace Riskeer.Integration.IO.Importers
                 return false;
             }
 
-            IEnumerable<long> currentLocationIds = hydraulicBoundaryData.Locations.Select(l => l.Id).ToArray();
+            IEnumerable<long> currentLocationIds = hydraulicBoundaryData.GetLocations().Select(l => l.Id).ToArray();
             IEnumerable<long> readLocationIds = readHydraulicLocationConfigurationDatabase.ReadHydraulicLocations.Select(l => l.HlcdLocationId);
             if (currentLocationIds.Intersect(readLocationIds).Count() != currentLocationIds.Count())
             {

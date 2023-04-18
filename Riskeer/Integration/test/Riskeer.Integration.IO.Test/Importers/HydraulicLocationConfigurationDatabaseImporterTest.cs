@@ -211,7 +211,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             // Setup
             HydraulicBoundaryData hydraulicBoundaryData = CreateLinkedHydraulicBoundaryData();
 
-            hydraulicBoundaryData.Locations.Add(new TestHydraulicBoundaryLocation());
+            hydraulicBoundaryData.HydraulicBoundaryDatabases.First().Locations.Add(new TestHydraulicBoundaryLocation());
 
             var mocks = new MockRepository();
             var handler = mocks.StrictMock<IHydraulicLocationConfigurationDatabaseUpdateHandler>();

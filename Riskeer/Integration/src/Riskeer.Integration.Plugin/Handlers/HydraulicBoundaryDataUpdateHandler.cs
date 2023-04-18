@@ -109,10 +109,7 @@ namespace Riskeer.Integration.Plugin.Handlers
             };
 
             newHydraulicBoundaryDatabase.Locations.AddRange(newHydraulicBoundaryLocations);
-
             hydraulicBoundaryData.HydraulicBoundaryDatabases.Add(newHydraulicBoundaryDatabase);
-
-            hydraulicBoundaryData.Locations.AddRange(newHydraulicBoundaryLocations);
 
             assessmentSection.SetHydraulicBoundaryLocationCalculations(newHydraulicBoundaryDatabase.Locations);
             duneLocationsUpdateHandler.AddLocations(newHydraulicBoundaryDatabase.Locations);
@@ -152,7 +149,6 @@ namespace Riskeer.Integration.Plugin.Handlers
             var locationsAndCalculationsObservables = new List<IObservable>
             {
                 hydraulicBoundaryData.HydraulicBoundaryDatabases,
-                hydraulicBoundaryData.Locations,
                 assessmentSection.WaterLevelCalculationsForSignalFloodingProbability,
                 assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability,
                 assessmentSection.DuneErosion.DuneLocations,
