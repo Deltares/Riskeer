@@ -159,7 +159,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
         }
 
         [Test]
-        public void HaveEqualVersion_HydraulicBoundaryDataNull_ThrowsArgumentNullException()
+        public void HaveEqualVersion_HydraulicBoundaryDatabaseNull_ThrowsArgumentNullException()
         {
             // Setup
             string hrdFilePath = Path.Combine(testDataPath, "complete.sqlite");
@@ -169,17 +169,14 @@ namespace Riskeer.Common.IO.Test.HydraRing
 
             // Assert
             string parameter = Assert.Throws<ArgumentNullException>(Call).ParamName;
-            Assert.AreEqual("hydraulicBoundaryData", parameter);
+            Assert.AreEqual("hydraulicBoundaryDatabase", parameter);
         }
 
         [Test]
         public void HaveEqualVersion_HrdFilePathNull_ThrowsArgumentNullException()
         {
-            // Setup
-            var hydraulicBoundaryData = new HydraulicBoundaryData();
-
             // Call
-            void Call() => HydraulicBoundaryDataHelper.HaveEqualVersion(hydraulicBoundaryData, null);
+            void Call() => HydraulicBoundaryDataHelper.HaveEqualVersion(new HydraulicBoundaryDatabase(), null);
 
             // Assert
             string parameter = Assert.Throws<ArgumentNullException>(Call).ParamName;
@@ -193,7 +190,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
             string hrdFilePath = Path.Combine(testDataPath, "complete.sqlite").Replace('c', Path.GetInvalidPathChars()[0]);
 
             // Call
-            void Test() => HydraulicBoundaryDataHelper.HaveEqualVersion(new HydraulicBoundaryData(), hrdFilePath);
+            void Test() => HydraulicBoundaryDataHelper.HaveEqualVersion(new HydraulicBoundaryDatabase(), hrdFilePath);
 
             // Assert
             Assert.Throws<CriticalFileReadException>(Test);
@@ -204,13 +201,13 @@ namespace Riskeer.Common.IO.Test.HydraRing
         {
             // Setup
             string hrdFilePath = Path.Combine(testDataPath, "complete.sqlite");
-            var hydraulicBoundaryData = new HydraulicBoundaryData
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 Version = "Dutch coast South19-11-2015 12:0013"
             };
 
             // Call
-            bool isEqual = HydraulicBoundaryDataHelper.HaveEqualVersion(hydraulicBoundaryData, hrdFilePath);
+            bool isEqual = HydraulicBoundaryDataHelper.HaveEqualVersion(hydraulicBoundaryDatabase, hrdFilePath);
 
             // Assert
             Assert.IsTrue(isEqual);
@@ -221,13 +218,13 @@ namespace Riskeer.Common.IO.Test.HydraRing
         {
             // Setup
             string hrdFilePath = Path.Combine(testDataPath, "complete.sqlite");
-            var hydraulicBoundaryData = new HydraulicBoundaryData
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 Version = "Dutch coast South19-11-2015 12:0113"
             };
 
             // Call
-            bool isEqual = HydraulicBoundaryDataHelper.HaveEqualVersion(hydraulicBoundaryData, hrdFilePath);
+            bool isEqual = HydraulicBoundaryDataHelper.HaveEqualVersion(hydraulicBoundaryDatabase, hrdFilePath);
 
             // Assert
             Assert.IsFalse(isEqual);
