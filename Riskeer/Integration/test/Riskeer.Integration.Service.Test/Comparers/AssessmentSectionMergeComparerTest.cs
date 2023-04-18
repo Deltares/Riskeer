@@ -189,33 +189,39 @@ namespace Riskeer.Integration.Service.Test.Comparers
 
         private static IEnumerable<ChangePropertyData<AssessmentSection>> ChangeSingleDataPropertiesOfAssessmentSection()
         {
-            yield return new ChangePropertyData<AssessmentSection>(sec => sec.ReferenceLine.SetGeometry(new[]
-                                                                   {
-                                                                       new Point2D(1, 1)
-                                                                   }),
-                                                                   "Referenceline different point count");
-
-            yield return new ChangePropertyData<AssessmentSection>(sec => sec.ReferenceLine.SetGeometry(new[]
-                                                                   {
-                                                                       new Point2D(1, 1),
-                                                                       new Point2D(1, 3)
-                                                                   }),
-                                                                   "Referenceline different point");
-
-            yield return new ChangePropertyData<AssessmentSection>(sec => sec.Id = "DifferentVersion",
-                                                                   "Id");
-            yield return new ChangePropertyData<AssessmentSection>(sec => sec.HydraulicBoundaryData.Version = "DifferentVersion",
-                                                                   "HydraulicBoundaryData");
-            yield return new ChangePropertyData<AssessmentSection>(sec => sec.FailureMechanismContribution.MaximumAllowableFloodingProbability -= 1e-15,
-                                                                   "MaximumAllowableFloodingProbability");
-            yield return new ChangePropertyData<AssessmentSection>(sec => sec.FailureMechanismContribution.SignalFloodingProbability -= 1e-15,
-                                                                   "SignalFloodingProbability");
-            yield return new ChangePropertyData<AssessmentSection>(sec => sec.FailureMechanismContribution.NormativeProbabilityType = sec.FailureMechanismContribution.NormativeProbabilityType == NormativeProbabilityType.MaximumAllowableFloodingProbability
-                                                                                                                                          ? NormativeProbabilityType.SignalFloodingProbability
-                                                                                                                                          : NormativeProbabilityType.MaximumAllowableFloodingProbability,
-                                                                   "NormativeProbabilityType");
-            yield return new ChangePropertyData<AssessmentSection>(sec => sec.ChangeComposition(AssessmentSectionComposition.DikeAndDune),
-                                                                   "Composition");
+            yield return new ChangePropertyData<AssessmentSection>(
+                sec => sec.ReferenceLine.SetGeometry(new[]
+                {
+                    new Point2D(1, 1)
+                }),
+                "Referenceline different point count");
+            yield return new ChangePropertyData<AssessmentSection>(
+                sec => sec.ReferenceLine.SetGeometry(new[]
+                {
+                    new Point2D(1, 1),
+                    new Point2D(1, 3)
+                }),
+                "Referenceline different point");
+            yield return new ChangePropertyData<AssessmentSection>(
+                sec => sec.Id = "DifferentVersion",
+                "Id");
+            yield return new ChangePropertyData<AssessmentSection>(
+                sec => sec.HydraulicBoundaryData.Version = "DifferentVersion",
+                "HydraulicBoundaryData");
+            yield return new ChangePropertyData<AssessmentSection>(
+                sec => sec.FailureMechanismContribution.MaximumAllowableFloodingProbability -= 1e-15,
+                "MaximumAllowableFloodingProbability");
+            yield return new ChangePropertyData<AssessmentSection>(
+                sec => sec.FailureMechanismContribution.SignalFloodingProbability -= 1e-15,
+                "SignalFloodingProbability");
+            yield return new ChangePropertyData<AssessmentSection>(
+                sec => sec.FailureMechanismContribution.NormativeProbabilityType = sec.FailureMechanismContribution.NormativeProbabilityType == NormativeProbabilityType.MaximumAllowableFloodingProbability
+                                                                                       ? NormativeProbabilityType.SignalFloodingProbability
+                                                                                       : NormativeProbabilityType.MaximumAllowableFloodingProbability,
+                "NormativeProbabilityType");
+            yield return new ChangePropertyData<AssessmentSection>(
+                sec => sec.ChangeComposition(AssessmentSectionComposition.DikeAndDune),
+                "Composition");
         }
 
         private static IEnumerable<TestCaseData> GetAssessmentSectionWithNotEquivalentHydraulicLocationConfigurationDatabaseTestCases()
@@ -230,69 +236,78 @@ namespace Riskeer.Integration.Service.Test.Comparers
 
         private static IEnumerable<ChangePropertyData<HydraulicLocationConfigurationDatabase>> ChangeSingleDataOfHydraulicLocationConfigurationDatabase()
         {
-            yield return new ChangePropertyData<HydraulicLocationConfigurationDatabase>(hydraulicLocationConfigurationDatabase =>
-                                                                                        {
-                                                                                            ConfigureHydraulicLocationConfigurationDatabase(hydraulicLocationConfigurationDatabase);
+            yield return new ChangePropertyData<HydraulicLocationConfigurationDatabase>(
+                hydraulicLocationConfigurationDatabase =>
+                {
+                    ConfigureHydraulicLocationConfigurationDatabase(hydraulicLocationConfigurationDatabase);
 
-                                                                                            hydraulicLocationConfigurationDatabase.ScenarioName = "Other ScenarioName";
-                                                                                        },
-                                                                                        "Different ScenarioName");
-            yield return new ChangePropertyData<HydraulicLocationConfigurationDatabase>(hydraulicLocationConfigurationDatabase =>
-                                                                                        {
-                                                                                            ConfigureHydraulicLocationConfigurationDatabase(hydraulicLocationConfigurationDatabase);
+                    hydraulicLocationConfigurationDatabase.ScenarioName = "Other ScenarioName";
+                },
+                "Different ScenarioName");
+            yield return new ChangePropertyData<HydraulicLocationConfigurationDatabase>(
+                hydraulicLocationConfigurationDatabase =>
+                {
+                    ConfigureHydraulicLocationConfigurationDatabase(hydraulicLocationConfigurationDatabase);
 
-                                                                                            hydraulicLocationConfigurationDatabase.Year = 2023;
-                                                                                        },
-                                                                                        "Different Year");
-            yield return new ChangePropertyData<HydraulicLocationConfigurationDatabase>(hydraulicLocationConfigurationDatabase =>
-                                                                                        {
-                                                                                            ConfigureHydraulicLocationConfigurationDatabase(hydraulicLocationConfigurationDatabase);
+                    hydraulicLocationConfigurationDatabase.Year = 2023;
+                },
+                "Different Year");
+            yield return new ChangePropertyData<HydraulicLocationConfigurationDatabase>(
+                hydraulicLocationConfigurationDatabase =>
+                {
+                    ConfigureHydraulicLocationConfigurationDatabase(hydraulicLocationConfigurationDatabase);
 
-                                                                                            hydraulicLocationConfigurationDatabase.Scope = "Other Scope";
-                                                                                        },
-                                                                                        "Different Scope");
-            yield return new ChangePropertyData<HydraulicLocationConfigurationDatabase>(hydraulicLocationConfigurationDatabase =>
-                                                                                        {
-                                                                                            ConfigureHydraulicLocationConfigurationDatabase(hydraulicLocationConfigurationDatabase);
+                    hydraulicLocationConfigurationDatabase.Scope = "Other Scope";
+                },
+                "Different Scope");
+            yield return new ChangePropertyData<HydraulicLocationConfigurationDatabase>(
+                hydraulicLocationConfigurationDatabase =>
+                {
+                    ConfigureHydraulicLocationConfigurationDatabase(hydraulicLocationConfigurationDatabase);
 
-                                                                                            hydraulicLocationConfigurationDatabase.SeaLevel = "Other SeaLevel";
-                                                                                        },
-                                                                                        "Different SeaLevel");
-            yield return new ChangePropertyData<HydraulicLocationConfigurationDatabase>(hydraulicLocationConfigurationDatabase =>
-                                                                                        {
-                                                                                            ConfigureHydraulicLocationConfigurationDatabase(hydraulicLocationConfigurationDatabase);
+                    hydraulicLocationConfigurationDatabase.SeaLevel = "Other SeaLevel";
+                },
+                "Different SeaLevel");
+            yield return new ChangePropertyData<HydraulicLocationConfigurationDatabase>(
+                hydraulicLocationConfigurationDatabase =>
+                {
+                    ConfigureHydraulicLocationConfigurationDatabase(hydraulicLocationConfigurationDatabase);
 
-                                                                                            hydraulicLocationConfigurationDatabase.RiverDischarge = "Other RiverDischarge";
-                                                                                        },
-                                                                                        "Different RiverDischarge");
-            yield return new ChangePropertyData<HydraulicLocationConfigurationDatabase>(hydraulicLocationConfigurationDatabase =>
-                                                                                        {
-                                                                                            ConfigureHydraulicLocationConfigurationDatabase(hydraulicLocationConfigurationDatabase);
+                    hydraulicLocationConfigurationDatabase.RiverDischarge = "Other RiverDischarge";
+                },
+                "Different RiverDischarge");
+            yield return new ChangePropertyData<HydraulicLocationConfigurationDatabase>(
+                hydraulicLocationConfigurationDatabase =>
+                {
+                    ConfigureHydraulicLocationConfigurationDatabase(hydraulicLocationConfigurationDatabase);
 
-                                                                                            hydraulicLocationConfigurationDatabase.LakeLevel = "Other LakeLevel";
-                                                                                        },
-                                                                                        "Different LakeLevel");
-            yield return new ChangePropertyData<HydraulicLocationConfigurationDatabase>(hydraulicLocationConfigurationDatabase =>
-                                                                                        {
-                                                                                            ConfigureHydraulicLocationConfigurationDatabase(hydraulicLocationConfigurationDatabase);
+                    hydraulicLocationConfigurationDatabase.LakeLevel = "Other LakeLevel";
+                },
+                "Different LakeLevel");
+            yield return new ChangePropertyData<HydraulicLocationConfigurationDatabase>(
+                hydraulicLocationConfigurationDatabase =>
+                {
+                    ConfigureHydraulicLocationConfigurationDatabase(hydraulicLocationConfigurationDatabase);
 
-                                                                                            hydraulicLocationConfigurationDatabase.WindDirection = "Other WindDirection";
-                                                                                        },
-                                                                                        "Different WindDirection");
-            yield return new ChangePropertyData<HydraulicLocationConfigurationDatabase>(hydraulicLocationConfigurationDatabase =>
-                                                                                        {
-                                                                                            ConfigureHydraulicLocationConfigurationDatabase(hydraulicLocationConfigurationDatabase);
+                    hydraulicLocationConfigurationDatabase.WindDirection = "Other WindDirection";
+                },
+                "Different WindDirection");
+            yield return new ChangePropertyData<HydraulicLocationConfigurationDatabase>(
+                hydraulicLocationConfigurationDatabase =>
+                {
+                    ConfigureHydraulicLocationConfigurationDatabase(hydraulicLocationConfigurationDatabase);
 
-                                                                                            hydraulicLocationConfigurationDatabase.WindSpeed = "Other Windspeed";
-                                                                                        },
-                                                                                        "Different WindSpeed");
-            yield return new ChangePropertyData<HydraulicLocationConfigurationDatabase>(hydraulicLocationConfigurationDatabase =>
-                                                                                        {
-                                                                                            ConfigureHydraulicLocationConfigurationDatabase(hydraulicLocationConfigurationDatabase);
+                    hydraulicLocationConfigurationDatabase.WindSpeed = "Other Windspeed";
+                },
+                "Different WindSpeed");
+            yield return new ChangePropertyData<HydraulicLocationConfigurationDatabase>(
+                hydraulicLocationConfigurationDatabase =>
+                {
+                    ConfigureHydraulicLocationConfigurationDatabase(hydraulicLocationConfigurationDatabase);
 
-                                                                                            hydraulicLocationConfigurationDatabase.Comment = "Other Comment";
-                                                                                        },
-                                                                                        "Different Comment");
+                    hydraulicLocationConfigurationDatabase.Comment = "Other Comment";
+                },
+                "Different Comment");
         }
     }
 }
