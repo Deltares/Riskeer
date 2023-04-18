@@ -867,7 +867,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
 
             StabilityStoneCoverWaveConditionsCalculation calculation = validCalculation
-                                                                           ? GetValidCalculation(assessmentSection.HydraulicBoundaryData.Locations.First())
+                                                                           ? GetValidCalculation(assessmentSection.HydraulicBoundaryData.GetLocations().First())
                                                                            : new StabilityStoneCoverWaveConditionsCalculation
                                                                            {
                                                                                Name = "A"
@@ -988,7 +988,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
 
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.Locations.First();
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First();
 
             var parent = new CalculationGroup();
             StabilityStoneCoverWaveConditionsCalculation calculation = GetValidCalculation(hydraulicBoundaryLocation);
