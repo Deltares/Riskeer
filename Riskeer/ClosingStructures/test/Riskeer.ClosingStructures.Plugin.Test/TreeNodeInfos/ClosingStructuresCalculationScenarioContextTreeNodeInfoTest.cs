@@ -852,7 +852,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 {
                     FilePath = validHlcdFilePath
                 },
-                Version = "random",
                 HydraulicBoundaryDatabases =
                 {
                     new HydraulicBoundaryDatabase
@@ -944,7 +943,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 {
                     FilePath = validHlcdFilePath
                 },
-                Version = "random",
                 HydraulicBoundaryDatabases =
                 {
                     new HydraulicBoundaryDatabase

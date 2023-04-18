@@ -638,7 +638,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 {
                     FilePath = validHlcdFilePath
                 },
-                Version = "random",
                 HydraulicBoundaryDatabases =
                 {
                     new HydraulicBoundaryDatabase
@@ -737,7 +736,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 {
                     FilePath = validHlcdFilePath
                 },
-                Version = "random",
                 HydraulicBoundaryDatabases =
                 {
                     new HydraulicBoundaryDatabase

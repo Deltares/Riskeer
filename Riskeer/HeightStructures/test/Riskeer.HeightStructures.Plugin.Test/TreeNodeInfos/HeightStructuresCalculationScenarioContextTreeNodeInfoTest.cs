@@ -907,7 +907,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                 {
                     FilePath = validHlcdFilePath
                 },
-                Version = "random",
                 HydraulicBoundaryDatabases =
                 {
                     new HydraulicBoundaryDatabase
@@ -1006,7 +1005,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                 {
                     FilePath = validHlcdFilePath
                 },
-                Version = "random",
                 HydraulicBoundaryDatabases =
                 {
                     new HydraulicBoundaryDatabase

@@ -61,7 +61,6 @@ namespace Riskeer.Integration.Data.Test
 
             HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryData;
             Assert.IsNotNull(hydraulicBoundaryData);
-            Assert.IsNull(hydraulicBoundaryData.Version);
             Assert.IsNotNull(hydraulicBoundaryData.HydraulicLocationConfigurationDatabase);
             CollectionAssert.IsEmpty(hydraulicBoundaryData.HydraulicBoundaryDatabases);
 

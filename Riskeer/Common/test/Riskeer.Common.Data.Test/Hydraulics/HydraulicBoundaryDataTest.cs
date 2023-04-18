@@ -36,10 +36,8 @@ namespace Riskeer.Common.Data.Test.Hydraulics
 
             // Assert
             Assert.IsInstanceOf<Observable>(hydraulicBoundaryData);
-            Assert.IsNull(hydraulicBoundaryData.Version);
             Assert.IsNotNull(hydraulicBoundaryData.HydraulicLocationConfigurationDatabase);
             CollectionAssert.IsEmpty(hydraulicBoundaryData.HydraulicBoundaryDatabases);
-            CollectionAssert.IsEmpty(hydraulicBoundaryData.Locations);
         }
     }
 }
