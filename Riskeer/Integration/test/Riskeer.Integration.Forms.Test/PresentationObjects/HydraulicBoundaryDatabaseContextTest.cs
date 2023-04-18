@@ -44,7 +44,7 @@ namespace Riskeer.Integration.Forms.Test.PresentationObjects
             var context = new HydraulicBoundaryDatabaseContext(hydraulicBoundaryDatabase, hydraulicBoundaryData, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<HydraulicBoundaryDatabase>>(context);
+            Assert.IsInstanceOf<WrappedObjectContextBase<HydraulicBoundaryDatabase>>(context);
             Assert.AreSame(hydraulicBoundaryDatabase, context.WrappedData);
             Assert.AreSame(hydraulicBoundaryData, context.HydraulicBoundaryData);
             Assert.AreSame(assessmentSection, context.AssessmentSection);

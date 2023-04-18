@@ -29,7 +29,7 @@ namespace Riskeer.Integration.Forms.PresentationObjects
     /// <summary>
     /// Presentation object for all data required to configure a <see cref="HydraulicBoundaryDatabase"/> instance.
     /// </summary>
-    public class HydraulicBoundaryDatabaseContext : ObservableWrappedObjectContextBase<HydraulicBoundaryDatabase>
+    public class HydraulicBoundaryDatabaseContext : WrappedObjectContextBase<HydraulicBoundaryDatabase>
     {
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryDatabaseContext"/>.
