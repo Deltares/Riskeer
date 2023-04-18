@@ -28,6 +28,7 @@ using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Service.Comparers;
 
@@ -151,6 +152,25 @@ namespace Riskeer.Integration.Service.Test.Comparers
         }
 
         [Test]
+        public void Compare_AssessmentSectionWithEquivalentHydraulicBoundaryDatabase_ReturnsTrue()
+        {
+            // Setup
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+            assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(CreateHydraulicBoundaryDatabase());
+
+            AssessmentSection otherAssessmentSection = CreateAssessmentSection();
+            otherAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(CreateHydraulicBoundaryDatabase());
+
+            var comparer = new AssessmentSectionMergeComparer();
+
+            // Call
+            bool result = comparer.Compare(assessmentSection, otherAssessmentSection);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [Test]
         [TestCaseSource(nameof(GetAssessmentSectionWithNotEquivalentHydraulicBoundaryDatabaseTestCases))]
         public void Compare_AssessmentSectionWithNotEquivalentHydraulicBoundaryDatabase_ReturnsFalse(AssessmentSection otherAssessmentSection)
         {
@@ -166,13 +186,62 @@ namespace Riskeer.Integration.Service.Test.Comparers
             // Assert
             Assert.IsFalse(result);
         }
+        
+        [Test]
+        public void Compare_AssessmentSectionWithDifferentHydraulicBoundaryDatabase_ReturnsTrue()
+        {
+            // Setup
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+            assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(CreateHydraulicBoundaryDatabase());
+
+            AssessmentSection otherAssessmentSection = CreateAssessmentSection();
+            HydraulicBoundaryDatabase otherHydraulicBoundaryDatabase = CreateHydraulicBoundaryDatabase();
+            otherHydraulicBoundaryDatabase.FilePath = "Other file path";
+            otherHydraulicBoundaryDatabase.Locations.Clear();
+            otherHydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "name", 0, 0));
+            otherAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(otherHydraulicBoundaryDatabase);
+
+            var comparer = new AssessmentSectionMergeComparer();
+
+            // Call
+            bool result = comparer.Compare(assessmentSection, otherAssessmentSection);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void Compare_AssessmentSectionWithDifferentHydraulicBoundaryDatabaseAndDuplicateLocations_ReturnsFalse()
+        {
+            // Setup
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+            assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(CreateHydraulicBoundaryDatabase());
+
+            AssessmentSection otherAssessmentSection = CreateAssessmentSection();
+            HydraulicBoundaryDatabase otherHydraulicBoundaryDatabase = CreateHydraulicBoundaryDatabase();
+            otherHydraulicBoundaryDatabase.FilePath = "Other file path";
+            otherAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(otherHydraulicBoundaryDatabase);
+
+            var comparer = new AssessmentSectionMergeComparer();
+
+            // Call
+            bool result = comparer.Compare(assessmentSection, otherAssessmentSection);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
 
         private static HydraulicBoundaryDatabase CreateHydraulicBoundaryDatabase()
         {
             return new HydraulicBoundaryDatabase
             {
+                FilePath = "FilePath",
                 Version = "Version",
-                UsePreprocessorClosure = false
+                UsePreprocessorClosure = false,
+                Locations =
+                {
+                    new TestHydraulicBoundaryLocation()
+                }
             };
         }
 

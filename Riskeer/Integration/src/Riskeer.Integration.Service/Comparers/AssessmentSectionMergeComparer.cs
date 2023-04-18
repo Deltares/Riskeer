@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
@@ -80,21 +81,35 @@ namespace Riskeer.Integration.Service.Comparers
         private static bool AreHydraulicBoundaryDataInstancesEquivalent(HydraulicBoundaryData hydraulicBoundaryData,
                                                                         HydraulicBoundaryData otherHydraulicBoundaryData)
         {
-            if (AreHydraulicLocationConfigurationDatabasesEquivalent(
-                    hydraulicBoundaryData.HydraulicLocationConfigurationDatabase, otherHydraulicBoundaryData.HydraulicLocationConfigurationDatabase))
+            if (!AreHydraulicLocationConfigurationDatabasesEquivalent(hydraulicBoundaryData.HydraulicLocationConfigurationDatabase,
+                                                                      otherHydraulicBoundaryData.HydraulicLocationConfigurationDatabase))
             {
-                for (var i = 0; i < hydraulicBoundaryData.HydraulicBoundaryDatabases.Count; i++)
-                {
-                    if (!AreHydraulicBoundaryDatabasesEquivalent(hydraulicBoundaryData.HydraulicBoundaryDatabases[i], otherHydraulicBoundaryData.HydraulicBoundaryDatabases[i]))
-                    {
-                        return false;
-                    }
-                }
-
-                return true;
+                return false;
             }
 
-            return false;
+            ObservableList<HydraulicBoundaryDatabase> hydraulicBoundaryDatabases = hydraulicBoundaryData.HydraulicBoundaryDatabases;
+            ObservableList<HydraulicBoundaryDatabase> otherHydraulicBoundaryDatabases = otherHydraulicBoundaryData.HydraulicBoundaryDatabases;
+
+            HydraulicBoundaryDatabase[] overlappingDatabases = otherHydraulicBoundaryDatabases.Where(
+                ohbd => hydraulicBoundaryDatabases.Select(hbd => Path.GetFileNameWithoutExtension(hbd.FilePath))
+                                                  .Contains(Path.GetFileNameWithoutExtension(ohbd.FilePath))).ToArray();
+
+            foreach (HydraulicBoundaryDatabase otherHydraulicBoundaryDatabase in overlappingDatabases)
+            {
+                HydraulicBoundaryDatabase hydraulicBoundaryDatabase = hydraulicBoundaryDatabases.First(
+                    hbd => Path.GetFileNameWithoutExtension(hbd.FilePath) == Path.GetFileNameWithoutExtension(otherHydraulicBoundaryDatabase.FilePath));
+
+                if (!AreHydraulicBoundaryDatabasesEquivalent(hydraulicBoundaryDatabase, otherHydraulicBoundaryDatabase))
+                {
+                    return false;
+                }
+            }
+
+            IEnumerable<long> locationIds = hydraulicBoundaryData.GetLocations().Select(l => l.Id);
+            return !otherHydraulicBoundaryDatabases.Except(overlappingDatabases)
+                                                   .SelectMany(hbd => hbd.Locations)
+                                                   .Select(l => l.Id)
+                                                   .Any(id => locationIds.Contains(id));
         }
 
         private static bool AreHydraulicLocationConfigurationDatabasesEquivalent(HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase,
