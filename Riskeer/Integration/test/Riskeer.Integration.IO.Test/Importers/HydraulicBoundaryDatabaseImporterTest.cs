@@ -384,7 +384,7 @@ namespace Riskeer.Integration.IO.Test.Importers
 
         [Test]
         [TestCaseSource(nameof(GetValidFiles))]
-        public void Import_WithValidFileAndHlcdWithoutScenarioInformation_UpdatesHydraulicBoundaryDataWithImportedData(
+        public void Import_WithValidFile_UpdatesHydraulicBoundaryDataWithImportedData(
             string filePath, bool usePreprocessorClosure)
         {
             // Setup
@@ -431,55 +431,6 @@ namespace Riskeer.Integration.IO.Test.Importers
 
             // Assert
             TestHelper.AssertLogMessageIsGenerated(Call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
-            Assert.IsTrue(importResult);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Import_WithValidFileAndHlcdWithValidScenarioInformation_UpdatesHydraulicBoundaryDataWithImportedData()
-        {
-            // Setup
-            string hrdFilePath = Path.Combine(testDataPath, "hlcdWithValidScenarioInformation", "complete.sqlite");
-            string hlcdFilePath = Path.Combine(testDataPath, "hlcdWithValidScenarioInformation", "hlcd.sqlite");
-
-            var hydraulicBoundaryData = new HydraulicBoundaryData
-            {
-                HydraulicLocationConfigurationDatabase =
-                {
-                    FilePath = hlcdFilePath
-                }
-            };
-
-            var mocks = new MockRepository();
-            var handler = mocks.StrictMock<IHydraulicBoundaryDataUpdateHandler>();
-
-            handler.Expect(h => h.AddHydraulicBoundaryDatabase(Arg<HydraulicBoundaryData>.Is.Same(hydraulicBoundaryData),
-                                                               Arg<ReadHydraulicBoundaryDatabase>.Is.NotNull,
-                                                               Arg<ReadHydraulicLocationConfigurationDatabase>.Is.NotNull,
-                                                               Arg<IEnumerable<long>>.Is.NotNull,
-                                                               Arg<string>.Is.Equal(hrdFilePath)))
-                   .WhenCalled(invocation =>
-                   {
-                       AssertReadHydraulicBoundaryDatabase((ReadHydraulicBoundaryDatabase) invocation.Arguments[1]);
-
-                       var readHydraulicLocationConfigurationDatabase = (ReadHydraulicLocationConfigurationDatabase) invocation.Arguments[2];
-                       Assert.AreEqual(43376, readHydraulicLocationConfigurationDatabase.ReadHydraulicLocations.Count());
-                       Assert.AreEqual(1, readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationSettings.Count());
-
-                       var excludedLocationIds = (IEnumerable<long>) invocation.Arguments[3];
-                       Assert.AreEqual(0, excludedLocationIds.Count());
-                   })
-                   .Return(Enumerable.Empty<IObservable>());
-            mocks.ReplayAll();
-
-            var importer = new HydraulicBoundaryDatabaseImporter(hydraulicBoundaryData, handler, hrdFilePath);
-
-            // Call
-            var importResult = false;
-            void Call() => importResult = importer.Import();
-
-            // Assert
-            TestHelper.AssertLogMessageIsGenerated(Call, $"Gegevens zijn geïmporteerd vanuit bestand '{hrdFilePath}'.", 1);
             Assert.IsTrue(importResult);
             mocks.VerifyAll();
         }
