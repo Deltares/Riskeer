@@ -107,19 +107,6 @@ namespace Riskeer.Common.Data.TestUtil
         /// hydraulic boundary location calculations.</param>
         public void SetHydraulicBoundaryLocationCalculations(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations, bool setCalculationOutput = false)
         {
-            waterLevelCalculationsForSignalFloodingProbability.Clear();
-            waterLevelCalculationsForMaximumAllowableFloodingProbability.Clear();
-
-            foreach (HydraulicBoundaryLocationCalculationsForTargetProbability element in WaterLevelCalculationsForUserDefinedTargetProbabilities)
-            {
-                element.HydraulicBoundaryLocationCalculations.Clear();
-            }
-
-            foreach (HydraulicBoundaryLocationCalculationsForTargetProbability element in WaveHeightCalculationsForUserDefinedTargetProbabilities)
-            {
-                element.HydraulicBoundaryLocationCalculations.Clear();
-            }
-
             foreach (HydraulicBoundaryLocation hydraulicBoundaryLocation in hydraulicBoundaryLocations)
             {
                 AddHydraulicBoundaryLocation(hydraulicBoundaryLocation, setCalculationOutput);
