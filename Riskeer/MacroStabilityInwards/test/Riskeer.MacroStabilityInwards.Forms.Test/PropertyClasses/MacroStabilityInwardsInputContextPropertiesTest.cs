@@ -1115,9 +1115,15 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
             {
-                Locations =
+                HydraulicBoundaryDatabases =
                 {
-                    hydraulicBoundaryLocation
+                    new HydraulicBoundaryDatabase
+                    {
+                        Locations =
+                        {
+                            hydraulicBoundaryLocation
+                        }
+                    }
                 }
             });
 
@@ -1167,12 +1173,18 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                Locations =
+                HydraulicBoundaryDatabases =
                 {
-                    new HydraulicBoundaryLocation(1, "A", 0, 1),
-                    new HydraulicBoundaryLocation(4, "C", 0, 2),
-                    new HydraulicBoundaryLocation(3, "D", 0, 3),
-                    new HydraulicBoundaryLocation(2, "B", 0, 4)
+                    new HydraulicBoundaryDatabase
+                    {
+                        Locations =
+                        {
+                            new HydraulicBoundaryLocation(1, "A", 0, 1),
+                            new HydraulicBoundaryLocation(4, "C", 0, 2),
+                            new HydraulicBoundaryLocation(3, "D", 0, 3),
+                            new HydraulicBoundaryLocation(2, "B", 0, 4)
+                        }
+                    }
                 }
             };
 
@@ -1195,7 +1207,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Assert
             IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
-                hydraulicBoundaryData.Locations.Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, null))
+                hydraulicBoundaryData.GetLocations().Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, null))
                                      .OrderBy(hbl => hbl.HydraulicBoundaryLocation.Id);
             CollectionAssert.AreEqual(expectedList, selectableHydraulicBoundaryLocations);
             mocks.VerifyAll();
@@ -1210,14 +1222,20 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                Locations =
+                HydraulicBoundaryDatabases =
                 {
-                    new HydraulicBoundaryLocation(1, "A", 0, 10),
-                    new HydraulicBoundaryLocation(4, "E", 0, 500),
-                    new HydraulicBoundaryLocation(6, "F", 0, 100),
-                    new HydraulicBoundaryLocation(5, "D", 0, 200),
-                    new HydraulicBoundaryLocation(3, "C", 0, 200),
-                    new HydraulicBoundaryLocation(2, "B", 0, 200)
+                    new HydraulicBoundaryDatabase
+                    {
+                        Locations =
+                        {
+                            new HydraulicBoundaryLocation(1, "A", 0, 10),
+                            new HydraulicBoundaryLocation(4, "E", 0, 500),
+                            new HydraulicBoundaryLocation(6, "F", 0, 100),
+                            new HydraulicBoundaryLocation(5, "D", 0, 200),
+                            new HydraulicBoundaryLocation(3, "C", 0, 200),
+                            new HydraulicBoundaryLocation(2, "B", 0, 200)
+                        }
+                    }
                 }
             };
 
@@ -1249,8 +1267,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Assert
             IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
-                hydraulicBoundaryData.Locations.Select(hbl => new SelectableHydraulicBoundaryLocation(
-                                                           hbl, surfaceLine.ReferenceLineIntersectionWorldPoint))
+                hydraulicBoundaryData.GetLocations().Select(hbl => new SelectableHydraulicBoundaryLocation(
+                                                                hbl, surfaceLine.ReferenceLineIntersectionWorldPoint))
                                      .OrderBy(hbl => hbl.Distance)
                                      .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Id);
             CollectionAssert.AreEqual(expectedList, selectableHydraulicBoundaryLocations);
@@ -1266,14 +1284,20 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             var observable = mocks.StrictMock<IObservable>();
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                Locations =
+                HydraulicBoundaryDatabases =
                 {
-                    new HydraulicBoundaryLocation(1, "A", 0, 10),
-                    new HydraulicBoundaryLocation(4, "E", 0, 500),
-                    new HydraulicBoundaryLocation(6, "F", 0, 100),
-                    new HydraulicBoundaryLocation(5, "D", 0, 200),
-                    new HydraulicBoundaryLocation(3, "C", 0, 200),
-                    new HydraulicBoundaryLocation(2, "B", 0, 200)
+                    new HydraulicBoundaryDatabase
+                    {
+                        Locations =
+                        {
+                            new HydraulicBoundaryLocation(1, "A", 0, 10),
+                            new HydraulicBoundaryLocation(4, "E", 0, 500),
+                            new HydraulicBoundaryLocation(6, "F", 0, 100),
+                            new HydraulicBoundaryLocation(5, "D", 0, 200),
+                            new HydraulicBoundaryLocation(3, "C", 0, 200),
+                            new HydraulicBoundaryLocation(2, "B", 0, 200)
+                        }
+                    }
                 }
             };
 
@@ -1322,7 +1346,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             CollectionAssert.AreNotEqual(originalList, availableHydraulicBoundaryLocations);
 
             IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
-                hydraulicBoundaryData.Locations
+                hydraulicBoundaryData.GetLocations()
                                      .Select(hbl =>
                                                  new SelectableHydraulicBoundaryLocation(hbl,
                                                                                          properties.SurfaceLine.ReferenceLineIntersectionWorldPoint))

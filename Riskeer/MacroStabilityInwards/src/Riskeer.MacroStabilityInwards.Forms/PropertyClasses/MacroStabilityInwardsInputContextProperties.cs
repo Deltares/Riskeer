@@ -29,6 +29,7 @@ using Core.Common.Util.Attributes;
 using Core.Common.Util.Enums;
 using Core.Gui.Attributes;
 using Core.Gui.PropertyBag;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -162,7 +163,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         {
             Point2D referencePoint = SurfaceLine?.ReferenceLineIntersectionWorldPoint;
             return SelectableHydraulicBoundaryLocationHelper.GetSortedSelectableHydraulicBoundaryLocations(
-                data.AssessmentSection.HydraulicBoundaryData.Locations, referencePoint);
+                data.AssessmentSection.HydraulicBoundaryData.GetLocations(), referencePoint);
         }
 
         private RoundedDouble GetEffectiveAssessmentLevel()
