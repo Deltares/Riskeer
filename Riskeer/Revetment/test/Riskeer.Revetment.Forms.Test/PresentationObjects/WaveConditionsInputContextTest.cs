@@ -27,6 +27,7 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Data.TestUtil;
@@ -89,7 +90,7 @@ namespace Riskeer.Revetment.Forms.Test.PresentationObjects
             Assert.AreSame(waveConditionsInput, context.WrappedData);
             Assert.AreSame(calculation, context.Calculation);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
-            Assert.AreSame(assessmentSection.HydraulicBoundaryData.Locations, context.HydraulicBoundaryLocations);
+            CollectionAssert.AreEqual(assessmentSection.HydraulicBoundaryData.GetLocations(), context.HydraulicBoundaryLocations);
         }
 
         private class WaveConditionsInputContext : WaveConditionsInputContext<WaveConditionsInput>
