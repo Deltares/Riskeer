@@ -150,6 +150,32 @@ namespace Riskeer.Integration.Service.Test.Comparers
             Assert.IsFalse(result);
         }
 
+        [Test]
+        [TestCaseSource(nameof(GetAssessmentSectionWithNotEquivalentHydraulicBoundaryDatabaseTestCases))]
+        public void Compare_AssessmentSectionWithNotEquivalentHydraulicBoundaryDatabase_ReturnsFalse(AssessmentSection otherAssessmentSection)
+        {
+            // Setup
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+            assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(CreateHydraulicBoundaryDatabase());
+
+            var comparer = new AssessmentSectionMergeComparer();
+
+            // Call
+            bool result = comparer.Compare(assessmentSection, otherAssessmentSection);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        private static HydraulicBoundaryDatabase CreateHydraulicBoundaryDatabase()
+        {
+            return new HydraulicBoundaryDatabase
+            {
+                Version = "Version",
+                UsePreprocessorClosure = false
+            };
+        }
+
         private static AssessmentSection CreateAssessmentSection()
         {
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike, 0.1, 0.025);
@@ -205,9 +231,6 @@ namespace Riskeer.Integration.Service.Test.Comparers
             yield return new ChangePropertyData<AssessmentSection>(
                 sec => sec.Id = "DifferentVersion",
                 "Id");
-            yield return new ChangePropertyData<AssessmentSection>(
-                sec => sec.HydraulicBoundaryData.Version = "DifferentVersion",
-                "HydraulicBoundaryData");
             yield return new ChangePropertyData<AssessmentSection>(
                 sec => sec.FailureMechanismContribution.MaximumAllowableFloodingProbability -= 1e-15,
                 "MaximumAllowableFloodingProbability");
@@ -316,6 +339,28 @@ namespace Riskeer.Integration.Service.Test.Comparers
                     hydraulicLocationConfigurationDatabase.Comment = "Other Comment";
                 },
                 "Different Comment");
+        }
+
+        private static IEnumerable<TestCaseData> GetAssessmentSectionWithNotEquivalentHydraulicBoundaryDatabaseTestCases()
+        {
+            foreach (ChangePropertyData<HydraulicBoundaryDatabase> changeSingleDataProperty in ChangeSingleDataOfHydraulicBoundaryDatabase())
+            {
+                HydraulicBoundaryDatabase hydraulicBoundaryDatabase = CreateHydraulicBoundaryDatabase();
+                AssessmentSection assessmentSection = CreateAssessmentSection();
+                assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(hydraulicBoundaryDatabase);
+                changeSingleDataProperty.ActionToChangeProperty(hydraulicBoundaryDatabase);
+                yield return new TestCaseData(assessmentSection).SetName(changeSingleDataProperty.PropertyName);
+            }
+        }
+
+        private static IEnumerable<ChangePropertyData<HydraulicBoundaryDatabase>> ChangeSingleDataOfHydraulicBoundaryDatabase()
+        {
+            yield return new ChangePropertyData<HydraulicBoundaryDatabase>(
+                hydraulicBoundaryDatabase => hydraulicBoundaryDatabase.Version = "Other Version",
+                "Different Version");
+            yield return new ChangePropertyData<HydraulicBoundaryDatabase>(
+                hydraulicBoundaryDatabase => hydraulicBoundaryDatabase.UsePreprocessorClosure = !hydraulicBoundaryDatabase.UsePreprocessorClosure,
+                "Different UsePreprocessorClosure");
         }
     }
 }

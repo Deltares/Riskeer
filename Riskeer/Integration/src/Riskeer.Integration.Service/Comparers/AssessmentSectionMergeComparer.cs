@@ -80,9 +80,21 @@ namespace Riskeer.Integration.Service.Comparers
         private static bool AreHydraulicBoundaryDataInstancesEquivalent(HydraulicBoundaryData hydraulicBoundaryData,
                                                                         HydraulicBoundaryData otherHydraulicBoundaryData)
         {
-            return hydraulicBoundaryData.Version == otherHydraulicBoundaryData.Version
-                   && AreHydraulicLocationConfigurationDatabasesEquivalent(hydraulicBoundaryData.HydraulicLocationConfigurationDatabase,
-                                                                           otherHydraulicBoundaryData.HydraulicLocationConfigurationDatabase);
+            if (AreHydraulicLocationConfigurationDatabasesEquivalent(
+                    hydraulicBoundaryData.HydraulicLocationConfigurationDatabase, otherHydraulicBoundaryData.HydraulicLocationConfigurationDatabase))
+            {
+                for (var i = 0; i < hydraulicBoundaryData.HydraulicBoundaryDatabases.Count; i++)
+                {
+                    if (!AreHydraulicBoundaryDatabasesEquivalent(hydraulicBoundaryData.HydraulicBoundaryDatabases[i], otherHydraulicBoundaryData.HydraulicBoundaryDatabases[i]))
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+
+            return false;
         }
 
         private static bool AreHydraulicLocationConfigurationDatabasesEquivalent(HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase,
@@ -98,6 +110,13 @@ namespace Riskeer.Integration.Service.Comparers
                    && hydraulicLocationConfigurationDatabase.WindDirection == otherHydraulicLocationConfigurationDatabase.WindDirection
                    && hydraulicLocationConfigurationDatabase.WindSpeed == otherHydraulicLocationConfigurationDatabase.WindSpeed
                    && hydraulicLocationConfigurationDatabase.Comment == otherHydraulicLocationConfigurationDatabase.Comment;
+        }
+
+        private static bool AreHydraulicBoundaryDatabasesEquivalent(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
+                                                                    HydraulicBoundaryDatabase otherHydraulicBoundaryDatabase)
+        {
+            return hydraulicBoundaryDatabase.Version == otherHydraulicBoundaryDatabase.Version
+                   && hydraulicBoundaryDatabase.UsePreprocessorClosure == otherHydraulicBoundaryDatabase.UsePreprocessorClosure;
         }
 
         private static bool AreFailureMechanismContributionsEquivalent(FailureMechanismContribution failureMechanismContribution,
