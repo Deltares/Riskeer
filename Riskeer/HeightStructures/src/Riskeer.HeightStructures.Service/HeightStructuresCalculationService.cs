@@ -63,7 +63,7 @@ namespace Riskeer.HeightStructures.Service
                 structureInput.DeviationWaveDirection,
                 structureInput.StormDuration.Mean, structureInput.StormDuration.CoefficientOfVariation);
 
-            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(structuresOvertoppingCalculationInput, hrdFilePath);
+            HydraRingSettingsHelper.AssignSettingsFromDatabase(structuresOvertoppingCalculationInput, hrdFilePath);
 
             return structuresOvertoppingCalculationInput;
         }

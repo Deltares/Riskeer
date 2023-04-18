@@ -499,7 +499,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service
                                                                               generalInput.FshallowModelFactor.LowerBoundary,
                                                                               generalInput.FshallowModelFactor.UpperBoundary);
 
-            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(overtoppingCalculationInput, hrdFilePath);
+            HydraRingSettingsHelper.AssignSettingsFromDatabase(overtoppingCalculationInput, hrdFilePath);
 
             return overtoppingCalculationInput;
         }
@@ -551,7 +551,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service
                                                                             generalInput.FshallowModelFactor.LowerBoundary,
                                                                             generalInput.FshallowModelFactor.UpperBoundary);
 
-            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(dikeHeightCalculationInput, hrdFilePath);
+            HydraRingSettingsHelper.AssignSettingsFromDatabase(dikeHeightCalculationInput, hrdFilePath);
 
             return dikeHeightCalculationInput;
         }
@@ -602,7 +602,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service
                                                                                       generalInput.FshallowModelFactor.LowerBoundary,
                                                                                       generalInput.FshallowModelFactor.UpperBoundary);
 
-            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(overtoppingRateCalculationInput, hrdFilePath);
+            HydraRingSettingsHelper.AssignSettingsFromDatabase(overtoppingRateCalculationInput, hrdFilePath);
 
             return overtoppingRateCalculationInput;
         }

@@ -68,7 +68,7 @@ namespace Riskeer.StabilityPointStructures.Service
                     throw new NotSupportedException();
             }
 
-            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(input, hrdFilePath);
+            HydraRingSettingsHelper.AssignSettingsFromDatabase(input, hrdFilePath);
 
             return input;
         }

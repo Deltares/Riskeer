@@ -282,7 +282,7 @@ namespace Riskeer.Common.Service
         {
             var assessmentLevelCalculationInput = new AssessmentLevelCalculationInput(1, hydraulicBoundaryLocationId, targetProbability);
 
-            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(assessmentLevelCalculationInput, calculationSettings.HrdFilePath);
+            HydraRingSettingsHelper.AssignSettingsFromDatabase(assessmentLevelCalculationInput, calculationSettings.HrdFilePath);
 
             return assessmentLevelCalculationInput;
         }

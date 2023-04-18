@@ -30,7 +30,7 @@ using Riskeer.HydraRing.Calculation.Data.Input;
 namespace Riskeer.Common.Service.Test
 {
     [TestFixture]
-    public class HydraRingSettingsDatabaseHelperTest
+    public class HydraRingSettingsHelperTest
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.Service);
 
@@ -38,7 +38,7 @@ namespace Riskeer.Common.Service.Test
         public void AssignSettingsFromDatabase_HrdFilePathWithInvalidCharacters_ThrowsArgumentException()
         {
             // Call
-            void Call() => HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(new TestHydraRingCalculationInput(), ">");
+            void Call() => HydraRingSettingsHelper.AssignSettingsFromDatabase(new TestHydraRingCalculationInput(), ">");
 
             // Assert
             Assert.Throws<ArgumentException>(Call);
@@ -48,7 +48,7 @@ namespace Riskeer.Common.Service.Test
         public void AssignSettingsFromDatabase_HrdFileWithoutSettingsDatabase_ThrowsCriticalFileReadException()
         {
             // Call
-            void Call() => HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(new TestHydraRingCalculationInput(), "NoConfig.sqlite");
+            void Call() => HydraRingSettingsHelper.AssignSettingsFromDatabase(new TestHydraRingCalculationInput(), "NoConfig.sqlite");
 
             // Assert
             Assert.Throws<CriticalFileReadException>(Call);
@@ -61,7 +61,7 @@ namespace Riskeer.Common.Service.Test
             var input = new TestHydraRingCalculationInput();
 
             // Call
-            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(input, Path.Combine(testDataPath, "hrd.sqlite"));
+            HydraRingSettingsHelper.AssignSettingsFromDatabase(input, Path.Combine(testDataPath, "hrd.sqlite"));
 
             // Assert
             Assert.NotNull(input.DesignTablesSetting);

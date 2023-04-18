@@ -30,7 +30,7 @@ namespace Riskeer.Common.Service
     /// <summary>
     /// Helper class for obtaining and updating Hydra-Ring settings.
     /// </summary>
-    public static class HydraRingSettingsDatabaseHelper
+    public static class HydraRingSettingsHelper
     {
         /// <summary>
         /// Assigns Hydra-Ring settings to the provided <paramref name="calculationInput"/>.
