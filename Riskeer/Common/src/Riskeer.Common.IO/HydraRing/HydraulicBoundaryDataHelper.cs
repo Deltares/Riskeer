@@ -45,12 +45,12 @@ namespace Riskeer.Common.IO.HydraRing
         /// Attempts to connect to the <paramref name="hrdFilePath"/> as if it is a hydraulic boundary database with a hydraulic
         /// location configuration database and hydraulic boundary settings database next to it.
         /// </summary>
-        /// <param name="hrdFilePath">The file path of the hydraulic boundary database.</param>
         /// <param name="hlcdFilePath">The file path of the hydraulic location configuration database.</param>
+        /// <param name="hrdFilePath">The file path of the hydraulic boundary database.</param>
         /// <param name="usePreprocessorClosure">Indicator whether the preprocessor closure is used in a calculation.</param>
         /// <returns>A <see cref="string"/> describing the problem when trying to connect to the <paramref name="hrdFilePath"/> 
         /// or <c>null</c> if a connection could be correctly made.</returns>
-        public static string ValidateFilesForCalculation(string hrdFilePath, string hlcdFilePath, bool usePreprocessorClosure)
+        public static string ValidateFilesForCalculation(string hlcdFilePath, string hrdFilePath, bool usePreprocessorClosure)
         {
             try
             {

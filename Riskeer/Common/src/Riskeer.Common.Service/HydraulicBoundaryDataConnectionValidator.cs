@@ -61,8 +61,8 @@ namespace Riskeer.Common.Service
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = hydraulicBoundaryData.GetHydraulicBoundaryDatabaseForLocation(hydraulicBoundaryLocation);
             
             string validationProblem = HydraulicBoundaryDataHelper.ValidateFilesForCalculation(
-                hydraulicBoundaryDatabase.FilePath,
                 hydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath,
+                hydraulicBoundaryDatabase.FilePath,
                 hydraulicBoundaryDatabase.UsePreprocessorClosure);
 
             if (!string.IsNullOrEmpty(validationProblem))
