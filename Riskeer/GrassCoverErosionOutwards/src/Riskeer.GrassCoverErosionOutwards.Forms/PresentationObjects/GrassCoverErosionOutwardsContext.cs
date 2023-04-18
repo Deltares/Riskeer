@@ -91,7 +91,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects
         {
             get
             {
-                return AssessmentSection.HydraulicBoundaryData.Locations;
+                return AssessmentSection.HydraulicBoundaryData.GetLocations();
             }
         }
     }
