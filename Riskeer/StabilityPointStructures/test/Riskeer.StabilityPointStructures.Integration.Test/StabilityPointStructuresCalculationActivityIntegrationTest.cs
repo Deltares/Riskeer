@@ -101,7 +101,7 @@ namespace Riskeer.StabilityPointStructures.Integration.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.Locations.First(hbl => hbl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     InflowModelType = StabilityPointStructureInflowModelType.LowSill,
                     LoadSchematizationType = LoadSchematizationType.Linear
                 }
@@ -209,7 +209,7 @@ namespace Riskeer.StabilityPointStructures.Integration.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.Locations.First(hbl => hbl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     InflowModelType = StabilityPointStructureInflowModelType.LowSill,
                     LoadSchematizationType = LoadSchematizationType.Linear
                 }
