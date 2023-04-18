@@ -179,8 +179,8 @@ namespace Riskeer.Integration.TestUtil
         /// Imports the <see cref="HydraulicBoundaryData"/> for the given <see cref="AssessmentSection"/>.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to import on.</param>
-        /// <param name="hlcdFilePath">The HLCD file to import from.</param>
-        /// <param name="hrdFilePath">The HRD file to import from.</param>
+        /// <param name="hlcdFilePath">The hydraulic location configuration database to import from.</param>
+        /// <param name="hrdFilePath">The hydraulic boundary database to import from.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
         /// is <c>null</c>.</exception>
         public static void ImportHydraulicBoundaryData(AssessmentSection assessmentSection, string hlcdFilePath, string hrdFilePath)
