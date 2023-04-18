@@ -861,7 +861,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
 
             WaveImpactAsphaltCoverWaveConditionsCalculation calculation = validCalculation
-                                                                              ? GetValidCalculation(assessmentSection.HydraulicBoundaryData.Locations.First())
+                                                                              ? GetValidCalculation(assessmentSection.HydraulicBoundaryData.GetLocations().First())
                                                                               : new WaveImpactAsphaltCoverWaveConditionsCalculation
                                                                               {
                                                                                   Name = "A"
