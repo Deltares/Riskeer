@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using System.IO;
 using Core.Common.TestUtil;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
@@ -31,33 +32,33 @@ using Riskeer.Integration.Forms.PropertyClasses;
 namespace Riskeer.Integration.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class HydraulicBoundaryDatabasePropertiesTest
+    public class HydraulicBoundaryDataContextPropertiesTest
     {
-        private const int usePreprocessorClosurePropertyIndex = 0;
+        private const int filePathPropertyIndex = 0;
 
         [Test]
         public void Constructor_HydraulicBoundaryDatabaseNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new HydraulicBoundaryDatabaseProperties(null);
+            void Call() => new HydraulicBoundaryDataContextProperties(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("hydraulicBoundaryDatabase", exception.ParamName);
+            Assert.AreEqual("hydraulicLocationConfigurationDatabase", exception.ParamName);
         }
 
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            var hydraulicLocationConfigurationDatabase = new HydraulicLocationConfigurationDatabase();
 
             // Call
-            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase);
+            var properties = new HydraulicBoundaryDataContextProperties(hydraulicLocationConfigurationDatabase);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<HydraulicBoundaryDatabase>>(properties);
-            Assert.AreSame(hydraulicBoundaryDatabase, properties.Data);
+            Assert.IsInstanceOf<ObjectProperties<HydraulicLocationConfigurationDatabase>>(properties);
+            Assert.AreSame(hydraulicLocationConfigurationDatabase, properties.Data);
         }
 
         [Test]
@@ -65,36 +66,52 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             var random = new Random();
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var hydraulicBoundaryConfigurationDatabase = new HydraulicLocationConfigurationDatabase()
             {
-                UsePreprocessorClosure = random.NextBoolean()
+                FilePath = $"test/path/{random.Next().ToString()}.test"
             };
 
             // Call
-            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase);
+            var properties = new HydraulicBoundaryDataContextProperties(hydraulicBoundaryConfigurationDatabase);
 
             // Assert
-            Assert.AreEqual(hydraulicBoundaryDatabase.UsePreprocessorClosure, properties.UsePreprocessorClosure);
+            Assert.AreEqual(Path.GetDirectoryName(hydraulicBoundaryConfigurationDatabase.FilePath), properties.WorkingDirectory);
         }
 
         [Test]
         public void Constructor_WithData_PropertiesHaveExpectedAttributesValues()
         {
+            var random = new Random();
+            var hydraulicBoundaryConfigurationDatabase = new HydraulicLocationConfigurationDatabase()
+            {
+                FilePath = $"test/path/{random.Next().ToString()}.test"
+            };
+
             // Call
-            var properties = new HydraulicBoundaryDatabaseProperties(new HydraulicBoundaryDatabase());
+            var properties = new HydraulicBoundaryDataContextProperties(hydraulicBoundaryConfigurationDatabase);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(1, dynamicProperties.Count);
 
             const string expectedCategory = "Algemeen";
-
-            PropertyDescriptor usePreprocessorClosureProperty = dynamicProperties[usePreprocessorClosurePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(usePreprocessorClosureProperty,
+            PropertyDescriptor filePathProperty = dynamicProperties[filePathPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(filePathProperty,
                                                                             expectedCategory,
-                                                                            "Gebruik preprocessor sluitregime database",
-                                                                            "Gebruik de preprocessor sluitregime database bij het uitvoeren van een berekening.",
+                                                                            "Bestandslocatie",
+                                                                            "Locatie van het bestand.",
                                                                             true);
+        }
+        
+        [Test]
+        public void Constructor_WithoutData_PropertyIsInvisible()
+        {
+            // Call
+            var properties = new HydraulicBoundaryDataContextProperties(new HydraulicLocationConfigurationDatabase());
+
+            // Assert
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(0, dynamicProperties.Count);
         }
     }
 }

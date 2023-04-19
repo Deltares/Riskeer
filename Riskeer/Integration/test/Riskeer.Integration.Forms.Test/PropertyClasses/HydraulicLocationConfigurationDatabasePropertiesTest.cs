@@ -32,16 +32,15 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
     [TestFixture]
     public class HydraulicLocationConfigurationDatabasePropertiesTest
     {
-        private const int filePathPropertyIndex = 0;
-        private const int scenarioNamePropertyIndex = 1;
-        private const int yearPropertyIndex = 2;
-        private const int scopePropertyIndex = 3;
-        private const int seaLevelPropertyIndex = 4;
-        private const int riverDischargePropertyIndex = 5;
-        private const int lakeLevelPropertyIndex = 6;
-        private const int windDirectionPropertyIndex = 7;
-        private const int windSpeedPropertyIndex = 8;
-        private const int commentPropertyIndex = 9;
+        private const int scenarioNamePropertyIndex = 0;
+        private const int yearPropertyIndex = 1;
+        private const int scopePropertyIndex = 2;
+        private const int seaLevelPropertyIndex = 3;
+        private const int riverDischargePropertyIndex = 4;
+        private const int lakeLevelPropertyIndex = 5;
+        private const int windDirectionPropertyIndex = 6;
+        private const int windSpeedPropertyIndex = 7;
+        private const int commentPropertyIndex = 8;
 
         [Test]
         public void Constructor_HydraulicLocationConfigurationDatabaseNull_ThrowsArgumentNullException()
@@ -78,7 +77,6 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var properties = new HydraulicLocationConfigurationDatabaseProperties(hydraulicLocationConfigurationDatabase);
 
             // Assert
-            Assert.IsEmpty(properties.FilePath);
             Assert.IsEmpty(properties.ScenarioName);
             Assert.AreEqual("0", properties.Year);
             Assert.IsEmpty(properties.Scope);
@@ -100,7 +98,6 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var properties = new HydraulicLocationConfigurationDatabaseProperties(hydraulicLocationConfigurationDatabase);
 
             // Assert
-            Assert.AreEqual(hydraulicLocationConfigurationDatabase.FilePath, properties.FilePath);
             Assert.AreEqual(hydraulicLocationConfigurationDatabase.ScenarioName, properties.ScenarioName);
             Assert.AreEqual(hydraulicLocationConfigurationDatabase.Year.ToString(), properties.Year);
             Assert.AreEqual(hydraulicLocationConfigurationDatabase.Scope, properties.Scope);
@@ -127,16 +124,9 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(10, dynamicProperties.Count);
+            Assert.AreEqual(9, dynamicProperties.Count);
 
             const string expectedCategory = "Algemeen";
-            PropertyDescriptor filePathProperty = dynamicProperties[filePathPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(filePathProperty,
-                                                                            expectedCategory,
-                                                                            "Bestandslocatie",
-                                                                            "Locatie van het bestand.",
-                                                                            true);
-
             PropertyDescriptor scenarioNameProperty = dynamicProperties[scenarioNamePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(scenarioNameProperty,
                                                                             expectedCategory,
@@ -205,7 +195,6 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         {
             return new HydraulicLocationConfigurationDatabase
             {
-                FilePath = "hlcd.sqlite",
                 ScenarioName = "ScenarioName",
                 Year = 1337,
                 Scope = "Scope",

@@ -626,20 +626,20 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Locatie van het bestand..
+        ///   Looks up a localized string similar to Locatie van de bestandsmap..
         /// </summary>
-        public static string HydraulicDatabase_FilePath_Description {
+        public static string HydraulicDatabase_WorkingDirectory_Description {
             get {
-                return ResourceManager.GetString("HydraulicDatabase_FilePath_Description", resourceCulture);
+                return ResourceManager.GetString("HydraulicDatabase_WorkingDirectory_Description", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bestandslocatie.
+        ///   Looks up a localized string similar to Bestandsmap.
         /// </summary>
-        public static string HydraulicDatabase_FilePath_DisplayName {
+        public static string HydraulicDatabase_WorkingDirectory_DisplayName {
             get {
-                return ResourceManager.GetString("HydraulicDatabase_FilePath_DisplayName", resourceCulture);
+                return ResourceManager.GetString("HydraulicDatabase_WorkingDirectory_DisplayName", resourceCulture);
             }
         }
         

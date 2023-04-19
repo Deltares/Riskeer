@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.IO;
 using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
 using Core.Gui.PropertyBag;
@@ -32,35 +33,42 @@ namespace Riskeer.Integration.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="HydraulicBoundaryDatabase"/> for properties panel.
     /// </summary>
-    public class HydraulicBoundaryDatabaseProperties : ObjectProperties<HydraulicBoundaryDatabase>
+    public class HydraulicBoundaryDataContextProperties : ObjectProperties<HydraulicLocationConfigurationDatabase>
     {
-        private const int usePreprocessorClosurePropertyIndex = 0;
+        private const int workingDirectoryPropertyIndex = 0;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryDatabaseProperties"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database to show the properties for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryDatabase"/> is <c>null</c>.</exception>
-        public HydraulicBoundaryDatabaseProperties(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+        public HydraulicBoundaryDataContextProperties(HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase)
         {
-            if (hydraulicBoundaryDatabase == null)
+            if (hydraulicLocationConfigurationDatabase == null)
             {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
+                throw new ArgumentNullException(nameof(hydraulicLocationConfigurationDatabase));
             }
 
-            Data = hydraulicBoundaryDatabase;
+            Data = hydraulicLocationConfigurationDatabase;
         }
 
-        [PropertyOrder(usePreprocessorClosurePropertyIndex)]
+        [PropertyOrder(workingDirectoryPropertyIndex)]
+        [DynamicVisible]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_UsePreprocessorClosure_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_UsePreprocessorClosure_Description))]
-        public bool UsePreprocessorClosure
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicDatabase_WorkingDirectory_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicDatabase_WorkingDirectory_Description))]
+        public string WorkingDirectory
         {
             get
             {
-                return data.UsePreprocessorClosure;
+                return Path.GetDirectoryName(data.FilePath) ?? string.Empty;
             }
+        }
+
+        [DynamicVisibleValidationMethod]
+        public bool IsDynamicVisible(string propertyName)
+        {
+            return !string.IsNullOrEmpty(data.FilePath);
         }
     }
 }

@@ -288,12 +288,12 @@ Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau 
     <data name="HydraulicLocationConfigurationDatabase_Comment_DisplayName" xml:space="preserve">
     <value>Overig</value>
   </data>
-    <data name="HydraulicDatabase_FilePath_Description" xml:space="preserve">
-    <value>Locatie van het bestand.</value>
-  </data>
-    <data name="HydraulicDatabase_FilePath_DisplayName" xml:space="preserve">
-    <value>Bestandslocatie</value>
-  </data>
+    <data name="HydraulicDatabase_WorkingDirectory_Description" xml:space="preserve">
+      <value>Locatie van de bestandsmap.</value>
+    </data>
+    <data name="HydraulicDatabase_WorkingDirectory_DisplayName" xml:space="preserve">
+      <value>Bestandsmap</value>
+    </data>
     <data name="HydraulicLocationConfigurationDatabase_LakeLevel_Description" xml:space="preserve">
     <value>Klimaatinformatie met betrekking tot het meerpeil/de meerpeilen.</value>
   </data>

@@ -34,16 +34,15 @@ namespace Riskeer.Integration.Forms.PropertyClasses
     /// </summary>
     public class HydraulicLocationConfigurationDatabaseProperties : ObjectProperties<HydraulicLocationConfigurationDatabase>
     {
-        private const int filePathPropertyIndex = 0;
-        private const int scenarioNamePropertyIndex = 1;
-        private const int yearPropertyIndex = 2;
-        private const int scopePropertyIndex = 3;
-        private const int seaLevelPropertyIndex = 4;
-        private const int riverDischargePropertyIndex = 5;
-        private const int lakeLevelPropertyIndex = 6;
-        private const int windDirectionPropertyIndex = 7;
-        private const int windSpeedPropertyIndex = 8;
-        private const int commentPropertyIndex = 9;
+        private const int scenarioNamePropertyIndex = 0;
+        private const int yearPropertyIndex = 1;
+        private const int scopePropertyIndex = 2;
+        private const int seaLevelPropertyIndex = 3;
+        private const int riverDischargePropertyIndex = 4;
+        private const int lakeLevelPropertyIndex = 5;
+        private const int windDirectionPropertyIndex = 6;
+        private const int windSpeedPropertyIndex = 7;
+        private const int commentPropertyIndex = 8;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicLocationConfigurationDatabaseProperties"/>.
@@ -58,18 +57,6 @@ namespace Riskeer.Integration.Forms.PropertyClasses
             }
 
             Data = hydraulicLocationConfigurationDatabase;
-        }
-
-        [PropertyOrder(filePathPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicDatabase_FilePath_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicDatabase_FilePath_Description))]
-        public string FilePath
-        {
-            get
-            {
-                return data.FilePath ?? string.Empty;
-            }
         }
 
         [PropertyOrder(scenarioNamePropertyIndex)]

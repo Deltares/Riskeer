@@ -104,7 +104,7 @@ namespace Riskeer.Integration.Plugin.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(27, propertyInfos.Length);
+                Assert.AreEqual(28, propertyInfos.Length);
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
@@ -120,6 +120,11 @@ namespace Riskeer.Integration.Plugin.Test
                     propertyInfos,
                     typeof(BackgroundData),
                     typeof(BackgroundDataProperties));
+
+                PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(HydraulicBoundaryDataContext),
+                    typeof(HydraulicBoundaryDataContextProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
