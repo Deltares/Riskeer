@@ -557,6 +557,29 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             mocks.VerifyAll();
         }
 
+        [Test]
+        public void PerformMerge_Always_CloseAllViews()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var documentViewController = mocks.StrictMock<IDocumentViewController>();
+            documentViewController.Expect(dvc => dvc.CloseAllViews());
+            mocks.ReplayAll();
+
+            var handler = new AssessmentSectionMergeHandler(documentViewController);
+
+            var targetAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var sourceAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            var mergeData = new AssessmentSectionMergeData(sourceAssessmentSection, new AssessmentSectionMergeData.ConstructionProperties());
+
+            // Call
+            handler.PerformMerge(targetAssessmentSection, mergeData);
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
         private static AssessmentSection CreateAssessmentSection(HydraulicBoundaryLocation[] locations, double targetProbability = 0.1)
         {
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
@@ -589,7 +612,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             return new AssessmentSectionMergeData.ConstructionProperties();
         }
 
-        #region HydraulicBoundaryLocationCalculations
+        #region HydraulicBoundaryData
 
         [Test]
         [TestCaseSource(nameof(GetHydraulicBoundaryLocationCalculationFuncs))]
@@ -1063,29 +1086,6 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             Assert.AreEqual(0.01, waveHeightTargetProbabilities.ElementAt(1).TargetProbability);
             Assert.IsTrue(waveHeightTargetProbabilities.ElementAt(1).HydraulicBoundaryLocationCalculations.All(c => c.HasOutput));
             Assert.IsTrue(waveHeightTargetProbabilities.ElementAt(1).HydraulicBoundaryLocationCalculations.All(c => c.Output.HasGeneralResult));
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void PerformMerge_Always_CloseAllViews()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var documentViewController = mocks.StrictMock<IDocumentViewController>();
-            documentViewController.Expect(dvc => dvc.CloseAllViews());
-            mocks.ReplayAll();
-
-            var handler = new AssessmentSectionMergeHandler(documentViewController);
-
-            var targetAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            var sourceAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-
-            var mergeData = new AssessmentSectionMergeData(sourceAssessmentSection, new AssessmentSectionMergeData.ConstructionProperties());
-
-            // Call
-            handler.PerformMerge(targetAssessmentSection, mergeData);
-
-            // Assert
             mocks.VerifyAll();
         }
 
