@@ -106,10 +106,16 @@ namespace Riskeer.Integration.Service.Comparers
             }
 
             IEnumerable<long> locationIds = hydraulicBoundaryData.GetLocations().Select(l => l.Id);
-            return !otherHydraulicBoundaryDatabases.Except(overlappingDatabases)
-                                                   .SelectMany(hbd => hbd.Locations)
-                                                   .Select(l => l.Id)
-                                                   .Any(id => locationIds.Contains(id));
+            if (otherHydraulicBoundaryDatabases.Except(overlappingDatabases)
+                                               .SelectMany(hbd => hbd.Locations)
+                                               .Select(l => l.Id)
+                                               .Any(id => locationIds.Contains(id)))
+            {
+                return false;
+            }
+
+            return true;
+
         }
 
         private static bool AreHydraulicLocationConfigurationDatabasesEquivalent(HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase,
