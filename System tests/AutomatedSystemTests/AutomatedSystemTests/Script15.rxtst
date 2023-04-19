@@ -1222,16 +1222,10 @@
 			</testmodule>
 			<testmodule
 			id="531711c3-1136-4f9b-859a-e0332642384b"
-			name="SetNewHBCScenario"
+			name="SetNewHLCDFile"
 			ref="7d9b109b-9a86-4d14-949e-d6cd5cca905f"
 			type="Recording">
 				<databinding>
-					<var
-					dataname="nameParameterHBCScenarioInformationInPropertiesPanel"
-					datasourceid="64095390-c618-4a6a-b149-4fefb5347827"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
 					<var
 					dataname="pathToHBCWithScenarioInformation"
 					datasourceid="8ee8e897-e223-4d18-8fe1-f17a8c0e3348"
@@ -1239,6 +1233,14 @@
 					variablename="fileNameToOpen">
 					</var>
 				</databinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="nameParameterHBCScenarioInformationInPropertiesPanel"
+					datasourceid="64095390-c618-4a6a-b149-4fefb5347827"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="5672898a-f36d-40a5-be04-c0d0f07a3aa1"
@@ -6022,7 +6024,7 @@
 									</testmodule>
 									<testmodule
 									id="531711c3-1136-4f9b-859a-e0332642384b"
-									name="SetNewHBCScenario">
+									name="SetNewHLCDFile">
 									</testmodule>
 								</smartfoldernode>
 								<smartfoldernode

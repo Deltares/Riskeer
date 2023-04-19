@@ -19,7 +19,7 @@ mode="Global">
 		True
 	</useDefaultItemLogging>
 	<codegen
-	classname="SetNewHBCScenario"
+	classname="SetNewHLCDFile"
 	namespace="AutomatedSystemTests.Modules.Set_Assign">
 	</codegen>
 	<variables>
@@ -29,15 +29,27 @@ mode="Global">
 		</var>
 	</variables>
 	<recorditems>
+		<keysequenceitem
+		KeySequence="{Apps}"
+		duration="20ms"
+		enabled="True"
+		optional="False"
+		presstime="20ms"
+		searchpropertyid="a538f058-c9bc-4110-af22-871fd24aabfc">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+		</keysequenceitem>
 		<mouseitem
 		action="Click"
 		button="Left"
 		duration="300ms"
 		enabled="True"
-		loc="CenterLeft"
+		loc="Center"
 		movetime="300ms"
 		optional="False"
-		searchpropertyid="e7e07da3-8b49-44fb-83d6-203f5b99e31c"
+		searchpropertyid="b3e11b84-527a-4580-9669-c18c49a75d2e"
 		sx="0"
 		sy="0"
 		warnoutofbounds="False">
@@ -46,44 +58,13 @@ mode="Global">
 			<bindings>
 			</bindings>
 			<info
-			id="fa26997c-4865-408a-9bd8-120810ae0e7a"
+			id="5ce53200-0c28-4870-bd71-e3ef03a56223"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']/row[@accessiblename&gt;$nameOfParameterInPropertiesPanel]
+					/contextmenu[@processname='Riskeer']/menuitem[@accessiblename&gt;'Selecteer ander HLCD']
 				</path>
-			</info>
-		</mouseitem>
-		<explicitdelayitem
-		duration="300ms"
-		enabled="True"
-		optional="False">
-			<comment>
-			</comment>
-			<bindings>
-			</bindings>
-		</explicitdelayitem>
-		<mouseitem
-		action="Click"
-		button="Left"
-		duration="300ms"
-		enabled="True"
-		loc=".98;.5"
-		movetime="300ms"
-		optional="False"
-		searchpropertyid="e7e07da3-8b49-44fb-83d6-203f5b99e31c"
-		sx="0"
-		sy="0"
-		warnoutofbounds="False">
-			<comment>
-			</comment>
-			<bindings>
-			</bindings>
-			<info
-			id="fa26997c-4865-408a-9bd8-120810ae0e7a"
-			sourcename="RepositoryEditor">
-				<path>
-					/form[@automationid='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']/row[@accessiblename&gt;$nameOfParameterInPropertiesPanel]
-				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</mouseitem>
 		<loggingrecorditem
@@ -230,6 +211,8 @@ mode="Global">
 				<path>
 					/form[@title='Open File']/?/?/text[@controlid='1148']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<AttributeValue>
 				D:\testing\Riskeer\automatisering\4.Trajectinformatie_basis\Project_assemblage_A_B_20-1.risk
@@ -361,6 +344,8 @@ mode="Global">
 				<path>
 					/form[@title='Open File']/button[@text='&amp;Open']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</mouseitem>
 		<mouseitem
@@ -514,6 +499,8 @@ mode="Global">
 				<path>
 					/form[@title='Bevestigen']/button[@text='OK']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<helperscreenshot
 			guid="2c4611bb-90df-41b8-9d54-3b20c6813d8f">
@@ -692,7 +679,7 @@ gA20baKKADbRtoooANtG2iigA20baKKADbRtoooAXFLiiigBaKKKAP/Z
 	</repository>
 	<usercodefile
 	lang="CSharp">
-		SetNewHBCScenario.UserCode.cs
+		SetNewHLCDFile.UserCode.cs
 	</usercodefile>
 	<references>
 	</references>

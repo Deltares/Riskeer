@@ -1017,6 +1017,16 @@ FjcAAAAASUVORK5CYII=
 				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename&gt;'Selecteren']
 			</item>
 			<item
+			addcaps="menuitem,wpfelement,wpfgroupelement"
+			capname="menuitem"
+			id="5ce53200-0c28-4870-bd71-e3ef03a56223"
+			name="SelecteerAnderHLCDBestand"
+			refimgid="88695737-d00f-4307-adfb-01a4c3ba65b4"
+			robustPath=""
+			searchtimeout="30000ms">
+				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename&gt;'Selecteer ander HLCD']
+			</item>
+			<item
 			addcaps="menuitem,accessible"
 			capname="menuitem"
 			id="f3c6379c-4119-4897-bc56-dd1655e8f7fb"
@@ -1756,7 +1766,7 @@ gg==
 			refimgid="2cf87765-e788-495e-aebd-595b6f4af89b"
 			robustPath=""
 			searchtimeout="30000ms">
-				/form[@title='Bestand openen' or @title='Bestand Openen' or @title='Open File' or @title='Open file']/button[@text='&amp;Open']
+				/form[@title='Bestand openen' or @title='Bestand Openen' or @title='Open File' or @title='Open file' or @title='Openen']/button[@text='&amp;Open']
 			</item>
 			<item
 			addcaps="text,nativewindow"
@@ -1766,10 +1776,10 @@ gg==
 			refimgid="8e14b8b6-d6b8-473f-9a59-4ff87f2bbf41"
 			robustPath=""
 			searchtimeout="30000ms">
-				/form[@title='Bestand openen' or @title='Bestand Openen' or @title='Open File' or @title='Open file']/?/combobox/text
+				/form[@title='Bestand openen' or @title='Bestand Openen' or @title='Open File' or @title='Open file' or @title='Openen']/?/combobox/text
 			</item>
 			<basepath>
-				/form[@title='Bestand openen' or @title='Bestand Openen' or @title='Open File' or @title='Open file']
+				/form[@title='Bestand openen' or @title='Bestand Openen' or @title='Open File' or @title='Open file' or @title='Openen']
 			</basepath>
 			<icon>
 				iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACx

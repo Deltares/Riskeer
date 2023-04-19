@@ -1419,14 +1419,14 @@
       <UserCode>true</UserCode>
       <id>bbce7b4d-caf4-4f7b-895a-91c55789b3ca</id>
     </Compile>
-    <Compile Include="Modules\Set_Assign\SetNewHBCScenario.cs">
-      <DependentUpon>SetNewHBCScenario.rxrec</DependentUpon>
+    <Compile Include="Modules\Set_Assign\SetNewHLCDFile.cs">
+      <DependentUpon>SetNewHLCDFile.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
       <id>4f50ceae-2e00-4653-906f-8f48d4665f8b</id>
       <BoundTo>5bf29cac-081b-4772-a880-80a042909612</BoundTo>
     </Compile>
-    <Compile Include="Modules\Set_Assign\SetNewHBCScenario.UserCode.cs">
-      <DependentUpon>SetNewHBCScenario.rxrec</DependentUpon>
+    <Compile Include="Modules\Set_Assign\SetNewHLCDFile.UserCode.cs">
+      <DependentUpon>SetNewHLCDFile.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>8498d822-4b6c-4353-ad3a-d26e5a7eb878</id>
       <BoundTo>5bf29cac-081b-4772-a880-80a042909612</BoundTo>
@@ -2317,7 +2317,7 @@
       <id>da3a7060-7580-4ef3-b11c-6e6a2aeb9323</id>
       <recordtableid>7413cc50-50d0-4361-8163-7d8d3b57b81d</recordtableid>
     </None>
-    <None Include="Modules\Set_Assign\SetNewHBCScenario.rxrec">
+    <None Include="Modules\Set_Assign\SetNewHLCDFile.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>5bf29cac-081b-4772-a880-80a042909612</id>
       <recordtableid>7d9b109b-9a86-4d14-949e-d6cd5cca905f</recordtableid>

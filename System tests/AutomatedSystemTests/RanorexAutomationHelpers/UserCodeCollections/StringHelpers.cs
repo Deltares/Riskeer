@@ -138,6 +138,7 @@ namespace Ranorex_Automation_Helpers.UserCodeCollections
                 {"@STKWl", "Sterkte en stabiliteit langsconstructies"},
                 {"@INN",   "Technische innovaties"},
                 // Aliases in Project Explorer for other items
+                {"@HD",    "Hydraulische databases"},
                 {"@HB",    "Hydraulische belastingen"},
                 {"@GF",    "Generieke faalmechanismen"},
                 {"@SF",    "Specifieke faalmechanismen"},

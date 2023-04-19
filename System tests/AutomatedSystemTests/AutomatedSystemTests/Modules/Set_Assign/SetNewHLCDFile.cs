@@ -24,22 +24,22 @@ namespace AutomatedSystemTests.Modules.Set_Assign
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The SetNewHBCScenario recording.
+    ///The SetNewHLCDFile recording.
     /// </summary>
     [TestModule("7d9b109b-9a86-4d14-949e-d6cd5cca905f", ModuleType.Recording, 1)]
-    public partial class SetNewHBCScenario : ITestModule
+    public partial class SetNewHLCDFile : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static SetNewHBCScenario instance = new SetNewHBCScenario();
+        static SetNewHLCDFile instance = new SetNewHLCDFile();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public SetNewHBCScenario()
+        public SetNewHLCDFile()
         {
             fileNameToOpen = "";
         }
@@ -47,7 +47,7 @@ namespace AutomatedSystemTests.Modules.Set_Assign
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static SetNewHBCScenario Instance
+        public static SetNewHLCDFile Instance
         {
             get { return instance; }
         }
@@ -64,16 +64,6 @@ namespace AutomatedSystemTests.Modules.Set_Assign
         {
             get { return _fileNameToOpen; }
             set { _fileNameToOpen = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the value of variable nameOfParameterInPropertiesPanel.
-        /// </summary>
-        [TestVariable("be55172b-156d-4b6c-a990-593bf6c5d6a2")]
-        public string nameOfParameterInPropertiesPanel
-        {
-            get { return repo.nameOfParameterInPropertiesPanel; }
-            set { repo.nameOfParameterInPropertiesPanel = value; }
         }
 
 #endregion
@@ -102,29 +92,26 @@ namespace AutomatedSystemTests.Modules.Set_Assign
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanel' at CenterLeft.", repo.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanelInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanel.Click(Location.CenterLeft);
+            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Apps}'.", new RecordItemIndex(0));
+            Keyboard.Press("{Apps}");
             
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 300ms.", new RecordItemIndex(1));
-            Delay.Duration(300, false);
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.SelecteerAnderHLCDBestand' at Center.", repo.ContextMenu.SelecteerAnderHLCDBestandInfo, new RecordItemIndex(1));
+            repo.ContextMenu.SelecteerAnderHLCDBestand.Click();
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanel' at .98;.5.", repo.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanelInfo, new RecordItemIndex(2));
-            repo.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanel.Click(".98;.5");
-            
-            Report.Log(ReportLevel.Info, "User", fileNameToOpen, new RecordItemIndex(3));
+            Report.Log(ReportLevel.Info, "User", fileNameToOpen, new RecordItemIndex(2));
             
             // Assign file name to open
-            Report.Log(ReportLevel.Info, "Set value", "Assign file name to open\r\nSetting attribute Text to '$fileNameToOpen' on item 'OpenFileDialog.FileNameField'.", repo.OpenFileDialog.FileNameFieldInfo, new RecordItemIndex(4));
+            Report.Log(ReportLevel.Info, "Set value", "Assign file name to open\r\nSetting attribute Text to '$fileNameToOpen' on item 'OpenFileDialog.FileNameField'.", repo.OpenFileDialog.FileNameFieldInfo, new RecordItemIndex(3));
             repo.OpenFileDialog.FileNameField.Element.SetAttributeValue("Text", fileNameToOpen);
             
             // Click on open button
-            Report.Log(ReportLevel.Info, "Mouse", "Click on open button\r\nMouse Left Click item 'OpenFileDialog.ButtonOpen' at Center.", repo.OpenFileDialog.ButtonOpenInfo, new RecordItemIndex(5));
+            Report.Log(ReportLevel.Info, "Mouse", "Click on open button\r\nMouse Left Click item 'OpenFileDialog.ButtonOpen' at Center.", repo.OpenFileDialog.ButtonOpenInfo, new RecordItemIndex(4));
             repo.OpenFileDialog.ButtonOpen.Click();
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'Bevestigen.ButtonOK' at Center.", repo.Bevestigen.ButtonOKInfo, new RecordItemIndex(6));
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'Bevestigen.ButtonOK' at Center.", repo.Bevestigen.ButtonOKInfo, new RecordItemIndex(5));
             repo.Bevestigen.ButtonOK.Click();
             
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 2s.", new RecordItemIndex(7));
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 2s.", new RecordItemIndex(6));
             Delay.Duration(2000, false);
             
         }

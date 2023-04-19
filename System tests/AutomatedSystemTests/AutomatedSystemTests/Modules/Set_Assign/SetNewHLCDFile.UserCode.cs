@@ -22,7 +22,7 @@ using Ranorex.Core.Testing;
 
 namespace AutomatedSystemTests.Modules.Set_Assign
 {
-    public partial class SetNewHBCScenario
+    public partial class SetNewHLCDFile
     {
         /// <summary>
         /// This method gets called right after the recording has been started.
