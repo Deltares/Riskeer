@@ -2024,7 +2024,7 @@
 			</smartfoldernode>
 			<testmodule
 			id="ca2ab0af-c9f9-4d82-ac4a-424e9aced3ce"
-			name="CoupleCurrentItemToHBCDatabase"
+			name="SelectHLCDFile"
 			ref="354b1a8c-c247-4b13-920b-24ee0b2b997d"
 			type="Recording">
 				<databinding>
@@ -2664,7 +2664,7 @@
 										</testmodule>
 										<testmodule
 										id="ca2ab0af-c9f9-4d82-ac4a-424e9aced3ce"
-										name="CoupleCurrentItemToHBCDatabase">
+										name="SelectHLCDFile">
 										</testmodule>
 									</smartfoldernode>
 									<smartfoldernode

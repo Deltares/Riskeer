@@ -559,6 +559,8 @@ nVm/LV5JkNYL
 				<path>
 					/form[@automationid='RiskeerMainWindow']/?/?/container[@automationid='MainButtonStackPanel']/button[4]
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<helperscreenshot
 			guid="07b551b6-0ded-4a02-9078-d8624a13ddec">

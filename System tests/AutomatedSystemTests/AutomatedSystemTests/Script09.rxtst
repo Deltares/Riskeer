@@ -114,6 +114,10 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
+			id="0bc83b8f-fc3d-448c-acfb-0b2598d3abb4"
+			name="HLCD">
+			</smartfoldernode>
+			<smartfoldernode
 			id="0c74e4b9-fb3b-4e9e-9574-749d99ad12e8"
 			name="RemovedItems">
 				<conditiongroup
@@ -928,6 +932,20 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="2dbcfe9c-fd21-4e1f-9c59-6f39215250dc"
+			name="AddHRDFile"
+			ref="e9443dc8-83ae-41cf-a26f-36e5dbd3e114"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToHRDFile"
+					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
+					variableid="fb8a2c11-63e9-414f-85f9-04a5eb026a9f"
+					variablename="fileNameToOpen">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="32455a80-e10e-440f-853c-096e6de3a931"
 			name="OpenViewWithChartAndCreateScreenshot">
@@ -1417,8 +1435,8 @@
 			datasource="script09_LoopFMs"
 			errorbehavior="ContinueNextIteration"
 			id="4f65efe8-6ec0-4ee4-b3b7-6f5a4375189d"
-			maxrange="3"
-			minrange="3"
+			maxrange="6"
+			minrange="1"
 			name="LoopFMs">
 				<parameters>
 					<param
@@ -1476,7 +1494,7 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="pathHBCInProjectExplorer"
+					dataname="pathHLCDNodeInProjectExplorer"
 					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
 					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
 					variablename="pathToItemInProjectExplorer">
@@ -2486,18 +2504,22 @@
 			</smartfoldernode>
 			<testmodule
 			id="8e5e09a4-7253-4663-8546-1f712ad79a06"
-			name="CoupleCurrentItemToHBCDatabase"
+			name="SelectHLCDFile"
 			ref="354b1a8c-c247-4b13-920b-24ee0b2b997d"
 			type="Recording">
 				<databinding>
 					<var
-					dataname="pathToFileHBC"
+					dataname="pathToHLCDFile"
 					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
 					variableid="39671c14-75a2-44bf-95e5-209ad4946b5e"
 					variablename="fileNameToOpen">
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="8f9d8094-5a0c-467b-a942-830729595a59"
+			name="HRD">
+			</smartfoldernode>
 			<smartfoldernode
 			id="9137f748-3fad-4a48-ba06-7894c562f652"
 			name="RemainingItems">
@@ -3293,6 +3315,20 @@
 			id="cd7cd4d6-8fce-46f7-8b3b-64ac8ba1fca3"
 			name="ValidateItemNameInProjectExplorer">
 			</smartfoldernode>
+			<testmodule
+			id="ce984c96-0531-4233-9910-4cbda631764a"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathHRDNodeInProjectExplorer"
+					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="d05ae47e-746b-4d7f-9290-8c00f84f9cb3"
 			name="ValidatePlainTextFilesAreEqual"
@@ -4860,14 +4896,30 @@
 											<smartfoldernode
 											id="ac6027d9-aa90-4952-be22-9a14f8fcbbbe"
 											name="CoupleHBC">
-												<testmodule
-												id="519c8a5d-605e-4485-ae73-68c745a7339a"
-												name="SelectGenericItemInProjectExplorer">
-												</testmodule>
-												<testmodule
-												id="8e5e09a4-7253-4663-8546-1f712ad79a06"
-												name="CoupleCurrentItemToHBCDatabase">
-												</testmodule>
+												<smartfoldernode
+												id="0bc83b8f-fc3d-448c-acfb-0b2598d3abb4"
+												name="HLCD">
+													<testmodule
+													id="519c8a5d-605e-4485-ae73-68c745a7339a"
+													name="SelectGenericItemInProjectExplorer">
+													</testmodule>
+													<testmodule
+													id="8e5e09a4-7253-4663-8546-1f712ad79a06"
+													name="SelectHLCDFile">
+													</testmodule>
+												</smartfoldernode>
+												<smartfoldernode
+												id="8f9d8094-5a0c-467b-a942-830729595a59"
+												name="HRD">
+													<testmodule
+													id="ce984c96-0531-4233-9910-4cbda631764a"
+													name="SelectGenericItemInProjectExplorer">
+													</testmodule>
+													<testmodule
+													id="2dbcfe9c-fd21-4e1f-9c59-6f39215250dc"
+													name="AddHRDFile">
+													</testmodule>
+												</smartfoldernode>
 											</smartfoldernode>
 											<smartfoldernode
 											id="4197056c-1529-4f20-aab4-37352b835b1e"
@@ -5414,10 +5466,16 @@
 					pathDisjointedTrajectToSchematizationsFolderItemInProjectExplorer
 				</column>
 				<column>
-					pathHBCInProjectExplorer
+					pathHLCDNodeInProjectExplorer
 				</column>
 				<column>
-					pathToFileHBC
+					pathHRDNodeInProjectExplorer
+				</column>
+				<column>
+					pathToHLCDFile
+				</column>
+				<column>
+					pathToHRDFile
 				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
@@ -5476,10 +5534,16 @@
 						pathDisjointedTrajectToSchematizationsFolderItemInProjectExplorer
 					</th>
 					<th>
-						pathHBCInProjectExplorer
+						pathHLCDNodeInProjectExplorer
 					</th>
 					<th>
-						pathToFileHBC
+						pathHRDNodeInProjectExplorer
+					</th>
+					<th>
+						pathToHLCDFile
+					</th>
+					<th>
+						pathToHRDFile
 					</th>
 				</tr>
 				<tr>
@@ -5537,6 +5601,10 @@
 					</td>
 					<td>
 					</td>
+					<td>
+					</td>
+					<td>
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -5589,7 +5657,13 @@
 						8-2&gt;@ZST&gt;Invoer&gt;Voorlandprofielen
 					</td>
 					<td>
-						28-1&gt;Hydraulische belastingen
+						28-1&gt;Hydraulische databases
+					</td>
+					<td>
+						28-1&gt;Hydraulische databases&gt;HRD bestanden
+					</td>
+					<td>
+						X:\commonData\databases\WBI2017_Oosterschelde_28-1_v02\hlcd.sqlite
 					</td>
 					<td>
 						X:\commonData\databases\WBI2017_Oosterschelde_28-1_v02\WBI2017_Oosterschelde_28-1_v02.sqlite
@@ -5646,7 +5720,13 @@
 						6-3&gt;@AGK&gt;Invoer&gt;Voorlandprofielen
 					</td>
 					<td>
-						8-3&gt;Hydraulische belastingen
+						8-3&gt;Hydraulische databases
+					</td>
+					<td>
+						8-3&gt;Hydraulische databases&gt;HRD bestanden
+					</td>
+					<td>
+						X:\commonData\databases\WBI2017_IJsselmeer_8-3a_v02\hlcd.sqlite
 					</td>
 					<td>
 						X:\commonData\databases\WBI2017_IJsselmeer_8-3a_v02\WBI2017_IJsselmeer_8-3a_v02.sqlite
@@ -5703,7 +5783,13 @@
 						8-4&gt;@GEBU&gt;Invoer&gt;Voorlandprofielen
 					</td>
 					<td>
-						6-6&gt;Hydraulische belastingen
+						6-6&gt;Hydraulische databases
+					</td>
+					<td>
+						6-6&gt;Hydraulische databases&gt;HRD bestanden
+					</td>
+					<td>
+						X:\commonData\databases\WBI2017_Waddenzee_Oost_6-6_v03\hlcd.sqlite
 					</td>
 					<td>
 						X:\commonData\databases\WBI2017_Waddenzee_Oost_6-6_v03\WBI2017_Waddenzee_Oost_6-6_v03.sqlite
@@ -5758,6 +5844,10 @@
 					</td>
 					<td>
 						8-5&gt;@HTKW&gt;Invoer&gt;Voorlandprofielen
+					</td>
+					<td>
+					</td>
+					<td>
 					</td>
 					<td>
 					</td>
@@ -5818,6 +5908,10 @@
 					</td>
 					<td>
 					</td>
+					<td>
+					</td>
+					<td>
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -5868,6 +5962,10 @@
 					</td>
 					<td>
 						8-7&gt;@STKWp&gt;Invoer&gt;Voorlandprofielen
+					</td>
+					<td>
+					</td>
+					<td>
 					</td>
 					<td>
 					</td>
@@ -6444,6 +6542,9 @@
 			id="08ec9f58-a04b-4892-97b1-e97463cbbcf5">
 			</testcontainer>
 			<testcontainer
+			id="0bc83b8f-fc3d-448c-acfb-0b2598d3abb4">
+			</testcontainer>
+			<testcontainer
 			id="0c74e4b9-fb3b-4e9e-9574-749d99ad12e8">
 			</testcontainer>
 			<testcontainer
@@ -6550,6 +6651,9 @@
 			</testcontainer>
 			<testcontainer
 			id="8cd40865-f343-43d1-ba08-135f12ff8401">
+			</testcontainer>
+			<testcontainer
+			id="8f9d8094-5a0c-467b-a942-830729595a59">
 			</testcontainer>
 			<testcontainer
 			id="9137f748-3fad-4a48-ba06-7894c562f652">

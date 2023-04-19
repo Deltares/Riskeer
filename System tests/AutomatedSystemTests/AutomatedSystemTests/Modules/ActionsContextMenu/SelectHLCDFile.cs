@@ -24,22 +24,22 @@ namespace AutomatedSystemTests.Modules.ActionsContextMenu
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The CoupleCurrentItemToHBCDatabase recording.
+    ///The SelectHLCDFile recording.
     /// </summary>
     [TestModule("354b1a8c-c247-4b13-920b-24ee0b2b997d", ModuleType.Recording, 1)]
-    public partial class CoupleCurrentItemToHBCDatabase : ITestModule
+    public partial class SelectHLCDFile : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static CoupleCurrentItemToHBCDatabase instance = new CoupleCurrentItemToHBCDatabase();
+        static SelectHLCDFile instance = new SelectHLCDFile();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public CoupleCurrentItemToHBCDatabase()
+        public SelectHLCDFile()
         {
             fileNameToOpen = "";
         }
@@ -47,7 +47,7 @@ namespace AutomatedSystemTests.Modules.ActionsContextMenu
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static CoupleCurrentItemToHBCDatabase Instance
+        public static SelectHLCDFile Instance
         {
             get { return instance; }
         }
@@ -95,8 +95,8 @@ namespace AutomatedSystemTests.Modules.ActionsContextMenu
             Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Apps}'.", new RecordItemIndex(0));
             Keyboard.Press("{Apps}");
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.KoppelAanDatabase' at Center.", repo.ContextMenu.KoppelAanDatabaseInfo, new RecordItemIndex(1));
-            repo.ContextMenu.KoppelAanDatabase.Click();
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.SelecteerHLCDBestand' at Center.", repo.ContextMenu.SelecteerHLCDBestandInfo, new RecordItemIndex(1));
+            repo.ContextMenu.SelecteerHLCDBestand.Click();
             
             AddWorkingDirectoryToFileNameIfRelativeFileName();
             
@@ -113,14 +113,14 @@ namespace AutomatedSystemTests.Modules.ActionsContextMenu
             repo.OpenDialog.ButtonOpen.Click();
             
             // Wait time (1s) so that dialog is started up
-            Report.Log(ReportLevel.Info, "Delay", "Wait time (1s) so that dialog is started up\r\nWaiting for 1s.", new RecordItemIndex(7));
-            Delay.Duration(1000, false);
+            Report.Log(ReportLevel.Info, "Delay", "Wait time (1s) so that dialog is started up\r\nWaiting for 300ms.", new RecordItemIndex(7));
+            Delay.Duration(300, false);
             
             Report.Log(ReportLevel.Info, "Wait", "Waiting 30s to not exist. Associated repository item: 'ActivityProgressDialog.ButtonCancel'", repo.ActivityProgressDialog.ButtonCancelInfo, new ActionTimeout(30000), new RecordItemIndex(8));
             repo.ActivityProgressDialog.ButtonCancelInfo.WaitForNotExists(30000);
             
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 1s.", new RecordItemIndex(9));
-            Delay.Duration(1000, false);
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 300ms.", new RecordItemIndex(9));
+            Delay.Duration(300, false);
             
         }
 
