@@ -115,7 +115,7 @@ namespace Riskeer.Common.Data.TestUtil
                     Locations =
                     {
                         new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
-                    },
+                    }
                 });
 
                 HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase = hydraulicBoundaryData.HydraulicLocationConfigurationDatabase;
