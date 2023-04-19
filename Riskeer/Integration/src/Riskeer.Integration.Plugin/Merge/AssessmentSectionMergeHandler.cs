@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Util.Extensions;
@@ -85,7 +86,7 @@ namespace Riskeer.Integration.Plugin.Merge
 
             ValidateMergeData(mergeData);
 
-            IEnumerable<IObservable> changedObjects = MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection, mergeData.AssessmentSection);
+            IEnumerable<IObservable> changedObjects = MergeHydraulicBoundaryData(targetAssessmentSection, mergeData.AssessmentSection);
 
             MergeFailureMechanisms(targetAssessmentSection, mergeData);
             MergeSpecificFailureMechanism(targetAssessmentSection, mergeData.MergeSpecificFailureMechanisms);
@@ -137,27 +138,61 @@ namespace Riskeer.Integration.Plugin.Merge
 
         #endregion
 
-        #region HydraulicBoundaryLocationCalculations
+        #region HydraulicBoundaryData
 
-        private static IEnumerable<IObservable> MergeHydraulicBoundaryLocationCalculations(IAssessmentSection targetAssessmentSection,
-                                                                                           IAssessmentSection sourceAssessmentSection)
+        private static IEnumerable<IObservable> MergeHydraulicBoundaryData(IAssessmentSection targetAssessmentSection,
+                                                                           IAssessmentSection sourceAssessmentSection)
         {
+            IEnumerable<string> targetHydraulicBoundaryDatabasesFileNames = targetAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases
+                                                                                                   .Select(hbd => Path.GetFileNameWithoutExtension(hbd.FilePath));
+
             var changedObjects = new List<IObservable>();
 
-            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaterLevelCalculationsForSignalFloodingProbability,
-                                                                               sourceAssessmentSection.WaterLevelCalculationsForSignalFloodingProbability));
-            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability,
-                                                                               sourceAssessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability));
-            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities,
-                                                                               sourceAssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities,
-                                                                               targetAssessmentSection.HydraulicBoundaryData.Locations));
-            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities,
-                                                                               sourceAssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities,
-                                                                               targetAssessmentSection.HydraulicBoundaryData.Locations));
+            foreach (HydraulicBoundaryDatabase sourceHydraulicBoundaryDatabase in sourceAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases)
+            {
+                string fileName = Path.GetFileNameWithoutExtension(sourceHydraulicBoundaryDatabase.FilePath);
+                if (targetHydraulicBoundaryDatabasesFileNames.Contains(fileName))
+                {
+                    changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(
+                                                targetAssessmentSection, sourceAssessmentSection,
+                                                targetAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.First(
+                                                    hbd => Path.GetFileNameWithoutExtension(hbd.FilePath) == fileName).Locations,
+                                                sourceHydraulicBoundaryDatabase.Locations));
+                }
+            }
 
             log.Info(changedObjects.Any()
                          ? Resources.AssessmentSectionMergeHandler_MergeHydraulicBoundaryLocations_HydraulicBoundaryLocations_merged
                          : Resources.AssessmentSectionMergeHandler_MergeHydraulicBoundaryLocations_HydraulicBoundaryLocations_not_merged);
+
+            return changedObjects;
+        }
+
+        private static IEnumerable<IObservable> MergeHydraulicBoundaryLocationCalculations(IAssessmentSection targetAssessmentSection,
+                                                                                           IAssessmentSection sourceAssessmentSection,
+                                                                                           IEnumerable<HydraulicBoundaryLocation> targetHydraulicBoundaryLocations,
+                                                                                           IEnumerable<HydraulicBoundaryLocation> sourceHydraulicBoundaryLocations)
+        {
+            var changedObjects = new List<IObservable>();
+
+            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(
+                                        targetAssessmentSection.WaterLevelCalculationsForSignalFloodingProbability
+                                                               .Where(calculation => targetHydraulicBoundaryLocations.Contains(calculation.HydraulicBoundaryLocation)),
+                                        sourceAssessmentSection.WaterLevelCalculationsForSignalFloodingProbability
+                                                               .Where(calculation => sourceHydraulicBoundaryLocations.Contains(calculation.HydraulicBoundaryLocation))));
+            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(
+                                        targetAssessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability
+                                                               .Where(calculation => targetHydraulicBoundaryLocations.Contains(calculation.HydraulicBoundaryLocation)),
+                                        sourceAssessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability
+                                                               .Where(calculation => sourceHydraulicBoundaryLocations.Contains(calculation.HydraulicBoundaryLocation))));
+            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(
+                                        targetAssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities,
+                                        sourceAssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities,
+                                        targetHydraulicBoundaryLocations));
+            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(
+                                        targetAssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities,
+                                        sourceAssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities,
+                                        targetHydraulicBoundaryLocations));
 
             return changedObjects;
         }
