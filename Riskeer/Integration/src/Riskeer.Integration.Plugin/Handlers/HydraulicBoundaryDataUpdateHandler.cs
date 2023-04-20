@@ -64,15 +64,10 @@ namespace Riskeer.Integration.Plugin.Handlers
             this.duneLocationsUpdateHandler = duneLocationsUpdateHandler;
         }
 
-        public IEnumerable<IObservable> AddHydraulicBoundaryDatabase(HydraulicBoundaryData hydraulicBoundaryData, ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase,
+        public IEnumerable<IObservable> AddHydraulicBoundaryDatabase(ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase,
                                                                      ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase,
                                                                      IEnumerable<long> excludedLocationIds, string hrdFilePath)
         {
-            if (hydraulicBoundaryData == null)
-            {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryData));
-            }
-
             if (readHydraulicBoundaryDatabase == null)
             {
                 throw new ArgumentNullException(nameof(readHydraulicBoundaryDatabase));
@@ -107,10 +102,9 @@ namespace Riskeer.Integration.Plugin.Handlers
                                                                                    .FirstOrDefault(rt => rt.TrackId == readHydraulicBoundaryDatabase.TrackId)?
                                                                                    .UsePreprocessorClosure ?? false
             };
-
             newHydraulicBoundaryDatabase.Locations.AddRange(newHydraulicBoundaryLocations);
-            hydraulicBoundaryData.HydraulicBoundaryDatabases.Add(newHydraulicBoundaryDatabase);
 
+            assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(newHydraulicBoundaryDatabase);
             assessmentSection.SetHydraulicBoundaryLocationCalculations(newHydraulicBoundaryDatabase.Locations);
             duneLocationsUpdateHandler.AddLocations(newHydraulicBoundaryDatabase.Locations);
 

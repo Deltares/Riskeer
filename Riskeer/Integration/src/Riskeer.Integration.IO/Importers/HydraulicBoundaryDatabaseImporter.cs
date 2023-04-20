@@ -296,7 +296,7 @@ namespace Riskeer.Integration.IO.Importers
         {
             NotifyProgress(RiskeerCommonIOResources.Importer_ProgressText_Adding_imported_data_to_AssessmentSection, 4, numberOfSteps);
 
-            changedObservables.AddRange(updateHandler.AddHydraulicBoundaryDatabase(ImportTarget, readHydraulicBoundaryDatabase, readHydraulicLocationConfigurationDatabase,
+            changedObservables.AddRange(updateHandler.AddHydraulicBoundaryDatabase(readHydraulicBoundaryDatabase, readHydraulicLocationConfigurationDatabase,
                                                                                    excludedLocationIds, FilePath));
         }
 

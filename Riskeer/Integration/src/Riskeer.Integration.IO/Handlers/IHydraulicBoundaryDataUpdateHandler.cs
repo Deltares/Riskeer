@@ -36,9 +36,8 @@ namespace Riskeer.Integration.IO.Handlers
     {
         /// <summary>
         /// Adds the <paramref name="readHydraulicBoundaryDatabase"/> and the <paramref name="readHydraulicLocationConfigurationDatabase"/>
-        /// to the <paramref name="hydraulicBoundaryData"/> and its dependent data.
+        /// to <see cref="HydraulicBoundaryData"/> and its dependent data.
         /// </summary>
-        /// <param name="hydraulicBoundaryData">The hydraulic boundary data to add the hydraulic boundary database to.</param>
         /// <param name="readHydraulicBoundaryDatabase">The read hydraulic boundary database to update with.</param>
         /// <param name="readHydraulicLocationConfigurationDatabase">The read hydraulic location configuration database to
         /// update with.</param>
@@ -46,10 +45,7 @@ namespace Riskeer.Integration.IO.Handlers
         /// <param name="hrdFilePath">The file path of the hydraulic boundary database.</param>
         /// <returns>All objects that have been affected by the update.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when the <paramref name="hydraulicBoundaryData"/> cannot be updated with
-        /// <paramref name="readHydraulicLocationConfigurationDatabase"/>.</exception>
-        IEnumerable<IObservable> AddHydraulicBoundaryDatabase(HydraulicBoundaryData hydraulicBoundaryData,
-                                                              ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase,
+        IEnumerable<IObservable> AddHydraulicBoundaryDatabase(ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase,
                                                               ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase,
                                                               IEnumerable<long> excludedLocationIds,
                                                               string hrdFilePath);

@@ -401,23 +401,22 @@ namespace Riskeer.Integration.IO.Test.Importers
             var mocks = new MockRepository();
             var handler = mocks.StrictMock<IHydraulicBoundaryDataUpdateHandler>();
 
-            handler.Expect(h => h.AddHydraulicBoundaryDatabase(Arg<HydraulicBoundaryData>.Is.Same(hydraulicBoundaryData),
-                                                               Arg<ReadHydraulicBoundaryDatabase>.Is.NotNull,
+            handler.Expect(h => h.AddHydraulicBoundaryDatabase(Arg<ReadHydraulicBoundaryDatabase>.Is.NotNull,
                                                                Arg<ReadHydraulicLocationConfigurationDatabase>.Is.NotNull,
                                                                Arg<IEnumerable<long>>.Is.NotNull,
                                                                Arg<string>.Is.Equal(filePath)))
                    .WhenCalled(invocation =>
                    {
-                       var readHydraulicBoundaryDatabase = (ReadHydraulicBoundaryDatabase) invocation.Arguments[1];
+                       var readHydraulicBoundaryDatabase = (ReadHydraulicBoundaryDatabase) invocation.Arguments[0];
 
                        AssertReadHydraulicBoundaryDatabase(readHydraulicBoundaryDatabase);
 
-                       var readHydraulicLocationConfigurationDatabase = (ReadHydraulicLocationConfigurationDatabase) invocation.Arguments[2];
+                       var readHydraulicLocationConfigurationDatabase = (ReadHydraulicLocationConfigurationDatabase) invocation.Arguments[1];
                        Assert.AreEqual(43376, readHydraulicLocationConfigurationDatabase.ReadHydraulicLocations.Count());
                        Assert.IsNull(readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationSettings);
                        Assert.AreEqual(usePreprocessorClosure, readHydraulicLocationConfigurationDatabase.ReadTracks.First(rt => rt.TrackId == readHydraulicBoundaryDatabase.TrackId).UsePreprocessorClosure);
 
-                       var excludedLocationIds = (IEnumerable<long>) invocation.Arguments[3];
+                       var excludedLocationIds = (IEnumerable<long>) invocation.Arguments[2];
                        Assert.AreEqual(1, excludedLocationIds.Count());
                    })
                    .Return(Enumerable.Empty<IObservable>());
@@ -441,7 +440,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             // Setup
             var mocks = new MockRepository();
             var handler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
-            handler.Stub(h => h.AddHydraulicBoundaryDatabase(null, null, null, null, null)).IgnoreArguments().Return(Enumerable.Empty<IObservable>());
+            handler.Stub(h => h.AddHydraulicBoundaryDatabase(null, null, null, null)).IgnoreArguments().Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
             var progressChangeNotifications = new List<ProgressNotification>();
@@ -505,7 +504,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             // Setup
             var mocks = new MockRepository();
             var handler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
-            handler.Stub(h => h.AddHydraulicBoundaryDatabase(null, null, null, null, null)).IgnoreArguments().Return(Enumerable.Empty<IObservable>());
+            handler.Stub(h => h.AddHydraulicBoundaryDatabase(null, null, null, null)).IgnoreArguments().Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
             var importer = new HydraulicBoundaryDatabaseImporter(CreateLinkedHydraulicBoundaryData(), handler, validHrdFilePath);
@@ -546,8 +545,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             observable2.Expect(o => o.NotifyObservers());
 
             var handler = mocks.StrictMock<IHydraulicBoundaryDataUpdateHandler>();
-            handler.Expect(h => h.AddHydraulicBoundaryDatabase(Arg<HydraulicBoundaryData>.Is.NotNull,
-                                                               Arg<ReadHydraulicBoundaryDatabase>.Is.NotNull,
+            handler.Expect(h => h.AddHydraulicBoundaryDatabase(Arg<ReadHydraulicBoundaryDatabase>.Is.NotNull,
                                                                Arg<ReadHydraulicLocationConfigurationDatabase>.Is.NotNull,
                                                                Arg<IEnumerable<long>>.Is.NotNull,
                                                                Arg<string>.Is.NotNull))
