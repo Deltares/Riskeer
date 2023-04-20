@@ -1147,12 +1147,17 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             targetAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.First().FilePath = "hbd1.sql";
 
             AssessmentSection sourceAssessmentSection = CreateAssessmentSection(sourceSectionLocations);
-            sourceAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.First().FilePath = "hbd2.sql";
+            HydraulicBoundaryDatabase sourceHydraulicBoundaryDatabase = sourceAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.First();
+            sourceHydraulicBoundaryDatabase.FilePath = "hbd2.sql";
 
             var mocks = new MockRepository();
             var documentViewController = mocks.Stub<IDocumentViewController>();
             var hydraulicBoundaryDataUpdateHandler = mocks.StrictMock<IHydraulicBoundaryDataUpdateHandler>();
-            hydraulicBoundaryDataUpdateHandler.Expect(h => h.AddHydraulicBoundaryDatabase(sourceAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.First()))
+            hydraulicBoundaryDataUpdateHandler.Expect(h => h.AddHydraulicBoundaryDatabase(sourceHydraulicBoundaryDatabase))
+                                              .WhenCalled(invocation =>
+                                              {
+                                                  targetAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(sourceHydraulicBoundaryDatabase);
+                                              })
                                               .Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 

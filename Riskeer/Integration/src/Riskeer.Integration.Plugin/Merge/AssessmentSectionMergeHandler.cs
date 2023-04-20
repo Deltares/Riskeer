@@ -152,6 +152,33 @@ namespace Riskeer.Integration.Plugin.Merge
             IAssessmentSection targetAssessmentSection, IAssessmentSection sourceAssessmentSection,
             IHydraulicBoundaryDataUpdateHandler hydraulicBoundaryDataUpdateHandler)
         {
+            var changedObjects = new List<IObservable>();
+
+            changedObjects.AddRange(MergeHydraulicBoundaryDatabases(targetAssessmentSection, sourceAssessmentSection, hydraulicBoundaryDataUpdateHandler));
+
+            foreach (HydraulicBoundaryDatabase sourceHydraulicBoundaryDatabase in sourceAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases)
+            {
+                string fileName = Path.GetFileNameWithoutExtension(sourceHydraulicBoundaryDatabase.FilePath);
+                changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(
+                                            targetAssessmentSection, sourceAssessmentSection,
+                                            targetAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.First(
+                                                hbd => Path.GetFileNameWithoutExtension(hbd.FilePath) == fileName).Locations,
+                                            sourceHydraulicBoundaryDatabase.Locations));
+            }
+
+            log.Info(changedObjects.Any()
+                         ? Resources.AssessmentSectionMergeHandler_MergeHydraulicBoundaryLocations_HydraulicBoundaryLocations_merged
+                         : Resources.AssessmentSectionMergeHandler_MergeHydraulicBoundaryLocations_HydraulicBoundaryLocations_not_merged);
+
+            return changedObjects;
+        }
+
+        private static IEnumerable<IObservable> MergeHydraulicBoundaryDatabases(
+            IAssessmentSection targetAssessmentSection, IAssessmentSection sourceAssessmentSection,
+            IHydraulicBoundaryDataUpdateHandler hydraulicBoundaryDataUpdateHandler)
+        {
+            var changedObjects = new List<IObservable>();
+
             IEnumerable<string> targetHydraulicBoundaryDatabasesFileNames = targetAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases
                                                                                                    .Select(hbd => Path.GetFileNameWithoutExtension(hbd.FilePath));
 
@@ -161,8 +188,7 @@ namespace Riskeer.Integration.Plugin.Merge
 
             IEnumerable<HydraulicBoundaryDatabase> databasesToAdd = sourceAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases
                                                                                            .Except(overlappingDatabases);
-            
-            var changedObjects = new List<IObservable>();
+
             if (databasesToAdd.Any())
             {
                 foreach (HydraulicBoundaryDatabase hydraulicBoundaryDatabase in databasesToAdd)
@@ -171,23 +197,6 @@ namespace Riskeer.Integration.Plugin.Merge
                                                 hydraulicBoundaryDatabase));
                 }
             }
-
-            foreach (HydraulicBoundaryDatabase sourceHydraulicBoundaryDatabase in sourceAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases)
-            {
-                string fileName = Path.GetFileNameWithoutExtension(sourceHydraulicBoundaryDatabase.FilePath);
-                if (targetHydraulicBoundaryDatabasesFileNames.Contains(fileName))
-                {
-                    changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(
-                                                targetAssessmentSection, sourceAssessmentSection,
-                                                targetAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.First(
-                                                    hbd => Path.GetFileNameWithoutExtension(hbd.FilePath) == fileName).Locations,
-                                                sourceHydraulicBoundaryDatabase.Locations));
-                }
-            }
-
-            log.Info(changedObjects.Any()
-                         ? Resources.AssessmentSectionMergeHandler_MergeHydraulicBoundaryLocations_HydraulicBoundaryLocations_merged
-                         : Resources.AssessmentSectionMergeHandler_MergeHydraulicBoundaryLocations_HydraulicBoundaryLocations_not_merged);
 
             return changedObjects;
         }
