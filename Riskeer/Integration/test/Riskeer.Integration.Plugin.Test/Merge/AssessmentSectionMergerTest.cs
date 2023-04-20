@@ -29,6 +29,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Merge;
 using Riskeer.Integration.Forms.Merge;
+using Riskeer.Integration.IO.Handlers;
 using Riskeer.Integration.Plugin.Merge;
 using Riskeer.Integration.Service.Comparers;
 
@@ -280,8 +281,9 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             comparer.Expect(c => c.Compare(originalAssessmentSection, assessmentSectionToMerge)).Return(true);
             var mergeDataProvider = mocks.StrictMock<IAssessmentSectionMergeDataProvider>();
             mergeDataProvider.Expect(mdp => mdp.GetMergeData(null)).IgnoreArguments().Return(mergeData);
+            var hydraulicBoundaryDataUpdateHandler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
             var mergeHandler = mocks.StrictMock<IAssessmentSectionMergeHandler>();
-            mergeHandler.Expect(mh => mh.PerformMerge(originalAssessmentSection, mergeData));
+            mergeHandler.Expect(mh => mh.PerformMerge(originalAssessmentSection, mergeData, hydraulicBoundaryDataUpdateHandler));
             mocks.ReplayAll();
 
             var merger = new AssessmentSectionMerger(filePathProvider, assessmentSectionProvider, comparer, mergeDataProvider, mergeHandler);
@@ -316,8 +318,9 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             comparer.Expect(c => c.Compare(originalAssessmentSection, assessmentSectionToMerge)).Return(true);
             var mergeDataProvider = mocks.StrictMock<IAssessmentSectionMergeDataProvider>();
             mergeDataProvider.Expect(mdp => mdp.GetMergeData(null)).IgnoreArguments().Return(mergeData);
+            var hydraulicBoundaryDataUpdateHandler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
             var mergeHandler = mocks.StrictMock<IAssessmentSectionMergeHandler>();
-            mergeHandler.Expect(mh => mh.PerformMerge(originalAssessmentSection, mergeData)).Throw(new Exception());
+            mergeHandler.Expect(mh => mh.PerformMerge(originalAssessmentSection, mergeData, hydraulicBoundaryDataUpdateHandler)).Throw(new Exception());
             mocks.ReplayAll();
 
             var merger = new AssessmentSectionMerger(filePathProvider, assessmentSectionProvider, comparer, mergeDataProvider, mergeHandler);

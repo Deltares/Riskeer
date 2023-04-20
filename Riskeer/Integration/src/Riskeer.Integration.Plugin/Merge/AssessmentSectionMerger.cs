@@ -144,7 +144,7 @@ namespace Riskeer.Integration.Plugin.Merge
 
             try
             {
-                mergeHandler.PerformMerge(assessmentSection, mergeData);
+                mergeHandler.PerformMerge(assessmentSection, mergeData, null);
                 log.Info(Resources.AssessmentSectionMerger_PerformMerge_Merging_AssessmentSections_successful);
             }
             catch (Exception e)

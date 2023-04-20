@@ -22,6 +22,7 @@
 using System;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Merge;
+using Riskeer.Integration.IO.Handlers;
 
 namespace Riskeer.Integration.Plugin.Merge
 {
@@ -35,9 +36,11 @@ namespace Riskeer.Integration.Plugin.Merge
         /// </summary>
         /// <param name="targetAssessmentSection">The assessment section to merge to.</param>
         /// <param name="mergeData">The data to merge.</param>
+        /// <param name="hydraulicBoundaryDataUpdateHandler">The hydraulic boundary data update handler.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when the <paramref name="mergeData"/> could not
         /// successfully be merged into <paramref name="targetAssessmentSection"/>.</exception>
-        void PerformMerge(AssessmentSection targetAssessmentSection, AssessmentSectionMergeData mergeData);
+        void PerformMerge(AssessmentSection targetAssessmentSection, AssessmentSectionMergeData mergeData,
+                          IHydraulicBoundaryDataUpdateHandler hydraulicBoundaryDataUpdateHandler);
     }
 }

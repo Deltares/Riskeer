@@ -38,6 +38,7 @@ using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.HeightStructures.Data;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Merge;
+using Riskeer.Integration.IO.Handlers;
 using Riskeer.Integration.Plugin.Properties;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.Piping.Data;
@@ -72,7 +73,8 @@ namespace Riskeer.Integration.Plugin.Merge
             this.documentViewController = documentViewController;
         }
 
-        public void PerformMerge(AssessmentSection targetAssessmentSection, AssessmentSectionMergeData mergeData)
+        public void PerformMerge(AssessmentSection targetAssessmentSection, AssessmentSectionMergeData mergeData,
+                                 IHydraulicBoundaryDataUpdateHandler hydraulicBoundaryDataUpdateHandler)
         {
             if (targetAssessmentSection == null)
             {
@@ -82,6 +84,11 @@ namespace Riskeer.Integration.Plugin.Merge
             if (mergeData == null)
             {
                 throw new ArgumentNullException(nameof(mergeData));
+            }
+
+            if (hydraulicBoundaryDataUpdateHandler == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryDataUpdateHandler));
             }
 
             ValidateMergeData(mergeData);
