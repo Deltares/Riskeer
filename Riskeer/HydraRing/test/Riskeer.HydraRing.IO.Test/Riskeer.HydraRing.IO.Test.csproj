@@ -23,8 +23,9 @@
     <ProjectReference Include="..\..\src\Riskeer.HydraRing.IO\Riskeer.HydraRing.IO.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Stub.System.Data.SQLite.Core.NetFramework" Version="1.0.117" />
     <PackageReference Include="System.Data.SQLite.Core">
-      <Version>1.0.109.2</Version>
+      <Version>1.0.117</Version>
     </PackageReference>
     <PackageReference Include="NUnit">
       <Version>3.8.1</Version>
