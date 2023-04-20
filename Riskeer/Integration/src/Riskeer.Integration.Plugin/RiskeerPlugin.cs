@@ -1726,11 +1726,16 @@ namespace Riskeer.Integration.Plugin
 
         private ContextMenuStrip AssessmentSectionStateRootContextMenuStrip(AssessmentSectionStateRootContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
+            AssessmentSection assessmentSection = nodeData.WrappedData;
+
             var importItem = new StrictContextMenuItem(
                 CoreGuiResources.Import,
                 CoreGuiResources.Import_ToolTip,
                 CoreGuiResources.ImportIcon,
-                (sender, args) => assessmentSectionMerger.StartMerge(nodeData.WrappedData));
+                (sender, args) => assessmentSectionMerger.StartMerge(
+                    assessmentSection, new HydraulicBoundaryDataUpdateHandler(
+                        assessmentSection, new DuneLocationsUpdateHandler(
+                            Gui.ViewCommands, assessmentSection.DuneErosion))));
 
             return Gui.Get(nodeData, treeViewControl)
                       .AddOpenItem()

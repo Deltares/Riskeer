@@ -24,6 +24,7 @@ using log4net;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Merge;
 using Riskeer.Integration.Forms.Merge;
+using Riskeer.Integration.IO.Handlers;
 using Riskeer.Integration.Plugin.Properties;
 using Riskeer.Integration.Service.Comparers;
 using CoreGuiResources = Core.Gui.Properties.Resources;
@@ -91,13 +92,19 @@ namespace Riskeer.Integration.Plugin.Merge
         /// Performs the merge of <paramref name="assessmentSection"/>.
         /// </summary>
         /// <param name="assessmentSection">The assessment section to perform the merge on.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
-        /// is <c>null</c>.</exception>
-        public void StartMerge(AssessmentSection assessmentSection)
+        /// <param name="hydraulicBoundaryDataUpdateHandler">The hydraulic boundary data update handler.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public void StartMerge(AssessmentSection assessmentSection,
+                               IHydraulicBoundaryDataUpdateHandler hydraulicBoundaryDataUpdateHandler)
         {
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            if (hydraulicBoundaryDataUpdateHandler == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryDataUpdateHandler));
             }
 
             string filePath = filePathProvider.GetFilePath();
@@ -135,16 +142,17 @@ namespace Riskeer.Integration.Plugin.Merge
                 return;
             }
 
-            PerformMerge(assessmentSection, mergeData);
+            PerformMerge(assessmentSection, mergeData, hydraulicBoundaryDataUpdateHandler);
         }
 
-        private void PerformMerge(AssessmentSection assessmentSection, AssessmentSectionMergeData mergeData)
+        private void PerformMerge(AssessmentSection assessmentSection, AssessmentSectionMergeData mergeData,
+                                  IHydraulicBoundaryDataUpdateHandler hydraulicBoundaryDataUpdateHandler)
         {
             log.Info(Resources.AssessmentSectionMerger_PerformMerge_Merging_AssessmentSections_started);
 
             try
             {
-                mergeHandler.PerformMerge(assessmentSection, mergeData, null);
+                mergeHandler.PerformMerge(assessmentSection, mergeData, hydraulicBoundaryDataUpdateHandler);
                 log.Info(Resources.AssessmentSectionMerger_PerformMerge_Merging_AssessmentSections_successful);
             }
             catch (Exception e)
