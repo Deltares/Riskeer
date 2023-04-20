@@ -83,6 +83,7 @@ using Riskeer.Integration.IO.Exporters;
 using Riskeer.Integration.IO.Importers;
 using Riskeer.Integration.Plugin.FileImporters;
 using Riskeer.Integration.Plugin.Handlers;
+using Riskeer.Integration.Plugin.Helpers;
 using Riskeer.Integration.Plugin.Merge;
 using Riskeer.Integration.Plugin.Properties;
 using Riskeer.Integration.Service;
@@ -2598,9 +2599,7 @@ namespace Riskeer.Integration.Plugin
                 RiskeerCommonFormsResources.GenericInputOutputIcon,
                 (sender, args) =>
                 {
-                    HydraulicBoundaryLocationCalculationsForTargetProbability hydraulicBoundaryLocationCalculationsForTargetProbability = CreateHydraulicBoundaryLocationCalculationsForTargetProbability(assessmentSection);
-
-                    nodeData.WrappedData.Add(hydraulicBoundaryLocationCalculationsForTargetProbability);
+                    nodeData.WrappedData.Add(HydraulicBoundaryLocationCalculationsForTargetProbabilityHelper.Create(assessmentSection));
                     nodeData.WrappedData.NotifyObservers();
                 });
 
@@ -2723,9 +2722,7 @@ namespace Riskeer.Integration.Plugin
                 RiskeerCommonFormsResources.GenericInputOutputIcon,
                 (sender, args) =>
                 {
-                    HydraulicBoundaryLocationCalculationsForTargetProbability hydraulicBoundaryLocationCalculationsForTargetProbability = CreateHydraulicBoundaryLocationCalculationsForTargetProbability(assessmentSection);
-
-                    nodeData.WrappedData.Add(hydraulicBoundaryLocationCalculationsForTargetProbability);
+                    nodeData.WrappedData.Add(HydraulicBoundaryLocationCalculationsForTargetProbabilityHelper.Create(assessmentSection));
                     nodeData.WrappedData.NotifyObservers();
                 });
 
@@ -2799,16 +2796,6 @@ namespace Riskeer.Integration.Plugin
         {
             return assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities
                                     .Any(whc => IllustrationPointsHelper.HasIllustrationPoints(whc.HydraulicBoundaryLocationCalculations));
-        }
-
-        private static HydraulicBoundaryLocationCalculationsForTargetProbability CreateHydraulicBoundaryLocationCalculationsForTargetProbability(IAssessmentSection assessmentSection)
-        {
-            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01);
-
-            calculationsForTargetProbability.HydraulicBoundaryLocationCalculations.AddRange(
-                assessmentSection.HydraulicBoundaryData.GetLocations().Select(hbl => new HydraulicBoundaryLocationCalculation(hbl)));
-
-            return calculationsForTargetProbability;
         }
 
         #endregion
