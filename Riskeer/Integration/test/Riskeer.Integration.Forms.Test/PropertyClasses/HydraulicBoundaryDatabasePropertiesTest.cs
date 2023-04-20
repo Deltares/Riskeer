@@ -34,6 +34,8 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
     public class HydraulicBoundaryDatabasePropertiesTest
     {
         private const int usePreprocessorClosurePropertyIndex = 0;
+        private const int locationsPropertyIndex = 1;
+        private const int versionPropertyIndex = 2;
 
         [Test]
         public void Constructor_HydraulicBoundaryDatabaseNull_ThrowsArgumentNullException()
@@ -85,7 +87,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(1, dynamicProperties.Count);
+            Assert.AreEqual(3, dynamicProperties.Count);
 
             const string expectedCategory = "Algemeen";
 
@@ -94,6 +96,20 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                                                                             expectedCategory,
                                                                             "Gebruik preprocessor sluitregime database",
                                                                             "Gebruik de preprocessor sluitregime database bij het uitvoeren van een berekening.",
+                                                                            true);
+
+            PropertyDescriptor locationsProperty = dynamicProperties[locationsPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(locationsProperty,
+                                                                            expectedCategory,
+                                                                            "Locaties",
+                                                                            "Locaties uit de hydraulische belastingendatabase.",
+                                                                            true);
+
+            PropertyDescriptor versionProperty = dynamicProperties[versionPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(versionProperty,
+                                                                            expectedCategory,
+                                                                            "Versie",
+                                                                            "Versie van HRD bestand",
                                                                             true);
         }
     }

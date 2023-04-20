@@ -626,6 +626,24 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Versie van HRD bestand.
+        /// </summary>
+        public static string HydraulicDatabase_Version_Description {
+            get {
+                return ResourceManager.GetString("HydraulicDatabase_Version_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Versie.
+        /// </summary>
+        public static string HydraulicDatabase_Version_DisplayName {
+            get {
+                return ResourceManager.GetString("HydraulicDatabase_Version_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Locatie van de bestandsmap..
         /// </summary>
         public static string HydraulicDatabase_WorkingDirectory_Description {

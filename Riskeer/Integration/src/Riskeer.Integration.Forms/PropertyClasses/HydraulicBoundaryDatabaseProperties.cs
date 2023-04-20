@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
+using Core.Gui.Converters;
 using Core.Gui.PropertyBag;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Integration.Forms.Properties;
@@ -35,6 +37,8 @@ namespace Riskeer.Integration.Forms.PropertyClasses
     public class HydraulicBoundaryDatabaseProperties : ObjectProperties<HydraulicBoundaryDatabase>
     {
         private const int usePreprocessorClosurePropertyIndex = 0;
+        private const int locationsPropertyIndex = 1;
+        private const int versionPropertyIndex = 2;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryDatabaseProperties"/>.
@@ -60,6 +64,31 @@ namespace Riskeer.Integration.Forms.PropertyClasses
             get
             {
                 return data.UsePreprocessorClosure;
+            }
+        }
+
+        [PropertyOrder(locationsPropertyIndex)]
+        [TypeConverter(typeof(ExpandableArrayConverter))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.HydraulicBoundaryDatabase_Locations_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.HydraulicBoundaryDatabase_Locations_Description))]
+        public HydraulicBoundaryLocation[] Locations
+        {
+            get
+            {
+                return data.Locations.ToArray();
+            }
+        }
+
+        [PropertyOrder(versionPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicDatabase_Version_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicDatabase_Version_Description))]
+        public string Version
+        {
+            get
+            {
+                return data.Version;
             }
         }
     }
