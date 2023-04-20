@@ -55,6 +55,14 @@ namespace Riskeer.Integration.IO.Handlers
                                                               string hrdFilePath);
 
         /// <summary>
+        /// Adds the <paramref name="hydraulicBoundaryDatabase"/> to <see cref="HydraulicBoundaryData"/> and its dependent data.
+        /// </summary>
+        /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database to add.</param>
+        /// <returns>All objects that have been affected by the update.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryDatabase"/> is <c>null</c>.</exception>
+        IEnumerable<IObservable> AddHydraulicBoundaryDatabase(HydraulicBoundaryDatabase hydraulicBoundaryDatabase);
+
+        /// <summary>
         /// Removes the hydraulic boundary database.
         /// </summary>
         /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database to remove.</param>
