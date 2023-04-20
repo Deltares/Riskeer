@@ -21,7 +21,6 @@
 
 using System;
 using System.ComponentModel;
-using Core.Common.TestUtil;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
@@ -31,11 +30,11 @@ using Riskeer.Integration.Forms.PropertyClasses;
 namespace Riskeer.Integration.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class HydraulicBoundaryDatabasePropertiesTest
+    public class HydraulicBoundaryDatabaseLocationPropertiesTest
     {
-        private const int usePreprocessorClosurePropertyIndex = 0;
-        private const int versionPropertyIndex = 1;
-        private const int locationsPropertyIndex = 2;
+        private const int namePropertyIndex = 0;
+        private const int idPropertyIndex = 1;
+        private const int locationPropertyIndex = 2;
 
         [Test]
         public void Constructor_HydraulicBoundaryDatabaseNull_ThrowsArgumentNullException()
@@ -52,14 +51,14 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            var hydraulicBoundaryDatabaseLocation = new HydraulicBoundaryLocation(0, "", 0, 0);
 
             // Call
-            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase);
+            var properties = new HydraulicBoundaryDatabaseLocationProperties(hydraulicBoundaryDatabaseLocation);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<HydraulicBoundaryDatabase>>(properties);
-            Assert.AreSame(hydraulicBoundaryDatabase, properties.Data);
+            Assert.IsInstanceOf<ObjectProperties<HydraulicBoundaryLocation>>(properties);
+            Assert.AreSame(hydraulicBoundaryDatabaseLocation, properties.Data);
         }
 
         [Test]
@@ -67,23 +66,22 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             var random = new Random();
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                UsePreprocessorClosure = random.NextBoolean()
-            };
+            var hydraulicBoundaryDatabaseLocation = new HydraulicBoundaryLocation(0, "", 0, 0);
 
             // Call
-            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase);
+            var properties = new HydraulicBoundaryDatabaseLocationProperties(hydraulicBoundaryDatabaseLocation);
 
             // Assert
-            Assert.AreEqual(hydraulicBoundaryDatabase.UsePreprocessorClosure, properties.UsePreprocessorClosure);
+            Assert.AreEqual(hydraulicBoundaryDatabaseLocation.Id, properties.Id);
+            Assert.AreEqual(hydraulicBoundaryDatabaseLocation.Name, properties.Name);
+            Assert.AreEqual(hydraulicBoundaryDatabaseLocation.Location, properties.Location);
         }
 
         [Test]
         public void Constructor_WithData_PropertiesHaveExpectedAttributesValues()
         {
             // Call
-            var properties = new HydraulicBoundaryDatabaseProperties(new HydraulicBoundaryDatabase());
+            var properties = new HydraulicBoundaryDatabaseLocationProperties(new HydraulicBoundaryLocation(0, "", 0, 0));
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -91,25 +89,25 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             const string expectedCategory = "Algemeen";
 
-            PropertyDescriptor usePreprocessorClosureProperty = dynamicProperties[usePreprocessorClosurePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(usePreprocessorClosureProperty,
+            PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
                                                                             expectedCategory,
-                                                                            "Gebruik preprocessor sluitregime database",
-                                                                            "Gebruik de preprocessor sluitregime database bij het uitvoeren van een berekening.",
+                                                                            "Naam",
+                                                                            "Naam van HRD locatie.",
                                                                             true);
 
-            PropertyDescriptor versionProperty = dynamicProperties[versionPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(versionProperty,
+            PropertyDescriptor idProperty = dynamicProperties[idPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(idProperty,
                                                                             expectedCategory,
-                                                                            "Versie",
-                                                                            "Versie van HRD bestand.",
+                                                                            "ID",
+                                                                            "Id van HRD locatie.",
                                                                             true);
 
-            PropertyDescriptor locationsProperty = dynamicProperties[locationsPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(locationsProperty,
+            PropertyDescriptor locationProperty = dynamicProperties[locationPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(locationProperty,
                                                                             expectedCategory,
-                                                                            "Locaties",
-                                                                            "Locaties uit de hydraulische belastingendatabase.",
+                                                                            "Coördinaten [m]",
+                                                                            "Coordinaten van HRD locatie.",
                                                                             true);
         }
     }

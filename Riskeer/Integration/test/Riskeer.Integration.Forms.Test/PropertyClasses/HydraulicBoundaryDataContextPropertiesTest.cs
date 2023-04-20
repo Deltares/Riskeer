@@ -22,7 +22,6 @@
 using System;
 using System.ComponentModel;
 using System.IO;
-using Core.Common.TestUtil;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
@@ -66,7 +65,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             var random = new Random();
-            var hydraulicBoundaryConfigurationDatabase = new HydraulicLocationConfigurationDatabase()
+            var hydraulicBoundaryConfigurationDatabase = new HydraulicLocationConfigurationDatabase
             {
                 FilePath = $"test/path/{random.Next().ToString()}.test"
             };
@@ -82,7 +81,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         public void Constructor_WithData_PropertiesHaveExpectedAttributesValues()
         {
             var random = new Random();
-            var hydraulicBoundaryConfigurationDatabase = new HydraulicLocationConfigurationDatabase()
+            var hydraulicBoundaryConfigurationDatabase = new HydraulicLocationConfigurationDatabase
             {
                 FilePath = $"test/path/{random.Next().ToString()}.test"
             };
@@ -95,14 +94,14 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(1, dynamicProperties.Count);
 
             const string expectedCategory = "Algemeen";
-            PropertyDescriptor filePathProperty = dynamicProperties[filePathPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(filePathProperty,
+            PropertyDescriptor fileDirectoryProperty = dynamicProperties[filePathPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(fileDirectoryProperty,
                                                                             expectedCategory,
-                                                                            "Bestandslocatie",
-                                                                            "Locatie van het bestand.",
+                                                                            "Bestandsmap",
+                                                                            "Locatie van de bestandsmap.",
                                                                             true);
         }
-        
+
         [Test]
         public void Constructor_WithoutData_PropertyIsInvisible()
         {

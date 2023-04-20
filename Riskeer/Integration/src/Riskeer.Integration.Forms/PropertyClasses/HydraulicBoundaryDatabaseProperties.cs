@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Linq;
 using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
 using Core.Gui.Converters;
@@ -37,8 +38,8 @@ namespace Riskeer.Integration.Forms.PropertyClasses
     public class HydraulicBoundaryDatabaseProperties : ObjectProperties<HydraulicBoundaryDatabase>
     {
         private const int usePreprocessorClosurePropertyIndex = 0;
-        private const int locationsPropertyIndex = 1;
-        private const int versionPropertyIndex = 2;
+        private const int versionPropertyIndex = 1;
+        private const int locationsPropertyIndex = 2;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryDatabaseProperties"/>.
@@ -67,19 +68,6 @@ namespace Riskeer.Integration.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(locationsPropertyIndex)]
-        [TypeConverter(typeof(ExpandableArrayConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.HydraulicBoundaryDatabase_Locations_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.HydraulicBoundaryDatabase_Locations_Description))]
-        public HydraulicBoundaryLocation[] Locations
-        {
-            get
-            {
-                return data.Locations.ToArray();
-            }
-        }
-
         [PropertyOrder(versionPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicDatabase_Version_DisplayName))]
@@ -89,6 +77,20 @@ namespace Riskeer.Integration.Forms.PropertyClasses
             get
             {
                 return data.Version;
+            }
+        }
+
+        [PropertyOrder(locationsPropertyIndex)]
+        [TypeConverter(typeof(ExpandableArrayConverter))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(RiskeerCommonFormsResources.HydraulicBoundaryDatabase_Locations_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(RiskeerCommonFormsResources.HydraulicBoundaryDatabase_Locations_Description))]
+
+        public HydraulicBoundaryDatabaseLocationProperties[] Locations
+        {
+            get
+            {
+                return data.Locations.Select(x => new HydraulicBoundaryDatabaseLocationProperties(x)).ToArray();
             }
         }
     }

@@ -418,6 +418,24 @@ Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau 
       <value>Versie</value>
     </data>
     <data name="HydraulicDatabase_Version_Description" xml:space="preserve">
-      <value>Versie van HRD bestand</value>
+      <value>Versie van HRD bestand.</value>
+    </data>
+    <data name="HydraulicDatabase_Name_DisplayName" xml:space="preserve">
+      <value>Naam</value>
+    </data>
+    <data name="HydraulicDatabase_Location_DisplayName" xml:space="preserve">
+      <value>Coördinaten [m]</value>
+    </data>
+    <data name="HydraulicDatabase_Id_DisplayName" xml:space="preserve">
+      <value>ID</value>
+    </data>
+    <data name="HydraulicDatabase_Location_Description" xml:space="preserve">
+      <value>Coordinaten van HRD locatie.</value>
+    </data>
+    <data name="HydraulicDatabase_Name_Description" xml:space="preserve">
+      <value>Naam van HRD locatie.</value>
+    </data>
+    <data name="HydraulicDatabase_Id_Description" xml:space="preserve">
+      <value>Id van HRD locatie.</value>
     </data>
 </root>

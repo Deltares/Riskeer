@@ -626,7 +626,61 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Versie van HRD bestand.
+        ///   Looks up a localized string similar to Id van HRD locatie..
+        /// </summary>
+        public static string HydraulicDatabase_Id_Description {
+            get {
+                return ResourceManager.GetString("HydraulicDatabase_Id_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ID.
+        /// </summary>
+        public static string HydraulicDatabase_Id_DisplayName {
+            get {
+                return ResourceManager.GetString("HydraulicDatabase_Id_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Coordinaten van HRD locatie..
+        /// </summary>
+        public static string HydraulicDatabase_Location_Description {
+            get {
+                return ResourceManager.GetString("HydraulicDatabase_Location_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Coördinaten [m].
+        /// </summary>
+        public static string HydraulicDatabase_Location_DisplayName {
+            get {
+                return ResourceManager.GetString("HydraulicDatabase_Location_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam van HRD locatie..
+        /// </summary>
+        public static string HydraulicDatabase_Name_Description {
+            get {
+                return ResourceManager.GetString("HydraulicDatabase_Name_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam.
+        /// </summary>
+        public static string HydraulicDatabase_Name_DisplayName {
+            get {
+                return ResourceManager.GetString("HydraulicDatabase_Name_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Versie van HRD bestand..
         /// </summary>
         public static string HydraulicDatabase_Version_Description {
             get {
