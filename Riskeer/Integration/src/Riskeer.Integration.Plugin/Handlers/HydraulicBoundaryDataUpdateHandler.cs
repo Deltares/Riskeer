@@ -64,15 +64,10 @@ namespace Riskeer.Integration.Plugin.Handlers
             this.duneLocationsUpdateHandler = duneLocationsUpdateHandler;
         }
 
-        public IEnumerable<IObservable> AddHydraulicBoundaryDatabase(HydraulicBoundaryData hydraulicBoundaryData, ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase,
+        public IEnumerable<IObservable> AddHydraulicBoundaryDatabase(ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase,
                                                                      ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase,
                                                                      IEnumerable<long> excludedLocationIds, string hrdFilePath)
         {
-            if (hydraulicBoundaryData == null)
-            {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryData));
-            }
-
             if (readHydraulicBoundaryDatabase == null)
             {
                 throw new ArgumentNullException(nameof(readHydraulicBoundaryDatabase));
@@ -107,14 +102,28 @@ namespace Riskeer.Integration.Plugin.Handlers
                                                                                    .FirstOrDefault(rt => rt.TrackId == readHydraulicBoundaryDatabase.TrackId)?
                                                                                    .UsePreprocessorClosure ?? false
             };
-
             newHydraulicBoundaryDatabase.Locations.AddRange(newHydraulicBoundaryLocations);
-            hydraulicBoundaryData.HydraulicBoundaryDatabases.Add(newHydraulicBoundaryDatabase);
 
+            assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(newHydraulicBoundaryDatabase);
             assessmentSection.SetHydraulicBoundaryLocationCalculations(newHydraulicBoundaryDatabase.Locations);
             duneLocationsUpdateHandler.AddLocations(newHydraulicBoundaryDatabase.Locations);
 
-            return GetLocationsAndCalculationsObservables(hydraulicBoundaryData);
+            return GetLocationsAndCalculationsObservables();
+        }
+
+        public IEnumerable<IObservable> AddHydraulicBoundaryDatabase(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+        {
+            if (hydraulicBoundaryDatabase == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
+            }
+
+            assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(hydraulicBoundaryDatabase);
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
+            
+            duneLocationsUpdateHandler.AddLocations(hydraulicBoundaryDatabase.Locations);
+
+            return GetLocationsAndCalculationsObservables();
         }
 
         public IEnumerable<IObservable> RemoveHydraulicBoundaryDatabase(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
@@ -134,7 +143,7 @@ namespace Riskeer.Integration.Plugin.Handlers
             {
                 assessmentSection.HydraulicBoundaryData
             };
-            changedObjects.AddRange(GetLocationsAndCalculationsObservables(assessmentSection.HydraulicBoundaryData));
+            changedObjects.AddRange(GetLocationsAndCalculationsObservables());
             changedObjects.AddRange(RiskeerDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(assessmentSection, locationsToRemove));
             return changedObjects;
         }
@@ -144,11 +153,11 @@ namespace Riskeer.Integration.Plugin.Handlers
             duneLocationsUpdateHandler.DoPostUpdateActions();
         }
 
-        private IEnumerable<IObservable> GetLocationsAndCalculationsObservables(HydraulicBoundaryData hydraulicBoundaryData)
+        private IEnumerable<IObservable> GetLocationsAndCalculationsObservables()
         {
             var locationsAndCalculationsObservables = new List<IObservable>
             {
-                hydraulicBoundaryData.HydraulicBoundaryDatabases,
+                assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases,
                 assessmentSection.WaterLevelCalculationsForSignalFloodingProbability,
                 assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability,
                 assessmentSection.DuneErosion.DuneLocations,

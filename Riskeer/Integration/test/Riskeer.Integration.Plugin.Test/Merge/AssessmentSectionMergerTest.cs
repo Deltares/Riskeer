@@ -29,6 +29,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Merge;
 using Riskeer.Integration.Forms.Merge;
+using Riskeer.Integration.IO.Handlers;
 using Riskeer.Integration.Plugin.Merge;
 using Riskeer.Integration.Service.Comparers;
 
@@ -147,16 +148,40 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var comparer = mocks.StrictMock<IAssessmentSectionMergeComparer>();
             var mergeDataProvider = mocks.StrictMock<IAssessmentSectionMergeDataProvider>();
             var mergeHandler = mocks.StrictMock<IAssessmentSectionMergeHandler>();
+            var hydraulicBoundaryDataUpdateHandler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
             mocks.ReplayAll();
 
             var merger = new AssessmentSectionMerger(filePathProvider, assessmentSectionProvider, comparer, mergeDataProvider, mergeHandler);
 
             // Call
-            void Call() => merger.StartMerge(null);
+            void Call() => merger.StartMerge(null, hydraulicBoundaryDataUpdateHandler);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void StartMerge_HydraulidBoundaryDataUpdatHandlerNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var filePathProvider = mocks.StrictMock<IAssessmentSectionMergeFilePathProvider>();
+            var assessmentSectionProvider = mocks.StrictMock<IAssessmentSectionProvider>();
+            var comparer = mocks.StrictMock<IAssessmentSectionMergeComparer>();
+            var mergeDataProvider = mocks.StrictMock<IAssessmentSectionMergeDataProvider>();
+            var mergeHandler = mocks.StrictMock<IAssessmentSectionMergeHandler>();
+            mocks.ReplayAll();
+
+            var merger = new AssessmentSectionMerger(filePathProvider, assessmentSectionProvider, comparer, mergeDataProvider, mergeHandler);
+
+            // Call
+            void Call() => merger.StartMerge(new AssessmentSection(AssessmentSectionComposition.Dike), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("hydraulicBoundaryDataUpdateHandler", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -171,12 +196,13 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var comparer = mocks.StrictMock<IAssessmentSectionMergeComparer>();
             var mergeDataProvider = mocks.StrictMock<IAssessmentSectionMergeDataProvider>();
             var mergeHandler = mocks.StrictMock<IAssessmentSectionMergeHandler>();
+            var hydraulicBoundaryDataUpdateHandler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
             mocks.ReplayAll();
 
             var merger = new AssessmentSectionMerger(filePathProvider, assessmentSectionProvider, comparer, mergeDataProvider, mergeHandler);
 
             // Call
-            void Call() => merger.StartMerge(new AssessmentSection(AssessmentSectionComposition.Dike));
+            void Call() => merger.StartMerge(new AssessmentSection(AssessmentSectionComposition.Dike), hydraulicBoundaryDataUpdateHandler);
 
             // Assert
             TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>("Importeren van gegevens is geannuleerd.", LogLevelConstant.Warn), 1);
@@ -196,12 +222,13 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var comparer = mocks.StrictMock<IAssessmentSectionMergeComparer>();
             var mergeDataProvider = mocks.StrictMock<IAssessmentSectionMergeDataProvider>();
             var mergeHandler = mocks.StrictMock<IAssessmentSectionMergeHandler>();
+            var hydraulicBoundaryDataUpdateHandler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
             mocks.ReplayAll();
 
             var merger = new AssessmentSectionMerger(filePathProvider, assessmentSectionProvider, comparer, mergeDataProvider, mergeHandler);
 
             // When
-            void Call() => merger.StartMerge(new AssessmentSection(AssessmentSectionComposition.Dike));
+            void Call() => merger.StartMerge(new AssessmentSection(AssessmentSectionComposition.Dike), hydraulicBoundaryDataUpdateHandler);
 
             // Then
             TestHelper.AssertLogMessagesCount(Call, 0);
@@ -222,12 +249,13 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             comparer.Expect(c => c.Compare(null, null)).IgnoreArguments().Return(false);
             var mergeDataProvider = mocks.StrictMock<IAssessmentSectionMergeDataProvider>();
             var mergeHandler = mocks.StrictMock<IAssessmentSectionMergeHandler>();
+            var hydraulicBoundaryDataUpdateHandler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
             mocks.ReplayAll();
 
             var merger = new AssessmentSectionMerger(filePathProvider, assessmentSectionProvider, comparer, mergeDataProvider, mergeHandler);
 
             // When
-            void Call() => merger.StartMerge(new AssessmentSection(AssessmentSectionComposition.Dike));
+            void Call() => merger.StartMerge(new AssessmentSection(AssessmentSectionComposition.Dike), hydraulicBoundaryDataUpdateHandler);
 
             // Then
             TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>("Er is geen traject gevonden dat samengevoegd kan worden.", LogLevelConstant.Error), 1);
@@ -249,12 +277,13 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var mergeDataProvider = mocks.StrictMock<IAssessmentSectionMergeDataProvider>();
             mergeDataProvider.Expect(mdp => mdp.GetMergeData(null)).IgnoreArguments().Return(null);
             var mergeHandler = mocks.StrictMock<IAssessmentSectionMergeHandler>();
+            var hydraulicBoundaryDataUpdateHandler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
             mocks.ReplayAll();
 
             var merger = new AssessmentSectionMerger(filePathProvider, assessmentSectionProvider, comparer, mergeDataProvider, mergeHandler);
 
             // When
-            void Call() => merger.StartMerge(new AssessmentSection(AssessmentSectionComposition.Dike));
+            void Call() => merger.StartMerge(new AssessmentSection(AssessmentSectionComposition.Dike), hydraulicBoundaryDataUpdateHandler);
 
             // Then
             TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>("Importeren van gegevens is geannuleerd.", LogLevelConstant.Warn), 1);
@@ -280,14 +309,15 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             comparer.Expect(c => c.Compare(originalAssessmentSection, assessmentSectionToMerge)).Return(true);
             var mergeDataProvider = mocks.StrictMock<IAssessmentSectionMergeDataProvider>();
             mergeDataProvider.Expect(mdp => mdp.GetMergeData(null)).IgnoreArguments().Return(mergeData);
+            var hydraulicBoundaryDataUpdateHandler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
             var mergeHandler = mocks.StrictMock<IAssessmentSectionMergeHandler>();
-            mergeHandler.Expect(mh => mh.PerformMerge(originalAssessmentSection, mergeData));
+            mergeHandler.Expect(mh => mh.PerformMerge(originalAssessmentSection, mergeData, hydraulicBoundaryDataUpdateHandler));
             mocks.ReplayAll();
 
             var merger = new AssessmentSectionMerger(filePathProvider, assessmentSectionProvider, comparer, mergeDataProvider, mergeHandler);
 
             // When
-            void Call() => merger.StartMerge(originalAssessmentSection);
+            void Call() => merger.StartMerge(originalAssessmentSection, hydraulicBoundaryDataUpdateHandler);
 
             // Then
             TestHelper.AssertLogMessagesWithLevelAreGenerated(Call, new[]
@@ -316,14 +346,15 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             comparer.Expect(c => c.Compare(originalAssessmentSection, assessmentSectionToMerge)).Return(true);
             var mergeDataProvider = mocks.StrictMock<IAssessmentSectionMergeDataProvider>();
             mergeDataProvider.Expect(mdp => mdp.GetMergeData(null)).IgnoreArguments().Return(mergeData);
+            var hydraulicBoundaryDataUpdateHandler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
             var mergeHandler = mocks.StrictMock<IAssessmentSectionMergeHandler>();
-            mergeHandler.Expect(mh => mh.PerformMerge(originalAssessmentSection, mergeData)).Throw(new Exception());
+            mergeHandler.Expect(mh => mh.PerformMerge(originalAssessmentSection, mergeData, hydraulicBoundaryDataUpdateHandler)).Throw(new Exception());
             mocks.ReplayAll();
 
             var merger = new AssessmentSectionMerger(filePathProvider, assessmentSectionProvider, comparer, mergeDataProvider, mergeHandler);
 
             // When
-            void Call() => merger.StartMerge(originalAssessmentSection);
+            void Call() => merger.StartMerge(originalAssessmentSection, hydraulicBoundaryDataUpdateHandler);
 
             // Then
             TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(Call, messages =>

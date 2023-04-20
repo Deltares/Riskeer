@@ -40,6 +40,7 @@ using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.HeightStructures.Data;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Merge;
+using Riskeer.Integration.IO.Handlers;
 using Riskeer.Integration.Plugin.Merge;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.Piping.Data.TestUtil;
@@ -85,13 +86,16 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             // Setup
             var mocks = new MockRepository();
             var documentViewController = mocks.Stub<IDocumentViewController>();
+            var hydraulicBoundaryDataUpdateHandler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
             mocks.ReplayAll();
 
             var handler = new AssessmentSectionMergeHandler(documentViewController);
 
             // Call
-            void Call() => handler.PerformMerge(null, new AssessmentSectionMergeData(new AssessmentSection(AssessmentSectionComposition.Dike),
-                                                                                     CreateDefaultConstructionProperties()));
+            void Call() => handler.PerformMerge(null, new AssessmentSectionMergeData(
+                                                    new AssessmentSection(AssessmentSectionComposition.Dike),
+                                                    CreateDefaultConstructionProperties()),
+                                                hydraulicBoundaryDataUpdateHandler);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -105,16 +109,41 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             // Setup
             var mocks = new MockRepository();
             var documentViewController = mocks.Stub<IDocumentViewController>();
+            var hydraulicBoundaryDataUpdateHandler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
             mocks.ReplayAll();
 
             var handler = new AssessmentSectionMergeHandler(documentViewController);
 
             // Call
-            void Call() => handler.PerformMerge(new AssessmentSection(AssessmentSectionComposition.Dike), null);
+            void Call() => handler.PerformMerge(new AssessmentSection(AssessmentSectionComposition.Dike), null,
+                                                hydraulicBoundaryDataUpdateHandler);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("mergeData", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void PerformMerge_HydraulicBoundaryDataUpdateHandlerNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var documentViewController = mocks.Stub<IDocumentViewController>();
+            mocks.ReplayAll();
+
+            var handler = new AssessmentSectionMergeHandler(documentViewController);
+
+            // Call
+            void Call() => handler.PerformMerge(new AssessmentSection(AssessmentSectionComposition.Dike),
+                                                new AssessmentSectionMergeData(
+                                                    new AssessmentSection(AssessmentSectionComposition.Dike),
+                                                    CreateDefaultConstructionProperties()),
+                                                null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("hydraulicBoundaryDataUpdateHandler", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -124,6 +153,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             // Setup
             var mocks = new MockRepository();
             var documentViewController = mocks.Stub<IDocumentViewController>();
+            var hydraulicBoundaryDataUpdateHandler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
             mocks.ReplayAll();
 
             var handler = new AssessmentSectionMergeHandler(documentViewController);
@@ -150,7 +180,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             });
 
             // Call
-            handler.PerformMerge(targetAssessmentSection, mergeData);
+            handler.PerformMerge(targetAssessmentSection, mergeData, hydraulicBoundaryDataUpdateHandler);
 
             // Assert
             Assert.AreSame(sourceAssessmentSection.Piping, targetAssessmentSection.Piping);
@@ -177,6 +207,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             // Setup
             var mocks = new MockRepository();
             var documentViewController = mocks.Stub<IDocumentViewController>();
+            var hydraulicBoundaryDataUpdateHandler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
             mocks.ReplayAll();
 
             var handler = new AssessmentSectionMergeHandler(documentViewController);
@@ -186,7 +217,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var mergeData = new AssessmentSectionMergeData(sourceAssessmentSection, CreateDefaultConstructionProperties());
 
             // Call
-            handler.PerformMerge(targetAssessmentSection, mergeData);
+            handler.PerformMerge(targetAssessmentSection, mergeData, hydraulicBoundaryDataUpdateHandler);
 
             // Assert
             Assert.AreNotSame(sourceAssessmentSection.Piping, targetAssessmentSection.Piping);
@@ -213,6 +244,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             // Setup
             var mocks = new MockRepository();
             var documentViewController = mocks.Stub<IDocumentViewController>();
+            var hydraulicBoundaryDataUpdateHandler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
             mocks.ReplayAll();
 
             var handler = new AssessmentSectionMergeHandler(documentViewController);
@@ -238,7 +270,8 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                                                     MergePipingStructure = true,
                                                     MergeStabilityPointStructures = true,
                                                     MergeDuneErosion = true
-                                                }));
+                                                }),
+                                                hydraulicBoundaryDataUpdateHandler);
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -270,6 +303,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             // Setup
             var mocks = new MockRepository();
             var documentViewController = mocks.Stub<IDocumentViewController>();
+            var hydraulicBoundaryDataUpdateHandler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
             mocks.ReplayAll();
 
             var handler = new AssessmentSectionMergeHandler(documentViewController);
@@ -295,7 +329,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var mergeData = new AssessmentSectionMergeData(sourceAssessmentSection, constructionProperties);
 
             // Call
-            handler.PerformMerge(targetAssessmentSection, mergeData);
+            handler.PerformMerge(targetAssessmentSection, mergeData, hydraulicBoundaryDataUpdateHandler);
 
             // Assert
             IEnumerable<IFailureMechanism> expectedFailureMechanisms = originalFailureMechanisms.Concat(failureMechanismsToMerge);
@@ -309,6 +343,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             // Setup
             var mocks = new MockRepository();
             var documentViewController = mocks.Stub<IDocumentViewController>();
+            var hydraulicBoundaryDataUpdateHandler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
             mocks.ReplayAll();
 
             var handler = new AssessmentSectionMergeHandler(documentViewController);
@@ -332,7 +367,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var mergeData = new AssessmentSectionMergeData(sourceAssessmentSection, new AssessmentSectionMergeData.ConstructionProperties());
 
             // Call
-            handler.PerformMerge(targetAssessmentSection, mergeData);
+            handler.PerformMerge(targetAssessmentSection, mergeData, hydraulicBoundaryDataUpdateHandler);
 
             // Assert
             CollectionAssert.AreEqual(originalFailureMechanisms, targetAssessmentSection.SpecificFailureMechanisms);
@@ -345,6 +380,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             // Setup
             var mocks = new MockRepository();
             var documentViewController = mocks.Stub<IDocumentViewController>();
+            var hydraulicBoundaryDataUpdateHandler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
             mocks.ReplayAll();
 
             var handler = new AssessmentSectionMergeHandler(documentViewController);
@@ -362,7 +398,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var mergeData = new AssessmentSectionMergeData(sourceAssessmentSection, constructionProperties);
 
             // Call
-            void Call() => handler.PerformMerge(targetAssessmentSection, mergeData);
+            void Call() => handler.PerformMerge(targetAssessmentSection, mergeData, hydraulicBoundaryDataUpdateHandler);
 
             // Assert
             const string expectedMessage = "MergeSpecificFailureMechanisms must contain items of the assessment section in mergeData.";
@@ -376,6 +412,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             // Setup
             var mocks = new MockRepository();
             var documentViewController = mocks.Stub<IDocumentViewController>();
+            var hydraulicBoundaryDataUpdateHandler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
             mocks.ReplayAll();
 
             var handler = new AssessmentSectionMergeHandler(documentViewController);
@@ -406,7 +443,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var mergeData = new AssessmentSectionMergeData(sourceAssessmentSection, constructionProperties);
 
             // Call
-            void Call() => handler.PerformMerge(targetAssessmentSection, mergeData);
+            void Call() => handler.PerformMerge(targetAssessmentSection, mergeData, hydraulicBoundaryDataUpdateHandler);
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -429,6 +466,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             // Given
             var mocks = new MockRepository();
             var documentViewController = mocks.Stub<IDocumentViewController>();
+            var hydraulicBoundaryDataUpdateHandler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
             mocks.ReplayAll();
 
             var handler = new AssessmentSectionMergeHandler(documentViewController);
@@ -525,7 +563,8 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                                          MergeHeightStructures = true,
                                          MergeClosingStructures = true,
                                          MergeStabilityPointStructures = true
-                                     }));
+                                     }),
+                                 hydraulicBoundaryDataUpdateHandler);
 
             // Then
             var pipingCalculation = (TestPipingCalculationScenario) targetAssessmentSection.Piping.Calculations.Single();
@@ -554,6 +593,30 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
             var grassOutwardsCalculation = (GrassCoverErosionOutwardsWaveConditionsCalculation) targetAssessmentSection.GrassCoverErosionOutwards.Calculations.Single();
             Assert.AreSame(targetLocations[0], grassOutwardsCalculation.InputParameters.HydraulicBoundaryLocation);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void PerformMerge_Always_CloseAllViews()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var documentViewController = mocks.StrictMock<IDocumentViewController>();
+            documentViewController.Expect(dvc => dvc.CloseAllViews());
+            var hydraulicBoundaryDataUpdateHandler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
+            mocks.ReplayAll();
+
+            var handler = new AssessmentSectionMergeHandler(documentViewController);
+
+            var targetAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var sourceAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            var mergeData = new AssessmentSectionMergeData(sourceAssessmentSection, new AssessmentSectionMergeData.ConstructionProperties());
+
+            // Call
+            handler.PerformMerge(targetAssessmentSection, mergeData, hydraulicBoundaryDataUpdateHandler);
+
+            // Assert
             mocks.VerifyAll();
         }
 
@@ -589,7 +652,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             return new AssessmentSectionMergeData.ConstructionProperties();
         }
 
-        #region HydraulicBoundaryLocationCalculations
+        #region HydraulicBoundaryData
 
         [Test]
         [TestCaseSource(nameof(GetHydraulicBoundaryLocationCalculationFuncs))]
@@ -599,6 +662,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             // Given
             var mocks = new MockRepository();
             var documentViewController = mocks.Stub<IDocumentViewController>();
+            var hydraulicBoundaryDataUpdateHandler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
             mocks.ReplayAll();
 
             HydraulicBoundaryLocation[] locations =
@@ -625,7 +689,8 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
             // When
             handler.PerformMerge(targetAssessmentSection,
-                                 new AssessmentSectionMergeData(sourceAssessmentSection, CreateDefaultConstructionProperties()));
+                                 new AssessmentSectionMergeData(sourceAssessmentSection, CreateDefaultConstructionProperties()),
+                                 hydraulicBoundaryDataUpdateHandler);
 
             // Then
             Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
@@ -642,6 +707,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             // Given
             var mocks = new MockRepository();
             var documentViewController = mocks.Stub<IDocumentViewController>();
+            var hydraulicBoundaryDataUpdateHandler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
             mocks.ReplayAll();
 
             HydraulicBoundaryLocation[] locations =
@@ -671,7 +737,8 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
             // When
             handler.PerformMerge(targetAssessmentSection,
-                                 new AssessmentSectionMergeData(sourceAssessmentSection, CreateDefaultConstructionProperties()));
+                                 new AssessmentSectionMergeData(sourceAssessmentSection, CreateDefaultConstructionProperties()),
+                                 hydraulicBoundaryDataUpdateHandler);
 
             // Then
             Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
@@ -690,6 +757,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             // Given
             var mocks = new MockRepository();
             var documentViewController = mocks.Stub<IDocumentViewController>();
+            var hydraulicBoundaryDataUpdateHandler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
             mocks.ReplayAll();
 
             HydraulicBoundaryLocation[] locations =
@@ -717,7 +785,8 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
             // When
             handler.PerformMerge(targetAssessmentSection,
-                                 new AssessmentSectionMergeData(sourceAssessmentSection, CreateDefaultConstructionProperties()));
+                                 new AssessmentSectionMergeData(sourceAssessmentSection, CreateDefaultConstructionProperties()),
+                                 hydraulicBoundaryDataUpdateHandler);
 
             // Then
             Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
@@ -733,6 +802,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             // Given
             var mocks = new MockRepository();
             var documentViewController = mocks.Stub<IDocumentViewController>();
+            var hydraulicBoundaryDataUpdateHandler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
             mocks.ReplayAll();
 
             HydraulicBoundaryLocation[] locations =
@@ -760,7 +830,8 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
             // When
             handler.PerformMerge(targetAssessmentSection,
-                                 new AssessmentSectionMergeData(sourceAssessmentSection, CreateDefaultConstructionProperties()));
+                                 new AssessmentSectionMergeData(sourceAssessmentSection, CreateDefaultConstructionProperties()),
+                                 hydraulicBoundaryDataUpdateHandler);
 
             // Then
             Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
@@ -778,6 +849,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             // Given
             var mocks = new MockRepository();
             var documentViewController = mocks.Stub<IDocumentViewController>();
+            var hydraulicBoundaryDataUpdateHandler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
             mocks.ReplayAll();
 
             HydraulicBoundaryLocation[] locations =
@@ -805,7 +877,8 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
             // When
             handler.PerformMerge(targetAssessmentSection,
-                                 new AssessmentSectionMergeData(sourceAssessmentSection, CreateDefaultConstructionProperties()));
+                                 new AssessmentSectionMergeData(sourceAssessmentSection, CreateDefaultConstructionProperties()),
+                                 hydraulicBoundaryDataUpdateHandler);
 
             // Then
             Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
@@ -821,6 +894,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             // Given
             var mocks = new MockRepository();
             var documentViewController = mocks.Stub<IDocumentViewController>();
+            var hydraulicBoundaryDataUpdateHandler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
             mocks.ReplayAll();
 
             HydraulicBoundaryLocation[] locations =
@@ -850,7 +924,8 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
             // When
             handler.PerformMerge(targetAssessmentSection,
-                                 new AssessmentSectionMergeData(sourceAssessmentSection, CreateDefaultConstructionProperties()));
+                                 new AssessmentSectionMergeData(sourceAssessmentSection, CreateDefaultConstructionProperties()),
+                                 hydraulicBoundaryDataUpdateHandler);
 
             // Then
             Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
@@ -871,6 +946,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var documentViewController = mocks.Stub<IDocumentViewController>();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver()).Repeat.Twice();
+            var hydraulicBoundaryDataUpdateHandler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
             mocks.ReplayAll();
 
             HydraulicBoundaryLocation[] locations =
@@ -894,7 +970,8 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
             // Call
             void Call() => handler.PerformMerge(targetAssessmentSection,
-                                                new AssessmentSectionMergeData(sourceAssessmentSection, CreateDefaultConstructionProperties()));
+                                                new AssessmentSectionMergeData(sourceAssessmentSection, CreateDefaultConstructionProperties()),
+                                                hydraulicBoundaryDataUpdateHandler);
 
             // Assert
             TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>("Hydraulische belastingen zijn samengevoegd.", LogLevelConstant.Info));
@@ -910,6 +987,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var mocks = new MockRepository();
             var documentViewController = mocks.Stub<IDocumentViewController>();
             var observer = mocks.StrictMock<IObserver>();
+            var hydraulicBoundaryDataUpdateHandler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
             mocks.ReplayAll();
 
             HydraulicBoundaryLocation[] locations =
@@ -933,7 +1011,8 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
             // Call
             void Call() => handler.PerformMerge(targetAssessmentSection,
-                                                new AssessmentSectionMergeData(sourceAssessmentSection, CreateDefaultConstructionProperties()));
+                                                new AssessmentSectionMergeData(sourceAssessmentSection, CreateDefaultConstructionProperties()),
+                                                hydraulicBoundaryDataUpdateHandler);
 
             // Assert
             TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>("Hydraulische belastingen zijn niet samengevoegd omdat het huidige traject meer gegevens bevat.", LogLevelConstant.Info));
@@ -947,6 +1026,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var mocks = new MockRepository();
             var documentViewController = mocks.Stub<IDocumentViewController>();
             var observer = mocks.StrictMock<IObserver>();
+            var hydraulicBoundaryDataUpdateHandler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
             mocks.ReplayAll();
 
             var handler = new AssessmentSectionMergeHandler(documentViewController);
@@ -972,18 +1052,8 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             // When
             handler.PerformMerge(targetAssessmentSection, new AssessmentSectionMergeData(
                                      sourceAssessmentSection,
-                                     new AssessmentSectionMergeData.ConstructionProperties
-                                     {
-                                         MergePiping = false,
-                                         MergeGrassCoverErosionInwards = false,
-                                         MergeMacroStabilityInwards = false,
-                                         MergeStabilityStoneCover = false,
-                                         MergeWaveImpactAsphaltCover = false,
-                                         MergeGrassCoverErosionOutwards = false,
-                                         MergeHeightStructures = false,
-                                         MergeClosingStructures = false,
-                                         MergeStabilityPointStructures = false
-                                     }));
+                                     CreateDefaultConstructionProperties()),
+                                 hydraulicBoundaryDataUpdateHandler);
 
             // Then
             ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> waterLevelTargetProbabilities =
@@ -1006,6 +1076,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var documentViewController = mocks.Stub<IDocumentViewController>();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver()).Repeat.Twice();
+            var hydraulicBoundaryDataUpdateHandler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
             mocks.ReplayAll();
 
             var handler = new AssessmentSectionMergeHandler(documentViewController);
@@ -1034,18 +1105,8 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             // When
             handler.PerformMerge(targetAssessmentSection, new AssessmentSectionMergeData(
                                      sourceAssessmentSection,
-                                     new AssessmentSectionMergeData.ConstructionProperties
-                                     {
-                                         MergePiping = false,
-                                         MergeGrassCoverErosionInwards = false,
-                                         MergeMacroStabilityInwards = false,
-                                         MergeStabilityStoneCover = false,
-                                         MergeWaveImpactAsphaltCover = false,
-                                         MergeGrassCoverErosionOutwards = false,
-                                         MergeHeightStructures = false,
-                                         MergeClosingStructures = false,
-                                         MergeStabilityPointStructures = false
-                                     }));
+                                     CreateDefaultConstructionProperties()),
+                                 hydraulicBoundaryDataUpdateHandler);
 
             // Then
             ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> waterLevelTargetProbabilities =
@@ -1067,25 +1128,47 @@ namespace Riskeer.Integration.Plugin.Test.Merge
         }
 
         [Test]
-        public void PerformMerge_Always_CloseAllViews()
+        public void GivenAssessmentSectionWithHydraulicBoundaryLocationCalculations_WhenSourceAssessmentSectionHydraulicBoundaryDatabaseNotInTargetAssessmentSection_ThenHydraulicBoundaryDatabasesMerged()
         {
-            // Setup
+            // Given
+            HydraulicBoundaryLocation[] targetSectionLocations =
+            {
+                new TestHydraulicBoundaryLocation(),
+                new TestHydraulicBoundaryLocation()
+            };
+
+            HydraulicBoundaryLocation[] sourceSectionLocations =
+            {
+                new TestHydraulicBoundaryLocation(),
+                new TestHydraulicBoundaryLocation()
+            };
+
+            AssessmentSection targetAssessmentSection = CreateAssessmentSection(targetSectionLocations);
+            targetAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.First().FilePath = "hbd1.sql";
+
+            AssessmentSection sourceAssessmentSection = CreateAssessmentSection(sourceSectionLocations);
+            HydraulicBoundaryDatabase sourceHydraulicBoundaryDatabase = sourceAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.First();
+            sourceHydraulicBoundaryDatabase.FilePath = "hbd2.sql";
+
             var mocks = new MockRepository();
-            var documentViewController = mocks.StrictMock<IDocumentViewController>();
-            documentViewController.Expect(dvc => dvc.CloseAllViews());
+            var documentViewController = mocks.Stub<IDocumentViewController>();
+            var hydraulicBoundaryDataUpdateHandler = mocks.StrictMock<IHydraulicBoundaryDataUpdateHandler>();
+            hydraulicBoundaryDataUpdateHandler.Expect(h => h.AddHydraulicBoundaryDatabase(sourceHydraulicBoundaryDatabase))
+                                              .WhenCalled(invocation =>
+                                              {
+                                                  targetAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(sourceHydraulicBoundaryDatabase);
+                                              })
+                                              .Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
             var handler = new AssessmentSectionMergeHandler(documentViewController);
 
-            var targetAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            var sourceAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            // When
+            handler.PerformMerge(targetAssessmentSection, new AssessmentSectionMergeData(
+                                     sourceAssessmentSection, CreateDefaultConstructionProperties()),
+                                 hydraulicBoundaryDataUpdateHandler);
 
-            var mergeData = new AssessmentSectionMergeData(sourceAssessmentSection, new AssessmentSectionMergeData.ConstructionProperties());
-
-            // Call
-            handler.PerformMerge(targetAssessmentSection, mergeData);
-
-            // Assert
+            // Then
             mocks.VerifyAll();
         }
 
