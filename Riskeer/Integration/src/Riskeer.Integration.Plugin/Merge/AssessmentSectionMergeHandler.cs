@@ -93,7 +93,8 @@ namespace Riskeer.Integration.Plugin.Merge
 
             ValidateMergeData(mergeData);
 
-            IEnumerable<IObservable> changedObjects = MergeHydraulicBoundaryData(targetAssessmentSection, mergeData.AssessmentSection);
+            IEnumerable<IObservable> changedObjects = MergeHydraulicBoundaryData(targetAssessmentSection, mergeData.AssessmentSection,
+                                                                                 hydraulicBoundaryDataUpdateHandler);
 
             MergeFailureMechanisms(targetAssessmentSection, mergeData);
             MergeSpecificFailureMechanism(targetAssessmentSection, mergeData.MergeSpecificFailureMechanisms);
@@ -147,13 +148,29 @@ namespace Riskeer.Integration.Plugin.Merge
 
         #region HydraulicBoundaryData
 
-        private static IEnumerable<IObservable> MergeHydraulicBoundaryData(IAssessmentSection targetAssessmentSection,
-                                                                           IAssessmentSection sourceAssessmentSection)
+        private static IEnumerable<IObservable> MergeHydraulicBoundaryData(
+            IAssessmentSection targetAssessmentSection, IAssessmentSection sourceAssessmentSection,
+            IHydraulicBoundaryDataUpdateHandler hydraulicBoundaryDataUpdateHandler)
         {
             IEnumerable<string> targetHydraulicBoundaryDatabasesFileNames = targetAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases
                                                                                                    .Select(hbd => Path.GetFileNameWithoutExtension(hbd.FilePath));
 
+            IEnumerable<HydraulicBoundaryDatabase> overlappingDatabases = sourceAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases
+                                                                                                 .Where(hbd => targetHydraulicBoundaryDatabasesFileNames.Contains(
+                                                                                                            Path.GetFileNameWithoutExtension(hbd.FilePath)));
+
+            IEnumerable<HydraulicBoundaryDatabase> databasesToAdd = sourceAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases
+                                                                                           .Except(overlappingDatabases);
+            
             var changedObjects = new List<IObservable>();
+            if (databasesToAdd.Any())
+            {
+                foreach (HydraulicBoundaryDatabase hydraulicBoundaryDatabase in databasesToAdd)
+                {
+                    changedObjects.AddRange(hydraulicBoundaryDataUpdateHandler.AddHydraulicBoundaryDatabase(
+                                                hydraulicBoundaryDatabase));
+                }
+            }
 
             foreach (HydraulicBoundaryDatabase sourceHydraulicBoundaryDatabase in sourceAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases)
             {
