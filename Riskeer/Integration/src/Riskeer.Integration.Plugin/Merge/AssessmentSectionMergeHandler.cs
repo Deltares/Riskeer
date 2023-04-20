@@ -39,6 +39,7 @@ using Riskeer.HeightStructures.Data;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Merge;
 using Riskeer.Integration.IO.Handlers;
+using Riskeer.Integration.Plugin.Helpers;
 using Riskeer.Integration.Plugin.Properties;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.Piping.Data;
@@ -155,6 +156,7 @@ namespace Riskeer.Integration.Plugin.Merge
             var changedObjects = new List<IObservable>();
 
             changedObjects.AddRange(MergeHydraulicBoundaryDatabases(targetAssessmentSection, sourceAssessmentSection, hydraulicBoundaryDataUpdateHandler));
+            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculationTargetProbabilities(targetAssessmentSection, sourceAssessmentSection));
 
             foreach (HydraulicBoundaryDatabase sourceHydraulicBoundaryDatabase in sourceAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases)
             {
@@ -196,6 +198,52 @@ namespace Riskeer.Integration.Plugin.Merge
                     changedObjects.AddRange(hydraulicBoundaryDataUpdateHandler.AddHydraulicBoundaryDatabase(
                                                 hydraulicBoundaryDatabase));
                 }
+            }
+
+            return changedObjects;
+        }
+
+        private static IEnumerable<IObservable> MergeHydraulicBoundaryLocationCalculationTargetProbabilities(
+            IAssessmentSection targetAssessmentSection,
+            IAssessmentSection sourceAssessmentSection)
+        {
+            var changedObjects = new List<IObservable>();
+
+            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculationTargetProbabilities(
+                                        targetAssessmentSection,
+                                        targetAssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities,
+                                        sourceAssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities));
+            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculationTargetProbabilities(
+                                        targetAssessmentSection,
+                                        targetAssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities,
+                                        sourceAssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities));
+
+            return changedObjects;
+        }
+
+        private static IEnumerable<IObservable> MergeHydraulicBoundaryLocationCalculationTargetProbabilities(
+            IAssessmentSection targetAssessmentSection,
+            ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> targetCalculationsForTargetProbabilities,
+            ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> sourceCalculationsForTargetProbabilities)
+        {
+            var changedObjects = new List<IObservable>();
+
+            IEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> overlappingCalculationsForTargetProbabilities =
+                sourceCalculationsForTargetProbabilities.Where(stp => targetCalculationsForTargetProbabilities
+                                                                      .Select(c => c.TargetProbability)
+                                                                      .Contains(stp.TargetProbability));
+
+            IEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> calculationsForTargetProbabilitiesToAdd =
+                sourceCalculationsForTargetProbabilities.Except(overlappingCalculationsForTargetProbabilities);
+
+            if (calculationsForTargetProbabilitiesToAdd.Any())
+            {
+                targetCalculationsForTargetProbabilities.AddRange(
+                    calculationsForTargetProbabilitiesToAdd.Select(
+                        calculationsForTargetProbabilityToAdd => HydraulicBoundaryLocationCalculationsForTargetProbabilityHelper.Create(
+                            targetAssessmentSection, calculationsForTargetProbabilityToAdd.TargetProbability)));
+
+                changedObjects.Add(targetCalculationsForTargetProbabilities);
             }
 
             return changedObjects;
