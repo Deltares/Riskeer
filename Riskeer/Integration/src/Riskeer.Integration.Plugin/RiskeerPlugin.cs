@@ -2450,6 +2450,8 @@ namespace Riskeer.Integration.Plugin
             return builder.AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
+                          .AddSeparator()
+                          .AddPropertiesItem()
                           .Build();
         }
 
