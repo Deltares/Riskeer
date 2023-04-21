@@ -33,7 +33,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="HydraulicBoundaryDatabase"/> for properties panel.
     /// </summary>
-    public class HydraulicBoundaryDataContextProperties : ObjectProperties<HydraulicLocationConfigurationDatabase>
+    public class HydraulicBoundaryDataProperties : ObjectProperties<HydraulicBoundaryData>
     {
         private const int workingDirectoryPropertyIndex = 0;
 
@@ -42,14 +42,14 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         /// </summary>
         /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database to show the properties for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryDatabase"/> is <c>null</c>.</exception>
-        public HydraulicBoundaryDataContextProperties(HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase)
+        public HydraulicBoundaryDataProperties(HydraulicBoundaryData hydraulicBoundaryData)
         {
-            if (hydraulicLocationConfigurationDatabase == null)
+            if (hydraulicBoundaryData == null)
             {
-                throw new ArgumentNullException(nameof(hydraulicLocationConfigurationDatabase));
+                throw new ArgumentNullException(nameof(hydraulicBoundaryData));
             }
 
-            Data = hydraulicLocationConfigurationDatabase;
+            Data = hydraulicBoundaryData;
         }
 
         [PropertyOrder(workingDirectoryPropertyIndex)]
@@ -61,14 +61,14 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         {
             get
             {
-                return Path.GetDirectoryName(data.FilePath) ?? string.Empty;
+                return Path.GetDirectoryName(data.HydraulicLocationConfigurationDatabase.FilePath);
             }
         }
 
         [DynamicVisibleValidationMethod]
         public bool IsDynamicVisible(string propertyName)
         {
-            return !string.IsNullOrEmpty(data.FilePath);
+            return !string.IsNullOrEmpty(data.HydraulicLocationConfigurationDatabase.FilePath);
         }
     }
 }

@@ -31,63 +31,67 @@ using Riskeer.Integration.Forms.PropertyClasses;
 namespace Riskeer.Integration.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class HydraulicBoundaryDataContextPropertiesTest
+    public class HydraulicBoundaryDataPropertiesTest
     {
         private const int filePathPropertyIndex = 0;
 
         [Test]
-        public void Constructor_HydraulicBoundaryDatabaseNull_ThrowsArgumentNullException()
+        public void Constructor_HydraulicBoundaryDataNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new HydraulicBoundaryDataContextProperties(null);
+            void Call() => new HydraulicBoundaryDataProperties(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("hydraulicLocationConfigurationDatabase", exception.ParamName);
+            Assert.AreEqual("hydraulicBoundaryData", exception.ParamName);
         }
 
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var hydraulicLocationConfigurationDatabase = new HydraulicLocationConfigurationDatabase();
+            var hydraulicBoundaryData = new HydraulicBoundaryData();
 
             // Call
-            var properties = new HydraulicBoundaryDataContextProperties(hydraulicLocationConfigurationDatabase);
+            var properties = new HydraulicBoundaryDataProperties(hydraulicBoundaryData);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<HydraulicLocationConfigurationDatabase>>(properties);
-            Assert.AreSame(hydraulicLocationConfigurationDatabase, properties.Data);
+            Assert.IsInstanceOf<ObjectProperties<HydraulicBoundaryData>>(properties);
+            Assert.AreSame(hydraulicBoundaryData, properties.Data);
         }
 
         [Test]
         public void GetProperties_WithData_ReturnsExpectedValues()
         {
             // Setup
-            var random = new Random();
-            var hydraulicBoundaryConfigurationDatabase = new HydraulicLocationConfigurationDatabase
+            var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = $"test/path/{random.Next().ToString()}.test"
+                HydraulicLocationConfigurationDatabase =
+                {
+                    FilePath = "test/path/test.test"
+                }
             };
 
             // Call
-            var properties = new HydraulicBoundaryDataContextProperties(hydraulicBoundaryConfigurationDatabase);
+            var properties = new HydraulicBoundaryDataProperties(hydraulicBoundaryData);
 
             // Assert
-            Assert.AreEqual(Path.GetDirectoryName(hydraulicBoundaryConfigurationDatabase.FilePath), properties.WorkingDirectory);
+            Assert.AreEqual(Path.GetDirectoryName(hydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath), properties.WorkingDirectory);
         }
 
         [Test]
         public void Constructor_WithData_PropertiesHaveExpectedAttributesValues()
         {
-            var random = new Random();
-            var hydraulicBoundaryConfigurationDatabase = new HydraulicLocationConfigurationDatabase
+            var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = $"test/path/{random.Next().ToString()}.test"
+                HydraulicLocationConfigurationDatabase =
+                {
+                    FilePath = "test/path/test.test"
+                }
             };
 
             // Call
-            var properties = new HydraulicBoundaryDataContextProperties(hydraulicBoundaryConfigurationDatabase);
+            var properties = new HydraulicBoundaryDataProperties(hydraulicBoundaryData);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -106,7 +110,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         public void Constructor_WithoutData_PropertyIsInvisible()
         {
             // Call
-            var properties = new HydraulicBoundaryDataContextProperties(new HydraulicLocationConfigurationDatabase());
+            var properties = new HydraulicBoundaryDataProperties(new HydraulicBoundaryData());
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);

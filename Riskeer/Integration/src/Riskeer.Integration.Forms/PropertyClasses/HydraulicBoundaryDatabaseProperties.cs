@@ -70,8 +70,8 @@ namespace Riskeer.Integration.Forms.PropertyClasses
 
         [PropertyOrder(versionPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicDatabase_Version_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicDatabase_Version_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Version_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Version_Description))]
         public string Version
         {
             get
@@ -83,14 +83,14 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         [PropertyOrder(locationsPropertyIndex)]
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(RiskeerCommonFormsResources.HydraulicBoundaryDatabase_Locations_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(RiskeerCommonFormsResources.HydraulicBoundaryDatabase_Locations_Description))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.HydraulicBoundaryDatabase_Locations_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.HydraulicBoundaryDatabase_Locations_Description))]
 
-        public HydraulicBoundaryDatabaseLocationProperties[] Locations
+        public HydraulicBoundaryLocationProperties[] Locations
         {
             get
             {
-                return data.Locations.Select(x => new HydraulicBoundaryDatabaseLocationProperties(x)).ToArray();
+                return data.Locations.Select(x => new HydraulicBoundaryLocationProperties(x)).ToArray();
             }
         }
     }

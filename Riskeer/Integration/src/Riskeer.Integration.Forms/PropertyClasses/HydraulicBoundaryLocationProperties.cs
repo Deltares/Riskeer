@@ -26,8 +26,9 @@ using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
 using Core.Gui.PropertyBag;
 using Riskeer.Common.Data.Hydraulics;
-using Riskeer.Integration.Forms.Properties;
-using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
+using Riskeer.Common.Forms.Properties;
+
+// using Riskeer.Integration.Forms.Properties;
 
 namespace Riskeer.Integration.Forms.PropertyClasses
 {
@@ -35,18 +36,18 @@ namespace Riskeer.Integration.Forms.PropertyClasses
     /// ViewModel of <see cref="HydraulicBoundaryDatabase"/> for properties panel.
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
-    public class HydraulicBoundaryDatabaseLocationProperties : ObjectProperties<HydraulicBoundaryLocation>
+    public class HydraulicBoundaryLocationProperties : ObjectProperties<HydraulicBoundaryLocation>
     {
         private const int namePropertyIndex = 0;
         private const int idPropertyIndex = 1;
         private const int locationPropertyIndex = 2;
 
         /// <summary>
-        /// Creates a new instance of <see cref="HydraulicBoundaryDatabaseLocationProperties"/>.
+        /// Creates a new instance of <see cref="HydraulicBoundaryLocationProperties"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location to show the properties for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocation"/> is <c>null</c>.</exception>
-        public HydraulicBoundaryDatabaseLocationProperties(HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        public HydraulicBoundaryLocationProperties(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             if (hydraulicBoundaryLocation == null)
             {
@@ -57,9 +58,9 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         }
 
         [PropertyOrder(namePropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicDatabase_Name_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicDatabase_Name_Description))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Location_Name_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Location_Name_Description))]
         public string Name
         {
             get
@@ -69,9 +70,9 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         }
 
         [PropertyOrder(idPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicDatabase_Id_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicDatabase_Id_Description))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Location_Id_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Location_Id_Description))]
         public long Id
         {
             get
@@ -81,9 +82,9 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         }
 
         [PropertyOrder(locationPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicDatabase_Location_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicDatabase_Location_Description))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Location_Coordinates_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Location_Coordinates_Description))]
         public Point2D Location
         {
             get

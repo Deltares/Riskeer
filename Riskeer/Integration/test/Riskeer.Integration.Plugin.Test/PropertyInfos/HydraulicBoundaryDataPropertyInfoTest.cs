@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Linq;
 using Core.Gui.Plugin;
 using Core.Gui.PropertyBag;
@@ -33,7 +32,7 @@ using Riskeer.Integration.Forms.PropertyClasses;
 namespace Riskeer.Integration.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class HydraulicBoundaryDataContextPropertyInfoTest
+    public class HydraulicBoundaryDataPropertyInfoTest
     {
         private RiskeerPlugin plugin;
         private PropertyInfo info;
@@ -42,7 +41,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
         public void SetUp()
         {
             plugin = new RiskeerPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(HydraulicBoundaryDataContextProperties));
+            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(HydraulicBoundaryDataProperties));
         }
 
         [TearDown]
@@ -61,13 +60,11 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
         [Test]
         public void CreateInstance_WithContext_ReturnHydraulicBoundaryDataContextProperties()
         {
-            
-            var random = new Random();
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 HydraulicLocationConfigurationDatabase =
                 {
-                    FilePath = $"test/path/{random.Next().ToString()}.test"
+                    FilePath = "test/path/test.test"
                 }
             };
 
@@ -78,8 +75,8 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
             IObjectProperties objectProperties = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<HydraulicBoundaryDataContextProperties>(objectProperties);
-            Assert.AreSame(hydraulicBoundaryData.HydraulicLocationConfigurationDatabase, objectProperties.Data);
+            Assert.IsInstanceOf<HydraulicBoundaryDataProperties>(objectProperties);
+            Assert.AreSame(hydraulicBoundaryData, objectProperties.Data);
         }
     }
 }

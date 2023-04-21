@@ -30,7 +30,7 @@ using Riskeer.Integration.Forms.PropertyClasses;
 namespace Riskeer.Integration.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class HydraulicBoundaryDatabaseLocationPropertiesTest
+    public class HydraulicBoundaryLocationPropertiesTest
     {
         private const int namePropertyIndex = 0;
         private const int idPropertyIndex = 1;
@@ -54,7 +54,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var hydraulicBoundaryDatabaseLocation = new HydraulicBoundaryLocation(0, "", 0, 0);
 
             // Call
-            var properties = new HydraulicBoundaryDatabaseLocationProperties(hydraulicBoundaryDatabaseLocation);
+            var properties = new HydraulicBoundaryLocationProperties(hydraulicBoundaryDatabaseLocation);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<HydraulicBoundaryLocation>>(properties);
@@ -69,7 +69,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var hydraulicBoundaryDatabaseLocation = new HydraulicBoundaryLocation(0, "", 0, 0);
 
             // Call
-            var properties = new HydraulicBoundaryDatabaseLocationProperties(hydraulicBoundaryDatabaseLocation);
+            var properties = new HydraulicBoundaryLocationProperties(hydraulicBoundaryDatabaseLocation);
 
             // Assert
             Assert.AreEqual(hydraulicBoundaryDatabaseLocation.Id, properties.Id);
@@ -81,7 +81,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         public void Constructor_WithData_PropertiesHaveExpectedAttributesValues()
         {
             // Call
-            var properties = new HydraulicBoundaryDatabaseLocationProperties(new HydraulicBoundaryLocation(0, "", 0, 0));
+            var properties = new HydraulicBoundaryLocationProperties(new HydraulicBoundaryLocation(0, "", 0, 0));
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -93,21 +93,21 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
                                                                             expectedCategory,
                                                                             "Naam",
-                                                                            "Naam van HRD locatie.",
+                                                                            "Naam van de hydraulische belastingenlocatie.",
                                                                             true);
 
             PropertyDescriptor idProperty = dynamicProperties[idPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(idProperty,
                                                                             expectedCategory,
                                                                             "ID",
-                                                                            "Id van HRD locatie.",
+                                                                            "ID van de hydraulische belastingenlocatie in de database.",
                                                                             true);
 
             PropertyDescriptor locationProperty = dynamicProperties[locationPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(locationProperty,
                                                                             expectedCategory,
                                                                             "Coördinaten [m]",
-                                                                            "Coordinaten van HRD locatie.",
+                                                                            "Coördinaten van de hydraulische belastingenlocatie.",
                                                                             true);
         }
     }

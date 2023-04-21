@@ -26,6 +26,7 @@ using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.Forms.PropertyClasses;
 
 namespace Riskeer.Integration.Forms.Test.PropertyClasses
@@ -69,7 +70,14 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var random = new Random();
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                UsePreprocessorClosure = random.NextBoolean()
+                UsePreprocessorClosure = random.NextBoolean(),
+                Version = "test",
+                Locations =
+                {
+                    new TestHydraulicBoundaryLocation(),
+                    new TestHydraulicBoundaryLocation(),
+                    new TestHydraulicBoundaryLocation()
+                }
             };
 
             // Call
@@ -77,6 +85,11 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(hydraulicBoundaryDatabase.UsePreprocessorClosure, properties.UsePreprocessorClosure);
+            Assert.AreEqual(hydraulicBoundaryDatabase.Version, properties.Version);
+            for (var i = 0; i < hydraulicBoundaryDatabase.Locations.Count; i++)
+            {
+                Assert.AreEqual(hydraulicBoundaryDatabase.Locations[i].Location, properties.Locations[i].Location);
+            }
         }
 
         [Test]
