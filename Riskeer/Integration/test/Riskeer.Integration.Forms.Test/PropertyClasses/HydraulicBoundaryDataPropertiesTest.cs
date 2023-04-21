@@ -105,16 +105,5 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                                                                             "Locatie van de bestandsmap.",
                                                                             true);
         }
-
-        [Test]
-        public void Constructor_WithoutData_PropertyIsInvisible()
-        {
-            // Call
-            var properties = new HydraulicBoundaryDataProperties(new HydraulicBoundaryData());
-
-            // Assert
-            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(0, dynamicProperties.Count);
-        }
     }
 }
