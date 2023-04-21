@@ -19,12 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Base;
+
 namespace Riskeer.Common.Data.Hydraulics
 {
     /// <summary>
     /// Class which holds information about a hydraulic location configuration database.
     /// </summary>
-    public class HydraulicLocationConfigurationDatabase
+    public class HydraulicLocationConfigurationDatabase : Observable
     {
         /// <summary>
         /// Gets or sets the file path.

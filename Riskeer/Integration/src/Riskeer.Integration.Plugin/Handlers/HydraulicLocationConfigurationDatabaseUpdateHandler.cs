@@ -90,7 +90,8 @@ namespace Riskeer.Integration.Plugin.Handlers
 
             var changedObjects = new List<IObservable>
             {
-                hydraulicBoundaryData
+                hydraulicBoundaryData,
+                hydraulicBoundaryData.HydraulicLocationConfigurationDatabase
             };
 
             changedObjects.AddRange(RiskeerDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection));
