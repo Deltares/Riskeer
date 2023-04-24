@@ -3,6 +3,7 @@
     <OutputType>WinExe</OutputType>
     <AssemblyName>Riskeer</AssemblyName>
     <ApplicationIcon>Resources/Riskeer.ico</ApplicationIcon>
+    <OutputPath>$(SolutionDir)bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
   <Import Project="$(SolutionDir)build\Source.targets" />
   <ItemGroup>
