@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Linq;
 using Core.Common.TestUtil;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
@@ -86,10 +87,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(hydraulicBoundaryDatabase.UsePreprocessorClosure, properties.UsePreprocessorClosure);
             Assert.AreEqual(hydraulicBoundaryDatabase.Version, properties.Version);
-            for (var i = 0; i < hydraulicBoundaryDatabase.Locations.Count; i++)
-            {
-                Assert.AreEqual(hydraulicBoundaryDatabase.Locations[i].Location, properties.Locations[i].Location);
-            }
+            CollectionAssert.AreEqual(hydraulicBoundaryDatabase.Locations, properties.Locations.Select(p => p.Data));
         }
 
         [Test]

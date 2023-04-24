@@ -37,14 +37,14 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         private const int locationPropertyIndex = 2;
 
         [Test]
-        public void Constructor_HydraulicBoundaryDatabaseNull_ThrowsArgumentNullException()
+        public void Constructor_HydraulicBoundaryLocationNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new HydraulicBoundaryDatabaseProperties(null);
+            void Call() => new HydraulicBoundaryLocationProperties(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("hydraulicBoundaryDatabase", exception.ParamName);
+            Assert.AreEqual("hydraulicBoundaryLocation", exception.ParamName);
         }
 
         [Test]

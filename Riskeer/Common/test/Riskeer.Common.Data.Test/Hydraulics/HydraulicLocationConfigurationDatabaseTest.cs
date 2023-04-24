@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Base;
 using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
 
@@ -34,6 +35,7 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             var hydraulicLocationConfigurationDatabase = new HydraulicLocationConfigurationDatabase();
 
             // Assert
+            Assert.IsInstanceOf<Observable>(hydraulicLocationConfigurationDatabase);
             Assert.IsNull(hydraulicLocationConfigurationDatabase.FilePath);
             Assert.IsNull(hydraulicLocationConfigurationDatabase.ScenarioName);
             Assert.AreEqual(0, hydraulicLocationConfigurationDatabase.Year);

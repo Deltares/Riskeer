@@ -58,17 +58,12 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
         }
 
         [Test]
-        public void CreateInstance_WithContext_ReturnHydraulicBoundaryDataContextProperties()
+        public void CreateInstance_WithContext_ReturnHydraulicBoundaryDataProperties()
         {
-            var hydraulicBoundaryData = new HydraulicBoundaryData
-            {
-                HydraulicLocationConfigurationDatabase =
-                {
-                    FilePath = "test/path/test.test"
-                }
-            };
-
             // Setup
+            var hydraulicBoundaryData = new HydraulicBoundaryData();
+
+            
             var context = new HydraulicBoundaryDataContext(hydraulicBoundaryData, new AssessmentSection(AssessmentSectionComposition.Dike));
 
             // Call

@@ -608,6 +608,24 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Locatie van de bestandsmap..
+        /// </summary>
+        public static string HydraulicBoundaryData_WorkingDirectory_Description {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryData_WorkingDirectory_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bestandsmap.
+        /// </summary>
+        public static string HydraulicBoundaryData_WorkingDirectory_DisplayName {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryData_WorkingDirectory_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gebruik de preprocessor sluitregime database bij het uitvoeren van een berekening..
         /// </summary>
         public static string HydraulicBoundaryDatabase_UsePreprocessorClosure_Description {
@@ -640,24 +658,6 @@ namespace Riskeer.Integration.Forms.Properties {
         public static string HydraulicBoundaryDatabase_Version_DisplayName {
             get {
                 return ResourceManager.GetString("HydraulicBoundaryDatabase_Version_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Locatie van de bestandsmap..
-        /// </summary>
-        public static string HydraulicDatabase_WorkingDirectory_Description {
-            get {
-                return ResourceManager.GetString("HydraulicDatabase_WorkingDirectory_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bestandsmap.
-        /// </summary>
-        public static string HydraulicDatabase_WorkingDirectory_DisplayName {
-            get {
-                return ResourceManager.GetString("HydraulicDatabase_WorkingDirectory_DisplayName", resourceCulture);
             }
         }
         

@@ -38,10 +38,10 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         private const int workingDirectoryPropertyIndex = 0;
 
         /// <summary>
-        /// Creates a new instance of <see cref="HydraulicBoundaryDatabaseProperties"/>.
+        /// Creates a new instance of <see cref="HydraulicBoundaryDataProperties"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database to show the properties for.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryDatabase"/> is <c>null</c>.</exception>
+        /// <param name="hydraulicBoundaryData">The hydraulic boundary data node to show the properties for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryData"/> is <c>null</c>.</exception>
         public HydraulicBoundaryDataProperties(HydraulicBoundaryData hydraulicBoundaryData)
         {
             if (hydraulicBoundaryData == null)
@@ -54,13 +54,15 @@ namespace Riskeer.Integration.Forms.PropertyClasses
 
         [PropertyOrder(workingDirectoryPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicDatabase_WorkingDirectory_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicDatabase_WorkingDirectory_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryData_WorkingDirectory_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryData_WorkingDirectory_Description))]
         public string WorkingDirectory
         {
             get
             {
-                return Path.GetDirectoryName(data.HydraulicLocationConfigurationDatabase.FilePath);
+                return !string.IsNullOrWhiteSpace(data.HydraulicLocationConfigurationDatabase.FilePath) 
+                           ? Path.GetDirectoryName(data.HydraulicLocationConfigurationDatabase.FilePath) 
+                           : string.Empty;
             }
         }
     }

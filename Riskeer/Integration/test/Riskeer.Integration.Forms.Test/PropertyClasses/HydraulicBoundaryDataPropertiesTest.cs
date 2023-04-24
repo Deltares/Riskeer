@@ -21,7 +21,6 @@
 
 using System;
 using System.ComponentModel;
-using System.IO;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
@@ -68,7 +67,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             {
                 HydraulicLocationConfigurationDatabase =
                 {
-                    FilePath = "test/path/test.test"
+                    FilePath = @"test\path\test.test"
                 }
             };
 
@@ -76,19 +75,32 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var properties = new HydraulicBoundaryDataProperties(hydraulicBoundaryData);
 
             // Assert
-            Assert.AreEqual(Path.GetDirectoryName(hydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath), properties.WorkingDirectory);
+            Assert.AreEqual(@"test\path", properties.WorkingDirectory);
+        }
+        
+        [Test]
+        public void GetProperties_WithoutData_ReturnsExpectedValues()
+        {
+            // Setup
+            var hydraulicBoundaryData = new HydraulicBoundaryData
+            {
+                HydraulicLocationConfigurationDatabase =
+                {
+                    FilePath = string.Empty
+                }
+            };
+
+            // Call
+            var properties = new HydraulicBoundaryDataProperties(hydraulicBoundaryData);
+
+            // Assert
+            Assert.AreEqual("", properties.WorkingDirectory);
         }
 
         [Test]
         public void Constructor_WithData_PropertiesHaveExpectedAttributesValues()
         {
-            var hydraulicBoundaryData = new HydraulicBoundaryData
-            {
-                HydraulicLocationConfigurationDatabase =
-                {
-                    FilePath = "test/path/test.test"
-                }
-            };
+            var hydraulicBoundaryData = new HydraulicBoundaryData();
 
             // Call
             var properties = new HydraulicBoundaryDataProperties(hydraulicBoundaryData);
