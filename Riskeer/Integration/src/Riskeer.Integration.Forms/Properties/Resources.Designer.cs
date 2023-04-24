@@ -626,7 +626,7 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Versie van HRD bestand..
+        ///   Looks up a localized string similar to Versie van de hydraulische belastingendatabase..
         /// </summary>
         public static string HydraulicBoundaryDatabase_Version_Description {
             get {

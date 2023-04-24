@@ -418,6 +418,6 @@ Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau 
       <value>Versie</value>
     </data>
     <data name="HydraulicBoundaryDatabase_Version_Description" xml:space="preserve">
-      <value>Versie van HRD bestand.</value>
+      <value>Versie van de hydraulische belastingendatabase.</value>
     </data>
 </root>

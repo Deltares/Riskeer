@@ -115,7 +115,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(versionProperty,
                                                                             expectedCategory,
                                                                             "Versie",
-                                                                            "Versie van HRD bestand.",
+                                                                            "Versie van de hydraulische belastingendatabase.",
                                                                             true);
 
             PropertyDescriptor locationsProperty = dynamicProperties[locationsPropertyIndex];
