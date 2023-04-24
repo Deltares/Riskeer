@@ -18,7 +18,9 @@
     <ProjectReference Include="..\..\src\Riskeer.Migration.Core\Riskeer.Migration.Core.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Stub.System.Data.SQLite.Core.NetFramework" Version="1.0.117" />
+    <PackageReference Include="Stub.System.Data.SQLite.Core.NetFramework">
+      <Version>1.0.117</Version>
+    </PackageReference>
     <PackageReference Include="System.Data.SQLite.Core">
       <Version>1.0.117</Version>
     </PackageReference>
