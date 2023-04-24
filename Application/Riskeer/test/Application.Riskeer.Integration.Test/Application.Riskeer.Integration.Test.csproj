@@ -56,6 +56,6 @@
     </PackageReference>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy &quot;$(ProjectDir)UnusedResourceSearcher&quot; &quot;$(OutDir)\UnusedResourceSearcher\*&quot; /D /S /Y" />
+    <Exec Command="xcopy &quot;$(ProjectDir)UnusedResourceSearcher&quot; &quot;$(OutDir)UnusedResourceSearcher\*&quot; /D /S /Y" />
   </Target>
 </Project>
