@@ -1222,7 +1222,7 @@
 			</testmodule>
 			<testmodule
 			id="531711c3-1136-4f9b-859a-e0332642384b"
-			name="SetNewHLCDFile"
+			name="ChangeHLCDFile"
 			ref="7d9b109b-9a86-4d14-949e-d6cd5cca905f"
 			type="Recording">
 				<databinding>
@@ -6016,7 +6016,7 @@
 									</testmodule>
 									<testmodule
 									id="531711c3-1136-4f9b-859a-e0332642384b"
-									name="SetNewHLCDFile">
+									name="ChangeHLCDFile">
 									</testmodule>
 								</smartfoldernode>
 								<smartfoldernode

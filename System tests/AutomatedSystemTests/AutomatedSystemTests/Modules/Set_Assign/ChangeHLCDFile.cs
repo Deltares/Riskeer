@@ -24,22 +24,22 @@ namespace AutomatedSystemTests.Modules.Set_Assign
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The SetNewHLCDFile recording.
+    ///The ChangeHLCDFile recording.
     /// </summary>
     [TestModule("7d9b109b-9a86-4d14-949e-d6cd5cca905f", ModuleType.Recording, 1)]
-    public partial class SetNewHLCDFile : ITestModule
+    public partial class ChangeHLCDFile : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static SetNewHLCDFile instance = new SetNewHLCDFile();
+        static ChangeHLCDFile instance = new ChangeHLCDFile();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public SetNewHLCDFile()
+        public ChangeHLCDFile()
         {
             fileNameToOpen = "";
         }
@@ -47,7 +47,7 @@ namespace AutomatedSystemTests.Modules.Set_Assign
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static SetNewHLCDFile Instance
+        public static ChangeHLCDFile Instance
         {
             get { return instance; }
         }

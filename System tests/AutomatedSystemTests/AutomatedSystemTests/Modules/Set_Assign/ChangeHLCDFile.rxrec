@@ -19,7 +19,7 @@ mode="Global">
 		True
 	</useDefaultItemLogging>
 	<codegen
-	classname="SetNewHLCDFile"
+	classname="ChangeHLCDFile"
 	namespace="AutomatedSystemTests.Modules.Set_Assign">
 	</codegen>
 	<variables>
@@ -679,7 +679,7 @@ gA20baKKADbRtoooANtG2iigA20baKKADbRtoooAXFLiiigBaKKKAP/Z
 	</repository>
 	<usercodefile
 	lang="CSharp">
-		SetNewHLCDFile.UserCode.cs
+		ChangeHLCDFile.UserCode.cs
 	</usercodefile>
 	<references>
 	</references>

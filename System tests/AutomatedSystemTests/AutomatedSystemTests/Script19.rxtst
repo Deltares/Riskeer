@@ -105,7 +105,7 @@
 			</testmodule>
 			<smartfoldernode
 			id="0b933e4b-f584-48cf-b983-9f874431308d"
-			name="CoupleNewHLCD">
+			name="ChangeToDifferentHLCD">
 				<parameters>
 					<param
 					mask="False"
@@ -788,7 +788,7 @@
 			</testmodule>
 			<testmodule
 			id="473b21ed-cf81-45f4-bbaa-5b636ed9c5a6"
-			name="SetNewHLCDFile"
+			name="ChangeHLCDFile"
 			ref="7d9b109b-9a86-4d14-949e-d6cd5cca905f"
 			type="Recording">
 				<databinding>
@@ -3439,14 +3439,14 @@
 							</smartfoldernode>
 							<smartfoldernode
 							id="0b933e4b-f584-48cf-b983-9f874431308d"
-							name="CoupleNewHLCD">
+							name="ChangeToDifferentHLCD">
 								<testmodule
 								id="6f4ce2a0-a59a-4993-899c-0c823b6373bc"
 								name="SelectGenericItemInProjectExplorer">
 								</testmodule>
 								<testmodule
 								id="473b21ed-cf81-45f4-bbaa-5b636ed9c5a6"
-								name="SetNewHLCDFile">
+								name="ChangeHLCDFile">
 								</testmodule>
 							</smartfoldernode>
 							<smartfoldernode

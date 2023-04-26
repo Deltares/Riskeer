@@ -1250,7 +1250,7 @@
 			</smartfoldernode>
 			<testmodule
 			id="854dac40-cde5-449e-9fc8-44dc54178c5c"
-			name="SetNewHLCDFile"
+			name="ChangeHLCDFile"
 			ref="7d9b109b-9a86-4d14-949e-d6cd5cca905f"
 			type="Recording">
 				<databinding>
@@ -2252,7 +2252,7 @@
 			</testmodule>
 			<smartfoldernode
 			id="e904a5e4-0281-4cf7-b91c-e2431ec11911"
-			name="SelectHLCDClimateScenario">
+			name="ChangeToHLCDClimateScenario">
 				<parameters>
 					<param
 					mask="False"
@@ -2886,10 +2886,10 @@
 								</smartfoldernode>
 								<smartfoldernode
 								id="e904a5e4-0281-4cf7-b91c-e2431ec11911"
-								name="SelectHLCDClimateScenario">
+								name="ChangeToHLCDClimateScenario">
 									<testmodule
 									id="854dac40-cde5-449e-9fc8-44dc54178c5c"
-									name="SetNewHLCDFile">
+									name="ChangeHLCDFile">
 									</testmodule>
 								</smartfoldernode>
 								<smartfoldernode
