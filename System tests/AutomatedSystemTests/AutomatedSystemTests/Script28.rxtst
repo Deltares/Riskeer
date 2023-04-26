@@ -2389,14 +2389,6 @@
 					variablename="fileNameToOpen">
 					</var>
 				</missingdatabinding>
-				<missingdatavariablesbinding>
-					<var
-					dataname="parameterNameHLCDLocation"
-					datasourceid="bc55fa88-dfbc-42cd-8bfe-907b152450b4"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="b2237ef6-697a-4358-886b-2410dedbf5da"

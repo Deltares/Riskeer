@@ -1233,14 +1233,6 @@
 					variablename="fileNameToOpen">
 					</var>
 				</databinding>
-				<missingdatavariablesbinding>
-					<var
-					dataname="nameParameterHBCScenarioInformationInPropertiesPanel"
-					datasourceid="64095390-c618-4a6a-b149-4fefb5347827"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="5672898a-f36d-40a5-be04-c0d0f07a3aa1"

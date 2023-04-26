@@ -110,7 +110,7 @@
 					<param
 					mask="False"
 					name="pathToHBCItemGEKB"
-					value="Traject>Hydraulische belastingen">
+					value="Traject>@HD>hlcd">
 					</param>
 					<param
 					mask="False"
@@ -383,7 +383,7 @@
 					<param
 					mask="False"
 					name="pathToCalculationSubFolder"
-					value="">
+					value="Traject>@GEKB>Berekeningen>script19">
 					</param>
 					<param
 					mask="False"
@@ -819,14 +819,6 @@
 					variablename="fileNameToOpen">
 					</var>
 				</missingdatabinding>
-				<missingdatavariablesbinding>
-					<var
-					dataname="scenarioNameInPropertiesPanel"
-					datasourceid="0b933e4b-f584-48cf-b983-9f874431308d"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="49d6e1ab-0904-4a6b-a2e9-a9b81f95679c"
@@ -2077,14 +2069,14 @@
 				</description>
 				<databinding>
 					<var
-					dataname="pathToCalculationSubFolder"
+					dataname="pathToCalculationsFolder"
 					datasourceid="2cf29f17-6bb0-408c-8799-f364f7480df0"
 					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
 					variablename="string1">
 					</var>
 					<var
-					dataname="pathSeparator"
-					datasourceid="9a1788c9-7017-4509-b3a4-93a0180c5acd"
+					dataname="calculationSubfolder"
+					datasourceid="fd03b4d9-879f-4345-abd7-4c45ed0bb7f8"
 					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
 					variablename="string2">
 					</var>
@@ -2095,20 +2087,20 @@
 					variablename="concatenatedString">
 					</var>
 					<var
-					dataname="nameCalculation"
-					datasourceid="2c3cb771-74ee-4d63-8fd5-d589740a5040"
+					dataname="pathSeparator"
+					datasourceid="9a1788c9-7017-4509-b3a4-93a0180c5acd"
 					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
 					variablename="string3">
 					</var>
 					<var
-					dataname="relativePathSummaryResults"
-					datasourceid="9a1788c9-7017-4509-b3a4-93a0180c5acd"
+					dataname="nameCalculation"
+					datasourceid="2c3cb771-74ee-4d63-8fd5-d589740a5040"
 					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
 					variablename="string4">
 					</var>
 					<var
-					dataname="dummyString"
-					datasourceid="2cf29f17-6bb0-408c-8799-f364f7480df0"
+					dataname="relativePathSummaryResults"
+					datasourceid="9a1788c9-7017-4509-b3a4-93a0180c5acd"
 					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
 					variablename="string5">
 					</var>
@@ -2987,6 +2979,13 @@
 			errorbehavior="ContinueNextIteration"
 			id="fd03b4d9-879f-4345-abd7-4c45ed0bb7f8"
 			name="SelectResultsItem">
+				<parameters>
+					<param
+					mask="False"
+					name="calculationSubfolder"
+					value=">script19">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="fdd88598-caa3-4a6f-ad9f-8499a2167f92"

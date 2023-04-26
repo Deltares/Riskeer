@@ -1261,14 +1261,6 @@
 					variablename="fileNameToOpen">
 					</var>
 				</databinding>
-				<missingdatavariablesbinding>
-					<var
-					dataname="paramaterNameHLCDFileLocation"
-					datasourceid="e904a5e4-0281-4cf7-b91c-e2431ec11911"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-				</missingdatavariablesbinding>
 			</testmodule>
 			<smartfoldernode
 			id="85d947f1-d6dc-4113-b652-d87ae9744e56"
