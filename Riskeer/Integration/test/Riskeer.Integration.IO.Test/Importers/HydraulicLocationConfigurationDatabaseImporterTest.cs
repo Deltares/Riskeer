@@ -281,7 +281,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             var handler = mocks.StrictMock<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
             handler.Expect(h => h.InquireConfirmation()).Return(true);
             handler.Expect(h => h.Update(Arg<HydraulicBoundaryData>.Is.Same(hydraulicBoundaryData),
-                                         Arg<ReadHydraulicLocationConfigurationSettings>.Is.Null,
+                                         Arg<ReadHydraulicLocationConfigurationDatabase>.Is.NotNull,
                                          Arg<string>.Is.Equal(hlcdFilePath)))
                    .Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
@@ -313,7 +313,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             var handler = mocks.StrictMock<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
             handler.Expect(h => h.InquireConfirmation()).Return(true);
             handler.Expect(h => h.Update(Arg<HydraulicBoundaryData>.Is.Same(hydraulicBoundaryData),
-                                         Arg<ReadHydraulicLocationConfigurationSettings>.Is.NotNull,
+                                         Arg<ReadHydraulicLocationConfigurationDatabase>.Is.NotNull,
                                          Arg<string>.Is.Equal(filePath)))
                    .Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
@@ -346,7 +346,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             var handler = mocks.StrictMock<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
             handler.Expect(h => h.InquireConfirmation()).Return(true);
             handler.Expect(h => h.Update(Arg<HydraulicBoundaryData>.Is.NotNull,
-                                         Arg<ReadHydraulicLocationConfigurationSettings>.Is.Null,
+                                         Arg<ReadHydraulicLocationConfigurationDatabase>.Is.NotNull,
                                          Arg<string>.Is.NotNull))
                    .Return(new[]
                    {

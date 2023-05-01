@@ -40,18 +40,17 @@ namespace Riskeer.Integration.IO.Handlers
 
         /// <summary>
         /// Updates the <see cref="HydraulicBoundaryData.HydraulicLocationConfigurationDatabase"/> and its dependent data with the
-        /// <paramref name="readHydraulicLocationConfigurationSettings"/>.
+        /// <paramref name="readHydraulicLocationConfigurationDatabase"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryData">The hydraulic boundary data to update the hydraulic location configuration
         /// database for.</param>
-        /// <param name="readHydraulicLocationConfigurationSettings">The read hydraulic location configuration settings to
+        /// <param name="readHydraulicLocationConfigurationDatabase">The read hydraulic location configuration database to
         /// update with.</param>
         /// <param name="hlcdFilePath">The file path of the hydraulic location configuration database.</param>
         /// <returns>All objects that have been affected by the update.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryData"/> or
-        /// <paramref name="hlcdFilePath"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         IEnumerable<IObservable> Update(HydraulicBoundaryData hydraulicBoundaryData,
-                                        ReadHydraulicLocationConfigurationSettings readHydraulicLocationConfigurationSettings,
+                                        ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase,
                                         string hlcdFilePath);
     }
 }

@@ -42,7 +42,7 @@ namespace Riskeer.Integration.IO.Importers
     public class HydraulicLocationConfigurationDatabaseImporter : FileImporterBase<HydraulicLocationConfigurationDatabase>
     {
         private const int numberOfSteps = 2;
-        
+
         private readonly HydraulicBoundaryData hydraulicBoundaryData;
         private readonly List<IObservable> changedObservables = new List<IObservable>();
         private readonly IHydraulicLocationConfigurationDatabaseUpdateHandler updateHandler;
@@ -113,7 +113,7 @@ namespace Riskeer.Integration.IO.Importers
                 return false;
             }
 
-            SetReadHydraulicLocationConfigurationSettingsToDataModel(readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationSettings?.Single());
+            SetReadHydraulicLocationConfigurationSettingsToDataModel(readHydraulicLocationConfigurationDatabase);
 
             return true;
         }
@@ -163,10 +163,10 @@ namespace Riskeer.Integration.IO.Importers
             }
         }
 
-        private void SetReadHydraulicLocationConfigurationSettingsToDataModel(ReadHydraulicLocationConfigurationSettings readHydraulicLocationConfigurationSettings)
+        private void SetReadHydraulicLocationConfigurationSettingsToDataModel(ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase)
         {
             NotifyProgress(RiskeerCommonIOResources.Importer_ProgressText_Adding_imported_data_to_AssessmentSection, 2, numberOfSteps);
-            changedObservables.AddRange(updateHandler.Update(hydraulicBoundaryData, readHydraulicLocationConfigurationSettings, FilePath));
+            changedObservables.AddRange(updateHandler.Update(hydraulicBoundaryData, readHydraulicLocationConfigurationDatabase, FilePath));
         }
 
         private ReadResult<T> HandleCriticalFileReadError<T>(Exception e)

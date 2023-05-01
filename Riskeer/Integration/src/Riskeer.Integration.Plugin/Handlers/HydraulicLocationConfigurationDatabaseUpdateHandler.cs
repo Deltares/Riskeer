@@ -72,12 +72,17 @@ namespace Riskeer.Integration.Plugin.Handlers
         }
 
         public IEnumerable<IObservable> Update(HydraulicBoundaryData hydraulicBoundaryData,
-                                               ReadHydraulicLocationConfigurationSettings readHydraulicLocationConfigurationSettings,
+                                               ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase,
                                                string hlcdFilePath)
         {
             if (hydraulicBoundaryData == null)
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryData));
+            }
+
+            if (readHydraulicLocationConfigurationDatabase == null)
+            {
+                throw new ArgumentNullException(nameof(readHydraulicLocationConfigurationDatabase));
             }
 
             if (hlcdFilePath == null)
@@ -86,7 +91,9 @@ namespace Riskeer.Integration.Plugin.Handlers
             }
 
             HydraulicLocationConfigurationDatabaseUpdateHelper.UpdateHydraulicLocationConfigurationDatabase(
-                hydraulicBoundaryData.HydraulicLocationConfigurationDatabase, readHydraulicLocationConfigurationSettings, hlcdFilePath);
+                hydraulicBoundaryData.HydraulicLocationConfigurationDatabase,
+                readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationSettings?.Single(),
+                hlcdFilePath);
 
             var changedObjects = new List<IObservable>
             {
