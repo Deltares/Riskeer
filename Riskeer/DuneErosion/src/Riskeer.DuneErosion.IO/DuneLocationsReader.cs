@@ -39,8 +39,6 @@ namespace Riskeer.DuneErosion.IO
         private const string nameKey = "Naam";
         private const string coastalAreaIdKey = "KV";
         private const string offsetKey = "RSP";
-        private const string orientationKey = "Richting";
-        private const string d50Key = "Dreken";
 
         /// <summary>
         /// Creates an <see cref="IEnumerable{T}"/> of <see cref="ReadDuneLocation"/> based on the line features within the embedded shape file.
@@ -79,12 +77,10 @@ namespace Riskeer.DuneErosion.IO
                 object nameValue = locationData.MetaData[nameKey];
                 string name = nameValue?.ToString() ?? string.Empty;
 
-                var coastalAreaId = Convert.ToInt32(locationData.MetaData[coastalAreaIdKey]);
-                var offset = Convert.ToDouble(locationData.MetaData[offsetKey]);
-                var orientation = Convert.ToDouble(locationData.MetaData[orientationKey]);
-                var d50 = Convert.ToDouble(locationData.MetaData[d50Key]);
+                int coastalAreaId = Convert.ToInt32(locationData.MetaData[coastalAreaIdKey]);
+                double offset = Convert.ToDouble(locationData.MetaData[offsetKey]);
 
-                yield return new ReadDuneLocation(name, location, coastalAreaId, offset, orientation, d50);
+                yield return new ReadDuneLocation(name, location, coastalAreaId, offset, double.NaN, double.NaN);
             }
         }
     }
