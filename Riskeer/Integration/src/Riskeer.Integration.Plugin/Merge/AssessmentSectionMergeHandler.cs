@@ -349,7 +349,7 @@ namespace Riskeer.Integration.Plugin.Merge
 
         private static void MergeFailureMechanisms(AssessmentSection targetAssessmentSection, AssessmentSectionMergeData mergeData)
         {
-            ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations = targetAssessmentSection.HydraulicBoundaryData.Locations;
+            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations = targetAssessmentSection.HydraulicBoundaryData.GetLocations();
             AssessmentSection sourceAssessmentSection = mergeData.AssessmentSection;
 
             if (mergeData.MergePiping)
