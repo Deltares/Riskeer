@@ -53,8 +53,8 @@ namespace Riskeer.DuneErosion.IO
                                                                                    "RSPstelsel.shp",
                                                                                    "RSPstelsel.dbf",
                                                                                    "RSPstelsel.cpg",
-                                                                                   "RSPstelsel.sbn",
-                                                                                   "RSPstelsel.sbx",
+                                                                                   "RSPstelsel.prj",
+                                                                                   "RSPstelsel.qmd",
                                                                                    "RSPstelsel.shx"))
             {
                 string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "RSPstelsel.shp");
