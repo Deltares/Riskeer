@@ -60,9 +60,9 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         {
             get
             {
-                string filePathResource = data.HydraulicLocationConfigurationDatabase.FilePath;
-                return !string.IsNullOrWhiteSpace(filePathResource)
-                           ? Path.GetDirectoryName(filePathResource)
+                string filePath = data.HydraulicLocationConfigurationDatabase.FilePath;
+                return !string.IsNullOrWhiteSpace(filePath)
+                           ? Path.GetDirectoryName(filePath)
                            : string.Empty;
             }
         }
