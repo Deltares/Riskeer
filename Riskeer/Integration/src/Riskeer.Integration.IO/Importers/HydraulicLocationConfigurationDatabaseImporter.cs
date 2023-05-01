@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -175,7 +175,8 @@ namespace Riskeer.Integration.IO.Importers
         private void SetReadHydraulicLocationConfigurationSettingsToDataModel(ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase)
         {
             NotifyProgress(RiskeerCommonIOResources.Importer_ProgressText_Adding_imported_data_to_AssessmentSection, numberOfSteps, numberOfSteps);
-            changedObservables.AddRange(updateHandler.Update(hydraulicBoundaryData, readHydraulicLocationConfigurationDatabase, FilePath));
+            changedObservables.AddRange(updateHandler.Update(hydraulicBoundaryData, readHydraulicLocationConfigurationDatabase,
+                                                             new Dictionary<HydraulicBoundaryDatabase, long>(), FilePath));
         }
 
         private ReadResult<T> HandleCriticalFileReadError<T>(Exception e)

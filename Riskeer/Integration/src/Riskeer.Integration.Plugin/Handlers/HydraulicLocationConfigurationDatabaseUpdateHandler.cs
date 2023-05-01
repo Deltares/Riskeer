@@ -73,6 +73,7 @@ namespace Riskeer.Integration.Plugin.Handlers
 
         public IEnumerable<IObservable> Update(HydraulicBoundaryData hydraulicBoundaryData,
                                                ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase,
+                                               IDictionary<HydraulicBoundaryDatabase, long> hydraulicBoundaryDatabaseLookup,
                                                string hlcdFilePath)
         {
             if (hydraulicBoundaryData == null)
@@ -83,6 +84,11 @@ namespace Riskeer.Integration.Plugin.Handlers
             if (readHydraulicLocationConfigurationDatabase == null)
             {
                 throw new ArgumentNullException(nameof(readHydraulicLocationConfigurationDatabase));
+            }
+
+            if (hydraulicBoundaryDatabaseLookup == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabaseLookup));
             }
 
             if (hlcdFilePath == null)

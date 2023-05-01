@@ -46,11 +46,13 @@ namespace Riskeer.Integration.IO.Handlers
         /// database for.</param>
         /// <param name="readHydraulicLocationConfigurationDatabase">The read hydraulic location configuration database to
         /// update with.</param>
+        /// <param name="hydraulicBoundaryDatabaseLookup">The lookup with the hydraulic boundary databases to update.</param>
         /// <param name="hlcdFilePath">The file path of the hydraulic location configuration database.</param>
         /// <returns>All objects that have been affected by the update.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         IEnumerable<IObservable> Update(HydraulicBoundaryData hydraulicBoundaryData,
                                         ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase,
+                                        IDictionary<HydraulicBoundaryDatabase, long> hydraulicBoundaryDatabaseLookup,
                                         string hlcdFilePath);
     }
 }
