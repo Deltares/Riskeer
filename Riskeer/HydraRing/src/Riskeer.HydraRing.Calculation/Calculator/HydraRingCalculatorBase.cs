@@ -54,8 +54,6 @@ namespace Riskeer.HydraRing.Calculation.Calculator
         /// </summary>
         /// <param name="calculationSettings">The <see cref="HydraRingCalculationSettings"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationSettings"/> is <c>null</c>.</exception>
-        /// <remarks>Preprocessing is disabled when <see cref="HydraRingCalculationSettings.PreprocessorDirectory"/>
-        /// equals <see cref="string.Empty"/>.</remarks>
         protected HydraRingCalculatorBase(HydraRingCalculationSettings calculationSettings)
         {
             if (calculationSettings == null)
@@ -117,17 +115,11 @@ namespace Riskeer.HydraRing.Calculation.Calculator
         /// <param name="uncertaintiesType">The uncertainty type used in the calculation.</param>
         /// <param name="hydraRingCalculationInput">The object containing input data.</param>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
-        /// <exception cref="InvalidOperationException">Thrown when preprocessor directory is required but not specified.</exception>
         protected void Calculate(HydraRingUncertaintiesType uncertaintiesType,
                                  HydraRingCalculationInput hydraRingCalculationInput)
         {
             try
             {
-                if (string.IsNullOrEmpty(calculationSettings.PreprocessorDirectory) && hydraRingCalculationInput.PreprocessorSetting.RunPreprocessor)
-                {
-                    throw new InvalidOperationException("Preprocessor directory required but not specified.");
-                }
-
                 int sectionId = hydraRingCalculationInput.Section.SectionId;
                 OutputDirectory = CreateWorkingDirectory();
 

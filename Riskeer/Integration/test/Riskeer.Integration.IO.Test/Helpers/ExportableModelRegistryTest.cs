@@ -242,7 +242,7 @@ namespace Riskeer.Integration.IO.Test.Helpers
             /// <summary>
             /// Creates a new instance of <see cref="TExportableModel"/>.
             /// </summary>
-            /// <returns></returns>
+            /// <returns>The created <see cref="TExportableModel"/>.</returns>
             protected abstract TExportableModel CreateExportableModel();
         }
 

@@ -560,9 +560,6 @@
     <data name="WorldReferencePoint_ForeshoreProfile_Description" xml:space="preserve">
     <value>De coördinaten van de locatie van het voorlandprofiel in het Rijksdriehoeksstelsel.</value>
   </data>
-    <data name="CalculateHydraulicBoundaryLocation_Start_calculation_failed_0_" xml:space="preserve">
-    <value>Berekeningen konden niet worden gestart. {0}</value>
-  </data>
     <data name="ForeshoreProperties_Description" xml:space="preserve">
     <value>Eigenschappen van de voorlandgeometrie.</value>
   </data>
@@ -1414,9 +1411,6 @@ berekende kans
             PublicKeyToken=b03f5f7f11d50a3a
         </value>
     </data>
-    <data name="HydraulicLoads_DisplayName" xml:space="preserve">
-    <value>Hydraulische belastingen</value>
-  </data>
     <data name="CreateClearIllustrationPointsOfCalculationItem_ClearIllustrationPoints_DisplayName"
           xml:space="preserve">
     <value>Wis illustratiepunten...</value>

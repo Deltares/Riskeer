@@ -66,14 +66,21 @@ namespace Riskeer.Integration.Service
         /// Clears all the output data and hydraulic boundary locations within the <see cref="IAssessmentSection"/>.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to clear the data for.</param>
+        /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations to clear the data for.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by
         /// removing data.</returns>
-        /// /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> ClearAllCalculationOutputAndHydraulicBoundaryLocations(IAssessmentSection assessmentSection)
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> ClearAllCalculationOutputAndHydraulicBoundaryLocations(
+            IAssessmentSection assessmentSection, IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
         {
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            if (hydraulicBoundaryLocations == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
             }
 
             var changedObservables = new List<IObservable>();
@@ -83,31 +90,40 @@ namespace Riskeer.Integration.Service
                 switch (failureMechanism)
                 {
                     case PipingFailureMechanism pipingFailureMechanism:
-                        changedObservables.AddRange(PipingDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(pipingFailureMechanism));
+                        changedObservables.AddRange(PipingDataSynchronizationService.ClearCalculationOutputAndHydraulicBoundaryLocations(
+                                                        pipingFailureMechanism, hydraulicBoundaryLocations));
                         break;
                     case GrassCoverErosionInwardsFailureMechanism grassCoverErosionInwardsFailureMechanism:
-                        changedObservables.AddRange(GrassCoverErosionInwardsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(grassCoverErosionInwardsFailureMechanism));
+                        changedObservables.AddRange(GrassCoverErosionInwardsDataSynchronizationService.ClearCalculationOutputAndHydraulicBoundaryLocations(
+                                                        grassCoverErosionInwardsFailureMechanism, hydraulicBoundaryLocations));
                         break;
                     case StabilityStoneCoverFailureMechanism stabilityStoneCoverFailureMechanism:
-                        changedObservables.AddRange(StabilityStoneCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(stabilityStoneCoverFailureMechanism));
+                        changedObservables.AddRange(StabilityStoneCoverDataSynchronizationService.ClearWaveConditionsCalculationOutputAndHydraulicBoundaryLocations
+                                                        (stabilityStoneCoverFailureMechanism, hydraulicBoundaryLocations));
                         break;
                     case WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCoverFailureMechanism:
-                        changedObservables.AddRange(WaveImpactAsphaltCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(waveImpactAsphaltCoverFailureMechanism));
+                        changedObservables.AddRange(WaveImpactAsphaltCoverDataSynchronizationService.ClearWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(
+                                                        waveImpactAsphaltCoverFailureMechanism, hydraulicBoundaryLocations));
                         break;
                     case GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism:
-                        changedObservables.AddRange(GrassCoverErosionOutwardsDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(grassCoverErosionOutwardsFailureMechanism));
+                        changedObservables.AddRange(GrassCoverErosionOutwardsDataSynchronizationService.ClearWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(
+                                                        grassCoverErosionOutwardsFailureMechanism, hydraulicBoundaryLocations));
                         break;
                     case HeightStructuresFailureMechanism heightStructuresFailureMechanism:
-                        changedObservables.AddRange(HeightStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(heightStructuresFailureMechanism));
+                        changedObservables.AddRange(HeightStructuresDataSynchronizationService.ClearCalculationOutputAndHydraulicBoundaryLocations(
+                                                        heightStructuresFailureMechanism, hydraulicBoundaryLocations));
                         break;
                     case ClosingStructuresFailureMechanism closingStructuresFailureMechanism:
-                        changedObservables.AddRange(ClosingStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(closingStructuresFailureMechanism));
+                        changedObservables.AddRange(ClosingStructuresDataSynchronizationService.ClearCalculationOutputAndHydraulicBoundaryLocations(
+                                                        closingStructuresFailureMechanism, hydraulicBoundaryLocations));
                         break;
                     case StabilityPointStructuresFailureMechanism stabilityPointStructuresFailureMechanism:
-                        changedObservables.AddRange(StabilityPointStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(stabilityPointStructuresFailureMechanism));
+                        changedObservables.AddRange(StabilityPointStructuresDataSynchronizationService.ClearCalculationOutputAndHydraulicBoundaryLocations(
+                                                        stabilityPointStructuresFailureMechanism, hydraulicBoundaryLocations));
                         break;
                     case MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism:
-                        changedObservables.AddRange(MacroStabilityInwardsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(macroStabilityInwardsFailureMechanism));
+                        changedObservables.AddRange(MacroStabilityInwardsDataSynchronizationService.ClearCalculationOutputAndHydraulicBoundaryLocations(
+                                                        macroStabilityInwardsFailureMechanism, hydraulicBoundaryLocations));
                         break;
                 }
             }
@@ -455,26 +471,6 @@ namespace Riskeer.Integration.Service
                                              element.HydraulicBoundaryLocationCalculations));
             }
 
-            return affectedObjects;
-        }
-
-        /// <summary>
-        /// Clears the illustration point results for all water level and wave height calculations.
-        /// </summary>
-        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to clear the illustration point results for.</param>
-        /// <returns>All objects that are affected by the operation.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> ClearIllustrationPointResultsForWaterLevelAndWaveHeightCalculations(IAssessmentSection assessmentSection)
-        {
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
-            var affectedObjects = new List<IObservable>();
-            affectedObjects.AddRange(ClearIllustrationPointResultsOfWaterLevelCalculationsForNormTargetProbabilities(assessmentSection));
-            affectedObjects.AddRange(ClearIllustrationPointResultsOfWaterLevelCalculationsForUserDefinedTargetProbabilities(assessmentSection));
-            affectedObjects.AddRange(ClearIllustrationPointResultsOfWaveHeightCalculationsForUserDefinedTargetProbabilities(assessmentSection));
             return affectedObjects;
         }
 

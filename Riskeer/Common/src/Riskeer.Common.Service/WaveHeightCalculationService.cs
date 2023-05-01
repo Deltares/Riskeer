@@ -52,24 +52,23 @@ namespace Riskeer.Common.Service
         /// </summary>
         /// <param name="hydraulicBoundaryLocationCalculation">The hydraulic boundary location calculation to perform.</param>
         /// <param name="targetProbability">The target probability to use during the calculation.</param>
-        /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> with the
-        /// hydraulic boundary calculation settings.</param>
+        /// <param name="calculationSettings">The hydraulic boundary calculation settings.</param>
         /// <param name="messageProvider">The object which is used to build log messages.</param>
-        /// <remarks>Preprocessing is disabled when the preprocessor directory equals <see cref="string.Empty"/>.</remarks>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculation"/>,
         /// <paramref name="calculationSettings"/> or <paramref name="messageProvider"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when 
+        /// <exception cref="ArgumentException">Thrown when:
         /// <list type="bullet">
-        /// <item>the hydraulic boundary database filepath contains invalid characters.</item>
-        /// <item>The target probability or the calculated probability falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</item>
-        /// </list></exception>
+        /// <item>the hydraulic boundary database file path contains invalid characters;</item>
+        /// <item>the target probability or the calculated probability falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</item>
+        /// </list>
+        /// </exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
-        /// <item>No settings database file could be found at the location of hydraulic boundary database file path
-        /// with the same name.</item>
-        /// <item>Unable to open settings database file.</item>
-        /// <item>Unable to read required data from database file.</item>
-        /// </list></exception>
+        /// <item>no hydraulic boundary settings database could be found;</item>
+        /// <item>the hydraulic boundary settings database cannot be opened;</item>
+        /// <item>the required data cannot be read from the hydraulic boundary settings database.</item>
+        /// </list>
+        /// </exception>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
         public void Calculate(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
                               HydraulicBoundaryCalculationSettings calculationSettings,
@@ -151,17 +150,16 @@ namespace Riskeer.Common.Service
         /// Performs a calculation for the wave height.
         /// </summary>
         /// <param name="hydraulicBoundaryLocationCalculation">The hydraulic boundary location calculation to perform.</param>
-        /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> with the
-        /// hydraulic boundary calculation settings.</param>
+        /// <param name="calculationSettings">The hydraulic boundary calculation settings.</param>
         /// <param name="targetProbability">The target probability to use during the calculation.</param>
         /// <param name="messageProvider">The object which is used to build log messages.</param>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
-        /// <item>No settings database file could be found at the location of the hydraulic boundary database file path.
-        /// with the same name.</item>
-        /// <item>Unable to open settings database file.</item>
-        /// <item>Unable to read required data from database file.</item>
-        /// </list></exception>
+        /// <item>no hydraulic boundary settings database could be found;</item>
+        /// <item>the hydraulic boundary settings database cannot be opened;</item>
+        /// <item>the required data cannot be read from the hydraulic boundary settings database.</item>
+        /// </list>
+        /// </exception>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
         private void PerformCalculation(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
                                         HydraulicBoundaryCalculationSettings calculationSettings,
@@ -265,17 +263,15 @@ namespace Riskeer.Common.Service
         /// </summary>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic boundary location.</param>
         /// <param name="targetProbability">The target probability to use during the calculation.</param>
-        /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> with the
-        /// hydraulic boundary calculation settings.</param>
+        /// <param name="calculationSettings">The hydraulic boundary calculation settings.</param>
         /// <returns>A <see cref="WaveHeightCalculationInput"/>.</returns>
         /// <exception cref="ArgumentException">Thrown when the hydraulic boundary location file path 
         /// contains invalid characters.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
-        /// <item>No settings database file could be found at the location of the hydraulic boundary database file path
-        /// with the same name.</item>
-        /// <item>Unable to open settings database file.</item>
-        /// <item>Unable to read required data from database file.</item>
+        /// <item>no hydraulic boundary settings database could be found;</item>
+        /// <item>the hydraulic boundary settings database cannot be opened;</item>
+        /// <item>the required data cannot be read from the hydraulic boundary settings database.</item>
         /// </list>
         /// </exception>
         private static WaveHeightCalculationInput CreateInput(long hydraulicBoundaryLocationId,
@@ -284,9 +280,7 @@ namespace Riskeer.Common.Service
         {
             var waveHeightCalculationInput = new WaveHeightCalculationInput(1, hydraulicBoundaryLocationId, targetProbability);
 
-            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(waveHeightCalculationInput,
-                                                                       calculationSettings.HydraulicBoundaryDatabaseFilePath,
-                                                                       !string.IsNullOrEmpty(calculationSettings.PreprocessorDirectory));
+            HydraRingSettingsHelper.AssignSettingsFromDatabase(waveHeightCalculationInput, calculationSettings.HrdFilePath);
 
             return waveHeightCalculationInput;
         }

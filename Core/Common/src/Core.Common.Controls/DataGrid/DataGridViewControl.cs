@@ -356,7 +356,8 @@ namespace Core.Common.Controls.DataGrid
         /// will clear the grid view.</item>
         /// <item>To reset the scrollbars to the starting position,
         /// the scrollbars need to be set to none before changing the datasource.</item>
-        /// </list></remarks>
+        /// </list>
+        /// </remarks>
         public void SetDataSource(IEnumerable dataSource)
         {
             ScrollBars originalScrollBarsValue = dataGridView.ScrollBars;

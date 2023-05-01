@@ -45,8 +45,8 @@ namespace Riskeer.Common.Data.DikeProfiles
         /// <paramref name="worldCoordinate"/> or <paramref name="properties"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when:
         /// <list type="bullet">
-        /// <item>any element of <paramref name="geometry"/> is <c>null</c></item>
-        /// <item><paramref name="properties.Id"/> is <c>null</c>, empty or whitespaces</item>
+        /// <item>any element of <paramref name="geometry"/> is <c>null</c>;</item>
+        /// <item><paramref name="properties.Id"/> is <c>null</c>, empty or whitespaces.</item>
         /// </list>
         /// </exception>
         public ForeshoreProfile(Point2D worldCoordinate, IEnumerable<Point2D> geometry,

@@ -50,26 +50,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Calculator
         }
 
         [Test]
-        public void Calculate_NoPreprocessorDirectoryWhenRequired_ThrowsInvalidOperationException()
-        {
-            // Setup
-            var parser = new TestParser();
-            var settings = new HydraRingCalculationSettings("D:\\hlcd.sqlite", string.Empty, false);
-            var calculator = new TestHydraRingCalculator(settings, parser);
-            var hydraRingCalculationInput = new TestHydraRingCalculationInput
-            {
-                PreprocessorSetting = new PreprocessorSetting(1, 2, new NumericsSetting(1, 4, 50, 0.15, 0.05, 0.01, 0.01, 0, 2, 20000, 100000, 0.1, -6, 6))
-            };
-
-            // Call
-            void Call() => calculator.PublicCalculate(hydraRingCalculationInput);
-
-            // Assert
-            string message = Assert.Throws<InvalidOperationException>(Call).Message;
-            Assert.AreEqual("Preprocessor directory required but not specified.", message);
-        }
-
-        [Test]
         public void Calculate_WithCustomParser_ParsersExecutedAndOutputSet()
         {
             // Setup
@@ -136,7 +116,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Calculator
         public void Calculate_LastErrorFilePresent_LastErrorFileContentSet()
         {
             // Setup
-            var settings = new HydraRingCalculationSettings("D:\\HLCD.sqlite", string.Empty, false);
+            var settings = new HydraRingCalculationSettings("D:\\HLCD.sqlite", false);
             var calculator = new TestHydraRingCalculator(settings, new TestParser());
 
             // Call
@@ -191,7 +171,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Calculator
         {
             public TestHydraRingCalculationInput() : base(12)
             {
-                PreprocessorSetting = new PreprocessorSetting();
                 DesignTablesSetting = new DesignTablesSetting(0, 0);
                 NumericsSettings = new Dictionary<int, NumericsSetting>
                 {

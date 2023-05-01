@@ -42,7 +42,8 @@ namespace Migration.Scripts.Data
         /// <list type="bullet">
         /// <item><paramref name="fromVersion"/> is empty or <c>null</c>,</item>
         /// <item><paramref name="toVersion"/> is empty or <c>null</c>.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         protected UpgradeScript(string fromVersion, string toVersion)
         {
             if (string.IsNullOrEmpty(fromVersion))
@@ -90,7 +91,8 @@ namespace Migration.Scripts.Data
         /// <item>does not consist out of only whitespace characters,</item>
         /// <item>does not contain an invalid character,</item>
         /// <item>does not end with a directory or path separator (empty file name).</item>
-        /// </list></remarks>
+        /// </list>
+        /// </remarks>
         /// <exception cref="CriticalMigrationException">Thrown when upgrading failed.</exception>
         public void Upgrade(string sourceLocation, string targetLocation)
         {

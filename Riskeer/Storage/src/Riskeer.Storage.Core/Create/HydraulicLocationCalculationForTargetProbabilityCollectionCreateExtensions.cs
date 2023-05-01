@@ -27,8 +27,7 @@ namespace Riskeer.Storage.Core.Create
 {
     /// <summary>
     /// Extension methods for collections of <see cref="HydraulicBoundaryLocationCalculationsForTargetProbability"/> related to
-    /// creating a
-    /// <see cref="HydraulicLocationCalculationForTargetProbabilityCollectionEntity"/>.
+    /// creating a <see cref="HydraulicLocationCalculationForTargetProbabilityCollectionEntity"/>.
     /// </summary>
     internal static class HydraulicLocationCalculationForTargetProbabilityCollectionCreateExtensions
     {

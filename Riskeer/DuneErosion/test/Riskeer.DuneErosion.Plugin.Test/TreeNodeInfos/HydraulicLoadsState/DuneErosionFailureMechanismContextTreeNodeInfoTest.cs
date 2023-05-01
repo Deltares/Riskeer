@@ -55,7 +55,9 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos.HydraulicLoadsState
     {
         private const int contextMenuCalculateAllIndex = 2;
 
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Forms, "HydraulicBoundaryDatabase");
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Forms, "HydraulicBoundaryData");
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
 
         private MockRepository mocksRepository;
         private DuneErosionPlugin plugin;
@@ -176,55 +178,11 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos.HydraulicLoadsState
         }
 
         [Test]
-        public void ContextMenuStrip_HydraulicBoundaryDatabaseNotLinked_ContextMenuItemCalculateAllDisabledAndTooltipSet()
-        {
-            // Setup
-            var duneLocation = new TestDuneLocation("Test");
-            var failureMechanism = new DuneErosionFailureMechanism();
-            var assessmentSection = new AssessmentSectionStub();
-
-            failureMechanism.SetDuneLocations(new[]
-            {
-                duneLocation
-            });
-
-            var context = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var gui = mocksRepository.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.ViewHost).Return(mocksRepository.Stub<IViewHost>());
-                mocksRepository.ReplayAll();
-
-                plugin.Gui = gui;
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateAllIndex,
-                                                                  "Alles be&rekenen",
-                                                                  "Er is geen hydraulische belastingendatabase geïmporteerd.",
-                                                                  RiskeerCommonFormsResources.CalculateAllIcon,
-                                                                  false);
-                }
-            }
-        }
-
-        [Test]
         public void ContextMenuStrip_NoDuneLocationsPresent_ContextMenuItemCalculateAllDisabledAndTooltipSet()
         {
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
-            var assessmentSection = new AssessmentSectionStub
-            {
-                HydraulicBoundaryDatabase =
-                {
-                    FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite")
-                }
-            };
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+            var assessmentSection = new AssessmentSectionStub();
 
             var context = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -258,14 +216,29 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos.HydraulicLoadsState
         public void GivenValidCalculations_WhenCalculatingAllFromContextMenu_ThenAllCalculationsScheduled()
         {
             // Given
+            var duneLocation = new TestDuneLocation("Test");
+
             var assessmentSection = new AssessmentSectionStub
             {
-                HydraulicBoundaryDatabase =
+                HydraulicBoundaryData =
                 {
-                    FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite")
+                    HydraulicLocationConfigurationDatabase =
+                    {
+                        FilePath = validHlcdFilePath
+                    },
+                    HydraulicBoundaryDatabases =
+                    {
+                        new HydraulicBoundaryDatabase
+                        {
+                            FilePath = validHrdFilePath,
+                            Locations =
+                            {
+                                duneLocation.HydraulicBoundaryLocation
+                            }
+                        }
+                    }
                 }
             };
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             var failureMechanism = new DuneErosionFailureMechanism
             {
@@ -276,7 +249,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos.HydraulicLoadsState
                 }
             };
 
-            var duneLocation = new TestDuneLocation("Test");
             failureMechanism.SetDuneLocations(new[]
             {
                 duneLocation
@@ -303,7 +275,9 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos.HydraulicLoadsState
                                  .WhenCalled(invocation =>
                                  {
                                      HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
+                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                                             assessmentSection.HydraulicBoundaryData,
+                                             duneLocation.HydraulicBoundaryLocation),
                                          (HydraRingCalculationSettings) invocation.Arguments[0]);
                                  })
                                  .Return(dunesBoundaryConditionsCalculator).Repeat.Times(2);

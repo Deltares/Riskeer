@@ -40,8 +40,7 @@ namespace Riskeer.HeightStructures.Service
 
         protected override StructuresOvertoppingCalculationInput CreateInput(HeightStructuresInput structureInput,
                                                                              GeneralHeightStructuresInput generalInput,
-                                                                             string hydraulicBoundaryDatabaseFilePath,
-                                                                             bool usePreprocessor)
+                                                                             string hrdFilePath)
         {
             var structuresOvertoppingCalculationInput = new StructuresOvertoppingCalculationInput(
                 structureInput.HydraulicBoundaryLocation.Id,
@@ -64,7 +63,7 @@ namespace Riskeer.HeightStructures.Service
                 structureInput.DeviationWaveDirection,
                 structureInput.StormDuration.Mean, structureInput.StormDuration.CoefficientOfVariation);
 
-            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(structuresOvertoppingCalculationInput, hydraulicBoundaryDatabaseFilePath, usePreprocessor);
+            HydraRingSettingsHelper.AssignSettingsFromDatabase(structuresOvertoppingCalculationInput, hrdFilePath);
 
             return structuresOvertoppingCalculationInput;
         }

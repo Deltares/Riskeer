@@ -31,7 +31,6 @@ using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.Structures;
-using Riskeer.Common.IO.HydraRing;
 using Riskeer.Common.Service.IllustrationPoints;
 using Riskeer.Common.Service.MessageProviders;
 using Riskeer.Common.Service.Properties;
@@ -121,9 +120,7 @@ namespace Riskeer.Common.Service.Structures
         /// </summary>
         /// <param name="calculation">The <see cref="StructuresCalculation{T}"/> that holds all the information required to perform the calculation.</param>
         /// <param name="generalInput">General calculation parameters that are the same across all calculations.</param>
-        /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> with the
-        /// hydraulic boundary calculation settings.</param>
-        /// <remarks>Preprocessing is disabled when the preprocessor directory equals <see cref="string.Empty"/>.</remarks>
+        /// <param name="calculationSettings">The hydraulic boundary calculation settings.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when the hydraulic boundary database file path
         /// contains invalid characters.</exception>
@@ -131,11 +128,11 @@ namespace Riskeer.Common.Service.Structures
         /// enum value is encountered.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
-        /// <item>No settings database file could be found at the location of the hydraulic boundary database file path
-        /// with the same name.</item>
-        /// <item>Unable to open settings database file.</item>
-        /// <item>Unable to read required data from database file.</item>
-        /// </list></exception>
+        /// <item>no hydraulic boundary settings database could be found;</item>
+        /// <item>the hydraulic boundary settings database cannot be opened;</item>
+        /// <item>the required data cannot be read from the hydraulic boundary settings database.</item>
+        /// </list>
+        /// </exception>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
         public void Calculate(StructuresCalculation<TStructureInput> calculation,
                               TGeneralInput generalInput,
@@ -156,10 +153,7 @@ namespace Riskeer.Common.Service.Structures
                 throw new ArgumentNullException(nameof(calculationSettings));
             }
 
-            TCalculationInput input = CreateInput(calculation.InputParameters,
-                                                  generalInput,
-                                                  calculationSettings.HydraulicBoundaryDatabaseFilePath,
-                                                  !string.IsNullOrEmpty(calculationSettings.PreprocessorDirectory));
+            TCalculationInput input = CreateInput(calculation.InputParameters, generalInput, calculationSettings.HrdFilePath);
 
             calculator = HydraRingCalculatorFactory.Instance.CreateStructuresCalculator<TCalculationInput>(
                 HydraRingCalculationSettingsFactory.CreateSettings(calculationSettings));
@@ -222,25 +216,20 @@ namespace Riskeer.Common.Service.Structures
         /// </summary>
         /// <param name="structureInput">The structure input to create the calculation input for.</param>
         /// <param name="generalInput">The <see cref="TGeneralInput"/> that is used in the calculation.</param>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The path to the hydraulic boundary database file.</param>
-        /// <param name="usePreprocessor">Indicator whether to use the preprocessor in the calculation.</param>
+        /// <param name="hrdFilePath">The file path of the hydraulic boundary database.</param>
         /// <returns>A <see cref="TCalculationInput"/>.</returns>
-        /// <exception cref="ArgumentException">Thrown when the <paramref name="hydraulicBoundaryDatabaseFilePath"/> 
-        /// contains invalid characters.</exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when an unexpected
-        /// enum value is encountered.</exception>
+        /// <exception cref="ArgumentException">Thrown when the <paramref name="hrdFilePath"/> contains invalid characters.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when an unexpected enum value is encountered.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
-        /// <item>No settings database file could be found at the location of <paramref name="hydraulicBoundaryDatabaseFilePath"/>
-        /// with the same name.</item>
-        /// <item>Unable to open settings database file.</item>
-        /// <item>Unable to read required data from database file.</item>
+        /// <item>no hydraulic boundary settings database could be found;</item>
+        /// <item>the hydraulic boundary settings database cannot be opened;</item>
+        /// <item>the required data cannot be read from the hydraulic boundary settings database.</item>
         /// </list>
         /// </exception>
         protected abstract TCalculationInput CreateInput(TStructureInput structureInput,
                                                          TGeneralInput generalInput,
-                                                         string hydraulicBoundaryDatabaseFilePath,
-                                                         bool usePreprocessor);
+                                                         string hrdFilePath);
 
         /// <summary>
         /// Performs a structures calculation.
@@ -326,30 +315,26 @@ namespace Riskeer.Common.Service.Structures
         /// enum value is encountered.</exception>
         private static string[] ValidateInput(TStructureInput input, IAssessmentSection assessmentSection)
         {
-            var validationResults = new List<string>();
-
-            string preprocessorDirectory = assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory();
-            string databaseFilePathValidationProblem = HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
-            if (!string.IsNullOrEmpty(databaseFilePathValidationProblem))
-            {
-                validationResults.Add(databaseFilePathValidationProblem);
-            }
-
-            string preprocessorDirectoryValidationProblem = HydraulicBoundaryDatabaseHelper.ValidatePreprocessorDirectory(preprocessorDirectory);
-            if (!string.IsNullOrEmpty(preprocessorDirectoryValidationProblem))
-            {
-                validationResults.Add(preprocessorDirectoryValidationProblem);
-            }
-
-            if (validationResults.Any())
-            {
-                return validationResults.ToArray();
-            }
-
             if (input.HydraulicBoundaryLocation == null)
             {
-                validationResults.Add(Resources.CalculationService_ValidateInput_No_hydraulic_boundary_location_selected);
+                return new[]
+                {
+                    Resources.CalculationService_ValidateInput_No_hydraulic_boundary_location_selected
+                };
             }
+
+            string connectionValidationProblem = HydraulicBoundaryDataConnectionValidator.Validate(
+                assessmentSection.HydraulicBoundaryData, input.HydraulicBoundaryLocation);
+
+            if (!string.IsNullOrEmpty(connectionValidationProblem))
+            {
+                return new[]
+                {
+                    connectionValidationProblem
+                };
+            }
+
+            var validationResults = new List<string>();
 
             if (input.Structure == null)
             {

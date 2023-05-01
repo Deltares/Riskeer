@@ -29,6 +29,7 @@ using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
 using Core.Gui.PropertyBag;
 using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -368,7 +369,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
             Point2D calculationLocation = data.WrappedData.DikeProfile?.WorldReferencePoint;
 
             return SelectableHydraulicBoundaryLocationHelper.GetSortedSelectableHydraulicBoundaryLocations(
-                data.AssessmentSection.HydraulicBoundaryDatabase.Locations, calculationLocation);
+                data.AssessmentSection.HydraulicBoundaryData.GetLocations(), calculationLocation);
         }
     }
 }

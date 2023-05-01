@@ -33,33 +33,13 @@ namespace Riskeer.Common.Data.Test.Hydraulics
         [TestCase(null)]
         [TestCase("")]
         [TestCase("   ")]
-        public void Constructor_InvalidHydraulicBoundaryDatabaseFilePath_ThrowsArgumentNullException(string invalidHydraulicBoundaryDatabaseFilePath)
-        {
-            // Call
-            TestDelegate call = () => new HydraulicBoundaryCalculationSettings(invalidHydraulicBoundaryDatabaseFilePath,
-                                                                               "D:\\hlcdFilePath",
-                                                                               false,
-                                                                               null);
-
-            // Assert
-            const string expectedMessage = "hydraulicBoundaryDatabaseFilePath is null, empty or consist of whitespace.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
-        }
-
-        [Test]
-        [TestCase(null)]
-        [TestCase("")]
-        [TestCase("   ")]
         public void Constructor_InvalidHlcdFilePath_ThrowsArgumentNullException(string invalidHlcdFilePath)
         {
             // Call
-            TestDelegate call = () => new HydraulicBoundaryCalculationSettings("D:\\HydraulicBoundaryDatabseFilePath",
-                                                                               invalidHlcdFilePath,
-                                                                               false,
-                                                                               null);
+            TestDelegate call = () => new HydraulicBoundaryCalculationSettings(invalidHlcdFilePath, "D:\\hrdFilePath", false);
 
             // Assert
-            const string expectedMessage = "hlcdFilePath is null, empty or consist of whitespace.";
+            const string expectedMessage = "hlcdFilePath is null, empty or consists of whitespaces.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
@@ -67,25 +47,31 @@ namespace Riskeer.Common.Data.Test.Hydraulics
         [TestCase(null)]
         [TestCase("")]
         [TestCase("   ")]
-        [TestCase("D:\\PreprocessorDirectory")]
-        public void Constructor_WithArguments_ExpectedValues(string preprocessorDirectory)
+        public void Constructor_InvalidHrdFilePath_ThrowsArgumentNullException(string invalidHrdFilePath)
+        {
+            // Call
+            void Call() => new HydraulicBoundaryCalculationSettings("D:\\hlcdFilePath", invalidHrdFilePath, false);
+
+            // Assert
+            const string expectedMessage = "hrdFilePath is null, empty or consists of whitespaces.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
+        }
+
+        [Test]
+        public void Constructor_ValidArguments_ExpectedValues()
         {
             // Setup
-            const string hydraulicBoundaryDatabaseFilePath = "D:\\HydraulicBoundaryDatabaseFilePath";
             const string hlcdFilePath = "D:\\hlcdFilePath";
+            const string hrdFilePath = "D:\\hrdFilePath";
             bool usePreprocessorClosure = new Random(21).NextBoolean();
 
             // Call
-            var settings = new HydraulicBoundaryCalculationSettings(hydraulicBoundaryDatabaseFilePath,
-                                                                    hlcdFilePath,
-                                                                    usePreprocessorClosure,
-                                                                    preprocessorDirectory);
+            var settings = new HydraulicBoundaryCalculationSettings(hlcdFilePath, hrdFilePath, usePreprocessorClosure);
 
             // Assert
-            Assert.AreEqual(hydraulicBoundaryDatabaseFilePath, settings.HydraulicBoundaryDatabaseFilePath);
             Assert.AreEqual(hlcdFilePath, settings.HlcdFilePath);
+            Assert.AreEqual(hrdFilePath, settings.HrdFilePath);
             Assert.AreEqual(usePreprocessorClosure, settings.UsePreprocessorClosure);
-            Assert.AreEqual(preprocessorDirectory, settings.PreprocessorDirectory);
         }
     }
 }

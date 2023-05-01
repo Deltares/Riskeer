@@ -79,7 +79,7 @@ namespace Riskeer.Integration.Plugin.Test.ExportInfos
             var assessmentSection = new AssessmentSectionStub();
 
             var context = new WaterLevelCalculationsForNormTargetProbabilitiesGroupContext(
-                new ObservableList<HydraulicBoundaryLocation>(), assessmentSection);
+                new ObservableList<HydraulicBoundaryDatabase>(), assessmentSection);
 
             const string filePath = "test";
 

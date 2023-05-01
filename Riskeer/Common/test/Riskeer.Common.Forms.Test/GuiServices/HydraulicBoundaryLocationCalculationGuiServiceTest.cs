@@ -43,7 +43,8 @@ namespace Riskeer.Common.Forms.Test.GuiServices
     public class HydraulicBoundaryLocationCalculationGuiServiceTest : NUnitFormTest
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
-        private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
 
         [Test]
         public void Constructor_ViewParentNull_ThrowsArgumentNullException()
@@ -112,43 +113,12 @@ namespace Riskeer.Common.Forms.Test.GuiServices
         }
 
         [Test]
-        public void CalculateDesignWaterLevels_HydraulicDatabaseDoesNotExist_LogsError()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var viewParent = mocks.Stub<IViewParent>();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-            mocks.ReplayAll();
-
-            assessmentSection.HydraulicBoundaryDatabase.FilePath = "Does not exist";
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
-
-            var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
-
-            // Call
-            void Call() => guiService.CalculateDesignWaterLevels(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), assessmentSection, 0.01, "1/100");
-
-            // Assert
-            TestHelper.AssertLogMessages(Call, messages =>
-            {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(1, msgs.Length);
-                StringAssert.StartsWith("Berekeningen konden niet worden gestart. ", msgs.First());
-            });
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CalculateDesignWaterLevels_ValidPathEmptyCalculationList_NoLog()
+        public void CalculateDesignWaterLevels_EmptyCalculationList_NoLog()
         {
             // Setup
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             mocks.ReplayAll();
-
-            assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -170,7 +140,7 @@ namespace Riskeer.Common.Forms.Test.GuiServices
         }
 
         [Test]
-        public void CalculateDesignWaterLevels_ValidPathOneCalculation_LogsMessages()
+        public void CalculateDesignWaterLevels_ValidHydraulicBoundaryDataOneCalculation_LogsMessages()
         {
             // Setup
             const string hydraulicLocationName = "name";
@@ -179,19 +149,30 @@ namespace Riskeer.Common.Forms.Test.GuiServices
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
 
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(hydraulicLocationName);
+
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                              .WhenCalled(invocation =>
                              {
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                                         assessmentSection.HydraulicBoundaryData,
+                                         hydraulicBoundaryLocation),
                                      (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(new TestDesignWaterLevelCalculator());
             mocks.ReplayAll();
 
-            assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+            assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath = validHlcdFilePath;
+            assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(new HydraulicBoundaryDatabase
+            {
+                FilePath = validHrdFilePath,
+                Locations =
+                {
+                    hydraulicBoundaryLocation
+                }
+            });
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -204,11 +185,13 @@ namespace Riskeer.Common.Forms.Test.GuiServices
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                void Call() =>
+                void Call()
+                {
                     guiService.CalculateDesignWaterLevels(new[]
                     {
-                        new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(hydraulicLocationName))
+                        new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
                     }, assessmentSection, 0.01, calculationIdentifier);
+                }
 
                 // Assert
                 TestHelper.AssertLogMessages(Call, messages =>
@@ -270,42 +253,12 @@ namespace Riskeer.Common.Forms.Test.GuiServices
         }
 
         [Test]
-        public void CalculateWaveHeights_HydraulicDatabaseDoesNotExist_LogsError()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var viewParent = mocks.Stub<IViewParent>();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-            mocks.ReplayAll();
-
-            assessmentSection.HydraulicBoundaryDatabase.FilePath = "Does not exist";
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
-
-            var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
-
-            // Call
-            void Call() => guiService.CalculateWaveHeights(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), assessmentSection, 0.01, "1/100");
-
-            // Assert
-            TestHelper.AssertLogMessages(Call, messages =>
-            {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(1, msgs.Length);
-                StringAssert.StartsWith("Berekeningen konden niet worden gestart. ", msgs.First());
-            });
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CalculateWaveHeights_ValidPathEmptyCalculationList_NoLog()
+        public void CalculateWaveHeights_EmptyCalculationList_NoLog()
         {
             // Setup
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             mocks.ReplayAll();
-
-            assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -327,7 +280,7 @@ namespace Riskeer.Common.Forms.Test.GuiServices
         }
 
         [Test]
-        public void CalculateWaveHeights_ValidPathOneCalculation_LogsMessages()
+        public void CalculateWaveHeights_ValidHydraulicBoundaryDataOneCalculation_LogsMessages()
         {
             // Setup
             const string hydraulicLocationName = "name";
@@ -336,19 +289,30 @@ namespace Riskeer.Common.Forms.Test.GuiServices
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
 
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(hydraulicLocationName);
+
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                              .WhenCalled(invocation =>
                              {
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                                         assessmentSection.HydraulicBoundaryData,
+                                         hydraulicBoundaryLocation),
                                      (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(new TestWaveHeightCalculator());
             mocks.ReplayAll();
 
-            assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+            assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath = validHlcdFilePath;
+            assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(new HydraulicBoundaryDatabase
+            {
+                FilePath = validHrdFilePath,
+                Locations =
+                {
+                    hydraulicBoundaryLocation
+                }
+            });
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -361,11 +325,13 @@ namespace Riskeer.Common.Forms.Test.GuiServices
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                void Call() =>
+                void Call()
+                {
                     guiService.CalculateWaveHeights(new[]
                     {
-                        new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(hydraulicLocationName))
+                        new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
                     }, assessmentSection, 0.01, calculationIdentifier);
+                }
 
                 // Assert
                 TestHelper.AssertLogMessages(Call, messages =>

@@ -47,7 +47,7 @@ namespace Riskeer.HeightStructures.Service.Test
     public class HeightStructuresCalculationActivityFactoryTest
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
-        private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
         [Test]
         public void CreateCalculationActivity_CalculationNull_ThrowsArgumentNullException()
@@ -111,10 +111,10 @@ namespace Riskeer.HeightStructures.Service.Test
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mocks,
-                                                                                                           validFilePath);
+                                                                                                           validHrdFilePath);
             mocks.ReplayAll();
 
-            StructuresCalculation<HeightStructuresInput> calculation = CreateValidCalculation();
+            StructuresCalculation<HeightStructuresInput> calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryData.GetLocations().First());
 
             // Call
             CalculatableActivity activity = HeightStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
@@ -123,7 +123,7 @@ namespace Riskeer.HeightStructures.Service.Test
 
             // Assert
             Assert.IsInstanceOf<HeightStructuresCalculationActivity>(activity);
-            AssertHeightStructuresCalculationActivity(activity, calculation, assessmentSection.HydraulicBoundaryDatabase);
+            AssertHeightStructuresCalculationActivity(activity, calculation, assessmentSection.HydraulicBoundaryData);
             mocks.VerifyAll();
         }
 
@@ -187,11 +187,13 @@ namespace Riskeer.HeightStructures.Service.Test
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mocks,
-                                                                                                           validFilePath);
+                                                                                                           validHrdFilePath);
             mocks.ReplayAll();
 
-            StructuresCalculation<HeightStructuresInput> calculation1 = CreateValidCalculation();
-            StructuresCalculation<HeightStructuresInput> calculation2 = CreateValidCalculation();
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First();
+            
+            StructuresCalculation<HeightStructuresInput> calculation1 = CreateValidCalculation(hydraulicBoundaryLocation);
+            StructuresCalculation<HeightStructuresInput> calculation2 = CreateValidCalculation(hydraulicBoundaryLocation);
 
             var calculations = new CalculationGroup
             {
@@ -210,9 +212,9 @@ namespace Riskeer.HeightStructures.Service.Test
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(HeightStructuresCalculationActivity));
             Assert.AreEqual(2, activities.Count());
 
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
-            AssertHeightStructuresCalculationActivity(activities.First(), calculation1, hydraulicBoundaryDatabase);
-            AssertHeightStructuresCalculationActivity(activities.ElementAt(1), calculation2, hydraulicBoundaryDatabase);
+            HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryData;
+            AssertHeightStructuresCalculationActivity(activities.First(), calculation1, hydraulicBoundaryData);
+            AssertHeightStructuresCalculationActivity(activities.ElementAt(1), calculation2, hydraulicBoundaryData);
             mocks.VerifyAll();
         }
 
@@ -253,11 +255,13 @@ namespace Riskeer.HeightStructures.Service.Test
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mocks,
-                                                                                                           validFilePath);
+                                                                                                           validHrdFilePath);
             mocks.ReplayAll();
 
-            StructuresCalculation<HeightStructuresInput> calculation1 = CreateValidCalculation();
-            StructuresCalculation<HeightStructuresInput> calculation2 = CreateValidCalculation();
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First();
+            
+            StructuresCalculation<HeightStructuresInput> calculation1 = CreateValidCalculation(hydraulicBoundaryLocation);
+            StructuresCalculation<HeightStructuresInput> calculation2 = CreateValidCalculation(hydraulicBoundaryLocation);
 
             failureMechanism.CalculationsGroup.Children.AddRange(new[]
             {
@@ -273,19 +277,19 @@ namespace Riskeer.HeightStructures.Service.Test
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(HeightStructuresCalculationActivity));
             Assert.AreEqual(2, activities.Count());
 
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
-            AssertHeightStructuresCalculationActivity(activities.First(), calculation1, hydraulicBoundaryDatabase);
-            AssertHeightStructuresCalculationActivity(activities.ElementAt(1), calculation2, hydraulicBoundaryDatabase);
+            HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryData;
+            AssertHeightStructuresCalculationActivity(activities.First(), calculation1, hydraulicBoundaryData);
+            AssertHeightStructuresCalculationActivity(activities.ElementAt(1), calculation2, hydraulicBoundaryData);
             mocks.VerifyAll();
         }
 
-        private static StructuresCalculation<HeightStructuresInput> CreateValidCalculation()
+        private static StructuresCalculation<HeightStructuresInput> CreateValidCalculation(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             return new TestHeightStructuresCalculationScenario
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     FailureProbabilityStructureWithErosion = new Random(39).NextDouble()
                 }
             };
@@ -293,7 +297,7 @@ namespace Riskeer.HeightStructures.Service.Test
 
         private static void AssertHeightStructuresCalculationActivity(Activity activity,
                                                                       ICalculation<HeightStructuresInput> calculation,
-                                                                      HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+                                                                      HydraulicBoundaryData hydraulicBoundaryData)
         {
             var mocks = new MockRepository();
             var testCalculator = new TestStructuresCalculator<StructuresOvertoppingCalculationInput>();
@@ -303,7 +307,9 @@ namespace Riskeer.HeightStructures.Service.Test
                              .WhenCalled(invocation =>
                              {
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase),
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                                         hydraulicBoundaryData,
+                                         calculation.InputParameters.HydraulicBoundaryLocation),
                                      (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(testCalculator);

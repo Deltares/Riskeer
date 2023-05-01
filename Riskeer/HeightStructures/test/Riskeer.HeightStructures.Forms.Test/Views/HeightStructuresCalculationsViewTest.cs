@@ -81,7 +81,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             mocks.ReplayAll();
 
             HeightStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
@@ -123,7 +123,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             mocks.ReplayAll();
 
             HeightStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
@@ -148,7 +148,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             mocks.ReplayAll();
 
             HeightStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
@@ -173,7 +173,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             mocks.ReplayAll();
 
             HeightStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
@@ -221,7 +221,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             mocks.ReplayAll();
 
             HeightStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
@@ -244,7 +244,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             mocks.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
@@ -294,7 +294,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             mocks.ReplayAll();
 
             HeightStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
@@ -325,12 +325,12 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
         [TestCase(1, allowedLevelIncreaseStorageColumnIndex)]
         [TestCase(1e+6, allowedLevelIncreaseStorageColumnIndex)]
         [TestCase(14.3, allowedLevelIncreaseStorageColumnIndex)]
-        public void FailureMechanismResultView_EditValueValid_DoNotShowErrorToolTipAndEditValue(double newValue, int cellIndex)
+        public void CalculationsView_EditValueValid_DoNotShowErrorToolTipAndEditValue(double newValue, int cellIndex)
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             mocks.ReplayAll();
 
             HeightStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
@@ -362,7 +362,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             var calculationObserver = mocks.StrictMock<IObserver>();
             var inputObserver = mocks.StrictMock<IObserver>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             mocks.ReplayAll();
 
             HeightStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
@@ -418,7 +418,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             inputObserver.Expect(o => o.UpdateObserver());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
             mocks.ReplayAll();
@@ -454,7 +454,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             // Given
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             mocks.ReplayAll();
 
             HeightStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
@@ -495,7 +495,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             mocks.ReplayAll();
 
             HeightStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
@@ -523,7 +523,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             // Given
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             mocks.ReplayAll();
 
             HeightStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
@@ -559,7 +559,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             // Given
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
@@ -593,7 +593,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             // Given
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             mocks.ReplayAll();
 
             HeightStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
@@ -633,7 +633,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             // Given
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
@@ -684,14 +684,20 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             return calculationsView;
         }
 
-        private static void ConfigureHydraulicBoundaryDatabase(IAssessmentSection assessmentSection)
+        private static void ConfigureHydraulicBoundaryData(IAssessmentSection assessmentSection)
         {
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
             {
-                Locations =
+                HydraulicBoundaryDatabases =
                 {
-                    new HydraulicBoundaryLocation(1, "Location 1", 1.1, 2.2),
-                    new HydraulicBoundaryLocation(2, "Location 2", 3.3, 4.4)
+                    new HydraulicBoundaryDatabase
+                    {
+                        Locations =
+                        {
+                            new HydraulicBoundaryLocation(1, "Location 1", 1.1, 2.2),
+                            new HydraulicBoundaryLocation(2, "Location 2", 3.3, 4.4)
+                        }
+                    }
                 }
             });
         }
@@ -725,7 +731,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
                                 Mean = (RoundedDouble) 100.0
                             },
                             ForeshoreProfile = failureMechanism.ForeshoreProfiles.FirstOrDefault(),
-                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(),
+                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(),
                             BreakWater =
                             {
                                 Height = (RoundedDouble) 3.3,
@@ -759,7 +765,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
                                 Mean = (RoundedDouble) 100.0
                             },
                             ForeshoreProfile = failureMechanism.ForeshoreProfiles.LastOrDefault(),
-                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.Last(),
+                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().Last(),
                             BreakWater =
                             {
                                 Height = (RoundedDouble) 3.3,

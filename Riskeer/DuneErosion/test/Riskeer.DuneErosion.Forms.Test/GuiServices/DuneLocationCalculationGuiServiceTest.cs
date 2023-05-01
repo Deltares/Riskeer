@@ -29,7 +29,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
-using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Service.TestUtil;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Data.TestUtil;
@@ -43,9 +42,9 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
     [TestFixture]
     public class DuneLocationCalculationGuiServiceTest
     {
-        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryDatabase));
-        private static readonly string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
-        private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryData));
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "complete.sqlite");
+        private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
 
         [Test]
         public void Constructor_ViewParentNull_ThrowArgumentNullException()
@@ -98,51 +97,11 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
         }
 
         [Test]
-        public void Calculate_HydraulicDatabaseDoesNotExist_LogsError()
-        {
-            // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = "Does not exist"
-            };
-
-            var mocks = new MockRepository();
-            var viewParent = mocks.Stub<IViewParent>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase)
-                             .Return(hydraulicBoundaryDatabase);
-            mocks.ReplayAll();
-
-            var guiService = new DuneLocationCalculationGuiService(viewParent);
-
-            // Call
-            void Call() => guiService.Calculate(Enumerable.Empty<DuneLocationCalculation>(), assessmentSection, 0.01, "1/100");
-
-            // Assert
-            TestHelper.AssertLogMessages(Call, messages =>
-            {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(1, msgs.Length);
-                StringAssert.StartsWith("Berekeningen konden niet worden gestart. ", msgs.First());
-            });
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void Calculate_ValidPathEmptyCalculationList_NoLog()
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = validFilePath
-            };
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
-
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase)
-                             .Return(hydraulicBoundaryDatabase);
             mocks.ReplayAll();
 
             using (var viewParent = new TestViewParentForm())
@@ -163,20 +122,30 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
         public void Calculate_ValidPathOneCalculation_LogsMessages()
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = validFilePath,
-                HydraulicLocationConfigurationSettings =
-                {
-                    CanUsePreprocessor = true,
-                    UsePreprocessor = true,
-                    PreprocessorDirectory = validPreprocessorDirectory
-                }
-            };
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
-
             const string calculationIdentifier = "1/100";
             const string duneLocationName = "duneLocationName";
+
+            var duneLocation = new TestDuneLocation(duneLocationName);
+
+            var hydraulicBoundaryData = new HydraulicBoundaryData
+            {
+                HydraulicLocationConfigurationDatabase =
+                {
+                    FilePath = validHlcdFilePath
+                },
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        FilePath = validHrdFilePath,
+                        UsePreprocessorClosure = true,
+                        Locations =
+                        {
+                            duneLocation.HydraulicBoundaryLocation
+                        }
+                    }
+                }
+            };
 
             var mocks = new MockRepository();
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
@@ -184,13 +153,15 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
                              .WhenCalled(invocation =>
                              {
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase),
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                                         hydraulicBoundaryData,
+                                         duneLocation.HydraulicBoundaryLocation),
                                      (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(new TestDunesBoundaryConditionsCalculator());
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase)
-                             .Return(hydraulicBoundaryDatabase);
+            assessmentSection.Stub(a => a.HydraulicBoundaryData)
+                             .Return(hydraulicBoundaryData);
             mocks.ReplayAll();
 
             using (var viewParent = new TestViewParentForm())
@@ -199,11 +170,13 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
                 var guiService = new DuneLocationCalculationGuiService(viewParent);
 
                 // Call
-                void Call() =>
+                void Call()
+                {
                     guiService.Calculate(new[]
                     {
-                        new DuneLocationCalculation(new TestDuneLocation(duneLocationName))
+                        new DuneLocationCalculation(duneLocation)
                     }, assessmentSection, 0.01, calculationIdentifier);
+                }
 
                 // Assert
                 TestHelper.AssertLogMessages(Call, messages =>

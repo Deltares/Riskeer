@@ -39,16 +39,14 @@ namespace Riskeer.Common.Service.TestUtil
         /// <param name="actualSettings">The <see cref="HydraRingCalculationSettings"/> to be asserted.</param>
         /// <exception cref="AssertionException">Thrown when:
         /// <list type="bullet">
-        /// <item>The HLCD file paths do not match.</item>
-        /// <item>The preprocessor directories do not match.</item>
-        /// <item>The use preprocessor closure indicators do not match.</item>
+        /// <item>the hydraulic location configuration database file paths do not match;</item>
+        /// <item>the use preprocessor closure indicators do not match.</item>
         /// </list>
         /// </exception>
         public static void AssertHydraRingCalculationSettings(HydraulicBoundaryCalculationSettings expectedSettings,
                                                               HydraRingCalculationSettings actualSettings)
         {
             Assert.AreEqual(expectedSettings.HlcdFilePath, actualSettings.HlcdFilePath);
-            Assert.AreEqual(expectedSettings.PreprocessorDirectory, actualSettings.PreprocessorDirectory);
             Assert.AreEqual(expectedSettings.UsePreprocessorClosure, actualSettings.UsePreprocessorClosure);
         }
     }

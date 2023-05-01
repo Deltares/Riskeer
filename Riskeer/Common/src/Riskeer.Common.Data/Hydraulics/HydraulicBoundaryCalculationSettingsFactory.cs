@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 
 namespace Riskeer.Common.Data.Hydraulics
 {
@@ -29,25 +30,44 @@ namespace Riskeer.Common.Data.Hydraulics
     public static class HydraulicBoundaryCalculationSettingsFactory
     {
         /// <summary>
-        /// Creates a new instance of <see cref="HydraulicBoundaryCalculationSettings"/>
-        /// based on a <see cref="HydraulicBoundaryDatabase"/>.
+        /// Creates a new instance of <see cref="HydraulicBoundaryCalculationSettings"/> based on the provided
+        /// <paramref name="hydraulicBoundaryData"/> and <paramref name="hydraulicBoundaryLocation"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryDatabase"/>
-        /// to create a <see cref="HydraulicBoundaryCalculationSettings"/> for.</param>
-        /// <returns>A <see cref="HydraulicBoundaryCalculationSettings"/>.</returns>
-        /// <exception cref="ArgumentException">Thrown when the hydraulic boundary database file path or
-        /// the hlcd file path is <c>null</c>, is empty or consists of whitespace.</exception>
-        public static HydraulicBoundaryCalculationSettings CreateSettings(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+        /// <param name="hydraulicBoundaryData">The <see cref="HydraulicBoundaryData"/> to create the
+        /// <see cref="HydraulicBoundaryCalculationSettings"/> for.</param>
+        /// <param name="hydraulicBoundaryLocation">The <see cref="HydraulicBoundaryLocation"/> to create the
+        /// <see cref="HydraulicBoundaryCalculationSettings"/> for.</param>
+        /// <returns>A <see cref="HydraulicBoundaryCalculationSettings"/> instance.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="hydraulicBoundaryLocation"/> is not part of <paramref name="hydraulicBoundaryData"/>;</item>
+        /// <item>the hydraulic boundary database file path is <c>null</c>, is empty or consists of whitespaces;</item>
+        /// <item>the location configuration database file path is <c>null</c>, is empty or consists of whitespaces.</item>
+        /// </list>
+        /// </exception>
+        public static HydraulicBoundaryCalculationSettings CreateSettings(HydraulicBoundaryData hydraulicBoundaryData,
+                                                                          HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            if (hydraulicBoundaryDatabase == null)
+            if (hydraulicBoundaryData == null)
             {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
+                throw new ArgumentNullException(nameof(hydraulicBoundaryData));
             }
 
-            return new HydraulicBoundaryCalculationSettings(hydraulicBoundaryDatabase.FilePath,
-                                                            hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.FilePath,
-                                                            hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessorClosure,
-                                                            hydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
+            if (hydraulicBoundaryLocation == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryLocation));
+            }
+
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = hydraulicBoundaryData.HydraulicBoundaryDatabases.FirstOrDefault(hbd => hbd.Locations.Contains(hydraulicBoundaryLocation));
+            if (hydraulicBoundaryDatabase == null)
+            {
+                throw new ArgumentException($"'{nameof(hydraulicBoundaryLocation)}' is not part of '{nameof(hydraulicBoundaryData)}'.");
+            }
+
+            return new HydraulicBoundaryCalculationSettings(hydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath,
+                                                            hydraulicBoundaryDatabase.FilePath,
+                                                            hydraulicBoundaryDatabase.UsePreprocessorClosure);
         }
     }
 }

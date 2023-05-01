@@ -1,5 +1,5 @@
 ﻿<configuration
-rxversion="10.2">
+rxversion="10.5">
 	<adapter.defaultsearchtimeout>
 		10000ms
 	</adapter.defaultsearchtimeout>
@@ -461,6 +461,9 @@ rxversion="10.2">
 	</plugins.win32.ProcessWhitelist>
 	<plugins.win32.ProcessBlacklist>
 	</plugins.win32.ProcessBlacklist>
+	<plugins.win32.ShowHiddenElementsInElementTree>
+		False
+	</plugins.win32.ShowHiddenElementsInElementTree>
 	<plugin.delphi.enabled>
 		True
 	</plugin.delphi.enabled>

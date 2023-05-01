@@ -36,10 +36,10 @@ namespace Core.Gui.PropertyBag
     /// </summary>
     /// <remarks>This class makes sure the following special attributes on properties are processed:
     /// <list type="bullet">
-    /// <item><see cref="DynamicReadOnlyAttribute"/></item>
-    /// <item><see cref="DynamicVisibleAttribute"/></item>
-    /// <item><see cref="PropertyOrderAttribute"/></item>
-    /// <item><see cref="DynamicPropertyOrderAttribute"/></item>
+    /// <item><see cref="DynamicReadOnlyAttribute"/>;</item>
+    /// <item><see cref="DynamicVisibleAttribute"/>;</item>
+    /// <item><see cref="PropertyOrderAttribute"/>;</item>
+    /// <item><see cref="DynamicPropertyOrderAttribute"/>.</item>
     /// </list>
     /// Worth mentioning is the fact that, when specified both, the <see cref="PropertyOrderAttribute"/>
     /// overrules the <see cref="DynamicPropertyOrderAttribute"/>.

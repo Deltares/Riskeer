@@ -354,15 +354,6 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekeningen konden niet worden gestart. {0}.
-        /// </summary>
-        public static string CalculateHydraulicBoundaryLocation_Start_calculation_failed_0_ {
-            get {
-                return ResourceManager.GetString("CalculateHydraulicBoundaryLocation_Start_calculation_failed_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap CalculateIcon {
@@ -2263,15 +2254,6 @@ namespace Riskeer.Common.Forms.Properties {
         public static string HydraulicLoads_Calculate_All_ToolTip {
             get {
                 return ResourceManager.GetString("HydraulicLoads_Calculate_All_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Hydraulische belastingen.
-        /// </summary>
-        public static string HydraulicLoads_DisplayName {
-            get {
-                return ResourceManager.GetString("HydraulicLoads_DisplayName", resourceCulture);
             }
         }
         

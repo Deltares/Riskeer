@@ -49,9 +49,8 @@ namespace Riskeer.StabilityPointStructures.Service.Test
     public class StabilityPointStructuresCalculationServiceTest
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
-        private static readonly string validHydraulicBoundaryDatabaseFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
         private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "Hlcd.sqlite");
-        private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -81,7 +80,9 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository, validHydraulicBoundaryDatabaseFilePath);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository,
+                                                                                                           validHrdFilePath);
             mockRepository.ReplayAll();
 
             var calculation = new TestStabilityPointStructuresCalculationScenario
@@ -92,7 +93,8 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                     LoadSchematizationType = loadSchematizationType,
                     ForeshoreProfile = new TestForeshoreProfile(new BreakWater(BreakWaterType.Dam, breakWaterHeight)),
                     UseBreakWater = true,
-                    UseForeshore = true
+                    UseForeshore = true,
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First()
                 }
             };
 
@@ -125,7 +127,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new StabilityPointStructuresFailureMechanism(),
                                                                                                            mockRepository,
-                                                                                                           validHydraulicBoundaryDatabaseFilePath);
+                                                                                                           validHrdFilePath);
             mockRepository.ReplayAll();
 
             var calculation = new TestStabilityPointStructuresCalculationScenario
@@ -133,7 +135,8 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                 InputParameters =
                 {
                     InflowModelType = StabilityPointStructureInflowModelType.LowSill,
-                    LoadSchematizationType = LoadSchematizationType.Linear
+                    LoadSchematizationType = LoadSchematizationType.Linear,
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First()
                 }
             };
 
@@ -204,7 +207,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new StabilityPointStructuresFailureMechanism(),
                                                                                                            mockRepository,
-                                                                                                           validHydraulicBoundaryDatabaseFilePath);
+                                                                                                           validHrdFilePath);
             mockRepository.ReplayAll();
 
             var calculation = new TestStabilityPointStructuresCalculationScenario
@@ -212,7 +215,8 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                 InputParameters =
                 {
                     InflowModelType = StabilityPointStructureInflowModelType.LowSill,
-                    LoadSchematizationType = LoadSchematizationType.Quadratic
+                    LoadSchematizationType = LoadSchematizationType.Quadratic,
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First()
                 }
             };
 
@@ -283,7 +287,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new StabilityPointStructuresFailureMechanism(),
                                                                                                            mockRepository,
-                                                                                                           validHydraulicBoundaryDatabaseFilePath);
+                                                                                                           validHrdFilePath);
             mockRepository.ReplayAll();
 
             var calculation = new TestStabilityPointStructuresCalculationScenario
@@ -291,7 +295,8 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                 InputParameters =
                 {
                     InflowModelType = StabilityPointStructureInflowModelType.FloodedCulvert,
-                    LoadSchematizationType = LoadSchematizationType.Linear
+                    LoadSchematizationType = LoadSchematizationType.Linear,
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First()
                 }
             };
 
@@ -364,7 +369,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new StabilityPointStructuresFailureMechanism(),
                                                                                                            mockRepository,
-                                                                                                           validHydraulicBoundaryDatabaseFilePath);
+                                                                                                           validHrdFilePath);
             mockRepository.ReplayAll();
 
             var calculation = new TestStabilityPointStructuresCalculationScenario
@@ -372,7 +377,8 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                 InputParameters =
                 {
                     InflowModelType = StabilityPointStructureInflowModelType.FloodedCulvert,
-                    LoadSchematizationType = LoadSchematizationType.Quadratic
+                    LoadSchematizationType = LoadSchematizationType.Quadratic,
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First()
                 }
             };
 
@@ -442,14 +448,17 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository, validHydraulicBoundaryDatabaseFilePath);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository,
+                                                                                                           validHrdFilePath);
             mockRepository.ReplayAll();
 
             var calculation = new TestStabilityPointStructuresCalculationScenario
             {
                 InputParameters =
                 {
-                    InflowModelType = (StabilityPointStructureInflowModelType) 100
+                    InflowModelType = (StabilityPointStructureInflowModelType) 100,
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First()
                 }
             };
 
@@ -473,7 +482,9 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository, validHydraulicBoundaryDatabaseFilePath);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository,
+                                                                                                           validHrdFilePath);
             mockRepository.ReplayAll();
 
             var calculation = new TestStabilityPointStructuresCalculationScenario
@@ -481,7 +492,8 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                 InputParameters =
                 {
                     InflowModelType = inflowModelType,
-                    LoadSchematizationType = (LoadSchematizationType) 100
+                    LoadSchematizationType = (LoadSchematizationType) 100,
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First()
                 }
             };
 
@@ -582,7 +594,9 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository,
+                                                                                                           validHrdFilePath);
 
             var calculator = new TestStructuresCalculator<StructuresStabilityPointCalculationInput>();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -595,7 +609,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     InflowModelType = StabilityPointStructureInflowModelType.LowSill,
                     LoadSchematizationType = LoadSchematizationType.Linear
                 }
@@ -700,7 +714,9 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository,
+                                                                                                           validHrdFilePath);
 
             var calculator = new TestStructuresCalculator<StructuresStabilityPointCalculationInput>();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -713,7 +729,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     InflowModelType = StabilityPointStructureInflowModelType.LowSill,
                     LoadSchematizationType = LoadSchematizationType.Linear,
                     ForeshoreProfile = new TestForeshoreProfile(true)
@@ -819,7 +835,9 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository,
+                                                                                                           validHrdFilePath);
 
             var calculator = new TestStructuresCalculator<StructuresStabilityPointCalculationInput>();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -832,7 +850,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     InflowModelType = StabilityPointStructureInflowModelType.LowSill,
                     LoadSchematizationType = LoadSchematizationType.Quadratic
                 }
@@ -937,7 +955,9 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository,
+                                                                                                           validHrdFilePath);
 
             var calculator = new TestStructuresCalculator<StructuresStabilityPointCalculationInput>();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -950,7 +970,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     InflowModelType = StabilityPointStructureInflowModelType.LowSill,
                     LoadSchematizationType = LoadSchematizationType.Quadratic,
                     ForeshoreProfile = new TestForeshoreProfile(true)
@@ -1056,7 +1076,9 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository,
+                                                                                                           validHrdFilePath);
 
             var calculator = new TestStructuresCalculator<StructuresStabilityPointCalculationInput>();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -1069,7 +1091,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     InflowModelType = StabilityPointStructureInflowModelType.FloodedCulvert,
                     LoadSchematizationType = LoadSchematizationType.Linear
                 }
@@ -1176,7 +1198,9 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository,
+                                                                                                           validHrdFilePath);
 
             var calculator = new TestStructuresCalculator<StructuresStabilityPointCalculationInput>();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -1189,7 +1213,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     InflowModelType = StabilityPointStructureInflowModelType.FloodedCulvert,
                     LoadSchematizationType = LoadSchematizationType.Linear,
                     ForeshoreProfile = new TestForeshoreProfile(true)
@@ -1297,7 +1321,9 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository,
+                                                                                                           validHrdFilePath);
 
             var calculator = new TestStructuresCalculator<StructuresStabilityPointCalculationInput>();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -1310,7 +1336,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     InflowModelType = StabilityPointStructureInflowModelType.FloodedCulvert,
                     LoadSchematizationType = LoadSchematizationType.Quadratic
                 }
@@ -1417,7 +1443,9 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository,
+                                                                                                           validHrdFilePath);
 
             var calculator = new TestStructuresCalculator<StructuresStabilityPointCalculationInput>();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -1430,7 +1458,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     InflowModelType = StabilityPointStructureInflowModelType.FloodedCulvert,
                     LoadSchematizationType = LoadSchematizationType.Quadratic,
                     ForeshoreProfile = new TestForeshoreProfile(true)
@@ -1532,22 +1560,17 @@ namespace Riskeer.StabilityPointStructures.Service.Test
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Calculate_PreprocessorDirectorySet_InputPropertiesCorrectlySentToCalculator(bool usePreprocessor)
+        public void Calculate_HydraulicBoundaryCalculationSettingsSet_InputPropertiesCorrectlySentToCalculator(bool usePreprocessorClosure)
         {
             // Setup
-            string preprocessorDirectory = usePreprocessor
-                                               ? validPreprocessorDirectory
-                                               : string.Empty;
-            var calculationSettings = new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
-                                                                               validHlcdFilePath,
-                                                                               false,
-                                                                               preprocessorDirectory);
+            var calculationSettings = new HydraulicBoundaryCalculationSettings(validHlcdFilePath, validHrdFilePath, usePreprocessorClosure);
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository);
+                                                                                                           mockRepository,
+                                                                                                           validHrdFilePath);
             var calculator = new TestStructuresCalculator<StructuresStabilityPointCalculationInput>();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(
@@ -1564,7 +1587,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001)
                 }
             };
 
@@ -1574,15 +1597,9 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                 new StabilityPointStructuresCalculationService().Calculate(calculation,
                                                                            failureMechanism.GeneralInput,
                                                                            calculationSettings);
-
-                // Assert
-                StructuresStabilityPointCalculationInput[] calculationInputs = calculator.ReceivedInputs.ToArray();
-                Assert.AreEqual(1, calculationInputs.Length);
-
-                StructuresStabilityPointCalculationInput actualInput = calculationInputs[0];
-                Assert.AreEqual(usePreprocessor, actualInput.PreprocessorSetting.RunPreprocessor);
             }
 
+            // Assert
             mockRepository.VerifyAll();
         }
 
@@ -1600,7 +1617,9 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository,
+                                                                                                           validHrdFilePath);
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(null))
@@ -1612,7 +1631,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     InflowModelType = inflowModelType,
                     LoadSchematizationType = loadSchematizationType,
                     ForeshoreProfile = new TestForeshoreProfile(true),
@@ -1666,7 +1685,8 @@ namespace Riskeer.StabilityPointStructures.Service.Test
 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository);
+                                                                                                           mockRepository,
+                                                                                                           validHrdFilePath);
             var calculator = new TestStructuresCalculator<StructuresStabilityPointCalculationInput>
             {
                 LastErrorFileContent = "An error occurred",
@@ -1682,7 +1702,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     LoadSchematizationType = LoadSchematizationType.Linear
                 }
             };
@@ -1730,7 +1750,8 @@ namespace Riskeer.StabilityPointStructures.Service.Test
 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository);
+                                                                                                           mockRepository,
+                                                                                                           validHrdFilePath);
             var calculator = new TestStructuresCalculator<StructuresStabilityPointCalculationInput>
             {
                 EndInFailure = true
@@ -1745,7 +1766,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     LoadSchematizationType = LoadSchematizationType.Linear
                 }
             };
@@ -1793,7 +1814,8 @@ namespace Riskeer.StabilityPointStructures.Service.Test
 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository);
+                                                                                                           mockRepository,
+                                                                                                           validHrdFilePath);
             var calculator = new TestStructuresCalculator<StructuresStabilityPointCalculationInput>
             {
                 LastErrorFileContent = "An error occurred"
@@ -1808,7 +1830,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     LoadSchematizationType = LoadSchematizationType.Linear
                 }
             };
@@ -1853,10 +1875,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
 
         private static HydraulicBoundaryCalculationSettings CreateCalculationSettings()
         {
-            return new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
-                                                            validHlcdFilePath,
-                                                            false,
-                                                            string.Empty);
+            return new HydraulicBoundaryCalculationSettings(validHlcdFilePath, validHrdFilePath, false);
         }
 
         /// <summary>

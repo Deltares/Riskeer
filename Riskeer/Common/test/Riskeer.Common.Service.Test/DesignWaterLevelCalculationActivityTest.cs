@@ -44,9 +44,8 @@ namespace Riskeer.Common.Service.Test
     public class DesignWaterLevelCalculationActivityTest
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
-        private static readonly string validHydraulicBoundaryDatabaseFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
         private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "Hlcd.sqlite");
-        private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
 
         private static IEnumerable<TestCaseData> HydraulicBoundaryLocationCalculationsToPerform
         {
@@ -103,14 +102,11 @@ namespace Riskeer.Common.Service.Test
         public void Run_InvalidHydraulicBoundaryDatabase_PerformValidationAndLogStartAndEndAndError()
         {
             // Setup
-            string invalidFilePath = Path.Combine(testDataPath, "notexisting.sqlite");
+            string invalidHrdFilePath = Path.Combine(testDataPath, "notexisting.sqlite");
             const string locationName = "locationName";
             const string calculationIdentifier = "1/100";
 
-            var settings = new HydraulicBoundaryCalculationSettings(invalidFilePath,
-                                                                    validHlcdFilePath,
-                                                                    false,
-                                                                    string.Empty);
+            var settings = new HydraulicBoundaryCalculationSettings(validHlcdFilePath, invalidHrdFilePath, false);
             var activity = new DesignWaterLevelCalculationActivity(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(locationName)),
                                                                    settings,
                                                                    0.01,
@@ -133,42 +129,9 @@ namespace Riskeer.Common.Service.Test
         }
 
         [Test]
-        public void Run_InvalidPreprocessorDirectory_PerformValidationAndLogStartAndEndAndError()
-        {
-            // Setup
-            const string invalidPreprocessorDirectory = "NonExistingPreprocessorDirectory";
-            const string locationName = "locationName";
-            const string calculationIdentifier = "1/100";
-
-            var settings = new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
-                                                                    validHlcdFilePath,
-                                                                    false,
-                                                                    invalidPreprocessorDirectory);
-            var activity = new DesignWaterLevelCalculationActivity(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(locationName)),
-                                                                   settings,
-                                                                   0.01,
-                                                                   calculationIdentifier);
-
-            // Call
-            void Call() => activity.Run();
-
-            // Assert
-            TestHelper.AssertLogMessages(Call, messages =>
-            {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(4, msgs.Length);
-                Assert.AreEqual($"{GetActivityDescription(locationName, calculationIdentifier)} is gestart.", msgs[0]);
-                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
-                Assert.AreEqual("De bestandsmap waar de preprocessor bestanden opslaat is ongeldig. De bestandsmap bestaat niet.", msgs[2]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
-            });
-            Assert.AreEqual(ActivityState.Failed, activity.State);
-        }
-
-        [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Run_ValidInput_PerformCalculationWithCorrectInput(bool usePreprocessor)
+        public void Run_ValidInput_PerformCalculationWithCorrectInput(bool usePreprocessorClosure)
         {
             // Setup
             const string locationName = "locationName";
@@ -180,11 +143,7 @@ namespace Riskeer.Common.Service.Test
                 Converged = true
             };
 
-            string preprocessorDirectory = usePreprocessor ? validPreprocessorDirectory : string.Empty;
-            var calculationSettings = new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
-                                                                               validHlcdFilePath,
-                                                                               false,
-                                                                               preprocessorDirectory);
+            var calculationSettings = new HydraulicBoundaryCalculationSettings(validHlcdFilePath, validHrdFilePath, usePreprocessorClosure);
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -477,10 +436,7 @@ namespace Riskeer.Common.Service.Test
 
         private static HydraulicBoundaryCalculationSettings CreateCalculationSettings()
         {
-            return new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
-                                                            validHlcdFilePath,
-                                                            false,
-                                                            string.Empty);
+            return new HydraulicBoundaryCalculationSettings(validHlcdFilePath, validHrdFilePath, false);
         }
 
         private class TestDesignWaterLevelCalculationActivity : DesignWaterLevelCalculationActivity

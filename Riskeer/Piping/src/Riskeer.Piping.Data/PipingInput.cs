@@ -72,8 +72,8 @@ namespace Riskeer.Piping.Data
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when either:
         /// <list type="bullet">
-        /// <item><paramref name="value"/> is smaller or equal to <see cref="ExitPointL"/>.</item>
-        /// <item><paramref name="value"/> does not fall within the local X-coordinate range of <see cref="SurfaceLine"/></item>
+        /// <item><paramref name="value"/> is smaller or equal to <see cref="ExitPointL"/>;</item>
+        /// <item><paramref name="value"/> does not fall within the local X-coordinate range of <see cref="SurfaceLine"/>.</item>
         /// </list>
         /// </exception>
         public RoundedDouble EntryPointL
@@ -111,8 +111,8 @@ namespace Riskeer.Piping.Data
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when either:
         /// <list type="bullet">
-        /// <item><paramref name="value"/> is smaller or equal to <see cref="EntryPointL"/>.</item>
-        /// <item><paramref name="value"/> does not fall within the local X-coordinate range of <see cref="SurfaceLine"/></item>
+        /// <item><paramref name="value"/> is smaller or equal to <see cref="EntryPointL"/>;</item>
+        /// <item><paramref name="value"/> does not fall within the local X-coordinate range of <see cref="SurfaceLine"/>.</item>
         /// </list>
         /// </exception>
         public RoundedDouble ExitPointL

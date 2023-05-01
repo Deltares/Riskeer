@@ -81,7 +81,8 @@ namespace Riskeer.Integration.Plugin.Handlers
         /// <item><see cref="shapeFileDirectory"/> points to an invalid directory.</item>
         /// <item>The path <see cref="shapeFileDirectory"/> does not contain any shape files.</item>
         /// <item cref="CriticalFileReadException">Thrown when the shape file does not contain poly lines.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         /// <exception cref="CriticalFileValidationException">Thrown when:
         /// <list type="bullet">
         /// <item>The shape file does not contain the required attributes.</item>
@@ -90,7 +91,8 @@ namespace Riskeer.Integration.Plugin.Handlers
         /// <item>The maximum allowable flooding probability is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
         /// <item>The signal flooding probability is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
         /// <item>The signal flooding probability is larger than the maximum allowable flooding probability.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         public AssessmentSection GetAssessmentSectionFromFile()
         {
             TryReadSourceFiles();
@@ -307,13 +309,15 @@ namespace Riskeer.Integration.Plugin.Handlers
         /// <item><see cref="shapeFileDirectory"/> points to an invalid directory.</item>
         /// <item>The path <see cref="shapeFileDirectory"/> does not contain any shape files.</item>
         /// <item cref="CriticalFileReadException">Thrown when the shape file does not contain poly lines.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         /// <exception cref="CriticalFileValidationException">Thrown when:
         /// <list type="bullet">
         /// <item>The shape file does not contain the required attributes.</item>
         /// <item>The assessment section ids in the shape file are not unique or are missing.</item>
         /// <item>No <see cref="ReferenceLineMeta"/> could be read from the shape file.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         private void TryReadSourceFiles()
         {
             ReadAssessmentSectionSettings();
@@ -337,13 +341,15 @@ namespace Riskeer.Integration.Plugin.Handlers
         /// <item><see cref="shapeFileDirectory"/> points to an invalid directory.</item>
         /// <item>The path <see cref="shapeFileDirectory"/> does not contain any shape files.</item>
         /// <item cref="CriticalFileReadException">Thrown when the shape file does not contain poly lines.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         /// <exception cref="CriticalFileValidationException">Thrown when:
         /// <list type="bullet">
         /// <item>The shape file does not contain the required attributes.</item>
         /// <item>The assessment section ids in the shape file are not unique or are missing.</item>
         /// <item>No <see cref="ReferenceLineMeta"/> could be read from the shape file.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         private void ReadReferenceLineMetas()
         {
             var importer = new ReferenceLineMetaImporter(shapeFileDirectory);

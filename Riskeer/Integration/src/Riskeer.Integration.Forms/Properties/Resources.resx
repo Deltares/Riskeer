@@ -143,17 +143,11 @@
             PublicKeyToken=b03f5f7f11d50a3a
         </value>
     </data>
-    <data name="HydraulicBoundaryDatabase_Connect" xml:space="preserve">
-    <value>&amp;Koppel aan database...</value>
+    <data name="HydraulicBoundaryData_Connect_To_Hlcd" xml:space="preserve">
+    <value>&amp;Selecteer HLCD bestand...</value>
   </data>
-    <data name="HydraulicBoundaryDatabase_Connect_ToolTip" xml:space="preserve">
-    <value>Koppel aan hydraulische belastingendatabase.</value>
-  </data>
-    <data name="HydraulicBoundaryDatabase_FilePath_Description" xml:space="preserve">
-    <value>Locatie van het HRD bestand.</value>
-  </data>
-    <data name="HydraulicBoundaryDatabase_FilePath_DisplayName" xml:space="preserve">
-    <value>HRD bestandslocatie</value>
+    <data name="HydraulicBoundaryData_Connect_To_Hlcd_ToolTip" xml:space="preserve">
+    <value>Selecteer een HLCD bestand.</value>
   </data>
     <data name="CalculationGroupContextProperties_DisplayName" xml:space="preserve">
     <value>Map met berekeningen</value>
@@ -247,18 +241,6 @@
     <data name="SignalFloodingProbability_DisplayName" xml:space="preserve">
     <value>Signaleringsparameter [1/jaar]</value>
   </data>
-    <data name="HydraulicBoundaryDatabase_PreprocessorDirectory_Description" xml:space="preserve">
-    <value>Locatie waar de preprocessor bestanden opslaat.</value>
-  </data>
-    <data name="HydraulicBoundaryDatabase_PreprocessorDirectory_DisplayName" xml:space="preserve">
-    <value>Locatie preprocessor bestanden</value>
-  </data>
-    <data name="HydraulicBoundaryDatabase_UsePreprocessor_Description" xml:space="preserve">
-    <value>Gebruik de preprocessor bij het uitvoeren van een berekening.</value>
-  </data>
-    <data name="HydraulicBoundaryDatabase_UsePreprocessor_DisplayName" xml:space="preserve">
-    <value>Gebruik preprocessor</value>
-  </data>
     <data name="ReferenceLineProperties_Geometry_DisplayName" xml:space="preserve">
     <value>Coördinaten</value>
   </data>
@@ -300,73 +282,73 @@ Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau 
     <data name="AssemblyResultPerSectionMapView_DisplayName" xml:space="preserve">
     <value>Assemblagekaart</value>
   </data>
-    <data name="HydraulicLocationConfigurationSettings_Comment_Description" xml:space="preserve">
+    <data name="HydraulicLocationConfigurationDatabase_Comment_Description" xml:space="preserve">
     <value>Overige informatie.</value>
   </data>
-    <data name="HydraulicLocationConfigurationSettings_Comment_DisplayName" xml:space="preserve">
+    <data name="HydraulicLocationConfigurationDatabase_Comment_DisplayName" xml:space="preserve">
     <value>Overig</value>
   </data>
-    <data name="HydraulicLocationConfigurationSettings_FilePath_Description" xml:space="preserve">
-    <value>Locatie van het HLCD bestand.</value>
-  </data>
-    <data name="HydraulicLocationConfigurationSettings_FilePath_DisplayName" xml:space="preserve">
-    <value>HLCD bestandslocatie</value>
-  </data>
-    <data name="HydraulicLocationConfigurationSettings_LakeLevel_Description" xml:space="preserve">
+    <data name="HydraulicBoundaryData_WorkingDirectory_Description" xml:space="preserve">
+      <value>Locatie van de bestandsmap.</value>
+    </data>
+    <data name="HydraulicBoundaryData_WorkingDirectory_DisplayName" xml:space="preserve">
+      <value>Bestandsmap</value>
+    </data>
+    <data name="HydraulicLocationConfigurationDatabase_LakeLevel_Description" xml:space="preserve">
     <value>Klimaatinformatie met betrekking tot het meerpeil/de meerpeilen.</value>
   </data>
-    <data name="HydraulicLocationConfigurationSettings_LakeLevel_DisplayName" xml:space="preserve">
+    <data name="HydraulicLocationConfigurationDatabase_LakeLevel_DisplayName" xml:space="preserve">
     <value>Meerpeil</value>
   </data>
-    <data name="HydraulicLocationConfigurationSettings_RiverDischarge_Description" xml:space="preserve">
+    <data name="HydraulicLocationConfigurationDatabase_RiverDischarge_Description" xml:space="preserve">
     <value>Klimaatinformatie met betrekking tot de rivierafvoer.</value>
   </data>
-    <data name="HydraulicLocationConfigurationSettings_RiverDischarge_DisplayName" xml:space="preserve">
+    <data name="HydraulicLocationConfigurationDatabase_RiverDischarge_DisplayName" xml:space="preserve">
     <value>Rivierafvoer</value>
   </data>
-    <data name="HydraulicLocationConfigurationSettings_ScenarioName_Description" xml:space="preserve">
+    <data name="HydraulicLocationConfigurationDatabase_ScenarioName_Description" xml:space="preserve">
     <value>Algemene naam van het klimaatscenario.</value>
   </data>
-    <data name="HydraulicLocationConfigurationSettings_ScenarioName_DisplayName" xml:space="preserve">
+    <data name="HydraulicLocationConfigurationDatabase_ScenarioName_DisplayName" xml:space="preserve">
     <value>Klimaatscenario</value>
   </data>
-    <data name="HydraulicLocationConfigurationSettings_Scope_Description" xml:space="preserve">
+    <data name="HydraulicLocationConfigurationDatabase_Scope_Description" xml:space="preserve">
     <value>Projectkader waarin de statistiek bedoeld is te gebruiken.</value>
   </data>
-    <data name="HydraulicLocationConfigurationSettings_Scope_DisplayName" xml:space="preserve">
+    <data name="HydraulicLocationConfigurationDatabase_Scope_DisplayName" xml:space="preserve">
     <value>Toepassingskader</value>
   </data>
-    <data name="HydraulicLocationConfigurationSettings_SeaLevel_Description" xml:space="preserve">
+    <data name="HydraulicLocationConfigurationDatabase_SeaLevel_Description" xml:space="preserve">
     <value>Klimaatinformatie met betrekking tot de zeewaterstand.</value>
   </data>
-    <data name="HydraulicLocationConfigurationSettings_SeaLevel_DisplayName" xml:space="preserve">
+    <data name="HydraulicLocationConfigurationDatabase_SeaLevel_DisplayName" xml:space="preserve">
     <value>Zeewaterstand</value>
   </data>
-    <data name="HydraulicLocationConfigurationSettings_WindDirection_Description" xml:space="preserve">
+    <data name="HydraulicLocationConfigurationDatabase_WindDirection_Description" xml:space="preserve">
     <value>Klimaatinformatie met betrekking tot de windrichting.</value>
   </data>
-    <data name="HydraulicLocationConfigurationSettings_WindDirection_DisplayName" xml:space="preserve">
+    <data name="HydraulicLocationConfigurationDatabase_WindDirection_DisplayName" xml:space="preserve">
     <value>Windrichting</value>
   </data>
-    <data name="HydraulicLocationConfigurationSettings_WindSpeed_Description" xml:space="preserve">
+    <data name="HydraulicLocationConfigurationDatabase_WindSpeed_Description" xml:space="preserve">
     <value>Klimaatinformatie met betrekking tot de windsnelheid.</value>
   </data>
-    <data name="HydraulicLocationConfigurationSettings_WindSpeed_DisplayName" xml:space="preserve">
+    <data name="HydraulicLocationConfigurationDatabase_WindSpeed_DisplayName" xml:space="preserve">
     <value>Windsnelheid</value>
   </data>
-    <data name="HydraulicLocationConfigurationSettings_Year_Description" xml:space="preserve">
+    <data name="HydraulicLocationConfigurationDatabase_Year_Description" xml:space="preserve">
     <value>Jaartal van het jaar waarop de statistiek van toepassing is.</value>
   </data>
-    <data name="HydraulicLocationConfigurationSettings_Year_DisplayName" xml:space="preserve">
+    <data name="HydraulicLocationConfigurationDatabase_Year_DisplayName" xml:space="preserve">
     <value>Zichtjaar</value>
   </data>
     <data name="HlcdFileNameEditor_InitializeDialog_FileFilter" xml:space="preserve">
     <value>HLCD bestand|*.sqlite</value>
   </data>
-    <data name="HydraulicLocationConfigurationSettings_UsePreprocessorClosure_Description" xml:space="preserve">
+    <data name="HydraulicBoundaryDatabase_UsePreprocessorClosure_Description" xml:space="preserve">
     <value>Gebruik de preprocessor sluitregime database bij het uitvoeren van een berekening.</value>
   </data>
-    <data name="HydraulicLocationConfigurationSettings_UsePreprocessorClosure_DisplayName" xml:space="preserve">
+    <data name="HydraulicBoundaryDatabase_UsePreprocessorClosure_DisplayName" xml:space="preserve">
     <value>Gebruik preprocessor sluitregime database</value>
   </data>
     <data name="AssessmentSectionAssemblyResultControl_AssemblyGroup_DisplayName" xml:space="preserve">
@@ -420,4 +402,22 @@ Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau 
     <data name="Worst_AssemblyResult_per_section_DisplayName" xml:space="preserve">
     <value>Slechtste duidingsklasse per deelvak</value>
   </data>
+    <data name="HydraulicBoundaryData_Connect_To_Different_Hlcd" xml:space="preserve">
+      <value>&amp;Selecteer ander HLCD bestand...</value>
+    </data>
+    <data name="HydraulicBoundaryData_Connect_To_Different_Hlcd_ToolTip" xml:space="preserve">
+      <value>Selecteer een ander HLCD bestand.</value>
+    </data>
+    <data name="HydraulicBoundaryData_Select_Different_Folder" xml:space="preserve">
+      <value>Selecteer andere bestandsmap...</value>
+    </data>
+    <data name="HydraulicBoundaryData_Select_Different_Folder_ToolTip" xml:space="preserve">
+      <value>Selecteer een andere bestandsmap.</value>
+    </data>
+    <data name="HydraulicBoundaryDatabase_Version_DisplayName" xml:space="preserve">
+      <value>Versie</value>
+    </data>
+    <data name="HydraulicBoundaryDatabase_Version_Description" xml:space="preserve">
+      <value>Versie van de hydraulische belastingendatabase.</value>
+    </data>
 </root>

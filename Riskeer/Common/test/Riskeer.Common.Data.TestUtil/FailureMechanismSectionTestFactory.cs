@@ -37,8 +37,7 @@ namespace Riskeer.Common.Data.TestUtil
         /// </summary>
         /// <param name="name">The name of the section.</param>
         /// <returns>A valid <see cref="FailureMechanismSection"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <param name="name"></param>
-        /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
         public static FailureMechanismSection CreateFailureMechanismSection(string name = "test")
         {
             return CreateFailureMechanismSection(name, new[]
@@ -51,7 +50,7 @@ namespace Riskeer.Common.Data.TestUtil
         /// <summary>
         /// Creates a <see cref="FailureMechanismSection"/> with defined coordinates.
         /// </summary>
-        /// <param name="coordinates">The coordinates of the <see cref="FailureMechanismSection"/></param>
+        /// <param name="coordinates">The coordinates of the <see cref="FailureMechanismSection"/>.</param>
         /// <returns>A valid <see cref="FailureMechanismSection"/> with the specified coordinates.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="coordinates"/>
         /// is <c>null</c>.</exception>

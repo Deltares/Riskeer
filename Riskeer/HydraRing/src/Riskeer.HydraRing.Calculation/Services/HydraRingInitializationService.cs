@@ -55,7 +55,6 @@ namespace Riskeer.HydraRing.Calculation.Services
         private readonly string hlcdFilePath;
         private readonly string hydraRingDirectory;
         private readonly string configurationDatabaseFilePath;
-        private readonly string preprocessorDirectory;
         private readonly bool usePreprocessorClosure;
 
         /// <summary>
@@ -66,8 +65,6 @@ namespace Riskeer.HydraRing.Calculation.Services
         /// <param name="temporaryWorkingDirectory">The working directory.</param>
         /// <param name="settings">The <see cref="HydraRingCalculationSettings"/>
         /// which holds all the general information to start a Hydra-Ring calculation.</param>
-        /// <remarks>Preprocessing is disabled when <see cref="HydraRingCalculationSettings.PreprocessorDirectory"/>
-        /// matches <see cref="string.Empty"/>.</remarks>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="settings"/> is <c>null</c>.</exception>
         public HydraRingInitializationService(HydraRingFailureMechanismType failureMechanismType,
                                               int sectionId,
@@ -88,7 +85,6 @@ namespace Riskeer.HydraRing.Calculation.Services
             hydraRingDirectory = Path.Combine(applicationFolder, "Standalone", "Deltares", $"{hydraRingBinariesSubDirectory}-{HydraRingFileConstants.HydraRingVersionNumber}");
 
             configurationDatabaseFilePath = Path.Combine(hydraRingDirectory, HydraRingFileConstants.ConfigurationDatabaseFileName);
-            preprocessorDirectory = settings.PreprocessorDirectory;
             usePreprocessorClosure = settings.UsePreprocessorClosure;
         }
 
@@ -153,11 +149,6 @@ namespace Riskeer.HydraRing.Calculation.Services
                                                            "configdbfilename        = " + configurationDatabaseFilePath,
                                                            "hydraulicdbfilename     = " + hlcdFilePath,
                                                            "designpointOutput       = sqlite");
-
-            if (preprocessorDirectory != string.Empty)
-            {
-                initializationFileContent += Environment.NewLine + "preprocessordbdirectory = " + preprocessorDirectory;
-            }
 
             if (usePreprocessorClosure)
             {

@@ -47,7 +47,8 @@ namespace Core.Components.Gis.IO.Writers
         /// <item>does not consist out of only whitespace characters,</item>
         /// <item>does not contain an invalid character,</item>
         /// <item>does not end with a directory or path separator (empty file name).</item>
-        /// </list></remarks>
+        /// </list>
+        /// </remarks>
         public WmtsConnectionInfoWriter(string filePath)
         {
             IOUtils.ValidateFilePath(filePath);

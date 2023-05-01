@@ -33,10 +33,10 @@ namespace Riskeer.Common.Service.Test
         public void CreateSettings_HydraulicBoundaryCalculationSettingsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => HydraRingCalculationSettingsFactory.CreateSettings(null);
+            void Call() => HydraRingCalculationSettingsFactory.CreateSettings(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("hydraulicBoundaryCalculationSettings", exception.ParamName);
         }
 
@@ -44,17 +44,13 @@ namespace Riskeer.Common.Service.Test
         public void CreateSettings_WithHydraulicBoundaryCalculationSettings_ReturnsExpectedSettings()
         {
             // Setup
-            var hydraulicBoundaryCalculationSettings = new HydraulicBoundaryCalculationSettings("HydraulicBoundaryDataBaseFilePath",
-                                                                                                "hlcdFilePath",
-                                                                                                false,
-                                                                                                "preprocessorDirectory");
+            var hydraulicBoundaryCalculationSettings = new HydraulicBoundaryCalculationSettings("hlcdFilePath", "hrdFilePath", false);
 
             // Call
             HydraRingCalculationSettings hydraRingCalculationSettings = HydraRingCalculationSettingsFactory.CreateSettings(hydraulicBoundaryCalculationSettings);
 
             // Assert
             Assert.AreEqual(hydraulicBoundaryCalculationSettings.HlcdFilePath, hydraRingCalculationSettings.HlcdFilePath);
-            Assert.AreEqual(hydraulicBoundaryCalculationSettings.PreprocessorDirectory, hydraRingCalculationSettings.PreprocessorDirectory);
             Assert.AreEqual(hydraulicBoundaryCalculationSettings.UsePreprocessorClosure, hydraRingCalculationSettings.UsePreprocessorClosure);
         }
     }

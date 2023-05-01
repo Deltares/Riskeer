@@ -21,8 +21,8 @@
 
 using System;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Resources;
+using System.Runtime.InteropServices;
 
 [assembly: AssemblyCompany("Deltares")]
 [assembly: AssemblyDescription("")]

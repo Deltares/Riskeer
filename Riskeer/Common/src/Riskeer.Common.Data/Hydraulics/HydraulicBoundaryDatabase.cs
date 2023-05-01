@@ -24,9 +24,9 @@ using Core.Common.Base;
 namespace Riskeer.Common.Data.Hydraulics
 {
     /// <summary>
-    /// The data object for the hydraulic boundary database.
+    /// Class which holds information about a hydraulic boundary database.
     /// </summary>
-    public class HydraulicBoundaryDatabase : Observable
+    public class HydraulicBoundaryDatabase
     {
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryDatabase"/>.
@@ -34,27 +34,26 @@ namespace Riskeer.Common.Data.Hydraulics
         public HydraulicBoundaryDatabase()
         {
             Locations = new ObservableList<HydraulicBoundaryLocation>();
-            HydraulicLocationConfigurationSettings = new HydraulicLocationConfigurationSettings();
         }
 
         /// <summary>
-        /// Gets or sets the path to the hydraulic boundary database file.
+        /// Gets or sets the file path.
         /// </summary>
         public string FilePath { get; set; }
 
         /// <summary>
-        /// Gets or sets the version of the hydraulic boundary database.
+        /// Gets or sets the version.
         /// </summary>
         public string Version { get; set; }
+
+        /// <summary>
+        /// Gets or sets the indicator whether to use the preprocessor closure.
+        /// </summary>
+        public bool UsePreprocessorClosure { get; set; }
 
         /// <summary>
         /// Gets the hydraulic boundary locations.
         /// </summary>
         public ObservableList<HydraulicBoundaryLocation> Locations { get; }
-
-        /// <summary>
-        /// Gets the <see cref="Hydraulics.HydraulicLocationConfigurationSettings"/>.
-        /// </summary>
-        public HydraulicLocationConfigurationSettings HydraulicLocationConfigurationSettings { get; }
     }
 }

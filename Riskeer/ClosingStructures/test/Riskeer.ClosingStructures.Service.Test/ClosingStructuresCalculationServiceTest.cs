@@ -49,9 +49,8 @@ namespace Riskeer.ClosingStructures.Service.Test
     public class ClosingStructuresCalculationServiceTest
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
-        private static readonly string validHydraulicBoundaryDatabaseFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
         private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "Hlcd.sqlite");
-        private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -74,10 +73,16 @@ namespace Riskeer.ClosingStructures.Service.Test
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new ClosingStructuresFailureMechanism(),
                                                                                                            mockRepository,
-                                                                                                           Path.Combine(testDataPath, "HRD dutch coast south.sqlite"));
+                                                                                                           validHrdFilePath);
             mockRepository.ReplayAll();
 
-            var calculation = new TestClosingStructuresCalculationScenario();
+            var calculation = new TestClosingStructuresCalculationScenario
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First()
+                }
+            };
 
             SetInvalidInputParameters(calculation.InputParameters, (RoundedDouble) value);
 
@@ -127,14 +132,15 @@ namespace Riskeer.ClosingStructures.Service.Test
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new ClosingStructuresFailureMechanism(),
                                                                                                            mockRepository,
-                                                                                                           Path.Combine(testDataPath, "HRD dutch coast south.sqlite"));
+                                                                                                           validHrdFilePath);
             mockRepository.ReplayAll();
 
             var calculation = new TestClosingStructuresCalculationScenario
             {
                 InputParameters =
                 {
-                    InflowModelType = ClosingStructureInflowModelType.LowSill
+                    InflowModelType = ClosingStructureInflowModelType.LowSill,
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First()
                 }
             };
             SetInvalidInputParameters(calculation.InputParameters, (RoundedDouble) value);
@@ -186,14 +192,15 @@ namespace Riskeer.ClosingStructures.Service.Test
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new ClosingStructuresFailureMechanism(),
                                                                                                            mockRepository,
-                                                                                                           Path.Combine(testDataPath, "HRD dutch coast south.sqlite"));
+                                                                                                           validHrdFilePath);
             mockRepository.ReplayAll();
 
             var calculation = new TestClosingStructuresCalculationScenario
             {
                 InputParameters =
                 {
-                    InflowModelType = ClosingStructureInflowModelType.FloodedCulvert
+                    InflowModelType = ClosingStructureInflowModelType.FloodedCulvert,
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First()
                 }
             };
             SetInvalidInputParameters(calculation.InputParameters, (RoundedDouble) value);
@@ -240,14 +247,15 @@ namespace Riskeer.ClosingStructures.Service.Test
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new ClosingStructuresFailureMechanism(),
                                                                                                            mockRepository,
-                                                                                                           Path.Combine(testDataPath, "HRD dutch coast south.sqlite"));
+                                                                                                           validHrdFilePath);
             mockRepository.ReplayAll();
 
             var calculation = new TestClosingStructuresCalculationScenario
             {
                 InputParameters =
                 {
-                    InflowModelType = (ClosingStructureInflowModelType) 9001
+                    InflowModelType = (ClosingStructureInflowModelType) 9001,
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First()
                 }
             };
 
@@ -276,7 +284,7 @@ namespace Riskeer.ClosingStructures.Service.Test
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new ClosingStructuresFailureMechanism(),
                                                                                                            mockRepository,
-                                                                                                           Path.Combine(testDataPath, "HRD dutch coast south.sqlite"));
+                                                                                                           validHrdFilePath);
             mockRepository.ReplayAll();
 
             var calculation = new TestClosingStructuresCalculationScenario
@@ -284,7 +292,7 @@ namespace Riskeer.ClosingStructures.Service.Test
                 InputParameters =
                 {
                     InflowModelType = inflowModelType,
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(),
                     ForeshoreProfile = new TestForeshoreProfile(new BreakWater(BreakWaterType.Dam, breakWaterHeight)),
                     UseBreakWater = true
                 }
@@ -355,7 +363,8 @@ namespace Riskeer.ClosingStructures.Service.Test
 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository);
+                                                                                                           mockRepository,
+                                                                                                           validHrdFilePath);
             var calculator = new TestStructuresCalculator<StructuresClosureCalculationInput>();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(null))
@@ -367,7 +376,7 @@ namespace Riskeer.ClosingStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001)
                 }
             };
 
@@ -434,7 +443,8 @@ namespace Riskeer.ClosingStructures.Service.Test
 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository);
+                                                                                                           mockRepository,
+                                                                                                           validHrdFilePath);
 
             var calculator = new TestStructuresCalculator<StructuresClosureCalculationInput>();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -447,7 +457,7 @@ namespace Riskeer.ClosingStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     ForeshoreProfile = new TestForeshoreProfile(true)
                     {
                         BreakWater =
@@ -515,7 +525,8 @@ namespace Riskeer.ClosingStructures.Service.Test
 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository);
+                                                                                                           mockRepository,
+                                                                                                           validHrdFilePath);
 
             var calculator = new TestStructuresCalculator<StructuresClosureCalculationInput>();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -528,7 +539,7 @@ namespace Riskeer.ClosingStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     InflowModelType = ClosingStructureInflowModelType.LowSill
                 }
             };
@@ -594,7 +605,8 @@ namespace Riskeer.ClosingStructures.Service.Test
 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository);
+                                                                                                           mockRepository,
+                                                                                                           validHrdFilePath);
 
             var calculator = new TestStructuresCalculator<StructuresClosureCalculationInput>();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -607,7 +619,7 @@ namespace Riskeer.ClosingStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     InflowModelType = ClosingStructureInflowModelType.LowSill,
                     ForeshoreProfile = new TestForeshoreProfile(true)
                     {
@@ -674,7 +686,8 @@ namespace Riskeer.ClosingStructures.Service.Test
 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository);
+                                                                                                           mockRepository,
+                                                                                                           validHrdFilePath);
             var calculator = new TestStructuresCalculator<StructuresClosureCalculationInput>();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(null))
@@ -686,7 +699,7 @@ namespace Riskeer.ClosingStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     InflowModelType = ClosingStructureInflowModelType.FloodedCulvert
                 }
             };
@@ -751,7 +764,8 @@ namespace Riskeer.ClosingStructures.Service.Test
 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository);
+                                                                                                           mockRepository,
+                                                                                                           validHrdFilePath);
             var calculator = new TestStructuresCalculator<StructuresClosureCalculationInput>();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(null))
@@ -763,7 +777,7 @@ namespace Riskeer.ClosingStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     InflowModelType = ClosingStructureInflowModelType.FloodedCulvert,
                     ForeshoreProfile = new TestForeshoreProfile(true)
                     {
@@ -822,22 +836,17 @@ namespace Riskeer.ClosingStructures.Service.Test
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Calculate_PreprocessorDirectorySet_InputPropertiesCorrectlySentToCalculator(bool usePreprocessor)
+        public void Calculate_HydraulicBoundaryCalculationSettingsSet_InputPropertiesCorrectlySentToCalculator(bool usePreprocessorClosure)
         {
             // Setup
-            string preprocessorDirectory = usePreprocessor
-                                               ? validPreprocessorDirectory
-                                               : string.Empty;
-            var calculationSettings = new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
-                                                                               validHlcdFilePath,
-                                                                               false,
-                                                                               preprocessorDirectory);
+            var calculationSettings = new HydraulicBoundaryCalculationSettings(validHlcdFilePath, validHrdFilePath, usePreprocessorClosure);
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository);
+                                                                                                           mockRepository,
+                                                                                                           validHrdFilePath);
             var calculator = new TestStructuresCalculator<StructuresClosureCalculationInput>();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(
@@ -854,7 +863,7 @@ namespace Riskeer.ClosingStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001)
                 }
             };
 
@@ -864,15 +873,9 @@ namespace Riskeer.ClosingStructures.Service.Test
                 new ClosingStructuresCalculationService().Calculate(calculation,
                                                                     failureMechanism.GeneralInput,
                                                                     calculationSettings);
-
-                // Assert
-                StructuresClosureCalculationInput[] calculationInputs = calculator.ReceivedInputs.ToArray();
-                Assert.AreEqual(1, calculationInputs.Length);
-
-                StructuresClosureCalculationInput actualInput = calculationInputs[0];
-                Assert.AreEqual(usePreprocessor, actualInput.PreprocessorSetting.RunPreprocessor);
             }
 
+            // Assert
             mockRepository.VerifyAll();
         }
 
@@ -889,7 +892,8 @@ namespace Riskeer.ClosingStructures.Service.Test
 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository);
+                                                                                                           mockRepository,
+                                                                                                           validHrdFilePath);
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(null))
                              .IgnoreArguments()
@@ -900,7 +904,7 @@ namespace Riskeer.ClosingStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     InflowModelType = inflowModelType,
                     ForeshoreProfile = new TestForeshoreProfile(true),
                     UseForeshore = true,
@@ -953,7 +957,8 @@ namespace Riskeer.ClosingStructures.Service.Test
 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository);
+                                                                                                           mockRepository,
+                                                                                                           validHrdFilePath);
             var calculator = new TestStructuresCalculator<StructuresClosureCalculationInput>
             {
                 LastErrorFileContent = "An error occurred",
@@ -969,7 +974,7 @@ namespace Riskeer.ClosingStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001)
                 }
             };
 
@@ -1017,7 +1022,8 @@ namespace Riskeer.ClosingStructures.Service.Test
 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository);
+                                                                                                           mockRepository,
+                                                                                                           validHrdFilePath);
             var calculator = new TestStructuresCalculator<StructuresClosureCalculationInput>
             {
                 EndInFailure = true
@@ -1032,7 +1038,7 @@ namespace Riskeer.ClosingStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001)
                 }
             };
 
@@ -1080,7 +1086,8 @@ namespace Riskeer.ClosingStructures.Service.Test
 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository);
+                                                                                                           mockRepository,
+                                                                                                           validHrdFilePath);
             var calculator = new TestStructuresCalculator<StructuresClosureCalculationInput>
             {
                 EndInFailure = false,
@@ -1096,7 +1103,7 @@ namespace Riskeer.ClosingStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001)
                 }
             };
 
@@ -1141,10 +1148,7 @@ namespace Riskeer.ClosingStructures.Service.Test
 
         private static HydraulicBoundaryCalculationSettings CreateCalculationSettings()
         {
-            return new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
-                                                            validHlcdFilePath,
-                                                            false,
-                                                            string.Empty);
+            return new HydraulicBoundaryCalculationSettings(validHlcdFilePath, validHrdFilePath, false);
         }
 
         /// <summary>

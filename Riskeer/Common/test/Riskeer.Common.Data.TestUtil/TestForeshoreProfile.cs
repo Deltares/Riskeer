@@ -100,7 +100,8 @@ namespace Riskeer.Common.Data.TestUtil
         /// <list type="bullet">
         /// <item>Any element of <paramref name="geometry"/> is <c>null</c>.</item>
         /// <item><paramref name="profileId"/> is null, empty or whitespaces.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         public TestForeshoreProfile(string profileId, IEnumerable<Point2D> geometry)
             : this(profileId, "name", new Point2D(0, 0), null, geometry) {}
 
@@ -118,7 +119,8 @@ namespace Riskeer.Common.Data.TestUtil
         /// <list type="bullet">
         /// <item>Any element of <paramref name="geometry"/> is <c>null</c>.</item>
         /// <item><paramref name="profileId"/> is null, empty or whitespaces.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         private TestForeshoreProfile(string profileId, string profileName, Point2D worldCoordinate, BreakWater breakWater, IEnumerable<Point2D> geometry)
             : base(worldCoordinate,
                    geometry,

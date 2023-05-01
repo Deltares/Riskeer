@@ -63,7 +63,9 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos.CalculationsState
         private const int contextMenuClearAllIndex = 5;
         private const int contextMenuClearIllustrationPointsIndex = 6;
 
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryDatabase));
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryData));
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "complete.sqlite");
+        private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
 
         private MockRepository mocksRepository;
         private ClosingStructuresPlugin plugin;
@@ -259,106 +261,13 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos.CalculationsState
         }
 
         [Test]
-        public void ContextMenuStrip_HydraulicBoundaryDatabaseNotLinked_ContextMenuItemCalculateAllAndValidateAllDisabledAndTooltipSet()
-        {
-            // Setup
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<ClosingStructuresInput>());
-
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocksRepository);
-
-            var nodeData = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
-            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var gui = mocksRepository.Stub<IGui>();
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
-                mocksRepository.ReplayAll();
-
-                plugin.Gui = gui;
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateAllIndex,
-                                                                  "Alles be&rekenen",
-                                                                  "Er is geen hydraulische belastingendatabase geïmporteerd.",
-                                                                  RiskeerCommonFormsResources.CalculateAllIcon,
-                                                                  false);
-
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateAllIndex,
-                                                                  "Alles &valideren",
-                                                                  "Er is geen hydraulische belastingendatabase geïmporteerd.",
-                                                                  RiskeerCommonFormsResources.ValidateAllIcon,
-                                                                  false);
-                }
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_HydraulicBoundaryDatabaseLinkedToInvalidFile_ContextMenuItemCalculateAllAndValidateAllDisabledAndTooltipSet()
-        {
-            // Setup
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<ClosingStructuresInput>());
-
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocksRepository, "invalidFilePath");
-
-            var nodeData = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
-            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var gui = mocksRepository.Stub<IGui>();
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
-                mocksRepository.ReplayAll();
-
-                plugin.Gui = gui;
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    ToolStripItem calculateAllContextMenuItem = contextMenu.Items[contextMenuCalculateAllIndex];
-
-                    Assert.AreEqual("Alles be&rekenen", calculateAllContextMenuItem.Text);
-                    StringAssert.Contains("Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt. ", calculateAllContextMenuItem.ToolTipText);
-                    TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.CalculateAllIcon, calculateAllContextMenuItem.Image);
-                    Assert.IsFalse(calculateAllContextMenuItem.Enabled);
-
-                    ToolStripItem validateAllContextMenuItem = contextMenu.Items[contextMenuValidateAllIndex];
-
-                    Assert.AreEqual("Alles &valideren", validateAllContextMenuItem.Text);
-                    StringAssert.Contains("Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt. ", validateAllContextMenuItem.ToolTipText);
-                    TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.ValidateAllIcon, validateAllContextMenuItem.Image);
-                    Assert.IsFalse(validateAllContextMenuItem.Enabled);
-                }
-            }
-        }
-
-        [Test]
         public void ContextMenuStrip_AllRequiredInputSet_ContextMenuItemCalculateAllAndValidateAllEnabled()
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<ClosingStructuresInput>());
 
-            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
-
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = validFilePath,
-                Version = "1.0"
-            };
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
-
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
-
             var nodeData = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -395,34 +304,57 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos.CalculationsState
             IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub(mocksRepository);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new TestClosingStructuresCalculationScenario
-            {
-                Name = "A",
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
-                }
-            });
-            failureMechanism.CalculationsGroup.Children.Add(new TestClosingStructuresCalculationScenario
-            {
-                Name = "B",
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
-                }
-            });
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var failureMechanism = new ClosingStructuresFailureMechanism
             {
-                FilePath = Path.Combine(testDataPath, "complete.sqlite")
+                CalculationsGroup =
+                {
+                    Children =
+                    {
+                        new TestClosingStructuresCalculationScenario
+                        {
+                            Name = "A",
+                            InputParameters =
+                            {
+                                HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                            }
+                        },
+                        new TestClosingStructuresCalculationScenario
+                        {
+                            Name = "B",
+                            InputParameters =
+                            {
+                                HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                            }
+                        }
+                    }
+                }
             };
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
+
+            var hydraulicBoundaryData = new HydraulicBoundaryData
+            {
+                HydraulicLocationConfigurationDatabase =
+                {
+                    FilePath = validHlcdFilePath
+                },
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        FilePath = validHrdFilePath,
+                        Locations =
+                        {
+                            hydraulicBoundaryLocation
+                        }
+                    }
+                }
+            };
 
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.Id).Return(string.Empty);
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
 
             var context = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -439,7 +371,8 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos.CalculationsState
                                  .WhenCalled(invocation =>
                                  {
                                      HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase),
+                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData,
+                                                                                                    hydraulicBoundaryLocation),
                                          (HydraRingCalculationSettings) invocation.Arguments[0]);
                                  })
                                  .Return(new TestStructuresCalculator<StructuresClosureCalculationInput>())
@@ -488,34 +421,55 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos.CalculationsState
         public void ContextMenuStrip_ClickOnValidateAllItem_ValidateAllChildCalculations()
         {
             // Setup
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new TestClosingStructuresCalculationScenario
-            {
-                Name = "A",
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
-                }
-            });
-            failureMechanism.CalculationsGroup.Children.Add(new TestClosingStructuresCalculationScenario
-            {
-                Name = "B",
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
-                }
-            });
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
-            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
-
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var failureMechanism = new ClosingStructuresFailureMechanism
             {
-                FilePath = validFilePath
+                CalculationsGroup =
+                {
+                    Children =
+                    {
+                        new TestClosingStructuresCalculationScenario
+                        {
+                            Name = "A",
+                            InputParameters =
+                            {
+                                HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                            }
+                        },
+                        new TestClosingStructuresCalculationScenario
+                        {
+                            Name = "B",
+                            InputParameters =
+                            {
+                                HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                            }
+                        }
+                    }
+                }
             };
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
+
+            var hydraulicBoundaryData = new HydraulicBoundaryData
+            {
+                HydraulicLocationConfigurationDatabase =
+                {
+                    FilePath = validHlcdFilePath
+                },
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        FilePath = validHrdFilePath,
+                        Locations =
+                        {
+                            hydraulicBoundaryLocation
+                        }
+                    }
+                }
+            };
 
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
 
             var context = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 

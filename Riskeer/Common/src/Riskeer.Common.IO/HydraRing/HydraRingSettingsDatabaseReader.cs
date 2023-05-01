@@ -65,15 +65,10 @@ namespace Riskeer.Common.IO.HydraRing
 
         private const string locationIdColumn = "LocationID";
 
-        private const string minValueRunPreprocessorColumn = "MinValueRunPreprocessor";
-        private const string maxValueRunPreprocessorColumn = "MaxValueRunPreprocessor";
-
         private readonly string designTablesSettingsForLocationAndCalculationTypeQuery;
         private readonly string numericsSettingsForLocationMechanismAndSubMechanismQuery;
         private readonly string excludedLocationsQuery;
-        private readonly string excludedPreprocessorLocationsQuery;
         private readonly string timeIntegrationSettingsForLocationAndCalculationTypeQuery;
-        private readonly string preprocessorSettingsForLocationQuery;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraRingSettingsDatabaseReader"/>.
@@ -113,12 +108,6 @@ namespace Riskeer.Common.IO.HydraRing
                                                                         $"AND CalculationTypeID = {calculationTypeIdParameterName}";
 
             excludedLocationsQuery = $"SELECT {locationIdColumn} FROM ExcludedLocations";
-
-            preprocessorSettingsForLocationQuery = $"SELECT {minValueRunPreprocessorColumn}, {maxValueRunPreprocessorColumn} " +
-                                                   "FROM PreprocessorSettings " +
-                                                   $"WHERE LocationID = {locationIdParameterName}";
-
-            excludedPreprocessorLocationsQuery = $"SELECT {locationIdColumn} FROM ExcludedLocationsPreprocessor";
         }
 
         /// <summary>
@@ -255,59 +244,13 @@ namespace Riskeer.Common.IO.HydraRing
         }
 
         /// <summary>
-        /// Reads a preprocessor setting for a given location.
-        /// </summary>
-        /// <param name="locationId">The id of a hydraulic boundary location.</param>
-        /// <returns>A new <see cref="ReadPreprocessorSetting"/> containing values read from the database.</returns>
-        /// <exception cref="CriticalFileReadException">Thrown when a column that is being read doesn't
-        /// contain expected type.</exception>
-        public ReadPreprocessorSetting ReadPreprocessorSetting(long locationId)
-        {
-            using (IDataReader reader = CreatePreprocessorSettingsDataReader(locationId))
-            {
-                if (MoveNext(reader))
-                {
-                    try
-                    {
-                        return new ReadPreprocessorSetting(
-                            reader.Read<double>(minValueRunPreprocessorColumn),
-                            reader.Read<double>(maxValueRunPreprocessorColumn));
-                    }
-                    catch (ConversionException)
-                    {
-                        throw new CriticalFileReadException(Resources.HydraRingSettingsDatabase_Hydraulic_calculation_settings_database_has_invalid_schema);
-                    }
-                }
-            }
-
-            return null;
-        }
-
-        /// <summary>
-        /// Reads the excluded preprocessor locations (those for which no preprocessor calculation is possible) from the database.
-        /// </summary>
-        /// <returns>A <see cref="IEnumerable{T}"/> of ids for all the excluded locations.</returns>
-        /// <exception cref="CriticalFileReadException">Thrown when a column that is being read doesn't
-        /// contain expected type.</exception>
-        public IEnumerable<long> ReadExcludedPreprocessorLocations()
-        {
-            using (IDataReader reader = CreateExcludedPreprocessorLocationsDataReader())
-            {
-                while (MoveNext(reader))
-                {
-                    yield return TryReadLocationIdColumn(reader);
-                }
-            }
-        }
-
-        /// <summary>
         /// Tries to read the <see cref="locationIdColumn"/> from the <paramref name="reader"/>.
         /// </summary>
         /// <param name="reader">The reader to read the column's value from.</param>
         /// <returns>The id of the location that was read from the <paramref name="reader"/>.</returns>
         /// <exception cref="CriticalFileReadException">Thrown when the <see cref="locationIdColumn"/>
         /// column contains a value of unexpected type.</exception>
-        private long TryReadLocationIdColumn(IDataReader reader)
+        private static long TryReadLocationIdColumn(IDataReader reader)
         {
             try
             {
@@ -396,25 +339,6 @@ namespace Riskeer.Common.IO.HydraRing
         private IDataReader CreateExcludedLocationsDataReader()
         {
             return CreateDataReader(excludedLocationsQuery);
-        }
-
-        private IDataReader CreatePreprocessorSettingsDataReader(long locationId)
-        {
-            var locationParameter = new SQLiteParameter
-            {
-                DbType = DbType.Int64,
-                ParameterName = locationIdParameterName,
-                Value = locationId
-            };
-
-            return CreateDataReader(
-                preprocessorSettingsForLocationQuery,
-                locationParameter);
-        }
-
-        private IDataReader CreateExcludedPreprocessorLocationsDataReader()
-        {
-            return CreateDataReader(excludedPreprocessorLocationsQuery);
         }
     }
 }

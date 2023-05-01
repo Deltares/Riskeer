@@ -1019,7 +1019,7 @@
 					<param
 					mask="False"
 					name="pathToHBCInPE"
-					value="Traject>Hydraulische belastingen">
+					value="Traject>@HD>hlcd">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -1250,7 +1250,7 @@
 			</smartfoldernode>
 			<testmodule
 			id="854dac40-cde5-449e-9fc8-44dc54178c5c"
-			name="SetNewHBCScenario"
+			name="ChangeHLCDFile"
 			ref="7d9b109b-9a86-4d14-949e-d6cd5cca905f"
 			type="Recording">
 				<databinding>
@@ -1259,12 +1259,6 @@
 					datasourceid="5a70b5e0-a998-4c22-bb33-49f8d3d9ed82"
 					variableid="38b85568-cab1-4341-a451-afeac06bdac5"
 					variablename="fileNameToOpen">
-					</var>
-					<var
-					dataname="paramaterNameHLCDFileLocation"
-					datasourceid="e904a5e4-0281-4cf7-b91c-e2431ec11911"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
 					</var>
 				</databinding>
 			</testmodule>
@@ -1785,7 +1779,7 @@
 					<param
 					mask="False"
 					name="StepInPathContainingTargetProbability"
-					value="4">
+					value="3">
 					</param>
 					<param
 					mask="False"
@@ -2085,7 +2079,7 @@
 			</testcase>
 			<smartfoldernode
 			id="d8b3f684-395d-4632-bfbf-6d983a3d8913"
-			name="SelectHBCItemInPE">
+			name="SelectHLCDItemInPE">
 			</smartfoldernode>
 			<testmodule
 			id="d940718c-99da-4771-9b20-2d2e7a9cb790"
@@ -2258,7 +2252,7 @@
 			</testmodule>
 			<smartfoldernode
 			id="e904a5e4-0281-4cf7-b91c-e2431ec11911"
-			name="SelectHLCDClimateScenario">
+			name="ChangeToHLCDClimateScenario">
 				<parameters>
 					<param
 					mask="False"
@@ -2884,7 +2878,7 @@
 								</smartfoldernode>
 								<smartfoldernode
 								id="d8b3f684-395d-4632-bfbf-6d983a3d8913"
-								name="SelectHBCItemInPE">
+								name="SelectHLCDItemInPE">
 									<testmodule
 									id="cb4579d2-401b-4d13-aab7-17e339570ea4"
 									name="SelectGenericItemInProjectExplorer">
@@ -2892,10 +2886,10 @@
 								</smartfoldernode>
 								<smartfoldernode
 								id="e904a5e4-0281-4cf7-b91c-e2431ec11911"
-								name="SelectHLCDClimateScenario">
+								name="ChangeToHLCDClimateScenario">
 									<testmodule
 									id="854dac40-cde5-449e-9fc8-44dc54178c5c"
-									name="SetNewHBCScenario">
+									name="ChangeHLCDFile">
 									</testmodule>
 								</smartfoldernode>
 								<smartfoldernode
@@ -4837,7 +4831,7 @@
 						script20cd_STPH.risk
 					</td>
 					<td>
-						Traject&gt;@HB&gt;Waterstanden bij vaste doelkans&gt;1/3000
+						Traject&gt;Waterstanden bij vaste doelkans&gt;1/3000
 					</td>
 					<td>
 						Traject&gt;@STPH&gt;Berekeningen
@@ -4888,7 +4882,7 @@
 						script20cd_STBI.risk
 					</td>
 					<td>
-						Traject&gt;@HB&gt;Waterstanden bij vaste doelkans&gt;1/30000
+						Traject&gt;Waterstanden bij vaste doelkans&gt;1/30000
 					</td>
 					<td>
 						Traject&gt;@STBI&gt;Berekeningen

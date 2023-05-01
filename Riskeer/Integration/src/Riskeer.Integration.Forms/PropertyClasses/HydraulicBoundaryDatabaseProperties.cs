@@ -21,13 +21,12 @@
 
 using System;
 using System.ComponentModel;
-using System.Drawing.Design;
-using System.Windows.Forms.Design;
+using System.Linq;
 using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
+using Core.Gui.Converters;
 using Core.Gui.PropertyBag;
 using Riskeer.Common.Data.Hydraulics;
-using Riskeer.Integration.Forms.Editors;
 using Riskeer.Integration.Forms.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -38,296 +37,61 @@ namespace Riskeer.Integration.Forms.PropertyClasses
     /// </summary>
     public class HydraulicBoundaryDatabaseProperties : ObjectProperties<HydraulicBoundaryDatabase>
     {
-        private const int hrdFilePathPropertyIndex = 0;
-        private const int hlcdFilePathPropertyIndex = 1;
-        private const int usePreprocessorClosurePropertyIndex = 2;
-        private const int scenarioNamePropertyIndex = 3;
-        private const int yearPropertyIndex = 4;
-        private const int scopePropertyIndex = 5;
-        private const int seaLevelPropertyIndex = 6;
-        private const int riverDischargePropertyIndex = 7;
-        private const int lakeLevelPropertyIndex = 8;
-        private const int windDirectionPropertyIndex = 9;
-        private const int windSpeedPropertyIndex = 10;
-        private const int commentPropertyIndex = 11;
-        private const int usePreprocessorPropertyIndex = 12;
-        private const int preprocessorDirectoryPropertyIndex = 13;
-
-        private readonly IHydraulicLocationConfigurationDatabaseImportHandler hydraulicLocationConfigurationDatabaseImportHandler;
+        private const int usePreprocessorClosurePropertyIndex = 0;
+        private const int versionPropertyIndex = 1;
+        private const int locationsPropertyIndex = 2;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryDatabaseProperties"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database to show the properties for.</param>
-        /// <param name="hydraulicLocationConfigurationDatabaseImportHandler">The handler to update the hydraulic location configuration settings.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public HydraulicBoundaryDatabaseProperties(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
-                                                   IHydraulicLocationConfigurationDatabaseImportHandler hydraulicLocationConfigurationDatabaseImportHandler)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryDatabase"/> is <c>null</c>.</exception>
+        public HydraulicBoundaryDatabaseProperties(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
             if (hydraulicBoundaryDatabase == null)
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
             }
 
-            if (hydraulicLocationConfigurationDatabaseImportHandler == null)
-            {
-                throw new ArgumentNullException(nameof(hydraulicLocationConfigurationDatabaseImportHandler));
-            }
-
-            this.hydraulicLocationConfigurationDatabaseImportHandler = hydraulicLocationConfigurationDatabaseImportHandler;
             Data = hydraulicBoundaryDatabase;
-        }
-
-        [PropertyOrder(hrdFilePathPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_FilePath_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_FilePath_Description))]
-        public string HrdFilePath
-        {
-            get
-            {
-                return data.IsLinked() ? data.FilePath : string.Empty;
-            }
-        }
-
-        [PropertyOrder(hlcdFilePathPropertyIndex)]
-        [DynamicVisible]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_FilePath_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_FilePath_Description))]
-        [Editor(typeof(HlcdFileNameEditor), typeof(UITypeEditor))]
-        public string HlcdFilePath
-        {
-            get
-            {
-                return data.IsLinked() ? data.HydraulicLocationConfigurationSettings.FilePath : string.Empty;
-            }
-            set
-            {
-                hydraulicLocationConfigurationDatabaseImportHandler.ImportHydraulicLocationConfigurationSettings(
-                    data.HydraulicLocationConfigurationSettings, value);
-            }
-        }
-
-        [PropertyOrder(hlcdFilePathPropertyIndex)]
-        [DynamicVisible]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_FilePath_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_FilePath_Description))]
-        public string HlcdFilePathReadOnly
-        {
-            get
-            {
-                return data.IsLinked() ? data.HydraulicLocationConfigurationSettings.FilePath : string.Empty;
-            }
         }
 
         [PropertyOrder(usePreprocessorClosurePropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_UsePreprocessorClosure_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_UsePreprocessorClosure_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_UsePreprocessorClosure_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_UsePreprocessorClosure_Description))]
         public bool UsePreprocessorClosure
         {
             get
             {
-                return data.HydraulicLocationConfigurationSettings.UsePreprocessorClosure;
+                return data.UsePreprocessorClosure;
             }
         }
 
-        [PropertyOrder(scenarioNamePropertyIndex)]
+        [PropertyOrder(versionPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_ScenarioName_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_ScenarioName_Description))]
-        public string ScenarioName
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Version_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Version_Description))]
+        public string Version
         {
             get
             {
-                return data.IsLinked() ? data.HydraulicLocationConfigurationSettings.ScenarioName : string.Empty;
+                return data.Version;
             }
         }
 
-        [PropertyOrder(yearPropertyIndex)]
+        [PropertyOrder(locationsPropertyIndex)]
+        [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_Year_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_Year_Description))]
-        public string Year
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.HydraulicBoundaryDatabase_Locations_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.HydraulicBoundaryDatabase_Locations_Description))]
+
+        public HydraulicBoundaryLocationProperties[] Locations
         {
             get
             {
-                return data.IsLinked() ? data.HydraulicLocationConfigurationSettings.Year.ToString() : string.Empty;
+                return data.Locations.Select(x => new HydraulicBoundaryLocationProperties(x)).ToArray();
             }
-        }
-
-        [PropertyOrder(scopePropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_Scope_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_Scope_Description))]
-        public string Scope
-        {
-            get
-            {
-                return data.IsLinked() ? data.HydraulicLocationConfigurationSettings.Scope : string.Empty;
-            }
-        }
-
-        [PropertyOrder(seaLevelPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_SeaLevel_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_SeaLevel_Description))]
-        public string SeaLevel
-        {
-            get
-            {
-                string seaLevel = data.HydraulicLocationConfigurationSettings.SeaLevel;
-                return data.IsLinked() && seaLevel != null ? seaLevel : string.Empty;
-            }
-        }
-
-        [PropertyOrder(riverDischargePropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_RiverDischarge_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_RiverDischarge_Description))]
-        public string RiverDischarge
-        {
-            get
-            {
-                string riverDischarge = data.HydraulicLocationConfigurationSettings.RiverDischarge;
-                return data.IsLinked() && riverDischarge != null ? riverDischarge : string.Empty;
-            }
-        }
-
-        [PropertyOrder(lakeLevelPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_LakeLevel_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_LakeLevel_Description))]
-        public string LakeLevel
-        {
-            get
-            {
-                string lakeLevel = data.HydraulicLocationConfigurationSettings.LakeLevel;
-                return data.IsLinked() && lakeLevel != null ? lakeLevel : string.Empty;
-            }
-        }
-
-        [PropertyOrder(windDirectionPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_WindDirection_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_WindDirection_Description))]
-        public string WindDirection
-        {
-            get
-            {
-                string windDirection = data.HydraulicLocationConfigurationSettings.WindDirection;
-                return data.IsLinked() && windDirection != null ? windDirection : string.Empty;
-            }
-        }
-
-        [PropertyOrder(windSpeedPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_WindSpeed_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_WindSpeed_Description))]
-        public string WindSpeed
-        {
-            get
-            {
-                string windSpeed = data.HydraulicLocationConfigurationSettings.WindSpeed;
-                return data.IsLinked() && windSpeed != null ? windSpeed : string.Empty;
-            }
-        }
-
-        [PropertyOrder(commentPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_Comment_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_Comment_Description))]
-        public string Comment
-        {
-            get
-            {
-                string comment = data.HydraulicLocationConfigurationSettings.Comment;
-                return data.IsLinked() && comment != null ? comment : string.Empty;
-            }
-        }
-
-        [PropertyOrder(usePreprocessorPropertyIndex)]
-        [DynamicVisible]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_UsePreprocessor_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_UsePreprocessor_Description))]
-        public bool UsePreprocessor
-        {
-            get
-            {
-                return data.HydraulicLocationConfigurationSettings.UsePreprocessor;
-            }
-            set
-            {
-                data.HydraulicLocationConfigurationSettings.UsePreprocessor = value;
-                data.NotifyObservers();
-            }
-        }
-
-        [PropertyOrder(preprocessorDirectoryPropertyIndex)]
-        [DynamicVisible]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_PreprocessorDirectory_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_PreprocessorDirectory_Description))]
-        [Editor(typeof(FolderNameEditor), typeof(UITypeEditor))]
-        public string PreprocessorDirectory
-        {
-            get
-            {
-                return data.HydraulicLocationConfigurationSettings.PreprocessorDirectory;
-            }
-            set
-            {
-                data.HydraulicLocationConfigurationSettings.PreprocessorDirectory = value;
-            }
-        }
-
-        [PropertyOrder(preprocessorDirectoryPropertyIndex)]
-        [DynamicVisible]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_PreprocessorDirectory_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_PreprocessorDirectory_Description))]
-        public string PreprocessorDirectoryReadOnly
-        {
-            get
-            {
-                return data.HydraulicLocationConfigurationSettings.PreprocessorDirectory;
-            }
-        }
-
-        [DynamicVisibleValidationMethod]
-        public bool DynamicVisibleValidationMethod(string propertyName)
-        {
-            bool canUsePreprocessor = data.HydraulicLocationConfigurationSettings.CanUsePreprocessor;
-
-            if (propertyName.Equals(nameof(UsePreprocessor)) && !canUsePreprocessor)
-            {
-                return false;
-            }
-
-            if (propertyName.Equals(nameof(PreprocessorDirectory)) && (!canUsePreprocessor || !UsePreprocessor))
-            {
-                return false;
-            }
-
-            if (propertyName.Equals(nameof(PreprocessorDirectoryReadOnly)) && (!canUsePreprocessor || UsePreprocessor))
-            {
-                return false;
-            }
-
-            if (propertyName.Equals(nameof(HlcdFilePath)) && !data.IsLinked())
-            {
-                return false;
-            }
-
-            if (propertyName.Equals(nameof(HlcdFilePathReadOnly)) && data.IsLinked())
-            {
-                return false;
-            }
-
-            return true;
         }
     }
 }

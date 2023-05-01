@@ -44,9 +44,9 @@ namespace Riskeer.MacroStabilityInwards.Data.SoilProfile
         /// <param name="layers">The collection of layers that should be part of the profile.</param>
         /// <exception cref="ArgumentException">Thrown when
         /// <list type="bullet">
-        /// <item><paramref name="layers"/> contains no layers</item>
+        /// <item><paramref name="layers"/> contains no layers;</item>
         /// <item><paramref name="layers"/> contains a layer with the <see cref="MacroStabilityInwardsSoilLayer1D.Top"/> less than
-        /// <see cref="Bottom"/></item>
+        /// <see cref="Bottom"/>.</item>
         /// </list>
         /// </exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> or <paramref name="layers"/> 
@@ -192,10 +192,11 @@ namespace Riskeer.MacroStabilityInwards.Data.SoilProfile
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collection"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when:
         /// <list type="bullet">
-        /// <item><paramref name="collection"/> contains no layers</item>
+        /// <item><paramref name="collection"/> contains no layers;</item>
         /// <item><paramref name="collection"/> contains a layer with the <see cref="MacroStabilityInwardsSoilLayer1D.Top"/> less than
-        /// <see cref="Bottom"/></item>
-        /// </list></exception>
+        /// <see cref="Bottom"/>.</item>
+        /// </list>
+        /// </exception>
         private void ValidateLayersCollection(IEnumerable<MacroStabilityInwardsSoilLayer1D> collection)
         {
             if (collection == null)

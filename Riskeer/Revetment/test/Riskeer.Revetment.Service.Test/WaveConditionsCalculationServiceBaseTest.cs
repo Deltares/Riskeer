@@ -47,15 +47,15 @@ namespace Riskeer.Revetment.Service.Test
     public class WaveConditionsCalculationServiceBaseTest
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
-        private static readonly string validHydraulicBoundaryDatabaseFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
-        private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
+        private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
 
         [Test]
         public void Validate_InputNull_ThrowArgumentNullException()
         {
             // Call
             void Call() => WaveConditionsCalculationServiceBase.Validate(null, GetValidAssessmentLevel(),
-                                                                         GetValidHydraulicBoundaryDatabase());
+                                                                         GetValidHydraulicBoundaryData(new TestHydraulicBoundaryLocation()));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -63,7 +63,7 @@ namespace Riskeer.Revetment.Service.Test
         }
 
         [Test]
-        public void Validate_HydraulicBoundaryDatabaseNull_ThrowArgumentNullException()
+        public void Validate_HydraulicBoundaryDataNull_ThrowArgumentNullException()
         {
             // Setup 
             var input = new WaveConditionsInput();
@@ -73,28 +73,100 @@ namespace Riskeer.Revetment.Service.Test
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("hydraulicBoundaryDatabase", exception.ParamName);
+            Assert.AreEqual("hydraulicBoundaryData", exception.ParamName);
         }
 
         [Test]
-        public void Validate_InvalidHydraulicBoundaryDatabaseFileLocation_ReturnsFalseAndLogsValidationError()
+        public void Validate_NoHydraulicBoundaryLocation_ReturnsFalseAndLogsValidationError()
+        {
+            // Setup
+            var isValid = false;
+
+            var input = new WaveConditionsInput();
+
+            // Call
+            void Call() => isValid = WaveConditionsCalculationServiceBase.Validate(input, GetValidAssessmentLevel(),
+                                                                                   new HydraulicBoundaryData());
+
+            // Assert
+            TestHelper.AssertLogMessages(Call, messages =>
+            {
+                string[] msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                Assert.AreEqual("Er is geen hydraulische belastingenlocatie geselecteerd.", msgs[1]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+            });
+
+            Assert.IsFalse(isValid);
+        }
+
+        [Test]
+        public void Validate_NoHydraulicBoundaryDatabase_LogsValidationMessageAndReturnFalse()
+        {
+            // Setup 
+            var isValid = false;
+
+            var waveConditionsInput = new WaveConditionsInput
+            {
+                HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+            };
+
+            // Call
+            void Call() => isValid = WaveConditionsCalculationServiceBase.Validate(waveConditionsInput,
+                                                                                   GetValidAssessmentLevel(),
+                                                                                   new HydraulicBoundaryData());
+
+            // Assert
+            TestHelper.AssertLogMessages(Call, messages =>
+            {
+                string[] msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                Assert.AreEqual("Er is geen hydraulische belastingendatabase geïmporteerd.", msgs[1]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+            });
+
+            Assert.IsFalse(isValid);
+        }
+
+        [Test]
+        public void Validate_InvalidHydraulicBoundaryDatabase_ReturnsFalseAndLogsValidationError()
         {
             // Setup 
             var isValid = false;
             string invalidFilePath = Path.Combine(testDataPath, "NonExisting.sqlite");
 
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+            var hydraulicBoundaryData = new HydraulicBoundaryData
+            {
+                HydraulicLocationConfigurationDatabase =
+                {
+                    FilePath = Path.Combine(testDataPath, "hlcd.sqlite")
+                },
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        FilePath = invalidFilePath,
+                        Locations =
+                        {
+                            hydraulicBoundaryLocation
+                        }
+                    }
+                }
+            };
+
+            var waveConditionsInput = new WaveConditionsInput
+            {
+                HydraulicBoundaryLocation = hydraulicBoundaryLocation
+            };
+
             // Call
-            void Call() => isValid = WaveConditionsCalculationServiceBase.Validate(new WaveConditionsInput(),
+            void Call() => isValid = WaveConditionsCalculationServiceBase.Validate(waveConditionsInput,
                                                                                    GetValidAssessmentLevel(),
-                                                                                   new HydraulicBoundaryDatabase
-                                                                                   {
-                                                                                       FilePath = invalidFilePath,
-                                                                                       HydraulicLocationConfigurationSettings =
-                                                                                       {
-                                                                                           CanUsePreprocessor = true,
-                                                                                           PreprocessorDirectory = validPreprocessorDirectory
-                                                                                       }
-                                                                                   });
+                                                                                   hydraulicBoundaryData);
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -111,61 +183,42 @@ namespace Riskeer.Revetment.Service.Test
         }
 
         [Test]
-        public void Validate_InvalidPreprocessorDirectory_ReturnsFalseAndLogsValidationError()
+        public void Validate_HydraulicBoundaryDatabaseWithoutSettings_LogsValidationMessageAndReturnFalse()
         {
             // Setup 
             var isValid = false;
-            const string invalidPreprocessorDirectory = "NonExistingPreprocessorDirectory";
+            string hrdFilePath = Path.Combine(testDataPath, "HRD nosettings.sqlite");
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+            var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                FilePath = validHydraulicBoundaryDatabaseFilePath,
-                HydraulicLocationConfigurationSettings =
+                HydraulicLocationConfigurationDatabase =
                 {
-                    CanUsePreprocessor = true,
-                    UsePreprocessor = true,
-                    PreprocessorDirectory = invalidPreprocessorDirectory
+                    FilePath = Path.Combine(testDataPath, "hlcd.sqlite")
+                },
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        FilePath = hrdFilePath,
+                        Locations =
+                        {
+                            hydraulicBoundaryLocation
+                        }
+                    }
                 }
             };
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
 
-            // Call
-            void Call() => isValid = WaveConditionsCalculationServiceBase.Validate(new WaveConditionsInput(),
-                                                                                   GetValidAssessmentLevel(),
-                                                                                   hydraulicBoundaryDatabase);
-
-            // Assert
-            TestHelper.AssertLogMessages(Call, messages =>
+            var waveConditionsInput = new WaveConditionsInput
             {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                Assert.AreEqual("De bestandsmap waar de preprocessor bestanden opslaat is ongeldig. De bestandsmap bestaat niet.", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
-            });
-
-            Assert.IsFalse(isValid);
-        }
-
-        [Test]
-        public void Validate_ValidHydraulicBoundaryDatabaseWithoutSettings_LogsValidationMessageAndReturnFalse()
-        {
-            // Setup 
-            var isValid = false;
-            string dbFilePath = Path.Combine(testDataPath, "HRD nosettings.sqlite");
+                HydraulicBoundaryLocation = hydraulicBoundaryLocation
+            };
 
             // Call
-            void Call() => isValid = WaveConditionsCalculationServiceBase.Validate(new WaveConditionsInput(),
+            void Call() => isValid = WaveConditionsCalculationServiceBase.Validate(waveConditionsInput,
                                                                                    GetValidAssessmentLevel(),
-                                                                                   new HydraulicBoundaryDatabase
-                                                                                   {
-                                                                                       FilePath = dbFilePath,
-                                                                                       HydraulicLocationConfigurationSettings =
-                                                                                       {
-                                                                                           CanUsePreprocessor = true,
-                                                                                           PreprocessorDirectory = validPreprocessorDirectory
-                                                                                       }
-                                                                                   });
+                                                                                   hydraulicBoundaryData);
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -182,68 +235,21 @@ namespace Riskeer.Revetment.Service.Test
         }
 
         [Test]
-        public void Validate_WithoutImportedHydraulicBoundaryDatabase_LogsValidationMessageAndReturnFalse()
-        {
-            // Setup 
-            var isValid = false;
-
-            // Call
-            void Call() => isValid = WaveConditionsCalculationServiceBase.Validate(new WaveConditionsInput(),
-                                                                                   GetValidAssessmentLevel(),
-                                                                                   new HydraulicBoundaryDatabase());
-
-            // Assert
-            TestHelper.AssertLogMessages(Call, messages =>
-            {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                Assert.AreEqual("Er is geen hydraulische belastingendatabase geïmporteerd.", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
-            });
-
-            Assert.IsFalse(isValid);
-        }
-
-        [Test]
-        public void Validate_NoHydraulicBoundaryLocation_ReturnsFalseAndLogsValidationError()
-        {
-            // Setup
-            var isValid = false;
-
-            var input = new WaveConditionsInput();
-
-            // Call
-            void Call() => isValid = WaveConditionsCalculationServiceBase.Validate(input, GetValidAssessmentLevel(),
-                                                                                   GetValidHydraulicBoundaryDatabase());
-
-            // Assert
-            TestHelper.AssertLogMessages(Call, messages =>
-            {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                Assert.AreEqual("Er is geen hydraulische belastingenlocatie geselecteerd.", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
-            });
-
-            Assert.IsFalse(isValid);
-        }
-
-        [Test]
         public void Validate_AssessmentLevelNaN_ReturnsFalseAndLogsValidationError()
         {
             // Setup
             var isValid = false;
 
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
+
             var input = new WaveConditionsInput
             {
-                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
+                HydraulicBoundaryLocation = hydraulicBoundaryLocation
             };
 
             // Call
             void Call() => isValid = WaveConditionsCalculationServiceBase.Validate(input, RoundedDouble.NaN,
-                                                                                   GetValidHydraulicBoundaryDatabase());
+                                                                                   GetValidHydraulicBoundaryData(hydraulicBoundaryLocation));
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -268,9 +274,11 @@ namespace Riskeer.Revetment.Service.Test
             // Setup
             var isValid = false;
 
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
             var input = new WaveConditionsInput
             {
-                HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
+                HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                 Orientation = (RoundedDouble) 0,
                 LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetments,
                 UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetments,
@@ -281,7 +289,7 @@ namespace Riskeer.Revetment.Service.Test
 
             // Call
             void Call() => isValid = WaveConditionsCalculationServiceBase.Validate(input, (RoundedDouble) assessmentLevel,
-                                                                                   GetValidHydraulicBoundaryDatabase());
+                                                                                   GetValidHydraulicBoundaryData(hydraulicBoundaryLocation));
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -311,7 +319,7 @@ namespace Riskeer.Revetment.Service.Test
 
             // Call
             void Call() => isValid = WaveConditionsCalculationServiceBase.Validate(input, GetValidAssessmentLevel(),
-                                                                                   GetValidHydraulicBoundaryDatabase());
+                                                                                   GetValidHydraulicBoundaryData(input.HydraulicBoundaryLocation));
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -341,7 +349,7 @@ namespace Riskeer.Revetment.Service.Test
 
             // Call
             void Call() => isValid = WaveConditionsCalculationServiceBase.Validate(input, GetValidAssessmentLevel(),
-                                                                                   GetValidHydraulicBoundaryDatabase());
+                                                                                   GetValidHydraulicBoundaryData(input.HydraulicBoundaryLocation));
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -384,7 +392,7 @@ namespace Riskeer.Revetment.Service.Test
 
             // Call
             void Call() => isValid = WaveConditionsCalculationServiceBase.Validate(input, GetValidAssessmentLevel(),
-                                                                                   GetValidHydraulicBoundaryDatabase());
+                                                                                   GetValidHydraulicBoundaryData(input.HydraulicBoundaryLocation));
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -409,7 +417,7 @@ namespace Riskeer.Revetment.Service.Test
 
             // Call
             void Call() => isValid = WaveConditionsCalculationServiceBase.Validate(input, GetValidAssessmentLevel(),
-                                                                                   GetValidHydraulicBoundaryDatabase());
+                                                                                   GetValidHydraulicBoundaryData(input.HydraulicBoundaryLocation));
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -436,7 +444,7 @@ namespace Riskeer.Revetment.Service.Test
             // Call
             void Call() => new TestWaveConditionsCalculationService().PublicCalculate(a, b, c, targetProbability, null,
                                                                                       GetValidAssessmentLevel(),
-                                                                                      GetValidHydraulicBoundaryDatabase());
+                                                                                      GetValidHydraulicBoundaryData(new TestHydraulicBoundaryLocation()));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -444,7 +452,7 @@ namespace Riskeer.Revetment.Service.Test
         }
 
         [Test]
-        public void Calculate_HydraulicBoundaryDatabaseNull_ThrowsArgumentNullException()
+        public void Calculate_HydraulicBoundaryDataNull_ThrowsArgumentNullException()
         {
             // Setup
             var a = (RoundedDouble) 1.0;
@@ -458,7 +466,7 @@ namespace Riskeer.Revetment.Service.Test
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("hydraulicBoundaryDatabase", exception.ParamName);
+            Assert.AreEqual("hydraulicBoundaryData", exception.ParamName);
         }
 
         [Test]
@@ -472,9 +480,10 @@ namespace Riskeer.Revetment.Service.Test
             var b = (RoundedDouble) 0.8;
             var c = (RoundedDouble) 0.4;
             const double targetProbability = 0.2;
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var input = new WaveConditionsInput
             {
-                HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
+                HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                 ForeshoreProfile = new TestForeshoreProfile(true),
                 UpperBoundaryRevetment = (RoundedDouble) 4,
                 LowerBoundaryRevetment = (RoundedDouble) 3,
@@ -506,7 +515,7 @@ namespace Riskeer.Revetment.Service.Test
                                                                            targetProbability,
                                                                            input,
                                                                            waterLevel,
-                                                                           GetValidHydraulicBoundaryDatabase());
+                                                                           GetValidHydraulicBoundaryData(hydraulicBoundaryLocation));
 
                 // Assert
                 for (var i = 0; i < nrOfCalculators; i++)
@@ -531,9 +540,10 @@ namespace Riskeer.Revetment.Service.Test
             var b = (RoundedDouble) 0.8;
             var c = (RoundedDouble) 0.4;
             const double targetProbability = 0.2;
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var input = new WaveConditionsInput
             {
-                HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
+                HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                 ForeshoreProfile = new TestForeshoreProfile(true),
                 UpperBoundaryRevetment = (RoundedDouble) 4,
                 LowerBoundaryRevetment = (RoundedDouble) 3,
@@ -570,7 +580,7 @@ namespace Riskeer.Revetment.Service.Test
                                                                            targetProbability,
                                                                            input,
                                                                            waterLevel,
-                                                                           GetValidHydraulicBoundaryDatabase());
+                                                                           GetValidHydraulicBoundaryData(hydraulicBoundaryLocation));
 
                 // Assert
                 for (var i = 0; i < nrOfCalculators; i++)
@@ -584,11 +594,13 @@ namespace Riskeer.Revetment.Service.Test
         }
 
         [Test]
-        [TestCaseSource(nameof(GetHydraulicBoundaryDatabaseConfigurations))]
+        [TestCaseSource(nameof(GetHydraulicBoundaryDataConfigurations))]
         public void Calculate_VariousHydraulicBoundaryDatabaseConfigurations_StartsCalculationWithRightParameters(
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+            HydraulicBoundaryData hydraulicBoundaryData)
         {
             // Setup
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = hydraulicBoundaryData.GetLocations().First();
+
             var waterLevel = (RoundedDouble) 4.20;
             var a = (RoundedDouble) 1.0;
             var b = (RoundedDouble) 0.8;
@@ -596,7 +608,7 @@ namespace Riskeer.Revetment.Service.Test
             const double targetProbability = 0.2;
             var input = new WaveConditionsInput
             {
-                HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
+                HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                 ForeshoreProfile = new TestForeshoreProfile(true),
                 UpperBoundaryRevetment = (RoundedDouble) 4,
                 LowerBoundaryRevetment = (RoundedDouble) 3,
@@ -613,7 +625,8 @@ namespace Riskeer.Revetment.Service.Test
                              .WhenCalled(invocation =>
                              {
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase),
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData,
+                                                                                                hydraulicBoundaryLocation),
                                      (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(calculator)
@@ -630,16 +643,10 @@ namespace Riskeer.Revetment.Service.Test
                                                                            targetProbability,
                                                                            input,
                                                                            waterLevel,
-                                                                           hydraulicBoundaryDatabase);
-
-                // Assert
-                for (var i = 0; i < nrOfCalculators; i++)
-                {
-                    Assert.AreEqual(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessor,
-                                    calculator.ReceivedInputs.ElementAt(i).PreprocessorSetting.RunPreprocessor);
-                }
+                                                                           hydraulicBoundaryData);
             }
 
+            // Assert
             mockRepository.VerifyAll();
         }
 
@@ -657,9 +664,11 @@ namespace Riskeer.Revetment.Service.Test
             var waterLevelUpperBoundaryRevetment = new RoundedDouble(2, 4.00);
             var waterLevelLowerBoundaryRevetment = new RoundedDouble(2, 3.00);
 
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
             var input = new WaveConditionsInput
             {
-                HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
+                HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                 ForeshoreProfile = new TestForeshoreProfile(),
                 UpperBoundaryRevetment = waterLevelUpperBoundaryRevetment,
                 LowerBoundaryRevetment = waterLevelLowerBoundaryRevetment
@@ -697,7 +706,7 @@ namespace Riskeer.Revetment.Service.Test
                     try
                     {
                         new TestWaveConditionsCalculationService().PublicCalculate(a, b, c, targetProbability, input, waterLevel,
-                                                                                   GetValidHydraulicBoundaryDatabase());
+                                                                                   GetValidHydraulicBoundaryData(hydraulicBoundaryLocation));
                     }
                     catch (HydraRingCalculationException e)
                     {
@@ -771,9 +780,10 @@ namespace Riskeer.Revetment.Service.Test
             var b = (RoundedDouble) 0.8;
             var c = (RoundedDouble) 0.4;
             const double targetProbability = 0.2;
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var input = new WaveConditionsInput
             {
-                HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
+                HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                 ForeshoreProfile = new TestForeshoreProfile(),
                 UpperBoundaryRevetment = waterLevelUpperBoundary,
                 LowerBoundaryRevetment = waterLevelLowerBoundary
@@ -784,7 +794,8 @@ namespace Riskeer.Revetment.Service.Test
                 var service = new TestWaveConditionsCalculationService();
 
                 // Call
-                void Call() => service.PublicCalculate(a, b, c, targetProbability, input, waterLevel, GetValidHydraulicBoundaryDatabase());
+                void Call() => service.PublicCalculate(a, b, c, targetProbability, input, waterLevel,
+                                                       GetValidHydraulicBoundaryData(hydraulicBoundaryLocation));
 
                 // Assert
                 TestHelper.AssertLogMessages(Call, messages =>
@@ -828,9 +839,10 @@ namespace Riskeer.Revetment.Service.Test
             var b = (RoundedDouble) 0.8;
             var c = (RoundedDouble) 0.4;
             const double targetProbability = 0.2;
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var input = new WaveConditionsInput
             {
-                HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
+                HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                 ForeshoreProfile = new TestForeshoreProfile(),
                 UpperBoundaryRevetment = waterLevel,
                 LowerBoundaryRevetment = (RoundedDouble) 3
@@ -855,7 +867,7 @@ namespace Riskeer.Revetment.Service.Test
                                         targetProbability,
                                         input,
                                         waterLevel,
-                                        GetValidHydraulicBoundaryDatabase());
+                                        GetValidHydraulicBoundaryData(hydraulicBoundaryLocation));
 
                 // Assert
                 Assert.IsTrue(calculator.IsCanceled);
@@ -882,20 +894,26 @@ namespace Riskeer.Revetment.Service.Test
             return input;
         }
 
-        private static HydraulicBoundaryDatabase GetValidHydraulicBoundaryDatabase()
+        private static HydraulicBoundaryData GetValidHydraulicBoundaryData(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            return new HydraulicBoundaryData
             {
-                FilePath = validHydraulicBoundaryDatabaseFilePath,
-                HydraulicLocationConfigurationSettings =
+                HydraulicLocationConfigurationDatabase =
                 {
-                    CanUsePreprocessor = true,
-                    PreprocessorDirectory = validPreprocessorDirectory
+                    FilePath = validHlcdFilePath
+                },
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        FilePath = validHrdFilePath,
+                        Locations =
+                        {
+                            hydraulicBoundaryLocation
+                        }
+                    }
                 }
             };
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
-
-            return hydraulicBoundaryDatabase;
         }
 
         private static WaveConditionsCosineCalculationInput CreateInput(double waterLevel, double a, double b, double c, double targetProbability,
@@ -922,39 +940,48 @@ namespace Riskeer.Revetment.Service.Test
             return (RoundedDouble) 12;
         }
 
-        private static IEnumerable<TestCaseData> GetHydraulicBoundaryDatabaseConfigurations()
+        private static IEnumerable<TestCaseData> GetHydraulicBoundaryDataConfigurations()
         {
-            var hydraulicBoundaryDatabaseUsePreprocessorTrue = new HydraulicBoundaryDatabase
+            var hydraulicBoundaryDataWithUsePreprocessorClosureTrue = new HydraulicBoundaryData
             {
-                FilePath = validHydraulicBoundaryDatabaseFilePath,
-                HydraulicLocationConfigurationSettings =
+                HydraulicLocationConfigurationDatabase =
                 {
-                    CanUsePreprocessor = true,
-                    UsePreprocessor = true,
-                    PreprocessorDirectory = validPreprocessorDirectory
+                    FilePath = validHlcdFilePath
+                },
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        FilePath = validHrdFilePath,
+                        UsePreprocessorClosure = true,
+                        Locations =
+                        {
+                            new TestHydraulicBoundaryLocation()
+                        }
+                    }
                 }
             };
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabaseUsePreprocessorTrue);
-            yield return new TestCaseData(hydraulicBoundaryDatabaseUsePreprocessorTrue).SetName("UsePreprocessorTrue");
+            yield return new TestCaseData(hydraulicBoundaryDataWithUsePreprocessorClosureTrue).SetName("UsePreprocessorClosureTrue");
 
-            var hydraulicBoundaryDatabaseUsePreprocessorFalse = new HydraulicBoundaryDatabase
+            var hydraulicBoundaryDataWithUsePreprocessorClosureFalse = new HydraulicBoundaryData
             {
-                FilePath = validHydraulicBoundaryDatabaseFilePath,
-                HydraulicLocationConfigurationSettings =
+                HydraulicLocationConfigurationDatabase =
                 {
-                    CanUsePreprocessor = true,
-                    PreprocessorDirectory = validPreprocessorDirectory
+                    FilePath = validHlcdFilePath
+                },
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        FilePath = validHrdFilePath,
+                        Locations =
+                        {
+                            new TestHydraulicBoundaryLocation()
+                        }
+                    }
                 }
             };
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabaseUsePreprocessorFalse);
-            yield return new TestCaseData(hydraulicBoundaryDatabaseUsePreprocessorFalse).SetName("UsePreprocessorFalse");
-
-            var hydraulicBoundaryDatabaseCanUsePreprocessorFalse = new HydraulicBoundaryDatabase
-            {
-                FilePath = validHydraulicBoundaryDatabaseFilePath
-            };
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabaseCanUsePreprocessorFalse);
-            yield return new TestCaseData(hydraulicBoundaryDatabaseCanUsePreprocessorFalse).SetName("CanUsePreprocessorFalse");
+            yield return new TestCaseData(hydraulicBoundaryDataWithUsePreprocessorClosureFalse).SetName("UsePreprocessorClosureFalse");
         }
 
         private class TestWaveConditionsCalculationService : WaveConditionsCalculationServiceBase
@@ -967,7 +994,7 @@ namespace Riskeer.Revetment.Service.Test
                                         double targetProbability,
                                         WaveConditionsInput input,
                                         RoundedDouble assessmentLevel,
-                                        HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+                                        HydraulicBoundaryData hydraulicBoundaryData)
             {
                 Outputs = CalculateWaveConditions(input,
                                                   assessmentLevel,
@@ -975,7 +1002,7 @@ namespace Riskeer.Revetment.Service.Test
                                                   b,
                                                   c,
                                                   targetProbability,
-                                                  hydraulicBoundaryDatabase);
+                                                  hydraulicBoundaryData);
             }
         }
     }

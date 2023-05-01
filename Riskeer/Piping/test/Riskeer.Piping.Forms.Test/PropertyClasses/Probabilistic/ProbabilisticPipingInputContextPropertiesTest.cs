@@ -1526,11 +1526,17 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
 
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
             {
-                Locations =
+                HydraulicBoundaryDatabases =
                 {
-                    hydraulicBoundaryLocation
+                    new HydraulicBoundaryDatabase
+                    {
+                        Locations =
+                        {
+                            hydraulicBoundaryLocation
+                        }
+                    }
                 }
             });
 
@@ -1576,18 +1582,24 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                Locations =
+                HydraulicBoundaryDatabases =
                 {
-                    new HydraulicBoundaryLocation(1, "A", 0, 1),
-                    new HydraulicBoundaryLocation(4, "C", 0, 2),
-                    new HydraulicBoundaryLocation(3, "D", 0, 3),
-                    new HydraulicBoundaryLocation(2, "B", 0, 4)
+                    new HydraulicBoundaryDatabase
+                    {
+                        Locations =
+                        {
+                            new HydraulicBoundaryLocation(1, "A", 0, 1),
+                            new HydraulicBoundaryLocation(4, "C", 0, 2),
+                            new HydraulicBoundaryLocation(3, "D", 0, 3),
+                            new HydraulicBoundaryLocation(2, "B", 0, 4)
+                        }
+                    }
                 }
             };
 
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
 
             mocks.ReplayAll();
 
@@ -1604,8 +1616,9 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
 
             // Assert
             IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
-                hydraulicBoundaryDatabase.Locations.Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, null))
-                                         .OrderBy(hbl => hbl.HydraulicBoundaryLocation.Id);
+                hydraulicBoundaryData.GetLocations()
+                                     .Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, null))
+                                     .OrderBy(hbl => hbl.HydraulicBoundaryLocation.Id);
             CollectionAssert.AreEqual(expectedList, selectableHydraulicBoundaryLocations);
             mocks.VerifyAll();
         }
@@ -1617,20 +1630,26 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                Locations =
+                HydraulicBoundaryDatabases =
                 {
-                    new HydraulicBoundaryLocation(1, "A", 0, 10),
-                    new HydraulicBoundaryLocation(4, "E", 0, 500),
-                    new HydraulicBoundaryLocation(6, "F", 0, 100),
-                    new HydraulicBoundaryLocation(5, "D", 0, 200),
-                    new HydraulicBoundaryLocation(3, "C", 0, 200),
-                    new HydraulicBoundaryLocation(2, "B", 0, 200)
+                    new HydraulicBoundaryDatabase
+                    {
+                        Locations =
+                        {
+                            new HydraulicBoundaryLocation(1, "A", 0, 10),
+                            new HydraulicBoundaryLocation(4, "E", 0, 500),
+                            new HydraulicBoundaryLocation(6, "F", 0, 100),
+                            new HydraulicBoundaryLocation(5, "D", 0, 200),
+                            new HydraulicBoundaryLocation(3, "C", 0, 200),
+                            new HydraulicBoundaryLocation(2, "B", 0, 200)
+                        }
+                    }
                 }
             };
 
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
 
             mocks.ReplayAll();
 
@@ -1656,10 +1675,11 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
 
             // Assert
             IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
-                hydraulicBoundaryDatabase.Locations.Select(hbl => new SelectableHydraulicBoundaryLocation(
-                                                               hbl, surfaceLine.ReferenceLineIntersectionWorldPoint))
-                                         .OrderBy(hbl => hbl.Distance)
-                                         .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Id);
+                hydraulicBoundaryData.GetLocations()
+                                     .Select(hbl => new SelectableHydraulicBoundaryLocation(
+                                                 hbl, surfaceLine.ReferenceLineIntersectionWorldPoint))
+                                     .OrderBy(hbl => hbl.Distance)
+                                     .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Id);
             CollectionAssert.AreEqual(expectedList, selectableHydraulicBoundaryLocations);
             mocks.VerifyAll();
         }
@@ -1671,21 +1691,27 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var observable = mocks.StrictMock<IObservable>();
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                Locations =
+                HydraulicBoundaryDatabases =
                 {
-                    new HydraulicBoundaryLocation(1, "A", 0, 10),
-                    new HydraulicBoundaryLocation(4, "E", 0, 500),
-                    new HydraulicBoundaryLocation(6, "F", 0, 100),
-                    new HydraulicBoundaryLocation(5, "D", 0, 200),
-                    new HydraulicBoundaryLocation(3, "C", 0, 200),
-                    new HydraulicBoundaryLocation(2, "B", 0, 200)
+                    new HydraulicBoundaryDatabase
+                    {
+                        Locations =
+                        {
+                            new HydraulicBoundaryLocation(1, "A", 0, 10),
+                            new HydraulicBoundaryLocation(4, "E", 0, 500),
+                            new HydraulicBoundaryLocation(6, "F", 0, 100),
+                            new HydraulicBoundaryLocation(5, "D", 0, 200),
+                            new HydraulicBoundaryLocation(3, "C", 0, 200),
+                            new HydraulicBoundaryLocation(2, "B", 0, 200)
+                        }
+                    }
                 }
             };
 
             observable.Expect(o => o.NotifyObservers());
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
 
             mocks.ReplayAll();
 
@@ -1727,12 +1753,12 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             CollectionAssert.AreNotEqual(originalList, availableHydraulicBoundaryLocations);
 
             IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
-                hydraulicBoundaryDatabase.Locations
-                                         .Select(hbl =>
-                                                     new SelectableHydraulicBoundaryLocation(hbl,
-                                                                                             properties.SurfaceLine.ReferenceLineIntersectionWorldPoint))
-                                         .OrderBy(hbl => hbl.Distance)
-                                         .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Id);
+                hydraulicBoundaryData.GetLocations()
+                                     .Select(hbl =>
+                                                 new SelectableHydraulicBoundaryLocation(hbl,
+                                                                                         properties.SurfaceLine.ReferenceLineIntersectionWorldPoint))
+                                     .OrderBy(hbl => hbl.Distance)
+                                     .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Id);
             CollectionAssert.AreEqual(expectedList, availableHydraulicBoundaryLocations);
             mocks.VerifyAll();
         }

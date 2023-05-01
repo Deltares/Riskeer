@@ -70,7 +70,7 @@ namespace Riskeer.Storage.Core.Read
 
             entity.ReadBackgroundData(assessmentSection);
 
-            entity.ReadHydraulicDatabase(assessmentSection, collector);
+            entity.ReadHydraulicBoundaryData(assessmentSection, collector);
             entity.ReadHydraulicLocationCalculationsForTargetProbabilities(assessmentSection, collector);
             entity.ReadReferenceLine(assessmentSection);
 
@@ -115,20 +115,15 @@ namespace Riskeer.Storage.Core.Read
             }
         }
 
-        private static void ReadHydraulicDatabase(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
+        private static void ReadHydraulicBoundaryData(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
         {
-            HydraulicBoundaryDatabaseEntity hydraulicBoundaryDatabaseEntity = entity.HydraulicBoundaryDatabaseEntities.SingleOrDefault();
-            if (hydraulicBoundaryDatabaseEntity != null)
+            HydraulicBoundaryDataEntity hydraulicBoundaryDataEntity = entity.HydraulicBoundaryDataEntities.SingleOrDefault();
+            if (hydraulicBoundaryDataEntity != null)
             {
-                HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
-                hydraulicBoundaryDatabaseEntity.Read(hydraulicBoundaryDatabase);
+                HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryData;
+                hydraulicBoundaryDataEntity.Read(hydraulicBoundaryData, collector);
 
-                HydraulicBoundaryLocation[] readHydraulicBoundaryLocations = entity.HydraulicLocationEntities
-                                                                                   .OrderBy(hl => hl.Order)
-                                                                                   .Select(hle => hle.Read(collector))
-                                                                                   .ToArray();
-                hydraulicBoundaryDatabase.Locations.AddRange(readHydraulicBoundaryLocations);
-                assessmentSection.SetHydraulicBoundaryLocationCalculations(readHydraulicBoundaryLocations);
+                assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryData.GetLocations());
 
                 entity.ReadHydraulicBoundaryLocationCalculations(assessmentSection, collector);
             }

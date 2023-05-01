@@ -31,39 +31,24 @@ namespace Riskeer.HydraRing.Calculation.Data.Input
         /// <summary>
         /// Creates a new instance of <see cref="HydraRingCalculationSettings"/>.
         /// </summary>
-        /// <param name="hlcdFilePath">The path which points to the HLCD file.</param>
-        /// <param name="preprocessorDirectory">The preprocessor directory to be used for the calculations.</param>
+        /// <param name="hlcdFilePath">The file path of the hydraulic location configuration database.</param>
         /// <param name="usePreprocessorClosure">Indicator whether to use the preprocessor closure.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdFilePath"/> or
-        /// <paramref name="preprocessorDirectory"/> is <c>null</c>.</exception>
-        public HydraRingCalculationSettings(string hlcdFilePath,
-                                            string preprocessorDirectory,
-                                            bool usePreprocessorClosure)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdFilePath"/> is <c>null</c>.</exception>
+        public HydraRingCalculationSettings(string hlcdFilePath, bool usePreprocessorClosure)
         {
             if (hlcdFilePath == null)
             {
                 throw new ArgumentNullException(nameof(hlcdFilePath));
             }
 
-            if (preprocessorDirectory == null)
-            {
-                throw new ArgumentNullException(nameof(preprocessorDirectory));
-            }
-
             HlcdFilePath = hlcdFilePath;
-            PreprocessorDirectory = preprocessorDirectory;
             UsePreprocessorClosure = usePreprocessorClosure;
         }
 
         /// <summary>
-        /// Gets the HLCD filepath.
+        /// Gets the file path of the hydraulic location configuration database.
         /// </summary>
         public string HlcdFilePath { get; }
-
-        /// <summary>
-        /// Gets the preprocessor director.
-        /// </summary>
-        public string PreprocessorDirectory { get; }
 
         /// <summary>
         /// Gets whether to use the preprocessor closure.

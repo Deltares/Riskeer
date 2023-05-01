@@ -63,7 +63,9 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos.CalculationsState
         private const int contextMenuClearAllIndex = 5;
         private const int contextMenuClearIllustrationPointsIndex = 6;
 
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryDatabase));
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryData));
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "complete.sqlite");
+        private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
 
         private MockRepository mocksRepository;
         private HeightStructuresPlugin plugin;
@@ -259,91 +261,13 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos.CalculationsState
         }
 
         [Test]
-        public void ContextMenuStrip_HydraulicBoundaryDatabaseNotLinked_ContextMenuItemCalculateAllDisabledAndTooltipSet()
-        {
-            // Setup
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
-
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocksRepository);
-            var nodeData = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
-            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var gui = mocksRepository.Stub<IGui>();
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
-                mocksRepository.ReplayAll();
-
-                plugin.Gui = gui;
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateAllIndex,
-                                                                  "Alles be&rekenen",
-                                                                  "Er is geen hydraulische belastingendatabase geïmporteerd.",
-                                                                  RiskeerCommonFormsResources.CalculateAllIcon,
-                                                                  false);
-                }
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_HydraulicBoundaryDatabaseLinkedToInvalidFile_ContextMenuItemCalculateAllDisabledAndTooltipSet()
-        {
-            // Setup
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
-
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocksRepository, "invalidFilePath");
-
-            var nodeData = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
-            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var gui = mocksRepository.Stub<IGui>();
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
-                mocksRepository.ReplayAll();
-
-                plugin.Gui = gui;
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    ToolStripItem contextMenuItem = contextMenu.Items[contextMenuCalculateAllIndex];
-
-                    Assert.AreEqual("Alles be&rekenen", contextMenuItem.Text);
-                    StringAssert.Contains("Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt.", contextMenuItem.ToolTipText);
-                    TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.CalculateAllIcon, contextMenuItem.Image);
-                    Assert.IsFalse(contextMenuItem.Enabled);
-                }
-            }
-        }
-
-        [Test]
         public void ContextMenuStrip_AllRequiredInputSet_ContextMenuItemCalculateAllEnabled()
         {
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
 
-            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
-
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = validFilePath,
-                Version = "1.0"
-            };
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
-
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
             var nodeData = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
@@ -370,92 +294,13 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos.CalculationsState
         }
 
         [Test]
-        public void ContextMenuStrip_HydraulicBoundaryDatabaseNotLinked_ContextMenuItemValidateAllDisabledAndTooltipSet()
-        {
-            // Setup
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
-
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocksRepository);
-
-            var nodeData = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
-            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var gui = mocksRepository.Stub<IGui>();
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
-                mocksRepository.ReplayAll();
-
-                plugin.Gui = gui;
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateAllIndex,
-                                                                  "Alles &valideren",
-                                                                  "Er is geen hydraulische belastingendatabase geïmporteerd.",
-                                                                  RiskeerCommonFormsResources.ValidateAllIcon,
-                                                                  false);
-                }
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_HydraulicBoundaryDatabaseLinkedToInvalidFile_ContextMenuItemValidateAllDisabledAndTooltipSet()
-        {
-            // Setup
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
-
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocksRepository, "invalidFilePath");
-
-            var nodeData = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
-            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var gui = mocksRepository.Stub<IGui>();
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
-                mocksRepository.ReplayAll();
-
-                plugin.Gui = gui;
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    ToolStripItem contextMenuItem = contextMenu.Items[contextMenuValidateAllIndex];
-
-                    Assert.AreEqual("Alles &valideren", contextMenuItem.Text);
-                    StringAssert.Contains("Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt.", contextMenuItem.ToolTipText);
-                    TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.ValidateAllIcon, contextMenuItem.Image);
-                    Assert.IsFalse(contextMenuItem.Enabled);
-                }
-            }
-        }
-
-        [Test]
         public void ContextMenuStrip_AllRequiredInputSet_ContextMenuItemValidateAllEnabled()
         {
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
 
-            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
-
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = validFilePath,
-                Version = "1.0"
-            };
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
-
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
             var nodeData = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
@@ -487,34 +332,57 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos.CalculationsState
             // Setup
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new TestHeightStructuresCalculationScenario
-            {
-                Name = "A",
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
-                }
-            });
-            failureMechanism.CalculationsGroup.Children.Add(new TestHeightStructuresCalculationScenario
-            {
-                Name = "B",
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
-                }
-            });
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var failureMechanism = new HeightStructuresFailureMechanism
             {
-                FilePath = Path.Combine(testDataPath, "complete.sqlite")
+                CalculationsGroup =
+                {
+                    Children =
+                    {
+                        new TestHeightStructuresCalculationScenario
+                        {
+                            Name = "A",
+                            InputParameters =
+                            {
+                                HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                            }
+                        },
+                        new TestHeightStructuresCalculationScenario
+                        {
+                            Name = "B",
+                            InputParameters =
+                            {
+                                HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                            }
+                        }
+                    }
+                }
             };
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
+
+            var hydraulicBoundaryData = new HydraulicBoundaryData
+            {
+                HydraulicLocationConfigurationDatabase =
+                {
+                    FilePath = validHlcdFilePath
+                },
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        FilePath = validHrdFilePath,
+                        Locations =
+                        {
+                            hydraulicBoundaryLocation
+                        }
+                    }
+                }
+            };
 
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.Id).Return(string.Empty);
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
 
             var context = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -533,7 +401,9 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos.CalculationsState
                                  .WhenCalled(invocation =>
                                  {
                                      HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
+                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                                             assessmentSection.HydraulicBoundaryData,
+                                             hydraulicBoundaryLocation),
                                          (HydraRingCalculationSettings) invocation.Arguments[0]);
                                  })
                                  .Return(new TestStructuresCalculator<StructuresOvertoppingCalculationInput>())
@@ -582,34 +452,55 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos.CalculationsState
         public void ContextMenuStrip_ClickOnValidateAllItem_ValidateAllChildCalculations()
         {
             // Setup
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new TestHeightStructuresCalculationScenario
-            {
-                Name = "A",
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
-                }
-            });
-            failureMechanism.CalculationsGroup.Children.Add(new TestHeightStructuresCalculationScenario
-            {
-                Name = "B",
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
-                }
-            });
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
-            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
-
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var failureMechanism = new HeightStructuresFailureMechanism
             {
-                FilePath = validFilePath
+                CalculationsGroup =
+                {
+                    Children =
+                    {
+                        new TestHeightStructuresCalculationScenario
+                        {
+                            Name = "A",
+                            InputParameters =
+                            {
+                                HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                            }
+                        },
+                        new TestHeightStructuresCalculationScenario
+                        {
+                            Name = "B",
+                            InputParameters =
+                            {
+                                HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                            }
+                        }
+                    }
+                }
             };
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
+
+            var hydraulicBoundaryData = new HydraulicBoundaryData
+            {
+                HydraulicLocationConfigurationDatabase =
+                {
+                    FilePath = validHlcdFilePath
+                },
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        FilePath = validHrdFilePath,
+                        Locations =
+                        {
+                            hydraulicBoundaryLocation
+                        }
+                    }
+                }
+            };
 
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
 
             var context = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 

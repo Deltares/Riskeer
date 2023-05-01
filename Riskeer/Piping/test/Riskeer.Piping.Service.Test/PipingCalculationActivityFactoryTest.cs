@@ -53,7 +53,8 @@ namespace Riskeer.Piping.Service.Test
     public class PipingCalculationActivityFactoryTest
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
-        private static readonly string validHydraulicBoundaryDatabaseFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
 
         #region CreateCalculationActivitiesForFailureMechanism
 
@@ -107,8 +108,17 @@ namespace Riskeer.Piping.Service.Test
                 hydraulicBoundaryLocation2
             });
 
-            assessmentSection.HydraulicBoundaryDatabase.FilePath = validHydraulicBoundaryDatabaseFilePath;
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+            assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath = validHlcdFilePath;
+            assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(
+                new HydraulicBoundaryDatabase
+                {
+                    FilePath = validHrdFilePath,
+                    Locations =
+                    {
+                        hydraulicBoundaryLocation1,
+                        hydraulicBoundaryLocation2
+                    }
+                });
 
             var random = new Random(39);
 
@@ -260,8 +270,17 @@ namespace Riskeer.Piping.Service.Test
                 hydraulicBoundaryLocation2
             });
 
-            assessmentSection.HydraulicBoundaryDatabase.FilePath = validHydraulicBoundaryDatabaseFilePath;
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+            assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath = validHlcdFilePath;
+            assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(
+                new HydraulicBoundaryDatabase
+                {
+                    FilePath = validHrdFilePath,
+                    Locations =
+                    {
+                        hydraulicBoundaryLocation1,
+                        hydraulicBoundaryLocation2
+                    }
+                });
 
             var random = new Random(39);
 
@@ -501,8 +520,16 @@ namespace Riskeer.Piping.Service.Test
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             TestPipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
 
-            assessmentSection.HydraulicBoundaryDatabase.FilePath = validHydraulicBoundaryDatabaseFilePath;
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+            assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath = validHlcdFilePath;
+            assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(
+                new HydraulicBoundaryDatabase
+                {
+                    FilePath = validHrdFilePath,
+                    Locations =
+                    {
+                        hydraulicBoundaryLocation
+                    }
+                });
 
             var calculation = ProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<TestProbabilisticPipingCalculation>(
                 hydraulicBoundaryLocation);

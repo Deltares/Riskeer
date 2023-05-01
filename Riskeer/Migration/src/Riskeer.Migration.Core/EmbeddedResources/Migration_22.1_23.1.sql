@@ -13,7 +13,6 @@ INSERT INTO FailureMechanismSectionEntity SELECT * FROM [SOURCEPROJECT].FailureM
 INSERT INTO FailureMechanismEntity SELECT * FROM [SOURCEPROJECT].FailureMechanismEntity;
 INSERT INTO ClosingStructuresFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].ClosingStructuresFailureMechanismMetaEntity;
 INSERT INTO CalculationGroupEntity SELECT * FROM [SOURCEPROJECT].CalculationGroupEntity;
-INSERT INTO HydraulicLocationEntity SELECT * FROM [SOURCEPROJECT].HydraulicLocationEntity;
 INSERT INTO GrassCoverErosionInwardsFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsFailureMechanismMetaEntity;
 INSERT INTO SemiProbabilisticPipingCalculationEntity SELECT * FROM [SOURCEPROJECT].SemiProbabilisticPipingCalculationEntity;
 INSERT INTO GrassCoverErosionInwardsCalculationEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsCalculationEntity;
@@ -40,7 +39,33 @@ INSERT INTO DuneErosionFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].
 INSERT INTO DuneLocationCalculationEntity SELECT * FROM [SOURCEPROJECT].DuneLocationCalculationEntity;
 INSERT INTO DuneLocationCalculationForTargetProbabilityCollectionEntity SELECT * FROM [SOURCEPROJECT].DuneLocationCalculationForTargetProbabilityCollectionEntity;
 INSERT INTO DuneLocationCalculationOutputEntity SELECT * FROM [SOURCEPROJECT].DuneLocationCalculationOutputEntity;
-INSERT INTO DuneLocationEntity SELECT * FROM [SOURCEPROJECT].DuneLocationEntity;
+INSERT INTO DuneLocationEntity (
+    [DuneLocationEntityId],
+    [HydraulicLocationEntityId],
+    [FailureMechanismEntityId],
+    [Name],
+    [CoastalAreaId],
+    [Offset],
+    [Orientation],
+    [D50],
+    [Order]
+)
+SELECT
+    [DuneLocationEntityId],
+    [HydraulicLocationEntityId],
+    [FailureMechanismEntityId],
+    [Name],
+    [CoastalAreaId],
+    [Offset],
+    [Orientation],
+    [D50],
+    [Order]
+FROM [SOURCEPROJECT].DuneLocationEntity
+JOIN (
+    SELECT HydraulicLocationEntityId, LocationId
+    FROM [SOURCEPROJECT].HydraulicLocationEntity
+)
+USING(LocationId);
 INSERT INTO FailureMechanismFailureMechanismSectionEntity SELECT * FROM [SOURCEPROJECT].FailureMechanismFailureMechanismSectionEntity;
 INSERT INTO FaultTreeIllustrationPointEntity SELECT * FROM [SOURCEPROJECT].FaultTreeIllustrationPointEntity;
 INSERT INTO FaultTreeIllustrationPointStochastEntity SELECT * FROM [SOURCEPROJECT].FaultTreeIllustrationPointStochastEntity;
@@ -60,7 +85,69 @@ INSERT INTO HeightStructureEntity SELECT * FROM [SOURCEPROJECT].HeightStructureE
 INSERT INTO HeightStructuresCalculationEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresCalculationEntity;
 INSERT INTO HeightStructuresFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresFailureMechanismMetaEntity;
 INSERT INTO HeightStructuresOutputEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresOutputEntity;
-INSERT INTO HydraulicBoundaryDatabaseEntity SELECT * FROM [SOURCEPROJECT].HydraulicBoundaryDatabaseEntity;
+INSERT INTO HydraulicBoundaryDataEntity (
+    [HydraulicBoundaryDataEntityId],
+    [AssessmentSectionEntityId],
+    [HydraulicLocationConfigurationDatabaseFilePath],
+    [HydraulicLocationConfigurationDatabaseScenarioName],
+    [HydraulicLocationConfigurationDatabaseYear],
+    [HydraulicLocationConfigurationDatabaseScope],
+    [HydraulicLocationConfigurationDatabaseSeaLevel],
+    [HydraulicLocationConfigurationDatabaseRiverDischarge],
+    [HydraulicLocationConfigurationDatabaseLakeLevel],
+    [HydraulicLocationConfigurationDatabaseWindDirection],
+    [HydraulicLocationConfigurationDatabaseWindSpeed],
+    [HydraulicLocationConfigurationDatabaseComment]
+)
+SELECT
+    [HydraulicBoundaryDatabaseEntity],
+    [AssessmentSectionEntityId],
+    [HydraulicLocationConfigurationSettingsFilePath],
+    [HydraulicLocationConfigurationSettingsScenarioName],
+    [HydraulicLocationConfigurationSettingsYear],
+    [HydraulicLocationConfigurationSettingsScope],
+    [HydraulicLocationConfigurationSettingsSeaLevel],
+    [HydraulicLocationConfigurationSettingsRiverDischarge],
+    [HydraulicLocationConfigurationSettingsLakeLevel],
+    [HydraulicLocationConfigurationSettingsWindDirection],
+    [HydraulicLocationConfigurationSettingsWindSpeed],
+    [HydraulicLocationConfigurationSettingsComment]
+FROM [SOURCEPROJECT].HydraulicBoundaryDatabaseEntity;
+INSERT INTO HydraulicBoundaryDatabaseEntity (
+    [HydraulicBoundaryDataEntityId],
+    [Version],
+    [FilePath],
+    [UsePreprocessorClosure],
+    [Order]
+)
+SELECT
+    [HydraulicBoundaryDatabaseEntity],
+    [Version],
+    [FilePath],
+    [HydraulicLocationConfigurationSettingsUsePreprocessorClosure],
+    0
+FROM [SOURCEPROJECT].HydraulicBoundaryDatabaseEntity;
+INSERT INTO HydraulicLocationEntity (
+    [HydraulicLocationEntityId],
+    [HydraulicBoundaryDatabaseEntityId],
+    [LocationId],
+    [Name],
+    [LocationX],
+    [LocationY],
+    [Order]
+)
+SELECT
+    [HydraulicLocationEntityId],
+    [HydraulicBoundaryDatabaseEntityId],
+    [LocationId],
+    [Name],
+    [LocationX],
+    [LocationY],
+    [Order]
+FROM [SOURCEPROJECT].HydraulicLocationEntity
+JOIN (
+    SELECT HydraulicBoundaryDatabaseEntityId FROM HydraulicBoundaryDatabaseEntity LIMIT 1
+);
 INSERT INTO HydraulicLocationCalculationCollectionEntity SELECT * FROM [SOURCEPROJECT].HydraulicLocationCalculationCollectionEntity;
 INSERT INTO HydraulicLocationCalculationCollectionHydraulicLocationCalculationEntity SELECT * FROM [SOURCEPROJECT].HydraulicLocationCalculationCollectionHydraulicLocationCalculationEntity;
 INSERT INTO HydraulicLocationCalculationEntity SELECT * FROM [SOURCEPROJECT].HydraulicLocationCalculationEntity;

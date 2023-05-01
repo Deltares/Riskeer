@@ -597,16 +597,24 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
-
-            var assessmentSection = new AssessmentSectionStub();
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                hydraulicBoundaryLocation
-            });
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        Locations =
+                        {
+                            hydraulicBoundaryLocation
+                        }
+                    }
+                }
+            };
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
+            mocks.ReplayAll();
 
             var input = new WaveConditionsInput
             {
@@ -683,22 +691,30 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
         {
             // Given
             var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
+            var hydraulicBoundaryData = new HydraulicBoundaryData
+            {
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        Locations =
+                        {
+                            hydraulicBoundaryLocation
+                        }
+                    }
+                }
+            };
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
+            mocks.ReplayAll();
 
             var input = new WaveConditionsInput
             {
                 HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                 ForeshoreProfile = new TestForeshoreProfile(new Point2D(200620.173572981, 503401.652985217))
             };
-
-            var assessmentSection = new AssessmentSectionStub();
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
-            {
-                hydraulicBoundaryLocation
-            });
 
             var inputContext = new TestWaveConditionsInputContext(input, Array.Empty<ForeshoreProfile>(), assessmentSection);
 
@@ -723,19 +739,26 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
-            var locations = new List<HydraulicBoundaryLocation>
+            var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                new HydraulicBoundaryLocation(1, "A", 0, 1),
-                new HydraulicBoundaryLocation(4, "C", 0, 2),
-                new HydraulicBoundaryLocation(3, "D", 0, 3),
-                new HydraulicBoundaryLocation(2, "B", 0, 4)
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        Locations =
+                        {
+                            new HydraulicBoundaryLocation(1, "A", 0, 1),
+                            new HydraulicBoundaryLocation(4, "C", 0, 2),
+                            new HydraulicBoundaryLocation(3, "D", 0, 3),
+                            new HydraulicBoundaryLocation(2, "B", 0, 4)
+                        }
+                    }
+                }
             };
-
-            var assessmentSection = new AssessmentSectionStub();
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(locations);
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
+            mocks.ReplayAll();
 
             var input = new WaveConditionsInput();
             var inputContext = new TestWaveConditionsInputContext(input, Array.Empty<ForeshoreProfile>(), assessmentSection);
@@ -749,8 +772,9 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
 
             // Assert
             IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
-                locations.Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, null))
-                         .OrderBy(hbl => hbl.HydraulicBoundaryLocation.Id);
+                assessmentSection.HydraulicBoundaryData.GetLocations()
+                                 .Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, null))
+                                 .OrderBy(hbl => hbl.HydraulicBoundaryLocation.Id);
             CollectionAssert.AreEqual(expectedList, availableHydraulicBoundaryLocations);
             mocks.VerifyAll();
         }
@@ -760,26 +784,34 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
 
-            var locations = new List<HydraulicBoundaryLocation>
+            var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                new HydraulicBoundaryLocation(1, "A", 0, 10),
-                new HydraulicBoundaryLocation(4, "E", 0, 500),
-                new HydraulicBoundaryLocation(5, "F", 0, 100),
-                new HydraulicBoundaryLocation(6, "D", 0, 200),
-                new HydraulicBoundaryLocation(3, "C", 0, 200),
-                new HydraulicBoundaryLocation(2, "B", 0, 200)
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        Locations =
+                        {
+                            new HydraulicBoundaryLocation(1, "A", 0, 10),
+                            new HydraulicBoundaryLocation(4, "E", 0, 500),
+                            new HydraulicBoundaryLocation(5, "F", 0, 100),
+                            new HydraulicBoundaryLocation(6, "D", 0, 200),
+                            new HydraulicBoundaryLocation(3, "C", 0, 200),
+                            new HydraulicBoundaryLocation(2, "B", 0, 200)
+                        }
+                    }
+                }
             };
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
+            mocks.ReplayAll();
 
             var input = new WaveConditionsInput
             {
                 ForeshoreProfile = new TestForeshoreProfile()
             };
-
-            var assessmentSection = new AssessmentSectionStub();
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(locations);
 
             var inputContext = new TestWaveConditionsInputContext(input, Array.Empty<ForeshoreProfile>(), assessmentSection);
 
@@ -792,9 +824,10 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
 
             // Assert
             IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
-                locations.Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, input.ForeshoreProfile.WorldReferencePoint))
-                         .OrderBy(hbl => hbl.Distance)
-                         .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Name);
+                assessmentSection.HydraulicBoundaryData.GetLocations()
+                                 .Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, input.ForeshoreProfile.WorldReferencePoint))
+                                 .OrderBy(hbl => hbl.Distance)
+                                 .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Name);
             CollectionAssert.AreEqual(expectedList, availableHydraulicBoundaryLocations);
             mocks.VerifyAll();
         }
@@ -803,18 +836,28 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
         public void GivenLocationAndReferencePoint_WhenUpdatingForeshoreProfile_ThenUpdateSelectableBoundaryLocations()
         {
             // Given
-            var locations = new List<HydraulicBoundaryLocation>
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                new HydraulicBoundaryLocation(1, "A", 0, 10),
-                new HydraulicBoundaryLocation(3, "E", 0, 500),
-                new HydraulicBoundaryLocation(6, "F", 0, 100),
-                new HydraulicBoundaryLocation(5, "D", 0, 200),
-                new HydraulicBoundaryLocation(4, "C", 0, 200),
-                new HydraulicBoundaryLocation(2, "B", 0, 200)
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        Locations =
+                        {
+                            new HydraulicBoundaryLocation(1, "A", 0, 10),
+                            new HydraulicBoundaryLocation(3, "E", 0, 500),
+                            new HydraulicBoundaryLocation(6, "F", 0, 100),
+                            new HydraulicBoundaryLocation(5, "D", 0, 200),
+                            new HydraulicBoundaryLocation(4, "C", 0, 200),
+                            new HydraulicBoundaryLocation(2, "B", 0, 200)
+                        }
+                    }
+                }
             };
-
-            var assessmentSection = new AssessmentSectionStub();
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(locations);
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
+            mocks.ReplayAll();
 
             var input = new WaveConditionsInput
             {
@@ -842,12 +885,13 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             CollectionAssert.AreNotEqual(originalList, availableHydraulicBoundaryLocations);
 
             IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
-                locations.Select(hbl =>
-                                     new SelectableHydraulicBoundaryLocation(hbl,
-                                                                             properties.ForeshoreProfile.WorldReferencePoint))
-                         .OrderBy(hbl => hbl.Distance)
-                         .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Id);
+                assessmentSection.HydraulicBoundaryData.GetLocations()
+                                 .Select(hbl => new SelectableHydraulicBoundaryLocation(
+                                             hbl, properties.ForeshoreProfile.WorldReferencePoint))
+                                 .OrderBy(hbl => hbl.Distance)
+                                 .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Id);
             CollectionAssert.AreEqual(expectedList, availableHydraulicBoundaryLocations);
+            mocks.VerifyAll();
         }
 
         [Test]

@@ -24,40 +24,38 @@ using System.Collections.Generic;
 namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
 {
     /// <summary>
-    /// Class for holding data that is read from a hydraulic location configuration database file.
+    /// Class for holding data that is read from a hydraulic location configuration database.
     /// </summary>
     public class ReadHydraulicLocationConfigurationDatabase
     {
         /// <summary>
         /// Creates a new instance of <see cref="ReadHydraulicLocationConfigurationDatabase"/>.
         /// </summary>
-        /// <param name="locationIdMappings">The location id mappings of the read hydraulic location
-        /// configuration database.</param>
-        /// <param name="readHydraulicLocationConfigurationDatabaseSettings">The hydraulic location configuration settings
-        /// of the read hydraulic location database.</param>
-        /// <param name="usePreprocessorClosure">Indicator whether to use the preprocessor closure.</param>
-        internal ReadHydraulicLocationConfigurationDatabase(IEnumerable<ReadHydraulicLocationMapping> locationIdMappings,
-                                                            IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> readHydraulicLocationConfigurationDatabaseSettings,
-                                                            bool usePreprocessorClosure)
+        /// <param name="readHydraulicLocations">The read hydraulic locations.</param>
+        /// <param name="readHydraulicLocationConfigurationSettings">The read hydraulic location configuration settings.</param>
+        /// <param name="readTracks">The read tracks.</param>
+        internal ReadHydraulicLocationConfigurationDatabase(IEnumerable<ReadHydraulicLocation> readHydraulicLocations,
+                                                            IEnumerable<ReadHydraulicLocationConfigurationSettings> readHydraulicLocationConfigurationSettings,
+                                                            IEnumerable<ReadTrack> readTracks)
         {
-            LocationIdMappings = locationIdMappings;
-            ReadHydraulicLocationConfigurationDatabaseSettings = readHydraulicLocationConfigurationDatabaseSettings;
-            UsePreprocessorClosure = usePreprocessorClosure;
+            ReadHydraulicLocations = readHydraulicLocations;
+            ReadHydraulicLocationConfigurationSettings = readHydraulicLocationConfigurationSettings;
+            ReadTracks = readTracks;
         }
 
         /// <summary>
-        /// Gets the location id mappings of the read hydraulic location configuration database.
+        /// Gets the read hydraulic locations.
         /// </summary>
-        public IEnumerable<ReadHydraulicLocationMapping> LocationIdMappings { get; }
+        public IEnumerable<ReadHydraulicLocation> ReadHydraulicLocations { get; }
 
         /// <summary>
-        /// Gets the settings of the read hydraulic location configuration database.
+        /// Gets the read hydraulic location configuration settings.
         /// </summary>
-        public IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> ReadHydraulicLocationConfigurationDatabaseSettings { get; }
+        public IEnumerable<ReadHydraulicLocationConfigurationSettings> ReadHydraulicLocationConfigurationSettings { get; }
 
         /// <summary>
-        /// Gets the indicator whether to use the preprocessor closure.
+        /// Gets the read tracks.
         /// </summary>
-        public bool UsePreprocessorClosure { get; }
+        public IEnumerable<ReadTrack> ReadTracks { get; }
     }
 }

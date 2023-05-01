@@ -31,8 +31,7 @@ namespace Riskeer.Piping.KernelWrapper
         /// <summary>
         /// Constructs a new <see cref="PipingCalculatorResult"/>. The result will hold all the values which were given.
         /// </summary>
-        /// <param name="constructionProperties">The container of the properties for the
-        /// <see cref="PipingCalculatorResult"/></param>
+        /// <param name="constructionProperties">The container of the properties for the <see cref="PipingCalculatorResult"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when the <paramref name="constructionProperties"/>
         /// is <c>null</c>.</exception>
         internal PipingCalculatorResult(ConstructionProperties constructionProperties)

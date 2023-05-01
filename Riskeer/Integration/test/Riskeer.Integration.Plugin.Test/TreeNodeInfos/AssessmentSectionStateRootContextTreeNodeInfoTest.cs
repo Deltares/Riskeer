@@ -183,7 +183,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_Always_CallsBuilder()
+        public void ContextMenuStrip_WithContext_CallsBuilder()
         {
             // Setup
             var mocks = new MockRepository();
@@ -205,8 +205,11 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
+                var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+                var assessmentSectionContext = new AssessmentSectionStateRootContext(assessmentSection);
+
                 IGui gui = StubFactory.CreateGuiStub(mocks);
-                gui.Stub(g => g.Get(null, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.Get(assessmentSectionContext, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 
                 using (var plugin = new RiskeerPlugin())
@@ -215,7 +218,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     plugin.Gui = gui;
 
                     // Call
-                    info.ContextMenuStrip(null, null, treeViewControl);
+                    info.ContextMenuStrip(assessmentSectionContext, null, treeViewControl);
                 }
             }
 
@@ -224,7 +227,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_Always_AddCustomItems()
+        public void ContextMenuStrip_WithContext_AddCustomItems()
         {
             // Setup
             using (var treeView = new TreeViewControl())

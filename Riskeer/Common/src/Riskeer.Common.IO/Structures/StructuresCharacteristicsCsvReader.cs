@@ -101,7 +101,8 @@ namespace Riskeer.Common.IO.Structures
         /// <item>The file is empty.</item>
         /// <item>Some I/O related problem occurred.</item>
         /// <item>The header is not in the required format.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         /// <exception cref="LineParseException">Thrown when either:
         /// <list type="bullet">
         /// <item>The line does not contain the separator character.</item>
@@ -110,7 +111,8 @@ namespace Riskeer.Common.IO.Structures
         /// <item>Numeric value field is not a number or too large/small to be represented as <see cref="double"/>.</item>
         /// <item>Variance value field is not a number or too large/small to be represented as <see cref="double"/>.</item>
         /// <item>Boolean field is not a valid value.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         public StructuresParameterRow ReadLine()
         {
             if (fileReader == null)
@@ -345,7 +347,8 @@ namespace Riskeer.Common.IO.Structures
         /// <item>Numeric value field is not a number or too large/small to be represented as <see cref="double"/>.</item>
         /// <item>Variance value field is not a number or too large/small to be represented as <see cref="double"/>.</item>
         /// <item>Boolean field is not a valid value.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         private StructuresParameterRow CreateStructuresParameterRow(string readText)
         {
             string[] tokenizedText = TokenizeString(readText);

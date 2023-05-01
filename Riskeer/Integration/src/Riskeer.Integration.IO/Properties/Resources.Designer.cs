@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -201,7 +201,7 @@ namespace Riskeer.Integration.IO.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to {0}
-        ///Er is geen hydraulische belastingen database gekoppeld..
+        ///Er is geen hydraulische belastingen database toegevoegd..
         /// </summary>
         public static string HydraulicBoundaryDatabaseImporter_HandleCriticalFileReadError_Error_0_No_HydraulicBoundaryDatabase_imported {
             get {
@@ -211,35 +211,44 @@ namespace Riskeer.Integration.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De tabel &apos;ScenarioInformation&apos; in het HLCD bestand moet exact 1 rij bevatten..
-        /// </summary>
-        public static string HydraulicBoundaryDatabaseImporter_HLCD_Invalid_number_of_ScenarioInformation_entries {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_HLCD_Invalid_number_of_ScenarioInformation_entr" +
-                        "ies", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Het bijbehorende HLCD bestand is niet gevonden in dezelfde map als het HRD bestand..
         /// </summary>
-        public static string HydraulicBoundaryDatabaseImporter_HLCD_sqlite_Not_Found {
+        public static string HydraulicBoundaryDatabaseImporter_Hlcd_sqlite_not_found {
             get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_HLCD_sqlite_Not_Found", resourceCulture);
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_Hlcd_sqlite_not_found", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bijbehorende preprocessor closure bestand is niet gevonden in dezelfde map als het HLCD bestand..
+        ///   Looks up a localized string similar to Het HRD bestand is reeds toegevoegd..
         /// </summary>
-        public static string HydraulicBoundaryDatabaseImporter_PreprocessorClosure_sqlite_Not_Found {
+        public static string HydraulicBoundaryDatabaseImporter_Hrd_file_already_added {
             get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_PreprocessorClosure_sqlite_Not_Found", resourceCulture);
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_Hrd_file_already_added", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hydraulische belastingen database koppelen afgebroken. Geen gegevens gewijzigd..
+        ///   Looks up a localized string similar to Het HRD bestand bevat een of meerdere locaties met een id dat reeds voorkomt..
+        /// </summary>
+        public static string HydraulicBoundaryDatabaseImporter_Hrd_file_contains_one_or_more_locations_with_existing_id {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_Hrd_file_contains_one_or_more_locations_with_ex" +
+                        "isting_id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het HRD bestand moet zich in dezelfde bestandsmap bevinden als het HLCD bestand..
+        /// </summary>
+        public static string HydraulicBoundaryDatabaseImporter_Hrd_file_not_in_same_folder_as_hlcd_file {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_Hrd_file_not_in_same_folder_as_hlcd_file", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hydraulische belastingen database toevoegen afgebroken. Geen gegevens gewijzigd..
         /// </summary>
         public static string HydraulicBoundaryDatabaseImporter_ProgressText_Import_canceled_No_data_changed {
             get {
@@ -248,29 +257,29 @@ namespace Riskeer.Integration.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Inlezen van het hydraulische locatie configuratie bestand..
-        /// </summary>
-        public static string HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HLCD_file {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HLCD_file", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Inlezen van het hydraulische belastingen bestand..
         /// </summary>
-        public static string HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HRD_file {
+        public static string HydraulicBoundaryDatabaseImporter_ProgressText_Reading_Hrd_file {
             get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HRD_file", resourceCulture);
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_ProgressText_Reading_Hrd_file", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Inlezen van het rekeninstellingen bestand..
         /// </summary>
-        public static string HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HRD_settings_file {
+        public static string HydraulicBoundaryDatabaseImporter_ProgressText_Reading_Hrd_settings_file {
             get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HRD_settings_file", resourceCulture);
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_ProgressText_Reading_Hrd_settings_file", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inlezen van het hydraulische locatie configuratie bestand..
+        /// </summary>
+        public static string HydraulicBoundaryDataImporter_ProgressText_Reading_Hlcd_file {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDataImporter_ProgressText_Reading_Hlcd_file", resourceCulture);
             }
         }
         
@@ -306,11 +315,11 @@ namespace Riskeer.Integration.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het HLCD bestand is niet gevonden in dezelfde map als het HRD bestand..
+        ///   Looks up a localized string similar to Het HLCD bestand moet zich in dezelfde map bevinden als de toegevoegde HRD bestanden..
         /// </summary>
-        public static string HydraulicLocationConfigurationDatabaseImporter_HLCD_not_in_same_folder_as_HRD {
+        public static string HydraulicLocationConfigurationDatabaseImporter_Hlcd_not_in_same_folder_as_Hrd {
             get {
-                return ResourceManager.GetString("HydraulicLocationConfigurationDatabaseImporter_HLCD_not_in_same_folder_as_HRD", resourceCulture);
+                return ResourceManager.GetString("HydraulicLocationConfigurationDatabaseImporter_Hlcd_not_in_same_folder_as_Hrd", resourceCulture);
             }
         }
         
@@ -340,6 +349,15 @@ namespace Riskeer.Integration.IO.Properties {
             get {
                 return ResourceManager.GetString("HydraulicLocationConfigurationDatabaseImporter_ProgressText_Import_canceled_No_da" +
                         "ta_changed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inlezen van de hydraulische belastingen bestanden..
+        /// </summary>
+        public static string HydraulicLocationConfigurationDatabaseImporter_ProgressText_Reading_Hrd_files {
+            get {
+                return ResourceManager.GetString("HydraulicLocationConfigurationDatabaseImporter_ProgressText_Reading_Hrd_files", resourceCulture);
             }
         }
         

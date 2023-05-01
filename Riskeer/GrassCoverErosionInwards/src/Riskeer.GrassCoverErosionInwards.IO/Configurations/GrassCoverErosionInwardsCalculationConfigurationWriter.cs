@@ -42,7 +42,8 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
         /// <item>does not consist out of only whitespace characters,</item>
         /// <item>does not contain an invalid character,</item>
         /// <item>does not end with a directory or path separator (empty file name).</item>
-        /// </list></remarks>
+        /// </list>
+        /// </remarks>
         public GrassCoverErosionInwardsCalculationConfigurationWriter(string filePath) : base(filePath) {}
 
         protected override int GetConfigurationVersion()

@@ -27,27 +27,39 @@ using Riskeer.Integration.Data;
 namespace Riskeer.Integration.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for all data required to configure an instance of <see cref="HydraulicBoundaryDatabase"/>.
+    /// Presentation object for all data required to configure a <see cref="HydraulicBoundaryDatabase"/> instance.
     /// </summary>
-    public class HydraulicBoundaryDatabaseContext : ObservableWrappedObjectContextBase<HydraulicBoundaryDatabase>
+    public class HydraulicBoundaryDatabaseContext : WrappedObjectContextBase<HydraulicBoundaryDatabase>
     {
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryDatabaseContext"/>.
         /// </summary>
-        /// <param name="wrappedData">The <see cref="HydraulicBoundaryDatabase"/> that the <see cref="HydraulicBoundaryDatabaseContext"/> belongs to.</param>
+        /// <param name="wrappedData">The hydraulic boundary database that the <see cref="HydraulicBoundaryDatabaseContext"/> belongs to.</param>
+        /// <param name="hydraulicBoundaryData">The hydraulic boundary data that the <see cref="HydraulicBoundaryDatabaseContext"/> belongs to.</param>
         /// <param name="assessmentSection">The assessment section that the <see cref="HydraulicBoundaryDatabaseContext"/> belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public HydraulicBoundaryDatabaseContext(HydraulicBoundaryDatabase wrappedData,
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        public HydraulicBoundaryDatabaseContext(HydraulicBoundaryDatabase wrappedData, HydraulicBoundaryData hydraulicBoundaryData,
                                                 AssessmentSection assessmentSection)
             : base(wrappedData)
         {
+            if (hydraulicBoundaryData == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryData));
+            }
+
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
+            HydraulicBoundaryData = hydraulicBoundaryData;
             AssessmentSection = assessmentSection;
         }
+
+        /// <summary>
+        /// Gets the hydraulic boundary data that the context belongs to.
+        /// </summary>
+        public HydraulicBoundaryData HydraulicBoundaryData { get; }
 
         /// <summary>
         /// Gets the assessment section that the context belongs to.

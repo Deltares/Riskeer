@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
@@ -83,10 +82,12 @@ namespace Riskeer.Storage.Core.TestUtil
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 Name = "assessmentSection",
-                HydraulicBoundaryDatabase =
+                HydraulicBoundaryData =
                 {
-                    FilePath = "/temp/test",
-                    Version = "1.0"
+                    HydraulicBoundaryDatabases =
+                    {
+                        new HydraulicBoundaryDatabase()
+                    }
                 },
                 Id = "12-2",
                 FailureMechanismContribution =
@@ -96,7 +97,9 @@ namespace Riskeer.Storage.Core.TestUtil
                     NormativeProbabilityType = NormativeProbabilityType.SignalFloodingProbability
                 }
             };
-            SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+
+            ConfigureHydraulicLocationConfigurationDatabase(assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase);
+            ConfigureHydraulicBoundaryDatabase(assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Single());
 
             assessmentSection.ReferenceLine.SetGeometry(new[]
             {
@@ -105,9 +108,6 @@ namespace Riskeer.Storage.Core.TestUtil
                 new Point2D(5, 8),
                 new Point2D(-3, 2)
             });
-
-            ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
-            hydraulicBoundaryLocations.AddRange(GetHydraulicBoundaryLocations());
 
             var random = new Random(21);
             assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.AddRange(new[]
@@ -123,7 +123,7 @@ namespace Riskeer.Storage.Core.TestUtil
                 new HydraulicBoundaryLocationCalculationsForTargetProbability(random.NextDouble(0, 0.1))
             });
 
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(assessmentSection.HydraulicBoundaryData.GetLocations());
             ConfigureHydraulicBoundaryLocationCalculations(assessmentSection);
 
             MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism = assessmentSection.MacroStabilityInwards;
@@ -173,7 +173,7 @@ namespace Riskeer.Storage.Core.TestUtil
             SetSectionResults(closingStructuresFailureMechanism.SectionResults);
 
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.DuneErosion;
-            ConfigureDuneErosionFailureMechanism(duneErosionFailureMechanism);
+            ConfigureDuneErosionFailureMechanism(duneErosionFailureMechanism, assessmentSection.HydraulicBoundaryData.GetLocations());
             SetSections(duneErosionFailureMechanism);
             SetSectionResults(duneErosionFailureMechanism.SectionResults);
 
@@ -235,19 +235,26 @@ namespace Riskeer.Storage.Core.TestUtil
             failureMechanism.GeneralInput.N = random.NextRoundedDouble(1, 20);
         }
 
-        private static void SetHydraulicBoundaryLocationConfigurationSettings(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+        private static void ConfigureHydraulicLocationConfigurationDatabase(HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase)
         {
-            hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.SetValues("some\\Path\\ToHlcd",
-                                                                                       "ScenarioName",
-                                                                                       1337,
-                                                                                       "Scope",
-                                                                                       false,
-                                                                                       "SeaLevel",
-                                                                                       "RiverDischarge",
-                                                                                       "LakeLevel",
-                                                                                       "WindDirection",
-                                                                                       "WindSpeed",
-                                                                                       "Comment");
+            hydraulicLocationConfigurationDatabase.FilePath = "some\\Path\\ToHlcd";
+            hydraulicLocationConfigurationDatabase.ScenarioName = "ScenarioName";
+            hydraulicLocationConfigurationDatabase.Year = 1337;
+            hydraulicLocationConfigurationDatabase.Scope = "Scope";
+            hydraulicLocationConfigurationDatabase.SeaLevel = "SeaLevel";
+            hydraulicLocationConfigurationDatabase.RiverDischarge = "RiverDischarge";
+            hydraulicLocationConfigurationDatabase.LakeLevel = "LakeLevel";
+            hydraulicLocationConfigurationDatabase.WindDirection = "WindDirection";
+            hydraulicLocationConfigurationDatabase.WindSpeed = "WindSpeed";
+            hydraulicLocationConfigurationDatabase.Comment = "Comment";
+        }
+        
+        private static void ConfigureHydraulicBoundaryDatabase(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+        {
+            hydraulicBoundaryDatabase.FilePath = "/temp/test";
+            hydraulicBoundaryDatabase.Version = "1.0";
+            hydraulicBoundaryDatabase.UsePreprocessorClosure = false;
+            hydraulicBoundaryDatabase.Locations.AddRange(GetHydraulicBoundaryLocations());
         }
 
         private static void SetSections(IFailureMechanism failureMechanism)
@@ -310,12 +317,12 @@ namespace Riskeer.Storage.Core.TestUtil
 
         private static void ConfigureHydraulicBoundaryLocationCalculations(AssessmentSection assessmentSection)
         {
-            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
+            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryData.GetLocations();
             HydraulicBoundaryLocation hydraulicLocationWithoutIllustrationPoints = hydraulicBoundaryLocations.ElementAt(0);
             ConfigureCalculationsWithOutput(assessmentSection, hydraulicLocationWithoutIllustrationPoints);
 
             HydraulicBoundaryLocation hydraulicLocationWithIllustrationPoints = hydraulicBoundaryLocations.ElementAt(1);
-            ConfigureCalculationsWithOutput(assessmentSection, hydraulicLocationWithIllustrationPoints);
+            ConfigureCalculationsWithOutput(assessmentSection, hydraulicLocationWithIllustrationPoints);    
         }
 
         private static void ConfigureCalculationsWithOutput(AssessmentSection assessmentSection,
@@ -574,7 +581,7 @@ namespace Riskeer.Storage.Core.TestUtil
             var random = new Random(56);
 
             ForeshoreProfile foreshoreProfile = failureMechanism.ForeshoreProfiles[0];
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0];
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First();
             failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
             {
                 Name = "StabilityPoint structures A",
@@ -676,7 +683,7 @@ namespace Riskeer.Storage.Core.TestUtil
             }, @"C:\Folder");
 
             ForeshoreProfile foreshoreProfile = failureMechanism.ForeshoreProfiles[0];
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0];
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First();
             failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
             {
                 Name = "Closing structures A",
@@ -766,7 +773,7 @@ namespace Riskeer.Storage.Core.TestUtil
         {
             failureMechanism.GeneralInput.N = (RoundedDouble) 5.0;
 
-            List<HydraulicBoundaryLocation> hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
+            HydraulicBoundaryLocation[] hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryData.GetLocations().ToArray();
 
             var heightStructure = new TestHeightStructure();
             failureMechanism.HeightStructures.AddRange(new[]
@@ -893,7 +900,7 @@ namespace Riskeer.Storage.Core.TestUtil
                         InputParameters =
                         {
                             DikeProfile = dikeProfile1,
-                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0],
+                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(),
                             BreakWater =
                             {
                                 Height = (RoundedDouble) (dikeProfile1.BreakWater.Height + 0.3),
@@ -927,7 +934,7 @@ namespace Riskeer.Storage.Core.TestUtil
                         InputParameters =
                         {
                             DikeProfile = dikeProfile1,
-                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0],
+                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(),
                             BreakWater =
                             {
                                 Height = (RoundedDouble) (dikeProfile1.BreakWater.Height + 0.3),
@@ -985,7 +992,7 @@ namespace Riskeer.Storage.Core.TestUtil
         {
             failureMechanism.GeneralInput.N = (RoundedDouble) 15.0;
             ForeshoreProfile foreshoreProfile = failureMechanism.ForeshoreProfiles[0];
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First();
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First();
             failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
             {
                 Name = "GCEO A",
@@ -1111,7 +1118,7 @@ namespace Riskeer.Storage.Core.TestUtil
             failureMechanism.GeneralInput.N = (RoundedDouble) 15.0;
 
             ForeshoreProfile foreshoreProfile = failureMechanism.ForeshoreProfiles[0];
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0];
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First();
             failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
             {
                 Name = "SSC A",
@@ -1229,7 +1236,7 @@ namespace Riskeer.Storage.Core.TestUtil
             failureMechanism.GeneralWaveImpactAsphaltCoverInput.DeltaL = (RoundedDouble) 1337.0;
 
             ForeshoreProfile foreshoreProfile = failureMechanism.ForeshoreProfiles[0];
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0];
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First();
             failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
             {
                 Name = "WIAC A",
@@ -1335,7 +1342,8 @@ namespace Riskeer.Storage.Core.TestUtil
 
         #region DuneErosion FailureMechanism
 
-        private static void ConfigureDuneErosionFailureMechanism(DuneErosionFailureMechanism failureMechanism)
+        private static void ConfigureDuneErosionFailureMechanism(DuneErosionFailureMechanism failureMechanism,
+                                                                 IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
         {
             failureMechanism.CalculationsInputComments.Body = $"Calculations input comment: {failureMechanism.Name}";
 
@@ -1349,14 +1357,15 @@ namespace Riskeer.Storage.Core.TestUtil
                 new DuneLocationCalculationsForTargetProbability(random.NextDouble(0, 0.1))
             });
 
-            SetDuneLocations(failureMechanism);
+            SetDuneLocations(failureMechanism, hydraulicBoundaryLocations);
         }
 
-        private static void SetDuneLocations(DuneErosionFailureMechanism failureMechanism)
+        private static void SetDuneLocations(DuneErosionFailureMechanism failureMechanism,
+                                             IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
         {
-            var locationOne = new DuneLocation(12, "DuneLocation", new Point2D(790, 456),
+            var locationOne = new DuneLocation("DuneLocation", hydraulicBoundaryLocations.ElementAt(0),
                                                new DuneLocation.ConstructionProperties());
-            var locationTwo = new DuneLocation(13, "DuneLocation", new Point2D(791, 457),
+            var locationTwo = new DuneLocation("DuneLocation", hydraulicBoundaryLocations.ElementAt(1),
                                                new DuneLocation.ConstructionProperties());
             failureMechanism.SetDuneLocations(new[]
             {
@@ -1481,7 +1490,7 @@ namespace Riskeer.Storage.Core.TestUtil
                         InputParameters =
                         {
                             SurfaceLine = pipingFailureMechanism.SurfaceLines.First(),
-                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(),
+                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(),
                             StochasticSoilModel = pipingFailureMechanism.StochasticSoilModels.First(),
                             StochasticSoilProfile = pipingFailureMechanism.StochasticSoilModels.First()
                                                                           .StochasticSoilProfiles.First(),
@@ -1544,7 +1553,7 @@ namespace Riskeer.Storage.Core.TestUtil
                         InputParameters =
                         {
                             SurfaceLine = pipingFailureMechanism.SurfaceLines.First(),
-                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(),
+                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(),
                             StochasticSoilModel = pipingFailureMechanism.StochasticSoilModels.First(),
                             StochasticSoilProfile = pipingFailureMechanism.StochasticSoilModels.First()
                                                                           .StochasticSoilProfiles.First(),
@@ -1584,7 +1593,7 @@ namespace Riskeer.Storage.Core.TestUtil
                 InputParameters =
                 {
                     SurfaceLine = pipingFailureMechanism.SurfaceLines.First(),
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(),
                     StochasticSoilModel = pipingFailureMechanism.StochasticSoilModels.First(),
                     StochasticSoilProfile = pipingFailureMechanism.StochasticSoilModels.First()
                                                                   .StochasticSoilProfiles.Skip(1).First(),
@@ -1615,7 +1624,7 @@ namespace Riskeer.Storage.Core.TestUtil
                 InputParameters =
                 {
                     SurfaceLine = pipingFailureMechanism.SurfaceLines.First(),
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(),
                     StochasticSoilModel = pipingFailureMechanism.StochasticSoilModels.First(),
                     StochasticSoilProfile = pipingFailureMechanism.StochasticSoilModels.First()
                                                                   .StochasticSoilProfiles.Skip(1).First(),
@@ -1915,7 +1924,7 @@ namespace Riskeer.Storage.Core.TestUtil
                         InputParameters =
                         {
                             SurfaceLine = macroStabilityInwardsFailureMechanism.SurfaceLines.First(),
-                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(),
+                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(),
                             StochasticSoilModel = macroStabilityInwardsFailureMechanism.StochasticSoilModels.First(),
                             StochasticSoilProfile = macroStabilityInwardsFailureMechanism.StochasticSoilModels.First()
                                                                                          .StochasticSoilProfiles.First(),
@@ -2084,7 +2093,7 @@ namespace Riskeer.Storage.Core.TestUtil
                 InputParameters =
                 {
                     SurfaceLine = macroStabilityInwardsFailureMechanism.SurfaceLines.First(),
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(),
                     StochasticSoilModel = macroStabilityInwardsFailureMechanism.StochasticSoilModels.First(),
                     StochasticSoilProfile = macroStabilityInwardsFailureMechanism.StochasticSoilModels.First()
                                                                                  .StochasticSoilProfiles.Skip(1).First(),

@@ -99,7 +99,8 @@ namespace Riskeer.Common.IO.DikeProfiles
         /// <item>The geometry points for either the dike or foreshore do not have monotonically
         /// increasing X-coordinates.</item>
         /// <item>An unexpected piece of text has been encountered in the file.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         /// <exception cref="CriticalFileValidationException">Thrown when the read id is not an accepted id.</exception>
         public DikeProfileData ReadDikeProfileData(string filePath)
         {
@@ -664,7 +665,8 @@ namespace Riskeer.Common.IO.DikeProfiles
         /// <item>Any of read the parameters in the following data block is invalid.</item>
         /// <item>The keyword has already been defined.</item>
         /// <item>The X-coordinates of the dike are not monotonically increasing.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         private bool TryReadDikeRoughnessPoints(string text, DikeProfileData data, TextReader reader, ref int lineNumber)
         {
             Match dikeGeometryMatch = new Regex(@"^DIJK(\s+(?<dikegeometry>.+?)?)?\s*$").Match(text);
@@ -877,7 +879,8 @@ namespace Riskeer.Common.IO.DikeProfiles
         /// <item>Any of read the parameters in the following data block is invalid.</item>
         /// <item>The keyword has already been defined.</item>
         /// <item>The X-coordinates of the foreshore are not monotonically increasing.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         private bool TryReadForeshoreRoughnessPoints(string text, DikeProfileData data, TextReader reader, ref int lineNumber)
         {
             Match foreshoreGeometryMatch = new Regex(@"^VOORLAND(\s+(?<foreshoregeometry>.+?)?)?\s*$").Match(text);

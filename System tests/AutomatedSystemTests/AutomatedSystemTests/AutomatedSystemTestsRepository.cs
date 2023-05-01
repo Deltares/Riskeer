@@ -3637,9 +3637,12 @@ namespace AutomatedSystemTests
             RepoItemInfo _inassemblyInfo;
             RepoItemInfo _koppelaandatabaseInfo;
             RepoItemInfo _maptoevoegenInfo;
+            RepoItemInfo _selecteerhlcdbestandInfo;
+            RepoItemInfo _hrdbestandtoevoegenInfo;
             RepoItemInfo _mapleegmakenInfo;
             RepoItemInfo _openenInfo;
             RepoItemInfo _selecterenInfo;
+            RepoItemInfo _selecteeranderhlcdbestandInfo;
             RepoItemInfo _verwijderenInfo;
             RepoItemInfo _voegkaartlaagtoeInfo;
             RepoItemInfo _wisalleuitvoerInfo;
@@ -3668,9 +3671,12 @@ namespace AutomatedSystemTests
                 _inassemblyInfo = new RepoItemInfo(this, "InAssembly", "menuitem[@accessiblename='In assemblage']", "", 30000, null, "561b2d91-62ad-4174-97e3-b9f7420df49a");
                 _koppelaandatabaseInfo = new RepoItemInfo(this, "KoppelAanDatabase", "menuitem[@accessiblename='Koppel aan database...']", "", 30000, null, "b67d9db7-c97a-44ee-9cc6-3cac1b3aa092");
                 _maptoevoegenInfo = new RepoItemInfo(this, "MapToevoegen", "menuitem[@accessiblename='Map toevoegen']", "", 30000, null, "bb08d163-934b-43d2-b55e-ba2f9cd39c14");
+                _selecteerhlcdbestandInfo = new RepoItemInfo(this, "SelecteerHLCDBestand", "menuitem[@accessiblename='Selecteer HLCD bestand...']", "", 30000, null, "7dc068b1-4029-42ff-9b2c-646a00332fd6");
+                _hrdbestandtoevoegenInfo = new RepoItemInfo(this, "HRDBestandToevoegen", "menuitem[@accessiblename>'HRD bestand toevoegen']", "", 30000, null, "ba10414b-7ca5-4d01-96c8-b276df41a5a5");
                 _mapleegmakenInfo = new RepoItemInfo(this, "MapLeegmaken", "menuitem[@accessiblename='Map leegmaken...']", "", 30000, null, "ca583eef-300b-420e-8edd-95c3ffd4cb61");
                 _openenInfo = new RepoItemInfo(this, "Openen", "menuitem[@accessiblename='Openen']", "", 30000, null, "3162063a-bd8d-4e48-b6ab-9725baa70e0e");
                 _selecterenInfo = new RepoItemInfo(this, "Selecteren", "menuitem[@accessiblename>'Selecteren']", "", 30000, null, "03d52c3a-96d4-4dbb-b708-72ad8a755d65");
+                _selecteeranderhlcdbestandInfo = new RepoItemInfo(this, "SelecteerAnderHLCDBestand", "menuitem[@accessiblename>'Selecteer ander HLCD']", "", 30000, null, "5ce53200-0c28-4870-bd71-e3ef03a56223");
                 _verwijderenInfo = new RepoItemInfo(this, "Verwijderen", "menuitem[@accessiblename='Verwijderen...']", "", 30000, null, "f3c6379c-4119-4897-bc56-dd1655e8f7fb");
                 _voegkaartlaagtoeInfo = new RepoItemInfo(this, "VoegKaartlaagToe", "menuitem[@accessiblename='Voeg kaartlaag toe...']", "", 30000, null, "9bd893d7-2683-465a-b2e3-d056bce01a0c");
                 _wisalleuitvoerInfo = new RepoItemInfo(this, "WisAlleUitvoer", "menuitem[@accessiblename='Wis alle uitvoer...']", "", 30000, null, "942ab870-bf62-4d88-8050-58255777c435");
@@ -4087,6 +4093,54 @@ namespace AutomatedSystemTests
             }
 
             /// <summary>
+            /// The SelecteerHLCDBestand item.
+            /// </summary>
+            [RepositoryItem("7dc068b1-4029-42ff-9b2c-646a00332fd6")]
+            public virtual Ranorex.MenuItem SelecteerHLCDBestand
+            {
+                get
+                {
+                    return _selecteerhlcdbestandInfo.CreateAdapter<Ranorex.MenuItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The SelecteerHLCDBestand item info.
+            /// </summary>
+            [RepositoryItemInfo("7dc068b1-4029-42ff-9b2c-646a00332fd6")]
+            public virtual RepoItemInfo SelecteerHLCDBestandInfo
+            {
+                get
+                {
+                    return _selecteerhlcdbestandInfo;
+                }
+            }
+
+            /// <summary>
+            /// The HRDBestandToevoegen item.
+            /// </summary>
+            [RepositoryItem("ba10414b-7ca5-4d01-96c8-b276df41a5a5")]
+            public virtual Ranorex.MenuItem HRDBestandToevoegen
+            {
+                get
+                {
+                    return _hrdbestandtoevoegenInfo.CreateAdapter<Ranorex.MenuItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The HRDBestandToevoegen item info.
+            /// </summary>
+            [RepositoryItemInfo("ba10414b-7ca5-4d01-96c8-b276df41a5a5")]
+            public virtual RepoItemInfo HRDBestandToevoegenInfo
+            {
+                get
+                {
+                    return _hrdbestandtoevoegenInfo;
+                }
+            }
+
+            /// <summary>
             /// The MapLeegmaken item.
             /// </summary>
             [RepositoryItem("ca583eef-300b-420e-8edd-95c3ffd4cb61")]
@@ -4155,6 +4209,30 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _selecterenInfo;
+                }
+            }
+
+            /// <summary>
+            /// The SelecteerAnderHLCDBestand item.
+            /// </summary>
+            [RepositoryItem("5ce53200-0c28-4870-bd71-e3ef03a56223")]
+            public virtual Ranorex.MenuItem SelecteerAnderHLCDBestand
+            {
+                get
+                {
+                    return _selecteeranderhlcdbestandInfo.CreateAdapter<Ranorex.MenuItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The SelecteerAnderHLCDBestand item info.
+            /// </summary>
+            [RepositoryItemInfo("5ce53200-0c28-4870-bd71-e3ef03a56223")]
+            public virtual RepoItemInfo SelecteerAnderHLCDBestandInfo
+            {
+                get
+                {
+                    return _selecteeranderhlcdbestandInfo;
                 }
             }
 
@@ -5612,7 +5690,7 @@ namespace AutomatedSystemTests
             /// Creates a new OpenFileDialog  folder.
             /// </summary>
             public OpenFileDialogAppFolder(RepoGenBaseFolder parentFolder) :
-                    base("OpenFileDialog", "/form[@title='Bestand openen' or @title='Bestand Openen' or @title='Open File' or @title='Open file']", parentFolder, 30000, null, true, "b4994c0d-5167-43e4-8cf7-09a41072ae61", "")
+                    base("OpenFileDialog", "/form[@title='Bestand openen' or @title='Bestand Openen' or @title='Open File' or @title='Open file' or @title='Openen']", parentFolder, 30000, null, true, "b4994c0d-5167-43e4-8cf7-09a41072ae61", "")
             {
                 _buttonopenInfo = new RepoItemInfo(this, "ButtonOpen", "button[@text='&Open']", "", 30000, null, "1003af8e-9e10-4fa3-9036-19f31d7713b9");
                 _filenamefieldInfo = new RepoItemInfo(this, "FileNameField", "?/combobox/text", "", 30000, null, "88a4a7e6-e1ab-4778-871a-63b4fc5f59ae");

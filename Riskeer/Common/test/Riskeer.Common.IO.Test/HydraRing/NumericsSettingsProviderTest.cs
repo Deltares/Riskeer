@@ -133,51 +133,6 @@ namespace Riskeer.Common.IO.Test.HydraRing
             }
         }
 
-        [Test]
-        public void GetNumericsSettingForPreprocessor_PreprocessorSubMechanismIdKnown_ReturnExpectedNumericsSetting()
-        {
-            // Setup
-            using (var numericsSettingsProvider = new NumericsSettingsProvider(completeDatabaseDataPath))
-            {
-                // Call
-                NumericsSetting numericsSetting = numericsSettingsProvider.GetNumericsSettingForPreprocessor(700131);
-
-                // Assert
-                var expected = new NumericsSetting(2, 3, 20, 0.2, 0.1, 0.1, 0.1, 3, 4, 15000, 90000, 0.2, -4, 5);
-                AssertNumericsSetting(expected, numericsSetting);
-            }
-        }
-
-        [Test]
-        public void GetNumericsSettingForPreprocessor_PreprocessorSubMechanismIdUnknownDefaultSubMechanismIdKnown_ReturnExpectedNumericsSetting()
-        {
-            // Setup
-            using (var numericsSettingsProvider = new NumericsSettingsProvider(completeDatabaseDataPath))
-            {
-                // Call
-                NumericsSetting numericsSetting = numericsSettingsProvider.GetNumericsSettingForPreprocessor(700138);
-
-                // Assert
-                NumericsSetting expected = GetExpectedNumericsSetting();
-                AssertNumericsSetting(expected, numericsSetting);
-            }
-        }
-
-        [Test]
-        public void GetNumericsSettingForPreprocessor_LocationIdUnknown_ReturnsExpectedDefaultNumericsSetting()
-        {
-            // Setup
-            using (var numericsSettingsProvider = new NumericsSettingsProvider(completeDatabaseDataPath))
-            {
-                // Call
-                NumericsSetting numericsSetting = numericsSettingsProvider.GetNumericsSettingForPreprocessor(700139);
-
-                // Assert
-                var expected = new NumericsSetting(11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 10000, 40000, 0.1, -6.0, 6.0, 25);
-                AssertNumericsSetting(expected, numericsSetting);
-            }
-        }
-
         private static NumericsSetting GetExpectedNumericsSetting()
         {
             return new NumericsSetting(1, 4, 50, 0.15, 0.05, 0.01, 0.01, 0, 2, 20000, 100000, 0.1, -6, 6);

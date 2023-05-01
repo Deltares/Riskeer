@@ -180,6 +180,18 @@
       <id>c994b796-1f44-4bb2-92c0-427faf4c7a4b</id>
       <BoundTo>9a604b1c-d4af-4820-b692-4d7137157976</BoundTo>
     </Compile>
+    <Compile Include="Modules\ActionsContextMenu\AddHRDFile.cs">
+      <BoundTo>f830e27d-7f5a-4f9e-8dc1-9fedc7268086</BoundTo>
+      <DependentUpon>AddHRDFile.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>6d7b6711-578c-416f-a26b-91b8c6d90fa0</id>
+    </Compile>
+    <Compile Include="Modules\ActionsContextMenu\AddHRDFile.UserCode.cs">
+      <BoundTo>f830e27d-7f5a-4f9e-8dc1-9fedc7268086</BoundTo>
+      <DependentUpon>AddHRDFile.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>2e1d72aa-d8f9-450e-a546-cba64e8711c9</id>
+    </Compile>
     <Compile Include="Modules\ActionsContextMenu\ImportReferenceLine.cs">
       <BoundTo>d7c60b9c-8fbb-4ccc-bd81-f49432d1e1fb</BoundTo>
       <DependentUpon>ImportReferenceLine.rxrec</DependentUpon>
@@ -813,14 +825,14 @@
       <UserCode>true</UserCode>
       <id>8e242905-1c47-454c-b60d-03ec3266db48</id>
     </Compile>
-    <Compile Include="Modules\ActionsContextMenu\CoupleCurrentItemToHBCDatabase.cs">
-      <DependentUpon>CoupleCurrentItemToHBCDatabase.rxrec</DependentUpon>
+    <Compile Include="Modules\ActionsContextMenu\SelectHLCDFile.cs">
+      <DependentUpon>SelectHLCDFile.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
       <id>5141321a-4613-4ce7-8034-421c443b4402</id>
       <BoundTo>58bb17f9-0f73-4d80-84ed-fec70eb3207f</BoundTo>
     </Compile>
-    <Compile Include="Modules\ActionsContextMenu\CoupleCurrentItemToHBCDatabase.UserCode.cs">
-      <DependentUpon>CoupleCurrentItemToHBCDatabase.rxrec</DependentUpon>
+    <Compile Include="Modules\ActionsContextMenu\SelectHLCDFile.UserCode.cs">
+      <DependentUpon>SelectHLCDFile.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>79a6a4d1-4e9c-4369-9783-f1a62eb698b6</id>
       <BoundTo>58bb17f9-0f73-4d80-84ed-fec70eb3207f</BoundTo>
@@ -1407,14 +1419,14 @@
       <UserCode>true</UserCode>
       <id>bbce7b4d-caf4-4f7b-895a-91c55789b3ca</id>
     </Compile>
-    <Compile Include="Modules\Set_Assign\SetNewHBCScenario.cs">
-      <DependentUpon>SetNewHBCScenario.rxrec</DependentUpon>
+    <Compile Include="Modules\Set_Assign\ChangeHLCDFile.cs">
+      <DependentUpon>ChangeHLCDFile.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
       <id>4f50ceae-2e00-4653-906f-8f48d4665f8b</id>
       <BoundTo>5bf29cac-081b-4772-a880-80a042909612</BoundTo>
     </Compile>
-    <Compile Include="Modules\Set_Assign\SetNewHBCScenario.UserCode.cs">
-      <DependentUpon>SetNewHBCScenario.rxrec</DependentUpon>
+    <Compile Include="Modules\Set_Assign\ChangeHLCDFile.UserCode.cs">
+      <DependentUpon>ChangeHLCDFile.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>8498d822-4b6c-4353-ad3a-d26e5a7eb878</id>
       <BoundTo>5bf29cac-081b-4772-a880-80a042909612</BoundTo>
@@ -1845,6 +1857,11 @@
       <id>9a604b1c-d4af-4820-b692-4d7137157976</id>
       <recordtableid>46407bea-c0f2-409e-8831-e2e674d7fad1</recordtableid>
     </None>
+    <None Include="Modules\ActionsContextMenu\AddHRDFile.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>f830e27d-7f5a-4f9e-8dc1-9fedc7268086</id>
+      <recordtableid>e9443dc8-83ae-41cf-a26f-36e5dbd3e114</recordtableid>
+    </None>
     <None Include="Modules\ActionsContextMenu\ImportReferenceLine.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>d7c60b9c-8fbb-4ccc-bd81-f49432d1e1fb</id>
@@ -2070,7 +2087,7 @@
       <id>9441f05b-a115-4956-80b5-b0c4190b783c</id>
       <recordtableid>c09a9669-9b00-4ab5-9134-5658e1a585ac</recordtableid>
     </None>
-    <None Include="Modules\ActionsContextMenu\CoupleCurrentItemToHBCDatabase.rxrec">
+    <None Include="Modules\ActionsContextMenu\SelectHLCDFile.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>58bb17f9-0f73-4d80-84ed-fec70eb3207f</id>
       <recordtableid>354b1a8c-c247-4b13-920b-24ee0b2b997d</recordtableid>
@@ -2300,7 +2317,7 @@
       <id>da3a7060-7580-4ef3-b11c-6e6a2aeb9323</id>
       <recordtableid>7413cc50-50d0-4361-8163-7d8d3b57b81d</recordtableid>
     </None>
-    <None Include="Modules\Set_Assign\SetNewHBCScenario.rxrec">
+    <None Include="Modules\Set_Assign\ChangeHLCDFile.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>5bf29cac-081b-4772-a880-80a042909612</id>
       <recordtableid>7d9b109b-9a86-4d14-949e-d6cd5cca905f</recordtableid>

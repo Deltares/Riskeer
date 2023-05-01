@@ -185,7 +185,7 @@ namespace Core.Common.Util.Drawing
         /// <param name="bitmap">The image to gain access to.</param>
         /// <param name="accessibleArea">Optional: The area of <paramref name="bitmap"/>
         /// to provide access to. When not specified, the whole image is accessible.</param>
-        /// <returns></returns>
+        /// <returns>A <see cref="ColorAccess"/> instance.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="bitmap"/>
         /// is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="accessibleArea"/>
@@ -253,9 +253,9 @@ namespace Core.Common.Util.Drawing
         }
 
         /// <summary>
-        /// Gets the pixelsize based on the <see cref="PixelFormat"/>.
+        /// Gets the pixel size based on the <see cref="PixelFormat"/>.
         /// </summary>
-        /// <param name="pixelFormat"></param>
+        /// <param name="pixelFormat">The pixel format.</param>
         /// <returns>The pixel size.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="pixelFormat"/>
         /// is an invalid <see cref="PixelFormat"/>.</exception>

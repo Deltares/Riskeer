@@ -62,25 +62,40 @@ namespace Riskeer.MacroStabilityInwards.Service
         /// <summary>
         /// Clears:
         /// <list type="bullet">
-        /// <item>The <see cref="HydraulicBoundaryLocation"/> for all the calculations in the <see cref="MacroStabilityInwardsFailureMechanism"/>;</item>
-        /// <item>The output for all the calculations in the <see cref="MacroStabilityInwardsFailureMechanism"/>,
+        /// <item>The <see cref="HydraulicBoundaryLocation"/> for the calculations in the <see cref="MacroStabilityInwardsFailureMechanism"/>
+        /// that uses an <see cref="HydraulicBoundaryLocation"/> from <paramref name="hydraulicBoundaryLocations"/>;</item>
+        /// <item>The output for all these calculations in the <see cref="MacroStabilityInwardsFailureMechanism"/>,
         /// except where <see cref="MacroStabilityInwardsInput.UseAssessmentLevelManualInput"/> is <c>true</c>.</item>
         /// </list>
         /// </summary>
         /// <param name="failureMechanism">The <see cref="MacroStabilityInwardsFailureMechanism"/> which contains the calculations.</param>
+        /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations to clear for.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of objects which are affected by removing data.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> ClearAllCalculationOutputAndHydraulicBoundaryLocations(MacroStabilityInwardsFailureMechanism failureMechanism)
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> ClearCalculationOutputAndHydraulicBoundaryLocations(
+            MacroStabilityInwardsFailureMechanism failureMechanism,
+            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
         {
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            var affectedItems = new List<IObservable>();
-            foreach (MacroStabilityInwardsCalculation calculation in failureMechanism.Calculations.Cast<MacroStabilityInwardsCalculation>())
+            if (hydraulicBoundaryLocations == null)
             {
-                affectedItems.AddRange(ClearAllCalculationOutputWithoutManualAssessmentLevel(failureMechanism));
+                throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
+            }
+
+            List<IObservable> affectedItems = failureMechanism.Calculations.Cast<MacroStabilityInwardsCalculation>()
+                                                              .Where(c => !c.InputParameters.UseAssessmentLevelManualInput
+                                                                          && hydraulicBoundaryLocations.Contains(c.InputParameters.HydraulicBoundaryLocation))
+                                                              .SelectMany(RiskeerCommonDataSynchronizationService.ClearCalculationOutput)
+                                                              .ToList();
+
+            foreach (MacroStabilityInwardsCalculation calculation in failureMechanism.Calculations.Cast<MacroStabilityInwardsCalculation>()
+                                                                                     .Where(c => hydraulicBoundaryLocations.Contains(
+                                                                                                c.InputParameters.HydraulicBoundaryLocation)))
+            {
                 affectedItems.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocation(calculation.InputParameters));
             }
 

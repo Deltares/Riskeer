@@ -48,7 +48,7 @@ namespace Riskeer.Common.Service.IllustrationPoints
         /// <exception cref="ArgumentException">Thrown when <paramref name="hydraRingIllustrationPointTreeNode"/>
         /// does not contain 0 or 2 children.</exception>
         /// <exception cref="IllustrationPointConversionException">Thrown when <paramref name="hydraRingIllustrationPointTreeNode"/>
-        /// cannot be converted to a <see cref="IllustrationPointNode"/></exception>
+        /// cannot be converted to a <see cref="IllustrationPointNode"/>.</exception>
         public static IllustrationPointNode Convert(HydraRingIllustrationPointTreeNode hydraRingIllustrationPointTreeNode)
         {
             if (hydraRingIllustrationPointTreeNode == null)

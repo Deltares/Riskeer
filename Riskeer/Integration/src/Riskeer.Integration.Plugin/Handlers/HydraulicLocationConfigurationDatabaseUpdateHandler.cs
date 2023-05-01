@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Riskeer.Common.Data.Hydraulics;
@@ -35,18 +36,17 @@ using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 namespace Riskeer.Integration.Plugin.Handlers
 {
     /// <summary>
-    /// Class that can properly update a <see cref="HydraulicLocationConfigurationSettings"/>.
+    /// Class that can properly update <see cref="HydraulicLocationConfigurationDatabase"/> instances.
     /// </summary>
     public class HydraulicLocationConfigurationDatabaseUpdateHandler : IHydraulicLocationConfigurationDatabaseUpdateHandler
     {
         private readonly AssessmentSection assessmentSection;
 
         /// <summary>
-        /// Creates a new instance of <see cref="HydraulicLocationConfigurationDatabaseUpdateHandler"/>
+        /// Creates a new instance of <see cref="HydraulicLocationConfigurationDatabaseUpdateHandler"/>.
         /// </summary>
         /// <param name="assessmentSection">The assessment section to use for clearing data.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
-        /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
         public HydraulicLocationConfigurationDatabaseUpdateHandler(AssessmentSection assessmentSection)
         {
             if (assessmentSection == null)
@@ -59,20 +59,36 @@ namespace Riskeer.Integration.Plugin.Handlers
 
         public bool InquireConfirmation()
         {
-            DialogResult result = MessageBox.Show(Resources.HydraulicLocationConfigurationDatabaseUpdateHandler_Confirm_clear_hydraulicLocationConfigurationDatabase_dependent_data,
+            if (!assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Any())
+            {
+                return true;
+            }
+
+            DialogResult result = MessageBox.Show(Resources.HydraulicLocationConfigurationDatabaseUpdateHandler_Confirm_clear_hydraulic_location_configuration_database_dependent_data,
                                                   CoreCommonBaseResources.Confirm,
                                                   MessageBoxButtons.OKCancel);
+
             return result == DialogResult.OK;
         }
 
-        public IEnumerable<IObservable> Update(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
-                                               ReadHydraulicLocationConfigurationDatabaseSettings readHydraulicLocationConfigurationDatabaseSettings,
-                                               bool usePreprocessorClosure,
+        public IEnumerable<IObservable> Update(HydraulicBoundaryData hydraulicBoundaryData,
+                                               ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase,
+                                               IDictionary<HydraulicBoundaryDatabase, long> hydraulicBoundaryDatabaseLookup,
                                                string hlcdFilePath)
         {
-            if (hydraulicBoundaryDatabase == null)
+            if (hydraulicBoundaryData == null)
             {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
+                throw new ArgumentNullException(nameof(hydraulicBoundaryData));
+            }
+
+            if (readHydraulicLocationConfigurationDatabase == null)
+            {
+                throw new ArgumentNullException(nameof(readHydraulicLocationConfigurationDatabase));
+            }
+
+            if (hydraulicBoundaryDatabaseLookup == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabaseLookup));
             }
 
             if (hlcdFilePath == null)
@@ -80,13 +96,23 @@ namespace Riskeer.Integration.Plugin.Handlers
                 throw new ArgumentNullException(nameof(hlcdFilePath));
             }
 
-            HydraulicLocationConfigurationSettingsUpdateHelper.SetHydraulicLocationConfigurationSettings(
-                hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings,
-                readHydraulicLocationConfigurationDatabaseSettings, usePreprocessorClosure, hlcdFilePath);
+            HydraulicLocationConfigurationDatabaseUpdateHelper.UpdateHydraulicLocationConfigurationDatabase(
+                hydraulicBoundaryData.HydraulicLocationConfigurationDatabase,
+                readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationSettings?.Single(),
+                hlcdFilePath);
+
+            foreach (KeyValuePair<HydraulicBoundaryDatabase, long> hydraulicBoundaryDatabaseItem in hydraulicBoundaryDatabaseLookup)
+            {
+                hydraulicBoundaryDatabaseItem.Key.UsePreprocessorClosure =
+                    readHydraulicLocationConfigurationDatabase.ReadTracks
+                                                              .FirstOrDefault(rt => rt.TrackId == hydraulicBoundaryDatabaseItem.Value)?
+                                                              .UsePreprocessorClosure ?? false;
+            }
 
             var changedObjects = new List<IObservable>
             {
-                hydraulicBoundaryDatabase
+                hydraulicBoundaryData,
+                hydraulicBoundaryData.HydraulicLocationConfigurationDatabase
             };
 
             changedObjects.AddRange(RiskeerDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection));

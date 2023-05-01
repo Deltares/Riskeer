@@ -33,9 +33,8 @@ namespace Riskeer.Common.Service.Test
     public class TargetProbabilityCalculationServiceTest
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
-        private static readonly string validHydraulicBoundaryDatabaseFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
         private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "Hlcd.sqlite");
-        private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
         private static readonly TargetProbabilityCalculationService calculationService = new TestTargetProbabilityCalculationService();
 
         [Test]
@@ -73,11 +72,8 @@ namespace Riskeer.Common.Service.Test
         public void Validate_InvalidHydraulicBoundaryDatabasePath_LogsErrorAndReturnsFalse()
         {
             // Setup
-            string invalidHydraulicBoundaryDatabaseFilePath = Path.Combine(testDataPath, "notexisting.sqlite");
-            var calculationSettings = new HydraulicBoundaryCalculationSettings(invalidHydraulicBoundaryDatabaseFilePath,
-                                                                               validHlcdFilePath,
-                                                                               false,
-                                                                               string.Empty);
+            string invalidHrdFilePath = Path.Combine(testDataPath, "notexisting.sqlite");
+            var calculationSettings = new HydraulicBoundaryCalculationSettings(validHlcdFilePath, invalidHrdFilePath, false);
             var valid = true;
 
             // Call
@@ -99,12 +95,9 @@ namespace Riskeer.Common.Service.Test
         public void Validate_ValidHydraulicBoundaryDatabaseWithoutSettings_LogsErrorAndReturnsFalse()
         {
             // Setup
-            string invalidHydraulicBoundaryDatabaseFilePath = Path.Combine(testDataPath, "HRD nosettings.sqlite");
+            string invalidHrdFilePath = Path.Combine(testDataPath, "HRD nosettings.sqlite");
             var valid = false;
-            var calculationSettings = new HydraulicBoundaryCalculationSettings(invalidHydraulicBoundaryDatabaseFilePath,
-                                                                               validHlcdFilePath,
-                                                                               false,
-                                                                               string.Empty);
+            var calculationSettings = new HydraulicBoundaryCalculationSettings(validHlcdFilePath, invalidHrdFilePath, false);
 
             // Call
             void Call() => valid = calculationService.Validate(calculationSettings);
@@ -122,15 +115,15 @@ namespace Riskeer.Common.Service.Test
         }
 
         [Test]
-        public void Validate_InvalidPreprocessorDirectory_LogsErrorAndReturnsFalse()
+        public void Validate_UsePreprocessorClosureTrueAndWithoutPreprocessorClosureDatabase_LogsErrorAndReturnsFalse()
         {
             // Setup
-            const string invalidPreprocessorDirectory = "NonExistingPreprocessorDirectory";
             var valid = true;
-            var calculationSettings = new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
-                                                                               validHlcdFilePath,
-                                                                               false,
-                                                                               invalidPreprocessorDirectory);
+            string folderWithoutPreprocessorClosureDatabase = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, "HydraulicBoundaryData"),
+                                                                           "withoutPreprocessorClosure");
+            var calculationSettings = new HydraulicBoundaryCalculationSettings(Path.Combine(folderWithoutPreprocessorClosureDatabase, "hlcd.sqlite"),
+                                                                               Path.Combine(folderWithoutPreprocessorClosureDatabase, "complete.sqlite"),
+                                                                               true);
 
             // Call
             void Call() => valid = calculationService.Validate(calculationSettings);
@@ -141,32 +134,11 @@ namespace Riskeer.Common.Service.Test
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                Assert.AreEqual("De bestandsmap waar de preprocessor bestanden opslaat is ongeldig. De bestandsmap bestaat niet.", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
-            });
-            Assert.IsFalse(valid);
-        }
 
-        [Test]
-        public void Validate_UsePreprocessorClosureTrueAndWithoutPreprocessorClosure_LogsErrorAndReturnsFalse()
-        {
-            // Setup
-            var valid = true;
-            var calculationSettings = new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
-                                                                               validHlcdFilePath,
-                                                                               true,
-                                                                               string.Empty);
+                string preprocessorClosureFilePath = Path.Combine(folderWithoutPreprocessorClosureDatabase, "hlcd_preprocClosure.sqlite");
+                var expectedMessage = $"Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt. Fout bij het lezen van bestand '{preprocessorClosureFilePath}': het bestand bestaat niet.";
+                Assert.AreEqual(expectedMessage, msgs[1]);
 
-            // Call
-            void Call() => valid = calculationService.Validate(calculationSettings);
-
-            // Assert
-            TestHelper.AssertLogMessages(Call, messages =>
-            {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt. Fout bij het lezen van bestand", msgs[1]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(valid);
@@ -174,10 +146,7 @@ namespace Riskeer.Common.Service.Test
 
         private static HydraulicBoundaryCalculationSettings CreateValidCalculationSettings()
         {
-            return new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
-                                                            validHlcdFilePath,
-                                                            false,
-                                                            validPreprocessorDirectory);
+            return new HydraulicBoundaryCalculationSettings(validHlcdFilePath, validHrdFilePath, false);
         }
 
         private class TestTargetProbabilityCalculationService : TargetProbabilityCalculationService {}

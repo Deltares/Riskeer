@@ -88,7 +88,8 @@ namespace Core.Components.DotSpatial.Projections
         /// <list type="bullet">
         /// <item>Scaling along the X-axis.</item>
         /// <item>Rotation about the origin.</item>
-        /// </list></remarks>
+        /// </list>
+        /// </remarks>
         public double A11
         {
             get
@@ -104,7 +105,8 @@ namespace Core.Components.DotSpatial.Projections
         /// <list type="bullet">
         /// <item>Shear in the direction of the X-axis.</item>
         /// <item>Rotation about the origin.</item>
-        /// </list></remarks>
+        /// </list>
+        /// </remarks>
         public double A21
         {
             get
@@ -120,7 +122,8 @@ namespace Core.Components.DotSpatial.Projections
         /// <list type="bullet">
         /// <item>Shear in the direction of the Y-axis.</item>
         /// <item>Rotation about the origin.</item>
-        /// </list></remarks>
+        /// </list>
+        /// </remarks>
         public double A12
         {
             get
@@ -138,7 +141,8 @@ namespace Core.Components.DotSpatial.Projections
         /// <list type="bullet">
         /// <item>Scaling along the Y-axis.</item>
         /// <item>Rotation about the origin.</item>
-        /// </list></remarks>
+        /// </list>
+        /// </remarks>
         public double A22
         {
             get

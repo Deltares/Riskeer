@@ -32,10 +32,10 @@ namespace Riskeer.Common.Service
     public abstract class TargetProbabilityCalculationService
     {
         /// <summary>
-        /// Performs validation on the given input parameters. Error and status information is logged during the execution of the operation.
+        /// Performs validation on the given input parameters. Error and status information is logged during the execution of
+        /// the operation.
         /// </summary>
-        /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> with the
-        /// hydraulic boundary calculation settings.</param>
+        /// <param name="calculationSettings">The hydraulic boundary calculation settings.</param>
         /// <returns><c>true</c> if there were no validation errors; <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationSettings"/> is <c>null</c>.</exception>
         public bool Validate(HydraulicBoundaryCalculationSettings calculationSettings)
@@ -49,31 +49,18 @@ namespace Riskeer.Common.Service
 
             CalculationServiceHelper.LogValidationBegin();
 
-            string preprocessorDirectory = calculationSettings.PreprocessorDirectory;
-            string databaseFilePathValidationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(
-                calculationSettings.HydraulicBoundaryDatabaseFilePath,
+            string filesForCalculationValidationProblem = HydraulicBoundaryDataHelper.ValidateFilesForCalculation(
                 calculationSettings.HlcdFilePath,
-                preprocessorDirectory,
+                calculationSettings.HrdFilePath,
                 calculationSettings.UsePreprocessorClosure);
 
-            if (!string.IsNullOrEmpty(databaseFilePathValidationProblem))
+            if (!string.IsNullOrEmpty(filesForCalculationValidationProblem))
             {
                 CalculationServiceHelper.LogMessagesAsError(Resources.Hydraulic_boundary_database_connection_failed_0_,
                                                             new[]
                                                             {
-                                                                databaseFilePathValidationProblem
+                                                                filesForCalculationValidationProblem
                                                             });
-
-                isValid = false;
-            }
-
-            string preprocessorDirectoryValidationProblem = HydraulicBoundaryDatabaseHelper.ValidatePreprocessorDirectory(preprocessorDirectory);
-            if (!string.IsNullOrEmpty(preprocessorDirectoryValidationProblem))
-            {
-                CalculationServiceHelper.LogMessagesAsError(new[]
-                {
-                    preprocessorDirectoryValidationProblem
-                });
 
                 isValid = false;
             }

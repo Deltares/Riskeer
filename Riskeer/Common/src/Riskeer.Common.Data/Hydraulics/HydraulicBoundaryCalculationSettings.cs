@@ -31,47 +31,39 @@ namespace Riskeer.Common.Data.Hydraulics
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryCalculationSettings"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The file path of the hydraulic boundary database.</param>
-        /// <param name="hlcdFilePath">The file path of the HLCD.</param>
+        /// <param name="hlcdFilePath">The file path of the hydraulic location configuration database.</param>
+        /// <param name="hrdFilePath">The file path of the hydraulic boundary database.</param>
         /// <param name="usePreprocessorClosure">Indicator whether to use the preprocessor closure.</param>
-        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="hydraulicBoundaryDatabaseFilePath"/>
-        /// or <paramref name="hlcdFilePath"/> is <c>null</c>, is empty or consists of whitespace.</exception>
-        public HydraulicBoundaryCalculationSettings(string hydraulicBoundaryDatabaseFilePath,
-                                                    string hlcdFilePath,
-                                                    bool usePreprocessorClosure,
-                                                    string preprocessorDirectory)
+        /// <exception cref="ArgumentException">Thrown when either <paramref name="hlcdFilePath"/> or
+        /// <paramref name="hrdFilePath"/> is <c>null</c>, is empty or consists of whitespaces.</exception>
+        public HydraulicBoundaryCalculationSettings(string hlcdFilePath,
+                                                    string hrdFilePath,
+                                                    bool usePreprocessorClosure)
         {
-            if (string.IsNullOrWhiteSpace(hydraulicBoundaryDatabaseFilePath))
-            {
-                throw new ArgumentException($"{nameof(hydraulicBoundaryDatabaseFilePath)} is null, empty or consist of whitespace.");
-            }
-
             if (string.IsNullOrWhiteSpace(hlcdFilePath))
             {
-                throw new ArgumentException($"{nameof(hlcdFilePath)} is null, empty or consist of whitespace.");
+                throw new ArgumentException($"{nameof(hlcdFilePath)} is null, empty or consists of whitespaces.");
             }
 
-            HydraulicBoundaryDatabaseFilePath = hydraulicBoundaryDatabaseFilePath;
+            if (string.IsNullOrWhiteSpace(hrdFilePath))
+            {
+                throw new ArgumentException($"{nameof(hrdFilePath)} is null, empty or consists of whitespaces.");
+            }
+
             HlcdFilePath = hlcdFilePath;
+            HrdFilePath = hrdFilePath;
             UsePreprocessorClosure = usePreprocessorClosure;
-            PreprocessorDirectory = preprocessorDirectory;
         }
 
         /// <summary>
-        /// Gets the hydraulic boundary database filepath.
-        /// </summary>
-        public string HydraulicBoundaryDatabaseFilePath { get; }
-
-        /// <summary>
-        /// Gets the file path of the Hydraulic Boundary Locations Configuration Database (HLCD).
+        /// Gets the file path of the hydraulic location configuration database.
         /// </summary>
         public string HlcdFilePath { get; }
 
         /// <summary>
-        ///  Gets the preprocessor directory.
+        /// Gets the file path of the hydraulic boundary database.
         /// </summary>
-        public string PreprocessorDirectory { get; }
+        public string HrdFilePath { get; }
 
         /// <summary>
         /// Gets the indicator whether to use the preprocessor closure.

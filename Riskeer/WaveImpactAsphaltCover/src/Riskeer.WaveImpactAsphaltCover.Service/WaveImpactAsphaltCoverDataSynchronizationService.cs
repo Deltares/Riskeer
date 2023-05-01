@@ -36,24 +36,33 @@ namespace Riskeer.WaveImpactAsphaltCover.Service
     public static class WaveImpactAsphaltCoverDataSynchronizationService
     {
         /// <summary>
-        /// Clears the <see cref="HydraulicBoundaryLocation"/> and output for all the wave conditions calculations
-        /// in the <see cref="WaveImpactAsphaltCoverFailureMechanism"/>.
+        /// Clears the <see cref="HydraulicBoundaryLocation"/> and output for the wave conditions calculations
+        /// in the <see cref="WaveImpactAsphaltCoverFailureMechanism"/> that uses an <see cref="HydraulicBoundaryLocation"/>
+        /// from <paramref name="hydraulicBoundaryLocations"/>.
         /// </summary>
         /// <param name="failureMechanism">The <see cref="WaveImpactAsphaltCoverFailureMechanism"/>
         /// which contains the calculations.</param>
+        /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations to clear for.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of objects which are affected by removing data.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
-        /// is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(
-            WaveImpactAsphaltCoverFailureMechanism failureMechanism)
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> ClearWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(
+            WaveImpactAsphaltCoverFailureMechanism failureMechanism,
+            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
         {
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
+            if (hydraulicBoundaryLocations == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
+            }
+
             var affectedItems = new List<IObservable>();
-            foreach (WaveImpactAsphaltCoverWaveConditionsCalculation calculation in failureMechanism.Calculations.Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>())
+            foreach (WaveImpactAsphaltCoverWaveConditionsCalculation calculation in failureMechanism.Calculations.Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
+                                                                                                    .Where(c => hydraulicBoundaryLocations.Contains(
+                                                                                                               c.InputParameters.HydraulicBoundaryLocation)))
             {
                 affectedItems.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation));
                 affectedItems.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocation(calculation.InputParameters));

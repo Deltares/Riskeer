@@ -62,7 +62,8 @@ namespace Riskeer.Common.Data.FailureMechanism
         /// <list type="bullet">
         /// <item><paramref name="sourcePath"/> is not a valid file path.</item>
         /// <item><paramref name="failureMechanismSections"/> contains sections that are not properly chained.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         public void SetSections(IEnumerable<FailureMechanismSection> failureMechanismSections,
                                 string sourcePath)
         {

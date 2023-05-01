@@ -154,7 +154,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                     new WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationImporter(
                         filePath,
                         context.WrappedData,
-                        context.AssessmentSection.HydraulicBoundaryDatabase.Locations,
+                        context.AssessmentSection.HydraulicBoundaryData.GetLocations(),
                         context.ForeshoreProfiles,
                         context.AssessmentSection.FailureMechanismContribution,
                         context.AssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities));
@@ -353,19 +353,13 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                           .AddSeparator()
                           .AddPerformAllCalculationsInFailureMechanismItem(
                               context,
-                              CalculateAllInFailureMechanism,
-                              EnableValidateAndCalculateMenuItemForFailureMechanism)
+                              CalculateAllInFailureMechanism)
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
-        }
-
-        private static string EnableValidateAndCalculateMenuItemForFailureMechanism(HydraulicLoadsStateFailureMechanismContext context)
-        {
-            return EnableValidateAndCalculateMenuItem(context.Parent);
         }
 
         private void CalculateAllInFailureMechanism(HydraulicLoadsStateFailureMechanismContext context)
@@ -534,11 +528,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                                                                 SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
                    .AddSeparator()
                    .AddValidateAllCalculationsInGroupItem(nodeData,
-                                                          ValidateAllInCalculationGroup,
-                                                          EnableValidateAndCalculateMenuItemForCalculationGroup)
+                                                          ValidateAllInCalculationGroup)
                    .AddPerformAllCalculationsInGroupItem(nodeData,
-                                                         CalculateAllInCalculationGroup,
-                                                         EnableValidateAndCalculateMenuItemForCalculationGroup)
+                                                         CalculateAllInCalculationGroup)
                    .AddSeparator()
                    .AddClearAllCalculationOutputInGroupItem(group);
 
@@ -561,7 +553,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
         private StrictContextMenuItem CreateGenerateWaveConditionsCalculationsItem(WaveImpactAsphaltCoverCalculationGroupContext nodeData)
         {
-            bool locationsAvailable = nodeData.AssessmentSection.HydraulicBoundaryDatabase.Locations.Any();
+            bool locationsAvailable = nodeData.AssessmentSection.HydraulicBoundaryData.GetLocations().Any();
 
             string calculationGroupContextToolTip = locationsAvailable
                                                         ? RiskeerCommonFormsResources.CalculationGroup_CreateGenerateHydraulicBoundaryCalculationsItem_ToolTip
@@ -578,7 +570,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
         private void ShowHydraulicBoundaryLocationSelectionDialog(WaveImpactAsphaltCoverCalculationGroupContext nodeData)
         {
-            using (var dialog = new HydraulicBoundaryLocationSelectionDialog(Gui.MainWindow, nodeData.AssessmentSection.HydraulicBoundaryDatabase.Locations))
+            using (var dialog = new HydraulicBoundaryLocationSelectionDialog(Gui.MainWindow, nodeData.AssessmentSection.HydraulicBoundaryData.GetLocations()))
             {
                 dialog.ShowDialog();
 
@@ -625,18 +617,13 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
             parentGroupContext.NotifyObservers();
         }
 
-        private static string EnableValidateAndCalculateMenuItemForCalculationGroup(WaveImpactAsphaltCoverCalculationGroupContext context)
-        {
-            return EnableValidateAndCalculateMenuItem(context.AssessmentSection);
-        }
-
         private static void ValidateAllInCalculationGroup(WaveImpactAsphaltCoverCalculationGroupContext context)
         {
             foreach (WaveImpactAsphaltCoverWaveConditionsCalculation calculation in context.WrappedData.GetCalculations().OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>())
             {
                 WaveConditionsCalculationServiceBase.Validate(calculation.InputParameters,
                                                               WaveConditionsInputHelper.GetAssessmentLevel(calculation.InputParameters, context.AssessmentSection),
-                                                              context.AssessmentSection.HydraulicBoundaryDatabase);
+                                                              context.AssessmentSection.HydraulicBoundaryData);
             }
         }
 
@@ -694,10 +681,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                                                                       SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
                           .AddSeparator()
                           .AddValidateCalculationItem(nodeData,
-                                                      Validate,
-                                                      EnableValidateAndCalculateMenuItemForCalculation)
-                          .AddPerformCalculationItem<WaveImpactAsphaltCoverWaveConditionsCalculation, WaveImpactAsphaltCoverWaveConditionsCalculationContext>(
-                              nodeData, Calculate, EnableValidateAndCalculateMenuItemForCalculation)
+                                                      Validate)
+                          .AddPerformCalculationItem<WaveImpactAsphaltCoverWaveConditionsCalculation, WaveImpactAsphaltCoverWaveConditionsCalculationContext>(nodeData,
+                                                                                                                                                              Calculate)
                           .AddSeparator()
                           .AddClearCalculationOutputItem(calculation)
                           .AddDeleteItem()
@@ -709,11 +695,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                           .Build();
         }
 
-        private static string EnableValidateAndCalculateMenuItemForCalculation(WaveImpactAsphaltCoverWaveConditionsCalculationContext context)
-        {
-            return EnableValidateAndCalculateMenuItem(context.AssessmentSection);
-        }
-
         private static void Validate(WaveImpactAsphaltCoverWaveConditionsCalculationContext context)
         {
             IAssessmentSection assessmentSection = context.AssessmentSection;
@@ -721,7 +702,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
             WaveConditionsCalculationServiceBase.Validate(calculation.InputParameters,
                                                           WaveConditionsInputHelper.GetAssessmentLevel(calculation.InputParameters, context.AssessmentSection),
-                                                          assessmentSection.HydraulicBoundaryDatabase);
+                                                          assessmentSection.HydraulicBoundaryData);
         }
 
         private void Calculate(WaveImpactAsphaltCoverWaveConditionsCalculationContext context)
@@ -745,11 +726,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
         }
 
         #endregion
-
-        private static string EnableValidateAndCalculateMenuItem(IAssessmentSection assessmentSection)
-        {
-            return HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
-        }
 
         #endregion
     }

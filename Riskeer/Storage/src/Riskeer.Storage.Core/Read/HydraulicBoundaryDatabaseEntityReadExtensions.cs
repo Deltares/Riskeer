@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -20,51 +20,52 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Read
 {
     /// <summary>
-    /// This class defines  extension methods for read operations for a <see cref="HydraulicBoundaryDatabaseEntity"/>.
+    /// This class defines extension methods for read operations for a <see cref="HydraulicBoundaryDatabaseEntity"/>.
     /// </summary>
     internal static class HydraulicBoundaryDatabaseEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="HydraulicBoundaryDatabaseEntity"/> and uses the information to
-        /// update a <see cref="HydraulicBoundaryDatabase"/>.
+        /// Reads the <see cref="HydraulicBoundaryDatabaseEntity"/> and uses the information to construct a
+        /// <see cref="HydraulicBoundaryDatabase"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="HydraulicBoundaryDatabaseEntity"/> to update the
-        /// <see cref="HydraulicBoundaryDatabase"/>.</param>
-        /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryDatabase"/> to update.</param>
+        /// <param name="entity">The <see cref="HydraulicBoundaryDatabaseEntity"/> to create the
+        /// <see cref="HydraulicBoundaryDatabase"/> for.</param>
+        /// <param name="collector">The object keeping track of read operations.</param>
+        /// <returns>A new <see cref="HydraulicBoundaryDatabase"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        internal static void Read(this HydraulicBoundaryDatabaseEntity entity, HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+        public static HydraulicBoundaryDatabase Read(this HydraulicBoundaryDatabaseEntity entity, ReadConversionCollector collector)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException(nameof(entity));
             }
 
-            if (hydraulicBoundaryDatabase == null)
+            if (collector == null)
             {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
+                throw new ArgumentNullException(nameof(collector));
             }
 
-            hydraulicBoundaryDatabase.FilePath = entity.FilePath;
-            hydraulicBoundaryDatabase.Version = entity.Version;
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = entity.FilePath,
+                Version = entity.Version,
+                UsePreprocessorClosure = Convert.ToBoolean(entity.UsePreprocessorClosure)
+            };
 
-            hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.SetValues(
-                entity.HydraulicLocationConfigurationSettingsFilePath,
-                entity.HydraulicLocationConfigurationSettingsScenarioName,
-                entity.HydraulicLocationConfigurationSettingsYear,
-                entity.HydraulicLocationConfigurationSettingsScope,
-                Convert.ToBoolean(entity.HydraulicLocationConfigurationSettingsUsePreprocessorClosure),
-                entity.HydraulicLocationConfigurationSettingsSeaLevel,
-                entity.HydraulicLocationConfigurationSettingsRiverDischarge,
-                entity.HydraulicLocationConfigurationSettingsLakeLevel,
-                entity.HydraulicLocationConfigurationSettingsWindDirection,
-                entity.HydraulicLocationConfigurationSettingsWindSpeed,
-                entity.HydraulicLocationConfigurationSettingsComment);
+            HydraulicBoundaryLocation[] readHydraulicBoundaryLocations = entity.HydraulicLocationEntities
+                                                                               .OrderBy(hl => hl.Order)
+                                                                               .Select(hle => hle.Read(collector))
+                                                                               .ToArray();
+            hydraulicBoundaryDatabase.Locations.AddRange(readHydraulicBoundaryLocations);
+
+            return hydraulicBoundaryDatabase;
         }
     }
 }

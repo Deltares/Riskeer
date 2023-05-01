@@ -39,6 +39,7 @@ namespace Riskeer.Storage.Core.DbContext
         public HydraulicLocationEntity()
         {
             ClosingStructuresCalculationEntities = new HashSet<ClosingStructuresCalculationEntity>();
+            DuneLocationEntities = new HashSet<DuneLocationEntity>();
             GrassCoverErosionInwardsCalculationEntities = new HashSet<GrassCoverErosionInwardsCalculationEntity>();
             GrassCoverErosionOutwardsWaveConditionsCalculationEntities = new HashSet<GrassCoverErosionOutwardsWaveConditionsCalculationEntity>();
             HeightStructuresCalculationEntities = new HashSet<HeightStructuresCalculationEntity>();
@@ -52,17 +53,18 @@ namespace Riskeer.Storage.Core.DbContext
         }
 
         public long HydraulicLocationEntityId { get; set; }
-        public long AssessmentSectionEntityId { get; set; }
+        public long HydraulicBoundaryDatabaseEntityId { get; set; }
         public long LocationId { get; set; }
         public string Name { get; set; }
         public double? LocationX { get; set; }
         public double? LocationY { get; set; }
         public int Order { get; set; }
 
-        public virtual AssessmentSectionEntity AssessmentSectionEntity { get; set; }
-
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ClosingStructuresCalculationEntity> ClosingStructuresCalculationEntities { get; set; }
+
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DuneLocationEntity> DuneLocationEntities { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GrassCoverErosionInwardsCalculationEntity> GrassCoverErosionInwardsCalculationEntities { get; set; }
@@ -72,6 +74,8 @@ namespace Riskeer.Storage.Core.DbContext
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HeightStructuresCalculationEntity> HeightStructuresCalculationEntities { get; set; }
+
+        public virtual HydraulicBoundaryDatabaseEntity HydraulicBoundaryDatabaseEntity { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HydraulicLocationCalculationEntity> HydraulicLocationCalculationEntities { get; set; }

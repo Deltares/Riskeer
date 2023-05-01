@@ -54,16 +54,10 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
 
         [Test]
-        public void Run_InvalidHydraulicBoundaryDatabase_LogValidationStartAndEndWithError()
+        public void Run_CalculationInvalidInput_LogValidationStartAndEndWithError()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-            {
-                HydraulicBoundaryDatabase =
-                {
-                    FilePath = Path.Combine(testDataPath, "notexisting.sqlite")
-                }
-            };
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {
@@ -87,7 +81,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 Assert.AreEqual(4, msgs.Length);
                 Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gestart.", msgs[0]);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
-                StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt. Fout bij het lezen van bestand", msgs[2]);
+                Assert.AreEqual("Er is geen hydraulische belastingenlocatie geselecteerd.", msgs[2]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
             });
             Assert.AreEqual(ActivityState.Failed, activity.State);
@@ -118,7 +112,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     DikeProfile = CreateDikeProfile(),
                     ShouldDikeHeightBeCalculated = shouldDikeHeightBeCalculated,
                     ShouldOvertoppingRateBeCalculated = shouldOvertoppingRateBeCalculated
@@ -165,9 +159,9 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
 
         private static void ImportHydraulicBoundaryDatabase(AssessmentSection assessmentSection)
         {
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
-            DataImportHelper.ImportHydraulicBoundaryDatabase(assessmentSection, validFilePath);
+            DataImportHelper.ImportHydraulicBoundaryData(assessmentSection,
+                                                         Path.Combine(testDataPath, "hlcd.sqlite"),
+                                                         Path.Combine(testDataPath, "HRD dutch coast south.sqlite"));
         }
 
         private static DikeProfile CreateDikeProfile()
@@ -201,16 +195,19 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
             DikeProfile dikeProfile = CreateDikeProfile();
             dikeProfile.BreakWater.Type = breakWaterType;
 
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001);
+
             var calculation = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     DikeProfile = dikeProfile
                 }
             };
@@ -222,7 +219,9 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                              .WhenCalled(invocation =>
                              {
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                                         assessmentSection.HydraulicBoundaryData,
+                                         hydraulicBoundaryLocation),
                                      (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(calculator);
@@ -294,7 +293,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     DikeProfile = CreateDikeProfile()
                 }
             };
@@ -349,7 +348,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     DikeProfile = CreateDikeProfile()
                 }
             };
@@ -419,7 +418,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(),
                     DikeProfile = CreateDikeProfile()
                 }
             };
@@ -463,7 +462,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     DikeProfile = CreateDikeProfile()
                 }
             };
@@ -505,13 +504,17 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
 
             var dikeHeightCalculator = new TestHydraulicLoadsCalculator();
 
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001);
+
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                              .WhenCalled(invocation =>
                              {
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                                         assessmentSection.HydraulicBoundaryData,
+                                         hydraulicBoundaryLocation),
                                      (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(new TestOvertoppingCalculator());
@@ -519,7 +522,9 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                              .WhenCalled(invocation =>
                              {
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                                         assessmentSection.HydraulicBoundaryData,
+                                         hydraulicBoundaryLocation),
                                      (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(dikeHeightCalculator);
@@ -532,7 +537,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     DikeProfile = dikeProfile,
                     ShouldDikeHeightBeCalculated = true
                 }
@@ -616,7 +621,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     DikeProfile = CreateDikeProfile(),
                     ShouldDikeHeightBeCalculated = true
                 }
@@ -677,7 +682,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     DikeProfile = CreateDikeProfile(),
                     ShouldDikeHeightBeCalculated = true
                 }
@@ -739,7 +744,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     DikeProfile = CreateDikeProfile(),
                     ShouldDikeHeightBeCalculated = true
                 }
@@ -801,7 +806,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     DikeProfile = CreateDikeProfile(),
                     ShouldDikeHeightBeCalculated = true
                 }
@@ -864,7 +869,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     DikeProfile = CreateDikeProfile(),
                     ShouldDikeHeightBeCalculated = true
                 }
@@ -913,7 +918,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     DikeProfile = CreateDikeProfile(),
                     ShouldDikeHeightBeCalculated = true
                 }
@@ -954,7 +959,10 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
+
             var overtoppingRateCalculator = new TestHydraulicLoadsCalculator();
+
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001);
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -962,7 +970,9 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                              .WhenCalled(invocation =>
                              {
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                                         assessmentSection.HydraulicBoundaryData,
+                                         hydraulicBoundaryLocation),
                                      (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(new TestOvertoppingCalculator());
@@ -970,7 +980,9 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                              .WhenCalled(invocation =>
                              {
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                                         assessmentSection.HydraulicBoundaryData,
+                                         hydraulicBoundaryLocation),
                                      (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(overtoppingRateCalculator);
@@ -983,7 +995,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     DikeProfile = dikeProfile,
                     ShouldOvertoppingRateBeCalculated = true
                 }
@@ -1066,7 +1078,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     DikeProfile = CreateDikeProfile(),
                     ShouldOvertoppingRateBeCalculated = true
                 }
@@ -1127,7 +1139,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     DikeProfile = CreateDikeProfile(),
                     ShouldOvertoppingRateBeCalculated = true
                 }
@@ -1189,7 +1201,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     DikeProfile = CreateDikeProfile(),
                     ShouldOvertoppingRateBeCalculated = true
                 }
@@ -1251,7 +1263,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     DikeProfile = CreateDikeProfile(),
                     ShouldOvertoppingRateBeCalculated = true
                 }
@@ -1314,7 +1326,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     DikeProfile = CreateDikeProfile(),
                     ShouldOvertoppingRateBeCalculated = true
                 }
@@ -1363,7 +1375,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     DikeProfile = CreateDikeProfile(),
                     ShouldOvertoppingRateBeCalculated = true
                 }

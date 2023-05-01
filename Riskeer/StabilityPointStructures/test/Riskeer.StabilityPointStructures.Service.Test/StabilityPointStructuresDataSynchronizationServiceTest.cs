@@ -27,6 +27,7 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Service;
@@ -157,10 +158,11 @@ namespace Riskeer.StabilityPointStructures.Service.Test
         }
 
         [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_FailureMechanismNull_ThrowsArgumentNullException()
+        public void ClearCalculationOutputAndHydraulicBoundaryLocations_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => StabilityPointStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(null);
+            void Call() => StabilityPointStructuresDataSynchronizationService.ClearCalculationOutputAndHydraulicBoundaryLocations(
+                null, Enumerable.Empty<HydraulicBoundaryLocation>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -168,31 +170,69 @@ namespace Riskeer.StabilityPointStructures.Service.Test
         }
 
         [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_WithVariousCalculations_ClearsCalculationsOutputAndReturnsAffectedObjects()
+        public void ClearCalculationOutputAndHydraulicBoundaryLocations_HydraulicBoundaryLocationsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => StabilityPointStructuresDataSynchronizationService.ClearCalculationOutputAndHydraulicBoundaryLocations(
+                new StabilityPointStructuresFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("hydraulicBoundaryLocations", exception.ParamName);
+        }
+
+        [Test]
+        public void ClearCalculationOutputAndHydraulicBoundaryLocations_WithVariousCalculations_ClearsCalculationsOutputAndReturnsAffectedObjects()
         {
             // Setup
-            StabilityPointStructuresFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
-            StructuresCalculation<StabilityPointStructuresInput>[] calculations = failureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>().ToArray();
-            IObservable[] expectedAffectedCalculations = calculations.Where(c => c.HasOutput)
-                                                                     .Cast<IObservable>()
-                                                                     .ToArray();
-            IObservable[] expectedAffectedCalculationInputs = calculations.Select(c => c.InputParameters)
-                                                                          .Where(i => i.HydraulicBoundaryLocation != null)
-                                                                          .Cast<IObservable>()
-                                                                          .ToArray();
+            var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
+            var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation();
+            
+            StabilityPointStructuresFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism(hydraulicBoundaryLocation1);
+            failureMechanism.CalculationsGroup.Children.AddRange(new[]
+            {
+                new StructuresCalculationScenario<StabilityPointStructuresInput>
+                {
+                    InputParameters =
+                    {
+                        HydraulicBoundaryLocation = hydraulicBoundaryLocation2
+                    }
+                },
+                new StructuresCalculationScenario<StabilityPointStructuresInput>
+                {
+                    InputParameters =
+                    {
+                        HydraulicBoundaryLocation = hydraulicBoundaryLocation2
+                    },
+                    Output = new TestStructuresOutput()
+                }
+            });
+            
+            StructuresCalculation<StabilityPointStructuresInput>[] calculations = failureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>()
+                                                                                                  .ToArray();
+            
+            StructuresCalculation<StabilityPointStructuresInput>[] expectedAffectedCalculations = calculations.Where(
+                c => c.InputParameters.HydraulicBoundaryLocation == hydraulicBoundaryLocation1
+                     && c.HasOutput).ToArray();
+
+            var expectedAffectedItems = new List<IObservable>(expectedAffectedCalculations);
+            expectedAffectedItems.AddRange(calculations.Select(c => c.InputParameters)
+                                                       .Where(i => i.HydraulicBoundaryLocation == hydraulicBoundaryLocation1));
 
             // Call
-            IEnumerable<IObservable> affectedItems =
-                StabilityPointStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
+            IEnumerable<IObservable> affectedItems = StabilityPointStructuresDataSynchronizationService.ClearCalculationOutputAndHydraulicBoundaryLocations(
+                failureMechanism, new[]
+                {
+                    hydraulicBoundaryLocation1
+                });
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
-            Assert.IsTrue(failureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>()
-                                          .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
+            Assert.IsTrue(expectedAffectedCalculations.All(c => !c.HasOutput && c.InputParameters.HydraulicBoundaryLocation == null));
+            Assert.IsTrue(calculations.All(c => c.InputParameters.HydraulicBoundaryLocation != hydraulicBoundaryLocation1));
 
-            CollectionAssert.AreEquivalent(expectedAffectedCalculations.Concat(expectedAffectedCalculationInputs),
-                                           affectedItems);
+            CollectionAssert.AreEquivalent(expectedAffectedItems, affectedItems);
         }
 
         [Test]
@@ -312,7 +352,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             }
         }
 
-        private StabilityPointStructuresFailureMechanism CreateFullyConfiguredFailureMechanism()
+        private StabilityPointStructuresFailureMechanism CreateFullyConfiguredFailureMechanism(HydraulicBoundaryLocation hydraulicBoundaryLocation = null)
         {
             var section1 = new FailureMechanismSection("A", new[]
             {
@@ -324,67 +364,172 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                 new Point2D(2, 0),
                 new Point2D(4, 0)
             });
-            var structure1 = new TestStabilityPointStructure(new Point2D(1, 0), "id structure1");
-            var structure2 = new TestStabilityPointStructure(new Point2D(3, 0), "id structure2");
+            var structure1 = new TestStabilityPointStructure(new Point2D(1, 0), "Id 1,0");
+            var structure2 = new TestStabilityPointStructure(new Point2D(3, 0), "Id 3,0");
             var profile = new TestForeshoreProfile();
-            StructuresCalculation<StabilityPointStructuresInput> calculation1 = new TestStabilityPointStructuresCalculationScenario
-            {
-                InputParameters =
-                {
-                    ForeshoreProfile = profile,
-                    Structure = structure1
-                },
-                Output = new TestStructuresOutput()
-            };
-            StructuresCalculation<StabilityPointStructuresInput> calculation2 = new TestStabilityPointStructuresCalculationScenario
-            {
-                InputParameters =
-                {
-                    ForeshoreProfile = profile,
-                    Structure = structure2
-                }
-            };
-            StructuresCalculation<StabilityPointStructuresInput> calculation3 = new TestStabilityPointStructuresCalculationScenario
-            {
-                InputParameters =
-                {
-                    ForeshoreProfile = profile,
-                    Structure = structure1
-                }
-            };
-            var failureMechanism = new StabilityPointStructuresFailureMechanism
-            {
-                CalculationsGroup =
-                {
-                    Children =
-                    {
-                        calculation1,
-                        new CalculationGroup
-                        {
-                            Children =
-                            {
-                                calculation2
-                            }
-                        },
-                        calculation3
-                    }
-                }
-            };
-            failureMechanism.StabilityPointStructures.AddRange(new[]
-            {
-                structure1,
-                structure2
-            }, "path");
 
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
             failureMechanism.ForeshoreProfiles.AddRange(new[]
             {
                 profile
             }, "path");
 
+            failureMechanism.StabilityPointStructures.AddRange(new[]
+            {
+                structure1,
+                structure2
+            }, "someLocation");
+
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 section1,
                 section2
+            });
+
+            if (hydraulicBoundaryLocation == null)
+            {
+                hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            }
+
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = structure1
+                }
+            };
+            var calculationWithOutput = new StructuresCalculationScenario<StabilityPointStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = structure1
+                },
+                Output = new TestStructuresOutput()
+            };
+            var calculationWithOutputAndHydraulicBoundaryLocation = new StructuresCalculationScenario<StabilityPointStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = structure2,
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                },
+                Output = new TestStructuresOutput()
+            };
+            var calculationWithHydraulicBoundaryLocation = new StructuresCalculationScenario<StabilityPointStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = structure1,
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            };
+            var calculationWithHydraulicBoundaryLocationAndForeshoreProfile = new StructuresCalculationScenario<StabilityPointStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = structure2,
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    ForeshoreProfile = profile
+                }
+            };
+            var calculationWithForeshoreProfile = new StructuresCalculationScenario<StabilityPointStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = structure1,
+                    ForeshoreProfile = profile
+                }
+            };
+            var calculationWithOutputHydraulicBoundaryLocationAndForeshoreProfile = new StructuresCalculationScenario<StabilityPointStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = structure1,
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    ForeshoreProfile = profile
+                },
+                Output = new TestStructuresOutput()
+            };
+
+            var subCalculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = structure2
+                }
+            };
+            var subCalculationWithOutput = new StructuresCalculationScenario<StabilityPointStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = structure2
+                },
+                Output = new TestStructuresOutput()
+            };
+            var subCalculationWithOutputAndHydraulicBoundaryLocation = new StructuresCalculationScenario<StabilityPointStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = structure1,
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                },
+                Output = new TestStructuresOutput()
+            };
+            var subCalculationWithHydraulicBoundaryLocation = new StructuresCalculationScenario<StabilityPointStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = structure1,
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            };
+            var subCalculationWithHydraulicBoundaryLocationAndForeshoreProfile = new StructuresCalculationScenario<StabilityPointStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = structure1,
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    ForeshoreProfile = profile
+                }
+            };
+            var subCalculationWithForeshoreProfile = new StructuresCalculationScenario<StabilityPointStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = structure2,
+                    ForeshoreProfile = profile
+                }
+            };
+            var subCalculationWithOutputHydraulicBoundaryLocationAndForeshoreProfile = new StructuresCalculationScenario<StabilityPointStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = structure2,
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    ForeshoreProfile = profile
+                },
+                Output = new TestStructuresOutput()
+            };
+
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithOutput);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithForeshoreProfile);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithHydraulicBoundaryLocationAndForeshoreProfile);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithOutputHydraulicBoundaryLocationAndForeshoreProfile);
+            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
+            {
+                Children =
+                {
+                    subCalculation,
+                    subCalculationWithOutput,
+                    subCalculationWithOutputAndHydraulicBoundaryLocation,
+                    subCalculationWithHydraulicBoundaryLocation,
+                    subCalculationWithForeshoreProfile,
+                    subCalculationWithHydraulicBoundaryLocationAndForeshoreProfile,
+                    subCalculationWithOutputHydraulicBoundaryLocationAndForeshoreProfile
+                }
             });
 
             return failureMechanism;

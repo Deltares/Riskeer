@@ -85,7 +85,8 @@ namespace Riskeer.Common.IO
         /// <list type="bullet">
         /// <item>the shapefile does not have a required attribute defined.</item>
         /// <item>the element read from the file is a multi-polyline.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         public FailureMechanismSection ReadFailureMechanismSection()
         {
             ValidateExistenceOfRequiredAttributes();
@@ -126,7 +127,7 @@ namespace Riskeer.Common.IO
         /// <summary>
         /// Reads a new <see cref="MapLineData"/> from the file.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The read <see cref="MapLineData"/>.</returns>
         private MapLineData ReadMapLineData()
         {
             return polylineShapeFileReader.ReadFeature() as MapLineData;

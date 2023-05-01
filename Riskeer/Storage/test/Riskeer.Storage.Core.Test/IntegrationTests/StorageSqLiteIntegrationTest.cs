@@ -232,7 +232,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             Assert.AreEqual(expectedContribution.NormativeProbabilityType, actualContribution.NormativeProbabilityType);
 
             BackgroundDataTestHelper.AssertBackgroundData(expectedAssessmentSection.BackgroundData, actualAssessmentSection.BackgroundData);
-            AssertHydraulicBoundaryDatabase(expectedAssessmentSection.HydraulicBoundaryDatabase, actualAssessmentSection.HydraulicBoundaryDatabase);
+            AssertHydraulicBoundaryData(expectedAssessmentSection.HydraulicBoundaryData, actualAssessmentSection.HydraulicBoundaryData);
             AssertHydraulicBoundaryLocationCalculations(expectedAssessmentSection, actualAssessmentSection);
             AssertReferenceLine(expectedAssessmentSection.ReferenceLine, actualAssessmentSection.ReferenceLine);
 
@@ -1849,44 +1849,28 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
 
         #endregion
 
-        #region Hydraulic Boundary Database
+        #region Hydraulic Boundary Data
 
-        private static void AssertHydraulicBoundaryDatabase(HydraulicBoundaryDatabase expectedBoundaryDatabase,
-                                                            HydraulicBoundaryDatabase actualBoundaryDatabase)
+        private static void AssertHydraulicBoundaryData(HydraulicBoundaryData expectedHydraulicBoundaryData,
+                                                        HydraulicBoundaryData actualHydraulicBoundaryData)
         {
-            Assert.IsNotNull(expectedBoundaryDatabase);
-            Assert.AreEqual(expectedBoundaryDatabase.Version, actualBoundaryDatabase.Version);
-            Assert.AreEqual(expectedBoundaryDatabase.FilePath, actualBoundaryDatabase.FilePath);
+            Assert.IsNotNull(expectedHydraulicBoundaryData);
 
-            AssertHydraulicLocationConfigurationSettings(expectedBoundaryDatabase.HydraulicLocationConfigurationSettings,
-                                                         actualBoundaryDatabase.HydraulicLocationConfigurationSettings);
+            AssertCollectionAndItems(expectedHydraulicBoundaryData.HydraulicBoundaryDatabases,
+                                     actualHydraulicBoundaryData.HydraulicBoundaryDatabases,
+                                     AssertHydraulicBoundaryDatabase);
 
-            Assert.AreEqual(expectedBoundaryDatabase.Locations.Count, actualBoundaryDatabase.Locations.Count);
-
-            AssertHydraulicBoundaryLocations(expectedBoundaryDatabase.Locations, actualBoundaryDatabase.Locations);
+            AssertHydraulicLocationConfigurationDatabase(expectedHydraulicBoundaryData.HydraulicLocationConfigurationDatabase,
+                                                         actualHydraulicBoundaryData.HydraulicLocationConfigurationDatabase);
         }
 
-        private static void AssertHydraulicLocationConfigurationSettings(HydraulicLocationConfigurationSettings expectedSettings,
-                                                                         HydraulicLocationConfigurationSettings actualSettings)
+        private static void AssertHydraulicBoundaryDatabase(HydraulicBoundaryDatabase expectedDatabase, HydraulicBoundaryDatabase actualDatabase)
         {
-            Assert.AreEqual(expectedSettings.FilePath, actualSettings.FilePath);
-            Assert.AreEqual(expectedSettings.ScenarioName, actualSettings.ScenarioName);
-            Assert.AreEqual(expectedSettings.Year, actualSettings.Year);
-            Assert.AreEqual(expectedSettings.Scope, actualSettings.Scope);
-            Assert.AreEqual(expectedSettings.SeaLevel, actualSettings.SeaLevel);
-            Assert.AreEqual(expectedSettings.RiverDischarge, actualSettings.RiverDischarge);
-            Assert.AreEqual(expectedSettings.LakeLevel, actualSettings.LakeLevel);
-            Assert.AreEqual(expectedSettings.WindDirection, actualSettings.WindDirection);
-            Assert.AreEqual(expectedSettings.WindSpeed, actualSettings.WindSpeed);
-            Assert.AreEqual(expectedSettings.Comment, actualSettings.Comment);
-        }
+            Assert.AreEqual(expectedDatabase.FilePath, actualDatabase.FilePath);
+            Assert.AreEqual(expectedDatabase.Version, actualDatabase.Version);
+            Assert.AreEqual(expectedDatabase.UsePreprocessorClosure, actualDatabase.UsePreprocessorClosure);
 
-        private static void AssertHydraulicBoundaryLocations(IEnumerable<HydraulicBoundaryLocation> expectedHydraulicBoundaryLocations,
-                                                             IEnumerable<HydraulicBoundaryLocation> actualHydraulicBoundaryLocations)
-        {
-            AssertCollectionAndItems(expectedHydraulicBoundaryLocations,
-                                     actualHydraulicBoundaryLocations,
-                                     AssertHydraulicBoundaryLocation);
+            AssertCollectionAndItems(expectedDatabase.Locations, actualDatabase.Locations, AssertHydraulicBoundaryLocation);
         }
 
         private static void AssertHydraulicBoundaryLocation(HydraulicBoundaryLocation expectedBoundaryLocation,
@@ -1895,6 +1879,21 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             Assert.AreEqual(expectedBoundaryLocation.Id, actualBoundaryLocation.Id);
             Assert.AreEqual(expectedBoundaryLocation.Name, actualBoundaryLocation.Name);
             Assert.AreEqual(expectedBoundaryLocation.Location, actualBoundaryLocation.Location);
+        }
+
+        private static void AssertHydraulicLocationConfigurationDatabase(HydraulicLocationConfigurationDatabase expectedDatabase,
+                                                                         HydraulicLocationConfigurationDatabase actualDatabase)
+        {
+            Assert.AreEqual(expectedDatabase.FilePath, actualDatabase.FilePath);
+            Assert.AreEqual(expectedDatabase.ScenarioName, actualDatabase.ScenarioName);
+            Assert.AreEqual(expectedDatabase.Year, actualDatabase.Year);
+            Assert.AreEqual(expectedDatabase.Scope, actualDatabase.Scope);
+            Assert.AreEqual(expectedDatabase.SeaLevel, actualDatabase.SeaLevel);
+            Assert.AreEqual(expectedDatabase.RiverDischarge, actualDatabase.RiverDischarge);
+            Assert.AreEqual(expectedDatabase.LakeLevel, actualDatabase.LakeLevel);
+            Assert.AreEqual(expectedDatabase.WindDirection, actualDatabase.WindDirection);
+            Assert.AreEqual(expectedDatabase.WindSpeed, actualDatabase.WindSpeed);
+            Assert.AreEqual(expectedDatabase.Comment, actualDatabase.Comment);
         }
 
         #endregion

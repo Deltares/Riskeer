@@ -63,7 +63,9 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         private const int contextMenuClearAllIndex = 5;
         private const int contextMenuClearIllustrationPointsIndex = 6;
 
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryDatabase));
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryData));
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "complete.sqlite");
+        private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
 
         private MockRepository mocksRepository;
 
@@ -283,109 +285,13 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_HydraulicBoundaryDatabaseNotLinked_ContextMenuItemCalculateAllAndValidateAllDisabledAndTooltipSet()
-        {
-            // Setup
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<StabilityPointStructuresInput>());
-
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocksRepository);
-
-            var nodeData = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
-            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-            using (var plugin = new StabilityPointStructuresPlugin())
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var gui = mocksRepository.Stub<IGui>();
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
-                mocksRepository.ReplayAll();
-
-                TreeNodeInfo info = GetInfo(plugin);
-                plugin.Gui = gui;
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateAllIndex,
-                                                                  "Alles be&rekenen",
-                                                                  "Er is geen hydraulische belastingendatabase geïmporteerd.",
-                                                                  RiskeerCommonFormsResources.CalculateAllIcon,
-                                                                  false);
-
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateAllIndex,
-                                                                  "Alles &valideren",
-                                                                  "Er is geen hydraulische belastingendatabase geïmporteerd.",
-                                                                  RiskeerCommonFormsResources.ValidateAllIcon,
-                                                                  false);
-                }
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_HydraulicBoundaryDatabaseLinkedToInvalidFile_ContextMenuItemCalculateAllAndValidateAllDisabledAndTooltipSet()
-        {
-            // Setup
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<StabilityPointStructuresInput>());
-
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocksRepository, "invalidFilePath");
-
-            var nodeData = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
-            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-            using (var plugin = new StabilityPointStructuresPlugin())
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var gui = mocksRepository.Stub<IGui>();
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
-                mocksRepository.ReplayAll();
-
-                TreeNodeInfo info = GetInfo(plugin);
-                plugin.Gui = gui;
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    ToolStripItem calculateAllContextMenuItem = contextMenu.Items[contextMenuCalculateAllIndex];
-
-                    Assert.AreEqual("Alles be&rekenen", calculateAllContextMenuItem.Text);
-                    StringAssert.Contains("Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt.", calculateAllContextMenuItem.ToolTipText);
-                    TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.CalculateAllIcon, calculateAllContextMenuItem.Image);
-                    Assert.IsFalse(calculateAllContextMenuItem.Enabled);
-
-                    ToolStripItem validateAllContextMenuItem = contextMenu.Items[contextMenuValidateAllIndex];
-
-                    Assert.AreEqual("Alles &valideren", validateAllContextMenuItem.Text);
-                    StringAssert.Contains("Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt.", validateAllContextMenuItem.ToolTipText);
-                    TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.ValidateAllIcon, validateAllContextMenuItem.Image);
-                    Assert.IsFalse(validateAllContextMenuItem.Enabled);
-                }
-            }
-        }
-
-        [Test]
         public void ContextMenuStrip_AllRequiredInputSet_ContextMenuItemCalculateAllAndValidateAllEnabled()
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<StabilityPointStructuresInput>());
 
-            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = validFilePath,
-                Version = "1.0"
-            };
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
-
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
-
             var nodeData = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -423,40 +329,63 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             // Setup
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new TestStabilityPointStructuresCalculationScenario
-            {
-                Name = "A",
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
-                    Structure = new TestStabilityPointStructure(),
-                    InflowModelType = StabilityPointStructureInflowModelType.LowSill,
-                    LoadSchematizationType = LoadSchematizationType.Linear
-                }
-            });
-            failureMechanism.CalculationsGroup.Children.Add(new TestStabilityPointStructuresCalculationScenario
-            {
-                Name = "B",
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
-                    Structure = new TestStabilityPointStructure(),
-                    InflowModelType = StabilityPointStructureInflowModelType.LowSill,
-                    LoadSchematizationType = LoadSchematizationType.Linear
-                }
-            });
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var failureMechanism = new StabilityPointStructuresFailureMechanism
             {
-                FilePath = Path.Combine(testDataPath, "complete.sqlite")
+                CalculationsGroup =
+                {
+                    Children =
+                    {
+                        new TestStabilityPointStructuresCalculationScenario
+                        {
+                            Name = "A",
+                            InputParameters =
+                            {
+                                HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                                Structure = new TestStabilityPointStructure(),
+                                InflowModelType = StabilityPointStructureInflowModelType.LowSill,
+                                LoadSchematizationType = LoadSchematizationType.Linear
+                            }
+                        },
+                        new TestStabilityPointStructuresCalculationScenario
+                        {
+                            Name = "B",
+                            InputParameters =
+                            {
+                                HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                                Structure = new TestStabilityPointStructure(),
+                                InflowModelType = StabilityPointStructureInflowModelType.LowSill,
+                                LoadSchematizationType = LoadSchematizationType.Linear
+                            }
+                        }
+                    }
+                }
             };
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
+
+            var hydraulicBoundaryData = new HydraulicBoundaryData
+            {
+                HydraulicLocationConfigurationDatabase =
+                {
+                    FilePath = validHlcdFilePath
+                },
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        FilePath = validHrdFilePath,
+                        Locations =
+                        {
+                            hydraulicBoundaryLocation
+                        }
+                    }
+                }
+            };
 
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.Id).Return(string.Empty);
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
 
             var context = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -476,7 +405,8 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                                  .WhenCalled(invocation =>
                                  {
                                      HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase),
+                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData,
+                                                                                                    hydraulicBoundaryLocation),
                                          (HydraRingCalculationSettings) invocation.Arguments[0]);
                                  })
                                  .Return(new TestStructuresCalculator<StructuresStabilityPointCalculationInput>())
@@ -526,37 +456,59 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_ClickOnValidateAllItem_ValidateAllChildCalculations()
         {
             // Setup
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new TestStabilityPointStructuresCalculationScenario
-            {
-                Name = "A",
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
-                    InflowModelType = StabilityPointStructureInflowModelType.LowSill,
-                    LoadSchematizationType = LoadSchematizationType.Linear
-                }
-            });
-            failureMechanism.CalculationsGroup.Children.Add(new TestStabilityPointStructuresCalculationScenario
-            {
-                Name = "B",
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
-                    InflowModelType = StabilityPointStructureInflowModelType.LowSill,
-                    LoadSchematizationType = LoadSchematizationType.Linear
-                }
-            });
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
-            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var failureMechanism = new StabilityPointStructuresFailureMechanism
             {
-                FilePath = validFilePath
+                CalculationsGroup =
+                {
+                    Children =
+                    {
+                        new TestStabilityPointStructuresCalculationScenario
+                        {
+                            Name = "A",
+                            InputParameters =
+                            {
+                                HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                                InflowModelType = StabilityPointStructureInflowModelType.LowSill,
+                                LoadSchematizationType = LoadSchematizationType.Linear
+                            }
+                        },
+                        new TestStabilityPointStructuresCalculationScenario
+                        {
+                            Name = "B",
+                            InputParameters =
+                            {
+                                HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                                InflowModelType = StabilityPointStructureInflowModelType.LowSill,
+                                LoadSchematizationType = LoadSchematizationType.Linear
+                            }
+                        }
+                    }
+                }
             };
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
+
+            var hydraulicBoundaryData = new HydraulicBoundaryData
+            {
+                HydraulicLocationConfigurationDatabase =
+                {
+                    FilePath = validHlcdFilePath
+                },
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        FilePath = validHrdFilePath,
+                        Locations =
+                        {
+                            hydraulicBoundaryLocation
+                        }
+                    }
+                }
+            };
 
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
 
             var context = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 

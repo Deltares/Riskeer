@@ -90,17 +90,13 @@ namespace Riskeer.HydraRing.Calculation.Test.Services
 
         [Test]
         public void WriteDatabaseCreationScript_SingleHydraRingCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool withForeland,
-                                                                                                             [Values(true, false)] bool withBreakWater,
-                                                                                                             [Values(true, false)] bool runPreprocessor)
+                                                                                                             [Values(true, false)] bool withBreakWater)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.Model);
 
             hydraRingConfigurationService.AddHydraRingCalculationInput(new HydraRingCalculationInputImplementation(1, 700004, withForeland, withBreakWater)
             {
-                PreprocessorSetting = runPreprocessor
-                                          ? new PreprocessorSetting(1001.1, 1002.2, new NumericsSetting(1008, 1009, 1010, 1011.11, 1012.12, 1013.13, 1014.14, 1015, 1016, 1017, 1018.18, 1019.19, 1020.20, 1021))
-                                          : new PreprocessorSetting(),
                 DesignTablesSetting = new DesignTablesSetting(6.6, 7.7),
                 NumericsSettings = new Dictionary<int, NumericsSetting>
                 {
@@ -134,16 +130,8 @@ namespace Riskeer.HydraRing.Calculation.Test.Services
                                             "DELETE FROM [DesignTables];" + Environment.NewLine +
                                             "INSERT INTO [DesignTables] VALUES (1, 1, 1, 1, 4, 5, 0, 0, 0, 0, 6.6, 7.7, 1.1);" + Environment.NewLine +
                                             Environment.NewLine +
-                                            "DELETE FROM [PreprocessorSettings];" + Environment.NewLine +
-                                            (runPreprocessor
-                                                 ? "INSERT INTO [PreprocessorSettings] VALUES (1, 1001.1, 1002.2);" + Environment.NewLine
-                                                 : string.Empty) +
-                                            Environment.NewLine +
                                             "DELETE FROM [Numerics];" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 1, 1, 1, 1, 8, 9, 10, 11.11, 12.12, 13.13, 14.14, 15, 3, 16, 17, 18.18, 19.19, 20.2, 21);" + Environment.NewLine +
-                                            (runPreprocessor
-                                                 ? "INSERT INTO [Numerics] VALUES (1, 1, 1, 1, 7, 1008, 1009, 1010, 1011.11, 1012.12, 1013.13, 1014.14, 1015, 3, 1016, 1017, 1018.18, 1019.19, 1020.2, 1021);" + Environment.NewLine
-                                                 : string.Empty) +
                                             Environment.NewLine +
                                             "DELETE FROM [VariableDatas];" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 1, 1, 1, 26, 1.1, 0, 2.2, 3.3, 4.4, 5.5, 1, 6.6, 300);" + Environment.NewLine +
@@ -166,9 +154,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Services
                                             Environment.NewLine +
                                             "DELETE FROM [SectionFaultTreeModels];" + Environment.NewLine +
                                             "INSERT INTO [SectionFaultTreeModels] VALUES (1, 1, 1, 1, 6);" + Environment.NewLine +
-                                            (runPreprocessor
-                                                 ? "INSERT INTO [SectionFaultTreeModels] VALUES (1, 1, 1, 1, 9);" + Environment.NewLine
-                                                 : string.Empty) +
                                             Environment.NewLine +
                                             "DELETE FROM [SectionSubMechanismModels];" + Environment.NewLine +
                                             "INSERT INTO [SectionSubMechanismModels] VALUES (1, 1, 1, 1, 1234);" + Environment.NewLine +
@@ -221,16 +206,13 @@ namespace Riskeer.HydraRing.Calculation.Test.Services
         }
 
         [Test]
-        public void WriteDatabaseCreationScript_MultipleHydraRingCalculationInputs_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
+        public void WriteDatabaseCreationScript_MultipleHydraRingCalculationInputs_WritesExpectedCreationScript()
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.Model);
 
             hydraRingConfigurationService.AddHydraRingCalculationInput(new HydraRingCalculationInputImplementation(1, 700004)
             {
-                PreprocessorSetting = runPreprocessor
-                                          ? new PreprocessorSetting(1001.1, 1002.2, new NumericsSetting(1008, 1009, 1010, 1011.11, 1012.12, 1013.13, 1014.14, 1015, 1016, 1017, 1018.18, 1019.19, 1020.20, 1021))
-                                          : new PreprocessorSetting(),
                 DesignTablesSetting = new DesignTablesSetting(6.6, 7.7),
                 NumericsSettings = new Dictionary<int, NumericsSetting>
                 {
@@ -242,9 +224,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Services
             });
             hydraRingConfigurationService.AddHydraRingCalculationInput(new HydraRingCalculationInputImplementation(2, 700005)
             {
-                PreprocessorSetting = runPreprocessor
-                                          ? new PreprocessorSetting(2001.1, 2002.2, new NumericsSetting(2008, 2009, 2010, 2011.11, 2012.12, 2013.13, 2014.14, 2015, 2016, 2017, 2018.18, 2019.19, 2020.20, 2021))
-                                          : new PreprocessorSetting(),
                 DesignTablesSetting = new DesignTablesSetting(8.8, 9.9),
                 NumericsSettings = new Dictionary<int, NumericsSetting>
                 {
@@ -256,9 +235,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Services
             });
             hydraRingConfigurationService.AddHydraRingCalculationInput(new HydraRingCalculationInputImplementation(3, 700006)
             {
-                PreprocessorSetting = runPreprocessor
-                                          ? new PreprocessorSetting(3001.1, 3002.2, new NumericsSetting(3008, 3009, 3010, 3011.11, 3012.12, 3013.13, 3014.14, 3015, 3016, 3017, 3018.18, 3019.19, 3020.20, 3021))
-                                          : new PreprocessorSetting(),
                 DesignTablesSetting = new DesignTablesSetting(10.10, 11.11),
                 NumericsSettings = new Dictionary<int, NumericsSetting>
                 {
@@ -287,26 +263,10 @@ namespace Riskeer.HydraRing.Calculation.Test.Services
                                             "INSERT INTO [DesignTables] VALUES (2, 1, 1, 1, 4, 5, 0, 0, 0, 0, 8.8, 9.9, 1.1);" + Environment.NewLine +
                                             "INSERT INTO [DesignTables] VALUES (3, 1, 1, 1, 4, 5, 0, 0, 0, 0, 10.1, 11.11, 1.1);" + Environment.NewLine +
                                             Environment.NewLine +
-                                            "DELETE FROM [PreprocessorSettings];" + Environment.NewLine +
-                                            (runPreprocessor
-                                                 ? "INSERT INTO [PreprocessorSettings] VALUES (1, 1001.1, 1002.2);" + Environment.NewLine +
-                                                   "INSERT INTO [PreprocessorSettings] VALUES (2, 2001.1, 2002.2);" + Environment.NewLine +
-                                                   "INSERT INTO [PreprocessorSettings] VALUES (3, 3001.1, 3002.2);" + Environment.NewLine
-                                                 : string.Empty) +
-                                            Environment.NewLine +
                                             "DELETE FROM [Numerics];" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 1, 1, 1, 1, 8, 9, 10, 11.11, 12.12, 13.13, 14.14, 15, 3, 16, 17, 18.18, 19.19, 20.2, 21);" + Environment.NewLine +
-                                            (runPreprocessor
-                                                 ? "INSERT INTO [Numerics] VALUES (1, 1, 1, 1, 7, 1008, 1009, 1010, 1011.11, 1012.12, 1013.13, 1014.14, 1015, 3, 1016, 1017, 1018.18, 1019.19, 1020.2, 1021);" + Environment.NewLine
-                                                 : string.Empty) +
                                             "INSERT INTO [Numerics] VALUES (2, 1, 1, 1, 1, 108, 109, 110, 111.11, 112.12, 113.13, 114.14, 115, 3, 116, 117, 118.18, 119.19, 120.2, 121);" + Environment.NewLine +
-                                            (runPreprocessor
-                                                 ? "INSERT INTO [Numerics] VALUES (2, 1, 1, 1, 7, 2008, 2009, 2010, 2011.11, 2012.12, 2013.13, 2014.14, 2015, 3, 2016, 2017, 2018.18, 2019.19, 2020.2, 2021);" + Environment.NewLine
-                                                 : string.Empty) +
                                             "INSERT INTO [Numerics] VALUES (3, 1, 1, 1, 1, 208, 209, 210, 211.11, 212.12, 213.13, 214.14, 215, 3, 216, 217, 218.18, 219.19, 220.2, 221);" + Environment.NewLine +
-                                            (runPreprocessor
-                                                 ? "INSERT INTO [Numerics] VALUES (3, 1, 1, 1, 7, 3008, 3009, 3010, 3011.11, 3012.12, 3013.13, 3014.14, 3015, 3, 3016, 3017, 3018.18, 3019.19, 3020.2, 3021);" + Environment.NewLine
-                                                 : string.Empty) +
                                             Environment.NewLine +
                                             "DELETE FROM [VariableDatas];" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 1, 1, 1, 26, 1.1, 0, 2.2, 3.3, 4.4, 5.5, 1, 6.6, 300);" + Environment.NewLine +
@@ -359,17 +319,8 @@ namespace Riskeer.HydraRing.Calculation.Test.Services
                                             Environment.NewLine +
                                             "DELETE FROM [SectionFaultTreeModels];" + Environment.NewLine +
                                             "INSERT INTO [SectionFaultTreeModels] VALUES (1, 1, 1, 1, 6);" + Environment.NewLine +
-                                            (runPreprocessor
-                                                 ? "INSERT INTO [SectionFaultTreeModels] VALUES (1, 1, 1, 1, 9);" + Environment.NewLine
-                                                 : string.Empty) +
                                             "INSERT INTO [SectionFaultTreeModels] VALUES (2, 1, 1, 1, 6);" + Environment.NewLine +
-                                            (runPreprocessor
-                                                 ? "INSERT INTO [SectionFaultTreeModels] VALUES (2, 1, 1, 1, 9);" + Environment.NewLine
-                                                 : string.Empty) +
                                             "INSERT INTO [SectionFaultTreeModels] VALUES (3, 1, 1, 1, 6);" + Environment.NewLine +
-                                            (runPreprocessor
-                                                 ? "INSERT INTO [SectionFaultTreeModels] VALUES (3, 1, 1, 1, 9);" + Environment.NewLine
-                                                 : string.Empty) +
                                             Environment.NewLine +
                                             "DELETE FROM [SectionSubMechanismModels];" + Environment.NewLine +
                                             "INSERT INTO [SectionSubMechanismModels] VALUES (1, 1, 1, 1, 1234);" + Environment.NewLine +

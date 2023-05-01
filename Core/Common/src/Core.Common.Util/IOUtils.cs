@@ -45,7 +45,8 @@ namespace Core.Common.Util
         /// <item>has no access rights to that location.</item>
         /// <item>isn't too long.</item>
         /// <item>does not contain an invalid ':' character.</item>
-        /// </list></remarks>
+        /// </list>
+        /// </remarks>
         public static bool IsValidFolderPath(string path)
         {
             try
@@ -70,7 +71,8 @@ namespace Core.Common.Util
         /// <item>Caller has no access rights to the folder path.</item>
         /// <item>The folder path is too long.</item>
         /// <item>The folder path contains an invalid ':' character.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         public static void ValidateFolderPath(string path)
         {
             try
@@ -96,7 +98,8 @@ namespace Core.Common.Util
         /// <item>does not consist out of only whitespace characters,</item>
         /// <item>does not contain an invalid character,</item>
         /// <item>does not end with a directory or path separator (empty file name).</item>
-        /// </list></remarks>
+        /// </list>
+        /// </remarks>
         /// <seealso cref="Path.GetInvalidPathChars()"/>
         public static void ValidateFilePath(string path)
         {
@@ -136,7 +139,8 @@ namespace Core.Common.Util
         /// <item>does not contain an invalid character,</item>
         /// <item>is not empty or <c>null</c>,</item>
         /// <item>does not end with a directory or path separator (empty file name).</item>
-        /// </list></remarks>
+        /// </list>
+        /// </remarks>
         public static bool IsValidFilePath(string path)
         {
             try
@@ -206,7 +210,8 @@ namespace Core.Common.Util
         /// <item>does not consist out of only whitespace characters,</item>
         /// <item>does not contain an invalid character,</item>
         /// <item>does not end with a directory or path separator (empty file name).</item>
-        /// </list></remarks>
+        /// </list>
+        /// </remarks>
         public static void CreateFileIfNotExists(string path)
         {
             ValidateFilePath(path);
@@ -239,7 +244,8 @@ namespace Core.Common.Util
         /// <item>The caller has no access rights to the path.</item>
         /// <item>The path is too long.</item>
         /// <item>The path contains a ':' that is not part of a volume identifier.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         public static string GetFullPath(string path)
         {
             if (string.IsNullOrWhiteSpace(path))

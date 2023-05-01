@@ -28,10 +28,10 @@ namespace Core.Gui.ContextMenu
     /// <summary>
     /// Class used by the <see cref="ContextMenuBuilder"/> to enforce instantiation of the following properties:
     /// <list type="bullet">
-    /// <item><see cref="ToolStripMenuItem.Text"/></item>
-    /// <item><see cref="ToolStripItem.ToolTipText"/></item>
-    /// <item><see cref="ToolStripMenuItem.Image"/></item>
-    /// <item><see cref="ToolStripMenuItem.Click"/></item>
+    /// <item><see cref="ToolStripMenuItem.Text"/>;</item>
+    /// <item><see cref="ToolStripItem.ToolTipText"/>;</item>
+    /// <item><see cref="ToolStripMenuItem.Image"/>;</item>
+    /// <item><see cref="ToolStripMenuItem.Click"/>.</item>
     /// </list>
     /// </summary>
     public sealed class StrictContextMenuItem : ToolStripMenuItem

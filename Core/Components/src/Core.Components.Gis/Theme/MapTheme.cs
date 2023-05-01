@@ -42,7 +42,8 @@ namespace Core.Components.Gis.Theme
         /// <list type="bullet">
         /// <item><paramref name="attributeName"/> is null, empty or consists of only whitespace.</item>
         /// <item><paramref name="categoryThemes"/> is empty.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         public MapTheme(string attributeName, IEnumerable<TCategoryTheme> categoryThemes)
         {
             if (string.IsNullOrWhiteSpace(attributeName))

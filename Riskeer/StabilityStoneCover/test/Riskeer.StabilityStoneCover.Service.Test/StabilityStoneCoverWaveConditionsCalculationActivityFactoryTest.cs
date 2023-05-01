@@ -47,7 +47,8 @@ namespace Riskeer.StabilityStoneCover.Service.Test
     public class StabilityStoneCoverWaveConditionsCalculationActivityFactoryTest
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
-        private static readonly string validFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
+        private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
 
         [Test]
         public void CreateCalculationActivitiesForFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
@@ -81,10 +82,12 @@ namespace Riskeer.StabilityStoneCover.Service.Test
         public void CreateCalculationActivitiesForFailureMechanism_WithValidData_ExpectedInputSetToActivities()
         {
             // Setup
-            AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-            StabilityStoneCoverFailureMechanism failureMechanism = new StabilityStoneCoverFailureMechanism();
-
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName 1");
+
+            AssessmentSectionStub assessmentSection = CreateAssessmentSection(hydraulicBoundaryLocation);
+
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+
             SetHydraulicBoundaryLocationToAssessmentSection(assessmentSection, hydraulicBoundaryLocation);
 
             StabilityStoneCoverWaveConditionsCalculation calculation1 = CreateValidCalculation(hydraulicBoundaryLocation);
@@ -106,9 +109,9 @@ namespace Riskeer.StabilityStoneCover.Service.Test
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(StabilityStoneCoverWaveConditionsCalculationActivity));
             Assert.AreEqual(2, activities.Count());
             RoundedDouble assessmentLevel = assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.Single().Output.Result;
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
-            AssertStabilityStoneCoverWaveConditionsCalculationActivity(activities.ElementAt(0), calculation1, assessmentLevel, hydraulicBoundaryDatabase);
-            AssertStabilityStoneCoverWaveConditionsCalculationActivity(activities.ElementAt(1), calculation2, assessmentLevel, hydraulicBoundaryDatabase);
+            HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryData;
+            AssertStabilityStoneCoverWaveConditionsCalculationActivity(activities.ElementAt(0), calculation1, assessmentLevel, hydraulicBoundaryData);
+            AssertStabilityStoneCoverWaveConditionsCalculationActivity(activities.ElementAt(1), calculation2, assessmentLevel, hydraulicBoundaryData);
         }
 
         [Test]
@@ -168,10 +171,12 @@ namespace Riskeer.StabilityStoneCover.Service.Test
         public void CreateCalculationActivity_WithValidCalculation_ReturnsStabilityStoneCoverWaveConditionsCalculationActivityWithParametersSet()
         {
             // Setup
-            StabilityStoneCoverFailureMechanism failureMechanism = new StabilityStoneCoverFailureMechanism();
-            AssessmentSectionStub assessmentSection = CreateAssessmentSection();
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+            AssessmentSectionStub assessmentSection = CreateAssessmentSection(hydraulicBoundaryLocation);
+
             SetHydraulicBoundaryLocationToAssessmentSection(assessmentSection, hydraulicBoundaryLocation);
 
             StabilityStoneCoverWaveConditionsCalculation calculation = CreateValidCalculation(hydraulicBoundaryLocation);
@@ -186,7 +191,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
             AssertStabilityStoneCoverWaveConditionsCalculationActivity(activity,
                                                                        calculation,
                                                                        assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.Single().Output.Result,
-                                                                       assessmentSection.HydraulicBoundaryDatabase);
+                                                                       assessmentSection.HydraulicBoundaryData);
         }
 
         [Test]
@@ -244,10 +249,12 @@ namespace Riskeer.StabilityStoneCover.Service.Test
         public void CreateCalculationActivitiesForCalculationGroup_WithValidCalculations_ReturnsStabilityStoneCoverWaveConditionsCalculationActivitiesWithParametersSet()
         {
             // Setup
-            StabilityStoneCoverFailureMechanism failureMechanism = new StabilityStoneCoverFailureMechanism();
-            AssessmentSectionStub assessmentSection = CreateAssessmentSection();
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+            AssessmentSectionStub assessmentSection = CreateAssessmentSection(hydraulicBoundaryLocation);
+
             SetHydraulicBoundaryLocationToAssessmentSection(assessmentSection, hydraulicBoundaryLocation);
             StabilityStoneCoverWaveConditionsCalculation calculation1 = CreateValidCalculation(hydraulicBoundaryLocation);
             StabilityStoneCoverWaveConditionsCalculation calculation2 = CreateValidCalculation(hydraulicBoundaryLocation);
@@ -270,9 +277,9 @@ namespace Riskeer.StabilityStoneCover.Service.Test
             Assert.AreEqual(2, activities.Count());
 
             RoundedDouble assessmentLevel = assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.Single().Output.Result;
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
-            AssertStabilityStoneCoverWaveConditionsCalculationActivity(activities.First(), calculation1, assessmentLevel, hydraulicBoundaryDatabase);
-            AssertStabilityStoneCoverWaveConditionsCalculationActivity(activities.ElementAt(1), calculation2, assessmentLevel, hydraulicBoundaryDatabase);
+            HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryData;
+            AssertStabilityStoneCoverWaveConditionsCalculationActivity(activities.First(), calculation1, assessmentLevel, hydraulicBoundaryData);
+            AssertStabilityStoneCoverWaveConditionsCalculationActivity(activities.ElementAt(1), calculation2, assessmentLevel, hydraulicBoundaryData);
         }
 
         private static void SetHydraulicBoundaryLocationToAssessmentSection(AssessmentSectionStub assessmentSection, TestHydraulicBoundaryLocation hydraulicBoundaryLocation)
@@ -285,18 +292,29 @@ namespace Riskeer.StabilityStoneCover.Service.Test
             assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.Single().Output = new TestHydraulicBoundaryLocationCalculationOutput(2.0);
         }
 
-        private static AssessmentSectionStub CreateAssessmentSection()
+        private static AssessmentSectionStub CreateAssessmentSection(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            var assessmentSection = new AssessmentSectionStub
+            return new AssessmentSectionStub
             {
-                HydraulicBoundaryDatabase =
+                HydraulicBoundaryData =
                 {
-                    FilePath = validFilePath
+                    HydraulicLocationConfigurationDatabase =
+                    {
+                        FilePath = validHlcdFilePath
+                    },
+                    HydraulicBoundaryDatabases =
+                    {
+                        new HydraulicBoundaryDatabase
+                        {
+                            FilePath = validHrdFilePath,
+                            Locations =
+                            {
+                                hydraulicBoundaryLocation
+                            }
+                        }
+                    }
                 }
             };
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
-
-            return assessmentSection;
         }
 
         private static StabilityStoneCoverWaveConditionsCalculation CreateValidCalculation(HydraulicBoundaryLocation hydraulicBoundaryLocation)
@@ -327,7 +345,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
         private static void AssertStabilityStoneCoverWaveConditionsCalculationActivity(Activity activity,
                                                                                        StabilityStoneCoverWaveConditionsCalculation calculation,
                                                                                        RoundedDouble assessmentLevel,
-                                                                                       HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+                                                                                       HydraulicBoundaryData hydraulicBoundaryData)
         {
             var mocks = new MockRepository();
             var testCalculator = new TestWaveConditionsCosineCalculator();
@@ -337,7 +355,9 @@ namespace Riskeer.StabilityStoneCover.Service.Test
                              .WhenCalled(invocation =>
                              {
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase),
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                                         hydraulicBoundaryData,
+                                         calculation.InputParameters.HydraulicBoundaryLocation),
                                      (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(testCalculator)

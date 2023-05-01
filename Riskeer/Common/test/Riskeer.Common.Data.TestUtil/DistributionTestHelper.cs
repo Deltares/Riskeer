@@ -42,7 +42,8 @@ namespace Riskeer.Common.Data.TestUtil
         /// are the same reference.</item>
         /// <item>The values of the <paramref name="setDistribution"/> do not match with the 
         /// <paramref name="expectedDistribution"/>.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         public static void AssertDistributionCorrectlySet(IDistribution distributionToAssert,
                                                           IDistribution setDistribution,
                                                           IDistribution expectedDistribution)
@@ -64,7 +65,8 @@ namespace Riskeer.Common.Data.TestUtil
         /// are the same reference.</item>
         /// <item>The values of the <paramref name="setDistribution"/> do not match with the 
         /// <paramref name="expectedDistribution"/>.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         public static void AssertDistributionCorrectlySet(IVariationCoefficientDistribution distributionToAssert,
                                                           IVariationCoefficientDistribution setDistribution,
                                                           IVariationCoefficientDistribution expectedDistribution)

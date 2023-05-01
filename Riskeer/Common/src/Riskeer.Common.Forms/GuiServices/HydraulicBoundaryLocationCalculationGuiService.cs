@@ -23,11 +23,8 @@ using System;
 using System.Collections.Generic;
 using Core.Gui.Forms;
 using Core.Gui.Forms.ProgressDialog;
-using log4net;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
-using Riskeer.Common.Forms.Properties;
-using Riskeer.Common.IO.HydraRing;
 using Riskeer.Common.Service;
 
 namespace Riskeer.Common.Forms.GuiServices
@@ -37,7 +34,6 @@ namespace Riskeer.Common.Forms.GuiServices
     /// </summary>
     public class HydraulicBoundaryLocationCalculationGuiService : IHydraulicBoundaryLocationCalculationGuiService
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(HydraulicBoundaryLocationCalculationGuiService));
         private readonly IViewParent viewParent;
 
         /// <summary>
@@ -70,12 +66,8 @@ namespace Riskeer.Common.Forms.GuiServices
                 throw new ArgumentNullException(nameof(calculations));
             }
 
-            RunActivities(assessmentSection.HydraulicBoundaryDatabase,
-                          HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
-                              calculations,
-                              assessmentSection,
-                              targetProbability,
-                              calculationIdentifier));
+            ActivityProgressDialogRunner.Run(viewParent, HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
+                                                 calculations, assessmentSection, targetProbability, calculationIdentifier));
         }
 
         public void CalculateWaveHeights(IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
@@ -93,31 +85,8 @@ namespace Riskeer.Common.Forms.GuiServices
                 throw new ArgumentNullException(nameof(calculations));
             }
 
-            RunActivities(assessmentSection.HydraulicBoundaryDatabase,
-                          HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
-                              calculations,
-                              assessmentSection,
-                              targetProbability,
-                              calculationIdentifier));
-        }
-
-        private void RunActivities(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, IEnumerable<CalculatableActivity> activities)
-        {
-            string validationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(
-                hydraulicBoundaryDatabase.FilePath,
-                hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.FilePath,
-                hydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
-                hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessorClosure);
-
-            if (string.IsNullOrEmpty(validationProblem))
-            {
-                ActivityProgressDialogRunner.Run(viewParent, activities);
-            }
-            else
-            {
-                log.ErrorFormat(Resources.CalculateHydraulicBoundaryLocation_Start_calculation_failed_0_,
-                                validationProblem);
-            }
+            ActivityProgressDialogRunner.Run(viewParent, HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
+                                                 calculations, assessmentSection, targetProbability, calculationIdentifier));
         }
     }
 }

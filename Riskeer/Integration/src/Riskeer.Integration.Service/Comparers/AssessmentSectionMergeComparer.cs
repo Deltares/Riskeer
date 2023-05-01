@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -21,7 +21,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
@@ -31,8 +33,7 @@ using Riskeer.Integration.Data;
 namespace Riskeer.Integration.Service.Comparers
 {
     /// <summary>
-    /// Class which compares <see cref="AssessmentSection"/> to
-    /// determine whether they are equal and can be used to merged.
+    /// Class which compares <see cref="AssessmentSection"/> to determine whether they are equal and can be used to merged.
     /// </summary>
     public class AssessmentSectionMergeComparer : IAssessmentSectionMergeComparer
     {
@@ -51,7 +52,7 @@ namespace Riskeer.Integration.Service.Comparers
             return assessmentSection.Id == otherAssessmentSection.Id
                    && assessmentSection.Composition == otherAssessmentSection.Composition
                    && AreReferenceLinesEquivalent(assessmentSection.ReferenceLine, otherAssessmentSection.ReferenceLine)
-                   && AreHydraulicBoundaryDatabasesEquivalent(assessmentSection.HydraulicBoundaryDatabase, otherAssessmentSection.HydraulicBoundaryDatabase)
+                   && AreHydraulicBoundaryDataInstancesEquivalent(assessmentSection.HydraulicBoundaryData, otherAssessmentSection.HydraulicBoundaryData)
                    && AreFailureMechanismContributionsEquivalent(assessmentSection.FailureMechanismContribution, otherAssessmentSection.FailureMechanismContribution);
         }
 
@@ -77,27 +78,66 @@ namespace Riskeer.Integration.Service.Comparers
             return true;
         }
 
+        private static bool AreHydraulicBoundaryDataInstancesEquivalent(HydraulicBoundaryData hydraulicBoundaryData,
+                                                                        HydraulicBoundaryData otherHydraulicBoundaryData)
+        {
+            if (!AreHydraulicLocationConfigurationDatabasesEquivalent(hydraulicBoundaryData.HydraulicLocationConfigurationDatabase,
+                                                                      otherHydraulicBoundaryData.HydraulicLocationConfigurationDatabase))
+            {
+                return false;
+            }
+
+            ObservableList<HydraulicBoundaryDatabase> hydraulicBoundaryDatabases = hydraulicBoundaryData.HydraulicBoundaryDatabases;
+            ObservableList<HydraulicBoundaryDatabase> otherHydraulicBoundaryDatabases = otherHydraulicBoundaryData.HydraulicBoundaryDatabases;
+
+            HydraulicBoundaryDatabase[] overlappingDatabases = otherHydraulicBoundaryDatabases.Where(
+                ohbd => hydraulicBoundaryDatabases.Select(hbd => Path.GetFileNameWithoutExtension(hbd.FilePath))
+                                                  .Contains(Path.GetFileNameWithoutExtension(ohbd.FilePath))).ToArray();
+
+            foreach (HydraulicBoundaryDatabase otherHydraulicBoundaryDatabase in overlappingDatabases)
+            {
+                HydraulicBoundaryDatabase hydraulicBoundaryDatabase = hydraulicBoundaryDatabases.First(
+                    hbd => Path.GetFileNameWithoutExtension(hbd.FilePath) == Path.GetFileNameWithoutExtension(otherHydraulicBoundaryDatabase.FilePath));
+
+                if (!AreHydraulicBoundaryDatabasesEquivalent(hydraulicBoundaryDatabase, otherHydraulicBoundaryDatabase))
+                {
+                    return false;
+                }
+            }
+
+            IEnumerable<long> locationIds = hydraulicBoundaryData.GetLocations().Select(l => l.Id);
+            if (otherHydraulicBoundaryDatabases.Except(overlappingDatabases)
+                                               .SelectMany(hbd => hbd.Locations)
+                                               .Select(l => l.Id)
+                                               .Any(id => locationIds.Contains(id)))
+            {
+                return false;
+            }
+
+            return true;
+
+        }
+
+        private static bool AreHydraulicLocationConfigurationDatabasesEquivalent(HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase,
+                                                                                 HydraulicLocationConfigurationDatabase otherHydraulicLocationConfigurationDatabase)
+        {
+            return Path.GetFileNameWithoutExtension(hydraulicLocationConfigurationDatabase.FilePath) == Path.GetFileNameWithoutExtension(otherHydraulicLocationConfigurationDatabase.FilePath)
+                   && hydraulicLocationConfigurationDatabase.ScenarioName == otherHydraulicLocationConfigurationDatabase.ScenarioName
+                   && hydraulicLocationConfigurationDatabase.Year == otherHydraulicLocationConfigurationDatabase.Year
+                   && hydraulicLocationConfigurationDatabase.Scope == otherHydraulicLocationConfigurationDatabase.Scope
+                   && hydraulicLocationConfigurationDatabase.SeaLevel == otherHydraulicLocationConfigurationDatabase.SeaLevel
+                   && hydraulicLocationConfigurationDatabase.RiverDischarge == otherHydraulicLocationConfigurationDatabase.RiverDischarge
+                   && hydraulicLocationConfigurationDatabase.LakeLevel == otherHydraulicLocationConfigurationDatabase.LakeLevel
+                   && hydraulicLocationConfigurationDatabase.WindDirection == otherHydraulicLocationConfigurationDatabase.WindDirection
+                   && hydraulicLocationConfigurationDatabase.WindSpeed == otherHydraulicLocationConfigurationDatabase.WindSpeed
+                   && hydraulicLocationConfigurationDatabase.Comment == otherHydraulicLocationConfigurationDatabase.Comment;
+        }
+
         private static bool AreHydraulicBoundaryDatabasesEquivalent(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
                                                                     HydraulicBoundaryDatabase otherHydraulicBoundaryDatabase)
         {
             return hydraulicBoundaryDatabase.Version == otherHydraulicBoundaryDatabase.Version
-                   && AreHydraulicBoundaryLocationConfigurationSettingsEquivalent(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings,
-                                                                                  otherHydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings);
-        }
-
-        private static bool AreHydraulicBoundaryLocationConfigurationSettingsEquivalent(HydraulicLocationConfigurationSettings hydraulicLocationConfigurationSettings,
-                                                                                        HydraulicLocationConfigurationSettings otherHydraulicLocationConfigurationSettings)
-        {
-            return hydraulicLocationConfigurationSettings.ScenarioName == otherHydraulicLocationConfigurationSettings.ScenarioName
-                   && hydraulicLocationConfigurationSettings.Year == otherHydraulicLocationConfigurationSettings.Year
-                   && hydraulicLocationConfigurationSettings.Scope == otherHydraulicLocationConfigurationSettings.Scope
-                   && hydraulicLocationConfigurationSettings.UsePreprocessorClosure == otherHydraulicLocationConfigurationSettings.UsePreprocessorClosure
-                   && hydraulicLocationConfigurationSettings.SeaLevel == otherHydraulicLocationConfigurationSettings.SeaLevel
-                   && hydraulicLocationConfigurationSettings.RiverDischarge == otherHydraulicLocationConfigurationSettings.RiverDischarge
-                   && hydraulicLocationConfigurationSettings.LakeLevel == otherHydraulicLocationConfigurationSettings.LakeLevel
-                   && hydraulicLocationConfigurationSettings.WindDirection == otherHydraulicLocationConfigurationSettings.WindDirection
-                   && hydraulicLocationConfigurationSettings.WindSpeed == otherHydraulicLocationConfigurationSettings.WindSpeed
-                   && hydraulicLocationConfigurationSettings.Comment == otherHydraulicLocationConfigurationSettings.Comment;
+                   && hydraulicBoundaryDatabase.UsePreprocessorClosure == otherHydraulicBoundaryDatabase.UsePreprocessorClosure;
         }
 
         private static bool AreFailureMechanismContributionsEquivalent(FailureMechanismContribution failureMechanismContribution,

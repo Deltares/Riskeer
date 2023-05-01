@@ -45,9 +45,8 @@ namespace Riskeer.Common.Service.Test
     public class DesignWaterLevelCalculationServiceTest
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
-        private static readonly string validHydraulicBoundaryDatabaseFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
         private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "Hlcd.sqlite");
-        private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -116,23 +115,17 @@ namespace Riskeer.Common.Service.Test
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Calculate_ValidData_StartsCalculationWithRightParameters(bool usePreprocessor)
+        public void Calculate_ValidData_StartsCalculationWithRightParameters(bool usePreprocessorClosure)
         {
             // Setup
             const double targetProbability = 1.0 / 30;
-            string preprocessorDirectory = usePreprocessor
-                                               ? validPreprocessorDirectory
-                                               : string.Empty;
 
             var calculator = new TestDesignWaterLevelCalculator
             {
                 Converged = true
             };
 
-            var calculationSettings = new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
-                                                                               validHlcdFilePath,
-                                                                               false,
-                                                                               preprocessorDirectory);
+            var calculationSettings = new HydraulicBoundaryCalculationSettings(validHlcdFilePath, validHrdFilePath, usePreprocessorClosure);
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -163,7 +156,6 @@ namespace Riskeer.Common.Service.Test
                 AssessmentLevelCalculationInput actualInput = calculator.ReceivedInputs.Single();
                 AssertInput(expectedInput, actualInput);
                 Assert.IsFalse(calculator.IsCanceled);
-                Assert.AreEqual(usePreprocessor, actualInput.PreprocessorSetting.RunPreprocessor);
             }
 
             mockRepository.VerifyAll();
@@ -663,10 +655,7 @@ namespace Riskeer.Common.Service.Test
 
         private static HydraulicBoundaryCalculationSettings CreateCalculationSettings()
         {
-            return new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
-                                                            validHlcdFilePath,
-                                                            false,
-                                                            string.Empty);
+            return new HydraulicBoundaryCalculationSettings(validHlcdFilePath, validHrdFilePath, false);
         }
 
         private static void AssertInput(AssessmentLevelCalculationInput expectedInput, HydraRingCalculationInput hydraRingCalculationInput)

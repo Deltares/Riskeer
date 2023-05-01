@@ -846,14 +846,8 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   <data name="Transform_Error_occurred_when_transforming_SoilProfile_0_ErrorMessage_1_" xml:space="preserve">
     <value>Er is een fout opgetreden bij het inlezen van ondergrondschematisatie '{0}': {1}</value>
   </data>
-  <data name="HydraulicBoundaryDatabaseHelper_ValidatePreprocessorDirectory_Invalid_path" xml:space="preserve">
-    <value>De bestandsmap waar de preprocessor bestanden opslaat is ongeldig.</value>
-  </data>
-  <data name="HydraulicBoundaryDatabaseHelper_ValidatePreprocessorDirectory_Path_does_not_exist" xml:space="preserve">
-    <value>De bestandsmap bestaat niet.</value>
-  </data>
-  <data name="settings_schema_preprocessor" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\settings-schema-preprocessor.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="HydraulicBoundaryDataHelper_ValidatePathForCalculation_Invalid_path_0_" xml:space="preserve">
+    <value>Het opgegeven bestandspad ({0}) is niet geldig.</value>
   </data>
   <data name="Transform_Error_occurred_when_transforming_SoilLayer_0_for_Parameter_1_ErrorMessage_2_" xml:space="preserve">
     <value>Er is een fout opgetreden bij het inlezen van grondlaag '{0}' voor parameter '{1}': {2}</value>

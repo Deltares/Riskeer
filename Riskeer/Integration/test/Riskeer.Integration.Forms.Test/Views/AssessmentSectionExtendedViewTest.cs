@@ -103,13 +103,27 @@ namespace Riskeer.Integration.Forms.Test.Views
                 new Point2D(2.0, 1.0)
             });
 
+            var location = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
             var assessmentSection = new AssessmentSectionStub
             {
-                ReferenceLine = referenceLine
+                ReferenceLine = referenceLine,
+                HydraulicBoundaryData =
+                {
+                    HydraulicBoundaryDatabases =
+                    {
+                        new HydraulicBoundaryDatabase
+                        {
+                            Locations =
+                            {
+                                location
+                            }
+                        }
+                    }
+                }
             };
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
-                new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0)
+                location
             });
 
             AssessmentSectionExtendedView extendedView = ShowCalculationsView(assessmentSection);
@@ -127,11 +141,20 @@ namespace Riskeer.Integration.Forms.Test.Views
             Assert.AreEqual("Hydraulische belastingen", hrLocationsMapData.Name);
 
             // Call
+            var newLocation = new HydraulicBoundaryLocation(2, "test2", 2.0, 3.0);
+            assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Clear();
+            assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(new HydraulicBoundaryDatabase
+            {
+                Locations =
+                {
+                    newLocation
+                }
+            });
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
-                new HydraulicBoundaryLocation(2, "test2", 2.0, 3.0)
+                newLocation
             });
-            assessmentSection.HydraulicBoundaryDatabase.Locations.NotifyObservers();
+            assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.NotifyObservers();
 
             // Assert
             var actualReferenceLineMapData = (MapLineData) mapData.Collection.ElementAt(referenceLineIndex + 1);

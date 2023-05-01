@@ -23,11 +23,11 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO;
 using System.IO.Packaging;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
 using Core.Common.Util;
@@ -40,7 +40,6 @@ using Core.Gui.Forms.ProgressDialog;
 using Core.Gui.Forms.ViewHost;
 using Core.Gui.Helpers;
 using Core.Gui.Plugin;
-using log4net;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssemblyTool;
@@ -62,7 +61,6 @@ using Riskeer.Common.Forms.UpdateInfos;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Common.IO.FileImporters;
 using Riskeer.Common.IO.FileImporters.MessageProviders;
-using Riskeer.Common.IO.HydraRing;
 using Riskeer.Common.IO.ReferenceLines;
 using Riskeer.Common.Plugin;
 using Riskeer.Common.Plugin.FileImporters;
@@ -85,6 +83,7 @@ using Riskeer.Integration.IO.Exporters;
 using Riskeer.Integration.IO.Importers;
 using Riskeer.Integration.Plugin.FileImporters;
 using Riskeer.Integration.Plugin.Handlers;
+using Riskeer.Integration.Plugin.Helpers;
 using Riskeer.Integration.Plugin.Merge;
 using Riskeer.Integration.Plugin.Properties;
 using Riskeer.Integration.Service;
@@ -128,8 +127,6 @@ namespace Riskeer.Integration.Plugin
     /// </summary>
     public class RiskeerPlugin : PluginBase
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(PluginBase));
-
         private static readonly FontFamily fontFamily = new FontFamily(
             new Uri($"{PackUriHelper.UriSchemePack}://application:,,,/Riskeer.Integration.Plugin;component/Resources/"),
             "./#Symbols");
@@ -146,7 +143,6 @@ namespace Riskeer.Integration.Plugin
             {
                 if (base.Gui != null)
                 {
-                    base.Gui.ProjectOpened -= VerifyHydraulicBoundaryDatabasePath;
                     base.Gui.ViewHost.ViewOpened -= OnViewOpened;
                     base.Gui.ViewHost.ViewClosed -= OnViewClosed;
                 }
@@ -155,7 +151,6 @@ namespace Riskeer.Integration.Plugin
 
                 if (value != null)
                 {
-                    value.ProjectOpened += VerifyHydraulicBoundaryDatabasePath;
                     base.Gui.ViewHost.ViewOpened += OnViewOpened;
                     base.Gui.ViewHost.ViewClosed += OnViewClosed;
                 }
@@ -237,13 +232,17 @@ namespace Riskeer.Integration.Plugin
             {
                 CreateInstance = data => new BackgroundDataProperties(data)
             };
+            yield return new PropertyInfo<HydraulicBoundaryDataContext, HydraulicBoundaryDataProperties>
+            {
+                CreateInstance = context => new HydraulicBoundaryDataProperties(context.WrappedData)
+            };
+            yield return new PropertyInfo<HydraulicLocationConfigurationDatabaseContext, HydraulicLocationConfigurationDatabaseProperties>
+            {
+                CreateInstance = context => new HydraulicLocationConfigurationDatabaseProperties(context.WrappedData.HydraulicLocationConfigurationDatabase)
+            };
             yield return new PropertyInfo<HydraulicBoundaryDatabaseContext, HydraulicBoundaryDatabaseProperties>
             {
-                CreateInstance = context => new HydraulicBoundaryDatabaseProperties(
-                    context.WrappedData,
-                    new HydraulicLocationConfigurationDatabaseImportHandler(
-                        Gui.MainWindow,
-                        new HydraulicLocationConfigurationDatabaseUpdateHandler(context.AssessmentSection), context.WrappedData))
+                CreateInstance = context => new HydraulicBoundaryDatabaseProperties(context.WrappedData)
             };
             yield return new PropertyInfo<NormContext, NormProperties>
             {
@@ -560,17 +559,45 @@ namespace Riskeer.Integration.Plugin
                 VerifyUpdates = context => VerifyForeshoreProfileUpdates(context, Resources.RiskeerPlugin_VerifyForeshoreProfileUpdates_When_importing_ForeshoreProfile_definitions_assigned_to_calculations_output_will_be_cleared_confirm)
             };
 
-            yield return new ImportInfo<HydraulicBoundaryDatabaseContext>
+            yield return new ImportInfo<HydraulicBoundaryDataContext>
             {
-                Name = RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName,
+                Name = Resources.HydraulicLocationConfigurationDatabase_DisplayName,
                 Image = RiskeerCommonFormsResources.DatabaseIcon,
                 Category = RiskeerCommonFormsResources.Riskeer_Category,
-                FileFilterGenerator = new FileFilterGenerator(Resources.HydraulicBoundaryDatabase_FilePath_Extension,
+                FileFilterGenerator = new FileFilterGenerator(Resources.HydraulicDatabase_FilePath_Extension,
+                                                              Resources.HydraulicLocationConfigurationDatabase_file_filter_Description),
+                CreateFileImporter = (context, filePath) => new HydraulicLocationConfigurationDatabaseImporter(
+                    context.WrappedData.HydraulicLocationConfigurationDatabase,
+                    new HydraulicLocationConfigurationDatabaseUpdateHandler(context.AssessmentSection),
+                    context.WrappedData,
+                    filePath)
+            };
+
+            yield return new ImportInfo<HydraulicLocationConfigurationDatabaseContext>
+            {
+                Name = Resources.HydraulicLocationConfigurationDatabase_DisplayName,
+                Image = RiskeerCommonFormsResources.DatabaseIcon,
+                Category = RiskeerCommonFormsResources.Riskeer_Category,
+                FileFilterGenerator = new FileFilterGenerator(Resources.HydraulicDatabase_FilePath_Extension,
+                                                              Resources.HydraulicLocationConfigurationDatabase_file_filter_Description),
+                CreateFileImporter = (context, filePath) => new HydraulicLocationConfigurationDatabaseImporter(
+                    context.WrappedData.HydraulicLocationConfigurationDatabase,
+                    new HydraulicLocationConfigurationDatabaseUpdateHandler(context.AssessmentSection),
+                    context.WrappedData,
+                    filePath)
+            };
+
+            yield return new ImportInfo<HydraulicBoundaryDatabasesContext>
+            {
+                Name = Resources.HydraulicBoundaryDatabase_DisplayName,
+                Image = RiskeerCommonFormsResources.DatabaseIcon,
+                Category = RiskeerCommonFormsResources.Riskeer_Category,
+                FileFilterGenerator = new FileFilterGenerator(Resources.HydraulicDatabase_FilePath_Extension,
                                                               Resources.HydraulicBoundaryDatabase_file_filter_Description),
                 CreateFileImporter = (context, filePath) => new HydraulicBoundaryDatabaseImporter(
-                    context.WrappedData, new HydraulicBoundaryDatabaseUpdateHandler(context.AssessmentSection,
-                                                                                    new DuneLocationsReplacementHandler(
-                                                                                        Gui.ViewCommands, context.AssessmentSection.DuneErosion)),
+                    context.WrappedData, new HydraulicBoundaryDataUpdateHandler(context.AssessmentSection,
+                                                                                new DuneLocationsUpdateHandler(
+                                                                                    Gui.ViewCommands, context.AssessmentSection.DuneErosion)),
                     filePath)
             };
         }
@@ -585,16 +612,6 @@ namespace Riskeer.Integration.Plugin
                 IsEnabled = context => HasGeometry(context.AssessmentSection.ReferenceLine),
                 GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonIOResources.Shape_file_filter_Extension,
                                                                                                            RiskeerCommonIOResources.Shape_file_filter_Description))
-            };
-
-            yield return new ExportInfo<HydraulicBoundaryDatabaseContext>
-            {
-                Name = context => RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName,
-                Extension = RiskeerCommonIOResources.Zip_file_filter_Extension,
-                CreateFileExporter = (context, filePath) => new HydraulicBoundaryLocationCalculationsExporter(context.AssessmentSection, filePath),
-                IsEnabled = context => context.WrappedData.IsLinked(),
-                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonIOResources.Zip_file_filter_Extension,
-                                                                                                           RiskeerCommonIOResources.Zip_file_filter_Description))
             };
 
             yield return new ExportInfo<AssemblyResultsContext>
@@ -857,15 +874,43 @@ namespace Riskeer.Integration.Plugin
                 ContextMenuStrip = CategoryTreeFolderContextMenu
             };
 
-            yield return new TreeNodeInfo<HydraulicBoundaryDatabaseContext>
+            yield return new TreeNodeInfo<HydraulicBoundaryDataContext>
             {
-                Text = hydraulicBoundaryDatabase => RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName,
-                Image = hydraulicBoundaryDatabase => RiskeerCommonFormsResources.GeneralFolderIcon,
+                Text = context => Resources.HydraulicBoundaryData_DisplayName,
+                Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
                 ForeColor = context => context.WrappedData.IsLinked()
                                            ? Color.FromKnownColor(KnownColor.ControlText)
                                            : Color.FromKnownColor(KnownColor.GrayText),
-                ChildNodeObjects = HydraulicBoundaryDatabaseChildNodeObjects,
-                ContextMenuStrip = HydraulicBoundaryDatabaseContextMenuStrip
+                ChildNodeObjects = HydraulicBoundaryDataContextChildNodeObjects,
+                ContextMenuStrip = HydraulicBoundaryDataContextMenuStrip
+            };
+
+            yield return new TreeNodeInfo<HydraulicLocationConfigurationDatabaseContext>
+            {
+                Text = context => Path.GetFileName(context.WrappedData.HydraulicLocationConfigurationDatabase.FilePath),
+                Image = context => RiskeerCommonFormsResources.DatabaseIcon,
+                EnsureVisibleOnCreate = (context, o) => true,
+                ContextMenuStrip = HydraulicLocationConfigurationDatabaseContextMenuStrip
+            };
+
+            yield return new TreeNodeInfo<HydraulicBoundaryDatabasesContext>
+            {
+                Text = context => Resources.HydraulicBoundaryDatabases_DisplayName,
+                Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
+                ChildNodeObjects = HydraulicBoundaryDatabasesContextChildNodeObjects,
+                ContextMenuStrip = HydraulicBoundaryDatabasesContextMenuStrip,
+                OnRemoveChildNodesConfirmationText = context => Resources.RiskeerPlugin_GetTreeNodeInfos_Confirm_remove_HydraulicBoundaryDatabases
+            };
+
+            yield return new TreeNodeInfo<HydraulicBoundaryDatabaseContext>
+            {
+                Text = context => Path.GetFileName(context.WrappedData.FilePath),
+                Image = context => RiskeerCommonFormsResources.DatabaseIcon,
+                ContextMenuStrip = HydraulicBoundaryDatabaseContextMenuStrip,
+                EnsureVisibleOnCreate = (context, o) => true,
+                CanRemove = (context, o) => true,
+                OnRemoveConfirmationText = context => Resources.RiskeerPlugin_GetTreeNodeInfos_Confirm_remove_HydraulicBoundaryDatabase,
+                OnNodeRemoved = HydraulicBoundaryDatabaseContextOnNodeRemoved
             };
 
             yield return new TreeNodeInfo<WaterLevelCalculationsForNormTargetProbabilitiesGroupContext>
@@ -1147,32 +1192,6 @@ namespace Riskeer.Integration.Plugin
                                                                                  .AddOpenItem()
                                                                                  .Build()
             };
-        }
-
-        private static void VerifyHydraulicBoundaryDatabasePath(IProject project)
-        {
-            var riskeerProject = project as RiskeerProject;
-            if (riskeerProject == null)
-            {
-                return;
-            }
-
-            AssessmentSection assessmentSection = riskeerProject.AssessmentSection;
-            if (assessmentSection.HydraulicBoundaryDatabase.IsLinked())
-            {
-                string validationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(
-                    assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                    assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.FilePath,
-                    assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
-                    assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessorClosure);
-
-                if (validationProblem != null)
-                {
-                    log.WarnFormat(
-                        RiskeerCommonServiceResources.Hydraulic_boundary_database_connection_failed_0_,
-                        validationProblem);
-                }
-            }
         }
 
         private void OnViewOpened(object sender, ViewChangeEventArgs e)
@@ -1712,11 +1731,16 @@ namespace Riskeer.Integration.Plugin
 
         private ContextMenuStrip AssessmentSectionStateRootContextMenuStrip(AssessmentSectionStateRootContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
+            AssessmentSection assessmentSection = nodeData.WrappedData;
+
             var importItem = new StrictContextMenuItem(
                 CoreGuiResources.Import,
                 CoreGuiResources.Import_ToolTip,
                 CoreGuiResources.ImportIcon,
-                (sender, args) => assessmentSectionMerger.StartMerge(nodeData.WrappedData));
+                (sender, args) => assessmentSectionMerger.StartMerge(
+                    assessmentSection, new HydraulicBoundaryDataUpdateHandler(
+                        assessmentSection, new DuneLocationsUpdateHandler(
+                            Gui.ViewCommands, assessmentSection.DuneErosion))));
 
             return Gui.Get(nodeData, treeViewControl)
                       .AddOpenItem()
@@ -1742,7 +1766,13 @@ namespace Riskeer.Integration.Plugin
 
             return new object[]
             {
-                new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase, assessmentSection),
+                new HydraulicBoundaryDataContext(assessmentSection.HydraulicBoundaryData, assessmentSection),
+                new WaterLevelCalculationsForNormTargetProbabilitiesGroupContext(nodeData.WrappedData.HydraulicBoundaryData.HydraulicBoundaryDatabases,
+                                                                                 nodeData.WrappedData),
+                new WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext(nodeData.WrappedData.WaterLevelCalculationsForUserDefinedTargetProbabilities,
+                                                                                        nodeData.WrappedData),
+                new WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext(nodeData.WrappedData.WaveHeightCalculationsForUserDefinedTargetProbabilities,
+                                                                                        nodeData.WrappedData),
                 new StabilityStoneCoverHydraulicLoadsStateFailureMechanismContext(assessmentSection.StabilityStoneCover, assessmentSection),
                 new WaveImpactAsphaltCoverHydraulicLoadsStateFailureMechanismContext(assessmentSection.WaveImpactAsphaltCover, assessmentSection),
                 new GrassCoverErosionOutwardsHydraulicLoadsStateFailureMechanismContext(assessmentSection.GrassCoverErosionOutwards, assessmentSection),
@@ -1763,8 +1793,6 @@ namespace Riskeer.Integration.Plugin
                         Gui.MainWindow,
                         AssessmentSectionCalculationActivityFactory.CreateHydraulicLoadCalculationActivities(nodeData.WrappedData));
                 });
-
-            SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.WrappedData, calculateAllItem);
 
             return Gui.Get(nodeData, treeViewControl)
                       .AddOpenItem()
@@ -2374,73 +2402,113 @@ namespace Riskeer.Integration.Plugin
 
         #endregion
 
-        #region HydraulicBoundaryDatabase TreeNodeInfo
+        #region HydraulicBoundaryData TreeNodeInfo
 
-        private static object[] HydraulicBoundaryDatabaseChildNodeObjects(HydraulicBoundaryDatabaseContext nodeData)
+        private static object[] HydraulicBoundaryDataContextChildNodeObjects(HydraulicBoundaryDataContext nodeData)
         {
             if (nodeData.WrappedData.IsLinked())
             {
                 return new object[]
                 {
-                    new WaterLevelCalculationsForNormTargetProbabilitiesGroupContext(nodeData.WrappedData.Locations,
-                                                                                     nodeData.AssessmentSection),
-                    new WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext(nodeData.AssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities,
-                                                                                            nodeData.AssessmentSection),
-                    new WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext(nodeData.AssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities,
-                                                                                            nodeData.AssessmentSection)
+                    new HydraulicLocationConfigurationDatabaseContext(nodeData.WrappedData, nodeData.AssessmentSection),
+                    new HydraulicBoundaryDatabasesContext(nodeData.WrappedData, nodeData.AssessmentSection)
                 };
             }
 
             return new object[0];
         }
 
-        private static void SetHydraulicsMenuItemEnabledStateAndTooltip(IAssessmentSection assessmentSection, StrictContextMenuItem menuItem)
+        private ContextMenuStrip HydraulicBoundaryDataContextMenuStrip(HydraulicBoundaryDataContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
-            string validationText = HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
-            if (!string.IsNullOrEmpty(validationText))
+            IContextMenuBuilder builder = Gui.Get(nodeData, treeViewControl);
+
+            if (!nodeData.WrappedData.IsLinked())
             {
-                menuItem.Enabled = false;
-                menuItem.ToolTipText = validationText;
+                builder.AddImportItem(RiskeerFormsResources.HydraulicBoundaryData_Connect_To_Hlcd,
+                                      RiskeerFormsResources.HydraulicBoundaryData_Connect_To_Hlcd_ToolTip,
+                                      RiskeerCommonFormsResources.DatabaseIcon);
             }
-        }
+            else
+            {
+                builder.AddCustomItem(new StrictContextMenuItem(
+                                          RiskeerFormsResources.HydraulicBoundaryData_Select_Different_Folder,
+                                          RiskeerFormsResources.HydraulicBoundaryData_Select_Different_Folder_ToolTip,
+                                          RiskeerCommonFormsResources.GeneralFolderIcon,
+                                          (sender, args) =>
+                                          {
+                                              IInquiryHelper inquiryHelper1 = GetInquiryHelper();
 
-        private ContextMenuStrip HydraulicBoundaryDatabaseContextMenuStrip(HydraulicBoundaryDatabaseContext nodeData, object parentData, TreeViewControl treeViewControl)
-        {
-            var calculateAllItem = new StrictContextMenuItem(
-                RiskeerCommonFormsResources.Calculate_All,
-                RiskeerCommonFormsResources.HydraulicLoads_Calculate_All_ToolTip,
-                RiskeerCommonFormsResources.CalculateAllIcon,
-                (sender, args) =>
-                {
-                    ActivityProgressDialogRunner.Run(
-                        Gui.MainWindow,
-                        AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.CreateHydraulicBoundaryLocationCalculationActivities(nodeData.AssessmentSection));
-                });
+                                              string newFolderPath = inquiryHelper1.GetTargetFolderLocation();
 
-            SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection,
-                                                        calculateAllItem);
+                                              if (newFolderPath != null)
+                                              {
+                                                  nodeData.WrappedData.SetNewFolderPath(newFolderPath);
+                                              }
+                                          }));
+            }
 
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
-            var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
-                GetInquiryHelper(),
-                RiskeerCommonFormsResources.HydraulicLoads_DisplayName,
-                () => RiskeerDataSynchronizationService.ClearIllustrationPointResultsForWaterLevelAndWaveHeightCalculations(nodeData.AssessmentSection));
-
-            AssessmentSection assessmentSection = nodeData.AssessmentSection;
-            return builder.AddImportItem(RiskeerFormsResources.HydraulicBoundaryDatabase_Connect,
-                                         RiskeerFormsResources.HydraulicBoundaryDatabase_Connect_ToolTip,
-                                         RiskeerCommonFormsResources.DatabaseIcon)
-                          .AddExportItem()
-                          .AddSeparator()
-                          .AddCustomItem(calculateAllItem)
-                          .AddSeparator()
-                          .AddClearIllustrationPointsOfCalculationsItem(() => HasIllustrationPoints(assessmentSection), changeHandler)
-                          .AddSeparator()
+            return builder.AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+
+        private ContextMenuStrip HydraulicLocationConfigurationDatabaseContextMenuStrip(HydraulicLocationConfigurationDatabaseContext nodeData, object parentData, TreeViewControl treeViewControl)
+        {
+            return Gui.Get(nodeData, treeViewControl)
+                      .AddImportItem(RiskeerFormsResources.HydraulicBoundaryData_Connect_To_Different_Hlcd,
+                                     RiskeerFormsResources.HydraulicBoundaryData_Connect_To_Different_Hlcd_ToolTip,
+                                     RiskeerCommonFormsResources.DatabaseIcon)
+                      .AddSeparator()
+                      .AddPropertiesItem()
+                      .Build();
+        }
+
+        private static object[] HydraulicBoundaryDatabasesContextChildNodeObjects(HydraulicBoundaryDatabasesContext nodeData)
+        {
+            return nodeData.WrappedData.HydraulicBoundaryDatabases
+                           .Select(hydraulicBoundaryDatabase => new HydraulicBoundaryDatabaseContext(hydraulicBoundaryDatabase,
+                                                                                                     nodeData.WrappedData,
+                                                                                                     nodeData.AssessmentSection))
+                           .Cast<object>()
+                           .ToArray();
+        }
+
+        private ContextMenuStrip HydraulicBoundaryDatabasesContextMenuStrip(HydraulicBoundaryDatabasesContext nodeData, object parentData, TreeViewControl treeViewControl)
+        {
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
+
+            return builder.AddImportItem(Resources.ContextMenuStrip_Add_HydraulicBoundaryDatabase,
+                                         Resources.ContextMenuStrip_Add_HydraulicBoundaryDatabase_ToolTip,
+                                         RiskeerCommonFormsResources.DatabaseIcon)
+                          .AddSeparator()
+                          .AddRemoveAllChildrenItem()
+                          .AddSeparator()
+                          .AddCollapseAllItem()
+                          .AddExpandAllItem()
+                          .Build();
+        }
+
+        private ContextMenuStrip HydraulicBoundaryDatabaseContextMenuStrip(HydraulicBoundaryDatabaseContext nodeData, object parentData, TreeViewControl treeViewControl)
+        {
+            return Gui.Get(nodeData, treeViewControl)
+                      .AddDeleteItem()
+                      .AddSeparator()
+                      .AddPropertiesItem()
+                      .Build();
+        }
+
+        private void HydraulicBoundaryDatabaseContextOnNodeRemoved(HydraulicBoundaryDatabaseContext nodeData, object parentNodeData)
+        {
+            var handler = new HydraulicBoundaryDataUpdateHandler(
+                nodeData.AssessmentSection, new DuneLocationsUpdateHandler(Gui.ViewCommands, nodeData.AssessmentSection.DuneErosion));
+
+            IEnumerable<IObservable> changedObjects = handler.RemoveHydraulicBoundaryDatabase(nodeData.WrappedData);
+            handler.DoPostUpdateActions();
+
+            changedObjects.ForEachElementDo(o => o.NotifyObservers());
         }
 
         private ContextMenuStrip WaterLevelCalculationsForNormTargetProbabilitiesGroupContextMenuStrip(WaterLevelCalculationsForNormTargetProbabilitiesGroupContext nodeData, object parentData, TreeViewControl treeViewControl)
@@ -2458,8 +2526,6 @@ namespace Riskeer.Integration.Plugin
                         guiMainWindow,
                         AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.CreateWaterLevelCalculationActivitiesForNormTargetProbabilities(assessmentSection));
                 });
-
-            SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, waterLevelCalculationItem);
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
@@ -2511,8 +2577,6 @@ namespace Riskeer.Integration.Plugin
                                                                                               TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(nodeData.WrappedData, assessmentSection));
                 });
 
-            SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection, waterLevelCalculationItem);
-
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
                 GetInquiryHelper(),
@@ -2541,9 +2605,7 @@ namespace Riskeer.Integration.Plugin
                 RiskeerCommonFormsResources.GenericInputOutputIcon,
                 (sender, args) =>
                 {
-                    HydraulicBoundaryLocationCalculationsForTargetProbability hydraulicBoundaryLocationCalculationsForTargetProbability = CreateHydraulicBoundaryLocationCalculationsForTargetProbability(assessmentSection);
-
-                    nodeData.WrappedData.Add(hydraulicBoundaryLocationCalculationsForTargetProbability);
+                    nodeData.WrappedData.Add(HydraulicBoundaryLocationCalculationsForTargetProbabilityHelper.Create(assessmentSection));
                     nodeData.WrappedData.NotifyObservers();
                 });
 
@@ -2558,8 +2620,6 @@ namespace Riskeer.Integration.Plugin
                         guiMainWindow,
                         AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.CreateWaterLevelCalculationActivitiesForUserDefinedTargetProbabilities(assessmentSection));
                 });
-
-            SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, waterLevelCalculationItem);
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
@@ -2620,8 +2680,6 @@ namespace Riskeer.Integration.Plugin
                     calculationAction(nodeData.WrappedData, nodeData.AssessmentSection);
                 });
 
-            SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection, calculationItem);
-
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
                 GetInquiryHelper(),
@@ -2670,9 +2728,7 @@ namespace Riskeer.Integration.Plugin
                 RiskeerCommonFormsResources.GenericInputOutputIcon,
                 (sender, args) =>
                 {
-                    HydraulicBoundaryLocationCalculationsForTargetProbability hydraulicBoundaryLocationCalculationsForTargetProbability = CreateHydraulicBoundaryLocationCalculationsForTargetProbability(assessmentSection);
-
-                    nodeData.WrappedData.Add(hydraulicBoundaryLocationCalculationsForTargetProbability);
+                    nodeData.WrappedData.Add(HydraulicBoundaryLocationCalculationsForTargetProbabilityHelper.Create(assessmentSection));
                     nodeData.WrappedData.NotifyObservers();
                 });
 
@@ -2687,8 +2743,6 @@ namespace Riskeer.Integration.Plugin
                         guiMainWindow,
                         AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivitiesForUserDefinedTargetProbabilities(assessmentSection));
                 });
-
-            SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, waveHeightCalculationItem);
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
@@ -2732,13 +2786,6 @@ namespace Riskeer.Integration.Plugin
                 RiskeerCommonFormsResources.WaveHeight_Calculate_All_ToolTip);
         }
 
-        private static bool HasIllustrationPoints(IAssessmentSection assessmentSection)
-        {
-            return WaterLevelCalculationsForNormTargetProbabilitiesHaveIllustrationPoints(assessmentSection)
-                   || WaterLevelCalculationsForUserDefinedTargetProbabilitiesHaveIllustrationPoints(assessmentSection)
-                   || WaveHeightCalculationsForUserDefinedTargetProbabilitiesHaveIllustrationPoints(assessmentSection);
-        }
-
         private static bool WaterLevelCalculationsForNormTargetProbabilitiesHaveIllustrationPoints(IAssessmentSection assessmentSection)
         {
             return IllustrationPointsHelper.HasIllustrationPoints(assessmentSection.WaterLevelCalculationsForSignalFloodingProbability)
@@ -2755,16 +2802,6 @@ namespace Riskeer.Integration.Plugin
         {
             return assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities
                                     .Any(whc => IllustrationPointsHelper.HasIllustrationPoints(whc.HydraulicBoundaryLocationCalculations));
-        }
-
-        private static HydraulicBoundaryLocationCalculationsForTargetProbability CreateHydraulicBoundaryLocationCalculationsForTargetProbability(IAssessmentSection assessmentSection)
-        {
-            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01);
-
-            calculationsForTargetProbability.HydraulicBoundaryLocationCalculations.AddRange(
-                assessmentSection.HydraulicBoundaryDatabase.Locations.Select(hbl => new HydraulicBoundaryLocationCalculation(hbl)));
-
-            return calculationsForTargetProbability;
         }
 
         #endregion

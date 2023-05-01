@@ -61,8 +61,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos.HydraulicL
         private GrassCoverErosionOutwardsPlugin plugin;
         private TreeNodeInfo info;
 
-        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Forms, "HydraulicBoundaryDatabase");
-        private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Forms, "HydraulicBoundaryData");
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
 
         [SetUp]
         public void SetUp()
@@ -231,14 +232,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos.HydraulicL
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionOutwardsWaveConditionsCalculation());
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = validFilePath
-            };
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
-
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
             var nodeData = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
@@ -264,55 +258,36 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos.HydraulicL
         }
 
         [Test]
-        public void ContextMenuStrip_HydraulicBoundaryDatabaseNotLinked_ContextMenuItemCalculateAllDisabledAndTooltipSet()
-        {
-            // Setup
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var assessmentSection = new AssessmentSectionStub();
-
-            var context = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // Assert
-                    ToolStripItem contextMenuItem = contextMenu.Items[contextMenuCalculateAllIndex];
-
-                    Assert.AreEqual("Alles be&rekenen", contextMenuItem.Text);
-                    StringAssert.Contains("Er is geen hydraulische belastingendatabase geïmporteerd.", contextMenuItem.ToolTipText);
-                    TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.CalculateAllIcon, contextMenuItem.Image);
-                    Assert.IsFalse(contextMenuItem.Enabled);
-                }
-            }
-        }
-
-        [Test]
         public void GivenValidCalculations_WhenCalculatingAllFromContextMenu_ThenAllCalculationsScheduled()
         {
             // Given
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("Test");
             var assessmentSection = new AssessmentSectionStub
             {
-                HydraulicBoundaryDatabase =
+                HydraulicBoundaryData =
                 {
-                    FilePath = validFilePath
+                    HydraulicLocationConfigurationDatabase =
+                    {
+                        FilePath = validHlcdFilePath
+                    },
+                    HydraulicBoundaryDatabases =
+                    {
+                        new HydraulicBoundaryDatabase
+                        {
+                            FilePath = validHrdFilePath,
+                            Locations =
+                            {
+                                hydraulicBoundaryLocation
+                            }
+                        }
+                    }
                 }
             };
+
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
             });
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
@@ -341,7 +316,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos.HydraulicL
                     Converged = false
                 };
 
-                HydraulicBoundaryCalculationSettings expectedCalculationSettings = HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase);
+                HydraulicBoundaryCalculationSettings expectedCalculationSettings = HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                    assessmentSection.HydraulicBoundaryData, hydraulicBoundaryLocation);
                 calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                                  .WhenCalled(invocation =>
                                  {

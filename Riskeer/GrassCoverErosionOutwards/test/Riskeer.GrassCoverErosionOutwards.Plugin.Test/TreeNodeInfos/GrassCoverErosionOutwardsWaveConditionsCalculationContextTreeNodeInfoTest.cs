@@ -63,8 +63,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         private const int validateMenuItemIndex = 7;
         private const int calculateMenuItemIndex = 8;
         private const int clearOutputMenuItemIndex = 10;
-        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryDatabase));
-        private static readonly string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
+
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryData));
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "complete.sqlite");
+        private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
 
         private MockRepository mocks;
         private GrassCoverErosionOutwardsPlugin plugin;
@@ -313,14 +315,22 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         public void ChildNodeObjects_CalculationWithoutOutput_ReturnChildrenWithEmptyOutput()
         {
             // Setup
-            mocks.ReplayAll();
-
-            var location = new TestHydraulicBoundaryLocation();
-            var assessmentSection = new AssessmentSectionStub();
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                location
-            });
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        Locations =
+                        {
+                            new TestHydraulicBoundaryLocation()
+                        }
+                    }
+                }
+            };
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
+            mocks.ReplayAll();
 
             var parent = new CalculationGroup();
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
@@ -357,10 +367,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             {
                 foreshoreProfile
             }, inputContext.ForeshoreProfiles);
-            CollectionAssert.AreEqual(new[]
-            {
-                location
-            }, inputContext.HydraulicBoundaryLocations);
+            CollectionAssert.AreEqual(assessmentSection.HydraulicBoundaryData.GetLocations(), inputContext.HydraulicBoundaryLocations);
 
             Assert.IsInstanceOf<EmptyGrassCoverErosionOutwardsOutput>(children[2]);
         }
@@ -369,14 +376,22 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         public void ChildNodeObjects_CalculationWithOutput_ReturnChildrenWithOutput()
         {
             // Setup
-            mocks.ReplayAll();
-
-            var location = new TestHydraulicBoundaryLocation();
-            var assessmentSection = new AssessmentSectionStub();
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var hydraulicBoundaryData = new HydraulicBoundaryData
             {
-                location
-            });
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        Locations =
+                        {
+                            new TestHydraulicBoundaryLocation()
+                        }
+                    }
+                }
+            };
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(hydraulicBoundaryData);
+            mocks.ReplayAll();
 
             var parent = new CalculationGroup();
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
@@ -413,10 +428,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             {
                 foreshoreProfile
             }, inputContext.ForeshoreProfiles);
-            CollectionAssert.AreEqual(new[]
-            {
-                location
-            }, inputContext.HydraulicBoundaryLocations);
+            CollectionAssert.AreEqual(assessmentSection.HydraulicBoundaryData.GetLocations(), inputContext.HydraulicBoundaryLocations);
 
             var outputContext = (GrassCoverErosionOutwardsWaveConditionsOutputContext) children[2];
             Assert.AreSame(calculation.Output, outputContext.WrappedData);
@@ -481,16 +493,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_AddCustomItems()
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = validFilePath,
-                Version = "random"
-            };
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
-
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
-
             var parent = new CalculationGroup();
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
@@ -540,110 +543,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                                                                   "&Wis uitvoer...",
                                                                   "Deze berekening heeft geen uitvoer om te wissen.",
                                                                   RiskeerCommonFormsResources.ClearIcon,
-                                                                  false);
-                }
-            }
-        }
-
-        [Test]
-        public void GivenAssessmentSectionWithHydraulicBoundaryDatabaseNotLinked_ThenValidationItemDisabled()
-        {
-            // Given
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-
-            var parent = new CalculationGroup();
-            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
-            {
-                Name = "A"
-            };
-            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
-                                                                                        parent,
-                                                                                        failureMechanism,
-                                                                                        assessmentSection);
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-                var importHandler = mocks.Stub<IImportCommandHandler>();
-                var exportHandler = mocks.Stub<IExportCommandHandler>();
-                var updateHandler = mocks.Stub<IUpdateCommandHandler>();
-                var viewCommands = mocks.Stub<IViewCommands>();
-                var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
-                                                         importHandler,
-                                                         exportHandler,
-                                                         updateHandler,
-                                                         viewCommands,
-                                                         context,
-                                                         treeViewControl);
-
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // Then
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
-                                                                  validateMenuItemIndex,
-                                                                  "&Valideren",
-                                                                  "Er is geen hydraulische belastingendatabase geïmporteerd.",
-                                                                  RiskeerCommonFormsResources.ValidateIcon,
-                                                                  false);
-                }
-            }
-        }
-
-        [Test]
-        public void GivenAssessmentSectionWithHydraulicBoundaryDatabaseLinkedToInvalidFile_ThenValidationItemDisabled()
-        {
-            // Given
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
-
-            var parent = new CalculationGroup();
-            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
-            {
-                Name = "A"
-            };
-            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
-                                                                                        parent,
-                                                                                        failureMechanism,
-                                                                                        assessmentSection);
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-                var importHandler = mocks.Stub<IImportCommandHandler>();
-                var exportHandler = mocks.Stub<IExportCommandHandler>();
-                var updateHandler = mocks.Stub<IUpdateCommandHandler>();
-                var viewCommands = mocks.Stub<IViewCommands>();
-                var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
-                                                         importHandler,
-                                                         exportHandler,
-                                                         updateHandler,
-                                                         viewCommands,
-                                                         context,
-                                                         treeViewControl);
-
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // Then
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
-                                                                  validateMenuItemIndex,
-                                                                  "&Valideren",
-                                                                  "Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt. Fout bij het lezen van bestand 'invalidFilePath': het bestand bestaat niet.",
-                                                                  RiskeerCommonFormsResources.ValidateIcon,
                                                                   false);
                 }
             }
@@ -971,16 +870,20 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         {
             // Given
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
+
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First();
+
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
-                new TestHydraulicBoundaryLocation()
+                hydraulicBoundaryLocation
             });
+
             ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = validCalculation
-                                                                                 ? GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First())
+                                                                                 ? GetValidCalculation(hydraulicBoundaryLocation)
                                                                                  : new GrassCoverErosionOutwardsWaveConditionsCalculation
                                                                                  {
                                                                                      Name = "A"
@@ -1040,368 +943,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenHydraulicBoundaryDatabaseWithCanUsePreprocessorFalse_WhenValidatingCalculation_ThenNoValidationErrorsLogged()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GivenValidInput_ThenCalculationItemEnabled(bool usePreprocessorClosure)
         {
             // Given
-            AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
-            {
-                new TestHydraulicBoundaryLocation()
-            });
-            ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
-
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
-            var parent = new CalculationGroup();
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
-            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
-                                                                                        parent,
-                                                                                        failureMechanism,
-                                                                                        assessmentSection);
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-                var importHandler = mocks.Stub<IImportCommandHandler>();
-                var exportHandler = mocks.Stub<IExportCommandHandler>();
-                var updateHandler = mocks.Stub<IUpdateCommandHandler>();
-                var viewCommands = mocks.Stub<IViewCommands>();
-                var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
-                                                         importHandler,
-                                                         exportHandler,
-                                                         updateHandler,
-                                                         viewCommands,
-                                                         context,
-                                                         treeViewControl);
-
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // When
-                    ToolStripItem validateMenuItem = contextMenu.Items[validateMenuItemIndex];
-                    void Call() => validateMenuItem.PerformClick();
-
-                    // Then
-                    TestHelper.AssertLogMessages(Call, logMessages =>
-                    {
-                        string[] messages = logMessages.ToArray();
-                        Assert.AreEqual(2, messages.Length);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(messages[0]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(messages[1]);
-                    });
-                }
-            }
-        }
-
-        [Test]
-        public void GivenHydraulicBoundaryDatabaseWithUsePreprocessorFalse_WhenValidatingCalculation_ThenNoValidationErrorsLogged()
-        {
-            // Given
-            AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
-            {
-                new TestHydraulicBoundaryLocation()
-            });
-            ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
-
-            assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.CanUsePreprocessor = true;
-            assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessor = false;
-            assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.PreprocessorDirectory = "InvalidPreprocessorDirectory";
-
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
-            var parent = new CalculationGroup();
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
-            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
-                                                                                        parent,
-                                                                                        failureMechanism,
-                                                                                        assessmentSection);
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-                var importHandler = mocks.Stub<IImportCommandHandler>();
-                var exportHandler = mocks.Stub<IExportCommandHandler>();
-                var updateHandler = mocks.Stub<IUpdateCommandHandler>();
-                var viewCommands = mocks.Stub<IViewCommands>();
-                var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
-                                                         importHandler,
-                                                         exportHandler,
-                                                         updateHandler,
-                                                         viewCommands,
-                                                         context,
-                                                         treeViewControl);
-
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // When
-                    ToolStripItem validateMenuItem = contextMenu.Items[validateMenuItemIndex];
-                    void Call() => validateMenuItem.PerformClick();
-
-                    // Then
-                    TestHelper.AssertLogMessages(Call, logMessages =>
-                    {
-                        string[] messages = logMessages.ToArray();
-                        Assert.AreEqual(2, messages.Length);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(messages[0]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(messages[1]);
-                    });
-                }
-            }
-        }
-
-        [Test]
-        public void GivenHydraulicBoundaryDatabaseWithUsePreprocessorTrue_WhenValidatingCalculation_ThenNoValidationErrorsLogged()
-        {
-            // Given
-            AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
-            {
-                new TestHydraulicBoundaryLocation()
-            });
-            ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
-
-            assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.CanUsePreprocessor = true;
-            assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessor = true;
-            assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.PreprocessorDirectory = TestHelper.GetScratchPadPath();
-
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
-            var parent = new CalculationGroup();
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
-            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
-                                                                                        parent,
-                                                                                        failureMechanism,
-                                                                                        assessmentSection);
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-                var importHandler = mocks.Stub<IImportCommandHandler>();
-                var exportHandler = mocks.Stub<IExportCommandHandler>();
-                var updateHandler = mocks.Stub<IUpdateCommandHandler>();
-                var viewCommands = mocks.Stub<IViewCommands>();
-                var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
-                                                         importHandler,
-                                                         exportHandler,
-                                                         updateHandler,
-                                                         viewCommands,
-                                                         context,
-                                                         treeViewControl);
-
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // When
-                    ToolStripItem validateMenuItem = contextMenu.Items[validateMenuItemIndex];
-                    void Call() => validateMenuItem.PerformClick();
-
-                    // Then
-                    TestHelper.AssertLogMessages(Call, logMessages =>
-                    {
-                        string[] messages = logMessages.ToArray();
-                        Assert.AreEqual(2, messages.Length);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(messages[0]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(messages[1]);
-                    });
-                }
-            }
-        }
-
-        [Test]
-        public void GivenHydraulicBoundaryDatabaseWithUsePreprocessorTrue_WhenValidatingCalculation_ThenValidationErrorsLogged()
-        {
-            // Given
-            AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
-            {
-                new TestHydraulicBoundaryLocation()
-            });
-            ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
-
-            assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.CanUsePreprocessor = true;
-            assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessor = true;
-            assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.PreprocessorDirectory = "InvalidPreprocessorDirectory";
-
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
-            var parent = new CalculationGroup();
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
-
-            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
-                                                                                        parent,
-                                                                                        failureMechanism,
-                                                                                        assessmentSection);
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-                var importHandler = mocks.Stub<IImportCommandHandler>();
-                var exportHandler = mocks.Stub<IExportCommandHandler>();
-                var updateHandler = mocks.Stub<IUpdateCommandHandler>();
-                var viewCommands = mocks.Stub<IViewCommands>();
-                var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
-                                                         importHandler,
-                                                         exportHandler,
-                                                         updateHandler,
-                                                         viewCommands,
-                                                         context,
-                                                         treeViewControl);
-
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // When
-                    ToolStripItem validateMenuItem = contextMenu.Items[validateMenuItemIndex];
-                    void Call() => validateMenuItem.PerformClick();
-
-                    // Then
-                    TestHelper.AssertLogMessages(Call, logMessages =>
-                    {
-                        string[] messages = logMessages.ToArray();
-                        Assert.AreEqual(3, messages.Length);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(messages[0]);
-                        Assert.AreEqual("De bestandsmap waar de preprocessor bestanden opslaat is ongeldig. De bestandsmap bestaat niet.", messages[1]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(messages[2]);
-                    });
-                }
-            }
-        }
-
-        [Test]
-        public void GivenAssessmentSectionWithHydraulicBoundaryDatabaseNotLinked_ThenCalculationItemDisabled()
-        {
-            // Given
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-
-            var parent = new CalculationGroup();
-            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
-            {
-                Name = "A"
-            };
-            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
-                                                                                        parent,
-                                                                                        failureMechanism,
-                                                                                        assessmentSection);
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-                var importHandler = mocks.Stub<IImportCommandHandler>();
-                var exportHandler = mocks.Stub<IExportCommandHandler>();
-                var updateHandler = mocks.Stub<IUpdateCommandHandler>();
-                var viewCommands = mocks.Stub<IViewCommands>();
-                var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
-                                                         importHandler,
-                                                         exportHandler,
-                                                         updateHandler,
-                                                         viewCommands,
-                                                         context,
-                                                         treeViewControl);
-
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // Then
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
-                                                                  calculateMenuItemIndex,
-                                                                  "Be&rekenen",
-                                                                  "Er is geen hydraulische belastingendatabase geïmporteerd.",
-                                                                  RiskeerCommonFormsResources.CalculateIcon,
-                                                                  false);
-                }
-            }
-        }
-
-        [Test]
-        public void GivenAssessmentSectionWithHydraulicBoundaryDatabaseLinkedToInvalidFile_ThenCalculationItemDisabled()
-        {
-            // Given
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
-
-            var parent = new CalculationGroup();
-            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
-            {
-                Name = "A"
-            };
-            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
-                                                                                        parent,
-                                                                                        failureMechanism,
-                                                                                        assessmentSection);
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-                var importHandler = mocks.Stub<IImportCommandHandler>();
-                var exportHandler = mocks.Stub<IExportCommandHandler>();
-                var updateHandler = mocks.Stub<IUpdateCommandHandler>();
-                var viewCommands = mocks.Stub<IViewCommands>();
-                var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
-                                                         importHandler,
-                                                         exportHandler,
-                                                         updateHandler,
-                                                         viewCommands,
-                                                         context,
-                                                         treeViewControl);
-
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // Then
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
-                                                                  calculateMenuItemIndex,
-                                                                  "Be&rekenen",
-                                                                  "Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt. Fout bij het lezen van bestand 'invalidFilePath': het bestand bestaat niet.",
-                                                                  RiskeerCommonFormsResources.CalculateIcon,
-                                                                  false);
-                }
-            }
-        }
-
-        [Test]
-        public void GivenValidInput_ThenCalculationItemEnabled()
-        {
-            // Given
-            IAssessmentSection assessmentSection = CreateAssessmentSection();
+            IAssessmentSection assessmentSection = CreateAssessmentSection(usePreprocessorClosure);
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             var parent = new CalculationGroup();
@@ -1453,16 +1000,20 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         {
             // Given
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
+
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First();
+
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
-                new TestHydraulicBoundaryLocation()
+                hydraulicBoundaryLocation
             });
+
             ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             var parent = new CalculationGroup();
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation(hydraulicBoundaryLocation);
             calculation.Name = "A";
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
                                                                                         parent,
@@ -1500,7 +1051,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                                  .WhenCalled(invocation =>
                                  {
                                      HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
+                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                                             assessmentSection.HydraulicBoundaryData,
+                                             hydraulicBoundaryLocation),
                                          (HydraRingCalculationSettings) invocation.Arguments[0]);
                                  })
                                  .Return(new TestWaveConditionsCosineCalculator());
@@ -1708,18 +1261,30 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             mocks.VerifyAll();
         }
 
-        private static AssessmentSectionStub CreateAssessmentSection()
+        private static AssessmentSectionStub CreateAssessmentSection(bool usePreprocessorClosure = false)
         {
-            var assessmentSection = new AssessmentSectionStub
+            return new AssessmentSectionStub
             {
-                HydraulicBoundaryDatabase =
+                HydraulicBoundaryData =
                 {
-                    FilePath = validFilePath
+                    HydraulicLocationConfigurationDatabase =
+                    {
+                        FilePath = validHlcdFilePath
+                    },
+                    HydraulicBoundaryDatabases =
+                    {
+                        new HydraulicBoundaryDatabase
+                        {
+                            FilePath = validHrdFilePath,
+                            UsePreprocessorClosure = usePreprocessorClosure,
+                            Locations =
+                            {
+                                new TestHydraulicBoundaryLocation()
+                            }
+                        }
+                    }
                 }
             };
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
-
-            return assessmentSection;
         }
 
         private static void ConfigureAssessmentSectionWithHydraulicBoundaryOutput(IAssessmentSection assessmentSection)

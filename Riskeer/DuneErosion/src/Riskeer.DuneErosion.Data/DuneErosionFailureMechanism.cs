@@ -80,13 +80,31 @@ namespace Riskeer.DuneErosion.Data
                 throw new ArgumentNullException(nameof(duneLocations));
             }
 
-            duneLocationCollection.Clear();
             duneLocationCollection.AddRange(duneLocations);
 
             DuneLocationCalculationsForUserDefinedTargetProbabilities.ForEach(dlc =>
             {
-                dlc.DuneLocationCalculations.Clear();
                 dlc.DuneLocationCalculations.AddRange(duneLocations.Select(dl => new DuneLocationCalculation(dl)));
+            });
+        }
+
+        /// <summary>
+        /// Removes dune locations and calculations for the failure mechanism.
+        /// </summary>
+        /// <param name="duneLocations">The dune locations to remove from the failure mechanism.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="duneLocations"/> is <c>null</c>.</exception>
+        public void RemoveDuneLocations(IEnumerable<DuneLocation> duneLocations)
+        {
+            if (duneLocations == null)
+            {
+                throw new ArgumentNullException(nameof(duneLocations));
+            }
+
+            duneLocationCollection.RemoveAll(duneLocations.Contains);
+
+            DuneLocationCalculationsForUserDefinedTargetProbabilities.ForEach(dlc =>
+            {
+                dlc.DuneLocationCalculations.RemoveAll(c => duneLocations.Contains(c.DuneLocation));
             });
         }
     }

@@ -57,7 +57,7 @@ namespace Riskeer.HydraRing.IO.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Riskeer.HydraRing.IO.Properties.Resources", typeof(Resources).Assembly);
@@ -72,7 +72,7 @@ namespace Riskeer.HydraRing.IO.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
+        internal static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -84,25 +84,16 @@ namespace Riskeer.HydraRing.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Kon geen locaties verkrijgen van de database..
         /// </summary>
-        public static string Error_HydraulicBoundaryLocation_read_from_database {
+        internal static string Error_HydraulicBoundaryLocation_read_from_database {
             get {
                 return ResourceManager.GetString("Error_HydraulicBoundaryLocation_read_from_database", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het opgegeven bestandspad ({0}) is niet geldig..
-        /// </summary>
-        public static string HydraulicBoundaryDatabaseHelper_ValidatePathForCalculation_Invalid_path_0_ {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabaseHelper_ValidatePathForCalculation_Invalid_path_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database..
         /// </summary>
-        public static string HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column {
+        internal static string HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column {
             get {
                 return ResourceManager.GetString("HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column", resourceCulture);
             }
@@ -111,19 +102,9 @@ namespace Riskeer.HydraRing.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Het bevragen van de database is mislukt..
         /// </summary>
-        public static string HydraulicLocationConfigurationDatabaseReader_Critical_Unexpected_Exception {
+        internal static string HydraulicLocationConfigurationDatabaseReader_Critical_Unexpected_Exception {
             get {
                 return ResourceManager.GetString("HydraulicLocationConfigurationDatabaseReader_Critical_Unexpected_Exception", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Er zijn meerdere resultaten gevonden, wat niet voor zou mogen komen. Neem contact op met de leverancier. Het eerste resultaat zal worden gebruikt..
-        /// </summary>
-        public static string HydraulicLocationConfigurationDatabaseReader_GetLocationIdFromDatabase_Ambiguous_Row_Found_Take_First {
-            get {
-                return ResourceManager.GetString("HydraulicLocationConfigurationDatabaseReader_GetLocationIdFromDatabase_Ambiguous_" +
-                        "Row_Found_Take_First", resourceCulture);
             }
         }
     }

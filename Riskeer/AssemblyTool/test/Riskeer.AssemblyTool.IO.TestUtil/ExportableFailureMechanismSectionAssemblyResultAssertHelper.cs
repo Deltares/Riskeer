@@ -46,7 +46,8 @@ namespace Riskeer.AssemblyTool.IO.TestUtil
         /// <item>The id does not contain the expected value.</item>
         /// <item>The values between <paramref name="expectedAssemblyResultWrapper"/> and <paramref name="results"/>
         /// do not match.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         public static void AssertExportableFailureMechanismSectionResults(FailureMechanismSectionAssemblyResultWrapper expectedAssemblyResultWrapper,
                                                                           IEnumerable<ExportableFailureMechanismSection> sections,
                                                                           IEnumerable<ExportableFailureMechanismSectionAssemblyResult> results)
@@ -75,7 +76,8 @@ namespace Riskeer.AssemblyTool.IO.TestUtil
         /// <item>The id does not contain the expected value.</item>
         /// <item>The values between <paramref name="expectedAssemblyResultWrapper"/> and <paramref name="actualExportableAssemblyResult"/>
         /// do not match.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         public static void AssertExportableFailureMechanismSectionResult(FailureMechanismSectionAssemblyResultWrapper expectedAssemblyResultWrapper,
                                                                          ExportableFailureMechanismSectionAssemblyResult actualExportableAssemblyResult,
                                                                          ExportableFailureMechanismSection section, int i = 0)

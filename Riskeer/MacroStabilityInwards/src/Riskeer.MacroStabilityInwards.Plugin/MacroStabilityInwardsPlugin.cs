@@ -35,6 +35,7 @@ using Core.Gui.Plugin;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.ExportInfos;
 using Riskeer.Common.Forms.ImportInfos;
@@ -161,7 +162,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                     new MacroStabilityInwardsCalculationConfigurationImporter(
                         filePath,
                         context.WrappedData,
-                        context.AssessmentSection.HydraulicBoundaryDatabase.Locations,
+                        context.AssessmentSection.HydraulicBoundaryData.GetLocations(),
                         context.FailureMechanism));
         }
 

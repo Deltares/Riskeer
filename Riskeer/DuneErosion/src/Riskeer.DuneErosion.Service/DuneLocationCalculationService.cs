@@ -52,26 +52,25 @@ namespace Riskeer.DuneErosion.Service
         /// </summary>
         /// <param name="duneLocationCalculation">The <see cref="DuneLocationCalculation"/> to perform.</param>
         /// <param name="targetProbability">The target probability to use during the calculation.</param>
-        /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> with the
-        /// hydraulic boundary calculation settings.</param>
+        /// <param name="calculationSettings">The hydraulic boundary calculation settings.</param>
         /// <param name="messageProvider">The object which is used to build log messages.</param>
-        /// <remarks>Preprocessing is disabled when the preprocessor directory equals <see cref="string.Empty"/>.</remarks>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="duneLocationCalculation"/>,
         /// <paramref name="calculationSettings"/> or <paramref name="messageProvider"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when:
         /// <list type="bullet">
-        /// <item>The hydraulic boundary location database file path contains invalid characters.</item>
-        /// <item>The contribution of the failure mechanism is zero.</item>
-        /// <item>The target probability or the calculated probability falls outside the [0.0, 1.0] 
+        /// <item>the hydraulic boundary database file path contains invalid characters;</item>
+        /// <item>the contribution of the failure mechanism is zero;</item>
+        /// <item>the target probability or the calculated probability falls outside the [0.0, 1.0] 
         /// range and is not <see cref="double.NaN"/>.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
-        /// <item>No settings database file could be found at the location of the hydraulic boundary database
-        /// with the same name.</item>
-        /// <item>Unable to open settings database file.</item>
-        /// <item>Unable to read required data from database file.</item>
-        /// </list></exception>
+        /// <item>no hydraulic boundary settings database could be found;</item>
+        /// <item>the hydraulic boundary settings database cannot be opened;</item>
+        /// <item>the required data cannot be read from the hydraulic boundary settings database.</item>
+        /// </list>
+        /// </exception>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing 
         /// the calculation.</exception>
         public void Calculate(DuneLocationCalculation duneLocationCalculation,
@@ -204,18 +203,16 @@ namespace Riskeer.DuneErosion.Service
         /// </summary>
         /// <param name="duneLocation">The <see cref="DuneLocation"/> to create the input for.</param>
         /// <param name="targetProbability">The target probability to use during the calculation.</param>
-        /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> with the
-        /// hydraulic boundary calculation settings.</param>
+        /// <param name="calculationSettings">The hydraulic boundary calculation settings.</param>
         /// <returns>A <see cref="DunesBoundaryConditionsCalculationInput"/> with all needed
         /// input data.</returns>
-        /// <exception cref="ArgumentException">Thrown when the hydraulic boundary database file path.
+        /// <exception cref="ArgumentException">Thrown when the hydraulic boundary database file path
         /// contains invalid characters.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
-        /// <item>No settings database file could be found at the location of the hydraulic boundary database file path.
-        /// with the same name.</item>
-        /// <item>Unable to open settings database file.</item>
-        /// <item>Unable to read required data from database file.</item>
+        /// <item>no hydraulic boundary settings database could be found;</item>
+        /// <item>the hydraulic boundary settings database cannot be opened;</item>
+        /// <item>the required data cannot be read from the hydraulic boundary settings database.</item>
         /// </list>
         /// </exception>
         private static DunesBoundaryConditionsCalculationInput CreateInput(DuneLocation duneLocation,
@@ -223,9 +220,9 @@ namespace Riskeer.DuneErosion.Service
                                                                            HydraulicBoundaryCalculationSettings calculationSettings)
         {
             var dunesBoundaryConditionsCalculationInput = new DunesBoundaryConditionsCalculationInput(1, duneLocation.Id, targetProbability);
-            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(dunesBoundaryConditionsCalculationInput,
-                                                                       calculationSettings.HydraulicBoundaryDatabaseFilePath,
-                                                                       !string.IsNullOrEmpty(calculationSettings.PreprocessorDirectory));
+
+            HydraRingSettingsHelper.AssignSettingsFromDatabase(dunesBoundaryConditionsCalculationInput, calculationSettings.HrdFilePath);
+
             return dunesBoundaryConditionsCalculationInput;
         }
     }

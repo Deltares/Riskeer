@@ -51,8 +51,8 @@ namespace Riskeer.MacroStabilityInwards.Forms
         /// profiles of intersecting <paramref name="soilModels"/>.</returns>
         /// <exception cref="ArgumentNullException">Throw when either:
         /// <list type="bullet">
-        /// <item><paramref name="surfaceLines"/> is <c>null</c></item>
-        /// <item><paramref name="soilModels"/> is <c>null</c></item>
+        /// <item><paramref name="surfaceLines"/> is <c>null</c>;</item>
+        /// <item><paramref name="soilModels"/> is <c>null</c>.</item>
         /// </list>
         /// </exception>
         public static IEnumerable<ICalculationBase> GenerateCalculationItemsStructure(IEnumerable<MacroStabilityInwardsSurfaceLine> surfaceLines, IEnumerable<MacroStabilityInwardsStochasticSoilModel> soilModels)

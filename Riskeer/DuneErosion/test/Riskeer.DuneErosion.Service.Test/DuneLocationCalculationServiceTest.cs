@@ -22,7 +22,6 @@
 using System;
 using System.IO;
 using System.Linq;
-using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using NUnit.Framework;
@@ -46,9 +45,8 @@ namespace Riskeer.DuneErosion.Service.Test
     public class DuneLocationCalculationServiceTest
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
-        private static readonly string validHydraulicBoundaryDatabaseFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
         private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
-        private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -119,17 +117,11 @@ namespace Riskeer.DuneErosion.Service.Test
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Calculate_ValidData_CalculationStartedWithRightParameters(bool usePreprocessor)
+        public void Calculate_ValidData_CalculationStartedWithRightParameters(bool usePreprocessorClosure)
         {
             // Setup
             const double targetProbability = 1.0 / 30;
-            string preprocessorDirectory = usePreprocessor
-                                               ? validPreprocessorDirectory
-                                               : string.Empty;
-            var calculationSettings = new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
-                                                                               validHlcdFilePath,
-                                                                               false,
-                                                                               preprocessorDirectory);
+            var calculationSettings = new HydraulicBoundaryCalculationSettings(validHlcdFilePath, validHrdFilePath, usePreprocessorClosure);
 
             var calculator = new TestDunesBoundaryConditionsCalculator
             {
@@ -148,7 +140,7 @@ namespace Riskeer.DuneErosion.Service.Test
             var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
 
-            var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0),
+            var duneLocation = new DuneLocation("test", new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0),
                                                 new DuneLocation.ConstructionProperties
                                                 {
                                                     CoastalAreaId = 0,
@@ -169,7 +161,6 @@ namespace Riskeer.DuneErosion.Service.Test
                 DunesBoundaryConditionsCalculationInput expectedInput = CreateInput(duneLocation, targetProbability);
                 DunesBoundaryConditionsCalculationInput actualInput = calculator.ReceivedInputs.Single();
                 AssertInput(expectedInput, actualInput);
-                Assert.AreEqual(usePreprocessor, actualInput.PreprocessorSetting.RunPreprocessor);
             }
 
             mockRepository.VerifyAll();
@@ -532,10 +523,7 @@ namespace Riskeer.DuneErosion.Service.Test
 
         private static HydraulicBoundaryCalculationSettings CreateCalculationSettings()
         {
-            return new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
-                                                            validHlcdFilePath,
-                                                            false,
-                                                            string.Empty);
+            return new HydraulicBoundaryCalculationSettings(validHlcdFilePath, validHrdFilePath, false);
         }
 
         private static void AssertInput(DunesBoundaryConditionsCalculationInput expectedInput, DunesBoundaryConditionsCalculationInput actualInput)

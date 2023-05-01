@@ -107,7 +107,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             mocks.ReplayAll();
 
             MacroStabilityInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
@@ -139,7 +139,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             mocks.ReplayAll();
 
             MacroStabilityInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
@@ -171,7 +171,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             mocks.ReplayAll();
 
             MacroStabilityInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
@@ -211,7 +211,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             mocks.ReplayAll();
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
@@ -238,7 +238,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             mocks.ReplayAll();
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
@@ -265,7 +265,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             mocks.ReplayAll();
 
             const string arbitrarySourcePath = "path";
@@ -297,7 +297,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Given
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             mocks.ReplayAll();
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
@@ -322,7 +322,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Given
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             mocks.ReplayAll();
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
@@ -347,7 +347,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Given
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             mocks.ReplayAll();
 
             MacroStabilityInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
@@ -403,7 +403,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             mocks.ReplayAll();
 
             MacroStabilityInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
@@ -455,7 +455,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             calculationInputObserver.Expect(o => o.UpdateObserver());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
             mocks.ReplayAll();
@@ -491,7 +491,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Given
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             mocks.ReplayAll();
 
             MacroStabilityInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
@@ -531,7 +531,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Given
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             mocks.ReplayAll();
 
             const string arbitraryFilePath = "path";
@@ -578,7 +578,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Given
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
@@ -622,7 +622,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Given
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             mocks.ReplayAll();
 
             MacroStabilityInwardsFailureMechanism failureMechanism = ConfigureSimpleFailureMechanism();
@@ -662,7 +662,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Given
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
@@ -697,7 +697,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ConfigureHydraulicBoundaryData(assessmentSection);
             mocks.ReplayAll();
 
             MacroStabilityInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
@@ -736,14 +736,20 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             testForm.Dispose();
         }
 
-        private static void ConfigureHydraulicBoundaryDatabase(IAssessmentSection assessmentSection)
+        private static void ConfigureHydraulicBoundaryData(IAssessmentSection assessmentSection)
         {
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData
             {
-                Locations =
+                HydraulicBoundaryDatabases =
                 {
-                    new HydraulicBoundaryLocation(1, "Location 1", 1.1, 2.2),
-                    new HydraulicBoundaryLocation(2, "Location 2", 3.3, 4.4)
+                    new HydraulicBoundaryDatabase
+                    {
+                        Locations =
+                        {
+                            new HydraulicBoundaryLocation(1, "Location 1", 1.1, 2.2),
+                            new HydraulicBoundaryLocation(2, "Location 2", 3.3, 4.4)
+                        }
+                    }
                 }
             });
         }
@@ -821,7 +827,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                         {
                             SurfaceLine = failureMechanism.SurfaceLines.First(),
                             StochasticSoilModel = failureMechanism.StochasticSoilModels.First(),
-                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First()
+                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First()
                         }
                     },
                     new MacroStabilityInwardsCalculationScenario
@@ -832,7 +838,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                             SurfaceLine = failureMechanism.SurfaceLines.Last(),
                             StochasticSoilModel = stochasticSoilModelForCalculation2,
                             StochasticSoilProfile = stochasticSoilModelForCalculation2.StochasticSoilProfiles.First(),
-                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.Last()
+                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().Last()
                         }
                     }
                 }

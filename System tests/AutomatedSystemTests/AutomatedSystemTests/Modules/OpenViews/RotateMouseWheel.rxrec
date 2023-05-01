@@ -26,6 +26,7 @@ mode="Global">
 		<var
 		id="a534115f-640e-48c6-83f3-cd9a0b1460f9"
 		name="deltaWheelMouseVertical">
+			0
 		</var>
 	</variables>
 	<recorditems>

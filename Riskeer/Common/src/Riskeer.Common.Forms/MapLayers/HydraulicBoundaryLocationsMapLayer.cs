@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -43,7 +43,7 @@ namespace Riskeer.Common.Forms.MapLayers
 
         private Observer failureMechanismContributionObserver;
 
-        private Observer hydraulicBoundaryLocationsObserver;
+        private Observer hydraulicBoundaryDatabasesObserver;
         private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForSignalFloodingProbabilityObserver;
         private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForMaximumAllowableFloodingProbabilityObserver;
 
@@ -96,7 +96,7 @@ namespace Riskeer.Common.Forms.MapLayers
             if (disposing)
             {
                 failureMechanismContributionObserver.Dispose();
-                hydraulicBoundaryLocationsObserver.Dispose();
+                hydraulicBoundaryDatabasesObserver.Dispose();
                 waterLevelCalculationsForSignalFloodingProbabilityObserver.Dispose();
                 waterLevelCalculationsForMaximumAllowableFloodingProbabilityObserver.Dispose();
                 waterLevelForUserDefinedTargetProbabilitiesCollectionObserver.Dispose();
@@ -116,9 +116,9 @@ namespace Riskeer.Common.Forms.MapLayers
                 Observable = assessmentSection.FailureMechanismContribution
             };
 
-            hydraulicBoundaryLocationsObserver = new Observer(UpdateFeatures)
+            hydraulicBoundaryDatabasesObserver = new Observer(UpdateFeatures)
             {
-                Observable = assessmentSection.HydraulicBoundaryDatabase.Locations
+                Observable = assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases
             };
 
             waterLevelCalculationsForSignalFloodingProbabilityObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
@@ -193,7 +193,7 @@ namespace Riskeer.Common.Forms.MapLayers
             IReadOnlyDictionary<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, string> waveHeightsCalculations = GetWaveHeightCalculations();
 
             IEnumerable<AggregatedHydraulicBoundaryLocation> newLocations = AggregatedHydraulicBoundaryLocationFactory.CreateAggregatedHydraulicBoundaryLocations(
-                assessmentSection.HydraulicBoundaryDatabase.Locations, waterLevelCalculations, waveHeightsCalculations);
+                assessmentSection.HydraulicBoundaryData.GetLocations(), waterLevelCalculations, waveHeightsCalculations);
 
             MapData.Features = RiskeerMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(newLocations);
 

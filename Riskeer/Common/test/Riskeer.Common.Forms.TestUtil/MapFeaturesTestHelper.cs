@@ -54,7 +54,7 @@ namespace Riskeer.Common.Forms.TestUtil
         /// </exception>
         public static void AssertHydraulicBoundaryFeaturesData(IAssessmentSection assessmentSection, IEnumerable<MapFeature> features)
         {
-            HydraulicBoundaryLocation[] hydraulicBoundaryLocationsArray = assessmentSection.HydraulicBoundaryDatabase.Locations.ToArray();
+            HydraulicBoundaryLocation[] hydraulicBoundaryLocationsArray = assessmentSection.HydraulicBoundaryData.GetLocations().ToArray();
             int expectedNrOfFeatures = hydraulicBoundaryLocationsArray.Length;
             Assert.AreEqual(expectedNrOfFeatures, features.Count());
 

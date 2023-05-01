@@ -36,24 +36,33 @@ namespace Riskeer.StabilityStoneCover.Service
     public static class StabilityStoneCoverDataSynchronizationService
     {
         /// <summary>
-        /// Clears the <see cref="HydraulicBoundaryLocation"/> and output for all the wave conditions calculations
-        /// in the <see cref="StabilityStoneCoverFailureMechanism"/>.
+        /// Clears the <see cref="HydraulicBoundaryLocation"/> and output for the wave conditions calculations
+        /// in the <see cref="StabilityStoneCoverFailureMechanism"/> that uses an <see cref="HydraulicBoundaryLocation"/>
+        /// from <paramref name="hydraulicBoundaryLocations"/>.
         /// </summary>
         /// <param name="failureMechanism">The <see cref="StabilityStoneCoverFailureMechanism"/>
         /// which contains the calculations.</param>
+        /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations to clear for.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of objects which are affected by removing data.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
-        /// is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(
-            StabilityStoneCoverFailureMechanism failureMechanism)
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> ClearWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(
+            StabilityStoneCoverFailureMechanism failureMechanism,
+            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
         {
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
+            if (hydraulicBoundaryLocations == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
+            }
+
             var affectedItems = new List<IObservable>();
-            foreach (StabilityStoneCoverWaveConditionsCalculation calculation in failureMechanism.Calculations.Cast<StabilityStoneCoverWaveConditionsCalculation>())
+            foreach (StabilityStoneCoverWaveConditionsCalculation calculation in failureMechanism.Calculations.Cast<StabilityStoneCoverWaveConditionsCalculation>()
+                                                                                                 .Where(c => hydraulicBoundaryLocations.Contains(
+                                                                                                            c.InputParameters.HydraulicBoundaryLocation)))
             {
                 affectedItems.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation));
                 affectedItems.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocation(calculation.InputParameters));

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.IO;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
@@ -39,14 +40,14 @@ namespace Riskeer.Common.Data.TestUtil
         private static readonly RoundedDouble testAssessmentLevel = new Random(21).NextRoundedDouble();
 
         /// <summary>
-        /// Creates a stub of <see cref="IAssessmentSection"/> with a <see cref="HydraulicBoundaryDatabase"/> that is not linked.
+        /// Creates a stub of <see cref="IAssessmentSection"/> with <see cref="HydraulicBoundaryData"/> that is not linked.
         /// </summary>
         /// <param name="mockRepository">The mock repository to create the stub with.</param>
         /// <returns>A stubbed <see cref="IAssessmentSection"/>.</returns>
         public static IAssessmentSection CreateAssessmentSectionStub(MockRepository mockRepository)
         {
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(new HydraulicBoundaryData());
             assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             assessmentSection.Replay();
 
@@ -59,12 +60,14 @@ namespace Riskeer.Common.Data.TestUtil
         /// <param name="failureMechanism">The failure mechanism to set the contribution for.</param>
         /// <param name="mockRepository">The mock repository to create the stub with.</param>
         /// <param name="filePath">The file path to the hydraulic boundary database (optional).</param>
+        /// <param name="usePreprocessorClosure">Whether or not to use preprocessor closure.</param>
         /// <returns>A stubbed <see cref="IAssessmentSection"/>.</returns>
         /// <remarks>Whether <paramref name="filePath"/> is provided or not, a dummy location with id 1300001 is added to the
         /// hydraulic boundary database.</remarks>
         public static IAssessmentSection CreateAssessmentSectionStub(IFailureMechanism failureMechanism,
                                                                      MockRepository mockRepository,
-                                                                     string filePath = null)
+                                                                     string filePath = null,
+                                                                     bool usePreprocessorClosure = false)
         {
             IFailureMechanism[] failureMechanisms = GetFailureMechanisms(failureMechanism);
 
@@ -72,7 +75,7 @@ namespace Riskeer.Common.Data.TestUtil
             assessmentSection.Stub(a => a.Id).Return("21");
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(0.1, 1.0 / 30000));
             assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(failureMechanisms);
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(GetHydraulicBoundaryDatabase(filePath));
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(GetHydraulicBoundaryData(filePath, usePreprocessorClosure));
             assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             assessmentSection.Replay();
 
@@ -99,23 +102,27 @@ namespace Riskeer.Common.Data.TestUtil
                        };
         }
 
-        private static HydraulicBoundaryDatabase GetHydraulicBoundaryDatabase(string filePath)
+        private static HydraulicBoundaryData GetHydraulicBoundaryData(string hrdFilePath, bool usePreprocessorClosure)
         {
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = filePath,
-                Locations =
-                {
-                    new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
-                }
-            };
+            var hydraulicBoundaryData = new HydraulicBoundaryData();
 
-            if (filePath != null)
+            if (hrdFilePath != null)
             {
-                HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
+                hydraulicBoundaryData.HydraulicBoundaryDatabases.Add(new HydraulicBoundaryDatabase
+                {
+                    FilePath = hrdFilePath,
+                    UsePreprocessorClosure = usePreprocessorClosure,
+                    Locations =
+                    {
+                        new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
+                    }
+                });
+
+                HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase = hydraulicBoundaryData.HydraulicLocationConfigurationDatabase;
+                hydraulicLocationConfigurationDatabase.FilePath = Path.Combine(Path.GetDirectoryName(hrdFilePath), "hlcd.sqlite");
             }
 
-            return hydraulicBoundaryDatabase;
+            return hydraulicBoundaryData;
         }
     }
 }

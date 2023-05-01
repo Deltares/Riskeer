@@ -73,16 +73,16 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicBoundaryDatabase
         [Test]
         [TestCase(null)]
         [TestCase("")]
-        public void Constructor_FilePathNullOrEmpty_ThrowsCriticalFileReadException(string hydraulicBoundaryDatabaseFilePath)
+        public void Constructor_FilePathNullOrEmpty_ThrowsCriticalFileReadException(string hrdFilePath)
         {
             // Call
             TestDelegate test = () =>
             {
-                using (new HydraulicBoundaryDatabaseReader(hydraulicBoundaryDatabaseFilePath)) {}
+                using (new HydraulicBoundaryDatabaseReader(hrdFilePath)) {}
             };
 
             // Assert
-            string expectedMessage = $"Fout bij het lezen van bestand '{hydraulicBoundaryDatabaseFilePath}': bestandspad mag niet leeg of ongedefinieerd zijn.";
+            string expectedMessage = $"Fout bij het lezen van bestand '{hrdFilePath}': bestandspad mag niet leeg of ongedefinieerd zijn.";
             var exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
@@ -182,78 +182,6 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicBoundaryDatabase
                 Assert.AreEqual("punt_flw_ 1", location.Name);
                 Assert.AreEqual(52697.5, location.CoordinateX);
                 Assert.AreEqual(427567.0, location.CoordinateY);
-            }
-        }
-
-        [Test]
-        public void ReadTrackId_EmptyDatabase_ThrowsCriticalFileReadException()
-        {
-            // Setup
-            string hydraulicBoundaryDatabaseFile = Path.Combine(testDataPath, "emptyGeneral.sqlite");
-
-            using (var reader = new HydraulicBoundaryDatabaseReader(hydraulicBoundaryDatabaseFile))
-            {
-                // Call
-                TestDelegate test = () => reader.ReadTrackId();
-
-                // Assert
-                string expectedMessage = $"Fout bij het lezen van bestand '{hydraulicBoundaryDatabaseFile}': kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.";
-                var exception = Assert.Throws<CriticalFileReadException>(test);
-                Assert.AreEqual(expectedMessage, exception.Message);
-            }
-        }
-
-        [Test]
-        public void ReadTrackId_InvalidDatabaseWithoutGeneralTable_ThrowsCriticalFileReadException()
-        {
-            // Setup
-            string hydraulicBoundaryDatabaseFile = Path.Combine(testDataPath, "empty.sqlite");
-
-            using (var reader = new HydraulicBoundaryDatabaseReader(hydraulicBoundaryDatabaseFile))
-            {
-                // Call
-                TestDelegate test = () => reader.ReadTrackId();
-
-                // Assert
-                var exception = Assert.Throws<CriticalFileReadException>(test);
-                string expectedMessage = $"Fout bij het lezen van bestand '{hydraulicBoundaryDatabaseFile}': kon geen locaties verkrijgen van de database.";
-                Assert.AreEqual(expectedMessage, exception.Message);
-                Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
-            }
-        }
-
-        [Test]
-        public void ReadTrackId_InvalidTrackIdColumn_ThrowsLineParseException()
-        {
-            // Setup
-            string hydraulicBoundaryDatabaseFile = Path.Combine(testDataPath, "corruptSchema.sqlite");
-
-            using (var reader = new HydraulicBoundaryDatabaseReader(hydraulicBoundaryDatabaseFile))
-            {
-                // Call
-                TestDelegate test = () => reader.ReadTrackId();
-
-                // Assert
-                var exception = Assert.Throws<LineParseException>(test);
-                string expectedMessage = $"Fout bij het lezen van bestand '{hydraulicBoundaryDatabaseFile}': kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.";
-                Assert.AreEqual(expectedMessage, exception.Message);
-                Assert.IsInstanceOf<InvalidCastException>(exception.InnerException);
-            }
-        }
-
-        [Test]
-        public void ReadTrackId_ValidFile_ReturnsReadVersion()
-        {
-            // Setup
-            string hydraulicBoundaryDatabaseFile = Path.Combine(testDataPath, "complete.sqlite");
-
-            using (var reader = new HydraulicBoundaryDatabaseReader(hydraulicBoundaryDatabaseFile))
-            {
-                // Call
-                long trackId = reader.ReadTrackId();
-
-                // Assert
-                Assert.AreEqual(13, trackId);
             }
         }
 

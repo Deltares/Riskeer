@@ -41,7 +41,7 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
         /// </summary>
         public ZoomMapViewWithMouseWheel()
         {
-            deltaWheelMouseVertical = "";
+            deltaWheelMouseVertical = "0";
         }
 
         /// <summary>

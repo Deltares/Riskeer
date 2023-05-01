@@ -21,16 +21,13 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Media;
-using System.Windows.Threading;
 using Core.Common.Base;
 using Core.Common.Base.Storage;
 using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
-using Core.Common.TestUtil;
 using Core.Common.Util.Extensions;
 using Core.Gui;
 using Core.Gui.Forms.Main;
@@ -50,7 +47,6 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.Structures;
-using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.Views;
@@ -81,113 +77,6 @@ namespace Riskeer.Integration.Plugin.Test
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
-        public void GivenPluginWithGuiSet_WhenProjectOnGuiChangesToProjectWithHydraulicBoundaryDatabaseNotLinked_ThenNoWarning()
-        {
-            // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            mocks.ReplayAll();
-
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
-            {
-                SetPlugins(gui);
-                gui.Run();
-
-                var project = new RiskeerProject(new AssessmentSection(AssessmentSectionComposition.Dike));
-
-                // When
-                void Action() => gui.SetProject(project, null);
-
-                // Then
-                TestHelper.AssertLogMessagesCount(Action, 0);
-            }
-
-            mocks.VerifyAll();
-            Dispatcher.CurrentDispatcher.InvokeShutdown();
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
-        public void GivenPluginWithGuiSet_WhenProjectOnGuiChangesToProjectWithHydraulicBoundaryDatabaseLinkedToExistingLocation_ThenNoWarning()
-        {
-            // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            mocks.ReplayAll();
-
-            string testDataDir = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryDatabase));
-            string testFilePath = Path.Combine(testDataDir, "complete.sqlite");
-
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
-            {
-                SetPlugins(gui);
-                gui.Run();
-
-                var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-                {
-                    HydraulicBoundaryDatabase =
-                    {
-                        FilePath = testFilePath
-                    }
-                };
-                HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
-                var project = new RiskeerProject(assessmentSection);
-
-                // When
-                void Action() => gui.SetProject(project, null);
-
-                // Then
-                TestHelper.AssertLogMessagesCount(Action, 0);
-            }
-
-            mocks.VerifyAll();
-            Dispatcher.CurrentDispatcher.InvokeShutdown();
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
-        public void GivenPluginWithGuiSet_WhenProjectOnGuiChangesToProjectWithHydraulicBoundaryDatabaseLinkedToNonExistingLocation_ThenWarning()
-        {
-            // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            mocks.ReplayAll();
-
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
-            {
-                SetPlugins(gui);
-                gui.Run();
-
-                const string nonExistingFile = "not_existing_file";
-                var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-                {
-                    HydraulicBoundaryDatabase =
-                    {
-                        FilePath = nonExistingFile
-                    }
-                };
-                var project = new RiskeerProject(assessmentSection);
-
-                // When
-                void Action() => gui.SetProject(project, null);
-
-                // Then
-                var fileMissingMessage = $"Fout bij het lezen van bestand '{nonExistingFile}': het bestand bestaat niet.";
-                string message = string.Format(
-                    RiskeerCommonServiceResources.Hydraulic_boundary_database_connection_failed_0_,
-                    fileMissingMessage);
-                TestHelper.AssertLogMessageWithLevelIsGenerated(Action, Tuple.Create(message, LogLevelConstant.Warn));
-            }
-
-            mocks.VerifyAll();
-            Dispatcher.CurrentDispatcher.InvokeShutdown();
-        }
-
-        [Test]
         public void GetStateInfos_ReturnsSupportedStateInfos()
         {
             // Setup
@@ -215,7 +104,7 @@ namespace Riskeer.Integration.Plugin.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(26, propertyInfos.Length);
+                Assert.AreEqual(28, propertyInfos.Length);
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
@@ -231,6 +120,16 @@ namespace Riskeer.Integration.Plugin.Test
                     propertyInfos,
                     typeof(BackgroundData),
                     typeof(BackgroundDataProperties));
+
+                PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(HydraulicBoundaryDataContext),
+                    typeof(HydraulicBoundaryDataProperties));
+
+                PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(HydraulicLocationConfigurationDatabaseContext),
+                    typeof(HydraulicLocationConfigurationDatabaseProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
@@ -359,9 +258,8 @@ namespace Riskeer.Integration.Plugin.Test
                 ExportInfo[] exportInfos = plugin.GetExportInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(9, exportInfos.Length);
+                Assert.AreEqual(8, exportInfos.Length);
                 Assert.IsTrue(exportInfos.Any(ei => ei.DataType == typeof(ReferenceLineContext)));
-                Assert.IsTrue(exportInfos.Any(ei => ei.DataType == typeof(HydraulicBoundaryDatabaseContext)));
                 Assert.IsTrue(exportInfos.Any(ei => ei.DataType == typeof(AssemblyResultsContext)));
                 Assert.IsTrue(exportInfos.Any(ei => ei.DataType == typeof(WaterLevelCalculationsForUserDefinedTargetProbabilityContext)));
                 Assert.IsTrue(exportInfos.Any(ei => ei.DataType == typeof(WaveHeightCalculationsForUserDefinedTargetProbabilityContext)));
@@ -574,7 +472,7 @@ namespace Riskeer.Integration.Plugin.Test
                 TreeNodeInfo[] treeNodeInfos = plugin.GetTreeNodeInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(41, treeNodeInfos.Length);
+                Assert.AreEqual(44, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(AssessmentSectionStateRootContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(HydraulicLoadsStateRootContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(CalculationsStateRootContext)));
@@ -589,6 +487,9 @@ namespace Riskeer.Integration.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaterPressureAsphaltCoverFailureMechanismContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(CategoryTreeFolder)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionsContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(HydraulicBoundaryDataContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(HydraulicLocationConfigurationDatabaseContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(HydraulicBoundaryDatabasesContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(HydraulicBoundaryDatabaseContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaterLevelCalculationsForNormTargetProbabilitiesGroupContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaterLevelCalculationsForNormTargetProbabilityContext)));
@@ -686,11 +587,13 @@ namespace Riskeer.Integration.Plugin.Test
                 ImportInfo[] importInfos = plugin.GetImportInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(4, importInfos.Length);
+                Assert.AreEqual(6, importInfos.Length);
                 Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(ReferenceLineContext)));
                 Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(FailureMechanismSectionsContext)));
                 Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(ForeshoreProfilesContext)));
-                Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(HydraulicBoundaryDatabaseContext)));
+                Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(HydraulicBoundaryDataContext)));
+                Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(HydraulicLocationConfigurationDatabaseContext)));
+                Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(HydraulicBoundaryDatabasesContext)));
             }
         }
 

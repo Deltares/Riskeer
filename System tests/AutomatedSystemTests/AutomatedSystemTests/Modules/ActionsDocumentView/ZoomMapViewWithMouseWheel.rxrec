@@ -26,6 +26,7 @@ mode="Global">
 		<var
 		id="91462502-81dc-42f8-86ef-441b19386843"
 		name="deltaWheelMouseVertical">
+			0
 		</var>
 	</variables>
 	<recorditems>
@@ -51,6 +52,8 @@ mode="Global">
 				<path>
 					/form[@automationid='RiskeerMainWindow']/list/container/container/tabpagelist[$indexContainerMap]
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</mouseitem>
 		<mousewheelitem

@@ -58,10 +58,9 @@ namespace Riskeer.StabilityStoneCover.Service
         /// <exception cref="ArgumentException">Thrown when the hydraulic boundary database file path contains invalid characters.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
-        /// <item>No settings database file could be found at the location of the hydraulic boundary database file path
-        /// with the same name.</item>
-        /// <item>Unable to open settings database file.</item>
-        /// <item>Unable to read required data from database file.</item>
+        /// <item>no hydraulic boundary settings database could be found;</item>
+        /// <item>the hydraulic boundary settings database cannot be opened;</item>
+        /// <item>the required data cannot be read from the hydraulic boundary settings database.</item>
         /// </list>
         /// </exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when the target probability or 
@@ -184,7 +183,7 @@ namespace Riskeer.StabilityStoneCover.Service
             IEnumerable<WaveConditionsOutput> outputs = CalculateWaveConditions(calculation.InputParameters,
                                                                                 assessmentLevel, generalInput.A,
                                                                                 generalInput.B, generalInput.C, targetProbability,
-                                                                                assessmentSection.HydraulicBoundaryDatabase);
+                                                                                assessmentSection.HydraulicBoundaryData);
             log.InfoFormat(RevetmentServiceResources.WaveConditionsCalculationService_Calculate_calculationType_0_ended, calculationType);
             return outputs;
         }

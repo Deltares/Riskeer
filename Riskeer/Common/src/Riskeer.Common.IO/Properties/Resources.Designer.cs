@@ -970,21 +970,11 @@ namespace Riskeer.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De bestandsmap waar de preprocessor bestanden opslaat is ongeldig..
+        ///   Looks up a localized string similar to Het opgegeven bestandspad ({0}) is niet geldig..
         /// </summary>
-        public static string HydraulicBoundaryDatabaseHelper_ValidatePreprocessorDirectory_Invalid_path {
+        public static string HydraulicBoundaryDataHelper_ValidatePathForCalculation_Invalid_path_0_ {
             get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabaseHelper_ValidatePreprocessorDirectory_Invalid_path", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De bestandsmap bestaat niet..
-        /// </summary>
-        public static string HydraulicBoundaryDatabaseHelper_ValidatePreprocessorDirectory_Path_does_not_exist {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabaseHelper_ValidatePreprocessorDirectory_Path_does_not_exist" +
-                        "", resourceCulture);
+                return ResourceManager.GetString("HydraulicBoundaryDataHelper_ValidatePathForCalculation_Invalid_path_0_", resourceCulture);
             }
         }
         
@@ -1654,23 +1644,6 @@ namespace Riskeer.Common.IO.Properties {
         public static string settings_schema {
             get {
                 return ResourceManager.GetString("settings_schema", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to BEGIN TRANSACTION;
-        ///CREATE TABLE &quot;TimeIntegrationSettings&quot; (
-        ///                &quot;LocationID&quot; INTEGER NOT NULL,
-        ///                &quot;CalculationTypeID&quot; INTEGER NOT NULL,
-        ///                &quot;TimeIntegrationSchemeID&quot; INTEGER NOT NULL,
-        ///	CONSTRAINT timeintegrationsettings_pk PRIMARY KEY (&quot;LocationID&quot;, &quot;CalculationTypeID&quot;),
-        ///	CONSTRAINT calculationtypes_timeintegrationsettings_fk FOREIGN KEY (&quot;CalculationTypeID&quot;) REFERENCES CalculationTypes (&quot;CalculationTypeID&quot;) ON DELETE NO ACTION ON UPDATE NO ACTION
-        ///);
-        ///CREATE TABLE [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string settings_schema_preprocessor {
-            get {
-                return ResourceManager.GetString("settings_schema_preprocessor", resourceCulture);
             }
         }
         

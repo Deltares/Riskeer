@@ -54,7 +54,8 @@ namespace Riskeer.Common.IO.DikeProfiles
         /// <item><paramref name="shapeFilePath"/> points to a file that does not exist.</item>
         /// <item><paramref name="shapeFilePath"/> does not only contain point features.</item>
         /// <item><paramref name="shapeFilePath"/> does not contain all of the required attributes.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         public ProfileLocationReader(string shapeFilePath)
         {
             IOUtils.ValidateFilePath(shapeFilePath);
@@ -88,7 +89,8 @@ namespace Riskeer.Common.IO.DikeProfiles
         /// <list type="bullet">
         /// <item>The shapefile misses a value for a required attribute.</item>
         /// <item>The shapefile has an attribute whose type is incorrect.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         /// <returns>A <see cref="ProfileLocation"/> based on the next point feature in the shapefile.</returns>
         public ProfileLocation GetNextProfileLocation()
         {
@@ -135,7 +137,8 @@ namespace Riskeer.Common.IO.DikeProfiles
         /// <item><paramref name="shapeFilePath"/> points to a file that doesn't exist.</item>
         /// <item>The shapefile has non-point geometries in it.</item>
         /// <item>An unexpected error occurred when reading the shapefile.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         /// <returns>Return an instance of <see cref="PointShapeFileReader"/>.</returns>
         private static PointShapeFileReader OpenPointsShapeFile(string shapeFilePath)
         {

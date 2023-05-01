@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Base.Geometry;
+using Riskeer.Common.Data.TestUtil;
 
 namespace Riskeer.DuneErosion.Data.TestUtil
 {
@@ -41,7 +41,7 @@ namespace Riskeer.DuneErosion.Data.TestUtil
         /// </summary>
         /// <param name="name">The name for the <see cref="TestDuneLocation"/>.</param>
         public TestDuneLocation(string name)
-            : base(0, name, new Point2D(0.0, 0.0), new ConstructionProperties
+            : base(name, new TestHydraulicBoundaryLocation(), new ConstructionProperties
             {
                 Offset = 0,
                 Orientation = 0,

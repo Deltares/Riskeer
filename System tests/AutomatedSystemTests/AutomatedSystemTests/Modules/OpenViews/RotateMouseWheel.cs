@@ -41,7 +41,7 @@ namespace AutomatedSystemTests.Modules.OpenViews
         /// </summary>
         public RotateMouseWheel()
         {
-            deltaWheelMouseVertical = "";
+            deltaWheelMouseVertical = "0";
         }
 
         /// <summary>

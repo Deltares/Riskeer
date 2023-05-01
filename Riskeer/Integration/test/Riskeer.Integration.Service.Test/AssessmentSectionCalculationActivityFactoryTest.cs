@@ -37,7 +37,6 @@ using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Service;
 using Riskeer.Common.Service.TestUtil;
 using Riskeer.DuneErosion.Data;
-using Riskeer.DuneErosion.Data.TestUtil;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.HeightStructures.Data.TestUtil;
@@ -83,14 +82,14 @@ namespace Riskeer.Integration.Service.Test
         public void CreateCalculationActivities_WithValidDataAndAllFailureMechanismsRelevant_ExpectedActivitiesCreated()
         {
             // Setup
-            AssessmentSection assessmentSection = CreateAssessmentSection();
-
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations = new[]
+
+            AssessmentSection assessmentSection = CreateAssessmentSection(hydraulicBoundaryLocation);
+
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
-            };
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
+            });
 
             AddSemiProbabilisticPipingCalculationScenario(assessmentSection, hydraulicBoundaryLocation);
             AddProbabilisticPipingCalculationScenario(assessmentSection, hydraulicBoundaryLocation);
@@ -104,7 +103,8 @@ namespace Riskeer.Integration.Service.Test
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
 
             HydraulicBoundaryCalculationSettings expectedCalculationSettings =
-                HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase);
+                HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData,
+                                                                           hydraulicBoundaryLocation);
             using (mocks.Ordered())
             {
                 calculatorFactory.Expect(cf => cf.CreatePipingCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
@@ -194,13 +194,9 @@ namespace Riskeer.Integration.Service.Test
         public void CreateHydraulicLoadCalculationActivities_WithValidDataAndAllFailureMechanismsRelevant_ExpectedActivitiesCreated()
         {
             // Setup
-            AssessmentSection assessmentSection = CreateAssessmentSection();
-
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations = new[]
-            {
-                hydraulicBoundaryLocation
-            };
+
+            AssessmentSection assessmentSection = CreateAssessmentSection(hydraulicBoundaryLocation);
 
             assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.AddRange(
                 new[]
@@ -216,18 +212,22 @@ namespace Riskeer.Integration.Service.Test
                     new HydraulicBoundaryLocationCalculationsForTargetProbability(0.0025)
                 });
 
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation
+            });
 
             AddStabilityStoneCoverCalculation(assessmentSection, hydraulicBoundaryLocation);
             AddWaveImpactAsphaltCoverCalculation(assessmentSection, hydraulicBoundaryLocation);
             AddGrassCoverErosionOutwardsCalculation(assessmentSection, hydraulicBoundaryLocation);
-            AddDuneLocationCalculation(assessmentSection);
+            AddDuneLocationCalculation(assessmentSection, hydraulicBoundaryLocation);
 
             var mocks = new MockRepository();
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
 
             HydraulicBoundaryCalculationSettings expectedCalculationSettings =
-                HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase);
+                HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData,
+                                                                           hydraulicBoundaryLocation);
             using (mocks.Ordered())
             {
                 calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
@@ -290,18 +290,29 @@ namespace Riskeer.Integration.Service.Test
             mocks.VerifyAll();
         }
 
-        private static AssessmentSection CreateAssessmentSection()
+        private static AssessmentSection CreateAssessmentSection(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.DikeAndDune)
+            return new AssessmentSection(AssessmentSectionComposition.DikeAndDune)
             {
-                HydraulicBoundaryDatabase =
+                HydraulicBoundaryData =
                 {
-                    FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite")
+                    HydraulicLocationConfigurationDatabase =
+                    {
+                        FilePath = Path.Combine(testDataPath, "hlcd.sqlite")
+                    },
+                    HydraulicBoundaryDatabases =
+                    {
+                        new HydraulicBoundaryDatabase
+                        {
+                            FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite"),
+                            Locations =
+                            {
+                                hydraulicBoundaryLocation
+                            }
+                        }
+                    }
                 }
             };
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
-
-            return assessmentSection;
         }
 
         private static void AddSemiProbabilisticPipingCalculationScenario(AssessmentSection assessmentSection,
@@ -451,14 +462,14 @@ namespace Riskeer.Integration.Service.Test
             });
         }
 
-        private static void AddDuneLocationCalculation(AssessmentSection assessmentSection)
+        private static void AddDuneLocationCalculation(AssessmentSection assessmentSection, HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             assessmentSection.DuneErosion.DuneLocationCalculationsForUserDefinedTargetProbabilities.Add(
                 new DuneLocationCalculationsForTargetProbability(0.1));
 
             assessmentSection.DuneErosion.SetDuneLocations(new[]
             {
-                new TestDuneLocation()
+                new DuneLocation("test", hydraulicBoundaryLocation, new DuneLocation.ConstructionProperties())
             });
         }
     }

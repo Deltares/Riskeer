@@ -47,7 +47,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
     public class StabilityPointStructuresCalculationActivityFactoryTest
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
-        private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
         [Test]
         public void CreateCalculationActivity_CalculationNull_ThrowsArgumentNullException()
@@ -111,10 +111,10 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mocks,
-                                                                                                           validFilePath);
+                                                                                                           validHrdFilePath);
             mocks.ReplayAll();
 
-            StructuresCalculation<StabilityPointStructuresInput> calculation = CreateValidCalculation();
+            StructuresCalculation<StabilityPointStructuresInput> calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryData.GetLocations().First());
 
             // Call
             CalculatableActivity activity = StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
@@ -123,7 +123,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
 
             // Assert
             Assert.IsInstanceOf<StabilityPointStructuresCalculationActivity>(activity);
-            AssertStabilityPointStructuresCalculationActivity(activity, calculation, assessmentSection.HydraulicBoundaryDatabase);
+            AssertStabilityPointStructuresCalculationActivity(activity, calculation, assessmentSection.HydraulicBoundaryData);
             mocks.VerifyAll();
         }
 
@@ -187,11 +187,13 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mocks,
-                                                                                                           validFilePath);
+                                                                                                           validHrdFilePath);
             mocks.ReplayAll();
 
-            StructuresCalculation<StabilityPointStructuresInput> calculation1 = CreateValidCalculation();
-            StructuresCalculation<StabilityPointStructuresInput> calculation2 = CreateValidCalculation();
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First();
+
+            StructuresCalculation<StabilityPointStructuresInput> calculation1 = CreateValidCalculation(hydraulicBoundaryLocation);
+            StructuresCalculation<StabilityPointStructuresInput> calculation2 = CreateValidCalculation(hydraulicBoundaryLocation);
 
             var calculations = new CalculationGroup
             {
@@ -210,9 +212,9 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(StabilityPointStructuresCalculationActivity));
             Assert.AreEqual(2, activities.Count());
 
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
-            AssertStabilityPointStructuresCalculationActivity(activities.First(), calculation1, hydraulicBoundaryDatabase);
-            AssertStabilityPointStructuresCalculationActivity(activities.ElementAt(1), calculation2, hydraulicBoundaryDatabase);
+            HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryData;
+            AssertStabilityPointStructuresCalculationActivity(activities.First(), calculation1, hydraulicBoundaryData);
+            AssertStabilityPointStructuresCalculationActivity(activities.ElementAt(1), calculation2, hydraulicBoundaryData);
             mocks.VerifyAll();
         }
 
@@ -253,11 +255,13 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mocks,
-                                                                                                           validFilePath);
+                                                                                                           validHrdFilePath);
             mocks.ReplayAll();
 
-            StructuresCalculation<StabilityPointStructuresInput> calculation1 = CreateValidCalculation();
-            StructuresCalculation<StabilityPointStructuresInput> calculation2 = CreateValidCalculation();
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First();
+
+            StructuresCalculation<StabilityPointStructuresInput> calculation1 = CreateValidCalculation(hydraulicBoundaryLocation);
+            StructuresCalculation<StabilityPointStructuresInput> calculation2 = CreateValidCalculation(hydraulicBoundaryLocation);
 
             failureMechanism.CalculationsGroup.Children.AddRange(new[]
             {
@@ -273,19 +277,19 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(StabilityPointStructuresCalculationActivity));
             Assert.AreEqual(2, activities.Count());
 
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
-            AssertStabilityPointStructuresCalculationActivity(activities.First(), calculation1, hydraulicBoundaryDatabase);
-            AssertStabilityPointStructuresCalculationActivity(activities.ElementAt(1), calculation2, hydraulicBoundaryDatabase);
+            HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryData;
+            AssertStabilityPointStructuresCalculationActivity(activities.First(), calculation1, hydraulicBoundaryData);
+            AssertStabilityPointStructuresCalculationActivity(activities.ElementAt(1), calculation2, hydraulicBoundaryData);
             mocks.VerifyAll();
         }
 
-        private static StructuresCalculation<StabilityPointStructuresInput> CreateValidCalculation()
+        private static StructuresCalculation<StabilityPointStructuresInput> CreateValidCalculation(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             return new TestStabilityPointStructuresCalculationScenario
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     FailureProbabilityStructureWithErosion = new Random(39).NextDouble()
                 }
             };
@@ -293,7 +297,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
 
         private static void AssertStabilityPointStructuresCalculationActivity(Activity activity,
                                                                               ICalculation<StabilityPointStructuresInput> calculation,
-                                                                              HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+                                                                              HydraulicBoundaryData hydraulicBoundaryData)
         {
             var mocks = new MockRepository();
             var testCalculator = new TestStructuresCalculator<StructuresStabilityPointCalculationInput>();
@@ -303,7 +307,9 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                              .WhenCalled(invocation =>
                              {
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase),
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                                         hydraulicBoundaryData,
+                                         calculation.InputParameters.HydraulicBoundaryLocation),
                                      (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(testCalculator);

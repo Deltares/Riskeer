@@ -356,7 +356,8 @@ namespace Riskeer.Common.IO.SurfaceLines
         /// <list type="bullet">
         /// <item><paramref name="readText"/> has too many or few columns.</item>
         /// <item><paramref name="readText"/> contains a coordinate value which could not be parsed to <see cref="double"/>.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         private CharacteristicPoints CreateCharacteristicPointsLocation(string readText)
         {
             string[] tokenizedString = TokenizeString(readText);

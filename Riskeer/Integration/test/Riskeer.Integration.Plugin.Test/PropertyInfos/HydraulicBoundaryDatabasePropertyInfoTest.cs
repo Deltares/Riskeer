@@ -20,14 +20,11 @@
 // All rights reserved.
 
 using System.Linq;
-using Core.Gui;
-using Core.Gui.Forms.Main;
 using Core.Gui.Plugin;
 using Core.Gui.PropertyBag;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Plugin.TestUtil;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PresentationObjects;
 using Riskeer.Integration.Forms.PropertyClasses;
@@ -64,23 +61,16 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
         public void CreateInstance_WithContext_ReturnHydraulicBoundaryDatabaseProperties()
         {
             // Setup
-            var mocks = new MockRepository();
-            var mainWindow = mocks.Stub<IMainWindow>();
-            IGui gui = StubFactory.CreateGuiStub(mocks);
-            gui.Stub(g => g.MainWindow).Return(mainWindow);
-            mocks.ReplayAll();
-
-            plugin.Gui = gui;
-
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            var context = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase, assessmentSection);
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            var context = new HydraulicBoundaryDatabaseContext(hydraulicBoundaryDatabase, new HydraulicBoundaryData(),
+                                                               new AssessmentSection(AssessmentSectionComposition.Dike));
 
             // Call
             IObjectProperties objectProperties = info.CreateInstance(context);
 
             // Assert
             Assert.IsInstanceOf<HydraulicBoundaryDatabaseProperties>(objectProperties);
-            Assert.AreSame(context.WrappedData, objectProperties.Data);
+            Assert.AreSame(hydraulicBoundaryDatabase, objectProperties.Data);
         }
     }
 }

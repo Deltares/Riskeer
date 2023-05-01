@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
@@ -68,57 +67,49 @@ namespace Riskeer.Integration.TestUtil
         public static AssessmentSection GetAssessmentSectionWithAllCalculationConfigurations(
             AssessmentSectionComposition composition = AssessmentSectionComposition.Dike)
         {
-            var random = new Random(21);
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
+            var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation();
             var assessmentSection = new AssessmentSection(composition)
             {
-                HydraulicBoundaryDatabase =
+                HydraulicBoundaryData =
                 {
-                    Locations =
+                    HydraulicBoundaryDatabases =
                     {
-                        hydraulicBoundaryLocation
+                        new HydraulicBoundaryDatabase
+                        {
+                            Locations =
+                            {
+                                hydraulicBoundaryLocation1,
+                                hydraulicBoundaryLocation2
+                            }
+                        }
                     }
                 }
             };
 
-            assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Add(new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1)
-            {
-                HydraulicBoundaryLocationCalculations =
-                {
-                    new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
-                }
-            });
-
-            assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Add(new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01)
-            {
-                HydraulicBoundaryLocationCalculations =
-                {
-                    new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
-                }
-            });
+            assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Add(new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1));
+            assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Add(new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01));
 
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
-                hydraulicBoundaryLocation
+                hydraulicBoundaryLocation1,
+                hydraulicBoundaryLocation2
             });
 
-            assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
-            assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
+            SetHydraulicBoundaryLocationCalculationsOutput(assessmentSection.WaterLevelCalculationsForSignalFloodingProbability);
+            SetHydraulicBoundaryLocationCalculationsOutput(assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability);
+            SetHydraulicBoundaryLocationCalculationsOutput(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.SelectMany(p => p.HydraulicBoundaryLocationCalculations));
+            SetHydraulicBoundaryLocationCalculationsOutput(assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.SelectMany(p => p.HydraulicBoundaryLocationCalculations));
 
-            assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.First()
-                             .HydraulicBoundaryLocationCalculations.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
-            assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.First()
-                             .HydraulicBoundaryLocationCalculations.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
-
-            SetFullyConfiguredFailureMechanism(assessmentSection.ClosingStructures, hydraulicBoundaryLocation);
-            SetFullyConfiguredFailureMechanism(assessmentSection.GrassCoverErosionInwards, hydraulicBoundaryLocation);
-            MacroStabilityInwardsTestDataGenerator.ConfigureFailureMechanismWithAllCalculationConfigurations(assessmentSection.MacroStabilityInwards, hydraulicBoundaryLocation);
-            SetFullyConfiguredFailureMechanism(assessmentSection.GrassCoverErosionOutwards, hydraulicBoundaryLocation);
-            SetFullyConfiguredFailureMechanism(assessmentSection.HeightStructures, hydraulicBoundaryLocation);
-            PipingTestDataGenerator.ConfigureFailureMechanismWithAllCalculationConfigurations(assessmentSection.Piping, hydraulicBoundaryLocation);
-            SetFullyConfiguredFailureMechanism(assessmentSection.StabilityPointStructures, hydraulicBoundaryLocation);
-            SetFullyConfiguredFailureMechanism(assessmentSection.StabilityStoneCover, hydraulicBoundaryLocation);
-            SetFullyConfiguredFailureMechanism(assessmentSection.WaveImpactAsphaltCover, hydraulicBoundaryLocation);
+            SetFullyConfiguredFailureMechanism(assessmentSection.ClosingStructures, hydraulicBoundaryLocation1);
+            SetFullyConfiguredFailureMechanism(assessmentSection.GrassCoverErosionInwards, hydraulicBoundaryLocation2);
+            MacroStabilityInwardsTestDataGenerator.ConfigureFailureMechanismWithAllCalculationConfigurations(assessmentSection.MacroStabilityInwards, hydraulicBoundaryLocation2);
+            SetFullyConfiguredFailureMechanism(assessmentSection.GrassCoverErosionOutwards, hydraulicBoundaryLocation1);
+            SetFullyConfiguredFailureMechanism(assessmentSection.HeightStructures, hydraulicBoundaryLocation1);
+            PipingTestDataGenerator.ConfigureFailureMechanismWithAllCalculationConfigurations(assessmentSection.Piping, hydraulicBoundaryLocation2);
+            SetFullyConfiguredFailureMechanism(assessmentSection.StabilityPointStructures, hydraulicBoundaryLocation1);
+            SetFullyConfiguredFailureMechanism(assessmentSection.StabilityStoneCover, hydraulicBoundaryLocation1);
+            SetFullyConfiguredFailureMechanism(assessmentSection.WaveImpactAsphaltCover, hydraulicBoundaryLocation1);
             SetFullyConfiguredFailureMechanism(assessmentSection.DuneErosion);
             SetFullyConfiguredFailureMechanism(assessmentSection.GrassCoverSlipOffInwards);
             SetFullyConfiguredFailureMechanism(assessmentSection.GrassCoverSlipOffOutwards);
@@ -317,6 +308,14 @@ namespace Riskeer.Integration.TestUtil
             }
 
             return assessmentSection;
+        }
+
+        private static void SetHydraulicBoundaryLocationCalculationsOutput(IEnumerable<HydraulicBoundaryLocationCalculation> locationCalculations)
+        {
+            foreach (HydraulicBoundaryLocationCalculation calculation in locationCalculations)
+            {
+                calculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(0);
+            }
         }
 
         private static void SetFullyConfiguredFailureMechanism(GrassCoverErosionInwardsFailureMechanism failureMechanism,

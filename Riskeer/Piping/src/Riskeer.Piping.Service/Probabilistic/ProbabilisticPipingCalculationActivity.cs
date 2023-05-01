@@ -92,8 +92,11 @@ namespace Riskeer.Piping.Service.Probabilistic
                 s => calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(
                     Math2D.ConvertPointsToLineSegments(s.Points)));
 
-            service.Calculate(calculation, failureMechanism.GeneralInput,
-                              HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
+            service.Calculate(calculation,
+                              failureMechanism.GeneralInput,
+                              HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                                  assessmentSection.HydraulicBoundaryData,
+                                  calculation.InputParameters.HydraulicBoundaryLocation),
                               section.Length);
         }
 

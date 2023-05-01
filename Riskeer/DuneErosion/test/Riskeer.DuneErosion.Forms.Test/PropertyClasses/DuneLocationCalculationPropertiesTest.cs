@@ -140,7 +140,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
                     CalculatedProbability = calculatedProbability,
                     CalculatedReliability = calculatedReliability
                 });
-            var duneLocation = new DuneLocation(id, name, new Point2D(x, y),
+            var duneLocation = new DuneLocation(name, new HydraulicBoundaryLocation(id, string.Empty, x, y),
                                                 new DuneLocation.ConstructionProperties
                                                 {
                                                     CoastalAreaId = coastalAreaId,
@@ -298,7 +298,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
         [TestCase(3.1, "3.1")]
         public void Offset_Always_FormatToString(double offset, string expectedPropertyValue)
         {
-            var duneLocation = new DuneLocation(1, "test", new Point2D(0, 0),
+            var duneLocation = new DuneLocation("test", new TestHydraulicBoundaryLocation(),
                                                 new DuneLocation.ConstructionProperties
                                                 {
                                                     Offset = offset
@@ -316,12 +316,12 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
         public void ToString_Always_ExpectedValue()
         {
             // Setup
-            var duneLocation = new DuneLocation(1, "Name", new Point2D(0.0, 1.1), new DuneLocation.ConstructionProperties());
+            var duneLocation = new DuneLocation("Name", new TestHydraulicBoundaryLocation(), new DuneLocation.ConstructionProperties());
             var duneLocationCalculation = new DuneLocationCalculation(duneLocation);
             var properties = new DuneLocationCalculationProperties(duneLocationCalculation);
 
             // Call
-            string result = properties.ToString();
+            var result = properties.ToString();
 
             // Assert
             Assert.AreEqual($"{duneLocation.Name} {duneLocation.Location}", result);

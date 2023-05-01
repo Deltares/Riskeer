@@ -53,7 +53,7 @@ namespace Riskeer.Common.Data.TestUtil
 
             ReferenceLine = new ReferenceLine();
 
-            HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            HydraulicBoundaryData = new HydraulicBoundaryData();
 
             WaterLevelCalculationsForUserDefinedTargetProbabilities = new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>
             {
@@ -85,7 +85,7 @@ namespace Riskeer.Common.Data.TestUtil
 
         public FailureMechanismContribution FailureMechanismContribution { get; }
 
-        public HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; }
+        public HydraulicBoundaryData HydraulicBoundaryData { get; }
 
         public BackgroundData BackgroundData { get; set; }
 
@@ -107,20 +107,6 @@ namespace Riskeer.Common.Data.TestUtil
         /// hydraulic boundary location calculations.</param>
         public void SetHydraulicBoundaryLocationCalculations(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations, bool setCalculationOutput = false)
         {
-            HydraulicBoundaryDatabase.Locations.Clear();
-            waterLevelCalculationsForSignalFloodingProbability.Clear();
-            waterLevelCalculationsForMaximumAllowableFloodingProbability.Clear();
-
-            foreach (HydraulicBoundaryLocationCalculationsForTargetProbability element in WaterLevelCalculationsForUserDefinedTargetProbabilities)
-            {
-                element.HydraulicBoundaryLocationCalculations.Clear();
-            }
-
-            foreach (HydraulicBoundaryLocationCalculationsForTargetProbability element in WaveHeightCalculationsForUserDefinedTargetProbabilities)
-            {
-                element.HydraulicBoundaryLocationCalculations.Clear();
-            }
-
             foreach (HydraulicBoundaryLocation hydraulicBoundaryLocation in hydraulicBoundaryLocations)
             {
                 AddHydraulicBoundaryLocation(hydraulicBoundaryLocation, setCalculationOutput);
@@ -139,8 +125,6 @@ namespace Riskeer.Common.Data.TestUtil
 
         private void AddHydraulicBoundaryLocation(HydraulicBoundaryLocation hydraulicBoundaryLocation, bool setCalculationOutput)
         {
-            HydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
-
             waterLevelCalculationsForSignalFloodingProbability.Add(CreateHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation, setCalculationOutput));
             waterLevelCalculationsForMaximumAllowableFloodingProbability.Add(CreateHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation, setCalculationOutput));
 

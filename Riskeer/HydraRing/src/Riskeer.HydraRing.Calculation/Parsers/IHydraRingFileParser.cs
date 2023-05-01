@@ -42,7 +42,8 @@ namespace Riskeer.HydraRing.Calculation.Parsers
         /// <item>contains illegal characters, or</item>
         /// <item>contains a colon which is not part of a volume identifier, or</item>
         /// <item>is too long.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         /// <exception cref="HydraRingFileParserException">Thrown when the HydraRing file parser 
         /// encounters an error while parsing HydraRing output.</exception>
         void Parse(string workingDirectory, int sectionId);

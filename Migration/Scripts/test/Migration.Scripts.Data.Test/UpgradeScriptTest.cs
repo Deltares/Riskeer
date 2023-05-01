@@ -81,7 +81,7 @@ namespace Migration.Scripts.Data.Test
             var upgradeScript = new TestUpgradeScript(fromVersion, toVersion);
 
             // Call
-            TestDelegate call = () => upgradeScript.Upgrade(sourceFilePath, "Filepath.ext");
+            TestDelegate call = () => upgradeScript.Upgrade(sourceFilePath, "filePath.ext");
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
@@ -100,7 +100,7 @@ namespace Migration.Scripts.Data.Test
             var upgradeScript = new TestUpgradeScript(fromVersion, toVersion);
 
             // Call
-            TestDelegate call = () => upgradeScript.Upgrade("Filepath.ext", targetFilePath);
+            TestDelegate call = () => upgradeScript.Upgrade("filePath.ext", targetFilePath);
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);

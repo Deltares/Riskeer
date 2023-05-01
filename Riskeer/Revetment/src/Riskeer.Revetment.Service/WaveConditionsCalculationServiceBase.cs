@@ -27,7 +27,6 @@ using Core.Common.Base.Data;
 using Core.Common.Base.IO;
 using log4net;
 using Riskeer.Common.Data.Hydraulics;
-using Riskeer.Common.IO.HydraRing;
 using Riskeer.Common.Service;
 using Riskeer.Common.Service.ValidationRules;
 using Riskeer.HydraRing.Calculation.Calculator;
@@ -74,29 +73,27 @@ namespace Riskeer.Revetment.Service
         /// </summary>
         /// <param name="waveConditionsInput">The input of the calculation.</param>
         /// <param name="assessmentLevel">The assessment level to use for determining water levels.</param>
-        /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database to validate.</param>
+        /// <param name="hydraulicBoundaryData">The hydraulic boundary data to validate.</param>
         /// <returns><c>true</c> if there were no validation errors; <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="waveConditionsInput"/> or
-        /// <paramref name="hydraulicBoundaryDatabase"/> is <c>null</c>.</exception>
+        /// <paramref name="hydraulicBoundaryData"/> is <c>null</c>.</exception>
         public static bool Validate(WaveConditionsInput waveConditionsInput,
                                     RoundedDouble assessmentLevel,
-                                    HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+                                    HydraulicBoundaryData hydraulicBoundaryData)
         {
             if (waveConditionsInput == null)
             {
                 throw new ArgumentNullException(nameof(waveConditionsInput));
             }
 
-            if (hydraulicBoundaryDatabase == null)
+            if (hydraulicBoundaryData == null)
             {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
+                throw new ArgumentNullException(nameof(hydraulicBoundaryData));
             }
 
             CalculationServiceHelper.LogValidationBegin();
 
-            string[] messages = ValidateInput(hydraulicBoundaryDatabase,
-                                              waveConditionsInput,
-                                              assessmentLevel);
+            string[] messages = ValidateInput(hydraulicBoundaryData, waveConditionsInput, assessmentLevel);
 
             CalculationServiceHelper.LogMessagesAsError(messages);
 
@@ -122,19 +119,17 @@ namespace Riskeer.Revetment.Service
         /// <param name="b">The 'b' factor decided on failure mechanism level.</param>
         /// <param name="c">The 'c' factor decided on failure mechanism level.</param>
         /// <param name="targetProbability">The target probability to use.</param>
-        /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database to perform the calculations with.</param>
+        /// <param name="hydraulicBoundaryData">The hydraulic boundary data to perform the calculations with.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="WaveConditionsOutput"/>.</returns>
-        /// <remarks>Preprocessing is disabled when the preprocessor directory equals <see cref="string.Empty"/>.</remarks>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="waveConditionsInput"/> or
-        /// <paramref name="hydraulicBoundaryDatabase"/> is <c>null</c>.</exception>
+        /// <paramref name="hydraulicBoundaryData"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when the hydraulic boundary database file path
         /// contains invalid characters.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
-        /// <item>No settings database file could be found at the location of the hydraulic boundary database file path
-        /// with the same name.</item>
-        /// <item>Unable to open settings database file.</item>
-        /// <item>Unable to read required data from database file.</item>
+        /// <item>no hydraulic boundary settings database could be found;</item>
+        /// <item>the hydraulic boundary settings database cannot be opened;</item>
+        /// <item>the required data cannot be read from the hydraulic boundary settings database.</item>
         /// </list>
         /// </exception>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs during
@@ -145,16 +140,16 @@ namespace Riskeer.Revetment.Service
                                                                             RoundedDouble b,
                                                                             RoundedDouble c,
                                                                             double targetProbability,
-                                                                            HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+                                                                            HydraulicBoundaryData hydraulicBoundaryData)
         {
             if (waveConditionsInput == null)
             {
                 throw new ArgumentNullException(nameof(waveConditionsInput));
             }
 
-            if (hydraulicBoundaryDatabase == null)
+            if (hydraulicBoundaryData == null)
             {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
+                throw new ArgumentNullException(nameof(hydraulicBoundaryData));
             }
 
             var calculationsFailed = 0;
@@ -174,7 +169,9 @@ namespace Riskeer.Revetment.Service
                     WaveConditionsOutput output = CalculateWaterLevel(waterLevel,
                                                                       a, b, c, targetProbability,
                                                                       waveConditionsInput,
-                                                                      HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase));
+                                                                      HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                                                                          hydraulicBoundaryData,
+                                                                          waveConditionsInput.HydraulicBoundaryLocation));
 
                     if (output != null)
                     {
@@ -205,32 +202,30 @@ namespace Riskeer.Revetment.Service
             return outputs;
         }
 
-        private static string[] ValidateInput(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
+        private static string[] ValidateInput(HydraulicBoundaryData hydraulicBoundaryData,
                                               WaveConditionsInput input,
                                               RoundedDouble assessmentLevel)
         {
-            var validationResults = new List<string>();
-
-            string databaseFilePathValidationProblem = HydraulicBoundaryDatabaseConnectionValidator.Validate(hydraulicBoundaryDatabase);
-            if (!string.IsNullOrEmpty(databaseFilePathValidationProblem))
+            if (input.HydraulicBoundaryLocation == null)
             {
-                validationResults.Add(databaseFilePathValidationProblem);
+                return new[]
+                {
+                    RiskeerCommonServiceResources.CalculationService_ValidateInput_No_hydraulic_boundary_location_selected
+                };
             }
 
-            string preprocessorDirectoryValidationProblem = HydraulicBoundaryDatabaseHelper.ValidatePreprocessorDirectory(hydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
-            if (!string.IsNullOrEmpty(preprocessorDirectoryValidationProblem))
+            string connectionValidationProblem = HydraulicBoundaryDataConnectionValidator.Validate(
+                hydraulicBoundaryData, input.HydraulicBoundaryLocation);
+
+            if (!string.IsNullOrEmpty(connectionValidationProblem))
             {
-                validationResults.Add(preprocessorDirectoryValidationProblem);
+                return new[]
+                {
+                    connectionValidationProblem
+                };
             }
 
-            if (validationResults.Any())
-            {
-                return validationResults.ToArray();
-            }
-
-            validationResults.AddRange(ValidateWaveConditionsInput(input, assessmentLevel));
-
-            return validationResults.ToArray();
+            return ValidateWaveConditionsInput(input, assessmentLevel).ToArray();
         }
 
         private void NotifyProgress(RoundedDouble waterLevel, int currentStepNumber, int totalStepsNumber)
@@ -251,15 +246,13 @@ namespace Riskeer.Revetment.Service
         /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> containing all data
         /// to perform a hydraulic boundary calculation.</param>
         /// <returns>A <see cref="WaveConditionsOutput"/> if the calculation was successful; or <c>null</c> if it was canceled.</returns>
-        /// <remarks>Preprocessing is disabled when the preprocessor directory equals <see cref="string.Empty"/>.</remarks>
         /// <exception cref="ArgumentException">Thrown when the hydraulic boundary database file path
         /// contains invalid characters.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
-        /// <item>No settings database file could be found at the location of the hydraulic boundary database file path
-        /// with the same name.</item>
-        /// <item>Unable to open settings database file.</item>
-        /// <item>Unable to read required data from database file.</item>
+        /// <item>no hydraulic boundary settings database could be found;</item>
+        /// <item>the hydraulic boundary settings database cannot be opened;</item>
+        /// <item>the required data cannot be read from the hydraulic boundary settings database.</item>
         /// </list>
         /// </exception>
         private WaveConditionsOutput CalculateWaterLevel(RoundedDouble waterLevel,
@@ -354,10 +347,9 @@ namespace Riskeer.Revetment.Service
         /// contains invalid characters.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
-        /// <item>No settings database file could be found at the location of the hydraulic boundary database file path 
-        /// with the same name.</item>
-        /// <item>Unable to open settings database file.</item>
-        /// <item>Unable to read required data from database file.</item>
+        /// <item>no hydraulic boundary settings database could be found;</item>
+        /// <item>the hydraulic boundary settings database cannot be opened;</item>
+        /// <item>the required data cannot be read from the hydraulic boundary settings database.</item>
         /// </list>
         /// </exception>
         private static WaveConditionsCosineCalculationInput CreateInput(RoundedDouble waterLevel,
@@ -380,9 +372,7 @@ namespace Riskeer.Revetment.Service
                 b,
                 c);
 
-            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(waveConditionsCosineCalculationInput,
-                                                                       calculationSettings.HydraulicBoundaryDatabaseFilePath,
-                                                                       !string.IsNullOrEmpty(calculationSettings.PreprocessorDirectory));
+            HydraRingSettingsHelper.AssignSettingsFromDatabase(waveConditionsCosineCalculationInput, calculationSettings.HrdFilePath);
 
             return waveConditionsCosineCalculationInput;
         }
@@ -392,11 +382,7 @@ namespace Riskeer.Revetment.Service
         {
             var messages = new List<string>();
 
-            if (input.HydraulicBoundaryLocation == null)
-            {
-                messages.Add(RiskeerCommonServiceResources.CalculationService_ValidateInput_No_hydraulic_boundary_location_selected);
-            }
-            else if (double.IsNaN(assessmentLevel))
+            if (double.IsNaN(assessmentLevel))
             {
                 messages.Add(Resources.WaveConditionsCalculationService_ValidateInput_No_AssessmentLevel_calculated);
             }

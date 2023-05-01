@@ -57,7 +57,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos.HydraulicLoad
     {
         private const int contextMenuCalculateAllIndex = 2;
 
-        private readonly string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, Path.Combine("HydraRingCalculation", "HRD ijsselmeer.sqlite"));
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
+        private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
 
         private MockRepository mocks;
         private WaveImpactAsphaltCoverPlugin plugin;
@@ -258,44 +260,15 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos.HydraulicLoad
         }
 
         [Test]
-        public void ContextMenuStrip_HydraulicBoundaryDatabaseNotLinked_CalculateAllDisabled()
-        {
-            // Setup
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-                failureMechanism.CalculationsGroup.Children.Add(new WaveImpactAsphaltCoverWaveConditionsCalculation());
-
-                IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-                var nodeData = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
-
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    ToolStripItem calculateItem = contextMenu.Items[contextMenuCalculateAllIndex];
-                    Assert.IsFalse(calculateItem.Enabled);
-                    Assert.AreEqual("Er is geen hydraulische belastingendatabase geïmporteerd.", calculateItem.ToolTipText);
-                }
-            }
-        }
-
-        [Test]
         public void GivenValidCalculations_WhenCalculatingAllFromContextMenu_ThenAllCalculationsScheduled()
         {
             // Given
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
 
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0);
+
+            IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput(hydraulicBoundaryLocation);
+
             WaveImpactAsphaltCoverWaveConditionsCalculation calculationA = GetValidCalculation(hydraulicBoundaryLocation);
             WaveImpactAsphaltCoverWaveConditionsCalculation calculationB = GetValidCalculation(hydraulicBoundaryLocation);
             List<ICalculationBase> calculations = failureMechanism.CalculationsGroup.Children;
@@ -320,7 +293,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos.HydraulicLoad
                                  .WhenCalled(invocation =>
                                  {
                                      HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
+                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                                             assessmentSection.HydraulicBoundaryData,
+                                             hydraulicBoundaryLocation),
                                          (HydraRingCalculationSettings) invocation.Arguments[0]);
                                  })
                                  .Return(new TestWaveConditionsCosineCalculator())
@@ -343,22 +318,29 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos.HydraulicLoad
             }
         }
 
-        private IAssessmentSection CreateAssessmentSectionWithHydraulicBoundaryOutput()
+        private static IAssessmentSection CreateAssessmentSectionWithHydraulicBoundaryOutput(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0);
-
             var assessmentSection = new AssessmentSectionStub
             {
-                HydraulicBoundaryDatabase =
+                HydraulicBoundaryData =
                 {
-                    FilePath = validFilePath,
-                    Locations =
+                    HydraulicLocationConfigurationDatabase =
                     {
-                        hydraulicBoundaryLocation
+                        FilePath = validHlcdFilePath
+                    },
+                    HydraulicBoundaryDatabases =
+                    {
+                        new HydraulicBoundaryDatabase
+                        {
+                            FilePath = validHrdFilePath,
+                            Locations =
+                            {
+                                hydraulicBoundaryLocation
+                            }
+                        }
                     }
                 }
             };
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {

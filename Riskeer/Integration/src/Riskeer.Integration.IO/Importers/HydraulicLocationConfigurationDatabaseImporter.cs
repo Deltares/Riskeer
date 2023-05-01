@@ -29,7 +29,6 @@ using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.Util.Builders;
 using Riskeer.Common.Data.Hydraulics;
-using Riskeer.Common.IO.HydraRing;
 using Riskeer.HydraRing.IO.HydraulicBoundaryDatabase;
 using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 using Riskeer.Integration.IO.Handlers;
@@ -41,24 +40,25 @@ namespace Riskeer.Integration.IO.Importers
     /// <summary>
     /// Importer for hydraulic location configuration database files.
     /// </summary>
-    public class HydraulicLocationConfigurationDatabaseImporter : FileImporterBase<HydraulicLocationConfigurationSettings>
+    public class HydraulicLocationConfigurationDatabaseImporter : FileImporterBase<HydraulicLocationConfigurationDatabase>
     {
-        private const int numberOfSteps = 3;
+        private readonly int numberOfSteps;
+
+        private readonly HydraulicBoundaryData hydraulicBoundaryData;
         private readonly List<IObservable> changedObservables = new List<IObservable>();
         private readonly IHydraulicLocationConfigurationDatabaseUpdateHandler updateHandler;
-        private readonly HydraulicBoundaryDatabase hydraulicBoundaryDatabase;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicLocationConfigurationDatabaseImporter"/>.
         /// </summary>
-        /// <param name="importTarget">The hydraulic location configuration settings to import to.</param>
-        /// <param name="updateHandler">The handler responsible for updating the <see cref="HydraulicLocationConfigurationSettings"/>.</param>
-        /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database the settings belong to.</param>
-        /// <param name="filePath">The path of the hydraulic location configuration settings file to import from.</param>
+        /// <param name="importTarget">The hydraulic location configuration database to import to.</param>
+        /// <param name="updateHandler">The handler responsible for updating the hydraulic location configuration database.</param>
+        /// <param name="hydraulicBoundaryData">The hydraulic boundary data the hydraulic location configuration database belongs to.</param>
+        /// <param name="filePath">The file path of the hydraulic location configuration database to import from.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public HydraulicLocationConfigurationDatabaseImporter(HydraulicLocationConfigurationSettings importTarget,
+        public HydraulicLocationConfigurationDatabaseImporter(HydraulicLocationConfigurationDatabase importTarget,
                                                               IHydraulicLocationConfigurationDatabaseUpdateHandler updateHandler,
-                                                              HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
+                                                              HydraulicBoundaryData hydraulicBoundaryData,
                                                               string filePath)
             : base(filePath, importTarget)
         {
@@ -67,13 +67,17 @@ namespace Riskeer.Integration.IO.Importers
                 throw new ArgumentNullException(nameof(updateHandler));
             }
 
-            if (hydraulicBoundaryDatabase == null)
+            if (hydraulicBoundaryData == null)
             {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
+                throw new ArgumentNullException(nameof(hydraulicBoundaryData));
             }
 
             this.updateHandler = updateHandler;
-            this.hydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+            this.hydraulicBoundaryData = hydraulicBoundaryData;
+
+            numberOfSteps = hydraulicBoundaryData.HydraulicBoundaryDatabases.Any()
+                                ? 3
+                                : 2;
         }
 
         protected override bool OnImport()
@@ -85,55 +89,56 @@ namespace Riskeer.Integration.IO.Importers
                 return false;
             }
 
-            if (Path.GetDirectoryName(FilePath) != Path.GetDirectoryName(hydraulicBoundaryDatabase.FilePath))
+            if (hydraulicBoundaryData.HydraulicBoundaryDatabases.Any()
+                && Path.GetDirectoryName(hydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath) != Path.GetDirectoryName(FilePath))
             {
-                Log.Error(BuildErrorMessage(FilePath, Resources.HydraulicLocationConfigurationDatabaseImporter_HLCD_not_in_same_folder_as_HRD));
+                Log.Error(BuildErrorMessage(FilePath, Resources.HydraulicLocationConfigurationDatabaseImporter_Hlcd_not_in_same_folder_as_Hrd));
                 return false;
             }
 
-            ReadResult<long> readTrackIdResult = ReadTrackId();
-
-            if (readTrackIdResult.CriticalErrorOccurred || Canceled)
-            {
-                return false;
-            }
-
-            ReadResult<ReadHydraulicLocationConfigurationDatabase> readHydraulicLocationConfigurationDatabaseResult = ReadHydraulicLocationConfigurationDatabase(
-                readTrackIdResult.Items.Single());
-
+            ReadResult<ReadHydraulicLocationConfigurationDatabase> readHydraulicLocationConfigurationDatabaseResult = ReadHydraulicLocationConfigurationDatabase();
             if (readHydraulicLocationConfigurationDatabaseResult.CriticalErrorOccurred || Canceled)
             {
                 return false;
             }
 
             ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = readHydraulicLocationConfigurationDatabaseResult.Items.Single();
-            if (readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings != null
-                && readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings.Count() != 1)
+            if (readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationSettings != null
+                && readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationSettings.Count() != 1)
             {
                 Log.Error(BuildErrorMessage(FilePath, Resources.HydraulicLocationConfigurationDatabaseImporter_Invalid_number_of_ScenarioInformation_entries));
                 return false;
             }
 
-            if (readHydraulicLocationConfigurationDatabase.UsePreprocessorClosure
-                && !File.Exists(HydraulicBoundaryDatabaseHelper.GetPreprocessorClosureFilePath(FilePath)))
+            var hydraulicBoundaryDatabaseLookup = new Dictionary<HydraulicBoundaryDatabase, long>();
+
+            if (hydraulicBoundaryData.HydraulicBoundaryDatabases.Any())
             {
-                Log.Error(BuildErrorMessage(FilePath, Resources.HydraulicBoundaryDatabaseImporter_PreprocessorClosure_sqlite_Not_Found));
-                return false;
+                NotifyProgress(Resources.HydraulicLocationConfigurationDatabaseImporter_ProgressText_Reading_Hrd_files, 2, numberOfSteps);
+
+                foreach (HydraulicBoundaryDatabase hydraulicBoundaryDatabase in hydraulicBoundaryData.HydraulicBoundaryDatabases)
+                {
+                    ReadResult<ReadHydraulicBoundaryDatabase> readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabase(hydraulicBoundaryDatabase);
+                    if (readHydraulicBoundaryDatabase.CriticalErrorOccurred || Canceled)
+                    {
+                        return false;
+                    }
+
+                    long hydraulicBoundaryDatabaseTrackId = readHydraulicBoundaryDatabase.Items.Single().TrackId;
+
+                    hydraulicBoundaryDatabaseLookup.Add(hydraulicBoundaryDatabase, hydraulicBoundaryDatabaseTrackId);
+                }
             }
 
-            IEnumerable<long> locationIds = hydraulicBoundaryDatabase.Locations.Select(l => l.Id);
-            long[] intersect = locationIds.Intersect(readHydraulicLocationConfigurationDatabase.LocationIdMappings.Select(l => l.HlcdLocationId))
-                                          .ToArray();
-
-            if (intersect.Length != locationIds.Count())
+            IEnumerable<long> currentLocationIds = hydraulicBoundaryData.GetLocations().Select(l => l.Id).ToArray();
+            IEnumerable<long> readLocationIds = readHydraulicLocationConfigurationDatabase.ReadHydraulicLocations.Select(l => l.HlcdLocationId);
+            if (currentLocationIds.Intersect(readLocationIds).Count() != currentLocationIds.Count())
             {
                 Log.Error(BuildErrorMessage(FilePath, Resources.HydraulicLocationConfigurationDatabaseImporter_Invalid_locationIds));
                 return false;
             }
 
-            AddHydraulicLocationConfigurationSettingsToDataModel(
-                readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings?.Single(),
-                readHydraulicLocationConfigurationDatabase.UsePreprocessorClosure);
+            SetReadHydraulicLocationConfigurationSettingsToDataModel(readHydraulicLocationConfigurationDatabase, hydraulicBoundaryDatabaseLookup);
 
             return true;
         }
@@ -153,31 +158,9 @@ namespace Riskeer.Integration.IO.Importers
             }
         }
 
-        private ReadResult<long> ReadTrackId()
+        private ReadResult<ReadHydraulicLocationConfigurationDatabase> ReadHydraulicLocationConfigurationDatabase()
         {
-            NotifyProgress(Resources.HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HRD_file, 1, numberOfSteps);
-            try
-            {
-                using (var reader = new HydraulicBoundaryDatabaseReader(hydraulicBoundaryDatabase.FilePath))
-                {
-                    return new ReadResult<long>(false)
-                    {
-                        Items = new[]
-                        {
-                            reader.ReadTrackId()
-                        }
-                    };
-                }
-            }
-            catch (Exception e) when (e is CriticalFileReadException || e is LineParseException)
-            {
-                return HandleCriticalFileReadError<long>(e);
-            }
-        }
-
-        private ReadResult<ReadHydraulicLocationConfigurationDatabase> ReadHydraulicLocationConfigurationDatabase(long trackId)
-        {
-            NotifyProgress(Resources.HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HLCD_file, 2, numberOfSteps);
+            NotifyProgress(Resources.HydraulicBoundaryDataImporter_ProgressText_Reading_Hlcd_file, 1, numberOfSteps);
             try
             {
                 using (var reader = new HydraulicLocationConfigurationDatabaseReader(FilePath))
@@ -186,7 +169,7 @@ namespace Riskeer.Integration.IO.Importers
                     {
                         Items = new[]
                         {
-                            reader.Read(trackId)
+                            reader.Read()
                         }
                     };
                 }
@@ -194,6 +177,27 @@ namespace Riskeer.Integration.IO.Importers
             catch (Exception e) when (e is CriticalFileReadException || e is LineParseException)
             {
                 return HandleCriticalFileReadError<ReadHydraulicLocationConfigurationDatabase>(e);
+            }
+        }
+
+        private ReadResult<ReadHydraulicBoundaryDatabase> ReadHydraulicBoundaryDatabase(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+        {
+            try
+            {
+                using (var reader = new HydraulicBoundaryDatabaseReader(hydraulicBoundaryDatabase.FilePath))
+                {
+                    return new ReadResult<ReadHydraulicBoundaryDatabase>(false)
+                    {
+                        Items = new[]
+                        {
+                            reader.Read()
+                        }
+                    };
+                }
+            }
+            catch (Exception e) when (e is CriticalFileReadException || e is LineParseException)
+            {
+                return HandleCriticalFileReadError<ReadHydraulicBoundaryDatabase>(e);
             }
         }
 
@@ -205,11 +209,12 @@ namespace Riskeer.Integration.IO.Importers
             }
         }
 
-        private void AddHydraulicLocationConfigurationSettingsToDataModel(ReadHydraulicLocationConfigurationDatabaseSettings readHydraulicLocationConfigurationDatabaseSettings,
-                                                                          bool usePrepocessorClosure)
+        private void SetReadHydraulicLocationConfigurationSettingsToDataModel(ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase,
+                                                                              IDictionary<HydraulicBoundaryDatabase, long> hydraulicBoundaryDatabaseLookup)
         {
-            NotifyProgress(RiskeerCommonIOResources.Importer_ProgressText_Adding_imported_data_to_AssessmentSection, 3, numberOfSteps);
-            changedObservables.AddRange(updateHandler.Update(hydraulicBoundaryDatabase, readHydraulicLocationConfigurationDatabaseSettings, usePrepocessorClosure, FilePath));
+            NotifyProgress(RiskeerCommonIOResources.Importer_ProgressText_Adding_imported_data_to_AssessmentSection, numberOfSteps, numberOfSteps);
+            changedObservables.AddRange(updateHandler.Update(hydraulicBoundaryData, readHydraulicLocationConfigurationDatabase,
+                                                             hydraulicBoundaryDatabaseLookup, FilePath));
         }
 
         private ReadResult<T> HandleCriticalFileReadError<T>(Exception e)

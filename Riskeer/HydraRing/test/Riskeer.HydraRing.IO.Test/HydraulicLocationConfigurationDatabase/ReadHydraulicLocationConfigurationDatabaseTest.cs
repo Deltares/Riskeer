@@ -19,10 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 
@@ -35,17 +33,20 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
         public void Constructor_ExpectedValues()
         {
             // Setup
-            IEnumerable<ReadHydraulicLocationMapping> locationIdMappings = Enumerable.Empty<ReadHydraulicLocationMapping>();
-            IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> databaseSettings = Enumerable.Empty<ReadHydraulicLocationConfigurationDatabaseSettings>();
-            bool usePreprocessorClosure = new Random(21).NextBoolean();
+            IEnumerable<ReadHydraulicLocation> readHydraulicLocations = Enumerable.Empty<ReadHydraulicLocation>();
+            IEnumerable<ReadHydraulicLocationConfigurationSettings> readHydraulicLocationConfigurationSettings =
+                Enumerable.Empty<ReadHydraulicLocationConfigurationSettings>();
+            IEnumerable<ReadTrack> readTracks = Enumerable.Empty<ReadTrack>();
 
             // Call
-            var readDatabase = new ReadHydraulicLocationConfigurationDatabase(locationIdMappings, databaseSettings, usePreprocessorClosure);
+            var readHydraulicLocationConfigurationDatabase = new ReadHydraulicLocationConfigurationDatabase(readHydraulicLocations,
+                                                                                                            readHydraulicLocationConfigurationSettings,
+                                                                                                            readTracks);
 
             // Assert
-            Assert.AreSame(locationIdMappings, readDatabase.LocationIdMappings);
-            Assert.AreSame(databaseSettings, readDatabase.ReadHydraulicLocationConfigurationDatabaseSettings);
-            Assert.AreEqual(usePreprocessorClosure, readDatabase.UsePreprocessorClosure);
+            Assert.AreSame(readHydraulicLocations, readHydraulicLocationConfigurationDatabase.ReadHydraulicLocations);
+            Assert.AreSame(readHydraulicLocationConfigurationSettings, readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationSettings);
+            Assert.AreSame(readTracks, readHydraulicLocationConfigurationDatabase.ReadTracks);
         }
     }
 }

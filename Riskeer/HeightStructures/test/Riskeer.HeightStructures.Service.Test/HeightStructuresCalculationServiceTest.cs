@@ -49,9 +49,8 @@ namespace Riskeer.HeightStructures.Service.Test
     public class HeightStructuresCalculationServiceTest
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
-        private static readonly string validHydraulicBoundaryDatabaseFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
         private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "Hlcd.sqlite");
-        private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -71,7 +70,7 @@ namespace Riskeer.HeightStructures.Service.Test
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(),
                                                                                                            mockRepository,
-                                                                                                           validHydraulicBoundaryDatabaseFilePath);
+                                                                                                           validHrdFilePath);
             mockRepository.ReplayAll();
 
             const string expectedValidationMessage = "De waarde voor 'Oriëntatie' moet een concreet getal zijn.";
@@ -80,7 +79,7 @@ namespace Riskeer.HeightStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(),
                     Structure = new TestHeightStructure()
                 }
             };
@@ -113,7 +112,7 @@ namespace Riskeer.HeightStructures.Service.Test
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(),
                                                                                                            mockRepository,
-                                                                                                           validHydraulicBoundaryDatabaseFilePath);
+                                                                                                           validHrdFilePath);
             mockRepository.ReplayAll();
 
             string expectedValidationMessage = $"De verwachtingswaarde voor '{parameterName}' moet een concreet getal zijn.";
@@ -122,7 +121,7 @@ namespace Riskeer.HeightStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2)
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First()
                 }
             };
 
@@ -157,7 +156,7 @@ namespace Riskeer.HeightStructures.Service.Test
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(),
                                                                                                            mockRepository,
-                                                                                                           validHydraulicBoundaryDatabaseFilePath);
+                                                                                                           validHrdFilePath);
             mockRepository.ReplayAll();
 
             string expectedValidationMessage = $"De verwachtingswaarde voor '{parameterName}' moet een positief getal zijn.";
@@ -166,7 +165,7 @@ namespace Riskeer.HeightStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2)
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First()
                 }
             };
 
@@ -204,7 +203,7 @@ namespace Riskeer.HeightStructures.Service.Test
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(),
                                                                                                            mockRepository,
-                                                                                                           validHydraulicBoundaryDatabaseFilePath);
+                                                                                                           validHrdFilePath);
             mockRepository.ReplayAll();
 
             string expectedValidationMessage = $"De standaardafwijking voor '{parameterName}' moet groter zijn dan of gelijk zijn aan 0.";
@@ -213,7 +212,7 @@ namespace Riskeer.HeightStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2)
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First()
                 }
             };
 
@@ -250,7 +249,7 @@ namespace Riskeer.HeightStructures.Service.Test
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(),
                                                                                                            mockRepository,
-                                                                                                           validHydraulicBoundaryDatabaseFilePath);
+                                                                                                           validHrdFilePath);
             mockRepository.ReplayAll();
 
             string expectedValidationMessage = $"De variatiecoëfficiënt voor '{parameterName}' moet groter zijn dan of gelijk zijn aan 0.";
@@ -259,7 +258,7 @@ namespace Riskeer.HeightStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2)
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First()
                 }
             };
 
@@ -295,14 +294,14 @@ namespace Riskeer.HeightStructures.Service.Test
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(),
                                                                                                            mockRepository,
-                                                                                                           validHydraulicBoundaryDatabaseFilePath);
+                                                                                                           validHrdFilePath);
             mockRepository.ReplayAll();
 
             var calculation = new TestHeightStructuresCalculationScenario
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(),
                     ForeshoreProfile = new TestForeshoreProfile(new BreakWater(BreakWaterType.Dam, breakWaterHeight)),
                     UseBreakWater = true
                 }
@@ -333,14 +332,14 @@ namespace Riskeer.HeightStructures.Service.Test
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(),
                                                                                                            mockRepository,
-                                                                                                           validHydraulicBoundaryDatabaseFilePath);
+                                                                                                           validHrdFilePath);
             mockRepository.ReplayAll();
 
             var calculation = new TestHeightStructuresCalculationScenario
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2)
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First()
                 }
             };
 
@@ -371,7 +370,9 @@ namespace Riskeer.HeightStructures.Service.Test
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository,
+                                                                                                           validHrdFilePath);
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(null))
@@ -383,7 +384,7 @@ namespace Riskeer.HeightStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     ForeshoreProfile = new TestForeshoreProfile(true),
                     UseBreakWater = true,
                     UseForeshore = true
@@ -439,7 +440,9 @@ namespace Riskeer.HeightStructures.Service.Test
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository,
+                                                                                                           validHrdFilePath);
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(null))
@@ -451,7 +454,7 @@ namespace Riskeer.HeightStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     ForeshoreProfile = new TestForeshoreProfile(true),
                     UseBreakWater = false,
                     UseForeshore = true
@@ -489,7 +492,9 @@ namespace Riskeer.HeightStructures.Service.Test
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository,
+                                                                                                           validHrdFilePath);
 
             var calculator = new TestStructuresCalculator<StructuresOvertoppingCalculationInput>();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -502,7 +507,7 @@ namespace Riskeer.HeightStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001)
                 }
             };
 
@@ -563,7 +568,9 @@ namespace Riskeer.HeightStructures.Service.Test
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository,
+                                                                                                           validHrdFilePath);
 
             var calculator = new TestStructuresCalculator<StructuresOvertoppingCalculationInput>();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -576,7 +583,7 @@ namespace Riskeer.HeightStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001),
                     ForeshoreProfile = new TestForeshoreProfile(true)
                     {
                         BreakWater =
@@ -637,7 +644,8 @@ namespace Riskeer.HeightStructures.Service.Test
 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository);
+                                                                                                           mockRepository,
+                                                                                                           validHrdFilePath);
 
             var calculator = new TestStructuresCalculator<StructuresOvertoppingCalculationInput>
             {
@@ -654,7 +662,7 @@ namespace Riskeer.HeightStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001)
                 }
             };
 
@@ -702,7 +710,8 @@ namespace Riskeer.HeightStructures.Service.Test
 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository);
+                                                                                                           mockRepository,
+                                                                                                           validHrdFilePath);
 
             var calculator = new TestStructuresCalculator<StructuresOvertoppingCalculationInput>
             {
@@ -718,7 +727,7 @@ namespace Riskeer.HeightStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001)
                 }
             };
 
@@ -766,7 +775,8 @@ namespace Riskeer.HeightStructures.Service.Test
 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository);
+                                                                                                           mockRepository,
+                                                                                                           validHrdFilePath);
 
             var calculator = new TestStructuresCalculator<StructuresOvertoppingCalculationInput>
             {
@@ -782,7 +792,7 @@ namespace Riskeer.HeightStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001)
                 }
             };
 
@@ -828,22 +838,17 @@ namespace Riskeer.HeightStructures.Service.Test
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Calculate_PreprocessorDirectorySet_InputPropertiesCorrectlySentToCalculator(bool usePreprocessor)
+        public void Calculate_HydraulicBoundaryCalculationSettingsSet_InputPropertiesCorrectlySentToCalculator(bool usePreprocessorClosure)
         {
             // Setup
-            string preprocessorDirectory = usePreprocessor
-                                               ? validPreprocessorDirectory
-                                               : string.Empty;
-            var calculationSettings = new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
-                                                                               validHlcdFilePath,
-                                                                               false,
-                                                                               preprocessorDirectory);
+            var calculationSettings = new HydraulicBoundaryCalculationSettings(validHlcdFilePath, validHrdFilePath, usePreprocessorClosure);
 
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository);
+                                                                                                           mockRepository,
+                                                                                                           validHrdFilePath);
             var calculator = new TestStructuresCalculator<StructuresOvertoppingCalculationInput>();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(
@@ -860,7 +865,7 @@ namespace Riskeer.HeightStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001)
                 }
             };
 
@@ -870,24 +875,15 @@ namespace Riskeer.HeightStructures.Service.Test
                 new HeightStructuresCalculationService().Calculate(calculation,
                                                                    failureMechanism.GeneralInput,
                                                                    calculationSettings);
-
-                // Assert
-                StructuresOvertoppingCalculationInput[] calculationInputs = calculator.ReceivedInputs.ToArray();
-                Assert.AreEqual(1, calculationInputs.Length);
-
-                StructuresOvertoppingCalculationInput actualInput = calculationInputs[0];
-                Assert.AreEqual(usePreprocessor, actualInput.PreprocessorSetting.RunPreprocessor);
             }
 
+            // Assert
             mockRepository.VerifyAll();
         }
 
         private static HydraulicBoundaryCalculationSettings CreateCalculationSettings()
         {
-            return new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
-                                                            validHlcdFilePath,
-                                                            false,
-                                                            string.Empty);
+            return new HydraulicBoundaryCalculationSettings(validHlcdFilePath, validHrdFilePath, false);
         }
 
         #region Test cases

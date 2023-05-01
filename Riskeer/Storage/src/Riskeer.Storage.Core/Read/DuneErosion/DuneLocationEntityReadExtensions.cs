@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Geometry;
 using Riskeer.DuneErosion.Data;
 using Riskeer.Storage.Core.DbContext;
 
@@ -56,8 +55,7 @@ namespace Riskeer.Storage.Core.Read.DuneErosion
                 return collector.Get(entity);
             }
 
-            var duneLocation = new DuneLocation(entity.LocationId, entity.Name,
-                                                new Point2D(entity.LocationX.ToNullAsNaN(), entity.LocationY.ToNullAsNaN()),
+            var duneLocation = new DuneLocation(entity.Name, entity.HydraulicLocationEntity.Read(collector),
                                                 new DuneLocation.ConstructionProperties
                                                 {
                                                     CoastalAreaId = entity.CoastalAreaId,

@@ -33,15 +33,10 @@ namespace Riskeer.HydraRing.Calculation.Data.Defaults
         /// </summary>
         /// <param name="mechanismId">The mechanism id.</param>
         /// <param name="subMechanismIds">The sub mechanism ids that are applicable.</param>
-        /// <param name="preprocessorFaultTreeModelId">The fault tree model id to be used when running the preprocessor.</param>
-        /// <param name="preprocessorMechanismId">The mechanism id to be used when running the preprocessor.</param>
-        public FailureMechanismDefaults(int mechanismId, IEnumerable<int> subMechanismIds,
-                                        int preprocessorFaultTreeModelId, int preprocessorMechanismId)
+        public FailureMechanismDefaults(int mechanismId, IEnumerable<int> subMechanismIds)
         {
             MechanismId = mechanismId;
             SubMechanismIds = subMechanismIds;
-            PreprocessorFaultTreeModelId = preprocessorFaultTreeModelId;
-            PreprocessorMechanismId = preprocessorMechanismId;
         }
 
         /// <summary>
@@ -53,20 +48,5 @@ namespace Riskeer.HydraRing.Calculation.Data.Defaults
         /// Gets the sub mechanism ids that are applicable.
         /// </summary>
         public IEnumerable<int> SubMechanismIds { get; }
-
-        /// <summary>
-        /// Gets the fault tree model id to be used when running the preprocessor.
-        /// </summary>
-        public int PreprocessorFaultTreeModelId { get; }
-
-        /// <summary>
-        /// Gets the mechanism id to be used when running the preprocessor.
-        /// </summary>
-        public int PreprocessorMechanismId { get; }
-
-        /// <summary>
-        /// Gets the sub mechanism id to be used when running the preprocessor.
-        /// </summary>
-        public int PreprocessorSubMechanismId => 7;
     }
 }

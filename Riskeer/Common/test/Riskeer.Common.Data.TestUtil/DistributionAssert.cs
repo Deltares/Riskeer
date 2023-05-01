@@ -42,7 +42,8 @@ namespace Riskeer.Common.Data.TestUtil
         /// <item>The probabilistic distribution types.</item>
         /// <item>The values for the mean and/or the standard deviation.</item>
         /// <item>The precision for the mean and/or the standard deviation.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         public static void AreEqual(IDistribution expectedDistribution, IDistribution actualDistribution)
         {
             Assert.AreEqual(expectedDistribution.GetType(), actualDistribution.GetType());
@@ -63,7 +64,8 @@ namespace Riskeer.Common.Data.TestUtil
         /// <item>The probabilistic distribution types.</item>
         /// <item>The values for the mean, the standard deviation and/or the shift.</item>
         /// <item>The precision for the mean, the standard deviation and/or the shift.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         public static void AreEqual(LogNormalDistribution expectedDistribution, LogNormalDistribution actualDistribution)
         {
             AreEqual((IDistribution) expectedDistribution, actualDistribution);
@@ -83,7 +85,8 @@ namespace Riskeer.Common.Data.TestUtil
         /// <item>The probabilistic distribution types.</item>
         /// <item>The values for the mean, the standard deviation, the lower boundary and/or the upper boundary.</item>
         /// <item>The precision for the mean, the standard deviation, the lower boundary and/or the upper boundary.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         public static void AreEqual(TruncatedNormalDistribution expectedDistribution, TruncatedNormalDistribution actualDistribution)
         {
             AreEqual((IDistribution) expectedDistribution, actualDistribution);
@@ -104,7 +107,8 @@ namespace Riskeer.Common.Data.TestUtil
         /// <item>The probabilistic distribution types.</item>
         /// <item>The values for the mean and/or the variation.</item>
         /// <item>The precision for the mean and/or the variation.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         public static void AreEqual(IVariationCoefficientDistribution expectedDistribution, IVariationCoefficientDistribution actualDistribution)
         {
             Assert.AreEqual(expectedDistribution.GetType(), actualDistribution.GetType());
@@ -125,7 +129,8 @@ namespace Riskeer.Common.Data.TestUtil
         /// <item>The probabilistic distribution types.</item>
         /// <item>The values for the mean and/or the variation.</item>
         /// <item>The precision for the mean, variation and/or shift.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         public static void AreEqual(VariationCoefficientLogNormalDistribution expectedDistribution, VariationCoefficientLogNormalDistribution actualDistribution)
         {
             AreEqual((IVariationCoefficientDistribution) expectedDistribution, actualDistribution);

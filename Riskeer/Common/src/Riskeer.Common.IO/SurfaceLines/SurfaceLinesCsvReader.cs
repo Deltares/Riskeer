@@ -294,7 +294,7 @@ namespace Riskeer.Common.IO.SurfaceLines
         /// </summary>
         /// <param name="tokenizedString">The tokenized string.</param>
         /// <param name="surfaceLineName">The name of the surface line whose coordinate values are being parsed.</param>
-        /// <returns></returns>
+        /// <returns>The parsed world coordinate values.</returns>
         /// <exception cref="LineParseException">Thrown when a parse error has occurred for the current row, which may be caused by:
         /// <list type="bullet">
         /// <item>The row contains a coordinate value that cannot be parsed as a double.</item>

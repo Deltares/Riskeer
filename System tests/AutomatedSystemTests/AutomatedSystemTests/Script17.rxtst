@@ -544,7 +544,7 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="pathToHBCInPE"
+					dataname="pathToHDInPE"
 					datasourceid="6e262def-ea48-4168-bbec-fd066c51ec61"
 					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
 					variablename="pathToItemInProjectExplorer">
@@ -794,6 +794,20 @@
 				<databinding>
 					<var
 					dataname="pathToSurfaceLinesInPE"
+					datasourceid="6e262def-ea48-4168-bbec-fd066c51ec61"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="4d4bd7ad-73cf-4cfa-9929-2b46c3eb6a5a"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToHRDInPE"
 					datasourceid="6e262def-ea48-4168-bbec-fd066c51ec61"
 					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
 					variablename="pathToItemInProjectExplorer">
@@ -1373,6 +1387,10 @@
 			name="GenerateCalculationsScenarios">
 			</smartfoldernode>
 			<smartfoldernode
+			id="7f63f984-8db5-43d2-aabb-27322349aa8c"
+			name="HLCD">
+			</smartfoldernode>
+			<smartfoldernode
 			id="7ffe4128-a68c-4b59-90ee-fdb9262eadda"
 			name="RunCalculationsRequiredHBCs">
 				<parameters>
@@ -1807,6 +1825,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="a813ea1d-a889-49ec-ad43-21d4738bcd61"
+			name="HRD">
+			</smartfoldernode>
 			<testmodule
 			id="a86d1a3a-c15b-44a3-92d7-fa9cec1e3838"
 			name="SelectGenericItemInProjectExplorer"
@@ -1904,6 +1926,20 @@
 					datasourceid="76ade4c8-14ce-4983-9111-1e8d5ba15a9f"
 					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
 					variablename="stateName">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="b7131214-d12c-407d-ab74-4c482caecbe6"
+			name="AddHRDFile"
+			ref="e9443dc8-83ae-41cf-a26f-36e5dbd3e114"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToHBCFile"
+					datasourceid="6e262def-ea48-4168-bbec-fd066c51ec61"
+					variableid="fb8a2c11-63e9-414f-85f9-04a5eb026a9f"
+					variablename="fileNameToOpen">
 					</var>
 				</databinding>
 			</testmodule>
@@ -2024,12 +2060,12 @@
 			</smartfoldernode>
 			<testmodule
 			id="ca2ab0af-c9f9-4d82-ac4a-424e9aced3ce"
-			name="CoupleCurrentItemToHBCDatabase"
+			name="SelectHLCDFile"
 			ref="354b1a8c-c247-4b13-920b-24ee0b2b997d"
 			type="Recording">
 				<databinding>
 					<var
-					dataname="pathToHBCFile"
+					dataname="pathToHLCDFile"
 					datasourceid="6e262def-ea48-4168-bbec-fd066c51ec61"
 					variableid="39671c14-75a2-44bf-95e5-209ad4946b5e"
 					variablename="fileNameToOpen">
@@ -2658,14 +2694,30 @@
 									<smartfoldernode
 									id="1987343c-9fd7-4fe7-88e0-45cbd939390d"
 									name="CoupleHBC">
-										<testmodule
-										id="3cd9e1c2-4f52-4ca2-bc2a-61d6fbe8a54d"
-										name="SelectGenericItemInProjectExplorer">
-										</testmodule>
-										<testmodule
-										id="ca2ab0af-c9f9-4d82-ac4a-424e9aced3ce"
-										name="CoupleCurrentItemToHBCDatabase">
-										</testmodule>
+										<smartfoldernode
+										id="7f63f984-8db5-43d2-aabb-27322349aa8c"
+										name="HLCD">
+											<testmodule
+											id="3cd9e1c2-4f52-4ca2-bc2a-61d6fbe8a54d"
+											name="SelectGenericItemInProjectExplorer">
+											</testmodule>
+											<testmodule
+											id="ca2ab0af-c9f9-4d82-ac4a-424e9aced3ce"
+											name="SelectHLCDFile">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="a813ea1d-a889-49ec-ad43-21d4738bcd61"
+										name="HRD">
+											<testmodule
+											id="4d4bd7ad-73cf-4cfa-9929-2b46c3eb6a5a"
+											name="SelectGenericItemInProjectExplorer">
+											</testmodule>
+											<testmodule
+											id="b7131214-d12c-407d-ab74-4c482caecbe6"
+											name="AddHRDFile">
+											</testmodule>
+										</smartfoldernode>
 									</smartfoldernode>
 									<smartfoldernode
 									id="7ffe4128-a68c-4b59-90ee-fdb9262eadda"
@@ -3287,7 +3339,10 @@
 					fullNameFM
 				</column>
 				<column>
-					pathToHBCInPE
+					pathToHDInPE
+				</column>
+				<column>
+					pathToHRDInPE
 				</column>
 				<column>
 					pathToHBCPreviousItemInPE
@@ -3324,6 +3379,9 @@
 				</column>
 				<column>
 					pathToShowAllNodesInFM
+				</column>
+				<column>
+					pathToHLCDFile
 				</column>
 				<column>
 					pathToHBCFile
@@ -3376,7 +3434,10 @@
 						fullNameFM
 					</th>
 					<th>
-						pathToHBCInPE
+						pathToHDInPE
+					</th>
+					<th>
+						pathToHRDInPE
 					</th>
 					<th>
 						pathToHBCPreviousItemInPE
@@ -3413,6 +3474,9 @@
 					</th>
 					<th>
 						pathToShowAllNodesInFM
+					</th>
+					<th>
+						pathToHLCDFile
 					</th>
 					<th>
 						pathToHBCFile
@@ -3462,10 +3526,13 @@
 						@STPH
 					</td>
 					<td>
-						12-2&gt;@HB
+						12-2&gt;@HD
 					</td>
 					<td>
-						12-2&gt;@HB&gt;Waterstanden bij vaste doelkans&gt;
+						12-2&gt;@HD&gt;HRD
+					</td>
+					<td>
+						12-2&gt;Waterstanden bij vaste doelkans&gt;
 					</td>
 					<td>
 						12-2&gt;@STPH
@@ -3496,6 +3563,9 @@
 					</td>
 					<td>
 						12-2&gt;@GEKB
+					</td>
+					<td>
+						X:\commonData\databases\WBI2017_IJsselmeer_12-2_v02\hlcd.sqlite
 					</td>
 					<td>
 						X:\commonData\databases\WBI2017_IJsselmeer_12-2_v02\WBI2017_IJsselmeer_12-2_v02.sqlite
@@ -3542,10 +3612,13 @@
 						@GEKB
 					</td>
 					<td>
-						12-2&gt;@HB
+						12-2&gt;@HD
 					</td>
 					<td>
-						12-2&gt;@HB&gt;Waterstanden bij vaste doelkans&gt;
+						12-2&gt;@HD&gt;HRD
+					</td>
+					<td>
+						12-2&gt;Waterstanden bij vaste doelkans&gt;
 					</td>
 					<td>
 						12-2&gt;@GEKB
@@ -3575,6 +3648,9 @@
 					</td>
 					<td>
 						12-2&gt;@STBI
+					</td>
+					<td>
+						X:\commonData\databases\WBI2017_IJsselmeer_12-2_v02\hlcd.sqlite
 					</td>
 					<td>
 						X:\commonData\databases\WBI2017_IJsselmeer_12-2_v02\WBI2017_IJsselmeer_12-2_v02.sqlite
@@ -3620,10 +3696,13 @@
 						@STBI
 					</td>
 					<td>
-						41-1&gt;@HB
+						41-1&gt;@HD
 					</td>
 					<td>
-						41-1&gt;@HB&gt;Waterstanden bij vaste doelkans&gt;
+						41-1&gt;@HD&gt;HRD
+					</td>
+					<td>
+						41-1&gt;Waterstanden bij vaste doelkans&gt;
 					</td>
 					<td>
 						41-1&gt;@STBI
@@ -3654,6 +3733,9 @@
 					</td>
 					<td>
 						41-1&gt;@HTKW
+					</td>
+					<td>
+						X:\commonData\databases\WBI2017_Bovenrijn_41-1_v04\hlcd.sqlite
 					</td>
 					<td>
 						X:\commonData\databases\WBI2017_Bovenrijn_41-1_v04\WBI2017_Bovenrijn_41-1_v04.sqlite
@@ -3700,10 +3782,13 @@
 						@HTKW
 					</td>
 					<td>
-						36-2&gt;@HB
+						36-2&gt;@HD
 					</td>
 					<td>
-						36-2&gt;@HB&gt;Waterstanden bij vaste doelkans&gt;
+						36-2&gt;@HD&gt;HRD
+					</td>
+					<td>
+						36-2&gt;Waterstanden bij vaste doelkans&gt;
 					</td>
 					<td>
 						36-2&gt;@HTKW
@@ -3734,6 +3819,9 @@
 					</td>
 					<td>
 						36-2&gt;@BSKW
+					</td>
+					<td>
+						X:\commonData\databases\WBI2017_Bovenmaas_36-2_v03\hlcd.sqlite
 					</td>
 					<td>
 						X:\commonData\databases\WBI2017_Bovenmaas_36-2_v03\WBI2017_Bovenmaas_36-2_v03.sqlite
@@ -3780,10 +3868,13 @@
 						@BSKW
 					</td>
 					<td>
-						34-1&gt;@HB
+						34-1&gt;@HD
 					</td>
 					<td>
-						34-1&gt;@HB&gt;Waterstanden bij vaste doelkans&gt;
+						34-1&gt;@HD&gt;HRD
+					</td>
+					<td>
+						34-1&gt;Waterstanden bij vaste doelkans&gt;
 					</td>
 					<td>
 						34-1&gt;@BSKW
@@ -3814,6 +3905,9 @@
 					</td>
 					<td>
 						34-1&gt;@STKWp
+					</td>
+					<td>
+						X:\commonData\databases\WBI2017_Benedenrijn_34-1_v04\hlcd.sqlite
 					</td>
 					<td>
 						X:\commonData\databases\WBI2017_Benedenrijn_34-1_v04\WBI2017_Benedenrijn_34-1_v04.sqlite
@@ -3860,10 +3954,13 @@
 						@STKWp
 					</td>
 					<td>
-						44-2&gt;@HB
+						44-2&gt;@HD
 					</td>
 					<td>
-						44-2&gt;@HB&gt;Waterstanden bij vaste doelkans&gt;
+						44-2&gt;@HD&gt;HRD
+					</td>
+					<td>
+						44-2&gt;Waterstanden bij vaste doelkans&gt;
 					</td>
 					<td>
 						44-2&gt;@STKWp
@@ -3894,6 +3991,9 @@
 					</td>
 					<td>
 						44-2&gt;@STKWp&gt;Berekeningen
+					</td>
+					<td>
+						X:\commonData\databases\WBI2017_Markermeer_13-9_13a-1_44-2_v02\hlcd.sqlite
 					</td>
 					<td>
 						X:\commonData\databases\WBI2017_Markermeer_13-9_13a-1_44-2_v02\WBI2017_Markermeer_13-9_13a-1_44-2_v02.sqlite
@@ -6044,6 +6144,9 @@
 			id="7efcd498-3cc0-422d-8f5e-5c7bb32be13c">
 			</testcontainer>
 			<testcontainer
+			id="7f63f984-8db5-43d2-aabb-27322349aa8c">
+			</testcontainer>
+			<testcontainer
 			id="7ffe4128-a68c-4b59-90ee-fdb9262eadda">
 			</testcontainer>
 			<testcontainer
@@ -6084,6 +6187,9 @@
 			</testcontainer>
 			<testcontainer
 			id="a560f7e3-2f09-4aa4-a961-64a558e6cc31">
+			</testcontainer>
+			<testcontainer
+			id="a813ea1d-a889-49ec-ad43-21d4738bcd61">
 			</testcontainer>
 			<testcontainer
 			id="acd8f11f-6a15-4223-9284-1a038c1c87b7">

@@ -41,8 +41,7 @@ namespace Riskeer.ClosingStructures.Service
 
         protected override StructuresClosureCalculationInput CreateInput(ClosingStructuresInput structureInput,
                                                                          GeneralClosingStructuresInput generalInput,
-                                                                         string hydraulicBoundaryDatabaseFilePath,
-                                                                         bool usePreprocessor)
+                                                                         string hrdFilePath)
         {
             ClosingStructureInflowModelType closingStructureInflowModelType = structureInput.InflowModelType;
             if (!Enum.IsDefined(typeof(ClosingStructureInflowModelType), closingStructureInflowModelType))
@@ -68,7 +67,8 @@ namespace Riskeer.ClosingStructures.Service
                     throw new NotSupportedException();
             }
 
-            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(input, hydraulicBoundaryDatabaseFilePath, usePreprocessor);
+            HydraRingSettingsHelper.AssignSettingsFromDatabase(input, hrdFilePath);
+
             return input;
         }
 

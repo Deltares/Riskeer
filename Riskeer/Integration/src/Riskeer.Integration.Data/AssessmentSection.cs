@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using Core.Common.Base;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data;
@@ -86,7 +87,7 @@ namespace Riskeer.Integration.Data
 
             ReferenceLine = new ReferenceLine();
 
-            HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            HydraulicBoundaryData = new HydraulicBoundaryData();
 
             SpecificFailureMechanisms = new ObservableList<SpecificFailureMechanism>();
             waterLevelCalculationsForSignalFloodingProbability = new ObservableList<HydraulicBoundaryLocationCalculation>();
@@ -211,7 +212,7 @@ namespace Riskeer.Integration.Data
 
         public FailureMechanismContribution FailureMechanismContribution { get; }
 
-        public HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; }
+        public HydraulicBoundaryData HydraulicBoundaryData { get; }
 
         public BackgroundData BackgroundData { get; }
 
@@ -227,11 +228,35 @@ namespace Riskeer.Integration.Data
                 throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
             }
 
-            ClearHydraulicBoundaryLocationCalculations();
-
             foreach (HydraulicBoundaryLocation hydraulicBoundaryLocation in hydraulicBoundaryLocations)
             {
                 AddHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocation);
+            }
+        }
+
+        /// <summary>
+        /// Removes hydraulic boundary location calculations for <paramref name="hydraulicBoundaryLocations"/>.
+        /// </summary>
+        /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations to remove calculations for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocations"/> is <c>null</c>.</exception>
+        public void RemoveHydraulicBoundaryLocationCalculations(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
+        {
+            if (hydraulicBoundaryLocations == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
+            }
+
+            RemoveHydraulicBoundaryLocationCalculations(waterLevelCalculationsForSignalFloodingProbability, hydraulicBoundaryLocations);
+            RemoveHydraulicBoundaryLocationCalculations(waterLevelCalculationsForMaximumAllowableFloodingProbability, hydraulicBoundaryLocations);
+
+            foreach (HydraulicBoundaryLocationCalculationsForTargetProbability element in WaterLevelCalculationsForUserDefinedTargetProbabilities)
+            {
+                RemoveHydraulicBoundaryLocationCalculations(element.HydraulicBoundaryLocationCalculations, hydraulicBoundaryLocations);
+            }
+
+            foreach (HydraulicBoundaryLocationCalculationsForTargetProbability element in WaveHeightCalculationsForUserDefinedTargetProbabilities)
+            {
+                RemoveHydraulicBoundaryLocationCalculations(element.HydraulicBoundaryLocationCalculations, hydraulicBoundaryLocations);
             }
         }
 
@@ -270,22 +295,6 @@ namespace Riskeer.Integration.Data
             SetFailureMechanismsToBeInAssembly();
         }
 
-        private void ClearHydraulicBoundaryLocationCalculations()
-        {
-            waterLevelCalculationsForSignalFloodingProbability.Clear();
-            waterLevelCalculationsForMaximumAllowableFloodingProbability.Clear();
-
-            foreach (HydraulicBoundaryLocationCalculationsForTargetProbability element in WaterLevelCalculationsForUserDefinedTargetProbabilities)
-            {
-                element.HydraulicBoundaryLocationCalculations.Clear();
-            }
-
-            foreach (HydraulicBoundaryLocationCalculationsForTargetProbability element in WaveHeightCalculationsForUserDefinedTargetProbabilities)
-            {
-                element.HydraulicBoundaryLocationCalculations.Clear();
-            }
-        }
-
         private void AddHydraulicBoundaryLocationCalculations(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             waterLevelCalculationsForSignalFloodingProbability.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
@@ -300,6 +309,12 @@ namespace Riskeer.Integration.Data
             {
                 element.HydraulicBoundaryLocationCalculations.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
             }
+        }
+
+        private static void RemoveHydraulicBoundaryLocationCalculations(List<HydraulicBoundaryLocationCalculation> locationCalculations,
+                                                                        IEnumerable<HydraulicBoundaryLocation> locations)
+        {
+            locationCalculations.RemoveAll(lc => locations.Contains(lc.HydraulicBoundaryLocation));
         }
 
         private void SetFailureMechanismsToBeInAssembly()

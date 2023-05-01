@@ -103,7 +103,8 @@ namespace Core.Gui.PropertyBag
         /// <item><paramref name="newValue"/> is of incorrect type.</item>
         /// <item>An error occurred while setting the property value. The <see cref="Exception.InnerException"/>
         /// property indicates the reason for the error.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         /// <exception cref="InvalidOperationException">Calling this method while property
         /// has no setter.</exception>
         /// <exception cref="TargetInvocationException">Calling the method resulted in an exception.</exception>
@@ -135,7 +136,8 @@ namespace Core.Gui.PropertyBag
         /// <item>Property is an instance property but <paramref name="instance"/> is <c>null</c>.</item>
         /// <item>An error occurred while setting the property value. The <see cref="Exception.InnerException"/>
         /// property indicates the reason for the error.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         /// <exception cref="InvalidOperationException">Thrown when calling this method while 
         /// property has no getter.</exception>
         public object GetValue(object instance)

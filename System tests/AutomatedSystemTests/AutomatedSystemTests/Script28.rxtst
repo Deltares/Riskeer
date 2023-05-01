@@ -209,7 +209,7 @@
 			</testmodule>
 			<smartfoldernode
 			id="130cc328-d315-4b75-8e3a-298818d922de"
-			name="ChangeHBCScenario">
+			name="ChangeHLCDScenario">
 			</smartfoldernode>
 			<smartfoldernode
 			id="14d397c1-324f-4fa3-aecb-be4fb37e36b1"
@@ -670,7 +670,7 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="pathToHBC"
+					dataname="pathToHLCDNodeInProjectExplorer"
 					datasourceid="bc55fa88-dfbc-42cd-8bfe-907b152450b4"
 					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
 					variablename="pathToItemInProjectExplorer">
@@ -2358,7 +2358,7 @@
 			</smartfoldernode>
 			<testmodule
 			id="b1f7a58d-f4e3-4c25-bcfa-79455f84af10"
-			name="SetNewHBCScenario"
+			name="ChangeHLCDFile"
 			ref="7d9b109b-9a86-4d14-949e-d6cd5cca905f"
 			type="Recording">
 				<databinding>
@@ -2367,12 +2367,6 @@
 					datasourceid="bc55fa88-dfbc-42cd-8bfe-907b152450b4"
 					variableid="38b85568-cab1-4341-a451-afeac06bdac5"
 					variablename="fileNameToOpen">
-					</var>
-					<var
-					dataname="parameterNameHLCDLocation"
-					datasourceid="bc55fa88-dfbc-42cd-8bfe-907b152450b4"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -2631,8 +2625,8 @@
 				<parameters>
 					<param
 					mask="False"
-					name="pathToHBC"
-					value="@TR>@HB">
+					name="pathToHLCDNodeInProjectExplorer"
+					value="@TR>@HD>hlcd">
 					</param>
 					<param
 					mask="False"
@@ -3518,14 +3512,14 @@
 									</smartfoldernode>
 									<smartfoldernode
 									id="130cc328-d315-4b75-8e3a-298818d922de"
-									name="ChangeHBCScenario">
+									name="ChangeHLCDScenario">
 										<testmodule
 										id="413eb0c1-c501-4cb7-950b-8d947c2fc496"
 										name="SelectGenericItemInProjectExplorer">
 										</testmodule>
 										<testmodule
 										id="b1f7a58d-f4e3-4c25-bcfa-79455f84af10"
-										name="SetNewHBCScenario">
+										name="ChangeHLCDFile">
 										</testmodule>
 									</smartfoldernode>
 									<smartfoldernode
@@ -4081,52 +4075,52 @@
 				</tr>
 				<tr>
 					<td>
-						X:\script28\reference\@TR_@HB_Waterstanden_bij_vaste_doelkans_1_300000A.csv
+						X:\script28\reference\@TR_Waterstanden_bij_vaste_doelkans_1_300000A.csv
 					</td>
 				</tr>
 				<tr>
 					<td>
-						X:\script28\reference\@TR_@HB_Waterstanden_bij_vaste_doelkans_1_300001B.csv
+						X:\script28\reference\@TR_Waterstanden_bij_vaste_doelkans_1_300001B.csv
 					</td>
 				</tr>
 				<tr>
 					<td>
-						X:\script28\reference\@TR_@HB_Waterstanden_bij_vaste_doelkans_1_3000045B.csv
+						X:\script28\reference\@TR_Waterstanden_bij_vaste_doelkans_1_3000045B.csv
 					</td>
 				</tr>
 				<tr>
 					<td>
-						X:\script28\reference\@TR_@HB_Waterstanden_bij_vrije_doelkans_1_150001A.csv
+						X:\script28\reference\@TR_Waterstanden_bij_vrije_doelkans_1_150001A.csv
 					</td>
 				</tr>
 				<tr>
 					<td>
-						X:\script28\reference\@TR_@HB_Waterstanden_bij_vrije_doelkans_1_150003A.csv
+						X:\script28\reference\@TR_Waterstanden_bij_vrije_doelkans_1_150003A.csv
 					</td>
 				</tr>
 				<tr>
 					<td>
-						X:\script28\reference\@TR_@HB_Waterstanden_bij_vrije_doelkans_1_180000B.csv
+						X:\script28\reference\@TR_Waterstanden_bij_vrije_doelkans_1_180000B.csv
 					</td>
 				</tr>
 				<tr>
 					<td>
-						X:\script28\reference\@TR_@HB_Waterstanden_bij_vrije_doelkans_1_180002B.csv
+						X:\script28\reference\@TR_Waterstanden_bij_vrije_doelkans_1_180002B.csv
 					</td>
 				</tr>
 				<tr>
 					<td>
-						X:\script28\reference\@TR_@HB_Golfhoogten_bij_vrije_doelkans_1_200000A.csv
+						X:\script28\reference\@TR_Golfhoogten_bij_vrije_doelkans_1_200000A.csv
 					</td>
 				</tr>
 				<tr>
 					<td>
-						X:\script28\reference\@TR_@HB_Golfhoogten_bij_vrije_doelkans_1_200001B.csv
+						X:\script28\reference\@TR_Golfhoogten_bij_vrije_doelkans_1_200001B.csv
 					</td>
 				</tr>
 				<tr>
 					<td>
-						X:\script28\reference\@TR_@HB_Golfhoogten_bij_vrije_doelkans_1_200002A.csv
+						X:\script28\reference\@TR_Golfhoogten_bij_vrije_doelkans_1_200002A.csv
 					</td>
 				</tr>
 				<tr>
@@ -4719,7 +4713,7 @@
 				</tr>
 				<tr>
 					<td>
-						@TR&gt;@HB&gt;Waterstanden bij vaste doelkans&gt;1/30000
+						@TR&gt;Waterstanden bij vaste doelkans&gt;1/30000
 					</td>
 					<td>
 						@HyB
@@ -4742,7 +4736,7 @@
 				</tr>
 				<tr>
 					<td>
-						@TR&gt;@HB&gt;Waterstanden bij vaste doelkans&gt;1/30000
+						@TR&gt;Waterstanden bij vaste doelkans&gt;1/30000
 					</td>
 					<td>
 						@HyB
@@ -4765,7 +4759,7 @@
 				</tr>
 				<tr>
 					<td>
-						@TR&gt;@HB&gt;Waterstanden bij vaste doelkans&gt;1/30000
+						@TR&gt;Waterstanden bij vaste doelkans&gt;1/30000
 					</td>
 					<td>
 						@HyB
@@ -4788,7 +4782,7 @@
 				</tr>
 				<tr>
 					<td>
-						@TR&gt;@HB&gt;Waterstanden bij vrije doelkans&gt;1/15000
+						@TR&gt;Waterstanden bij vrije doelkans&gt;1/15000
 					</td>
 					<td>
 						@HyB
@@ -4811,7 +4805,7 @@
 				</tr>
 				<tr>
 					<td>
-						@TR&gt;@HB&gt;Waterstanden bij vrije doelkans&gt;1/15000
+						@TR&gt;Waterstanden bij vrije doelkans&gt;1/15000
 					</td>
 					<td>
 						@HyB
@@ -4834,7 +4828,7 @@
 				</tr>
 				<tr>
 					<td>
-						@TR&gt;@HB&gt;Waterstanden bij vrije doelkans&gt;1/18000
+						@TR&gt;Waterstanden bij vrije doelkans&gt;1/18000
 					</td>
 					<td>
 						@HyB
@@ -4857,7 +4851,7 @@
 				</tr>
 				<tr>
 					<td>
-						@TR&gt;@HB&gt;Waterstanden bij vrije doelkans&gt;1/18000
+						@TR&gt;Waterstanden bij vrije doelkans&gt;1/18000
 					</td>
 					<td>
 						@HyB
@@ -4880,7 +4874,7 @@
 				</tr>
 				<tr>
 					<td>
-						@TR&gt;@HB&gt;Golfhoogten bij vrije doelkans&gt;1/20000
+						@TR&gt;Golfhoogten bij vrije doelkans&gt;1/20000
 					</td>
 					<td>
 						@HyB
@@ -4903,7 +4897,7 @@
 				</tr>
 				<tr>
 					<td>
-						@TR&gt;@HB&gt;Golfhoogten bij vrije doelkans&gt;1/20000
+						@TR&gt;Golfhoogten bij vrije doelkans&gt;1/20000
 					</td>
 					<td>
 						@HyB
@@ -4926,7 +4920,7 @@
 				</tr>
 				<tr>
 					<td>
-						@TR&gt;@HB&gt;Golfhoogten bij vrije doelkans&gt;1/20000
+						@TR&gt;Golfhoogten bij vrije doelkans&gt;1/20000
 					</td>
 					<td>
 						@HyB

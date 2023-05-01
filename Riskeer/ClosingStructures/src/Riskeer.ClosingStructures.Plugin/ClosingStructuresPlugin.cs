@@ -42,6 +42,7 @@ using Riskeer.ClosingStructures.Service;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms;
 using Riskeer.Common.Forms.ChangeHandlers;
@@ -247,7 +248,7 @@ namespace Riskeer.ClosingStructures.Plugin
                 (context, filePath) => new ClosingStructuresCalculationConfigurationImporter(
                     filePath,
                     context.WrappedData,
-                    context.AssessmentSection.HydraulicBoundaryDatabase.Locations,
+                    context.AssessmentSection.HydraulicBoundaryData.GetLocations(),
                     context.AvailableForeshoreProfiles,
                     context.AvailableStructures));
         }
@@ -405,12 +406,10 @@ namespace Riskeer.ClosingStructures.Plugin
                           .AddSeparator()
                           .AddValidateAllCalculationsInFailureMechanismItem(
                               context,
-                              ValidateAllInFailureMechanism,
-                              EnableValidateAndCalculateMenuItemForFailureMechanism)
+                              ValidateAllInFailureMechanism)
                           .AddPerformAllCalculationsInFailureMechanismItem(
                               context,
-                              CalculateAllInFailureMechanism,
-                              EnableValidateAndCalculateMenuItemForFailureMechanism)
+                              CalculateAllInFailureMechanism)
                           .AddSeparator()
                           .AddClearAllCalculationOutputInFailureMechanismItem(context.WrappedData)
                           .AddClearIllustrationPointsOfCalculationsInFailureMechanismItem(() => IllustrationPointsHelper.HasIllustrationPoints(calculations),
@@ -421,11 +420,6 @@ namespace Riskeer.ClosingStructures.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
-        }
-
-        private static string EnableValidateAndCalculateMenuItemForFailureMechanism(CalculationsStateFailureMechanismContext context)
-        {
-            return EnableValidateAndCalculateMenuItem(context.Parent);
         }
 
         private static void ValidateAllInFailureMechanism(CalculationsStateFailureMechanismContext context)
@@ -605,12 +599,10 @@ namespace Riskeer.ClosingStructures.Plugin
                    .AddSeparator()
                    .AddValidateAllCalculationsInGroupItem(
                        context,
-                       ValidateAllInCalculationGroup,
-                       EnableValidateAndCalculateMenuItemForCalculationGroup)
+                       ValidateAllInCalculationGroup)
                    .AddPerformAllCalculationsInGroupItem(
                        context,
-                       CalculateAllInCalculationGroup,
-                       EnableValidateAndCalculateMenuItemForCalculationGroup)
+                       CalculateAllInCalculationGroup)
                    .AddSeparator()
                    .AddClearAllCalculationOutputInGroupItem(group)
                    .AddClearIllustrationPointsOfCalculationsInGroupItem(() => IllustrationPointsHelper.HasIllustrationPoints(calculations),
@@ -720,11 +712,6 @@ namespace Riskeer.ClosingStructures.Plugin
             parentGroupContext.NotifyObservers();
         }
 
-        private static string EnableValidateAndCalculateMenuItemForCalculationGroup(ClosingStructuresCalculationGroupContext context)
-        {
-            return EnableValidateAndCalculateMenuItem(context.AssessmentSection);
-        }
-
         private static void ValidateAllInCalculationGroup(ClosingStructuresCalculationGroupContext context)
         {
             ValidateAll(context.WrappedData.GetCalculations().OfType<StructuresCalculation<ClosingStructuresInput>>(), context.AssessmentSection);
@@ -777,12 +764,10 @@ namespace Riskeer.ClosingStructures.Plugin
                           .AddSeparator()
                           .AddValidateCalculationItem(
                               context,
-                              Validate,
-                              EnableValidateAndCalculateMenuItemForCalculation)
+                              Validate)
                           .AddPerformCalculationItem<StructuresCalculationScenario<ClosingStructuresInput>, ClosingStructuresCalculationScenarioContext>(
                               context,
-                              Calculate,
-                              EnableValidateAndCalculateMenuItemForCalculation)
+                              Calculate)
                           .AddSeparator()
                           .AddClearCalculationOutputItem(calculation)
                           .AddClearIllustrationPointsOfCalculationItem(() => IllustrationPointsHelper.HasIllustrationPoints(calculation), changeHandler)
@@ -793,11 +778,6 @@ namespace Riskeer.ClosingStructures.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
-        }
-
-        private static string EnableValidateAndCalculateMenuItemForCalculation(ClosingStructuresCalculationScenarioContext context)
-        {
-            return EnableValidateAndCalculateMenuItem(context.AssessmentSection);
         }
 
         private static void Validate(ClosingStructuresCalculationScenarioContext context)
@@ -896,11 +876,6 @@ namespace Riskeer.ClosingStructures.Plugin
             {
                 ClosingStructuresCalculationService.Validate(calculation, assessmentSection);
             }
-        }
-
-        private static string EnableValidateAndCalculateMenuItem(IAssessmentSection assessmentSection)
-        {
-            return HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
         }
 
         #endregion

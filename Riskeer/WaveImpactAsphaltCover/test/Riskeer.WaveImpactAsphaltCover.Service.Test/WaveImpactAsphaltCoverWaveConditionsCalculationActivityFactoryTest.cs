@@ -47,7 +47,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
     public class WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactoryTest
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
-        private static readonly string validFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
+        private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
 
         [Test]
         public void CreateCalculationActivitiesForFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
@@ -81,10 +82,12 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
         public void CreateCalculationActivitiesForFailureMechanism_WithValidData_ExpectedInputSetToActivities()
         {
             // Setup
-            AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-            WaveImpactAsphaltCoverFailureMechanism failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName 1");
+
+            AssessmentSectionStub assessmentSection = CreateAssessmentSection(hydraulicBoundaryLocation);
+
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+
             SetHydraulicBoundaryLocationToAssessmentSection(assessmentSection, hydraulicBoundaryLocation);
 
             WaveImpactAsphaltCoverWaveConditionsCalculation calculation1 = CreateValidCalculation(hydraulicBoundaryLocation);
@@ -106,9 +109,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(WaveImpactAsphaltCoverWaveConditionsCalculationActivity));
             Assert.AreEqual(2, activities.Count());
             RoundedDouble assessmentLevel = assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.Single().Output.Result;
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
-            AssertWaveImpactAsphaltCoverWaveConditionsCalculationActivity(activities.ElementAt(0), calculation1, assessmentLevel, hydraulicBoundaryDatabase);
-            AssertWaveImpactAsphaltCoverWaveConditionsCalculationActivity(activities.ElementAt(1), calculation2, assessmentLevel, hydraulicBoundaryDatabase);
+            HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryData;
+            AssertWaveImpactAsphaltCoverWaveConditionsCalculationActivity(activities.ElementAt(0), calculation1, assessmentLevel, hydraulicBoundaryData);
+            AssertWaveImpactAsphaltCoverWaveConditionsCalculationActivity(activities.ElementAt(1), calculation2, assessmentLevel, hydraulicBoundaryData);
         }
 
         [Test]
@@ -168,10 +171,12 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
         public void CreateCalculationActivity_WithValidCalculation_ReturnsWaveImpactAsphaltCoverWaveConditionsCalculationActivityWithParametersSet()
         {
             // Setup
-            WaveImpactAsphaltCoverFailureMechanism failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+            AssessmentSectionStub assessmentSection = CreateAssessmentSection(hydraulicBoundaryLocation);
+
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+
             SetHydraulicBoundaryLocationToAssessmentSection(assessmentSection, hydraulicBoundaryLocation);
 
             WaveImpactAsphaltCoverWaveConditionsCalculation calculation = CreateValidCalculation(hydraulicBoundaryLocation);
@@ -186,7 +191,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
             AssertWaveImpactAsphaltCoverWaveConditionsCalculationActivity(activity,
                                                                           calculation,
                                                                           assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.Single().Output.Result,
-                                                                          assessmentSection.HydraulicBoundaryDatabase);
+                                                                          assessmentSection.HydraulicBoundaryData);
         }
 
         [Test]
@@ -244,11 +249,14 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
         public void CreateCalculationActivitiesForCalculationGroup_WithValidCalculations_ReturnsWaveImpactAsphaltCoverWaveConditionsCalculationActivitiesWithParametersSet()
         {
             // Setup
-            WaveImpactAsphaltCoverFailureMechanism failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+            AssessmentSectionStub assessmentSection = CreateAssessmentSection(hydraulicBoundaryLocation);
+
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+
             SetHydraulicBoundaryLocationToAssessmentSection(assessmentSection, hydraulicBoundaryLocation);
+
             WaveImpactAsphaltCoverWaveConditionsCalculation calculation1 = CreateValidCalculation(hydraulicBoundaryLocation);
             WaveImpactAsphaltCoverWaveConditionsCalculation calculation2 = CreateValidCalculation(hydraulicBoundaryLocation);
 
@@ -270,9 +278,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
             Assert.AreEqual(2, activities.Count());
 
             RoundedDouble assessmentLevel = assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.Single().Output.Result;
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
-            AssertWaveImpactAsphaltCoverWaveConditionsCalculationActivity(activities.First(), calculation1, assessmentLevel, hydraulicBoundaryDatabase);
-            AssertWaveImpactAsphaltCoverWaveConditionsCalculationActivity(activities.ElementAt(1), calculation2, assessmentLevel, hydraulicBoundaryDatabase);
+            HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryData;
+            AssertWaveImpactAsphaltCoverWaveConditionsCalculationActivity(activities.First(), calculation1, assessmentLevel, hydraulicBoundaryData);
+            AssertWaveImpactAsphaltCoverWaveConditionsCalculationActivity(activities.ElementAt(1), calculation2, assessmentLevel, hydraulicBoundaryData);
         }
 
         private static void SetHydraulicBoundaryLocationToAssessmentSection(AssessmentSectionStub assessmentSection, TestHydraulicBoundaryLocation hydraulicBoundaryLocation)
@@ -285,18 +293,29 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
             assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.Single().Output = new TestHydraulicBoundaryLocationCalculationOutput(2.0);
         }
 
-        private static AssessmentSectionStub CreateAssessmentSection()
+        private static AssessmentSectionStub CreateAssessmentSection(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            var assessmentSection = new AssessmentSectionStub
+            return new AssessmentSectionStub
             {
-                HydraulicBoundaryDatabase =
+                HydraulicBoundaryData =
                 {
-                    FilePath = validFilePath
+                    HydraulicLocationConfigurationDatabase =
+                    {
+                        FilePath = validHlcdFilePath
+                    },
+                    HydraulicBoundaryDatabases =
+                    {
+                        new HydraulicBoundaryDatabase
+                        {
+                            FilePath = validHrdFilePath,
+                            Locations =
+                            {
+                                hydraulicBoundaryLocation
+                            }
+                        }
+                    }
                 }
             };
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
-
-            return assessmentSection;
         }
 
         private static WaveImpactAsphaltCoverWaveConditionsCalculation CreateValidCalculation(HydraulicBoundaryLocation hydraulicBoundaryLocation)
@@ -327,7 +346,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
         private static void AssertWaveImpactAsphaltCoverWaveConditionsCalculationActivity(Activity activity,
                                                                                           WaveImpactAsphaltCoverWaveConditionsCalculation calculation,
                                                                                           RoundedDouble assessmentLevel,
-                                                                                          HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+                                                                                          HydraulicBoundaryData hydraulicBoundaryData)
         {
             var mocks = new MockRepository();
             var testCalculator = new TestWaveConditionsCosineCalculator();
@@ -338,7 +357,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
                              .WhenCalled(invocation =>
                              {
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase),
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                                         hydraulicBoundaryData,
+                                         calculation.InputParameters.HydraulicBoundaryLocation),
                                      (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(testCalculator)

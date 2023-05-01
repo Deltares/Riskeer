@@ -185,7 +185,7 @@
     <value>Er is een fout opgetreden tijdens de golfhoogte berekening voor locatie '{0}' ({1}). Bekijk het foutrapport door op details te klikken.
 {2}</value>
   </data>
-  <data name="HydraulicBoundaryDatabaseConnectionValidator_No_hydraulic_boundary_database_imported" xml:space="preserve">
+  <data name="HydraulicBoundaryDataConnectionValidator_No_hydraulic_boundary_database_imported" xml:space="preserve">
     <value>Er is geen hydraulische belastingendatabase geïmporteerd.</value>
   </data>
   <data name="Perform_calculation_with_name_0_" xml:space="preserve">

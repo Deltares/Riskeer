@@ -31,6 +31,7 @@ using Core.Common.Util.Extensions;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.Properties;
@@ -53,7 +54,7 @@ namespace Riskeer.Common.Forms.Views
         private int nameColumnIndex = -1;
         private int selectableHydraulicBoundaryLocationColumnIndex = -1;
 
-        private Observer hydraulicBoundaryLocationsObserver;
+        private Observer hydraulicBoundaryDatabasesObserver;
         private RecursiveObserver<CalculationGroup, TCalculationInput> inputObserver;
         private RecursiveObserver<CalculationGroup, TCalculation> calculationObserver;
         private RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
@@ -151,7 +152,7 @@ namespace Riskeer.Common.Forms.Views
                     inputObserver.Dispose();
                     calculationObserver.Dispose();
                     calculationGroupObserver.Dispose();
-                    hydraulicBoundaryLocationsObserver.Dispose();
+                    hydraulicBoundaryDatabasesObserver.Dispose();
                 }
 
                 components?.Dispose();
@@ -229,13 +230,13 @@ namespace Riskeer.Common.Forms.Views
         /// </summary>
         protected virtual void InitializeObservers()
         {
-            hydraulicBoundaryLocationsObserver = new Observer(() =>
+            hydraulicBoundaryDatabasesObserver = new Observer(() =>
             {
                 PrefillComboBoxListItemsAtColumnLevel();
                 UpdateComboBoxColumns();
             })
             {
-                Observable = AssessmentSection.HydraulicBoundaryDatabase.Locations
+                Observable = AssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases
             };
 
             // The concat is needed to observe the input of calculations in child groups.
@@ -419,7 +420,7 @@ namespace Riskeer.Common.Forms.Views
         private IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocations(Point2D referencePoint)
         {
             return SelectableHydraulicBoundaryLocationHelper.GetSortedSelectableHydraulicBoundaryLocations(
-                AssessmentSection.HydraulicBoundaryDatabase.Locations, referencePoint);
+                AssessmentSection.HydraulicBoundaryData.GetLocations(), referencePoint);
         }
 
         #endregion

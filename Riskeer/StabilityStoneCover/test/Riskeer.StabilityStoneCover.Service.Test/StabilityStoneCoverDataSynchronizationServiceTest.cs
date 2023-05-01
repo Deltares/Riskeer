@@ -28,6 +28,7 @@ using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Service;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.StabilityStoneCover.Data.TestUtil;
@@ -38,42 +39,81 @@ namespace Riskeer.StabilityStoneCover.Service.Test
     public class StabilityStoneCoverDataSynchronizationServiceTest
     {
         [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_FailureMechanismNull_ThrowsArgumentNullException()
+        public void ClearCalculationOutputAndHydraulicBoundaryLocations_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => StabilityStoneCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(null);
+            void Call() => StabilityStoneCoverDataSynchronizationService.ClearWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(
+                null, Enumerable.Empty<HydraulicBoundaryLocation>());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
         [Test]
-        public void ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations_WithVariousCalculations_ClearsCalculationsAndReturnsAffectedObjects()
+        public void ClearCalculationOutputAndHydraulicBoundaryLocations_HydraulicBoundaryLocationsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => StabilityStoneCoverDataSynchronizationService.ClearWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(
+                new StabilityStoneCoverFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("hydraulicBoundaryLocations", exception.ParamName);
+        }
+
+        [Test]
+        public void ClearWaveConditionsCalculationOutputAndHydraulicBoundaryLocations_WithVariousCalculations_ClearsCalculationsAndReturnsAffectedObjects()
         {
             // Setup
-            StabilityStoneCoverFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
-            StabilityStoneCoverWaveConditionsCalculation[] calculations = failureMechanism.Calculations.Cast<StabilityStoneCoverWaveConditionsCalculation>().ToArray();
-            IObservable[] expectedAffectedCalculations = calculations.Where(c => c.HasOutput)
-                                                                     .Cast<IObservable>()
-                                                                     .ToArray();
-            IObservable[] expectedAffectedCalculationInputs = calculations.Select(c => c.InputParameters)
-                                                                          .Where(i => i.HydraulicBoundaryLocation != null)
-                                                                          .Cast<IObservable>()
-                                                                          .ToArray();
+            var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
+            var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation();
+
+            StabilityStoneCoverFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism(hydraulicBoundaryLocation1);
+            failureMechanism.CalculationsGroup.Children.AddRange(new[]
+            {
+                new StabilityStoneCoverWaveConditionsCalculation
+                {
+                    InputParameters =
+                    {
+                        HydraulicBoundaryLocation = hydraulicBoundaryLocation2
+                    }
+                },
+                new StabilityStoneCoverWaveConditionsCalculation
+                {
+                    InputParameters =
+                    {
+                        HydraulicBoundaryLocation = hydraulicBoundaryLocation2
+                    },
+                    Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create()
+                }
+            });
+
+            StabilityStoneCoverWaveConditionsCalculation[] calculations = failureMechanism.Calculations.Cast<StabilityStoneCoverWaveConditionsCalculation>()
+                                                                                          .ToArray();
+
+            StabilityStoneCoverWaveConditionsCalculation[] expectedAffectedCalculations = calculations.Where(
+                c => c.InputParameters.HydraulicBoundaryLocation == hydraulicBoundaryLocation1
+                     && c.HasOutput).ToArray();
+
+            var expectedAffectedItems = new List<IObservable>(expectedAffectedCalculations);
+            expectedAffectedItems.AddRange(calculations.Select(c => c.InputParameters)
+                                                       .Where(i => i.HydraulicBoundaryLocation == hydraulicBoundaryLocation1));
 
             // Call
-            IEnumerable<IObservable> affectedItems =
-                StabilityStoneCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
+            IEnumerable<IObservable> affectedItems = StabilityStoneCoverDataSynchronizationService.ClearWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(
+                failureMechanism, new[]
+                {
+                    hydraulicBoundaryLocation1
+                });
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
-            Assert.IsTrue(failureMechanism.Calculations.Cast<StabilityStoneCoverWaveConditionsCalculation>()
-                                          .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
+            Assert.IsTrue(expectedAffectedCalculations.All(c => !c.HasOutput && c.InputParameters.HydraulicBoundaryLocation == null));
+            Assert.IsTrue(calculations.All(c => c.InputParameters.HydraulicBoundaryLocation != hydraulicBoundaryLocation1));
 
-            CollectionAssert.AreEquivalent(expectedAffectedCalculations.Concat(expectedAffectedCalculationInputs),
-                                           affectedItems);
+            CollectionAssert.AreEquivalent(expectedAffectedItems, affectedItems);
         }
 
         [Test]
@@ -167,7 +207,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
             CollectionAssert.AreEquivalent(expectedRemovedObjects, results.RemovedObjects);
         }
 
-        private static StabilityStoneCoverFailureMechanism CreateFullyConfiguredFailureMechanism()
+        private static StabilityStoneCoverFailureMechanism CreateFullyConfiguredFailureMechanism(HydraulicBoundaryLocation hydraulicBoundaryLocation = null)
         {
             var section1 = new FailureMechanismSection("A", new[]
             {
@@ -187,7 +227,10 @@ namespace Riskeer.StabilityStoneCover.Service.Test
                 section2
             }, "some/path/to/sections");
 
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
+            if (hydraulicBoundaryLocation == null)
+            {
+                hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            }
 
             var calculation = new StabilityStoneCoverWaveConditionsCalculation();
             var calculationWithOutput = new StabilityStoneCoverWaveConditionsCalculation

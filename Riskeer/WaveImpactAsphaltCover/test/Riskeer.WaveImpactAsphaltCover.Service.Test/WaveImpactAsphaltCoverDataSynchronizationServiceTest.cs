@@ -28,6 +28,7 @@ using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Service;
 using Riskeer.Revetment.Data;
 using Riskeer.WaveImpactAsphaltCover.Data;
@@ -38,44 +39,81 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
     public class WaveImpactAsphaltCoverDataSynchronizationServiceTest
     {
         [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_FailureMechanismNull_ThrowsArgumentNullException()
+        public void ClearCalculationOutputAndHydraulicBoundaryLocations_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () =>
-                WaveImpactAsphaltCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(null);
+            void Call() => WaveImpactAsphaltCoverDataSynchronizationService.ClearWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(
+                null, Enumerable.Empty<HydraulicBoundaryLocation>());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
         [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_WithVariousCalculations_ClearsOutputAndReturnsAffectedObjects()
+        public void ClearWaveConditionsCalculationOutputAndHydraulicBoundaryLocations_HydraulicBoundaryLocationsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => WaveImpactAsphaltCoverDataSynchronizationService.ClearWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(
+                new WaveImpactAsphaltCoverFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("hydraulicBoundaryLocations", exception.ParamName);
+        }
+
+        [Test]
+        public void ClearCalculationOutputAndHydraulicBoundaryLocations_WithVariousCalculations_ClearsOutputAndReturnsAffectedObjects()
         {
             // Setup
-            WaveImpactAsphaltCoverFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
-            WaveImpactAsphaltCoverWaveConditionsCalculation[] calculations = failureMechanism.Calculations.Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>().ToArray();
-            IObservable[] expectedAffectedCalculations = calculations.Where(c => c.HasOutput)
-                                                                     .Cast<IObservable>()
-                                                                     .ToArray();
-            IObservable[] expectedAffectedCalculationInputs = calculations.Select(c => c.InputParameters)
-                                                                          .Where(i => i.HydraulicBoundaryLocation != null)
-                                                                          .Cast<IObservable>()
-                                                                          .ToArray();
+            var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
+            var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation();
+
+            WaveImpactAsphaltCoverFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism(hydraulicBoundaryLocation1);
+            failureMechanism.CalculationsGroup.Children.AddRange(new[]
+            {
+                new WaveImpactAsphaltCoverWaveConditionsCalculation
+                {
+                    InputParameters =
+                    {
+                        HydraulicBoundaryLocation = hydraulicBoundaryLocation2
+                    }
+                },
+                new WaveImpactAsphaltCoverWaveConditionsCalculation
+                {
+                    InputParameters =
+                    {
+                        HydraulicBoundaryLocation = hydraulicBoundaryLocation2
+                    },
+                    Output = new WaveImpactAsphaltCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
+                }
+            });
+
+            WaveImpactAsphaltCoverWaveConditionsCalculation[] calculations = failureMechanism.Calculations.Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
+                                                                                             .ToArray();
+
+            IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> expectedAffectedCalculations = calculations.Where(
+                c => c.InputParameters.HydraulicBoundaryLocation == hydraulicBoundaryLocation1
+                     && c.HasOutput).ToArray();
+
+            var expectedAffectedItems = new List<IObservable>(expectedAffectedCalculations);
+            expectedAffectedItems.AddRange(calculations.Select(c => c.InputParameters)
+                                                       .Where(i => i.HydraulicBoundaryLocation == hydraulicBoundaryLocation1));
 
             // Call
-            IEnumerable<IObservable> affectedItems =
-                WaveImpactAsphaltCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
+            IEnumerable<IObservable> affectedItems = WaveImpactAsphaltCoverDataSynchronizationService.ClearWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(
+                failureMechanism, new[]
+                {
+                    hydraulicBoundaryLocation1
+                });
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
-            Assert.IsTrue(failureMechanism.Calculations.Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
-                                          .All(c => c.InputParameters.HydraulicBoundaryLocation == null
-                                                    && !c.HasOutput));
+            Assert.IsTrue(expectedAffectedCalculations.All(c => !c.HasOutput && c.InputParameters.HydraulicBoundaryLocation == null));
+            Assert.IsTrue(calculations.All(c => c.InputParameters.HydraulicBoundaryLocation != hydraulicBoundaryLocation1));
 
-            CollectionAssert.AreEquivalent(expectedAffectedCalculations.Concat(expectedAffectedCalculationInputs),
-                                           affectedItems);
+            CollectionAssert.AreEquivalent(expectedAffectedItems, affectedItems);
         }
 
         [Test]
@@ -153,7 +191,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
             CollectionAssert.AreEquivalent(expectedRemovedObjects, results.RemovedObjects);
         }
 
-        private static WaveImpactAsphaltCoverFailureMechanism CreateFullyConfiguredFailureMechanism()
+        private static WaveImpactAsphaltCoverFailureMechanism CreateFullyConfiguredFailureMechanism(HydraulicBoundaryLocation hydraulicBoundaryLocation = null)
         {
             var section1 = new FailureMechanismSection("A", new[]
             {
@@ -173,7 +211,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
                 section2
             }, "some/path/to/sections");
 
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
+            if (hydraulicBoundaryLocation == null)
+            {
+                hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            }
 
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
             var calculationWithOutput = new WaveImpactAsphaltCoverWaveConditionsCalculation

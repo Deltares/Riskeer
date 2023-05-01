@@ -61,7 +61,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         private const int contextMenuAddTargetProbabilityIndex = 2;
         private const int contextMenuRunWaveHeightCalculationsIndex = 4;
         private const int contextMenuClearIllustrationPointsIndex = 6;
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
+
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
+        private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -266,9 +269,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
                         TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRunWaveHeightCalculationsIndex,
                                                                       "Alles be&rekenen",
-                                                                      "Er is geen hydraulische belastingendatabase geïmporteerd.",
-                                                                      RiskeerCommonFormsResources.CalculateAllIcon,
-                                                                      false);
+                                                                      "Alle golfhoogten berekenen.",
+                                                                      RiskeerCommonFormsResources.CalculateAllIcon);
 
                         TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearIllustrationPointsIndex,
                                                                       "Wis alle illustratiepunten...",
@@ -289,12 +291,18 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Given
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase =
+                HydraulicBoundaryData =
                 {
-                    Locations =
+                    HydraulicBoundaryDatabases =
                     {
-                        new TestHydraulicBoundaryLocation("Location 1"),
-                        new TestHydraulicBoundaryLocation("Location 2")
+                        new HydraulicBoundaryDatabase
+                        {
+                            Locations =
+                            {
+                                new TestHydraulicBoundaryLocation("Location 1"),
+                                new TestHydraulicBoundaryLocation("Location 2")
+                            }
+                        }
                     }
                 }
             };
@@ -342,105 +350,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_HydraulicBoundaryDatabaseNotLinked_ContextMenuItemCalculateAllDisabledAndTooltipSet()
-        {
-            // Setup
-            IAssessmentSection assessmentSection = new AssessmentSectionStub();
-
-            var calculationsForTargetProbabilities = new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>
-            {
-                new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1)
-            };
-
-            var nodeData = new WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext(calculationsForTargetProbabilities, assessmentSection);
-
-            var mockRepository = new MockRepository();
-            using (var treeViewControl = new TreeViewControl())
-            {
-                IGui gui = StubFactory.CreateGuiStub(mockRepository);
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(cmp => cmp.MainWindow).Return(mockRepository.Stub<IMainWindow>());
-                mockRepository.ReplayAll();
-
-                using (var plugin = new RiskeerPlugin())
-                {
-                    TreeNodeInfo info = GetInfo(plugin);
-                    plugin.Gui = gui;
-
-                    // Precondition
-                    Assert.IsFalse(assessmentSection.HydraulicBoundaryDatabase.IsLinked());
-
-                    // Call
-                    using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                    {
-                        // Assert
-                        ToolStripItem contextMenuItem = contextMenu.Items[contextMenuRunWaveHeightCalculationsIndex];
-
-                        Assert.AreEqual("Alles be&rekenen", contextMenuItem.Text);
-                        StringAssert.Contains("Er is geen hydraulische belastingendatabase geïmporteerd.", contextMenuItem.ToolTipText);
-                        TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.CalculateAllIcon, contextMenuItem.Image);
-                        Assert.IsFalse(contextMenuItem.Enabled);
-                    }
-                }
-            }
-
-            mockRepository.VerifyAll(); // Expect no calls on arguments
-        }
-
-        [Test]
-        public void ContextMenuStrip_HydraulicBoundaryDatabaseLinkedToInvalidFile_ContextMenuItemCalculateAllDisabledAndTooltipSet()
-        {
-            // Setup
-            IAssessmentSection assessmentSection = new AssessmentSectionStub();
-            assessmentSection.HydraulicBoundaryDatabase.FilePath = "invalidFilePath";
-
-            var calculationsForTargetProbabilities = new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>
-            {
-                new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1)
-            };
-
-            var nodeData = new WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext(calculationsForTargetProbabilities, assessmentSection);
-
-            var mockRepository = new MockRepository();
-            using (var treeViewControl = new TreeViewControl())
-            {
-                IGui gui = StubFactory.CreateGuiStub(mockRepository);
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(cmp => cmp.MainWindow).Return(mockRepository.Stub<IMainWindow>());
-                mockRepository.ReplayAll();
-
-                using (var plugin = new RiskeerPlugin())
-                {
-                    TreeNodeInfo info = GetInfo(plugin);
-
-                    plugin.Gui = gui;
-
-                    // Call
-                    using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                    {
-                        // Assert
-                        ToolStripItem contextMenuItem = contextMenu.Items[contextMenuRunWaveHeightCalculationsIndex];
-
-                        Assert.AreEqual("Alles be&rekenen", contextMenuItem.Text);
-                        StringAssert.Contains("Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt.", contextMenuItem.ToolTipText);
-                        TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.CalculateAllIcon, contextMenuItem.Image);
-                        Assert.IsFalse(contextMenuItem.Enabled);
-                    }
-                }
-            }
-
-            mockRepository.VerifyAll(); // Expect no calls on arguments
-        }
-
-        [Test]
         public void ContextMenuStrip_AllRequiredInputSet_ContextMenuItemCalculateAllEnabled()
         {
             // Setup
             IAssessmentSection assessmentSection = new AssessmentSectionStub();
-            assessmentSection.HydraulicBoundaryDatabase.FilePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
-                                                                                                           nameof(HydraulicBoundaryDatabase)),
-                                                                                "complete.sqlite");
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             var calculationsForTargetProbabilities = new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>
             {
@@ -568,18 +481,31 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void GivenValidCalculations_WhenCalculatingAllFromContextMenu_ThenLogMessagesAddedOutputSet()
         {
             // Given
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
+
             var mockRepository = new MockRepository();
             var assessmentSection = new AssessmentSectionStub
             {
-                HydraulicBoundaryDatabase =
+                HydraulicBoundaryData =
                 {
-                    FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite")
+                    HydraulicLocationConfigurationDatabase =
+                    {
+                        FilePath = validHlcdFilePath
+                    },
+                    HydraulicBoundaryDatabases =
+                    {
+                        new HydraulicBoundaryDatabase
+                        {
+                            FilePath = validHrdFilePath,
+                            Locations =
+                            {
+                                hydraulicBoundaryLocation
+                            }
+                        }
+                    }
                 }
             };
 
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
-
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
@@ -608,7 +534,9 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                                  .WhenCalled(invocation =>
                                  {
                                      HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
+                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                                             assessmentSection.HydraulicBoundaryData,
+                                             hydraulicBoundaryLocation),
                                          (HydraRingCalculationSettings) invocation.Arguments[0]);
                                  })
                                  .Return(waveHeightCalculator)

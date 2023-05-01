@@ -215,7 +215,8 @@ namespace Riskeer.Common.IO.SoilProfile
         /// <list type="bullet">
         /// <item>A coordinate value cannot be parsed.</item>
         /// <item>The XML for the point is invalid.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         private static Point2D ParsePoint(XElement point)
         {
             XElement xElement = point.Element(xElementName);

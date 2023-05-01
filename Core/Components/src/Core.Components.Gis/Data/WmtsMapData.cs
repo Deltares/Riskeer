@@ -41,7 +41,8 @@ namespace Core.Components.Gis.Data
         /// <list type="bullet">
         /// <item><paramref name="name"/> is <c>null</c> or only whitespace.</item>
         /// <item><paramref name="preferredFormat"/> is not stated as a MIME-type.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sourceCapabilitiesUrl"/>, 
         /// <paramref name="selectedCapabilityName"/> or <paramref name="preferredFormat"/> is <c>null</c>.</exception>
         public WmtsMapData(string name, string sourceCapabilitiesUrl, string selectedCapabilityName,

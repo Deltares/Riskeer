@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Riskeer.Common.Data.Hydraulics;
 
 namespace Riskeer.DuneErosion.Data
 {
@@ -33,18 +34,21 @@ namespace Riskeer.DuneErosion.Data
         /// <summary>
         /// Creates a new instance of <see cref="DuneLocation"/>.
         /// </summary>
-        /// <param name="id">Id of the <see cref="DuneLocation"/>.</param>
         /// <param name="name">Name of the <see cref="DuneLocation"/>.</param>
-        /// <param name="location">The coordinate of the <see cref="DuneLocation"/>.</param>
-        /// <param name="properties">The container of the properties for the
-        /// <see cref="DuneLocation"/></param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>
-        /// or <paramref name="properties"/> is <c>null</c>.</exception>
-        public DuneLocation(long id, string name, Point2D location, ConstructionProperties properties)
+        /// <param name="hydraulicBoundaryLocation">The <see cref="HydraulicBoundaryLocation"/> that belongs
+        /// to this <see cref="DuneLocation"/>.</param>
+        /// <param name="properties">The container of the properties for the <see cref="DuneLocation"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public DuneLocation(string name, HydraulicBoundaryLocation hydraulicBoundaryLocation, ConstructionProperties properties)
         {
             if (name == null)
             {
                 throw new ArgumentNullException(nameof(name));
+            }
+
+            if (hydraulicBoundaryLocation == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryLocation));
             }
 
             if (properties == null)
@@ -52,9 +56,8 @@ namespace Riskeer.DuneErosion.Data
                 throw new ArgumentNullException(nameof(properties));
             }
 
-            Id = id;
+            HydraulicBoundaryLocation = hydraulicBoundaryLocation;
             Name = name;
-            Location = location;
             CoastalAreaId = properties.CoastalAreaId;
             Offset = new RoundedDouble(1, properties.Offset);
             Orientation = new RoundedDouble(1, properties.Orientation);
@@ -62,9 +65,14 @@ namespace Riskeer.DuneErosion.Data
         }
 
         /// <summary>
+        /// Gets the <see cref="HydraulicBoundaryLocation"/> that belongs to this dune location.
+        /// </summary>
+        public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; }
+
+        /// <summary>
         /// Gets the database id of the dune location.
         /// </summary>
-        public long Id { get; }
+        public long Id => HydraulicBoundaryLocation.Id;
 
         /// <summary>
         /// Gets the name of the dune location.
@@ -74,7 +82,7 @@ namespace Riskeer.DuneErosion.Data
         /// <summary>
         /// Gets the coordinate of the dune location.
         /// </summary>
-        public Point2D Location { get; }
+        public Point2D Location => HydraulicBoundaryLocation.Location;
 
         /// <summary>
         /// Gets the coastal area id of the dune location.

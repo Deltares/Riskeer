@@ -300,6 +300,24 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to HRD bestand toevoegen....
+        /// </summary>
+        public static string ContextMenuStrip_Add_HydraulicBoundaryDatabase {
+            get {
+                return ResourceManager.GetString("ContextMenuStrip_Add_HydraulicBoundaryDatabase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Voeg een nieuw HRD bestand toe aan deze map..
+        /// </summary>
+        public static string ContextMenuStrip_Add_HydraulicBoundaryDatabase_ToolTip {
+            get {
+                return ResourceManager.GetString("ContextMenuStrip_Add_HydraulicBoundaryDatabase_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De resultaten van {0} semi-probabilistische berekeningen zonder handmatige waterstand zijn verwijderd..
         /// </summary>
         public static string FailureMechanismContributionNormChangeHandler_ClearAllNormDependentSemiProbabilisticCalculationOutput_Results_of_NumberOfCalculations_0_calculations_cleared {
@@ -384,7 +402,25 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hydraulische belastingendatabase.
+        ///   Looks up a localized string similar to Hydraulische databases.
+        /// </summary>
+        public static string HydraulicBoundaryData_DisplayName {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryData_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HRD bestand.
+        /// </summary>
+        public static string HydraulicBoundaryDatabase_DisplayName {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabase_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HRD bestand.
         /// </summary>
         public static string HydraulicBoundaryDatabase_file_filter_Description {
             get {
@@ -393,55 +429,60 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to HRD bestanden.
+        /// </summary>
+        public static string HydraulicBoundaryDatabases_DisplayName {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabases_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to sqlite.
         /// </summary>
-        public static string HydraulicBoundaryDatabase_FilePath_Extension {
+        public static string HydraulicDatabase_FilePath_Extension {
             get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabase_FilePath_Extension", resourceCulture);
+                return ResourceManager.GetString("HydraulicDatabase_FilePath_Extension", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to U heeft een ander hydraulische belastingendatabase bestand geselecteerd. Als gevolg hiervan moet de uitvoer van alle ervan afhankelijke berekeningen verwijderd worden.
+        ///   Looks up a localized string similar to HLCD bestand.
+        /// </summary>
+        public static string HydraulicLocationConfigurationDatabase_DisplayName {
+            get {
+                return ResourceManager.GetString("HydraulicLocationConfigurationDatabase_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HLCD bestand.
+        /// </summary>
+        public static string HydraulicLocationConfigurationDatabase_file_filter_Description {
+            get {
+                return ResourceManager.GetString("HydraulicLocationConfigurationDatabase_file_filter_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Als u het geselecteerde HLCD bestand wijzigt, zal de uitvoer van alle ervan afhankelijke berekeningen verwijderd worden.
         ///
         ///Wilt u doorgaan?.
         /// </summary>
-        public static string HydraulicBoundaryDatabaseUpdateHandler_Confirm_clear_hydraulicBoundaryDatabase_dependent_data {
+        public static string HydraulicLocationConfigurationDatabaseUpdateHandler_Confirm_clear_hydraulic_location_configuration_database_dependent_data {
             get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabaseUpdateHandler_Confirm_clear_hydraulicBoundaryDatabase_de" +
-                        "pendent_data", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Importeren van het HLCD bestand.
-        /// </summary>
-        public static string HydraulicLocationConfigurationDatabaseImportHandler_ImportHydraulicLocationConfigurationSettings_Description {
-            get {
-                return ResourceManager.GetString("HydraulicLocationConfigurationDatabaseImportHandler_ImportHydraulicLocationConfig" +
-                        "urationSettings_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Als u het gekoppelde HLCD bestand wijzigt, zal de uitvoer van alle ervan afhankelijke berekeningen verwijderd worden.
-        ///
-        ///Wilt u doorgaan?.
-        /// </summary>
-        public static string HydraulicLocationConfigurationDatabaseUpdateHandler_Confirm_clear_hydraulicLocationConfigurationDatabase_dependent_data {
-            get {
-                return ResourceManager.GetString("HydraulicLocationConfigurationDatabaseUpdateHandler_Confirm_clear_hydraulicLocati" +
-                        "onConfigurationDatabase_dependent_data", resourceCulture);
+                return ResourceManager.GetString("HydraulicLocationConfigurationDatabaseUpdateHandler_Confirm_clear_hydraulic_locat" +
+                        "ion_configuration_database_dependent_data", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De tabel &apos;ScenarioInformation&apos; in het HLCD bestand is niet aanwezig. Er worden standaardwaarden conform WBI2017 gebruikt voor de HLCD bestandsinformatie..
         /// </summary>
-        public static string HydraulicLocationConfigurationSettingsUpdateHelper_ReadHydraulicLocationConfigurationDatabaseSettings_No_ScenarioInformation_entries_present {
+        public static string HydraulicLocationConfigurationDatabaseUpdateHelper_ReadHydraulicLocationConfigurationDatabase_No_ScenarioInformation_entries_present {
             get {
-                return ResourceManager.GetString("HydraulicLocationConfigurationSettingsUpdateHelper_ReadHydraulicLocationConfigura" +
-                        "tionDatabaseSettings_No_ScenarioInformation_entries_present", resourceCulture);
+                return ResourceManager.GetString("HydraulicLocationConfigurationDatabaseUpdateHelper_ReadHydraulicLocationConfigura" +
+                        "tionDatabase_No_ScenarioInformation_entries_present", resourceCulture);
             }
         }
         
@@ -519,6 +560,28 @@ namespace Riskeer.Integration.Plugin.Properties {
         public static string RiskeerPlugin_GetStateInfos_Registration {
             get {
                 return ResourceManager.GetString("RiskeerPlugin_GetStateInfos_Registration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Als u dit HRD bestand verwijdert, dan wordt de uitvoer van alle ervan afhankelijke berekeningen verwijderd. Ook worden alle referenties naar de bijbehorende hydraulische belastingenlocaties verwijderd uit de invoer van de sterkteberekeningen.
+        ///
+        ///Weet u zeker dat u wilt doorgaan?.
+        /// </summary>
+        public static string RiskeerPlugin_GetTreeNodeInfos_Confirm_remove_HydraulicBoundaryDatabase {
+            get {
+                return ResourceManager.GetString("RiskeerPlugin_GetTreeNodeInfos_Confirm_remove_HydraulicBoundaryDatabase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Als u deze HRD bestanden verwijdert, dan wordt de uitvoer van alle ervan afhankelijke berekeningen verwijderd. Ook worden alle referenties naar de bijbehorende hydraulische belastingenlocaties verwijderd uit de invoer van de sterkteberekeningen.
+        ///
+        ///Weet u zeker dat u wilt doorgaan?.
+        /// </summary>
+        public static string RiskeerPlugin_GetTreeNodeInfos_Confirm_remove_HydraulicBoundaryDatabases {
+            get {
+                return ResourceManager.GetString("RiskeerPlugin_GetTreeNodeInfos_Confirm_remove_HydraulicBoundaryDatabases", resourceCulture);
             }
         }
         

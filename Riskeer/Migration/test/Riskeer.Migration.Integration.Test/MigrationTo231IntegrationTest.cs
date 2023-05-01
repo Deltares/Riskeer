@@ -27,7 +27,7 @@ using Riskeer.Migration.Core.TestUtil;
 
 namespace Riskeer.Migration.Integration.Test
 {
-    public class MigrationTo222IntegrationTest
+    public class MigrationTo231IntegrationTest
     {
         private const string newVersion = "23.1";
 
@@ -59,10 +59,119 @@ namespace Riskeer.Migration.Integration.Test
 
                     AssertVersions(reader);
                     AssertDatabase(reader);
+
+                    AssertDuneLocation(reader, sourceFilePath);
+
+                    AssertHydraulicBoundaryData(reader, sourceFilePath);
+                    AssertHydraulicBoundaryDatabase(reader, sourceFilePath);
+                    AssertHydraulicLocation(reader, sourceFilePath);
                 }
 
                 AssertLogDatabase(logFilePath);
             }
+        }
+
+        private static void AssertDuneLocation(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateDuneLocation =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.DuneLocationEntity " +
+                ") " +
+                "FROM DuneLocationEntity NEW " +
+                "JOIN SOURCEPROJECT.DuneLocationEntity OLD USING(DuneLocationEntityId) " +
+                "JOIN (" +
+                "SELECT HydraulicLocationEntityId, LocationId " +
+                "FROM SOURCEPROJECT.HydraulicLocationEntity " +
+                ") HYDRAULICLOCATION " +
+                "USING(LocationId) " +
+                "WHERE NEW.[FailureMechanismEntityId] = OLD.[FailureMechanismEntityId] " +
+                "AND NEW.[HydraulicLocationEntityId] = HYDRAULICLOCATION.[HydraulicLocationEntityId] " +
+                "AND NEW.[Name] = OLD.[Name]" +
+                "AND NEW.[CoastalAreaId] = OLD.[CoastalAreaId] " +
+                "AND NEW.[Offset] IS OLD.[Offset] " +
+                "AND NEW.[Orientation] IS OLD.[Orientation] " +
+                "AND NEW.[D50] IS OLD.[D50] " +
+                "AND NEW.\"Order\" = OLD.\"Order\"; " +
+                "DETACH SOURCEPROJECT";
+
+            reader.AssertReturnedDataIsValid(validateDuneLocation);
+        }
+
+        private static void AssertHydraulicBoundaryData(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateHydraulicBoundaryData =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.HydraulicBoundaryDatabaseEntity " +
+                ") " +
+                "FROM HydraulicBoundaryDataEntity NEW " +
+                "JOIN SOURCEPROJECT.HydraulicBoundaryDatabaseEntity OLD ON NEW.HydraulicBoundaryDataEntityId = OLD.HydraulicBoundaryDatabaseEntity " +
+                "WHERE NEW.[AssessmentSectionEntityId] = OLD.[AssessmentSectionEntityId] " +
+                "AND NEW.[HydraulicLocationConfigurationDatabaseFilePath] = OLD.[HydraulicLocationConfigurationSettingsFilePath]" +
+                "AND NEW.[HydraulicLocationConfigurationDatabaseScenarioName] = OLD.[HydraulicLocationConfigurationSettingsScenarioName] " +
+                "AND NEW.[HydraulicLocationConfigurationDatabaseYear] = OLD.[HydraulicLocationConfigurationSettingsYear] " +
+                "AND NEW.[HydraulicLocationConfigurationDatabaseScope] = OLD.[HydraulicLocationConfigurationSettingsScope] " +
+                "AND NEW.[HydraulicLocationConfigurationDatabaseSeaLevel] IS OLD.[HydraulicLocationConfigurationSettingsSeaLevel] " +
+                "AND NEW.[HydraulicLocationConfigurationDatabaseRiverDischarge] IS OLD.[HydraulicLocationConfigurationSettingsRiverDischarge] " +
+                "AND NEW.[HydraulicLocationConfigurationDatabaseLakeLevel] IS OLD.[HydraulicLocationConfigurationSettingsLakeLevel] " +
+                "AND NEW.[HydraulicLocationConfigurationDatabaseWindDirection] IS OLD.[HydraulicLocationConfigurationSettingsWindDirection] " +
+                "AND NEW.[HydraulicLocationConfigurationDatabaseWindSpeed] IS OLD.[HydraulicLocationConfigurationSettingsWindSpeed] " +
+                "AND NEW.[HydraulicLocationConfigurationDatabaseComment] IS OLD.[HydraulicLocationConfigurationSettingsComment]; " +
+                "DETACH SOURCEPROJECT";
+
+            reader.AssertReturnedDataIsValid(validateHydraulicBoundaryData);
+        }
+
+        private static void AssertHydraulicBoundaryDatabase(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateHydraulicBoundaryDatabase =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.HydraulicBoundaryDatabaseEntity " +
+                ") " +
+                "FROM HydraulicBoundaryDatabaseEntity NEW " +
+                "JOIN SOURCEPROJECT.HydraulicBoundaryDatabaseEntity OLD ON NEW.HydraulicBoundaryDataEntityId = OLD.HydraulicBoundaryDatabaseEntity " +
+                "WHERE NEW.[Version] = OLD.[Version] " +
+                "AND NEW.[FilePath] = OLD.[FilePath] " +
+                "AND NEW.[UsePreprocessorClosure] = OLD.[HydraulicLocationConfigurationSettingsUsePreprocessorClosure] " +
+                "AND NEW.\"Order\" = 0; " +
+                "DETACH SOURCEPROJECT";
+
+            reader.AssertReturnedDataIsValid(validateHydraulicBoundaryDatabase);
+        }
+
+        private static void AssertHydraulicLocation(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateHydraulicLocation =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.HydraulicLocationEntity " +
+                ") " +
+                "FROM HydraulicLocationEntity NEW " +
+                "JOIN ( " +
+                "SELECT " +
+                "[HydraulicBoundaryDatabaseEntityId] AS HBDId " +
+                "FROM HydraulicBoundaryDatabaseEntity" +
+                ") " +
+                "ON NEW.HydraulicBoundaryDatabaseEntityId = HBDId " +
+                "JOIN SOURCEPROJECT.HydraulicLocationEntity OLD USING(HydraulicLocationEntityId) " +
+                "WHERE NEW.[LocationId] = OLD.[LocationId] " +
+                "AND NEW.[Name] = OLD.[Name] " +
+                "AND NEW.[LocationX] IS OLD.[LocationX] " +
+                "AND NEW.[LocationY] IS OLD.[LocationY] " +
+                "AND NEW.\"Order\" = OLD.\"Order\"; " +
+                "DETACH SOURCEPROJECT";
+
+            reader.AssertReturnedDataIsValid(validateHydraulicLocation);
         }
 
         private static void AssertTablesContentMigrated(MigratedDatabaseReader reader, string sourceFilePath)
@@ -74,7 +183,6 @@ namespace Riskeer.Migration.Integration.Test
                 "FailureMechanismEntity",
                 "ClosingStructuresFailureMechanismMetaEntity",
                 "CalculationGroupEntity",
-                "HydraulicLocationEntity",
                 "GrassCoverErosionInwardsFailureMechanismMetaEntity",
                 "SemiProbabilisticPipingCalculationEntity",
                 "GrassCoverErosionInwardsCalculationEntity",
@@ -101,7 +209,6 @@ namespace Riskeer.Migration.Integration.Test
                 "DuneLocationCalculationEntity",
                 "DuneLocationCalculationForTargetProbabilityCollectionEntity",
                 "DuneLocationCalculationOutputEntity",
-                "DuneLocationEntity",
                 "FailureMechanismFailureMechanismSectionEntity",
                 "FaultTreeIllustrationPointEntity",
                 "FaultTreeIllustrationPointStochastEntity",
@@ -121,7 +228,6 @@ namespace Riskeer.Migration.Integration.Test
                 "HeightStructuresCalculationEntity",
                 "HeightStructuresFailureMechanismMetaEntity",
                 "HeightStructuresOutputEntity",
-                "HydraulicBoundaryDatabaseEntity",
                 "HydraulicLocationCalculationCollectionEntity",
                 "HydraulicLocationCalculationCollectionHydraulicLocationCalculationEntity",
                 "HydraulicLocationCalculationEntity",

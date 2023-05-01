@@ -46,9 +46,8 @@ namespace Riskeer.DuneErosion.Service.Test
     {
         private MockRepository mockRepository;
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
-        private static readonly string validHydraulicBoundaryDatabaseFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
         private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "HLCD.sqlite");
-        private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
 
         [SetUp]
         public void SetUp()
@@ -94,15 +93,12 @@ namespace Riskeer.DuneErosion.Service.Test
         public void Run_InvalidHydraulicBoundaryDatabase_PerformValidationAndLogStartAndEndAndError()
         {
             // Setup
-            string invalidFilePath = Path.Combine(testDataPath, "notexisting.sqlite");
+            string invalidHrdFilePath = Path.Combine(testDataPath, "notexisting.sqlite");
 
             const string calculationIdentifier = "1/100";
             const string locationName = "locationName";
 
-            var settings = new HydraulicBoundaryCalculationSettings(invalidFilePath,
-                                                                    validHlcdFilePath,
-                                                                    false,
-                                                                    string.Empty);
+            var settings = new HydraulicBoundaryCalculationSettings(validHlcdFilePath, invalidHrdFilePath, false);
             var activity = new DuneLocationCalculationActivity(new DuneLocationCalculation(new TestDuneLocation(locationName)),
                                                                settings,
                                                                0.01,
@@ -125,41 +121,9 @@ namespace Riskeer.DuneErosion.Service.Test
         }
 
         [Test]
-        public void Run_InvalidPreprocessorDirectory_PerformValidationAndLogStartAndEndAndError()
-        {
-            // Setup
-            const string calculationIdentifier = "1/100";
-            const string locationName = "locationName";
-
-            var settings = new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
-                                                                    validHlcdFilePath,
-                                                                    false,
-                                                                    "NonExistingPreprocessorDirectory");
-            var activity = new DuneLocationCalculationActivity(new DuneLocationCalculation(new TestDuneLocation(locationName)),
-                                                               settings,
-                                                               0.01,
-                                                               calculationIdentifier);
-
-            // Call
-            void Call() => activity.Run();
-
-            // Assert
-            TestHelper.AssertLogMessages(Call, messages =>
-            {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(4, msgs.Length);
-                Assert.AreEqual($"Hydraulische belastingen berekenen voor locatie '{locationName}' ({calculationIdentifier}) is gestart.", msgs[0]);
-                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
-                Assert.AreEqual("De bestandsmap waar de preprocessor bestanden opslaat is ongeldig. De bestandsmap bestaat niet.", msgs[2]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
-            });
-            Assert.AreEqual(ActivityState.Failed, activity.State);
-        }
-
-        [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Run_VariousValidInputs_PerformsCalculationWithCorrectInput(bool usePreprocessor)
+        public void Run_VariousValidInputs_PerformsCalculationWithCorrectInput(bool usePreprocessorClosure)
         {
             // Setup
             const double targetProbability = 0.01;
@@ -171,11 +135,7 @@ namespace Riskeer.DuneErosion.Service.Test
                 Converged = true
             };
 
-            string preprocessorDirectory = usePreprocessor ? validPreprocessorDirectory : string.Empty;
-            var calculationSettings = new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
-                                                                               validHlcdFilePath,
-                                                                               false,
-                                                                               preprocessorDirectory);
+            var calculationSettings = new HydraulicBoundaryCalculationSettings(validHlcdFilePath, validHrdFilePath, usePreprocessorClosure);
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
@@ -462,10 +422,7 @@ namespace Riskeer.DuneErosion.Service.Test
 
         private static HydraulicBoundaryCalculationSettings CreateCalculationSettings()
         {
-            return new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
-                                                            validHlcdFilePath,
-                                                            false,
-                                                            string.Empty);
+            return new HydraulicBoundaryCalculationSettings(validHlcdFilePath, validHrdFilePath, false);
         }
 
         private class DuneLocationCalculationActivityWithState : DuneLocationCalculationActivity

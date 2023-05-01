@@ -41,6 +41,7 @@ using Rhino.Mocks;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Service.TestUtil;
 using Riskeer.HydraRing.Calculation.Calculator.Factory;
@@ -68,7 +69,8 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
         private const int contextMenuClearIllustrationPointsIndex = 11;
 
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
-        private static readonly string validHydraulicBoundaryDatabaseFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
 
         private MockRepository mocks;
         private PipingPlugin plugin;
@@ -983,8 +985,17 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
                 var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
                 PipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
 
-                assessmentSection.HydraulicBoundaryDatabase.FilePath = validHydraulicBoundaryDatabaseFilePath;
-                HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+                assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath = validHlcdFilePath;
+                assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(
+                    new HydraulicBoundaryDatabase
+                    {
+                        FilePath = validHrdFilePath,
+                        Locations =
+                        {
+                            hydraulicBoundaryLocation
+                        }
+                    });
+
                 assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
                 {
                     hydraulicBoundaryLocation

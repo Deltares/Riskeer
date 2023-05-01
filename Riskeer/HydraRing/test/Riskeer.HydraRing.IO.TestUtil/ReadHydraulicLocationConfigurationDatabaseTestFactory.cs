@@ -26,70 +26,97 @@ using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 namespace Riskeer.HydraRing.IO.TestUtil
 {
     /// <summary>
-    /// Factory that creates simple <see cref="ReadHydraulicLocationConfigurationDatabase"/> instances
-    /// that can be used for testing.
+    /// Factory that creates simple <see cref="ReadHydraulicLocationConfigurationDatabase"/> instances that can be used
+    /// for testing.
     /// </summary>
     public static class ReadHydraulicLocationConfigurationDatabaseTestFactory
     {
         /// <summary>
         /// Creates a <see cref="ReadHydraulicLocationConfigurationDatabase"/>.
         /// </summary>
+        /// <param name="trackId">The id of the track that should be part of the read tracks.</param>
         /// <returns>The created <see cref="ReadHydraulicLocationConfigurationDatabase"/>.</returns>
-        public static ReadHydraulicLocationConfigurationDatabase Create()
+        public static ReadHydraulicLocationConfigurationDatabase Create(long trackId)
         {
             return Create(new long[]
             {
                 1,
                 2
-            });
+            }, trackId);
         }
 
         /// <summary>
         /// Creates a <see cref="ReadHydraulicLocationConfigurationDatabase"/>.
         /// </summary>
         /// <param name="locationIds">The location ids to add.</param>
+        /// <param name="trackId">The id of the track that should be part of the read tracks.</param>
         /// <returns>The created <see cref="ReadHydraulicLocationConfigurationDatabase"/>.</returns>
-        public static ReadHydraulicLocationConfigurationDatabase Create(IEnumerable<long> locationIds)
+        public static ReadHydraulicLocationConfigurationDatabase Create(IEnumerable<long> locationIds, long trackId)
         {
-            return Create(locationIds, null);
+            return Create(locationIds, null, new Dictionary<long, bool>
+            {
+                {
+                    trackId, false
+                }
+            });
         }
 
         /// <summary>
-        /// Create a valid instance of <see cref="ReadHydraulicLocationConfigurationDatabase"/>
-        /// with hydraulic location configuration database settings.
+        /// Create a valid instance of <see cref="ReadHydraulicLocationConfigurationDatabase"/> with hydraulic location
+        /// configuration settings.
         /// </summary>
-        /// <returns>The created <see cref="ReadHydraulicLocationConfigurationDatabase"/> with hydraulic location configuration database settings.</returns>
-        public static ReadHydraulicLocationConfigurationDatabase CreateWithConfigurationSettings()
+        /// <param name="trackId">The id of the track that should be part of the read tracks.</param>
+        /// <returns>The created <see cref="ReadHydraulicLocationConfigurationDatabase"/> with hydraulic location configuration
+        /// settings.</returns>
+        public static ReadHydraulicLocationConfigurationDatabase CreateWithConfigurationSettings(long trackId)
         {
-            ReadHydraulicLocationConfigurationDatabaseSettings[] settings =
+            ReadHydraulicLocationConfigurationSettings[] settings =
             {
-                ReadHydraulicLocationConfigurationDatabaseSettingsTestFactory.Create()
+                ReadHydraulicLocationConfigurationSettingsTestFactory.Create()
             };
 
-            return CreateWithConfigurationSettings(settings);
+            return CreateWithConfigurationSettings(settings, new Dictionary<long, bool>
+            {
+                {
+                    trackId, false
+                }
+            });
         }
 
         /// <summary>
-        /// Create a valid instance of <see cref="ReadHydraulicLocationConfigurationDatabase"/>
-        /// with hydraulic location configuration database settings.
+        /// Create a valid instance of <see cref="ReadHydraulicLocationConfigurationDatabase"/> with hydraulic location
+        /// configuration settings.
         /// </summary>
-        /// <param name="settings">The <see cref="ReadHydraulicLocationConfigurationDatabaseSettings"/> to set.</param>
-        /// <returns>The created <see cref="ReadHydraulicLocationConfigurationDatabase"/> with hydraulic location configuration database settings.</returns>
-        public static ReadHydraulicLocationConfigurationDatabase CreateWithConfigurationSettings(IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> settings)
+        /// <param name="tracks">The tracks that should be part of the read tracks.</param>
+        /// <returns>The created <see cref="ReadHydraulicLocationConfigurationDatabase"/> with hydraulic location configuration
+        /// settings.</returns>
+        public static ReadHydraulicLocationConfigurationDatabase CreateWithConfigurationSettings(IDictionary<long, bool> tracks)
+        {
+            ReadHydraulicLocationConfigurationSettings[] settings =
+            {
+                ReadHydraulicLocationConfigurationSettingsTestFactory.Create()
+            };
+
+            return CreateWithConfigurationSettings(settings, tracks);
+        }
+
+        private static ReadHydraulicLocationConfigurationDatabase CreateWithConfigurationSettings(IEnumerable<ReadHydraulicLocationConfigurationSettings> settings,
+                                                                                                  IDictionary<long, bool> tracks)
         {
             return Create(new long[]
             {
                 1,
                 2
-            }, settings);
+            }, settings, tracks);
         }
 
         private static ReadHydraulicLocationConfigurationDatabase Create(IEnumerable<long> locationIds,
-                                                                         IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> settings)
+                                                                         IEnumerable<ReadHydraulicLocationConfigurationSettings> settings,
+                                                                         IDictionary<long, bool> tracks)
         {
-            return new ReadHydraulicLocationConfigurationDatabase(locationIds.Select(locationId => new ReadHydraulicLocationMapping(locationId, locationId + 100))
-                                                                             .ToList(),
-                                                                  settings, false);
+            return new ReadHydraulicLocationConfigurationDatabase(locationIds.Select(locationId => new ReadHydraulicLocation(locationId + 100, locationId, tracks.First().Key)),
+                                                                  settings,
+                                                                  tracks.Select(t => new ReadTrack(t.Key, t.Value)));
         }
     }
 }
