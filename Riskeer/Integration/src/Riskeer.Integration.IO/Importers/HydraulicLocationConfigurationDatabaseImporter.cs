@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2022. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -29,6 +29,7 @@ using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.Util.Builders;
 using Riskeer.Common.Data.Hydraulics;
+using Riskeer.HydraRing.IO.HydraulicBoundaryDatabase;
 using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 using Riskeer.Integration.IO.Handlers;
 using Riskeer.Integration.IO.Properties;
@@ -109,9 +110,24 @@ namespace Riskeer.Integration.IO.Importers
                 return false;
             }
 
+            var hydraulicBoundaryDatabaseLookup = new Dictionary<HydraulicBoundaryDatabase, long>();
+
             if (hydraulicBoundaryData.HydraulicBoundaryDatabases.Any())
             {
                 NotifyProgress(Resources.HydraulicLocationConfigurationDatabaseImporter_ProgressText_Reading_Hrd_files, 2, numberOfSteps);
+
+                foreach (HydraulicBoundaryDatabase hydraulicBoundaryDatabase in hydraulicBoundaryData.HydraulicBoundaryDatabases)
+                {
+                    ReadResult<ReadHydraulicBoundaryDatabase> readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabase(hydraulicBoundaryDatabase);
+                    if (readHydraulicBoundaryDatabase.CriticalErrorOccurred || Canceled)
+                    {
+                        return false;
+                    }
+
+                    long hydraulicBoundaryDatabaseTrackId = readHydraulicBoundaryDatabase.Items.Single().TrackId;
+
+                    hydraulicBoundaryDatabaseLookup.Add(hydraulicBoundaryDatabase, hydraulicBoundaryDatabaseTrackId);
+                }
             }
 
             IEnumerable<long> currentLocationIds = hydraulicBoundaryData.GetLocations().Select(l => l.Id).ToArray();
@@ -122,7 +138,7 @@ namespace Riskeer.Integration.IO.Importers
                 return false;
             }
 
-            SetReadHydraulicLocationConfigurationSettingsToDataModel(readHydraulicLocationConfigurationDatabase);
+            SetReadHydraulicLocationConfigurationSettingsToDataModel(readHydraulicLocationConfigurationDatabase, hydraulicBoundaryDatabaseLookup);
 
             return true;
         }
@@ -164,6 +180,27 @@ namespace Riskeer.Integration.IO.Importers
             }
         }
 
+        private ReadResult<ReadHydraulicBoundaryDatabase> ReadHydraulicBoundaryDatabase(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+        {
+            try
+            {
+                using (var reader = new HydraulicBoundaryDatabaseReader(hydraulicBoundaryDatabase.FilePath))
+                {
+                    return new ReadResult<ReadHydraulicBoundaryDatabase>(false)
+                    {
+                        Items = new[]
+                        {
+                            reader.Read()
+                        }
+                    };
+                }
+            }
+            catch (Exception e) when (e is CriticalFileReadException || e is LineParseException)
+            {
+                return HandleCriticalFileReadError<ReadHydraulicBoundaryDatabase>(e);
+            }
+        }
+
         private void InquireConfirmation()
         {
             if (!updateHandler.InquireConfirmation())
@@ -172,11 +209,12 @@ namespace Riskeer.Integration.IO.Importers
             }
         }
 
-        private void SetReadHydraulicLocationConfigurationSettingsToDataModel(ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase)
+        private void SetReadHydraulicLocationConfigurationSettingsToDataModel(ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase,
+                                                                              IDictionary<HydraulicBoundaryDatabase, long> hydraulicBoundaryDatabaseLookup)
         {
             NotifyProgress(RiskeerCommonIOResources.Importer_ProgressText_Adding_imported_data_to_AssessmentSection, numberOfSteps, numberOfSteps);
             changedObservables.AddRange(updateHandler.Update(hydraulicBoundaryData, readHydraulicLocationConfigurationDatabase,
-                                                             new Dictionary<HydraulicBoundaryDatabase, long>(), FilePath));
+                                                             hydraulicBoundaryDatabaseLookup, FilePath));
         }
 
         private ReadResult<T> HandleCriticalFileReadError<T>(Exception e)
