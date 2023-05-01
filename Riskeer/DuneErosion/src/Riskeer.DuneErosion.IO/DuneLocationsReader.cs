@@ -80,7 +80,7 @@ namespace Riskeer.DuneErosion.IO
                 int coastalAreaId = Convert.ToInt32(locationData.MetaData[coastalAreaIdKey]);
                 double offset = Convert.ToDouble(locationData.MetaData[offsetKey]);
 
-                yield return new ReadDuneLocation(name, location, coastalAreaId, offset, double.NaN, double.NaN);
+                yield return new ReadDuneLocation(name, location, coastalAreaId, offset);
             }
         }
     }

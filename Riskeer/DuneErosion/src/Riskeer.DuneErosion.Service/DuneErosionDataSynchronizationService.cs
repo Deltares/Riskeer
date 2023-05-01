@@ -87,9 +87,7 @@ namespace Riskeer.DuneErosion.Service
                                                         new DuneLocation.ConstructionProperties
                                                         {
                                                             CoastalAreaId = readDuneLocation.CoastalAreaId,
-                                                            Offset = readDuneLocation.Offset,
-                                                            Orientation = readDuneLocation.Orientation,
-                                                            D50 = readDuneLocation.D50
+                                                            Offset = readDuneLocation.Offset
                                                         });
                     correspondingDuneLocations.Add(duneLocation);
                 }

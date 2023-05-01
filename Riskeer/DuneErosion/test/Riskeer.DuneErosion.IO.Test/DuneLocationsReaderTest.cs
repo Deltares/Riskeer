@@ -45,8 +45,6 @@ namespace Riskeer.DuneErosion.IO.Test
                 Assert.IsNotNull(duneLocation.Location);
                 Assert.AreNotEqual(0, duneLocation.CoastalAreaId);
                 Assert.IsTrue(duneLocation.Offset >= 0);
-                Assert.IsNaN(duneLocation.Orientation);
-                Assert.IsNaN(duneLocation.D50);
             }
         }
     }

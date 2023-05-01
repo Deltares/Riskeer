@@ -41,11 +41,11 @@ namespace Riskeer.DuneErosion.Service.Test
             get
             {
                 yield return new TestCaseData(
-                    new ReadDuneLocation("dune location 1", new Point2D(1.0, 2.0), 0, 0, 0, 0),
+                    new ReadDuneLocation("dune location 1", new Point2D(1.0, 2.0), 0, 0),
                     new HydraulicBoundaryLocation(1, "hydraulic location 1", 2.0, 1.0)).SetName("DifferentCoordinates");
 
                 yield return new TestCaseData(
-                    new ReadDuneLocation("dune location 1", new Point2D(1.0, 2.0), 0, 2.2, 0, 0),
+                    new ReadDuneLocation("dune location 1", new Point2D(1.0, 2.0), 0, 2.2),
                     new HydraulicBoundaryLocation(1, "hydraulic_location_1.1", 1.0, 2.0)).SetName("DifferentOffset");
             }
         }
@@ -100,7 +100,7 @@ namespace Riskeer.DuneErosion.Service.Test
         {
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
-            var readDuneLocation = new ReadDuneLocation("dune location 1", new Point2D(1.0, 5.3), 8, 1.1, 2.2, 3.3);
+            var readDuneLocation = new ReadDuneLocation("dune location 1", new Point2D(1.0, 5.3), 8, 1.1);
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Location_2_1.1", 1.0, 5.3);
 
             // Precondition
@@ -125,8 +125,6 @@ namespace Riskeer.DuneErosion.Service.Test
             Assert.AreEqual(readDuneLocation.Name, duneLocation.Name);
             Assert.AreEqual(readDuneLocation.Location, duneLocation.Location);
             Assert.AreEqual(readDuneLocation.Offset, duneLocation.Offset);
-            Assert.AreEqual(readDuneLocation.Orientation, duneLocation.Orientation);
-            Assert.AreEqual(readDuneLocation.D50, duneLocation.D50);
         }
 
         [Test]
@@ -141,7 +139,7 @@ namespace Riskeer.DuneErosion.Service.Test
             var locationName = $"Location_{offset}";
 
             var failureMechanism = new DuneErosionFailureMechanism();
-            var readDuneLocation = new ReadDuneLocation("dune location 1", new Point2D(1.0, 5.3), 8, offset, 2.2, 3.3);
+            var readDuneLocation = new ReadDuneLocation("dune location 1", new Point2D(1.0, 5.3), 8, offset);
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, locationName, 1.0, 5.3);
 
             // Precondition

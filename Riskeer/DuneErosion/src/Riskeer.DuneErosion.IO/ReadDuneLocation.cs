@@ -37,10 +37,8 @@ namespace Riskeer.DuneErosion.IO
         /// <param name="location">The coordinate of the <see cref="ReadDuneLocation"/>.</param>
         /// <param name="coastalAreaId">Coastal area id of the <see cref="ReadDuneLocation"/>.</param>
         /// <param name="offset">Offset of the <see cref="ReadDuneLocation"/>.</param>
-        /// <param name="orientation">Orientation of the <see cref="ReadDuneLocation"/>.</param>
-        /// <param name="d50">D50 of the <see cref="ReadDuneLocation"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
-        public ReadDuneLocation(string name, Point2D location, int coastalAreaId, double offset, double orientation, double d50)
+        public ReadDuneLocation(string name, Point2D location, int coastalAreaId, double offset)
         {
             if (name == null)
             {
@@ -51,8 +49,6 @@ namespace Riskeer.DuneErosion.IO
             Location = location;
             CoastalAreaId = coastalAreaId;
             Offset = new RoundedDouble(2, offset);
-            Orientation = new RoundedDouble(1, orientation);
-            D50 = new RoundedDouble(6, d50);
         }
 
         /// <summary>
@@ -74,15 +70,5 @@ namespace Riskeer.DuneErosion.IO
         /// Gets the offset of the dune location.
         /// </summary>
         public RoundedDouble Offset { get; }
-
-        /// <summary>
-        /// Gets the orientation of the dune location.
-        /// </summary>
-        public RoundedDouble Orientation { get; }
-
-        /// <summary>
-        /// Gets the D50 of the dune location.
-        /// </summary>
-        public RoundedDouble D50 { get; }
     }
 }

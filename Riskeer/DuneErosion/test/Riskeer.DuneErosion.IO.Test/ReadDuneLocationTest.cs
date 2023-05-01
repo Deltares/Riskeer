@@ -33,10 +33,10 @@ namespace Riskeer.DuneErosion.IO.Test
         public void Constructor_NameNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new ReadDuneLocation(null, new Point2D(0.0, 0.0), 0, 0.0, 0.0, 0.0);
+            void Call() => new ReadDuneLocation(null, new Point2D(0.0, 0.0), 0, 0.0);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("name", exception.ParamName);
         }
 
@@ -48,52 +48,26 @@ namespace Riskeer.DuneErosion.IO.Test
             var location = new Point2D(10.0, 12.0);
             const int coastalAreaId = 3;
             const double offset = 4.29;
-            const double orientation = 4.2;
-            const double d50 = 0.123456;
 
             // Call
-            var duneLocation = new ReadDuneLocation(name, location, coastalAreaId, offset, orientation, d50);
+            var duneLocation = new ReadDuneLocation(name, location, coastalAreaId, offset);
 
             // Assert
             Assert.AreEqual(name, duneLocation.Name);
             Assert.AreSame(location, duneLocation.Location);
             Assert.AreEqual(coastalAreaId, duneLocation.CoastalAreaId);
             Assert.AreEqual(offset, duneLocation.Offset.Value);
-            Assert.AreEqual(orientation, duneLocation.Orientation.Value);
-            Assert.AreEqual(d50, duneLocation.D50.Value);
         }
 
         [Test]
         public void Constructor_WithOffset_OffsetRounded()
         {
             // Call
-            var duneLocation = new ReadDuneLocation("dune", new Point2D(0.0, 0.0), 0, 4.298, 0.0, 0.0);
+            var duneLocation = new ReadDuneLocation("dune", new Point2D(0.0, 0.0), 0, 4.298);
 
             // Assert
             Assert.AreEqual(2, duneLocation.Offset.NumberOfDecimalPlaces);
             Assert.AreEqual(4.30, duneLocation.Offset, duneLocation.Offset.GetAccuracy());
-        }
-
-        [Test]
-        public void Constructor_WithOrientation_OrientationRounded()
-        {
-            // Call
-            var duneLocation = new ReadDuneLocation("dune", new Point2D(0.0, 0.0), 0, 0.0, 8.214, 0.0);
-
-            // Assert
-            Assert.AreEqual(1, duneLocation.Orientation.NumberOfDecimalPlaces);
-            Assert.AreEqual(8.2, duneLocation.Orientation, duneLocation.Orientation.GetAccuracy());
-        }
-
-        [Test]
-        public void Constructor_WithD50_D50Rounded()
-        {
-            // Call
-            var duneLocation = new ReadDuneLocation("dune", new Point2D(0.0, 0.0), 0, 0.0, 0.0, 0.1234567);
-
-            // Assert
-            Assert.AreEqual(6, duneLocation.D50.NumberOfDecimalPlaces);
-            Assert.AreEqual(0.123457, duneLocation.D50, duneLocation.D50.GetAccuracy());
         }
     }
 }
