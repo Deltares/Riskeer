@@ -101,6 +101,14 @@ namespace Riskeer.Integration.Plugin.Handlers
                 readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationSettings?.Single(),
                 hlcdFilePath);
 
+            foreach (KeyValuePair<HydraulicBoundaryDatabase, long> hydraulicBoundaryDatabaseItem in hydraulicBoundaryDatabaseLookup)
+            {
+                hydraulicBoundaryDatabaseItem.Key.UsePreprocessorClosure =
+                    readHydraulicLocationConfigurationDatabase.ReadTracks
+                                                              .FirstOrDefault(rt => rt.TrackId == hydraulicBoundaryDatabaseItem.Value)?
+                                                              .UsePreprocessorClosure ?? false;
+            }
+
             var changedObjects = new List<IObservable>
             {
                 hydraulicBoundaryData,

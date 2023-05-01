@@ -53,7 +53,12 @@ namespace Riskeer.HydraRing.IO.TestUtil
         /// <returns>The created <see cref="ReadHydraulicLocationConfigurationDatabase"/>.</returns>
         public static ReadHydraulicLocationConfigurationDatabase Create(IEnumerable<long> locationIds, long trackId)
         {
-            return Create(locationIds, null, trackId);
+            return Create(locationIds, null, new Dictionary<long, bool>
+            {
+                {
+                    trackId, false
+                }
+            });
         }
 
         /// <summary>
@@ -70,37 +75,48 @@ namespace Riskeer.HydraRing.IO.TestUtil
                 ReadHydraulicLocationConfigurationSettingsTestFactory.Create()
             };
 
-            return CreateWithConfigurationSettings(settings, trackId);
+            return CreateWithConfigurationSettings(settings, new Dictionary<long, bool>
+            {
+                {
+                    trackId, false
+                }
+            });
         }
 
         /// <summary>
         /// Create a valid instance of <see cref="ReadHydraulicLocationConfigurationDatabase"/> with hydraulic location
         /// configuration settings.
         /// </summary>
-        /// <param name="settings">The <see cref="ReadHydraulicLocationConfigurationSettings"/> to set.</param>
-        /// <param name="trackId">The id of the track that should be part of the read tracks.</param>
+        /// <param name="tracks">The tracks that should be part of the read tracks.</param>
         /// <returns>The created <see cref="ReadHydraulicLocationConfigurationDatabase"/> with hydraulic location configuration
         /// settings.</returns>
-        public static ReadHydraulicLocationConfigurationDatabase CreateWithConfigurationSettings(IEnumerable<ReadHydraulicLocationConfigurationSettings> settings,
-                                                                                                 long trackId)
+        public static ReadHydraulicLocationConfigurationDatabase CreateWithConfigurationSettings(IDictionary<long, bool> tracks)
+        {
+            ReadHydraulicLocationConfigurationSettings[] settings =
+            {
+                ReadHydraulicLocationConfigurationSettingsTestFactory.Create()
+            };
+
+            return CreateWithConfigurationSettings(settings, tracks);
+        }
+
+        private static ReadHydraulicLocationConfigurationDatabase CreateWithConfigurationSettings(IEnumerable<ReadHydraulicLocationConfigurationSettings> settings,
+                                                                                                  IDictionary<long, bool> tracks)
         {
             return Create(new long[]
             {
                 1,
                 2
-            }, settings, trackId);
+            }, settings, tracks);
         }
 
         private static ReadHydraulicLocationConfigurationDatabase Create(IEnumerable<long> locationIds,
                                                                          IEnumerable<ReadHydraulicLocationConfigurationSettings> settings,
-                                                                         long trackId)
+                                                                         IDictionary<long, bool> tracks)
         {
-            return new ReadHydraulicLocationConfigurationDatabase(locationIds.Select(locationId => new ReadHydraulicLocation(locationId + 100, locationId, trackId)),
+            return new ReadHydraulicLocationConfigurationDatabase(locationIds.Select(locationId => new ReadHydraulicLocation(locationId + 100, locationId, tracks.First().Key)),
                                                                   settings,
-                                                                  new[]
-                                                                  {
-                                                                      new ReadTrack(trackId, false)
-                                                                  });
+                                                                  tracks.Select(t => new ReadTrack(t.Key, t.Value)));
         }
     }
 }

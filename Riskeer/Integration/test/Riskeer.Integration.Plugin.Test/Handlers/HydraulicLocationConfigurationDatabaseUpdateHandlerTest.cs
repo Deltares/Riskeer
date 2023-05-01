@@ -238,6 +238,54 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         }
 
         [Test]
+        public void Update_WithHydraulicBoundaryDatabasesInLookup_UpdatesHydraulicBoundaryDatabases()
+        {
+            // Setup
+            const string hlcdFilePath = "some/file/path";
+            var handler = new HydraulicLocationConfigurationDatabaseUpdateHandler(CreateAssessmentSectionWithHydraulicBoundaryDatabases());
+            var hydraulicBoundaryDatabase1 = new HydraulicBoundaryDatabase();
+            var hydraulicBoundaryDatabase2 = new HydraulicBoundaryDatabase();
+            var hydraulicBoundaryDatabase3 = new HydraulicBoundaryDatabase();
+
+            ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase =
+                ReadHydraulicLocationConfigurationDatabaseTestFactory.CreateWithConfigurationSettings(new Dictionary<long, bool>
+                {
+                    {
+                        1, false
+                    },
+                    {
+                        2, true
+                    }
+                });
+
+            var lookup = new Dictionary<HydraulicBoundaryDatabase, long>
+            {
+                {
+                    hydraulicBoundaryDatabase1, 1
+                },
+                {
+                    hydraulicBoundaryDatabase2, 2
+                },
+                {
+                    hydraulicBoundaryDatabase3, 3
+                }
+            };
+
+            // Preconditions
+            Assert.IsFalse(hydraulicBoundaryDatabase1.UsePreprocessorClosure);
+            Assert.IsFalse(hydraulicBoundaryDatabase2.UsePreprocessorClosure);
+            Assert.IsFalse(hydraulicBoundaryDatabase3.UsePreprocessorClosure);
+
+            // Call
+            handler.Update(new HydraulicBoundaryData(), readHydraulicLocationConfigurationDatabase, lookup, hlcdFilePath);
+
+            // Assert
+            Assert.IsFalse(hydraulicBoundaryDatabase1.UsePreprocessorClosure);
+            Assert.IsTrue(hydraulicBoundaryDatabase2.UsePreprocessorClosure);
+            Assert.IsFalse(hydraulicBoundaryDatabase3.UsePreprocessorClosure);
+        }
+
+        [Test]
         public void Update_DataUpdated_ReturnsChangedObjects()
         {
             // Setup
