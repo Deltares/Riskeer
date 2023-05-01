@@ -43,13 +43,11 @@ namespace Riskeer.Integration.IO.Test.Importers
     [TestFixture]
     public class HydraulicLocationConfigurationDatabaseImporterTest
     {
-        private const int totalNumberOfSteps = 2;
-
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.IO,
                                                                                  nameof(HydraulicLocationConfigurationDatabaseImporter));
 
-        private readonly string validHrdFilePath = Path.Combine(testDataPath, "completeHrd.sqlite");
-        private readonly string validHlcdFilePath = Path.Combine(testDataPath, "HLCD.sqlite");
+        private static readonly string validHrdFilePath = Path.Combine(testDataPath, "completeHrd.sqlite");
+        private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "HLCD.sqlite");
 
         [Test]
         public void Constructor_UpdateHandlerNull_ThrowsArgumentNullException()
@@ -232,9 +230,8 @@ namespace Riskeer.Integration.IO.Test.Importers
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Import_ValidHlcdFile_ExpectedProgressNotifications(bool hydraulicBoundaryDataLinked)
+        [TestCaseSource(nameof(GetProgressNotificationTestCases))]
+        public void Import_ValidHlcdFile_ExpectedProgressNotifications(HydraulicBoundaryData hydraulicBoundaryData, IEnumerable<ProgressNotification> expectedProgressNotifications)
         {
             // Setup
             var mocks = new MockRepository();
@@ -244,11 +241,6 @@ namespace Riskeer.Integration.IO.Test.Importers
             mocks.ReplayAll();
 
             var progressChangeNotifications = new List<ProgressNotification>();
-
-            HydraulicBoundaryData hydraulicBoundaryData = hydraulicBoundaryDataLinked
-                                                              ? CreateLinkedHydraulicBoundaryData()
-                                                              : new HydraulicBoundaryData();
-
             var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationDatabase(), handler,
                                                                               hydraulicBoundaryData, validHlcdFilePath);
             importer.SetProgressChanged((description, step, steps) => progressChangeNotifications.Add(new ProgressNotification(description, step, steps)));
@@ -258,11 +250,6 @@ namespace Riskeer.Integration.IO.Test.Importers
 
             // Assert
             Assert.IsTrue(importResult);
-            var expectedProgressNotifications = new[]
-            {
-                new ProgressNotification("Inlezen van het hydraulische locatie configuratie bestand.", 1, totalNumberOfSteps),
-                new ProgressNotification("Geïmporteerde data toevoegen aan het traject.", 2, totalNumberOfSteps)
-            };
             ProgressNotificationTestHelper.AssertProgressNotificationsAreEqual(expectedProgressNotifications, progressChangeNotifications);
             mocks.VerifyAll();
         }
@@ -401,6 +388,8 @@ namespace Riskeer.Integration.IO.Test.Importers
         public void Import_CancelImportDuringAddReadDataToDataModel_ContinuesImportAndLogs()
         {
             // Setup
+            const int totalNumberOfSteps = 3;
+
             var mocks = new MockRepository();
             var handler = mocks.Stub<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
             handler.Stub(h => h.InquireConfirmation()).Return(true);
@@ -432,7 +421,24 @@ namespace Riskeer.Integration.IO.Test.Importers
             mocks.VerifyAll();
         }
 
-        private HydraulicBoundaryData CreateLinkedHydraulicBoundaryData()
+        private static IEnumerable<TestCaseData> GetProgressNotificationTestCases()
+        {
+            yield return new TestCaseData(
+                new HydraulicBoundaryData(), new[]
+                {
+                    new ProgressNotification("Inlezen van het hydraulische locatie configuratie bestand.", 1, 2),
+                    new ProgressNotification("Geïmporteerde data toevoegen aan het traject.", 2, 2)
+                });
+            yield return new TestCaseData(
+                CreateLinkedHydraulicBoundaryData(), new[]
+                {
+                    new ProgressNotification("Inlezen van het hydraulische locatie configuratie bestand.", 1, 3),
+                    new ProgressNotification("Inlezen van de hydraulische belastingen bestanden.", 2, 3),
+                    new ProgressNotification("Geïmporteerde data toevoegen aan het traject.", 3, 3)
+                });
+        }
+
+        private static HydraulicBoundaryData CreateLinkedHydraulicBoundaryData()
         {
             return new HydraulicBoundaryData
             {

@@ -212,4 +212,7 @@ Er is geen HLCD geïmporteerd.</value>
   <data name="HydraulicBoundaryDatabaseImporter_Hrd_file_contains_one_or_more_locations_with_existing_id" xml:space="preserve">
     <value>Het HRD bestand bevat een of meerdere locaties met een id dat reeds voorkomt.</value>
   </data>
+  <data name="HydraulicLocationConfigurationDatabaseImporter_ProgressText_Reading_Hrd_files" xml:space="preserve">
+    <value>Inlezen van de hydraulische belastingen bestanden.</value>
+  </data>
 </root>

@@ -41,7 +41,7 @@ namespace Riskeer.Integration.IO.Importers
     /// </summary>
     public class HydraulicLocationConfigurationDatabaseImporter : FileImporterBase<HydraulicLocationConfigurationDatabase>
     {
-        private const int numberOfSteps = 2;
+        private readonly int numberOfSteps;
 
         private readonly HydraulicBoundaryData hydraulicBoundaryData;
         private readonly List<IObservable> changedObservables = new List<IObservable>();
@@ -73,6 +73,10 @@ namespace Riskeer.Integration.IO.Importers
 
             this.updateHandler = updateHandler;
             this.hydraulicBoundaryData = hydraulicBoundaryData;
+
+            numberOfSteps = hydraulicBoundaryData.HydraulicBoundaryDatabases.Any()
+                                ? 3
+                                : 2;
         }
 
         protected override bool OnImport()
@@ -103,6 +107,11 @@ namespace Riskeer.Integration.IO.Importers
             {
                 Log.Error(BuildErrorMessage(FilePath, Resources.HydraulicLocationConfigurationDatabaseImporter_Invalid_number_of_ScenarioInformation_entries));
                 return false;
+            }
+
+            if (hydraulicBoundaryData.HydraulicBoundaryDatabases.Any())
+            {
+                NotifyProgress(Resources.HydraulicLocationConfigurationDatabaseImporter_ProgressText_Reading_Hrd_files, 2, numberOfSteps);
             }
 
             IEnumerable<long> currentLocationIds = hydraulicBoundaryData.GetLocations().Select(l => l.Id).ToArray();
@@ -165,7 +174,7 @@ namespace Riskeer.Integration.IO.Importers
 
         private void SetReadHydraulicLocationConfigurationSettingsToDataModel(ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase)
         {
-            NotifyProgress(RiskeerCommonIOResources.Importer_ProgressText_Adding_imported_data_to_AssessmentSection, 2, numberOfSteps);
+            NotifyProgress(RiskeerCommonIOResources.Importer_ProgressText_Adding_imported_data_to_AssessmentSection, numberOfSteps, numberOfSteps);
             changedObservables.AddRange(updateHandler.Update(hydraulicBoundaryData, readHydraulicLocationConfigurationDatabase, FilePath));
         }
 

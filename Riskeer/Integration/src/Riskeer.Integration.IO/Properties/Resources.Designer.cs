@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
+// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -349,6 +349,15 @@ namespace Riskeer.Integration.IO.Properties {
             get {
                 return ResourceManager.GetString("HydraulicLocationConfigurationDatabaseImporter_ProgressText_Import_canceled_No_da" +
                         "ta_changed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inlezen van de hydraulische belastingen bestanden..
+        /// </summary>
+        public static string HydraulicLocationConfigurationDatabaseImporter_ProgressText_Reading_Hrd_files {
+            get {
+                return ResourceManager.GetString("HydraulicLocationConfigurationDatabaseImporter_ProgressText_Reading_Hrd_files", resourceCulture);
             }
         }
         
