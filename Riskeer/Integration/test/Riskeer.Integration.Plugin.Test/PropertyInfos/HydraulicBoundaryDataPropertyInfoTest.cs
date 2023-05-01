@@ -63,7 +63,6 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
             // Setup
             var hydraulicBoundaryData = new HydraulicBoundaryData();
 
-            
             var context = new HydraulicBoundaryDataContext(hydraulicBoundaryData, new AssessmentSection(AssessmentSectionComposition.Dike));
 
             // Call

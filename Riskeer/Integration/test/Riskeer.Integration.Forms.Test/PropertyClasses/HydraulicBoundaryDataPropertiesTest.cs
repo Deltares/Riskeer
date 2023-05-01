@@ -60,14 +60,16 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GetProperties_WithData_ReturnsExpectedValues()
+        [TestCase(@"test\path\test.test", @"test\path")]
+        [TestCase("", "")]
+        public void GetProperties_WithData_ReturnsExpectedValues(string filePath, string expectedWorkingDirectory)
         {
             // Setup
             var hydraulicBoundaryData = new HydraulicBoundaryData
             {
                 HydraulicLocationConfigurationDatabase =
                 {
-                    FilePath = @"test\path\test.test"
+                    FilePath = filePath
                 }
             };
 
@@ -75,26 +77,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var properties = new HydraulicBoundaryDataProperties(hydraulicBoundaryData);
 
             // Assert
-            Assert.AreEqual(@"test\path", properties.WorkingDirectory);
-        }
-        
-        [Test]
-        public void GetProperties_WithoutData_ReturnsExpectedValues()
-        {
-            // Setup
-            var hydraulicBoundaryData = new HydraulicBoundaryData
-            {
-                HydraulicLocationConfigurationDatabase =
-                {
-                    FilePath = string.Empty
-                }
-            };
-
-            // Call
-            var properties = new HydraulicBoundaryDataProperties(hydraulicBoundaryData);
-
-            // Assert
-            Assert.AreEqual("", properties.WorkingDirectory);
+            Assert.AreEqual(expectedWorkingDirectory, properties.WorkingDirectory);
         }
 
         [Test]
