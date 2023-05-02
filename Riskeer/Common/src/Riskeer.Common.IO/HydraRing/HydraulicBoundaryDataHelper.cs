@@ -25,7 +25,6 @@ using System.IO;
 using Core.Common.Base.IO;
 using Core.Common.Util;
 using Core.Common.Util.Builders;
-using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.IO.Properties;
 using Riskeer.HydraRing.IO.HydraulicBoundaryDatabase;
 using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
@@ -109,22 +108,17 @@ namespace Riskeer.Common.IO.HydraRing
         }
 
         /// <summary>
-        /// Checks whether the version of a hydraulic boundary database matches the version of the corresponding database file.
-        /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database to check the version of.</param>
-        /// <returns><c>true</c> if the provided hydraulic boundary database matches the version of the corresponding database
-        /// file, <c>false</c> otherwise.</returns>
+        /// Checks whether the provided version string matches the version string in the provided hydraulic boundary database file.
+        /// <param name="version">The version to check for.</param>
+        /// <param name="hrdFilePath">The path of the hydraulic boundary database to check.</param>
+        /// <returns><c>true</c> if the provided version string matches the version string in the provided hydraulic boundary
+        /// database file, <c>false</c> otherwise.</returns>
         /// <exception cref="CriticalFileReadException">Thrown when no connection could be created with the hydraulic boundary
         /// database.</exception>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryDatabase"/> is <c>null</c>.</exception>
         /// </summary>
-        public static bool IsCorrectVersion(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+        public static bool IsCorrectVersion(string version, string hrdFilePath)
         {
-            if (hydraulicBoundaryDatabase == null)
-            {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
-            }
-
-            return hydraulicBoundaryDatabase.Version == GetVersion(hydraulicBoundaryDatabase.FilePath);
+            return version == GetVersion(hrdFilePath);
         }
 
         /// <summary>

@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.IO;
 using System.Text;
 using Core.Common.Base.IO;
@@ -159,44 +158,24 @@ namespace Riskeer.Common.IO.Test.HydraRing
         }
 
         [Test]
-        public void IsCorrectVersion_HydraulicBoundaryDatabaseNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => HydraulicBoundaryDataHelper.IsCorrectVersion(null);
-
-            // Assert
-            string parameter = Assert.Throws<ArgumentNullException>(Call).ParamName;
-            Assert.AreEqual("hydraulicBoundaryDatabase", parameter);
-        }
-
-        [Test]
         public void IsCorrectVersion_HrdFileWithInvalidPathChars_ThrowsCriticalFileReadException()
         {
             // Setup
             string hrdFilePath = Path.Combine(testDataPath, "complete.sqlite").Replace('c', Path.GetInvalidPathChars()[0]);
 
             // Call
-            void Test() => HydraulicBoundaryDataHelper.IsCorrectVersion(new HydraulicBoundaryDatabase
-            {
-                FilePath = hrdFilePath
-            });
+            void Test() => HydraulicBoundaryDataHelper.IsCorrectVersion(string.Empty, hrdFilePath);
 
             // Assert
             Assert.Throws<CriticalFileReadException>(Test);
         }
 
         [Test]
-        public void IsCorrectVersion_EqualVersion_ReturnsTrue()
+        public void IsCorrectVersion_EqualVersions_ReturnsTrue()
         {
-            // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = Path.Combine(testDataPath, "complete.sqlite"),
-                Version = "Dutch coast South19-11-2015 12:0013"
-            };
-
             // Call
-            bool isEqual = HydraulicBoundaryDataHelper.IsCorrectVersion(hydraulicBoundaryDatabase);
+            bool isEqual = HydraulicBoundaryDataHelper.IsCorrectVersion("Dutch coast South19-11-2015 12:0013",
+                                                                        Path.Combine(testDataPath, "complete.sqlite"));
 
             // Assert
             Assert.IsTrue(isEqual);
@@ -205,15 +184,9 @@ namespace Riskeer.Common.IO.Test.HydraRing
         [Test]
         public void IsCorrectVersion_DifferentVersions_ReturnsFalse()
         {
-            // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = Path.Combine(testDataPath, "complete.sqlite"),
-                Version = "Dutch coast South19-11-2015 12:0113"
-            };
-
             // Call
-            bool isEqual = HydraulicBoundaryDataHelper.IsCorrectVersion(hydraulicBoundaryDatabase);
+            bool isEqual = HydraulicBoundaryDataHelper.IsCorrectVersion("Dutch coast South19-11-2015 12:0113",
+                                                                        Path.Combine(testDataPath, "complete.sqlite"));
 
             // Assert
             Assert.IsFalse(isEqual);
