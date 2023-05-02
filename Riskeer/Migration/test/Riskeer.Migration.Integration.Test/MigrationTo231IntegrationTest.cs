@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Migration.Core;
@@ -32,11 +34,12 @@ namespace Riskeer.Migration.Integration.Test
         private const string newVersion = "23.1";
 
         [Test]
-        public void Given221Project_WhenUpgradedTo231_ThenProjectAsExpected()
+        [TestCaseSource(nameof(GetMigrationProjectsWithMessages))]
+        public void Given221Project_WhenUpgradedTo231_ThenProjectAsExpected(string fileName, IEnumerable<string> expectedMessages)
         {
             // Given
             string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Migration.Core,
-                                                               "MigrationTestProject221.risk");
+                                                               fileName);
             var fromVersionedFile = new ProjectVersionedFile(sourceFilePath);
 
             string targetFilePath = TestHelper.GetScratchPadPath(nameof(Given221Project_WhenUpgradedTo231_ThenProjectAsExpected));
@@ -78,17 +81,24 @@ namespace Riskeer.Migration.Integration.Test
                     AssertClosingStructuresOutput(reader);
                     AssertHeightStructuresOutput(reader);
                     AssertStabilityPointStructuresOutput(reader);
-                    
                     AssertMacroStabilityInwardsOutput(reader, sourceFilePath);
                     AssertPipingOutput(reader, sourceFilePath);
                     
                     AssertIllustrationPointResults(reader);
                 }
 
-                AssertLogDatabase(logFilePath);
+                AssertLogDatabase(logFilePath, expectedMessages);
             }
         }
 
+        private static IEnumerable<TestCaseData> GetMigrationProjectsWithMessages()
+        {
+            yield return new TestCaseData("MigrationTestProject221NoOutput.risk", new[]
+            {
+                "Geen aanpassingen."
+            });
+        }
+        
         private static void AssertDuneLocation(MigratedDatabaseReader reader, string sourceFilePath)
         {
             string validateDuneLocation =
@@ -538,20 +548,23 @@ namespace Riskeer.Migration.Integration.Test
             }
         }
 
-        private static void AssertLogDatabase(string logFilePath)
+        private static void AssertLogDatabase(string logFilePath, IEnumerable<string> expectedMessages)
         {
             using (var reader = new MigrationLogDatabaseReader(logFilePath))
             {
                 ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
 
-                Assert.AreEqual(2, messages.Count);
+                Assert.AreEqual(expectedMessages.Count() + 1, messages.Count);
                 var i = 0;
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("22.1", newVersion, "Gevolgen van de migratie van versie 22.1 naar versie 23.1:"),
                     messages[i++]);
-                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("22.1", newVersion, "* Geen aanpassingen."),
-                    messages[i]);
+                foreach (string expectedMessage in expectedMessages)
+                {
+                    MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                        new MigrationLogMessage("22.1", newVersion, $"* {expectedMessage}"),
+                        messages[i++]);
+                }
             }
         }
 
