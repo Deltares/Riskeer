@@ -65,6 +65,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryData));
         private static readonly string validHrdFilePath = Path.Combine(testDataPath, "complete.sqlite");
+        private static readonly string validHrdFileVersion = "Dutch coast South19-11-2015 12:0013";
         private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
 
         private MockRepository mocksRepository;
@@ -374,6 +375,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                     new HydraulicBoundaryDatabase
                     {
                         FilePath = validHrdFilePath,
+                        Version = validHrdFileVersion,
                         Locations =
                         {
                             hydraulicBoundaryLocation
@@ -499,6 +501,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                     new HydraulicBoundaryDatabase
                     {
                         FilePath = validHrdFilePath,
+                        Version = validHrdFileVersion,
                         Locations =
                         {
                             hydraulicBoundaryLocation
@@ -571,7 +574,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 }
             };
 
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocksRepository, "invalidFilePath");
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocksRepository);
 
             var nodeData = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
@@ -620,7 +623,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 }
             };
 
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocksRepository, "invalidFilePath");
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocksRepository);
 
             var nodeData = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
@@ -678,7 +681,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var calculationObserver = mocksRepository.StrictMock<IObserver>();
             calculationWithIllustrationPoints.Attach(calculationObserver);
 
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocksRepository, "invalidFilePath");
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocksRepository);
 
             var nodeData = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
@@ -751,7 +754,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var unaffectedCalculationObserver = mocksRepository.StrictMock<IObserver>();
             calculationWithOutput.Attach(unaffectedCalculationObserver);
 
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocksRepository, "invalidFilePath");
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocksRepository);
 
             var nodeData = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
