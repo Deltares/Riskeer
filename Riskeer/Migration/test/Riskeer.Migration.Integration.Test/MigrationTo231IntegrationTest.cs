@@ -97,6 +97,11 @@ namespace Riskeer.Migration.Integration.Test
             {
                 "Geen aanpassingen."
             });
+            
+            yield return new TestCaseData("MigrationTestProject221DunesWithOutput.risk", new[]
+            {
+                "Alle berekende resultaten zijn verwijderd."
+            });
         }
         
         private static void AssertDuneLocation(MigratedDatabaseReader reader, string sourceFilePath)
@@ -471,7 +476,6 @@ namespace Riskeer.Migration.Integration.Test
                 "DuneErosionFailureMechanismMetaEntity",
                 "DuneLocationCalculationEntity",
                 "DuneLocationCalculationForTargetProbabilityCollectionEntity",
-                "DuneLocationCalculationOutputEntity",
                 "FailureMechanismFailureMechanismSectionEntity",
                 "FaultTreeIllustrationPointEntity",
                 "FaultTreeIllustrationPointStochastEntity",

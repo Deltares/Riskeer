@@ -38,7 +38,6 @@ INSERT INTO DikeProfileEntity SELECT * FROM [SOURCEPROJECT].DikeProfileEntity;
 INSERT INTO DuneErosionFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].DuneErosionFailureMechanismMetaEntity;
 INSERT INTO DuneLocationCalculationEntity SELECT * FROM [SOURCEPROJECT].DuneLocationCalculationEntity;
 INSERT INTO DuneLocationCalculationForTargetProbabilityCollectionEntity SELECT * FROM [SOURCEPROJECT].DuneLocationCalculationForTargetProbabilityCollectionEntity;
-INSERT INTO DuneLocationCalculationOutputEntity SELECT * FROM [SOURCEPROJECT].DuneLocationCalculationOutputEntity;
 INSERT INTO DuneLocationEntity (
     [DuneLocationEntityId],
     [HydraulicLocationEntityId],
@@ -221,6 +220,69 @@ INSERT INTO [LOGDATABASE].MigrationLogEntity (
     [ToVersion],
     [LogMessage])
 VALUES ("22.1", "23.1", "Gevolgen van de migratie van versie 22.1 naar versie 23.1:");
+
+CREATE TEMP TABLE TempLogOutputDeleted 
+(
+	'NrDeleted' INTEGER NOT NULL
+);
+
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].HydraulicLocationOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].ClosingStructuresOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].DuneLocationCalculationOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].GrassCoverErosionInwardsDikeHeightOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].GrassCoverErosionInwardsOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].GrassCoverErosionInwardsOvertoppingRateOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].HeightStructuresOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].StabilityPointStructuresOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].ProbabilisticPipingCalculationOutputEntity;
+INSERT INTO TempLogOutputDeleted
+SELECT COUNT()
+FROM [SOURCEPROJECT].SemiProbabilisticPipingCalculationOutputEntity
+JOIN [SOURCEPROJECT].SemiProbabilisticPipingCalculationEntity USING(SemiProbabilisticPipingCalculationEntityId)
+WHERE UseAssessmentLevelManualInput = 0;
+INSERT INTO TempLogOutputDeleted
+SELECT COUNT()
+FROM [SOURCEPROJECT].MacroStabilityInwardsCalculationOutputEntity
+JOIN [SOURCEPROJECT].MacroStabilityInwardsCalculationEntity USING(MacroStabilityInwardsCalculationEntityId)
+WHERE UseAssessmentLevelManualInput = 0;
+
+CREATE TEMP TABLE TempLogOutputRemaining
+(
+	'NrRemaining' INTEGER NOT NULL
+);
+INSERT INTO TempLogOutputRemaining
+SELECT COUNT()
+FROM [SOURCEPROJECT].SemiProbabilisticPipingCalculationOutputEntity
+JOIN [SOURCEPROJECT].SemiProbabilisticPipingCalculationEntity USING(SemiProbabilisticPipingCalculationEntityId)
+WHERE UseAssessmentLevelManualInput = 1;
+INSERT INTO TempLogOutputRemaining
+SELECT COUNT()
+FROM [SOURCEPROJECT].MacroStabilityInwardsCalculationOutputEntity
+JOIN [SOURCEPROJECT].MacroStabilityInwardsCalculationEntity USING(MacroStabilityInwardsCalculationEntityId)
+WHERE UseAssessmentLevelManualInput = 1;
+
+INSERT INTO [LOGDATABASE].MigrationLogEntity (
+    [FromVersion],
+    [ToVersion],
+[LogMessage])
+SELECT
+    "22.1",
+    "23.1",
+    CASE
+        WHEN [NrRemaining] > 0
+			THEN "* Alle berekende resultaten zijn verwijderd, behalve die van het faalmechanisme 'Piping' en 'Macrostabiliteit Binnenwaards' waarbij de waterstand handmatig is ingevuld."
+        ELSE "* Alle berekende resultaten zijn verwijderd."
+        END
+FROM TempLogOutputDeleted
+         LEFT JOIN TempLogOutputRemaining
+WHERE [NrDeleted] > 0
+    LIMIT 1;
+
+DROP TABLE TempLogOutputDeleted;
+DROP TABLE TempLogOutputRemaining;
 
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
     [FromVersion],
