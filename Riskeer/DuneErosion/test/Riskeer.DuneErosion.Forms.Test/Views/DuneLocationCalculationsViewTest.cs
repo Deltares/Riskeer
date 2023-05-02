@@ -59,6 +59,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
 
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryData));
         private static readonly string validHrdFilePath = Path.Combine(testDataPath, "complete.sqlite");
+        private static readonly string validHrdFileVersion = "Dutch coast South19-11-2015 12:0013";
         private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
 
         private Form testForm;
@@ -483,6 +484,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                     new HydraulicBoundaryDatabase
                     {
                         FilePath = validHrdFilePath,
+                        Version = validHrdFileVersion,
                         Locations =
                         {
                             hydraulicBoundaryLocation
@@ -556,6 +558,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                     new HydraulicBoundaryDatabase
                     {
                         FilePath = validHrdFilePath,
+                        Version = validHrdFileVersion,
                         Locations =
                         {
                             hydraulicBoundaryLocation
@@ -701,6 +704,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                     {
                         FilePath = validHrdFilePath,
                         UsePreprocessorClosure = usePreprocessorClosure,
+                        Version = validHrdFileVersion,
                         Locations =
                         {
                             hydraulicBoundaryLocation

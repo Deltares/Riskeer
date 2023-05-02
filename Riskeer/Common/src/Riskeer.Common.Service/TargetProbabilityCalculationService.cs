@@ -65,6 +65,17 @@ namespace Riskeer.Common.Service
                 isValid = false;
             }
 
+            if (isValid && !HydraulicBoundaryDataHelper.IsCorrectVersion(calculationSettings.HrdFileVersion, calculationSettings.HrdFilePath))
+            {
+                CalculationServiceHelper.LogMessagesAsError(Resources.Hydraulic_boundary_database_mismatching_version_in_file_0_,
+                                                            new[]
+                                                            {
+                                                                calculationSettings.HrdFilePath
+                                                            });
+
+                isValid = false;
+            }
+
             CalculationServiceHelper.LogValidationEnd();
 
             return isValid;
