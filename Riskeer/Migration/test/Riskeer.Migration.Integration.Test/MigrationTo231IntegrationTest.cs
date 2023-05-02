@@ -68,22 +68,22 @@ namespace Riskeer.Migration.Integration.Test
                     AssertHydraulicBoundaryData(reader, sourceFilePath);
                     AssertHydraulicBoundaryDatabase(reader, sourceFilePath);
                     AssertHydraulicLocation(reader, sourceFilePath);
-                    
+
                     AssertHydraulicLocationOutput(reader);
                     AssertDuneLocationOutput(reader);
-                    
+
                     AssertGrassCoverErosionInwardsOutput(reader);
-                    
+
                     AssertGrassCoverErosionOutwardsOutput(reader);
                     AssertStabilityStoneCoverOutput(reader);
                     AssertWaveImpactAsphaltCoverOutput(reader);
-                    
+
                     AssertClosingStructuresOutput(reader);
                     AssertHeightStructuresOutput(reader);
                     AssertStabilityPointStructuresOutput(reader);
                     AssertMacroStabilityInwardsOutput(reader, sourceFilePath);
                     AssertPipingOutput(reader, sourceFilePath);
-                    
+
                     AssertIllustrationPointResults(reader);
                 }
 
@@ -97,23 +97,33 @@ namespace Riskeer.Migration.Integration.Test
             {
                 "Geen aanpassingen."
             });
-            
+
             yield return new TestCaseData("MigrationTestProject221DunesWithOutput.risk", new[]
             {
                 "Alle berekende resultaten zijn verwijderd."
             });
-            
+
             yield return new TestCaseData("MigrationTestProject221MacroStabilityInwardsNoManualAssessmentLevels.risk", new[]
             {
                 "Alle berekende resultaten zijn verwijderd."
             });
-            
+
             yield return new TestCaseData("MigrationTestProject221PipingNoManualAssessmentLevels.risk", new[]
             {
                 "Alle berekende resultaten zijn verwijderd."
             });
+            
+            yield return new TestCaseData("MigrationTestProject221WithOutput.risk", new[]
+            {
+                "Alle berekende resultaten zijn verwijderd, behalve die van het faalmechanisme 'Piping' en 'Macrostabiliteit binnenwaarts' waarbij de waterstand handmatig is ingevuld."
+            });
+            
+            yield return new TestCaseData("MigrationTestProject221MacroStabilityInwardsWithOutput.risk", new[]
+            {
+                "Alle berekende resultaten zijn verwijderd, behalve die van het faalmechanisme 'Piping' en 'Macrostabiliteit binnenwaarts' waarbij de waterstand handmatig is ingevuld."
+            });
         }
-        
+
         private static void AssertDuneLocation(MigratedDatabaseReader reader, string sourceFilePath)
         {
             string validateDuneLocation =
@@ -224,7 +234,7 @@ namespace Riskeer.Migration.Integration.Test
                 "FROM [HydraulicLocationOutputEntity]; ";
             reader.AssertReturnedDataIsValid(validateOutput);
         }
-        
+
         private static void AssertDuneLocationOutput(MigratedDatabaseReader reader)
         {
             const string validateOutput =
@@ -388,7 +398,6 @@ namespace Riskeer.Migration.Integration.Test
             reader.AssertReturnedDataIsValid(validateSemiProbabilisticOutput);
         }
 
-
         private static void AssertIllustrationPointResults(MigratedDatabaseReader reader)
         {
             const string validateFaultTreeIllustrationPoint =
@@ -481,36 +490,22 @@ namespace Riskeer.Migration.Integration.Test
                 "BackgroundDataMetaEntity",
                 "ClosingStructureEntity",
                 "ClosingStructuresCalculationEntity",
-                "ClosingStructuresOutputEntity",
                 "DikeProfileEntity",
                 "DuneErosionFailureMechanismMetaEntity",
                 "DuneLocationCalculationEntity",
                 "DuneLocationCalculationForTargetProbabilityCollectionEntity",
                 "FailureMechanismFailureMechanismSectionEntity",
-                "FaultTreeIllustrationPointEntity",
-                "FaultTreeIllustrationPointStochastEntity",
-                "FaultTreeSubmechanismIllustrationPointEntity",
                 "ForeshoreProfileEntity",
-                "GeneralResultFaultTreeIllustrationPointEntity",
-                "GeneralResultFaultTreeIllustrationPointStochastEntity",
-                "GeneralResultSubMechanismIllustrationPointEntity",
-                "GeneralResultSubMechanismIllustrationPointStochastEntity",
-                "GrassCoverErosionInwardsDikeHeightOutputEntity",
-                "GrassCoverErosionInwardsOutputEntity",
-                "GrassCoverErosionInwardsOvertoppingRateOutputEntity",
                 "GrassCoverErosionOutwardsWaveConditionsCalculationEntity",
-                "GrassCoverErosionOutwardsWaveConditionsOutputEntity",
                 "GrassCoverSlipOffOutwardsFailureMechanismMetaEntity",
                 "HeightStructureEntity",
                 "HeightStructuresCalculationEntity",
                 "HeightStructuresFailureMechanismMetaEntity",
-                "HeightStructuresOutputEntity",
                 "HydraulicLocationCalculationCollectionEntity",
                 "HydraulicLocationCalculationCollectionHydraulicLocationCalculationEntity",
                 "HydraulicLocationCalculationEntity",
                 "HydraulicLocationCalculationForTargetProbabilityCollectionEntity",
                 "HydraulicLocationCalculationForTargetProbabilityCollectionHydraulicLocationCalculationEntity",
-                "IllustrationPointResultEntity",
                 "MacroStabilityInwardsCalculationEntity",
                 "MacroStabilityInwardsCharacteristicPointEntity",
                 "MacroStabilityInwardsFailureMechanismMetaEntity",
@@ -527,25 +522,17 @@ namespace Riskeer.Migration.Integration.Test
                 "PipingFailureMechanismMetaEntity",
                 "PipingStructureFailureMechanismMetaEntity",
                 "ProbabilisticPipingCalculationEntity",
-                "ProbabilisticPipingCalculationOutputEntity",
                 "ProjectEntity",
                 "SpecificFailureMechanismEntity",
                 "SpecificFailureMechanismFailureMechanismSectionEntity",
                 "StabilityPointStructureEntity",
                 "StabilityPointStructuresCalculationEntity",
                 "StabilityPointStructuresFailureMechanismMetaEntity",
-                "StabilityPointStructuresOutputEntity",
                 "StabilityStoneCoverFailureMechanismMetaEntity",
                 "StabilityStoneCoverWaveConditionsCalculationEntity",
-                "StabilityStoneCoverWaveConditionsOutputEntity",
                 "StochastEntity",
-                "SubMechanismIllustrationPointEntity",
-                "SubMechanismIllustrationPointStochastEntity",
-                "TopLevelFaultTreeIllustrationPointEntity",
-                "TopLevelSubMechanismIllustrationPointEntity",
                 "VersionEntity",
-                "WaveImpactAsphaltCoverWaveConditionsCalculationEntity",
-                "WaveImpactAsphaltCoverWaveConditionsOutputEntity"
+                "WaveImpactAsphaltCoverWaveConditionsCalculationEntity"
             };
 
             foreach (string table in tables)
