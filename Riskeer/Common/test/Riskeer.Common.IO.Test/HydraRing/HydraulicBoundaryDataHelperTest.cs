@@ -159,10 +159,10 @@ namespace Riskeer.Common.IO.Test.HydraRing
         }
 
         [Test]
-        public void ValidateVersion_HydraulicBoundaryDatabaseNull_ThrowsArgumentNullException()
+        public void IsCorrectVersion_HydraulicBoundaryDatabaseNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => HydraulicBoundaryDataHelper.ValidateVersion(null);
+            void Call() => HydraulicBoundaryDataHelper.IsCorrectVersion(null);
 
             // Assert
             string parameter = Assert.Throws<ArgumentNullException>(Call).ParamName;
@@ -170,13 +170,13 @@ namespace Riskeer.Common.IO.Test.HydraRing
         }
 
         [Test]
-        public void ValidateVersion_HrdFileWithInvalidPathChars_ThrowsCriticalFileReadException()
+        public void IsCorrectVersion_HrdFileWithInvalidPathChars_ThrowsCriticalFileReadException()
         {
             // Setup
             string hrdFilePath = Path.Combine(testDataPath, "complete.sqlite").Replace('c', Path.GetInvalidPathChars()[0]);
 
             // Call
-            void Test() => HydraulicBoundaryDataHelper.ValidateVersion(new HydraulicBoundaryDatabase
+            void Test() => HydraulicBoundaryDataHelper.IsCorrectVersion(new HydraulicBoundaryDatabase
             {
                 FilePath = hrdFilePath
             });
@@ -186,7 +186,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
         }
 
         [Test]
-        public void ValidateVersion_EqualVersion_ReturnsTrue()
+        public void IsCorrectVersion_EqualVersion_ReturnsTrue()
         {
             // Setup
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
@@ -196,14 +196,14 @@ namespace Riskeer.Common.IO.Test.HydraRing
             };
 
             // Call
-            bool isEqual = HydraulicBoundaryDataHelper.ValidateVersion(hydraulicBoundaryDatabase);
+            bool isEqual = HydraulicBoundaryDataHelper.IsCorrectVersion(hydraulicBoundaryDatabase);
 
             // Assert
             Assert.IsTrue(isEqual);
         }
 
         [Test]
-        public void ValidateVersion_DifferentVersions_ReturnsFalse()
+        public void IsCorrectVersion_DifferentVersions_ReturnsFalse()
         {
             // Setup
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
@@ -213,7 +213,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
             };
 
             // Call
-            bool isEqual = HydraulicBoundaryDataHelper.ValidateVersion(hydraulicBoundaryDatabase);
+            bool isEqual = HydraulicBoundaryDataHelper.IsCorrectVersion(hydraulicBoundaryDatabase);
 
             // Assert
             Assert.IsFalse(isEqual);

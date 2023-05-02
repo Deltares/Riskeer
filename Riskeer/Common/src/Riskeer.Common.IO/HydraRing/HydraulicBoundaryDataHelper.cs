@@ -109,7 +109,7 @@ namespace Riskeer.Common.IO.HydraRing
         }
 
         /// <summary>
-        /// Validates whether the version of a hydraulic boundary database matches the version of the corresponding database file.
+        /// Checks whether the version of a hydraulic boundary database matches the version of the corresponding database file.
         /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database to check the version of.</param>
         /// <returns><c>true</c> if the provided hydraulic boundary database matches the version of the corresponding database
         /// file, <c>false</c> otherwise.</returns>
@@ -117,7 +117,7 @@ namespace Riskeer.Common.IO.HydraRing
         /// database.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryDatabase"/> is <c>null</c>.</exception>
         /// </summary>
-        public static bool ValidateVersion(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+        public static bool IsCorrectVersion(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
             if (hydraulicBoundaryDatabase == null)
             {
