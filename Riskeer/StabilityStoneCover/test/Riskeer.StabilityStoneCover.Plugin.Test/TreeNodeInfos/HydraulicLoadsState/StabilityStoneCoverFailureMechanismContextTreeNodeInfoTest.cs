@@ -59,6 +59,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos.HydraulicLoadsSt
 
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
         private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
+        private static readonly string validHrdFileVersion = "IJssel lake2016-07-04 16:187";
         private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
 
         private MockRepository mocks;
@@ -336,6 +337,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos.HydraulicLoadsSt
                         new HydraulicBoundaryDatabase
                         {
                             FilePath = validHrdFilePath,
+                            Version = validHrdFileVersion,
                             Locations =
                             {
                                 hydraulicBoundaryLocation
