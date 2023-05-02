@@ -53,13 +53,8 @@ namespace Riskeer.Common.Service
                 throw new ArgumentNullException(nameof(hydraulicBoundaryLocation));
             }
 
-            if (!hydraulicBoundaryData.IsLinked())
-            {
-                return Resources.HydraulicBoundaryDataConnectionValidator_No_hydraulic_boundary_database_imported;
-            }
-
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = hydraulicBoundaryData.GetHydraulicBoundaryDatabaseForLocation(hydraulicBoundaryLocation);
-            
+
             string validationProblem = HydraulicBoundaryDataHelper.ValidateFilesForCalculation(
                 hydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath,
                 hydraulicBoundaryDatabase.FilePath,

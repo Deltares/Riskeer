@@ -56,20 +56,6 @@ namespace Riskeer.Common.Service.Test
         }
 
         [Test]
-        public void Validate_HydraulicBoundaryDataNotLinked_ReturnErrorMessage()
-        {
-            // Setup
-            var hydraulicBoundaryData = new HydraulicBoundaryData();
-
-            // Call
-            string message = HydraulicBoundaryDataConnectionValidator.Validate(hydraulicBoundaryData, new TestHydraulicBoundaryLocation());
-
-            // Assert
-            const string expectedMessage = "Er is geen hydraulische belastingendatabase geïmporteerd.";
-            Assert.AreEqual(expectedMessage, message);
-        }
-
-        [Test]
         public void Validate_HydraulicBoundaryLocationNotPartOfHydraulicBoundaryData_ThrowsArgumentException()
         {
             // Setup

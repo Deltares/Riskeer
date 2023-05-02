@@ -206,15 +206,6 @@ namespace Riskeer.Common.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is geen hydraulische belastingendatabase geïmporteerd..
-        /// </summary>
-        public static string HydraulicBoundaryDataConnectionValidator_No_hydraulic_boundary_database_imported {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryDataConnectionValidator_No_hydraulic_boundary_database_imported", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De waarde voor &apos;{0}&apos; moet een concreet getal zijn..
         /// </summary>
         public static string NumericInputRule_Value_of_0_must_be_a_valid_number {
