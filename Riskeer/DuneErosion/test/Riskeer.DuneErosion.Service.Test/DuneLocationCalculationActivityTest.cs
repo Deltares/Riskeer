@@ -47,6 +47,7 @@ namespace Riskeer.DuneErosion.Service.Test
         private MockRepository mockRepository;
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
         private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validHrdFileVersion = "Dutch coast South19-11-2015 12:0013";
         private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "HLCD.sqlite");
 
         [SetUp]
@@ -98,7 +99,7 @@ namespace Riskeer.DuneErosion.Service.Test
             const string calculationIdentifier = "1/100";
             const string locationName = "locationName";
 
-            var settings = new HydraulicBoundaryCalculationSettings(validHlcdFilePath, invalidHrdFilePath, false);
+            var settings = new HydraulicBoundaryCalculationSettings(validHlcdFilePath, invalidHrdFilePath, validHrdFileVersion, false);
             var activity = new DuneLocationCalculationActivity(new DuneLocationCalculation(new TestDuneLocation(locationName)),
                                                                settings,
                                                                0.01,
@@ -135,7 +136,8 @@ namespace Riskeer.DuneErosion.Service.Test
                 Converged = true
             };
 
-            var calculationSettings = new HydraulicBoundaryCalculationSettings(validHlcdFilePath, validHrdFilePath, usePreprocessorClosure);
+            var calculationSettings = new HydraulicBoundaryCalculationSettings(validHlcdFilePath, validHrdFilePath,
+                                                                               validHrdFileVersion, usePreprocessorClosure);
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
@@ -422,7 +424,7 @@ namespace Riskeer.DuneErosion.Service.Test
 
         private static HydraulicBoundaryCalculationSettings CreateCalculationSettings()
         {
-            return new HydraulicBoundaryCalculationSettings(validHlcdFilePath, validHrdFilePath, false);
+            return new HydraulicBoundaryCalculationSettings(validHlcdFilePath, validHrdFilePath, validHrdFileVersion, false);
         }
 
         private class DuneLocationCalculationActivityWithState : DuneLocationCalculationActivity

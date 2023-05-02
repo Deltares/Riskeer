@@ -46,6 +46,7 @@ namespace Riskeer.DuneErosion.Service.Test
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
         private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validHrdFileVersion = "Dutch coast South19-11-2015 12:0013";
         private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
 
         [Test]
@@ -121,7 +122,8 @@ namespace Riskeer.DuneErosion.Service.Test
         {
             // Setup
             const double targetProbability = 1.0 / 30;
-            var calculationSettings = new HydraulicBoundaryCalculationSettings(validHlcdFilePath, validHrdFilePath, usePreprocessorClosure);
+            var calculationSettings = new HydraulicBoundaryCalculationSettings(validHlcdFilePath, validHrdFilePath,
+                                                                               validHrdFileVersion, usePreprocessorClosure);
 
             var calculator = new TestDunesBoundaryConditionsCalculator
             {
@@ -523,7 +525,7 @@ namespace Riskeer.DuneErosion.Service.Test
 
         private static HydraulicBoundaryCalculationSettings CreateCalculationSettings()
         {
-            return new HydraulicBoundaryCalculationSettings(validHlcdFilePath, validHrdFilePath, false);
+            return new HydraulicBoundaryCalculationSettings(validHlcdFilePath, validHrdFilePath, validHrdFileVersion, false);
         }
 
         private static void AssertInput(DunesBoundaryConditionsCalculationInput expectedInput, DunesBoundaryConditionsCalculationInput actualInput)
