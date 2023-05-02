@@ -109,29 +109,22 @@ namespace Riskeer.Common.IO.HydraRing
         }
 
         /// <summary>
-        /// Checks whether the version of a <see cref="HydraulicBoundaryData"/> instance matches the version of a hydraulic
-        /// boundary database at the given <see cref="hrdFilePath"/>.
+        /// Validates whether the version of a hydraulic boundary database matches the version of the corresponding database file.
+        /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database to check the version of.</param>
+        /// <returns><c>true</c> if the provided hydraulic boundary database matches the version of the corresponding database
+        /// file, <c>false</c> otherwise.</returns>
+        /// <exception cref="CriticalFileReadException">Thrown when no connection could be created with the hydraulic boundary
+        /// database.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryDatabase"/> is <c>null</c>.</exception>
         /// </summary>
-        /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary data to compare the version of.</param>
-        /// <param name="hrdFilePath">The file path of the hydraulic boundary database to compare the version of.</param>
-        /// <returns><c>true</c> if <paramref name="hydraulicBoundaryDatabase"/> equals the version of the hydraulic boundary database
-        /// at <paramref name="hrdFilePath"/>, <c>false</c> otherwise.</returns>
-        /// <exception cref="CriticalFileReadException">Thrown when no connection with the hydraulic boundary database could be
-        /// created using <paramref name="hrdFilePath"/>.</exception>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static bool HaveEqualVersion(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, string hrdFilePath)
+        public static bool ValidateVersion(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
             if (hydraulicBoundaryDatabase == null)
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
             }
 
-            if (hrdFilePath == null)
-            {
-                throw new ArgumentNullException(nameof(hrdFilePath));
-            }
-
-            return hydraulicBoundaryDatabase.Version == GetVersion(hrdFilePath);
+            return hydraulicBoundaryDatabase.Version == GetVersion(hydraulicBoundaryDatabase.FilePath);
         }
 
         /// <summary>
