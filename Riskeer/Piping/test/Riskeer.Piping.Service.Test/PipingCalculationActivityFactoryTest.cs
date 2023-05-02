@@ -528,6 +528,7 @@ namespace Riskeer.Piping.Service.Test
                 new HydraulicBoundaryDatabase
                 {
                     FilePath = validHrdFilePath,
+                    Version = validHrdFileVersion,
                     Locations =
                     {
                         hydraulicBoundaryLocation
