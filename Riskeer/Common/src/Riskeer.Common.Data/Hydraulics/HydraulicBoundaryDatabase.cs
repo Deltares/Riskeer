@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Base;
+using System.Collections.Generic;
 
 namespace Riskeer.Common.Data.Hydraulics
 {
@@ -33,7 +33,7 @@ namespace Riskeer.Common.Data.Hydraulics
         /// </summary>
         public HydraulicBoundaryDatabase()
         {
-            Locations = new ObservableList<HydraulicBoundaryLocation>();
+            Locations = new List<HydraulicBoundaryLocation>();
         }
 
         /// <summary>
@@ -54,6 +54,6 @@ namespace Riskeer.Common.Data.Hydraulics
         /// <summary>
         /// Gets the hydraulic boundary locations.
         /// </summary>
-        public ObservableList<HydraulicBoundaryLocation> Locations { get; }
+        public List<HydraulicBoundaryLocation> Locations { get; }
     }
 }
