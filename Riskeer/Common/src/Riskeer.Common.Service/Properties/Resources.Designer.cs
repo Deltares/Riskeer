@@ -206,6 +206,15 @@ namespace Riskeer.Common.Service.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De versie van de geselecteerde hydraulische belastingendatabase wijkt af van de versie zoals gevonden in het bestand &apos;{0}&apos;..
+        /// </summary>
+        public static string Hydraulic_boundary_database_mismatching_version_in_file_0_ {
+            get {
+                return ResourceManager.GetString("Hydraulic_boundary_database_mismatching_version_in_file_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De waarde voor &apos;{0}&apos; moet een concreet getal zijn..
         /// </summary>
         public static string NumericInputRule_Value_of_0_must_be_a_valid_number {
