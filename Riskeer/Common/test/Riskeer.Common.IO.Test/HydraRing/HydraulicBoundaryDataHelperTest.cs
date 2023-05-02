@@ -34,8 +34,8 @@ namespace Riskeer.Common.IO.Test.HydraRing
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryData));
 
-        private readonly string validHrdFilePath = Path.Combine(testDataPath, "complete.sqlite");
         private readonly string validHlcdFilePath = Path.Combine(testDataPath, "HLCD.sqlite");
+        private readonly string validHrdFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
         [Test]
         [TestCase(true)]

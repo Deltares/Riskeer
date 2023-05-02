@@ -58,9 +58,9 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         private const string averagingSoilLayerPropertiesMessage = "Meerdere aaneengesloten deklagen gevonden. De grondeigenschappen worden bepaald door het nemen van een gewogen gemiddelde, mits de standaardafwijkingen en verschuivingen voor alle lagen gelijk zijn.";
 
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
+        private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "Hlcd.sqlite");
         private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
         private static readonly string validHrdFileVersion = "Dutch coast South19-11-2015 12:0013";
-        private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "Hlcd.sqlite");
 
         #region Validate
 

@@ -50,9 +50,9 @@ namespace Riskeer.StabilityStoneCover.Integration.Test
     public class StabilityStoneCoverWaveConditionsCalculationActivityIntegrationTest
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
+        private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
         private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
         private static readonly string validHrdFileVersion = "Dutch coast South19-11-2015 12:0013";
-        private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
 
         [Test]
         public void Run_CalculationWithInvalidHrdFilePath_DoesNotPerformCalculationAndLogsError()
