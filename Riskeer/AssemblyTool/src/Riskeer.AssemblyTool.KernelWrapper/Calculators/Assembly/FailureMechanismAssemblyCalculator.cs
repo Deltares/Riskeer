@@ -66,19 +66,20 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             {
                 IFailureMechanismResultAssembler kernel = factory.CreateFailureMechanismAssemblyKernel();
 
-                FailureMechanismAssemblyResult result;
+                Probability result;
                 if (applySectionLengthEffect)
                 {
-                    result = kernel.CalculateFailureMechanismFailureProbabilityWithLengthEffectBoi1A2(
-                        failureMechanismN, sectionAssemblyResults.Select(FailureMechanismAssemblyCalculatorInputCreator.CreateResultWithProfileAndSectionProbabilities),
+                    result = kernel.CalculateFailureMechanismFailureProbabilityBoi1A2(
+                        sectionAssemblyResults.Select(sr => AssemblyCalculatorInputCreator.CreateProbability(sr.SectionProbability)).ToArray(),
+                        failureMechanismN,
                         false);
-                    return new FailureMechanismAssemblyResultWrapper(result.Probability, AssemblyMethod.BOI1A2);
+                    return new FailureMechanismAssemblyResultWrapper(result, AssemblyMethod.BOI1A2);
                 }
 
                 result = kernel.CalculateFailureMechanismFailureProbabilityBoi1A1(
-                    failureMechanismN, sectionAssemblyResults.Select(sr => AssemblyCalculatorInputCreator.CreateProbability(sr.SectionProbability)),
-                    false);
-                return new FailureMechanismAssemblyResultWrapper(result.Probability, AssemblyMethod.BOI1A1);
+                    sectionAssemblyResults.Select(sr => AssemblyCalculatorInputCreator.CreateProbability(sr.SectionProbability)).ToArray()
+                    , false);
+                return new FailureMechanismAssemblyResultWrapper(result, AssemblyMethod.BOI1A1);
             }
             catch (AssemblyException e)
             {

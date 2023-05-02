@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(SolutionDir)build\Test.targets" />
   <ItemGroup>
-      <Reference Include="Assembly.Kernel, Version=22.1.1.0, Culture=neutral, PublicKeyToken=null">
+      <Reference Include="Assembly.Kernel, Version=22.2.1.0, Culture=neutral, PublicKeyToken=null">
         <HintPath>..\..\..\..\lib\Plugins\AssemblyTool\Assembly.Kernel.dll</HintPath>
       </Reference>
       <Reference Include="System" />
@@ -14,6 +14,7 @@
   </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj" />
+        <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj" />
         <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Primitives\Riskeer.Common.Primitives.csproj" />
         <ProjectReference Include="..\..\src\Riskeer.AssemblyTool.Data\Riskeer.AssemblyTool.Data.csproj" />
         <ProjectReference Include="..\..\src\Riskeer.AssemblyTool.KernelWrapper\Riskeer.AssemblyTool.KernelWrapper.csproj" />
