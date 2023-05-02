@@ -68,6 +68,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryData));
         private static readonly string validHrdFilePath = Path.Combine(testDataPath, "complete.sqlite");
+        private static readonly string validHrdFileVersion = "Dutch coast South19-11-2015 12:0013";
         private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
 
         private MockRepository mocks;
@@ -912,6 +913,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                     new HydraulicBoundaryDatabase
                     {
                         FilePath = validHrdFilePath,
+                        Version = validHrdFileVersion,
                         Locations =
                         {
                             hydraulicBoundaryLocation
@@ -1010,6 +1012,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                     new HydraulicBoundaryDatabase
                     {
                         FilePath = validHrdFilePath,
+                        Version = validHrdFileVersion,
                         Locations =
                         {
                             hydraulicBoundaryLocation
