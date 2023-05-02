@@ -65,6 +65,24 @@ namespace Riskeer.Migration.Integration.Test
                     AssertHydraulicBoundaryData(reader, sourceFilePath);
                     AssertHydraulicBoundaryDatabase(reader, sourceFilePath);
                     AssertHydraulicLocation(reader, sourceFilePath);
+                    
+                    AssertHydraulicLocationOutput(reader);
+                    AssertDuneLocationOutput(reader);
+                    
+                    AssertGrassCoverErosionInwardsOutput(reader);
+                    
+                    AssertGrassCoverErosionOutwardsOutput(reader);
+                    AssertStabilityStoneCoverOutput(reader);
+                    AssertWaveImpactAsphaltCoverOutput(reader);
+                    
+                    AssertClosingStructuresOutput(reader);
+                    AssertHeightStructuresOutput(reader);
+                    AssertStabilityPointStructuresOutput(reader);
+                    
+                    AssertMacroStabilityInwardsOutput(reader, sourceFilePath);
+                    AssertPipingOutput(reader, sourceFilePath);
+                    
+                    AssertIllustrationPointResults(reader);
                 }
 
                 AssertLogDatabase(logFilePath);
@@ -172,6 +190,241 @@ namespace Riskeer.Migration.Integration.Test
                 "DETACH SOURCEPROJECT";
 
             reader.AssertReturnedDataIsValid(validateHydraulicLocation);
+        }
+
+        private static void AssertHydraulicLocationOutput(MigratedDatabaseReader reader)
+        {
+            const string validateOutput =
+                "SELECT COUNT() = 0 " +
+                "FROM [HydraulicLocationOutputEntity]; ";
+            reader.AssertReturnedDataIsValid(validateOutput);
+        }
+        
+        private static void AssertDuneLocationOutput(MigratedDatabaseReader reader)
+        {
+            const string validateOutput =
+                "SELECT COUNT() = 0 " +
+                "FROM [DuneLocationCalculationOutputEntity]; ";
+            reader.AssertReturnedDataIsValid(validateOutput);
+        }
+
+        private static void AssertGrassCoverErosionInwardsOutput(MigratedDatabaseReader reader)
+        {
+            const string validateOutput =
+                "SELECT COUNT() = 0 " +
+                "FROM [GrassCoverErosionInwardsOutputEntity]; ";
+            reader.AssertReturnedDataIsValid(validateOutput);
+
+            const string validateDikeHeightOutput =
+                "SELECT COUNT() = 0 " +
+                "FROM [GrassCoverErosionInwardsDikeHeightOutputEntity]; ";
+            reader.AssertReturnedDataIsValid(validateDikeHeightOutput);
+
+            const string validateOvertoppingRateOutput =
+                "SELECT COUNT() = 0 " +
+                "FROM [GrassCoverErosionInwardsOvertoppingRateOutputEntity]; ";
+            reader.AssertReturnedDataIsValid(validateOvertoppingRateOutput);
+        }
+
+        private static void AssertGrassCoverErosionOutwardsOutput(MigratedDatabaseReader reader)
+        {
+            const string validateOutput =
+                "SELECT COUNT() = 0 " +
+                "FROM [GrassCoverErosionOutwardsWaveConditionsOutputEntity]; ";
+            reader.AssertReturnedDataIsValid(validateOutput);
+        }
+
+        private static void AssertStabilityStoneCoverOutput(MigratedDatabaseReader reader)
+        {
+            const string validateOutput =
+                "SELECT COUNT() = 0 " +
+                "FROM [StabilityStoneCoverWaveConditionsOutputEntity]; ";
+            reader.AssertReturnedDataIsValid(validateOutput);
+        }
+
+        private static void AssertWaveImpactAsphaltCoverOutput(MigratedDatabaseReader reader)
+        {
+            const string validateOutput =
+                "SELECT COUNT() = 0 " +
+                "FROM [WaveImpactAsphaltCoverWaveConditionsOutputEntity]; ";
+            reader.AssertReturnedDataIsValid(validateOutput);
+        }
+
+        private static void AssertClosingStructuresOutput(MigratedDatabaseReader reader)
+        {
+            const string validateOutput =
+                "SELECT COUNT() = 0 " +
+                "FROM [ClosingStructuresOutputEntity]; ";
+            reader.AssertReturnedDataIsValid(validateOutput);
+        }
+
+        private static void AssertHeightStructuresOutput(MigratedDatabaseReader reader)
+        {
+            const string validateOutput =
+                "SELECT COUNT() = 0 " +
+                "FROM [HeightStructuresOutputEntity]; ";
+            reader.AssertReturnedDataIsValid(validateOutput);
+        }
+
+        private static void AssertStabilityPointStructuresOutput(MigratedDatabaseReader reader)
+        {
+            const string validateOutput =
+                "SELECT COUNT() = 0 " +
+                "FROM [StabilityPointStructuresOutputEntity]; ";
+            reader.AssertReturnedDataIsValid(validateOutput);
+        }
+
+        private static void AssertMacroStabilityInwardsOutput(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateMacroStabilityInwardsOutput =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.MacroStabilityInwardsCalculationOutputEntity " +
+                "JOIN SOURCEPROJECT.MacroStabilityInwardsCalculationEntity USING(MacroStabilityInwardsCalculationEntityId)" +
+                "WHERE UseAssessmentLevelManualInput = 1" +
+                ")" +
+                "FROM MacroStabilityInwardsCalculationOutputEntity NEW " +
+                "JOIN SOURCEPROJECT.MacroStabilityInwardsCalculationOutputEntity OLD " +
+                "USING (MacroStabilityInwardsCalculationOutputEntityId)" +
+                "WHERE NEW.[MacroStabilityInwardsCalculationEntityId] = OLD.[MacroStabilityInwardsCalculationEntityId] " +
+                "AND NEW.[FactorOfStability] IS OLD.[FactorOfStability] " +
+                "AND NEW.[ForbiddenZonesXEntryMin] IS OLD.[ForbiddenZonesXEntryMin] " +
+                "AND NEW.[ForbiddenZonesXEntryMax] IS OLD.[ForbiddenZonesXEntryMax] " +
+                "AND NEW.[SlidingCurveLeftSlidingCircleCenterX] IS OLD.[SlidingCurveLeftSlidingCircleCenterX] " +
+                "AND NEW.[SlidingCurveLeftSlidingCircleCenterY] IS OLD.[SlidingCurveLeftSlidingCircleCenterY] " +
+                "AND NEW.[SlidingCurveLeftSlidingCircleRadius] IS OLD.[SlidingCurveLeftSlidingCircleRadius] " +
+                "AND NEW.[SlidingCurveLeftSlidingCircleIsActive] = OLD.[SlidingCurveLeftSlidingCircleIsActive] " +
+                "AND NEW.[SlidingCurveLeftSlidingCircleNonIteratedForce] IS OLD.[SlidingCurveLeftSlidingCircleNonIteratedForce] " +
+                "AND NEW.[SlidingCurveLeftSlidingCircleIteratedForce] IS OLD.[SlidingCurveLeftSlidingCircleIteratedForce] " +
+                "AND NEW.[SlidingCurveLeftSlidingCircleDrivingMoment] IS OLD.[SlidingCurveLeftSlidingCircleDrivingMoment] " +
+                "AND NEW.[SlidingCurveLeftSlidingCircleResistingMoment] IS OLD.[SlidingCurveLeftSlidingCircleResistingMoment] " +
+                "AND NEW.[SlidingCurveRightSlidingCircleCenterX] IS OLD.[SlidingCurveRightSlidingCircleCenterX] " +
+                "AND NEW.[SlidingCurveRightSlidingCircleCenterY] IS OLD.[SlidingCurveRightSlidingCircleCenterY] " +
+                "AND NEW.[SlidingCurveRightSlidingCircleRadius] IS OLD.[SlidingCurveRightSlidingCircleRadius] " +
+                "AND NEW.[SlidingCurveRightSlidingCircleIsActive] = OLD.[SlidingCurveRightSlidingCircleIsActive] " +
+                "AND NEW.[SlidingCurveRightSlidingCircleNonIteratedForce] IS OLD.[SlidingCurveRightSlidingCircleNonIteratedForce] " +
+                "AND NEW.[SlidingCurveRightSlidingCircleIteratedForce] IS OLD.[SlidingCurveRightSlidingCircleIteratedForce] " +
+                "AND NEW.[SlidingCurveRightSlidingCircleDrivingMoment] IS OLD.[SlidingCurveRightSlidingCircleDrivingMoment] " +
+                "AND NEW.[SlidingCurveRightSlidingCircleResistingMoment] IS OLD.[SlidingCurveRightSlidingCircleResistingMoment] " +
+                "AND NEW.[SlidingCurveNonIteratedHorizontalForce] IS OLD.[SlidingCurveNonIteratedHorizontalForce] " +
+                "AND NEW.[SlidingCurveIteratedHorizontalForce] IS OLD.[SlidingCurveIteratedHorizontalForce] " +
+                "AND NEW.[SlidingCurveSliceXML] = OLD.[SlidingCurveSliceXML] " +
+                "AND NEW.[SlipPlaneLeftGridXLeft] IS OLD.[SlipPlaneLeftGridXLeft] " +
+                "AND NEW.[SlipPlaneLeftGridXRight] IS OLD.[SlipPlaneLeftGridXRight] " +
+                "AND NEW.[SlipPlaneLeftGridNrOfHorizontalPoints] = OLD.[SlipPlaneLeftGridNrOfHorizontalPoints] " +
+                "AND NEW.[SlipPlaneLeftGridZTop] IS OLD.[SlipPlaneLeftGridZTop] " +
+                "AND NEW.[SlipPlaneLeftGridZBottom] IS OLD.[SlipPlaneLeftGridZBottom] " +
+                "AND NEW.[SlipPlaneLeftGridNrOfVerticalPoints] = OLD.[SlipPlaneLeftGridNrOfVerticalPoints] " +
+                "AND NEW.[SlipPlaneRightGridXLeft] IS OLD.[SlipPlaneRightGridXLeft] " +
+                "AND NEW.[SlipPlaneRightGridXRight] IS OLD.[SlipPlaneRightGridXRight] " +
+                "AND NEW.[SlipPlaneRightGridNrOfHorizontalPoints] = OLD.[SlipPlaneRightGridNrOfHorizontalPoints] " +
+                "AND NEW.[SlipPlaneRightGridZTop] IS OLD.[SlipPlaneRightGridZTop] " +
+                "AND NEW.[SlipPlaneRightGridZBottom] IS OLD.[SlipPlaneRightGridZBottom] " +
+                "AND NEW.[SlipPlaneRightGridNrOfVerticalPoints] = OLD.[SlipPlaneRightGridNrOfVerticalPoints] " +
+                "AND NEW.[SlipPlaneTangentLinesXml] = OLD.[SlipPlaneTangentLinesXml]; " +
+                "DETACH SOURCEPROJECT;";
+
+            reader.AssertReturnedDataIsValid(validateMacroStabilityInwardsOutput);
+        }
+
+        private static void AssertPipingOutput(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            const string validateProbabilisticCalculationOutput =
+                "SELECT COUNT() = 0 " +
+                "FROM ProbabilisticPipingCalculationOutputEntity;" +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateProbabilisticCalculationOutput);
+
+            string validateSemiProbabilisticOutput =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.SemiProbabilisticPipingCalculationOutputEntity " +
+                "JOIN SOURCEPROJECT.SemiProbabilisticPipingCalculationEntity USING(SemiProbabilisticPipingCalculationEntityId) " +
+                "WHERE UseAssessmentLevelManualInput IS 1" +
+                ") " +
+                "FROM SemiProbabilisticPipingCalculationOutputEntity NEW " +
+                "JOIN SOURCEPROJECT.SemiProbabilisticPipingCalculationOutputEntity OLD " +
+                "USING (SemiProbabilisticPipingCalculationOutputEntityId)" +
+                "WHERE NEW.[SemiProbabilisticPipingCalculationEntityId] = OLD.[SemiProbabilisticPipingCalculationEntityId]" +
+                "AND NEW.\"Order\" = OLD.\"Order\" " +
+                "AND NEW.[HeaveFactorOfSafety] IS OLD.[HeaveFactorOfSafety] " +
+                "AND NEW.[UpliftFactorOfSafety] IS OLD.[UpliftFactorOfSafety] " +
+                "AND NEW.[SellmeijerFactorOfSafety] IS OLD.[SellmeijerFactorOfSafety] " +
+                "AND NEW.[UpliftEffectiveStress] IS OLD.[UpliftEffectiveStress] " +
+                "AND NEW.[HeaveGradient] IS OLD.[HeaveGradient] " +
+                "AND NEW.[SellmeijerCreepCoefficient] IS OLD.[SellmeijerCreepCoefficient] " +
+                "AND NEW.[SellmeijerCriticalFall] IS OLD.[SellmeijerCriticalFall] " +
+                "AND NEW.[SellmeijerReducedFall] IS OLD.[SellmeijerReducedFall]; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateSemiProbabilisticOutput);
+        }
+
+
+        private static void AssertIllustrationPointResults(MigratedDatabaseReader reader)
+        {
+            const string validateFaultTreeIllustrationPoint =
+                "SELECT COUNT() = 0 " +
+                "FROM [FaultTreeIllustrationPointEntity]; ";
+            reader.AssertReturnedDataIsValid(validateFaultTreeIllustrationPoint);
+
+            const string validateFaultTreeIllustrationPointStochast =
+                "SELECT COUNT() = 0 " +
+                "FROM [FaultTreeIllustrationPointStochastEntity]; ";
+            reader.AssertReturnedDataIsValid(validateFaultTreeIllustrationPointStochast);
+
+            const string validateFaultTreeSubmechanismIllustrationPoint =
+                "SELECT COUNT() = 0 " +
+                "FROM [FaultTreeSubmechanismIllustrationPointEntity]; ";
+            reader.AssertReturnedDataIsValid(validateFaultTreeSubmechanismIllustrationPoint);
+
+            const string validateGeneralResultFaultTreeIllustrationPoint =
+                "SELECT COUNT() = 0 " +
+                "FROM [GeneralResultFaultTreeIllustrationPointEntity]; ";
+            reader.AssertReturnedDataIsValid(validateGeneralResultFaultTreeIllustrationPoint);
+
+            const string validateGeneralResultFaultTreeIllustrationPointStochast =
+                "SELECT COUNT() = 0 " +
+                "FROM [GeneralResultFaultTreeIllustrationPointStochastEntity]; ";
+            reader.AssertReturnedDataIsValid(validateGeneralResultFaultTreeIllustrationPointStochast);
+
+            const string validateGeneralResultSubMechanismIllustrationPoint =
+                "SELECT COUNT() = 0 " +
+                "FROM [GeneralResultSubMechanismIllustrationPointEntity]; ";
+            reader.AssertReturnedDataIsValid(validateGeneralResultSubMechanismIllustrationPoint);
+
+            const string validateGeneralResultSubMechanismIllustrationPointStochast =
+                "SELECT COUNT() = 0 " +
+                "FROM [GeneralResultSubMechanismIllustrationPointStochastEntity]; ";
+            reader.AssertReturnedDataIsValid(validateGeneralResultSubMechanismIllustrationPointStochast);
+
+            const string validateIllustrationPointResult =
+                "SELECT COUNT() = 0 " +
+                "FROM [IllustrationPointResultEntity]; ";
+            reader.AssertReturnedDataIsValid(validateIllustrationPointResult);
+
+            const string validateSubMechanismIllustrationPoint =
+                "SELECT COUNT() = 0 " +
+                "FROM [SubMechanismIllustrationPointEntity]; ";
+            reader.AssertReturnedDataIsValid(validateSubMechanismIllustrationPoint);
+
+            const string validateSubMechanismIllustrationPointStochast =
+                "SELECT COUNT() = 0 " +
+                "FROM [SubMechanismIllustrationPointStochastEntity]; ";
+            reader.AssertReturnedDataIsValid(validateSubMechanismIllustrationPointStochast);
+
+            const string validateTopLevelFaultTreeIllustrationPoint =
+                "SELECT COUNT() = 0 " +
+                "FROM [TopLevelFaultTreeIllustrationPointEntity]; ";
+            reader.AssertReturnedDataIsValid(validateTopLevelFaultTreeIllustrationPoint);
+
+            const string validateTopLevelSubMechanismIllustrationPoint =
+                "SELECT COUNT() = 0 " +
+                "FROM [TopLevelSubMechanismIllustrationPointEntity]; ";
+            reader.AssertReturnedDataIsValid(validateTopLevelSubMechanismIllustrationPoint);
         }
 
         private static void AssertTablesContentMigrated(MigratedDatabaseReader reader, string sourceFilePath)
