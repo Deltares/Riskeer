@@ -210,7 +210,7 @@ namespace Riskeer.Common.Service.Test
             string message = HydraulicBoundaryDataConnectionValidator.Validate(hydraulicBoundaryData, hydraulicBoundaryLocation);
 
             // Assert
-            var expectedMessage = $"De versie van de geselecteerde hydraulische belastingendatabase wijkt af van de versie zoals gevonden in het bestand '{hrdFilePath}'.";
+            var expectedMessage = $"De versie van de corresponderende hydraulische belastingendatabase wijkt af van de versie zoals gevonden in het bestand '{hrdFilePath}'.";
             Assert.AreEqual(expectedMessage, message);
         }
 
