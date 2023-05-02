@@ -44,7 +44,7 @@ namespace Riskeer.Common.Service.Test
         public void CreateSettings_WithHydraulicBoundaryCalculationSettings_ReturnsExpectedSettings()
         {
             // Setup
-            var hydraulicBoundaryCalculationSettings = new HydraulicBoundaryCalculationSettings("hlcdFilePath", "hrdFilePath", false);
+            var hydraulicBoundaryCalculationSettings = new HydraulicBoundaryCalculationSettings("hlcdFilePath", "hrdFilePath", "version", false);
 
             // Call
             HydraRingCalculationSettings hydraRingCalculationSettings = HydraRingCalculationSettingsFactory.CreateSettings(hydraulicBoundaryCalculationSettings);
