@@ -46,13 +46,13 @@ namespace Riskeer.HydraRing.Calculation.Parsers
             "(SELECT SubMechanismId = 102 " +
             "FROM DesignBeta db " +
             "JOIN " +
-            "(SELECT ClosingSituationId, d.PeriodId, d.OuterIterationId, d.WindDirectionId, d.LevelTypeId " +
+            "(SELECT d.ClosingSituationId, d.PeriodId, d.OuterIterationId, d.WindDirectionId, d.LevelTypeId " +
             "FROM GoverningWind g " +
             "JOIN DesignBeta d ON d.WindDirectionId = g.WindDirectionId AND d.OuterIterationId = g.OuterIterationId And d.PeriodId = g.PeriodId " +
             $"WHERE LevelTypeId = 7 AND SectionId = {HydraRingDatabaseConstants.SectionIdParameterName} " +
             "AND SubmechanismId = 102 " +
             "ORDER BY d.OuterIterationId DESC, d.PeriodId, BetaValue " +
-            "LIMIT 1) as s on s.WindDirectionId = db.WindDirectionId AND s.OuterIterationId = db.OuterIterationId AND s.PeriodId = db.PeriodId " +
+            "LIMIT 1) AS s on s.WindDirectionId = db.WindDirectionId AND s.OuterIterationId = db.OuterIterationId AND s.PeriodId = db.PeriodId " +
             "AND s.ClosingSituationId = db.ClosingSituationId AND s.LevelTypeId = db.LevelTypeId " +
             "ORDER BY BetaValue " +
             $"LIMIT 1) AS {isOvertoppingDominantColumn};";
