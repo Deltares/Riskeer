@@ -152,10 +152,87 @@ INSERT INTO HydraulicLocationCalculationCollectionHydraulicLocationCalculationEn
 INSERT INTO HydraulicLocationCalculationEntity SELECT * FROM [SOURCEPROJECT].HydraulicLocationCalculationEntity;
 INSERT INTO HydraulicLocationCalculationForTargetProbabilityCollectionEntity SELECT * FROM [SOURCEPROJECT].HydraulicLocationCalculationForTargetProbabilityCollectionEntity;
 INSERT INTO HydraulicLocationCalculationForTargetProbabilityCollectionHydraulicLocationCalculationEntity SELECT * FROM [SOURCEPROJECT].HydraulicLocationCalculationForTargetProbabilityCollectionHydraulicLocationCalculationEntity;
-INSERT INTO HydraulicLocationOutputEntity SELECT * FROM [SOURCEPROJECT].HydraulicLocationOutputEntity;
 INSERT INTO IllustrationPointResultEntity SELECT * FROM [SOURCEPROJECT].IllustrationPointResultEntity;
 INSERT INTO MacroStabilityInwardsCalculationEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsCalculationEntity;
-INSERT INTO MacroStabilityInwardsCalculationOutputEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsCalculationOutputEntity;
+INSERT INTO MacroStabilityInwardsCalculationOutputEntity(
+    [MacroStabilityInwardsCalculationOutputEntityId],
+    [MacroStabilityInwardsCalculationEntityId],
+    [FactorOfStability],
+    [ForbiddenZonesXEntryMin],
+    [ForbiddenZonesXEntryMax],
+    [SlidingCurveLeftSlidingCircleCenterX],
+    [SlidingCurveLeftSlidingCircleCenterY],
+    [SlidingCurveLeftSlidingCircleRadius],
+    [SlidingCurveLeftSlidingCircleIsActive],
+    [SlidingCurveLeftSlidingCircleNonIteratedForce],
+    [SlidingCurveLeftSlidingCircleIteratedForce],
+    [SlidingCurveLeftSlidingCircleDrivingMoment],
+    [SlidingCurveLeftSlidingCircleResistingMoment],
+    [SlidingCurveRightSlidingCircleCenterX],
+    [SlidingCurveRightSlidingCircleCenterY],
+    [SlidingCurveRightSlidingCircleRadius],
+    [SlidingCurveRightSlidingCircleIsActive],
+    [SlidingCurveRightSlidingCircleNonIteratedForce],
+    [SlidingCurveRightSlidingCircleIteratedForce],
+    [SlidingCurveRightSlidingCircleDrivingMoment],
+    [SlidingCurveRightSlidingCircleResistingMoment],
+    [SlidingCurveNonIteratedHorizontalForce],
+    [SlidingCurveIteratedHorizontalForce],
+    [SlidingCurveSliceXML],
+    [SlipPlaneLeftGridXLeft],
+    [SlipPlaneLeftGridXRight],
+    [SlipPlaneLeftGridNrOfHorizontalPoints],
+    [SlipPlaneLeftGridZTop],
+    [SlipPlaneLeftGridZBottom],
+    [SlipPlaneLeftGridNrOfVerticalPoints],
+    [SlipPlaneRightGridXLeft],
+    [SlipPlaneRightGridXRight],
+    [SlipPlaneRightGridNrOfHorizontalPoints],
+    [SlipPlaneRightGridZTop],
+    [SlipPlaneRightGridZBottom],
+    [SlipPlaneRightGridNrOfVerticalPoints],
+    [SlipPlaneTangentLinesXml])
+SELECT
+    [MacroStabilityInwardsCalculationOutputEntityId],
+    [MacroStabilityInwardsCalculationEntityId],
+    [FactorOfStability],
+    [ForbiddenZonesXEntryMin],
+    [ForbiddenZonesXEntryMax],
+    [SlidingCurveLeftSlidingCircleCenterX],
+    [SlidingCurveLeftSlidingCircleCenterY],
+    [SlidingCurveLeftSlidingCircleRadius],
+    [SlidingCurveLeftSlidingCircleIsActive],
+    [SlidingCurveLeftSlidingCircleNonIteratedForce],
+    [SlidingCurveLeftSlidingCircleIteratedForce],
+    [SlidingCurveLeftSlidingCircleDrivingMoment],
+    [SlidingCurveLeftSlidingCircleResistingMoment],
+    [SlidingCurveRightSlidingCircleCenterX],
+    [SlidingCurveRightSlidingCircleCenterY],
+    [SlidingCurveRightSlidingCircleRadius],
+    [SlidingCurveRightSlidingCircleIsActive],
+    [SlidingCurveRightSlidingCircleNonIteratedForce],
+    [SlidingCurveRightSlidingCircleIteratedForce],
+    [SlidingCurveRightSlidingCircleDrivingMoment],
+    [SlidingCurveRightSlidingCircleResistingMoment],
+    [SlidingCurveNonIteratedHorizontalForce],
+    [SlidingCurveIteratedHorizontalForce],
+    [SlidingCurveSliceXML],
+    [SlipPlaneLeftGridXLeft],
+    [SlipPlaneLeftGridXRight],
+    [SlipPlaneLeftGridNrOfHorizontalPoints],
+    [SlipPlaneLeftGridZTop],
+    [SlipPlaneLeftGridZBottom],
+    [SlipPlaneLeftGridNrOfVerticalPoints],
+    [SlipPlaneRightGridXLeft],
+    [SlipPlaneRightGridXRight],
+    [SlipPlaneRightGridNrOfHorizontalPoints],
+    [SlipPlaneRightGridZTop],
+    [SlipPlaneRightGridZBottom],
+    [SlipPlaneRightGridNrOfVerticalPoints],
+    [SlipPlaneTangentLinesXml]
+FROM [SOURCEPROJECT].MacroStabilityInwardsCalculationOutputEntity
+JOIN [SOURCEPROJECT].MacroStabilityInwardsCalculationEntity USING(MacroStabilityInwardsCalculationEntityId)
+WHERE UseAssessmentLevelManualInput = 1;
 INSERT INTO MacroStabilityInwardsCharacteristicPointEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsCharacteristicPointEntity;
 INSERT INTO MacroStabilityInwardsFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsFailureMechanismMetaEntity;
 INSERT INTO MacroStabilityInwardsPreconsolidationStressEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsPreconsolidationStressEntity;
@@ -173,7 +250,33 @@ INSERT INTO PipingStructureFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJE
 INSERT INTO ProbabilisticPipingCalculationEntity SELECT * FROM [SOURCEPROJECT].ProbabilisticPipingCalculationEntity;
 INSERT INTO ProbabilisticPipingCalculationOutputEntity SELECT * FROM [SOURCEPROJECT].ProbabilisticPipingCalculationOutputEntity;
 INSERT INTO ProjectEntity SELECT * FROM [SOURCEPROJECT].ProjectEntity;
-INSERT INTO SemiProbabilisticPipingCalculationOutputEntity SELECT * FROM [SOURCEPROJECT].SemiProbabilisticPipingCalculationOutputEntity;
+INSERT INTO SemiProbabilisticPipingCalculationOutputEntity(
+    [SemiProbabilisticPipingCalculationOutputEntityId],
+    [SemiProbabilisticPipingCalculationEntityId],
+    [Order],
+    [HeaveFactorOfSafety],
+    [UpliftFactorOfSafety],
+    [SellmeijerFactorOfSafety],
+    [UpliftEffectiveStress],
+    [HeaveGradient],
+    [SellmeijerCreepCoefficient],
+    [SellmeijerCriticalFall],
+    [SellmeijerReducedFall])
+SELECT
+    [SemiProbabilisticPipingCalculationOutputEntityId],
+    [SemiProbabilisticPipingCalculationEntityId],
+    sppcoe.[Order],
+    [HeaveFactorOfSafety],
+    [UpliftFactorOfSafety],
+    [SellmeijerFactorOfSafety],
+    [UpliftEffectiveStress],
+    [HeaveGradient],
+    [SellmeijerCreepCoefficient],
+    [SellmeijerCriticalFall],
+    [SellmeijerReducedFall]
+FROM [SOURCEPROJECT].SemiProbabilisticPipingCalculationOutputEntity sppcoe
+JOIN [SOURCEPROJECT].SemiProbabilisticPipingCalculationEntity USING(SemiProbabilisticPipingCalculationEntityId)
+WHERE UseAssessmentLevelManualInput = 1;
 INSERT INTO SpecificFailureMechanismEntity SELECT * FROM [SOURCEPROJECT].SpecificFailureMechanismEntity;
 INSERT INTO SpecificFailureMechanismFailureMechanismSectionEntity SELECT * FROM [SOURCEPROJECT].SpecificFailureMechanismFailureMechanismSectionEntity;
 INSERT INTO StabilityPointStructureEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructureEntity;

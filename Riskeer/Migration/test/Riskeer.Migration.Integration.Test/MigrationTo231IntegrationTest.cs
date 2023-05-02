@@ -102,6 +102,16 @@ namespace Riskeer.Migration.Integration.Test
             {
                 "Alle berekende resultaten zijn verwijderd."
             });
+            
+            yield return new TestCaseData("MigrationTestProject221MacroStabilityInwardsNoManualAssessmentLevels.risk", new[]
+            {
+                "Alle berekende resultaten zijn verwijderd."
+            });
+            
+            yield return new TestCaseData("MigrationTestProject221PipingNoManualAssessmentLevels.risk", new[]
+            {
+                "Alle berekende resultaten zijn verwijderd."
+            });
         }
         
         private static void AssertDuneLocation(MigratedDatabaseReader reader, string sourceFilePath)
@@ -359,7 +369,7 @@ namespace Riskeer.Migration.Integration.Test
                 "SELECT COUNT() " +
                 "FROM SOURCEPROJECT.SemiProbabilisticPipingCalculationOutputEntity " +
                 "JOIN SOURCEPROJECT.SemiProbabilisticPipingCalculationEntity USING(SemiProbabilisticPipingCalculationEntityId) " +
-                "WHERE UseAssessmentLevelManualInput IS 1" +
+                "WHERE UseAssessmentLevelManualInput = 1" +
                 ") " +
                 "FROM SemiProbabilisticPipingCalculationOutputEntity NEW " +
                 "JOIN SOURCEPROJECT.SemiProbabilisticPipingCalculationOutputEntity OLD " +
@@ -500,10 +510,8 @@ namespace Riskeer.Migration.Integration.Test
                 "HydraulicLocationCalculationEntity",
                 "HydraulicLocationCalculationForTargetProbabilityCollectionEntity",
                 "HydraulicLocationCalculationForTargetProbabilityCollectionHydraulicLocationCalculationEntity",
-                "HydraulicLocationOutputEntity",
                 "IllustrationPointResultEntity",
                 "MacroStabilityInwardsCalculationEntity",
-                "MacroStabilityInwardsCalculationOutputEntity",
                 "MacroStabilityInwardsCharacteristicPointEntity",
                 "MacroStabilityInwardsFailureMechanismMetaEntity",
                 "MacroStabilityInwardsPreconsolidationStressEntity",
@@ -521,7 +529,6 @@ namespace Riskeer.Migration.Integration.Test
                 "ProbabilisticPipingCalculationEntity",
                 "ProbabilisticPipingCalculationOutputEntity",
                 "ProjectEntity",
-                "SemiProbabilisticPipingCalculationOutputEntity",
                 "SpecificFailureMechanismEntity",
                 "SpecificFailureMechanismFailureMechanismSectionEntity",
                 "StabilityPointStructureEntity",
