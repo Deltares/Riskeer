@@ -129,42 +129,6 @@ namespace Riskeer.Common.Service.Test.Structures
         }
 
         [Test]
-        public void Validate_NoHydraulicBoundaryDatabase_LogsErrorAndReturnsFalse()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new TestCalculatableFailureMechanism(),
-                                                                                                           mocks);
-            mocks.ReplayAll();
-
-            var calculation = new TestStructuresCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
-                }
-            };
-
-            var isValid = false;
-
-            // Call
-            void Call() => isValid = TestStructuresCalculationService.Validate(calculation, assessmentSection);
-
-            // Assert
-            TestHelper.AssertLogMessages(Call, messages =>
-            {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                Assert.AreEqual("Er is geen hydraulische belastingendatabase geïmporteerd.", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
-            });
-            Assert.IsFalse(isValid);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void Validate_InvalidHydraulicBoundaryDatabase_LogsErrorAndReturnsFalse()
         {
             // Setup

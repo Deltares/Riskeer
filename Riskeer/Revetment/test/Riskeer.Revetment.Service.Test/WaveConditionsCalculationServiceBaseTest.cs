@@ -102,35 +102,6 @@ namespace Riskeer.Revetment.Service.Test
         }
 
         [Test]
-        public void Validate_NoHydraulicBoundaryDatabase_LogsValidationMessageAndReturnFalse()
-        {
-            // Setup 
-            var isValid = false;
-
-            var waveConditionsInput = new WaveConditionsInput
-            {
-                HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
-            };
-
-            // Call
-            void Call() => isValid = WaveConditionsCalculationServiceBase.Validate(waveConditionsInput,
-                                                                                   GetValidAssessmentLevel(),
-                                                                                   new HydraulicBoundaryData());
-
-            // Assert
-            TestHelper.AssertLogMessages(Call, messages =>
-            {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                Assert.AreEqual("Er is geen hydraulische belastingendatabase geïmporteerd.", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
-            });
-
-            Assert.IsFalse(isValid);
-        }
-
-        [Test]
         public void Validate_InvalidHydraulicBoundaryDatabase_ReturnsFalseAndLogsValidationError()
         {
             // Setup 

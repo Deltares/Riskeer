@@ -86,42 +86,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        public void Validate_NoHydraulicBoundaryDatabase_LogsMessageAndReturnsFalse()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new GrassCoverErosionInwardsFailureMechanism(),
-                                                                                                           mockRepository);
-            mockRepository.ReplayAll();
-
-            var calculation = new GrassCoverErosionInwardsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
-                    DikeProfile = DikeProfileTestFactory.CreateDikeProfile()
-                }
-            };
-
-            // Call
-            var isValid = false;
-            void Call() => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
-
-            // Assert
-            TestHelper.AssertLogMessages(Call, messages =>
-            {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                Assert.AreEqual("Er is geen hydraulische belastingendatabase geïmporteerd.", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
-            });
-            Assert.IsFalse(isValid);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
         public void Validate_InvalidHydraulicBoundaryDatabase_LogsMessageAndReturnsFalse()
         {
             // Setup

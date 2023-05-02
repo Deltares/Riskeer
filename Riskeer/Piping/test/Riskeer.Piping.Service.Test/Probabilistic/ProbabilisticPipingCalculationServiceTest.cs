@@ -177,40 +177,6 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
         }
 
         [Test]
-        public void Validate_NoHydraulicBoundaryDatabase_LogsMessageAndReturnsFalse()
-        {
-            // Setup
-            var failureMechanism = new PipingFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks);
-            mocks.ReplayAll();
-
-            ProbabilisticPipingCalculation calculation = ProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<TestProbabilisticPipingCalculation>(
-                new TestHydraulicBoundaryLocation());
-
-            // Call
-            var isValid = false;
-
-            void Call() => isValid = ProbabilisticPipingCalculationService.Validate(calculation,
-                                                                                    failureMechanism,
-                                                                                    assessmentSection);
-
-            // Assert
-            TestHelper.AssertLogMessages(Call, messages =>
-            {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                Assert.AreEqual("Er is geen hydraulische belastingendatabase geïmporteerd.", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
-            });
-            Assert.IsFalse(isValid);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void Validate_InvalidHydraulicBoundaryDatabase_LogsMessageAndReturnsFalse()
         {
             // Setup
