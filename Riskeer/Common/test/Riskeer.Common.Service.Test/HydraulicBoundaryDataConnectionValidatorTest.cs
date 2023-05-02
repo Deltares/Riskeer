@@ -143,7 +143,7 @@ namespace Riskeer.Common.Service.Test
         }
 
         [Test]
-        public void Validate_UsePreprocessorClosureTrueWithoutPreprocessorClosureDatabase_ReturnsMessageWithError()
+        public void Validate_UsePreprocessorClosureTrueWithoutPreprocessorClosureDatabase_ReturnsErrorMessage()
         {
             // Setup
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
@@ -174,7 +174,43 @@ namespace Riskeer.Common.Service.Test
 
             // Assert
             string preprocessorClosureFilePath = Path.Combine(testDataPath, "withoutPreprocessorClosure", "hlcd_preprocClosure.sqlite");
-            string expectedMessage = $"Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt. Fout bij het lezen van bestand '{preprocessorClosureFilePath}': het bestand bestaat niet.";
+            var expectedMessage = $"Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt. Fout bij het lezen van bestand '{preprocessorClosureFilePath}': het bestand bestaat niet.";
+            Assert.AreEqual(expectedMessage, message);
+        }
+
+        [Test]
+        public void Validate_HydraulicBoundaryDatabaseWithDifferentVersion_ReturnsErrorMessage()
+        {
+            // Setup
+            string hrdFilePath = Path.Combine(testDataPath, "complete.sqlite");
+
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+            var hydraulicBoundaryData = new HydraulicBoundaryData
+            {
+                HydraulicLocationConfigurationDatabase =
+                {
+                    FilePath = Path.Combine(testDataPath, "hlcd.sqlite")
+                },
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
+                    {
+                        FilePath = hrdFilePath,
+                        Version = "Dutch coast South19-11-2015 12:0113",
+                        Locations =
+                        {
+                            hydraulicBoundaryLocation
+                        }
+                    }
+                }
+            };
+
+            // Call
+            string message = HydraulicBoundaryDataConnectionValidator.Validate(hydraulicBoundaryData, hydraulicBoundaryLocation);
+
+            // Assert
+            var expectedMessage = $"De versie van de geselecteerde hydraulische belastingendatabase wijkt af van de versie zoals gevonden in het bestand '{hrdFilePath}'.";
             Assert.AreEqual(expectedMessage, message);
         }
 
