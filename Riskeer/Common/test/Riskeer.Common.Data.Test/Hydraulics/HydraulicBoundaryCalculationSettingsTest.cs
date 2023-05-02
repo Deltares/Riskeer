@@ -36,7 +36,7 @@ namespace Riskeer.Common.Data.Test.Hydraulics
         public void Constructor_InvalidHlcdFilePath_ThrowsArgumentNullException(string invalidHlcdFilePath)
         {
             // Call
-            TestDelegate call = () => new HydraulicBoundaryCalculationSettings(invalidHlcdFilePath, "D:\\hrdFilePath", false);
+            TestDelegate call = () => new HydraulicBoundaryCalculationSettings(invalidHlcdFilePath, "D:\\hrdFilePath", string.Empty, false);
 
             // Assert
             const string expectedMessage = "hlcdFilePath is null, empty or consists of whitespaces.";
@@ -50,7 +50,7 @@ namespace Riskeer.Common.Data.Test.Hydraulics
         public void Constructor_InvalidHrdFilePath_ThrowsArgumentNullException(string invalidHrdFilePath)
         {
             // Call
-            void Call() => new HydraulicBoundaryCalculationSettings("D:\\hlcdFilePath", invalidHrdFilePath, false);
+            void Call() => new HydraulicBoundaryCalculationSettings("D:\\hlcdFilePath", invalidHrdFilePath, string.Empty, false);
 
             // Assert
             const string expectedMessage = "hrdFilePath is null, empty or consists of whitespaces.";
@@ -63,14 +63,16 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             // Setup
             const string hlcdFilePath = "D:\\hlcdFilePath";
             const string hrdFilePath = "D:\\hrdFilePath";
+            const string hrdFileVersion = "1 2 3 4 5";
             bool usePreprocessorClosure = new Random(21).NextBoolean();
 
             // Call
-            var settings = new HydraulicBoundaryCalculationSettings(hlcdFilePath, hrdFilePath, usePreprocessorClosure);
+            var settings = new HydraulicBoundaryCalculationSettings(hlcdFilePath, hrdFilePath, hrdFileVersion, usePreprocessorClosure);
 
             // Assert
             Assert.AreEqual(hlcdFilePath, settings.HlcdFilePath);
             Assert.AreEqual(hrdFilePath, settings.HrdFilePath);
+            Assert.AreEqual(hrdFileVersion, settings.HrdFileVersion);
             Assert.AreEqual(usePreprocessorClosure, settings.UsePreprocessorClosure);
         }
     }
