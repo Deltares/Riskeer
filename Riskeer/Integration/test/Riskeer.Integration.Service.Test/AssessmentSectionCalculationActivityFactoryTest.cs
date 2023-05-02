@@ -305,6 +305,7 @@ namespace Riskeer.Integration.Service.Test
                         new HydraulicBoundaryDatabase
                         {
                             FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite"),
+                            Version = "IJssel lake2016-07-04 16:187",
                             Locations =
                             {
                                 hydraulicBoundaryLocation

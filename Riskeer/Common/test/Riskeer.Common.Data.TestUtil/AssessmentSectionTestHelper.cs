@@ -129,6 +129,11 @@ namespace Riskeer.Common.Data.TestUtil
         
         private static string GetVersion(string hrdFilePath)
         {
+            if (!File.Exists(hrdFilePath))
+            {
+                return null;
+            }
+            
             using (var db = new HydraulicBoundaryDatabaseReader(hrdFilePath))
             {
                 return db.ReadVersion();
