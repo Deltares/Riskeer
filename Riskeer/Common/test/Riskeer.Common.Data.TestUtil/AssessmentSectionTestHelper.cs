@@ -29,6 +29,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
+using Riskeer.HydraRing.IO.HydraulicBoundaryDatabase;
 
 namespace Riskeer.Common.Data.TestUtil
 {
@@ -111,6 +112,7 @@ namespace Riskeer.Common.Data.TestUtil
                 hydraulicBoundaryData.HydraulicBoundaryDatabases.Add(new HydraulicBoundaryDatabase
                 {
                     FilePath = hrdFilePath,
+                    Version = GetVersion(hrdFilePath),
                     UsePreprocessorClosure = usePreprocessorClosure,
                     Locations =
                     {
@@ -123,6 +125,14 @@ namespace Riskeer.Common.Data.TestUtil
             }
 
             return hydraulicBoundaryData;
+        }
+        
+        private static string GetVersion(string hrdFilePath)
+        {
+            using (var db = new HydraulicBoundaryDatabaseReader(hrdFilePath))
+            {
+                return db.ReadVersion();
+            }
         }
     }
 }
