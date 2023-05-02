@@ -562,6 +562,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                         new HydraulicBoundaryDatabase
                         {
                             FilePath = validHrdFilePath,
+                            Version = validHrdFileVersion,
                             UsePreprocessorClosure = true,
                             Locations =
                             {
@@ -665,6 +666,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                         new HydraulicBoundaryDatabase
                         {
                             FilePath = validHrdFilePath,
+                            Version = validHrdFileVersion,
                             Locations =
                             {
                                 hydraulicBoundaryLocation
