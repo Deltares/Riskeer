@@ -34,14 +34,21 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output
             const double waterLevel = 1.1;
             const double waveHeight = 2.2;
             const double wavePeriod = 3.3;
+            const double meanTidalAmplitude = 4.4;
+            const double waveDirectionalSpread = 5.5;
+            const double tideSurgePhaseDifference = 6.6;
 
             // Call
-            var output = new DunesBoundaryConditionsCalculationOutput(waterLevel, waveHeight, wavePeriod);
+            var output = new DunesBoundaryConditionsCalculationOutput(
+                waterLevel, waveHeight, wavePeriod, meanTidalAmplitude, waveDirectionalSpread, tideSurgePhaseDifference);
 
             // Assert
             Assert.AreEqual(waterLevel, output.WaterLevel);
             Assert.AreEqual(waveHeight, output.WaveHeight);
             Assert.AreEqual(wavePeriod, output.WavePeriod);
+            Assert.AreEqual(meanTidalAmplitude, output.MeanTidalAmplitude);
+            Assert.AreEqual(waveDirectionalSpread, output.WaveDirectionalSpread);
+            Assert.AreEqual(tideSurgePhaseDifference, output.TideSurgePhaseDifference);
         }
     }
 }
