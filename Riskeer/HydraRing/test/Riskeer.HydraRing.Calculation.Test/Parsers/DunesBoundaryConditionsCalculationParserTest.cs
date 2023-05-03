@@ -71,10 +71,10 @@ namespace Riskeer.HydraRing.Calculation.Test.Parsers
             var parser = new DunesBoundaryConditionsCalculationParser();
 
             // Call
-            TestDelegate test = () => parser.Parse(path, 1);
+            void Call() => parser.Parse(path, 1);
 
             // Assert
-            var exception = Assert.Throws<HydraRingFileParserException>(test);
+            var exception = Assert.Throws<HydraRingFileParserException>(Call);
             Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
         }
 
@@ -86,10 +86,10 @@ namespace Riskeer.HydraRing.Calculation.Test.Parsers
             var parser = new DunesBoundaryConditionsCalculationParser();
 
             // Call
-            TestDelegate test = () => parser.Parse(path, 1);
+            void Call() => parser.Parse(path, 1);
 
             // Assert
-            var exception = Assert.Throws<HydraRingFileParserException>(test);
+            var exception = Assert.Throws<HydraRingFileParserException>(Call);
             Assert.AreEqual("Er kon geen resultaat gelezen worden uit de Hydra-Ring uitvoerdatabase.", exception.Message);
             Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
         }
@@ -102,10 +102,10 @@ namespace Riskeer.HydraRing.Calculation.Test.Parsers
             var parser = new DunesBoundaryConditionsCalculationParser();
 
             // Call
-            TestDelegate test = () => parser.Parse(path, 1);
+            void Call() => parser.Parse(path, 1);
 
             // Assert
-            var exception = Assert.Throws<HydraRingFileParserException>(test);
+            var exception = Assert.Throws<HydraRingFileParserException>(Call);
             Assert.AreEqual("Er zijn geen berekende hydraulische belastingen voor duinen gevonden in de Hydra-Ring uitvoerdatabase.", exception.Message);
         }
 
@@ -119,10 +119,10 @@ namespace Riskeer.HydraRing.Calculation.Test.Parsers
             using (new DirectoryPermissionsRevoker(testDirectory, FileSystemRights.ReadData))
             {
                 // Call
-                TestDelegate call = () => parser.Parse(workingDirectory, 1);
+                void Call() => parser.Parse(workingDirectory, 1);
 
                 // Assert
-                var exception = Assert.Throws<HydraRingFileParserException>(call);
+                var exception = Assert.Throws<HydraRingFileParserException>(Call);
                 const string expectedMessage = "Er kon geen resultaat gelezen worden uit de Hydra-Ring uitvoerdatabase.";
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
@@ -133,6 +133,9 @@ namespace Riskeer.HydraRing.Calculation.Test.Parsers
         [TestCase("ValidFileNoWaveHeight")]
         [TestCase("ValidFileNoWavePeriod")]
         [TestCase("ValidFileNoWaterLevel")]
+        [TestCase("ValidFileNoMeanTidalAmplitude")]
+        [TestCase("ValidFileNoWaveDirectionalSpread")]
+        [TestCase("ValidFileNoTideSurgePhaseDifference")]
         [TestCase("ResultsOnAllButLastIteration")]
         public void Parse_NotAllColumnsHaveResults_ThrowsHydraRingFileParserException(string subFolder)
         {
@@ -141,10 +144,10 @@ namespace Riskeer.HydraRing.Calculation.Test.Parsers
             var parser = new DunesBoundaryConditionsCalculationParser();
 
             // Call
-            TestDelegate test = () => parser.Parse(path, 1);
+            void Call() => parser.Parse(path, 1);
 
             // Assert
-            var exception = Assert.Throws<HydraRingFileParserException>(test);
+            var exception = Assert.Throws<HydraRingFileParserException>(Call);
             Assert.AreEqual("Er zijn geen berekende hydraulische belastingen voor duinen gevonden in de Hydra-Ring uitvoerdatabase.", exception.Message);
             Assert.IsInstanceOf<InvalidCastException>(exception.InnerException);
         }
@@ -157,10 +160,10 @@ namespace Riskeer.HydraRing.Calculation.Test.Parsers
             var parser = new DunesBoundaryConditionsCalculationParser();
 
             // Call
-            TestDelegate test = () => parser.Parse(path, 1);
+            void Call() => parser.Parse(path, 1);
 
             // Assert
-            var exception = Assert.Throws<HydraRingFileParserException>(test);
+            var exception = Assert.Throws<HydraRingFileParserException>(Call);
             Assert.AreEqual("Er zijn geen berekende hydraulische belastingen voor duinen gevonden in de Hydra-Ring uitvoerdatabase.", exception.Message);
         }
 
@@ -175,9 +178,12 @@ namespace Riskeer.HydraRing.Calculation.Test.Parsers
             parser.Parse(path, 1);
 
             // Assert
-            Assert.AreEqual(4.29026, parser.Output.WaterLevel);
-            Assert.AreEqual(10.1528, parser.Output.WaveHeight);
-            Assert.AreEqual(19.1762, parser.Output.WavePeriod);
+            Assert.AreEqual(3.54909, parser.Output.WaterLevel);
+            Assert.AreEqual(8.45214, parser.Output.WaveHeight);
+            Assert.AreEqual(15.955, parser.Output.WavePeriod);
+            Assert.AreEqual(1.0253, parser.Output.MeanTidalAmplitude);
+            Assert.AreEqual(6.0, parser.Output.WaveDirectionalSpread);
+            Assert.AreEqual(3.5, parser.Output.TideSurgePhaseDifference);
         }
     }
 }
