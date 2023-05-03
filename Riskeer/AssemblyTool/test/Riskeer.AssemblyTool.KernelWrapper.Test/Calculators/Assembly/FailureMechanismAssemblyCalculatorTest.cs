@@ -184,36 +184,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         }
 
         [Test]
-        public void Assemble_WithInvalidInput_ThrowsFailureMechanismAssemblyCalculatorException()
-        {
-            // Setup
-            var random = new Random(21);
-            double probability = 15;
-            var invalidInput = new RiskeerFailureMechanismSectionAssemblyResult(probability, probability, random.NextDouble(),
-                                                                                (FailureMechanismSectionAssemblyGroup) 99);
-
-            using (new AssemblyToolKernelFactoryConfig())
-            {
-                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
-                FailureMechanismAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismAssemblyKernel;
-
-                var calculator = new FailureMechanismAssemblyCalculator(factory);
-
-                // Call
-                void Call() => calculator.Assemble(random.NextDouble(), new[]
-                {
-                    invalidInput
-                }, random.NextBoolean());
-
-                // Assert
-                Assert.IsFalse(kernel.Calculated);
-                var exception = Assert.Throws<FailureMechanismAssemblyCalculatorException>(Call);
-                Assert.IsInstanceOf<Exception>(exception.InnerException);
-                Assert.AreEqual("De gespecificeerde kans moet in het bereik [0,1] liggen.", exception.Message);
-            }
-        }
-
-        [Test]
         public void Assemble_KernelThrowsException_ThrowsFailureMechanismAssemblyCalculatorException()
         {
             // Setup

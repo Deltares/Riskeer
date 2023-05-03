@@ -94,7 +94,10 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             return AssemblyProbability;
         }
 
-        public Probability CalculateAssessmentSectionFailureProbabilityBoi2A2(IEnumerable<Probability> correlatedFailureMechanismProbabilities, IEnumerable<Probability> uncorrelatedFailureMechanismProbabilities, bool partialAssembly)
+        public Probability CalculateAssessmentSectionFailureProbabilityBoi2A2(
+            IEnumerable<Probability> correlatedFailureMechanismProbabilities,
+            IEnumerable<Probability> uncorrelatedFailureMechanismProbabilities,
+            bool partialAssembly)
         {
             ThrowException();
 
