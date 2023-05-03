@@ -91,7 +91,7 @@ namespace Riskeer.DuneErosion.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to *Kustvaknummer	Metrering	Rekenpeil	Significante golfhoogte	Piekperiode	Spectrale periode	Korreldiameter	Pfdsn.
+        ///   Looks up a localized string similar to * KustvakID	RaaiID	Rekenpeil	Rekenwaarde significante golfhoogte	Rekenwaarde piekperiode	Gem. getij amplitude	Faseverschuiving getij	P_afslag (doelkans).
         /// </summary>
         internal static string DuneLocationCalculationsWriter_WriteDuneLocationCalculations_DisplayNameLine {
             get {
@@ -100,7 +100,7 @@ namespace Riskeer.DuneErosion.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kv	Nr	Rp	Hs	Tp	Tm-1,0	D50	_BOI2023_Waarde.
+        ///   Looks up a localized string similar to Kv	Nr	Rp	Hs	Tp	Getij	dt	_BOI2023_Waarde.
         /// </summary>
         internal static string DuneLocationCalculationsWriter_WriteDuneLocationCalculations_HeaderLine {
             get {
@@ -109,7 +109,7 @@ namespace Riskeer.DuneErosion.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to *[-]	[dam]	[m+NAP]	[m]	[s]	[s]	[m]	[1/jaar].
+        ///   Looks up a localized string similar to * [-]	[dam]	[m+NAP]	[m]	[s]	[m]	[hr]	[1/jaar].
         /// </summary>
         internal static string DuneLocationCalculationsWriter_WriteDuneLocationCalculations_UnitsLine {
             get {

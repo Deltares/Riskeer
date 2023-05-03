@@ -133,20 +133,20 @@ namespace Riskeer.DuneErosion.IO.Test
         {
             // Setup
             var calculationWithoutOutput = new ExportableDuneLocationCalculation(
-                new DuneLocationCalculation(CreateDuneLocationForExport(9, 9740, 1.9583e-4)),
+                new DuneLocationCalculation(CreateDuneLocationForExport(9, 9740)),
                 0.5);
 
             var calculationWithUncalculatedOutput = new ExportableDuneLocationCalculation(
-                new DuneLocationCalculation(CreateDuneLocationForExport(10, 9770.1, 1.9583e-4))
+                new DuneLocationCalculation(CreateDuneLocationForExport(10, 9770.1))
                 {
-                    Output = CreateDuneLocationCalculationOutputForExport(double.NaN, double.NaN, double.NaN)
+                    Output = CreateDuneLocationCalculationOutputForExport(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN)
                 },
                 0.25);
 
             var calculationWithOutput = new ExportableDuneLocationCalculation(
-                new DuneLocationCalculation(CreateDuneLocationForExport(11, 9771.34, 1.337e-4))
+                new DuneLocationCalculation(CreateDuneLocationForExport(11, 9771.34))
                 {
-                    Output = CreateDuneLocationCalculationOutputForExport(5.89, 14.11, 8.53)
+                    Output = CreateDuneLocationCalculationOutputForExport(5.89, 14.11, 8.53, 1.03, 3.55)
                 },
                 0.1);
 
@@ -170,12 +170,13 @@ namespace Riskeer.DuneErosion.IO.Test
                 // Assert
                 Assert.IsTrue(File.Exists(filePath));
                 string fileContent = File.ReadAllText(filePath);
-                string expectedText = $"Kv\tNr\tRp\tHs\tTp\tTm-1,0\tD50\t_BOI2023_Waarde{Environment.NewLine}" +
-                                      $"*Kustvaknummer\tMetrering\tRekenpeil\tSignificante golfhoogte\tPiekperiode\tSpectrale periode\tKorreldiameter\tPfdsn{Environment.NewLine}" +
-                                      $"*[-]\t[dam]\t[m+NAP]\t[m]\t[s]\t[s]\t[m]\t[1/jaar]{Environment.NewLine}" +
-                                      $"9\t9740\t*\t*\t*\t*\t0.000196\t0.5{Environment.NewLine}" +
-                                      $"10\t9770.1\t*\t*\t*\t*\t0.000196\t0.25{Environment.NewLine}" +
-                                      $"11\t9771.3\t5.89\t8.53\t14.11\t*\t0.000134\t0.1{Environment.NewLine}";
+                string expectedText =
+                    $"Kv\tNr\tRp\tHs\tTp\tGetij\tdt\t_BOI2023_Waarde{Environment.NewLine}" +
+                    $"* KustvakID\tRaaiID\tRekenpeil\tRekenwaarde significante golfhoogte\tRekenwaarde piekperiode\tGem. getij amplitude\tFaseverschuiving getij\tP_afslag (doelkans){Environment.NewLine}" +
+                    $"* [-]\t[dam]\t[m+NAP]\t[m]\t[s]\t[m]\t[hr]\t[1/jaar]{Environment.NewLine}" +
+                    $"9\t9740\t*\t*\t*\t*\t*\t0.5{Environment.NewLine}" +
+                    $"10\t9770.1\t*\t*\t*\t*\t*\t0.25{Environment.NewLine}" +
+                    $"11\t9771.3\t5.89\t8.53\t14.11\t1.03\t3.55\t0.1{Environment.NewLine}";
                 Assert.AreEqual(expectedText, fileContent);
             }
             finally
@@ -184,23 +185,25 @@ namespace Riskeer.DuneErosion.IO.Test
             }
         }
 
-        private static DuneLocationCalculationOutput CreateDuneLocationCalculationOutputForExport(double waterLevel, double wavePeriod, double waveHeight)
+        private static DuneLocationCalculationOutput CreateDuneLocationCalculationOutputForExport(
+            double waterLevel, double wavePeriod, double waveHeight, double meanTidalAmplitude, double tideSurgePhaseDifference)
         {
             return new DuneLocationCalculationOutput(CalculationConvergence.CalculatedConverged, new DuneLocationCalculationOutput.ConstructionProperties
             {
                 WaterLevel = waterLevel,
                 WavePeriod = wavePeriod,
-                WaveHeight = waveHeight
+                WaveHeight = waveHeight,
+                MeanTidalAmplitude = meanTidalAmplitude,
+                TideSurgePhaseDifference = tideSurgePhaseDifference
             });
         }
 
-        private static DuneLocation CreateDuneLocationForExport(int coastalAreaId, double offset, double d50)
+        private static DuneLocation CreateDuneLocationForExport(int coastalAreaId, double offset)
         {
             return new DuneLocation(string.Empty, new TestHydraulicBoundaryLocation(), new DuneLocation.ConstructionProperties
             {
                 CoastalAreaId = coastalAreaId,
-                Offset = offset,
-                D50 = d50
+                Offset = offset
             });
         }
     }

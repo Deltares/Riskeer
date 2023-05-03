@@ -86,8 +86,6 @@ namespace Riskeer.DuneErosion.IO
             {
                 duneLocation.CoastalAreaId.ToString(CultureInfo.InvariantCulture),
                 duneLocation.Offset.ToString(DuneErosionDataResources.DuneLocation_Offset_format, CultureInfo.InvariantCulture),
-                Resources.DuneLocationCalculationsWriter_CreateCsvLine_Parameter_without_value,
-                duneLocation.D50.ToString(null, CultureInfo.InvariantCulture),
                 calculation.TargetProbability.ToString(CultureInfo.InvariantCulture)
             };
 
@@ -103,13 +101,17 @@ namespace Riskeer.DuneErosion.IO
                        {
                            Resources.DuneLocationCalculationsWriter_CreateCsvLine_Parameter_without_value,
                            Resources.DuneLocationCalculationsWriter_CreateCsvLine_Parameter_without_value,
+                           Resources.DuneLocationCalculationsWriter_CreateCsvLine_Parameter_without_value,
+                           Resources.DuneLocationCalculationsWriter_CreateCsvLine_Parameter_without_value,
                            Resources.DuneLocationCalculationsWriter_CreateCsvLine_Parameter_without_value
                        }
                        : new[]
                        {
                            GetOutputValue(calculationOutput.WaterLevel),
                            GetOutputValue(calculationOutput.WaveHeight),
-                           GetOutputValue(calculationOutput.WavePeriod)
+                           GetOutputValue(calculationOutput.WavePeriod),
+                           GetOutputValue(calculationOutput.MeanTidalAmplitude),
+                           GetOutputValue(calculationOutput.TideSurgePhaseDifference)
                        };
         }
 
