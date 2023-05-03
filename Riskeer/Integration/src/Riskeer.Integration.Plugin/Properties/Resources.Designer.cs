@@ -300,7 +300,7 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to HRD bestand toevoegen....
+        ///   Looks up a localized string similar to HRD bestand &amp;toevoegen....
         /// </summary>
         public static string ContextMenuStrip_Add_HydraulicBoundaryDatabase {
             get {

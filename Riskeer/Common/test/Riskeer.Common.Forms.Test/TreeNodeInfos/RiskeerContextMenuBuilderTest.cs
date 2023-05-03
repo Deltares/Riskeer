@@ -944,7 +944,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                               .WhenCalled(arg =>
                               {
                                   var contextMenuItem = (StrictContextMenuItem) arg.Arguments[0];
-                                  Assert.AreEqual("Wis alle illustratiepunten...", contextMenuItem.Text);
+                                  Assert.AreEqual("Wis alle &illustratiepunten...", contextMenuItem.Text);
                                   Assert.AreEqual(expectedToolTipMessage, contextMenuItem.ToolTipText);
                                   Assert.AreEqual(isEnabled, contextMenuItem.Enabled);
                               });
@@ -980,7 +980,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                               .WhenCalled(arg =>
                               {
                                   var contextMenuItem = (StrictContextMenuItem) arg.Arguments[0];
-                                  Assert.AreEqual("Wis alle illustratiepunten...", contextMenuItem.Text);
+                                  Assert.AreEqual("Wis alle &illustratiepunten...", contextMenuItem.Text);
                                   Assert.AreEqual(expectedToolTipMessage, contextMenuItem.ToolTipText);
                                   Assert.AreEqual(isEnabled, contextMenuItem.Enabled);
                               });
@@ -1016,7 +1016,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                               .WhenCalled(arg =>
                               {
                                   var contextMenuItem = (StrictContextMenuItem) arg.Arguments[0];
-                                  Assert.AreEqual("Wis alle illustratiepunten...", contextMenuItem.Text);
+                                  Assert.AreEqual("Wis alle &illustratiepunten...", contextMenuItem.Text);
                                   Assert.AreEqual(expectedToolTipMessage, contextMenuItem.ToolTipText);
                                   Assert.AreEqual(isEnabled, contextMenuItem.Enabled);
                               });

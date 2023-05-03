@@ -1076,7 +1076,7 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wis alle illustratiepunten....
+        ///   Looks up a localized string similar to Wis alle &amp;illustratiepunten....
         /// </summary>
         public static string CreateClearIllustrationPointsOfCalculationsItem_ClearIllustrationPoints_DisplayName {
             get {

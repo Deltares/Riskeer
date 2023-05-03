@@ -299,7 +299,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                                                                   RiskeerCommonFormsResources.ClearIcon,
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearIllustrationPointsIndexRootGroup,
-                                                                  "Wis alle illustratiepunten...",
+                                                                  "Wis alle &illustratiepunten...",
                                                                   "Er zijn geen berekeningen met illustratiepunten om te wissen.",
                                                                   RiskeerCommonFormsResources.ClearIllustrationPointsIcon,
                                                                   false);
@@ -470,7 +470,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                                                                   RiskeerCommonFormsResources.ClearIcon,
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearIllustrationPointsIndexNestedGroup,
-                                                                  "Wis alle illustratiepunten...",
+                                                                  "Wis alle &illustratiepunten...",
                                                                   "Er zijn geen berekeningen met illustratiepunten om te wissen.",
                                                                   RiskeerCommonFormsResources.ClearIllustrationPointsIcon,
                                                                   false);

@@ -1387,7 +1387,7 @@ berekende kans
   </data>
     <data name="CreateClearIllustrationPointsOfCalculationsItem_ClearIllustrationPoints_DisplayName"
           xml:space="preserve">
-    <value>Wis alle illustratiepunten...</value>
+    <value>Wis alle &amp;illustratiepunten...</value>
   </data>
     <data name="CreateClearIllustrationPointsOfCalculationsItem_Clear_IllustrationPoints" xml:space="preserve">
     <value>Wis alle berekende illustratiepunten.</value>

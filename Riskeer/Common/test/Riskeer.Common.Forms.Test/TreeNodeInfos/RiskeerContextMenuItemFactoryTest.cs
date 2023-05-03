@@ -1723,7 +1723,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                                                                                                 handler);
 
             // Assert
-            Assert.AreEqual("Wis alle illustratiepunten...", toolStripItem.Text);
+            Assert.AreEqual("Wis alle &illustratiepunten...", toolStripItem.Text);
             TestHelper.AssertImagesAreEqual(RiskeerFormsResources.ClearIllustrationPointsIcon, toolStripItem.Image);
             mocks.VerifyAll();
         }
@@ -1815,7 +1815,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                                                                                                        handler);
 
             // Assert
-            Assert.AreEqual("Wis alle illustratiepunten...", toolStripItem.Text);
+            Assert.AreEqual("Wis alle &illustratiepunten...", toolStripItem.Text);
             TestHelper.AssertImagesAreEqual(RiskeerFormsResources.ClearIllustrationPointsIcon, toolStripItem.Image);
             mocks.VerifyAll();
         }
@@ -1907,7 +1907,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 () => isEnabled, handler);
 
             // Assert
-            Assert.AreEqual("Wis alle illustratiepunten...", toolStripItem.Text);
+            Assert.AreEqual("Wis alle &illustratiepunten...", toolStripItem.Text);
             TestHelper.AssertImagesAreEqual(RiskeerFormsResources.ClearIllustrationPointsIcon, toolStripItem.Image);
             mocks.VerifyAll();
         }

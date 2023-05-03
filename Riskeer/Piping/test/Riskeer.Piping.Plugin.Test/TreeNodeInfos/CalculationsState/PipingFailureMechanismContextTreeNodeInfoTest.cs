@@ -313,7 +313,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.CalculationsState
 
                     TestHelper.AssertContextMenuStripContainsItem(menu,
                                                                   6,
-                                                                  "Wis alle illustratiepunten...",
+                                                                  "Wis alle &illustratiepunten...",
                                                                   "Er zijn geen berekeningen met illustratiepunten om te wissen.",
                                                                   RiskeerCommonFormsResources.ClearIllustrationPointsIcon,
                                                                   false);
