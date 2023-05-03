@@ -37,7 +37,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         {
             // Call
             void Call() => new AggregatedDuneLocation(0, null, new Point2D(0, 0), 0,
-                                                      RoundedDouble.NaN, RoundedDouble.NaN,
+                                                      RoundedDouble.NaN,
                                                       Array.Empty<Tuple<double, RoundedDouble>>(),
                                                       Array.Empty<Tuple<double, RoundedDouble>>(),
                                                       Array.Empty<Tuple<double, RoundedDouble>>(),
@@ -55,7 +55,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         {
             // Call
             void Call() => new AggregatedDuneLocation(0, string.Empty, null, 0,
-                                                      RoundedDouble.NaN, RoundedDouble.NaN,
+                                                      RoundedDouble.NaN,
                                                       Array.Empty<Tuple<double, RoundedDouble>>(),
                                                       Array.Empty<Tuple<double, RoundedDouble>>(),
                                                       Array.Empty<Tuple<double, RoundedDouble>>(),
@@ -73,7 +73,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         {
             // Call
             void Call() => new AggregatedDuneLocation(0, string.Empty, new Point2D(0, 0), 0,
-                                                      RoundedDouble.NaN, RoundedDouble.NaN, null,
+                                                      RoundedDouble.NaN, null,
                                                       Array.Empty<Tuple<double, RoundedDouble>>(),
                                                       Array.Empty<Tuple<double, RoundedDouble>>(),
                                                       Array.Empty<Tuple<double, RoundedDouble>>(),
@@ -90,7 +90,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         {
             // Call
             void Call() => new AggregatedDuneLocation(0, string.Empty, new Point2D(0, 0), 0,
-                                                      RoundedDouble.NaN, RoundedDouble.NaN,
+                                                      RoundedDouble.NaN,
                                                       Array.Empty<Tuple<double, RoundedDouble>>(),
                                                       null,
                                                       Array.Empty<Tuple<double, RoundedDouble>>(),
@@ -108,7 +108,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         {
             // Call
             void Call() => new AggregatedDuneLocation(0, string.Empty, new Point2D(0, 0), 0,
-                                                      RoundedDouble.NaN, RoundedDouble.NaN,
+                                                      RoundedDouble.NaN,
                                                       Array.Empty<Tuple<double, RoundedDouble>>(),
                                                       Array.Empty<Tuple<double, RoundedDouble>>(),
                                                       null,
@@ -126,7 +126,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         {
             // Call
             void Call() => new AggregatedDuneLocation(0, string.Empty, new Point2D(0, 0), 0,
-                                                      RoundedDouble.NaN, RoundedDouble.NaN,
+                                                      RoundedDouble.NaN,
                                                       Array.Empty<Tuple<double, RoundedDouble>>(),
                                                       Array.Empty<Tuple<double, RoundedDouble>>(),
                                                       Array.Empty<Tuple<double, RoundedDouble>>(),
@@ -144,7 +144,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         {
             // Call
             void Call() => new AggregatedDuneLocation(0, string.Empty, new Point2D(0, 0), 0,
-                                                      RoundedDouble.NaN, RoundedDouble.NaN,
+                                                      RoundedDouble.NaN,
                                                       Array.Empty<Tuple<double, RoundedDouble>>(),
                                                       Array.Empty<Tuple<double, RoundedDouble>>(),
                                                       Array.Empty<Tuple<double, RoundedDouble>>(),
@@ -162,7 +162,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         {
             // Call
             void Call() => new AggregatedDuneLocation(0, string.Empty, new Point2D(0, 0), 0,
-                                                      RoundedDouble.NaN, RoundedDouble.NaN,
+                                                      RoundedDouble.NaN,
                                                       Array.Empty<Tuple<double, RoundedDouble>>(),
                                                       Array.Empty<Tuple<double, RoundedDouble>>(),
                                                       Array.Empty<Tuple<double, RoundedDouble>>(),
@@ -186,7 +186,6 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             var location = new Point2D(random.NextDouble(), random.NextDouble());
             int coastalAreaId = random.Next();
             RoundedDouble offset = random.NextRoundedDouble();
-            RoundedDouble d50 = random.NextRoundedDouble();
 
             var waterLevelCalculationsForTargetProbabilities = new List<Tuple<double, RoundedDouble>>();
             var waveHeightCalculationsForTargetProbabilities = new List<Tuple<double, RoundedDouble>>();
@@ -196,7 +195,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             var tideSurgePhaseDifferenceCalculationsForTargetProbabilities = new List<Tuple<double, RoundedDouble>>();
 
             // Call
-            var aggregatedDuneLocation = new AggregatedDuneLocation(id, name, location, coastalAreaId, offset, d50,
+            var aggregatedDuneLocation = new AggregatedDuneLocation(id, name, location, coastalAreaId, offset,
                                                                     waterLevelCalculationsForTargetProbabilities,
                                                                     waveHeightCalculationsForTargetProbabilities,
                                                                     wavePeriodCalculationsForTargetProbabilities,
@@ -210,7 +209,6 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             Assert.AreSame(location, aggregatedDuneLocation.Location);
             Assert.AreEqual(coastalAreaId, aggregatedDuneLocation.CoastalAreaId);
             Assert.AreEqual(offset, aggregatedDuneLocation.Offset);
-            Assert.AreEqual(d50, aggregatedDuneLocation.D50);
             Assert.AreSame(waterLevelCalculationsForTargetProbabilities, aggregatedDuneLocation.WaterLevelCalculationsForTargetProbabilities);
             Assert.AreSame(waveHeightCalculationsForTargetProbabilities, aggregatedDuneLocation.WaveHeightCalculationsForTargetProbabilities);
             Assert.AreSame(wavePeriodCalculationsForTargetProbabilities, aggregatedDuneLocation.WavePeriodCalculationsForTargetProbabilities);
