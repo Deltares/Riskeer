@@ -174,7 +174,7 @@ namespace Riskeer.Common.Plugin.TestUtil
                     {
                         // Assert
                         TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuIndexWhenInAssemblyTrue,
-                                                                      "I&n assemblage",
+                                                                      "In &assemblage",
                                                                       "Geeft aan of dit faalmechanisme wordt meegenomen in de assemblage.",
                                                                       RiskeerCommonFormsResources.Checkbox_ticked);
                     }
@@ -219,7 +219,7 @@ namespace Riskeer.Common.Plugin.TestUtil
                     {
                         // Assert
                         TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuIndexWhenInAssemblyFalse,
-                                                                      "I&n assemblage",
+                                                                      "In &assemblage",
                                                                       "Geeft aan of dit faalmechanisme wordt meegenomen in de assemblage.",
                                                                       RiskeerCommonFormsResources.Checkbox_empty);
                     }

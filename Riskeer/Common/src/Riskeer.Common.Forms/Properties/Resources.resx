@@ -314,7 +314,7 @@
         </value>
     </data>
     <data name="FailureMechanismContextMenuStrip_In_assembly" xml:space="preserve">
-    <value>I&amp;n assemblage</value>
+    <value>In &amp;assemblage</value>
   </data>
     <data name="FailureMechanism_InAssembly_Description" xml:space="preserve">
     <value>Geeft aan of dit faalmechanisme wordt meegenomen in de assemblage.</value>

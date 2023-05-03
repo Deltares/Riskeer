@@ -352,7 +352,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 Assert.AreEqual(1, result.Items.Count);
                 Bitmap checkboxIcon = inAssembly ? RiskeerFormsResources.Checkbox_ticked : RiskeerFormsResources.Checkbox_empty;
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
-                                                              "I&n assemblage",
+                                                              "In &assemblage",
                                                               "Geeft aan of dit faalmechanisme wordt meegenomen in de assemblage.",
                                                               checkboxIcon);
             }

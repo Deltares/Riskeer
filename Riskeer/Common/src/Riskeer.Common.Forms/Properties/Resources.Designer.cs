@@ -1560,7 +1560,7 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to I&amp;n assemblage.
+        ///   Looks up a localized string similar to In &amp;assemblage.
         /// </summary>
         public static string FailureMechanismContextMenuStrip_In_assembly {
             get {

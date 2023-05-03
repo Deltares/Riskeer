@@ -459,7 +459,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateToggleInAssemblyOfFailureMechanismItem(failureMechanismContext, null);
 
             // Assert
-            Assert.AreEqual("I&n assemblage", toolStripItem.Text);
+            Assert.AreEqual("In &assemblage", toolStripItem.Text);
             Assert.AreEqual("Geeft aan of dit faalmechanisme wordt meegenomen in de assemblage.", toolStripItem.ToolTipText);
             Bitmap checkboxIcon = inAssembly ? RiskeerFormsResources.Checkbox_ticked : RiskeerFormsResources.Checkbox_empty;
             TestHelper.AssertImagesAreEqual(checkboxIcon, toolStripItem.Image);
