@@ -116,7 +116,6 @@ namespace Riskeer.DuneErosion.Forms.Test.Factories
                 Assert.AreEqual(duneLocation.Location, aggregatedLocation.Location);
                 Assert.AreEqual(duneLocation.CoastalAreaId, aggregatedLocation.CoastalAreaId);
                 Assert.AreEqual(duneLocation.Offset, aggregatedLocation.Offset);
-                Assert.AreEqual(duneLocation.D50, aggregatedLocation.D50);
 
                 for (var j = 0; j < targetProbabilities.Length; j++)
                 {

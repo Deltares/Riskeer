@@ -62,7 +62,7 @@ namespace Riskeer.DuneErosion.Forms.Factories
                                                                                           tp => tp.DuneLocation.Equals(location))))
                                                                           .ToArray();
                                     return new AggregatedDuneLocation(
-                                        location.Id, location.Name, location.Location, location.CoastalAreaId, location.Offset, location.D50,
+                                        location.Id, location.Name, location.Location, location.CoastalAreaId, location.Offset,
                                         calculationsForLocation.Select(c => new Tuple<double, RoundedDouble>(
                                                                            c.Item1, GetWaterLevel(c.Item2)))
                                                                .ToArray(),

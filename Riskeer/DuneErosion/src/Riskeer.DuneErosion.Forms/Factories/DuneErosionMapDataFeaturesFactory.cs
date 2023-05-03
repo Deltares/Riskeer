@@ -65,7 +65,6 @@ namespace Riskeer.DuneErosion.Forms.Factories
             feature.MetaData[Resources.MetaData_CoastalAreaId] = location.CoastalAreaId;
             feature.MetaData[Resources.MetaData_Offset] = location.Offset.ToString(RiskeerDuneErosionDataResources.DuneLocation_Offset_format,
                                                                                    CultureInfo.CurrentCulture);
-            feature.MetaData[Resources.MetaData_D50] = location.D50.ToString();
 
             HydraulicBoundaryLocationMapDataFeaturesFactory.AddTargetProbabilityMetaData(feature, location.WaterLevelCalculationsForTargetProbabilities,
                                                                                          Resources.MetaData_WaterLevel_TargetProbability_0);

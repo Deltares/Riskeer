@@ -69,7 +69,6 @@ namespace Riskeer.DuneErosion.Forms.TestUtil
                 MapFeaturesMetaDataTestHelper.AssertMetaData(expectedDuneLocation.Name, mapFeature, "Naam");
                 MapFeaturesMetaDataTestHelper.AssertMetaData(expectedDuneLocation.CoastalAreaId, mapFeature, "Kustvaknummer");
                 MapFeaturesMetaDataTestHelper.AssertMetaData(expectedDuneLocation.Offset.ToString("0.#", CultureInfo.CurrentCulture), mapFeature, "Metrering");
-                MapFeaturesMetaDataTestHelper.AssertMetaData(expectedDuneLocation.D50.ToString(), mapFeature, "Rekenwaarde d50");
 
                 Assert.AreEqual(expectedDuneLocation.Location, mapFeature.MapGeometries.First().PointCollections.First().Single());
 
@@ -95,7 +94,7 @@ namespace Riskeer.DuneErosion.Forms.TestUtil
                                    mapFeature, calculationsForTargetProbability.TargetProbability, "Faseverschuiving tussen getij en opzet - {0}", presentedMetaDataItems);
                 }
 
-                int expectedMetaDataCount = 5 + (6 * failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.Count);
+                int expectedMetaDataCount = 4 + (6 * failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.Count);
                 Assert.AreEqual(expectedMetaDataCount, mapFeature.MetaData.Keys.Count);
             }
         }
