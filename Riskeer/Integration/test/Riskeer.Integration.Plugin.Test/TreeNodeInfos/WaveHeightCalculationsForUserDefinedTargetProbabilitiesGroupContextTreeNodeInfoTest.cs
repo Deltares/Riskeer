@@ -264,7 +264,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                         Assert.AreEqual(11, menu.Items.Count);
 
                         TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddTargetProbabilityIndex,
-                                                                      "Doelkans toevoegen",
+                                                                      "Doelkans &toevoegen",
                                                                       "Voeg een nieuwe doelkans toe aan deze map.",
                                                                       RiskeerCommonFormsResources.GenericInputOutputIcon);
 
