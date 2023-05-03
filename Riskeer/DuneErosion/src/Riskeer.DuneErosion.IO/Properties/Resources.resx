@@ -121,12 +121,12 @@
     <value>*</value>
   </data>
   <data name="DuneLocationCalculationsWriter_WriteDuneLocationCalculations_HeaderLine" xml:space="preserve">
-    <value>Kv	Nr	Rp	Hs	Tp	Tm-1,0	D50	_BOI2023_Waarde</value>
+    <value>Kv	Nr	Rp	Hs	Tp	Getij	dt	_BOI2023_Waarde</value>
   </data>
   <data name="DuneLocationCalculationsWriter_WriteDuneLocationCalculations_DisplayNameLine" xml:space="preserve">
-    <value>*Kustvaknummer	Metrering	Rekenpeil	Significante golfhoogte	Piekperiode	Spectrale periode	Korreldiameter	Pfdsn</value>
+    <value>* KustvakID	RaaiID	Rekenpeil	Rekenwaarde significante golfhoogte	Rekenwaarde piekperiode	Gem. getij amplitude	Faseverschuiving getij	P_afslag (doelkans)</value>
   </data>
   <data name="DuneLocationCalculationsWriter_WriteDuneLocationCalculations_UnitsLine" xml:space="preserve">
-    <value>*[-]	[dam]	[m+NAP]	[m]	[s]	[s]	[m]	[1/jaar]</value>
+    <value>* [-]	[dam]	[m+NAP]	[m]	[s]	[m]	[hr]	[1/jaar]</value>
   </data>
 </root>

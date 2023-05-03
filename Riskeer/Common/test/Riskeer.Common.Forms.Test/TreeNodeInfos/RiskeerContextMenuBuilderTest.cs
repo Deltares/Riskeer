@@ -352,7 +352,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 Assert.AreEqual(1, result.Items.Count);
                 Bitmap checkboxIcon = inAssembly ? RiskeerFormsResources.Checkbox_ticked : RiskeerFormsResources.Checkbox_empty;
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
-                                                              "I&n assemblage",
+                                                              "In &assemblage",
                                                               "Geeft aan of dit faalmechanisme wordt meegenomen in de assemblage.",
                                                               checkboxIcon);
             }
@@ -944,7 +944,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                               .WhenCalled(arg =>
                               {
                                   var contextMenuItem = (StrictContextMenuItem) arg.Arguments[0];
-                                  Assert.AreEqual("Wis alle illustratiepunten...", contextMenuItem.Text);
+                                  Assert.AreEqual("Wis alle &illustratiepunten...", contextMenuItem.Text);
                                   Assert.AreEqual(expectedToolTipMessage, contextMenuItem.ToolTipText);
                                   Assert.AreEqual(isEnabled, contextMenuItem.Enabled);
                               });
@@ -980,7 +980,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                               .WhenCalled(arg =>
                               {
                                   var contextMenuItem = (StrictContextMenuItem) arg.Arguments[0];
-                                  Assert.AreEqual("Wis alle illustratiepunten...", contextMenuItem.Text);
+                                  Assert.AreEqual("Wis alle &illustratiepunten...", contextMenuItem.Text);
                                   Assert.AreEqual(expectedToolTipMessage, contextMenuItem.ToolTipText);
                                   Assert.AreEqual(isEnabled, contextMenuItem.Enabled);
                               });
@@ -1016,7 +1016,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                               .WhenCalled(arg =>
                               {
                                   var contextMenuItem = (StrictContextMenuItem) arg.Arguments[0];
-                                  Assert.AreEqual("Wis alle illustratiepunten...", contextMenuItem.Text);
+                                  Assert.AreEqual("Wis alle &illustratiepunten...", contextMenuItem.Text);
                                   Assert.AreEqual(expectedToolTipMessage, contextMenuItem.ToolTipText);
                                   Assert.AreEqual(isEnabled, contextMenuItem.Enabled);
                               });

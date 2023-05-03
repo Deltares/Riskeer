@@ -212,8 +212,10 @@ namespace Riskeer.Integration.IO.Importers
         private void SetReadHydraulicLocationConfigurationSettingsToDataModel(ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase,
                                                                               IDictionary<HydraulicBoundaryDatabase, long> hydraulicBoundaryDatabaseLookup)
         {
-            NotifyProgress(RiskeerCommonIOResources.Importer_ProgressText_Adding_imported_data_to_AssessmentSection, numberOfSteps, numberOfSteps);
-            changedObservables.AddRange(updateHandler.Update(hydraulicBoundaryData, readHydraulicLocationConfigurationDatabase,
+            NotifyProgress(RiskeerCommonIOResources.Importer_ProgressText_Adding_imported_data_to_AssessmentSection,
+                           numberOfSteps, numberOfSteps);
+
+            changedObservables.AddRange(updateHandler.Update(readHydraulicLocationConfigurationDatabase,
                                                              hydraulicBoundaryDatabaseLookup, FilePath));
         }
 

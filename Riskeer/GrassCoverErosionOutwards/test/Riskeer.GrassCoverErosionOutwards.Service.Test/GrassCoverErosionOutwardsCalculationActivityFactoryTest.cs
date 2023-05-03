@@ -112,7 +112,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryData;
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName 1");
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
             }, true);
@@ -189,7 +189,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryData;
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName 1");
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
             }, true);

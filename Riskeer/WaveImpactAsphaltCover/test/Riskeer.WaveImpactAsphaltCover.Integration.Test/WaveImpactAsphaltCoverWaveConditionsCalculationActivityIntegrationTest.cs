@@ -84,7 +84,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Integration.Test
                 }
             };
 
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
             });
@@ -578,7 +578,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Integration.Test
                 }
             };
 
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
             });

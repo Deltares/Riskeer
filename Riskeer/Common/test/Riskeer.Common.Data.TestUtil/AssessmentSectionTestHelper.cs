@@ -60,14 +60,18 @@ namespace Riskeer.Common.Data.TestUtil
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to set the contribution for.</param>
         /// <param name="mockRepository">The mock repository to create the stub with.</param>
-        /// <param name="filePath">The file path to the hydraulic boundary database (optional).</param>
-        /// <param name="usePreprocessorClosure">Whether or not to use preprocessor closure.</param>
+        /// <param name="hrdFilePath">The path to the hydraulic boundary database (optional).</param>
+        /// <param name="usePreprocessorClosure">Whether or not to use preprocessor closure (optional).</param>
         /// <returns>A stubbed <see cref="IAssessmentSection"/>.</returns>
-        /// <remarks>Whether <paramref name="filePath"/> is provided or not, a dummy location with id 1300001 is added to the
-        /// hydraulic boundary database.</remarks>
+        /// <remarks>When a <paramref name="hrdFilePath"/> is provided:
+        /// <list type="bullet">
+        /// <item>the hydraulic location configuration database file path is set automatically (to a file in the same directory with name 'hlcd.sqlite');</item>
+        /// <item>a dummy location with id 1300001 is added to the hydraulic boundary database.</item>
+        /// </list>
+        /// </remarks>
         public static IAssessmentSection CreateAssessmentSectionStub(IFailureMechanism failureMechanism,
                                                                      MockRepository mockRepository,
-                                                                     string filePath = null,
+                                                                     string hrdFilePath = null,
                                                                      bool usePreprocessorClosure = false)
         {
             IFailureMechanism[] failureMechanisms = GetFailureMechanisms(failureMechanism);
@@ -76,7 +80,7 @@ namespace Riskeer.Common.Data.TestUtil
             assessmentSection.Stub(a => a.Id).Return("21");
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(0.1, 1.0 / 30000));
             assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(failureMechanisms);
-            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(GetHydraulicBoundaryData(filePath, usePreprocessorClosure));
+            assessmentSection.Stub(a => a.HydraulicBoundaryData).Return(GetHydraulicBoundaryData(hrdFilePath, usePreprocessorClosure));
             assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             assessmentSection.Replay();
 
@@ -109,6 +113,8 @@ namespace Riskeer.Common.Data.TestUtil
 
             if (hrdFilePath != null)
             {
+                hydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath = Path.Combine(Path.GetDirectoryName(hrdFilePath), "hlcd.sqlite");
+
                 hydraulicBoundaryData.HydraulicBoundaryDatabases.Add(new HydraulicBoundaryDatabase
                 {
                     FilePath = hrdFilePath,
@@ -119,21 +125,18 @@ namespace Riskeer.Common.Data.TestUtil
                         new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
                     }
                 });
-
-                HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase = hydraulicBoundaryData.HydraulicLocationConfigurationDatabase;
-                hydraulicLocationConfigurationDatabase.FilePath = Path.Combine(Path.GetDirectoryName(hrdFilePath), "hlcd.sqlite");
             }
 
             return hydraulicBoundaryData;
         }
-        
+
         private static string GetVersion(string hrdFilePath)
         {
             if (!File.Exists(hrdFilePath))
             {
                 return null;
             }
-            
+
             using (var db = new HydraulicBoundaryDatabaseReader(hrdFilePath))
             {
                 return db.ReadVersion();

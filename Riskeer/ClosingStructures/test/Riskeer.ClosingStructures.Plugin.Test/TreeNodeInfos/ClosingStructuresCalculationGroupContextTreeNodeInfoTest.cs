@@ -279,7 +279,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                                                                   RiskeerCommonFormsResources.UpdateItemIcon,
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateStructureAllIndexRootGroup,
-                                                                  "&Bijwerken kunstwerken...",
+                                                                  "Bijwerken &kunstwerken...",
                                                                   "Er zijn geen berekeningen om bij te werken.",
                                                                   RiskeerCommonFormsResources.UpdateItemIcon,
                                                                   false);
@@ -299,7 +299,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                                                                   RiskeerCommonFormsResources.ClearIcon,
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearIllustrationPointsIndexRootGroup,
-                                                                  "Wis alle illustratiepunten...",
+                                                                  "Wis alle &illustratiepunten...",
                                                                   "Er zijn geen berekeningen met illustratiepunten om te wissen.",
                                                                   RiskeerCommonFormsResources.ClearIllustrationPointsIcon,
                                                                   false);
@@ -450,7 +450,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                                                                   RiskeerCommonFormsResources.UpdateItemIcon,
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateStructureAllIndexNestedGroup,
-                                                                  "&Bijwerken kunstwerken...",
+                                                                  "Bijwerken &kunstwerken...",
                                                                   "Er zijn geen berekeningen om bij te werken.",
                                                                   RiskeerCommonFormsResources.UpdateItemIcon,
                                                                   false);
@@ -470,7 +470,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                                                                   RiskeerCommonFormsResources.ClearIcon,
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearIllustrationPointsIndexNestedGroup,
-                                                                  "Wis alle illustratiepunten...",
+                                                                  "Wis alle &illustratiepunten...",
                                                                   "Er zijn geen berekeningen met illustratiepunten om te wissen.",
                                                                   RiskeerCommonFormsResources.ClearIllustrationPointsIcon,
                                                                   false);
@@ -1181,7 +1181,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 {
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuUpdateStructureAllIndexRootGroup,
-                                                                  "&Bijwerken kunstwerken...",
+                                                                  "Bijwerken &kunstwerken...",
                                                                   "Er zijn geen berekeningen om bij te werken.",
                                                                   RiskeerCommonFormsResources.UpdateItemIcon,
                                                                   false);
@@ -1219,7 +1219,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 {
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuUpdateStructureAllIndexRootGroup,
-                                                                  "&Bijwerken kunstwerken...",
+                                                                  "Bijwerken &kunstwerken...",
                                                                   "Er zijn geen berekeningen om bij te werken.",
                                                                   RiskeerCommonFormsResources.UpdateItemIcon,
                                                                   false);
@@ -1263,7 +1263,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 {
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuUpdateStructureAllIndexRootGroup,
-                                                                  "&Bijwerken kunstwerken...",
+                                                                  "Bijwerken &kunstwerken...",
                                                                   "Er zijn geen berekeningen om bij te werken.",
                                                                   RiskeerCommonFormsResources.UpdateItemIcon,
                                                                   false);
@@ -1310,7 +1310,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 {
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuUpdateStructureAllIndexRootGroup,
-                                                                  "&Bijwerken kunstwerken...",
+                                                                  "Bijwerken &kunstwerken...",
                                                                   "Alle berekeningen met een kunstwerk bijwerken.",
                                                                   RiskeerCommonFormsResources.UpdateItemIcon);
                 }

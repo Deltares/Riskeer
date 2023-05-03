@@ -191,7 +191,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     // Assert
                     Assert.AreEqual(6, menu.Items.Count);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCreateFailureMechanismIndex,
-                                                                  "Faalmechanisme toevoegen",
+                                                                  "Faalmechanisme &toevoegen",
                                                                   "Voeg een nieuw faalmechanisme toe aan deze map.",
                                                                   RiskeerCommonFormsResources.FailureMechanismIcon);
                 }

@@ -276,7 +276,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                                                                       RiskeerCommonFormsResources.CalculateAllIcon);
 
                         TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearIllustrationPointsIndex,
-                                                                      "Wis alle illustratiepunten...",
+                                                                      "Wis alle &illustratiepunten...",
                                                                       "Er zijn geen berekeningen met illustratiepunten om te wissen.",
                                                                       RiskeerCommonFormsResources.ClearIllustrationPointsIcon,
                                                                       false);
@@ -343,7 +343,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             var random = new Random(21);
             var assessmentSection = new AssessmentSectionStub();
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 new TestHydraulicBoundaryLocation(),
                 new TestHydraulicBoundaryLocation(),
@@ -380,7 +380,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                         // Assert
                         ToolStripItem contextMenuItem = contextMenu.Items[contextMenuClearIllustrationPointsIndex];
 
-                        Assert.AreEqual("Wis alle illustratiepunten...", contextMenuItem.Text);
+                        Assert.AreEqual("Wis alle &illustratiepunten...", contextMenuItem.Text);
                         Assert.AreEqual("Wis alle berekende illustratiepunten.", contextMenuItem.ToolTipText);
                         TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.ClearIllustrationPointsIcon, contextMenuItem.Image);
                         Assert.IsTrue(contextMenuItem.Enabled);
@@ -402,7 +402,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             var random = new Random(21);
             var assessmentSection = new AssessmentSectionStub();
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 new TestHydraulicBoundaryLocation(),
                 new TestHydraulicBoundaryLocation()
@@ -645,7 +645,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         {
             // Given
             const string locationName = "locationName";
-            
+
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
@@ -675,7 +675,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     }
                 }
             };
-            
+
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
@@ -764,7 +764,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             }
 
             var assessmentSection = new AssessmentSectionStub();
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 new TestHydraulicBoundaryLocation()
             });
@@ -836,7 +836,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     SignalFloodingProbability = signalFloodingProbability
                 }
             };
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new HydraulicBoundaryLocation[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new HydraulicBoundaryLocation[]
             {
                 new TestHydraulicBoundaryLocation()
             });

@@ -44,9 +44,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         public double LenghtEffectFactor { get; private set; }
 
         /// <summary>
-        /// Gets the collection of <see cref="ResultWithProfileAndSectionProbabilities"/>.
+        /// Gets the collection of <see cref="ResultWithProfileAndSectionProbabilities"/>. 
         /// </summary>
-        public IEnumerable<ResultWithProfileAndSectionProbabilities> FailureMechanismSectionAssemblyResults { get; private set; }
+        public IEnumerable<Probability> FailureMechanismSectionAssemblyResults { get; private set; }
 
         /// <summary>
         /// Gets the collection of <see cref="Probability"/>.
@@ -61,7 +61,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         /// <summary>
         /// Sets the resulting probability.
         /// </summary>
-        public FailureMechanismAssemblyResult ProbabilityResult { private get; set; }
+        public Probability ProbabilityResult { private get; set; }
 
         /// <summary>
         /// Sets an indicator whether an <see cref="Exception"/> must be thrown while performing a calculation.
@@ -73,10 +73,18 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         /// </summary>
         public bool ThrowAssemblyExceptionOnCalculate { private get; set; }
 
-        public FailureMechanismAssemblyResult CalculateFailureMechanismFailureProbabilityWithLengthEffectBoi1A2(
-            double lengthEffectFactor,
-            IEnumerable<ResultWithProfileAndSectionProbabilities> failureMechanismSectionAssemblyResults,
-            bool partialAssembly)
+        public Probability CalculateFailureMechanismFailureProbabilityBoi1A1(IEnumerable<Probability> failureMechanismSectionAssemblyResults, bool partialAssembly)
+        {
+            ThrowException();
+
+            Calculated = true;
+            FailureMechanismSectionProbabilities = failureMechanismSectionAssemblyResults;
+            PartialAssembly = partialAssembly;
+
+            return ProbabilityResult;
+        }
+
+        public Probability CalculateFailureMechanismFailureProbabilityBoi1A2(IEnumerable<Probability> failureMechanismSectionAssemblyResults, double lengthEffectFactor, bool partialAssembly)
         {
             ThrowException();
 
@@ -88,19 +96,14 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             return ProbabilityResult;
         }
 
-        public FailureMechanismAssemblyResult CalculateFailureMechanismFailureProbabilityBoi1A1(
-            double lengthEffectFactor,
-            IEnumerable<Probability> failureMechanismSectionProbabilities,
-            bool partialAssembly)
+        public BoundaryLimits CalculateFailureMechanismBoundariesBoi1B1(IEnumerable<Probability> failureMechanismSectionAssemblyResults, bool partialAssembly)
         {
-            ThrowException();
+            throw new NotImplementedException();
+        }
 
-            Calculated = true;
-            LenghtEffectFactor = lengthEffectFactor;
-            FailureMechanismSectionProbabilities = failureMechanismSectionProbabilities;
-            PartialAssembly = partialAssembly;
-
-            return ProbabilityResult;
+        public BoundaryLimits CalculateFailureMechanismBoundariesBoi1B2(IEnumerable<ResultWithProfileAndSectionProbabilities> failureMechanismSectionAssemblyResults, bool partialAssembly)
+        {
+            throw new NotImplementedException();
         }
 
         private void ThrowException()

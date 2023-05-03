@@ -71,16 +71,10 @@ namespace Riskeer.Integration.Plugin.Handlers
             return result == DialogResult.OK;
         }
 
-        public IEnumerable<IObservable> Update(HydraulicBoundaryData hydraulicBoundaryData,
-                                               ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase,
+        public IEnumerable<IObservable> Update(ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase,
                                                IDictionary<HydraulicBoundaryDatabase, long> hydraulicBoundaryDatabaseLookup,
                                                string hlcdFilePath)
         {
-            if (hydraulicBoundaryData == null)
-            {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryData));
-            }
-
             if (readHydraulicLocationConfigurationDatabase == null)
             {
                 throw new ArgumentNullException(nameof(readHydraulicLocationConfigurationDatabase));
@@ -97,7 +91,7 @@ namespace Riskeer.Integration.Plugin.Handlers
             }
 
             HydraulicLocationConfigurationDatabaseUpdateHelper.UpdateHydraulicLocationConfigurationDatabase(
-                hydraulicBoundaryData.HydraulicLocationConfigurationDatabase,
+                assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase,
                 readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationSettings?.Single(),
                 hlcdFilePath);
 
@@ -111,8 +105,8 @@ namespace Riskeer.Integration.Plugin.Handlers
 
             var changedObjects = new List<IObservable>
             {
-                hydraulicBoundaryData,
-                hydraulicBoundaryData.HydraulicLocationConfigurationDatabase
+                assessmentSection.HydraulicBoundaryData,
+                assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase
             };
 
             changedObjects.AddRange(RiskeerDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection));

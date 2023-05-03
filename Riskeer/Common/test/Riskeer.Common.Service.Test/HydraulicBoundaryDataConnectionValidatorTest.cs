@@ -179,7 +179,7 @@ namespace Riskeer.Common.Service.Test
         }
 
         [Test]
-        public void Validate_HydraulicBoundaryDatabaseWithDifferentVersion_ReturnsErrorMessage()
+        public void Validate_HydraulicBoundaryDatabaseWithMismatchingVersion_ReturnsErrorMessage()
         {
             // Setup
             string hrdFilePath = Path.Combine(testDataPath, "complete.sqlite");

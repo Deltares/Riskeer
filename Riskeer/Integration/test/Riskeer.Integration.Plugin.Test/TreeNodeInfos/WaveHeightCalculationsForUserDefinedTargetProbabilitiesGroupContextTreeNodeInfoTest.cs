@@ -264,7 +264,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                         Assert.AreEqual(11, menu.Items.Count);
 
                         TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddTargetProbabilityIndex,
-                                                                      "Doelkans toevoegen",
+                                                                      "Doelkans &toevoegen",
                                                                       "Voeg een nieuwe doelkans toe aan deze map.",
                                                                       RiskeerCommonFormsResources.GenericInputOutputIcon);
 
@@ -274,7 +274,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                                                                       RiskeerCommonFormsResources.CalculateAllIcon);
 
                         TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearIllustrationPointsIndex,
-                                                                      "Wis alle illustratiepunten...",
+                                                                      "Wis alle &illustratiepunten...",
                                                                       "Er zijn geen berekeningen met illustratiepunten om te wissen.",
                                                                       RiskeerCommonFormsResources.ClearIllustrationPointsIcon,
                                                                       false);
@@ -428,7 +428,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                         // Assert
                         ToolStripItem contextMenuItem = contextMenu.Items[contextMenuClearIllustrationPointsIndex];
 
-                        Assert.AreEqual("Wis alle illustratiepunten...", contextMenuItem.Text);
+                        Assert.AreEqual("Wis alle &illustratiepunten...", contextMenuItem.Text);
                         Assert.AreEqual("Wis alle berekende illustratiepunten.", contextMenuItem.ToolTipText);
                         TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.ClearIllustrationPointsIcon, contextMenuItem.Image);
                         Assert.IsTrue(contextMenuItem.Enabled);
@@ -508,7 +508,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 }
             };
 
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
             });
@@ -933,7 +933,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 new TestHydraulicBoundaryLocation()
             };
 
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations, true);
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations, true);
 
             return assessmentSection;
         }

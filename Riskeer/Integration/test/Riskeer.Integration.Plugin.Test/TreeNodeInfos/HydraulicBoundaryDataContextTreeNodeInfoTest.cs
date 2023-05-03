@@ -253,7 +253,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                         Assert.AreEqual(6, contextMenuStrip.Items.Count);
 
                         TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip, contextMenuSelectDifferentFolderIndex,
-                                                                      "Selecteer andere bestandsmap...",
+                                                                      "&Selecteer andere bestandsmap...",
                                                                       "Selecteer een andere bestandsmap.",
                                                                       RiskeerCommonFormsResources.GeneralFolderIcon);
                     }

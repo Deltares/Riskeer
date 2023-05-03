@@ -321,7 +321,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                                               "Wis de uitvoer van alle berekeningen binnen deze map met berekeningen.",
                                                               RiskeerCommonFormsResources.ClearIcon);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearIllustrationPointsIndexNestedGroup,
-                                                              "Wis alle illustratiepunten...",
+                                                              "Wis alle &illustratiepunten...",
                                                               "Er zijn geen berekeningen met illustratiepunten om te wissen.",
                                                               RiskeerCommonFormsResources.ClearIllustrationPointsIcon,
                                                               false);
@@ -455,7 +455,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                                               "Wis de uitvoer van alle berekeningen binnen deze map met berekeningen.",
                                                               RiskeerCommonFormsResources.ClearIcon);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearIllustrationPointsIndexRootGroup,
-                                                              "Wis alle illustratiepunten...",
+                                                              "Wis alle &illustratiepunten...",
                                                               "Er zijn geen berekeningen met illustratiepunten om te wissen.",
                                                               RiskeerCommonFormsResources.ClearIllustrationPointsIcon,
                                                               false);
@@ -886,7 +886,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu,
                                                                   contextMenuClearIllustrationPointsIndexRootGroup,
-                                                                  "Wis alle illustratiepunten...",
+                                                                  "Wis alle &illustratiepunten...",
                                                                   "Er zijn geen berekeningen met illustratiepunten om te wissen.",
                                                                   RiskeerCommonFormsResources.ClearIllustrationPointsIcon,
                                                                   false);
@@ -936,7 +936,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu,
                                                                   contextMenuClearIllustrationPointsIndexRootGroup,
-                                                                  "Wis alle illustratiepunten...",
+                                                                  "Wis alle &illustratiepunten...",
                                                                   "Wis alle berekende illustratiepunten binnen deze map met berekeningen.",
                                                                   RiskeerCommonFormsResources.ClearIllustrationPointsIcon);
                 }
@@ -984,7 +984,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu,
                                                                   contextMenuClearIllustrationPointsIndexRootGroup,
-                                                                  "Wis alle illustratiepunten...",
+                                                                  "Wis alle &illustratiepunten...",
                                                                   "Er zijn geen berekeningen met illustratiepunten om te wissen.",
                                                                   RiskeerCommonFormsResources.ClearIllustrationPointsIcon,
                                                                   false);
@@ -1310,7 +1310,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     }
                 });
 
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
             }, true);
@@ -1450,7 +1450,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     }
                 });
 
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
             }, true);

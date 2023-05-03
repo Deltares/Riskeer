@@ -1076,7 +1076,7 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wis alle illustratiepunten....
+        ///   Looks up a localized string similar to Wis alle &amp;illustratiepunten....
         /// </summary>
         public static string CreateClearIllustrationPointsOfCalculationsItem_ClearIllustrationPoints_DisplayName {
             get {
@@ -1560,7 +1560,7 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to I&amp;n assemblage.
+        ///   Looks up a localized string similar to In &amp;assemblage.
         /// </summary>
         public static string FailureMechanismContextMenuStrip_In_assembly {
             get {
@@ -3814,7 +3814,7 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;Bijwerken kunstwerken....
+        ///   Looks up a localized string similar to Bijwerken &amp;kunstwerken....
         /// </summary>
         public static string StructuresPlugin_CreateUpdateStructureItem_Update_all_Structures {
             get {
@@ -3968,7 +3968,7 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;Bijwerken kunstwerk....
+        ///   Looks up a localized string similar to Bijwerken &amp;kunstwerk....
         /// </summary>
         public static string Update_Structure_data {
             get {

@@ -175,7 +175,7 @@ namespace Riskeer.Common.Forms.Test.Factories
                     }
                 }
             };
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation1,
                 hydraulicBoundaryLocation2

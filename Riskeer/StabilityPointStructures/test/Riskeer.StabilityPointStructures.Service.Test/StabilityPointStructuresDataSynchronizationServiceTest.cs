@@ -187,7 +187,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             // Setup
             var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
             var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation();
-            
+
             StabilityPointStructuresFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism(hydraulicBoundaryLocation1);
             failureMechanism.CalculationsGroup.Children.AddRange(new[]
             {
@@ -207,10 +207,10 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                     Output = new TestStructuresOutput()
                 }
             });
-            
+
             StructuresCalculation<StabilityPointStructuresInput>[] calculations = failureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>()
                                                                                                   .ToArray();
-            
+
             StructuresCalculation<StabilityPointStructuresInput>[] expectedAffectedCalculations = calculations.Where(
                 c => c.InputParameters.HydraulicBoundaryLocation == hydraulicBoundaryLocation1
                      && c.HasOutput).ToArray();

@@ -1961,7 +1961,7 @@ namespace Riskeer.Integration.Service.Test
                 new TestHydraulicBoundaryLocation()
             };
 
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations, true);
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations, true);
 
             SetHydraulicBoundaryLocationCalculationOutputConfigurations(assessmentSection.WaterLevelCalculationsForSignalFloodingProbability);
             SetHydraulicBoundaryLocationCalculationOutputConfigurations(assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability);

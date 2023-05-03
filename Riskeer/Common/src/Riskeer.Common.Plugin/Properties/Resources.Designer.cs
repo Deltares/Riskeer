@@ -82,7 +82,7 @@ namespace Riskeer.Common.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Doelkans toevoegen.
+        ///   Looks up a localized string similar to Doelkans &amp;toevoegen.
         /// </summary>
         public static string ContextMenuStrip_Add_TargetProbability {
             get {

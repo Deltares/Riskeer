@@ -40,6 +40,9 @@ namespace Riskeer.HydraRing.Calculation.Test.Calculator
             Assert.IsNaN(calculator.WaterLevel);
             Assert.IsNaN(calculator.WaveHeight);
             Assert.IsNaN(calculator.WavePeriod);
+            Assert.IsNaN(calculator.MeanTidalAmplitude);
+            Assert.IsNaN(calculator.WaveDirectionalSpread);
+            Assert.IsNaN(calculator.TideSurgePhaseDifference);
             Assert.IsNaN(calculator.ReliabilityIndex);
             Assert.IsNull(calculator.OutputDirectory);
         }

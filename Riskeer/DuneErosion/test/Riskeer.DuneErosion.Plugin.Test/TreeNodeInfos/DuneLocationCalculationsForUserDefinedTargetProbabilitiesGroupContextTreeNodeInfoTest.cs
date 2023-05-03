@@ -260,7 +260,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                         Assert.AreEqual(10, menu.Items.Count);
 
                         TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddTargetProbabilityIndex,
-                                                                      "Doelkans toevoegen",
+                                                                      "Doelkans &toevoegen",
                                                                       "Voeg een nieuwe doelkans toe aan deze map.",
                                                                       RiskeerCommonFormsResources.GenericInputOutputIcon,
                                                                       false);

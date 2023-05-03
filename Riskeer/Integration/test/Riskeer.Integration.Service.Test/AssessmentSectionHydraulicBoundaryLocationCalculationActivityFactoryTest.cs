@@ -75,7 +75,7 @@ namespace Riskeer.Integration.Service.Test
                                                                                   hydraulicBoundaryLocation2
                                                                               });
 
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation1,
                 hydraulicBoundaryLocation2
@@ -200,7 +200,7 @@ namespace Riskeer.Integration.Service.Test
                                                                                   hydraulicBoundaryLocation2
                                                                               });
 
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation1,
                 hydraulicBoundaryLocation2
@@ -274,7 +274,7 @@ namespace Riskeer.Integration.Service.Test
 
             assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Add(new HydraulicBoundaryLocationCalculationsForTargetProbability(0.00001));
 
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation1,
                 hydraulicBoundaryLocation2
@@ -357,10 +357,10 @@ namespace Riskeer.Integration.Service.Test
                                                                                   hydraulicBoundaryLocation1,
                                                                                   hydraulicBoundaryLocation2
                                                                               });
-            
+
             assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Add(new HydraulicBoundaryLocationCalculationsForTargetProbability(0.000025));
 
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation1,
                 hydraulicBoundaryLocation2

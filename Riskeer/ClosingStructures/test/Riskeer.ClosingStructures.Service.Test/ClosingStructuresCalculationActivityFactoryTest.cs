@@ -191,7 +191,7 @@ namespace Riskeer.ClosingStructures.Service.Test
             mocks.ReplayAll();
 
             HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First();
-            
+
             StructuresCalculation<ClosingStructuresInput> calculation1 = CreateValidCalculation(hydraulicBoundaryLocation);
             StructuresCalculation<ClosingStructuresInput> calculation2 = CreateValidCalculation(hydraulicBoundaryLocation);
 
@@ -259,7 +259,7 @@ namespace Riskeer.ClosingStructures.Service.Test
             mocks.ReplayAll();
 
             HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First();
-            
+
             StructuresCalculation<ClosingStructuresInput> calculation1 = CreateValidCalculation(hydraulicBoundaryLocation);
             StructuresCalculation<ClosingStructuresInput> calculation2 = CreateValidCalculation(hydraulicBoundaryLocation);
 

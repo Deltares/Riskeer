@@ -348,7 +348,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                 {
                     new HydraulicBoundaryDatabase
                     {
-
                         Locations =
                         {
                             hydraulicBoundaryLocation
@@ -449,7 +448,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                 {
                     new HydraulicBoundaryDatabase
                     {
-
                         Locations =
                         {
                             hydraulicBoundaryLocation
@@ -501,7 +499,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                 {
                     new HydraulicBoundaryDatabase
                     {
-
                         Locations =
                         {
                             new HydraulicBoundaryLocation(1, "A", 0, 1),
@@ -549,7 +546,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                 {
                     new HydraulicBoundaryDatabase
                     {
-
                         Locations =
                         {
                             new HydraulicBoundaryLocation(1, "A", 0, 10),
@@ -608,7 +604,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                 {
                     new HydraulicBoundaryDatabase
                     {
-
                         Locations =
                         {
                             new HydraulicBoundaryLocation(1, "A", 0, 10),

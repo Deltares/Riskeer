@@ -314,7 +314,7 @@
         </value>
     </data>
     <data name="FailureMechanismContextMenuStrip_In_assembly" xml:space="preserve">
-    <value>I&amp;n assemblage</value>
+    <value>In &amp;assemblage</value>
   </data>
     <data name="FailureMechanism_InAssembly_Description" xml:space="preserve">
     <value>Geeft aan of dit faalmechanisme wordt meegenomen in de assemblage.</value>
@@ -960,7 +960,7 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Berekening bijwerken met het kunstwerk.</value>
   </data>
     <data name="Update_Structure_data" xml:space="preserve">
-    <value>&amp;Bijwerken kunstwerk...</value>
+    <value>Bijwerken &amp;kunstwerk...</value>
   </data>
     <data name="VerifyUpdate_Confirm_calculation_output_cleared" xml:space="preserve">
     <value>Als u kiest voor bijwerken, dan wordt het resultaat van deze berekening verwijderd.
@@ -973,7 +973,7 @@ Weet u zeker dat u wilt doorgaan?</value>
 Weet u zeker dat u wilt doorgaan?</value>
   </data>
     <data name="StructuresPlugin_CreateUpdateStructureItem_Update_all_Structures" xml:space="preserve">
-    <value>&amp;Bijwerken kunstwerken...</value>
+    <value>Bijwerken &amp;kunstwerken...</value>
   </data>
     <data name="StructuresPlugin_CreateUpdateStructureItem_Update_all_calculations_with_Structure_Tooltip"
           xml:space="preserve">
@@ -1387,7 +1387,7 @@ berekende kans
   </data>
     <data name="CreateClearIllustrationPointsOfCalculationsItem_ClearIllustrationPoints_DisplayName"
           xml:space="preserve">
-    <value>Wis alle illustratiepunten...</value>
+    <value>Wis alle &amp;illustratiepunten...</value>
   </data>
     <data name="CreateClearIllustrationPointsOfCalculationsItem_Clear_IllustrationPoints" xml:space="preserve">
     <value>Wis alle berekende illustratiepunten.</value>

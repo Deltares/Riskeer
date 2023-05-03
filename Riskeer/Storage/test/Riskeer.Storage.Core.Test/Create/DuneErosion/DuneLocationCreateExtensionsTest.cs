@@ -156,10 +156,10 @@ namespace Riskeer.Storage.Core.Test.Create.DuneErosion
         {
             // Setup
             const string testName = "original name";
-            
+
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
             var location = new DuneLocation(testName, hydraulicBoundaryLocation, new DuneLocation.ConstructionProperties());
-            
+
             var registry = new PersistenceRegistry();
             var hydraulicLocationEntity = new HydraulicLocationEntity();
             registry.Register(hydraulicLocationEntity, hydraulicBoundaryLocation);

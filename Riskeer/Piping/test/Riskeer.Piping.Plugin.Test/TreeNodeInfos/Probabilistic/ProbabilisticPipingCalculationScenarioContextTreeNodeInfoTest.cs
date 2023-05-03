@@ -998,7 +998,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
                         }
                     });
 
-                assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+                assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
                 {
                     hydraulicBoundaryLocation
                 }, true);

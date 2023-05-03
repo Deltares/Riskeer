@@ -660,7 +660,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             };
 
             var assessmentSection = new AssessmentSectionStub();
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
             });

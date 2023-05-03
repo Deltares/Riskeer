@@ -35,11 +35,17 @@ namespace Riskeer.HydraRing.Calculation.Parsers
         private const string waveHeightColumnName = "WaveHeight";
         private const string wavePeriodColumnName = "WavePeriod";
         private const string waterLevelColumnName = "WaterLevel";
+        private const string meanTidalAmplitudeColumnName = "MeanTidalAmplitude";
+        private const string waveDirectionalSpreadColumnName = "WaveDirectionalSpread";
+        private const string tideSurgePhaseDifferenceColumnName = "TideSurgePhaseDifference";
 
         private readonly string query = "SELECT " +
                                         $"max(case when OutputVariableId is 3 then d.Value end) {waveHeightColumnName}, " +
                                         $"max(case when OutputVariableId is 5 then d.Value end) {wavePeriodColumnName}, " +
-                                        $"max(case when OutputVariableId is 23 then d.Value end) {waterLevelColumnName} " +
+                                        $"max(case when OutputVariableId is 23 then d.Value end) {waterLevelColumnName}, " +
+                                        $"max(case when OutputVariableId is 10 then d.Value end) {meanTidalAmplitudeColumnName}, " +
+                                        $"max(case when OutputVariableId is 11 then d.Value end) {waveDirectionalSpreadColumnName}, " +
+                                        $"max(case when OutputVariableId is 12 then d.Value end) {tideSurgePhaseDifferenceColumnName} " +
                                         "FROM DesignPointResults as d " +
                                         $"WHERE SectionId = {HydraRingDatabaseConstants.SectionIdParameterName} " +
                                         "GROUP BY OuterIterationId " +
@@ -75,10 +81,12 @@ namespace Riskeer.HydraRing.Calculation.Parsers
                 double waveHeight = Convert.ToDouble(result[waveHeightColumnName]);
                 double wavePeriod = Convert.ToDouble(result[wavePeriodColumnName]);
                 double waterLevel = Convert.ToDouble(result[waterLevelColumnName]);
+                double meanTidalAmplitude = Convert.ToDouble(result[meanTidalAmplitudeColumnName]);
+                double waveDirectionalSpread = Convert.ToDouble(result[waveDirectionalSpreadColumnName]);
+                double tideSurgePhaseDifference = Convert.ToDouble(result[tideSurgePhaseDifferenceColumnName]);
 
-                Output = new DunesBoundaryConditionsCalculationOutput(waterLevel,
-                                                                      waveHeight,
-                                                                      wavePeriod);
+                Output = new DunesBoundaryConditionsCalculationOutput(
+                    waterLevel, waveHeight, wavePeriod, meanTidalAmplitude, waveDirectionalSpread, tideSurgePhaseDifference);
             }
             catch (InvalidCastException e)
             {

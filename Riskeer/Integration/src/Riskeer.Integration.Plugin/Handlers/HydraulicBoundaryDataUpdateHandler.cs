@@ -120,7 +120,7 @@ namespace Riskeer.Integration.Plugin.Handlers
 
             assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(hydraulicBoundaryDatabase);
             assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
-            
+
             duneLocationsUpdateHandler.AddLocations(hydraulicBoundaryDatabase.Locations);
 
             return GetLocationsAndCalculationsObservables();
@@ -134,7 +134,7 @@ namespace Riskeer.Integration.Plugin.Handlers
             }
 
             HydraulicBoundaryLocation[] locationsToRemove = hydraulicBoundaryDatabase.Locations.ToArray();
-            
+
             assessmentSection.RemoveHydraulicBoundaryLocationCalculations(locationsToRemove);
             duneLocationsUpdateHandler.RemoveLocations(locationsToRemove);
             assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Remove(hydraulicBoundaryDatabase);
