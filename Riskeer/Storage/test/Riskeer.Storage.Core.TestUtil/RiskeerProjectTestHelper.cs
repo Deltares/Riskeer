@@ -248,7 +248,7 @@ namespace Riskeer.Storage.Core.TestUtil
             hydraulicLocationConfigurationDatabase.WindSpeed = "WindSpeed";
             hydraulicLocationConfigurationDatabase.Comment = "Comment";
         }
-        
+
         private static void ConfigureHydraulicBoundaryDatabase(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
             hydraulicBoundaryDatabase.FilePath = "/temp/test";
@@ -322,7 +322,7 @@ namespace Riskeer.Storage.Core.TestUtil
             ConfigureCalculationsWithOutput(assessmentSection, hydraulicLocationWithoutIllustrationPoints);
 
             HydraulicBoundaryLocation hydraulicLocationWithIllustrationPoints = hydraulicBoundaryLocations.ElementAt(1);
-            ConfigureCalculationsWithOutput(assessmentSection, hydraulicLocationWithIllustrationPoints);    
+            ConfigureCalculationsWithOutput(assessmentSection, hydraulicLocationWithIllustrationPoints);
         }
 
         private static void ConfigureCalculationsWithOutput(AssessmentSection assessmentSection,

@@ -186,7 +186,7 @@ namespace Riskeer.Integration.Service.Test.Comparers
             // Assert
             Assert.IsFalse(result);
         }
-        
+
         [Test]
         public void Compare_AssessmentSectionWithDifferentHydraulicBoundaryDatabase_ReturnsTrue()
         {

@@ -100,11 +100,11 @@ namespace Riskeer.DuneErosion.Forms.Test.Factories
             int id = random.Next();
             return new DuneLocation($"Location_{id}", new HydraulicBoundaryLocation(id, string.Empty, random.NextDouble(), random.NextDouble()),
                                     new DuneLocation.ConstructionProperties
-            {
-                CoastalAreaId = random.Next(),
-                D50 = random.NextDouble(),
-                Offset = random.NextDouble()
-            });
+                                    {
+                                        CoastalAreaId = random.Next(),
+                                        D50 = random.NextDouble(),
+                                        Offset = random.NextDouble()
+                                    });
         }
     }
 }

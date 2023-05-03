@@ -645,7 +645,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         {
             // Given
             const string locationName = "locationName";
-            
+
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
@@ -675,7 +675,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     }
                 }
             };
-            
+
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation

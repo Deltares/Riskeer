@@ -357,7 +357,7 @@ namespace Riskeer.Integration.Service.Test
                                                                                   hydraulicBoundaryLocation1,
                                                                                   hydraulicBoundaryLocation2
                                                                               });
-            
+
             assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Add(new HydraulicBoundaryLocationCalculationsForTargetProbability(0.000025));
 
             assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]

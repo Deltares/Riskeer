@@ -91,7 +91,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                     hydraulicBoundaryLocation
                 }
             });
-            assessmentSection.AddHydraulicBoundaryLocationCalculations(new []
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
             });
@@ -113,11 +113,11 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                         newHydraulicBoundaryLocation
                     }
                 });
-                assessmentSection.AddHydraulicBoundaryLocationCalculations(new []
+                assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
                 {
                     newHydraulicBoundaryLocation
                 });
-                
+
                 hydraulicBoundaryDatabases.NotifyObservers();
 
                 // Then

@@ -115,7 +115,6 @@ namespace Riskeer.Integration.Service.Comparers
             }
 
             return true;
-
         }
 
         private static bool AreHydraulicLocationConfigurationDatabasesEquivalent(HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase,
