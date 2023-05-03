@@ -44,7 +44,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil
         public static void AssertFailureMechanismSectionAssemblyGroupBoundaries(CategoriesList<InterpretationCategory> original,
                                                                                 IEnumerable<FailureMechanismSectionAssemblyGroupBoundaries> actual)
         {
-            int expectedNrOfCategories = original.Categories.Length;
+            int expectedNrOfCategories = original.Categories.Count();
             Assert.AreEqual(expectedNrOfCategories, actual.Count());
 
             for (int i = 0; i < expectedNrOfCategories; i++)

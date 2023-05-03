@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using Assembly.Kernel.Exceptions;
 using Assembly.Kernel.Model;
-using Assembly.Kernel.Model.AssessmentSection;
 using Assembly.Kernel.Model.Categories;
 using Assembly.Kernel.Model.FailureMechanismSections;
 using Core.Common.TestUtil;
@@ -38,7 +37,6 @@ using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Groups;
 using Riskeer.Common.Primitives;
-using FailureMechanismSectionAssemblyResult = Riskeer.AssemblyTool.Data.FailureMechanismSectionAssemblyResult;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 {

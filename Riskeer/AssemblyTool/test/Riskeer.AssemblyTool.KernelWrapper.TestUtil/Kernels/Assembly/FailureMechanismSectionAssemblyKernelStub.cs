@@ -25,6 +25,7 @@ using Assembly.Kernel.Interfaces;
 using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.Categories;
 using Assembly.Kernel.Model.FailureMechanismSections;
+using Riskeer.AssemblyTool.Data;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
 {
@@ -113,17 +114,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
                                                                                                ERefinementStatus refinementStatus,
                                                                                                Probability refinedProbabilitySection,
                                                                                                CategoriesList<InterpretationCategory> categories)
-        {
-            throw new NotImplementedException();
-        }
-
-        public FailureMechanismSectionAssemblyResultWithLengthEffect TranslateAssessmentResultWithLengthEffectAggregatedMethod(ESectionInitialMechanismProbabilitySpecification relevance,
-                                                                                                                               Probability probabilityInitialMechanismProfile,
-                                                                                                                               Probability probabilityInitialMechanismSection,
-                                                                                                                               ERefinementStatus refinementStatus,
-                                                                                                                               Probability refinedProbabilityProfile,
-                                                                                                                               Probability refinedProbabilitySection,
-                                                                                                                               CategoriesList<InterpretationCategory> categories)
         {
             throw new NotImplementedException();
         }

@@ -23,7 +23,6 @@ using System;
 using System.Linq;
 using Assembly.Kernel.Exceptions;
 using Assembly.Kernel.Model;
-using Assembly.Kernel.Model.FailureMechanismSections;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -34,7 +33,6 @@ using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly;
-using KernelFailureMechanismSectionAssemblyResult = Assembly.Kernel.Model.FailureMechanismSections.FailureMechanismSectionAssemblyResult;
 using RiskeerFailureMechanismSectionAssemblyResult = Riskeer.AssemblyTool.Data.FailureMechanismSectionAssemblyResult;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
@@ -106,7 +104,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 FailureMechanismAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismAssemblyKernel;
-                kernel.ProbabilityResult = new FailureMechanismAssemblyResult(new Probability(random.NextDouble()), EFailureMechanismAssemblyMethod.Correlated);
+                kernel.ProbabilityResult = new Probability(random.NextDouble());
 
                 var calculator = new FailureMechanismAssemblyCalculator(factory);
 
@@ -120,9 +118,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 for (var i = 0; i < sectionAssemblyResults.Length; i++)
                 {
                     RiskeerFailureMechanismSectionAssemblyResult expected = sectionAssemblyResults.ElementAt(i);
-                    ResultWithProfileAndSectionProbabilities actual = kernel.FailureMechanismSectionAssemblyResults.ElementAt(i);
-                    ProbabilityAssert.AreEqual(expected.ProfileProbability, actual.ProbabilityProfile);
-                    ProbabilityAssert.AreEqual(expected.SectionProbability, actual.ProbabilitySection);
+                    Probability actual = kernel.FailureMechanismSectionAssemblyResults.ElementAt(i);
+                    ProbabilityAssert.AreEqual(expected.SectionProbability, actual);
                 }
             }
         }
@@ -143,7 +140,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 FailureMechanismAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismAssemblyKernel;
-                kernel.ProbabilityResult = new FailureMechanismAssemblyResult(new Probability(random.NextDouble()), EFailureMechanismAssemblyMethod.Correlated);
+                kernel.ProbabilityResult = new Probability(random.NextDouble());
 
                 var calculator = new FailureMechanismAssemblyCalculator(factory);
 
@@ -151,7 +148,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 calculator.Assemble(failureMechanismN, sectionAssemblyResults, false);
 
                 // Assert
-                Assert.AreEqual(failureMechanismN, kernel.LenghtEffectFactor);
+                Assert.AreEqual(0, kernel.LenghtEffectFactor);
                 Assert.IsFalse(kernel.PartialAssembly);
 
                 CollectionAssert.AreEqual(sectionAssemblyResults.Select(r => new Probability(r.SectionProbability)), kernel.FailureMechanismSectionProbabilities);
@@ -170,7 +167,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 FailureMechanismAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismAssemblyKernel;
-                var output = new FailureMechanismAssemblyResult(new Probability(random.NextDouble()), EFailureMechanismAssemblyMethod.Correlated);
+                var output = new Probability(random.NextDouble());
                 kernel.ProbabilityResult = output;
 
                 var calculator = new FailureMechanismAssemblyCalculator(factory);
@@ -181,39 +178,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 // Assert
                 Assert.IsTrue(kernel.Calculated);
-                ProbabilityAssert.AreEqual(assemblyResultWrapper.AssemblyResult, output.Probability);
+                ProbabilityAssert.AreEqual(assemblyResultWrapper.AssemblyResult, output);
                 Assert.AreEqual(assemblyResultWrapper.AssemblyMethod, expectedAssemblyMethod);
-            }
-        }
-
-        [Test]
-        public void Assemble_WithInvalidInput_ThrowsFailureMechanismAssemblyCalculatorException()
-        {
-            // Setup
-            var random = new Random(21);
-            double probability = random.NextDouble();
-            var invalidInput = new RiskeerFailureMechanismSectionAssemblyResult(probability, probability, random.NextDouble(),
-                                                                                (FailureMechanismSectionAssemblyGroup) 99);
-
-            using (new AssemblyToolKernelFactoryConfig())
-            {
-                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
-                FailureMechanismAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismAssemblyKernel;
-
-                var calculator = new FailureMechanismAssemblyCalculator(factory);
-
-                // Call
-                void Call() => calculator.Assemble(random.NextDouble(), new[]
-                {
-                    invalidInput
-                }, random.NextBoolean());
-
-                // Assert
-                Assert.IsFalse(kernel.Calculated);
-
-                var exception = Assert.Throws<FailureMechanismAssemblyCalculatorException>(Call);
-                Assert.IsInstanceOf<Exception>(exception.InnerException);
-                Assert.AreEqual(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), exception.Message);
             }
         }
 

@@ -103,12 +103,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         /// </summary>
         public IEnumerable<FailureMechanismSectionWithCategory> CombinedSectionResults { get; set; }
 
-        public GreatestCommonDenominatorAssemblyResult AssembleCommonFailureMechanismSections(IEnumerable<FailureMechanismSectionList> failureMechanismSectionLists,
-                                                                                              double assessmentSectionLength, bool partialAssembly)
-        {
-            throw new NotImplementedException();
-        }
-
         public FailureMechanismSectionList FindGreatestCommonDenominatorSectionsBoi3A1(
             IEnumerable<FailureMechanismSectionList> failureMechanismSectionLists, double assessmentSectionLength)
         {

@@ -44,7 +44,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil
         public static void AssertAssessmentSectionAssemblyGroupBoundaries(CategoriesList<AssessmentSectionCategory> original,
                                                                           IEnumerable<AssessmentSectionAssemblyGroupBoundaries> actual)
         {
-            Assert.AreEqual(original.Categories.Length, actual.Count());
+            Assert.AreEqual(original.Categories.Count(), actual.Count());
 
             CollectionAssert.AreEqual(original.Categories.Select(o => GetAssessmentSectionAssemblyGroup(o.Category)),
                                       actual.Select(r => r.AssessmentSectionAssemblyGroup));
