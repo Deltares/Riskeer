@@ -3814,7 +3814,7 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;Bijwerken kunstwerken....
+        ///   Looks up a localized string similar to Bijwerken &amp;kunstwerken....
         /// </summary>
         public static string StructuresPlugin_CreateUpdateStructureItem_Update_all_Structures {
             get {
@@ -3968,7 +3968,7 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;Bijwerken kunstwerk....
+        ///   Looks up a localized string similar to Bijwerken &amp;kunstwerk....
         /// </summary>
         public static string Update_Structure_data {
             get {

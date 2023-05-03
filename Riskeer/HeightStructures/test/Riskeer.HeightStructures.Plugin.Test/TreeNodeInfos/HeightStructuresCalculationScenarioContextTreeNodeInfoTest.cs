@@ -241,7 +241,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                                                                   false);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateStructureIndex,
-                                                                  "&Bijwerken kunstwerk...",
+                                                                  "Bijwerken &kunstwerk...",
                                                                   "Er moet een kunstwerk geselecteerd zijn.",
                                                                   RiskeerCommonFormsResources.UpdateItemIcon,
                                                                   false);
@@ -298,7 +298,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(menu,
                                                                   contextMenuUpdateStructureIndex,
-                                                                  "&Bijwerken kunstwerk...",
+                                                                  "Bijwerken &kunstwerk...",
                                                                   "Er moet een kunstwerk geselecteerd zijn.",
                                                                   RiskeerCommonFormsResources.UpdateItemIcon,
                                                                   false);
@@ -339,7 +339,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(menu,
                                                                   contextMenuUpdateStructureIndex,
-                                                                  "&Bijwerken kunstwerk...",
+                                                                  "Bijwerken &kunstwerk...",
                                                                   "Er zijn geen wijzigingen om bij te werken.",
                                                                   RiskeerCommonFormsResources.UpdateItemIcon,
                                                                   false);
@@ -382,7 +382,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(menu,
                                                                   contextMenuUpdateStructureIndex,
-                                                                  "&Bijwerken kunstwerk...",
+                                                                  "Bijwerken &kunstwerk...",
                                                                   "Berekening bijwerken met het kunstwerk.",
                                                                   RiskeerCommonFormsResources.UpdateItemIcon);
                 }
