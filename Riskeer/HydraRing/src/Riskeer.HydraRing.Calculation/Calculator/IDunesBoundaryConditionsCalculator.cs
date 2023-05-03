@@ -43,6 +43,21 @@ namespace Riskeer.HydraRing.Calculation.Calculator
         /// Gets the wave period at a location.
         /// </summary>
         double WavePeriod { get; }
+        
+        /// <summary>
+        /// Gets the mean tidal amplitude at a location.
+        /// </summary>
+        double MeanTidalAmplitude { get; }
+
+        /// <summary>
+        /// Gets the wave directional spread at a location.
+        /// </summary>
+        double WaveDirectionalSpread { get; }
+
+        /// <summary>
+        /// Gets the tide surge phase difference at a location.
+        /// </summary>
+        double TideSurgePhaseDifference { get; }
 
         /// <summary>
         /// Gets the reliability index

@@ -52,6 +52,9 @@ namespace Riskeer.HydraRing.Calculation.Calculator
             WaterLevel = double.NaN;
             WaveHeight = double.NaN;
             WavePeriod = double.NaN;
+            MeanTidalAmplitude = double.NaN;
+            WaveDirectionalSpread = double.NaN;
+            TideSurgePhaseDifference = double.NaN;
             ReliabilityIndex = double.NaN;
         }
 
@@ -60,6 +63,12 @@ namespace Riskeer.HydraRing.Calculation.Calculator
         public double WaveHeight { get; private set; }
 
         public double WavePeriod { get; private set; }
+
+        public double MeanTidalAmplitude { get; private set; }
+
+        public double WaveDirectionalSpread { get; private set; }
+
+        public double TideSurgePhaseDifference { get; private set; }
 
         public double ReliabilityIndex { get; private set; }
 
@@ -84,6 +93,9 @@ namespace Riskeer.HydraRing.Calculation.Calculator
                 WaterLevel = dunesBoundaryParser.Output.WaterLevel;
                 WaveHeight = dunesBoundaryParser.Output.WaveHeight;
                 WavePeriod = dunesBoundaryParser.Output.WavePeriod;
+                MeanTidalAmplitude = dunesBoundaryParser.Output.MeanTidalAmplitude;
+                WaveDirectionalSpread = dunesBoundaryParser.Output.WaveDirectionalSpread;
+                TideSurgePhaseDifference = dunesBoundaryParser.Output.TideSurgePhaseDifference;
             }
 
             if (targetProbabilityParser.Output != null)
