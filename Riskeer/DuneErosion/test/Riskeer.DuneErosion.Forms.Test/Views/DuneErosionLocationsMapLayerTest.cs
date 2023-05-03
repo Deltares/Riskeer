@@ -40,6 +40,9 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         private const string waterLevelDisplayNameFormat = "Rekenwaarde h - {0}";
         private const string waveHeightDisplayNameFormat = "Rekenwaarde Hs - {0}";
         private const string wavePeriodDisplayNameFormat = "Rekenwaarde Tp - {0}";
+        private const string meanTidalAmplitudeDisplayNameFormat = "Gemiddelde getijamplitude - {0}";
+        private const string waveDirectionalSpreadDisplayNameFormat = "Golfrichtingspreiding - {0}";
+        private const string tideSurgePhaseDifferenceDisplayNameFormat = "Faseverschuiving tussen getij en opzet - {0}";
 
         [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
@@ -519,6 +522,9 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             yield return waterLevelDisplayNameFormat;
             yield return waveHeightDisplayNameFormat;
             yield return wavePeriodDisplayNameFormat;
+            yield return meanTidalAmplitudeDisplayNameFormat;
+            yield return waveDirectionalSpreadDisplayNameFormat;
+            yield return tideSurgePhaseDifferenceDisplayNameFormat;
         }
     }
 }

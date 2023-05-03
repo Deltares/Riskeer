@@ -176,6 +176,9 @@ namespace Riskeer.DuneErosion.Forms.Views
             var waterLevelMetaDataItemsCounter = 0;
             var waveHeightMetaDataItemsCounter = 0;
             var wavePeriodMetaDataItemsCounter = 0;
+            var meanTidalAmplitudeMetaDataItemsCounter = 0;
+            var waveDirectionalSpreadMetaDataItemsCounter = 0;
+            var tideSurgePhaseDifferenceMetaDataItemsCounter = 0;
             foreach (string metaData in MapData.MetaData)
             {
                 if (metaData.Contains(string.Format(Resources.MetaData_WaterLevel_TargetProbability_0, string.Empty)))
@@ -196,6 +199,24 @@ namespace Riskeer.DuneErosion.Forms.Views
                                             lookupItem => lookupItem.WavePeriodMetaDataItem = metaData);
                     wavePeriodMetaDataItemsCounter++;
                 }
+                else if (metaData.Contains(string.Format(Resources.MetaData_MeanTidalAmplitude_TargetProbability_0, string.Empty)))
+                {
+                    AddMetaDataItemToLookup(newMetaDataItemsLookups, calculationsForTargetProbabilities.ElementAt(meanTidalAmplitudeMetaDataItemsCounter),
+                                            lookupItem => lookupItem.MeanTidalAmplitudeMetaDataItem = metaData);
+                    meanTidalAmplitudeMetaDataItemsCounter++;
+                }
+                else if (metaData.Contains(string.Format(Resources.MetaData_WaveDirectionalSpread_TargetProbability_0, string.Empty)))
+                {
+                    AddMetaDataItemToLookup(newMetaDataItemsLookups, calculationsForTargetProbabilities.ElementAt(waveDirectionalSpreadMetaDataItemsCounter),
+                                            lookupItem => lookupItem.WaveDirectionalSpreadMetaDataItem = metaData);
+                    waveDirectionalSpreadMetaDataItemsCounter++;
+                }
+                else if (metaData.Contains(string.Format(Resources.MetaData_TideSurgePhaseDifference_TargetProbability_0, string.Empty)))
+                {
+                    AddMetaDataItemToLookup(newMetaDataItemsLookups, calculationsForTargetProbabilities.ElementAt(tideSurgePhaseDifferenceMetaDataItemsCounter),
+                                            lookupItem => lookupItem.TideSurgePhaseDifferenceMetaDataItem = metaData);
+                    tideSurgePhaseDifferenceMetaDataItemsCounter++;
+                }
             }
 
             string currentSelectedMetaDataAttribute = MapData.SelectedMetaDataAttribute;
@@ -204,7 +225,10 @@ namespace Riskeer.DuneErosion.Forms.Views
                 MetaDataItemsLookup currentMetaDataItem = currentMetaDataItemLookup.Value;
                 if (currentSelectedMetaDataAttribute == currentMetaDataItem.WaterLevelMetaDataItem
                     || currentSelectedMetaDataAttribute == currentMetaDataItem.WaveHeightMetaDataItem
-                    || currentSelectedMetaDataAttribute == currentMetaDataItem.WavePeriodMetaDataItem)
+                    || currentSelectedMetaDataAttribute == currentMetaDataItem.WavePeriodMetaDataItem
+                    || currentSelectedMetaDataAttribute == currentMetaDataItem.MeanTidalAmplitudeMetaDataItem
+                    || currentSelectedMetaDataAttribute == currentMetaDataItem.WaveDirectionalSpreadMetaDataItem
+                    || currentSelectedMetaDataAttribute == currentMetaDataItem.TideSurgePhaseDifferenceMetaDataItem)
                 {
                     DuneLocationCalculationsForTargetProbability calculationsForTargetProbability = currentMetaDataItemLookup.Key;
                     if (!newMetaDataItemsLookups.ContainsKey(calculationsForTargetProbability))
@@ -217,6 +241,9 @@ namespace Riskeer.DuneErosion.Forms.Views
                         SetSelectedMetaDataAttribute(currentSelectedMetaDataAttribute, currentMetaDataItem.WaterLevelMetaDataItem, newMetaDataItem.WaterLevelMetaDataItem);
                         SetSelectedMetaDataAttribute(currentSelectedMetaDataAttribute, currentMetaDataItem.WaveHeightMetaDataItem, newMetaDataItem.WaveHeightMetaDataItem);
                         SetSelectedMetaDataAttribute(currentSelectedMetaDataAttribute, currentMetaDataItem.WavePeriodMetaDataItem, newMetaDataItem.WavePeriodMetaDataItem);
+                        SetSelectedMetaDataAttribute(currentSelectedMetaDataAttribute, currentMetaDataItem.MeanTidalAmplitudeMetaDataItem, newMetaDataItem.MeanTidalAmplitudeMetaDataItem);
+                        SetSelectedMetaDataAttribute(currentSelectedMetaDataAttribute, currentMetaDataItem.WaveDirectionalSpreadMetaDataItem, newMetaDataItem.WaveDirectionalSpreadMetaDataItem);
+                        SetSelectedMetaDataAttribute(currentSelectedMetaDataAttribute, currentMetaDataItem.TideSurgePhaseDifferenceMetaDataItem, newMetaDataItem.TideSurgePhaseDifferenceMetaDataItem);
                     }
                 }
             }
@@ -253,6 +280,12 @@ namespace Riskeer.DuneErosion.Forms.Views
             public string WaveHeightMetaDataItem { get; set; }
 
             public string WavePeriodMetaDataItem { get; set; }
+            
+            public string MeanTidalAmplitudeMetaDataItem { get; set; }
+            
+            public string WaveDirectionalSpreadMetaDataItem { get; set; }
+            
+            public string TideSurgePhaseDifferenceMetaDataItem { get; set; }
         }
     }
 }
