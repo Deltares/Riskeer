@@ -3213,7 +3213,7 @@
 					<param
 					mask="False"
 					name="StepInPathContainingTargetProbability"
-					value="4">
+					value="3">
 					</param>
 					<param
 					mask="False"
