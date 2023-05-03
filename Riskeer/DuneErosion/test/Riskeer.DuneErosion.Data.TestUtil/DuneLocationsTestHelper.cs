@@ -97,9 +97,8 @@ namespace Riskeer.DuneErosion.Data.TestUtil
         {
             foreach (DuneLocationCalculation duneLocationCalculation in calculations)
             {
-                duneLocationCalculation.Output = new TestDuneLocationCalculationOutput(random.NextDouble(),
-                                                                                       random.NextDouble(),
-                                                                                       random.NextDouble());
+                duneLocationCalculation.Output = new TestDuneLocationCalculationOutput(random.NextDouble(),random.NextDouble(),random.NextDouble(),
+                                                                                       random.NextDouble(),random.NextDouble(), random.NextDouble());
             }
         }
     }

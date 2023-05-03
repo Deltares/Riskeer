@@ -71,6 +71,15 @@ namespace Riskeer.DuneErosion.Forms.Factories
                                                                .ToArray(),
                                         calculationsForLocation.Select(c => new Tuple<double, RoundedDouble>(
                                                                            c.Item1, GetWavePeriod(c.Item2)))
+                                                               .ToArray(), 
+                                        calculationsForLocation.Select(c => new Tuple<double, RoundedDouble>(
+                                                                           c.Item1, GetMeanTidalAmplitude(c.Item2)))
+                                                               .ToArray(), 
+                                        calculationsForLocation.Select(c => new Tuple<double, RoundedDouble>(
+                                                                           c.Item1, GetWaveDirectionalSpread(c.Item2)))
+                                                               .ToArray(), 
+                                        calculationsForLocation.Select(c => new Tuple<double, RoundedDouble>(
+                                                                           c.Item1, GetTideSurgePhaseDifference(c.Item2)))
                                                                .ToArray());
                                 })
                                 .ToArray();
@@ -89,6 +98,21 @@ namespace Riskeer.DuneErosion.Forms.Factories
         private static RoundedDouble GetWavePeriod(DuneLocationCalculation calculation)
         {
             return calculation.Output?.WavePeriod ?? RoundedDouble.NaN;
+        }
+        
+        private static RoundedDouble GetMeanTidalAmplitude(DuneLocationCalculation calculation)
+        {
+            return calculation.Output?.MeanTidalAmplitude ?? RoundedDouble.NaN;
+        }
+        
+        private static RoundedDouble GetWaveDirectionalSpread(DuneLocationCalculation calculation)
+        {
+            return calculation.Output?.WaveDirectionalSpread ?? RoundedDouble.NaN;
+        }
+        
+        private static RoundedDouble GetTideSurgePhaseDifference(DuneLocationCalculation calculation)
+        {
+            return calculation.Output?.TideSurgePhaseDifference ?? RoundedDouble.NaN;
         }
     }
 }

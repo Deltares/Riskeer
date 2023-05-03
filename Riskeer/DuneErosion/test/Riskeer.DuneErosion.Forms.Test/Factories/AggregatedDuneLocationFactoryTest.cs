@@ -76,11 +76,13 @@ namespace Riskeer.DuneErosion.Forms.Test.Factories
                     {
                         new DuneLocationCalculation(duneLocations[0])
                         {
-                            Output = new TestDuneLocationCalculationOutput(random.NextDouble(), random.NextDouble(), random.NextDouble())
+                            Output = new TestDuneLocationCalculationOutput(random.NextDouble(), random.NextDouble(), random.NextDouble(), 
+                                                                           random.NextDouble(), random.NextDouble(), random.NextDouble())
                         },
                         new DuneLocationCalculation(duneLocations[1])
                         {
-                            Output = new TestDuneLocationCalculationOutput(random.NextDouble(), random.NextDouble(), random.NextDouble())
+                            Output = new TestDuneLocationCalculationOutput(random.NextDouble(), random.NextDouble(), random.NextDouble(), 
+                                                                           random.NextDouble(), random.NextDouble(), random.NextDouble())
                         }
                     }
                 },
@@ -90,7 +92,8 @@ namespace Riskeer.DuneErosion.Forms.Test.Factories
                     {
                         new DuneLocationCalculation(duneLocations[0])
                         {
-                            Output = new TestDuneLocationCalculationOutput(random.NextDouble(), random.NextDouble(), random.NextDouble())
+                            Output = new TestDuneLocationCalculationOutput(random.NextDouble(), random.NextDouble(), random.NextDouble(),
+                                                                           random.NextDouble(), random.NextDouble(), random.NextDouble())
                         },
                         new DuneLocationCalculation(duneLocations[1])
                     }
@@ -120,11 +123,17 @@ namespace Riskeer.DuneErosion.Forms.Test.Factories
                     Assert.AreEqual(targetProbabilities[j].TargetProbability, aggregatedLocation.WaterLevelCalculationsForTargetProbabilities.ElementAt(j).Item1);
                     Assert.AreEqual(targetProbabilities[j].TargetProbability, aggregatedLocation.WaveHeightCalculationsForTargetProbabilities.ElementAt(j).Item1);
                     Assert.AreEqual(targetProbabilities[j].TargetProbability, aggregatedLocation.WavePeriodCalculationsForTargetProbabilities.ElementAt(j).Item1);
+                    Assert.AreEqual(targetProbabilities[j].TargetProbability, aggregatedLocation.MeanTidalAmplitudeCalculationsForTargetProbabilities.ElementAt(j).Item1);
+                    Assert.AreEqual(targetProbabilities[j].TargetProbability, aggregatedLocation.WaveDirectionalSpreadCalculationsForTargetProbabilities.ElementAt(j).Item1);
+                    Assert.AreEqual(targetProbabilities[j].TargetProbability, aggregatedLocation.TideSurgePhaseDifferenceCalculationsForTargetProbabilities.ElementAt(j).Item1);
 
                     DuneLocationCalculationOutput output = GetOutput(targetProbabilities[j].DuneLocationCalculations, duneLocations[i]);
                     Assert.AreEqual(output?.WaterLevel ?? RoundedDouble.NaN, aggregatedLocation.WaterLevelCalculationsForTargetProbabilities.ElementAt(j).Item2);
                     Assert.AreEqual(output?.WaveHeight ?? RoundedDouble.NaN, aggregatedLocation.WaveHeightCalculationsForTargetProbabilities.ElementAt(j).Item2);
                     Assert.AreEqual(output?.WavePeriod ?? RoundedDouble.NaN, aggregatedLocation.WavePeriodCalculationsForTargetProbabilities.ElementAt(j).Item2);
+                    Assert.AreEqual(output?.MeanTidalAmplitude ?? RoundedDouble.NaN, aggregatedLocation.MeanTidalAmplitudeCalculationsForTargetProbabilities.ElementAt(j).Item2);
+                    Assert.AreEqual(output?.WaveDirectionalSpread ?? RoundedDouble.NaN, aggregatedLocation.WaveDirectionalSpreadCalculationsForTargetProbabilities.ElementAt(j).Item2);
+                    Assert.AreEqual(output?.TideSurgePhaseDifference ?? RoundedDouble.NaN, aggregatedLocation.TideSurgePhaseDifferenceCalculationsForTargetProbabilities.ElementAt(j).Item2);
                 }
             }
         }

@@ -33,7 +33,7 @@ namespace Riskeer.DuneErosion.Data.TestUtil
         /// Creates a new instance of <see cref="TestDuneLocationCalculationOutput"/>.
         /// </summary>
         public TestDuneLocationCalculationOutput()
-            : this(0, 0, 0) {}
+            : this(0, 0, 0, 0, 0, 0) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="TestDuneLocationCalculationOutput"/>.
@@ -41,12 +41,20 @@ namespace Riskeer.DuneErosion.Data.TestUtil
         /// <param name="waterLevel">The water level of the calculation.</param>
         /// <param name="waveHeight">The wave height of the calculation.</param>
         /// <param name="wavePeriod">The wave period of the calculation.</param>
-        public TestDuneLocationCalculationOutput(double waterLevel, double waveHeight, double wavePeriod)
+        /// <param name="meanTidalAmplitude">The mean tidal amplitude of the calculation.</param>
+        /// <param name="waveDirectionalSpread">The wave directional spread of the calculation.</param>
+        /// <param name="tideSurgePhaseDifference">The tide surge phase difference of the calculation.</param>
+        public TestDuneLocationCalculationOutput(
+            double waterLevel, double waveHeight, double wavePeriod,
+            double meanTidalAmplitude, double waveDirectionalSpread, double tideSurgePhaseDifference)
             : base(CalculationConvergence.CalculatedConverged, new ConstructionProperties
             {
                 WaterLevel = waterLevel,
                 WavePeriod = wavePeriod,
                 WaveHeight = waveHeight,
+                MeanTidalAmplitude = meanTidalAmplitude,
+                WaveDirectionalSpread = waveDirectionalSpread,
+                TideSurgePhaseDifference = tideSurgePhaseDifference,
                 TargetProbability = 0,
                 CalculatedReliability = 0,
                 TargetReliability = 0,
