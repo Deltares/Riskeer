@@ -69,5 +69,13 @@ namespace AutomatedSystemTests.Modules.Set_Assign
         {
         	return treeItemInfo.ToString().Substring(10, treeItemInfo.ToString().Length-11);
         }
+
+        public void Mouse_Click_ButtonOK_If_Exists(RepoItemInfo buttonInfo)
+        {
+        	if (buttonInfo.Exists()) {
+            	Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'buttonInfo' at Center.", buttonInfo);
+            	buttonInfo.FindAdapter<Button>().Click();
+            }
+        }
     }
 }

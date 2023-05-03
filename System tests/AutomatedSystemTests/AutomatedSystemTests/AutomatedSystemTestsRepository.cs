@@ -737,6 +737,7 @@ namespace AutomatedSystemTests
             AutomatedSystemTestsRepositoryFolders.GenericContainerMapViewTitleFolder _genericcontainermapviewtitle;
             AutomatedSystemTestsRepositoryFolders.RibbonButtonsFolder _ribbonbuttons;
             RepoItemInfo _textlabelpanelonleftInfo;
+            RepoItemInfo _waterstandenbijvastedoelkansInfo;
 
             /// <summary>
             /// Creates a new RiskeerMainWindow  folder.
@@ -750,6 +751,7 @@ namespace AutomatedSystemTests
                 _genericcontainermapviewtitle = new AutomatedSystemTestsRepositoryFolders.GenericContainerMapViewTitleFolder(this);
                 _ribbonbuttons = new AutomatedSystemTestsRepositoryFolders.RibbonButtonsFolder(this);
                 _textlabelpanelonleftInfo = new RepoItemInfo(this, "TextLabelPanelOnLeft", "container/container/tabpagelist/container[@automationid='HeaderPanel']/tabpage/text[@text=$nameOfPanel]", "", 30000, null, "e1c99c99-37e6-45b7-8ef7-3177828972c0");
+                _waterstandenbijvastedoelkansInfo = new RepoItemInfo(this, "WaterstandenBijVasteDoelkans", "element[@automationid='AvalonDockViewHost']/tabpagelist[1]/tabpage[1]/?/?/container[@caption='' and @automationid='ProjectExplorer']//tree[@automationid='treeView']//treeitem[@accessiblename>'Waterstanden bij vaste do']", "", 30000, null, "efb94e35-e87d-4f81-b455-e09d44087605");
             }
 
             /// <summary>
@@ -797,6 +799,30 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _textlabelpanelonleftInfo;
+                }
+            }
+
+            /// <summary>
+            /// The WaterstandenBijVasteDoelkans item.
+            /// </summary>
+            [RepositoryItem("efb94e35-e87d-4f81-b455-e09d44087605")]
+            public virtual Ranorex.TreeItem WaterstandenBijVasteDoelkans
+            {
+                get
+                {
+                    return _waterstandenbijvastedoelkansInfo.CreateAdapter<Ranorex.TreeItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The WaterstandenBijVasteDoelkans item info.
+            /// </summary>
+            [RepositoryItemInfo("efb94e35-e87d-4f81-b455-e09d44087605")]
+            public virtual RepoItemInfo WaterstandenBijVasteDoelkansInfo
+            {
+                get
+                {
+                    return _waterstandenbijvastedoelkansInfo;
                 }
             }
 
@@ -3677,7 +3703,7 @@ namespace AutomatedSystemTests
                 _openenInfo = new RepoItemInfo(this, "Openen", "menuitem[@accessiblename='Openen']", "", 30000, null, "3162063a-bd8d-4e48-b6ab-9725baa70e0e");
                 _selecterenInfo = new RepoItemInfo(this, "Selecteren", "menuitem[@accessiblename>'Selecteren']", "", 30000, null, "03d52c3a-96d4-4dbb-b708-72ad8a755d65");
                 _selecteeranderhlcdbestandInfo = new RepoItemInfo(this, "SelecteerAnderHLCDBestand", "menuitem[@accessiblename>'Selecteer ander HLCD']", "", 30000, null, "5ce53200-0c28-4870-bd71-e3ef03a56223");
-                _verwijderenInfo = new RepoItemInfo(this, "Verwijderen", "menuitem[@accessiblename='Verwijderen...']", "", 30000, null, "f3c6379c-4119-4897-bc56-dd1655e8f7fb");
+                _verwijderenInfo = new RepoItemInfo(this, "Verwijderen", "menuitem[@accessiblename>'Verwijderen']", "", 30000, null, "f3c6379c-4119-4897-bc56-dd1655e8f7fb");
                 _voegkaartlaagtoeInfo = new RepoItemInfo(this, "VoegKaartlaagToe", "menuitem[@accessiblename='Voeg kaartlaag toe...']", "", 30000, null, "9bd893d7-2683-465a-b2e3-d056bce01a0c");
                 _wisalleuitvoerInfo = new RepoItemInfo(this, "WisAlleUitvoer", "menuitem[@accessiblename='Wis alle uitvoer...']", "", 30000, null, "942ab870-bf62-4d88-8050-58255777c435");
                 _zoomnaarallesInfo = new RepoItemInfo(this, "ZoomNaarAlles", "menuitem[@accessiblename='Zoom naar alles']", "", 30000, null, "5acc1275-2883-4570-affa-a36a1d5dd4df");

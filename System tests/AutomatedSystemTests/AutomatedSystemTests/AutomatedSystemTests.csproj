@@ -204,6 +204,18 @@
       <UserCode>true</UserCode>
       <id>071bbab9-70b6-4e9d-9c21-6ed92f49ef0f</id>
     </Compile>
+    <Compile Include="Modules\ActionsContextMenu\RemoveItem.cs">
+      <BoundTo>bebad40c-ad9e-4c0e-846a-598a6c1e294d</BoundTo>
+      <DependentUpon>RemoveItem.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>96b36414-cddc-4c2a-a185-b94db45b21f9</id>
+    </Compile>
+    <Compile Include="Modules\ActionsContextMenu\RemoveItem.UserCode.cs">
+      <BoundTo>bebad40c-ad9e-4c0e-846a-598a6c1e294d</BoundTo>
+      <DependentUpon>RemoveItem.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>fd5d9234-7d60-4626-9172-bc2b077afbd8</id>
+    </Compile>
     <Compile Include="Modules\ActionsContextMenu\SelectOptionFromContextMenu.cs">
       <BoundTo>316fd1f4-612c-473e-b626-1f1e2ce1414b</BoundTo>
       <DependentUpon>SelectOptionFromContextMenu.rxrec</DependentUpon>
@@ -1866,6 +1878,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>d7c60b9c-8fbb-4ccc-bd81-f49432d1e1fb</id>
       <recordtableid>c5c8249d-a582-4230-ba22-0b7657e78ecd</recordtableid>
+    </None>
+    <None Include="Modules\ActionsContextMenu\RemoveItem.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>bebad40c-ad9e-4c0e-846a-598a6c1e294d</id>
+      <recordtableid>fa6c57c0-2c47-4894-bb6c-df173a962140</recordtableid>
     </None>
     <None Include="Modules\ActionsContextMenu\SelectOptionFromContextMenu.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>

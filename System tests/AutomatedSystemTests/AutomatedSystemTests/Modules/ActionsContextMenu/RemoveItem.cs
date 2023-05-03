@@ -20,51 +20,38 @@ using Ranorex.Core;
 using Ranorex.Core.Testing;
 using Ranorex.Core.Repository;
 
-namespace AutomatedSystemTests.Modules.Set_Assign
+namespace AutomatedSystemTests.Modules.ActionsContextMenu
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The ChangeHLCDFile recording.
+    ///The RemoveItem recording.
     /// </summary>
-    [TestModule("7d9b109b-9a86-4d14-949e-d6cd5cca905f", ModuleType.Recording, 1)]
-    public partial class ChangeHLCDFile : ITestModule
+    [TestModule("fa6c57c0-2c47-4894-bb6c-df173a962140", ModuleType.Recording, 1)]
+    public partial class RemoveItem : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static ChangeHLCDFile instance = new ChangeHLCDFile();
+        static RemoveItem instance = new RemoveItem();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public ChangeHLCDFile()
+        public RemoveItem()
         {
-            fileNameToOpen = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static ChangeHLCDFile Instance
+        public static RemoveItem Instance
         {
             get { return instance; }
         }
 
 #region Variables
-
-        string _fileNameToOpen;
-
-        /// <summary>
-        /// Gets or sets the value of variable fileNameToOpen.
-        /// </summary>
-        [TestVariable("38b85568-cab1-4341-a451-afeac06bdac5")]
-        public string fileNameToOpen
-        {
-            get { return _fileNameToOpen; }
-            set { _fileNameToOpen = value; }
-        }
 
 #endregion
 
@@ -95,23 +82,11 @@ namespace AutomatedSystemTests.Modules.Set_Assign
             Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Apps}'.", new RecordItemIndex(0));
             Keyboard.Press("{Apps}");
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.SelecteerAnderHLCDBestand' at Center.", repo.ContextMenu.SelecteerAnderHLCDBestandInfo, new RecordItemIndex(1));
-            repo.ContextMenu.SelecteerAnderHLCDBestand.Click();
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.Verwijderen' at Center.", repo.ContextMenu.VerwijderenInfo, new RecordItemIndex(1));
+            repo.ContextMenu.Verwijderen.Click();
             
-            Report.Log(ReportLevel.Info, "User", fileNameToOpen, new RecordItemIndex(2));
-            
-            // Assign file name to open
-            Report.Log(ReportLevel.Info, "Set value", "Assign file name to open\r\nSetting attribute Text to '$fileNameToOpen' on item 'OpenFileDialog.FileNameField'.", repo.OpenFileDialog.FileNameFieldInfo, new RecordItemIndex(3));
-            repo.OpenFileDialog.FileNameField.Element.SetAttributeValue("Text", fileNameToOpen);
-            
-            // Click on open button
-            Report.Log(ReportLevel.Info, "Mouse", "Click on open button\r\nMouse Left Click item 'OpenFileDialog.ButtonOpen' at Center.", repo.OpenFileDialog.ButtonOpenInfo, new RecordItemIndex(4));
-            repo.OpenFileDialog.ButtonOpen.Click();
-            
-            Mouse_Click_ButtonOK_If_Exists(repo.Bevestigen.ButtonOKInfo);
-            
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 2s.", new RecordItemIndex(6));
-            Delay.Duration(2000, false);
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'Bevestigen.ButtonOK' at Center.", repo.Bevestigen.ButtonOKInfo, new RecordItemIndex(2));
+            repo.Bevestigen.ButtonOK.Click();
             
         }
 

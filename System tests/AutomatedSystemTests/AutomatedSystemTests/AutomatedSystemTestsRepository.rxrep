@@ -772,6 +772,17 @@ TkSuQmCC
 					/form[@automationid='RiskeerMainWindow']/?/?/container[@automationid='MainButtonStackPanel']
 				</basepath>
 			</folder>
+			<item
+			addcaps="treeitem,accessible,accessibletreeitem"
+			capname="treeitem"
+			id="efb94e35-e87d-4f81-b455-e09d44087605"
+			name="WaterstandenBijVasteDoelkans"
+			refimgid="2ab7eb19-b9b7-4557-a555-478fd2f07956"
+			refpath="/form[@name>'input_Project_15d_zonder_resultaten_12_2']/element[@automationid='AvalonDockViewHost']/tabpagelist[1]/tabpage[1]/container/container[@caption='']/container/container/tree/tree/treeitem/treeitem[@accessiblename>'Waterstanden bij vaste do']"
+			robustPath=""
+			searchtimeout="30000ms">
+				/form[@automationid='RiskeerMainWindow']/element[@automationid='AvalonDockViewHost']/tabpagelist[1]/tabpage[1]/?/?/container[@caption='' and @automationid='ProjectExplorer']//tree[@automationid='treeView']//treeitem[@accessiblename&gt;'Waterstanden bij vaste do']
+			</item>
 			<basepath>
 				/form[@automationid='RiskeerMainWindow']
 			</basepath>
@@ -1032,10 +1043,9 @@ FjcAAAAASUVORK5CYII=
 			id="f3c6379c-4119-4897-bc56-dd1655e8f7fb"
 			name="Verwijderen"
 			refimgid="6e2ec83e-6f27-45a8-b58c-743fa28aa8cd"
-			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Verwijderen...']"
 			robustPath=""
 			searchtimeout="30000ms">
-				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Verwijderen...']
+				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename&gt;'Verwijderen']
 			</item>
 			<item
 			addcaps="menuitem,accessible"
