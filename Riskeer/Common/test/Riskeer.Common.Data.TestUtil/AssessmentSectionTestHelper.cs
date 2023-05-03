@@ -113,6 +113,8 @@ namespace Riskeer.Common.Data.TestUtil
 
             if (hrdFilePath != null)
             {
+                hydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath = Path.Combine(Path.GetDirectoryName(hrdFilePath), "hlcd.sqlite");
+
                 hydraulicBoundaryData.HydraulicBoundaryDatabases.Add(new HydraulicBoundaryDatabase
                 {
                     FilePath = hrdFilePath,
@@ -123,9 +125,6 @@ namespace Riskeer.Common.Data.TestUtil
                         new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
                     }
                 });
-
-                HydraulicLocationConfigurationDatabase hydraulicLocationConfigurationDatabase = hydraulicBoundaryData.HydraulicLocationConfigurationDatabase;
-                hydraulicLocationConfigurationDatabase.FilePath = Path.Combine(Path.GetDirectoryName(hrdFilePath), "hlcd.sqlite");
             }
 
             return hydraulicBoundaryData;
