@@ -187,7 +187,7 @@ namespace Riskeer.Piping.Forms.Test.Views.RegistrationState
                 ReferenceLine = referenceLine
             };
 
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation1,
                 hydraulicBoundaryLocation2

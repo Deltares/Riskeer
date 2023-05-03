@@ -82,7 +82,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.PropertyInfos
                 failureMechanism,
                 assessmentSection);
 
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
             }, true);
@@ -128,7 +128,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.PropertyInfos
                 failureMechanism,
                 assessmentSection);
 
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
             }, true);

@@ -764,7 +764,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
             HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First();
 
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
             });
@@ -824,7 +824,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
             HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First();
 
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
             });
@@ -1476,7 +1476,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         }
                     }
                 };
-                assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+                assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
                 {
                     hydraulicBoundaryLocation1,
                     hydraulicBoundaryLocation2
@@ -1565,7 +1565,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         }
                     }
                 };
-                assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+                assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
                 {
                     hydraulicBoundaryLocation1,
                     hydraulicBoundaryLocation2

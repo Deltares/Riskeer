@@ -343,7 +343,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             var random = new Random(21);
             var assessmentSection = new AssessmentSectionStub();
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 new TestHydraulicBoundaryLocation(),
                 new TestHydraulicBoundaryLocation(),
@@ -402,7 +402,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             var random = new Random(21);
             var assessmentSection = new AssessmentSectionStub();
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 new TestHydraulicBoundaryLocation(),
                 new TestHydraulicBoundaryLocation()
@@ -764,7 +764,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             }
 
             var assessmentSection = new AssessmentSectionStub();
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 new TestHydraulicBoundaryLocation()
             });
@@ -836,7 +836,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     SignalFloodingProbability = signalFloodingProbability
                 }
             };
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new HydraulicBoundaryLocation[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new HydraulicBoundaryLocation[]
             {
                 new TestHydraulicBoundaryLocation()
             });

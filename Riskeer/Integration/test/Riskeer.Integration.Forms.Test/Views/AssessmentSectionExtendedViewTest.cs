@@ -71,7 +71,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             {
                 ReferenceLine = referenceLine
             };
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 new HydraulicBoundaryLocation(1, "test", 1.0, 2.0)
             });
@@ -121,7 +121,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                     }
                 }
             };
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 location
             });
@@ -150,7 +150,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                     newLocation
                 }
             });
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 newLocation
             });

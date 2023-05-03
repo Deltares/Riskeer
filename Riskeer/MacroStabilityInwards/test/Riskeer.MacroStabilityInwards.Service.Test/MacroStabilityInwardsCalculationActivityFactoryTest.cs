@@ -105,7 +105,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
                     NormativeProbabilityType = NormativeProbabilityType.MaximumAllowableFloodingProbability
                 }
             };
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
             });
@@ -184,7 +184,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
                     NormativeProbabilityType = NormativeProbabilityType.MaximumAllowableFloodingProbability
                 }
             };
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation1,
                 hydraulicBoundaryLocation2
@@ -264,7 +264,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
                     NormativeProbabilityType = NormativeProbabilityType.MaximumAllowableFloodingProbability
                 }
             };
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation1,
                 hydraulicBoundaryLocation2

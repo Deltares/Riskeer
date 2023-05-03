@@ -607,7 +607,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
                 }
             };
 
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
             });

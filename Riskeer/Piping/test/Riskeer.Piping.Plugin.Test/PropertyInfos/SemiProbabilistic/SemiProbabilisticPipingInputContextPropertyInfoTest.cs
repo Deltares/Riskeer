@@ -91,7 +91,7 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos.SemiProbabilistic
                 failureMechanism,
                 assessmentSection);
 
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
             }, true);
@@ -137,7 +137,7 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos.SemiProbabilistic
                 failureMechanism,
                 assessmentSection);
 
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
             }, true);

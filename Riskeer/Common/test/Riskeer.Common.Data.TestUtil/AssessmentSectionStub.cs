@@ -100,16 +100,16 @@ namespace Riskeer.Common.Data.TestUtil
         public ObservableList<SpecificFailureMechanism> SpecificFailureMechanisms { get; }
 
         /// <summary>
-        /// Sets the hydraulic boundary locations on the assessment section stub.
+        /// Adds hydraulic boundary location calculations for the provided hydraulic boundary locations.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations to set.</param>
-        /// <param name="setCalculationOutput">Whether to set dummy output for the automatically generated
-        /// hydraulic boundary location calculations.</param>
-        public void SetHydraulicBoundaryLocationCalculations(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations, bool setCalculationOutput = false)
+        /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations to add calculations for.</param>
+        /// <param name="setCalculationOutput">Whether to set dummy output for the added hydraulic boundary location
+        /// calculations.</param>
+        public void AddHydraulicBoundaryLocationCalculations(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations, bool setCalculationOutput = false)
         {
             foreach (HydraulicBoundaryLocation hydraulicBoundaryLocation in hydraulicBoundaryLocations)
             {
-                AddHydraulicBoundaryLocation(hydraulicBoundaryLocation, setCalculationOutput);
+                AddHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocation, setCalculationOutput);
             }
         }
 
@@ -123,7 +123,7 @@ namespace Riskeer.Common.Data.TestUtil
             throw new NotImplementedException("Stub only verifies Observable and basic behavior, use a proper stub when this function is necessary.");
         }
 
-        private void AddHydraulicBoundaryLocation(HydraulicBoundaryLocation hydraulicBoundaryLocation, bool setCalculationOutput)
+        private void AddHydraulicBoundaryLocationCalculations(HydraulicBoundaryLocation hydraulicBoundaryLocation, bool setCalculationOutput)
         {
             waterLevelCalculationsForSignalFloodingProbability.Add(CreateHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation, setCalculationOutput));
             waterLevelCalculationsForMaximumAllowableFloodingProbability.Add(CreateHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation, setCalculationOutput));

@@ -209,7 +209,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             // Setup
             double GetNormFunc() => 0.01;
             var assessmentSection = new AssessmentSectionStub();
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 new TestHydraulicBoundaryLocation()
             });

@@ -168,7 +168,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views.RegistrationState
             {
                 ReferenceLine = referenceLine
             };
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 new HydraulicBoundaryLocation(1, "test", 1.0, 2.0)
             });

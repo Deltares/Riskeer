@@ -58,7 +58,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 new HydraulicBoundaryLocation(1, "test", 1.0, 2.0)
             });
@@ -91,7 +91,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                     hydraulicBoundaryLocation
                 }
             });
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new []
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new []
             {
                 hydraulicBoundaryLocation
             });
@@ -113,7 +113,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                         newHydraulicBoundaryLocation
                     }
                 });
-                assessmentSection.SetHydraulicBoundaryLocationCalculations(new []
+                assessmentSection.AddHydraulicBoundaryLocationCalculations(new []
                 {
                     newHydraulicBoundaryLocation
                 });
@@ -153,7 +153,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                     }
                 }
             };
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
             });
@@ -207,7 +207,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                     }
                 }
             };
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
             });
@@ -259,7 +259,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                     }
                 }
             };
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
             });
@@ -314,7 +314,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                     }
                 }
             };
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
             });
@@ -366,7 +366,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                     }
                 }
             };
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
             });
@@ -425,7 +425,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                     }
                 }
             };
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
             });
@@ -482,7 +482,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                     }
                 }
             };
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
             });
@@ -539,7 +539,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                     }
                 }
             };
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
             });
@@ -598,7 +598,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                     }
                 }
             };
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
             });
@@ -665,7 +665,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability)
             });
 
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
             });
@@ -737,7 +737,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability)
             });
 
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
             });

@@ -1310,7 +1310,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     }
                 });
 
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
             }, true);
@@ -1450,7 +1450,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     }
                 });
 
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
             }, true);

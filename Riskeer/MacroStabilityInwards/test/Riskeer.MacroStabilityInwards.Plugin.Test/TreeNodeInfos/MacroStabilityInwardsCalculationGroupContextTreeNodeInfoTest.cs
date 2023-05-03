@@ -569,7 +569,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 var assessmentSection = new AssessmentSectionStub();
                 var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
-                assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+                assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
                 {
                     hydraulicBoundaryLocation
                 }, true);
@@ -743,7 +743,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 var assessmentSection = new AssessmentSectionStub();
                 var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
-                assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+                assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
                 {
                     hydraulicBoundaryLocation
                 }, true);
@@ -818,7 +818,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 var assessmentSection = new AssessmentSectionStub();
                 var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
-                assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+                assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
                 {
                     hydraulicBoundaryLocation
                 }, true);
@@ -922,7 +922,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 var assessmentSection = new AssessmentSectionStub();
                 var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
-                assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+                assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
                 {
                     hydraulicBoundaryLocation
                 }, true);

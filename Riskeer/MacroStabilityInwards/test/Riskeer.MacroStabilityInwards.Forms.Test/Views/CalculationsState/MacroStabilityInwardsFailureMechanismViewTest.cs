@@ -225,7 +225,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views.CalculationsState
                 ReferenceLine = referenceLine
             };
 
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation1,
                 hydraulicBoundaryLocation2
