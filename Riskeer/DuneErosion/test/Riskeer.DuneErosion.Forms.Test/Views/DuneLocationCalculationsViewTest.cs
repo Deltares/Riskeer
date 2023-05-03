@@ -56,6 +56,9 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         private const int waterLevelColumnIndex = 6;
         private const int waveHeightColumnIndex = 7;
         private const int wavePeriodColumnIndex = 8;
+        private const int meanTidalAmplitudeColumnIndex = 9;
+        private const int waveDirectionalSpreadColumnIndex = 10;
+        private const int tideSurgePhaseDifferenceColumnIndex = 11;
 
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryData));
         private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
@@ -222,12 +225,16 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                     "Rekenwaarde waterstand [m+NAP]",
                     "Rekenwaarde Hs [m]",
                     "Rekenwaarde Tp [s]",
-                    "Rekenwaarde d50 [m]"
+                    "Gemiddelde getijamplitude [m]",
+                    "Golfrichtingspreiding [°]",
+                    "Faseverschuiving tussen getij en opzet [uur]"
                 };
                 DataGridViewTestHelper.AssertExpectedHeaders(expectedHeaderNames, dataGridView);
                 Type[] expectedColumnTypes =
                 {
                     typeof(DataGridViewCheckBoxColumn),
+                    typeof(DataGridViewTextBoxColumn),
+                    typeof(DataGridViewTextBoxColumn),
                     typeof(DataGridViewTextBoxColumn),
                     typeof(DataGridViewTextBoxColumn),
                     typeof(DataGridViewTextBoxColumn),
@@ -294,7 +301,9 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                     "-",
                     "-",
                     "-",
-                    0.000837.ToString(CultureInfo.CurrentCulture)
+                    "-",
+                    "-",
+                    "-"
                 };
                 DataGridViewTestHelper.AssertExpectedRowFormattedValues(expectedRow0Values, rows[0]);
 
@@ -309,7 +318,9 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                     1.23.ToString(CultureInfo.CurrentCulture),
                     2.34.ToString(CultureInfo.CurrentCulture),
                     3.45.ToString(CultureInfo.CurrentCulture),
-                    0.000123.ToString(CultureInfo.CurrentCulture)
+                    4.35.ToString(CultureInfo.CurrentCulture),
+                    5.54.ToString(CultureInfo.CurrentCulture),
+                    6.45.ToString(CultureInfo.CurrentCulture),
                 };
                 DataGridViewTestHelper.AssertExpectedRowFormattedValues(expectedRow1Values, rows[1]);
             }
@@ -384,8 +395,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                     new DuneLocation.ConstructionProperties
                     {
                         CoastalAreaId = 3,
-                        Offset = 80,
-                        D50 = 0.000321
+                        Offset = 80
                     });
                 var duneLocationCalculation = new DuneLocationCalculation(duneLocation)
                 {
@@ -395,7 +405,10 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                         {
                             WaterLevel = 3.21,
                             WaveHeight = 4.32,
-                            WavePeriod = 5.43
+                            WavePeriod = 5.43,
+                            MeanTidalAmplitude = 4.35,
+                            WaveDirectionalSpread = 5.54,
+                            TideSurgePhaseDifference = 6.45
                         })
                 };
                 calculations.Add(duneLocationCalculation);
@@ -415,7 +428,9 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                     3.21.ToString(CultureInfo.CurrentCulture),
                     4.32.ToString(CultureInfo.CurrentCulture),
                     5.43.ToString(CultureInfo.CurrentCulture),
-                    0.000321.ToString(CultureInfo.CurrentCulture)
+                    4.35.ToString(CultureInfo.CurrentCulture),
+                    5.54.ToString(CultureInfo.CurrentCulture),
+                    6.45.ToString(CultureInfo.CurrentCulture)
                 };
                 DataGridViewTestHelper.AssertExpectedRowFormattedValues(expectedRowValues, rows[0]);
             }
@@ -445,10 +460,16 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 Assert.AreEqual("-", firstRow.Cells[waterLevelColumnIndex].FormattedValue);
                 Assert.AreEqual("-", firstRow.Cells[waveHeightColumnIndex].FormattedValue);
                 Assert.AreEqual("-", firstRow.Cells[wavePeriodColumnIndex].FormattedValue);
+                Assert.AreEqual("-", firstRow.Cells[meanTidalAmplitudeColumnIndex].FormattedValue);
+                Assert.AreEqual("-", firstRow.Cells[waveDirectionalSpreadColumnIndex].FormattedValue);
+                Assert.AreEqual("-", firstRow.Cells[tideSurgePhaseDifferenceColumnIndex].FormattedValue);
+                
                 Assert.AreEqual(1.23.ToString(CultureInfo.CurrentCulture), secondRow.Cells[waterLevelColumnIndex].FormattedValue);
                 Assert.AreEqual(2.34.ToString(CultureInfo.CurrentCulture), secondRow.Cells[waveHeightColumnIndex].FormattedValue);
                 Assert.AreEqual(3.45.ToString(CultureInfo.CurrentCulture), secondRow.Cells[wavePeriodColumnIndex].FormattedValue);
-
+                Assert.AreEqual(4.35.ToString(CultureInfo.CurrentCulture), secondRow.Cells[meanTidalAmplitudeColumnIndex].FormattedValue);
+                Assert.AreEqual(5.54.ToString(CultureInfo.CurrentCulture), secondRow.Cells[waveDirectionalSpreadColumnIndex].FormattedValue);
+                Assert.AreEqual(6.45.ToString(CultureInfo.CurrentCulture), secondRow.Cells[tideSurgePhaseDifferenceColumnIndex].FormattedValue);
                 // When
                 calculations.ForEachElementDo(calculation =>
                 {
@@ -461,9 +482,16 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 Assert.AreEqual("-", firstRow.Cells[waterLevelColumnIndex].FormattedValue);
                 Assert.AreEqual("-", firstRow.Cells[waveHeightColumnIndex].FormattedValue);
                 Assert.AreEqual("-", firstRow.Cells[wavePeriodColumnIndex].FormattedValue);
+                Assert.AreEqual("-", firstRow.Cells[meanTidalAmplitudeColumnIndex].FormattedValue);
+                Assert.AreEqual("-", firstRow.Cells[waveDirectionalSpreadColumnIndex].FormattedValue);
+                Assert.AreEqual("-", firstRow.Cells[tideSurgePhaseDifferenceColumnIndex].FormattedValue);
+                
                 Assert.AreEqual("-", secondRow.Cells[waterLevelColumnIndex].FormattedValue);
                 Assert.AreEqual("-", secondRow.Cells[waveHeightColumnIndex].FormattedValue);
                 Assert.AreEqual("-", secondRow.Cells[wavePeriodColumnIndex].FormattedValue);
+                Assert.AreEqual("-", secondRow.Cells[meanTidalAmplitudeColumnIndex].FormattedValue);
+                Assert.AreEqual("-", secondRow.Cells[waveDirectionalSpreadColumnIndex].FormattedValue);
+                Assert.AreEqual("-", secondRow.Cells[tideSurgePhaseDifferenceColumnIndex].FormattedValue);
             }
         }
 
@@ -800,21 +828,22 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 new DuneLocationCalculation(new DuneLocation("1", hydraulicBoundaryLocation, new DuneLocation.ConstructionProperties
                 {
                     CoastalAreaId = 50,
-                    Offset = 320,
-                    D50 = 0.000837
+                    Offset = 320
                 })),
                 new DuneLocationCalculation(new DuneLocation("2", hydraulicBoundaryLocation, new DuneLocation.ConstructionProperties
                 {
                     CoastalAreaId = 60,
-                    Offset = 230,
-                    D50 = 0.000123
+                    Offset = 230
                 }))
                 {
                     Output = new DuneLocationCalculationOutput(CalculationConvergence.CalculatedConverged, new DuneLocationCalculationOutput.ConstructionProperties
                     {
                         WaterLevel = 1.23,
                         WaveHeight = 2.34,
-                        WavePeriod = 3.45
+                        WavePeriod = 3.45,
+                        MeanTidalAmplitude = 4.35,
+                        WaveDirectionalSpread = 5.54,
+                        TideSurgePhaseDifference = 6.45
                     })
                 }
             };

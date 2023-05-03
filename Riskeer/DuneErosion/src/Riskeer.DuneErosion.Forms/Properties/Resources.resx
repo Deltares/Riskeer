@@ -174,4 +174,13 @@
   <data name="MetaData_WavePeriod_TargetProbability_0" xml:space="preserve">
     <value>Rekenwaarde Tp - {0}</value>
   </data>
+  <data name="DuneLocationCalculationOutput_MeanTidalAmplitude_DisplayName" xml:space="preserve">
+    <value>Gemiddelde getijamplitude [m]</value>
+  </data>
+  <data name="DuneLocationCalculationOutput_WaveDirectionalSpread_DisplayName" xml:space="preserve">
+    <value>Golfrichtingspreiding [°]</value>
+  </data>
+  <data name=" DuneLocationCalculationOutput_TideSurgePhaseDifference_DisplayName" xml:space="preserve">
+    <value>Faseverschuiving tussen getij en opzet [uur]</value>
+  </data>
 </root>

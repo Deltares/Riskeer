@@ -156,8 +156,12 @@ namespace Riskeer.DuneErosion.Forms.Views
                                                  Resources.DuneLocationCalculationOutput_WaveHeight_DisplayName);
             dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationCalculationRow.WavePeriod),
                                                  Resources.DuneLocationCalculationOutput_WavePeriod_DisplayName);
-            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationCalculationRow.D50),
-                                                 Resources.DuneLocation_D50_DisplayName);
+            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationCalculationRow.MeanTidalAmplitude),
+                                                 Resources.DuneLocationCalculationOutput_MeanTidalAmplitude_DisplayName);
+            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationCalculationRow.WaveDirectionalSpread),
+                                                 Resources.DuneLocationCalculationOutput_WaveDirectionalSpread_DisplayName);
+            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationCalculationRow.TideSurgePhaseDifference),
+                                                 Resources._DuneLocationCalculationOutput_TideSurgePhaseDifference_DisplayName);
         }
 
         protected override object CreateSelectedItemFromCurrentRow()

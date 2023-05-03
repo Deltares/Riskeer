@@ -82,6 +82,15 @@ namespace Riskeer.DuneErosion.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Faseverschuiving tussen getij en opzet [uur].
+        /// </summary>
+        internal static string _DuneLocationCalculationOutput_TideSurgePhaseDifference_DisplayName {
+            get {
+                return ResourceManager.GetString(" DuneLocationCalculationOutput_TideSurgePhaseDifference_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nummer van het kustvak waar de locatie onderdeel van uitmaakt..
         /// </summary>
         internal static string DuneLocation_CoastalAreaId_Description {
@@ -145,6 +154,15 @@ namespace Riskeer.DuneErosion.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Gemiddelde getijamplitude [m].
+        /// </summary>
+        internal static string DuneLocationCalculationOutput_MeanTidalAmplitude_DisplayName {
+            get {
+                return ResourceManager.GetString("DuneLocationCalculationOutput_MeanTidalAmplitude_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Berekende rekenwaarde voor de waterstand voor het uitvoeren van een sterkteberekening voor het faalmechanisme duinen..
         /// </summary>
         internal static string DuneLocationCalculationOutput_WaterLevel_Description {
@@ -159,6 +177,15 @@ namespace Riskeer.DuneErosion.Forms.Properties {
         internal static string DuneLocationCalculationOutput_WaterLevel_DisplayName {
             get {
                 return ResourceManager.GetString("DuneLocationCalculationOutput_WaterLevel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Golfrichtingspreiding [°].
+        /// </summary>
+        internal static string DuneLocationCalculationOutput_WaveDirectionalSpread_DisplayName {
+            get {
+                return ResourceManager.GetString("DuneLocationCalculationOutput_WaveDirectionalSpread_DisplayName", resourceCulture);
             }
         }
         
