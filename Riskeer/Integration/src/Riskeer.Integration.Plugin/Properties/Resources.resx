@@ -319,7 +319,7 @@ Weet u zeker dat u wilt doorgaan?</value>
         <value>Specifieke faalmechanismen</value>
     </data>
     <data name="RiskeerPlugin_ContextMenuStrip_Add_SpecificFailureMechanism" xml:space="preserve">
-        <value>Faalmechanisme toevoegen</value>
+        <value>&amp;Faalmechanisme toevoegen</value>
     </data>
     <data name="RiskeerPlugin_ContextMenuStrip_Add_SpecificFailureMechanism_Tooltip" xml:space="preserve">
         <value>Voeg een nieuw faalmechanisme toe aan deze map.</value>
