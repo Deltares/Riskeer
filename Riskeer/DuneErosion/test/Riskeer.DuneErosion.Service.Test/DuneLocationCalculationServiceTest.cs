@@ -179,6 +179,9 @@ namespace Riskeer.DuneErosion.Service.Test
                 WaterLevel = 4.82912,
                 WaveHeight = 2.88936,
                 WavePeriod = 10.65437,
+                MeanTidalAmplitude = 1.0253,
+                WaveDirectionalSpread = 6.6,
+                TideSurgePhaseDifference = 3.5,
                 Converged = true
             };
 
@@ -227,6 +230,9 @@ namespace Riskeer.DuneErosion.Service.Test
                 Assert.AreEqual(calculator.WaterLevel, actualCalculationOutput.WaterLevel, actualCalculationOutput.WaterLevel.GetAccuracy());
                 Assert.AreEqual(calculator.WaveHeight, actualCalculationOutput.WaveHeight, actualCalculationOutput.WaveHeight.GetAccuracy());
                 Assert.AreEqual(calculator.WavePeriod, actualCalculationOutput.WavePeriod, actualCalculationOutput.WavePeriod.GetAccuracy());
+                Assert.AreEqual(calculator.MeanTidalAmplitude, actualCalculationOutput.MeanTidalAmplitude, actualCalculationOutput.MeanTidalAmplitude.GetAccuracy());
+                Assert.AreEqual(calculator.WaveDirectionalSpread, actualCalculationOutput.WaveDirectionalSpread, actualCalculationOutput.WaveDirectionalSpread.GetAccuracy());
+                Assert.AreEqual(calculator.TideSurgePhaseDifference, actualCalculationOutput.TideSurgePhaseDifference, actualCalculationOutput.TideSurgePhaseDifference.GetAccuracy());
             }
 
             mockRepository.VerifyAll();

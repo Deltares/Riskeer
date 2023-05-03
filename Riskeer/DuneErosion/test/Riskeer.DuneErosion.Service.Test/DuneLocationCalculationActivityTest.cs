@@ -229,6 +229,9 @@ namespace Riskeer.DuneErosion.Service.Test
             double expectedWaterLevel = random.NextDouble();
             double expectedWaveHeight = random.NextDouble();
             double expectedWavePeriod = random.NextDouble();
+            double expectedMeanTidalAmplitude = random.NextDouble();
+            double expectedWaveDirectionalSpread = random.NextDouble();
+            double expectedTideSurgePhaseDifference = random.NextDouble();
             double expectedReliabilityIndex = random.NextDouble();
 
             var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation());
@@ -237,6 +240,9 @@ namespace Riskeer.DuneErosion.Service.Test
                 WaterLevel = expectedWaterLevel,
                 WaveHeight = expectedWaveHeight,
                 WavePeriod = expectedWavePeriod,
+                MeanTidalAmplitude = expectedMeanTidalAmplitude,
+                WaveDirectionalSpread = expectedWaveDirectionalSpread,
+                TideSurgePhaseDifference = expectedTideSurgePhaseDifference,
                 ReliabilityIndex = expectedReliabilityIndex,
                 Converged = true
             };
@@ -264,6 +270,9 @@ namespace Riskeer.DuneErosion.Service.Test
             Assert.AreEqual(expectedWaterLevel, actualCalculationOutput.WaterLevel, actualCalculationOutput.WaterLevel.GetAccuracy());
             Assert.AreEqual(expectedWaveHeight, actualCalculationOutput.WaveHeight, actualCalculationOutput.WaveHeight.GetAccuracy());
             Assert.AreEqual(expectedWavePeriod, actualCalculationOutput.WavePeriod, actualCalculationOutput.WavePeriod.GetAccuracy());
+            Assert.AreEqual(expectedMeanTidalAmplitude, actualCalculationOutput.MeanTidalAmplitude, actualCalculationOutput.MeanTidalAmplitude.GetAccuracy());
+            Assert.AreEqual(expectedWaveDirectionalSpread, actualCalculationOutput.WaveDirectionalSpread, actualCalculationOutput.WaveDirectionalSpread.GetAccuracy());
+            Assert.AreEqual(expectedTideSurgePhaseDifference, actualCalculationOutput.TideSurgePhaseDifference, actualCalculationOutput.TideSurgePhaseDifference.GetAccuracy());
             Assert.AreEqual(expectedReliabilityIndex, actualCalculationOutput.CalculatedReliability, actualCalculationOutput.CalculatedReliability.GetAccuracy());
             Assert.AreEqual(CalculationConvergence.CalculatedConverged, actualCalculationOutput.CalculationConvergence);
             mockRepository.VerifyAll();
