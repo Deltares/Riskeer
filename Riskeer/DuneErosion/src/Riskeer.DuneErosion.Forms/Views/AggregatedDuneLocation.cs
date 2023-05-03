@@ -46,14 +46,26 @@ namespace Riskeer.DuneErosion.Forms.Views
         /// wave height calculations for different target probabilities.</param>
         /// <param name="wavePeriodCalculationsForTargetProbabilities">The results of the
         /// wave period calculations for different target probabilities.</param>
+        /// <param name="meanTidalAmplitudeCalculationsForTargetProbabilities">The results of the
+        /// mean tide calculations for different target probabilities.</param>
+        /// <param name="waveDirectionalSpreadCalculationsForTargetProbabilities">The results of the
+        /// wave directional spread calculations for different target probabilities.</param>
+        /// <param name="tideSurgePhaseDifferenceCalculationsForTargetProbabilities">The results of the
+        /// tide surge phase difference calculations for different target probabilities.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>,
         /// <paramref name="location"/>, <paramref name="waterLevelCalculationsForTargetProbabilities"/>,
-        /// <paramref name="waveHeightCalculationsForTargetProbabilities"/> or
-        /// <paramref name="wavePeriodCalculationsForTargetProbabilities"/> is <c>null</c>.</exception>
+        /// <paramref name="waveHeightCalculationsForTargetProbabilities"/>,
+        /// <paramref name="wavePeriodCalculationsForTargetProbabilities"/>,
+        /// <paramref name="meanTidalAmplitudeCalculationsForTargetProbabilities"/>,
+        /// <paramref name="waveDirectionalSpreadCalculationsForTargetProbabilities"/> or
+        /// <paramref name="tideSurgePhaseDifferenceCalculationsForTargetProbabilities"/> is <c>null</c>.</exception>
         public AggregatedDuneLocation(long id, string name, Point2D location, int coastalAreaId, RoundedDouble offset, RoundedDouble d50,
                                       IEnumerable<Tuple<double, RoundedDouble>> waterLevelCalculationsForTargetProbabilities,
                                       IEnumerable<Tuple<double, RoundedDouble>> waveHeightCalculationsForTargetProbabilities,
-                                      IEnumerable<Tuple<double, RoundedDouble>> wavePeriodCalculationsForTargetProbabilities)
+                                      IEnumerable<Tuple<double, RoundedDouble>> wavePeriodCalculationsForTargetProbabilities,
+                                      IEnumerable<Tuple<double, RoundedDouble>> meanTidalAmplitudeCalculationsForTargetProbabilities,
+                                      IEnumerable<Tuple<double, RoundedDouble>> waveDirectionalSpreadCalculationsForTargetProbabilities,
+                                      IEnumerable<Tuple<double, RoundedDouble>> tideSurgePhaseDifferenceCalculationsForTargetProbabilities)
         {
             if (name == null)
             {
@@ -80,6 +92,21 @@ namespace Riskeer.DuneErosion.Forms.Views
                 throw new ArgumentNullException(nameof(wavePeriodCalculationsForTargetProbabilities));
             }
 
+            if (meanTidalAmplitudeCalculationsForTargetProbabilities == null)
+            {
+                throw new ArgumentNullException(nameof(meanTidalAmplitudeCalculationsForTargetProbabilities));
+            }
+
+            if (waveDirectionalSpreadCalculationsForTargetProbabilities == null)
+            {
+                throw new ArgumentNullException(nameof(waveDirectionalSpreadCalculationsForTargetProbabilities));
+            }
+
+            if (tideSurgePhaseDifferenceCalculationsForTargetProbabilities == null)
+            {
+                throw new ArgumentNullException(nameof(tideSurgePhaseDifferenceCalculationsForTargetProbabilities));
+            }
+
             Id = id;
             Name = name;
             Location = location;
@@ -89,6 +116,9 @@ namespace Riskeer.DuneErosion.Forms.Views
             WaterLevelCalculationsForTargetProbabilities = waterLevelCalculationsForTargetProbabilities;
             WaveHeightCalculationsForTargetProbabilities = waveHeightCalculationsForTargetProbabilities;
             WavePeriodCalculationsForTargetProbabilities = wavePeriodCalculationsForTargetProbabilities;
+            MeanTidalAmplitudeCalculationsForTargetProbabilities = meanTidalAmplitudeCalculationsForTargetProbabilities;
+            WaveDirectionalSpreadCalculationsForTargetProbabilities = waveDirectionalSpreadCalculationsForTargetProbabilities;
+            TideSurgePhaseDifferenceCalculationsForTargetProbabilities = tideSurgePhaseDifferenceCalculationsForTargetProbabilities;
         }
 
         /// <summary>
@@ -135,5 +165,20 @@ namespace Riskeer.DuneErosion.Forms.Views
         /// Gets the results of the wave period calculations for different target probabilities.
         /// </summary>
         public IEnumerable<Tuple<double, RoundedDouble>> WavePeriodCalculationsForTargetProbabilities { get; }
+
+        /// <summary>
+        /// Gets the results of the mean tidal amplitude calculations for different target probabilities.
+        /// </summary>
+        public IEnumerable<Tuple<double, RoundedDouble>> MeanTidalAmplitudeCalculationsForTargetProbabilities { get; }
+
+        /// <summary>
+        /// Gets the results of the wave directional spread calculations for different target probabilities.
+        /// </summary>
+        public IEnumerable<Tuple<double, RoundedDouble>> WaveDirectionalSpreadCalculationsForTargetProbabilities { get; }
+
+        /// <summary>
+        /// Gets the results of the tide surge phase difference calculations for different target probabilities.
+        /// </summary>
+        public IEnumerable<Tuple<double, RoundedDouble>> TideSurgePhaseDifferenceCalculationsForTargetProbabilities { get; }
     }
 }

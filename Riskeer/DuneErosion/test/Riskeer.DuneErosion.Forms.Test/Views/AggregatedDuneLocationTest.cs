@@ -40,6 +40,9 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                                                       RoundedDouble.NaN, RoundedDouble.NaN,
                                                       Array.Empty<Tuple<double, RoundedDouble>>(),
                                                       Array.Empty<Tuple<double, RoundedDouble>>(),
+                                                      Array.Empty<Tuple<double, RoundedDouble>>(),
+                                                      Array.Empty<Tuple<double, RoundedDouble>>(),
+                                                      Array.Empty<Tuple<double, RoundedDouble>>(),
                                                       Array.Empty<Tuple<double, RoundedDouble>>());
 
             // Assert
@@ -53,6 +56,9 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             // Call
             void Call() => new AggregatedDuneLocation(0, string.Empty, null, 0,
                                                       RoundedDouble.NaN, RoundedDouble.NaN,
+                                                      Array.Empty<Tuple<double, RoundedDouble>>(),
+                                                      Array.Empty<Tuple<double, RoundedDouble>>(),
+                                                      Array.Empty<Tuple<double, RoundedDouble>>(),
                                                       Array.Empty<Tuple<double, RoundedDouble>>(),
                                                       Array.Empty<Tuple<double, RoundedDouble>>(),
                                                       Array.Empty<Tuple<double, RoundedDouble>>());
@@ -69,6 +75,9 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             void Call() => new AggregatedDuneLocation(0, string.Empty, new Point2D(0, 0), 0,
                                                       RoundedDouble.NaN, RoundedDouble.NaN, null,
                                                       Array.Empty<Tuple<double, RoundedDouble>>(),
+                                                      Array.Empty<Tuple<double, RoundedDouble>>(),
+                                                      Array.Empty<Tuple<double, RoundedDouble>>(),
+                                                      Array.Empty<Tuple<double, RoundedDouble>>(),
                                                       Array.Empty<Tuple<double, RoundedDouble>>());
 
             // Assert
@@ -84,6 +93,9 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                                                       RoundedDouble.NaN, RoundedDouble.NaN,
                                                       Array.Empty<Tuple<double, RoundedDouble>>(),
                                                       null,
+                                                      Array.Empty<Tuple<double, RoundedDouble>>(),
+                                                      Array.Empty<Tuple<double, RoundedDouble>>(),
+                                                      Array.Empty<Tuple<double, RoundedDouble>>(),
                                                       Array.Empty<Tuple<double, RoundedDouble>>());
 
             // Assert
@@ -99,11 +111,68 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                                                       RoundedDouble.NaN, RoundedDouble.NaN,
                                                       Array.Empty<Tuple<double, RoundedDouble>>(),
                                                       Array.Empty<Tuple<double, RoundedDouble>>(),
-                                                      null);
+                                                      null,
+                                                      Array.Empty<Tuple<double, RoundedDouble>>(),
+                                                      Array.Empty<Tuple<double, RoundedDouble>>(),
+                                                      Array.Empty<Tuple<double, RoundedDouble>>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("wavePeriodCalculationsForTargetProbabilities", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_MeanTidalAmplitudeCalculationsForTargetProbabilitiesNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new AggregatedDuneLocation(0, string.Empty, new Point2D(0, 0), 0,
+                                                      RoundedDouble.NaN, RoundedDouble.NaN,
+                                                      Array.Empty<Tuple<double, RoundedDouble>>(),
+                                                      Array.Empty<Tuple<double, RoundedDouble>>(),
+                                                      Array.Empty<Tuple<double, RoundedDouble>>(),
+                                                      null,
+                                                      Array.Empty<Tuple<double, RoundedDouble>>(),
+                                                      Array.Empty<Tuple<double, RoundedDouble>>());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("meanTidalAmplitudeCalculationsForTargetProbabilities", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_WaveDirectionalSpreadCalculationsForTargetProbabilitiesNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new AggregatedDuneLocation(0, string.Empty, new Point2D(0, 0), 0,
+                                                      RoundedDouble.NaN, RoundedDouble.NaN,
+                                                      Array.Empty<Tuple<double, RoundedDouble>>(),
+                                                      Array.Empty<Tuple<double, RoundedDouble>>(),
+                                                      Array.Empty<Tuple<double, RoundedDouble>>(),
+                                                      Array.Empty<Tuple<double, RoundedDouble>>(),
+                                                      null,
+                                                      Array.Empty<Tuple<double, RoundedDouble>>());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("waveDirectionalSpreadCalculationsForTargetProbabilities", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_TideSurgePhaseDifferenceCalculationsForTargetProbabilitiesNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new AggregatedDuneLocation(0, string.Empty, new Point2D(0, 0), 0,
+                                                      RoundedDouble.NaN, RoundedDouble.NaN,
+                                                      Array.Empty<Tuple<double, RoundedDouble>>(),
+                                                      Array.Empty<Tuple<double, RoundedDouble>>(),
+                                                      Array.Empty<Tuple<double, RoundedDouble>>(),
+                                                      Array.Empty<Tuple<double, RoundedDouble>>(),
+                                                      Array.Empty<Tuple<double, RoundedDouble>>(),
+                                                      null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("tideSurgePhaseDifferenceCalculationsForTargetProbabilities", exception.ParamName);
         }
 
         [Test]
@@ -118,15 +187,22 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             int coastalAreaId = random.Next();
             RoundedDouble offset = random.NextRoundedDouble();
             RoundedDouble d50 = random.NextRoundedDouble();
+
             var waterLevelCalculationsForTargetProbabilities = new List<Tuple<double, RoundedDouble>>();
             var waveHeightCalculationsForTargetProbabilities = new List<Tuple<double, RoundedDouble>>();
             var wavePeriodCalculationsForTargetProbabilities = new List<Tuple<double, RoundedDouble>>();
+            var meanTidalAmplitudeCalculationsForTargetProbabilities = new List<Tuple<double, RoundedDouble>>();
+            var waveDirectionalSpreadCalculationsForTargetProbabilities = new List<Tuple<double, RoundedDouble>>();
+            var tideSurgePhaseDifferenceCalculationsForTargetProbabilities = new List<Tuple<double, RoundedDouble>>();
 
             // Call
             var aggregatedDuneLocation = new AggregatedDuneLocation(id, name, location, coastalAreaId, offset, d50,
                                                                     waterLevelCalculationsForTargetProbabilities,
                                                                     waveHeightCalculationsForTargetProbabilities,
-                                                                    wavePeriodCalculationsForTargetProbabilities);
+                                                                    wavePeriodCalculationsForTargetProbabilities,
+                                                                    meanTidalAmplitudeCalculationsForTargetProbabilities,
+                                                                    waveDirectionalSpreadCalculationsForTargetProbabilities,
+                                                                    tideSurgePhaseDifferenceCalculationsForTargetProbabilities);
 
             // Assert
             Assert.AreEqual(id, aggregatedDuneLocation.Id);
@@ -138,6 +214,9 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             Assert.AreSame(waterLevelCalculationsForTargetProbabilities, aggregatedDuneLocation.WaterLevelCalculationsForTargetProbabilities);
             Assert.AreSame(waveHeightCalculationsForTargetProbabilities, aggregatedDuneLocation.WaveHeightCalculationsForTargetProbabilities);
             Assert.AreSame(wavePeriodCalculationsForTargetProbabilities, aggregatedDuneLocation.WavePeriodCalculationsForTargetProbabilities);
+            Assert.AreSame(meanTidalAmplitudeCalculationsForTargetProbabilities, aggregatedDuneLocation.MeanTidalAmplitudeCalculationsForTargetProbabilities);
+            Assert.AreSame(waveDirectionalSpreadCalculationsForTargetProbabilities, aggregatedDuneLocation.WaveDirectionalSpreadCalculationsForTargetProbabilities);
+            Assert.AreSame(tideSurgePhaseDifferenceCalculationsForTargetProbabilities, aggregatedDuneLocation.TideSurgePhaseDifferenceCalculationsForTargetProbabilities);
         }
     }
 }
