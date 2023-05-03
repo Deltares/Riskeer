@@ -518,7 +518,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             }
 
             // When
-            IEnumerable<IObservable> changedObjects = handler.RemoveHydraulicBoundaryDatabase(hydraulicBoundaryDatabase);
+            handler.RemoveHydraulicBoundaryDatabase(hydraulicBoundaryDatabase);
 
             // Then
             CollectionAssert.IsEmpty(assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases);
