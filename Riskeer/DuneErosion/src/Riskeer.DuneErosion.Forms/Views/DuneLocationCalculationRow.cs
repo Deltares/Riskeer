@@ -136,6 +136,42 @@ namespace Riskeer.DuneErosion.Forms.Views
         }
 
         /// <summary>
+        /// Gets the <see cref="DuneLocationCalculationOutput.MeanTidalAmplitude"/>.
+        /// </summary>
+        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
+        public RoundedDouble MeanTidalAmplitude
+        {
+            get
+            {
+                return CalculatableObject.Output?.MeanTidalAmplitude ?? RoundedDouble.NaN;
+            }
+        }
+        
+        /// <summary>
+        /// Gets the <see cref="DuneLocationCalculationOutput.WaveDirectionalSpread"/>.
+        /// </summary>
+        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
+        public RoundedDouble WaveDirectionalSpread
+        {
+            get
+            {
+                return CalculatableObject.Output?.WaveDirectionalSpread ?? RoundedDouble.NaN;
+            }
+        }
+        
+        /// <summary>
+        /// Gets the <see cref="DuneLocationCalculationOutput.TideSurgePhaseDifference"/>.
+        /// </summary>
+        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
+        public RoundedDouble TideSurgePhaseDifference
+        {
+            get
+            {
+                return CalculatableObject.Output?.TideSurgePhaseDifference ?? RoundedDouble.NaN;
+            }
+        }
+        
+        /// <summary>
         /// Gets the <see cref="DuneLocation.D50"/>.
         /// </summary>
         public RoundedDouble D50

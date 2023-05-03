@@ -53,7 +53,10 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 {
                     WaterLevel = 3.0,
                     WaveHeight = 4.0,
-                    WavePeriod = 5.0
+                    WavePeriod = 5.0,
+                    MeanTidalAmplitude = 6.0,
+                    WaveDirectionalSpread = 7.0,
+                    TideSurgePhaseDifference = 8.0
                 })
             };
 
@@ -72,6 +75,9 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             Assert.AreEqual(duneLocationCalculation.Output.WaterLevel, row.WaterLevel);
             Assert.AreEqual(duneLocationCalculation.Output.WaveHeight, row.WaveHeight);
             Assert.AreEqual(duneLocationCalculation.Output.WavePeriod, row.WavePeriod);
+            Assert.AreEqual(duneLocationCalculation.Output.MeanTidalAmplitude, row.MeanTidalAmplitude);
+            Assert.AreEqual(duneLocationCalculation.Output.WaveDirectionalSpread, row.WaveDirectionalSpread);
+            Assert.AreEqual(duneLocationCalculation.Output.TideSurgePhaseDifference, row.TideSurgePhaseDifference);
 
             TestHelper.AssertTypeConverter<DuneLocationCalculationRow, NoValueRoundedDoubleConverter>(
                 nameof(DuneLocationCalculationRow.WaterLevel));
@@ -79,6 +85,12 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 nameof(DuneLocationCalculationRow.WaveHeight));
             TestHelper.AssertTypeConverter<DuneLocationCalculationRow, NoValueRoundedDoubleConverter>(
                 nameof(DuneLocationCalculationRow.WavePeriod));
+            TestHelper.AssertTypeConverter<DuneLocationCalculationRow, NoValueRoundedDoubleConverter>(
+                nameof(DuneLocationCalculationRow.MeanTidalAmplitude));
+            TestHelper.AssertTypeConverter<DuneLocationCalculationRow, NoValueRoundedDoubleConverter>(
+                nameof(DuneLocationCalculationRow.WaveDirectionalSpread));
+            TestHelper.AssertTypeConverter<DuneLocationCalculationRow, NoValueRoundedDoubleConverter>(
+                nameof(DuneLocationCalculationRow.TideSurgePhaseDifference));
         }
 
         [Test]
@@ -94,6 +106,9 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             Assert.IsNaN(row.WaterLevel);
             Assert.IsNaN(row.WaveHeight);
             Assert.IsNaN(row.WavePeriod);
+            Assert.IsNaN(row.MeanTidalAmplitude);
+            Assert.IsNaN(row.WaveDirectionalSpread);
+            Assert.IsNaN(row.TideSurgePhaseDifference);
         }
     }
 }
