@@ -73,6 +73,12 @@ namespace Riskeer.DuneErosion.Forms.Factories
                                                                                          Resources.MetaData_WaveHeight_TargetProbability_0);
             HydraulicBoundaryLocationMapDataFeaturesFactory.AddTargetProbabilityMetaData(feature, location.WavePeriodCalculationsForTargetProbabilities,
                                                                                          Resources.MetaData_WavePeriod_TargetProbability_0);
+            HydraulicBoundaryLocationMapDataFeaturesFactory.AddTargetProbabilityMetaData(feature, location.MeanTidalAmplitudeCalculationsForTargetProbabilities,
+                                                                                         Resources.MetaData_MeanTidalAmplitude_TargetProbability_0);
+            HydraulicBoundaryLocationMapDataFeaturesFactory.AddTargetProbabilityMetaData(feature, location.WaveDirectionalSpreadCalculationsForTargetProbabilities,
+                                                                                         Resources.MetaData_WaveDirectionalSpread_TargetProbability_0);
+            HydraulicBoundaryLocationMapDataFeaturesFactory.AddTargetProbabilityMetaData(feature, location.TideSurgePhaseDifferenceCalculationsForTargetProbabilities,
+                                                                                         Resources.MetaData_TideSurgePhaseDifference_TargetProbability_0);
 
             return feature;
         }

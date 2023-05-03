@@ -76,23 +76,32 @@ namespace Riskeer.DuneErosion.Forms.TestUtil
                 var presentedMetaDataItems = new List<string>();
                 foreach (DuneLocationCalculationsForTargetProbability calculationsForTargetProbability in failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities)
                 {
-                    AssertMetaData(calculationsForTargetProbability.DuneLocationCalculations, expectedDuneLocation, GetExpectedWaterLevel,
+                    AssertMetaData(calculationsForTargetProbability.DuneLocationCalculations, expectedDuneLocation, o => o.WaterLevel,
                                    mapFeature, calculationsForTargetProbability.TargetProbability, "Rekenwaarde h - {0}", presentedMetaDataItems);
 
-                    AssertMetaData(calculationsForTargetProbability.DuneLocationCalculations, expectedDuneLocation, GetExpectedWaveHeight,
+                    AssertMetaData(calculationsForTargetProbability.DuneLocationCalculations, expectedDuneLocation, o => o.WaveHeight,
                                    mapFeature, calculationsForTargetProbability.TargetProbability, "Rekenwaarde Hs - {0}", presentedMetaDataItems);
 
-                    AssertMetaData(calculationsForTargetProbability.DuneLocationCalculations, expectedDuneLocation, GetExpectedWavePeriod,
+                    AssertMetaData(calculationsForTargetProbability.DuneLocationCalculations, expectedDuneLocation, o => o.WavePeriod,
                                    mapFeature, calculationsForTargetProbability.TargetProbability, "Rekenwaarde Tp - {0}", presentedMetaDataItems);
+
+                    AssertMetaData(calculationsForTargetProbability.DuneLocationCalculations, expectedDuneLocation, o => o.MeanTidalAmplitude,
+                                   mapFeature, calculationsForTargetProbability.TargetProbability, "Gemiddelde getijamplitude - {0}", presentedMetaDataItems);
+
+                    AssertMetaData(calculationsForTargetProbability.DuneLocationCalculations, expectedDuneLocation, o => o.WaveDirectionalSpread,
+                                   mapFeature, calculationsForTargetProbability.TargetProbability, "Golfrichtingspreiding - {0}", presentedMetaDataItems);
+
+                    AssertMetaData(calculationsForTargetProbability.DuneLocationCalculations, expectedDuneLocation, o => o.TideSurgePhaseDifference,
+                                   mapFeature, calculationsForTargetProbability.TargetProbability, "Faseverschuiving tussen getij en opzet - {0}", presentedMetaDataItems);
                 }
 
-                int expectedMetaDataCount = 5 + (3 * failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.Count);
+                int expectedMetaDataCount = 5 + (6 * failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.Count);
                 Assert.AreEqual(expectedMetaDataCount, mapFeature.MetaData.Keys.Count);
             }
         }
 
-        private static void AssertMetaData(IEnumerable<DuneLocationCalculation> calculations, DuneLocation hydraulicBoundaryLocation,
-                                           Func<IEnumerable<DuneLocationCalculation>, DuneLocation, string> getExpectedResultFunc,
+        private static void AssertMetaData(IEnumerable<DuneLocationCalculation> calculations, DuneLocation duneLocation,
+                                           Func<DuneLocationCalculationOutput, RoundedDouble> getOutputPropertyFunc,
                                            MapFeature mapFeature, double targetProbability, string displayNameFormat,
                                            List<string> presentedMetaDataItems)
         {
@@ -101,38 +110,18 @@ namespace Riskeer.DuneErosion.Forms.TestUtil
                 v => v);
 
             MapFeaturesMetaDataTestHelper.AssertMetaData(
-                getExpectedResultFunc(calculations, hydraulicBoundaryLocation),
+                GetExpectedOutputPropertyResult(calculations, duneLocation, getOutputPropertyFunc),
                 mapFeature, uniqueName);
 
             presentedMetaDataItems.Add(uniqueName);
         }
 
-        private static string GetExpectedWaterLevel(IEnumerable<DuneLocationCalculation> calculations,
-                                                    DuneLocation duneLocation)
+        private static string GetExpectedOutputPropertyResult(IEnumerable<DuneLocationCalculation> calculations,
+                                                              DuneLocation duneLocation,
+                                                              Func<DuneLocationCalculationOutput, RoundedDouble> getOutputPropertyFunc)
         {
-            RoundedDouble result = calculations
-                                   .Single(calculation => calculation.DuneLocation.Equals(duneLocation))
-                                   .Output?.WaterLevel ?? RoundedDouble.NaN;
-
-            return result.ToString();
-        }
-
-        private static string GetExpectedWaveHeight(IEnumerable<DuneLocationCalculation> calculations,
-                                                    DuneLocation duneLocation)
-        {
-            RoundedDouble result = calculations
-                                   .Single(calculation => calculation.DuneLocation.Equals(duneLocation))
-                                   .Output?.WaveHeight ?? RoundedDouble.NaN;
-
-            return result.ToString();
-        }
-
-        private static string GetExpectedWavePeriod(IEnumerable<DuneLocationCalculation> calculations,
-                                                    DuneLocation duneLocation)
-        {
-            RoundedDouble result = calculations
-                                   .Single(calculation => calculation.DuneLocation.Equals(duneLocation))
-                                   .Output?.WavePeriod ?? RoundedDouble.NaN;
+            DuneLocationCalculation calculation = calculations.Single(calc => calc.DuneLocation.Equals(duneLocation));
+            RoundedDouble result = calculation.Output == null ? RoundedDouble.NaN : getOutputPropertyFunc(calculation.Output);
 
             return result.ToString();
         }

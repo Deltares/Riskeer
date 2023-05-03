@@ -183,4 +183,13 @@
   <data name=" DuneLocationCalculationOutput_TideSurgePhaseDifference_DisplayName" xml:space="preserve">
     <value>Faseverschuiving tussen getij en opzet [uur]</value>
   </data>
+  <data name="MetaData_MeanTidalAmplitude_TargetProbability_0" xml:space="preserve">
+    <value>Gemiddelde getijamplitude - {0}</value>
+  </data>
+  <data name="MetaData_WaveDirectionalSpread_TargetProbability_0" xml:space="preserve">
+    <value>Golfrichtingspreiding - {0}</value>
+  </data>
+  <data name="MetaData_TideSurgePhaseDifference_TargetProbability_0" xml:space="preserve">
+    <value>Faseverschuiving tussen getij en opzet - {0}</value>
+  </data>
 </root>
