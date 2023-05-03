@@ -49,6 +49,9 @@ namespace Riskeer.DuneErosion.Data
             WaterLevel = new RoundedDouble(2, constructionProperties.WaterLevel);
             WaveHeight = new RoundedDouble(2, constructionProperties.WaveHeight);
             WavePeriod = new RoundedDouble(2, constructionProperties.WavePeriod);
+            MeanTidalAmplitude = new RoundedDouble(2, constructionProperties.MeanTidalAmplitude);
+            WaveDirectionalSpread = new RoundedDouble(2, constructionProperties.WaveDirectionalSpread);
+            TideSurgePhaseDifference = new RoundedDouble(2, constructionProperties.TideSurgePhaseDifference);
 
             ProbabilityHelper.ValidateProbability(constructionProperties.TargetProbability, nameof(TargetProbability), true);
             ProbabilityHelper.ValidateProbability(constructionProperties.CalculatedProbability, nameof(CalculatedProbability), true);
@@ -77,6 +80,24 @@ namespace Riskeer.DuneErosion.Data
         /// [s]
         /// </summary>
         public RoundedDouble WavePeriod { get; }
+        
+        /// <summary>
+        /// Gets the mean tidal amplitude of the calculation.
+        /// [m]
+        /// </summary>
+        public RoundedDouble MeanTidalAmplitude { get; }
+        
+        /// <summary>
+        /// Gets the wave directional spread of the calculation.
+        /// [°]
+        /// </summary>
+        public RoundedDouble WaveDirectionalSpread { get; }
+        
+        /// <summary>
+        /// Gets the tide surge phase difference of the calculation.
+        /// [hrs]
+        /// </summary>
+        public RoundedDouble TideSurgePhaseDifference { get; }
 
         /// <summary>
         /// Gets the target probability.
@@ -121,6 +142,11 @@ namespace Riskeer.DuneErosion.Data
                 WaterLevel = double.NaN;
                 WaveHeight = double.NaN;
                 WavePeriod = double.NaN;
+
+                MeanTidalAmplitude = double.NaN;
+                WaveDirectionalSpread = double.NaN;
+                TideSurgePhaseDifference = double.NaN;
+                
                 TargetProbability = double.NaN;
                 TargetReliability = double.NaN;
                 CalculatedProbability = double.NaN;
@@ -141,6 +167,21 @@ namespace Riskeer.DuneErosion.Data
             /// Gets the wave period of the calculation.
             /// </summary>
             public double WavePeriod { internal get; set; }
+            
+            /// <summary>
+            /// Gets the mean tidal amplitude of the calculation.
+            /// </summary>
+            public double MeanTidalAmplitude { internal get; set; }
+        
+            /// <summary>
+            /// Gets the wave directional spread of the calculation.
+            /// </summary>
+            public double WaveDirectionalSpread { internal get; set; }
+        
+            /// <summary>
+            /// Gets the tide surge phase difference of the calculation.
+            /// </summary>
+            public double TideSurgePhaseDifference { internal get; set; }
 
             /// <summary>
             /// Gets the target probability.

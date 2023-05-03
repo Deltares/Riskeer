@@ -52,6 +52,9 @@ namespace Riskeer.DuneErosion.Data.Test
             double waterLevel = random.NextDouble();
             double waveHeight = random.NextDouble();
             double wavePeriod = random.NextDouble();
+            double meanTidalAmplitude = random.NextDouble();
+            double waveDirectionalSpread = random.NextDouble();
+            double tideSurgePhaseDifference = random.NextDouble();
             double targetReliability = random.NextDouble();
             double calculatedProbability = random.NextDouble();
             double calculatedReliability = random.NextDouble();
@@ -64,6 +67,9 @@ namespace Riskeer.DuneErosion.Data.Test
                                                                             WaterLevel = waterLevel,
                                                                             WaveHeight = waveHeight,
                                                                             WavePeriod = wavePeriod,
+                                                                            MeanTidalAmplitude = meanTidalAmplitude,
+                                                                            WaveDirectionalSpread = waveDirectionalSpread,
+                                                                            TideSurgePhaseDifference = tideSurgePhaseDifference,
                                                                             TargetProbability = targetProbability,
                                                                             TargetReliability = targetReliability,
                                                                             CalculatedProbability = calculatedProbability,
@@ -87,6 +93,9 @@ namespace Riskeer.DuneErosion.Data.Test
             double waterLevel = random.NextDouble();
             double waveHeight = random.NextDouble();
             double wavePeriod = random.NextDouble();
+            double meanTidalAmplitude = random.NextDouble();
+            double waveDirectionalSpread = random.NextDouble();
+            double tideSurgePhaseDifference = random.NextDouble();
             double targetProbability = random.NextDouble();
             double targetReliability = random.NextDouble();
             double calculatedReliability = random.NextDouble();
@@ -99,6 +108,9 @@ namespace Riskeer.DuneErosion.Data.Test
                                                                             WaterLevel = waterLevel,
                                                                             WaveHeight = waveHeight,
                                                                             WavePeriod = wavePeriod,
+                                                                            MeanTidalAmplitude = meanTidalAmplitude,
+                                                                            WaveDirectionalSpread = waveDirectionalSpread,
+                                                                            TideSurgePhaseDifference = tideSurgePhaseDifference,
                                                                             TargetProbability = targetProbability,
                                                                             TargetReliability = targetReliability,
                                                                             CalculatedProbability = calculatedProbability,
@@ -121,6 +133,9 @@ namespace Riskeer.DuneErosion.Data.Test
             double waterLevel = random.NextDouble();
             double waveHeight = random.NextDouble();
             double wavePeriod = random.NextDouble();
+            double meanTidalAmplitude = random.NextDouble();
+            double waveDirectionalSpread = random.NextDouble();
+            double tideSurgePhaseDifference = random.NextDouble();
             double targetReliability = random.NextDouble();
             double calculatedReliability = random.NextDouble();
             var convergence = random.NextEnumValue<CalculationConvergence>();
@@ -132,6 +147,9 @@ namespace Riskeer.DuneErosion.Data.Test
                                                                WaterLevel = waterLevel,
                                                                WaveHeight = waveHeight,
                                                                WavePeriod = wavePeriod,
+                                                               MeanTidalAmplitude = meanTidalAmplitude,
+                                                               WaveDirectionalSpread = waveDirectionalSpread,
+                                                               TideSurgePhaseDifference = tideSurgePhaseDifference,
                                                                TargetProbability = targetProbability,
                                                                TargetReliability = targetReliability,
                                                                CalculatedProbability = calculatedProbability,
@@ -145,6 +163,14 @@ namespace Riskeer.DuneErosion.Data.Test
             Assert.AreEqual(waveHeight, output.WaveHeight, output.WaveHeight.GetAccuracy());
             Assert.AreEqual(2, output.WavePeriod.NumberOfDecimalPlaces);
             Assert.AreEqual(wavePeriod, output.WavePeriod, output.WavePeriod.GetAccuracy());
+
+            Assert.AreEqual(2, output.MeanTidalAmplitude.NumberOfDecimalPlaces);
+            Assert.AreEqual(meanTidalAmplitude, output.MeanTidalAmplitude, output.MeanTidalAmplitude.GetAccuracy());
+            Assert.AreEqual(2, output.WaveDirectionalSpread.NumberOfDecimalPlaces);
+            Assert.AreEqual(waveDirectionalSpread, output.WaveDirectionalSpread, output.WaveDirectionalSpread.GetAccuracy());
+            Assert.AreEqual(2, output.TideSurgePhaseDifference.NumberOfDecimalPlaces);
+            Assert.AreEqual(tideSurgePhaseDifference, output.TideSurgePhaseDifference, output.TideSurgePhaseDifference.GetAccuracy());
+
             Assert.AreEqual(targetProbability, output.TargetProbability);
             Assert.AreEqual(5, output.TargetReliability.NumberOfDecimalPlaces);
             Assert.AreEqual(targetReliability, output.TargetReliability, output.TargetReliability.GetAccuracy());
@@ -165,6 +191,9 @@ namespace Riskeer.DuneErosion.Data.Test
             Assert.IsNaN(output.WaterLevel);
             Assert.IsNaN(output.WaveHeight);
             Assert.IsNaN(output.WavePeriod);
+            Assert.IsNaN(output.MeanTidalAmplitude);
+            Assert.IsNaN(output.WaveDirectionalSpread);
+            Assert.IsNaN(output.TideSurgePhaseDifference);
             Assert.IsNaN(output.CalculatedProbability);
             Assert.IsNaN(output.TargetProbability);
             Assert.IsNaN(output.CalculatedReliability);
