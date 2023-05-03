@@ -93,6 +93,29 @@ namespace Riskeer.Common.Service.Test
         }
 
         [Test]
+        public void Validate_MismatchingHydraulicBoundaryDatabaseVersion_LogsErrorAndReturnsFalse()
+        {
+            // Setup
+            const string invalidHrdFileVersion = "Dutch coast South19-11-2015 12:0113";
+            var calculationSettings = new HydraulicBoundaryCalculationSettings(validHlcdFilePath, validHrdFilePath, invalidHrdFileVersion, false);
+            var valid = true;
+
+            // Call
+            void Call() => valid = calculationService.Validate(calculationSettings);
+
+            // Assert
+            TestHelper.AssertLogMessages(Call, messages =>
+            {
+                string[] msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                Assert.AreEqual($"De versie van de corresponderende hydraulische belastingendatabase wijkt af van de versie zoals gevonden in het bestand '{validHrdFilePath}'.", msgs[1]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+            });
+            Assert.IsFalse(valid);
+        }
+
+        [Test]
         public void Validate_ValidHydraulicBoundaryDatabaseWithoutSettings_LogsErrorAndReturnsFalse()
         {
             // Setup

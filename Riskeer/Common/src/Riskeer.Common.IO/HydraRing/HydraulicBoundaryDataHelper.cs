@@ -118,7 +118,10 @@ namespace Riskeer.Common.IO.HydraRing
         /// </summary>
         public static bool IsCorrectVersion(string version, string hrdFilePath)
         {
-            return version == GetVersion(hrdFilePath);
+            using (var db = new HydraulicBoundaryDatabaseReader(hrdFilePath))
+            {
+                return version == db.ReadVersion();
+            }
         }
 
         /// <summary>
@@ -136,21 +139,6 @@ namespace Riskeer.Common.IO.HydraRing
             string directory = Path.GetDirectoryName(hlcdFilePath);
             string hlcdFileName = Path.GetFileNameWithoutExtension(hlcdFilePath);
             return Path.Combine(directory, $"{hlcdFileName}_{preprocessorClosureFileName}");
-        }
-
-        /// <summary>
-        /// Returns the version of the hydraulic boundary database pointed at by the <paramref name="hrdFilePath"/>.
-        /// </summary>
-        /// <param name="hrdFilePath">The file path of the hydraulic boundary database.</param>
-        /// <returns>The version of the hydraulic boundary database as a <see cref="string"/>.</returns>
-        /// <exception cref="CriticalFileReadException">Thrown when no connection with the hydraulic boundary database could
-        /// be created.</exception>
-        private static string GetVersion(string hrdFilePath)
-        {
-            using (var db = new HydraulicBoundaryDatabaseReader(hrdFilePath))
-            {
-                return db.ReadVersion();
-            }
         }
     }
 }

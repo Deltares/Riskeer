@@ -58,8 +58,9 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             // Setup
             var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
             var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation();
-            const string hrdFilePath = "some//FilePath//HRD dutch coast south.sqlite";
             const string hlcdFilePath = "some//FilePath//HLCD.sqlite";
+            const string hrdFilePath = "some//FilePath//HRD dutch coast south.sqlite";
+            const string hrdFileVersion = "1 2 3 4 5";
             bool usePreprocessorClosure = new Random(21).NextBoolean();
 
             var hydraulicBoundaryData = new HydraulicBoundaryData
@@ -73,6 +74,7 @@ namespace Riskeer.Common.Data.Test.Hydraulics
                     new HydraulicBoundaryDatabase
                     {
                         FilePath = hrdFilePath,
+                        Version = hrdFileVersion,
                         UsePreprocessorClosure = usePreprocessorClosure,
                         Locations =
                         {
@@ -96,11 +98,11 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             // Setup
             var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
             var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation();
+            const string hlcdFilePath = "some//FilePath//HLCD.sqlite";
             const string hrdFilePath1 = "some//FilePath//HRD dutch coast south.sqlite";
             const string hrdFileVersion1 = "1 2 3";
             const string hrdFilePath2 = "some//FilePath//HRD dutch coast north.sqlite";
             const string hrdFileVersion2 = "4 5 6";
-            const string hlcdFilePath = "some//FilePath//HLCD.sqlite";
             bool usePreprocessorClosure = new Random(21).NextBoolean();
 
             var hydraulicBoundaryData = new HydraulicBoundaryData
