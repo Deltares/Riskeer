@@ -171,6 +171,37 @@ namespace Riskeer.DuneErosion.Forms.Views
 
         private void UpdateMetaData(IEnumerable<DuneLocationCalculationsForTargetProbability> calculationsForTargetProbabilities)
         {
+            Dictionary<DuneLocationCalculationsForTargetProbability, MetaDataItemsLookup> newMetaDataItemsLookups = GetNewMetaDataItemsLookups(calculationsForTargetProbabilities);
+
+            string currentSelectedMetaDataAttribute = MapData.SelectedMetaDataAttribute;
+            foreach (KeyValuePair<DuneLocationCalculationsForTargetProbability, MetaDataItemsLookup> currentMetaDataItemLookup in currentMetaDataItemsLookups)
+            {
+                MetaDataItemsLookup currentMetaDataItem = currentMetaDataItemLookup.Value;
+                if (IsMetaDataAttributeMetaDataItemProperty(currentSelectedMetaDataAttribute, currentMetaDataItem))
+                {
+                    DuneLocationCalculationsForTargetProbability calculationsForTargetProbability = currentMetaDataItemLookup.Key;
+                    if (!newMetaDataItemsLookups.ContainsKey(calculationsForTargetProbability))
+                    {
+                        MapData.SelectedMetaDataAttribute = RiskeerCommonUtilResources.MetaData_Name;
+                    }
+                    else
+                    {
+                        MetaDataItemsLookup newMetaDataItem = newMetaDataItemsLookups[calculationsForTargetProbability];
+                        SetSelectedMetaDataAttribute(currentSelectedMetaDataAttribute, currentMetaDataItem.WaterLevelMetaDataItem, newMetaDataItem.WaterLevelMetaDataItem);
+                        SetSelectedMetaDataAttribute(currentSelectedMetaDataAttribute, currentMetaDataItem.WaveHeightMetaDataItem, newMetaDataItem.WaveHeightMetaDataItem);
+                        SetSelectedMetaDataAttribute(currentSelectedMetaDataAttribute, currentMetaDataItem.WavePeriodMetaDataItem, newMetaDataItem.WavePeriodMetaDataItem);
+                        SetSelectedMetaDataAttribute(currentSelectedMetaDataAttribute, currentMetaDataItem.MeanTidalAmplitudeMetaDataItem, newMetaDataItem.MeanTidalAmplitudeMetaDataItem);
+                        SetSelectedMetaDataAttribute(currentSelectedMetaDataAttribute, currentMetaDataItem.WaveDirectionalSpreadMetaDataItem, newMetaDataItem.WaveDirectionalSpreadMetaDataItem);
+                        SetSelectedMetaDataAttribute(currentSelectedMetaDataAttribute, currentMetaDataItem.TideSurgePhaseDifferenceMetaDataItem, newMetaDataItem.TideSurgePhaseDifferenceMetaDataItem);
+                    }
+                }
+            }
+
+            currentMetaDataItemsLookups = newMetaDataItemsLookups;
+        }
+
+        private Dictionary<DuneLocationCalculationsForTargetProbability, MetaDataItemsLookup> GetNewMetaDataItemsLookups(IEnumerable<DuneLocationCalculationsForTargetProbability> calculationsForTargetProbabilities)
+        {
             var newMetaDataItemsLookups = new Dictionary<DuneLocationCalculationsForTargetProbability, MetaDataItemsLookup>();
 
             var waterLevelMetaDataItemsCounter = 0;
@@ -219,36 +250,17 @@ namespace Riskeer.DuneErosion.Forms.Views
                 }
             }
 
-            string currentSelectedMetaDataAttribute = MapData.SelectedMetaDataAttribute;
-            foreach (KeyValuePair<DuneLocationCalculationsForTargetProbability, MetaDataItemsLookup> currentMetaDataItemLookup in currentMetaDataItemsLookups)
-            {
-                MetaDataItemsLookup currentMetaDataItem = currentMetaDataItemLookup.Value;
-                if (currentSelectedMetaDataAttribute == currentMetaDataItem.WaterLevelMetaDataItem
-                    || currentSelectedMetaDataAttribute == currentMetaDataItem.WaveHeightMetaDataItem
-                    || currentSelectedMetaDataAttribute == currentMetaDataItem.WavePeriodMetaDataItem
-                    || currentSelectedMetaDataAttribute == currentMetaDataItem.MeanTidalAmplitudeMetaDataItem
-                    || currentSelectedMetaDataAttribute == currentMetaDataItem.WaveDirectionalSpreadMetaDataItem
-                    || currentSelectedMetaDataAttribute == currentMetaDataItem.TideSurgePhaseDifferenceMetaDataItem)
-                {
-                    DuneLocationCalculationsForTargetProbability calculationsForTargetProbability = currentMetaDataItemLookup.Key;
-                    if (!newMetaDataItemsLookups.ContainsKey(calculationsForTargetProbability))
-                    {
-                        MapData.SelectedMetaDataAttribute = RiskeerCommonUtilResources.MetaData_Name;
-                    }
-                    else
-                    {
-                        MetaDataItemsLookup newMetaDataItem = newMetaDataItemsLookups[calculationsForTargetProbability];
-                        SetSelectedMetaDataAttribute(currentSelectedMetaDataAttribute, currentMetaDataItem.WaterLevelMetaDataItem, newMetaDataItem.WaterLevelMetaDataItem);
-                        SetSelectedMetaDataAttribute(currentSelectedMetaDataAttribute, currentMetaDataItem.WaveHeightMetaDataItem, newMetaDataItem.WaveHeightMetaDataItem);
-                        SetSelectedMetaDataAttribute(currentSelectedMetaDataAttribute, currentMetaDataItem.WavePeriodMetaDataItem, newMetaDataItem.WavePeriodMetaDataItem);
-                        SetSelectedMetaDataAttribute(currentSelectedMetaDataAttribute, currentMetaDataItem.MeanTidalAmplitudeMetaDataItem, newMetaDataItem.MeanTidalAmplitudeMetaDataItem);
-                        SetSelectedMetaDataAttribute(currentSelectedMetaDataAttribute, currentMetaDataItem.WaveDirectionalSpreadMetaDataItem, newMetaDataItem.WaveDirectionalSpreadMetaDataItem);
-                        SetSelectedMetaDataAttribute(currentSelectedMetaDataAttribute, currentMetaDataItem.TideSurgePhaseDifferenceMetaDataItem, newMetaDataItem.TideSurgePhaseDifferenceMetaDataItem);
-                    }
-                }
-            }
+            return newMetaDataItemsLookups;
+        }
 
-            currentMetaDataItemsLookups = newMetaDataItemsLookups;
+        private static bool IsMetaDataAttributeMetaDataItemProperty(string metaDataAttribute, MetaDataItemsLookup currentMetaDataItem)
+        {
+            return metaDataAttribute == currentMetaDataItem.WaterLevelMetaDataItem
+                   || metaDataAttribute == currentMetaDataItem.WaveHeightMetaDataItem
+                   || metaDataAttribute == currentMetaDataItem.WavePeriodMetaDataItem
+                   || metaDataAttribute == currentMetaDataItem.MeanTidalAmplitudeMetaDataItem
+                   || metaDataAttribute == currentMetaDataItem.WaveDirectionalSpreadMetaDataItem
+                   || metaDataAttribute == currentMetaDataItem.TideSurgePhaseDifferenceMetaDataItem;
         }
 
         private static void AddMetaDataItemToLookup(IDictionary<DuneLocationCalculationsForTargetProbability, MetaDataItemsLookup> lookup,
