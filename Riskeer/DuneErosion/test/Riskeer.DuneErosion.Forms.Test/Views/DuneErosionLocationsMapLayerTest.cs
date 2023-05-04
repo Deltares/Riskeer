@@ -40,9 +40,9 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         private const string waterLevelDisplayNameFormat = "Rekenwaarde h - {0}";
         private const string waveHeightDisplayNameFormat = "Rekenwaarde Hs - {0}";
         private const string wavePeriodDisplayNameFormat = "Rekenwaarde Tp - {0}";
-        private const string meanTidalAmplitudeDisplayNameFormat = "Gemiddelde getijamplitude - {0}";
-        private const string waveDirectionalSpreadDisplayNameFormat = "Golfrichtingspreiding - {0}";
-        private const string tideSurgePhaseDifferenceDisplayNameFormat = "Faseverschuiving tussen getij en opzet - {0}";
+        private const string meanTidalAmplitudeDisplayNameFormat = "Rekenwaarde gemiddelde getijamplitude - {0}";
+        private const string waveDirectionalSpreadDisplayNameFormat = "Rekenwaarde golfrichtingspreiding - {0}";
+        private const string tideSurgePhaseDifferenceDisplayNameFormat = "Rekenwaarde faseverschuiving tussen getij en opzet - {0}";
 
         [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
