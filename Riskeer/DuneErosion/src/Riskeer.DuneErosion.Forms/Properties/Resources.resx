@@ -126,12 +126,6 @@
   <data name="DuneLocation_Convergence_Description" xml:space="preserve">
     <value>Is convergentie bereikt in de berekening van de hydraulische belastingen voor de duinlocatie?</value>
   </data>
-  <data name="DuneLocation_D50_Description" xml:space="preserve">
-    <value>Rekenwaarde voor de d50 voor het uitvoeren van een sterkteberekening voor het faalmechanisme duinen.</value>
-  </data>
-  <data name="DuneLocation_D50_DisplayName" xml:space="preserve">
-    <value>Rekenwaarde d50 [m]</value>
-  </data>
   <data name="DuneLocation_Offset_Description" xml:space="preserve">
     <value>Metrering van de locatie binnen het kustvak waar het onderdeel van uitmaakt.</value>
   </data>
@@ -158,9 +152,6 @@
   </data>
   <data name="MetaData_CoastalAreaId" xml:space="preserve">
     <value>Kustvaknummer</value>
-  </data>
-  <data name="MetaData_D50" xml:space="preserve">
-    <value>Rekenwaarde d50</value>
   </data>
   <data name="MetaData_Offset" xml:space="preserve">
     <value>Metrering</value>

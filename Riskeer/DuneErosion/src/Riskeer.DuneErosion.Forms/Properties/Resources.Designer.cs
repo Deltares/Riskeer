@@ -96,24 +96,6 @@ namespace Riskeer.DuneErosion.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rekenwaarde voor de d50 voor het uitvoeren van een sterkteberekening voor het faalmechanisme duinen..
-        /// </summary>
-        internal static string DuneLocation_D50_Description {
-            get {
-                return ResourceManager.GetString("DuneLocation_D50_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Rekenwaarde d50 [m].
-        /// </summary>
-        internal static string DuneLocation_D50_DisplayName {
-            get {
-                return ResourceManager.GetString("DuneLocation_D50_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Metrering van de locatie binnen het kustvak waar het onderdeel van uitmaakt..
         /// </summary>
         internal static string DuneLocation_Offset_Description {
@@ -236,15 +218,6 @@ namespace Riskeer.DuneErosion.Forms.Properties {
         internal static string MetaData_CoastalAreaId {
             get {
                 return ResourceManager.GetString("MetaData_CoastalAreaId", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Rekenwaarde d50.
-        /// </summary>
-        internal static string MetaData_D50 {
-            get {
-                return ResourceManager.GetString("MetaData_D50", resourceCulture);
             }
         }
         
