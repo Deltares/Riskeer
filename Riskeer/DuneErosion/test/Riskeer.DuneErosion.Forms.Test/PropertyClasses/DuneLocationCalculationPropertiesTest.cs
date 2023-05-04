@@ -48,12 +48,14 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
         private const int requiredWaterLevelPropertyIndex = 5;
         private const int requiredWaveHeightPropertyIndex = 6;
         private const int requiredWavePeriodPropertyIndex = 7;
-        private const int requiredD50PropertyIndex = 8;
-        private const int requiredTargetProbabilityPropertyIndex = 9;
-        private const int requiredTargetReliabilityPropertyIndex = 10;
-        private const int requiredCalculatedProbabilityPropertyIndex = 11;
-        private const int requiredCalculatedReliabilityPropertyIndex = 12;
-        private const int requiredConvergencePropertyIndex = 13;
+        private const int requiredMeanTidalAmplitudePropertyIndex = 8;
+        private const int requiredWaveDirectionalSpreadPropertyIndex = 9;
+        private const int requiredTideSurgePhaseDifferencePropertyIndex = 10;
+        private const int requiredTargetProbabilityPropertyIndex = 11;
+        private const int requiredTargetReliabilityPropertyIndex = 12;
+        private const int requiredCalculatedProbabilityPropertyIndex = 13;
+        private const int requiredCalculatedReliabilityPropertyIndex = 14;
+        private const int requiredConvergencePropertyIndex = 15;
 
         [Test]
         public void Constructor_DuneLocationCalculationNull_ThrowsArgumentNullException()
@@ -84,8 +86,24 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             Assert.AreEqual(duneLocation.Location, properties.Location);
 
             Assert.IsNaN(properties.WaterLevel);
+            TestHelper.AssertTypeConverter<DuneLocationCalculationProperties, NoValueRoundedDoubleConverter>(
+                nameof(DuneLocationCalculationProperties.WaterLevel));
             Assert.IsNaN(properties.WaveHeight);
+            TestHelper.AssertTypeConverter<DuneLocationCalculationProperties, NoValueRoundedDoubleConverter>(
+                nameof(DuneLocationCalculationProperties.WaveHeight));
             Assert.IsNaN(properties.WavePeriod);
+            TestHelper.AssertTypeConverter<DuneLocationCalculationProperties, NoValueRoundedDoubleConverter>(
+                nameof(DuneLocationCalculationProperties.WavePeriod));
+            
+            Assert.IsNaN(properties.MeanTidalAmplitude);
+            TestHelper.AssertTypeConverter<DuneLocationCalculationProperties, NoValueRoundedDoubleConverter>(
+                nameof(DuneLocationCalculationProperties.MeanTidalAmplitude));
+            Assert.IsNaN(properties.WaveDirectionalSpread);
+            TestHelper.AssertTypeConverter<DuneLocationCalculationProperties, NoValueRoundedDoubleConverter>(
+                nameof(DuneLocationCalculationProperties.WaveDirectionalSpread));
+            Assert.IsNaN(properties.TideSurgePhaseDifference);
+            TestHelper.AssertTypeConverter<DuneLocationCalculationProperties, NoValueRoundedDoubleConverter>(
+                nameof(DuneLocationCalculationProperties.TideSurgePhaseDifference));
 
             Assert.IsNaN(properties.TargetProbability);
             TestHelper.AssertTypeConverter<DuneLocationCalculationProperties, NoProbabilityValueDoubleConverter>(
@@ -106,7 +124,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GetProperties_ValidDesignWaterLevel_ReturnsExpectedValues()
+        public void GetProperties_ValidOutput_ReturnsExpectedValues()
         {
             // Setup
             const long id = 1234L;
@@ -119,10 +137,12 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             var convergence = random.NextEnumValue<CalculationConvergence>();
             double offset = random.NextDouble();
             double orientation = random.NextDouble();
-            double d50 = random.NextDouble();
             double waterLevel = random.NextDouble();
             double waveHeight = random.NextDouble();
             double wavePeriod = random.NextDouble();
+            double meanTidalAmplitude = random.NextDouble();
+            double waveDirectionalSpread = random.NextDouble();
+            double tideSurgePhaseDifference = random.NextDouble();
             double targetProbability = random.NextDouble();
             double targetReliability = random.NextDouble();
             double calculatedProbability = random.NextDouble();
@@ -135,6 +155,9 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
                     WaterLevel = waterLevel,
                     WaveHeight = waveHeight,
                     WavePeriod = wavePeriod,
+                    MeanTidalAmplitude = meanTidalAmplitude,
+                    WaveDirectionalSpread = waveDirectionalSpread,
+                    TideSurgePhaseDifference = tideSurgePhaseDifference,
                     TargetProbability = targetProbability,
                     TargetReliability = targetReliability,
                     CalculatedProbability = calculatedProbability,
@@ -145,8 +168,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
                                                 {
                                                     CoastalAreaId = coastalAreaId,
                                                     Offset = offset,
-                                                    Orientation = orientation,
-                                                    D50 = d50
+                                                    Orientation = orientation
                                                 });
             var duneLocationCalculation = new DuneLocationCalculation(duneLocation)
             {
@@ -167,7 +189,9 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             Assert.AreEqual(waterLevel, properties.WaterLevel, properties.WaterLevel.GetAccuracy());
             Assert.AreEqual(waveHeight, properties.WaveHeight, properties.WaveHeight.GetAccuracy());
             Assert.AreEqual(wavePeriod, properties.WavePeriod, properties.WavePeriod.GetAccuracy());
-            Assert.AreEqual(d50, properties.D50, properties.D50.GetAccuracy());
+            Assert.AreEqual(meanTidalAmplitude, properties.MeanTidalAmplitude, properties.MeanTidalAmplitude.GetAccuracy());
+            Assert.AreEqual(waveDirectionalSpread, properties.WaveDirectionalSpread, properties.WaveDirectionalSpread.GetAccuracy());
+            Assert.AreEqual(tideSurgePhaseDifference, properties.TideSurgePhaseDifference, properties.TideSurgePhaseDifference.GetAccuracy());
 
             Assert.AreEqual(targetProbability, properties.TargetProbability);
             Assert.AreEqual(targetReliability, properties.TargetReliability, properties.TargetReliability.GetAccuracy());
@@ -191,7 +215,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(14, dynamicProperties.Count);
+            Assert.AreEqual(16, dynamicProperties.Count);
             Assert.IsInstanceOf<ExpandableObjectConverter>(classTypeConverter);
 
             PropertyDescriptor idProperty = dynamicProperties[requiredIdPropertyIndex];
@@ -250,11 +274,25 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
                                                                             "Berekende rekenwaarde voor de piekperiode van de golven voor het uitvoeren van een sterkteberekening voor het faalmechanisme duinen.",
                                                                             true);
 
-            PropertyDescriptor d50Property = dynamicProperties[requiredD50PropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(d50Property,
+            PropertyDescriptor meanTidalAmplitudeProperty = dynamicProperties[requiredMeanTidalAmplitudePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(meanTidalAmplitudeProperty,
                                                                             "Resultaat",
-                                                                            "Rekenwaarde d50 [m]",
-                                                                            "Rekenwaarde voor de d50 voor het uitvoeren van een sterkteberekening voor het faalmechanisme duinen.",
+                                                                            "Gemiddelde getijamplitude [m]",
+                                                                            "Berekende rekenwaarde voor de gemiddelde getijamplitude voor het uitvoeren van een sterkteberekeningen voor het faalmechanisme duinen.",
+                                                                            true);
+            
+            PropertyDescriptor waveDirectionalSpreadProperty = dynamicProperties[requiredWaveDirectionalSpreadPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waveDirectionalSpreadProperty,
+                                                                            "Resultaat",
+                                                                            "Golfrichtingspreiding [°]",
+                                                                            "Berekende rekenwaarde voor de golfrichtingspreiding voor het uitvoeren van een sterkteberekeningen voor het faalmechanisme duinen.",
+                                                                            true);
+            
+            PropertyDescriptor tideSurgePhaseDifferenceProperty = dynamicProperties[requiredTideSurgePhaseDifferencePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(tideSurgePhaseDifferenceProperty,
+                                                                            "Resultaat",
+                                                                            "Faseverschuiving tussen getij en opzet [uur]",
+                                                                            "Berekende rekenwaarde voor de faseverschuiving tussen getij en opzet voor het uitvoeren van een sterkteberekeningen voor het faalmechanisme duinen.",
                                                                             true);
 
             PropertyDescriptor targetProbabilityProperty = dynamicProperties[requiredTargetProbabilityPropertyIndex];

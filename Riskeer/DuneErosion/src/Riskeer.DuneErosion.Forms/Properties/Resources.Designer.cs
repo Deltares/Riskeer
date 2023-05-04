@@ -132,11 +132,29 @@ namespace Riskeer.DuneErosion.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Berekende rekenwaarde voor de gemiddelde getijamplitude voor het uitvoeren van een sterkteberekeningen voor het faalmechanisme duinen..
+        /// </summary>
+        internal static string DuneLocationCalculationOutput_MeanTidalAmplitude_Description {
+            get {
+                return ResourceManager.GetString("DuneLocationCalculationOutput_MeanTidalAmplitude_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gemiddelde getijamplitude [m].
         /// </summary>
         internal static string DuneLocationCalculationOutput_MeanTidalAmplitude_DisplayName {
             get {
                 return ResourceManager.GetString("DuneLocationCalculationOutput_MeanTidalAmplitude_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Berekende rekenwaarde voor de faseverschuiving tussen getij en opzet voor het uitvoeren van een sterkteberekeningen voor het faalmechanisme duinen..
+        /// </summary>
+        internal static string DuneLocationCalculationOutput_TideSurgePhaseDifference_Description {
+            get {
+                return ResourceManager.GetString("DuneLocationCalculationOutput_TideSurgePhaseDifference_Description", resourceCulture);
             }
         }
         
@@ -155,6 +173,15 @@ namespace Riskeer.DuneErosion.Forms.Properties {
         internal static string DuneLocationCalculationOutput_WaterLevel_DisplayName {
             get {
                 return ResourceManager.GetString("DuneLocationCalculationOutput_WaterLevel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Berekende rekenwaarde voor de golfrichtingspreiding voor het uitvoeren van een sterkteberekeningen voor het faalmechanisme duinen..
+        /// </summary>
+        internal static string DuneLocationCalculationOutput_WaveDirectionalSpread_Description {
+            get {
+                return ResourceManager.GetString("DuneLocationCalculationOutput_WaveDirectionalSpread_Description", resourceCulture);
             }
         }
         

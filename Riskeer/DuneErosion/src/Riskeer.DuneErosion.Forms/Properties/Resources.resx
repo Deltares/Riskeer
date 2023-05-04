@@ -192,4 +192,13 @@
   <data name="MetaData_TideSurgePhaseDifference_TargetProbability_0" xml:space="preserve">
     <value>Faseverschuiving tussen getij en opzet - {0}</value>
   </data>
+  <data name="DuneLocationCalculationOutput_TideSurgePhaseDifference_Description" xml:space="preserve">
+    <value>Berekende rekenwaarde voor de faseverschuiving tussen getij en opzet voor het uitvoeren van een sterkteberekeningen voor het faalmechanisme duinen.</value>
+  </data>
+  <data name="DuneLocationCalculationOutput_MeanTidalAmplitude_Description" xml:space="preserve">
+    <value>Berekende rekenwaarde voor de gemiddelde getijamplitude voor het uitvoeren van een sterkteberekeningen voor het faalmechanisme duinen.</value>
+  </data>
+  <data name="DuneLocationCalculationOutput_WaveDirectionalSpread_Description" xml:space="preserve">
+    <value>Berekende rekenwaarde voor de golfrichtingspreiding voor het uitvoeren van een sterkteberekeningen voor het faalmechanisme duinen.</value>
+  </data>
 </root>

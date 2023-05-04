@@ -151,17 +151,41 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Result))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.DuneLocation_D50_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.DuneLocation_D50_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.DuneLocationCalculationOutput_MeanTidalAmplitude_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.DuneLocationCalculationOutput_MeanTidalAmplitude_Description))]
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
-        public RoundedDouble D50
+        public RoundedDouble MeanTidalAmplitude
         {
             get
             {
-                return data.DuneLocation.D50;
+                return data.Output?.MeanTidalAmplitude ?? RoundedDouble.NaN;
             }
         }
-
+        
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Result))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.DuneLocationCalculationOutput_WaveDirectionalSpread_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.DuneLocationCalculationOutput_WaveDirectionalSpread_Description))]
+        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
+        public RoundedDouble WaveDirectionalSpread
+        {
+            get
+            {
+                return data.Output?.WaveDirectionalSpread ?? RoundedDouble.NaN;
+            }
+        }
+        
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Result))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources._DuneLocationCalculationOutput_TideSurgePhaseDifference_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.DuneLocationCalculationOutput_TideSurgePhaseDifference_Description))]
+        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
+        public RoundedDouble TideSurgePhaseDifference
+        {
+            get
+            {
+                return data.Output?.TideSurgePhaseDifference ?? RoundedDouble.NaN;
+            }
+        }
+        
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Result))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.CalculationOutput_TargetProbability_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.CalculationOutput_TargetProbability_Description))]
