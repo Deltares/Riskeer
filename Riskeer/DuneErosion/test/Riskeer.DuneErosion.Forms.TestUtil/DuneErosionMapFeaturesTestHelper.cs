@@ -85,13 +85,13 @@ namespace Riskeer.DuneErosion.Forms.TestUtil
                                    mapFeature, calculationsForTargetProbability.TargetProbability, "Rekenwaarde Tp - {0}", presentedMetaDataItems);
 
                     AssertMetaData(calculationsForTargetProbability.DuneLocationCalculations, expectedDuneLocation, o => o.MeanTidalAmplitude,
-                                   mapFeature, calculationsForTargetProbability.TargetProbability, "Gemiddelde getijamplitude - {0}", presentedMetaDataItems);
+                                   mapFeature, calculationsForTargetProbability.TargetProbability, "Rekenwaarde gemiddelde getijamplitude - {0}", presentedMetaDataItems);
 
                     AssertMetaData(calculationsForTargetProbability.DuneLocationCalculations, expectedDuneLocation, o => o.WaveDirectionalSpread,
-                                   mapFeature, calculationsForTargetProbability.TargetProbability, "Golfrichtingspreiding - {0}", presentedMetaDataItems);
+                                   mapFeature, calculationsForTargetProbability.TargetProbability, "Rekenwaarde golfrichtingspreiding - {0}", presentedMetaDataItems);
 
                     AssertMetaData(calculationsForTargetProbability.DuneLocationCalculations, expectedDuneLocation, o => o.TideSurgePhaseDifference,
-                                   mapFeature, calculationsForTargetProbability.TargetProbability, "Faseverschuiving tussen getij en opzet - {0}", presentedMetaDataItems);
+                                   mapFeature, calculationsForTargetProbability.TargetProbability, "Rekenwaarde faseverschuiving tussen getij en opzet - {0}", presentedMetaDataItems);
                 }
 
                 int expectedMetaDataCount = 4 + (6 * failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.Count);

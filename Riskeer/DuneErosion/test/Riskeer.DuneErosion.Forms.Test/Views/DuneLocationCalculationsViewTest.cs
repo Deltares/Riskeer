@@ -225,9 +225,9 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                     "Rekenwaarde waterstand [m+NAP]",
                     "Rekenwaarde Hs [m]",
                     "Rekenwaarde Tp [s]",
-                    "Gemiddelde getijamplitude [m]",
-                    "Golfrichtingspreiding [°]",
-                    "Faseverschuiving tussen getij en opzet [uur]"
+                    "Rekenwaarde gemiddelde getijamplitude [m]",
+                    "Rekenwaarde golfrichtingspreiding [-]",
+                    "Rekenwaarde faseverschuiving tussen getij en opzet [uur]"
                 };
                 DataGridViewTestHelper.AssertExpectedHeaders(expectedHeaderNames, dataGridView);
                 Type[] expectedColumnTypes =

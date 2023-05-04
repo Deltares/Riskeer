@@ -175,22 +175,22 @@
     <value>Rekenwaarde Tp - {0}</value>
   </data>
   <data name="DuneLocationCalculationOutput_MeanTidalAmplitude_DisplayName" xml:space="preserve">
-    <value>Gemiddelde getijamplitude [m]</value>
+    <value>Rekenwaarde gemiddelde getijamplitude [m]</value>
   </data>
   <data name="DuneLocationCalculationOutput_WaveDirectionalSpread_DisplayName" xml:space="preserve">
-    <value>Golfrichtingspreiding [°]</value>
+    <value>Rekenwaarde golfrichtingspreiding [-]</value>
   </data>
   <data name=" DuneLocationCalculationOutput_TideSurgePhaseDifference_DisplayName" xml:space="preserve">
-    <value>Faseverschuiving tussen getij en opzet [uur]</value>
+    <value>Rekenwaarde faseverschuiving tussen getij en opzet [uur]</value>
   </data>
   <data name="MetaData_MeanTidalAmplitude_TargetProbability_0" xml:space="preserve">
-    <value>Gemiddelde getijamplitude - {0}</value>
+    <value>Rekenwaarde gemiddelde getijamplitude - {0}</value>
   </data>
   <data name="MetaData_WaveDirectionalSpread_TargetProbability_0" xml:space="preserve">
-    <value>Golfrichtingspreiding - {0}</value>
+    <value>Rekenwaarde golfrichtingspreiding - {0}</value>
   </data>
   <data name="MetaData_TideSurgePhaseDifference_TargetProbability_0" xml:space="preserve">
-    <value>Faseverschuiving tussen getij en opzet - {0}</value>
+    <value>Rekenwaarde faseverschuiving tussen getij en opzet - {0}</value>
   </data>
   <data name="DuneLocationCalculationOutput_TideSurgePhaseDifference_Description" xml:space="preserve">
     <value>Berekende rekenwaarde voor de faseverschuiving tussen getij en opzet voor het uitvoeren van een sterkteberekeningen voor het faalmechanisme duinen.</value>

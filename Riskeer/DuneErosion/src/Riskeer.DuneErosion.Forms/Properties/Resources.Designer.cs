@@ -60,7 +60,7 @@ namespace Riskeer.DuneErosion.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Faseverschuiving tussen getij en opzet [uur].
+        ///   Looks up a localized string similar to Rekenwaarde faseverschuiving tussen getij en opzet [uur].
         /// </summary>
         internal static string _DuneLocationCalculationOutput_TideSurgePhaseDifference_DisplayName {
             get {
@@ -141,7 +141,7 @@ namespace Riskeer.DuneErosion.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gemiddelde getijamplitude [m].
+        ///   Looks up a localized string similar to Rekenwaarde gemiddelde getijamplitude [m].
         /// </summary>
         internal static string DuneLocationCalculationOutput_MeanTidalAmplitude_DisplayName {
             get {
@@ -186,7 +186,7 @@ namespace Riskeer.DuneErosion.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Golfrichtingspreiding [°].
+        ///   Looks up a localized string similar to Rekenwaarde golfrichtingspreiding [-].
         /// </summary>
         internal static string DuneLocationCalculationOutput_WaveDirectionalSpread_DisplayName {
             get {
@@ -249,7 +249,7 @@ namespace Riskeer.DuneErosion.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gemiddelde getijamplitude - {0}.
+        ///   Looks up a localized string similar to Rekenwaarde gemiddelde getijamplitude - {0}.
         /// </summary>
         internal static string MetaData_MeanTidalAmplitude_TargetProbability_0 {
             get {
@@ -267,7 +267,7 @@ namespace Riskeer.DuneErosion.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Faseverschuiving tussen getij en opzet - {0}.
+        ///   Looks up a localized string similar to Rekenwaarde faseverschuiving tussen getij en opzet - {0}.
         /// </summary>
         internal static string MetaData_TideSurgePhaseDifference_TargetProbability_0 {
             get {
@@ -285,7 +285,7 @@ namespace Riskeer.DuneErosion.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Golfrichtingspreiding - {0}.
+        ///   Looks up a localized string similar to Rekenwaarde golfrichtingspreiding - {0}.
         /// </summary>
         internal static string MetaData_WaveDirectionalSpread_TargetProbability_0 {
             get {

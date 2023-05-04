@@ -277,21 +277,21 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             PropertyDescriptor meanTidalAmplitudeProperty = dynamicProperties[requiredMeanTidalAmplitudePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(meanTidalAmplitudeProperty,
                                                                             "Resultaat",
-                                                                            "Gemiddelde getijamplitude [m]",
+                                                                            "Rekenwaarde gemiddelde getijamplitude [m]",
                                                                             "Berekende rekenwaarde voor de gemiddelde getijamplitude voor het uitvoeren van een sterkteberekeningen voor het faalmechanisme duinen.",
                                                                             true);
             
             PropertyDescriptor waveDirectionalSpreadProperty = dynamicProperties[requiredWaveDirectionalSpreadPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waveDirectionalSpreadProperty,
                                                                             "Resultaat",
-                                                                            "Golfrichtingspreiding [°]",
+                                                                            "Rekenwaarde golfrichtingspreiding [-]",
                                                                             "Berekende rekenwaarde voor de golfrichtingspreiding voor het uitvoeren van een sterkteberekeningen voor het faalmechanisme duinen.",
                                                                             true);
             
             PropertyDescriptor tideSurgePhaseDifferenceProperty = dynamicProperties[requiredTideSurgePhaseDifferencePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(tideSurgePhaseDifferenceProperty,
                                                                             "Resultaat",
-                                                                            "Faseverschuiving tussen getij en opzet [uur]",
+                                                                            "Rekenwaarde faseverschuiving tussen getij en opzet [uur]",
                                                                             "Berekende rekenwaarde voor de faseverschuiving tussen getij en opzet voor het uitvoeren van een sterkteberekeningen voor het faalmechanisme duinen.",
                                                                             true);
 
