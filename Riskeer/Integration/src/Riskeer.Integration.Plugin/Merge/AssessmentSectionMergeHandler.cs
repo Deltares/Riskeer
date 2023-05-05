@@ -181,23 +181,18 @@ namespace Riskeer.Integration.Plugin.Merge
         {
             var changedObjects = new List<IObservable>();
 
-            IEnumerable<string> targetHydraulicBoundaryDatabasesFileNames = targetAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases
-                                                                                                   .Select(hbd => Path.GetFileNameWithoutExtension(hbd.FilePath));
+            IEnumerable<string> targetHydraulicBoundaryDatabasesFileNames =
+                targetAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases
+                                       .Select(hbd => Path.GetFileNameWithoutExtension(hbd.FilePath));
 
-            IEnumerable<HydraulicBoundaryDatabase> overlappingDatabases = sourceAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases
-                                                                                                 .Where(hbd => targetHydraulicBoundaryDatabasesFileNames.Contains(
-                                                                                                            Path.GetFileNameWithoutExtension(hbd.FilePath)));
-
-            IEnumerable<HydraulicBoundaryDatabase> databasesToAdd = sourceAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases
-                                                                                           .Except(overlappingDatabases);
-
-            if (databasesToAdd.Any())
+            IEnumerable<HydraulicBoundaryDatabase> sourceHydraulicBoundaryDatabasesToAdd =
+                sourceAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases
+                                       .Where(hbd => !targetHydraulicBoundaryDatabasesFileNames.Contains(
+                                                         Path.GetFileNameWithoutExtension(hbd.FilePath)));
+            
+            foreach (HydraulicBoundaryDatabase hydraulicBoundaryDatabase in sourceHydraulicBoundaryDatabasesToAdd)
             {
-                foreach (HydraulicBoundaryDatabase hydraulicBoundaryDatabase in databasesToAdd)
-                {
-                    changedObjects.AddRange(hydraulicBoundaryDataUpdateHandler.AddHydraulicBoundaryDatabase(
-                                                hydraulicBoundaryDatabase));
-                }
+                changedObjects.AddRange(hydraulicBoundaryDataUpdateHandler.AddHydraulicBoundaryDatabase(hydraulicBoundaryDatabase));
             }
 
             return changedObjects;
