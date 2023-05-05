@@ -37,6 +37,9 @@ namespace Riskeer.Storage.Core.DbContext
         public double? WaterLevel { get; set; }
         public double? WaveHeight { get; set; }
         public double? WavePeriod { get; set; }
+        public double? MeanTidalAmplitude { get; set; }
+        public double? WaveDirectionalSpread { get; set; }
+        public double? TideSurgePhaseDifference { get; set; }
         public double? TargetProbability { get; set; }
         public double? TargetReliability { get; set; }
         public double? CalculatedProbability { get; set; }

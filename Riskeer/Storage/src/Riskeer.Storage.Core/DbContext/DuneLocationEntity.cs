@@ -47,8 +47,6 @@ namespace Riskeer.Storage.Core.DbContext
         public string Name { get; set; }
         public int CoastalAreaId { get; set; }
         public double? Offset { get; set; }
-        public double? Orientation { get; set; }
-        public double? D50 { get; set; }
         public int Order { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

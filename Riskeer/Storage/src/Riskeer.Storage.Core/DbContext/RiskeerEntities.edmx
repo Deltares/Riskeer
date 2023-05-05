@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RiskeerEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="Data Source=C:\Checkouts\Riskeer\Riskeer\Storage\src\Riskeer.Storage.Core\Riskeer.risk" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RiskeerEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="Data Source=C:\repos\Riskeer\Riskeer\Storage\src\Riskeer.Storage.Core\Riskeer.risk" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AdoptableFailureMechanismSectionResultEntity">
           <Key>
             <PropertyRef Name="AdoptableFailureMechanismSectionResultEntityId" />
@@ -238,6 +238,9 @@
           <Property Name="WaterLevel" Type="real" />
           <Property Name="WaveHeight" Type="real" />
           <Property Name="WavePeriod" Type="real" />
+          <Property Name="MeanTidalAmplitude" Type="real" />
+          <Property Name="WaveDirectionalSpread" Type="real" />
+          <Property Name="TideSurgePhaseDifference" Type="real" />
           <Property Name="TargetProbability" Type="real" />
           <Property Name="TargetReliability" Type="real" />
           <Property Name="CalculatedProbability" Type="real" />
@@ -254,8 +257,6 @@
           <Property Name="Name" Type="varchar" MaxLength="260" Nullable="false" />
           <Property Name="CoastalAreaId" Type="int" Nullable="false" />
           <Property Name="Offset" Type="real" />
-          <Property Name="Orientation" Type="real" />
-          <Property Name="D50" Type="real" />
           <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="FailureMechanismEntity">
@@ -4870,6 +4871,9 @@
           <Property Name="WaterLevel" Type="Double" />
           <Property Name="WaveHeight" Type="Double" />
           <Property Name="WavePeriod" Type="Double" />
+          <Property Name="MeanTidalAmplitude" Type="Double" />
+          <Property Name="WaveDirectionalSpread" Type="Double" />
+          <Property Name="TideSurgePhaseDifference" Type="Double" />
           <Property Name="TargetProbability" Type="Double" />
           <Property Name="TargetReliability" Type="Double" />
           <Property Name="CalculatedProbability" Type="Double" />
@@ -4887,8 +4891,6 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="260" FixedLength="false" Unicode="false" />
           <Property Name="CoastalAreaId" Type="Int32" Nullable="false" />
           <Property Name="Offset" Type="Double" />
-          <Property Name="Orientation" Type="Double" />
-          <Property Name="D50" Type="Double" />
           <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="DuneLocationCalculationEntities" Relationship="RiskeerEntitiesModel.FK_DuneLocationCalculationEntity_0_0" FromRole="DuneLocationEntity" ToRole="DuneLocationCalculationEntity" />
           <NavigationProperty Name="HydraulicLocationEntity" Relationship="RiskeerEntitiesModel.FK_DuneLocationEntity_0_0" FromRole="DuneLocationEntity" ToRole="HydraulicLocationEntity" />
@@ -8126,6 +8128,9 @@
                 <ScalarProperty Name="CalculatedProbability" ColumnName="CalculatedProbability" />
                 <ScalarProperty Name="TargetReliability" ColumnName="TargetReliability" />
                 <ScalarProperty Name="TargetProbability" ColumnName="TargetProbability" />
+                <ScalarProperty Name="TideSurgePhaseDifference" ColumnName="TideSurgePhaseDifference" />
+                <ScalarProperty Name="WaveDirectionalSpread" ColumnName="WaveDirectionalSpread" />
+                <ScalarProperty Name="MeanTidalAmplitude" ColumnName="MeanTidalAmplitude" />
                 <ScalarProperty Name="WavePeriod" ColumnName="WavePeriod" />
                 <ScalarProperty Name="WaveHeight" ColumnName="WaveHeight" />
                 <ScalarProperty Name="WaterLevel" ColumnName="WaterLevel" />
@@ -8138,8 +8143,6 @@
             <EntityTypeMapping TypeName="RiskeerEntitiesModel.DuneLocationEntity">
               <MappingFragment StoreEntitySet="DuneLocationEntity">
                 <ScalarProperty Name="Order" ColumnName="Order" />
-                <ScalarProperty Name="D50" ColumnName="D50" />
-                <ScalarProperty Name="Orientation" ColumnName="Orientation" />
                 <ScalarProperty Name="Offset" ColumnName="Offset" />
                 <ScalarProperty Name="CoastalAreaId" ColumnName="CoastalAreaId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
