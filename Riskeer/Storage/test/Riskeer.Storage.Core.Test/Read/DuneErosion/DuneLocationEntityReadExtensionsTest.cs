@@ -70,16 +70,12 @@ namespace Riskeer.Storage.Core.Test.Read.DuneErosion
             var random = new Random(21);
             int coastalAreaId = random.Next();
             double offset = random.NextDouble();
-            double orientation = random.NextDouble();
-            double d50 = random.NextDouble();
             var entity = new DuneLocationEntity
             {
                 HydraulicLocationEntity = hydraulicLocationEntity,
                 Name = testName,
                 CoastalAreaId = coastalAreaId,
-                Offset = offset,
-                Orientation = orientation,
-                D50 = d50
+                Offset = offset
             };
 
             var collector = new ReadConversionCollector();
@@ -93,8 +89,6 @@ namespace Riskeer.Storage.Core.Test.Read.DuneErosion
             Assert.AreEqual(testName, location.Name);
             Assert.AreEqual(coastalAreaId, location.CoastalAreaId);
             Assert.AreEqual(offset, location.Offset, location.Offset.GetAccuracy());
-            Assert.AreEqual(orientation, location.Orientation, location.Orientation.GetAccuracy());
-            Assert.AreEqual(d50, location.D50, location.D50.GetAccuracy());
 
             Assert.IsTrue(collector.Contains(entity));
         }
@@ -115,9 +109,7 @@ namespace Riskeer.Storage.Core.Test.Read.DuneErosion
                 HydraulicLocationEntity = hydraulicLocationEntity,
                 Name = testName,
                 CoastalAreaId = coastalAreaId,
-                Offset = null,
-                Orientation = null,
-                D50 = null
+                Offset = null
             };
 
             var collector = new ReadConversionCollector();
@@ -131,8 +123,6 @@ namespace Riskeer.Storage.Core.Test.Read.DuneErosion
             Assert.AreEqual(testName, location.Name);
             Assert.AreEqual(coastalAreaId, location.CoastalAreaId);
             Assert.IsNaN(location.Offset);
-            Assert.IsNaN(location.Orientation);
-            Assert.IsNaN(location.D50);
 
             Assert.IsTrue(collector.Contains(entity));
         }

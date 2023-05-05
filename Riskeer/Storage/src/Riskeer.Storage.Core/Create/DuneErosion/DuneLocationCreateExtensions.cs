@@ -62,8 +62,6 @@ namespace Riskeer.Storage.Core.Create.DuneErosion
                 Name = location.Name.DeepClone(),
                 CoastalAreaId = location.CoastalAreaId,
                 Offset = location.Offset.ToNaNAsNull(),
-                Orientation = location.Orientation.ToNaNAsNull(),
-                D50 = location.D50.ToNaNAsNull(),
                 Order = order
             };
 

@@ -59,9 +59,7 @@ namespace Riskeer.Storage.Core.Read.DuneErosion
                                                 new DuneLocation.ConstructionProperties
                                                 {
                                                     CoastalAreaId = entity.CoastalAreaId,
-                                                    Offset = entity.Offset.ToNullAsNaN(),
-                                                    Orientation = entity.Orientation.ToNullAsNaN(),
-                                                    D50 = entity.D50.ToNullAsNaN()
+                                                    Offset = entity.Offset.ToNullAsNaN()
                                                 });
 
             collector.Read(entity, duneLocation);

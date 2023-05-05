@@ -76,9 +76,7 @@ namespace Riskeer.Storage.Core.Test.Create.DuneErosion
                                             new DuneLocation.ConstructionProperties
                                             {
                                                 CoastalAreaId = random.Next(),
-                                                Offset = random.NextDouble(),
-                                                Orientation = random.NextDouble(),
-                                                D50 = random.NextDouble()
+                                                Offset = random.NextDouble()
                                             });
 
             var registry = new PersistenceRegistry();
@@ -93,8 +91,6 @@ namespace Riskeer.Storage.Core.Test.Create.DuneErosion
             Assert.AreEqual(testName, entity.Name);
             Assert.AreEqual(location.CoastalAreaId, entity.CoastalAreaId);
             Assert.AreEqual(location.Offset, entity.Offset, location.Offset.GetAccuracy());
-            Assert.AreEqual(location.Orientation, entity.Orientation, location.Orientation.GetAccuracy());
-            Assert.AreEqual(location.D50, entity.D50, location.D50.GetAccuracy());
             Assert.AreEqual(order, entity.Order);
         }
 
@@ -111,9 +107,7 @@ namespace Riskeer.Storage.Core.Test.Create.DuneErosion
             var location = new DuneLocation(string.Empty, hydraulicBoundaryLocation,
                                             new DuneLocation.ConstructionProperties
                                             {
-                                                Offset = double.NaN,
-                                                Orientation = double.NaN,
-                                                D50 = double.NaN
+                                                Offset = double.NaN
                                             });
 
             var registry = new PersistenceRegistry();
@@ -127,8 +121,6 @@ namespace Riskeer.Storage.Core.Test.Create.DuneErosion
             Assert.IsNotNull(entity);
             Assert.IsEmpty(entity.Name);
             Assert.IsNull(entity.Offset);
-            Assert.IsNull(entity.Orientation);
-            Assert.IsNull(entity.D50);
             Assert.AreEqual(order, entity.Order);
         }
 
