@@ -145,8 +145,6 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.[Name] = OLD.[Name]" +
                 "AND NEW.[CoastalAreaId] = OLD.[CoastalAreaId] " +
                 "AND NEW.[Offset] IS OLD.[Offset] " +
-                "AND NEW.[Orientation] IS OLD.[Orientation] " +
-                "AND NEW.[D50] IS OLD.[D50] " +
                 "AND NEW.\"Order\" = OLD.\"Order\"; " +
                 "DETACH SOURCEPROJECT";
 

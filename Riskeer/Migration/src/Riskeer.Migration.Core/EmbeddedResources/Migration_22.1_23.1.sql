@@ -44,8 +44,6 @@ INSERT INTO DuneLocationEntity (
     [Name],
     [CoastalAreaId],
     [Offset],
-    [Orientation],
-    [D50],
     [Order]
 )
 SELECT
@@ -55,8 +53,6 @@ SELECT
     [Name],
     [CoastalAreaId],
     [Offset],
-    [Orientation],
-    [D50],
     [Order]
 FROM [SOURCEPROJECT].DuneLocationEntity
 JOIN (
