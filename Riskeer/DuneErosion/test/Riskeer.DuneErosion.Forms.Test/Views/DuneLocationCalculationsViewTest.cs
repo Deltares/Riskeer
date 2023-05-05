@@ -320,7 +320,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                     3.45.ToString(CultureInfo.CurrentCulture),
                     4.35.ToString(CultureInfo.CurrentCulture),
                     5.54.ToString(CultureInfo.CurrentCulture),
-                    6.45.ToString(CultureInfo.CurrentCulture),
+                    6.45.ToString(CultureInfo.CurrentCulture)
                 };
                 DataGridViewTestHelper.AssertExpectedRowFormattedValues(expectedRow1Values, rows[1]);
             }
