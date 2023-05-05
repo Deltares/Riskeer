@@ -37,10 +37,10 @@ namespace Riskeer.Storage.Core.Test.Read.DuneErosion
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((DuneLocationCalculationOutputEntity) null).Read();
+            void Call() => ((DuneLocationCalculationOutputEntity) null).Read();
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("entity", exception.ParamName);
         }
 
@@ -52,6 +52,9 @@ namespace Riskeer.Storage.Core.Test.Read.DuneErosion
             double waterLevel = random.NextDouble();
             double waveHeight = random.NextDouble();
             double wavePeriod = random.NextDouble();
+            double meanTidalAmplitude = random.NextDouble();
+            double waveDirectionalSpread = random.NextDouble();
+            double tideSurgePhaseDifference = random.NextDouble();
             double targetProbability = random.NextDouble();
             double targetReliability = random.NextDouble();
             double calculatedProbability = random.NextDouble();
@@ -62,6 +65,9 @@ namespace Riskeer.Storage.Core.Test.Read.DuneErosion
                 WaterLevel = waterLevel,
                 WaveHeight = waveHeight,
                 WavePeriod = wavePeriod,
+                MeanTidalAmplitude = meanTidalAmplitude,
+                WaveDirectionalSpread = waveDirectionalSpread,
+                TideSurgePhaseDifference = tideSurgePhaseDifference,
                 TargetProbability = targetProbability,
                 TargetReliability = targetReliability,
                 CalculatedProbability = calculatedProbability,
@@ -76,6 +82,9 @@ namespace Riskeer.Storage.Core.Test.Read.DuneErosion
             Assert.AreEqual(waterLevel, output.WaterLevel, output.WaterLevel.GetAccuracy());
             Assert.AreEqual(waveHeight, output.WaveHeight, output.WaveHeight.GetAccuracy());
             Assert.AreEqual(wavePeriod, output.WavePeriod, output.WavePeriod.GetAccuracy());
+            Assert.AreEqual(meanTidalAmplitude, output.MeanTidalAmplitude, output.MeanTidalAmplitude.GetAccuracy());
+            Assert.AreEqual(waveDirectionalSpread, output.WaveDirectionalSpread, output.WaveDirectionalSpread.GetAccuracy());
+            Assert.AreEqual(tideSurgePhaseDifference, output.TideSurgePhaseDifference, output.TideSurgePhaseDifference.GetAccuracy());
             Assert.AreEqual(targetProbability, output.TargetProbability);
             Assert.AreEqual(targetReliability, output.TargetReliability, output.TargetReliability.GetAccuracy());
             Assert.AreEqual(calculatedProbability, output.CalculatedProbability);
@@ -93,6 +102,9 @@ namespace Riskeer.Storage.Core.Test.Read.DuneErosion
                 WaterLevel = null,
                 WaveHeight = null,
                 WavePeriod = null,
+                MeanTidalAmplitude = null,
+                WaveDirectionalSpread = null,
+                TideSurgePhaseDifference = null,
                 TargetProbability = null,
                 TargetReliability = null,
                 CalculatedProbability = null,
@@ -107,6 +119,9 @@ namespace Riskeer.Storage.Core.Test.Read.DuneErosion
             Assert.IsNaN(output.WaterLevel);
             Assert.IsNaN(output.WaveHeight);
             Assert.IsNaN(output.WavePeriod);
+            Assert.IsNaN(output.MeanTidalAmplitude);
+            Assert.IsNaN(output.WaveDirectionalSpread);
+            Assert.IsNaN(output.TideSurgePhaseDifference);
             Assert.IsNaN(output.TargetProbability);
             Assert.IsNaN(output.TargetReliability);
             Assert.IsNaN(output.CalculatedProbability);
