@@ -347,16 +347,12 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                         new DuneLocationCalculation(new DuneLocation(locationName1, hydraulicBoundaryLocation, new DuneLocation.ConstructionProperties
                         {
                             CoastalAreaId = 0,
-                            Offset = 0,
-                            Orientation = 0,
-                            D50 = 0.000007
+                            Offset = 0
                         })),
                         new DuneLocationCalculation(new DuneLocation(locationName2, hydraulicBoundaryLocation, new DuneLocation.ConstructionProperties
                         {
                             CoastalAreaId = 0,
-                            Offset = 0,
-                            Orientation = 0,
-                            D50 = 0.000007
+                            Offset = 0
                         }))
                     }
                 };
@@ -471,9 +467,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                     new DuneLocationCalculation(new DuneLocation("A", hydraulicBoundaryLocation, new DuneLocation.ConstructionProperties
                     {
                         CoastalAreaId = 0,
-                        Offset = 0,
-                        Orientation = 0,
-                        D50 = 0.000007
+                        Offset = 0
                     }))
                 }
             };

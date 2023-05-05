@@ -102,7 +102,6 @@ namespace Riskeer.DuneErosion.Forms.Test.Factories
                                     new DuneLocation.ConstructionProperties
                                     {
                                         CoastalAreaId = random.Next(),
-                                        D50 = random.NextDouble(),
                                         Offset = random.NextDouble()
                                     });
         }

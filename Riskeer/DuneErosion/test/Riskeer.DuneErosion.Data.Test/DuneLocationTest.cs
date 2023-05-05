@@ -70,17 +70,13 @@ namespace Riskeer.DuneErosion.Data.Test
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "hydraulic boundary location", 10.0, 12.0);
             const int coastalAreaId = 3;
             const double offset = 4.2;
-            const double orientation = 4.2;
-            const double d50 = 0.123456;
 
             // Call
             var duneLocation = new DuneLocation(name, hydraulicBoundaryLocation,
                                                 new DuneLocation.ConstructionProperties
                                                 {
                                                     CoastalAreaId = coastalAreaId,
-                                                    Offset = offset,
-                                                    Orientation = orientation,
-                                                    D50 = d50
+                                                    Offset = offset
                                                 });
 
             // Assert
@@ -90,8 +86,6 @@ namespace Riskeer.DuneErosion.Data.Test
             Assert.AreSame(hydraulicBoundaryLocation.Location, duneLocation.Location);
             Assert.AreEqual(coastalAreaId, duneLocation.CoastalAreaId);
             Assert.AreEqual(offset, duneLocation.Offset.Value);
-            Assert.AreEqual(orientation, duneLocation.Orientation.Value);
-            Assert.AreEqual(d50, duneLocation.D50.Value);
         }
 
         [Test]
@@ -107,36 +101,6 @@ namespace Riskeer.DuneErosion.Data.Test
             // Assert
             Assert.AreEqual(1, duneLocation.Offset.NumberOfDecimalPlaces);
             Assert.AreEqual(4.3, duneLocation.Offset, duneLocation.Offset.GetAccuracy());
-        }
-
-        [Test]
-        public void Constructor_WithOrientation_OrientationRounded()
-        {
-            // Call
-            var duneLocation = new DuneLocation("dune", new TestHydraulicBoundaryLocation(),
-                                                new DuneLocation.ConstructionProperties
-                                                {
-                                                    Orientation = 8.214
-                                                });
-
-            // Assert
-            Assert.AreEqual(1, duneLocation.Orientation.NumberOfDecimalPlaces);
-            Assert.AreEqual(8.2, duneLocation.Orientation, duneLocation.Orientation.GetAccuracy());
-        }
-
-        [Test]
-        public void Constructor_WithD50_D50Rounded()
-        {
-            // Call
-            var duneLocation = new DuneLocation("dune", new TestHydraulicBoundaryLocation(),
-                                                new DuneLocation.ConstructionProperties
-                                                {
-                                                    D50 = 0.1234567
-                                                });
-
-            // Assert
-            Assert.AreEqual(6, duneLocation.D50.NumberOfDecimalPlaces);
-            Assert.AreEqual(0.123457, duneLocation.D50, duneLocation.D50.GetAccuracy());
         }
     }
 }

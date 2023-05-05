@@ -44,9 +44,7 @@ namespace Riskeer.DuneErosion.Data.TestUtil
             : base(name, new TestHydraulicBoundaryLocation(), new ConstructionProperties
             {
                 Offset = 0,
-                Orientation = 0,
-                CoastalAreaId = 0,
-                D50 = 0
+                CoastalAreaId = 0
             }) {}
     }
 }

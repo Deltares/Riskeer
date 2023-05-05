@@ -146,9 +146,7 @@ namespace Riskeer.DuneErosion.Service.Test
                                                 new DuneLocation.ConstructionProperties
                                                 {
                                                     CoastalAreaId = 0,
-                                                    Offset = 0,
-                                                    Orientation = 0,
-                                                    D50 = 0.000007
+                                                    Offset = 0
                                                 });
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))

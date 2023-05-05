@@ -44,8 +44,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             var duneLocation = new DuneLocation("test location", new TestHydraulicBoundaryLocation(), new DuneLocation.ConstructionProperties
             {
                 CoastalAreaId = 2,
-                Offset = offSet,
-                D50 = 0.000183
+                Offset = offSet
             });
             var duneLocationCalculation = new DuneLocationCalculation(duneLocation)
             {

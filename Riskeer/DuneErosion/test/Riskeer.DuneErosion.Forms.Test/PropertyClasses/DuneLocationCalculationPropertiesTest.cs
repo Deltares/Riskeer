@@ -94,7 +94,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             Assert.IsNaN(properties.WavePeriod);
             TestHelper.AssertTypeConverter<DuneLocationCalculationProperties, NoValueRoundedDoubleConverter>(
                 nameof(DuneLocationCalculationProperties.WavePeriod));
-            
+
             Assert.IsNaN(properties.MeanTidalAmplitude);
             TestHelper.AssertTypeConverter<DuneLocationCalculationProperties, NoValueRoundedDoubleConverter>(
                 nameof(DuneLocationCalculationProperties.MeanTidalAmplitude));
@@ -167,8 +167,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
                                                 new DuneLocation.ConstructionProperties
                                                 {
                                                     CoastalAreaId = coastalAreaId,
-                                                    Offset = offset,
-                                                    Orientation = orientation
+                                                    Offset = offset
                                                 });
             var duneLocationCalculation = new DuneLocationCalculation(duneLocation)
             {
@@ -280,14 +279,14 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
                                                                             "Rekenwaarde gemiddelde getijamplitude [m]",
                                                                             "Berekende rekenwaarde voor de gemiddelde getijamplitude voor het uitvoeren van een sterkteberekeningen voor het faalmechanisme duinen.",
                                                                             true);
-            
+
             PropertyDescriptor waveDirectionalSpreadProperty = dynamicProperties[requiredWaveDirectionalSpreadPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waveDirectionalSpreadProperty,
                                                                             "Resultaat",
                                                                             "Rekenwaarde golfrichtingspreiding [-]",
                                                                             "Berekende rekenwaarde voor de golfrichtingspreiding voor het uitvoeren van een sterkteberekeningen voor het faalmechanisme duinen.",
                                                                             true);
-            
+
             PropertyDescriptor tideSurgePhaseDifferenceProperty = dynamicProperties[requiredTideSurgePhaseDifferencePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(tideSurgePhaseDifferenceProperty,
                                                                             "Resultaat",

@@ -60,8 +60,6 @@ namespace Riskeer.DuneErosion.Data
             Name = name;
             CoastalAreaId = properties.CoastalAreaId;
             Offset = new RoundedDouble(1, properties.Offset);
-            Orientation = new RoundedDouble(1, properties.Orientation);
-            D50 = new RoundedDouble(6, properties.D50);
         }
 
         /// <summary>
@@ -95,16 +93,6 @@ namespace Riskeer.DuneErosion.Data
         public RoundedDouble Offset { get; }
 
         /// <summary>
-        /// Gets the orientation of the dune location.
-        /// </summary>
-        public RoundedDouble Orientation { get; }
-
-        /// <summary>
-        /// Gets the d50 of the dune location.
-        /// </summary>
-        public RoundedDouble D50 { get; }
-
-        /// <summary>
         /// Class holding the various construction parameters for <see cref="DuneLocation"/>.
         /// </summary>
         public class ConstructionProperties
@@ -118,16 +106,6 @@ namespace Riskeer.DuneErosion.Data
             /// Sets the offset of the dune location.
             /// </summary>
             public double Offset { internal get; set; }
-
-            /// <summary>
-            /// Sets the orientation of the dune location.
-            /// </summary>
-            public double Orientation { internal get; set; }
-
-            /// <summary>
-            /// Sets the d50 of the dune location.
-            /// </summary>
-            public double D50 { internal get; set; }
         }
     }
 }
