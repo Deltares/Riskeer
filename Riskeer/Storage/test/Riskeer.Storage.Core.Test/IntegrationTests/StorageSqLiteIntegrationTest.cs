@@ -994,8 +994,6 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             Assert.AreEqual(expectedLocation.Location, actualLocation.Location);
             Assert.AreEqual(expectedLocation.CoastalAreaId, actualLocation.CoastalAreaId);
             Assert.AreEqual(expectedLocation.Offset, actualLocation.Offset);
-            Assert.AreEqual(expectedLocation.Orientation, actualLocation.Orientation);
-            Assert.AreEqual(expectedLocation.D50, actualLocation.D50);
         }
 
         private static void AssertDuneLocationCalculation(DuneLocationCalculation expectedCalculation, DuneLocationCalculation actualCalculation)
@@ -1015,6 +1013,9 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             Assert.AreEqual(expectedOutput.WaterLevel, actualOutput.WaterLevel);
             Assert.AreEqual(expectedOutput.WaveHeight, actualOutput.WaveHeight);
             Assert.AreEqual(expectedOutput.WavePeriod, actualOutput.WavePeriod);
+            Assert.AreEqual(expectedOutput.MeanTidalAmplitude, actualOutput.MeanTidalAmplitude);
+            Assert.AreEqual(expectedOutput.WaveDirectionalSpread, actualOutput.WaveDirectionalSpread);
+            Assert.AreEqual(expectedOutput.TideSurgePhaseDifference, actualOutput.TideSurgePhaseDifference);
             Assert.AreEqual(expectedOutput.TargetProbability, actualOutput.TargetProbability);
             Assert.AreEqual(expectedOutput.TargetReliability, actualOutput.TargetReliability);
             Assert.AreEqual(expectedOutput.CalculatedProbability, actualOutput.CalculatedProbability);

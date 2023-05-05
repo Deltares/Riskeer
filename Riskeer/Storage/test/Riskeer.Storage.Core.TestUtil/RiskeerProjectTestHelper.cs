@@ -1363,10 +1363,19 @@ namespace Riskeer.Storage.Core.TestUtil
         private static void SetDuneLocations(DuneErosionFailureMechanism failureMechanism,
                                              IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
         {
+            var random = new Random(21);
             var locationOne = new DuneLocation("DuneLocation", hydraulicBoundaryLocations.ElementAt(0),
-                                               new DuneLocation.ConstructionProperties());
+                                               new DuneLocation.ConstructionProperties
+                                               {
+                                                   CoastalAreaId = random.Next(),
+                                                   Offset = random.NextDouble()
+                                               });
             var locationTwo = new DuneLocation("DuneLocation", hydraulicBoundaryLocations.ElementAt(1),
-                                               new DuneLocation.ConstructionProperties());
+                                               new DuneLocation.ConstructionProperties
+                                               {
+                                                   CoastalAreaId = random.Next(),
+                                                   Offset = random.NextDouble()
+                                               });
             failureMechanism.SetDuneLocations(new[]
             {
                 locationOne,
@@ -1398,6 +1407,9 @@ namespace Riskeer.Storage.Core.TestUtil
                                                                        WaterLevel = 10,
                                                                        WaveHeight = 20,
                                                                        WavePeriod = 30,
+                                                                       MeanTidalAmplitude = 40,
+                                                                       WaveDirectionalSpread = 50,
+                                                                       TideSurgePhaseDifference = 60,
                                                                        TargetProbability = 0.4,
                                                                        TargetReliability = 50,
                                                                        CalculatedProbability = 0.6,
