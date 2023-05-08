@@ -33,10 +33,13 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             new Dictionary<FailureMechanismAssemblyProbabilityResultType, int>
             {
                 {
-                    FailureMechanismAssemblyProbabilityResultType.Automatic, 1
+                    FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile, 1
                 },
                 {
-                    FailureMechanismAssemblyProbabilityResultType.Manual, 2
+                    FailureMechanismAssemblyProbabilityResultType.AutomaticIndependentSections, 2
+                },
+                {
+                    FailureMechanismAssemblyProbabilityResultType.Manual, 3
                 }
             };
 
@@ -44,7 +47,10 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             new Dictionary<FailureMechanismAssemblyProbabilityResultType, string>
             {
                 {
-                    FailureMechanismAssemblyProbabilityResultType.Automatic, "Automatisch berekenen"
+                    FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile, "Automatisch berekenen o.b.v. slechtste doorsnede of vak"
+                },
+                {
+                    FailureMechanismAssemblyProbabilityResultType.AutomaticIndependentSections, "Automatisch berekenen o.b.v. onafhankelijke vakken"
                 },
                 {
                     FailureMechanismAssemblyProbabilityResultType.Manual, "Handmatig invullen"

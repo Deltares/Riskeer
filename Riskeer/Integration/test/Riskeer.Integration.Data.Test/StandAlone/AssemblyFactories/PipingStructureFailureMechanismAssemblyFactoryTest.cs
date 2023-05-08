@@ -80,8 +80,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Automatic
-                }
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile                }
             };
             failureMechanism.SetSections(new[]
             {
@@ -115,8 +114,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Automatic
-                }
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile                }
             };
 
             var assessmentSection = new AssessmentSectionStub();
@@ -142,8 +140,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Automatic
-                }
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile                }
             };
 
             var assessmentSection = new AssessmentSectionStub();

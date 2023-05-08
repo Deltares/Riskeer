@@ -41,5 +41,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <exception cref="FailureMechanismAssemblyCalculatorException">Thrown when an error occurs while assembling.</exception>
         FailureMechanismAssemblyResultWrapper Assemble(double failureMechanismN, IEnumerable<FailureMechanismSectionAssemblyResult> sectionAssemblyResults,
                                                        bool applySectionLengthEffect);
+
+        FailureMechanismAssemblyResultWrapper Assemble(IEnumerable<FailureMechanismSectionAssemblyResult> sectionAssemblyResults);
     }
 }

@@ -222,6 +222,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile;
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 section

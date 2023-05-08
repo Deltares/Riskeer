@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2022. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -388,11 +388,22 @@ namespace Riskeer.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Automatisch berekenen.
+        ///   Looks up a localized string similar to Automatisch berekenen o.b.v. onafhankelijke vakken.
         /// </summary>
-        public static string FailureMechanismAssemblyProbabilityResultTypeAutomatic_DisplayName {
+        public static string FailureMechanismAssemblyProbabilityResultTypeAutomaticIndependentSections_DisplayName {
             get {
-                return ResourceManager.GetString("FailureMechanismAssemblyProbabilityResultTypeAutomatic_DisplayName", resourceCulture);
+                return ResourceManager.GetString("FailureMechanismAssemblyProbabilityResultTypeAutomaticIndependentSections_Display" +
+                        "Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatisch berekenen o.b.v. slechtste doorsnede of vak.
+        /// </summary>
+        public static string FailureMechanismAssemblyProbabilityResultTypeAutomaticWorstSectionOrProfile_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismAssemblyProbabilityResultTypeAutomaticWorstSectionOrProfile_Displ" +
+                        "ayName", resourceCulture);
             }
         }
         

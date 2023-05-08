@@ -239,7 +239,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Automatic
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile
                 }
             };
             failureMechanism.SetSections(new[]
@@ -274,7 +274,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Automatic
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile
                 }
             };
 
@@ -301,7 +301,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Automatic
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile
                 }
             };
 

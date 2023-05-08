@@ -78,7 +78,7 @@ namespace Riskeer.HeightStructures.Data.Test
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Automatic
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile
                 }
             };
             failureMechanism.SetSections(new[]
@@ -113,7 +113,7 @@ namespace Riskeer.HeightStructures.Data.Test
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Automatic
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticIndependentSections
                 }
             };
 
@@ -140,7 +140,7 @@ namespace Riskeer.HeightStructures.Data.Test
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Automatic
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticIndependentSections
                 }
             };
 

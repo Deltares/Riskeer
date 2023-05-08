@@ -70,5 +70,16 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
 
             return AssemblyResultOutput ?? (AssemblyResultOutput = new FailureMechanismAssemblyResultWrapper(0.1, AssemblyMethod.BOI1A1));
         }
+
+        public FailureMechanismAssemblyResultWrapper Assemble(IEnumerable<FailureMechanismSectionAssemblyResult> sectionAssemblyResults)
+        {
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new FailureMechanismAssemblyCalculatorException("Message", new Exception());
+            }
+
+            SectionAssemblyResultsInput = sectionAssemblyResults;
+            return AssemblyResultOutput ?? (AssemblyResultOutput = new FailureMechanismAssemblyResultWrapper(0.1, AssemblyMethod.BOI1A1));
+        }
     }
 }

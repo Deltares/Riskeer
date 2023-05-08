@@ -259,7 +259,7 @@ namespace Riskeer.HeightStructures.Service.Test
             mocks.ReplayAll();
 
             HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First();
-
+            
             StructuresCalculation<HeightStructuresInput> calculation1 = CreateValidCalculation(hydraulicBoundaryLocation);
             StructuresCalculation<HeightStructuresInput> calculation2 = CreateValidCalculation(hydraulicBoundaryLocation);
 

@@ -81,8 +81,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
             // Setup
             var result = new FailureMechanismAssemblyResult
             {
-                ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Automatic
-            };
+                ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile            };
 
             // Call
             string message = FailureMechanismAssemblyResultValidationHelper.GetValidationError(result);

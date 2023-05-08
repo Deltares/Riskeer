@@ -88,7 +88,7 @@ namespace Riskeer.Common.Forms.Views
             this.probabilityResultTypeComboBox.Location = new System.Drawing.Point(171, 10);
             this.probabilityResultTypeComboBox.Margin = new System.Windows.Forms.Padding(3, 10, 3, 10);
             this.probabilityResultTypeComboBox.Name = "probabilityResultTypeComboBox";
-            this.probabilityResultTypeComboBox.Size = new System.Drawing.Size(150, 21);
+            this.probabilityResultTypeComboBox.Size = new System.Drawing.Size(300, 21);
             this.probabilityResultTypeComboBox.TabIndex = 3;
             this.probabilityResultTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.ProbabilityResultTypeComboBoxSelectedIndexChanged);
             // 
@@ -141,8 +141,8 @@ namespace Riskeer.Common.Forms.Views
 
         protected Core.Common.Controls.DataGrid.DataGridViewControl DataGridViewControl;
         protected System.Windows.Forms.TableLayoutPanel TableLayoutPanel;
+        protected System.Windows.Forms.ComboBox probabilityResultTypeComboBox;
         private System.Windows.Forms.Label failureMechanismAssemblyLabel;
-        private System.Windows.Forms.ComboBox probabilityResultTypeComboBox;
         private System.Windows.Forms.TextBox failureMechanismAssemblyProbabilityTextBox;
         private ErrorProvider errorProvider;
     }

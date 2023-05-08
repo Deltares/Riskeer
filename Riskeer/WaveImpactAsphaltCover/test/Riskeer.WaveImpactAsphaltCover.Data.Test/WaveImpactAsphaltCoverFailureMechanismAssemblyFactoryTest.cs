@@ -239,7 +239,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Automatic
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile
                 }
             };
             failureMechanism.SetSections(new[]
@@ -275,7 +275,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Automatic
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile
                 }
             };
 
@@ -302,7 +302,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Automatic
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile
                 }
             };
 

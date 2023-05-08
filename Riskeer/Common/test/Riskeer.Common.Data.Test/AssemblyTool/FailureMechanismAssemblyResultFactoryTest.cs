@@ -66,13 +66,17 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             // Setup
             var random = new Random(21);
             double n = random.NextDouble();
+            var failureMechanismResult = new FailureMechanismAssemblyResult
+            {
+                ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile
+            };
             bool applyLengthEffect = random.NextBoolean();
             IEnumerable<FailureMechanismSectionAssemblyResult> sectionResults = Enumerable.Empty<FailureMechanismSectionAssemblyResult>();
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(n, sectionResults, applyLengthEffect, new FailureMechanismAssemblyResult());
+                FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(n, sectionResults, applyLengthEffect, failureMechanismResult);
 
                 // Assert
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;

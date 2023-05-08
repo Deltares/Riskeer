@@ -228,6 +228,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            failureMechanism.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile;
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 section

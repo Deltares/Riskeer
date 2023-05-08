@@ -60,19 +60,23 @@ namespace Riskeer.Common.Data.AssemblyTool
                 throw new ArgumentNullException(nameof(failureMechanismAssemblyResult));
             }
 
-            if (failureMechanismAssemblyResult.ProbabilityResultType == FailureMechanismAssemblyProbabilityResultType.Manual)
-            {
-                return new FailureMechanismAssemblyResultWrapper(
-                    failureMechanismAssemblyResult.ManualFailureMechanismAssemblyProbability,
-                    AssemblyMethod.Manual);
-            }
-
             try
             {
                 IFailureMechanismAssemblyCalculator calculator =
                     AssemblyToolCalculatorFactory.Instance.CreateFailureMechanismAssemblyCalculator(AssemblyToolKernelFactory.Instance);
-
-                return calculator.Assemble(failureMechanismN, failureMechanismSectionAssemblyResults, applyLengthEffect);
+                switch (failureMechanismAssemblyResult.ProbabilityResultType)
+                {
+                    case FailureMechanismAssemblyProbabilityResultType.AutomaticIndependentSections:
+                        return calculator.Assemble(failureMechanismSectionAssemblyResults);
+                    case FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile:
+                        return calculator.Assemble(failureMechanismN, failureMechanismSectionAssemblyResults, applyLengthEffect);
+                    case FailureMechanismAssemblyProbabilityResultType.Manual:
+                        return new FailureMechanismAssemblyResultWrapper(
+                            failureMechanismAssemblyResult.ManualFailureMechanismAssemblyProbability,
+                            AssemblyMethod.Manual);
+                    default:
+                        return null;
+                }
             }
             catch (FailureMechanismAssemblyCalculatorException e)
             {
