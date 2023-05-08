@@ -98,11 +98,6 @@ namespace Riskeer.Migration.Integration.Test
                 "Geen aanpassingen."
             });
 
-            yield return new TestCaseData("MigrationTestProject221DunesWithOutput.risk", new[]
-            {
-                "Alle berekende resultaten zijn verwijderd."
-            });
-
             yield return new TestCaseData("MigrationTestProject221MacroStabilityInwardsNoManualAssessmentLevels.risk", new[]
             {
                 "Alle berekende resultaten zijn verwijderd."
@@ -113,9 +108,17 @@ namespace Riskeer.Migration.Integration.Test
                 "Alle berekende resultaten zijn verwijderd."
             });
 
+            // This file contains all configured failure mechanisms with output.
+            // Because the failure mechanisms for Dunes and MacroStabilityInwards are represented in different assessment sections, these
+            // are split up in different files.
             yield return new TestCaseData("MigrationTestProject221WithOutput.risk", new[]
             {
                 "Alle berekende resultaten zijn verwijderd, behalve die van het faalmechanisme 'Piping' en 'Macrostabiliteit binnenwaarts' waarbij de waterstand handmatig is ingevuld."
+            });
+            
+            yield return new TestCaseData("MigrationTestProject221DunesWithOutput.risk", new[]
+            {
+                "Alle berekende resultaten zijn verwijderd."
             });
 
             yield return new TestCaseData("MigrationTestProject221MacroStabilityInwardsWithOutput.risk", new[]
