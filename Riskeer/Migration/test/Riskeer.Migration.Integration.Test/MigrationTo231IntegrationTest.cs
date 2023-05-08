@@ -108,9 +108,9 @@ namespace Riskeer.Migration.Integration.Test
                 "Alle berekende resultaten zijn verwijderd."
             });
 
-            // This file contains all configured failure mechanisms with output.
-            // Because the failure mechanisms for Dunes and MacroStabilityInwards are represented in different assessment sections, these
-            // are split up in different files.
+            // This file contains all configured failure mechanisms (except Dunes and MacroStabilityInwards) with output.
+            // To cover the mechanisms Dunes and MacroStabilityInwards from different assessment sections, these put into
+            // different files.
             yield return new TestCaseData("MigrationTestProject221WithOutput.risk", new[]
             {
                 "Alle berekende resultaten zijn verwijderd, behalve die van het faalmechanisme 'Piping' en 'Macrostabiliteit binnenwaarts' waarbij de waterstand handmatig is ingevuld."
