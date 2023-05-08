@@ -120,7 +120,9 @@ namespace Riskeer.DuneErosion.Forms.TestUtil
                                                               Func<DuneLocationCalculationOutput, RoundedDouble> getOutputPropertyFunc)
         {
             DuneLocationCalculation calculation = calculations.Single(calc => calc.DuneLocation.Equals(duneLocation));
-            RoundedDouble result = calculation.Output == null ? RoundedDouble.NaN : getOutputPropertyFunc(calculation.Output);
+            RoundedDouble result = calculation.Output != null
+                                       ? getOutputPropertyFunc(calculation.Output)
+                                       : RoundedDouble.NaN;
 
             return result.ToString();
         }

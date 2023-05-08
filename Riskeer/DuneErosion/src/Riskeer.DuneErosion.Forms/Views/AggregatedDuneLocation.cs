@@ -40,24 +40,19 @@ namespace Riskeer.DuneErosion.Forms.Views
         /// <param name="coastalAreaId">The coastal area id of the dune location.</param>
         /// <param name="offset">The offset of the dune location.</param>
         /// <param name="waterLevelCalculationsForTargetProbabilities">The results of the
-        ///     water level calculations for different target probabilities.</param>
+        /// water level calculations for different target probabilities.</param>
         /// <param name="waveHeightCalculationsForTargetProbabilities">The results of the
-        ///     wave height calculations for different target probabilities.</param>
+        /// wave height calculations for different target probabilities.</param>
         /// <param name="wavePeriodCalculationsForTargetProbabilities">The results of the
-        ///     wave period calculations for different target probabilities.</param>
+        /// wave period calculations for different target probabilities.</param>
         /// <param name="meanTidalAmplitudeCalculationsForTargetProbabilities">The results of the
-        ///     mean tide calculations for different target probabilities.</param>
+        /// mean tide calculations for different target probabilities.</param>
         /// <param name="waveDirectionalSpreadCalculationsForTargetProbabilities">The results of the
-        ///     wave directional spread calculations for different target probabilities.</param>
+        /// wave directional spread calculations for different target probabilities.</param>
         /// <param name="tideSurgePhaseDifferenceCalculationsForTargetProbabilities">The results of the
-        ///     tide surge phase difference calculations for different target probabilities.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>,
-        /// <paramref name="location"/>, <paramref name="waterLevelCalculationsForTargetProbabilities"/>,
-        /// <paramref name="waveHeightCalculationsForTargetProbabilities"/>,
-        /// <paramref name="wavePeriodCalculationsForTargetProbabilities"/>,
-        /// <paramref name="meanTidalAmplitudeCalculationsForTargetProbabilities"/>,
-        /// <paramref name="waveDirectionalSpreadCalculationsForTargetProbabilities"/> or
-        /// <paramref name="tideSurgePhaseDifferenceCalculationsForTargetProbabilities"/> is <c>null</c>.</exception>
+        /// tide surge phase difference calculations for different target probabilities.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter except <paramref name="id"/>, <paramref name="coastalAreaId"/>
+        /// or <paramref name="offset"/> is <c>null</c>.</exception>
         public AggregatedDuneLocation(long id, string name, Point2D location, int coastalAreaId, RoundedDouble offset,
                                       IEnumerable<Tuple<double, RoundedDouble>> waterLevelCalculationsForTargetProbabilities,
                                       IEnumerable<Tuple<double, RoundedDouble>> waveHeightCalculationsForTargetProbabilities,
