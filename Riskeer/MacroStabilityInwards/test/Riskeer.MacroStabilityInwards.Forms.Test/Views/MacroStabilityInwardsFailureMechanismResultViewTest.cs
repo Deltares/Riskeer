@@ -208,6 +208,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            failureMechanism.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile;
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 section
