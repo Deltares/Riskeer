@@ -259,6 +259,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                 "SELECT sp2d.SP2D_Name AS ProfileName, " +
                 "sl2d.GeometrySurface AS LayerGeometry, " +
                 "mpl.X AS IntersectionX, " +
+                "m.ME_ID, " +
                 "MaterialName, " +
                 "IsAquifer, " +
                 "Color, " +
@@ -375,7 +376,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                 "JOIN LayerParameterValues USING(PN_ID) " +
                 "WHERE PN_NAME = 'IsAquifer'" +
                 ") USING(SL2D_ID) " +
-                "GROUP BY sp2d.SP2D_ID, sl2d.SL2D_ID;";
+                "GROUP BY m.ME_ID, sp2d.SP2D_ID, sl2d.SL2D_ID;";
             Assert.AreEqual(expectedQuery, query);
         }
 

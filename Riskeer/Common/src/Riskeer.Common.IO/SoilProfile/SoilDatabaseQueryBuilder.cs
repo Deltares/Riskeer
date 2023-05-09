@@ -272,6 +272,7 @@ namespace Riskeer.Common.IO.SoilProfile
                 $"sp2d.SP2D_Name AS {SoilProfileTableDefinitions.ProfileName}, " +
                 $"sl2d.GeometrySurface AS {SoilProfileTableDefinitions.LayerGeometry}, " +
                 $"mpl.X AS {SoilProfileTableDefinitions.IntersectionX}, " +
+                $"m.{MechanismTableDefinitions.MechanismId}, " +
                 $"{SoilProfileTableDefinitions.MaterialName}, " +
                 $"{SoilProfileTableDefinitions.IsAquifer}, " +
                 $"{SoilProfileTableDefinitions.Color}, " +
@@ -324,7 +325,7 @@ namespace Riskeer.Common.IO.SoilProfile
                 "LEFT JOIN MechanismPointLocation mpl USING(ME_ID, SP2D_ID) " +
                 $"LEFT JOIN ({getMaterialPropertiesOfLayerQuery}) materialProperties USING(MA_ID) " +
                 $"LEFT JOIN ({getLayerPropertiesOfLayer2DQuery}) USING(SL2D_ID) " +
-                "GROUP BY sp2d.SP2D_ID, sl2d.SL2D_ID;";
+                $"GROUP BY m.{MechanismTableDefinitions.MechanismId}, sp2d.SP2D_ID, sl2d.SL2D_ID;";
         }
 
         /// <summary>
