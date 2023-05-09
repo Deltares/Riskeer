@@ -273,6 +273,7 @@ namespace Riskeer.Common.IO.SoilProfile
                 $"sl2d.GeometrySurface AS {SoilProfileTableDefinitions.LayerGeometry}, " +
                 $"mpl.X AS {SoilProfileTableDefinitions.IntersectionX}, " +
                 $"m.{MechanismTableDefinitions.MechanismId}, " +
+                $"m.{MechanismTableDefinitions.MechanismName}, " +
                 $"{SoilProfileTableDefinitions.MaterialName}, " +
                 $"{SoilProfileTableDefinitions.IsAquifer}, " +
                 $"{SoilProfileTableDefinitions.Color}, " +
