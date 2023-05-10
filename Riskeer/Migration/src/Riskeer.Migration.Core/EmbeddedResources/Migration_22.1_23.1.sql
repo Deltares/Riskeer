@@ -383,7 +383,7 @@ SELECT
     "23.1",
     CASE
         WHEN [NrRemaining] > 0
-            THEN "* Alle berekende resultaten zijn verwijderd, behalve die van het faalmechanisme 'Piping' en 'Macrostabiliteit binnenwaarts' waarbij de waterstand handmatig is ingevuld."
+            THEN "* Alle berekende resultaten zijn verwijderd, behalve die van het faalmechanisme 'Piping' en/of 'Macrostabiliteit binnenwaarts' waarbij de waterstand handmatig is ingevuld."
         ELSE "* Alle berekende resultaten zijn verwijderd."
         END
 FROM TempLogOutputDeleted
