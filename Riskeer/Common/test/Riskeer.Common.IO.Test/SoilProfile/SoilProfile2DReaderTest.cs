@@ -947,5 +947,38 @@ namespace Riskeer.Common.IO.Test.SoilProfile
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
+
+        [Test]
+        public void ReadSoilProfile_SoilProfilePartOfMultipleFailureMechanismTypes_ReturnsProfilesWithExpectedFailureMechanismTypes()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "2dprofileWithSameProfileInMultipleSegmentsAndDifferentFailureMechanismTypes.soil");
+
+            var readProfiles = new List<SoilProfile2DWrapper>();
+            using (var reader = new SoilProfile2DReader(dbFile))
+            {
+                reader.Initialize();
+
+                while (reader.HasNext)
+                {
+                    // Call
+                    readProfiles.Add(reader.ReadSoilProfile());
+                }
+
+                // Assert
+                Assert.IsFalse(reader.HasNext);
+                Assert.AreEqual(2, readProfiles.Count);
+                
+                CollectionAssert.AreEqual(new[]
+                {
+                    FailureMechanismType.Stability,
+                    FailureMechanismType.Piping
+                }, readProfiles.Select(p => p.FailureMechanismType));
+                
+                Assert.True(readProfiles.All(p => p.SoilProfile.Name == "Vak_41-123_Segment_41009_1D1"));
+                Assert.True(readProfiles.All(p => p.SoilProfile.Layers.Count() == 3));
+                Assert.True(readProfiles.All(p => !p.SoilProfile.PreconsolidationStresses.Any()));
+            }
+        }
     }
 }
