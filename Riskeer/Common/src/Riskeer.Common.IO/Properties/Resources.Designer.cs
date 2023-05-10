@@ -1762,6 +1762,15 @@ namespace Riskeer.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het faalmechanisme &apos;{0}&apos; wordt niet ondersteund..
+        /// </summary>
+        public static string SoilProfile2DReader_ReadFailureMechanismType_Failure_mechanism_0_not_supported {
+            get {
+                return ResourceManager.GetString("SoilProfile2DReader_ReadFailureMechanismType_Failure_mechanism_0_not_supported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database..
         /// </summary>
         public static string SoilProfileReader_Critical_Unexpected_value_on_column {
@@ -1897,16 +1906,6 @@ namespace Riskeer.Common.IO.Properties {
             get {
                 return ResourceManager.GetString("StochasticSoilModelImporter_ValidateStochasticSoilModel_Sum_of_probabilities_of_s" +
                         "tochastic_soil_model_0_is_not_correct", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het faalmechanisme &apos;{0}&apos; wordt niet ondersteund..
-        /// </summary>
-        public static string StochasticSoilModelReader_ReadFailureMechanismType_Failure_mechanism_0_not_supported {
-            get {
-                return ResourceManager.GetString("StochasticSoilModelReader_ReadFailureMechanismType_Failure_mechanism_0_not_suppor" +
-                        "ted", resourceCulture);
             }
         }
         

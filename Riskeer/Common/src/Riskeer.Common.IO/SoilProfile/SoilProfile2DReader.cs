@@ -349,7 +349,7 @@ namespace Riskeer.Common.IO.SoilProfile
                 return (FailureMechanismType) mechanismId;
             }
 
-            string message = string.Format(Resources.StochasticSoilModelReader_ReadFailureMechanismType_Failure_mechanism_0_not_supported,
+            string message = string.Format(Resources.SoilProfile2DReader_ReadFailureMechanismType_Failure_mechanism_0_not_supported,
                                            Read<string>(MechanismTableDefinitions.MechanismName));
 
             throw new SoilProfileReadException(message);
