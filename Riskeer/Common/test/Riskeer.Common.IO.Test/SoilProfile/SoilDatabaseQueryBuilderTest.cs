@@ -260,7 +260,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                 "sl2d.GeometrySurface AS LayerGeometry, " +
                 "mpl.X AS IntersectionX, " +
                 "m.ME_ID, " +
-                "m.ME_NAME, " +
+                "m.ME_Name, " +
                 "MaterialName, " +
                 "IsAquifer, " +
                 "Color, " +
