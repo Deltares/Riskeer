@@ -38,7 +38,9 @@ namespace Riskeer.Common.IO.SoilProfile
     public class StochasticSoilModelReader : SqLiteDatabaseReaderBase
     {
         private readonly Dictionary<long, SoilProfile1D> soilProfile1Ds = new Dictionary<long, SoilProfile1D>();
-        private readonly Dictionary<long, SoilProfile2D> soilProfile2Ds = new Dictionary<long, SoilProfile2D>();
+
+        private readonly Dictionary<FailureMechanismType, Dictionary<long, SoilProfile2D>> soilProfile2Ds =
+            new Dictionary<FailureMechanismType, Dictionary<long, SoilProfile2D>>();
 
         private IDataReader dataReader;
         private SegmentPointReader segmentPointReader;
@@ -173,12 +175,19 @@ namespace Riskeer.Common.IO.SoilProfile
                 {
                     try
                     {
-                        SoilProfile2D soilProfile2D = soilProfile2DReader.ReadSoilProfile();
-
-                        long soilProfileId = soilProfile2D.Id;
-                        if (!soilProfile2Ds.ContainsKey(soilProfileId))
+                        SoilProfile2DWrapper wrappedSoilProfile2D = soilProfile2DReader.ReadSoilProfile();
+                        FailureMechanismType failureMechanismType = wrappedSoilProfile2D.FailureMechanismType;
+                        if (!soilProfile2Ds.ContainsKey(failureMechanismType))
                         {
-                            soilProfile2Ds.Add(soilProfileId, soilProfile2D);
+                            soilProfile2Ds[failureMechanismType] = new Dictionary<long, SoilProfile2D>();
+                        }
+
+                        Dictionary<long, SoilProfile2D> failureMechanismTypeProfileLookup = soilProfile2Ds[failureMechanismType];
+                        SoilProfile2D wrappedSoilProfile = wrappedSoilProfile2D.SoilProfile;
+                        long soilProfileId = wrappedSoilProfile.Id;
+                        if (!failureMechanismTypeProfileLookup.ContainsKey(soilProfileId))
+                        {
+                            failureMechanismTypeProfileLookup.Add(soilProfileId, wrappedSoilProfile);
                         }
                     }
                     catch (SoilProfileReadException e)
@@ -272,15 +281,21 @@ namespace Riskeer.Common.IO.SoilProfile
                     yield break;
                 }
 
+                FailureMechanismType failureMechanismType = ReadFailureMechanismType();
                 long? soilProfile1D = ReadSoilProfile1DId();
                 long? soilProfile2D = ReadSoilProfile2DId();
                 if (soilProfile1D.HasValue && soilProfile1Ds.ContainsKey(soilProfile1D.Value))
                 {
                     yield return new StochasticSoilProfile(probability.Value, soilProfile1Ds[soilProfile1D.Value]);
                 }
-                else if (soilProfile2D.HasValue && soilProfile2Ds.ContainsKey(soilProfile2D.Value))
+                else
                 {
-                    yield return new StochasticSoilProfile(probability.Value, soilProfile2Ds[soilProfile2D.Value]);
+                    if (soilProfile2D.HasValue &&
+                        soilProfile2Ds.ContainsKey(failureMechanismType) &&
+                        soilProfile2Ds[failureMechanismType].ContainsKey(soilProfile2D.Value))
+                    {
+                        yield return new StochasticSoilProfile(probability.Value, soilProfile2Ds[failureMechanismType][soilProfile2D.Value]);
+                    }
                 }
 
                 MoveNext();
@@ -466,7 +481,7 @@ namespace Riskeer.Common.IO.SoilProfile
                 return (FailureMechanismType) mechanismId;
             }
 
-            string message = string.Format(Resources.StochasticSoilModelReader_ReadFailureMechanismType_Failure_mechanism_0_not_supported, ReadMechanismName());
+            string message = string.Format(Resources.SoilReader_ReadFailureMechanismType_Failure_mechanism_0_not_supported, ReadMechanismName());
             throw new StochasticSoilModelException(message);
         }
 

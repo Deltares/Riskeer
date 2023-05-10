@@ -1826,6 +1826,15 @@ namespace Riskeer.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het faalmechanisme &apos;{0}&apos; wordt niet ondersteund..
+        /// </summary>
+        public static string SoilReader_ReadFailureMechanismType_Failure_mechanism_0_not_supported {
+            get {
+                return ResourceManager.GetString("SoilReader_ReadFailureMechanismType_Failure_mechanism_0_not_supported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Parameter moet verschoven lognormaal verdeeld zijn..
         /// </summary>
         public static string StochasticDistribution_has_no_shifted_lognormal_distribution {
@@ -1897,16 +1906,6 @@ namespace Riskeer.Common.IO.Properties {
             get {
                 return ResourceManager.GetString("StochasticSoilModelImporter_ValidateStochasticSoilModel_Sum_of_probabilities_of_s" +
                         "tochastic_soil_model_0_is_not_correct", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het faalmechanisme &apos;{0}&apos; wordt niet ondersteund..
-        /// </summary>
-        public static string StochasticSoilModelReader_ReadFailureMechanismType_Failure_mechanism_0_not_supported {
-            get {
-                return ResourceManager.GetString("StochasticSoilModelReader_ReadFailureMechanismType_Failure_mechanism_0_not_suppor" +
-                        "ted", resourceCulture);
             }
         }
         

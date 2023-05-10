@@ -49,13 +49,13 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             string testFile = Path.Combine(testDataPath, "does not exist");
 
             // Call
-            TestDelegate test = () =>
+            void Call()
             {
                 using (new StochasticSoilModelReader(testFile)) {}
-            };
+            }
 
             // Assert
-            var exception = Assert.Throws<CriticalFileReadException>(test);
+            var exception = Assert.Throws<CriticalFileReadException>(Call);
             string expectedMessage = new FileReaderErrorMessageBuilder(testFile).Build("Het bestand bestaat niet.");
             Assert.AreEqual(expectedMessage, exception.Message);
         }
@@ -65,10 +65,10 @@ namespace Riskeer.Common.IO.Test.SoilProfile
         public void Constructor_InvalidPath_ThrowsCriticalFileReadException(string fileName)
         {
             // Call
-            TestDelegate test = () => new StochasticSoilModelReader(fileName);
+            void Call() => new StochasticSoilModelReader(fileName);
 
             // Assert
-            Assert.Throws<CriticalFileReadException>(test);
+            Assert.Throws<CriticalFileReadException>(Call);
         }
 
         [Test]
@@ -99,10 +99,10 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             using (var reader = new StochasticSoilModelReader(dbFile))
             {
                 // Call
-                TestDelegate test = () => reader.Validate();
+                void Call() => reader.Validate();
 
                 // Assert
-                var exception = Assert.Throws<CriticalFileReadException>(test);
+                var exception = Assert.Throws<CriticalFileReadException>(Call);
 
                 string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build(
                     "Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
@@ -121,10 +121,10 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             using (var reader = new StochasticSoilModelReader(dbFile))
             {
                 // Call
-                TestDelegate test = () => reader.Validate();
+                void Call() => reader.Validate();
 
                 // Assert
-                var exception = Assert.Throws<CriticalFileReadException>(test);
+                var exception = Assert.Throws<CriticalFileReadException>(Call);
 
                 const string version = "17.2.0.0";
                 string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build(
@@ -145,10 +145,10 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             using (var reader = new StochasticSoilModelReader(dbFile))
             {
                 // Call
-                TestDelegate test = () => reader.Validate();
+                void Call() => reader.Validate();
 
                 // Assert
-                var exception = Assert.Throws<CriticalFileReadException>(test);
+                var exception = Assert.Throws<CriticalFileReadException>(Call);
 
                 string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build(
                     "Kan geen ondergrondmodellen lezen. Mogelijk bestaat de 'StochasticSoilModel' tabel niet.");
@@ -167,10 +167,10 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             using (var reader = new StochasticSoilModelReader(dbFile))
             {
                 // Call
-                TestDelegate test = () => reader.Validate();
+                void Call() => reader.Validate();
 
                 // Assert
-                var exception = Assert.Throws<CriticalFileReadException>(test);
+                var exception = Assert.Throws<CriticalFileReadException>(Call);
 
                 string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build("Namen van ondergrondmodellen zijn niet uniek.");
                 Assert.AreEqual(expectedMessage, exception.Message);
@@ -188,10 +188,10 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             using (var reader = new StochasticSoilModelReader(dbFile))
             {
                 // Call
-                TestDelegate call = () => reader.Validate();
+                void Call() => reader.Validate();
 
                 // Assert
-                var exception = Assert.Throws<StochasticSoilModelException>(call);
+                var exception = Assert.Throws<StochasticSoilModelException>(Call);
                 Assert.IsInstanceOf<SoilProfileReadException>(exception.InnerException);
             }
 
@@ -207,10 +207,10 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             using (var reader = new StochasticSoilModelReader(dbFile))
             {
                 // Call
-                TestDelegate call = () => reader.Validate();
+                void Call() => reader.Validate();
 
                 // Assert
-                var exception = Assert.Throws<StochasticSoilModelException>(call);
+                var exception = Assert.Throws<StochasticSoilModelException>(Call);
                 Assert.IsInstanceOf<SoilProfileReadException>(exception.InnerException);
             }
 
@@ -355,10 +355,10 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                 reader.Validate();
 
                 // Call
-                TestDelegate test = () => reader.ReadStochasticSoilModel();
+                void Call() => reader.ReadStochasticSoilModel();
 
                 // Assert
-                var exception = Assert.Throws<StochasticSoilModelException>(test);
+                var exception = Assert.Throws<StochasticSoilModelException>(Call);
 
                 const string expectedMessage = "Het stochastische ondergrondmodel 'StochasticSoilModelName' moet een geometrie bevatten.";
                 Assert.AreEqual(expectedMessage, exception.Message);
