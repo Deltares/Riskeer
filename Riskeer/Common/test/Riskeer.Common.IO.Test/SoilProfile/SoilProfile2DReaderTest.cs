@@ -159,6 +159,48 @@ namespace Riskeer.Common.IO.Test.SoilProfile
         }
 
         [Test]
+        [TestCase("2dprofile", FailureMechanismType.Piping)]
+        [TestCase("2dprofileStability", FailureMechanismType.Stability)]
+        public void ReadSoilProfile_DatabaseWith2DSoilProfileWithValidFailureMechanismType_ReturnsExpectedFailureMechanismType(
+            string fileName, FailureMechanismType expectedFailureMechanismType)
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, $"{fileName}.soil");
+
+            using (var reader = new SoilProfile2DReader(dbFile))
+            {
+                reader.Initialize();
+
+                // Call
+                SoilProfile2DWrapper readProfile = reader.ReadSoilProfile();
+
+                // Assert
+                Assert.AreEqual(expectedFailureMechanismType, readProfile.FailureMechanismType);
+            }
+        }
+
+        [Test]
+        public void ReadSoilProfile_DatabaseWith2DSoilProfileWithOtherFailureMechanism_ThrowsSoilProfileReadException()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "2dprofileInvalidFailureMechanismType.soil");
+
+            using (var reader = new SoilProfile2DReader(dbFile))
+            {
+                reader.Initialize();
+
+                // Call
+                void Call() => reader.ReadSoilProfile();
+
+                // Assert
+                var exception = Assert.Throws<SoilProfileReadException>(Call);
+
+                const string expectedMessage = "Het faalmechanisme 'UNKNOWN' wordt niet ondersteund.";
+                Assert.AreEqual(expectedMessage, exception.Message);
+            }
+        }
+        
+        [Test]
         public void ReadSoilProfile_DatabaseWith2DSoilProfile3Layers_ReturnOneProfile()
         {
             // Setup
