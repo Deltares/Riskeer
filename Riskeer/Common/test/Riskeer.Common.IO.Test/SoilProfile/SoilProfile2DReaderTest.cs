@@ -31,6 +31,7 @@ using Core.Common.Util.Builders;
 using NUnit.Framework;
 using Riskeer.Common.IO.Exceptions;
 using Riskeer.Common.IO.SoilProfile;
+using Riskeer.Common.IO.SoilProfile.Schema;
 
 namespace Riskeer.Common.IO.Test.SoilProfile
 {
@@ -46,13 +47,13 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             string testFile = Path.Combine(testDataPath, "does not exist");
 
             // Call
-            TestDelegate test = () =>
+            void Call()
             {
                 using (new SoilProfile2DReader(testFile)) {}
-            };
+            }
 
             // Assert
-            var exception = Assert.Throws<CriticalFileReadException>(test);
+            var exception = Assert.Throws<CriticalFileReadException>(Call);
             string expectedMessage = new FileReaderErrorMessageBuilder(testFile).Build("Het bestand bestaat niet.");
             Assert.AreEqual(expectedMessage, exception.Message);
         }
@@ -62,10 +63,10 @@ namespace Riskeer.Common.IO.Test.SoilProfile
         public void Constructor_InvalidPath_ThrowsCriticalFileReadException(string fileName)
         {
             // Call
-            TestDelegate test = () => new SoilProfile2DReader(fileName);
+            void Call() => new SoilProfile2DReader(fileName);
 
             // Assert
-            Assert.Throws<CriticalFileReadException>(test);
+            Assert.Throws<CriticalFileReadException>(Call);
         }
 
         [Test]
@@ -94,10 +95,10 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             using (var reader = new SoilProfile2DReader(dbFile))
             {
                 // Call
-                TestDelegate test = () => reader.Initialize();
+                void Call() => reader.Initialize();
 
                 // Assert
-                var exception = Assert.Throws<CriticalFileReadException>(test);
+                var exception = Assert.Throws<CriticalFileReadException>(Call);
 
                 string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build(
                     "Kon geen ondergrondschematisaties verkrijgen uit de database.");
@@ -118,10 +119,10 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                 reader.Initialize();
 
                 // Call
-                TestDelegate test = () => reader.ReadSoilProfile();
+                void Call() => reader.ReadSoilProfile();
 
                 // Assert
-                var exception = Assert.Throws<CriticalFileReadException>(test);
+                var exception = Assert.Throws<CriticalFileReadException>(Call);
 
                 string expectedMessage = new FileReaderErrorMessageBuilder(dbFile)
                                          .WithSubject("ondergrondschematisatie 'Profile'")
@@ -143,9 +144,10 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                 reader.Initialize();
 
                 // Call
-                SoilProfile2D profile = reader.ReadSoilProfile();
+                SoilProfile2DWrapper readProfile = reader.ReadSoilProfile();
 
                 // Assert
+                SoilProfile2D profile = readProfile.SoilProfile;
                 Assert.AreEqual("Profile", profile.Name);
                 Assert.AreEqual(1, profile.Id);
                 Assert.IsNaN(profile.IntersectionX);
@@ -167,278 +169,279 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                 reader.Initialize();
 
                 // Call
-                SoilProfile2D soilProfile2D = reader.ReadSoilProfile();
+                SoilProfile2DWrapper readProfile = reader.ReadSoilProfile();
 
                 // Assert
-                Assert.AreEqual(1, soilProfile2D.Id);
-                Assert.AreEqual("Profile", soilProfile2D.Name);
-                CollectionAssert.IsEmpty(soilProfile2D.PreconsolidationStresses);
-                Assert.AreEqual(85.2, soilProfile2D.IntersectionX);
-                Assert.AreEqual(3, soilProfile2D.Layers.Count());
+                SoilProfile2D soilProfile = readProfile.SoilProfile;
+                Assert.AreEqual(1, soilProfile.Id);
+                Assert.AreEqual("Profile", soilProfile.Name);
+                CollectionAssert.IsEmpty(soilProfile.PreconsolidationStresses);
+                Assert.AreEqual(85.2, soilProfile.IntersectionX);
+                Assert.AreEqual(3, soilProfile.Layers.Count());
 
                 CollectionAssert.AreEqual(new[]
                 {
                     1.0,
                     0.0,
                     0.0
-                }, soilProfile2D.Layers.Select(l => l.IsAquifer));
+                }, soilProfile.Layers.Select(l => l.IsAquifer));
                 CollectionAssert.AreEqual(new[]
                 {
                     -12156236,
                     -65536,
                     -8323200
-                }, soilProfile2D.Layers.Select(l => l.Color));
+                }, soilProfile.Layers.Select(l => l.Color));
                 CollectionAssert.AreEqual(new[]
                 {
                     "Material1",
                     "Material2",
                     "Material3"
-                }, soilProfile2D.Layers.Select(l => l.MaterialName));
+                }, soilProfile.Layers.Select(l => l.MaterialName));
 
                 CollectionAssert.AreEqual(new[]
                 {
                     2,
                     2,
                     2
-                }, soilProfile2D.Layers.Select(l => l.BelowPhreaticLevelDistributionType));
+                }, soilProfile.Layers.Select(l => l.BelowPhreaticLevelDistributionType));
                 CollectionAssert.AreEqual(new[]
                 {
                     24,
                     28,
                     20
-                }, soilProfile2D.Layers.Select(l => l.BelowPhreaticLevelMean));
+                }, soilProfile.Layers.Select(l => l.BelowPhreaticLevelMean));
                 CollectionAssert.AreEqual(new[]
                 {
                     0.24,
                     0.28,
                     0.2
-                }, soilProfile2D.Layers.Select(l => l.BelowPhreaticLevelDeviation));
+                }, soilProfile.Layers.Select(l => l.BelowPhreaticLevelDeviation));
                 CollectionAssert.AreEqual(new[]
                 {
                     0.01,
                     0.01,
                     0.01
-                }, soilProfile2D.Layers.Select(l => l.BelowPhreaticLevelCoefficientOfVariation));
+                }, soilProfile.Layers.Select(l => l.BelowPhreaticLevelCoefficientOfVariation));
                 CollectionAssert.AreEqual(new[]
                 {
                     0.3,
                     0.32,
                     0.4
-                }, soilProfile2D.Layers.Select(l => l.BelowPhreaticLevelShift));
+                }, soilProfile.Layers.Select(l => l.BelowPhreaticLevelShift));
 
                 CollectionAssert.AreEqual(new[]
                 {
                     3,
                     3,
                     3
-                }, soilProfile2D.Layers.Select(l => l.DiameterD70DistributionType));
+                }, soilProfile.Layers.Select(l => l.DiameterD70DistributionType));
                 CollectionAssert.AreEqual(new[]
                 {
                     0.00017,
                     0.00017,
                     0.00016
-                }, soilProfile2D.Layers.Select(l => l.DiameterD70Mean));
+                }, soilProfile.Layers.Select(l => l.DiameterD70Mean));
                 CollectionAssert.AreEqual(new[]
                 {
                     0.11764705882352941,
                     0.11764705882352941,
                     0.125
-                }, soilProfile2D.Layers.Select(l => l.DiameterD70CoefficientOfVariation));
+                }, soilProfile.Layers.Select(l => l.DiameterD70CoefficientOfVariation));
                 CollectionAssert.AreEqual(new[]
                 {
                     0,
                     0,
                     0
-                }, soilProfile2D.Layers.Select(l => l.DiameterD70Shift));
+                }, soilProfile.Layers.Select(l => l.DiameterD70Shift));
 
                 CollectionAssert.AreEqual(new[]
                 {
                     3,
                     3,
                     3
-                }, soilProfile2D.Layers.Select(l => l.PermeabilityDistributionType));
+                }, soilProfile.Layers.Select(l => l.PermeabilityDistributionType));
                 CollectionAssert.AreEqual(new[]
                 {
                     0,
                     0,
                     0.000185
-                }, soilProfile2D.Layers.Select(l => l.PermeabilityMean));
+                }, soilProfile.Layers.Select(l => l.PermeabilityMean));
                 CollectionAssert.AreEqual(new[]
                 {
                     double.NaN,
                     double.NaN,
                     0
-                }, soilProfile2D.Layers.Select(l => l.PermeabilityCoefficientOfVariation));
+                }, soilProfile.Layers.Select(l => l.PermeabilityCoefficientOfVariation));
                 CollectionAssert.AreEqual(new[]
                 {
                     0,
                     0,
                     0
-                }, soilProfile2D.Layers.Select(l => l.PermeabilityShift));
+                }, soilProfile.Layers.Select(l => l.PermeabilityShift));
 
                 CollectionAssert.AreEqual(new double?[]
                 {
                     null,
                     0,
                     null
-                }, soilProfile2D.Layers.Select(l => l.UsePop));
+                }, soilProfile.Layers.Select(l => l.UsePop));
 
                 CollectionAssert.AreEqual(new double?[]
                 {
                     null,
                     6,
                     9
-                }, soilProfile2D.Layers.Select(l => l.ShearStrengthModel));
+                }, soilProfile.Layers.Select(l => l.ShearStrengthModel));
 
                 CollectionAssert.AreEqual(new[]
                 {
                     2,
                     2,
                     2
-                }, soilProfile2D.Layers.Select(l => l.AbovePhreaticLevelDistributionType));
+                }, soilProfile.Layers.Select(l => l.AbovePhreaticLevelDistributionType));
                 CollectionAssert.AreEqual(new[]
                 {
                     14,
                     18,
                     10
-                }, soilProfile2D.Layers.Select(l => l.AbovePhreaticLevelMean));
+                }, soilProfile.Layers.Select(l => l.AbovePhreaticLevelMean));
                 CollectionAssert.AreEqual(new[]
                 {
                     0.01,
                     0,
                     0.01
-                }, soilProfile2D.Layers.Select(l => l.AbovePhreaticLevelCoefficientOfVariation));
+                }, soilProfile.Layers.Select(l => l.AbovePhreaticLevelCoefficientOfVariation));
                 CollectionAssert.AreEqual(new[]
                 {
                     10,
                     0,
                     0
-                }, soilProfile2D.Layers.Select(l => l.AbovePhreaticLevelShift));
+                }, soilProfile.Layers.Select(l => l.AbovePhreaticLevelShift));
 
                 CollectionAssert.AreEqual(new[]
                 {
                     3,
                     3,
                     3
-                }, soilProfile2D.Layers.Select(l => l.CohesionDistributionType));
+                }, soilProfile.Layers.Select(l => l.CohesionDistributionType));
                 CollectionAssert.AreEqual(new[]
                 {
                     1,
                     3,
                     7
-                }, soilProfile2D.Layers.Select(l => l.CohesionMean));
+                }, soilProfile.Layers.Select(l => l.CohesionMean));
                 CollectionAssert.AreEqual(new[]
                 {
                     0.1,
                     0.09999999999999999,
                     0.09999999999999999
-                }, soilProfile2D.Layers.Select(l => l.CohesionCoefficientOfVariation));
+                }, soilProfile.Layers.Select(l => l.CohesionCoefficientOfVariation));
                 CollectionAssert.AreEqual(new[]
                 {
                     0.01,
                     0.03,
                     0.07
-                }, soilProfile2D.Layers.Select(l => l.CohesionShift));
+                }, soilProfile.Layers.Select(l => l.CohesionShift));
 
                 CollectionAssert.AreEqual(new[]
                 {
                     3,
                     3,
                     3
-                }, soilProfile2D.Layers.Select(l => l.FrictionAngleDistributionType));
+                }, soilProfile.Layers.Select(l => l.FrictionAngleDistributionType));
                 CollectionAssert.AreEqual(new[]
                 {
                     0.1,
                     33,
                     77
-                }, soilProfile2D.Layers.Select(l => l.FrictionAngleMean));
+                }, soilProfile.Layers.Select(l => l.FrictionAngleMean));
                 CollectionAssert.AreEqual(new[]
                 {
                     10,
                     0.01,
                     0.01
-                }, soilProfile2D.Layers.Select(l => l.FrictionAngleCoefficientOfVariation));
+                }, soilProfile.Layers.Select(l => l.FrictionAngleCoefficientOfVariation));
                 CollectionAssert.AreEqual(new[]
                 {
                     0,
                     0.03,
                     0.07
-                }, soilProfile2D.Layers.Select(l => l.FrictionAngleShift));
+                }, soilProfile.Layers.Select(l => l.FrictionAngleShift));
 
                 CollectionAssert.AreEqual(new[]
                 {
                     3,
                     3,
                     3
-                }, soilProfile2D.Layers.Select(l => l.ShearStrengthRatioDistributionType));
+                }, soilProfile.Layers.Select(l => l.ShearStrengthRatioDistributionType));
                 CollectionAssert.AreEqual(new[]
                 {
                     1,
                     28,
                     78
-                }, soilProfile2D.Layers.Select(l => l.ShearStrengthRatioMean));
+                }, soilProfile.Layers.Select(l => l.ShearStrengthRatioMean));
                 CollectionAssert.AreEqual(new[]
                 {
                     1,
                     0.029285714285714283,
                     0.011153846153846153
-                }, soilProfile2D.Layers.Select(l => l.ShearStrengthRatioCoefficientOfVariation));
+                }, soilProfile.Layers.Select(l => l.ShearStrengthRatioCoefficientOfVariation));
                 CollectionAssert.AreEqual(new[]
                 {
                     1,
                     0.08,
                     0.07
-                }, soilProfile2D.Layers.Select(l => l.ShearStrengthRatioShift));
+                }, soilProfile.Layers.Select(l => l.ShearStrengthRatioShift));
 
                 CollectionAssert.AreEqual(new[]
                 {
                     3,
                     3,
                     3
-                }, soilProfile2D.Layers.Select(l => l.StrengthIncreaseExponentDistributionType));
+                }, soilProfile.Layers.Select(l => l.StrengthIncreaseExponentDistributionType));
                 CollectionAssert.AreEqual(new[]
                 {
                     1,
                     2,
                     3
-                }, soilProfile2D.Layers.Select(l => l.StrengthIncreaseExponentMean));
+                }, soilProfile.Layers.Select(l => l.StrengthIncreaseExponentMean));
                 CollectionAssert.AreEqual(new[]
                 {
                     1,
                     0.1,
                     0.09999999999999999
-                }, soilProfile2D.Layers.Select(l => l.StrengthIncreaseExponentCoefficientOfVariation));
+                }, soilProfile.Layers.Select(l => l.StrengthIncreaseExponentCoefficientOfVariation));
                 CollectionAssert.AreEqual(new[]
                 {
                     0,
                     0.02,
                     0.03
-                }, soilProfile2D.Layers.Select(l => l.StrengthIncreaseExponentShift));
+                }, soilProfile.Layers.Select(l => l.StrengthIncreaseExponentShift));
 
                 CollectionAssert.AreEqual(new[]
                 {
                     3,
                     3,
                     3
-                }, soilProfile2D.Layers.Select(l => l.PopDistributionType));
+                }, soilProfile.Layers.Select(l => l.PopDistributionType));
                 CollectionAssert.AreEqual(new[]
                 {
                     111,
                     222,
                     333
-                }, soilProfile2D.Layers.Select(l => l.PopMean));
+                }, soilProfile.Layers.Select(l => l.PopMean));
                 CollectionAssert.AreEqual(new[]
                 {
                     0.000990990990990991,
                     0.000990990990990991,
                     0.000990990990990991
-                }, soilProfile2D.Layers.Select(l => l.PopCoefficientOfVariation));
+                }, soilProfile.Layers.Select(l => l.PopCoefficientOfVariation));
                 CollectionAssert.AreEqual(new[]
                 {
                     0.01,
                     0.02,
                     0.03
-                }, soilProfile2D.Layers.Select(l => l.PopShift));
+                }, soilProfile.Layers.Select(l => l.PopShift));
             }
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
@@ -455,16 +458,17 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                 reader.Initialize();
 
                 // Call
-                SoilProfile2D soilProfile2D = reader.ReadSoilProfile();
+                SoilProfile2DWrapper readProfile = reader.ReadSoilProfile();
 
                 // Assert
-                Assert.AreEqual(1, soilProfile2D.Id);
-                Assert.AreEqual("Profile", soilProfile2D.Name);
-                CollectionAssert.IsEmpty(soilProfile2D.PreconsolidationStresses);
-                Assert.AreEqual(90.0, soilProfile2D.IntersectionX, 1e-3);
-                Assert.AreEqual(1, soilProfile2D.Layers.Count());
+                SoilProfile2D soilProfile = readProfile.SoilProfile;
+                Assert.AreEqual(1, soilProfile.Id);
+                Assert.AreEqual("Profile", soilProfile.Name);
+                CollectionAssert.IsEmpty(soilProfile.PreconsolidationStresses);
+                Assert.AreEqual(90.0, soilProfile.IntersectionX, 1e-3);
+                Assert.AreEqual(1, soilProfile.Layers.Count());
 
-                SoilLayer2D layer = soilProfile2D.Layers.First();
+                SoilLayer2D layer = soilProfile.Layers.First();
                 Assert.AreEqual("Material1", layer.MaterialName);
                 Assert.AreEqual(2, layer.NestedLayers.Count());
 
@@ -492,15 +496,16 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                 reader.Initialize();
 
                 // Call
-                SoilProfile2D profile = reader.ReadSoilProfile();
+                SoilProfile2DWrapper readProfile = reader.ReadSoilProfile();
 
                 // Assert
-                Assert.AreEqual(1, profile.Id);
-                Assert.AreEqual("Profile", profile.Name);
-                Assert.AreEqual(85.2, profile.IntersectionX);
-                CollectionAssert.IsEmpty(profile.PreconsolidationStresses);
+                SoilProfile2D soilProfile = readProfile.SoilProfile;
+                Assert.AreEqual(1, soilProfile.Id);
+                Assert.AreEqual("Profile", soilProfile.Name);
+                Assert.AreEqual(85.2, soilProfile.IntersectionX);
+                CollectionAssert.IsEmpty(soilProfile.PreconsolidationStresses);
 
-                SoilLayer2D soilLayer = profile.Layers.Single();
+                SoilLayer2D soilLayer = soilProfile.Layers.Single();
                 Assert.AreEqual("Material1", soilLayer.MaterialName);
                 Assert.IsNull(soilLayer.IsAquifer);
                 Assert.IsNull(soilLayer.Color);
@@ -568,10 +573,11 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                 reader.Initialize();
 
                 // Call 
-                SoilProfile2D soilProfile2D = reader.ReadSoilProfile();
+                SoilProfile2DWrapper readProfile = reader.ReadSoilProfile();
 
                 // Assert
-                Assert.AreEqual(4, soilProfile2D.PreconsolidationStresses.Count());
+                SoilProfile2D soilProfile = readProfile.SoilProfile;
+                Assert.AreEqual(4, soilProfile.PreconsolidationStresses.Count());
 
                 CollectionAssert.AreEqual(new[]
                 {
@@ -579,14 +585,14 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                     2,
                     3,
                     4
-                }, soilProfile2D.PreconsolidationStresses.Select(stress => stress.XCoordinate));
+                }, soilProfile.PreconsolidationStresses.Select(stress => stress.XCoordinate));
                 CollectionAssert.AreEqual(new[]
                 {
                     5,
                     6,
                     7,
                     8
-                }, soilProfile2D.PreconsolidationStresses.Select(stress => stress.ZCoordinate));
+                }, soilProfile.PreconsolidationStresses.Select(stress => stress.ZCoordinate));
 
                 CollectionAssert.AreEqual(new[]
                 {
@@ -594,28 +600,28 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                     3,
                     3,
                     3
-                }, soilProfile2D.PreconsolidationStresses.Select(stress => stress.StressDistributionType));
+                }, soilProfile.PreconsolidationStresses.Select(stress => stress.StressDistributionType));
                 CollectionAssert.AreEqual(new[]
                 {
                     1337,
                     3371,
                     8.5,
                     9.3
-                }, soilProfile2D.PreconsolidationStresses.Select(stress => stress.StressMean));
+                }, soilProfile.PreconsolidationStresses.Select(stress => stress.StressMean));
                 CollectionAssert.AreEqual(new[]
                 {
                     0.0074794315632011965,
                     0.0029664787896766538,
                     1.8823529411764706,
                     0.8064516129032258
-                }, soilProfile2D.PreconsolidationStresses.Select(stress => stress.StressCoefficientOfVariation));
+                }, soilProfile.PreconsolidationStresses.Select(stress => stress.StressCoefficientOfVariation));
                 CollectionAssert.AreEqual(new[]
                 {
                     11,
                     12,
                     0,
                     0
-                }, soilProfile2D.PreconsolidationStresses.Select(stress => stress.StressShift));
+                }, soilProfile.PreconsolidationStresses.Select(stress => stress.StressShift));
             }
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
@@ -631,10 +637,11 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                 reader.Initialize();
 
                 // Call 
-                SoilProfile2D soilProfile2D = reader.ReadSoilProfile();
+                SoilProfile2DWrapper readProfile = reader.ReadSoilProfile();
 
                 // Assert
-                PreconsolidationStress[] preconsolidationStresses = soilProfile2D.PreconsolidationStresses.ToArray();
+                SoilProfile2D soilProfile = readProfile.SoilProfile;
+                PreconsolidationStress[] preconsolidationStresses = soilProfile.PreconsolidationStresses.ToArray();
                 Assert.AreEqual(1, preconsolidationStresses.Length);
                 PreconsolidationStress actualPreconsolidationStress = preconsolidationStresses[0];
 
@@ -660,10 +667,10 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                 reader.Initialize();
 
                 // Call
-                TestDelegate test = () => reader.ReadSoilProfile();
+                void Call() => reader.ReadSoilProfile();
 
                 // Assert
-                var exception = Assert.Throws<SoilProfileReadException>(test);
+                var exception = Assert.Throws<SoilProfileReadException>(Call);
 
                 const string expectedMessage = "Het lezen van de ondergrondschematisatie 'Profile' is mislukt. " +
                                                "Geen geldige waarde in kolom 'IntersectionX'.";
@@ -685,10 +692,10 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                 reader.Initialize();
 
                 // Call
-                TestDelegate test = () => reader.ReadSoilProfile();
+                void Call() => reader.ReadSoilProfile();
 
                 // Assert
-                var exception = Assert.Throws<SoilProfileReadException>(test);
+                var exception = Assert.Throws<SoilProfileReadException>(Call);
 
                 const string expectedMessage = "Het lezen van de ondergrondschematisatie 'Profile' is mislukt. " +
                                                "Geen geldige waarde in kolom 'LayerGeometry'.";
@@ -706,7 +713,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             string dbFile = Path.Combine(testDataPath, "2dprofileWithInvalidLayerProperty.soil");
 
             SoilProfileReadException expectedException = null;
-            var readSoilProfiles = new List<SoilProfile2D>();
+            var readSoilProfiles = new List<SoilProfile2DWrapper>();
             using (var reader = new SoilProfile2DReader(dbFile))
             {
                 reader.Initialize();
@@ -729,7 +736,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             Assert.AreEqual("Profile", expectedException.ProfileName);
 
             Assert.AreEqual(1, readSoilProfiles.Count);
-            Assert.AreEqual("Profile2", readSoilProfiles[0].Name);
+            Assert.AreEqual("Profile2", readSoilProfiles[0].SoilProfile.Name);
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
@@ -740,7 +747,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             // Setup
             string dbFile = Path.Combine(testDataPath, "2dProfileWithXNull.soil");
 
-            var result = new Collection<SoilProfile2D>();
+            var result = new Collection<SoilProfile2DWrapper>();
             using (var reader = new SoilProfile2DReader(dbFile))
             {
                 reader.Initialize();
@@ -755,7 +762,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             // Assert
             Assert.AreEqual(1, result.Count);
 
-            SoilProfile2D soilProfile2D = result[0];
+            SoilProfile2D soilProfile2D = result[0].SoilProfile;
             Assert.AreEqual(1, soilProfile2D.Id);
             Assert.AreEqual("Profile", soilProfile2D.Name);
             Assert.IsNaN(soilProfile2D.IntersectionX);
@@ -770,7 +777,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             // Given
             string dbFile = Path.Combine(testDataPath, "2dProfilesWithSoilLayersUnparsableValues.soil");
 
-            var readProfiles = new List<SoilProfile2D>();
+            var readProfiles = new List<SoilProfile2DWrapper>();
             SoilProfileReadException actualException = null;
             using (var reader = new SoilProfile2DReader(dbFile))
             {
@@ -801,17 +808,17 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             {
                 "Profile_1",
                 "Profile_2"
-            }, readProfiles.Select(profile => profile.Name));
+            }, readProfiles.Select(profile => profile.SoilProfile.Name));
             CollectionAssert.AreEqual(new[]
             {
                 3,
                 3
-            }, readProfiles.Select(profile => profile.Layers.Count()));
+            }, readProfiles.Select(profile => profile.SoilProfile.Layers.Count()));
             CollectionAssert.AreEqual(new[]
             {
                 0,
                 0
-            }, readProfiles.Select(profile => profile.PreconsolidationStresses.Count()));
+            }, readProfiles.Select(profile => profile.SoilProfile.PreconsolidationStresses.Count()));
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
 
@@ -821,7 +828,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             // Setup
             string dbFile = Path.Combine(testDataPath, "2dProfilesWithAndWithoutPreconsolidationStresses.soil");
 
-            var readProfiles = new List<SoilProfile2D>();
+            var readProfiles = new List<SoilProfile2DWrapper>();
             using (var reader = new SoilProfile2DReader(dbFile))
             {
                 reader.Initialize();
@@ -842,7 +849,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                 1,
                 0,
                 1
-            }, readProfiles.Select(profile => profile.PreconsolidationStresses.Count()));
+            }, readProfiles.Select(profile => profile.SoilProfile.PreconsolidationStresses.Count()));
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
@@ -853,7 +860,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             // Given
             string dbFile = Path.Combine(testDataPath, "2dProfilesWithAndWithoutPreconsolidationStressesUnparsableValues.soil");
 
-            var readProfiles = new List<SoilProfile2D>();
+            var readProfiles = new List<SoilProfile2DWrapper>();
             SoilProfileReadException expectedException = null;
             using (var reader = new SoilProfile2DReader(dbFile))
             {
@@ -884,17 +891,17 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             {
                 "Profile_1",
                 "Profile_2"
-            }, readProfiles.Select(profile => profile.Name));
+            }, readProfiles.Select(profile => profile.SoilProfile.Name));
             CollectionAssert.AreEqual(new[]
             {
                 3,
                 3
-            }, readProfiles.Select(profile => profile.Layers.Count()));
+            }, readProfiles.Select(profile => profile.SoilProfile.Layers.Count()));
             CollectionAssert.AreEqual(new[]
             {
                 1,
                 1
-            }, readProfiles.Select(profile => profile.PreconsolidationStresses.Count()));
+            }, readProfiles.Select(profile => profile.SoilProfile.PreconsolidationStresses.Count()));
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }

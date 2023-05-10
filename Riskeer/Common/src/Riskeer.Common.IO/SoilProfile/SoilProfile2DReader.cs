@@ -71,14 +71,14 @@ namespace Riskeer.Common.IO.SoilProfile
 
         /// <summary>
         /// Reads the information for the next soil profile from the database and creates a 
-        /// <see cref="SoilProfile2D"/> instance from the information.
+        /// <see cref="SoilProfile2DWrapper"/> instance from the information.
         /// </summary>
-        /// <returns>The next <see cref="SoilProfile2D"/> from the database, or <c>null</c> 
+        /// <returns>A <see cref="SoilProfile2DWrapper"/> containing the <see cref="SoilProfile2D"/> from the database, or <c>null</c> 
         /// if no more soil profile can be read.</returns>
         /// <exception cref="SoilProfileReadException">Thrown when reading properties of the profile failed.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when the database returned incorrect 
         /// values for required properties.</exception>
-        public SoilProfile2D ReadSoilProfile()
+        public SoilProfile2DWrapper ReadSoilProfile()
         {
             try
             {
@@ -169,18 +169,19 @@ namespace Riskeer.Common.IO.SoilProfile
         /// <exception cref="CriticalFileReadException">Thrown when encountering an unrecoverable error 
         /// while reading the profile.</exception>
         /// <exception cref="SoilProfileReadException">Thrown when reading properties of the profile failed.</exception>
-        private SoilProfile2D TryReadSoilProfile()
+        private SoilProfile2DWrapper TryReadSoilProfile()
         {
             var criticalProperties = new CriticalProfileProperties(this);
             var soilLayerGeometryLookup = new Dictionary<SoilLayer2DGeometry, Layer2DProperties>();
 
             long soilProfileId = criticalProperties.ProfileId;
             RequiredProfileProperties properties;
-
+            FailureMechanismType failureMechanismType;
             try
             {
                 properties = new RequiredProfileProperties(this, criticalProperties.ProfileName);
-
+                failureMechanismType = ReadFailureMechanismType();
+                
                 var geometryReader = new SoilLayer2DGeometryReader();
                 for (var i = 1; i <= criticalProperties.LayerCount; i++)
                 {
@@ -195,20 +196,22 @@ namespace Riskeer.Common.IO.SoilProfile
             }
 
             MoveToNextProfile(soilProfileId);
-            return new SoilProfile2D(soilProfileId,
-                                     criticalProperties.ProfileName,
-                                     GetHierarchicallyOrderedSoilLayers(soilLayerGeometryLookup).ToArray(),
-                                     GetPreconsolidationStresses(soilProfileId).ToArray())
+            var readSoilProfile = new SoilProfile2D(soilProfileId,
+                                                       criticalProperties.ProfileName,
+                                                       GetHierarchicallyOrderedSoilLayers(soilLayerGeometryLookup).ToArray(),
+                                                       GetPreconsolidationStresses(soilProfileId).ToArray())
             {
                 IntersectionX = properties.IntersectionX
             };
+            
+            return new SoilProfile2DWrapper(readSoilProfile, failureMechanismType);
         }
 
         /// <summary>
         /// Gets the preconsolidation stresses belonging to the <paramref name="currentSoilProfileId"/>.
         /// </summary>
         /// <param name="currentSoilProfileId">The current soil profile id.</param>
-        /// <returns>A collection of the read <see cref="PreconsolidationStress"/> .</returns>
+        /// <returns>A collection of the read <see cref="PreconsolidationStress"/>.</returns>
         /// <exception cref="SoilProfileReadException">Thrown when the preconsolidation
         /// stresses could not be read.</exception>
         private IEnumerable<PreconsolidationStress> GetPreconsolidationStresses(long currentSoilProfileId)
@@ -324,6 +327,26 @@ namespace Riskeer.Common.IO.SoilProfile
                              .WithSubject(string.Format(Resources.SoilProfileReader_SoilProfileName_0_, profileName))
                              .Build(innerException.Message);
             return new SoilProfileReadException(message, profileName, innerException);
+        }
+        
+        /// <summary>
+        /// Reads the failure mechanism type from the data reader.
+        /// </summary>
+        /// <returns>The failure mechanism type.</returns>
+        /// <exception cref="SoilProfileReadException">Thrown when the read failure mechanism type is not supported.</exception>
+        /// <exception cref="InvalidCastException">Thrown when the conversion to <see cref="long"/> is not supported.</exception>
+        private FailureMechanismType ReadFailureMechanismType()
+        {
+            long mechanismId = Read<long>(MechanismTableDefinitions.MechanismId);
+            if (Enum.IsDefined(typeof(FailureMechanismType), mechanismId))
+            {
+                return (FailureMechanismType) mechanismId;
+            }
+
+            string message = string.Format(Resources.StochasticSoilModelReader_ReadFailureMechanismType_Failure_mechanism_0_not_supported,
+                                           Read<string>(MechanismTableDefinitions.MechanismName));
+            
+            throw new SoilProfileReadException(message);
         }
 
         private class Layer2DProperties : LayerProperties
