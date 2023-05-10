@@ -1762,15 +1762,6 @@ namespace Riskeer.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het faalmechanisme &apos;{0}&apos; wordt niet ondersteund..
-        /// </summary>
-        public static string SoilProfile2DReader_ReadFailureMechanismType_Failure_mechanism_0_not_supported {
-            get {
-                return ResourceManager.GetString("SoilProfile2DReader_ReadFailureMechanismType_Failure_mechanism_0_not_supported", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database..
         /// </summary>
         public static string SoilProfileReader_Critical_Unexpected_value_on_column {
@@ -1831,6 +1822,15 @@ namespace Riskeer.Common.IO.Properties {
             get {
                 return ResourceManager.GetString("SoilProfileTransformer_Cannot_tranform_Type_0_Only_types_Type_1_and_Type_2_are_su" +
                         "pported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het faalmechanisme &apos;{0}&apos; wordt niet ondersteund..
+        /// </summary>
+        public static string SoilReader_ReadFailureMechanismType_Failure_mechanism_0_not_supported {
+            get {
+                return ResourceManager.GetString("SoilReader_ReadFailureMechanismType_Failure_mechanism_0_not_supported", resourceCulture);
             }
         }
         

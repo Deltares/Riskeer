@@ -462,10 +462,27 @@ namespace Riskeer.Common.IO.SoilProfile
             return Convert.ToString(dataReader[StochasticSoilModelTableDefinitions.StochasticSoilModelName]);
         }
 
+        private string ReadMechanismName()
+        {
+            return Convert.ToString(dataReader[MechanismTableDefinitions.MechanismName]);
+        }
+
+        /// <summary>
+        /// Reads the failure mechanism type from the data reader.
+        /// </summary>
+        /// <returns>The failure mechanism type.</returns>
+        /// <exception cref="StochasticSoilModelException">Thrown when the read failure mechanism type is not supported.</exception>
+        /// <exception cref="InvalidCastException">Thrown when the conversion to <see cref="long"/> is not supported.</exception>
         private FailureMechanismType ReadFailureMechanismType()
         {
             long mechanismId = Convert.ToInt64(dataReader[MechanismTableDefinitions.MechanismId]);
-            return (FailureMechanismType) mechanismId;
+            if (Enum.IsDefined(typeof(FailureMechanismType), mechanismId))
+            {
+                return (FailureMechanismType) mechanismId;
+            }
+
+            string message = string.Format(Resources.SoilReader_ReadFailureMechanismType_Failure_mechanism_0_not_supported, ReadMechanismName());
+            throw new StochasticSoilModelException(message);
         }
 
         #endregion
