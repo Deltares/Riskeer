@@ -213,11 +213,12 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.IsInstanceOf<EnumDisplayWrapper<FailureMechanismAssemblyProbabilityResultType>>(comboBox.SelectedItem);
 
                 var configurationTypes = (EnumDisplayWrapper<FailureMechanismAssemblyProbabilityResultType>[]) comboBox.DataSource;
-                Assert.AreEqual(3, configurationTypes.Length);
-                Assert.AreEqual(FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile, configurationTypes[0].Value);
+                Assert.AreEqual(4, configurationTypes.Length);
+                Assert.AreEqual(FailureMechanismAssemblyProbabilityResultType.Default, configurationTypes[0].Value);
                 Assert.AreEqual(FailureMechanismAssemblyProbabilityResultType.AutomaticIndependentSections, configurationTypes[1].Value);
-                Assert.AreEqual(FailureMechanismAssemblyProbabilityResultType.Manual, configurationTypes[2].Value);
-                Assert.AreEqual(failureMechanism.AssemblyResult.ProbabilityResultType,
+                Assert.AreEqual(FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile, configurationTypes[2].Value);
+                Assert.AreEqual(FailureMechanismAssemblyProbabilityResultType.Manual, configurationTypes[3].Value);
+                Assert.AreEqual(FailureMechanismAssemblyProbabilityResultType.Default,
                                 ((EnumDisplayWrapper<FailureMechanismAssemblyProbabilityResultType>) comboBox.SelectedItem).Value);
             }
         }

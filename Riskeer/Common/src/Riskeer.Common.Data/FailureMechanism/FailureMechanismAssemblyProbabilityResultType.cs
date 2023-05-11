@@ -30,15 +30,23 @@ namespace Riskeer.Common.Data.FailureMechanism
     public enum FailureMechanismAssemblyProbabilityResultType
     {
         /// <summary>
-        /// The automatically calculated probability type based on the worst section or profile.
+        /// The default option
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismAssemblyProbabilityResultTypeAutomaticWorstSectionOrProfile_DisplayName))]
-        AutomaticWorstSectionOrProfile = 1,
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismAssemblyProbabilityResultTypeDefault_DisplayName))]
+        Default = 0,
+
         /// <summary>
         /// The automatically calculated probability type based on independent sections.
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismAssemblyProbabilityResultTypeAutomaticIndependentSections_DisplayName))]
-        AutomaticIndependentSections = 2,
+        AutomaticIndependentSections = 1,
+
+        /// <summary>
+        /// The automatically calculated probability type based on the worst section or profile.
+        /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismAssemblyProbabilityResultTypeAutomaticWorstSectionOrProfile_DisplayName))]
+        AutomaticWorstSectionOrProfile = 2,
+
         /// <summary>
         /// The manual probability type.
         /// </summary>

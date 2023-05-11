@@ -38,7 +38,7 @@ namespace Riskeer.Common.Data.FailureMechanism
         /// </summary>
         public FailureMechanismAssemblyResult()
         {
-            ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticIndependentSections;
+            ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Default; //todo deze vuurt als eerst in de resultview
             ManualFailureMechanismAssemblyProbability = double.NaN;
         }
 

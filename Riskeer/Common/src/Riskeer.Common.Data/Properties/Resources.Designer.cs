@@ -408,6 +408,15 @@ namespace Riskeer.Common.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;selecteer&gt;.
+        /// </summary>
+        public static string FailureMechanismAssemblyProbabilityResultTypeDefault_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismAssemblyProbabilityResultTypeDefault_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Handmatig invullen.
         /// </summary>
         public static string FailureMechanismAssemblyProbabilityResultTypeManual_DisplayName {

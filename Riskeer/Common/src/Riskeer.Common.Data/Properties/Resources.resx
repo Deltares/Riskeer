@@ -408,4 +408,7 @@
   <data name="SpecificFailureMechanism_DefaultCode" xml:space="preserve">
     <value>NIEUW</value>
   </data>
+  <data name="FailureMechanismAssemblyProbabilityResultTypeDefault_DisplayName" xml:space="preserve">
+    <value>&lt;selecteer&gt;</value>
+  </data>
 </root>
