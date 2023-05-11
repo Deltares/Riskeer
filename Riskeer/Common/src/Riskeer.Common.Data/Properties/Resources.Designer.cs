@@ -426,6 +426,16 @@ namespace Riskeer.Common.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er ontbreekt invoer voor de assemblage rekenmodule waardoor de assemblage niet uitgevoerd kan worden..
+        /// </summary>
+        public static string FailureMechanismAssemblyResultFactory_AssembleFailureMechanism_Missing_input_for_assembly {
+            get {
+                return ResourceManager.GetString("FailureMechanismAssemblyResultFactory_AssembleFailureMechanism_Missing_input_for_" +
+                        "assembly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De omgevingswaarde moet gelijk zijn aan of groter zijn dan de signaleringsparameter..
         /// </summary>
         public static string FailureMechanismContribution_MaximumAllowableFloodingProbability_should_be_same_or_greater_than_SignalFloodingProbability {
