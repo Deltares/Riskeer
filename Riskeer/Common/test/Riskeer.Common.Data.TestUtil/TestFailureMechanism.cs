@@ -48,7 +48,10 @@ namespace Riskeer.Common.Data.TestUtil
             InAssemblyInputComments = new Comment();
             InAssemblyOutputComments = new Comment();
             NotInAssemblyComments = new Comment();
-            AssemblyResult = new FailureMechanismAssemblyResult();
+            AssemblyResult = new FailureMechanismAssemblyResult
+            {
+                ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticIndependentSections
+            };
             sectionResults = new ObservableList<TestFailureMechanismSectionResult>();
         }
 

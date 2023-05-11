@@ -33,6 +33,9 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             new Dictionary<FailureMechanismAssemblyProbabilityResultType, int>
             {
                 {
+                    FailureMechanismAssemblyProbabilityResultType.Default, 0
+                },
+                {
                     FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile, 1
                 },
                 {
@@ -46,6 +49,9 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
         protected override IDictionary<FailureMechanismAssemblyProbabilityResultType, string> ExpectedDisplayNameForEnumValues =>
             new Dictionary<FailureMechanismAssemblyProbabilityResultType, string>
             {
+                {
+                    FailureMechanismAssemblyProbabilityResultType.Default, "<selecteer>"
+                },
                 {
                     FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile, "Automatisch berekenen o.b.v. slechtste doorsnede of vak"
                 },
