@@ -69,19 +69,18 @@ namespace Riskeer.Common.IO.SoilProfile
 
         /// <summary>
         /// Reads the information for the next soil profile from the database and creates a 
-        /// <see cref="SoilProfile1D"/> instance of the information.
+        /// <see cref="SoilProfileWrapper{T}"/> instance of the information.
         /// </summary>
-        /// <returns>The next <see cref="SoilProfile1D"/> from the database, or <c>null</c> 
+        /// <returns>The next <see cref="SoilProfileWrapper{T}"/> containing the <see cref="SoilProfile1D"/> from the database, or <c>null</c> 
         /// if no more soil profile can be read.</returns>
         /// <exception cref="SoilProfileReadException">Thrown when reading properties of the profile failed.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when the database returned incorrect 
         /// values for required properties.</exception>
-        public SoilProfile1D ReadSoilProfile()
+        public SoilProfileWrapper<SoilProfile1D> ReadSoilProfile()
         {
             try
             {
-                SoilProfile1D soilProfile = TryReadSoilProfile();
-                return soilProfile;
+                return TryReadSoilProfile();
             }
             catch (SystemException exception) when (exception is FormatException
                                                     || exception is OverflowException
@@ -126,12 +125,16 @@ namespace Riskeer.Common.IO.SoilProfile
         }
 
         /// <summary>
-        /// Steps through the result rows until a row is read which' profile id differs from <paramref name="soilProfileId"/>.
+        /// Steps through the result rows until a row is read which profile or mechanism id differs from <paramref name="soilProfileId"/>
+        /// or <paramref name="mechanismId"/>.
         /// </summary>
         /// <param name="soilProfileId">The id of the profile to skip.</param>
-        private void MoveToNextProfile(long soilProfileId)
+        /// <param name="mechanismId">The id of the mechanism to skip.</param>
+        private void MoveToNextProfile(long soilProfileId, long mechanismId)
         {
-            while (HasNext && Read<long>(SoilProfileTableDefinitions.SoilProfileId).Equals(soilProfileId))
+            while (HasNext
+                   && Read<long>(SoilProfileTableDefinitions.SoilProfileId).Equals(soilProfileId)
+                   && Read<long>(MechanismTableDefinitions.MechanismId).Equals(mechanismId))
             {
                 MoveNext();
             }
@@ -145,15 +148,20 @@ namespace Riskeer.Common.IO.SoilProfile
         /// while reading the profile.</exception>
         /// <exception cref="SoilProfileReadException">Thrown when reading properties of the profile 
         /// failed.</exception>
-        private SoilProfile1D TryReadSoilProfile()
+        private SoilProfileWrapper<SoilProfile1D> TryReadSoilProfile()
         {
             var criticalProperties = new CriticalProfileProperties(this);
+            var mechanismId = Read<long>(MechanismTableDefinitions.MechanismId);
+
             var soilLayers = new List<SoilLayer1D>();
 
             RequiredProfileProperties properties;
+            FailureMechanismType failureMechanismType;
+
             try
             {
                 properties = new RequiredProfileProperties(this, criticalProperties.ProfileName);
+                failureMechanismType = CreateFailureMechanismType(mechanismId);
 
                 for (var i = 1; i <= criticalProperties.LayerCount; i++)
                 {
@@ -163,15 +171,16 @@ namespace Riskeer.Common.IO.SoilProfile
             }
             catch (SoilProfileReadException)
             {
-                MoveToNextProfile(criticalProperties.ProfileId);
+                MoveToNextProfile(criticalProperties.ProfileId, mechanismId);
                 throw;
             }
 
-            MoveToNextProfile(criticalProperties.ProfileId);
-            return new SoilProfile1D(criticalProperties.ProfileId,
-                                     criticalProperties.ProfileName,
-                                     properties.Bottom,
-                                     soilLayers);
+            MoveToNextProfile(criticalProperties.ProfileId, mechanismId);
+            var soilProfile = new SoilProfile1D(criticalProperties.ProfileId,
+                                                criticalProperties.ProfileName,
+                                                properties.Bottom,
+                                                soilLayers);
+            return new SoilProfileWrapper<SoilProfile1D>(soilProfile, failureMechanismType);
         }
 
         private void PrepareReader()
@@ -201,6 +210,25 @@ namespace Riskeer.Common.IO.SoilProfile
             SoilLayerHelper.SetSoilLayerBaseProperties(soilLayer, properties);
 
             return soilLayer;
+        }
+
+        /// <summary>
+        /// Creates the failure mechanism type based on the mechanism id.
+        /// </summary>
+        /// <param name="mechanismId">The mechanism id to create the <see cref="FailureMechanismType"/> with.</param>
+        /// <returns>The failure mechanism type.</returns>
+        /// <exception cref="SoilProfileReadException">Thrown when the read failure mechanism type is not supported.</exception>
+        private FailureMechanismType CreateFailureMechanismType(long mechanismId)
+        {
+            if (Enum.IsDefined(typeof(FailureMechanismType), mechanismId))
+            {
+                return (FailureMechanismType) mechanismId;
+            }
+
+            string message = string.Format(Resources.SoilReader_ReadFailureMechanismType_Failure_mechanism_0_not_supported,
+                                           Read<string>(MechanismTableDefinitions.MechanismName));
+
+            throw new SoilProfileReadException(message);
         }
 
         private class Layer1DProperties : LayerProperties

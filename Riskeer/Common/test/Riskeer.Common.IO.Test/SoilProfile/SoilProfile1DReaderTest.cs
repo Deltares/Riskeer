@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -30,6 +31,7 @@ using Core.Common.Util.Builders;
 using NUnit.Framework;
 using Riskeer.Common.IO.Exceptions;
 using Riskeer.Common.IO.SoilProfile;
+using Riskeer.Common.IO.SoilProfile.Schema;
 
 namespace Riskeer.Common.IO.Test.SoilProfile
 {
@@ -45,13 +47,13 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             string testFile = Path.Combine(testDataPath, "does not exist");
 
             // Call
-            TestDelegate test = () =>
+            void Call()
             {
                 using (new SoilProfile1DReader(testFile)) {}
-            };
+            }
 
             // Assert
-            var exception = Assert.Throws<CriticalFileReadException>(test);
+            var exception = Assert.Throws<CriticalFileReadException>(Call);
             string expectedMessage = new FileReaderErrorMessageBuilder(testFile).Build("Het bestand bestaat niet.");
             Assert.AreEqual(expectedMessage, exception.Message);
         }
@@ -61,10 +63,10 @@ namespace Riskeer.Common.IO.Test.SoilProfile
         public void Constructor_InvalidPath_ThrowsCriticalFileReadException(string fileName)
         {
             // Call
-            TestDelegate test = () => new SoilProfile1DReader(fileName);
+            void Call() => new SoilProfile1DReader(fileName);
 
             // Assert
-            Assert.Throws<CriticalFileReadException>(test);
+            Assert.Throws<CriticalFileReadException>(Call);
         }
 
         [Test]
@@ -93,10 +95,10 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             using (var reader = new SoilProfile1DReader(dbFile))
             {
                 // Call
-                TestDelegate test = () => reader.Initialize();
+                void Call() => reader.Initialize();
 
                 // Assert
-                var exception = Assert.Throws<CriticalFileReadException>(test);
+                var exception = Assert.Throws<CriticalFileReadException>(Call);
 
                 string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build(
                     "Kon geen ondergrondschematisaties verkrijgen uit de database.");
@@ -117,10 +119,10 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                 reader.Initialize();
 
                 // Call
-                TestDelegate test = () => reader.ReadSoilProfile();
+                void Call() => reader.ReadSoilProfile();
 
                 // Assert
-                var exception = Assert.Throws<CriticalFileReadException>(test);
+                var exception = Assert.Throws<CriticalFileReadException>(Call);
 
                 string expectedMessage = new FileReaderErrorMessageBuilder(dbFile)
                                          .WithSubject("ondergrondschematisatie 'Profile'")
@@ -138,7 +140,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             string dbFile = Path.Combine(testDataPath, "1dprofileWithInvalidLayerProperty.soil");
 
             SoilProfileReadException exception = null;
-            var readSoilProfiles = new List<SoilProfile1D>();
+            var readSoilProfiles = new List<SoilProfileWrapper<SoilProfile1D>>();
             using (var reader = new SoilProfile1DReader(dbFile))
             {
                 reader.Initialize();
@@ -160,18 +162,60 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             Assert.IsInstanceOf<SoilProfileReadException>(exception);
             Assert.AreEqual("Profile", exception.ProfileName);
             Assert.AreEqual(1, readSoilProfiles.Count);
-            Assert.AreEqual("Profile2", readSoilProfiles[0].Name);
+            Assert.AreEqual("Profile2", readSoilProfiles[0].SoilProfile.Name);
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
 
+        [Test]
+        [TestCase("1dprofile", FailureMechanismType.Piping)]
+        [TestCase("1dprofileStability", FailureMechanismType.Stability)]
+        public void ReadSoilProfile_DatabaseWith1DSoilProfileWithValidFailureMechanismType_ReturnsExpectedFailureMechanismType(
+            string fileName, FailureMechanismType expectedFailureMechanismType)
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, $"{fileName}.soil");
+
+            using (var reader = new SoilProfile1DReader(dbFile))
+            {
+                reader.Initialize();
+
+                // Call
+                SoilProfileWrapper<SoilProfile1D> readProfile = reader.ReadSoilProfile();
+
+                // Assert
+                Assert.AreEqual(expectedFailureMechanismType, readProfile.FailureMechanismType);
+            }
+        }
+
+        [Test]
+        public void ReadSoilProfile_DatabaseWith1DSoilProfileWithOtherFailureMechanism_ThrowsSoilProfileReadException()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "1dprofileInvalidFailureMechanismType.soil");
+
+            using (var reader = new SoilProfile1DReader(dbFile))
+            {
+                reader.Initialize();
+
+                // Call
+                void Call() => reader.ReadSoilProfile();
+
+                // Assert
+                var exception = Assert.Throws<SoilProfileReadException>(Call);
+
+                const string expectedMessage = "Het faalmechanisme 'UNKNOWN' wordt niet ondersteund.";
+                Assert.AreEqual(expectedMessage, exception.Message);
+            }
+        }
+        
         [Test]
         public void ReadSoilProfile_DatabaseWith1DAnd1DSoilProfileWithoutSoilLayers_ReturnOneProfile()
         {
             // Setup
             string dbFile = Path.Combine(testDataPath, "1dprofileWithEmpty1d.soil");
 
-            var result = new Collection<SoilProfile1D>();
+            var result = new Collection<SoilProfileWrapper<SoilProfile1D>>();
             using (var reader = new SoilProfile1DReader(dbFile))
             {
                 reader.Initialize();
@@ -185,7 +229,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
 
             // Assert
             Assert.AreEqual(1, result.Count);
-            Assert.AreEqual("Profile", result[0].Name);
+            Assert.AreEqual("Profile", result[0].SoilProfile.Name);
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
@@ -201,10 +245,10 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                 reader.Initialize();
 
                 // Call
-                TestDelegate test = () => reader.ReadSoilProfile();
+                void Call() => reader.ReadSoilProfile();
 
                 // Assert
-                var exception = Assert.Throws<SoilProfileReadException>(test);
+                var exception = Assert.Throws<SoilProfileReadException>(Call);
                 const string expectedMessage = "Het lezen van de ondergrondschematisatie 'INCORRECT' is mislukt. " +
                                                "Geen geldige waarde in kolom 'Top'.";
                 Assert.AreEqual(expectedMessage, exception.Message);
@@ -225,10 +269,10 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                 reader.Initialize();
 
                 // Call
-                TestDelegate test = () => reader.ReadSoilProfile();
+                void Call() => reader.ReadSoilProfile();
 
                 // Assert
-                var exception = Assert.Throws<SoilProfileReadException>(test);
+                var exception = Assert.Throws<SoilProfileReadException>(Call);
                 const string expectedMessage = "Het lezen van de ondergrondschematisatie 'Profile' is mislukt. " +
                                                "Geen geldige waarde in kolom 'Bottom'.";
                 Assert.AreEqual(expectedMessage, exception.Message);
@@ -249,17 +293,18 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                 reader.Initialize();
 
                 // Call
-                SoilProfile1D profile = reader.ReadSoilProfile();
+                SoilProfileWrapper<SoilProfile1D> profile = reader.ReadSoilProfile();
 
                 // Assert
-                Assert.AreEqual(9999999, profile.Bottom);
+                SoilProfile1D soilProfile = profile.SoilProfile;
+                Assert.AreEqual(9999999, soilProfile.Bottom);
 
                 CollectionAssert.AreEqual(new[]
                 {
                     1.1,
                     2.2,
                     3.3
-                }, profile.Layers.Select(layer => layer.Top));
+                }, soilProfile.Layers.Select(layer => layer.Top));
             }
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
@@ -275,13 +320,14 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                 reader.Initialize();
 
                 // Call
-                SoilProfile1D profile = reader.ReadSoilProfile();
+                SoilProfileWrapper<SoilProfile1D> readSoilProfile = reader.ReadSoilProfile();
 
                 // Assert
-                Assert.AreEqual("Schematisering1", profile.Name);
-                Assert.AreEqual(1, profile.Id);
-                Assert.IsNaN(profile.Bottom);
-                CollectionAssert.IsEmpty(profile.Layers);
+                SoilProfile1D soilProfile = readSoilProfile.SoilProfile;
+                Assert.AreEqual("Schematisering1", soilProfile.Name);
+                Assert.AreEqual(1, soilProfile.Id);
+                Assert.IsNaN(soilProfile.Bottom);
+                CollectionAssert.IsEmpty(soilProfile.Layers);
             }
         }
 
@@ -295,20 +341,21 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                 reader.Initialize();
 
                 // Call
-                SoilProfile1D profile = reader.ReadSoilProfile();
+                SoilProfileWrapper<SoilProfile1D> readSoilProfile = reader.ReadSoilProfile();
 
                 // Assert
-                Assert.AreEqual(-40, profile.Bottom);
-                Assert.AreEqual("Schematisering1", profile.Name);
+                SoilProfile1D soilProfile = readSoilProfile.SoilProfile;
+                Assert.AreEqual(-40, soilProfile.Bottom);
+                Assert.AreEqual("Schematisering1", soilProfile.Name);
 
-                Assert.AreEqual(4, profile.Layers.Count());
+                Assert.AreEqual(4, soilProfile.Layers.Count());
                 CollectionAssert.AreEqual(new[]
                 {
                     30,
                     10,
                     -20,
                     -30
-                }, profile.Layers.Select(l => l.Top));
+                }, soilProfile.Layers.Select(l => l.Top));
 
                 CollectionAssert.AreEqual(new[]
                 {
@@ -316,7 +363,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                     "Zand",
                     "dummy",
                     "Klei 3"
-                }, profile.Layers.Select(l => l.MaterialName));
+                }, soilProfile.Layers.Select(l => l.MaterialName));
 
                 CollectionAssert.AreEqual(new[]
                 {
@@ -324,7 +371,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                     1.0,
                     1.0,
                     1.0
-                }, profile.Layers.Select(l => l.IsAquifer));
+                }, soilProfile.Layers.Select(l => l.IsAquifer));
 
                 CollectionAssert.AreEqual(new[]
                 {
@@ -332,7 +379,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                     -65536,
                     -65536,
                     -4144897
-                }, profile.Layers.Select(l => l.Color));
+                }, soilProfile.Layers.Select(l => l.Color));
 
                 CollectionAssert.AreEqual(new[]
                 {
@@ -340,35 +387,35 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                     2,
                     2,
                     2
-                }, profile.Layers.Select(l => l.BelowPhreaticLevelDistributionType));
+                }, soilProfile.Layers.Select(l => l.BelowPhreaticLevelDistributionType));
                 CollectionAssert.AreEqual(new[]
                 {
                     24,
                     20,
                     30,
                     28
-                }, profile.Layers.Select(l => l.BelowPhreaticLevelMean));
+                }, soilProfile.Layers.Select(l => l.BelowPhreaticLevelMean));
                 CollectionAssert.AreEqual(new[]
                 {
                     0.24,
                     0.2,
                     0.3,
                     0.28
-                }, profile.Layers.Select(l => l.BelowPhreaticLevelDeviation));
+                }, soilProfile.Layers.Select(l => l.BelowPhreaticLevelDeviation));
                 CollectionAssert.AreEqual(new[]
                 {
                     0.01,
                     0.01,
                     0.01,
                     0.01
-                }, profile.Layers.Select(l => l.BelowPhreaticLevelCoefficientOfVariation));
+                }, soilProfile.Layers.Select(l => l.BelowPhreaticLevelCoefficientOfVariation));
                 CollectionAssert.AreEqual(new[]
                 {
                     0,
                     0,
                     0,
                     0
-                }, profile.Layers.Select(l => l.BelowPhreaticLevelShift));
+                }, soilProfile.Layers.Select(l => l.BelowPhreaticLevelShift));
 
                 CollectionAssert.AreEqual(new[]
                 {
@@ -376,28 +423,28 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                     3,
                     3,
                     3
-                }, profile.Layers.Select(l => l.DiameterD70DistributionType));
+                }, soilProfile.Layers.Select(l => l.DiameterD70DistributionType));
                 CollectionAssert.AreEqual(new[]
                 {
                     0.00017,
                     0.00016,
                     0.000155,
                     0.00017
-                }, profile.Layers.Select(l => l.DiameterD70Mean));
+                }, soilProfile.Layers.Select(l => l.DiameterD70Mean));
                 CollectionAssert.AreEqual(new[]
                 {
                     0.11764705882352941,
                     0.125,
                     0.12903225806451615,
                     0.11764705882352941
-                }, profile.Layers.Select(l => l.DiameterD70CoefficientOfVariation));
+                }, soilProfile.Layers.Select(l => l.DiameterD70CoefficientOfVariation));
                 CollectionAssert.AreEqual(new[]
                 {
                     0,
                     0,
                     0,
                     0
-                }, profile.Layers.Select(l => l.DiameterD70Shift));
+                }, soilProfile.Layers.Select(l => l.DiameterD70Shift));
 
                 CollectionAssert.AreEqual(new[]
                 {
@@ -405,28 +452,28 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                     3,
                     3,
                     3
-                }, profile.Layers.Select(l => l.PermeabilityDistributionType));
+                }, soilProfile.Layers.Select(l => l.PermeabilityDistributionType));
                 CollectionAssert.AreEqual(new[]
                 {
                     0,
                     0.000185,
                     0.001,
                     0
-                }, profile.Layers.Select(l => l.PermeabilityMean));
+                }, soilProfile.Layers.Select(l => l.PermeabilityMean));
                 CollectionAssert.AreEqual(new[]
                 {
                     double.NaN,
                     0,
                     0,
                     double.NaN
-                }, profile.Layers.Select(l => l.PermeabilityCoefficientOfVariation));
+                }, soilProfile.Layers.Select(l => l.PermeabilityCoefficientOfVariation));
                 CollectionAssert.AreEqual(new[]
                 {
                     0,
                     0,
                     0,
                     0
-                }, profile.Layers.Select(l => l.PermeabilityShift));
+                }, soilProfile.Layers.Select(l => l.PermeabilityShift));
 
                 CollectionAssert.AreEqual(new double?[]
                 {
@@ -434,7 +481,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                     null,
                     0,
                     0
-                }, profile.Layers.Select(l => l.UsePop));
+                }, soilProfile.Layers.Select(l => l.UsePop));
 
                 CollectionAssert.AreEqual(new double?[]
                 {
@@ -442,7 +489,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                     9,
                     1,
                     6
-                }, profile.Layers.Select(l => l.ShearStrengthModel));
+                }, soilProfile.Layers.Select(l => l.ShearStrengthModel));
 
                 CollectionAssert.AreEqual(new[]
                 {
@@ -450,28 +497,28 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                     2,
                     2,
                     2
-                }, profile.Layers.Select(l => l.AbovePhreaticLevelDistributionType));
+                }, soilProfile.Layers.Select(l => l.AbovePhreaticLevelDistributionType));
                 CollectionAssert.AreEqual(new[]
                 {
                     14,
                     10,
                     20,
                     18
-                }, profile.Layers.Select(l => l.AbovePhreaticLevelMean));
+                }, soilProfile.Layers.Select(l => l.AbovePhreaticLevelMean));
                 CollectionAssert.AreEqual(new[]
                 {
                     0.01,
                     0.01,
                     0.01,
                     0.01
-                }, profile.Layers.Select(l => l.AbovePhreaticLevelCoefficientOfVariation));
+                }, soilProfile.Layers.Select(l => l.AbovePhreaticLevelCoefficientOfVariation));
                 CollectionAssert.AreEqual(new[]
                 {
                     0,
                     0,
                     0,
                     0
-                }, profile.Layers.Select(l => l.AbovePhreaticLevelShift));
+                }, soilProfile.Layers.Select(l => l.AbovePhreaticLevelShift));
 
                 CollectionAssert.AreEqual(new[]
                 {
@@ -479,28 +526,28 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                     3,
                     3,
                     3
-                }, profile.Layers.Select(l => l.CohesionDistributionType));
+                }, soilProfile.Layers.Select(l => l.CohesionDistributionType));
                 CollectionAssert.AreEqual(new[]
                 {
                     1,
                     7,
                     4,
                     3
-                }, profile.Layers.Select(l => l.CohesionMean));
+                }, soilProfile.Layers.Select(l => l.CohesionMean));
                 CollectionAssert.AreEqual(new[]
                 {
                     0.1,
                     0.09999999999999999,
                     0.1,
                     0.09999999999999999
-                }, profile.Layers.Select(l => l.CohesionCoefficientOfVariation));
+                }, soilProfile.Layers.Select(l => l.CohesionCoefficientOfVariation));
                 CollectionAssert.AreEqual(new[]
                 {
                     0.01,
                     0.07,
                     0.04,
                     0.03
-                }, profile.Layers.Select(l => l.CohesionShift));
+                }, soilProfile.Layers.Select(l => l.CohesionShift));
 
                 CollectionAssert.AreEqual(new[]
                 {
@@ -508,28 +555,28 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                     3,
                     3,
                     3
-                }, profile.Layers.Select(l => l.FrictionAngleDistributionType));
+                }, soilProfile.Layers.Select(l => l.FrictionAngleDistributionType));
                 CollectionAssert.AreEqual(new[]
                 {
                     11,
                     77,
                     44,
                     33
-                }, profile.Layers.Select(l => l.FrictionAngleMean));
+                }, soilProfile.Layers.Select(l => l.FrictionAngleMean));
                 CollectionAssert.AreEqual(new[]
                 {
                     0.01,
                     0.01,
                     0.01,
                     0.01
-                }, profile.Layers.Select(l => l.FrictionAngleCoefficientOfVariation));
+                }, soilProfile.Layers.Select(l => l.FrictionAngleCoefficientOfVariation));
                 CollectionAssert.AreEqual(new[]
                 {
                     0.01,
                     0.07,
                     0.04,
                     0.03
-                }, profile.Layers.Select(l => l.FrictionAngleShift));
+                }, soilProfile.Layers.Select(l => l.FrictionAngleShift));
 
                 CollectionAssert.AreEqual(new[]
                 {
@@ -537,28 +584,28 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                     3,
                     3,
                     3
-                }, profile.Layers.Select(l => l.ShearStrengthRatioDistributionType));
+                }, soilProfile.Layers.Select(l => l.ShearStrengthRatioDistributionType));
                 CollectionAssert.AreEqual(new[]
                 {
                     24,
                     78,
                     31,
                     28
-                }, profile.Layers.Select(l => l.ShearStrengthRatioMean));
+                }, soilProfile.Layers.Select(l => l.ShearStrengthRatioMean));
                 CollectionAssert.AreEqual(new[]
                 {
                     0.017499999999999998,
                     0.011153846153846153,
                     0.004193548387096774,
                     0.029285714285714283
-                }, profile.Layers.Select(l => l.ShearStrengthRatioCoefficientOfVariation));
+                }, soilProfile.Layers.Select(l => l.ShearStrengthRatioCoefficientOfVariation));
                 CollectionAssert.AreEqual(new[]
                 {
                     0.04,
                     0.07,
                     0.03,
                     0.08
-                }, profile.Layers.Select(l => l.ShearStrengthRatioShift));
+                }, soilProfile.Layers.Select(l => l.ShearStrengthRatioShift));
 
                 CollectionAssert.AreEqual(new[]
                 {
@@ -566,28 +613,28 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                     3,
                     3,
                     3
-                }, profile.Layers.Select(l => l.StrengthIncreaseExponentDistributionType));
+                }, soilProfile.Layers.Select(l => l.StrengthIncreaseExponentDistributionType));
                 CollectionAssert.AreEqual(new[]
                 {
                     1,
                     3,
                     4,
                     2
-                }, profile.Layers.Select(l => l.StrengthIncreaseExponentMean));
+                }, soilProfile.Layers.Select(l => l.StrengthIncreaseExponentMean));
                 CollectionAssert.AreEqual(new[]
                 {
                     0.1,
                     0.09999999999999999,
                     0.1,
                     0.1
-                }, profile.Layers.Select(l => l.StrengthIncreaseExponentCoefficientOfVariation));
+                }, soilProfile.Layers.Select(l => l.StrengthIncreaseExponentCoefficientOfVariation));
                 CollectionAssert.AreEqual(new[]
                 {
                     0.01,
                     0.03,
                     0.04,
                     0.02
-                }, profile.Layers.Select(l => l.StrengthIncreaseExponentShift));
+                }, soilProfile.Layers.Select(l => l.StrengthIncreaseExponentShift));
 
                 CollectionAssert.AreEqual(new[]
                 {
@@ -595,28 +642,28 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                     3,
                     3,
                     3
-                }, profile.Layers.Select(l => l.PopDistributionType));
+                }, soilProfile.Layers.Select(l => l.PopDistributionType));
                 CollectionAssert.AreEqual(new[]
                 {
                     111,
                     333,
                     444,
                     222
-                }, profile.Layers.Select(l => l.PopMean));
+                }, soilProfile.Layers.Select(l => l.PopMean));
                 CollectionAssert.AreEqual(new[]
                 {
                     0.000990990990990991,
                     0.000990990990990991,
                     0.000990990990990991,
                     0.000990990990990991
-                }, profile.Layers.Select(l => l.PopCoefficientOfVariation));
+                }, soilProfile.Layers.Select(l => l.PopCoefficientOfVariation));
                 CollectionAssert.AreEqual(new[]
                 {
                     0.01,
                     0.03,
                     0.04,
                     0.02
-                }, profile.Layers.Select(l => l.PopShift));
+                }, soilProfile.Layers.Select(l => l.PopShift));
             }
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
@@ -632,13 +679,14 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                 reader.Initialize();
 
                 // Call
-                SoilProfile1D profile = reader.ReadSoilProfile();
+                SoilProfileWrapper<SoilProfile1D> readSoilProfile = reader.ReadSoilProfile();
 
                 // Assert
-                Assert.AreEqual(1, profile.Bottom);
-                Assert.AreEqual("Schematisering1", profile.Name);
+                SoilProfile1D soilProfile = readSoilProfile.SoilProfile;
+                Assert.AreEqual(1, soilProfile.Bottom);
+                Assert.AreEqual("Schematisering1", soilProfile.Name);
 
-                SoilLayer1D soilLayer = profile.Layers.Single();
+                SoilLayer1D soilLayer = soilProfile.Layers.Single();
                 Assert.AreEqual("dummy", soilLayer.MaterialName);
                 Assert.AreEqual(1, soilLayer.Top);
                 Assert.IsNull(soilLayer.IsAquifer);
@@ -695,6 +743,39 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             }
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+        
+        [Test]
+        public void ReadSoilProfile_SoilProfilePartOfMultipleFailureMechanismTypes_ReturnsProfilesWithExpectedFailureMechanismTypes()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "1dprofileWithSameProfileInMultipleSegmentsAndDifferentFailureMechanismTypes.soil");
+
+            var readProfiles = new List<SoilProfileWrapper<SoilProfile1D>>();
+            using (var reader = new SoilProfile1DReader(dbFile))
+            {
+                reader.Initialize();
+
+                while (reader.HasNext)
+                {
+                    // Call
+                    readProfiles.Add(reader.ReadSoilProfile());
+                }
+
+                // Assert
+                Assert.IsFalse(reader.HasNext);
+                Assert.AreEqual(2, readProfiles.Count);
+                
+                CollectionAssert.AreEqual(new[]
+                {
+                    FailureMechanismType.Stability,
+                    FailureMechanismType.Piping
+                }, readProfiles.Select(p => p.FailureMechanismType));
+                
+                Assert.True(readProfiles.All(p => p.SoilProfile.Name == "Segment_41009_1D1"));
+                Assert.True(readProfiles.All(p => p.SoilProfile.Layers.Count() == 3));
+                Assert.True(readProfiles.All(p => Math.Abs(p.SoilProfile.Bottom + 21) < 1e-6));
+            }
         }
     }
 }
