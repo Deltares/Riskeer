@@ -27,6 +27,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using Core.Common.Util;
+using Core.Common.Util.Extensions;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
@@ -101,6 +102,9 @@ namespace Riskeer.Integration.IO.Test.Exporters
             // Setup
             string filePath = TestHelper.GetScratchPadPath(nameof(Export_SpecificFailureMechanismsWithSameName_ExpectedResultBasedOnInAssemblyState));
             AssessmentSection assessmentSection = CreateConfiguredAssessmentSection();
+
+            assessmentSection.GetFailureMechanisms().ForEachElementDo(fm => fm.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticIndependentSections);
+            assessmentSection.SpecificFailureMechanisms.ForEachElementDo(fm => fm.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticIndependentSections);
 
             SpecificFailureMechanism specificFailureMechanism1 = assessmentSection.SpecificFailureMechanisms.ElementAt(0);
             SpecificFailureMechanism specificFailureMechanism2 = assessmentSection.SpecificFailureMechanisms.ElementAt(1);
@@ -195,6 +199,8 @@ namespace Riskeer.Integration.IO.Test.Exporters
             string filePath = Path.Combine(folderPath, "actualAssembly.gml");
 
             AssessmentSection assessmentSection = CreateConfiguredAssessmentSection();
+            assessmentSection.GetFailureMechanisms().ForEachElementDo(fm => fm.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticIndependentSections);
+            assessmentSection.SpecificFailureMechanisms.ForEachElementDo(fm => fm.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticIndependentSections);
 
             var exporter = new AssemblyExporter(assessmentSection, filePath);
 
@@ -231,6 +237,8 @@ namespace Riskeer.Integration.IO.Test.Exporters
             // Setup
             string filePath = TestHelper.GetScratchPadPath(nameof(Export_InvalidDirectoryRights_LogsErrorAndReturnsFalse));
             AssessmentSection assessmentSection = CreateConfiguredAssessmentSection();
+            assessmentSection.GetFailureMechanisms().ForEachElementDo(fm => fm.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticIndependentSections);
+            assessmentSection.SpecificFailureMechanisms.ForEachElementDo(fm => fm.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticIndependentSections);
 
             var exporter = new AssemblyExporter(assessmentSection, filePath);
 

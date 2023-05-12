@@ -75,7 +75,7 @@ namespace Riskeer.Common.Data.AssemblyTool
                         return new FailureMechanismAssemblyResultWrapper(
                             failureMechanismAssemblyResult.ManualFailureMechanismAssemblyProbability,
                             AssemblyMethod.Manual);
-                    case FailureMechanismAssemblyProbabilityResultType.Default:
+                    case FailureMechanismAssemblyProbabilityResultType.None:
                         throw new AssemblyException(Resources.FailureMechanismAssemblyResultFactory_AssembleFailureMechanism_Missing_input_for_assembly);
                     default:
                         throw new NotSupportedException();

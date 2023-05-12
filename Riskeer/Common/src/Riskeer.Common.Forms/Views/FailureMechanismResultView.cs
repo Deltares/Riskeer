@@ -228,7 +228,7 @@ namespace Riskeer.Common.Forms.Views
 
         private bool IsDefault()
         {
-            return probabilityResultTypeComboBox.SelectedIndex == (int) FailureMechanismAssemblyProbabilityResultType.Default;
+            return (FailureMechanismAssemblyProbabilityResultType) probabilityResultTypeComboBox.SelectedValue == FailureMechanismAssemblyProbabilityResultType.None;
         }
 
         private void UpdateAssemblyData()
@@ -242,7 +242,7 @@ namespace Riskeer.Common.Forms.Views
                     SetTextBoxValue(assemblyResult.ManualFailureMechanismAssemblyProbability);
                     validateManualInput(assemblyResult);
                     return;
-                case FailureMechanismAssemblyProbabilityResultType.Default:
+                case FailureMechanismAssemblyProbabilityResultType.None:
                     failureMechanismAssemblyProbabilityTextBox.Text = @"-";
                     return;
                 case FailureMechanismAssemblyProbabilityResultType.AutomaticIndependentSections:

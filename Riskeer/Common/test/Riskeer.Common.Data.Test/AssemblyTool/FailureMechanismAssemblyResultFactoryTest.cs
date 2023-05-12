@@ -87,7 +87,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 Assert.IsFalse(calculator.ApplyLengthEffect);
             }
         }
-        
+
         [Test]
         public void AssembleFailureMechanism_WithInputWithProbabilityResultTypeAutomaticWorstSectionOrProfile_SetsInputOnCalculator()
         {
@@ -124,7 +124,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             double n = random.NextDouble();
             var failureMechanismResult = new FailureMechanismAssemblyResult
             {
-                ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Default
+                ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.None
             };
             bool applyLengthEffect = random.NextBoolean();
             IEnumerable<FailureMechanismSectionAssemblyResult> sectionResults = Enumerable.Empty<FailureMechanismSectionAssemblyResult>();
@@ -139,7 +139,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 Assert.AreEqual("Er ontbreekt invoer voor de assemblage rekenmodule waardoor de assemblage niet uitgevoerd kan worden.", exception.Message);
             }
         }
-        
+
         [Test]
         public void AssembleFailureMechanism_WithInputWithProbabilityResultTypeManual_NoInputOnCalculatorAndReturnsOutput()
         {
@@ -184,7 +184,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 {
                     ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticIndependentSections
                 };
-                
+
                 // Call
                 FailureMechanismAssemblyResultWrapper assemblyResult = FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(
                     0, Enumerable.Empty<FailureMechanismSectionAssemblyResult>(), false, failureMechanismAssemblyResult);
@@ -208,9 +208,9 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 {
                     ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticIndependentSections
                 };
-                
+
                 // Call
-                void Call() => 
+                void Call() =>
                     FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(
                         0, Enumerable.Empty<FailureMechanismSectionAssemblyResult>(), false, failureMechanismAssemblyResult);
 

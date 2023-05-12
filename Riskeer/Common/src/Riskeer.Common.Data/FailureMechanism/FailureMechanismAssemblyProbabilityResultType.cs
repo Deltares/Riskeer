@@ -33,24 +33,24 @@ namespace Riskeer.Common.Data.FailureMechanism
         /// The default option
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismAssemblyProbabilityResultTypeDefault_DisplayName))]
-        Default = 0,
+        None = 1,
 
         /// <summary>
         /// The automatically calculated probability type based on independent sections.
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismAssemblyProbabilityResultTypeAutomaticIndependentSections_DisplayName))]
-        AutomaticIndependentSections = 1,
+        AutomaticIndependentSections = 2,
 
         /// <summary>
         /// The automatically calculated probability type based on the worst section or profile.
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismAssemblyProbabilityResultTypeAutomaticWorstSectionOrProfile_DisplayName))]
-        AutomaticWorstSectionOrProfile = 2,
+        AutomaticWorstSectionOrProfile = 3,
 
         /// <summary>
         /// The manual probability type.
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismAssemblyProbabilityResultTypeManual_DisplayName))]
-        Manual = 3
+        Manual = 4
     }
 }

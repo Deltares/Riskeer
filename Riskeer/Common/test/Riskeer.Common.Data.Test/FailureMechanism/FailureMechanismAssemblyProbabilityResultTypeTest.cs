@@ -33,16 +33,16 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             new Dictionary<FailureMechanismAssemblyProbabilityResultType, int>
             {
                 {
-                    FailureMechanismAssemblyProbabilityResultType.Default, 0
-                },
-                {
-                    FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile, 1
+                    FailureMechanismAssemblyProbabilityResultType.None, 1
                 },
                 {
                     FailureMechanismAssemblyProbabilityResultType.AutomaticIndependentSections, 2
                 },
                 {
-                    FailureMechanismAssemblyProbabilityResultType.Manual, 3
+                    FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile, 3
+                },
+                {
+                    FailureMechanismAssemblyProbabilityResultType.Manual, 4
                 }
             };
 
@@ -50,13 +50,13 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             new Dictionary<FailureMechanismAssemblyProbabilityResultType, string>
             {
                 {
-                    FailureMechanismAssemblyProbabilityResultType.Default, "<selecteer>"
-                },
-                {
-                    FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile, "Automatisch berekenen o.b.v. slechtste doorsnede of vak"
+                    FailureMechanismAssemblyProbabilityResultType.None, "<selecteer>"
                 },
                 {
                     FailureMechanismAssemblyProbabilityResultType.AutomaticIndependentSections, "Automatisch berekenen o.b.v. onafhankelijke vakken"
+                },
+                {
+                    FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile, "Automatisch berekenen o.b.v. slechtste doorsnede of vak"
                 },
                 {
                     FailureMechanismAssemblyProbabilityResultType.Manual, "Handmatig invullen"

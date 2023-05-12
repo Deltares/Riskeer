@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.TestUtil;
+using Core.Common.Util.Extensions;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.IO.Model;
@@ -83,6 +84,9 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             assessmentSection.SpecificFailureMechanisms.Add(new SpecificFailureMechanism());
             assessmentSection.SpecificFailureMechanisms.Add(new SpecificFailureMechanism());
+
+            assessmentSection.SpecificFailureMechanisms.ForEachElementDo(sfm => sfm.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticIndependentSections);
+            assessmentSection.GetFailureMechanisms().ForEachElementDo(fm => fm.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticIndependentSections);
 
             AddFailureMechanismSections(assessmentSection);
 
