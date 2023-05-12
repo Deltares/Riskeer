@@ -144,7 +144,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                 reader.Initialize();
 
                 // Call
-                SoilProfile2DWrapper readProfile = reader.ReadSoilProfile();
+                SoilProfileWrapper<SoilProfile2D> readProfile = reader.ReadSoilProfile();
 
                 // Assert
                 SoilProfile2D profile = readProfile.SoilProfile;
@@ -172,7 +172,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                 reader.Initialize();
 
                 // Call
-                SoilProfile2DWrapper readProfile = reader.ReadSoilProfile();
+                SoilProfileWrapper<SoilProfile2D> readProfile = reader.ReadSoilProfile();
 
                 // Assert
                 Assert.AreEqual(expectedFailureMechanismType, readProfile.FailureMechanismType);
@@ -211,7 +211,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                 reader.Initialize();
 
                 // Call
-                SoilProfile2DWrapper readProfile = reader.ReadSoilProfile();
+                SoilProfileWrapper<SoilProfile2D> readProfile = reader.ReadSoilProfile();
 
                 // Assert
                 SoilProfile2D soilProfile = readProfile.SoilProfile;
@@ -500,7 +500,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                 reader.Initialize();
 
                 // Call
-                SoilProfile2DWrapper readProfile = reader.ReadSoilProfile();
+                SoilProfileWrapper<SoilProfile2D> readProfile = reader.ReadSoilProfile();
 
                 // Assert
                 SoilProfile2D soilProfile = readProfile.SoilProfile;
@@ -538,7 +538,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                 reader.Initialize();
 
                 // Call
-                SoilProfile2DWrapper readProfile = reader.ReadSoilProfile();
+                SoilProfileWrapper<SoilProfile2D> readProfile = reader.ReadSoilProfile();
 
                 // Assert
                 SoilProfile2D soilProfile = readProfile.SoilProfile;
@@ -615,7 +615,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                 reader.Initialize();
 
                 // Call 
-                SoilProfile2DWrapper readProfile = reader.ReadSoilProfile();
+                SoilProfileWrapper<SoilProfile2D> readProfile = reader.ReadSoilProfile();
 
                 // Assert
                 SoilProfile2D soilProfile = readProfile.SoilProfile;
@@ -679,7 +679,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                 reader.Initialize();
 
                 // Call 
-                SoilProfile2DWrapper readProfile = reader.ReadSoilProfile();
+                SoilProfileWrapper<SoilProfile2D> readProfile = reader.ReadSoilProfile();
 
                 // Assert
                 SoilProfile2D soilProfile = readProfile.SoilProfile;
@@ -755,7 +755,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             string dbFile = Path.Combine(testDataPath, "2dprofileWithInvalidLayerProperty.soil");
 
             SoilProfileReadException expectedException = null;
-            var readSoilProfiles = new List<SoilProfile2DWrapper>();
+            var readSoilProfiles = new List<SoilProfileWrapper<SoilProfile2D>>();
             using (var reader = new SoilProfile2DReader(dbFile))
             {
                 reader.Initialize();
@@ -789,7 +789,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             // Setup
             string dbFile = Path.Combine(testDataPath, "2dProfileWithXNull.soil");
 
-            var result = new Collection<SoilProfile2DWrapper>();
+            var result = new Collection<SoilProfileWrapper<SoilProfile2D>>();
             using (var reader = new SoilProfile2DReader(dbFile))
             {
                 reader.Initialize();
@@ -819,7 +819,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             // Given
             string dbFile = Path.Combine(testDataPath, "2dProfilesWithSoilLayersUnparsableValues.soil");
 
-            var readProfiles = new List<SoilProfile2DWrapper>();
+            var readProfiles = new List<SoilProfileWrapper<SoilProfile2D>>();
             SoilProfileReadException actualException = null;
             using (var reader = new SoilProfile2DReader(dbFile))
             {
@@ -870,7 +870,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             // Setup
             string dbFile = Path.Combine(testDataPath, "2dProfilesWithAndWithoutPreconsolidationStresses.soil");
 
-            var readProfiles = new List<SoilProfile2DWrapper>();
+            var readProfiles = new List<SoilProfileWrapper<SoilProfile2D>>();
             using (var reader = new SoilProfile2DReader(dbFile))
             {
                 reader.Initialize();
@@ -902,7 +902,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             // Given
             string dbFile = Path.Combine(testDataPath, "2dProfilesWithAndWithoutPreconsolidationStressesUnparsableValues.soil");
 
-            var readProfiles = new List<SoilProfile2DWrapper>();
+            var readProfiles = new List<SoilProfileWrapper<SoilProfile2D>>();
             SoilProfileReadException expectedException = null;
             using (var reader = new SoilProfile2DReader(dbFile))
             {
@@ -954,7 +954,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             // Setup
             string dbFile = Path.Combine(testDataPath, "2dprofileWithSameProfileInMultipleSegmentsAndDifferentFailureMechanismTypes.soil");
 
-            var readProfiles = new List<SoilProfile2DWrapper>();
+            var readProfiles = new List<SoilProfileWrapper<SoilProfile2D>>();
             using (var reader = new SoilProfile2DReader(dbFile))
             {
                 reader.Initialize();

@@ -175,15 +175,15 @@ namespace Riskeer.Common.IO.SoilProfile
                 {
                     try
                     {
-                        SoilProfile2DWrapper wrappedSoilProfile2D = soilProfile2DReader.ReadSoilProfile();
-                        FailureMechanismType failureMechanismType = wrappedSoilProfile2D.FailureMechanismType;
+                        SoilProfileWrapper<SoilProfile2D> readSoilProfile = soilProfile2DReader.ReadSoilProfile();
+                        FailureMechanismType failureMechanismType = readSoilProfile.FailureMechanismType;
                         if (!soilProfile2Ds.ContainsKey(failureMechanismType))
                         {
                             soilProfile2Ds[failureMechanismType] = new Dictionary<long, SoilProfile2D>();
                         }
 
                         Dictionary<long, SoilProfile2D> failureMechanismTypeProfileLookup = soilProfile2Ds[failureMechanismType];
-                        SoilProfile2D wrappedSoilProfile = wrappedSoilProfile2D.SoilProfile;
+                        SoilProfile2D wrappedSoilProfile = readSoilProfile.SoilProfile;
                         long soilProfileId = wrappedSoilProfile.Id;
                         if (!failureMechanismTypeProfileLookup.ContainsKey(soilProfileId))
                         {

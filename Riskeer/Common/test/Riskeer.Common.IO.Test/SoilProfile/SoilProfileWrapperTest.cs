@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.IO.SoilProfile;
@@ -29,7 +28,7 @@ using Riskeer.Common.IO.SoilProfile.Schema;
 namespace Riskeer.Common.IO.Test.SoilProfile
 {
     [TestFixture]
-    public class SoilProfile2DWrapperTest
+    public class SoilProfileWrapperTest
     {
         [Test]
         public void Constructor_SoilProfileNull_ThrowsArgumentNullException()
@@ -39,7 +38,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             var failureMechanismType = random.NextEnumValue<FailureMechanismType>();
             
             // Call
-            void Call() => new SoilProfile2DWrapper(null, failureMechanismType);
+            void Call() => new SoilProfileWrapper<TestSoilProfile>(null, failureMechanismType);
             
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -52,15 +51,20 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             // Setup
             var random = new Random(21);
             var failureMechanismType = random.NextEnumValue<FailureMechanismType>();
-            var soilProfile = new SoilProfile2D(random.Next(), "SoilProfile",
-                                                Enumerable.Empty<SoilLayer2D>(), Enumerable.Empty<PreconsolidationStress>());
+
+            var soilProfile = new TestSoilProfile();
             
             // Call
-            var wrapper = new SoilProfile2DWrapper(soilProfile, failureMechanismType);
+            var wrapper = new SoilProfileWrapper<TestSoilProfile>(soilProfile, failureMechanismType);
             
             // Assert
             Assert.AreSame(soilProfile, wrapper.SoilProfile);
             Assert.AreEqual(failureMechanismType, wrapper.FailureMechanismType);
+        }
+        
+        private class TestSoilProfile : ISoilProfile
+        {
+            public string Name { get; }
         }
     }
 }

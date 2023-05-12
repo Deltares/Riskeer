@@ -71,14 +71,14 @@ namespace Riskeer.Common.IO.SoilProfile
 
         /// <summary>
         /// Reads the information for the next soil profile from the database and creates a 
-        /// <see cref="SoilProfile2DWrapper"/> instance from the information.
+        /// <see cref="SoilProfileWrapper{T}"/> instance from the information.
         /// </summary>
-        /// <returns>A <see cref="SoilProfile2DWrapper"/> containing the <see cref="SoilProfile2D"/> from the database, or <c>null</c> 
+        /// <returns>A <see cref="SoilProfileWrapper{T}"/> containing the <see cref="SoilProfile2D"/> from the database, or <c>null</c> 
         /// if no more soil profile can be read.</returns>
         /// <exception cref="SoilProfileReadException">Thrown when reading properties of the profile failed.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when the database returned incorrect 
         /// values for required properties.</exception>
-        public SoilProfile2DWrapper ReadSoilProfile()
+        public SoilProfileWrapper<SoilProfile2D> ReadSoilProfile()
         {
             try
             {
@@ -174,7 +174,7 @@ namespace Riskeer.Common.IO.SoilProfile
         /// while reading the profile.</exception>
         /// <exception cref="SoilProfileReadException">Thrown when reading properties of the profile failed.</exception>
         /// <exception cref="InvalidCastException">Thrown when the mechanism id could not be successfully casted.</exception>
-        private SoilProfile2DWrapper TryReadSoilProfile()
+        private SoilProfileWrapper<SoilProfile2D> TryReadSoilProfile()
         {
             var criticalProperties = new CriticalProfileProperties(this);
             var soilLayerGeometryLookup = new Dictionary<SoilLayer2DGeometry, Layer2DProperties>();
@@ -211,7 +211,7 @@ namespace Riskeer.Common.IO.SoilProfile
                 IntersectionX = properties.IntersectionX
             };
 
-            return new SoilProfile2DWrapper(readSoilProfile, failureMechanismType);
+            return new SoilProfileWrapper<SoilProfile2D>(readSoilProfile, failureMechanismType);
         }
 
         /// <summary>
