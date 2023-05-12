@@ -198,6 +198,8 @@ namespace Riskeer.Common.IO.SoilProfile
                 $"sp1d.SP1D_Name AS {SoilProfileTableDefinitions.ProfileName}, " +
                 $"sp1d.BottomLevel AS {SoilProfileTableDefinitions.Bottom}, " +
                 $"sl1d.TopLevel AS {SoilProfileTableDefinitions.Top}, " +
+                $"m.{MechanismTableDefinitions.MechanismId}, " +
+                $"m.{MechanismTableDefinitions.MechanismName}, " +
                 $"{SoilProfileTableDefinitions.MaterialName}, " +
                 $"{SoilProfileTableDefinitions.IsAquifer}, " +
                 $"{SoilProfileTableDefinitions.Color}, " +
@@ -242,13 +244,14 @@ namespace Riskeer.Common.IO.SoilProfile
                 $"{SoilProfileTableDefinitions.PopShift}, " +
                 $"sp1d.SP1D_ID AS {SoilProfileTableDefinitions.SoilProfileId}," +
                 $"({getNumberOfLayerProfile1DQuery}) AS {SoilProfileTableDefinitions.LayerCount} " +
-                "FROM Segment AS segment " +
+                $"FROM {MechanismTableDefinitions.TableName} AS m " +
+                $"JOIN {SegmentTableDefinitions.TableName} AS segment USING({MechanismTableDefinitions.MechanismId}) " +
                 "JOIN (SELECT SSM_ID, SP1D_ID FROM StochasticSoilProfile GROUP BY SSM_ID, SP1D_ID) ssp USING(SSM_ID) " +
                 "JOIN SoilProfile1D sp1d USING(SP1D_ID) " +
                 "LEFT JOIN SoilLayer1D sl1d USING(SP1D_ID) " +
                 $"LEFT JOIN ({getMaterialPropertiesOfLayerQuery}) materialProperties USING(MA_ID) " +
                 $"LEFT JOIN ({getLayerPropertiesOfLayer1DQuery}) USING(SL1D_ID) " +
-                "GROUP BY sp1d.SP1D_ID, sl1d.SL1D_ID;";
+                $"GROUP BY m.{MechanismTableDefinitions.MechanismId}, sp1d.SP1D_ID, sl1d.SL1D_ID;";
         }
 
         /// <summary>

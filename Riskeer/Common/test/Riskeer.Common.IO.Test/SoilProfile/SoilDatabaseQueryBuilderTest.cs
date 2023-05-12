@@ -130,6 +130,8 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                 "sp1d.SP1D_Name AS ProfileName, " +
                 "sp1d.BottomLevel AS Bottom, " +
                 "sl1d.TopLevel AS Top, " +
+                "m.ME_ID, " +
+                "m.ME_Name, " +
                 "MaterialName, " +
                 "IsAquifer, " +
                 "Color, " +
@@ -177,7 +179,8 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                 "SELECT " +
                 "COUNT(*) " +
                 "FROM SoilLayer1D WHERE SoilLayer1D.SP1D_ID = sp1d.SP1D_ID) AS LayerCount " +
-                "FROM Segment AS segment " +
+                "FROM Mechanism AS m " +
+                "JOIN Segment AS segment USING(ME_ID) " +
                 "JOIN " +
                 "(" +
                 "SELECT SSM_ID, SP1D_ID " +
@@ -244,7 +247,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                 "JOIN LayerParameterValues USING(PN_ID) " +
                 "WHERE PN_NAME = 'IsAquifer'" +
                 ") USING(SL1D_ID) " +
-                "GROUP BY sp1d.SP1D_ID, sl1d.SL1D_ID;";
+                "GROUP BY m.ME_ID, sp1d.SP1D_ID, sl1d.SL1D_ID;";
             Assert.AreEqual(expectedQuery, query);
         }
 
