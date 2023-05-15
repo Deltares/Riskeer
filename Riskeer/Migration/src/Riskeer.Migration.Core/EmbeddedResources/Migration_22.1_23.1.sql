@@ -10,7 +10,38 @@ ATTACH DATABASE "{0}" AS SOURCEPROJECT;
 
 INSERT INTO AssessmentSectionEntity SELECT * FROM [SOURCEPROJECT].AssessmentSectionEntity;
 INSERT INTO FailureMechanismSectionEntity SELECT * FROM [SOURCEPROJECT].FailureMechanismSectionEntity;
-INSERT INTO FailureMechanismEntity SELECT * FROM [SOURCEPROJECT].FailureMechanismEntity;
+INSERT INTO FailureMechanismEntity(
+    [FailureMechanismEntityId],
+    [AssessmentSectionEntityId],
+    [CalculationGroupEntityId],
+    [FailureMechanismType],
+    [InAssembly],
+    [FailureMechanismSectionCollectionSourcePath],
+    [InAssemblyInputComments],
+    [InAssemblyOutputComments],
+    [NotInAssemblyComments],
+    [CalculationsInputComments],
+    [FailureMechanismAssemblyResultProbabilityResultType],
+    [FailureMechanismAssemblyResultManualFailureMechanismAssemblyProbability])
+SELECT
+    [FailureMechanismEntityId],
+    [AssessmentSectionEntityId],
+    [CalculationGroupEntityId],
+    [FailureMechanismType],
+    [InAssembly],
+    [FailureMechanismSectionCollectionSourcePath],
+    [InAssemblyInputComments],
+    [InAssemblyOutputComments],
+    [NotInAssemblyComments],
+    [CalculationsInputComments],
+    CASE
+        WHEN [FailureMechanismAssemblyResultProbabilityResultType] = 2
+            THEN 4
+        ELSE
+            [FailureMechanismAssemblyResultProbabilityResultType]
+    END,
+    [FailureMechanismAssemblyResultManualFailureMechanismAssemblyProbability]
+FROM [SOURCEPROJECT].FailureMechanismEntity;
 INSERT INTO ClosingStructuresFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].ClosingStructuresFailureMechanismMetaEntity;
 INSERT INTO CalculationGroupEntity SELECT * FROM [SOURCEPROJECT].CalculationGroupEntity;
 INSERT INTO GrassCoverErosionInwardsFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsFailureMechanismMetaEntity;
@@ -258,7 +289,42 @@ SELECT
 FROM [SOURCEPROJECT].SemiProbabilisticPipingCalculationOutputEntity sppcoe
 JOIN [SOURCEPROJECT].SemiProbabilisticPipingCalculationEntity USING(SemiProbabilisticPipingCalculationEntityId)
 WHERE UseAssessmentLevelManualInput = 1;
-INSERT INTO SpecificFailureMechanismEntity SELECT * FROM [SOURCEPROJECT].SpecificFailureMechanismEntity;
+INSERT INTO SpecificFailureMechanismEntity(
+    [SpecificFailureMechanismEntityId],
+    [AssessmentSectionEntityId],
+    [Name],
+    [Code],
+    [Order],
+    [InAssembly],
+    [FailureMechanismSectionCollectionSourcePath],
+    [InAssemblyInputComments],
+    [InAssemblyOutputComments],
+    [NotInAssemblyComments],
+    [N],
+    [FailureMechanismAssemblyResultProbabilityResultType],
+    [FailureMechanismAssemblyResultManualFailureMechanismAssemblyProbability],
+    [ApplyLengthEffectInSection])
+SELECT
+    [SpecificFailureMechanismEntityId],
+    [AssessmentSectionEntityId],
+    [Name],
+    [Code],
+    [Order],
+    [InAssembly],
+    [FailureMechanismSectionCollectionSourcePath],
+    [InAssemblyInputComments],
+    [InAssemblyOutputComments],
+    [NotInAssemblyComments],
+    [N],
+    CASE
+        WHEN [FailureMechanismAssemblyResultProbabilityResultType] = 2 
+            THEN 4
+        ELSE
+            [FailureMechanismAssemblyResultProbabilityResultType]
+    END,
+    [FailureMechanismAssemblyResultManualFailureMechanismAssemblyProbability],
+    [ApplyLengthEffectInSection]
+FROM [SOURCEPROJECT].SpecificFailureMechanismEntity;
 INSERT INTO SpecificFailureMechanismFailureMechanismSectionEntity SELECT * FROM [SOURCEPROJECT].SpecificFailureMechanismFailureMechanismSectionEntity;
 INSERT INTO StabilityPointStructureEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructureEntity;
 INSERT INTO StabilityPointStructuresCalculationEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresCalculationEntity;
