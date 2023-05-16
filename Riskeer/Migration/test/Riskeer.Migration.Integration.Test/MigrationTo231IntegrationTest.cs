@@ -109,160 +109,37 @@ namespace Riskeer.Migration.Integration.Test
 
         private static IEnumerable<TestCaseData> GetMigrationProjectsWithMessages()
         {
-            yield return new TestCaseData("MigrationTestProject221NoOutput.risk",
-                                          FailureMechanismMessageBuilder(new[]
-                                          {
-                                              "Piping",
-                                              "Grasbekleding erosie kruin en binnentalud",
-                                              "Hoogte kunstwerk",
-                                              "Microstabiliteit",
-                                              "Betrouwbaarheid sluiting kunstwerk",
-                                              "Macrostabiliteit binnenwaarts",
-                                              "Golfklappen op asfaltbekleding",
-                                              "Grasbekleding erosie buitentalud",
-                                              "Wateroverdruk bij asfaltbekleding",
-                                              "Grasbekleding afschuiven buitentalud",
-                                              "Macrostabiliteit buitenwaarts",
-                                              "Piping bij kunstwerk",
-                                              "Stabiliteit steenzetting",
-                                              "Duinafslag",
-                                              "Sterkte en stabiliteit puntconstructies",
-                                              "Macrostabiliteit buitenwaarts",
-                                              "Sterkte en stabiliteit langsconstructies",
-                                              "Technische innovaties"
-                                          }));
+            yield return new TestCaseData("MigrationTestProject221NoOutput.risk", new[]
+            {
+                "Geen aanpassingen."
+            });
 
             yield return new TestCaseData("MigrationTestProject221MacroStabilityInwardsNoManualAssessmentLevels.risk", new[]
             {
                 "Alle berekende resultaten zijn verwijderd."
-            }.Concat(
-                FailureMechanismMessageBuilder(new[]
-                {
-                    "Piping",
-                    "Grasbekleding erosie kruin en binnentalud",
-                    "Hoogte kunstwerk",
-                    "Microstabiliteit",
-                    "Betrouwbaarheid sluiting kunstwerk",
-                    "Macrostabiliteit binnenwaarts",
-                    "Golfklappen op asfaltbekleding",
-                    "Grasbekleding erosie buitentalud",
-                    "Wateroverdruk bij asfaltbekleding",
-                    "Grasbekleding afschuiven buitentalud",
-                    "Macrostabiliteit buitenwaarts",
-                    "Piping bij kunstwerk",
-                    "Stabiliteit steenzetting",
-                    "Duinafslag",
-                    "Sterkte en stabiliteit puntconstructies",
-                    "Macrostabiliteit buitenwaarts",
-                    "Sterkte en stabiliteit langsconstructies",
-                    "Technische innovaties"
-                })));
+            });
 
             yield return new TestCaseData("MigrationTestProject221PipingNoManualAssessmentLevels.risk", new[]
             {
                 "Alle berekende resultaten zijn verwijderd."
-            }.Concat(
-                FailureMechanismMessageBuilder(new[]
-                {
-                    "Piping",
-                    "Grasbekleding erosie kruin en binnentalud",
-                    "Hoogte kunstwerk",
-                    "Microstabiliteit",
-                    "Betrouwbaarheid sluiting kunstwerk",
-                    "Macrostabiliteit binnenwaarts",
-                    "Golfklappen op asfaltbekleding",
-                    "Grasbekleding erosie buitentalud",
-                    "Wateroverdruk bij asfaltbekleding",
-                    "Grasbekleding afschuiven buitentalud",
-                    "Macrostabiliteit buitenwaarts",
-                    "Piping bij kunstwerk",
-                    "Stabiliteit steenzetting",
-                    "Duinafslag",
-                    "Sterkte en stabiliteit puntconstructies",
-                    "Macrostabiliteit buitenwaarts",
-                    "Sterkte en stabiliteit langsconstructies",
-                    "Technische innovaties"
-                })));
+            });
 
             // This file contains all configured failure mechanisms (except Dunes and MacroStabilityInwards) with output.
             // The mechanisms Dunes and MacroStabilityInwards have different assessment sections, and are therefore put in different test files.
             yield return new TestCaseData("MigrationTestProject221WithOutput.risk", new[]
             {
                 "Alle berekende resultaten zijn verwijderd, behalve die van het faalmechanisme 'Piping' en/of 'Macrostabiliteit binnenwaarts' waarbij de waterstand handmatig is ingevuld."
-            }.Concat(
-                FailureMechanismMessageBuilder(new[]
-                {
-                    "Piping",
-                    "Grasbekleding erosie kruin en binnentalud",
-                    "Hoogte kunstwerk",
-                    "Microstabiliteit",
-                    "Betrouwbaarheid sluiting kunstwerk",
-                    "Macrostabiliteit binnenwaarts",
-                    "Golfklappen op asfaltbekleding",
-                    "Grasbekleding erosie buitentalud",
-                    "Wateroverdruk bij asfaltbekleding",
-                    "Grasbekleding afschuiven buitentalud",
-                    "Macrostabiliteit buitenwaarts",
-                    "Piping bij kunstwerk",
-                    "Stabiliteit steenzetting",
-                    "Duinafslag",
-                    "Sterkte en stabiliteit puntconstructies",
-                    "Macrostabiliteit buitenwaarts",
-                    "Sterkte en stabiliteit langsconstructies",
-                    "Technische innovaties"
-                })));
+            });
 
             yield return new TestCaseData("MigrationTestProject221DunesWithOutput.risk", new[]
             {
                 "Alle berekende resultaten zijn verwijderd."
-            }.Concat(
-                FailureMechanismMessageBuilder(new[]
-                {
-                    "Piping",
-                    "Grasbekleding erosie kruin en binnentalud",
-                    "Hoogte kunstwerk",
-                    "Microstabiliteit",
-                    "Betrouwbaarheid sluiting kunstwerk",
-                    "Macrostabiliteit binnenwaarts",
-                    "Golfklappen op asfaltbekleding",
-                    "Grasbekleding erosie buitentalud",
-                    "Wateroverdruk bij asfaltbekleding",
-                    "Grasbekleding afschuiven buitentalud",
-                    "Macrostabiliteit buitenwaarts",
-                    "Piping bij kunstwerk",
-                    "Stabiliteit steenzetting",
-                    "Duinafslag",
-                    "Sterkte en stabiliteit puntconstructies",
-                    "Macrostabiliteit buitenwaarts",
-                    "Sterkte en stabiliteit langsconstructies",
-                    "Technische innovaties"
-                })));
+            });
 
             yield return new TestCaseData("MigrationTestProject221MacroStabilityInwardsWithOutput.risk", new[]
             {
                 "Alle berekende resultaten zijn verwijderd, behalve die van het faalmechanisme 'Piping' en/of 'Macrostabiliteit binnenwaarts' waarbij de waterstand handmatig is ingevuld."
-            }.Concat(
-                FailureMechanismMessageBuilder(new[]
-                {
-                    "Piping",
-                    "Grasbekleding erosie kruin en binnentalud",
-                    "Hoogte kunstwerk",
-                    "Microstabiliteit",
-                    "Betrouwbaarheid sluiting kunstwerk",
-                    "Macrostabiliteit binnenwaarts",
-                    "Golfklappen op asfaltbekleding",
-                    "Grasbekleding erosie buitentalud",
-                    "Wateroverdruk bij asfaltbekleding",
-                    "Grasbekleding afschuiven buitentalud",
-                    "Macrostabiliteit buitenwaarts",
-                    "Piping bij kunstwerk",
-                    "Stabiliteit steenzetting",
-                    "Duinafslag",
-                    "Sterkte en stabiliteit puntconstructies",
-                    "Macrostabiliteit buitenwaarts",
-                    "Sterkte en stabiliteit langsconstructies",
-                    "Technische innovaties"
-                })));
+            });
 
             yield return new TestCaseData("MigrationTestProject221WithFailureMechanismAssemblyResultsAutomatic.risk", FailureMechanismMessageBuilder(new[]
             {
