@@ -25,7 +25,7 @@ using Riskeer.Common.IO.SoilProfile.Schema;
 namespace Riskeer.Common.IO.SoilProfile
 {
     /// <summary>
-    /// Wrapper class to link the <see cref="ISoilProfile"/> with the <see cref="Schema.FailureMechanismType"/>.
+    /// Wrapper class to link an <see cref="ISoilProfile"/> with a <see cref="Schema.FailureMechanismType"/>.
     /// </summary>
     /// <typeparam name="TSoilProfile">The type of soil profile to wrap.</typeparam>
     public class SoilProfileWrapper<TSoilProfile> 
@@ -34,7 +34,7 @@ namespace Riskeer.Common.IO.SoilProfile
         /// <summary>
         /// Creates a new instance of <see cref="SoilProfileWrapper{T}"/>.
         /// </summary>
-        /// <param name="soilProfile">The <typeparamref name="TSoilProfile"/> to wrap.</param>
+        /// <param name="soilProfile">The soil profile to wrap.</param>
         /// <param name="failureMechanismType">The <see cref="Schema.FailureMechanismType"/> the soil profile is associated with.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="soilProfile"/> is <c>null</c>.</exception>
         public SoilProfileWrapper(TSoilProfile soilProfile, FailureMechanismType failureMechanismType)

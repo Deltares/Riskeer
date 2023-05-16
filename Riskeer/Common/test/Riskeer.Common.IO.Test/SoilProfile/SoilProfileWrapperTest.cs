@@ -22,6 +22,7 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Riskeer.Common.IO.SoilProfile;
 using Riskeer.Common.IO.SoilProfile.Schema;
 
@@ -38,7 +39,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             var failureMechanismType = random.NextEnumValue<FailureMechanismType>();
             
             // Call
-            void Call() => new SoilProfileWrapper<TestSoilProfile>(null, failureMechanismType);
+            void Call() => new SoilProfileWrapper<ISoilProfile>(null, failureMechanismType);
             
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -52,19 +53,17 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             var random = new Random(21);
             var failureMechanismType = random.NextEnumValue<FailureMechanismType>();
 
-            var soilProfile = new TestSoilProfile();
+            var mocks = new MockRepository();
+            var soilProfile = mocks.Stub<ISoilProfile>();
+            mocks.ReplayAll();
             
             // Call
-            var wrapper = new SoilProfileWrapper<TestSoilProfile>(soilProfile, failureMechanismType);
+            var wrapper = new SoilProfileWrapper<ISoilProfile>(soilProfile, failureMechanismType);
             
             // Assert
             Assert.AreSame(soilProfile, wrapper.SoilProfile);
             Assert.AreEqual(failureMechanismType, wrapper.FailureMechanismType);
-        }
-        
-        private class TestSoilProfile : ISoilProfile
-        {
-            public string Name { get; }
+            mocks.VerifyAll();
         }
     }
 }
