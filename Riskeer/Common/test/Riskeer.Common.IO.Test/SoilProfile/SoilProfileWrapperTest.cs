@@ -37,10 +37,10 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             // Setup
             var random = new Random(21);
             var failureMechanismType = random.NextEnumValue<FailureMechanismType>();
-            
+
             // Call
             void Call() => new SoilProfileWrapper<ISoilProfile>(null, failureMechanismType);
-            
+
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("soilProfile", exception.ParamName);
@@ -56,10 +56,10 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             var mocks = new MockRepository();
             var soilProfile = mocks.Stub<ISoilProfile>();
             mocks.ReplayAll();
-            
+
             // Call
             var wrapper = new SoilProfileWrapper<ISoilProfile>(soilProfile, failureMechanismType);
-            
+
             // Assert
             Assert.AreSame(soilProfile, wrapper.SoilProfile);
             Assert.AreEqual(failureMechanismType, wrapper.FailureMechanismType);
