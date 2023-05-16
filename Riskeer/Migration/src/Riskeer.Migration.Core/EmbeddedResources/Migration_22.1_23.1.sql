@@ -457,6 +457,126 @@ FROM TempLogOutputDeleted
 WHERE [NrDeleted] > 0
     LIMIT 1;
 
+CREATE TEMP TABLE TempFailureMechanisms
+(
+	'FailureMechanismType' INTEGER NOT NULL,
+	'FailureMechanismName' VARCHAR(255) NOT NULL
+);
+
+INSERT INTO TempFailureMechanisms VALUES (1, 'Piping');
+INSERT INTO TempFailureMechanisms VALUES (2, 'Macrostabiliteit binnenwaarts');
+INSERT INTO TempFailureMechanisms VALUES (3, 'Golfklappen op asfaltbekleding');
+INSERT INTO TempFailureMechanisms VALUES (4, 'Grasbekleding erosie buitentalud');
+INSERT INTO TempFailureMechanisms VALUES (5, 'Grasbekleding afschuiven buitentalud');
+INSERT INTO TempFailureMechanisms VALUES (6, 'Grasbekleding erosie kruin en binnentalud');
+INSERT INTO TempFailureMechanisms VALUES (7, 'Stabiliteit steenzetting');
+INSERT INTO TempFailureMechanisms VALUES (8, 'Duinafslag');
+INSERT INTO TempFailureMechanisms VALUES (9, 'Hoogte kunstwerk');
+INSERT INTO TempFailureMechanisms VALUES (10, 'Betrouwbaarheid sluiting kunstwerk');
+INSERT INTO TempFailureMechanisms VALUES (11, 'Piping bij kunstwerk');
+INSERT INTO TempFailureMechanisms VALUES (12, 'Sterkte en stabiliteit puntconstructies');
+INSERT INTO TempFailureMechanisms VALUES (13, 'Macrostabiliteit buitenwaarts');
+INSERT INTO TempFailureMechanisms VALUES (14, 'Microstabiliteit');
+INSERT INTO TempFailureMechanisms VALUES (15, 'Wateroverdruk bij asfaltbekleding');
+INSERT INTO TempFailureMechanisms VALUES (16, 'Grasbekleding afschuiven binnentalud');
+INSERT INTO TempFailureMechanisms VALUES (17, 'Sterkte en stabiliteit langsconstructies');
+INSERT INTO TempFailureMechanisms VALUES (18, 'Technische innovaties');
+
+CREATE TEMP TABLE TempChanges (
+    [FailureMechanismId],
+    [FailureMechanismName],
+    [msg]
+);
+
+INSERT INTO TempChanges
+SELECT fme.[FailureMechanismEntityId],
+    tfm.[FailureMechanismName],
+    "Alle resultaten van dit faalmechanisme die op Automatisch stonden zijn op <selecteer> gezet."
+FROM FailureMechanismEntity AS fme
+    JOIN TempFailureMechanisms AS tfm USING(FailureMechanismType)
+WHERE fme.[FailureMechanismAssemblyResultProbabilityResultType] = 1;
+
+INSERT INTO [LOGDATABASE].MigrationLogEntity (
+        [FromVersion],
+        [ToVersion],
+        [LogMessage]
+    ) WITH RECURSIVE FailureMechanismMessages (
+        [FailureMechanismId],
+        [FailureMechanismName],
+        [msg],
+        [level]
+    ) AS (
+        SELECT DISTINCT [FailureMechanismId],
+            [FailureMechanismName],
+            NULL,
+            1
+        FROM TempChanges
+        UNION
+        SELECT [FailureMechanismId],
+            NULL,
+            [msg],
+            2
+        FROM TempChanges
+        WHERE TempChanges.[FailureMechanismId] IS [FailureMechanismId]
+        ORDER BY 1,
+            3
+    )
+SELECT "22.1",
+    "23.1",
+    CASE
+        WHEN [FailureMechanismName] IS NOT NULL THEN "* Faalmechanisme: '" || [FailureMechanismName] || "'"
+        ELSE "* + " || [msg]
+    END
+END
+FROM FailureMechanismMessages;
+
+CREATE TEMP TABLE SpecificTempChanges (
+    [FailureMechanismId],
+    [FailureMechanismName],
+    [msg]
+);
+
+INSERT INTO SpecificTempChanges
+SELECT sfme.[SpecificFailureMechanismEntityId],
+    sfme.[Name],
+    "Alle resultaten van dit faalmechanisme die op Automatisch stonden zijn op <selecteer> gezet."
+FROM SpecificFailureMechanismEntity AS sfme
+WHERE sfme.[FailureMechanismAssemblyResultProbabilityResultType] = 1;
+
+INSERT INTO [LOGDATABASE].MigrationLogEntity (
+        [FromVersion],
+        [ToVersion],
+        [LogMessage]
+    ) WITH RECURSIVE FailureMechanismMessages (
+        [FailureMechanismId],
+        [FailureMechanismName],
+        [msg],
+        [level]
+    ) AS (
+        SELECT DISTINCT [FailureMechanismId],
+            [FailureMechanismName],
+            NULL,
+            1
+        FROM SpecificTempChanges
+        UNION
+        SELECT [FailureMechanismId],
+            NULL,
+            [msg],
+            2
+        FROM SpecificTempChanges
+        WHERE SpecificTempChanges.[FailureMechanismId] IS [FailureMechanismId]
+        ORDER BY 1,
+            3
+    )
+SELECT "22.1",
+    "23.1",
+    CASE
+        WHEN [FailureMechanismName] IS NOT NULL THEN "* Faalmechanisme: '" || [FailureMechanismName] || "'"
+        ELSE "* + " || [msg]
+    END
+END
+FROM FailureMechanismMessages;
+
 DROP TABLE TempLogOutputDeleted;
 DROP TABLE TempLogOutputRemaining;
 
