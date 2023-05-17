@@ -47,8 +47,8 @@
 					variablename="pathToItemInPropertiesPanel">
 					</var>
 					<var
-					dataname="newValueLocation"
-					datasourceid="48bb201c-a5a8-49b5-a1f1-b22298afa0ac"
+					dataname="locationForCalculations"
+					datasourceid="8ee8e897-e223-4d18-8fe1-f17a8c0e3348"
 					variableid="3ed76e3f-c80c-42a1-9230-37334bd6b5c8"
 					variablename="newValueForParameter">
 					</var>
@@ -1216,11 +1216,6 @@
 					mask="False"
 					name="PathToLocationInPropertiesPanel"
 					value="Hydraulische>Hydraulische">
-					</param>
-					<param
-					mask="False"
-					name="newValueLocation"
-					value="YM_2_12-2_dk_00012">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -7678,6 +7673,9 @@
 				<column>
 					pathToHBCWithScenarioInformation
 				</column>
+				<column>
+					locationForCalculations
+				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
 			</maskedcolumns>
@@ -7713,6 +7711,9 @@
 					<th>
 						pathToHBCWithScenarioInformation
 					</th>
+					<th>
+						locationForCalculations
+					</th>
 				</tr>
 				<tr>
 					<td>
@@ -7745,6 +7746,9 @@
 					<td>
 						X:\script15\External\WBI2017_IJsselmeer_12-2_v02_klimaat\hlcd_klimaat.sqlite
 					</td>
+					<td>
+						YM_2_12-2_dk_00012
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -7776,6 +7780,9 @@
 					</td>
 					<td>
 						X:\script15\External\WBI2017_Europoort_14-4_v03_klimaat\hlcd_klimaat.sqlite
+					</td>
+					<td>
+						NW_1_14-4_dk_00032
 					</td>
 				</tr>
 			</table>
