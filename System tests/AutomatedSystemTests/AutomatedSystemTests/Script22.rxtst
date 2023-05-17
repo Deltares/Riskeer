@@ -252,6 +252,7 @@
 			name="b)AssembleFailureProbsFMstoEntireTaject">
 			</smartfoldernode>
 			<testmodule
+			enabled="False"
 			id="2a404fcf-5f5b-47e5-a83a-3c6d637e9d2a"
 			name="ReportToPDFModule"
 			ref="ffa0759d-37d2-4abb-89a7-411f0fcf2dfe"
