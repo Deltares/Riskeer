@@ -95,22 +95,25 @@ namespace AutomatedSystemTests.Modules.Set_Assign
             Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Apps}'.", new RecordItemIndex(0));
             Keyboard.Press("{Apps}");
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.SelecteerAnderHLCDBestand' at Center.", repo.ContextMenu.SelecteerAnderHLCDBestandInfo, new RecordItemIndex(1));
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 300ms.", new RecordItemIndex(1));
+            Delay.Duration(300, false);
+            
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.SelecteerAnderHLCDBestand' at Center.", repo.ContextMenu.SelecteerAnderHLCDBestandInfo, new RecordItemIndex(2));
             repo.ContextMenu.SelecteerAnderHLCDBestand.Click();
             
-            Report.Log(ReportLevel.Info, "User", fileNameToOpen, new RecordItemIndex(2));
+            Report.Log(ReportLevel.Info, "User", fileNameToOpen, new RecordItemIndex(3));
             
             // Assign file name to open
-            Report.Log(ReportLevel.Info, "Set value", "Assign file name to open\r\nSetting attribute Text to '$fileNameToOpen' on item 'OpenFileDialog.FileNameField'.", repo.OpenFileDialog.FileNameFieldInfo, new RecordItemIndex(3));
+            Report.Log(ReportLevel.Info, "Set value", "Assign file name to open\r\nSetting attribute Text to '$fileNameToOpen' on item 'OpenFileDialog.FileNameField'.", repo.OpenFileDialog.FileNameFieldInfo, new RecordItemIndex(4));
             repo.OpenFileDialog.FileNameField.Element.SetAttributeValue("Text", fileNameToOpen);
             
             // Click on open button
-            Report.Log(ReportLevel.Info, "Mouse", "Click on open button\r\nMouse Left Click item 'OpenFileDialog.ButtonOpen' at Center.", repo.OpenFileDialog.ButtonOpenInfo, new RecordItemIndex(4));
+            Report.Log(ReportLevel.Info, "Mouse", "Click on open button\r\nMouse Left Click item 'OpenFileDialog.ButtonOpen' at Center.", repo.OpenFileDialog.ButtonOpenInfo, new RecordItemIndex(5));
             repo.OpenFileDialog.ButtonOpen.Click();
             
             Mouse_Click_ButtonOK_If_Exists(repo.Bevestigen.ButtonOKInfo);
             
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 2s.", new RecordItemIndex(6));
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 2s.", new RecordItemIndex(7));
             Delay.Duration(2000, false);
             
         }

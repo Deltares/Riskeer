@@ -41,6 +41,15 @@ mode="Global">
 			<bindings>
 			</bindings>
 		</keysequenceitem>
+		<explicitdelayitem
+		duration="300ms"
+		enabled="True"
+		optional="False">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+		</explicitdelayitem>
 		<mouseitem
 		action="Click"
 		button="Left"
