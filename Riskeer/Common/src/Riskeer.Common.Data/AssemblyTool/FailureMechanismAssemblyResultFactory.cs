@@ -27,6 +27,7 @@ using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Properties;
 
 namespace Riskeer.Common.Data.AssemblyTool
 {
@@ -74,8 +75,10 @@ namespace Riskeer.Common.Data.AssemblyTool
                         return new FailureMechanismAssemblyResultWrapper(
                             failureMechanismAssemblyResult.ManualFailureMechanismAssemblyProbability,
                             AssemblyMethod.Manual);
+                    case FailureMechanismAssemblyProbabilityResultType.None:
+                        throw new AssemblyException(Resources.FailureMechanismAssemblyResultFactory_AssembleFailureMechanism_Missing_input_for_assembly);
                     default:
-                        return null;
+                        throw new NotSupportedException();
                 }
             }
             catch (FailureMechanismAssemblyCalculatorException e)

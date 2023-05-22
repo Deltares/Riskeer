@@ -216,8 +216,8 @@ namespace Riskeer.Common.Forms.Views
             probabilityResultTypeComboBox.Enabled = HasSections();
 
             bool isManualAssembly = FailureMechanism.AssemblyResult.IsManualProbability();
-            failureMechanismAssemblyProbabilityTextBox.Enabled = isManualAssembly && HasSections();
-            failureMechanismAssemblyProbabilityTextBox.ReadOnly = !isManualAssembly || !HasSections();
+            failureMechanismAssemblyProbabilityTextBox.Enabled = (isManualAssembly && HasSections()) && !IsDefault();
+            failureMechanismAssemblyProbabilityTextBox.ReadOnly = !isManualAssembly || !HasSections() || IsDefault();
             failureMechanismAssemblyProbabilityTextBox.Refresh();
         }
 
@@ -226,15 +226,30 @@ namespace Riskeer.Common.Forms.Views
             return FailureMechanism.Sections.Any();
         }
 
+        private bool IsDefault()
+        {
+            return (FailureMechanismAssemblyProbabilityResultType) probabilityResultTypeComboBox.SelectedValue == FailureMechanismAssemblyProbabilityResultType.None;
+        }
+
         private void UpdateAssemblyData()
         {
             ClearErrorMessage();
 
             FailureMechanismAssemblyResult assemblyResult = FailureMechanism.AssemblyResult;
-            double failureMechanismAssemblyProbability = assemblyResult.IsManualProbability()
-                                                             ? assemblyResult.ManualFailureMechanismAssemblyProbability
-                                                             : TryGetFailureMechanismAssemblyProbability();
-            SetTextBoxValue(failureMechanismAssemblyProbability);
+            switch (assemblyResult.ProbabilityResultType)
+            {
+                case FailureMechanismAssemblyProbabilityResultType.Manual:
+                    SetTextBoxValue(assemblyResult.ManualFailureMechanismAssemblyProbability);
+                    validateManualInput(assemblyResult);
+                    return;
+                case FailureMechanismAssemblyProbabilityResultType.None:
+                    failureMechanismAssemblyProbabilityTextBox.Text = @"-";
+                    return;
+                case FailureMechanismAssemblyProbabilityResultType.AutomaticIndependentSections:
+                case FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile:
+                    SetTextBoxValue(TryGetFailureMechanismAssemblyProbability());
+                    return;
+            }
         }
 
         /// <summary>
@@ -338,6 +353,7 @@ namespace Riskeer.Common.Forms.Views
             {
                 ClearErrorMessage();
                 SetTextBoxValue(FailureMechanism.AssemblyResult.ManualFailureMechanismAssemblyProbability);
+                validateManualInput(FailureMechanism.AssemblyResult);
                 e.Handled = true;
             }
         }
@@ -351,7 +367,7 @@ namespace Riskeer.Common.Forms.Views
         private void ProcessFailureMechanismAssemblyProbabilityTextBox()
         {
             FailureMechanismAssemblyResult assemblyResult = FailureMechanism.AssemblyResult;
-            if (!assemblyResult.IsManualProbability())
+            if (!assemblyResult.IsManualProbability() || IsDefault())
             {
                 return;
             }
@@ -363,6 +379,7 @@ namespace Riskeer.Common.Forms.Views
                 assemblyResult.NotifyObservers();
 
                 SetTextBoxValue(probability);
+                validateManualInput(assemblyResult);
             }
             catch (Exception exception) when (exception is ArgumentOutOfRangeException
                                               || exception is ProbabilityParsingException)
@@ -375,14 +392,15 @@ namespace Riskeer.Common.Forms.Views
         private void SetTextBoxValue(double probability)
         {
             failureMechanismAssemblyProbabilityTextBox.Text = ProbabilityFormattingHelper.FormatWithDiscreteNumbers(probability);
+        }
 
-            FailureMechanismAssemblyResult assemblyResult = FailureMechanism.AssemblyResult;
-            bool hasManualProbability = assemblyResult.IsManualProbability();
-            if (hasManualProbability && !HasSections())
+        private void validateManualInput(FailureMechanismAssemblyResult assemblyResult)
+        {
+            if (!HasSections())
             {
                 SetErrorMessage(Resources.FailureMechanismResultView_To_Enter_An_AssemblyProbability_Failure_Mechanism_Sections_Must_Be_Imported);
             }
-            else if (hasManualProbability)
+            else
             {
                 SetErrorMessage(FailureMechanismAssemblyResultValidationHelper.GetValidationError(assemblyResult));
             }

@@ -63,6 +63,9 @@ namespace Riskeer.Migration.Integration.Test
                     AssertVersions(reader);
                     AssertDatabase(reader);
 
+                    AssertMethodMigrated(reader, sourceFilePath);
+                    AssertMethodNotMigrated(reader, sourceFilePath);
+
                     AssertDuneLocation(reader, sourceFilePath);
 
                     AssertHydraulicBoundaryData(reader, sourceFilePath);
@@ -91,6 +94,18 @@ namespace Riskeer.Migration.Integration.Test
             }
         }
 
+        static string[] FailureMechanismMessageBuilder(string[] failureMechanisms)
+        {
+            List<string> messages = new List<string>();
+            foreach (var failureMechanism in failureMechanisms)
+            {
+                messages.Add($"Faalmechanisme: '{failureMechanism}'");
+                messages.Add("+ Alle resultaten van dit faalmechanisme die op Automatisch stonden zijn op <selecteer> gezet.");
+            }
+
+            return messages.ToArray();
+        }
+
         private static IEnumerable<TestCaseData> GetMigrationProjectsWithMessages()
         {
             yield return new TestCaseData("MigrationTestProject221NoOutput.risk", new[]
@@ -114,7 +129,7 @@ namespace Riskeer.Migration.Integration.Test
             {
                 "Alle berekende resultaten zijn verwijderd, behalve die van het faalmechanisme 'Piping' en/of 'Macrostabiliteit binnenwaarts' waarbij de waterstand handmatig is ingevuld."
             });
-            
+
             yield return new TestCaseData("MigrationTestProject221DunesWithOutput.risk", new[]
             {
                 "Alle berekende resultaten zijn verwijderd."
@@ -124,6 +139,85 @@ namespace Riskeer.Migration.Integration.Test
             {
                 "Alle berekende resultaten zijn verwijderd, behalve die van het faalmechanisme 'Piping' en/of 'Macrostabiliteit binnenwaarts' waarbij de waterstand handmatig is ingevuld."
             });
+
+            yield return new TestCaseData("MigrationTestProject221WithFailureMechanismAssemblyResultsAutomatic.risk", FailureMechanismMessageBuilder(new[]
+            {
+                "Piping",
+                "Grasbekleding erosie kruin en binnentalud",
+                "Hoogte kunstwerk",
+                "Microstabiliteit",
+                "Betrouwbaarheid sluiting kunstwerk",
+                "Macrostabiliteit binnenwaarts",
+                "Golfklappen op asfaltbekleding",
+                "Grasbekleding erosie buitentalud",
+                "Wateroverdruk bij asfaltbekleding",
+                "Grasbekleding afschuiven buitentalud",
+                "Macrostabiliteit buitenwaarts",
+                "Piping bij kunstwerk",
+                "Stabiliteit steenzetting",
+                "Duinafslag",
+                "Sterkte en stabiliteit puntconstructies",
+                "Faalmechanisme Automatisch"
+            }));
+
+            yield return new TestCaseData("MigrationTestProject221WithFailureMechanismAssemblyResultsManual.risk", new[]
+            {
+                "Geen aanpassingen."
+            });
+        }
+
+        private static void AssertMethodMigrated(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateDuneLocation =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.FailureMechanismEntity " +
+                "WHERE [FailureMechanismAssemblyResultProbabilityResultType] = 2 " +
+                ") " +
+                "FROM FailureMechanismEntity NEW " +
+                "JOIN SOURCEPROJECT.FailureMechanismEntity OLD USING(FailureMechanismEntityId) " +
+                "WHERE NEW.[FailureMechanismAssemblyResultProbabilityResultType] = 4 " +
+                "AND NEW.[AssessmentSectionEntityId] = OLD.[AssessmentSectionEntityId] " +
+                "AND NEW.[CalculationGroupEntityId] IS OLD.[CalculationGroupEntityId] " +
+                "AND NEW.[FailureMechanismType] = OLD.[FailureMechanismType] " +
+                "AND NEW.[InAssembly] = OLD.[InAssembly] " +
+                "AND NEW.[FailureMechanismSectionCollectionSourcePath] IS OLD.[FailureMechanismSectionCollectionSourcePath] " +
+                "AND NEW.[InAssemblyInputComments] IS OLD.[InAssemblyInputComments] " +
+                "AND NEW.[InAssemblyOutputComments] IS OLD.[InAssemblyOutputComments] " +
+                "AND NEW.[NotInAssemblyComments] IS OLD.[NotInAssemblyComments] " +
+                "AND NEW.[CalculationsInputComments] IS OLD.[CalculationsInputComments] " +
+                "AND NEW.[FailureMechanismAssemblyResultManualFailureMechanismAssemblyProbability] IS OLD.[FailureMechanismAssemblyResultManualFailureMechanismAssemblyProbability]; " +
+                "DETACH SOURCEPROJECT";
+            reader.AssertReturnedDataIsValid(validateDuneLocation);
+        }
+
+        private static void AssertMethodNotMigrated(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateDuneLocation =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.FailureMechanismEntity " +
+                "WHERE [FailureMechanismAssemblyResultProbabilityResultType] = 1 " +
+                ") " +
+                "FROM FailureMechanismEntity NEW " +
+                "JOIN SOURCEPROJECT.FailureMechanismEntity OLD USING(FailureMechanismEntityId) " +
+                "WHERE NEW.[FailureMechanismAssemblyResultProbabilityResultType] = 1 " +
+                "AND NEW.[AssessmentSectionEntityId] = OLD.[AssessmentSectionEntityId] " +
+                "AND NEW.[CalculationGroupEntityId] IS OLD.[CalculationGroupEntityId] " +
+                "AND NEW.[FailureMechanismType] = OLD.[FailureMechanismType] " +
+                "AND NEW.[InAssembly] = OLD.[InAssembly] " +
+                "AND NEW.[FailureMechanismSectionCollectionSourcePath] IS OLD.[FailureMechanismSectionCollectionSourcePath] " +
+                "AND NEW.[InAssemblyInputComments] IS OLD.[InAssemblyInputComments] " +
+                "AND NEW.[InAssemblyOutputComments] IS OLD.[InAssemblyOutputComments] " +
+                "AND NEW.[NotInAssemblyComments] IS OLD.[NotInAssemblyComments] " +
+                "AND NEW.[CalculationsInputComments] IS OLD.[CalculationsInputComments] " +
+                "AND NEW.[FailureMechanismAssemblyResultManualFailureMechanismAssemblyProbability] IS OLD.[FailureMechanismAssemblyResultManualFailureMechanismAssemblyProbability]; " +
+                "DETACH SOURCEPROJECT";
+            reader.AssertReturnedDataIsValid(validateDuneLocation);
         }
 
         private static void AssertDuneLocation(MigratedDatabaseReader reader, string sourceFilePath)

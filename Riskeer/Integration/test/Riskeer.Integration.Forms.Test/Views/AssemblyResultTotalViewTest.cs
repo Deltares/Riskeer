@@ -29,6 +29,7 @@ using Core.Common.Controls;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Core.Common.TestUtil;
+using Core.Common.Util.Extensions;
 using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -167,12 +168,15 @@ namespace Riskeer.Integration.Forms.Test.Views
         public void GivenFormWithAssemblyResultTotalView_ThenExpectedCellsVisible()
         {
             // Given
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+            assessmentSection.GetFailureMechanisms().ForEachElementDo(fm => fm.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile);
+
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
 
-                using (AssemblyResultTotalView view = ShowAssemblyResultTotalView())
+                using (AssemblyResultTotalView view = ShowAssemblyResultTotalView(assessmentSection))
                 {
                     // Then
                     DataGridView dataGridView = GetDataGridView();
@@ -187,8 +191,11 @@ namespace Riskeer.Integration.Forms.Test.Views
         public void GivenFormWithAssemblyResultTotalView_ThenExpectedAssessmentSectionAssemblyResultsVisible()
         {
             // Given
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+            assessmentSection.GetFailureMechanisms().ForEachElementDo(fm => fm.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile);
+
             using (new AssemblyToolCalculatorFactoryConfig())
-            using (ShowAssemblyResultTotalView())
+            using (ShowAssemblyResultTotalView(assessmentSection))
             {
                 // Then
                 AssertAssessmentSectionAssemblyResultControl("A+", "1/7");
@@ -199,8 +206,11 @@ namespace Riskeer.Integration.Forms.Test.Views
         public void GivenFormWithAssemblyResultTotalView_WhenRefreshingAssemblyResults_ThenAssessmentSectionAssemblyResultsUpdatedToNewValues()
         {
             // Given
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+            assessmentSection.GetFailureMechanisms().ForEachElementDo(fm => fm.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile);
+
             using (new AssemblyToolCalculatorFactoryConfig())
-            using (ShowAssemblyResultTotalView())
+            using (ShowAssemblyResultTotalView(assessmentSection))
             {
                 ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
                 buttonTester.Properties.Enabled = true;
@@ -226,8 +236,11 @@ namespace Riskeer.Integration.Forms.Test.Views
         public void GivenFormWithAssemblyResultTotalView_WhenRefreshingAssemblyResultsThrowsException_ThenAssessmentSectionAssemblyResultsClearedAndErrorSet()
         {
             // Given
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+            assessmentSection.GetFailureMechanisms().ForEachElementDo(fm => fm.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile);
+
             using (new AssemblyToolCalculatorFactoryConfig())
-            using (ShowAssemblyResultTotalView())
+            using (ShowAssemblyResultTotalView(assessmentSection))
             {
                 ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
                 buttonTester.Properties.Enabled = true;
@@ -251,13 +264,16 @@ namespace Riskeer.Integration.Forms.Test.Views
         public void GivenFormWithAssemblyResultTotalViewAndErrorOnAssemblyResult_WhenRefreshingAssemblyResultsWithoutException_ThenAssessmentSectionAssemblyResultsSetAndErrorCleared()
         {
             // Given
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+            assessmentSection.GetFailureMechanisms().ForEachElementDo(fm => fm.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile);
+
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 AssessmentSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
-                using (ShowAssemblyResultTotalView())
+                using (ShowAssemblyResultTotalView(assessmentSection))
                 {
                     ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
                     buttonTester.Properties.Enabled = true;
@@ -434,8 +450,11 @@ namespace Riskeer.Integration.Forms.Test.Views
         public void GivenAssessmentSectionObserversNotified_WhenRefreshingAssemblyResults_ThenDataGridViewDataSourceUpdated()
         {
             // Given
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+            assessmentSection.Piping.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticIndependentSections;
+
             using (new AssemblyToolCalculatorFactoryConfig())
-            using (AssemblyResultTotalView view = ShowAssemblyResultTotalView())
+            using (AssemblyResultTotalView view = ShowAssemblyResultTotalView(assessmentSection))
             {
                 ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
                 buttonTester.Properties.Enabled = true;
@@ -469,6 +488,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         {
             // Given
             AssessmentSection assessmentSection = CreateAssessmentSection();
+            assessmentSection.GetFailureMechanisms().ForEachElementDo(fm => fm.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             using (AssemblyResultTotalView view = ShowAssemblyResultTotalView(assessmentSection))
@@ -485,7 +505,14 @@ namespace Riskeer.Integration.Forms.Test.Views
 
                 // When
                 ObservableList<SpecificFailureMechanism> specificFailureMechanisms = assessmentSection.SpecificFailureMechanisms;
-                specificFailureMechanisms.Add(new SpecificFailureMechanism());
+                var specificFailureMechanism = new SpecificFailureMechanism
+                {
+                    AssemblyResult =
+                    {
+                        ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticIndependentSections
+                    }
+                };
+                specificFailureMechanisms.Add(specificFailureMechanism);
                 specificFailureMechanisms.NotifyObservers();
 
                 ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
@@ -503,6 +530,9 @@ namespace Riskeer.Integration.Forms.Test.Views
         {
             // Given
             AssessmentSection assessmentSection = CreateAssessmentSection();
+            AddSpecificFailureMechanisms(assessmentSection);
+            assessmentSection.GetFailureMechanisms().ForEachElementDo(fm => fm.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile);
+            assessmentSection.SpecificFailureMechanisms.ForEachElementDo(fm => fm.AssemblyResult.ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.AutomaticWorstSectionOrProfile);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             using (AssemblyResultTotalView view = ShowAssemblyResultTotalView(assessmentSection))
@@ -535,12 +565,16 @@ namespace Riskeer.Integration.Forms.Test.Views
         private static AssessmentSection CreateAssessmentSection()
         {
             var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
+            return assessmentSection;
+        }
+
+        private static void AddSpecificFailureMechanisms(AssessmentSection assessmentSection)
+        {
             assessmentSection.SpecificFailureMechanisms.AddRange(new[]
             {
                 new SpecificFailureMechanism(),
                 new SpecificFailureMechanism()
             });
-            return assessmentSection;
         }
 
         #region View test helpers

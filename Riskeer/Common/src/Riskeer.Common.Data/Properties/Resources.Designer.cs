@@ -408,11 +408,30 @@ namespace Riskeer.Common.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;selecteer&gt;.
+        /// </summary>
+        public static string FailureMechanismAssemblyProbabilityResultTypeDefault_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismAssemblyProbabilityResultTypeDefault_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Handmatig invullen.
         /// </summary>
         public static string FailureMechanismAssemblyProbabilityResultTypeManual_DisplayName {
             get {
                 return ResourceManager.GetString("FailureMechanismAssemblyProbabilityResultTypeManual_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er ontbreekt invoer voor de assemblage rekenmodule waardoor de assemblage niet uitgevoerd kan worden..
+        /// </summary>
+        public static string FailureMechanismAssemblyResultFactory_AssembleFailureMechanism_Missing_input_for_assembly {
+            get {
+                return ResourceManager.GetString("FailureMechanismAssemblyResultFactory_AssembleFailureMechanism_Missing_input_for_" +
+                        "assembly", resourceCulture);
             }
         }
         

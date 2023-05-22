@@ -408,4 +408,10 @@
   <data name="SpecificFailureMechanism_DefaultCode" xml:space="preserve">
     <value>NIEUW</value>
   </data>
+  <data name="FailureMechanismAssemblyProbabilityResultTypeDefault_DisplayName" xml:space="preserve">
+    <value>&lt;selecteer&gt;</value>
+  </data>
+  <data name="FailureMechanismAssemblyResultFactory_AssembleFailureMechanism_Missing_input_for_assembly" xml:space="preserve">
+    <value>Er ontbreekt invoer voor de assemblage rekenmodule waardoor de assemblage niet uitgevoerd kan worden.</value>
+  </data>
 </root>
