@@ -156,7 +156,7 @@ namespace Riskeer.Integration.Plugin.Merge
             var changedObjects = new List<IObservable>();
 
             changedObjects.AddRange(MergeHydraulicBoundaryDatabases(targetAssessmentSection, sourceAssessmentSection, hydraulicBoundaryDataUpdateHandler));
-            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculationTargetProbabilities(targetAssessmentSection, sourceAssessmentSection));
+            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilities(targetAssessmentSection, sourceAssessmentSection));
 
             foreach (HydraulicBoundaryDatabase sourceHydraulicBoundaryDatabase in sourceAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases)
             {
@@ -196,17 +196,17 @@ namespace Riskeer.Integration.Plugin.Merge
             return changedObjects;
         }
 
-        private static IEnumerable<IObservable> MergeHydraulicBoundaryLocationCalculationTargetProbabilities(
+        private static IEnumerable<IObservable> MergeHydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilities(
             IAssessmentSection targetAssessmentSection,
             IAssessmentSection sourceAssessmentSection)
         {
             var changedObjects = new List<IObservable>();
 
-            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculationTargetProbabilities(
+            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilities(
                                         targetAssessmentSection,
                                         targetAssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities,
                                         sourceAssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities));
-            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculationTargetProbabilities(
+            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilities(
                                         targetAssessmentSection,
                                         targetAssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities,
                                         sourceAssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities));
@@ -214,7 +214,7 @@ namespace Riskeer.Integration.Plugin.Merge
             return changedObjects;
         }
 
-        private static IEnumerable<IObservable> MergeHydraulicBoundaryLocationCalculationTargetProbabilities(
+        private static IEnumerable<IObservable> MergeHydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilities(
             IAssessmentSection targetAssessmentSection,
             ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> targetCalculationsForTargetProbabilities,
             ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> sourceCalculationsForTargetProbabilities)
