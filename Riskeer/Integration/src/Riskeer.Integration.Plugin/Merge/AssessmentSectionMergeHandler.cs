@@ -181,19 +181,17 @@ namespace Riskeer.Integration.Plugin.Merge
         {
             var changedObjects = new List<IObservable>();
 
-            IEnumerable<string> targetHydraulicBoundaryDatabasesFileNames =
+            IEnumerable<string> existingHydraulicBoundaryDatabaseFileNames =
                 targetAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases
                                        .Select(hbd => Path.GetFileNameWithoutExtension(hbd.FilePath));
 
-            IEnumerable<HydraulicBoundaryDatabase> sourceHydraulicBoundaryDatabasesToAdd =
+            IEnumerable<HydraulicBoundaryDatabase> hydraulicBoundaryDatabasesToAdd =
                 sourceAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases
-                                       .Where(hbd => !targetHydraulicBoundaryDatabasesFileNames.Contains(
+                                       .Where(hbd => !existingHydraulicBoundaryDatabaseFileNames.Contains(
                                                          Path.GetFileNameWithoutExtension(hbd.FilePath)));
-            
-            foreach (HydraulicBoundaryDatabase hydraulicBoundaryDatabase in sourceHydraulicBoundaryDatabasesToAdd)
-            {
-                changedObjects.AddRange(hydraulicBoundaryDataUpdateHandler.AddHydraulicBoundaryDatabase(hydraulicBoundaryDatabase));
-            }
+
+            hydraulicBoundaryDatabasesToAdd.ForEachElementDo(
+                hbd => changedObjects.AddRange(hydraulicBoundaryDataUpdateHandler.AddHydraulicBoundaryDatabase(hbd)));
 
             return changedObjects;
         }
@@ -223,20 +221,17 @@ namespace Riskeer.Integration.Plugin.Merge
         {
             var changedObjects = new List<IObservable>();
 
-            IEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> overlappingCalculationsForTargetProbabilities =
-                sourceCalculationsForTargetProbabilities.Where(stp => targetCalculationsForTargetProbabilities
-                                                                      .Select(c => c.TargetProbability)
-                                                                      .Contains(stp.TargetProbability));
+            IEnumerable<double> existingTargetProbabilities = targetCalculationsForTargetProbabilities.Select(tc => tc.TargetProbability);
 
-            IEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> calculationsForTargetProbabilitiesToAdd =
-                sourceCalculationsForTargetProbabilities.Except(overlappingCalculationsForTargetProbabilities);
+            IEnumerable<double> targetProbabilitiesToAdd = sourceCalculationsForTargetProbabilities.Select(sc => sc.TargetProbability)
+                                                                                                   .Where(tp => !existingTargetProbabilities.Contains(tp))
+                                                                                                   .ToArray();
 
-            if (calculationsForTargetProbabilitiesToAdd.Any())
+            if (targetProbabilitiesToAdd.Any())
             {
-                targetCalculationsForTargetProbabilities.AddRange(
-                    calculationsForTargetProbabilitiesToAdd.Select(
-                        calculationsForTargetProbabilityToAdd => HydraulicBoundaryLocationCalculationsForTargetProbabilityHelper.Create(
-                            targetAssessmentSection, calculationsForTargetProbabilityToAdd.TargetProbability)));
+                targetProbabilitiesToAdd.ForEachElementDo(
+                    tp => targetCalculationsForTargetProbabilities.Add(
+                        HydraulicBoundaryLocationCalculationsForTargetProbabilityHelper.Create(targetAssessmentSection, tp)));
 
                 changedObjects.Add(targetCalculationsForTargetProbabilities);
             }
