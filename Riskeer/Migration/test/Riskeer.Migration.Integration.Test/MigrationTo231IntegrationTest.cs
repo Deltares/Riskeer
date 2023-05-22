@@ -32,7 +32,6 @@ namespace Riskeer.Migration.Integration.Test
     public class MigrationTo231IntegrationTest
     {
         private const string newVersion = "23.1";
-        private string automaticMigrationMessage = "+ Alle resultaten van dit faalmechanisme die op Automatisch stonden zijn op <selecteer> gezet.";
 
         [Test]
         [TestCaseSource(nameof(GetMigrationProjectsWithMessages))]
