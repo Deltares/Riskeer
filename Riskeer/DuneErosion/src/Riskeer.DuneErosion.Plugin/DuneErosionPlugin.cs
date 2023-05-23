@@ -556,12 +556,12 @@ namespace Riskeer.DuneErosion.Plugin
 
         private static DuneLocationCalculationsForTargetProbability CreateDuneLocationCalculationsForTargetProbability(DuneErosionFailureMechanism failureMechanism)
         {
-            var hydraulicBoundaryLocationCalculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability(0.01);
+            var duneLocationCalculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability(0.01);
 
-            hydraulicBoundaryLocationCalculationsForTargetProbability.DuneLocationCalculations.AddRange(
+            duneLocationCalculationsForTargetProbability.DuneLocationCalculations.AddRange(
                 failureMechanism.DuneLocations.Select(dl => new DuneLocationCalculation(dl)));
 
-            return hydraulicBoundaryLocationCalculationsForTargetProbability;
+            return duneLocationCalculationsForTargetProbability;
         }
 
         private static bool DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext_CanDropOrInsert(object draggedData, object targetData)

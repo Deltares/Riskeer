@@ -33,6 +33,7 @@ using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Structures;
+using Riskeer.DuneErosion.Data;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.HeightStructures.Data;
@@ -150,13 +151,14 @@ namespace Riskeer.Integration.Plugin.Merge
         #region HydraulicBoundaryData
 
         private static IEnumerable<IObservable> MergeHydraulicBoundaryData(
-            IAssessmentSection targetAssessmentSection, IAssessmentSection sourceAssessmentSection,
+            AssessmentSection targetAssessmentSection, AssessmentSection sourceAssessmentSection,
             IHydraulicBoundaryDataUpdateHandler hydraulicBoundaryDataUpdateHandler)
         {
             var changedObjects = new List<IObservable>();
 
             changedObjects.AddRange(MergeHydraulicBoundaryDatabases(targetAssessmentSection, sourceAssessmentSection, hydraulicBoundaryDataUpdateHandler));
             changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilities(targetAssessmentSection, sourceAssessmentSection));
+            changedObjects.AddRange(MergeDuneLocationCalculationsForUserDefinedTargetProbabilities(targetAssessmentSection, sourceAssessmentSection));
 
             foreach (HydraulicBoundaryDatabase sourceHydraulicBoundaryDatabase in sourceAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases)
             {
@@ -226,7 +228,7 @@ namespace Riskeer.Integration.Plugin.Merge
             IEnumerable<double> existingTargetProbabilities = targetCalculationsForTargetProbabilities.Select(tc => tc.TargetProbability);
 
             IEnumerable<double> targetProbabilitiesToAdd = sourceCalculationsForTargetProbabilities.Select(sc => sc.TargetProbability)
-                                                                                                   .Where(tp => !existingTargetProbabilities.Contains(tp))
+                                                                                                   .Except(existingTargetProbabilities)
                                                                                                    .ToArray();
 
             if (targetProbabilitiesToAdd.Any())
@@ -239,6 +241,45 @@ namespace Riskeer.Integration.Plugin.Merge
             }
 
             return changedObjects;
+        }
+
+        private static IEnumerable<IObservable> MergeDuneLocationCalculationsForUserDefinedTargetProbabilities(AssessmentSection targetAssessmentSection,
+                                                                                                               AssessmentSection sourceAssessmentSection)
+        {
+            var changedObjects = new List<IObservable>();
+
+            ObservableList<DuneLocationCalculationsForTargetProbability> targetCalculationsForTargetProbabilities =
+                targetAssessmentSection.DuneErosion.DuneLocationCalculationsForUserDefinedTargetProbabilities;
+
+            IEnumerable<double> existingTargetProbabilities = targetCalculationsForTargetProbabilities
+                .Select(tc => tc.TargetProbability);
+
+            IEnumerable<double> targetProbabilitiesToAdd = sourceAssessmentSection.DuneErosion.DuneLocationCalculationsForUserDefinedTargetProbabilities
+                                                                                  .Select(sc => sc.TargetProbability)
+                                                                                  .Except(existingTargetProbabilities)
+                                                                                  .ToArray();
+
+            if (targetProbabilitiesToAdd.Any())
+            {
+                targetProbabilitiesToAdd.ForEachElementDo(
+                    tp => targetCalculationsForTargetProbabilities.Add(
+                        CreateDuneLocationCalculationsForTargetProbability(targetAssessmentSection.DuneErosion, tp)));
+
+                changedObjects.Add(targetCalculationsForTargetProbabilities);
+            }
+
+            return changedObjects;
+        }
+
+        private static DuneLocationCalculationsForTargetProbability CreateDuneLocationCalculationsForTargetProbability(DuneErosionFailureMechanism failureMechanism,
+                                                                                                                       double targetProbability)
+        {
+            var duneLocationCalculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability(targetProbability);
+
+            duneLocationCalculationsForTargetProbability.DuneLocationCalculations.AddRange(
+                failureMechanism.DuneLocations.Select(dl => new DuneLocationCalculation(dl)));
+
+            return duneLocationCalculationsForTargetProbability;
         }
 
         private static IEnumerable<IObservable> MergeHydraulicBoundaryLocationCalculationData(IAssessmentSection targetAssessmentSection,
