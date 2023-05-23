@@ -1356,7 +1356,6 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
             targetCalculations.ForEachElementDo(calculation => calculation.Attach(observer));
 
-            SetOutput(targetCalculations);
             SetOutput(sourceCalculations);
 
             var handler = new AssessmentSectionMergeHandler(documentViewController);
