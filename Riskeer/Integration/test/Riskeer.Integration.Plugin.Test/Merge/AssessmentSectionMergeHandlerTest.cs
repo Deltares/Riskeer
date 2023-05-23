@@ -1435,8 +1435,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             AssessmentSection targetAssessmentSection = CreateAssessmentSection(targetLocations);
             AssessmentSection sourceAssessmentSection = CreateAssessmentSection(sourceLocations);
 
-            targetAssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Attach(observer);
-            targetAssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Attach(observer);
+            targetAssessmentSection.DuneErosion.DuneLocationCalculationsForUserDefinedTargetProbabilities.Attach(observer);
 
             // When
             handler.PerformMerge(targetAssessmentSection, new AssessmentSectionMergeData(
@@ -1445,15 +1444,11 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                                  hydraulicBoundaryDataUpdateHandler);
 
             // Then
-            ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> waterLevelTargetProbabilities =
-                targetAssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities;
-            Assert.AreEqual(1, waterLevelTargetProbabilities.Count);
-            Assert.AreEqual(0.1, waterLevelTargetProbabilities.ElementAt(0).TargetProbability);
+            ObservableList<DuneLocationCalculationsForTargetProbability> duneErosionDuneLocationCalculationsForUserDefinedTargetProbabilities =
+                targetAssessmentSection.DuneErosion.DuneLocationCalculationsForUserDefinedTargetProbabilities;
+            Assert.AreEqual(1, duneErosionDuneLocationCalculationsForUserDefinedTargetProbabilities.Count);
+            Assert.AreEqual(0.1, duneErosionDuneLocationCalculationsForUserDefinedTargetProbabilities.ElementAt(0).TargetProbability);
 
-            ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> waveHeightTargetProbabilities =
-                targetAssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities;
-            Assert.AreEqual(1, waveHeightTargetProbabilities.Count);
-            Assert.AreEqual(0.1, waveHeightTargetProbabilities.ElementAt(0).TargetProbability);
             mocks.VerifyAll();
         }
 
@@ -1464,7 +1459,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var mocks = new MockRepository();
             var documentViewController = mocks.Stub<IDocumentViewController>();
             var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver()).Repeat.Twice();
+            observer.Expect(o => o.UpdateObserver()).Repeat.Once();
             var hydraulicBoundaryDataUpdateHandler = mocks.Stub<IHydraulicBoundaryDataUpdateHandler>();
             mocks.ReplayAll();
 
@@ -1485,11 +1480,9 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             AssessmentSection targetAssessmentSection = CreateAssessmentSection(targetLocations);
             AssessmentSection sourceAssessmentSection = CreateAssessmentSection(sourceLocations, 0.01);
 
-            SetOutput(sourceAssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.ElementAt(0).HydraulicBoundaryLocationCalculations, true);
-            SetOutput(sourceAssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.ElementAt(0).HydraulicBoundaryLocationCalculations, true);
+            SetOutput(GetDuneLocationCalculations(sourceAssessmentSection));
 
-            targetAssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Attach(observer);
-            targetAssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Attach(observer);
+            targetAssessmentSection.DuneErosion.DuneLocationCalculationsForUserDefinedTargetProbabilities.Attach(observer);
 
             // When
             handler.PerformMerge(targetAssessmentSection, new AssessmentSectionMergeData(
@@ -1498,21 +1491,13 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                                  hydraulicBoundaryDataUpdateHandler);
 
             // Then
-            ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> waterLevelTargetProbabilities =
-                targetAssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities;
-            Assert.AreEqual(2, waterLevelTargetProbabilities.Count);
-            Assert.AreEqual(0.1, waterLevelTargetProbabilities.ElementAt(0).TargetProbability);
-            Assert.AreEqual(0.01, waterLevelTargetProbabilities.ElementAt(1).TargetProbability);
-            Assert.IsTrue(waterLevelTargetProbabilities.ElementAt(1).HydraulicBoundaryLocationCalculations.All(c => c.HasOutput));
-            Assert.IsTrue(waterLevelTargetProbabilities.ElementAt(1).HydraulicBoundaryLocationCalculations.All(c => c.Output.HasGeneralResult));
+            ObservableList<DuneLocationCalculationsForTargetProbability> duneErosionDuneLocationCalculationsForUserDefinedTargetProbabilities =
+                targetAssessmentSection.DuneErosion.DuneLocationCalculationsForUserDefinedTargetProbabilities;
+            Assert.AreEqual(2, duneErosionDuneLocationCalculationsForUserDefinedTargetProbabilities.Count);
+            Assert.AreEqual(0.1, duneErosionDuneLocationCalculationsForUserDefinedTargetProbabilities.ElementAt(0).TargetProbability);
+            Assert.AreEqual(0.01, duneErosionDuneLocationCalculationsForUserDefinedTargetProbabilities.ElementAt(1).TargetProbability);
+            Assert.IsTrue(duneErosionDuneLocationCalculationsForUserDefinedTargetProbabilities.ElementAt(1).DuneLocationCalculations.All(c => c.Output != null));
 
-            ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> waveHeightTargetProbabilities =
-                targetAssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities;
-            Assert.AreEqual(2, waveHeightTargetProbabilities.Count);
-            Assert.AreEqual(0.1, waveHeightTargetProbabilities.ElementAt(0).TargetProbability);
-            Assert.AreEqual(0.01, waveHeightTargetProbabilities.ElementAt(1).TargetProbability);
-            Assert.IsTrue(waveHeightTargetProbabilities.ElementAt(1).HydraulicBoundaryLocationCalculations.All(c => c.HasOutput));
-            Assert.IsTrue(waveHeightTargetProbabilities.ElementAt(1).HydraulicBoundaryLocationCalculations.All(c => c.Output.HasGeneralResult));
             mocks.VerifyAll();
         }
 
